@@ -45,12 +45,12 @@ clean:
 userdir:
 		-mkdir -p $(USERDIR)/Rcpp/internal 2>/dev/null
 		-mkdir -p $(USERDIR)/Rcpp/traits 2>/dev/null
-		$(AR) r $(USERLIB) $(USEROBJ)
-		$(RANLIB) $(USERLIB)
 		cp -vax *.h $(USERDIR)
 		cp -vax Rcpp/*.h $(USERDIR)/Rcpp
 		cp -vax Rcpp/internal/*.h $(USERDIR)/Rcpp/internal
 		cp -vax Rcpp/traits/*.h $(USERDIR)/Rcpp/traits
+
+$(USERLIB):	$(USEROBJ)
 
 
 
