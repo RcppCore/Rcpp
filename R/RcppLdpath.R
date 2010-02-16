@@ -3,10 +3,14 @@
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
     if (nzchar(.Platform$r_arch)) {	## eg amd64, ia64, mips
-        system.file("lib",.Platform$r_arch,package="Rcpp")
+        path <- system.file("lib",.Platform$r_arch,package="Rcpp")
     } else {
-        system.file("lib",package="Rcpp")
+        path <- system.file("lib",package="Rcpp")
     }
+    if (.Platform$OS.type=="windows") {
+        path <- paste('"', path, '"', sep="")
+    }
+    path
 }
 
 ## Provide linker flags -- i.e. -L/path/to/libRcpp -- as well as an
