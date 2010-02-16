@@ -27,27 +27,19 @@ lmArmadillo <- function() {
     Rcpp::NumericVector yr(Ysexp);
     Rcpp::NumericVector Xr(Xsexp);
     std::vector<int> dims = Xr.attr("dim") ;
-    int n = dims[0];
-    int k = dims[1];
-    // use advanced armadillo constructors:
+    int n = dims[0], k = dims[1];
 
-    arma::mat X(Xr.begin(), n, k, false);
+    arma::mat X(Xr.begin(), n, k, false);       // use advanced armadillo constructors
     arma::colvec y(yr.begin(), yr.size());
 
-    //std::cout << ay << std::endl;
-    //std::cout << aX << std::endl;
+    arma::colvec coef = solve(X, y);		// fit model y ~ X
 
-    arma::colvec coef = solve(X, y);
-    //std::cout << coef << std::endl;
-
-    // compute std. error of the coefficients
-    arma::colvec resid = y - X*coef;
-    double rss  = trans(resid)*resid;
-    double sig2 = rss/(n-k);
+    arma::colvec resid = y - X*coef;    	// to compute std. error of the coefficients
+    double sig2 = trans(resid)*resid/(n-k);
     arma::mat covmat = sig2 * arma::inv(arma::trans(X)*X);
 
     Rcpp::NumericVector coefr(k), stderrestr(k);
-    for (int i=0; i<k; i++) {
+    for (int i=0; i<k; i++) {           	// this will be easier with proper wrappers
         coefr[i]      = coef[i];
         stderrestr[i] = sqrt(covmat(i,i));
     }
