@@ -1,15 +1,15 @@
 # simple check
 
-if test ${R_ARCH} = "/x64"; then
-    gxx_version=`x86_64-w64-mingw32-g++ -v 2>&1 | grep "^g.*version" | sed -e 's/^.*g.. version *//'`
-else
-    gxx_version=`g++ -v 2>&1 | grep "^g.*version" | sed -e 's/^.*g.. version *//'`
-fi
-echo "Seeing g++ version ${gxx_version}"
-
-case ${gxx_version} in
-    4.3.*|4.4.*|4.5.*)
-           echo "You can enable support for the C++0x draft by setting the"
-           echo "'RCPP_CXX0X' environment variable to 'yes' "
-    ;;
-esac
+#if test ${R_ARCH} = "/x64"; then
+#    gxx_version=`x86_64-w64-mingw32-g++ -v 2>&1 | grep "^g.*version" | sed -e 's/^.*g.. version *//'`
+#else
+#    gxx_version=`g++ -v 2>&1 | grep "^g.*version" | sed -e 's/^.*g.. version *//'`
+#fi
+#echo "Seeing g++ version ${gxx_version}"
+#
+#case ${gxx_version} in
+#    4.3.*|4.4.*|4.5.*)
+#           echo "You can enable support for the C++0x draft by setting the"
+#           echo "'RCPP_CXX0X' environment variable to 'yes' "
+#    ;;
+#esac
