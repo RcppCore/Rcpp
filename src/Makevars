@@ -1,0 +1,63 @@
+# -*- mode: Makefile; tab-width: 8 -*- 
+#
+# Makefile for Rcpp 
+#
+# Copyright (C) 2008 - 2009 Dirk Eddelbuettel <edd@debian.org>
+# Copyright (C) 2008        Simon Urbanek <simon.urbanek@r-project.org>
+# Copyright (C) 2009 - 2010 Dirk Eddelbuettel and Romain Francois
+
+## $(SHLIB) is the usual default target that is built automatically from all source 
+## files in this directory. userLibrary is an additional target for the second library
+## that will be installed in ../inst/lib$(R_ARCH) and which users can link against.
+
+## C++0x enabled if 
+## - the environment variable RCPP_CXX0X is set to yes
+## - it makes sense (GCC >= 4.3)
+ifeq ($(RCPP_CXX0X),yes)
+CLINK_CPPFLAGS = $(shell Rscript "cxx0x/cxx0x.R")
+endif
+
+all: 	$(SHLIB) userLibrary 
+
+## all sources and objects
+SOURCES =	$(wildcard *.cpp)
+OBJECTS =	$(SOURCES:.cpp=.o)
+
+## the 'user' library contains all source apart from RcppExample.o and is what
+## users need for their projects -- RcppExample is used by the package library
+USEROBJ	=	$(filter-out RcppExample.o,$(OBJECTS))
+
+## we place it inside the inst/ directory so that it gets installed by the package
+USERDIR =	../inst/lib
+
+USERLIB	=	libRcpp$(DYLIB_EXT)
+USERLIBST =	libRcpp.a
+
+PKG_CPPFLAGS += -I. 
+
+userLibrary: 	$(USERLIB) $(USERLIBST)
+		-@if test ! -e $(USERDIR)$(R_ARCH); then mkdir -p $(USERDIR)$(R_ARCH); fi
+		-@if test ! -e $(USERDIR)$(R_ARCH)/Rcpp; then mkdir -p $(USERDIR)$(R_ARCH)/Rcpp; fi
+		-@if test ! -e $(USERDIR)$(R_ARCH)/Rcpp/internal; then mkdir -p $(USERDIR)$(R_ARCH)/Rcpp/internal; fi
+		-@if test ! -e $(USERDIR)$(R_ARCH)/Rcpp/traits; then mkdir -p $(USERDIR)$(R_ARCH)/Rcpp/traits; fi
+		cp $(USERLIB) $(USERDIR)$(R_ARCH)
+		cp Rcpp*.h $(USERDIR)$(R_ARCH)
+		cp Rcpp/*.h $(USERDIR)$(R_ARCH)/Rcpp
+		cp Rcpp/internal/*.h $(USERDIR)$(R_ARCH)/Rcpp/internal
+		cp Rcpp/traits/*.h $(USERDIR)$(R_ARCH)/Rcpp/traits
+		cp $(USERLIBST) $(USERDIR)$(R_ARCH)
+		rm $(USERLIB) $(USERLIBST)
+
+$(USERLIB): 	$(USEROBJ)
+		$(SHLIB_CXXLD) -o $(USERLIB) $^ $(SHLIB_CXXLDFLAGS) $(ALL_LIBS)
+		@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
+
+$(USERLIBST): 	$(USEROBJ)
+		$(AR) qc $(USERLIBST) $^
+		@if test -n "$(RANLIB)"; then $(RANLIB) $(USERLIBST); fi
+
+.PHONY: 	all clean userLibrary 
+
+clean:
+		rm -f $(OBJECTS) $(SHLIB) $(USERLIB) $(USERLIBST)
+

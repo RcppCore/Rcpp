@@ -1,0 +1,6 @@
+#!/usr/bin/make -f
+# 							-*- makefile -*-
+# debian/rules file for the Debian/GNU Linux rcpp package
+# Copyright 2003-2008 by Dirk Eddelbuettel <edd@debian.org>
+
+include /usr/share/R/debian/r-cran.mk

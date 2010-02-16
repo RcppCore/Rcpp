@@ -1,0 +1,429 @@
+0.7.8   (under development)
+
+    o	New examples for 'fast lm' using compiled code: 
+        - using GNU GSL and a C interface
+        - using Armadillo (http://arma.sf.net) and a C++ interface
+        Armadillo is seen as faster for lack of extra copying
+
+0.7.7	2010-02-14
+
+    o	new template classes Rcpp::unary_call and Rcpp::binary_call
+    	that facilitates using R language calls together 
+    	with STL algorithms.
+    	
+    o	fixed a bug in Language constructors taking a string as their
+    	first argument. The created call was wrong.
+
+0.7.6   2010-02-12
+
+    o   SEXP_Vector (and ExpressionVector and GenericVector, a.k.a List) now
+	have methods push_front, push_back and insert that are templated
+
+    o   SEXP_Vector now has int- and range-valued erase() members
+
+    o   Environment class has a default constructor (for RInside)
+
+    o   SEXP_Vector_Base factored out of SEXP_Vector (Effect. C++ #44)
+
+    o   SEXP_Vector_Base::iterator added as well as begin() and end()
+        so that STL algorithms can be applied to Rcpp objects
+
+    o   CharacterVector gains a random access iterator, begin() and end() to
+	support STL algorithms; iterator dereferences to a StringProxy
+
+    o   Restore Windows build; successfully tested on 32 and 64 bit;
+
+    o   Small fixes to inst/skeleton files for bootstrapping a package
+
+    o   RObject::asFoo deprecated in favour of Rcpp::as<Foo>
+
+0.7.5	2010-02-08
+
+    o 	wrap has been much improved. wrappable types now are :
+    	- primitive types : int, double, Rbyte, Rcomplex, float, bool
+    	- std::string
+    	- STL containers which have iterators over wrappable types:
+    	  (e.g. std::vector<T>, std::deque<T>, std::list<T>, etc ...). 
+    	- STL maps keyed by std::string, e.g std::map<std::string,T>
+    	- classes that have implicit conversion to SEXP
+    	- classes for which the wrap template if fully or partly specialized
+    	This allows composition, so for example this class is wrappable: 
+    	std::vector< std::map<std::string,T> > (if T is wrappable)
+    	
+    o 	The range based version of wrap is now exposed at the Rcpp::
+    	level with the following interface : 
+    	Rcpp::wrap( InputIterator first, InputIterator last )
+    	This is dispatched internally to the most appropriate implementation
+    	using traits
+
+    o	a new namespace Rcpp::traits has been added to host the various
+    	type traits used by wrap
+
+    o 	The doxygen documentation now shows the examples
+
+    o 	A new file inst/THANKS acknowledges the kind help we got from others
+
+    o	The RcppSexp has been removed from the library.
+    
+    o 	The methods RObject::asFoo are deprecated and will be removed
+    	in the next version. The alternative is to use as<Foo>.
+
+    o	The method RObject::slot can now be used to get or set the 
+    	associated slot. This is one more example of the proxy pattern
+    	
+    o	Rcpp::VectorBase gains a names() method that allows getting/setting
+    	the names of a vector. This is yet another example of the 
+    	proxy pattern.
+    	
+    o	Rcpp::DottedPair gains templated operator<< and operator>> that 
+    	allow wrap and push_back or wrap and push_front of an object
+    	
+    o	Rcpp::DottedPair, Rcpp::Language, Rcpp::Pairlist are less
+    	dependent on C++0x features. They gain constructors with up
+    	to 5 templated arguments. 5 was choosed arbitrarily and might 
+    	be updated upon request.
+    	
+    o	function calls by the Rcpp::Function class is less dependent
+    	on C++0x. It is now possible to call a function with up to 
+    	5 templated arguments (candidate for implicit wrap)
+    	
+    o	added support for 64-bit Windows (thanks to Brian Ripley and Uwe Ligges)
+	
+0.7.4	2010-01-30
+
+    o	matrix-like indexing using operator() for all vector 
+    	types : IntegerVector, NumericVector, RawVector, CharacterVector
+    	LogicalVector, GenericVector and ExpressionVector. 
+
+    o	new class Rcpp::Dimension to support creation of vectors with 
+    	dimensions. All vector classes gain a constructor taking a 
+    	Dimension reference.
+
+    o	an intermediate template class "SimpleVector" has been added. All
+    	simple vector classes are now generated from the SimpleVector 
+    	template : IntegerVector, NumericVector, RawVector, CharacterVector
+    	LogicalVector.
+
+    o	an intermediate template class "SEXP_Vector" has been added to 
+    	generate GenericVector and ExpressionVector.
+
+    o	the clone template function was introduced to explicitely
+    	clone an RObject by duplicating the SEXP it encapsulates.
+
+    o	even smarter wrap programming using traits and template
+        meta-programming using a private header to be include only
+        RcppCommon.h
+
+    o 	the as template is now smarter. The template now attempts to 
+    	build an object of the requested template parameter T by using the
+    	constructor for the type taking a SEXP. This allows third party code
+    	to create a class Foo with a constructor Foo(SEXP) to have 
+    	as<Foo> for free.
+
+    o	wrap becomes a template. For an object of type T, wrap<T> uses
+    	implicit conversion to SEXP to first convert the object to a SEXP
+    	and then uses the wrap(SEXP) function. This allows third party 
+    	code creating a class Bar with an operator SEXP() to have 
+    	wrap for free.
+
+    o	all specializations of wrap :  wrap<double>, wrap< vector<double> >
+    	use coercion to deal with missing values (NA) appropriately.
+
+    o	configure has been withdrawn. C++0x features can now be activated
+    	by setting the RCPP_CXX0X environment variable to "yes".
+
+    o	new template r_cast<int> to facilitate conversion of one SEXP
+    	type to another. This is mostly intended for internal use and 
+    	is used on all vector classes
+
+    o	Environment now takes advantage of the augmented smartness
+    	of as and wrap templates. If as<Foo> makes sense, one can 
+    	directly extract a Foo from the environment. If wrap<Bar> makes
+    	sense then one can insert a Bar directly into the environment. 
+    	Foo foo = env["x"] ;  /* as<Foo> is used */
+	Bar bar ;
+	env["y"] = bar ;      /* wrap<Bar> is used */    	
+
+    o	Environment::assign becomes a template and also uses wrap to 
+    	create a suitable SEXP
+
+    o	Many more unit tests for the new features; also added unit tests
+        for older API
+
+0.7.3	2010-01-21
+
+    o	New R function Rcpp.package.skeleton, modelled after 
+    	utils::package.skeleton to help creating a package with support
+    	for Rcpp use.
+
+    o	indexing is now faster for simple vectors due to inlining of 
+    	the operator[] and caching the array pointer
+
+    o	The class Rcpp::VectorBase was introduced. All vector classes
+    	derive from it. The class handles behaviour that is common 
+    	to all vector types: length, names, etc ...
+
+    o	exception forwarding is extended to compilers other than GCC
+    	but default values are used for the exception class 
+    	and the exception message, because we don't know how to do it.
+
+    o	Improved detection of C++0x capabilities
+
+    o	Rcpp::Pairlist gains a default constructor
+
+    o	Rcpp::Environment gains a new_child method to create a new
+    	environment whose parent is this
+    
+    o	Rcpp::Environment::Binding gains a templated implicit 
+    	conversion operator
+    	
+    o	Rcpp::ExpressionVector gains an eval method to evaluate itself
+    
+    o	Rcpp::ExpressionVector gains a constructor taking a std::string
+    	representing some R code to parse. 
+    
+    o	Rcpp::GenericVector::Proxy gains an assignment operator to deal
+    	with Environment::Proxy objects
+
+    o	Rcpp::LdFlags() now defaults to static linking OS X, as it already
+        did on Windows; this default can be overridden. 
+
+0.7.2	2010-01-12
+
+    o	a new benchmark was added to the examples directory
+    	around the classic convolution example from
+    	Writing R extensions to compare C and C++ implementations
+
+    o 	Rcpp::CharacterVector::StringProxy gains a += operator
+    
+    o	Rcpp::Environment gains an operator[](string) to get/set
+    	objects from the environment. operator[] returns an object
+    	of class Rcpp::Environment::Binding which implements the proxy
+    	pattern. Inspired from Item 30 of 'More Effective C++'
+    
+    o	Rcpp::Pairlist and Rcpp::Language gain an operator[](int) 
+    	also using the proxy pattern
+
+    o	Rcpp::RObject.attr can now be used on the rhs or the lhs, to get 
+    	or set an attribute. This also uses the proxy pattern
+    	
+    o	Rcpp::Pairlist and Rcpp::Language gain new methods push_back
+    	replace, length, size, remove, insert
+    	
+    o	wrap now returns an object of a suitable class, not just RObject
+    	anymore. For example wrap( bool ) returns a LogicalVector
+    	
+    o	Rcpp::RObject gains methods to deal with S4 objects : isS4, 
+    	slot and hasSlot
+    
+    o	new class Rcpp::ComplexVector to manage complex vectors (CPLXSXP)
+    
+    o	new class Rcpp::Promise to manage promises (PROMSXP)
+    
+    o	new class Rcpp::ExpressionVector to manage expression vectors
+    	(EXPRSXP)
+
+    o	new class Rcpp::GenericVector to manage generic vectors, a.k.a
+    	lists (VECSXP)
+
+    o	new class Rcpp::IntegerVector to manage integer vectors (INTSXP)
+    
+    o	new class Rcpp::NumericVector to manage numeric vectors (REALSXP)
+    
+    o	new class Rcpp::RawVector to manage raw vectors (RAWSXP)
+    
+    o	new class Rcpp::CharacterVector to manage character vectors (STRSXP)
+    
+    o	new class Rcpp::Function to manage functions 
+    	(CLOSXP, SPECIALSXP, BUILTINSXP)
+    
+    o	new class Rcpp::Pairlist to manage pair lists (LISTSXP)
+    
+    o	new class Rcpp::Language to manage calls (LANGSXP)
+    	
+    o	new specializations of wrap to deal with std::initializer lists
+    	only available with GCC >= 4.4
+    	
+    o	new R function Rcpp:::capabilities that can query if various
+    	features are available : exception handling, variadic templates
+    	initializer lists
+    	
+    o	new set of functions wrap(T) converting from T to RObject
+    
+    o	new template function as<T> that can be used to convert a SEXP
+    	to type T. Many specializations implemented to deal with 
+    	C++ builtin and stl types. Factored out of RObject
+    	
+    o	new class Rcpp::Named to deal with named with named objects 
+	in a pairlist, or a call
+
+    o	new class Rcpp::Symbol to manage symbols (SYMSXP)
+    
+    o	The garbage collection has been improved and is now automatic 
+    	and hidden. The user needs not to worry about it at all.
+    	
+    o	Rcpp::Environment(SEXP) uses the as.environment R function
+
+    o	Doxygen-generated documentation is no longer included as it is both
+        too large and too volatile. Zipfiles are provided on the website.
+
+0.7.1	2010-01-02
+
+    o	Romain is now a co-author of Rcpp
+
+    o	New base class Rcpp::RObject replace RcppSexp (which is provided for
+        backwards compatibility)
+
+    o	RObject has simple wrappers for object creation and conversion to SEXP
+
+    o	New classes Rcpp::Evaluator and Rcpp::Environment for expression
+        evaluation and environment access, respectively
+
+    o	New class Rcpp::XPtr for external pointers
+  
+    o	Enhanced exception handling allows for trapping of exceptions outside
+        of try/catch blocks
+
+    o	Namespace support with a new namespace 'Rcpp'
+
+    o	Unit tests for most of the new classes, based on the RUnit package
+
+    o	Inline support now provided by the update inline package, so a new
+        Depends on 'inline (>= 0.3.4)' replaces the code in that was
+        temporarily in Rcpp
+
+0.7.0   2009-12-19
+
+    o	Inline support via a modified version of 'cfunction' from Oleg
+        Sklyar's 'inline' package: simple C++ programs can now be compiled,
+        linked and loaded automagically from the R prompt, including support
+        for external packages. Also works on Windows (with R-tools installed)
+
+    o	New examples for the inline support based on 'Intro to HPC' tutorials
+
+    o	New type RcppSexp for simple int, double, std::string scalars and vectors
+
+    o	Every class is now in its own header and source file
+
+    o	Fix to RcppParams.Rd thanks to Frank S. Thomas
+
+    o	RcppVersion.R removed as redundant given DESCRIPTION and read.dcf()
+
+    o	Switched to R_PreserveObject and R_ReleaseObject for RcppSexp with
+        thanks to Romain
+
+    o	Licensing changed from LGPL 2.1 (or later) to GPL 2 (or later), file
+        COPYING updated
+
+0.6.8   2009-11-19
+
+    o	Several classes now split off into their own header and source files
+
+    o	New header file RcppCommon.h regrouping common defines and includes
+
+    o	Makevars{,.win} updated to reflect src/ reorg
+
+0.6.7   2009-11-08
+
+    o	New class RcppList for simple lists and data structures of different
+        types and dimensions, useful for RProtoBuf project on R-Forge
+
+    o	Started to split classes into their own header and source files
+
+    o	Added short README file about history and status
+
+    o	Small documentation markup fix thanks to Kurt; updated doxygen docs
+
+    o	New examples directory functionCallback/ for R function passed to C++ 
+        and being called
+
+0.6.6   2009-08-03
+
+    o	Updated Doxygen documentation
+
+    o	RcppParams class gains a new exists() member function
+
+0.6.5   2009-04-01
+
+    o	Small OS X build correction using R_ARCH variable
+
+    o	Include LGPL license as file COPYING
+
+0.6.4   2009-03-01
+
+    o	Use std:: namespace throughout instead of 'using namespace std'
+
+    o	Define R_NO_REMAP so that R provides Rf_length() etc in lieu of length()
+        to minimise clashes with other projects having similar functions
+
+    o	Include Doxygen documentation, and Doxygen configuration file 
+
+    o	Minor Windows build fix (with thanks to Uwe and Simon)
+
+0.6.3   2009-01-09
+
+    o	OS X build fix with thanks to Simon
+
+    o	Added 'view-only' classes for int and double vector and matrix clases
+        as well as string vector classses, kindly suggsted / provided by
+        David Reiss
+
+    o	Add two shorter helper functions Rcpp:::CxxFlags() and
+        Rcpp:::LdFlags() for compilation and linker flags 
+
+0.6.2   2008-12-02
+
+    o	Small but important fix for Linux builds in Rcpp:::RcppLdFlags()
+
+0.6.1   2008-11-30
+
+    o	Now src/Makevars replaces src/Makefile, this brings proper OS X
+        multi-arch support with thanks to Simon
+
+    o	Old #ifdef statements related to QuantLib removed; Rcpp is now
+        decoupled from QuantLib headers yet be used by RQuantLib
+
+    o   Added RcppLdPath() to return the lib. directory patch and on Linux
+        the rpath settings
+
+    o	Added new RcppVectorExample()
+
+    o	Augmented documentation on usage in Rcpp-package.Rd
+
+0.6.0.  2008-11-05
+
+    o	New maintainer, taking over RcppTemplate (which has been without an
+        update since Nov 2006) under its initial name Rcpp
+
+    o	New files src/Makefile{,.win} including functionality from both
+        configure and RcppSrc/Makefile; we now build two libraries, one for
+        use by the package which also runs the example, and one for users to
+        link against, and removed src/Makevars.in
+
+    o	Files src/Rcpp.{cpp,h} moved in from ../RcppSrc
+
+    o	Added new class RcppDatetime corresponding to POSIXct in with full 
+        support for microsecond time resolution between R and C++
+
+    o	Several new manual pages added
+
+    o	Removed  configure{,.in,.win} as src/Makefile* can handle this more
+        easily
+
+    o	Minor cleanup and reformatting for DESCRIPTION, Date: now uses
+        svn:keyword Date property
+
+    o	Renamed RcppTemplateVersion to RcppVersion, deleted RcppDemo
+
+    o	Directory demo/ removed as vignette("RcppAPI") is easier and more
+        reliable to show vignette documentation
+
+    o	RcppTemplateDemo() removed from R/zzz.R, vignette("RcppAPI") is easier;
+        man/RcppTemplateDemo.Rd removed as well
+
+    o	Some more code reindentation and formatting to R default arguments,
+        some renamed from RcppTemplate* to Rcpp*
+ 
+    o	Added footnote onto titlepage of inst/doc/RcppAPI.{Rnw,pdf} about how
+        this document has not (yet) been updated along with the channges made
+
