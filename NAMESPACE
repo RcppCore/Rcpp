@@ -1,12 +1,6 @@
 useDynLib(Rcpp)
 
-export(RcppExample,
-       print.RcppExample,
-       RcppDateExample,
-       RcppParamsExample,
-       RcppVectorExample, 
-       Rcpp.package.skeleton
-)
+export(Rcpp.package.skeleton)
 
 importFrom( utils, capture.output )
 
