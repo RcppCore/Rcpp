@@ -1,3 +1,12 @@
+2010-02-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/RcppExample.R, man/RcppExample.Rd: Moved to RcppExamples package
+	* man/RcppDate.Rd, man/RcppParams.Rd, man/RcppResultSet.Rd, RcppVector.Rd,
+	  src/RcppExample.cpp: Idem
+
+	* inst/examples/FastLM: Slightly reworked, actual code factored out
+	  and used in a per-library demo/test script and a joint benchmark.r
+
 2010-02-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/FastLM: New example directory with two 'fast lm'
