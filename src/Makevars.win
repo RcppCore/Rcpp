@@ -1,0 +1,56 @@
+# Emacs please make this -*- mode: makefile; tab-width: 8 -*-
+#
+# Makefile.win for Rcpp
+#
+# Copyright (C) 2008 - 2009 Dirk Eddelbuettel <edd@debian.org>
+# Copyright (C) 2010        Dirk Eddelbuettel and Romain Francois
+#
+# Contributions from an older Makefile.win are
+# (C) Dominick Samperi and Uwe Ligges and gratefully acknowledged
+#
+# Contributions from Brian D Ripley are also gratefully acknowledged 
+
+PKG_CPPFLAGS =	-I.
+
+## all sources and objects
+SOURCES =	$(wildcard *.cpp)
+OBJECTS =	$(SOURCES:.cpp=.o)
+
+## the 'user' library contains all source apart from RcppExample.o and is what
+## users need for their projects -- RcppExample is used by the package library
+## we place it inside the inst/ directory so that it gets installed by the package
+USEROBJ	=	$(filter-out RcppExample.o,$(OBJECTS))
+USERDIR	= 	../inst/lib$(R_ARCH)
+USERLIB	= 	$(USERDIR)/libRcpp.a
+
+## C++0X support enabled if 
+## - the RCPP_CXX0X environment variable is set to "yes"
+## - it is possible (GCC>=4.3)
+ifeq ($(RCPP_CXX0X),yes)
+CLINK_CPPFLAGS := $shell(Rscript.exe cxx0x/cxx0x.R)
+endif
+
+## the 'package' library contains both Rcpp.{cpp,h} and the RcppExample used to demonstrate the package
+## it is loaded via library(Rcpp) but is not used for compiling / linking against
+
+RM = 		rm -f
+
+.PHONY: 	all clean userdir
+
+all: 		userdir $(USERLIB) $(SHLIB)
+
+clean:
+		${RM} $(OBJECTS) $(SHLIB)
+
+userdir:
+		-mkdir -p $(USERDIR)/Rcpp/internal 2>/dev/null
+		-mkdir -p $(USERDIR)/Rcpp/traits 2>/dev/null
+		$(AR) r $(USERLIB) $(USEROBJ)
+		$(RANLIB) $(USERLIB)
+		cp -vax *.h $(USERDIR)
+		cp -vax Rcpp/*.h $(USERDIR)/Rcpp
+		cp -vax Rcpp/internal/*.h $(USERDIR)/Rcpp/internal
+		cp -vax Rcpp/traits/*.h $(USERDIR)/Rcpp/traits
+
+
+

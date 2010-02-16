@@ -1,0 +1,18 @@
+
+rm -f confdefs.h config.log config.status \
+	src/*.o src/*.so src/*.a src/*.d src/*.dll src/*.rc \
+	RcppSrc/*.o RcppSrc/*.a inst/Rcpp-version.txt \
+	inst/lib/libRcpp.so inst/lib/Rcpp*.h inst/lib/libRcpp.a \
+	inst/doc/*.cpp inst/doc/*.hpp \
+	inst/doc/*.out \
+	inst/doc/*.Rd inst/doc/*.aux inst/doc/*.log inst/doc/*.tex \
+	inst/doc/latex/*.aux inst/doc/latex/*.log \
+	inst/doc/auto \
+	inst/examples/ConvolveBenchmarks/*.o  \
+        inst/examples/ConvolveBenchmarks/*.so \
+        inst/discovery/cxx0x.Rout \
+	src/Makedeps libRcpp.a
+rm -rf	autom4te.cache
+rm -rf  inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/
+find . -name \*~ -exec rm {} \;
+find . -name \*.flc -exec rm {} \;
