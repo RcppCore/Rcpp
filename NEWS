@@ -1,5 +1,7 @@
 0.7.8   (under development)
 
+    o	RcppExample et al have been moved to a new package RcppExamples
+
     o	New examples for 'fast lm' using compiled code: 
         - using GNU GSL and a C interface
         - using Armadillo (http://arma.sf.net) and a C++ interface
