@@ -1,0 +1,20 @@
+
+Rcpp continues and extends earlier work by Dominik Samperi which he initially
+contributed directly into the RQuantLib package. Then, during 2005 and 2006,
+several releases were made as CRAN packages, first under the name Rcpp and
+later under the name RcppTemplate.  However, both packages were left
+abandonded after November 2006.
+
+Due to my continued use of Rcpp both within RQuantLib and in other projects,
+I took over maintenance and added some extensions which are documented in the
+ChangeLog as well as in even more detail in the Subversion logs on R-Forge.
+
+As of November 2009, Dominick has re-commenced maintenance of RcppTemplate
+with new releases on CRAN.  This may provide a good opportunity to import
+some new ideas into Rcpp as well, time permitting.
+
+Rcpp is in active and open development, and new contributors are invited to
+join the R-Forge project.
+
+  -- Dirk Eddelbuettel <edd@debian.org>  Fri, 06 Nov 2009 12:29:52 -0600
+

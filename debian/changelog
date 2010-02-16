@@ -1,0 +1,104 @@
+rcpp (0.7.7-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 14 Feb 2010 11:53:46 -0600
+
+rcpp (0.7.6-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 12 Feb 2010 21:50:34 -0600
+
+rcpp (0.7.5-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 08 Feb 2010 09:36:13 -0600
+
+rcpp (0.7.4-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 30 Jan 2010 14:36:24 -0600
+
+rcpp (0.7.3-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Thu, 21 Jan 2010 20:42:07 -0600
+
+rcpp (0.7.2-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 12 Jan 2010 20:41:16 -0600
+
+rcpp (0.7.1-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 02 Jan 2010 15:38:09 -0600
+
+rcpp (0.7.0-1) unstable; urgency=low
+
+  * New release
+
+  * debian/control: Added littler to Depends: as examples use it [lintian]
+  
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 19 Dec 2009 14:18:32 -0600
+
+rcpp (0.6.8-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 10 Nov 2009 07:34:07 -0600
+
+rcpp (0.6.7-1) unstable; urgency=low
+
+  * New release
+  
+  * debian/control: Updated Standard-Versions: to current version
+  * debian/control: Updated (Build-)Depends: to current R version
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 08 Nov 2009 19:22:53 -0600
+
+rcpp (0.6.6-1) unstable; urgency=low
+
+  * New release
+  
+  * debian/control: Updated Standard-Versions: to current version
+  * debian/control: Updated (Build-)Depends: to current R version
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 03 Aug 2009 14:55:48 -0500
+
+rcpp (0.6.5-1) unstable; urgency=low
+
+  * New release
+  
+  * COPYING: Added license file 			(Closes: #522202)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 01 Apr 2009 21:34:33 -0500
+
+rcpp (0.6.4-1) unstable; urgency=low
+
+  * New release
+
+  * debian/r-cran-rcpp.lintian-overrides: Added to suppress lintian
+    warnings over Doxygen-generated png files
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sun, 01 Mar 2009 17:41:58 -0600
+
+rcpp (0.6.3-1) unstable; urgency=low
+
+  * New release
+  
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 09 Jan 2009 20:41:35 -0600
+
+rcpp (0.6.2-1) unstable; urgency=low
+
+  * Initial Debian release 				(Closes: #507941)
+  
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 05 Dec 2008 19:58:31 -0600
+
+
