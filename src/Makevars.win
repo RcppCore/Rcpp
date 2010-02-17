@@ -16,10 +16,7 @@ PKG_CPPFLAGS =	-I.
 SOURCES =	$(wildcard *.cpp)
 OBJECTS =	$(SOURCES:.cpp=.o)
 
-## the 'user' library contains all source apart from RcppExample.o and is what
-## users need for their projects -- RcppExample is used by the package library
 ## we place it inside the inst/ directory so that it gets installed by the package
-USEROBJ	=	$(filter-out RcppExample.o,$(OBJECTS))
 USERDIR	= 	../inst/lib$(R_ARCH)
 USERLIB	= 	$(USERDIR)/libRcpp.a
 
@@ -50,7 +47,7 @@ userdir:
 		cp -vax Rcpp/internal/*.h $(USERDIR)/Rcpp/internal
 		cp -vax Rcpp/traits/*.h $(USERDIR)/Rcpp/traits
 
-$(USERLIB):	$(USEROBJ)
+$(USERLIB):	$(OBJECTS)
 
 
 
