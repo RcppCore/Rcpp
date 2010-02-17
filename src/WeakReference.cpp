@@ -20,6 +20,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <Rcpp/WeakReference.h>
+#include <Rcpp/RObject.h>
 
 namespace Rcpp{
 	

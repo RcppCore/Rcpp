@@ -23,6 +23,7 @@
 #define Rcpp_WeakReference_h
 
 #include <RcppCommon.h>
+#include <Rcpp/RObject.h>
 
 namespace Rcpp{
 

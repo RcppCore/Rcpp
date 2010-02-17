@@ -28,6 +28,8 @@
 #include <Rcpp/Symbol.h>
 #include <Rcpp/Language.h>
 
+#include <Rcpp/RObject.h>
+
 namespace Rcpp{ 
 
 class Environment: public RObject{
