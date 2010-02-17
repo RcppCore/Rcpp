@@ -23,6 +23,14 @@
 
 namespace Rcpp {
 
+	Environment::not_found::not_found(const std::string& binding_) : binding(binding_){};
+	Environment::not_found::~not_found() throw(){}
+	const char* Environment::not_found::what() const throw(){
+		std::string message( "not found : " ) ;
+		message += binding ;
+		return message.c_str() ;
+	}
+	
     Environment::Environment() : RObject(R_NilValue){}
 
     Environment::Environment( SEXP x = R_GlobalEnv) throw(not_compatible) : RObject(x){
@@ -93,10 +101,21 @@ namespace Rcpp {
     }
     
     SEXP Environment::get( const std::string& name) const {
-    	// SEXP res = Rf_findVarInFrame( m_sexp, Rf_install(name.c_str())  ) ;
-    	SEXP res = Rf_findVar( Rf_install(name.c_str()), m_sexp ) ;
+    	SEXP res = Rf_findVarInFrame( m_sexp, Rf_install(name.c_str())  ) ;
     	
     	if( res == R_UnboundValue ) return R_NilValue ;
+    	
+    	/* We need to evaluate if it is a promise */
+	if( TYPEOF(res) == PROMSXP){
+    		res = Rf_eval( res, m_sexp ) ;
+    	}
+    	return res ;
+    }
+    
+    SEXP Environment::find( const std::string& name) const {
+    	SEXP res = Rf_findVar( Rf_install(name.c_str()), m_sexp ) ;
+    	
+    	if( res == R_UnboundValue ) throw not_found(name) ;
     	
     	/* We need to evaluate if it is a promise */
 	if( TYPEOF(res) == PROMSXP){
