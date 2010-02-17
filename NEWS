@@ -1,5 +1,12 @@
 0.7.8   (under development)
 
+    o   new template class SimpleMatrix<int> and generated classes
+    	IntegerMatrix, RawMatrix, NumericMatrix, ComplexMatrix and 
+    	LogicalMatrix. These classes derived from their Vector 
+    	equivalent except that their constructors check that their 
+    	input is a matrix. The classes don't/can't however guarantee 
+    	that the enclosed SEXP will allways be a matrix
+
     o	RcppExample et al have been moved to a new package RcppExamples
 
     o	New examples for 'fast lm' using compiled code: 

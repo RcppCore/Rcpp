@@ -105,24 +105,81 @@ public:
 		UNPROTECT(1) ;
 	}
 
-private:
-	value_type* start ;
-	
-	virtual void update(){ 
-		start = internal::r_vector_start<RTYPE,value_type>(m_sexp) ;
-	}
-	
+protected:
 	void init(){
 		internal::r_init_vector<RTYPE>(m_sexp) ;
 	}
 	
+	void update_vector(){
+		start = internal::r_vector_start<RTYPE,value_type>(m_sexp) ;
+	}
+	
+private:
+	value_type* start ;
+	
+	virtual void update(){ 
+		update_vector() ;
+	}
+	
 } ;
+
+template <int RTYPE> 
+class SimpleMatrix : public SimpleVector<RTYPE> {
+public:
+	SimpleMatrix() : SimpleVector<RTYPE>() {}
+	
+	SimpleMatrix(SEXP x) throw(RObject::not_compatible) : SimpleVector<RTYPE>(){
+		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
+		SEXP y = r_cast<RTYPE>( x ) ;
+		SimpleVector<RTYPE>::setSEXP( y );
+	}
+	
+	SimpleMatrix( const Dimension& dims) : SimpleVector<RTYPE>() {
+		if( dims.size() != 2 ) throw RObject::not_compatible("not a matrix") ;
+		SimpleVector<RTYPE>::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
+		SimpleVector<RTYPE>::init() ;
+		SimpleVector<RTYPE>::attr( "dim" ) = dims ;
+	}
+	
+	SimpleMatrix( const int& nrows, const int& ncols) : SimpleVector<RTYPE>() {
+		SimpleVector<RTYPE>::setSEXP( Rf_allocVector( RTYPE, nrows*ncols ) ) ;
+		SimpleVector<RTYPE>::init() ;
+		SimpleVector<RTYPE>::attr( "dim" ) = Dimension( nrows, ncols ) ;
+	}
+	
+	
+	SimpleMatrix( const SimpleMatrix& other) : SimpleVector<RTYPE>() {
+		SEXP x = other.asSexp() ;
+		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
+		SimpleVector<RTYPE>::setSEXP( x ) ;
+	}
+	
+	SimpleMatrix& operator=(const SimpleMatrix& other) {
+		SEXP x = other.asSexp() ;
+		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
+		SimpleVector<RTYPE>::setSEXP( x ) ;
+		return *this ;
+	}
+	
+private:
+	virtual void update(){
+		SimpleVector<RTYPE>::update_vector() ;
+	}
+	
+} ;
+
 
 typedef SimpleVector<CPLXSXP> ComplexVector ;
 typedef SimpleVector<INTSXP> IntegerVector ;
 typedef SimpleVector<LGLSXP> LogicalVector ;
 typedef SimpleVector<REALSXP> NumericVector ;
 typedef SimpleVector<RAWSXP> RawVector ;
+
+typedef SimpleMatrix<CPLXSXP> ComplexMatrix ;
+typedef SimpleMatrix<INTSXP> IntegerMatrix ;
+typedef SimpleMatrix<LGLSXP> LogicalMatrix ;
+typedef SimpleMatrix<REALSXP> NumericMatrix ;
+typedef SimpleMatrix<RAWSXP> RawMatrix ;
 
 }// namespace Rcpp
 
