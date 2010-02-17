@@ -1,5 +1,12 @@
 2010-02-17  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/SEXP_Vector.h : The lhs use of operator[](string) has 
+	been improved so that if the name does not exist in the vector, 
+	the vector grows.
+	
+	* inst/unitTests/runit.GenericVector.R: new unit test
+	test.List.implicit.push.back about the new operator[](string)
+
 	* src/Rcpp/SimpleVector.h : new template class SimpleMatrix<int>
 	that derives from SimpleVector<int>, with typedefs NumericMatrix
 	IntegerMatrix, LogicalMatrix, RawMatrix, ComplexMatrix. The actual 
