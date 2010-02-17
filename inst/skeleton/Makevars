@@ -1,13 +1,13 @@
 ## Use the R_HOME indirection to support installations of multiple R version
-PKG_CPPFLAGS=$(shell $(R_HOME)/bin/Rscript -e "Rcpp:::CxxFlags()" )
-PKG_LIBS = $(shell $(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()" )
+PKG_CPPFLAGS=$(shell $(R_HOME)/bin/Rscript --vanilla -e "Rcpp:::CxxFlags()" )
+PKG_LIBS = $(shell $(R_HOME)/bin/Rscript --vanilla -e "Rcpp:::LdFlags()" )
 ## Uncomment this if you want to use C++0x features -- which are not currently portable
 ## CLINK_CPPFLAGS=$(shell Rscript -e "Rcpp:::Cxx0xFlags()" )
 
 ## As an alternative, one can also add this code in a file 'configure'
 ##
-##    PKG_CPPFLAGS=`${R_HOME}/bin/Rscript -e "Rcpp:::CxxFlags()"`
-##    PKG_LIBS=`${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()"`
+##    PKG_CPPFLAGS=`${R_HOME}/bin/Rscript --vanilla -e "Rcpp:::CxxFlags()"`
+##    PKG_LIBS=`${R_HOME}/bin/Rscript --vanilla -e "Rcpp:::LdFlags()"`
 ## 
 ##    sed -e "s|@PKG_LIBS@|${PKG_LIBS}|" \
 ##        -e "s|@PKG_CPPFLAGS@|${PKG_CPPFLAGS}|" \
