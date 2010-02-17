@@ -173,6 +173,5 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 #include <Rcpp/internal/r_vector.h>
 #include <Rcpp/internal/convertible.h>
 #include <Rcpp/internal/wrap.h>
-#include <Rcpp/RObject.h>
 
 #endif

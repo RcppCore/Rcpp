@@ -1,3 +1,12 @@
+2010-02-17  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/traits/wrap_type_traits: added support for float
+
+	* src/Rcpp/Rcpp.h: now including RObject here instead of in 
+	RcppCommon.h because RObject is a client of implicit converters
+	(attr) and so we need to leave a hook for third party code, e.g.
+	RcppArmadillo
+
 2010-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/RcppExample.R, man/RcppExample.Rd: Moved to RcppExamples package
