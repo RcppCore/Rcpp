@@ -231,6 +231,16 @@ test.List.erase.range <- function(){
 		msg = "List.erase (range version)" )
 }
 
+test.List.implicit.push.back <- function(){
 
+        funx <- cfunction( signature(),
+        '
+        List list ;
+        list["foo"] = 10 ;
+        list["bar" ] = "foobar" ;
+        return list ;
+        ', Rcpp = TRUE, includes = "using namespace Rcpp;" )
+        checkEquals( funx(), list( foo = 10, bar = "foobar" ), msg = "List implicit push back" )
+}
 
 
