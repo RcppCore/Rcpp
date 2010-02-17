@@ -93,7 +93,8 @@ namespace Rcpp {
     }
     
     SEXP Environment::get( const std::string& name) const {
-    	SEXP res = Rf_findVarInFrame( m_sexp, Rf_install(name.c_str())  ) ;
+    	// SEXP res = Rf_findVarInFrame( m_sexp, Rf_install(name.c_str())  ) ;
+    	SEXP res = Rf_findVar( Rf_install(name.c_str()), m_sexp ) ;
     	
     	if( res == R_UnboundValue ) return R_NilValue ;
     	
