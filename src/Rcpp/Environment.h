@@ -35,6 +35,15 @@ namespace Rcpp{
 class Environment: public RObject{
 public:
 
+	class not_found : public std::exception{
+	public:
+		not_found( const std::string& binding ) ;
+		virtual ~not_found() throw() ;
+		virtual const char* what() const throw();
+	private:
+		std::string binding ;
+	}        ;
+	
    /**
      * Exception thrown when attempting to perform an operation on 
      * a binding and there is no such binding
@@ -317,6 +326,15 @@ public:
      * @return a SEXP (possibly R_NilValue)
      */
     SEXP get(const std::string& name) const ;
+    
+    /**
+     * Get an object from the environment or one of its
+     * parents
+     *
+     * @param name name of the object
+     *
+     */
+    SEXP find( const std::string& name) const ;
     
     /**
      * Indicates if an object called name exists in the 
