@@ -33,6 +33,7 @@ class SEXP_Vector_Base : public VectorBase {
 public:
 	
 	class iterator ;
+	class NameProxy ;
 	
 	class Proxy {
 	public:
@@ -63,7 +64,7 @@ public:
 		void set(SEXP x) ;
 		SEXP get() const ;
 	} ;
-
+	
 	class iterator {
 	public:
 		typedef Proxy& reference ;
@@ -113,9 +114,6 @@ public:
 		return Proxy(*this, offset(i) ) ; 
 	}
 	
-	const Proxy operator[]( const std::string& name) const ; 
-	Proxy operator[](const std::string& name) ;
-    	
 	inline iterator begin() { return iterator(*this, 0) ; }
 	inline iterator end() { return iterator(*this, size() ) ; }
 	
@@ -130,6 +128,52 @@ public:
 template <int RTYPE>
 class SEXP_Vector : public SEXP_Vector_Base{
 public:
+	
+	class NameProxy {
+	public:
+		NameProxy( SEXP_Vector& v, const std::string& name_ ) : parent(v), name(name_){} ;
+		
+		NameProxy& operator=(SEXP rhs) { 
+			set( rhs) ; 
+			return *this ;
+		}
+		
+		NameProxy& operator=(const NameProxy& rhs){
+			set( rhs.get() ) ;
+			return *this;
+		}
+		
+		template <typename T>
+		NameProxy& operator=( const T& rhs){
+			set( wrap(rhs) ) ;
+			return *this; 
+		}
+		
+		inline operator SEXP() const { 
+			return get() ;
+		}
+		template <typename U> operator U(){
+			return as<U>( get() ) ;
+		}
+		
+	private:
+		SEXP_Vector & parent; 
+		std::string name ;
+		void set(SEXP x) {
+			int index = 0 ;
+			try{
+				index = parent.offset(name) ;
+				// parent[ index ] = x ;
+			} catch( const RObject::index_out_of_bounds& ex ){
+				parent.push_back( Named(name, x ) ); 
+			}
+		}
+		
+		SEXP get() const {
+			return (SEXP) parent[ parent.offset(name) ] ;
+		}
+	} ;
+	
 	SEXP_Vector() : SEXP_Vector_Base(){} ; 
 	
 	SEXP_Vector(const SEXP_Vector& other) : SEXP_Vector_Base(){
@@ -166,6 +210,13 @@ public:
 	} ;
 #endif
 	
+	const NameProxy operator[]( const std::string& name) const {
+		return NameProxy( *this, name ) ;
+	}
+	NameProxy operator[](const std::string& name) {
+		return NameProxy( const_cast<SEXP_Vector&>(*this), name ) ;
+	}
+    	
 	template <typename InputIterator>
 	void assign( InputIterator first, InputIterator last){
 		/* FIXME: we might not need the wrap if the object already 

@@ -72,14 +72,6 @@ SEXP_Vector_Base::Proxy SEXP_Vector_Base::operator()( const size_t& i, const siz
 	return Proxy(*this, offset(i,j) ) ;
 }
 
-const SEXP_Vector_Base::Proxy SEXP_Vector_Base::operator[]( const std::string& name) const {
-	return Proxy( const_cast<SEXP_Vector_Base&>(*this), offset(name) ) ;
-}
-SEXP_Vector_Base::Proxy SEXP_Vector_Base::operator[](const std::string& name) {
-	return Proxy(*this, offset(name) ) ;
-}
-    	
-
 } // namespace Rcpp
 
 namespace std{
