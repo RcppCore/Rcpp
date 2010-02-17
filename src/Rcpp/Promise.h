@@ -26,6 +26,7 @@
 
 #include <Rcpp/ExpressionVector.h>
 #include <Rcpp/Environment.h>
+#include <Rcpp/RObject.h>
 
 namespace Rcpp{ 
 

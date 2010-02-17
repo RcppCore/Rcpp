@@ -28,6 +28,8 @@
 #include <Rcpp/grow.h>
 #include <Rcpp/Named.h>
 
+#include <Rcpp/RObject.h>
+
 namespace Rcpp{ 
 
 class DottedPair : public RObject{
