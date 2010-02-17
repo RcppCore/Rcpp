@@ -26,13 +26,13 @@ source("lmArmadillo.R")
 source("lmGSL.R")
 
 set.seed(42)
-n <- 100
-k <- 9
+n <- 25000
+k <- 1
 X <- cbind( rep(1,n), matrix(rnorm(n*k), ncol=k) )
 truecoef <- 1:(k+1)
 y <- as.numeric(X %*% truecoef + rnorm(n))
 
-N <- 500
+N <- 100
 
 lmgsl <- lmGSL()
 lmarma <- lmArmadillo()
@@ -41,4 +41,9 @@ tlm <- mean(replicate(N, system.time( lmfit <- lm(y ~ X - 1) )["elapsed"]), trim
 tlmfit <- mean(replicate(N, system.time(lmfitfit <- lm.fit(X, y))["elapsed"]), trim=0.05)
 tlmgsl <- mean(replicate(N, system.time(lmgsl(y, X))["elapsed"]), trim=0.05)
 tlmarma <- mean(replicate(N, system.time(lmarma(y, X))["elapsed"]), trim=0.05)
-print(c(tlm, tlmfit, tlmgsl, tlmarma))
+
+res <- c(tlm, tlmfit, tlmgsl, tlmarma)
+data <- t(data.frame(results=res, ratios=tlm/res))
+cat("For n=", n, " and k=", k, "\n", sep="")
+print(data)
+
