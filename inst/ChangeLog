@@ -1,5 +1,12 @@
 2010-02-17  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/SimpleVector.h : new template class SimpleMatrix<int>
+	that derives from SimpleVector<int>, with typedefs NumericMatrix
+	IntegerMatrix, LogicalMatrix, RawMatrix, ComplexMatrix. The actual 
+	functionality comes from SimpleVector but SimpleMatrix has 
+	constructors and assignment operators that behave slighlty
+	differently : they check that their input is a matrix
+
 	* src/Rcpp/traits/wrap_type_traits: added support for float
 
 	* src/Rcpp/Rcpp.h: now including RObject here instead of in 
