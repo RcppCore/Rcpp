@@ -1,27 +1,34 @@
+2010-02-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars: Simplified as RcppExample.cpp is shipped off
+	* src/Makevars.win: Simplified as RcppExample.cpp is shipped off
+
 2010-02-17  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/SEXP_Vector.h : The lhs use of operator[](string) has 
-	been improved so that if the name does not exist in the vector, 
+	* src/Rcpp/SEXP_Vector.h : The lhs use of operator[](string) has
+	been improved so that if the name does not exist in the vector,
 	the vector grows.
-	
+
 	* inst/unitTests/runit.GenericVector.R: new unit test
 	test.List.implicit.push.back about the new operator[](string)
 
 	* src/Rcpp/SimpleVector.h : new template class SimpleMatrix<int>
 	that derives from SimpleVector<int>, with typedefs NumericMatrix
-	IntegerMatrix, LogicalMatrix, RawMatrix, ComplexMatrix. The actual 
-	functionality comes from SimpleVector but SimpleMatrix has 
+	IntegerMatrix, LogicalMatrix, RawMatrix, ComplexMatrix. The actual
+	functionality comes from SimpleVector but SimpleMatrix has
 	constructors and assignment operators that behave slighlty
 	differently : they check that their input is a matrix
 
 	* src/Rcpp/traits/wrap_type_traits: added support for float
 
-	* src/Rcpp/Rcpp.h: now including RObject here instead of in 
+	* src/Rcpp/Rcpp.h: now including RObject here instead of in
 	RcppCommon.h because RObject is a client of implicit converters
 	(attr) and so we need to leave a hook for third party code, e.g.
 	RcppArmadillo
 
 2010-02-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars.wim: Applied improved version kindly supplied by Brian Ripley
 
 	* R/RcppExample.R, man/RcppExample.Rd: Moved to RcppExamples package
 	* man/RcppDate.Rd, man/RcppParams.Rd, man/RcppResultSet.Rd, RcppVector.Rd,
