@@ -25,6 +25,7 @@
 #include <RcppCommon.h>
 
 #include <Rcpp/Symbol.h>
+#include <Rcpp/RObject.h>
 
 namespace Rcpp{  
 
