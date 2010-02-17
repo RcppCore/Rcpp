@@ -7,7 +7,10 @@
     	input is a matrix. The classes don't/can't however guarantee 
     	that the enclosed SEXP will allways be a matrix
 
-    o	RcppExample et al have been moved to a new package RcppExamples
+    o	RcppExample et al have been moved to a new package RcppExamples;
+        src/Makevars and src/Makevars.win simplified accordingly
+
+    o	Improved src/Makevars.win thanks to Brian Ripley
 
     o	New examples for 'fast lm' using compiled code: 
         - using GNU GSL and a C interface
