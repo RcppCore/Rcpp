@@ -174,4 +174,7 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 #include <Rcpp/internal/convertible.h>
 #include <Rcpp/internal/wrap.h>
 
+RcppExport SEXP RcppXPtrExample_create_external_pointer() ;
+RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP ); 
+
 #endif
