@@ -147,7 +147,7 @@ test.Language.unary.call.index <- function(){
 	
 	checkEquals( 
 		funx( 1:10 ), 
-		lapply( 1:10, function(n) seq(from=n, to = 0 ) ), 
+		lapply( 1:10, function(n) seq(from=10, to = n ) ), 
 		msg = "c++ lapply using calls" )
 	
 }
