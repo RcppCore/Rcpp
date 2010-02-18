@@ -1,5 +1,10 @@
 2010-02-18  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/Language.h: added fixed_call to support STL algorithms
+	similar to generate. 
+	
+	* inst/unitTests/runit.Language.R: unit test for fixed_call
+
 	* src/Rcpp/Environment.h: Environment gains a find method
 	which searches for a binding in the associated environment
 	but also in all its parents, as opposed to get which just 
