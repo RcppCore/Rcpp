@@ -65,13 +65,6 @@ SEXP_Vector_Base::iterator::iterator( SEXP_Vector_Base& object, int index_):
 /* SEXP_Vector_Base */
 SEXP_Vector_Base::SEXP_Vector_Base() : VectorBase(){}
 
-SEXP_Vector_Base::Proxy SEXP_Vector_Base::operator()( const size_t& i) throw(index_out_of_bounds) {
-	return Proxy(*this, offset(i) ) ;
-}
-SEXP_Vector_Base::Proxy SEXP_Vector_Base::operator()( const size_t& i, const size_t& j) throw(index_out_of_bounds,not_a_matrix){
-	return Proxy(*this, offset(i,j) ) ;
-}
-
 } // namespace Rcpp
 
 namespace std{
