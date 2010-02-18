@@ -1,5 +1,8 @@
 0.7.8   (under development)
 
+    o   new template class Rcpp::fixed_call that can be used in STL algorithms
+	such as std::generate.
+
     o   new template class SimpleMatrix<int> and generated classes
     	IntegerMatrix, RawMatrix, NumericMatrix, ComplexMatrix and 
     	LogicalMatrix. These classes derived from their Vector 
