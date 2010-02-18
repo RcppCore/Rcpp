@@ -107,19 +107,6 @@ public:
 	
 	SEXP_Vector_Base() ; 
 	
-	inline const Proxy operator[]( int i ) const throw(index_out_of_bounds){
-		return Proxy(const_cast<SEXP_Vector_Base&>(*this), offset(i)) ;
-	}
-	inline Proxy operator[]( int i ) throw(index_out_of_bounds){
-		return Proxy(*this, offset(i) ) ; 
-	}
-	
-	inline iterator begin() { return iterator(*this, 0) ; }
-	inline iterator end() { return iterator(*this, size() ) ; }
-	
-	Proxy operator()( const size_t& i) throw(index_out_of_bounds) ; 
-	Proxy operator()( const size_t& i, const size_t& j) throw(index_out_of_bounds,not_a_matrix) ;
-	
 	friend class Proxy;
 	friend class iterator ;
 	
@@ -217,6 +204,23 @@ public:
 		return NameProxy( const_cast<SEXP_Vector&>(*this), name ) ;
 	}
     	
+	inline const Proxy operator[]( int i ) const throw(index_out_of_bounds){
+		return Proxy(const_cast<SEXP_Vector_Base&>(*this), offset(i)) ;
+	}
+	inline Proxy operator[]( int i ) throw(index_out_of_bounds){
+		return Proxy(*this, offset(i) ) ; 
+	}
+	
+	inline iterator begin() { return iterator(*this, 0) ; }
+	inline iterator end() { return iterator(*this, size() ) ; }
+	
+	Proxy operator()( const size_t& i) throw(index_out_of_bounds) {
+		return Proxy(*this, offset(i) ) ;
+	}
+	Proxy operator()( const size_t& i, const size_t& j) throw(index_out_of_bounds,not_a_matrix){
+		return Proxy(*this, offset(i,j) ) ;
+	}
+	
 	template <typename InputIterator>
 	void assign( InputIterator first, InputIterator last){
 		/* FIXME: we might not need the wrap if the object already 
