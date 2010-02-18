@@ -167,6 +167,22 @@ private:
 
 };
 
+template <typename OUT=SEXP>
+class fixed_call {
+public:
+	typedef OUT result_type ;
+	
+	fixed_call( Language call_ ) : call(call_){}
+	fixed_call( Function fun ) : call(fun){}
+	
+	OUT operator()(){
+		return as<OUT>( call.eval() ) ;
+	}
+	
+private:
+	Language call ;
+} ;
+
 template <typename T, typename OUT = SEXP>
 class unary_call : public std::unary_function<T,OUT> {
 public:
@@ -202,7 +218,6 @@ private:
 	Language::Proxy proxy1 ;
 	Language::Proxy proxy2 ;
 } ;
-
 
 } // namespace Rcpp
 
