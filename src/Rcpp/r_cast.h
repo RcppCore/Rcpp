@@ -22,9 +22,6 @@
 #ifndef Rcpp_rcast_h
 #define Rcpp_rcast_h
 
-#include <RcppCommon.h>
-#include <Rcpp/RObject.h>
-
 namespace Rcpp{
 namespace internal {
 	
@@ -32,7 +29,7 @@ namespace internal {
 //   is different from the SEXP type of x */
 template <int TARGET>
 SEXP r_true_cast( SEXP x){
-	throw RObject::not_compatible( "not compatible" ) ;
+	throw std::exception( "not compatible" ) ;
 }
 
 template<> SEXP r_true_cast<INTSXP>(SEXP x);

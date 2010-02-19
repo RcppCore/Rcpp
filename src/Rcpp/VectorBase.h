@@ -23,7 +23,7 @@
 #define Rcpp_VectorBase_h
 
 #include <RcppCommon.h>
-
+#include <Rcpp/RObject.h>
 #include <Rcpp/r_cast.h>
 
 namespace Rcpp{ 

@@ -50,7 +50,6 @@
 #include <Rcpp/RObject.h>
 
 #include <Rcpp/clone.h>
-#include <Rcpp/r_cast.h>
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>
 #include <Rcpp/VectorBase.h>

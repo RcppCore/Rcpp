@@ -1,5 +1,8 @@
 2010-02-19  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/internal/wrap.h: support for std::complex<double>
+	and std::complex<float> (needed for RcppArmadillo)
+
 	* src/Rcpp/traits/wrap_type_traits.h : The Importer concept 
 	has been introduced to support wrap() of more types. If a 
 	class has a typedef "r_import_type" then the following interface
