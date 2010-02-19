@@ -1,12 +1,13 @@
 2010-02-19  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/traits/wrap_type_traits.h : a new category of wrappable
-	objects : wrap_type_indexable_tag was introduced to facilitate
-	the implementation of wrap< arma::Field<T> > in RcppArmadillo
-	This category is usable when the type has an operator[](int)
-	To use it, the client must specialize the templates :
-	Rcpp::traits::get_size and Rcpp::traits::get_value_type
-	An example is given in RcppArmadillo.
+	* src/Rcpp/traits/wrap_type_traits.h : The Importer concept 
+	has been introduced to support wrap() of more types. If a 
+	class has a typedef "r_import_type" then the following interface
+	is assumed and used. The corresponding class must have methods 
+	int size() and r_import_type get(int). As usual further dispatch
+	is performed based on r_import_type (primitive, etc ...). 
+	RcppArmadillo has an example of this for wrapping arma::field<T>
+	objects using the FieldImporter<T> class.
 
 2010-02-18  Romain Francois <romain@r-enthusiasts.com>
 
