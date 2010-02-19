@@ -416,6 +416,48 @@ SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::true_type){
 	return range_wrap( object.begin(), object.end() ) ;
 }
 
+template <typename T, typename elem_type>
+SEXP indexing_wrap_dispatch___impl__prim( const T& object, ::Rcpp::traits::false_type ){
+	int size = ::Rcpp::traits::get_size<T>().size() ;
+	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype ;
+	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
+	typedef typename ::Rcpp::traits::storage_type<RTYPE> CTYPE ;
+	CTYPE* start = r_vector_start< RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x) ;
+	for( int i=0; i<size; i++){
+		start[i] = object[i] ;
+	}
+	UNPROTECT(1) ;
+	return x ;
+
+}
+
+template <typename T, typename elem_type>
+SEXP indexing_wrap_dispatch___impl__prim( const T& object, ::Rcpp::traits::true_type ){
+	int size = ::Rcpp::traits::get_size<T>().size() ;
+	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype ;
+	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
+	typedef typename ::Rcpp::traits::storage_type<RTYPE> CTYPE ;
+	CTYPE* start = r_vector_start< RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x) ;
+	for( int i=0; i<size; i++){
+		start[i] = caster<elem_type,CTYPE>( object[i] );
+	}
+	UNPROTECT(1) ;
+	return x ;
+}
+
+template <typename T, typename elem_type>
+SEXP indexing_wrap_dispatch___impl( const T& object, ::Rcpp::traits::wrap_type_primitive_tag ){
+	return indexing_wrap_dispatch___impl__prim<T,elem_type>( object, 
+		typename ::Rcpp::traits::r_sexptype_needscast<elem_type>() ) ;
+}
+
+template <typename T, typename elem_type>
+SEXP wrap_dispatch_indexable( const T& object ){
+	return indexing_wrap_dispatch___impl<T,elem_type>( object, 
+		typename ::Rcpp::traits::r_type_traits<elem_type>::r_category() 
+		 ) ;
+}
+
 /** 
  * Called when no implicit conversion to SEXP is possible and this is 
  * not tagged as a primitive type, checks whether the type is 
@@ -446,6 +488,14 @@ template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_
 	return wrap_dispatch_unknown( object, typename is_convertible<T,SEXP>::type() ) ;
 }
 // }}}
+
+/**
+ * Used when the type is identifies as indexable, i.e. falls into the 
+ * wrap_type_indexable_tag category
+ */
+template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_indexable_tag ){
+	return wrap_dispatch_indexable< T, typename ::Rcpp::traits::get_value_type<T>::value_type >( object ) ;
+}
 
 } // internal
 
