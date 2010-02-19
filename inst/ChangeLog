@@ -1,3 +1,13 @@
+2010-02-19  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/traits/wrap_type_traits.h : a new category of wrappable
+	objects : wrap_type_indexable_tag was introduced to facilitate
+	the implementation of wrap< arma::Field<T> > in RcppArmadillo
+	This category is usable when the type has an operator[](int)
+	To use it, the client must specialize the templates :
+	Rcpp::traits::get_size and Rcpp::traits::get_value_type
+	An example is given in RcppArmadillo.
+
 2010-02-18  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Language.h: added fixed_call to support STL algorithms
