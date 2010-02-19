@@ -35,14 +35,14 @@ private:
 	T t ;
 } ;
 
-template <typename T> class StdVectorExporter {
+template <typename T> class RangeExporter {
 public:
 	typedef typename T::value_type r_export_type ;
 	
-	StdVectorExporter( SEXP x ) : object(x){
+	RangeExporter( SEXP x ) : object(x){
 		// R_PreserveObject(object) ;
 	}
-	~StdVectorExporter(){
+	~RangeExporter(){
 		// R_ReleaseObject(object) ;
 	}
 	
@@ -56,9 +56,50 @@ private:
 	SEXP object ;
 } ;
 
-template <typename T> class Exporter< std::vector<T> > : public StdVectorExporter< std::vector<T> > {
+template <typename T, typename value_type> class IndexingExporter {
+public:
+	typedef value_type r_export_type ;
+	
+	IndexingExporter( SEXP x) : object(x){}
+	~IndexingExporter(){}
+	
+	T get(){
+		T result( ::Rf_length(object) ) ;
+		::Rcpp::internal::export_indexing( object, result ) ;
+		return result ;
+	}
+	
+private:
+	SEXP object ;
+} ;
+
+template <typename T, typename value_type> class MatrixExporter {
+public:
+	typedef value_type r_export_type ;
+	
+	MatrixExporter( SEXP x) : object(x){}
+	~MatrixExporter(){}
+	
+	T get(){
+		SEXP dims = PROTECT( ::Rf_getAttrib( object, Rf_install("dim") ) ) ;
+		if( dims == R_NilValue || ::Rf_length(dims) != 2 ){
+			throw std::exception( "not a matrix" ) ;
+		}
+		int* dims_ = INTEGER(dims) ;
+		T result( dims[0], dims[1] ) ;
+		::Rcpp::internal::export_indexing( object, result ) ;
+		UNPROTECT(1) ;
+		return result ;
+	}
+	
+private:
+	SEXP object ;
+} ;
+
+
+template <typename T> class Exporter< std::vector<T> > : public RangeExporter< std::vector<T> > {
 	public:
-		Exporter(SEXP x) : StdVectorExporter< std::vector<T> >(x){}
+		Exporter(SEXP x) : RangeExporter< std::vector<T> >(x){}
 }; 
 
 
