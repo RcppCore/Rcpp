@@ -446,10 +446,35 @@ SEXP wrap_dispatch_importer__impl__prim( const T& object, ::Rcpp::traits::true_t
 }
 
 template <typename T, typename elem_type>
-SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::wrap_type_primitive_tag ){
+SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_primitive_tag ){
 	return wrap_dispatch_importer__impl__prim<T,elem_type>( object, 
 		typename ::Rcpp::traits::r_sexptype_needscast<elem_type>() ) ;
 }
+
+template <typename T, typename elem_type>
+SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_string_tag ){
+	int size = object.size() ;
+	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) );
+	std::string buf ;
+	for( int i=0; i<size; i++){
+		buf = object.get(i) ;
+		SET_STRING_ELT( x, i, Rf_mkChar( buf.c_str() ) ) ;
+	}
+	UNPROTECT(1) ;
+	return x ;
+}
+
+template <typename T, typename elem_type>
+SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_generic_tag ){
+	int size = object.size() ;
+	SEXP x = PROTECT( Rf_allocVector( VECSXP, size ) );
+	for( int i=0; i<size; i++){
+		SET_VECTOR_ELT( x, i, wrap( object.get(i) ) ) ;
+	}
+	UNPROTECT(1) ;
+	return x ;
+}
+
 
 template <typename T, typename elem_type>
 SEXP wrap_dispatch_importer( const T& object ){
