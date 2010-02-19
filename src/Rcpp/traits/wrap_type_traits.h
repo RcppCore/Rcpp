@@ -58,7 +58,11 @@ template <> struct wrap_type_traits<size_t> { typedef wrap_type_primitive_tag wr
 template <> struct wrap_type_traits<bool> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<std::string> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<char> { typedef wrap_type_primitive_tag wrap_category; } ;
+
 template <> struct wrap_type_traits<float> { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits< std::complex<float> > { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits< std::complex<double> > { typedef wrap_type_primitive_tag wrap_category; } ;
+
 
 } // namespace traits
 } // namespace Rcpp

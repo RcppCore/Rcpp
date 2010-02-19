@@ -127,6 +127,7 @@ SEXP initRcpp(){
    
 namespace Rcpp{
 namespace internal{
+
 	template<> int* r_vector_start<INTSXP,int>(SEXP x){ return INTEGER(x) ; } ; 
 	template<> int* r_vector_start<LGLSXP,int>(SEXP x){ return LOGICAL(x) ; };
 	template<> double* r_vector_start<REALSXP,double>(SEXP x){ return REAL(x) ; } ;
@@ -144,6 +145,27 @@ namespace internal{
 		return x ;
 	}
 
+	template<> Rcomplex caster<std::complex<double>, Rcomplex>( std::complex<double> from){
+		Rcomplex cx ;
+		cx.r = from.real() ; 
+		cx.i = from.imag() ;
+		return cx ;
+	}
+	template<> Rcomplex caster<std::complex<float>, Rcomplex>( std::complex<float> from){
+		Rcomplex cx ;
+		cx.r = static_cast<double>( from.real() ); 
+		cx.i = static_cast<double>( from.imag() );
+		return cx ;
+	}
+
+	template<> std::complex<double> caster<Rcomplex,std::complex<double> >( Rcomplex from){
+		return std::complex<double>(from.r, from.i ) ;
+	}
+	template<> std::complex<float> caster<Rcomplex,std::complex<float> >( Rcomplex from){
+		return std::complex<float>(static_cast<float>(from.r), static_cast<float>(from.i) ) ;
+	}
+
+	
 } // internal
 } // Rcpp
 
