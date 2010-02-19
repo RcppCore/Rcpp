@@ -417,14 +417,14 @@ SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::true_type){
 }
 
 template <typename T, typename elem_type>
-SEXP indexing_wrap_dispatch___impl__prim( const T& object, ::Rcpp::traits::false_type ){
-	int size = ::Rcpp::traits::get_size<T>().size() ;
+SEXP wrap_dispatch_importer__impl__prim( const T& object, ::Rcpp::traits::false_type ){
+	int size = object.size() ;
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
-	typedef typename ::Rcpp::traits::storage_type<RTYPE> CTYPE ;
-	CTYPE* start = r_vector_start< RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x) ;
+	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
+	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
 	for( int i=0; i<size; i++){
-		start[i] = object[i] ;
+		start[i] = object.get(i) ;
 	}
 	UNPROTECT(1) ;
 	return x ;
@@ -432,28 +432,28 @@ SEXP indexing_wrap_dispatch___impl__prim( const T& object, ::Rcpp::traits::false
 }
 
 template <typename T, typename elem_type>
-SEXP indexing_wrap_dispatch___impl__prim( const T& object, ::Rcpp::traits::true_type ){
-	int size = ::Rcpp::traits::get_size<T>().size() ;
+SEXP wrap_dispatch_importer__impl__prim( const T& object, ::Rcpp::traits::true_type ){
+	int size = object.size() ;
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
-	typedef typename ::Rcpp::traits::storage_type<RTYPE> CTYPE ;
-	CTYPE* start = r_vector_start< RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x) ;
+	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
+	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
 	for( int i=0; i<size; i++){
-		start[i] = caster<elem_type,CTYPE>( object[i] );
+		start[i] = caster<elem_type,CTYPE>( object.get(i) );
 	}
 	UNPROTECT(1) ;
 	return x ;
 }
 
 template <typename T, typename elem_type>
-SEXP indexing_wrap_dispatch___impl( const T& object, ::Rcpp::traits::wrap_type_primitive_tag ){
-	return indexing_wrap_dispatch___impl__prim<T,elem_type>( object, 
+SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::wrap_type_primitive_tag ){
+	return wrap_dispatch_importer__impl__prim<T,elem_type>( object, 
 		typename ::Rcpp::traits::r_sexptype_needscast<elem_type>() ) ;
 }
 
 template <typename T, typename elem_type>
-SEXP wrap_dispatch_indexable( const T& object ){
-	return indexing_wrap_dispatch___impl<T,elem_type>( object, 
+SEXP wrap_dispatch_importer( const T& object ){
+	return wrap_dispatch_importer__impl<T,elem_type>( object, 
 		typename ::Rcpp::traits::r_type_traits<elem_type>::r_category() 
 		 ) ;
 }
@@ -478,24 +478,31 @@ template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_
 	return primitive_wrap( object ) ;
 }
 
-/** 
- * This is called by wrap when the wrap_type_traits is wrap_type_unknown_tag
- * This tries to identify is an implicit conversion to SEXP is possible
- * ( the type T defines operator SEXP() ) and uses it, otherwise generates
- * a compile error
+/**
+ * called when T is wrap_type_unknown_tag and is not an Importer class
+ * The next step is to try implicit conversion to SEXP
  */
-template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_unknown_tag ){
+template <typename T> SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::false_type){
 	return wrap_dispatch_unknown( object, typename is_convertible<T,SEXP>::type() ) ;
 }
-// }}}
 
 /**
- * Used when the type is identifies as indexable, i.e. falls into the 
- * wrap_type_indexable_tag category
+ * called when T is an Importer
  */
-template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_indexable_tag ){
-	return wrap_dispatch_indexable< T, typename ::Rcpp::traits::get_value_type<T>::value_type >( object ) ;
+template <typename T> SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::true_type){
+	return wrap_dispatch_importer<T,typename T::r_import_type>( object ) ;
 }
+ 
+ 
+/** 
+ * This is called by wrap when the wrap_type_traits is wrap_type_unknown_tag
+ * 
+ * This tries to identify if the object conforms to the Importer class
+ */
+template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_unknown_tag ){
+	return wrap_dispatch_unknown_importable( object, typename ::Rcpp::traits::is_importer<T>::type() ) ;
+}
+	// }}}
 
 } // internal
 
