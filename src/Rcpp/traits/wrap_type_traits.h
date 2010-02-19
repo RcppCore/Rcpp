@@ -37,21 +37,6 @@ struct wrap_type_primitive_tag{};
 struct wrap_type_unknown_tag{};          // unknown, not sure what to do with this type
 
 /**
- * used when the type has an indexing operator operator[]( int )
- * 
- * No attempt is made to guess if the type falls into this category, 
- * so the client has to specifically declare it.
- *
- * In addition : 
- * - the get_size template function should also be 
- * specialized, unless the type has a size method that returns the 
- * number of elements
- *
- * - the get_value type struct has to be defined
- */
-struct wrap_type_indexable_tag{} ;
-
-/**
  * Type trait that helps the dispatch of wrap to the proper method
  *
  * This builds a struct that contains a typedef called wrap_category
@@ -74,30 +59,6 @@ template <> struct wrap_type_traits<bool> { typedef wrap_type_primitive_tag wrap
 template <> struct wrap_type_traits<std::string> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<char> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<float> { typedef wrap_type_primitive_tag wrap_category; } ;
-
-/**
- * Returns the number of elements in the object. 
- *
- * This is used by the wrap_type_indexable_tag category of wrappable objects.
- */
-template <typename T> class get_size {
-public:
-	get_size(const T& object) : size_( object.size() ){} ;
-	int size(){ return size_ ; }
-private:
-	int size_ ;
-} ;
-
-/**
- * Indicates the value_type of an indexable object.
- * 
- * This is used by wrap when dealing with objects that fall in the 
- * wrap_type_indexable_tag category
- */
-template <typename T> struct get_value_type{
-	typedef int value_type ;
-} ;
-
 
 } // namespace traits
 } // namespace Rcpp

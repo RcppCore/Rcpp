@@ -50,6 +50,20 @@ namespace traits{
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
 
+  template<typename T>
+  class _is_importer_helper : __sfinae_types {
+      template<typename U> struct _Wrap_type { };
+
+      template<typename U>
+        static __one __test(_Wrap_type<typename U::r_import_type>*);
+
+      template<typename U>
+        static __two __test(...);
+
+    public:
+      static const bool value = sizeof(__test<T>(0)) == 1;
+    };
+  
   /** 
    * uses the SFINAE idiom to check if a class has an 
    * nested iterator typedef. For example : 
@@ -60,6 +74,17 @@ namespace traits{
   template<typename T> struct has_iterator : 
   	integral_constant<bool,_has_iterator_helper<T>::value> { };
 
+  /**
+   * uses SFINAE to identify if a type is importable, i.e. if it conforms
+   * to the Rcpp::traits::Importer interface.
+   *
+   * The test is based on the presence of a typedef r_import_type in the 
+   * class
+   */
+  template<typename T> struct is_importer : 
+    integral_constant<bool,_is_importer_helper<T>::value> { };
+	
+  	
 } // traits
 } // Rcpp
 
