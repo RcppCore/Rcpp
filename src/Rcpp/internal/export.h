@@ -56,7 +56,7 @@ namespace internal{
 		STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
 		R_len_t size = ::Rf_length(y)  ;
 		for( R_len_t i=0; i<size; i++){
-			res.set( i, start[i] ) ;
+			res[i] =  start[i] ;
 		}
 		UNPROTECT(1) ;
 	}
@@ -69,7 +69,7 @@ namespace internal{
 		STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
 		R_len_t size = ::Rf_length(y)  ;
 		for( R_len_t i=0; i<size; i++){
-			res.set( i, caster<STORAGE,value_type>(start[i]) ) ;
+			res[i] =  caster<STORAGE,value_type>(start[i]) ;
 		}
 		UNPROTECT(1) ;
 	}
@@ -83,12 +83,12 @@ namespace internal{
 			typename ::Rcpp::traits::r_sexptype_needscast< typename std::iterator_traits<InputIterator>::value_type >() );
 	}
 	
-	template <typename T>
+	template <typename T, typename value_type>
 	void export_indexing( SEXP x, T& res ){
-		export_indexing__impl<T,typename T::value_type>( 
+		export_indexing__impl<T,value_type>( 
 			x, 
 			res, 
-			typename ::Rcpp::traits::r_sexptype_needscast< typename T::r_export_type >() ) ;
+			typename ::Rcpp::traits::r_sexptype_needscast<value_type>() ) ;
 	}
 	
 }

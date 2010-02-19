@@ -65,7 +65,7 @@ public:
 	
 	T get(){
 		T result( ::Rf_length(object) ) ;
-		::Rcpp::internal::export_indexing( object, result ) ;
+		::Rcpp::internal::export_indexing<T,value_type>( object, result ) ;
 		return result ;
 	}
 	
@@ -83,11 +83,11 @@ public:
 	T get(){
 		SEXP dims = PROTECT( ::Rf_getAttrib( object, Rf_install("dim") ) ) ;
 		if( dims == R_NilValue || ::Rf_length(dims) != 2 ){
-			throw std::exception( "not a matrix" ) ;
+			throw std::range_error( "not a matrix" ) ;
 		}
 		int* dims_ = INTEGER(dims) ;
-		T result( dims[0], dims[1] ) ;
-		::Rcpp::internal::export_indexing( object, result ) ;
+		T result( dims_[0], dims_[1] ) ;
+		::Rcpp::internal::export_indexing<T,value_type>( object, result ) ;
 		UNPROTECT(1) ;
 		return result ;
 	}
