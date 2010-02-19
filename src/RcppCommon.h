@@ -74,6 +74,7 @@ namespace internal{
 #include <functional>
 #include <numeric>
 #include <algorithm>
+#include <complex>
 
 #ifdef HAS_INIT_LISTS
 #include <initializer_list>
@@ -167,11 +168,16 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 #include <Rcpp/traits/r_type_traits.h>
 #include <Rcpp/traits/wrap_type_traits.h>
 
+#include <Rcpp/internal/caster.h>
+#include <Rcpp/internal/r_vector.h>
+#include <Rcpp/internal/convertible.h>
+#include <Rcpp/r_cast.h>
+
+#include <Rcpp/internal/export.h>
+#include <Rcpp/traits/Exporter.h>
 #include <Rcpp/internal/r_coerce.h>
 #include <Rcpp/as.h>
 
-#include <Rcpp/internal/r_vector.h>
-#include <Rcpp/internal/convertible.h>
 #include <Rcpp/internal/wrap.h>
 
 RcppExport SEXP RcppXPtrExample_create_external_pointer() ;

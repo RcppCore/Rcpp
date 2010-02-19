@@ -40,8 +40,8 @@ namespace Rcpp{
  * Foo y = x["bla"] ;    // if as<Foo> makes sense then this works !!
  */
 template <typename T> T as( SEXP m_sexp) {
-	T t(m_sexp);
-	return t ;
+	traits::Exporter<T> exporter(m_sexp);
+	return exporter.get() ;
 }
 
 template<> SEXP as(SEXP m_sexp) ;
@@ -89,41 +89,11 @@ template<> Rbyte                    	as<Rbyte>(SEXP m_sexp) ;
 template<> std::string              	as<std::string>(SEXP m_sexp) ;
 
 /**
- * Converts the R object to a std::vector<int>
- *
- * The R object must be a logical, integer, raw or numeric vector
- */
-template<> std::vector<int>         	as< std::vector<int> >(SEXP m_sexp) ;
-
-/**
- * Converts the R object to a std::vector<double>
- *
- * The R object must be a logical, integer, raw ornumeric vector
- */
-template<> std::vector<double>      	as< std::vector<double> >(SEXP m_sexp) ;
-
-/**
  * Converts the R object to a std::vector<std::string>
  *
  * The R object must be a character vector
  */
 template<> std::vector<std::string> 	as< std::vector<std::string> >(SEXP m_sexp) ;
-
-/**
- * Converts the R object to a std::vector<Rbyte>
- *
- * The R object must be a logical, integer, raw or numeric vector
- */
-template<> std::vector<Rbyte>       	as< std::vector<Rbyte> >(SEXP m_sexp) ;
-
-/**
- * Converts the R object to a std::vector<Rbyte>
- *
- * The R object must be a logical, integer, raw or numeric vector
- *
- * since bool can not handle missing values, they are converted to false
- */
-template<> std::vector<bool>        	as< std::vector<bool> >(SEXP m_sexp) ;
 
 } // Rcpp 
 

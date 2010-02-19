@@ -42,10 +42,6 @@ template <typename InputIterator> SEXP range_wrap(InputIterator first, InputIter
 // {{{ range wrap 
 // {{{ unnamed range wrap
 
-template <typename FROM, typename TO> TO caster(FROM from){
-	return static_cast<TO>(from) ;
-}
-
 /**
  * Range based primitive wrap implementation. used when 
  * - T is a primitive type, indicated by the r_type_traits
@@ -538,9 +534,6 @@ template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_
  * class to dispatch to the appropriate internal implementation 
  * method
  * 
- * If your type has a begin and end method returning stl-like iterator
- * you should specialize the wrap_type_traits template so that it 
- * defines wrap_category to be ::Rcpp::traits::wrap_type_stl_container_tag
  */
 template <typename T> SEXP wrap(const T& object){
 	return internal::wrap_dispatch( object, typename ::Rcpp::traits::wrap_type_traits<T>::wrap_category() ) ;

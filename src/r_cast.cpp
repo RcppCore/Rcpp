@@ -19,7 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <Rcpp/r_cast.h>
+#include <RcppCommon.h>
+#include <Rcpp/RObject.h>
 
 namespace Rcpp{
 namespace internal{
