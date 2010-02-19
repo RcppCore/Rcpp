@@ -469,7 +469,7 @@ SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_gener
 	int size = object.size() ;
 	SEXP x = PROTECT( Rf_allocVector( VECSXP, size ) );
 	for( int i=0; i<size; i++){
-		SET_VECTOR_ELT( x, i, wrap( object.get(i) ) ) ;
+		SET_VECTOR_ELT( x, i, object.wrap(i) ) ;
 	}
 	UNPROTECT(1) ;
 	return x ;
