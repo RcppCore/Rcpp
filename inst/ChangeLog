@@ -1,5 +1,12 @@
 2010-02-19  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/as.h: as now delegates to a template class 
+	Exporter since partial specialization was not possible with 
+	the interface of as. It is possible to partially specialize
+	Exporter. std::vector<T> when T is a primitive type is 
+	now handled through Exporter. Some support Exporter have been
+	added and used in RcppArmadillo
+
 	* src/Rcpp/internal/wrap.h: support for std::complex<double>
 	and std::complex<float> (needed for RcppArmadillo)
 
