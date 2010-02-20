@@ -88,7 +88,10 @@ PKG_LIBS=`Rscript -e 'Rcpp:::LdFlags()'`
   library is provided. The two \code{\link{Rcpp}} functions detailed
   above provide the relevant content.
 }
-\author{Dominick Samperi wrote most of Rcpp during 2005 and 2006.  Dirk
-  Eddelbuettel made some additions, and became maintainer in 2008.}
+\author{Dominick Samperi wrote the initial versions of Rcpp (and
+  RcppTemplate) during 2005 and 2006.  Dirk Eddelbuettel made some
+  additions, and became maintainer in 2008. Dirk Eddelbuettel and Romain
+  Francois have been extending Rcpp since 2009.
+}
 \keyword{programming}
 \keyword{interface}
