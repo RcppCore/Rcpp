@@ -133,3 +133,21 @@ test.as.vector.bool <- function(){
 	
 }
 
+test.as.deque.int <- function(){
+	funx <- cfunction(signature(x="integer"), '
+	deque<int> y = as< deque<int> >(x) ;
+	return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;
+	', Rcpp=TRUE, verbose=FALSE, 
+	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	checkEquals( funx(1:10), sum(1:10) , msg = "as<deque<int>>( INTSXP ) " )
+}
+
+test.as.list.int <- function(){
+	funx <- cfunction(signature(x="integer"), '
+	list<int> y = as< list<int> >(x) ;
+	return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;
+	', Rcpp=TRUE, verbose=FALSE, 
+	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	checkEquals( funx(1:10), sum(1:10) , msg = "as<list<int>>( INTSXP ) " )
+}
+
