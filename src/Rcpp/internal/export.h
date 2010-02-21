@@ -26,6 +26,7 @@
 namespace Rcpp{
 namespace internal{
 
+	/* iterating */
 	
 	template <typename InputIterator, typename value_type>
 	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ){
@@ -47,6 +48,35 @@ namespace internal{
 		UNPROTECT(1) ;
 	}
 	
+	template <typename InputIterator, typename value_type>
+	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_primitive_tag ){
+		export_range__impl<InputIterator,value_type>(
+			x, 
+			first,
+			typename ::Rcpp::traits::r_sexptype_needscast<value_type>() );
+	}
+	
+	template <typename InputIterator, typename value_type>
+	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ){
+		if( ! ::Rf_isString( x) ) throw std::range_error( "expecting a string vector" ) ;
+		std::string buf ;
+		R_len_t n = ::Rf_length(x) ;
+		for( R_len_t i=0; i<n; i++, ++first ){
+			*first = CHAR( STRING_ELT(x, i )) ;
+		}
+	}
+	
+	template <typename InputIterator>
+	void export_range( SEXP x, InputIterator first ){
+		export_range__dispatch<InputIterator,typename std::iterator_traits<InputIterator>::value_type>( 
+			x, 
+			first, 
+			typename ::Rcpp::traits::r_type_traits<typename std::iterator_traits<InputIterator>::value_type>::r_category() 
+			);
+	}
+	
+	
+	/* indexing */
 	
 	template <typename T, typename value_type>
 	void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::false_type ){
@@ -58,7 +88,7 @@ namespace internal{
 		for( R_len_t i=0; i<size; i++){
 			res[i] =  start[i] ;
 		}
-		UNPROTECT(1) ;
+		UNPROTECT(1) ; /* y */
 	}
 	
 	template <typename T, typename value_type>
@@ -69,26 +99,35 @@ namespace internal{
 		STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
 		R_len_t size = ::Rf_length(y)  ;
 		for( R_len_t i=0; i<size; i++){
-			res[i] =  caster<STORAGE,value_type>(start[i]) ;
+			res[i] = caster<STORAGE,value_type>(start[i]) ;
 		}
-		UNPROTECT(1) ;
+		UNPROTECT(1) ; /* y */
 	}
 
-	
-	template <typename InputIterator>
-	void export_range( SEXP x, InputIterator first){
-		export_range__impl<InputIterator,typename std::iterator_traits<InputIterator>::value_type>(
+	template <typename T, typename value_type>
+	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_primitive_tag ){
+		export_indexing__impl<T,value_type>(
 			x, 
-			first,
-			typename ::Rcpp::traits::r_sexptype_needscast< typename std::iterator_traits<InputIterator>::value_type >() );
+			res,
+			typename ::Rcpp::traits::r_sexptype_needscast<value_type>() );
+	}
+	
+	template <typename T, typename value_type>
+	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_string_tag ){
+		if( ! ::Rf_isString( x) ) throw std::range_error( "expecting a string vector" ) ;
+		std::string buf ;
+		R_len_t n = ::Rf_length(x) ;
+		for( R_len_t i=0; i<n; i++ ){
+			res[i] = CHAR( STRING_ELT(x, i )) ;
+		}
 	}
 	
 	template <typename T, typename value_type>
 	void export_indexing( SEXP x, T& res ){
-		export_indexing__impl<T,value_type>( 
+		export_indexing__dispatch<T,value_type>( 
 			x, 
 			res, 
-			typename ::Rcpp::traits::r_sexptype_needscast<value_type>() ) ;
+			typename ::Rcpp::traits::r_type_traits<value_type>::r_category() );
 	}
 	
 }
