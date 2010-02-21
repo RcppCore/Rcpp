@@ -1,6 +1,13 @@
 2010-02-21  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/as.h: more generic as implementation for primitive types
+	* src/Rcpp/as.h: more generic as implementation. primitive 
+	types are handled through templates which for example makes 
+	it possible to as<GPB::int64> in RProtoBuf. std::deque<T>
+	and std::list<T> become as'able when T is a primitive type
+	as indicated by the Rcpp::traits::r_type_traits 
+	
+	* src/as.cpp: removed since as is now fully implemented via 
+	templates
 
 2010-02-19  Romain Francois <romain@r-enthusiasts.com>
 
