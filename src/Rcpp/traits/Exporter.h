@@ -100,8 +100,15 @@ private:
 template <typename T> class Exporter< std::vector<T> > : public RangeExporter< std::vector<T> > {
 	public:
 		Exporter(SEXP x) : RangeExporter< std::vector<T> >(x){}
-}; 
-
+};
+template <typename T> class Exporter< std::deque<T> > : public RangeExporter< std::deque<T> > {
+	public:
+		Exporter(SEXP x) : RangeExporter< std::deque<T> >(x){}
+};
+template <typename T> class Exporter< std::list<T> > : public RangeExporter< std::list<T> > {
+	public:
+		Exporter(SEXP x) : RangeExporter< std::list<T> >(x){}
+};
 
 } // namespace traits
 } // namespace Rcpp

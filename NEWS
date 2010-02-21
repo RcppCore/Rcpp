@@ -1,5 +1,10 @@
 0.7.8   (under development)
 
+    o	The Rcpp::as template function has been reworked to be more 
+    	generic. It now handles more STL containers, such as deque and 
+    	list, and the genericity can be used to implement as for more
+    	types. The package RcppArmadillo has examples of this
+
     o   new template class Rcpp::fixed_call that can be used in STL algorithms
 	such as std::generate.
 
