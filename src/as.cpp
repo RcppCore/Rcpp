@@ -27,17 +27,5 @@ template<> SEXP as<SEXP>(SEXP m_sexp){
 	return m_sexp ;
 }
 
-template<> std::vector<std::string> as< std::vector<std::string> >(SEXP m_sexp){
-    R_len_t n = Rf_length(m_sexp);
-    std::vector<std::string> v(n);
-    if (!Rf_isString(m_sexp)) {
-    	    throw std::range_error("as< vector<string> >:  expects string");
-    }
-    for (int i = 0; i < n; i++) {
-	v[i] = std::string(CHAR(STRING_ELT(m_sexp,i)));
-    }
-    return v;
-}
-
 } // namespace Rcpp
 

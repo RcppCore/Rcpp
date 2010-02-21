@@ -29,7 +29,7 @@ namespace internal{
 	template <typename T> T as( SEXP x, ::Rcpp::traits::r_type_primitive_tag ){
 		if( ::Rf_length(x) != 1 ) throw std::range_error( "expecting a single value" ) ;
 		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
-		SEXP y = r_cast<RTYPE>(x) ;
+		SEXP y = PROTECT( r_cast<RTYPE>(x) );
 		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
 		T res = caster<STORAGE,T>( *r_vector_start<RTYPE,STORAGE>( y ) ) ;
 		UNPROTECT(1) ;
@@ -47,7 +47,7 @@ namespace internal{
 	}
 	
 	template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_generic_tag ){
-		traits::Exporter<T> exporter(x);
+		::Rcpp::traits::Exporter<T> exporter(x);
 		return exporter.get() ;
 	}
 	
@@ -74,13 +74,6 @@ template <typename T> T as( SEXP m_sexp) {
 }
 
 template<> SEXP as(SEXP m_sexp) ;
-
-/**
- * Converts the R object to a std::vector<std::string>
- *
- * The R object must be a character vector
- */
-template<> std::vector<std::string> 	as< std::vector<std::string> >(SEXP m_sexp) ;
 
 } // Rcpp 
 
