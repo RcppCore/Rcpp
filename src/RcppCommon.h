@@ -177,8 +177,9 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 #include <Rcpp/traits/Exporter.h>
 #include <Rcpp/internal/r_coerce.h>
 #include <Rcpp/as.h>
-
 #include <Rcpp/internal/wrap.h>
+
+#include <Rcpp/internal/ListInitialization.h>
 
 RcppExport SEXP RcppXPtrExample_create_external_pointer() ;
 RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP ); 

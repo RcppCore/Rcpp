@@ -223,4 +223,12 @@ test.CharacterVector.names.indexing <- function(){
 	checkEquals( funx(x), "foo", msg = "CharacterVector names based indexing" )
 }
 
-
+test.CharacterVector.comma <- function(){
+	
+	funx <- cfunction(signature(), '
+        	CharacterVector x(3) ;
+        	x = "foo", "bar", "bling" ;
+        	return x ;',
+        Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+        checkEquals( funx(), c("foo","bar", "bling" ), msg = "CharacterVector comma operator" )
+}
