@@ -154,3 +154,12 @@ test.IntegerVector.names.indexing <- function(){
 	
 }
 
+test.IntegerVector.comma <- function(){
+	funx <- cfunction(signature(), '
+	IntegerVector x(4) ;
+	x = 0, 1, 2, 3 ;
+	return x ;', 
+		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	checkEquals( funx(), 0:3, msg = "IntegerVector comma initialization" )
+}
+

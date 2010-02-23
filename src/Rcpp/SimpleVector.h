@@ -67,6 +67,11 @@ public:
 		return *this ;
 	}
 	
+	internal::ListInitialization<iterator,value_type> operator=( value_type x){
+		*start = x ;
+		return internal::ListInitialization<iterator,value_type>( start + 1 ) ; ;
+	}
+	
 	template <typename InputIterator>
 	SimpleVector( InputIterator first, InputIterator last) : VectorBase(), start(){
 		assign( first, last ) ;

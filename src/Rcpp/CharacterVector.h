@@ -147,6 +147,8 @@ public:
 		StringProxy proxy ;
 	};
 	
+	typedef StringProxy value_type ;
+	
 	/**
 	 * Default constructor. Sets the underlying object to NULL
 	 */
@@ -163,6 +165,11 @@ public:
 	 * This does not make a copy of the object
 	 */
 	CharacterVector& operator=( const CharacterVector& other ) ;
+	
+	internal::ListInitialization<iterator,std::string> operator=( const std::string& x){
+		SET_STRING_ELT( m_sexp, 0, Rf_mkChar( x.c_str() ) ) ;
+		return internal::ListInitialization<iterator,std::string>( iterator(*this, 1) ) ; 
+	}
 	
 	/**
 	 * encapsulates an R object

@@ -1,3 +1,9 @@
+2010-02-23  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/internal/ListInitialization.h: new class that 
+	supports use of operator, (inspired from blitz) giving this 
+	notation: IntegerVector x(3); x = 0, 1, 2 ;
+
 2010-02-21  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/as.h: more generic as implementation. primitive 
