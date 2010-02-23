@@ -21,6 +21,7 @@
 
 #include <RcppCommon.h>
 #include <Rcpp/VectorBase.h>
+#include <Rcpp/CharacterVector.h>
 
 namespace Rcpp{
 	
