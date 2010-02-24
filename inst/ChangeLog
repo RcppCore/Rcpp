@@ -12,6 +12,9 @@
 	* src/Rcpp/SEXP_Vector.h : gains a row method that returns 
 	a SEXP_Vector::Row aka MatrixRow<SEXP_Vector>
 
+	* src/Rcpp/MatrixColumn.h : Column class to access elements of a 
+	matrix column
+
 2010-02-23  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/SimpleVector.h: added the class SimpleVector::Row

@@ -27,6 +27,19 @@ test.NumericMatrix.column <- function(){
 	checkEquals( funx( x ), sum( x[,1], msg = "iterating over a column" )
 }
 
+test.NumericMatrix.column.operator.equal <- function(){
+	funx <- cfunction(signature(x = "matrix" ), '
+		NumericMatrix m(x) ;
+		NumericMatrix::Column first  = m.column(0) ;
+		NumericMatrix::Column second = m.column(1) ;
+		first = second ;
+		return R_NilValue ;
+	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
+	x <- matrix( 1:16 + .5, ncol = 4 )
+	funx( x )
+	checkEquals( x[,1], x[,2], msg = "column(0) = column(1) " )
+}
+
 test.CharacterMatrix.column <- function(){
 	funx <- cfunction(signature(x = "matrix" ), '
 		CharacterVector m(x) ;
@@ -59,4 +72,5 @@ test.List.column <- function(){
 	checkEquals( funx( m ), 1:4, msg = "List::Column" )
 	
 }
+
 
