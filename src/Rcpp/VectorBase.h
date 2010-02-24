@@ -26,15 +26,49 @@
 #include <Rcpp/exceptions.h>
 #include <Rcpp/RObject.h>
 #include <Rcpp/r_cast.h>
+#include <Rcpp/Dimension.h>
+#include <Rcpp/MatrixRow.h>
+#include <Rcpp/MatrixColumn.h>
 
 namespace Rcpp{ 
+
+namespace traits{
+	template <int RTYPE>
+	struct r_vector_iterator {
+		typedef typename storage_type<RTYPE>::type* iterator ;
+	} ;
+	template<> struct r_vector_iterator<VECSXP> ;
+	template<> struct r_vector_iterator<EXPRSXP> ;
+	template<> struct r_vector_iterator<STRSXP> ;
+} // traits 
 
 template <typename VECTOR>
 class VectorBase : public RObject {     
 public:
+
+	const static int r_type = VECTOR::r_type ;
+	typedef MatrixRow<VECTOR> Row ;
+	typedef MatrixColumn<VECTOR> Column ;
 	
     VectorBase() : RObject(){} ;
     virtual ~VectorBase(){};
+    
+    VectorBase( SEXP x ) : RObject(){
+    	setSEXP( r_cast<r_type>( x ) ) ;
+    }
+    
+    VectorBase( const size_t& size ) : RObject(){
+    	setSEXP( Rf_allocVector( r_type, size) ) ;
+		init() ;
+    }
+    
+    VectorBase( const Dimension& dims) : RObject(){
+    	setSEXP( Rf_allocVector( r_type, dims.prod() ) ) ;
+		init() ;
+		if( dims.size() > 1 ){
+			attr( "dim" ) = dims;
+		}
+    }
     
     /**
      * the length of the vector, uses Rf_length
@@ -138,11 +172,18 @@ public:
 		return NamesProxy(*this) ;
 	}
     
+	inline Row row( int i ){ return Row( static_cast<VECTOR&>(*this), i ) ; }
+	inline Column column( int i ){ return Column( static_cast<VECTOR&>(*this), i ) ; }
+	
 private:
 		
 	inline int* dims(){
 		if( !::Rf_isMatrix(m_sexp) ) throw not_a_matrix() ;
 		return INTEGER( ::Rf_getAttrib( m_sexp, ::Rf_install( "dim") ) ) ;
+	}
+	
+	void init(){
+		internal::r_init_vector<r_type>(m_sexp) ;
 	}
 	
 } ;

@@ -24,38 +24,28 @@
 
 namespace Rcpp{
 
-CharacterVector::CharacterVector() : VectorBase<CharacterVector>(){}
+CharacterVector::CharacterVector() : Base(){}
 
-CharacterVector::CharacterVector(const CharacterVector& other) : VectorBase<CharacterVector>(){
-	setSEXP( other.asSexp() ); 
-}
+CharacterVector::CharacterVector(const CharacterVector& other) : Base(other.asSexp()){}
 
 CharacterVector& CharacterVector::operator=(const CharacterVector& other ){
 	setSEXP( other.asSexp() ) ;
 	return *this ;
 }
 
-CharacterVector::CharacterVector(SEXP x) throw(not_compatible) : VectorBase<CharacterVector>() {
-	SEXP y = r_cast<STRSXP>( x) ;
-	setSEXP( y ) ;
+CharacterVector::CharacterVector(SEXP x) throw(not_compatible) : Base(x) {}
+
+CharacterVector::CharacterVector(const size_t& size) : Base(size){}
+
+CharacterVector::CharacterVector( const std::string& x) : Base(1) {
+	SET_STRING_ELT( m_sexp, 0, Rf_mkChar( x.c_str() ) ) ;
 }
 
-CharacterVector::CharacterVector(const size_t& size) : VectorBase<CharacterVector>(){
-	setSEXP( Rf_allocVector( STRSXP, size ) ) ;
-}
-
-CharacterVector::CharacterVector( const std::string& x) : VectorBase<CharacterVector>() {
-	setSEXP( Rf_mkString(x.c_str()) ) ;
-}
-
-CharacterVector::CharacterVector( const std::vector<std::string>& x): VectorBase<CharacterVector>() {
+CharacterVector::CharacterVector( const std::vector<std::string>& x): Base() {
 	assign( x.begin(), x.end() ) ;
 }
 
-CharacterVector::CharacterVector( const Dimension& dims): VectorBase<CharacterVector>(){
-	setSEXP( Rf_allocVector( STRSXP, dims.prod() ) ) ;
-	if( dims.size() > 1 ) attr( "dim" ) = dims ;
-}
+CharacterVector::CharacterVector( const Dimension& dims): Base(dims){}
 
 /* proxy stuff */
 
@@ -129,95 +119,6 @@ CharacterVector::StringProxy CharacterVector::operator()( const size_t& i) throw
 
 CharacterVector::StringProxy CharacterVector::operator()( const size_t& i, const size_t&j ) throw(index_out_of_bounds,not_a_matrix){
 	return StringProxy(*this, offset(i,j) ) ;
-}
-
-/* iterator  */
-
-CharacterVector::iterator::iterator(CharacterVector& object, int index_ ) : 
-	proxy(object,index_) {};
-
-CharacterVector::iterator& CharacterVector::iterator::operator++(){
-	proxy.move(1) ;
-	return *this ;
-}
-
-CharacterVector::iterator& CharacterVector::iterator::operator++(int){
-	proxy.move(1) ;
-	return *this ;
-}
-
-CharacterVector::iterator& CharacterVector::iterator::operator--(){
-	proxy.move(-1) ;
-	return *this ;
-}
-
-CharacterVector::iterator& CharacterVector::iterator::operator--(int){
-	proxy.move(-1) ;
-	return *this ;
-}
-
-CharacterVector::iterator CharacterVector::iterator::operator+( difference_type n) const{
-	return iterator( proxy.parent, proxy.index+n) ;    
-}
-
-CharacterVector::iterator CharacterVector::iterator::operator-( difference_type n) const{
-	return iterator( proxy.parent, proxy.index-n) ;
-}
-
-CharacterVector::iterator& CharacterVector::iterator::operator+=(difference_type n) {
-	proxy.move(n) ;
-	return *this ;
-}
-
-CharacterVector::iterator& CharacterVector::iterator::operator-=(difference_type n) {
-	proxy.move(-n) ;
-	return *this ;
-}
-
-CharacterVector::iterator::reference CharacterVector::iterator::operator*(){
-	return proxy ;
-}
-
-CharacterVector::iterator::pointer CharacterVector::iterator::operator->(){
-	return &proxy ;
-}
-
-bool CharacterVector::iterator::operator==( const CharacterVector::iterator& y){
-	return ( this->proxy.index == y.proxy.index ) && ( this->proxy.parent == y.proxy.parent );
-}
-
-bool CharacterVector::iterator::operator!=( const CharacterVector::iterator& y){
-	return ( this->proxy.index != y.proxy.index ) || ( this->proxy.parent != y.proxy.parent );
-}
-
-bool CharacterVector::iterator::operator<( const iterator& other){
-	/* TODO: deal with the case where this os not iterating over the 
-	         same character vector */
-	return proxy.index < other.proxy.index ;
-}
-
-bool CharacterVector::iterator::operator>( const iterator& other){
-	/* TODO: deal with the case where this os not iterating over the 
-	         same character vector */
-	return proxy.index > other.proxy.index ;
-}
-
-bool CharacterVector::iterator::operator<=( const iterator& other){
-	/* TODO: deal with the case where this os not iterating over the 
-	         same character vector */
-	return proxy.index <= other.proxy.index ;
-}
-
-bool CharacterVector::iterator::operator>=( const iterator& other){
-	/* TODO: deal with the case where this os not iterating over the 
-	         same character vector */
-	return proxy.index >= other.proxy.index ;
-}
-
-
-CharacterVector::iterator::difference_type CharacterVector::iterator::operator-(
-		const CharacterVector::iterator& y ){
-	return y.proxy.index - this->proxy.index ;
 }
 
 std::string operator+( const std::string& x, const CharacterVector::StringProxy& y ){
