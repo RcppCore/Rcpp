@@ -72,6 +72,6 @@ template<> void r_init_vector<EXPRSXP>(SEXP x) ;
 template<> void r_init_vector<STRSXP>(SEXP x) ;
 
 } // internal
-} // internal
+} // Rcpp
 
 #endif

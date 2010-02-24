@@ -36,35 +36,20 @@ class SimpleVector : public VectorBase< SimpleVector<RTYPE> > {
 public:
 	
 	typedef VectorBase< SimpleVector<RTYPE> > Base ;
+	const static int r_type = RTYPE ;
 	typedef typename traits::storage_type<RTYPE>::type value_type ;
 	typedef value_type* iterator ;
 	typedef value_type& reference ;
-	typedef MatrixRow<SimpleVector> Row ;
-	typedef MatrixColumn<SimpleVector> Column ;
 	
 	SimpleVector() : Base(), start(0){}
 	
-	SimpleVector(SEXP x) throw(RObject::not_compatible) : Base(), start(0){
-		SEXP y = r_cast<RTYPE>( x ) ;
-		Base::setSEXP( y );
-	}
+	SimpleVector(SEXP x) throw(RObject::not_compatible) : Base(x){}
 	
-	SimpleVector( const size_t& size) :Base() {
-		Base::setSEXP( Rf_allocVector( RTYPE, size) ) ;
-		init() ;
-	}
+	SimpleVector( const size_t& size) : Base(size) {}
 	
-	SimpleVector( const Dimension& dims) : Base() {
-		Base::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
-		init() ;
-		if( dims.size() > 1 ){
-			Base::attr( "dim" ) = dims ;
-		}
-	}
+	SimpleVector( const Dimension& dims) : Base(dims) {}
 	
-	SimpleVector( const SimpleVector& other) : Base() {
-		Base::setSEXP( other.asSexp() ) ;
-	}
+	SimpleVector( const SimpleVector& other) : Base( other.asSexp() ) {}
 	
 	SimpleVector& operator=(const SimpleVector& other){
 		Base::setSEXP( other.asSexp() ) ;
@@ -114,9 +99,7 @@ public:
 		UNPROTECT(1) ;
 	}
 	
-	inline Row row( int i ){ return Row( *this, i ) ; }
-	inline Column column( int i ){ return Column( *this, i ) ; }
-
+	
 protected:
 	void init(){
 		internal::r_init_vector<RTYPE>(Base::m_sexp) ;
