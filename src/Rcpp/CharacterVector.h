@@ -23,6 +23,7 @@
 #define Rcpp_CharacterVector_h
 
 #include <RcppCommon.h>
+#include <Rcpp/exceptions.h>
 #include <Rcpp/VectorBase.h>
 #include <Rcpp/MatrixRow.h>
 #include <Rcpp/MatrixColumn.h>
