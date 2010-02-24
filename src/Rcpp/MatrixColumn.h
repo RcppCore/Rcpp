@@ -53,12 +53,12 @@ public:
 		return parent[ index * parent.ncol() + i ] ;
 	}
 	
-	inline iterator begin(){
-		return iterator( parent, index * parent.ncol() ) ;
+	iterator begin(){
+		return parent.begin() + index * parent.ncol() ;
 	}
 	
-	inline iterator end(){
-		return iterator( parent, index * parent.ncol() + parent.nrow() ) ;
+	iterator end(){
+		return parent.begin() + index * parent.ncol() + parent.nrow() ;
 	}
 	
 	inline int size() const {

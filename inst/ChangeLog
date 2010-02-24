@@ -1,5 +1,10 @@
 2010-02-24  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/SEXP_Vector.h: the intermediate class 
+	SEXP_Vector_Base is removed, reverting the change on 
+	2010-02-09. This will facilitate the introduction of the 
+	Curiously recurring template pattern on vectors
+
 	* src/Rcpp/MatrixRow.h : Row has been factored out of SimpleVector
 	into a separate template class Rcpp::MatrixRow
 	
