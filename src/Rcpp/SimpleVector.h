@@ -23,7 +23,7 @@
 #define Rcpp_SimpleVector_h
 
 #include <RcppCommon.h>
-
+#include <Rcpp/MatrixRow.h>
 #include <Rcpp/VectorBase.h>
 #include <Rcpp/r_cast.h>
 #include <Rcpp/Dimension.h>
@@ -37,81 +37,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type value_type ;
 	typedef value_type* iterator ;
 	typedef value_type& reference ;
-	
-	class Row {
-	public:
-		class RowIterator {
-		public:
-			typedef typename traits::storage_type<RTYPE>::type value_type ;
-			typedef value_type& reference ;
-			typedef value_type* pointer ;
-			typedef int difference_type ;
-			typedef std::random_access_iterator_tag iterator_category ;
-			
-			RowIterator( Row& row_, int index_ ) : row(row_), index(index_){}
-			
-			RowIterator& operator++(){ index++; }
-			RowIterator& operator++(int) { index++; }
-		
-			RowIterator& operator--(){ index-- ; } 
-			RowIterator& operator--(int){ index-- ;}
-			                    
-			RowIterator operator+(difference_type n) const { return iterator( row, index + n ) ; }
-			RowIterator operator-(difference_type n) const { return iterator( row, index - n ) ; }
-			
-			RowIterator& operator+=(difference_type n) { index += n ;} 
-			RowIterator& operator-=(difference_type n) { index -= n ;} 
-                	
-			reference operator*() {
-				return row[index] ;
-			}
-			pointer operator->(){
-				return &row[index] ;
-			}
-			
-			bool operator==( const RowIterator& other) { return index == other.index ; } 
-			bool operator!=( const RowIterator& other) { return index != other.index ; }
-			bool operator<( const RowIterator& other ) { return index < other.index ;}
-			bool operator>( const RowIterator& other ) { return index > other.index ;}
-			bool operator<=( const RowIterator& other ) { return index <= other.index ; }
-			bool operator>=( const RowIterator& other ) { return index >= other.index ; }
-			
-			difference_type operator-(const RowIterator& other) {
-				return index - other.index ;
-			}
-			
-		private:
-			Row& row ;
-			int index ;
-		} ;
-		
-		typedef typename traits::storage_type<RTYPE>::type value_type ;
-		
-		Row( SimpleVector& object, int i ) : parent(object), index(i){
-			if( ! ::Rf_isMatrix(parent) ) throw VectorBase::not_a_matrix() ;
-		}
-		
-		value_type& operator[]( const int& i ){
-			return parent[ index + i * parent.nrow() ] ;
-		}
-		
-		inline RowIterator begin(){
-			return RowIterator( *this, 0 ) ;
-		}
-		
-		inline RowIterator end(){
-			return RowIterator( *this, size() ) ;
-		}
-		
-		inline int size(){
-			return parent.ncol() ;
-		}
-		
-	private:
-		SimpleVector& parent; 
-		int index ;
-	} ;
-	
+	typedef MatrixRow<SimpleVector> Row ;
 	
 	SimpleVector() : VectorBase(), start(0){}
 	
@@ -184,17 +110,11 @@ public:
 		setSEXP( x) ;
 		UNPROTECT(1) ;
 	}
+	
+	inline Row row( int i ){
+		return Row( *this, i ) ;
+	}
 
-	inline int ncol(){
-		if( !::Rf_isMatrix(m_sexp) ) throw VectorBase::not_a_matrix() ;
-		return dims()[1]; 
-	}
-	
-	inline int nrow(){
-		if( !::Rf_isMatrix(m_sexp) ) throw VectorBase::not_a_matrix() ;
-		return dims()[0]; 
-	}
-	
 protected:
 	void init(){
 		internal::r_init_vector<RTYPE>(m_sexp) ;
@@ -209,10 +129,6 @@ private:
 	
 	virtual void update(){ 
 		update_vector() ;
-	}
-	
-	inline int* dims(){
-		return INTEGER( ::Rf_getAttrib( m_sexp, ::Rf_install( "dim") ) ) ;
 	}
 	
 } ;
