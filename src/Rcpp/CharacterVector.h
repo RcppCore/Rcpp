@@ -35,7 +35,7 @@ namespace Rcpp{
 /**
  * Representation of character vectors (STRSXP)
  */
-class CharacterVector : public VectorBase {     
+class CharacterVector : public VectorBase<CharacterVector> {     
 public:
 
 	class iterator ;
@@ -213,7 +213,7 @@ public:
 	 * over std::string
 	 */
 	template <typename InputIterator>
-	CharacterVector( InputIterator first, InputIterator last): VectorBase() {
+	CharacterVector( InputIterator first, InputIterator last): VectorBase<CharacterVector>() {
 		assign( first, last ) ;
 	}
 	

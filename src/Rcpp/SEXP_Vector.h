@@ -33,12 +33,13 @@
 namespace Rcpp{
 
 template <int RTYPE>
-class SEXP_Vector : public VectorBase {
+class SEXP_Vector : public VectorBase< SEXP_Vector<RTYPE> > {
 public:
 	
 	class iterator ;
 	class NameProxy ;
 	class Proxy ;
+	typedef VectorBase< SEXP_Vector<RTYPE> > Base ;
 	
 	class Proxy {
 	public:
@@ -156,7 +157,7 @@ public:
 			try{
 				index = parent.offset(name) ;
 				// parent[ index ] = x ;
-			} catch( const RObject::index_out_of_bounds& ex ){
+			} catch( const index_out_of_bounds& ex ){
 				parent.push_back( Named(name, x ) ); 
 			}
 		}
@@ -175,38 +176,38 @@ public:
 	typedef Proxy reference ;
 	typedef Proxy value_type ;
 	
-	SEXP_Vector() : VectorBase(){} ; 
+	SEXP_Vector() : Base(){} ; 
 	
-	SEXP_Vector(const SEXP_Vector& other) : VectorBase(){
-		setSEXP( other.asSexp() ) ;
+	SEXP_Vector(const SEXP_Vector& other) : Base(){
+		Base::setSEXP( other.asSexp() ) ;
 	} ;
 	
 	SEXP_Vector& operator=(const SEXP_Vector& other){
-		setSEXP( other.asSexp() ) ;
+		Base::setSEXP( other.asSexp() ) ;
 		return *this ;
 	}
 	
-	SEXP_Vector(SEXP x) : VectorBase() {
+	SEXP_Vector(SEXP x) : Base() {
 		SEXP y = r_cast<RTYPE>(x) ;
-		setSEXP( y );
+		Base::setSEXP( y );
 	}
 	
-	SEXP_Vector(const size_t& size) : VectorBase(){
-		setSEXP( Rf_allocVector( RTYPE, size ) ) ;
+	SEXP_Vector(const size_t& size) : Base(){
+		Base::setSEXP( ::Rf_allocVector( RTYPE, size ) ) ;
 	}
 	
-	SEXP_Vector(const Dimension& dims) : VectorBase(){
-		setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
-		if( dims.size() > 1) attr( "dim" ) = dims ;
+	SEXP_Vector(const Dimension& dims) : Base(){
+		Base::setSEXP( ::Rf_allocVector( RTYPE, dims.prod() ) ) ;
+		if( dims.size() > 1) Base::attr( "dim" ) = dims ;
 	}
 
 	template <typename InputIterator>
-	SEXP_Vector(InputIterator first, InputIterator last) : VectorBase() {
+	SEXP_Vector(InputIterator first, InputIterator last) : Base() {
 		assign( first, last ) ;
 	}
 	
 #ifdef HAS_INIT_LISTS
-	SEXP_Vector( std::initializer_list<SEXP> list) : VectorBase(){
+	SEXP_Vector( std::initializer_list<SEXP> list) : Base(){
 		assign( list.begin(), list.end() ) ;
 	} ;
 #endif
@@ -219,27 +220,27 @@ public:
 	}
     	
 	inline const Proxy operator[]( int i ) const throw(index_out_of_bounds){
-		return Proxy(const_cast<SEXP_Vector&>(*this), offset(i)) ;
+		return Proxy(const_cast<SEXP_Vector&>(*this), Base::offset(i)) ;
 	}
 	inline Proxy operator[]( int i ) throw(index_out_of_bounds){
-		return Proxy(*this, offset(i) ) ; 
+		return Proxy(*this, Base::offset(i) ) ; 
 	}
 	
 	inline iterator begin() { return iterator(*this, 0) ; }
-	inline iterator end() { return iterator(*this, size() ) ; }
+	inline iterator end() { return iterator(*this, Base::size() ) ; }
 	
 	Proxy operator()( const size_t& i) throw(index_out_of_bounds) {
-		return Proxy(*this, offset(i) ) ;
+		return Proxy(*this, Base::offset(i) ) ;
 	}
 	Proxy operator()( const size_t& i, const size_t& j) throw(index_out_of_bounds,not_a_matrix){
-		return Proxy(*this, offset(i,j) ) ;
+		return Proxy(*this, Base::offset(i,j) ) ;
 	}
 	
 	template <typename InputIterator>
 	void assign( InputIterator first, InputIterator last){
 		/* FIXME: we might not need the wrap if the object already 
 		          has the appropriate length */
-		setSEXP( r_cast<RTYPE>( wrap( first, last) ) ) ;
+		Base::setSEXP( r_cast<RTYPE>( wrap( first, last) ) ) ;
 	}
 	
 	template <typename WRAPPABLE>
@@ -310,15 +311,15 @@ private:
 	   not sure what to do
 	   */
 	void push_back_sexp( SEXP t, bool named, const std::string& name ){
-		if( isNULL() ){ 
+		if( Base::isNULL() ){ 
 			set_single( t, named, name );
 		} else {
-			push_middle_sexp( size(), t, named, name ) ;
+			push_middle_sexp( Base::size(), t, named, name ) ;
 		}
 	}
 	
 	void push_front_sexp( SEXP t, bool named, const std::string& name ){
-		if( isNULL() ){ 
+		if( Base::isNULL() ){ 
 			set_single( t, named, name );
 		} else {
 			push_middle_sexp( 0, t, named, name ) ;
@@ -326,19 +327,19 @@ private:
 	}
 	
 	void erase_single( int index ){
-		if( index >= size() || index < 0 ) throw RObject::index_out_of_bounds() ;
+		if( index >= Base::size() || index < 0 ) throw index_out_of_bounds() ;
 		
-		R_len_t n = size() ;
+		R_len_t n = Base::size() ;
 		SEXP x = PROTECT( Rf_allocVector( RTYPE, n-1 ) ) ;
 		R_len_t i=0 ;
 		for( ; i<index; i++){
-			SET_VECTOR_ELT( x, i, VECTOR_ELT(m_sexp, i ) ) ;
+			SET_VECTOR_ELT( x, i, VECTOR_ELT(Base::m_sexp, i ) ) ;
 		}
 		i++; /* skip the one we don't want */
 		for( ; i<n; i++){
-			SET_VECTOR_ELT( x, i-1, VECTOR_ELT(m_sexp, i ) ) ;
+			SET_VECTOR_ELT( x, i-1, VECTOR_ELT(Base::m_sexp, i ) ) ;
 		}
-		SEXP names = RCPP_GET_NAMES( m_sexp ) ;
+		SEXP names = RCPP_GET_NAMES( Base::m_sexp ) ;
 		if( names != R_NilValue ){
 			SEXP x_names = PROTECT( Rf_allocVector( STRSXP, n-1) );
 			for( i=0; i<index; i++){
@@ -351,25 +352,25 @@ private:
 			Rf_setAttrib( x, Rf_install("names"), x_names );
 			UNPROTECT(1) ; /* x_names */
 		} 
-		setSEXP( x ); 
+		Base::setSEXP( x ); 
 		UNPROTECT(1) ; /* x */
 	}
 	
 	void erase_range( int first, int last ){
 		if( first > last ) throw std::range_error("invalid range") ;
-		if( last >= size() || first < 0 ) throw RObject::index_out_of_bounds() ;
+		if( last >= Base::size() || first < 0 ) throw index_out_of_bounds() ;
 		
 		int range_size = last - first + 1 ;
-		R_len_t n = size() ;
+		R_len_t n = Base::size() ;
 		SEXP x = PROTECT( Rf_allocVector( RTYPE, n - range_size ) ) ;
 		R_len_t i=0 ;
 		for( ; i<first; i++){
-			SET_VECTOR_ELT( x, i, VECTOR_ELT(m_sexp, i ) ) ;
+			SET_VECTOR_ELT( x, i, VECTOR_ELT(Base::m_sexp, i ) ) ;
 		}
 		for( i=last+1; i<n; i++){
-			SET_VECTOR_ELT( x, i-range_size, VECTOR_ELT(m_sexp, i ) ) ;
+			SET_VECTOR_ELT( x, i-range_size, VECTOR_ELT(Base::m_sexp, i ) ) ;
 		}
-		SEXP names = RCPP_GET_NAMES( m_sexp ) ;
+		SEXP names = RCPP_GET_NAMES( Base::m_sexp ) ;
 		if( names != R_NilValue ){
 			SEXP x_names = PROTECT( Rf_allocVector( STRSXP, n-range_size) );
 			for( i=0; i<first; i++){
@@ -381,26 +382,26 @@ private:
 			Rf_setAttrib( x, Rf_install("names"), x_names );
 			UNPROTECT(1) ; /* x_names */
 		} 
-		setSEXP( x ); 
+		Base::setSEXP( x ); 
 		UNPROTECT(1) ; /* x */
 	}
 
 	
 	void push_middle_sexp( int index, SEXP t, bool named, const std::string& name ){
-		if( index > size() || index < 0 ) throw RObject::index_out_of_bounds() ;
+		if( index > Base::size() || index < 0 ) throw index_out_of_bounds() ;
 		PROTECT(t) ; /* just in case */
 		
-		R_len_t n = size() ;
+		R_len_t n = Base::size() ;
 		SEXP x = PROTECT( Rf_allocVector( RTYPE, n+1 ) ) ;
 		R_len_t i=0 ;
 		for( ; i<index; i++){
-			SET_VECTOR_ELT( x, i, VECTOR_ELT(m_sexp, i ) ) ;
+			SET_VECTOR_ELT( x, i, VECTOR_ELT(Base::m_sexp, i ) ) ;
 		}
 		SET_VECTOR_ELT( x, i, t ) ;
 		for( ; i<n; i++){
-			SET_VECTOR_ELT( x, i+1, VECTOR_ELT(m_sexp, i ) ) ;
+			SET_VECTOR_ELT( x, i+1, VECTOR_ELT(Base::m_sexp, i ) ) ;
 		}
-		SEXP names = RCPP_GET_NAMES( m_sexp ) ;
+		SEXP names = RCPP_GET_NAMES( Base::m_sexp ) ;
 		if( names != R_NilValue ){
 			SEXP x_names = PROTECT( Rf_allocVector( STRSXP, n+1) );
 			for( i=0; i<index; i++){
@@ -418,7 +419,7 @@ private:
 			Rf_setAttrib( x, Rf_install("names"), x_names );
 			UNPROTECT(1) ; /* x_names */
 		}
-		setSEXP( x ); 
+		Base::setSEXP( x ); 
 		UNPROTECT(2) ; /* t, x */
 	}
 
@@ -431,7 +432,7 @@ private:
 			Rf_setAttrib( x, Rf_install("names"), names) ;
 			UNPROTECT(1) ; /* names */
 		}
-		setSEXP( x ) ;
+		Base::setSEXP( x ) ;
 		UNPROTECT(1) ;
 	}
 	
