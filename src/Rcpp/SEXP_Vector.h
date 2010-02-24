@@ -35,8 +35,7 @@ namespace Rcpp{
 template <int RTYPE>
 class SEXP_Vector : public VectorBase< SEXP_Vector<RTYPE> > {
 public:
-	
-	class iterator ;
+	const static int r_type = RTYPE ;
 	class NameProxy ;
 	class Proxy ;
 	typedef VectorBase< SEXP_Vector<RTYPE> > Base ;
@@ -73,54 +72,17 @@ public:
 			UNPROTECT(1) ;
 		}
 		
-		friend class iterator ;
 	private:
 		SEXP_Vector& parent; 
+	public:
 		size_t index ;
 		inline void move(int n) { index += n ; }
+	private:
 		inline void set(SEXP x) { SET_VECTOR_ELT( parent, index, x ) ;} 
 		inline SEXP get() const { return VECTOR_ELT(parent, index ); } 
 	} ;
 	
-	class iterator {
-	public:
-		typedef Proxy& reference ;
-		typedef Proxy* pointer ;
-		typedef int difference_type ;
-		typedef Proxy value_type;
-		typedef std::random_access_iterator_tag iterator_category ;
-		
-		iterator( SEXP_Vector& object, int index ) : proxy(object,index){}
-		
-		inline iterator& operator++(){ proxy.move(1) ; return *this; }
-		inline iterator& operator++(int){ proxy.move(1) ; return *this; }
-		
-		inline iterator& operator--() { proxy.move(-1) ; return *this; }
-		inline iterator& operator--(int) { proxy.move(-1) ; return *this; }
-		                    
-		inline iterator operator+(difference_type n) const { return iterator( proxy.parent, proxy.index + n ) ; }
-		inline iterator operator-(difference_type n) const { return iterator( proxy.parent, proxy.index - n ) ; }
-		
-		inline iterator& operator+=(difference_type n) { proxy.move(n) ; return *this; }
-		inline iterator& operator-=(difference_type n) { proxy.move(-n) ; return *this; }
-
-		inline reference operator*() { return proxy ; }
-		inline pointer operator->(){ return &proxy ; }
-		
-		inline bool operator==( const iterator& y) { return this->proxy.index == y.proxy.index && this->proxy.parent == y.proxy.parent; }
-		inline bool operator!=( const iterator& y) { return this->proxy.index != y.proxy.index || this->proxy.parent != y.proxy.parent; }
-		inline bool operator< ( const iterator& y) { return this->proxy.index <  y.proxy.index ; }
-		inline bool operator> ( const iterator& y) { return this->proxy.index >  y.proxy.index ; }
-		inline bool operator<=( const iterator& y) { return this->proxy.index <= y.proxy.index ; }
-		inline bool operator>=( const iterator& y) { return this->proxy.index >= y.proxy.index ; }
-		
-		inline difference_type operator-(const iterator& y) { return this->proxy.index - y.proxy.index ; }
-		
-		inline int index(){ return proxy.index ; }
-		
-	private:
-		Proxy proxy ;
-	};
+	typedef internal::Proxy_Iterator<SEXP_Vector<RTYPE>,Proxy> iterator ;
 	
 	class NameProxy {
 	public:
@@ -168,7 +130,6 @@ public:
 	} ;
 	
 	friend class Proxy;
-	friend class iterator ;
 	friend class NameProxy ;
 	
 	typedef MatrixRow<SEXP_Vector> Row ;
@@ -192,14 +153,9 @@ public:
 		Base::setSEXP( y );
 	}
 	
-	SEXP_Vector(const size_t& size) : Base(){
-		Base::setSEXP( ::Rf_allocVector( RTYPE, size ) ) ;
-	}
+	SEXP_Vector(const size_t& size) : Base(size){}
 	
-	SEXP_Vector(const Dimension& dims) : Base(){
-		Base::setSEXP( ::Rf_allocVector( RTYPE, dims.prod() ) ) ;
-		if( dims.size() > 1) Base::attr( "dim" ) = dims ;
-	}
+	SEXP_Vector(const Dimension& dims) : Base(dims){}
 
 	template <typename InputIterator>
 	SEXP_Vector(InputIterator first, InputIterator last) : Base() {

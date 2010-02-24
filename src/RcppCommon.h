@@ -180,6 +180,7 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 #include <Rcpp/internal/wrap.h>
 
 #include <Rcpp/internal/ListInitialization.h>
+#include <Rcpp/internal/Proxy_Iterator.h>
 
 RcppExport SEXP RcppXPtrExample_create_external_pointer() ;
 RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP ); 

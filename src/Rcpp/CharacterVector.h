@@ -38,7 +38,8 @@ namespace Rcpp{
 class CharacterVector : public VectorBase<CharacterVector> {     
 public:
 
-	class iterator ;
+	const static int r_type = STRSXP ;
+	typedef VectorBase<CharacterVector> Base ;
 	
 	/**
 	 * Proxy object that can be used to get or set the value
@@ -102,53 +103,16 @@ public:
 		 */
 		friend std::ostream& operator<<(std::ostream& os, const StringProxy& proxy);
 		
-		friend class iterator ;
-		
 		void swap( StringProxy& other ) ;
-		
 	private:
 		CharacterVector& parent; 
+	public:	
 		int index ;
 		inline void move( int n ){ index += n ;}
+		
 	} ;
-
-	class iterator {
-	public:
-		typedef StringProxy& reference ;
-		typedef StringProxy* pointer ;
-		typedef int difference_type ;
-		typedef StringProxy value_type;
-		typedef std::random_access_iterator_tag iterator_category ;
-		
-		iterator( CharacterVector& object, int index );
-		
-		iterator& operator++(); // prefix
-		iterator& operator++(int); // postfix
-		
-		iterator& operator--(); // prefix
-		iterator& operator--(int); // postfix
-		                    
-		iterator operator+(difference_type n) const ;
-		iterator operator-(difference_type n) const ;
-		
-		iterator& operator+=(difference_type n) ;
-		iterator& operator-=(difference_type n) ;
-
-		reference operator*() ;
-		pointer operator->();
-		
-		bool operator==( const iterator& y) ;
-		bool operator!=( const iterator& y) ;
-		bool operator<( const iterator& other ) ;
-		bool operator>( const iterator& other ) ;
-		bool operator<=( const iterator& other ) ;
-		bool operator>=( const iterator& other ) ;
-		
-		difference_type operator-(const iterator& y) ;
-		
-	private:
-		StringProxy proxy ;
-	};
+	
+	typedef internal::Proxy_Iterator<CharacterVector,StringProxy> iterator ;
 	
 	typedef StringProxy value_type ;
 	typedef MatrixRow<CharacterVector> Row ;
@@ -213,7 +177,7 @@ public:
 	 * over std::string
 	 */
 	template <typename InputIterator>
-	CharacterVector( InputIterator first, InputIterator last): VectorBase<CharacterVector>() {
+	CharacterVector( InputIterator first, InputIterator last): Base() {
 		assign( first, last ) ;
 	}
 	
@@ -223,7 +187,7 @@ public:
 	 *
 	 * Example: CharacterVector x = { "foo", "bar" } ;
 	 */
-	CharacterVector( std::initializer_list<std::string> list ) : VectorBase() {
+	CharacterVector( std::initializer_list<std::string> list ) : Base() {
 		assign( list.begin(), list.end() ) ;
 	}
 #endif
