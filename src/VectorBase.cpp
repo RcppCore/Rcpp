@@ -20,6 +20,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <RcppCommon.h>
+#include <Rcpp/exceptions.h>
 #include <Rcpp/VectorBase.h>
 #include <Rcpp/CharacterVector.h>
 
@@ -29,7 +30,7 @@ namespace Rcpp{
 	VectorBase::~VectorBase(){}
 	
 	size_t VectorBase::offset( const size_t& i, const size_t& j) const throw(not_a_matrix,RObject::index_out_of_bounds) {
-		if( !Rf_isMatrix(m_sexp) ) throw VectorBase::not_a_matrix() ;
+		if( !Rf_isMatrix(m_sexp) ) throw not_a_matrix() ;
 		/* we need to extract the dimensions */
 		int *dim = INTEGER( Rf_getAttrib( m_sexp, R_DimSymbol ) ) ;
 		size_t nrow = static_cast<size_t>(dim[0]) ;

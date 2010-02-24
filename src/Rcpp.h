@@ -49,6 +49,7 @@
 
 #include <Rcpp/RObject.h>
 
+#include <Rcpp/exceptions.h>
 #include <Rcpp/clone.h>
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>

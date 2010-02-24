@@ -24,6 +24,7 @@
 
 #include <RcppCommon.h>
 #include <Rcpp/VectorBase.h>
+#include <Rcpp/exceptions.h>
 
 namespace Rcpp{
 
@@ -36,7 +37,7 @@ public:
 	typedef typename VECTOR::iterator iterator ;
 	
 	MatrixColumn( VECTOR& object, int i ) : parent(object), index(i){
-		if( ! ::Rf_isMatrix(parent) ) throw VectorBase::not_a_matrix() ;
+		if( ! ::Rf_isMatrix(parent) ) throw not_a_matrix() ;
 		if( i < 0 || i >= parent.ncol() ) throw RObject::index_out_of_bounds() ;
 	}
 	

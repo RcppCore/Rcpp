@@ -99,7 +99,7 @@ public:
 	inline reference operator()( const std::string& name) {
 		return start[ offset(name) ];
 	}
-	inline reference operator()( const size_t& i, const size_t& j) throw(VectorBase::not_a_matrix,RObject::index_out_of_bounds){
+	inline reference operator()( const size_t& i, const size_t& j) throw(not_a_matrix,RObject::index_out_of_bounds){
 		return start[ offset(i,j) ] ;
 	}
 	
