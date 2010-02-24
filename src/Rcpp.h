@@ -53,6 +53,7 @@
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>
 #include <Rcpp/VectorBase.h>
+#include <Rcpp/MatrixRow.h>
 #include <Rcpp/SimpleVector.h>
 #include <Rcpp/SEXP_Vector.h>
 #include <Rcpp/XPtr.h>

@@ -1,3 +1,17 @@
+2010-02-24  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/MatrixRow.h : Row has been factored out of SimpleVector
+	into a separate template class Rcpp::MatrixRow
+	
+	* src/Rcpp/SimpleVector.h: gains a row method that returns 
+	a SimpleVector::Row, aka MatrixRow<SimpleVector>
+	
+	* src/Rcpp/CharacterVector.h : gains a row method that returns
+	a CharacterVector::Row, aka MatrixRow<CharacterVector>
+	
+	* src/Rcpp/SEXP_Vector.h : gains a row method that returns 
+	a SEXP_Vector::Row aka MatrixRow<SEXP_Vector>
+
 2010-02-23  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/SimpleVector.h: added the class SimpleVector::Row
