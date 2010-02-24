@@ -50,6 +50,14 @@ public:
      */
     inline R_len_t size() const { return ::Rf_length( m_sexp ) ; }
 
+    	inline int ncol(){
+		return dims()[1]; 
+	}
+	
+	inline int nrow(){
+		return dims()[0]; 
+	}
+	
     /**
      * offset based on the dimensions of this vector
      */
@@ -90,6 +98,14 @@ public:
 	} ;
     	
     NamesProxy names() const ;
+    
+private:
+		
+	inline int* dims(){
+		if( !::Rf_isMatrix(m_sexp) ) throw VectorBase::not_a_matrix() ;
+		return INTEGER( ::Rf_getAttrib( m_sexp, ::Rf_install( "dim") ) ) ;
+	}
+	
 } ;
 
 } // namespace

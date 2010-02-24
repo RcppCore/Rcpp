@@ -24,6 +24,7 @@
 
 #include <RcppCommon.h>
 #include <Rcpp/VectorBase.h>
+#include <Rcpp/MatrixRow.h>
 #include <Rcpp/Environment.h>
 #include <Rcpp/Dimension.h>
 
@@ -31,7 +32,6 @@ namespace Rcpp{
 
 class SEXP_Vector_Base : public VectorBase {
 public:
-	
 	class iterator ;
 	class NameProxy ;
 	
@@ -115,6 +115,9 @@ public:
 template <int RTYPE>
 class SEXP_Vector : public SEXP_Vector_Base{
 public:
+	typedef MatrixRow<SEXP_Vector> Row ;
+	typedef Proxy reference ;
+	typedef Proxy value_type ;
 	
 	class NameProxy {
 	public:
@@ -280,6 +283,8 @@ public:
 		erase_range(first, last ) ;
 		return iterator( *this, first ) ;
 	}
+	
+	inline Row row( int i){ return Row(*this, i ) ; }
 	
 private:
 	

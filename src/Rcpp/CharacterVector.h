@@ -24,6 +24,7 @@
 
 #include <RcppCommon.h>
 #include <Rcpp/VectorBase.h>
+#include <Rcpp/MatrixRow.h>
 #include <Rcpp/Dimension.h>
 #include <Rcpp/r_cast.h>
 
@@ -148,6 +149,8 @@ public:
 	};
 	
 	typedef StringProxy value_type ;
+	typedef MatrixRow<CharacterVector> Row ;
+	typedef StringProxy reference ;
 	
 	/**
 	 * Default constructor. Sets the underlying object to NULL
@@ -280,6 +283,10 @@ public:
 		if( update ) setSEXP(x) ;
 	}
 
+	inline Row row( int i){
+		return Row(*this, i ) ;
+	}
+	
 } ;
 
 typedef CharacterVector StringVector ;
