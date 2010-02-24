@@ -24,7 +24,7 @@ test.NumericMatrix.column <- function(){
 		return wrap( std::accumulate( col.begin(), col.end(), 0.0 ) ) ;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	x <- matrix( 1:16 + .5, ncol = 4 )
-	checkEquals( funx( x ), sum( x[,1], msg = "iterating over a column" )
+	checkEquals( funx( x ), sum( x[,1] ) , msg = "iterating over a column" )
 }
 
 test.NumericMatrix.column.operator.equal <- function(){
@@ -51,7 +51,7 @@ test.CharacterMatrix.column <- function(){
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	
 	m <- matrix( letters, ncol = 2 )
-	checkEquals( funx(m), paste( m[1,], collapse = "" ), msg = "CharacterVector::Column" )
+	checkEquals( funx(m), paste( m[,1], collapse = "" ), msg = "CharacterVector::Column" )
 }
 
 test.List.column <- function(){

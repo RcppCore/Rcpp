@@ -28,7 +28,7 @@ namespace traits{
 
 template <typename T> class Exporter{
 public:
-	Exporter( SEXP x ) : T(x){}
+	Exporter( SEXP x ) : t(x){}
 	inline T get(){ return t ; }
 
 private:
