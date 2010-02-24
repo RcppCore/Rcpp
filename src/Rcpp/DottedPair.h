@@ -23,6 +23,7 @@
 #define Rcpp_DottedPair_h
 
 #include <RcppCommon.h>
+#include <Rcpp/exceptions.h>
 
 #include <Rcpp/Symbol.h>
 #include <Rcpp/grow.h>

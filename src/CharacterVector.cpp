@@ -24,9 +24,9 @@
 
 namespace Rcpp{
 
-CharacterVector::CharacterVector() : VectorBase(){}
+CharacterVector::CharacterVector() : VectorBase<CharacterVector>(){}
 
-CharacterVector::CharacterVector(const CharacterVector& other) : VectorBase(){
+CharacterVector::CharacterVector(const CharacterVector& other) : VectorBase<CharacterVector>(){
 	setSEXP( other.asSexp() ); 
 }
 
@@ -35,24 +35,24 @@ CharacterVector& CharacterVector::operator=(const CharacterVector& other ){
 	return *this ;
 }
 
-CharacterVector::CharacterVector(SEXP x) throw(not_compatible) : VectorBase() {
+CharacterVector::CharacterVector(SEXP x) throw(not_compatible) : VectorBase<CharacterVector>() {
 	SEXP y = r_cast<STRSXP>( x) ;
 	setSEXP( y ) ;
 }
 
-CharacterVector::CharacterVector(const size_t& size) : VectorBase(){
+CharacterVector::CharacterVector(const size_t& size) : VectorBase<CharacterVector>(){
 	setSEXP( Rf_allocVector( STRSXP, size ) ) ;
 }
 
-CharacterVector::CharacterVector( const std::string& x) : VectorBase() {
+CharacterVector::CharacterVector( const std::string& x) : VectorBase<CharacterVector>() {
 	setSEXP( Rf_mkString(x.c_str()) ) ;
 }
 
-CharacterVector::CharacterVector( const std::vector<std::string>& x): VectorBase() {
+CharacterVector::CharacterVector( const std::vector<std::string>& x): VectorBase<CharacterVector>() {
 	assign( x.begin(), x.end() ) ;
 }
 
-CharacterVector::CharacterVector( const Dimension& dims): VectorBase(){
+CharacterVector::CharacterVector( const Dimension& dims): VectorBase<CharacterVector>(){
 	setSEXP( Rf_allocVector( STRSXP, dims.prod() ) ) ;
 	if( dims.size() > 1 ) attr( "dim" ) = dims ;
 }

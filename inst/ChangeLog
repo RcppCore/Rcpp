@@ -1,5 +1,11 @@
 2010-02-24  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/exceptions.h: some exception classes factored out 
+	
+	* src/Rcpp/VectorBase.h: now a template, using the 
+	Curiously recurring template pattern (the type parameter is
+	the derived class)
+
 	* src/Rcpp/SEXP_Vector.h: the intermediate class 
 	SEXP_Vector_Base is removed, reverting the change on 
 	2010-02-09. This will facilitate the introduction of the 

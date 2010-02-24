@@ -38,7 +38,7 @@ public:
 	
 	MatrixColumn( VECTOR& object, int i ) : parent(object), index(i){
 		if( ! ::Rf_isMatrix(parent) ) throw not_a_matrix() ;
-		if( i < 0 || i >= parent.ncol() ) throw RObject::index_out_of_bounds() ;
+		if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
 	}
 	
 	MatrixColumn( const MatrixColumn& other ) : parent(other.parent), index(other.index){} ;

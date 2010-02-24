@@ -32,41 +32,42 @@
 namespace Rcpp{
 
 template <int RTYPE>
-class SimpleVector : public VectorBase {
+class SimpleVector : public VectorBase< SimpleVector<RTYPE> > {
 public:
 	
+	typedef VectorBase< SimpleVector<RTYPE> > Base ;
 	typedef typename traits::storage_type<RTYPE>::type value_type ;
 	typedef value_type* iterator ;
 	typedef value_type& reference ;
 	typedef MatrixRow<SimpleVector> Row ;
 	typedef MatrixColumn<SimpleVector> Column ;
 	
-	SimpleVector() : VectorBase(), start(0){}
+	SimpleVector() : Base(), start(0){}
 	
-	SimpleVector(SEXP x) throw(RObject::not_compatible) : VectorBase(), start(0){
+	SimpleVector(SEXP x) throw(RObject::not_compatible) : Base(), start(0){
 		SEXP y = r_cast<RTYPE>( x ) ;
-		setSEXP( y );
+		Base::setSEXP( y );
 	}
 	
-	SimpleVector( const size_t& size){
-		setSEXP( Rf_allocVector( RTYPE, size) ) ;
+	SimpleVector( const size_t& size) :Base() {
+		Base::setSEXP( Rf_allocVector( RTYPE, size) ) ;
 		init() ;
 	}
 	
-	SimpleVector( const Dimension& dims){
-		setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
+	SimpleVector( const Dimension& dims) : Base() {
+		Base::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
 		init() ;
 		if( dims.size() > 1 ){
-			attr( "dim" ) = dims ;
+			Base::attr( "dim" ) = dims ;
 		}
 	}
 	
-	SimpleVector( const SimpleVector& other) : VectorBase() {
-		setSEXP( other.asSexp() ) ;
+	SimpleVector( const SimpleVector& other) : Base() {
+		Base::setSEXP( other.asSexp() ) ;
 	}
 	
 	SimpleVector& operator=(const SimpleVector& other){
-		setSEXP( other.asSexp() ) ;
+		Base::setSEXP( other.asSexp() ) ;
 		return *this ;
 	}
 	
@@ -76,31 +77,31 @@ public:
 	}
 	
 	template <typename InputIterator>
-	SimpleVector( InputIterator first, InputIterator last) : VectorBase(), start(){
+	SimpleVector( InputIterator first, InputIterator last) : Base(), start(){
 		assign( first, last ) ;
 	}
 	
 #ifdef HAS_INIT_LISTS
-	SimpleVector( std::initializer_list<value_type> list ) : VectorBase(), start(0){
+	SimpleVector( std::initializer_list<value_type> list ) : Base(), start(0){
 		assign( list.begin() , list.end() ) ;
 	}
 #endif
 
 	inline reference operator[]( const int& i ){ return start[i] ; }
 	inline reference operator[]( const std::string& name) {
-		return start[ offset(name) ];
+		return start[ Base::offset(name) ];
 	}
 	inline iterator begin() const{ return start ; }
-	inline iterator end() const{ return start+Rf_length(m_sexp); }
+	inline iterator end() const{ return start+Rf_length(Base::m_sexp); }
 	
-	inline reference operator()( const size_t& i) throw(RObject::index_out_of_bounds){
-		return start[ offset(i) ] ;
+	inline reference operator()( const size_t& i) throw(index_out_of_bounds){
+		return start[ Base::offset(i) ] ;
 	}
 	inline reference operator()( const std::string& name) {
-		return start[ offset(name) ];
+		return start[ Base::offset(name) ];
 	}
-	inline reference operator()( const size_t& i, const size_t& j) throw(not_a_matrix,RObject::index_out_of_bounds){
-		return start[ offset(i,j) ] ;
+	inline reference operator()( const size_t& i, const size_t& j) throw(not_a_matrix,index_out_of_bounds){
+		return start[ Base::offset(i,j) ] ;
 	}
 	
 	template <typename InputIterator>
@@ -109,7 +110,7 @@ public:
 		          allocating an unnecessary temporary object
 		 */
 		SEXP x = PROTECT( r_cast<RTYPE>( wrap( first, last ) ) );
-		setSEXP( x) ;
+		Base::setSEXP( x) ;
 		UNPROTECT(1) ;
 	}
 	
@@ -118,11 +119,11 @@ public:
 
 protected:
 	void init(){
-		internal::r_init_vector<RTYPE>(m_sexp) ;
+		internal::r_init_vector<RTYPE>(Base::m_sexp) ;
 	}
 	
 	void update_vector(){
-		start = internal::r_vector_start<RTYPE,value_type>(m_sexp) ;
+		start = internal::r_vector_start<RTYPE,value_type>(Base::m_sexp) ;
 	}
 	
 private:
