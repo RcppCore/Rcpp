@@ -25,6 +25,7 @@
 #include <RcppCommon.h>
 #include <Rcpp/VectorBase.h>
 #include <Rcpp/MatrixRow.h>
+#include <Rcpp/MatrixColumn.h>
 #include <Rcpp/Environment.h>
 #include <Rcpp/Dimension.h>
 
@@ -116,6 +117,7 @@ template <int RTYPE>
 class SEXP_Vector : public SEXP_Vector_Base{
 public:
 	typedef MatrixRow<SEXP_Vector> Row ;
+	typedef MatrixColumn<SEXP_Vector> Column ;
 	typedef Proxy reference ;
 	typedef Proxy value_type ;
 	
@@ -285,6 +287,7 @@ public:
 	}
 	
 	inline Row row( int i){ return Row(*this, i ) ; }
+	inline Column column( int i){ return Column(*this, i ) ; }
 	
 private:
 	

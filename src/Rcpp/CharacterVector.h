@@ -25,6 +25,7 @@
 #include <RcppCommon.h>
 #include <Rcpp/VectorBase.h>
 #include <Rcpp/MatrixRow.h>
+#include <Rcpp/MatrixColumn.h>
 #include <Rcpp/Dimension.h>
 #include <Rcpp/r_cast.h>
 
@@ -150,6 +151,7 @@ public:
 	
 	typedef StringProxy value_type ;
 	typedef MatrixRow<CharacterVector> Row ;
+	typedef MatrixColumn<CharacterVector> Column ;
 	typedef StringProxy reference ;
 	
 	/**
@@ -283,10 +285,9 @@ public:
 		if( update ) setSEXP(x) ;
 	}
 
-	inline Row row( int i){
-		return Row(*this, i ) ;
-	}
-	
+	inline Row row( int i ){ return Row( *this, i ) ; }
+	inline Column column( int i ){ return Column( *this, i ) ; }
+
 } ;
 
 typedef CharacterVector StringVector ;
