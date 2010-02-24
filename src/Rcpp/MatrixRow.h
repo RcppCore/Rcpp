@@ -85,6 +85,14 @@ public:
 		if( i < 0 || i >= parent.nrow() ) throw RObject::index_out_of_bounds() ;
 	}
 	
+	MatrixRow( const MatrixRow& other ) : parent(other.parent), index(other.index){} ;
+	                          
+	MatrixRow& operator=( MatrixRow& other ){
+		if( other.size() != size() ) throw std::range_error( "not compatible" ) ;
+		std::copy( other.begin(), other.end(), begin() ) ;
+		return *this ;
+	}
+	
 	reference operator[]( const int& i ){
 		/* TODO: should we cache nrow and ncol */
 		return parent[ index + i * parent.nrow() ] ;
@@ -98,7 +106,7 @@ public:
 		return iterator( *this, size() ) ;
 	}
 	
-	inline int size(){
+	inline int size() const {
 		return parent.ncol() ;
 	}
 	
