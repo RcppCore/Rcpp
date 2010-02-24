@@ -61,13 +61,6 @@ public:
    			virtual const char* what() const throw() ;
    	} ;
    	
-   	class index_out_of_bounds: public std::exception{
-   	public:
-   		index_out_of_bounds() throw(){};
-   		virtual ~index_out_of_bounds() throw(){};
-   		virtual const char* what() const throw() ;
-   	} ;
-   	
     /**
      * default constructor. uses R_NilValue
      */ 

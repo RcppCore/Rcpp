@@ -29,51 +29,77 @@
 
 namespace Rcpp{ 
 
+template <typename VECTOR>
 class VectorBase : public RObject {     
 public:
 	
-    VectorBase() ;
-    virtual ~VectorBase() ;
-
+    VectorBase() : RObject(){} ;
+    virtual ~VectorBase(){};
+    
     /**
      * the length of the vector, uses Rf_length
      */
     inline R_len_t length() const { return ::Rf_length( m_sexp ) ; }
-
+    
     /**
      * alias of length
      */
     inline R_len_t size() const { return ::Rf_length( m_sexp ) ; }
-
-    	inline int ncol(){
-		return dims()[1]; 
-	}
-	
-	inline int nrow(){
-		return dims()[0]; 
-	}
+    
+    inline int ncol(){
+    	return dims()[1]; 
+    }
+    
+    inline int nrow(){
+    	return dims()[0]; 
+    }
 	
     /**
      * offset based on the dimensions of this vector
      */
-    size_t offset(const size_t& i, const size_t& j) const throw(not_a_matrix,RObject::index_out_of_bounds) ;
+    size_t offset(const size_t& i, const size_t& j) const throw(not_a_matrix,index_out_of_bounds){
+    	if( !Rf_isMatrix(m_sexp) ) throw not_a_matrix() ;
+	/* we need to extract the dimensions */
+	int *dim = INTEGER( Rf_getAttrib( m_sexp, R_DimSymbol ) ) ;
+	size_t nrow = static_cast<size_t>(dim[0]) ;
+	size_t ncol = static_cast<size_t>(dim[1]) ;
+	if( i >= nrow || j >= ncol ) throw index_out_of_bounds() ;
+	return i + nrow*j ;
+    }
     
     /**
      * one dimensional offset doing bounds checking to ensure
      * it is valid
      */
-    size_t offset(const size_t& i) const throw(RObject::index_out_of_bounds);
+    size_t offset(const size_t& i) const throw(index_out_of_bounds){
+	if( static_cast<R_len_t>(i) >= Rf_length(m_sexp) ) throw index_out_of_bounds() ;
+	return i ;
+    }
     
-    R_len_t offset(const std::string& name) const throw(RObject::index_out_of_bounds) ;
+    R_len_t offset(const std::string& name) const throw(index_out_of_bounds){
+    	SEXP names = RCPP_GET_NAMES( m_sexp ) ;
+    	if( names == R_NilValue ) throw index_out_of_bounds(); 
+    	R_len_t n=size() ;
+    	for( R_len_t i=0; i<n; ++i){
+    		if( ! name.compare( CHAR(STRING_ELT(names, i)) ) ){
+    			return i ;
+    		}
+    	}
+    	throw index_out_of_bounds() ;
+    	return -1 ; /* -Wall */
+    }
     
     /* TODO: 3 dimensions, ... n dimensions through variadic templates */
     
     class NamesProxy {
 	public:
-		NamesProxy( const VectorBase& v) ;
+		NamesProxy( const VectorBase& v) : parent(v){} ;
 	
 		/* lvalue uses */
-		NamesProxy& operator=(const NamesProxy& rhs) ;
+		NamesProxy& operator=(const NamesProxy& rhs) {
+			set( rhs.get() ) ;
+			return *this ;
+    		}
 	
 		template <typename T>
 		NamesProxy& operator=(const T& rhs){
@@ -88,11 +114,29 @@ public:
 	private:
 		const VectorBase& parent; 
 		
-		SEXP get() const ;
-		void set(SEXP x) const;
+		SEXP get() const {
+			return RCPP_GET_NAMES(parent) ;
+		}
+		
+		void set(SEXP x) const {
+			SEXP new_vec = PROTECT( internal::try_catch( 
+			Rf_lcons( Rf_install("names<-"), 
+					Rf_cons( parent, Rf_cons( x , R_NilValue) )))) ;
+			/* names<- makes a new vector, so we have to change 
+			   the SEXP of the parent of this proxy, it might be 
+			   worth to work directly with the names attribute instead
+			   of using the names<- R function, but then we need to 
+			   take care of coercion, recycling, etc ... we cannot just 
+			   brutally assign the names attribute */
+			const_cast<VectorBase&>(parent).setSEXP( new_vec ) ;
+			UNPROTECT(1) ; /* new_vec */
+    		}
+    		
 	} ;
     	
-    NamesProxy names() const ;
+	NamesProxy names() const {
+		return NamesProxy(*this) ;
+	}
     
 private:
 		

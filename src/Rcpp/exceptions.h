@@ -30,7 +30,15 @@ class not_a_matrix : public std::exception{
 		virtual ~not_a_matrix() throw() {} ;
 		virtual const char* what() const throw() { return "not a matrix" ; };
 	} ;
-  
+
+class index_out_of_bounds: public std::exception{
+   	public:
+   		index_out_of_bounds() throw(){};
+   		virtual ~index_out_of_bounds() throw(){};
+   		virtual const char* what() const throw(){ return "index out of bounds" ; } ;
+   	} ;
+   		
+	
 } // namesapce Rcpp
 
 #endif
