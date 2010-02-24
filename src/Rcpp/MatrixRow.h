@@ -19,8 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_Row_h
-#define Rcpp_Row_h
+#ifndef Rcpp__MatrixRow_h
+#define Rcpp__MatrixRow_h
 
 #include <RcppCommon.h>
 #include <Rcpp/VectorBase.h>

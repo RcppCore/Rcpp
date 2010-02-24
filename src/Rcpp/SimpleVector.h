@@ -24,6 +24,7 @@
 
 #include <RcppCommon.h>
 #include <Rcpp/MatrixRow.h>
+#include <Rcpp/MatrixColumn.h>
 #include <Rcpp/VectorBase.h>
 #include <Rcpp/r_cast.h>
 #include <Rcpp/Dimension.h>
@@ -38,6 +39,7 @@ public:
 	typedef value_type* iterator ;
 	typedef value_type& reference ;
 	typedef MatrixRow<SimpleVector> Row ;
+	typedef MatrixColumn<SimpleVector> Column ;
 	
 	SimpleVector() : VectorBase(), start(0){}
 	
@@ -111,9 +113,8 @@ public:
 		UNPROTECT(1) ;
 	}
 	
-	inline Row row( int i ){
-		return Row( *this, i ) ;
-	}
+	inline Row row( int i ){ return Row( *this, i ) ; }
+	inline Column column( int i ){ return Column( *this, i ) ; }
 
 protected:
 	void init(){
