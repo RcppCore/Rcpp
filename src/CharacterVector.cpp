@@ -20,6 +20,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <Rcpp/CharacterVector.h>
+#include <Rcpp/exceptions.h>
 
 namespace Rcpp{
 

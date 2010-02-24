@@ -23,6 +23,7 @@
 #define Rcpp_VectorBase_h
 
 #include <RcppCommon.h>
+#include <Rcpp/exceptions.h>
 #include <Rcpp/RObject.h>
 #include <Rcpp/r_cast.h>
 
@@ -30,13 +31,7 @@ namespace Rcpp{
 
 class VectorBase : public RObject {     
 public:
-	class not_a_matrix : public std::exception{
-	public:
-		not_a_matrix(){} ;
-		virtual ~not_a_matrix() throw() {} ;
-		virtual const char* what() const throw() { return "not a matrix" ; };
-	} ;
-  
+	
     VectorBase() ;
     virtual ~VectorBase() ;
 
@@ -102,7 +97,7 @@ public:
 private:
 		
 	inline int* dims(){
-		if( !::Rf_isMatrix(m_sexp) ) throw VectorBase::not_a_matrix() ;
+		if( !::Rf_isMatrix(m_sexp) ) throw not_a_matrix() ;
 		return INTEGER( ::Rf_getAttrib( m_sexp, ::Rf_install( "dim") ) ) ;
 	}
 	

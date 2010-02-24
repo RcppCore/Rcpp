@@ -23,6 +23,7 @@
 #define Rcpp__MatrixRow_h
 
 #include <RcppCommon.h>
+#include <Rcpp/exceptions.h>
 #include <Rcpp/VectorBase.h>
 
 namespace Rcpp{
@@ -81,7 +82,7 @@ public:
 	} ;
 	
 	MatrixRow( VECTOR& object, int i ) : parent(object), index(i){
-		if( ! ::Rf_isMatrix(parent) ) throw VectorBase::not_a_matrix() ;
+		if( ! ::Rf_isMatrix(parent) ) throw not_a_matrix() ;
 		if( i < 0 || i >= parent.nrow() ) throw RObject::index_out_of_bounds() ;
 	}
 	
