@@ -43,13 +43,21 @@ public:
 	
 	SimpleVector() : Base(), start(0){}
 	
-	SimpleVector(SEXP x) throw(RObject::not_compatible) : Base(x){}
+	SimpleVector(SEXP x) throw(RObject::not_compatible) : Base(x), start(0) {
+		update_vector() ;
+	}
 	
-	SimpleVector( const size_t& size) : Base(size) {}
+	SimpleVector( const size_t& size) : Base(size), start(0) {
+		update_vector() ;
+	}
 	
-	SimpleVector( const Dimension& dims) : Base(dims) {}
+	SimpleVector( const Dimension& dims) : Base(dims), start(0) {
+		update_vector() ;
+	}
 	
-	SimpleVector( const SimpleVector& other) : Base( other.asSexp() ) {}
+	SimpleVector( const SimpleVector& other) : Base( other.asSexp() ), start(0) {
+		update_vector() ;
+	}
 	
 	SimpleVector& operator=(const SimpleVector& other){
 		Base::setSEXP( other.asSexp() ) ;
@@ -62,7 +70,7 @@ public:
 	}
 	
 	template <typename InputIterator>
-	SimpleVector( InputIterator first, InputIterator last) : Base(), start(){
+	SimpleVector( InputIterator first, InputIterator last) : Base(), start(0){
 		assign( first, last ) ;
 	}
 	
@@ -97,6 +105,7 @@ public:
 		SEXP x = PROTECT( r_cast<RTYPE>( wrap( first, last ) ) );
 		Base::setSEXP( x) ;
 		UNPROTECT(1) ;
+		update_vector() ;
 	}
 	
 	
