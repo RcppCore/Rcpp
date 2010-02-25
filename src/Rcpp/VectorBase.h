@@ -45,9 +45,11 @@ namespace traits{
 namespace internal{
 	
 	template <int RTYPE> class VectorElement_Proxy {} ;
+	template<> class VectorElement_Proxy<STRSXP> ;
+	
+	/* not used yet */
 	template<> class VectorElement_Proxy<VECSXP> ;
 	template<> class VectorElement_Proxy<EXPRSXP> ;
-	template<> class VectorElement_Proxy<STRSXP> ;
 	
 }
 
