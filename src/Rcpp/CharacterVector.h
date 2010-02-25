@@ -32,20 +32,11 @@
 
 namespace Rcpp{ 
 
-/**
- * Representation of character vectors (STRSXP)
- */
-class CharacterVector : public VectorBase<CharacterVector> {     
-public:
-
-	const static int r_type = STRSXP ;
-	typedef VectorBase<CharacterVector> Base ;
+	class CharacterVector ;
 	
-	/**
-	 * Proxy object that can be used to get or set the value
-	 * a single value of the character vector
-	 */
-	class StringProxy {
+namespace internal{
+	
+	template<> class VectorElement_Proxy<STRSXP>{
 	public:
 		/**
 		 * Creates a proxy
@@ -53,8 +44,8 @@ public:
 		 * @param v reference to the associated character vector
 		 * @param index index 
 		 */
-		StringProxy( CharacterVector& v, int index ) ;
-		StringProxy( const StringProxy& other ) ;
+		VectorElement_Proxy( CharacterVector& v, int index ) ;
+		VectorElement_Proxy( const VectorElement_Proxy& other ) ;
 		
 		/**
 		 * lhs use. Assign the value of the referred element to 
@@ -63,7 +54,7 @@ public:
 		 *
 		 * @param rhs another proxy, possibly from another vector
 		 */
-		StringProxy& operator=(const StringProxy& rhs) ;
+		VectorElement_Proxy& operator=(const VectorElement_Proxy& rhs) ;
 		
 		/**
 		 * lhs use. Assigns the value of the referred element
@@ -71,18 +62,18 @@ public:
 		 *
 		 * @param rhs new content for the element referred by this proxy
 		 */
-		StringProxy& operator=(const std::string& rhs) ;
+		VectorElement_Proxy& operator=(const std::string& rhs) ;
 		
 		/**
 		 * lhs use. Adds the content of the rhs proxy to the 
 		 * element this proxy refers to.
 		 */
-		StringProxy& operator+=(const StringProxy& rhs) ;
+		VectorElement_Proxy& operator+=(const VectorElement_Proxy& rhs) ;
 		
 		/**
 		 * lhs use. Adds the string to the element this proxy refers to
 		 */
-		StringProxy& operator+=(const std::string& rhs) ;
+		VectorElement_Proxy& operator+=(const std::string& rhs) ;
 		
 		/**
 		 * rhs use. Retrieves the current value of the 
@@ -101,23 +92,37 @@ public:
 		 * Prints the element this proxy refers to to an 
 		 * output stream
 		 */
-		friend std::ostream& operator<<(std::ostream& os, const StringProxy& proxy);
+		friend std::ostream& operator<<(std::ostream& os, const VectorElement_Proxy& proxy);
 		
-		void swap( StringProxy& other ) ;
+		void swap( VectorElement_Proxy& other ) ;
+		friend class CharacterVector ;
+		
 	private:
 		CharacterVector& parent; 
 	public:	
 		int index ;
 		inline void move( int n ){ index += n ;}
-		
 	} ;
 	
-	typedef internal::Proxy_Iterator<CharacterVector,StringProxy> iterator ;
+}
 	
-	typedef StringProxy value_type ;
+	
+/**
+ * Representation of character vectors (STRSXP)
+ */
+class CharacterVector : public VectorBase<CharacterVector> {     
+public:
+
+	const static int r_type = STRSXP ;
+	typedef VectorBase<CharacterVector> Base ;
+	
+	typedef internal::VectorElement_Proxy<STRSXP> Proxy ;
+	typedef internal::Proxy_Iterator<CharacterVector,Proxy> iterator ;
+	
+	typedef Proxy value_type ;
 	typedef MatrixRow<CharacterVector> Row ;
 	typedef MatrixColumn<CharacterVector> Column ;
-	typedef StringProxy reference ;
+	typedef Proxy reference ;
 	
 	/**
 	 * Default constructor. Sets the underlying object to NULL
@@ -196,19 +201,17 @@ public:
 	 * Returns a proxy to the given element of the character vector
 	 * The proxy can then be used to get or set the undelting value
 	 */
-	const StringProxy operator[]( int i ) const throw(index_out_of_bounds);
+	const Proxy operator[]( int i ) const throw(index_out_of_bounds);
 	
 	/**
 	 * Returns a proxy to the given element of the character vector
 	 * The proxy can then be used to get or set the undelting value
 	 */
-	StringProxy operator[]( int i ) throw(index_out_of_bounds);
+	Proxy operator[]( int i ) throw(index_out_of_bounds);
 
-	const StringProxy operator[]( const std::string& name) const throw(index_out_of_bounds); 
-	StringProxy operator[]( const std::string& name ) throw(index_out_of_bounds);
+	const Proxy operator[]( const std::string& name) const throw(index_out_of_bounds); 
+	Proxy operator[]( const std::string& name ) throw(index_out_of_bounds);
 
-	friend class StringProxy;
-	
 	/* '(' indexing */
 	/**
 	 * Returns a proxy to the given element of the character vector
@@ -216,7 +219,7 @@ public:
 	 *
 	 * @throw index_out_of_bounds when the given index is invalid
 	 */
-	StringProxy operator()( const size_t& i) throw(index_out_of_bounds) ;
+	Proxy operator()( const size_t& i) throw(index_out_of_bounds) ;
 	
 	/**
 	 * Returns a proxy to the given element of the character vector, 
@@ -227,7 +230,7 @@ public:
 	 * @throw not_a_matrix if the underlying object is not a matrix
 	 * @throw index_out_of_bounds when the given indices do not produce a valid offset
 	 */
-	StringProxy operator()( const size_t& i, const size_t& j) throw(index_out_of_bounds,not_a_matrix) ;
+	Proxy operator()( const size_t& i, const size_t& j) throw(index_out_of_bounds,not_a_matrix) ;
 
 	inline iterator begin() { return iterator(*this, 0 ) ; }
 	
@@ -257,12 +260,14 @@ public:
 
 typedef CharacterVector StringVector ;
 
-std::string operator+( const std::string& x, const CharacterVector::StringProxy& y ) ;
+std::string operator+( const std::string& x, const Rcpp::internal::VectorElement_Proxy<STRSXP>& y ) ;
 
 } // namespace
 
 namespace std{
-	template<> void swap<Rcpp::CharacterVector::StringProxy>(Rcpp::CharacterVector::StringProxy& a, Rcpp::CharacterVector::StringProxy& b) ;
+	template<> void swap< Rcpp::internal::VectorElement_Proxy<STRSXP> >(
+		Rcpp::internal::VectorElement_Proxy<STRSXP>& a, 
+		Rcpp::internal::VectorElement_Proxy<STRSXP>& b) ;
 }
 
 

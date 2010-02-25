@@ -27,20 +27,6 @@ test.NumericMatrix.row <- function(){
 	checkEquals( funx( x ), sum( x[1,] ), msg = "iterating over a row" )
 }
 
-test.NumericMatrix.row.operator.equal <- function(){
-	funx <- cfunction(signature(x = "matrix" ), '
-		NumericMatrix m(x) ;
-		NumericMatrix::Row first  = m.row(0) ;
-		NumericMatrix::Row second = m.row(1) ;
-		first = second ;
-		return R_NilValue ;
-	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
-	x <- matrix( 1:16 + .5, ncol = 4 )
-	funx( x )
-	checkEquals( x[1,], x[2,], msg = "row(0) = row(1)" )
-}
-
-
 test.CharacterMatrix.row <- function(){
 	funx <- cfunction(signature(x = "matrix" ), '
 		CharacterVector m(x) ;
