@@ -128,11 +128,15 @@ void internal::VectorElement_Proxy<STRSXP>::swap( VectorElement_Proxy& other){
 	UNPROTECT(1) ;
 }
 
-} // namespace Rcpp
+namespace internal{
 
-std::string operator+( const std::string& x, const Rcpp::internal::VectorElement_Proxy<STRSXP>& y ){
+std::string operator+( const std::string& x, const VectorElement_Proxy<STRSXP>& y ){
 	return x + static_cast<const char*>(y) ;
 }
+	
+}
+} // namespace Rcpp
+
 
 namespace std{
 	template<> 

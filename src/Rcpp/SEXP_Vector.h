@@ -72,9 +72,7 @@ public:
 			UNPROTECT(1) ;
 		}
 		
-	private:
 		SEXP_Vector& parent; 
-	public:
 		size_t index ;
 		inline void move(int n) { index += n ; }
 	private:
