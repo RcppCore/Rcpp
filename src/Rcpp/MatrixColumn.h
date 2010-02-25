@@ -44,9 +44,8 @@ public:
 	MatrixColumn( const MatrixColumn& other ) : parent(other.parent), index(other.index){} ;
 	
 	MatrixColumn& operator=( MatrixColumn& other ){
-		if( other.size() != size() ) throw std::range_error( "not compatible" ) ;
-		std::copy( other.begin(), other.end(), begin() ) ;
-		return *this ;
+		parent = other.parent ;
+		index  = other.index ;
 	}
 	
 	reference operator[]( const int& i ){

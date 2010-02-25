@@ -89,8 +89,8 @@ public:
 	MatrixRow( const MatrixRow& other ) : parent(other.parent), index(other.index){} ;
 	                          
 	MatrixRow& operator=( MatrixRow& other ){
-		if( other.size() != size() ) throw std::range_error( "not compatible" ) ;
-		std::copy( other.begin(), other.end(), begin() ) ;
+		parent = other.parent ;
+		index = other.index ;
 		return *this ;
 	}
 	
