@@ -49,93 +49,96 @@ CharacterVector::CharacterVector( const Dimension& dims): Base(dims){}
 
 /* proxy stuff */
 
-CharacterVector::StringProxy::StringProxy(CharacterVector& v, int i) :
+internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy(CharacterVector& v, int i) :
 	parent(v), index(i){}
 
-CharacterVector::StringProxy::StringProxy(const StringProxy& other) :
+internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy(const VectorElement_Proxy& other) :
 	parent(other.parent), index(other.index){}
 
-CharacterVector::StringProxy::operator SEXP() const{
+internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy::operator SEXP() const{
 	return STRING_ELT( parent, index ) ;
 }
 
-CharacterVector::StringProxy::operator /*const*/ char*() const {
+internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy::operator /*const*/ char*() const {
 	return const_cast<char*>( CHAR(STRING_ELT( parent, index )) );
 }
 
-// CharacterVector::StringProxy::operator std::string() const {
+// CharacterVector::Proxy::operator std::string() const {
 // 	return std::string( CHAR(STRING_ELT( parent, index )) );
 // }
 
-CharacterVector::StringProxy& CharacterVector::StringProxy::operator=( const StringProxy& rhs){
+internal::VectorElement_Proxy<STRSXP>& internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy::operator=( const VectorElement_Proxy& rhs){
 	SET_STRING_ELT( parent, index, STRING_ELT( rhs.parent, rhs.index) ) ;
 	return *this ;
 }
 
-CharacterVector::StringProxy& CharacterVector::StringProxy::operator+=( const std::string& rhs){
+internal::VectorElement_Proxy<STRSXP>& internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy::operator+=( const std::string& rhs){
 	std::string full( CHAR(STRING_ELT(parent,index)) ) ;
 	full += rhs ;
 	SET_STRING_ELT( parent, index, Rf_mkChar( full.c_str() ) ) ;
 	return *this ;
 }
 
-CharacterVector::StringProxy& CharacterVector::StringProxy::operator+=( const StringProxy& rhs){
+internal::VectorElement_Proxy<STRSXP>& internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy::operator+=( const VectorElement_Proxy& rhs){
 	std::string full( CHAR(STRING_ELT(parent,index)) ) ;
 	full += CHAR(STRING_ELT( rhs.parent, rhs.index)) ;
 	SET_STRING_ELT( parent, index, Rf_mkChar(full.c_str()) ) ;
 	return *this ;
 }
 
-CharacterVector::StringProxy& CharacterVector::StringProxy::operator=( const std::string& rhs){
+internal::VectorElement_Proxy<STRSXP>& internal::VectorElement_Proxy<STRSXP>::VectorElement_Proxy::operator=( const std::string& rhs){
 	SET_STRING_ELT( parent, index, Rf_mkChar( rhs.c_str() ) ) ;
 	return *this ;
 }
 
-std::ostream& operator<<(std::ostream& os, const CharacterVector::StringProxy& proxy) {
-    os << CHAR(STRING_ELT( proxy.parent, proxy.index )) ;
+std::ostream& operator<<(std::ostream& os, const internal::VectorElement_Proxy<STRSXP>& proxy) {
+    os << std::string(proxy) ;
     return os;
 }
 
-const CharacterVector::StringProxy CharacterVector::operator[](int i) const throw(index_out_of_bounds){
-	return StringProxy(const_cast<CharacterVector&>(*this), offset(i) ) ;
+const CharacterVector::Proxy CharacterVector::operator[](int i) const throw(index_out_of_bounds){
+	return Proxy(const_cast<CharacterVector&>(*this), offset(i) ) ;
 }                                          
 
-CharacterVector::StringProxy CharacterVector::operator[](const std::string& name) throw(index_out_of_bounds) {
-	return StringProxy(*this, offset(name) ) ;
+CharacterVector::Proxy CharacterVector::operator[](const std::string& name) throw(index_out_of_bounds) {
+	return Proxy(*this, offset(name) ) ;
 }
 
-const CharacterVector::StringProxy CharacterVector::operator[](const std::string& name) const throw(index_out_of_bounds){
-	return StringProxy(const_cast<CharacterVector&>(*this), offset(name) ) ;
+const CharacterVector::Proxy CharacterVector::operator[](const std::string& name) const throw(index_out_of_bounds){
+	return Proxy(const_cast<CharacterVector&>(*this), offset(name) ) ;
 }                                          
 
-CharacterVector::StringProxy CharacterVector::operator[](int i) throw(index_out_of_bounds) {
-	return StringProxy(*this, offset(i) ) ;
+CharacterVector::Proxy CharacterVector::operator[](int i) throw(index_out_of_bounds) {
+	return Proxy(*this, offset(i) ) ;
 }
 
 
-CharacterVector::StringProxy CharacterVector::operator()( const size_t& i) throw(index_out_of_bounds){
-	return StringProxy(*this, offset(i) ) ;
+CharacterVector::Proxy CharacterVector::operator()( const size_t& i) throw(index_out_of_bounds){
+	return Proxy(*this, offset(i) ) ;
 }
 
-CharacterVector::StringProxy CharacterVector::operator()( const size_t& i, const size_t&j ) throw(index_out_of_bounds,not_a_matrix){
-	return StringProxy(*this, offset(i,j) ) ;
+CharacterVector::Proxy CharacterVector::operator()( const size_t& i, const size_t&j ) throw(index_out_of_bounds,not_a_matrix){
+	return Proxy(*this, offset(i,j) ) ;
 }
 
-std::string operator+( const std::string& x, const CharacterVector::StringProxy& y ){
-	return x + static_cast<const char*>(y) ;
-}
-
-void CharacterVector::StringProxy::swap( StringProxy& other){
+void internal::VectorElement_Proxy<STRSXP>::swap( VectorElement_Proxy& other){
 	SEXP tmp = PROTECT( STRING_ELT(parent, index)) ;
 	SET_STRING_ELT( parent, index, STRING_ELT(other.parent, other.index) ) ;
 	SET_STRING_ELT( other.parent, other.index, tmp ) ;
 	UNPROTECT(1) ;
 }
 
-} // namespace 
+} // namespace Rcpp
+
+std::string operator+( const std::string& x, const Rcpp::internal::VectorElement_Proxy<STRSXP>& y ){
+	return x + static_cast<const char*>(y) ;
+}
 
 namespace std{
-	template<> void swap<Rcpp::CharacterVector::StringProxy>( Rcpp::CharacterVector::StringProxy& a, Rcpp::CharacterVector::StringProxy& b){
+	template<> 
+	void swap< Rcpp::internal::VectorElement_Proxy<STRSXP> >( 
+		Rcpp::internal::VectorElement_Proxy<STRSXP>& a, 
+		Rcpp::internal::VectorElement_Proxy<STRSXP>& b){
 	a.swap(b) ;
 }
 } ;
