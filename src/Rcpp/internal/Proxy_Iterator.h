@@ -56,10 +56,10 @@ public:
 		}
 		                    
 		inline Proxy_Iterator operator+(difference_type n) const {
-			return iterator( proxy.parent, proxy.index + n) ;
+			return Proxy_Iterator( proxy.parent, proxy.index + n) ;
 		}
 		inline Proxy_Iterator operator-(difference_type n) const {
-			return iterator( proxy.parent, proxy.index - n) ;
+			return Proxy_Iterator( proxy.parent, proxy.index - n) ;
 		}
 		
 		inline Proxy_Iterator& operator+=(difference_type n) {
@@ -101,6 +101,8 @@ public:
 			return other.proxy.index - proxy.index ;
 		}
 
+		inline int index() const { return proxy.index ; }
+		
 private:
 	PROXY proxy ;
 } ;

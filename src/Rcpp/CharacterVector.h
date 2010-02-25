@@ -93,13 +93,12 @@ namespace internal{
 		 * output stream
 		 */
 		friend std::ostream& operator<<(std::ostream& os, const VectorElement_Proxy& proxy);
+		friend std::string operator+( const std::string& x, const VectorElement_Proxy& proxy);
 		
 		void swap( VectorElement_Proxy& other ) ;
 		friend class CharacterVector ;
 		
-	private:
 		CharacterVector& parent; 
-	public:	
 		int index ;
 		inline void move( int n ){ index += n ;}
 	} ;
@@ -259,8 +258,6 @@ public:
 } ;
 
 typedef CharacterVector StringVector ;
-
-std::string operator+( const std::string& x, const Rcpp::internal::VectorElement_Proxy<STRSXP>& y ) ;
 
 } // namespace
 
