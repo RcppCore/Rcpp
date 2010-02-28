@@ -26,7 +26,7 @@
 namespace Rcpp{
 namespace internal{
 
-template <typename VECTOR, typename PROXY>
+template <typename PROXY>
 class Proxy_Iterator {
 public:
 		typedef PROXY& reference ;
@@ -35,7 +35,13 @@ public:
 		typedef PROXY value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
 		
-		Proxy_Iterator( VECTOR& object, int index ) : proxy( object, index){} ;
+		Proxy_Iterator( ): proxy(){} ;
+		Proxy_Iterator( const Proxy_Iterator& other) : proxy( other.proxy){}
+		Proxy_Iterator( const PROXY& proxy_ ) : proxy( proxy_ ){} ;
+		
+		Proxy_Iterator& operator=( const Proxy_Iterator& other ){
+			proxy.import( other.proxy ) ;
+		}
 		
 		inline Proxy_Iterator& operator++(){
 			proxy.move(1) ;
@@ -56,10 +62,10 @@ public:
 		}
 		                    
 		inline Proxy_Iterator operator+(difference_type n) const {
-			return Proxy_Iterator( proxy.parent, proxy.index + n) ;
+			return Proxy_Iterator( PROXY(*proxy.parent, proxy.index + n) ) ;
 		}
 		inline Proxy_Iterator operator-(difference_type n) const {
-			return Proxy_Iterator( proxy.parent, proxy.index - n) ;
+			return Proxy_Iterator( PROXY(*proxy.parent, proxy.index - n) ) ;
 		}
 		
 		inline Proxy_Iterator& operator+=(difference_type n) {
@@ -98,7 +104,7 @@ public:
 		}
 		
 		inline difference_type operator-(const Proxy_Iterator& other) {
-			return other.proxy.index - proxy.index ;
+			return proxy.index - other.proxy.index ;
 		}
 
 		inline int index() const { return proxy.index ; }

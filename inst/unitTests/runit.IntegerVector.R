@@ -147,7 +147,7 @@ test.IntegerVector.names.get <- function(){
 test.IntegerVector.names.indexing <- function(){
 	funx <- cfunction(signature(x = "integer"), '
 		IntegerVector y(x) ;
-		return wrap( y["foo"]) ;
+		return wrap( y["foo"] ) ;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	x <- c( "foo" = 1L, "bar" = 2L )
 	checkEquals( funx( x ), 1L, msg = "IntegerVector names based indexing" )
@@ -161,5 +161,93 @@ test.IntegerVector.comma <- function(){
 	return x ;', 
 		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
 	checkEquals( funx(), 0:3, msg = "IntegerVector comma initialization" )
+}
+
+test.IntegerVector.push.back <- function(){
+	funx <- cfunction(signature(x = "integer"), '
+	IntegerVector y(x) ;
+	y.push_back( 5 ) ;
+	return y ;', 
+		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	checkEquals( funx(1:4), 1:5, msg = "IntegerVector push back" )
+	
+	x <- 1:4
+	names(x) <- letters[1:4]
+	
+	target <- 1:5
+	names(target) <- c( letters[1:4], "")
+	checkEquals( funx(x), target, msg = "IntegerVector push back names" )
+}
+
+test.IntegerVector.push.front <- function(){
+	funx <- cfunction(signature(x = "integer"), '
+	IntegerVector y(x) ;
+	y.push_front( 5 ) ;
+	return y ;', 
+		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	checkEquals( funx(1:4), c(5L,1:4), msg = "IntegerVector push front" )
+
+	x <- 1:4
+	names(x) <- letters[1:4]
+	
+	target <- c( 5L, 1:4 )
+	names(target) <- c( "", letters[1:4])
+	
+	checkEquals( funx(x), target, msg = "IntegerVector push front names" )
+}
+
+test.IntegerVector.insert <- function(){
+	funx <- cfunction(signature(x = "integer"), '
+	IntegerVector y(x) ;
+	y.insert( 0, 5 ) ;
+	y.insert( 2, 7 ) ;
+	return y ;', 
+		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	checkEquals( funx(1:4), c(5L,1L, 7L, 2:4), msg = "IntegerVector insert" )
+	
+	x <- 1:4
+	names(x) <- letters[1:4]
+	
+	target <- c( 5L, 1L, 7L, 2:4 )
+	names(target) <- c( "", "a", "", letters[2:4])
+	
+	checkEquals( funx(x), target, msg = "IntegerVector insert names" )
+	
+}
+
+test.IntegerVector.erase <- function(){
+	funx <- cfunction(signature(x = "integer"), '
+	IntegerVector y(x) ;
+	y.erase(2) ;
+	return y ;', 
+		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	checkEquals( funx(1:4), c(1L, 2L, 4L), msg = "IntegerVector erase" )
+	
+	x <- 1:4
+	names(x) <- letters[1:4]
+	
+	target <- c(1L, 2L, 4L)
+	names(target) <- c( "a", "b", "d" )
+	
+	checkEquals( funx(x), target, msg = "IntegerVector erase" )
+	
+}
+
+test.IntegerVector.erase <- function(){
+	funx <- cfunction(signature(x = "integer"), '
+	IntegerVector y(x) ;
+	y.erase(1,2) ;
+	return y ;', 
+		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	checkEquals( funx(1:4), c(1L, 4L), msg = "IntegerVector erase" )
+	
+	x <- 1:4
+	names(x) <- letters[1:4]
+	
+	target <- c(1L, 4L)
+	names(target) <- c( "a", "d" )
+	
+	checkEquals( funx(x), target, msg = "IntegerVector erase" )
+	
 }
 
