@@ -19,47 +19,37 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <Rcpp/ExpressionVector.h>
+#include <Rcpp/Vector.h>
+#include <Rcpp/Environment.h>
 
 namespace Rcpp{
-	
-	ExpressionVector::parse_error::parse_error() throw(){}
-	ExpressionVector::parse_error::~parse_error() throw(){}
-	const char* ExpressionVector::parse_error::what() const throw(){ return "parse error" ; }
-	
-	ExpressionVector::ExpressionVector(SEXP x) throw(not_compatible) : ExpressionVector_Base(x) {}
-	ExpressionVector::ExpressionVector(const size_t& size) : ExpressionVector_Base(size) {}
-	
-	ExpressionVector::ExpressionVector(const std::string& code) throw(parse_error) : ExpressionVector_Base() {
+namespace internal{
+
+	template <> 
+	SEXP vector_from_string<EXPRSXP>( const std::string& code ){
 		ParseStatus status;
 		SEXP expr = PROTECT( Rf_mkString( code.c_str() ) );
 		SEXP res  = PROTECT( R_ParseVector(expr, -1, &status, R_NilValue));
 		switch( status ){
 		case PARSE_OK:
-			setSEXP( res) ;
 			UNPROTECT( 2) ;
+			return(res) ;
 			break;
 		default:
 			UNPROTECT(2) ;
 			throw parse_error() ;
 		}
-	}
-        
-	ExpressionVector::ExpressionVector( const ExpressionVector& other ) : ExpressionVector_Base() {
-		setSEXP( other.asSexp() ) ;
+		return R_NilValue ; /* -Wall */
 	}
 	
-	ExpressionVector& ExpressionVector::operator=( const ExpressionVector& other){
-		setSEXP( other.asSexp() ) ;
-		return *this ;
-	}
+	SEXP eval_methods< ::Rcpp::Vector<EXPRSXP> >::eval(){
+		SEXP xp = ( static_cast< ::Rcpp::Vector<EXPRSXP>& >(*this) ).asSexp() ;
+		return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, R_NilValue) ) ) ;
+	} ;
+	SEXP eval_methods< ::Rcpp::Vector<EXPRSXP> >::eval( const ::Rcpp::Environment& env ){
+		SEXP xp = ( static_cast< ::Rcpp::Vector<EXPRSXP>& >(*this) ).asSexp() ;
+		return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, ::Rf_cons(env.asSexp(), R_NilValue)) ) ) ;
+	} ;
 	
-	SEXP ExpressionVector::eval() throw(Evaluator::eval_error){
-		return Evaluator::run( Rf_lcons( Rf_install( "eval" ) , Rf_cons( m_sexp, R_NilValue) )) ;
-	}
-	
-	SEXP ExpressionVector::eval(const Environment& env) throw(Evaluator::eval_error){
-		return Evaluator::run( Rf_lcons( Rf_install( "eval" ) , Rf_cons( m_sexp, Rf_cons(env.asSexp(), R_NilValue)) ) ) ;
-	}
-
-} // namespace 
+} // namespace internal
+} // namespace Rcpp 

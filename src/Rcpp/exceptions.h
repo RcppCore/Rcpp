@@ -38,7 +38,13 @@ class index_out_of_bounds: public std::exception{
    		virtual const char* what() const throw(){ return "index out of bounds" ; } ;
    	} ;
    		
-	
+class parse_error : public std::exception{
+	public:
+		parse_error() throw(){};
+		virtual ~parse_error() throw(){};
+		virtual const char* what() const throw(){ return "parse error" ; } ;
+	} ;
+		
 } // namesapce Rcpp
 
 #endif
