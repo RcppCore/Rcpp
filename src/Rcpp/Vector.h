@@ -378,12 +378,12 @@ namespace traits{
 } // traits 
 
 template <typename VECTOR>
-class VBase : public RObject{
+class VectorBase : public RObject{
 public:
-	VBase() : RObject(){}
-	VBase(SEXP x) : RObject(x){}
-	VBase(const VBase& v) : RObject( v.asSexp() ){}
-	VBase& operator=(const VBase& v) {
+	VectorBase() : RObject(){}
+	VectorBase(SEXP x) : RObject(x){}
+	VectorBase(const VectorBase& v) : RObject( v.asSexp() ){}
+	VectorBase& operator=(const VectorBase& v) {
 		setSEXP( v.asSexp() ) ;
 		return *this ;
 	}
@@ -396,9 +396,9 @@ public:
 } ;
 
 template <int RTYPE>
-class Vector : public VBase< Vector<RTYPE> >, public internal::eval_methods< Vector<RTYPE> >{
+class Vector : public VectorBase< Vector<RTYPE> >, public internal::eval_methods< Vector<RTYPE> >{
 public:
-	typedef VBase<Vector> Base ;
+	typedef VectorBase<Vector> Base ;
 	typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
 	typedef typename traits::r_vector_name_proxy<RTYPE>::type NameProxy ;
 	typedef typename traits::r_vector_proxy<RTYPE>::type value_type ;
