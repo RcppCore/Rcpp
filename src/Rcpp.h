@@ -53,14 +53,10 @@
 #include <Rcpp/clone.h>
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>
-#include <Rcpp/VectorBase.h>
-#include <Rcpp/MatrixRow.h>
-#include <Rcpp/MatrixColumn.h>
-#include <Rcpp/SimpleVector.h>
-#include <Rcpp/SEXP_Vector.h>
-#include <Rcpp/XPtr.h>
 #include <Rcpp/Environment.h>
 #include <Rcpp/Evaluator.h>
+#include <Rcpp/Vector.h>
+#include <Rcpp/XPtr.h>
 #include <Rcpp/Symbol.h>
 #include <Rcpp/Language.h>
 #include <Rcpp/Named.h>
@@ -68,7 +64,5 @@
 #include <Rcpp/Pairlist.h>
 #include <Rcpp/Function.h>
 #include <Rcpp/WeakReference.h>
-#include <Rcpp/CharacterVector.h>
-#include <Rcpp/ExpressionVector.h>
 
 #endif
