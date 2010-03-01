@@ -50,6 +50,9 @@ public:
 	 */
 	Named( const std::string& tag ) : object(R_NilValue), tag(tag){} ;
 	
+	template<typename T>
+	Named( const std::string& tag, const T& value ) : object(wrap(value)), tag(tag) {}
+	
 	/**
 	 * This allows the syntax : 
 	 * Language( "rnorm", Named( "mean" ) = 10 ) ;
@@ -58,11 +61,6 @@ public:
 	Named& operator=( const T& o ){
 		object = wrap( o ) ;
 		return *this ;
-	}
-	
-	template<typename T>
-	Named( const std::string& tag, const T& value ) : object(), tag(tag) {
-		object = wrap( value ) ;
 	}
 	
 	SEXP getSEXP() const ; 
