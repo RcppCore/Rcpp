@@ -1,3 +1,9 @@
+2010-03-01  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/ExpressionVector.cpp : replaced by templates in Vector.h
+	* src/Rcpp/Vector.h: use templates to cover ExpressionVector additional
+	methods : eval() and eval(const Environment& )
+
 2010-02-28  Romain Francois <romain@r-enthusiasts.com>
 
     * src/Rcpp/Vector.h : more generic code for vectors. All vector 
