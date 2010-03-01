@@ -50,6 +50,16 @@ public:
 	 */
 	Named( const std::string& tag ) : object(R_NilValue), tag(tag){} ;
 	
+	/**
+	 * This allows the syntax : 
+	 * Language( "rnorm", Named( "mean" ) = 10 ) ;
+	 */
+	template <typename T>
+	Named& operator=( const T& o ){
+		object = wrap( o ) ;
+		return *this ;
+	}
+	
 	template<typename T>
 	Named( const std::string& tag, const T& value ) : object(), tag(tag) {
 		object = wrap( value ) ;
@@ -72,7 +82,7 @@ public:
 	~NamedPlaceholderProxy(){}
 	
 	template <typename T>
-	Named operator=( const T& object ){
+	Named operator=( const T& object ) const {
 		return Named( name, object ) ;
 	}
 	
@@ -84,9 +94,10 @@ class NamedPlaceHolder {
 public:
 	NamedPlaceHolder(){}
 	~NamedPlaceHolder(){}
-	NamedPlaceholderProxy operator[]( const std::string& arg){
+	NamedPlaceholderProxy operator[]( const std::string& arg) const {
 		return NamedPlaceholderProxy( arg ) ;
 	}
+	operator SEXP() const { return R_MissingArg ; }
 } ;
 } // internal
 
