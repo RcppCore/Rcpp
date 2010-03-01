@@ -11,7 +11,12 @@
 
 \begin{verbatim}
 <<echo=F,results=tex>>=
-writeLines( readLines( "unitTests-results/Rcpp-unitTests.txt" ) ) 
+results <- "unitTests-results/Rcpp-unitTests.txt"
+if( file.exists( results ) ){
+	writeLines( readLines( results ) ) 
+} else{
+	writeLines( "unit test results not available" ) 
+}
 @
 \end{verbatim}
 
