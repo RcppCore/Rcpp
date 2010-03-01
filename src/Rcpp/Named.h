@@ -48,7 +48,7 @@ public:
 	 * uses NULL as the value
 	 * @param tag name to give to the object
 	 */
-	Named( const std::string& tag ) : object(R_NilValue), tag(tag){} ;
+	Named( const std::string& tag ) : object(R_MissingArg), tag(tag){} ;
 	
 	template<typename T>
 	Named( const std::string& tag, const T& value ) : object(wrap(value)), tag(tag) {}
