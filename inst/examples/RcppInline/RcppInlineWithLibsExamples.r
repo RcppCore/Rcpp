@@ -55,7 +55,7 @@ secondExample <- function() {
 
     ## now use Rcpp to pass down a parameter for the seed
     gslrng <- '
-    int seed = Rcpp::wrap(par).asInt();
+    int seed = Rcpp::as<int>(par) ;
 
     gsl_rng *r;
     gsl_rng_env_setup();
@@ -102,8 +102,8 @@ thirdExample <- function() {
 
     ## now use Rcpp to pass down a parameter for the seed, and a vector size
     gslrng <- '
-    int seed = Rcpp::wrap(s).asInt();
-    int len = Rcpp::wrap(n).asInt();
+    int seed = Rcpp::as<int>(s) ;
+    int len = Rcpp::as<int>(n);
 
     gsl_rng *r;
     gsl_rng_env_setup();
@@ -139,8 +139,8 @@ fourthExample <- function() {
 
     ## now use Rcpp to pass down a parameter for the seed, and a vector size
     gslrng <- '
-    int seed = wrap(s).asInt();
-    int len = wrap(n).asInt();
+    int seed = Rcpp::as<int>(s);
+    int len = Rcpp::as<int>(n);
 
     gsl_rng *r;
     gsl_rng_env_setup();
