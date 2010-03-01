@@ -36,7 +36,7 @@ namespace Rcpp{
 class Named{
 public:
 	/** default constructor */
-	Named( ) : object(R_NilValue), tag("") {} ;
+	Named( ) : object(R_MissingArg), tag("") {} ;
 	
 	/**
 	 * @param tag name to give to the object 
