@@ -64,6 +64,34 @@ private:
 	std::string tag ;
 } ;
 
+namespace internal{
+	
+class NamedPlaceholderProxy{
+public:
+	NamedPlaceholderProxy( const std::string& arg) : name(arg) {}
+	~NamedPlaceholderProxy(){}
+	
+	template <typename T>
+	Named operator=( const T& object ){
+		return Named( name, object ) ;
+	}
+	
+private:
+	std::string name ;
+} ;
+	
+class NamedPlaceHolder {
+public:
+	NamedPlaceHolder(){}
+	~NamedPlaceHolder(){}
+	NamedPlaceholderProxy operator[]( const std::string& arg){
+		return NamedPlaceholderProxy( arg ) ;
+	}
+} ;
+} // internal
+
+static internal::NamedPlaceHolder _ ;
+
 } // namespace Rcpp
 
 #endif
