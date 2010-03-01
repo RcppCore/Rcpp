@@ -65,6 +65,6 @@
 #include <Rcpp/Function.h>
 #include <Rcpp/WeakReference.h>
 
-// #define ARG(name) ::Rcpp::internal::NamedPlaceholderProxy name(#name) ;
+// #define ARG(name) ::Rcpp::Named name(#name) ;
 
 #endif

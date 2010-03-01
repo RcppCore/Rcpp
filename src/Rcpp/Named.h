@@ -63,9 +63,9 @@ public:
 		return *this ;
 	}
 	
-	SEXP getSEXP() const ; 
+	inline SEXP getSEXP() const { return object.asSexp() ; }
 	
-	std::string getTag() const ;
+	inline std::string getTag() const { return tag ; }
 	
 private:
 	RObject object ;
