@@ -1,19 +1,37 @@
 0.7.8   (under development)
 
+    o	All vector classes are now generated from the same template class
+    	Rcpp::Vector<int RTYPE> where RTYPE is one of LGLSXP, RAWSXP, STRSXP,
+    	INTSXP, REALSXP, CPLXSXP, VECSXP and EXPRSXP. typedef are still 
+    	available : IntegerVector, ... All vector classes gain methods 
+    	inspired from the std::vector template : push_back, push_front, 
+    	erase, insert
+    	
+    o	New template class Rcpp::Matrix<RTYPE> deriving from 
+    	Rcpp::Vector<RTYPE>. These classes have the same functionality
+    	as Vector but have a different set of constructors which checks
+    	that the input SEXP is a matrix. Matrix<> however does/can not
+    	guarantee that the object will allways be a matrix. typedef 
+    	are defined for convenience: Matrix<INTSXP> is IntegerMatrix, etc...
+    	
+    o	New class Rcpp::Row<int RTYPE> that represents a row of a matrix
+    	of the same type. Row contains a reference to the underlying 
+    	Vector and exposes a nested iterator type that allows use of 
+    	STL algorithms on each element of a matrix row. The Vector class
+    	gains a row(int) method that returns a Row instance. Usage 
+    	examples are available in the runit.Row.R unit test file
+    	
+    o	New class Rcpp::Column<int RTYPE> that represents a column of a 
+    	matrix. (similar to Rcpp::Row<int RTYPE>). Usage examples are 
+    	available in the runit.Column.R unit test file
+
     o	The Rcpp::as template function has been reworked to be more 
     	generic. It now handles more STL containers, such as deque and 
     	list, and the genericity can be used to implement as for more
     	types. The package RcppArmadillo has examples of this
 
     o   new template class Rcpp::fixed_call that can be used in STL algorithms
-	such as std::generate.
-
-    o   new template class SimpleMatrix<int> and generated classes
-    	IntegerMatrix, RawMatrix, NumericMatrix, ComplexMatrix and 
-    	LogicalMatrix. These classes derived from their Vector 
-    	equivalent except that their constructors check that their 
-    	input is a matrix. The classes don't/can't however guarantee 
-    	that the enclosed SEXP will allways be a matrix
+		such as std::generate.
 
     o	RcppExample et al have been moved to a new package RcppExamples;
         src/Makevars and src/Makevars.win simplified accordingly
