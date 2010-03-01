@@ -934,44 +934,40 @@ private:
 template <int RTYPE> 
 class Matrix : public Vector<RTYPE> {
 public:
-	Matrix() : Vector<RTYPE>() {}
+	typedef Vector<RTYPE> VECTOR ;
+	Matrix() : VECTOR() {}
 	
-	Matrix(SEXP x) throw(RObject::not_compatible) : Vector<RTYPE>(){
+	Matrix(SEXP x) throw(RObject::not_compatible) : VECTOR(){
 		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
 		SEXP y = r_cast<RTYPE>( x ) ;
-		Vector<RTYPE>::setSEXP( y );
+		VECTOR::setSEXP( y );
 	}
 	
-	Matrix( const Dimension& dims) : Vector<RTYPE>() {
+	Matrix( const Dimension& dims) : VECTOR() {
 		if( dims.size() != 2 ) throw RObject::not_compatible("not a matrix") ;
-		Vector<RTYPE>::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
-		Vector<RTYPE>::init() ;
-		Vector<RTYPE>::attr( "dim" ) = dims ;
+		VECTOR::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
+		VECTOR::init() ;
+		VECTOR::attr( "dim" ) = dims ;
 	}
 	
-	Matrix( const int& nrows, const int& ncols) : Vector<RTYPE>() {
-		Vector<RTYPE>::setSEXP( Rf_allocVector( RTYPE, nrows*ncols ) ) ;
-		Vector<RTYPE>::init() ;
-		Vector<RTYPE>::attr( "dim" ) = Dimension( nrows, ncols ) ;
-	}
+	Matrix( const int& nrows, const int& ncols) : VECTOR( Dimension( nrows, ncols ) ) {}
 	
-	
-	Matrix( const Matrix& other) : Vector<RTYPE>() {
+	Matrix( const Matrix& other) : VECTOR() {
 		SEXP x = other.asSexp() ;
 		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
-		Vector<RTYPE>::setSEXP( x ) ;
+		VECTOR::setSEXP( x ) ;
 	}
 	
 	Matrix& operator=(const Matrix& other) {
 		SEXP x = other.asSexp() ;
 		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
-		Vector<RTYPE>::setSEXP( x ) ;
+		VECTOR::setSEXP( x ) ;
 		return *this ;
 	}
 	
 private:
 	virtual void update(){
-		Vector<RTYPE>::update_vector() ;
+		VECTOR::update_vector() ;
 	}
 	    
 } ;
