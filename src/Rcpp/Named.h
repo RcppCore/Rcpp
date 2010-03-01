@@ -81,6 +81,9 @@ public:
 	Named operator[]( const std::string& arg) const {
 		return Named( arg ) ;
 	}
+	Named operator()(const std::string& arg) const {
+		return Named( arg ) ;
+	}
 	operator SEXP() const { return R_MissingArg ; }
 } ;
 } // internal
