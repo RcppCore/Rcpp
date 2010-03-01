@@ -247,15 +247,44 @@ namespace internal{
 		return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
 	}
 	
+	template <int RTYPE>
+	SEXP vector_from_string_expr( const std::string& code){
+		ParseStatus status;
+		SEXP expr = PROTECT( ::Rf_mkString( code.c_str() ) );
+		SEXP res  = PROTECT( ::R_ParseVector(expr, -1, &status, R_NilValue));
+		switch( status ){
+		case PARSE_OK:
+			UNPROTECT( 2) ;
+			return(res) ;
+			break;
+		default:
+			UNPROTECT(2) ;
+			throw parse_error() ;
+		}
+		return R_NilValue ; /* -Wall */
+	}
+	
 	template <>
-	SEXP vector_from_string<EXPRSXP>( const std::string& st ) ;
+	inline SEXP vector_from_string<EXPRSXP>( const std::string& st ){
+		return vector_from_string_expr<EXPRSXP>( st ) ;
+	} ;
 	
 	template <typename VECTOR> class eval_methods {} ;
-	template<> class eval_methods< ::Rcpp::Vector<EXPRSXP> > {
+	
+	template <typename VECTOR> class expr_eval_methods {
 	public:
-		SEXP eval() ;
-		SEXP eval( const ::Rcpp::Environment& env ) ;
+		SEXP eval(){
+			SEXP xp = ( static_cast<VECTOR&>(*this) ).asSexp() ;
+			return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, R_NilValue) ) ) ;
+		} ;
+		SEXP eval( const ::Rcpp::Environment& env ){
+			SEXP xp = ( static_cast<VECTOR&>(*this) ).asSexp() ;
+			return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, ::Rf_cons(env.asSexp(), R_NilValue)) ) ) ;
+		} ;
 	} ;
+	
+	template<> class eval_methods< ::Rcpp::Vector<EXPRSXP> > : 
+		public expr_eval_methods< ::Rcpp::Vector<EXPRSXP> > {} ;
 	
 }
 
