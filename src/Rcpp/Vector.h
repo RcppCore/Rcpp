@@ -927,7 +927,7 @@ private:
 	}
 	
 	traits::r_vector_cache<RTYPE> cache ;
-	converter_type converter;
+	static converter_type converter ;
 	
 } ; /* Vector */
 
