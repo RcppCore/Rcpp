@@ -74,26 +74,12 @@ private:
 
 namespace internal{
 	
-class NamedPlaceholderProxy{
-public:
-	NamedPlaceholderProxy( const std::string& arg) : name(arg) {}
-	~NamedPlaceholderProxy(){}
-	
-	template <typename T>
-	Named operator=( const T& object ) const {
-		return Named( name, object ) ;
-	}
-	
-private:
-	std::string name ;
-} ;
-	
 class NamedPlaceHolder {
 public:
 	NamedPlaceHolder(){}
 	~NamedPlaceHolder(){}
-	NamedPlaceholderProxy operator[]( const std::string& arg) const {
-		return NamedPlaceholderProxy( arg ) ;
+	Named operator[]( const std::string& arg) const {
+		return Named( arg ) ;
 	}
 	operator SEXP() const { return R_MissingArg ; }
 } ;
