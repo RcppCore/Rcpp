@@ -1,5 +1,8 @@
 2010-03-01  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/Vector.h: more typedef : CharacterMatrix, StringMatrix, 
+	GenericMatrix, ExpressionMatrix, ListMatrix
+
 	* src/ExpressionVector.cpp : replaced by templates in Vector.h
 	* src/Rcpp/Vector.h: use templates to cover ExpressionVector additional
 	methods : eval() and eval(const Environment& )
