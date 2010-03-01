@@ -411,6 +411,7 @@ class VectorBase : public RObject{
 public:
 	VectorBase() : RObject(){}
 	VectorBase(SEXP x) : RObject(x){}
+	~VectorBase(){}
 	VectorBase(const VectorBase& v) : RObject( v.asSexp() ){}
 	VectorBase& operator=(const VectorBase& v) {
 		setSEXP( v.asSexp() ) ;
