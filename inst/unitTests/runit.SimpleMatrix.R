@@ -34,3 +34,32 @@ test.NumericMatrix <- function(){
 	
 }
 
+test.CharacterMatrix <- function(){
+	funx <- cfunction(signature(x = "matrix" ), '
+		CharacterMatrix m(x) ;
+		std::string trace ;
+		for( size_t i=0 ; i<4; i++){
+			trace += m(i,i) ;
+		}
+		return wrap( trace ) ;
+	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
+	x <- matrix( letters[1:16], ncol = 4 )
+	checkEquals( funx(x), paste( diag(x), collapse = "" ) )
+}
+
+test.GenericMatrix <- function( ){
+	funx <- cfunction(signature(x = "matrix" ), '
+		GenericMatrix m(x) ;
+		List output( m.ncol() ) ;
+		for( size_t i=0 ; i<4; i++){
+			output[i] = m(i,i) ;
+		}
+		return output ;
+	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
+	g <- function(y){
+		sapply( y, function(x) seq(from=x, to = 16) )
+	}
+	x <- matrix( g(1:16), ncol = 4 )
+	checkEquals( funx(x), g(diag(matrix(1:16,ncol=4))), msg = "GenericMatrix" )
+}
+
