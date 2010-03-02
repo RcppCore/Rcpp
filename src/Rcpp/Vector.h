@@ -439,6 +439,8 @@ public:
 	typedef MatrixRow<RTYPE> Row ;
 	typedef MatrixColumn<RTYPE> Column ;
 	
+	struct r_type : traits::integral_constant<int,RTYPE>{} ;
+	
 	Vector() : Base() {
 		Base::setSEXP( Rf_allocVector( RTYPE, 0 ) ) ;
 		init() ;
