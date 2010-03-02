@@ -1,5 +1,13 @@
 2010-03-01  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/Vector.h: Vector gains a nested r_type type that is an 
+	integral_constant<int,RTYPE> to facilitate TMP
+	* src/RcppCommon.{h,cpp}: added RCPP_CALL_VECTOR and RCPP_CALL_MATRIX
+	macros to facilitate calling a function templated by T = Vector<RTYPE>
+	the macro hides the boiler-plate switch( TYPEOF(x) ){ case INTSXP : ... }
+
+2010-03-01  Romain Francois <romain@r-enthusiasts.com>
+
 	* src/Rcpp/Vector.h: more typedef : CharacterMatrix, StringMatrix, 
 	GenericMatrix, ExpressionMatrix, ListMatrix
 
