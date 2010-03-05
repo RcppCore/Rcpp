@@ -501,6 +501,13 @@ public:
     inline int nrow(){
     	return dims()[0]; 
     }
+
+    inline int cols() { 
+	return dims()[1]; 
+    }
+    inline int rows() { 
+	return dims()[0]; 
+    }
 	
     /**
      * offset based on the dimensions of this vector
