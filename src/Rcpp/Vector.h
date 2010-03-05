@@ -96,6 +96,8 @@ namespace internal{
 	class string_name_proxy{
 	public:
 		typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
+		typedef char* iterator ;
+		typedef char& reference ;
 		
 		string_name_proxy( VECTOR& v, const std::string& name_) :
 			parent(v), name(name_){} ;
@@ -119,6 +121,11 @@ namespace internal{
 		operator SEXP(){
 			return ::Rf_mkString(get()) ;
 		}
+		
+		inline iterator begin() { return get() ; }
+		inline iterator end(){ return begin() + size() ; }
+		inline reference operator[]( int i ){ return *( get() + i ) ; }
+		inline int size(){ return strlen( get() ) ; }
 		
 	private:
 		VECTOR& parent ;
