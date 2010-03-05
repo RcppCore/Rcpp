@@ -1,3 +1,8 @@
+2010-03-05  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/Vector.h: string_proxy gains begin(), end(), 
+	size(), and operator[] for iterating over characters of the CHARSXP 
+
 2010-03-02  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Vector.h: Vector gains a nested r_type type that is an 
