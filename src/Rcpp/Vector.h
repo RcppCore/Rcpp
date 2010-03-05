@@ -1156,6 +1156,8 @@ namespace internal{
 	public:
 		
 		typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
+		typedef char* iterator ;
+		typedef char& reference ;
 		
 		string_proxy() : parent(0), index(-1){};
 		
@@ -1258,7 +1260,12 @@ namespace internal{
 		}
 		inline void set(SEXP x){
 			SET_STRING_ELT( *parent, index, x ) ;
-		}	
+		}
+		
+		inline iterator begin(){ return CHAR( STRING_ELT( *parent, index ) ) ; }
+		inline iterator end(){ return begin() + size() ; }
+		inline int size(){ return strlen( begin() ) ; }
+		inline reference operator[]( int n ){ return *( begin() + n ) ; }
 		
 	} ;
 	
