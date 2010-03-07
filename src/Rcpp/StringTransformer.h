@@ -29,7 +29,7 @@ namespace Rcpp{
 	template <typename UnaryOperator>
 	class StringTransformer : public std::unary_function<const char*, const char*>{
 		public:
-		StringTransformer( const UnaryOperator& op_ ): op(op_){}
+		StringTransformer( const UnaryOperator& op_ ): op(op_), buffer(){}
 		~StringTransformer(){}
 		
 		const char* operator()(const char* input ) {
