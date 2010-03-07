@@ -35,16 +35,16 @@ lmArmadillo <- function() {
     arma::colvec coef = solve(X, y);		// fit model y ~ X
 
     arma::colvec resid = y - X*coef;    	// to compute std. error of the coefficients
-    double sig2 = trans(resid)*resid/(n-k);
+    double sig2 = arma::as_scalar(trans(resid)*resid)/(n-k);	// requires Armadillo 0.8.2 or later
     arma::mat covmat = sig2 * arma::inv(arma::trans(X)*X);
 
     Rcpp::NumericVector coefr(k), stderrestr(k);
-    for (int i=0; i<k; i++) {           	// this will be easier with proper wrappers
+    for (int i=0; i<k; i++) {           	// this is easier in RcppArmadillo with proper wrappers
         coefr[i]      = coef[i];
         stderrestr[i] = sqrt(covmat(i,i));
     }
 
-    Rcpp::Pairlist res(Rcpp::Named( "coef", coefr),
+    Rcpp::Pairlist res(Rcpp::Named( "coefficients", coefr),
                        Rcpp::Named( "stderr", stderrestr));
     return res;
     '
