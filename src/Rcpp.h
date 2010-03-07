@@ -64,7 +64,6 @@
 #include <Rcpp/Pairlist.h>
 #include <Rcpp/Function.h>
 #include <Rcpp/WeakReference.h>
-
-// #define ARG(name) ::Rcpp::Named name(#name) ;
+#include <Rcpp/StringTransformer.h>
 
 #endif
