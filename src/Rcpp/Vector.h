@@ -1269,11 +1269,14 @@ namespace internal{
 			SET_STRING_ELT( *parent, index, x ) ;
 		}
 		
-		inline iterator begin(){ return CHAR( STRING_ELT( *parent, index ) ) ; }
+		inline iterator begin(){ return const_cast<char*>( CHAR( STRING_ELT( *parent, index ) ) ) ; }
 		inline iterator end(){ return begin() + size() ; }
-		inline int size(){ return strlen( begin() ) ; }
+		inline int size(){ return strlen( const_begin() ) ; }
 		inline reference operator[]( int n ){ return *( begin() + n ) ; }
 		
+		
+		private:
+		inline const char* const_begin(){ return CHAR( STRING_ELT( *parent, index ) ) ; }
 	} ;
 	
 	inline std::ostream& operator<<(std::ostream& os, const string_proxy<STRSXP>& proxy) {
