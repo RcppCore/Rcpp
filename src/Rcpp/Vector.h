@@ -1299,6 +1299,8 @@ namespace internal{
 		
 	} ;
 	
+	template<int RTYPE> std::string string_proxy<RTYPE>::buffer ;
+	
 	inline std::ostream& operator<<(std::ostream& os, const string_proxy<STRSXP>& proxy) {
 	    os << static_cast<const char*>(proxy) ;
 	    return os;
