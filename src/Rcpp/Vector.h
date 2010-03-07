@@ -1208,9 +1208,9 @@ namespace internal{
 		 * element this proxy refers to.
 		 */
 		string_proxy& operator+=(const string_proxy& rhs){
-			std::string full( CHAR(STRING_ELT(*parent,index)) ) ;
-			full += CHAR(STRING_ELT( *(rhs.parent), rhs.index)) ;
-			SET_STRING_ELT( *parent, index, Rf_mkChar(full.c_str()) ) ;
+			buffer = CHAR(STRING_ELT(*parent,index)) ;
+			buffer += CHAR(STRING_ELT( *(rhs.parent), rhs.index)) ;
+			SET_STRING_ELT( *parent, index, Rf_mkChar(buffer.c_str()) ) ;
 			return *this ;
 		}
 		
@@ -1218,9 +1218,9 @@ namespace internal{
 		 * lhs use. Adds the string to the element this proxy refers to
 		 */
 		string_proxy& operator+=(const std::string& rhs){
-			std::string full( CHAR(STRING_ELT(*parent,index)) ) ;
-			full += rhs ;
-			SET_STRING_ELT( *parent, index, Rf_mkChar(full.c_str()) ) ;
+			buffer = CHAR(STRING_ELT(*parent,index)) ;
+			buffer += rhs ;
+			SET_STRING_ELT( *parent, index, Rf_mkChar(buffer.c_str()) ) ;
 			return *this ;
 		} 	 
 		
@@ -1268,11 +1268,24 @@ namespace internal{
 		inline void set(SEXP x){
 			SET_STRING_ELT( *parent, index, x ) ;
 		}
+		inline void set( const std::string& x ){
+			set( ::Rf_mkChar(x.c_str()) ) ;
+		}
 		
 		inline iterator begin(){ return CHAR( STRING_ELT( *parent, index ) ) ; }
 		inline iterator end(){ return begin() + size() ; }
 		inline int size(){ return strlen( begin() ) ; }
 		inline reference operator[]( int n ){ return *( begin() + n ) ; }
+		
+		template <typename UnaryOperator>
+		void transform( UnaryOperator op ){
+			buffer = begin() ;
+			std::transform( buffer.begin(), buffer.end(), buffer.begin(), op ) ;
+			set( buffer ) ;
+		}
+		
+		private:
+			static std::string buffer ;
 		
 	} ;
 	
