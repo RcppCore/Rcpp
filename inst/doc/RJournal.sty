@@ -1,0 +1,232 @@
+%%
+%% This is file `RJournal.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% RJournal.dtx  (with options: `package')
+%% 
+\def\fileversion{v0.6}
+\def\filename{RJournal}
+\def\filedate{2009/05/05}
+\def\docdate {2009/05/05}
+%%
+%% Package `RJournal' to use with LaTeX2e
+%% Copyright (C) 2009 by the R Foundation
+%% Please report errors to KH or FL
+%%
+%% %% -*- LaTeX -*-
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{\filename}[\filedate\space\fileversion\space
+                        RJournal package]
+\typeout{Package: `\filename\space\fileversion \@spaces <\filedate>'}
+\typeout{English documentation as of <\docdate>}
+\RequirePackage{ifthen}
+\newboolean{RJ@driver}
+\DeclareOption{driver}{\setboolean{RJ@driver}{true}}
+\DeclareOption*{\PackageWarning{\filename}{Unknown option
+    `\CurrentOption'}}
+\ProcessOptions\relax
+\ifthenelse{\boolean{RJ@driver}}{}{
+\RequirePackage{tikz}
+\RequirePackage{multicol,graphicx,color,fancyhdr}
+\RequirePackage{hyperref}
+\RequirePackage{amsmath}
+\definecolor{link}{rgb}{0,0,0.3}
+\hypersetup{
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link
+}
+\IfFileExists{upquote.sty}{\RequirePackage{upquote}}{}
+\newcommand{\volume}[1]{\def\RJ@volume{#1}}
+\newcommand{\volnumber}[1]{\def\RJ@number{#1}}
+\renewcommand{\date}[1]{\def\RJ@date{#1}}
+\setcounter{secnumdepth}{-1}
+\renewcommand{\author}[1]{\def\RJ@author{#1}}
+\renewcommand{\title}[1]{\def\RJ@title{#1}}
+\newcommand{\subtitle}[1]{\def\RJ@subtitle{#1}}
+\newcommand{\sectionhead}[1]{\def\RJ@sectionhead{#1}}
+\newenvironment{article}{%
+  \author{}\title{}\subtitle{}}{\end{multicols}}
+\renewcommand{\maketitle}{
+  \begin{multicols}{2}[\chapter{\RJ@title}\refstepcounter{chapter}][3cm]
+    \ifx\empty\RJ@subtitle\else\noindent\textbf{\RJ@subtitle}
+    \par\nobreak\addvspace{\baselineskip}\fi
+    \ifx\empty\RJ@author\else\noindent\textit{\RJ@author}
+    \par\nobreak\addvspace{\baselineskip}\fi
+    \@afterindentfalse\@nobreaktrue\@afterheading}
+\renewcommand{\abstract}[1]{\begin{center}\begin{minipage}{0.92\linewidth} 
+    \textbf{Abstract } #1 \end{minipage}\end{center} \subsubsection{} \vspace{-12pt}}
+\renewcommand\chapter{\secdef\RJ@chapter\@schapter}
+\providecommand{\nohyphens}{%
+  \hyphenpenalty=10000\exhyphenpenalty=10000\relax}
+\newcommand{\RJ@chapter}{%
+  \edef\name@of@eq{equation.\@arabic{\c@chapter}}%
+  \renewcommand{\@seccntformat}[1]{}%
+  \@startsection{chapter}{0}{0mm}{%
+    -2\baselineskip \@plus -\baselineskip \@minus -.2ex}{\p@}{%
+    \normalfont\Huge\bfseries\raggedright}%
+}
+\renewcommand*\l@chapter{\@dottedtocline{0}{0pt}{1em}}
+\def\@schapter#1{\section*#1}
+\renewenvironment{figure}[1][]{%
+  \def\@captype{figure}
+  \noindent
+  \begin{minipage}{\columnwidth}}{%
+  \end{minipage}\par\addvspace{\baselineskip}}
+\numberwithin{equation}{chapter}
+\renewcommand{\theequation}{\@arabic\c@equation}
+\renewcommand{\thefigure}{\@arabic\c@figure}
+\renewcommand{\thetable}{\@arabic\c@table}
+\renewcommand{\contentsname}{Contents}
+\renewcommand\tableofcontents{%
+\begin{center}
+\vspace{1cm}
+\begin{tikzpicture}
+\node[right,text width=15.5cm, draw=black, rounded corners=20pt,
+fill=white,inner sep=2em, very thick]
+{
+  \begin{minipage}[t][16.5cm][c]{1.0\linewidth}
+  \section*{\contentsname}
+ {
+  \@starttoc{toc}
+ }
+  \end{minipage}
+};
+
+\end{tikzpicture}
+\end{center}}
+\renewcommand{\titlepage}{%
+  \noindent
+  \begin{center}
+    \fontsize{60pt}{60pt}\selectfont
+The \raisebox{-8pt}{\includegraphics[height=77pt]{Rlogo-4}}\hspace{10pt}
+    Journal
+  \end{center}
+{\large\hfill Volume \RJ@volume/\RJ@number, \RJ@date\qquad}
+\\[-.5\baselineskip]
+  \rule{\textwidth}{1pt}
+\begin{center}
+{\Large A peer-reviewed, open-access publication of the R Foundation\\
+for Statistical Computing}
+\end{center}
+  \fancyhf{}
+  \fancyhead[LO,RE]{\textsc{\RJ@sectionhead}}
+  \fancyhead[RO,LE]{\thepage}
+  \fancyfoot[L]{The R Journal Vol. \RJ@volume/\RJ@number, \RJ@date}
+  \fancyfoot[R]{ISSN 2073-4859}
+  \thispagestyle{empty}
+\setcounter{tocdepth}{0}
+\tableofcontents
+\setcounter{tocdepth}{2}
+\clearpage
+}
+\newcommand{\startRnews}{%
+  \newpage\noindent
+  \begin{center}
+    \fontsize{15mm}{1mm}\selectfont
+    \includegraphics[height=15mm]{Rlogo}\hspace{7mm}
+    News
+  \end{center}
+  \rule{\textwidth}{.5pt}
+  \vspace{1cm}
+  \addcontentsline{toc}{chapter}{R News}
+}
+
+\setlength{\textheight}{250mm}
+\setlength{\topmargin}{-10mm}
+\setlength{\textwidth}{17cm}
+\setlength{\oddsidemargin}{-6mm}
+\setlength{\evensidemargin}{-6mm}
+\setlength{\columnseprule}{.1pt}
+\setlength{\columnsep}{20pt}
+%%   sf &  almost european \\
+\RequirePackage{pslatex}
+\RequirePackage{palatino,mathpazo}
+\RequirePackage[T1]{fontenc}
+\definecolor{Red}{rgb}{0.7,0,0}
+\definecolor{Blue}{rgb}{0,0,0.8}
+\definecolor{hellgrau}{rgb}{0.55,0.55,0.55}
+\newcommand{\R}{R}
+\newcommand{\address}[1]{\addvspace{\baselineskip}\noindent\emph{#1}}
+\newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
+\newsavebox{\RJ@box}
+\newlength{\RJ@len}
+\newenvironment{bottombox}{%
+  \begin{figure*}[b]
+    \begin{center}
+      \noindent
+      \begin{lrbox}{\RJ@box}
+        \begin{minipage}{0.99\textwidth}}{%
+        \end{minipage}
+      \end{lrbox}
+      \addtolength{\RJ@len}{\fboxsep}
+      \addtolength{\RJ@len}{\fboxrule}
+      \hspace*{-\RJ@len}\fbox{\usebox{\RJ@box}}
+    \end{center}
+  \end{figure*}}
+\RequirePackage{verbatim}
+\def\boxedverbatim{%
+  \def\verbatim@processline{%
+    {\setbox0=\hbox{\the\verbatim@line}%
+    \hsize=\wd0 \the\verbatim@line\par}}%
+  \@minipagetrue
+  \@tempswatrue
+  \setbox0=\vbox
+  \bgroup\small\verbatim
+}
+\def\endboxedverbatim{%
+  \endverbatim
+  \unskip\setbox0=\lastbox
+  \egroup
+  \fbox{\box0}
+}
+\pagestyle{fancy}
+} % \ifthenelse{\boolean{RJ@driver}}
+\newcommand\code{\bgroup\@codex}
+\def\@codex#1{\texorpdfstring%
+{{\normalfont\ttfamily\hyphenchar\font=-1 #1}}%
+{#1}\egroup}
+\newcommand{\kbd}[1]{{\normalfont\texttt{#1}}}
+\newcommand{\key}[1]{{\normalfont\texttt{\uppercase{#1}}}}
+\newcommand\samp{`\bgroup\@noligs\@sampx}
+\def\@sampx#1{{\normalfont\texttt{#1}}\egroup'}
+\newcommand{\var}[1]{{\normalfont\textsl{#1}}}
+\let\env=\code
+\newcommand{\file}[1]{{`\normalfont\textsf{#1}'}}
+\let\command=\code
+\let\option=\samp
+\newcommand{\dfn}[1]{{\normalfont\textsl{#1}}}
+\newcommand{\acronym}[1]{#1}
+\newcommand{\strong}[1]{\texorpdfstring%
+{{\normalfont\fontseries{b}\selectfont #1}}%
+{#1}}
+\let\pkg=\strong
+\RequirePackage{alltt}
+\newenvironment{example}{\begin{alltt}}{\end{alltt}}
+\newenvironment{smallexample}{\begin{alltt}\small}{\end{alltt}}
+\newenvironment{display}{\list{}{}\item\relax}{\endlist}
+\newenvironment{smallverbatim}{\small\verbatim}{\endverbatim}
+\RequirePackage{fancyvrb}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontsize=\small}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{fontsize=\small}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{fontsize=\small}
+\DefineVerbatimEnvironment{Sin}{Verbatim}{fontsize=\small}
+\DefineVerbatimEnvironment{Sout}{Verbatim}{fontsize=\small}
+%\newenvironment{Schunk}{}{}
+\providecommand{\operatorname}[1]{%
+  \mathop{\operator@font#1}\nolimits}
+\renewcommand{\P}{%
+  \mathop{\operator@font I\hspace{-1.5pt}P\hspace{.13pt}}}
+\newcommand{\E}{%
+  \mathop{\operator@font I\hspace{-1.5pt}E\hspace{.13pt}}}
+\newcommand{\VAR}{\operatorname{var}}
+\newcommand{\COV}{\operatorname{cov}}
+\newcommand{\COR}{\operatorname{cor}}
+\RequirePackage{amsfonts}
+\endinput
+%%
+%% End of file `RJournal.sty'.
