@@ -1284,6 +1284,16 @@ namespace internal{
 			set( buffer ) ;
 		}
 		
+		template <typename OutputIterator, typename UnaryOperator>
+		void apply( OutputIterator target, UnaryOperator op){
+			std::transform( begin(), end(), target, op ) ;
+		}
+		
+		template <typename UnaryOperator>
+		void apply( UnaryOperator op){
+			std::for_each( begin(), end(), op );
+		}
+		
 		private:
 			static std::string buffer ;
 		
