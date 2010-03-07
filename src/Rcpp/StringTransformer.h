@@ -44,7 +44,7 @@ namespace Rcpp{
 	} ;
 	
 	template <typename UnaryOperator>
-	StringTransformer<UnaryOperator> make_string_transformer( UnaryOperator fun){
+	StringTransformer<UnaryOperator> make_string_transformer( const UnaryOperator& fun){
 		return StringTransformer<UnaryOperator>( fun ) ;
 	} ;
 	
