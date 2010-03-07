@@ -7,12 +7,11 @@ rm -f confdefs.h config.log config.status \
 	inst/doc/*.out \
 	inst/doc/*.Rd inst/doc/*.aux inst/doc/*.log inst/doc/*.tex \
 	inst/doc/latex/*.aux inst/doc/latex/*.log \
-	inst/doc/auto \
 	inst/examples/ConvolveBenchmarks/*.o  \
         inst/examples/ConvolveBenchmarks/*.so \
         inst/discovery/cxx0x.Rout \
 	src/Makedeps libRcpp.a
 rm -rf	autom4te.cache
-rm -rf  inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/
+rm -rf  inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ inst/doc/auto
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;
