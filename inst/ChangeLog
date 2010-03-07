@@ -1,3 +1,12 @@
+2010-03-07  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/StringTransformer.h: new class template StringTransformer
+	that allows using a character by character function to modify
+	elements of a string vector (example available in package RcppExamples)
+	
+	* src/Rcpp/Vector.h: string_proxy::iterator is made const char* because
+	R uses a global cache for the CHARSXP
+
 2010-03-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Vector.h: string_proxy gains begin(), end(), 
