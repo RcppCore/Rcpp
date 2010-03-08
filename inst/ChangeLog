@@ -1,20 +1,24 @@
+2010-03-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-introduction.Rnw: Added vignette based on a recent paper
+
 2010-03-07  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/StringTransformer.h: new class template StringTransformer
 	that allows using a character by character function to modify
 	elements of a string vector (example available in package RcppExamples)
-	
+
 	* src/Rcpp/Vector.h: string_proxy::iterator is made const char* because
 	R uses a global cache for the CHARSXP
 
 2010-03-05  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/Vector.h: string_proxy gains begin(), end(), 
-	size(), and operator[] for iterating over characters of the CHARSXP 
+	* src/Rcpp/Vector.h: string_proxy gains begin(), end(),
+	size(), and operator[] for iterating over characters of the CHARSXP
 
 2010-03-02  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/Vector.h: Vector gains a nested r_type type that is an 
+	* src/Rcpp/Vector.h: Vector gains a nested r_type type that is an
 	integral_constant<int,RTYPE> to facilitate TMP
 	* src/RcppCommon.{h,cpp}: added RCPP_CALL_VECTOR and RCPP_CALL_MATRIX
 	macros to facilitate calling a function templated by T = Vector<RTYPE>
@@ -22,7 +26,7 @@
 
 2010-03-01  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/Vector.h: more typedef : CharacterMatrix, StringMatrix, 
+	* src/Rcpp/Vector.h: more typedef : CharacterMatrix, StringMatrix,
 	GenericMatrix, ExpressionMatrix, ListMatrix
 
 	* src/ExpressionVector.cpp : replaced by templates in Vector.h
@@ -31,90 +35,90 @@
 
 2010-02-28  Romain Francois <romain@r-enthusiasts.com>
 
-    * src/Rcpp/Vector.h : more generic code for vectors. All vector 
+    * src/Rcpp/Vector.h : more generic code for vectors. All vector
     types are now generated from the template Rcpp::Vector<int RTYPE>
-    where RTYPE is one of INTSXP, LGLSXP, REALSXP, RAWSXP, STRSXP, 
-    VECSXP or EXPRSXP. 
+    where RTYPE is one of INTSXP, LGLSXP, REALSXP, RAWSXP, STRSXP,
+    VECSXP or EXPRSXP.
 
 2010-02-24  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/exceptions.h: some exception classes factored out 
-	
-	* src/Rcpp/VectorBase.h: now a template, using the 
+	* src/Rcpp/exceptions.h: some exception classes factored out
+
+	* src/Rcpp/VectorBase.h: now a template, using the
 	Curiously recurring template pattern (the type parameter is
 	the derived class)
 
-	* src/Rcpp/SEXP_Vector.h: the intermediate class 
-	SEXP_Vector_Base is removed, reverting the change on 
-	2010-02-09. This will facilitate the introduction of the 
+	* src/Rcpp/SEXP_Vector.h: the intermediate class
+	SEXP_Vector_Base is removed, reverting the change on
+	2010-02-09. This will facilitate the introduction of the
 	Curiously recurring template pattern on vectors
 
 	* src/Rcpp/MatrixRow.h : Row has been factored out of SimpleVector
 	into a separate template class Rcpp::MatrixRow
-	
-	* src/Rcpp/SimpleVector.h: gains a row method that returns 
+
+	* src/Rcpp/SimpleVector.h: gains a row method that returns
 	a SimpleVector::Row, aka MatrixRow<SimpleVector>
-	
+
 	* src/Rcpp/CharacterVector.h : gains a row method that returns
 	a CharacterVector::Row, aka MatrixRow<CharacterVector>
-	
-	* src/Rcpp/SEXP_Vector.h : gains a row method that returns 
+
+	* src/Rcpp/SEXP_Vector.h : gains a row method that returns
 	a SEXP_Vector::Row aka MatrixRow<SEXP_Vector>
 
-	* src/Rcpp/MatrixColumn.h : Column class to access elements of a 
+	* src/Rcpp/MatrixColumn.h : Column class to access elements of a
 	matrix column
 
 2010-02-23  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/SimpleVector.h: added the class SimpleVector::Row
-	to support STL algorithms working on a row of a matrix. 
+	to support STL algorithms working on a row of a matrix.
 
-	* src/Rcpp/internal/ListInitialization.h: new class that 
-	supports use of operator, (inspired from blitz) giving this 
+	* src/Rcpp/internal/ListInitialization.h: new class that
+	supports use of operator, (inspired from blitz) giving this
 	notation: IntegerVector x(3); x = 0, 1, 2 ;
 
 2010-02-21  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/as.h: more generic as implementation. primitive 
-	types are handled through templates which for example makes 
+	* src/Rcpp/as.h: more generic as implementation. primitive
+	types are handled through templates which for example makes
 	it possible to as<GPB::int64> in RProtoBuf. std::deque<T>
 	and std::list<T> become as'able when T is a primitive type
-	as indicated by the Rcpp::traits::r_type_traits 
-	
-	* src/as.cpp: removed since as is now fully implemented via 
+	as indicated by the Rcpp::traits::r_type_traits
+
+	* src/as.cpp: removed since as is now fully implemented via
 	templates
 
 2010-02-19  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/as.h: as now delegates to a template class 
-	Exporter since partial specialization was not possible with 
+	* src/Rcpp/as.h: as now delegates to a template class
+	Exporter since partial specialization was not possible with
 	the interface of as. It is possible to partially specialize
-	Exporter. std::vector<T> when T is a primitive type is 
+	Exporter. std::vector<T> when T is a primitive type is
 	now handled through Exporter. Some support Exporter have been
 	added and used in RcppArmadillo
 
 	* src/Rcpp/internal/wrap.h: support for std::complex<double>
 	and std::complex<float> (needed for RcppArmadillo)
 
-	* src/Rcpp/traits/wrap_type_traits.h : The Importer concept 
-	has been introduced to support wrap() of more types. If a 
+	* src/Rcpp/traits/wrap_type_traits.h : The Importer concept
+	has been introduced to support wrap() of more types. If a
 	class has a typedef "r_import_type" then the following interface
-	is assumed and used. The corresponding class must have methods 
+	is assumed and used. The corresponding class must have methods
 	int size() and r_import_type get(int). As usual further dispatch
-	is performed based on r_import_type (primitive, etc ...). 
+	is performed based on r_import_type (primitive, etc ...).
 	RcppArmadillo has an example of this for wrapping arma::field<T>
 	objects using the FieldImporter<T> class.
 
 2010-02-18  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Language.h: added fixed_call to support STL algorithms
-	similar to generate. 
-	
+	similar to generate.
+
 	* inst/unitTests/runit.Language.R: unit test for fixed_call
 
 	* src/Rcpp/Environment.h: Environment gains a find method
 	which searches for a binding in the associated environment
-	but also in all its parents, as opposed to get which just 
+	but also in all its parents, as opposed to get which just
 	looks in the environment.
 
 2010-02-17  Dirk Eddelbuettel  <edd@debian.org>
