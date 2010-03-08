@@ -31,7 +31,7 @@
     	types. The package RcppArmadillo has examples of this
 
     o   new template class Rcpp::fixed_call that can be used in STL algorithms
-		such as std::generate.
+	such as std::generate.
 
     o	RcppExample et al have been moved to a new package RcppExamples;
         src/Makevars and src/Makevars.win simplified accordingly
@@ -42,6 +42,12 @@
         - using GNU GSL and a C interface
         - using Armadillo (http://arma.sf.net) and a C++ interface
         Armadillo is seen as faster for lack of extra copying
+
+    o	A new package RcppArmadillo serves as a concrete example on how to
+        extend Rcpp to work with a modern C++ library
+
+    o	Added a new vignette 'Rcpp-introduction' based on a just-submitted 
+        overview article on Rcpp
 
 0.7.7	2010-02-14
 
