@@ -39,10 +39,10 @@
 
 2010-02-28  Romain Francois <romain@r-enthusiasts.com>
 
-    * src/Rcpp/Vector.h : more generic code for vectors. All vector
-    types are now generated from the template Rcpp::Vector<int RTYPE>
-    where RTYPE is one of INTSXP, LGLSXP, REALSXP, RAWSXP, STRSXP,
-    VECSXP or EXPRSXP.
+	* src/Rcpp/Vector.h : more generic code for vectors. All vector
+	types are now generated from the template Rcpp::Vector<int RTYPE>
+	where RTYPE is one of INTSXP, LGLSXP, REALSXP, RAWSXP, STRSXP,
+	VECSXP or EXPRSXP.
 
 2010-02-24  Romain Francois <romain@r-enthusiasts.com>
 
