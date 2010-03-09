@@ -36,7 +36,6 @@ r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.clone.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.traits.R
 r-cran-rcpp: script-uses-bin-env ./usr/lib/R/site-library/Rcpp/discovery/cxx0x.R
-r-cran-rcpp: binary-or-shlib-defines-rpath ./usr/lib/R/site-library/Rcpp/examples/functionCallback/RcppFunctionCallExample.so /usr/local/lib/R/site-library/Rcpp/lib
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Column.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Matrix.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Row.R
