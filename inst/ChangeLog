@@ -1,3 +1,7 @@
+2010-03-09  Romain Francois <romain@r-enthusiasts.com>
+
+	* man/Rcpp.package.skeleton.Rd: some more documentation
+
 2010-03-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-introduction.Rnw: Added vignette based on a recent paper

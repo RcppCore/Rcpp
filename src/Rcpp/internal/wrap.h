@@ -23,6 +23,8 @@
 #ifndef Rcpp_internal_wrap_h
 #define Rcpp_internal_wrap_h
 
+#include <iterator>
+
 // this is a private header, included in RcppCommon.h
 // don't include it directly
 
