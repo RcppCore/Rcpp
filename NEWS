@@ -1,4 +1,4 @@
-0.7.8   (under development)
+0.7.8   2010-03-09
 
     o	All vector classes are now generated from the same template class
     	Rcpp::Vector<int RTYPE> where RTYPE is one of LGLSXP, RAWSXP, STRSXP,
@@ -49,8 +49,9 @@
         - using Armadillo (http://arma.sf.net) and a C++ interface
         Armadillo is seen as faster for lack of extra copying
 
-    o	A new package RcppArmadillo serves as a concrete example on how to
-        extend Rcpp to work with a modern C++ library
+    o	A new package RcppArmadillo (to be released shortly) now serves 
+        as a concrete example on how to extend Rcpp to work with a modern 
+	C++ library such as the heavily-templated Armadillo library
 
     o	Added a new vignette 'Rcpp-introduction' based on a just-submitted 
         overview article on Rcpp
