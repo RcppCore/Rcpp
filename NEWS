@@ -36,6 +36,12 @@
     o	RcppExample et al have been moved to a new package RcppExamples;
         src/Makevars and src/Makevars.win simplified accordingly
 
+    o	New class Rcpp::StringTransformer and helper function 
+    	Rcpp::make_string_transformer that can be used to create a function
+    	that transforms a string character by character. For example
+    	Rcpp::make_string_transformer(tolower) transforms each character
+    	using tolower. The RcppExamples package has an example of this.
+        
     o	Improved src/Makevars.win thanks to Brian Ripley
 
     o	New examples for 'fast lm' using compiled code: 
