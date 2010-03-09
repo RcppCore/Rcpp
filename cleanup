@@ -9,6 +9,8 @@ rm -f confdefs.h config.log config.status \
 	inst/doc/latex/*.aux inst/doc/latex/*.log \
 	inst/examples/ConvolveBenchmarks/*.o  \
         inst/examples/ConvolveBenchmarks/*.so \
+	inst/examples/functionCallback/*.so \
+	inst/examples/functionCallback/*.o \
         inst/discovery/cxx0x.Rout \
 	src/Makedeps libRcpp.a
 rm -rf	autom4te.cache
