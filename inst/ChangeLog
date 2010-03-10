@@ -1,3 +1,9 @@
+2010-03-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.7.8
+
+	* debian/*: Similarly updated for new release to Debian
+
 2010-03-09  Romain Francois <romain@r-enthusiasts.com>
 
 	* man/Rcpp.package.skeleton.Rd: some more documentation
