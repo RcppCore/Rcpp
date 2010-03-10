@@ -1,3 +1,7 @@
+2010-03-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/RcppLdPath.R: Be more specific about quote-protection of path on Windows
+
 2010-03-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.7.8

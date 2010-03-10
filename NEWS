@@ -1,3 +1,7 @@
+0.7.9   (under development)
+
+    o	Another small improvement to Windows build flags
+
 0.7.8   2010-03-09
 
     o	All vector classes are now generated from the same template class
