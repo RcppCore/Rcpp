@@ -1,6 +1,9 @@
 2010-03-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/RcppLdPath.R: Be more specific about quote-protection of path on Windows
+	* R/RcppLdPath.R: More specific about quote-protection of path on Windows
+
+	* inst/doc/Rcpp-introduction.Rnw: Applied several fixes kindly suggested
+	  by Matt Kraai
 
 2010-03-09  Dirk Eddelbuettel  <edd@debian.org>
 
