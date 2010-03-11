@@ -190,7 +190,7 @@ We can highlight several aspects. First, only a single header file
 Third, both inputs are converted to templated\footnote{C++ templates
 allow functions or classes to be written somewhat independently from the 
 template parameter. The actual class is instantiated by the compiler
-by replacing occurences of the templated parameter(s).}
+by replacing occurrences of the templated parameter(s).}
 C++ vector types, here a standard \code{double}
 type is used to create a vector of doubles from the template type.
 Fourth, the usefulness of these classes can be seen when we query the
@@ -350,7 +350,7 @@ UNPROTECT(1);
 \end{example}
 
 This imposes on the programmer knowledge of \code{PROTECT}, \code{UNPROTECT}, 
-\code{SEXP}, \code{allocVector}, \code{SET\_STRING\_ELT}, \code{mkChar}. 
+\code{SEXP}, \code{allocVector}, \code{SET\_STRING\_ELT}, and \code{mkChar}. 
 
 Using the \pkg{Rcpp::CharacterVector} class, we can express the same
 code more concisely:
@@ -452,21 +452,21 @@ Consider the following code that uses the \code{Rcpp::Environment} class to
 interchange data between C++ and R.
 
 \begin{example}
-# assuming the global environment contains 
-# a variable 'x' that is a numeric vector
+// assuming the global environment contains 
+// a variable 'x' that is a numeric vector
 Rcpp::Environment global = 
 \ \ \ \ Rcpp::Environment::global_env()
 
-# extract a std::vector<double> from 
-# the global environment
+// extract a std::vector<double> from 
+// the global environment
 std::vector<double> vx = global["x"] ;
 
-# create a map<string,string>
+// create a map<string,string>
 std::map<std::string,std::string> map ;
 map["foo"] = "oof" ;
 map["bar"] = "rab" ;
 
-# push the STL map to R
+// push the STL map to R
 global["y"] = map ;
 \end{example}
 
