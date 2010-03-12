@@ -1,4 +1,6 @@
-2010-03-09  Romain Francois <romain@r-enthusiasts.com>
+2010-03-12  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/unitTests/runit.environments.R: mac os has a different locale
 
 	* src/Rcpp/traits/is_convertible.h: the detection is now performed without
 	the help of cxx0x or tr1 which makes it compatible with gcc 4.2
