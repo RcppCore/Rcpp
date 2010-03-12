@@ -1,14 +1,20 @@
+2010-03-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.7.9
+
+	* debian/*: Similarly updated for new release to Debian
+
 2010-03-12  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/unitTests/runit.environments.R: mac os has a different locale
 
 	* src/Rcpp/traits/is_convertible.h: the detection is now performed without
 	the help of cxx0x or tr1 which makes it compatible with gcc 4.2
-	
+
 	* src/Rcpp/traits/is_same.h: new traits is_same to help detect if two types
 	are the same (not currently used)
-	
-	* src/Rcpp/traits/wrap_type_traits.h: use "unsigned int" instead of "size_t" 
+
+	* src/Rcpp/traits/wrap_type_traits.h: use "unsigned int" instead of "size_t"
 	in the template specializations (64 bit compatibility)
 
 2010-03-10  Dirk Eddelbuettel  <edd@debian.org>
