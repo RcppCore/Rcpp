@@ -93,7 +93,7 @@ SEXP primitive_range_wrap__impl( InputIterator first, InputIterator last, ::Rcpp
 template <typename InputIterator, typename T>
 SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_primitive_tag){ 
 	return primitive_range_wrap__impl<InputIterator,T>( first, last, typename ::Rcpp::traits::r_sexptype_needscast<T>() ) ;
-} ;
+}
 
 /** 
  * range based wrap implementation that deals with iterators over 
@@ -113,7 +113,7 @@ SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp
 	}
 	UNPROTECT(1) ;
 	return x ;
-} ;
+}
 
 /**
  * Range based wrap implementation for iterators over std::string
@@ -165,7 +165,7 @@ SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator last, 
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
 	return x ;
-} ;
+}
 
 /** 
  * range based wrap implementation that deals with iterators over
@@ -194,7 +194,7 @@ SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator last, 
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
 	return x ;
-} ;
+}
 
 
 /** 
@@ -210,7 +210,7 @@ template <typename InputIterator, typename T>
 SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_pairstring_primitive_tag){ 
 	return range_wrap_dispatch___impl__cast<InputIterator,T>( first, last, 
 		typename ::Rcpp::traits::r_sexptype_needscast<typename T::second_type>() ) ;
-} ;
+}
 
 /**
  * Range based wrap implementation that deals with iterators over
@@ -242,7 +242,7 @@ SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
 	return x ;
-} ;
+}
 
 /**
  * Range based wrap for iterators over std::pair<const std::string, std::string>
@@ -310,7 +310,7 @@ SEXP primitive_wrap__impl__cast( const T& object, ::Rcpp::traits::false_type ){
 	r_vector_start<RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x)[0] = object ;
 	UNPROTECT(1);
 	return x;
-} ;
+}
 
 /**
  * wraps a single primitive value when a cast is needed
@@ -322,7 +322,7 @@ SEXP primitive_wrap__impl__cast( const T& object, ::Rcpp::traits::true_type ){
 	r_vector_start<RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x)[0] = static_cast< typename ::Rcpp::traits::storage_type<RTYPE>::type >(object) ;
 	UNPROTECT(1);
 	return x;
-} ;
+}
 
 /**
  * primitive wrap for 'easy' primitive types: int, double, Rbyte, Rcomplex
@@ -332,7 +332,7 @@ SEXP primitive_wrap__impl__cast( const T& object, ::Rcpp::traits::true_type ){
 template <typename T>
 SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_primitive_tag ){
 	return primitive_wrap__impl__cast( object, typename ::Rcpp::traits::r_sexptype_needscast<T>() ); 
-} ;
+}
 
 /**
  * primitive wrap for types that can be converted implicitely to std::string
@@ -542,7 +542,7 @@ template <typename T> SEXP wrap(const T& object){
 }
 
 // special case - FIXME : this is not template specializations of wrap<>
-inline SEXP wrap(const char* const v ){ return Rf_mkString(v) ; } ;
+inline SEXP wrap(const char* const v ){ return Rf_mkString(v) ; }
 
 /**
  * Range based version of wrap

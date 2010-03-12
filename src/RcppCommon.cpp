@@ -128,15 +128,15 @@ SEXP initRcpp(){
 namespace Rcpp{
 namespace internal{
 
-	template<> int* r_vector_start<INTSXP,int>(SEXP x){ return INTEGER(x) ; } ; 
-	template<> int* r_vector_start<LGLSXP,int>(SEXP x){ return LOGICAL(x) ; };
-	template<> double* r_vector_start<REALSXP,double>(SEXP x){ return REAL(x) ; } ;
-	template<> Rbyte* r_vector_start<RAWSXP,Rbyte>(SEXP x){ return RAW(x) ; } ;
-	template<> Rcomplex* r_vector_start<CPLXSXP,Rcomplex>(SEXP x){ return COMPLEX(x) ; } ;
+	template<> int* r_vector_start<INTSXP,int>(SEXP x){ return INTEGER(x) ; }
+	template<> int* r_vector_start<LGLSXP,int>(SEXP x){ return LOGICAL(x) ; }
+	template<> double* r_vector_start<REALSXP,double>(SEXP x){ return REAL(x) ; }
+	template<> Rbyte* r_vector_start<RAWSXP,Rbyte>(SEXP x){ return RAW(x) ; }
+	template<> Rcomplex* r_vector_start<CPLXSXP,Rcomplex>(SEXP x){ return COMPLEX(x) ; }
 	
-	template<> void r_init_vector<VECSXP>(SEXP x){} ;
-	template<> void r_init_vector<EXPRSXP>(SEXP x){} ;
-	template<> void r_init_vector<STRSXP>(SEXP x){} ;
+	template<> void r_init_vector<VECSXP>(SEXP x){}
+	template<> void r_init_vector<EXPRSXP>(SEXP x){}
+	template<> void r_init_vector<STRSXP>(SEXP x){}
 
 	template<> Rcomplex get_zero<CPLXSXP,Rcomplex>(){
 		Rcomplex x ;

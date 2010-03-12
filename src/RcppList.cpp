@@ -25,7 +25,7 @@ RcppList::RcppList(void) : listArg(R_NilValue),
 			   listSize(0), 
 			   currListPosn(0), 
 			   numProtected(0) { 
-}; 
+}
 
 RcppList::~RcppList(void) {
     UNPROTECT(numProtected);

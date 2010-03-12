@@ -73,7 +73,7 @@ template <typename T> T as( SEXP m_sexp) {
 	return internal::as<T>( m_sexp, typename traits::r_type_traits<T>::r_category() ) ;
 }
 
-template<> inline SEXP as(SEXP m_sexp) { return m_sexp ; } ;
+template<> inline SEXP as(SEXP m_sexp) { return m_sexp ; }
 
 } // Rcpp 
 

@@ -23,11 +23,11 @@
 
 namespace Rcpp {
 	
-	Language::Language() : DottedPair() {};
+	Language::Language() : DottedPair() {}
 	
 	Language::Language( SEXP x ) throw(not_compatible) : DottedPair(){
 		setSEXP( r_cast<LANGSXP>(x) ) ;
-	};
+	}
 	
 	Language::Language( const Language& other): DottedPair(){
 		setSEXP( other.asSexp() ) ;

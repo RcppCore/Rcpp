@@ -92,7 +92,7 @@ RObject::SlotProxy::SlotProxy( const RObject& v, const std::string& name) :
 	if( !R_has_slot( v, Rf_install(name.c_str())) ){
 		throw no_such_slot() ; 
 	}
-} ;
+}
 
 RObject::SlotProxy& RObject::SlotProxy::operator=(const SlotProxy& rhs){
 	set( rhs.get() ) ;
@@ -127,7 +127,7 @@ void RObject::AttributeProxy::set(SEXP x) const{
 }
 
 RObject::AttributeProxy::AttributeProxy( const RObject& v, const std::string& name) :
-	parent(v), attr_name(name) {};
+	parent(v), attr_name(name) {}
 
 RObject::AttributeProxy& RObject::AttributeProxy::operator=(const AttributeProxy& rhs){
 	set( rhs.get() ) ;
