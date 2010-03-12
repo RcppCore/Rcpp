@@ -26,7 +26,7 @@
 namespace Rcpp{
 namespace internal{
 
-template<int RTYPE, typename CTYPE> CTYPE* r_vector_start(SEXP x){ return static_cast<CTYPE*>(0) ; } ;
+template<int RTYPE, typename CTYPE> CTYPE* r_vector_start(SEXP x){ return static_cast<CTYPE*>(0) ; }
 template<> int* r_vector_start<INTSXP,int>(SEXP x) ; 
 template<> int* r_vector_start<LGLSXP,int>(SEXP x) ;
 template<> double* r_vector_start<REALSXP,double>(SEXP x) ;
@@ -37,7 +37,7 @@ template<> Rcomplex* r_vector_start<CPLXSXP,Rcomplex>(SEXP x) ;
  * The value 0 statically casted to the appropriate type for 
  * the given SEXP type
  */
-template <int RTYPE,typename CTYPE> CTYPE get_zero(){ return static_cast<CTYPE>(0) ; } ;
+template <int RTYPE,typename CTYPE> CTYPE get_zero(){ return static_cast<CTYPE>(0) ; }
 /**
  * Specialization for Rcomplex
  */

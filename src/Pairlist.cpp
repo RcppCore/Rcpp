@@ -23,10 +23,10 @@
 
 namespace Rcpp {
 	
-	Pairlist::Pairlist() : DottedPair() {};
+	Pairlist::Pairlist() : DottedPair() {}
 	Pairlist::Pairlist( SEXP x ) throw(not_compatible) : DottedPair(){
 		setSEXP( r_cast<LISTSXP>(x) );
-	};
+	}
 	Pairlist::~Pairlist(){}
 	Pairlist::Pairlist( const Pairlist& other): DottedPair(){
 		setSEXP( other.asSexp() ) ;

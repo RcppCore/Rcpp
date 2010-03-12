@@ -156,7 +156,7 @@ public:
 		 */
 		template <typename T> operator T() const {
 			return as<T>(get()) ;
-		} ;
+		}
 		
 	private:
 		const RObject& parent; 
@@ -198,7 +198,7 @@ public:
 		template <typename T> SlotProxy& operator=(const T& rhs){
 			set( wrap(rhs) ) ;
 			return *this ;
-		} ;
+		}
 		
 		/**
 		 * rhs use. Retrieves the current value of the slot
@@ -207,7 +207,7 @@ public:
 		 */ 
 		template <typename T> operator T() const {
 			return as<T>(get()) ;
-		} ;
+		}
 		
 	private:
 		const RObject& parent; 

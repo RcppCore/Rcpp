@@ -40,7 +40,7 @@ namespace Rcpp {
 		default:
 			throw not_compatible("cannot convert to function") ;
 		}
-	};
+	}
 	
 	Function::Function(const std::string& name) throw(no_such_function) : RObject() {
 		SEXP x = PROTECT( Rf_findFun( Rf_install(name.c_str()), R_GlobalEnv ) ) ;
