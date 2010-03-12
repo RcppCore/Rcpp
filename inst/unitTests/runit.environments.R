@@ -31,7 +31,7 @@ test.environment.ls <- function(){
 	e$a <- 1:10
 	e$b <- "foo"
 	e$.c <- "hidden"
-	checkEquals( funx(e), c("a","b", ".c"), msg = "Environment::ls(true)" )
+	checkEquals( sort(funx(e)), sort(c("a","b", ".c")), msg = "Environment::ls(true)" )
 	checkEquals( funx(asNamespace("Rcpp")), ls(envir=asNamespace("Rcpp"), all = TRUE), 
 		msg = "Environment(namespace)::ls()" )
 	
