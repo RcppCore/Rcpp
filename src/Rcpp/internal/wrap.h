@@ -506,7 +506,7 @@ template <typename T> SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_
  * The next step is to try implicit conversion to SEXP
  */
 template <typename T> SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::false_type){
-	return wrap_dispatch_unknown( object, typename is_convertible<T,SEXP>::type() ) ;
+	return wrap_dispatch_unknown( object, typename ::Rcpp::traits::is_convertible<T,SEXP>::type() ) ;
 }
 
 /**
