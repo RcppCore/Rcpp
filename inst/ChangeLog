@@ -1,3 +1,14 @@
+2010-03-09  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/traits/is_convertible.h: the detection is now performed without
+	the help of cxx0x or tr1 which makes it compatible with gcc 4.2
+	
+	* src/Rcpp/traits/is_same.h: new traits is_same to help detect if two types
+	are the same (not currently used)
+	
+	* src/Rcpp/traits/wrap_type_traits.h: use "unsigned int" instead of "size_t" 
+	in the template specializations (64 bit compatibility)
+
 2010-03-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/RcppLdPath.R: More specific about quote-protection of path on Windows

@@ -28,7 +28,7 @@ namespace traits{
 
 /**
  * Identifies a primitive type that needs to special handling
- * int, double, size_t, Rbyte, Rcomplex
+ * int, double, Rbyte, Rcomplex
  */
 struct r_type_primitive_tag{} ;
 
@@ -76,7 +76,7 @@ template<> struct r_type_traits< std::pair<const std::string,bool> >{ typedef r_
 template<> struct r_type_traits< std::pair<const std::string,std::string> >{ typedef r_type_pairstring_string_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,char> >{ typedef r_type_pairstring_string_tag r_category ; } ;
 
-template<> struct r_type_traits< std::pair<const std::string,size_t> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,unsigned int> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,float> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 
 template<> struct r_type_traits<int>{ typedef r_type_primitive_tag r_category ; } ;
@@ -87,7 +87,7 @@ template<> struct r_type_traits<bool>{ typedef r_type_primitive_tag r_category ;
 template<> struct r_type_traits<std::string>{ typedef r_type_string_tag r_category ; } ;
 template<> struct r_type_traits<char>{ typedef r_type_string_tag r_category ; } ;
 
-template<> struct r_type_traits<size_t>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits<unsigned int>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<float>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<const char*>{ typedef r_type_string_tag r_category ; } ;
 

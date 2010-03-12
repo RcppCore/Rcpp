@@ -38,7 +38,7 @@ template<> struct r_sexptype_traits<std::string>{ enum{ rtype = STRSXP } ; } ;
 template<> struct r_sexptype_traits<Rcomplex>{ enum{ rtype = CPLXSXP } ; } ;
 template<> struct r_sexptype_traits<Rbyte>{ enum{ rtype = RAWSXP } ; } ;
 
-template<> struct r_sexptype_traits<size_t>{ enum{ rtype = INTSXP } ; } ;
+template<> struct r_sexptype_traits<unsigned int>{ enum{ rtype = INTSXP } ; } ;
 template<> struct r_sexptype_traits<float>{ enum{ rtype = REALSXP } ; } ;
 
 
