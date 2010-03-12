@@ -29,7 +29,7 @@ RcppFunction::RcppFunction(SEXP fn_) : fn(fn_) {
     currListPosn = 0;
     listSize = 0;
     vectorArg = listArg = R_NilValue;
-};
+}
 
 RcppFunction::~RcppFunction() {
     UNPROTECT(numProtected);

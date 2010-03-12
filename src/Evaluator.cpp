@@ -25,7 +25,7 @@ namespace Rcpp {
 
     Evaluator::eval_error::eval_error( const std::string& message) throw() :
     	message(message){}
-    Evaluator::eval_error::~eval_error( ) throw(){} ;
+    Evaluator::eval_error::~eval_error( ) throw(){}
     const char* Evaluator::eval_error::what() const throw(){ return message.c_str() ; }
 
    SEXP Evaluator::run(SEXP expr, SEXP env) throw(eval_error) {

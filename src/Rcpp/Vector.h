@@ -274,7 +274,7 @@ namespace internal{
 	template <>
 	inline SEXP vector_from_string<EXPRSXP>( const std::string& st ){
 		return vector_from_string_expr<EXPRSXP>( st ) ;
-	} ;
+	}
 	
 	template <typename VECTOR> class eval_methods {} ;
 	
@@ -571,7 +571,7 @@ public:
 	
 		template <typename T> operator T() const {
 			return Rcpp::as<T>(get()) ;
-		} ;
+		}
 		
 	private:
 		const Vector& parent; 
@@ -1378,11 +1378,11 @@ namespace std {
 		Rcpp::internal::TYPE<RTYPE>& a ,							\
 		Rcpp::internal::TYPE<RTYPE>& b) { 							\
 			a.swap(b) ;												\
-		}	; 
+		}
 
-RCPP_GENERATE_SWAP( generic_proxy,VECSXP) ;
-RCPP_GENERATE_SWAP( generic_proxy,EXPRSXP) ;
-RCPP_GENERATE_SWAP( string_proxy,STRSXP) ;
+RCPP_GENERATE_SWAP( generic_proxy,VECSXP)
+RCPP_GENERATE_SWAP( generic_proxy,EXPRSXP)
+RCPP_GENERATE_SWAP( string_proxy,STRSXP)
 #undef RCPP_GENERATE_SWAP
 
 }

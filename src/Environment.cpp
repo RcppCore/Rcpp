@@ -23,7 +23,7 @@
 
 namespace Rcpp {
 
-	Environment::not_found::not_found(const std::string& binding_) : binding(binding_){};
+	Environment::not_found::not_found(const std::string& binding_) : binding(binding_){}
 	Environment::not_found::~not_found() throw(){}
 	const char* Environment::not_found::what() const throw(){
 		std::string message( "not found : " ) ;

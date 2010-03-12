@@ -22,7 +22,7 @@
 
 #include <RcppFrame.h>
 
-ColDatum::ColDatum() : level(0) { }; 
+ColDatum::ColDatum() : level(0) { }
 
 ColDatum::ColDatum(const ColDatum& datum) {
     // Need deep copy so contruction/destruction is synchronized.
