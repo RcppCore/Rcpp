@@ -105,7 +105,7 @@ XPtr<T>::XPtr(T* p, bool set_delete_finalizer = true) : RObject() {
 
 template<typename T>
 void XPtr<T>::setDeleteFinalizer(){
-    R_RegisterCFinalizerEx( m_sexp, static_cast<R_CFinalizer_t>( delete_finalizer<T> ) , FALSE) ; 
+    R_RegisterCFinalizerEx( m_sexp, delete_finalizer<T> , FALSE) ; 
 }
 
 template<typename T>
