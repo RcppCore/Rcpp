@@ -70,7 +70,8 @@ test.S4 <- function(){
 	setClass("track",
            representation(x="numeric", y="numeric"))
 	tr <- new( "track", x = 2, y = 3 )
-	fx <- cfunction( signature( x = "ANY" ) 'S4 o(x); return o.slot( "x" ) ;', 
+	fx <- cfunction( signature( x = "ANY" ),
+                        'S4 o(x); return o.slot( "x" ) ;', 
 		Rcpp = TRUE, includes = "using namespace Rcpp;" )
 	checkEquals( fx( tr ), 2, msg = "S4( SEXP )" )
 	
