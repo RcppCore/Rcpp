@@ -21,7 +21,7 @@
 	suppressMessages( require( inline ) )
 }
 
-test.S4 <- function(){
+test.RObject.S4methods <- function(){
 	funx <- cfunction(signature(x = "ANY" ), '
 	RObject y(x) ;
 	List res(5) ;
@@ -63,6 +63,19 @@ test.S4 <- function(){
 	', Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
 	checkException( funx( tr ), msg = "slot does not exist" )
 	
+}
+
+test.S4 <- function(){
+		
+	setClass("track",
+           representation(x="numeric", y="numeric"))
+	tr <- new( "track", x = 2, y = 3 )
+	fx <- cfunction( signature( x = "ANY" ) 'S4 o(x); return o.slot( "x" ) ;', 
+		Rcpp = TRUE, includes = "using namespace Rcpp;" )
+	checkEquals( fx( tr ), 2, msg = "S4( SEXP )" )
+	
+	checkExecption( fx( list( x = 2, y = 3 ) ), msg = "not S4" )
+	checkException( fx( structure( list( x = 2, y = 3 ), class = "track" ) ), msg = "S3 is not S4" )
 	
 }
 
