@@ -1,3 +1,7 @@
+2010-03-13  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/S4.h : new class Rcpp::S4
+
 2010-03-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.7.9
