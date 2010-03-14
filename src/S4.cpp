@@ -20,6 +20,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <Rcpp/S4.h>
+#include <Rcpp/exceptions.h>
 
 namespace Rcpp {
 
@@ -40,6 +41,16 @@ namespace Rcpp {
 	S4& S4::operator=( const S4& other){
 		setSEXP( other.asSexp() ) ;
 		return *this ;
+	}
+	
+	S4::S4( const std::string& klass ) {
+		SEXP oo = PROTECT( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) ) ;
+  		if (!Rf_inherits(oo, klass.c_str())) {
+  			UNPROTECT( 1) ;
+  			throw S4_creation_error( klass ) ;
+  		}
+  		setSEXP( oo ) ;
+  		UNPROTECT( 1) ; /* oo */
 	}
 	
 } // namespace Rcpp
