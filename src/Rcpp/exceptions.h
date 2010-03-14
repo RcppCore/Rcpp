@@ -44,7 +44,18 @@ class parse_error : public std::exception{
 		virtual ~parse_error() throw(){};
 		virtual const char* what() const throw(){ return "parse error" ; } ;
 	} ;
-		
+
+class S4_creation_error : public std::exception{
+	public:
+		S4_creation_error(const std::string& klass) throw() : message("error creating object of S4 class : ") {
+			message += klass ;
+		} ;
+		virtual ~S4_creation_error() throw(){};
+		virtual const char* what() const throw(){ return "" ; } ;
+	private:
+		std::string message ;
+} ;
+	
 } // namesapce Rcpp
 
 #endif

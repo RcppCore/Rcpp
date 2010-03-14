@@ -75,8 +75,19 @@ test.S4 <- function(){
 		Rcpp = TRUE, includes = "using namespace Rcpp;" )
 	checkEquals( fx( tr ), 2, msg = "S4( SEXP )" )
 	
-	checkExecption( fx( list( x = 2, y = 3 ) ), msg = "not S4" )
+	checkException( fx( list( x = 2, y = 3 ) ), msg = "not S4" )
 	checkException( fx( structure( list( x = 2, y = 3 ), class = "track" ) ), msg = "S3 is not S4" )
+
+	fx <- cfunction( signature( clazz = "character" ), 
+		'
+		std::string cl = as<std::string>( clazz );
+		return S4( cl ); 
+		', includes = "using namespace Rcpp" )
+	tr <- fx( "track" )
+	checkTrue( inherits( tr, "track" ) )
+	checkEquals( tr@x, 0.0 )
+	checkEquals( tr@y, 0.0 )
+	checkException( fx( "someclassthatdoesnotexist" ) )
 	
 }
 

@@ -34,8 +34,7 @@ public:
 	S4(const S4& other) ;
 	S4& operator=( const S4& other);
 	
-	// TODO : 
-	// S4( const& std::string klass ) ; ...
+	S4( const std::string& klass ) ;
 	
 } ;
 

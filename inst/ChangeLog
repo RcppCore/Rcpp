@@ -1,3 +1,10 @@
+2010-03-14  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/S4.h : Rcpp::S4 gains a new constructor taking a string 
+	reference and building a new S4 object of that type. This throws an 
+	exception if the object is not successfully created (e.g the class
+	is not a known S4 class)
+
 2010-03-13  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/S4.h : new class Rcpp::S4
