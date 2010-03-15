@@ -1,5 +1,9 @@
 2010-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION: Release 0.7.10
+
+	* debian/*: Similarly updated for new release to Debian
+
 	* RcppLdpath.R: Use shQuote() to protect spaces in Windows pathnames
 
 2010-03-15  Romain Francois <romain@r-enthusiasts.com>

@@ -1,3 +1,9 @@
+rcpp (0.7.10-1) unstable; urgency=low
+
+  * New release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Mon, 15 Mar 2010 14:58:40 -0500
+
 rcpp (0.7.9-1) unstable; urgency=low
 
   * New release
