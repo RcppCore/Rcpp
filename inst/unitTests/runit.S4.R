@@ -85,8 +85,8 @@ test.S4 <- function(){
 		', Rcpp = TRUE, includes = "using namespace Rcpp ;" )
 	tr <- fx( "track" )
 	checkTrue( inherits( tr, "track" ) )
-	checkEquals( tr@x, 0.0 )
-	checkEquals( tr@y, 0.0 )
+	checkEquals( tr@x, numeric(0) )
+	checkEquals( tr@y, numeric(0) )
 	checkException( fx( "someclassthatdoesnotexist" ) )
 	
 }
