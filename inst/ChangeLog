@@ -1,6 +1,6 @@
 2010-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
-	* RcppLdpath.R: Remove attempt to protect spaces Windows pathnames
+	* RcppLdpath.R: Use shortPathName() to protect spaces in Windows pathnames
 
 2010-03-15  Romain Francois <romain@r-enthusiasts.com>
 
