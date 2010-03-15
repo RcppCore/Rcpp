@@ -2,6 +2,11 @@
 0.7.10  (under development)
 
 	o	new class Rcpp::S4 whose constructor checks if the object is an S4 object
+	
+	o	maximum number of templated arguments to the pairlist function, 
+		the DottedPair constructor, the Language constructor and the 
+		Pairlist constructor has been updated to 20 (was 5) and a script has been
+		added to the source tree should we want to change it again
 
 0.7.9   2010-03-12
 
