@@ -126,6 +126,11 @@ SEXP operator()( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T
 	 */
 	SEXP environment() const throw(not_a_closure) ;
 	
+	/**
+	 * Returns the body of the function
+	 */
+	SEXP body() const ;
+	 
 	~Function() ;
 };
 

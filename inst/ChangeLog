@@ -1,3 +1,8 @@
+2010-03-15  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/Function.h : Function gains a body method to retrieve the body
+	of the function (using the BODY macro from Rinternals.h)
+
 2010-03-14  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/S4.h : Rcpp::S4 gains a new constructor taking a string 
