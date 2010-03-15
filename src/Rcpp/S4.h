@@ -27,13 +27,38 @@
 
 namespace Rcpp{ 
 
+/**
+ * S4 object
+ */
 class S4 : public RObject{
 public:
 	S4() ;
+	
+	/**
+	 * checks that x is an S4 object and wrap it.
+	 *
+	 * @param x must be an S4 object
+	 */
 	S4(SEXP x); 
+	
+	/**
+	 * copy constructor
+	 *
+	 * @param other other S4 object
+	 */
 	S4(const S4& other) ;
+	
+	/**
+	 * assignment operator. 
+	 */
 	S4& operator=( const S4& other);
 	
+	/**
+	 * Creates an S4 object of the requested class. 
+	 *
+	 * @param klass name of the target S4 class
+	 * @throw not_s4 if klass does not map to a known S4 class
+	 */
 	S4( const std::string& klass ) ;
 	
 } ;
