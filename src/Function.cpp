@@ -66,4 +66,8 @@ namespace Rcpp {
 		return CLOENV(m_sexp) ;
 	}
 	
+	SEXP Function::body() const {
+		return BODY( m_sexp ) ;
+	}
+	
 } // namespace Rcpp
