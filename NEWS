@@ -1,5 +1,4 @@
-
-0.7.10  (under development)
+0.7.10  2010-03-15
 
     o	new class Rcpp::S4 whose constructor checks if the object is an S4 object
 	
