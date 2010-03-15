@@ -8,7 +8,7 @@
 	Pairlist constructor has been updated to 20 (was 5) and a script has been
 	added to the source tree should we want to change it again
 
-    o   use shortPathName() to protect Windows paths with spaces 
+    o   use shQuotes() to protect Windows path names (which may contain spaces)
 
 0.7.9   2010-03-12
 
