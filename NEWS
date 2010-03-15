@@ -1,24 +1,26 @@
 
 0.7.10  (under development)
 
-	o	new class Rcpp::S4 whose constructor checks if the object is an S4 object
+    o	new class Rcpp::S4 whose constructor checks if the object is an S4 object
 	
-	o	maximum number of templated arguments to the pairlist function, 
-		the DottedPair constructor, the Language constructor and the 
-		Pairlist constructor has been updated to 20 (was 5) and a script has been
-		added to the source tree should we want to change it again
+    o	maximum number of templated arguments to the pairlist function, 
+	the DottedPair constructor, the Language constructor and the 
+	Pairlist constructor has been updated to 20 (was 5) and a script has been
+	added to the source tree should we want to change it again
+
+    o   reversed attempt to protect Windows paths with spaces
 
 0.7.9   2010-03-12
 
     o	Another small improvement to Windows build flags
 
     o	bugfix on 64 bit platforms. The traits classes (wrap_type_traits, etc)
-		used size_t when they needed to actually use unsigned int
+	used size_t when they needed to actually use unsigned int
 
     o	fixed pre gcc 4.3 compatibility. The trait class that was used to 
-		identify if a type is convertible to another had too many false positives
-		on pre gcc 4.3 (no tr1 or c++0x features). fixed by implementing the 
-		section 2.7 of "Modern C++ Design" book. 
+	identify if a type is convertible to another had too many false positives
+	on pre gcc 4.3 (no tr1 or c++0x features). fixed by implementing the 
+	section 2.7 of "Modern C++ Design" book. 
 
 0.7.8   2010-03-09
 
