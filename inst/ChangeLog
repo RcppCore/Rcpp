@@ -1,5 +1,8 @@
 2010-03-15  Romain Francois <romain@r-enthusiasts.com>
 
+	* inst/codebloat/codebloat.R: script to generate code (creating a pairlist
+	with up to n arguments).
+
 	* src/Rcpp/Function.h : Function gains a body method to retrieve the body
 	of the function (using the BODY macro from Rinternals.h)
 

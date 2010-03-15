@@ -82,7 +82,7 @@ test.S4 <- function(){
 		'
 		std::string cl = as<std::string>( clazz );
 		return S4( cl ); 
-		', includes = "using namespace Rcpp" )
+		', Rcpp = TRUE, includes = "using namespace Rcpp ;" )
 	tr <- fx( "track" )
 	checkTrue( inherits( tr, "track" ) )
 	checkEquals( tr@x, 0.0 )
