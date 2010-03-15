@@ -22,7 +22,7 @@ RcppLdFlags <- function(static=TRUE) {
     if (static) {                               # static is default on Windows and OS X
         flags <- paste(rcppdir, "/libRcpp.a", sep="")
         if (.Platform$OS.type=="windows") {
-            flags <- shortPathName(flags)
+            flags <- shQuote(flags)
         }
     } else {					# else for dynamic linking
         flags <- paste("-L", rcppdir, " -lRcpp", sep="") # baseline setting
@@ -41,7 +41,7 @@ canUseCXX0X <- function() .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
 RcppCxxFlags <- function(cxx0x=FALSE) {
     path <- RcppLdPath()
     if (.Platform$OS.type=="windows") {
-        path <- shortPathName(path)
+        path <- shQuote(path)
     }
     paste("-I", path, if( cxx0x && canUseCXX0X() ) " -std=c++0x" else "", sep="")
 }
