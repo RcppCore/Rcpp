@@ -1,3 +1,13 @@
+2010-03-16  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/make_list.h: set of helper factories make_list to facilitate 
+	production of named generic vectors. 
+	
+	* src/Rcpp/Named.h: new class Rcpp::Argument similar to Named but does not 
+	contain the object, just the name. The templated Argument::operator= makes
+	a Named. This allows an application to define a set of arguments that it uses
+	in order to have a nicer construct. see the runit.Argument.R file for an example
+
 2010-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.7.10

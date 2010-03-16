@@ -1,3 +1,13 @@
+0.7.11	(under develpment)
+
+	o	new templated functions Rcpp::make_list taking up to 20 arguments
+	and creating a generic vector
+	
+	o	new class Rcpp::Argument, similar to Named but it does not hold the 
+	object, only the name. This allows a package to pre-declare a set of 
+	arguments it typically uses and have a nicer construct. An example is 
+	given in the runit.Argument.R file
+
 0.7.10  2010-03-15
 
     o	new class Rcpp::S4 whose constructor checks if the object is an S4 object
@@ -7,7 +17,7 @@
 	Pairlist constructor has been updated to 20 (was 5) and a script has been
 	added to the source tree should we want to change it again
 
-    o   use shQuotes() to protect Windows path names (which may contain spaces)
+    o   use shQuote() to protect Windows path names (which may contain spaces)
 
 0.7.9   2010-03-12
 
