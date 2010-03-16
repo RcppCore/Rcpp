@@ -72,6 +72,21 @@ private:
 	std::string tag ;
 } ;
 
+class Argument {
+public:
+	Argument() : name(){} ;
+	Argument( const std::string& name_) : name(name_){} 
+	
+	template<typename T>
+	Named operator=( const T& t){
+		return Named( name, t ) ;	
+	}
+	
+private:
+	std::string name ;	
+} ;
+
+
 namespace internal{
 	
 class NamedPlaceHolder {
