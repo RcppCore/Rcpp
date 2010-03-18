@@ -397,10 +397,10 @@ the type \code{T} is wrappable;
 \item any type for which the \code{wrap} template is partially or fully 
 specialized.
 \end{itemize}
-One example for the specialisation of the templated \code{wrap} function is
-provided in \pkg{RInside} \citep{cran:rinside} by \code{vector< vector<
-  double > >} and \code{vector< vector< int > >} which are used for
-representing numeric matrices.
+%One example for the specialisation of the templated \code{wrap} function is
+%provided in \pkg{RInside} \citep{cran:rinside} by \code{vector< vector<
+%  double > >} and \code{vector< vector< int > >} which are used for
+%representing numeric matrices.
 
 Wrappability of an object type is resolved at compile time using 
 modern techniques of template meta programming and class traits.
