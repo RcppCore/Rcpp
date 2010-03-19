@@ -2188,6 +2188,7 @@ public:
 	}
 	
 	Matrix( const int& nrows, const int& ncols) : VECTOR( Dimension( nrows, ncols ) ) {}
+	Matrix( const int& n) : VECTOR( Dimension( n, n ) ) {}
 	
 	Matrix( const Matrix& other) : VECTOR() {
 		SEXP x = other.asSexp() ;
