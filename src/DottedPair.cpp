@@ -65,12 +65,6 @@ namespace Rcpp {
 		return *this ;
 	}
 	
-	DottedPair::Proxy& DottedPair::Proxy::operator=(const Named& rhs){
-		SETCAR( node, rhs.getSEXP() ) ;
-		SET_TAG( node, Rf_install( rhs.getTag().c_str() ) ) ;
-		return *this ;
-	}
-	
 	const DottedPair::Proxy DottedPair::operator[]( int i ) const {
 		return Proxy( const_cast<DottedPair&>(*this), i) ;
 	}
