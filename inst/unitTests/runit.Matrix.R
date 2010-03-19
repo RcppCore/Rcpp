@@ -63,3 +63,25 @@ test.GenericMatrix <- function( ){
 	checkEquals( funx(x), g(diag(matrix(1:16,ncol=4))), msg = "GenericMatrix" )
 }
 
+test.IntegerMatrix.diag <- function(){
+	fx <- cfunction( signature(), '
+		return IntegerMatrix::diag( 5, 1 ) ;
+	', 
+	Rcpp  = TRUE, includes = "using namespace Rcpp;" )
+	expected <- matrix( 0L, nrow = 5, ncol = 5 )
+	diag( expected ) <- 1L
+	checkEquals( fx(), expected, msg = "IntegerMatrix::diag" )
+}
+
+test.CharacterMatrix.diag <- function(){
+	fx <- cfunction( signature(), '
+		return CharacterMatrix::diag( 5, "foo" ) ;
+	', 
+	Rcpp  = TRUE, includes = "using namespace Rcpp;" )
+	expected <- matrix( "", nrow = 5, ncol = 5 )
+	diag( expected ) <- "foo"
+	checkEquals( fx(), expected, msg = "CharacterMatrix::diag" )
+	
+}
+
+
