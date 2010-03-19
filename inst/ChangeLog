@@ -1,22 +1,31 @@
 2010-03-19  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/Named.h: Named is no longer a class, but a templated function. 
+	* src/Rcpp/Named.h: Named is no longer a class, but a templated function.
 	This preserves all the existing interface, but also allows Named to be used
 	in making simple vectors, e.g through the Vector::create factory functions
 
-	* src/Rcpp/Vector.h: Vector gains the "create" factory methods taking up 
+	* src/Rcpp/Vector.h: Vector gains the "create" factory methods taking up
 	to 20 arguments that can be named (using the Argument class or the _ 
 	placeholder)
-	
+
 	* src/Rcpp/make_list.h: removed since Vector::create does the job more generically
 	and more efficently
 
+2010-03-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Rcpp/Vector.h: Matrix now also accepts a single int in the
+	  constructor to create matrices of square sizes 
+
+	* src/RcppFrame.h: Patch by Alistair Gee to make ColDatum more robust
+	  src/RcppFrame.h: Idem
+        * inst/unitTests/runit.RcppFrame.R: New unit test for RcppFrame
+
 2010-03-16  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/make_list.h: set of helper factories make_list to facilitate 
-	production of named generic vectors. 
-	
-	* src/Rcpp/Named.h: new class Rcpp::Argument similar to Named but does not 
+	* src/Rcpp/make_list.h: set of helper factories make_list to facilitate
+	production of named generic vectors.
+
+	* src/Rcpp/Named.h: new class Rcpp::Argument similar to Named but does not
 	contain the object, just the name. The templated Argument::operator= makes
 	a Named. This allows an application to define a set of arguments that it uses
 	in order to have a nicer construct. see the runit.Argument.R file for an example
