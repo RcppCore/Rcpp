@@ -27,75 +27,7 @@
 #include <Rcpp/Symbol.h>
 #include <Rcpp/RObject.h>
 
-namespace Rcpp{  
-
-/** 
- * Facility to have named arguments in pairlist, such 
- * as Language objects
- */
-class Named{
-public:
-	/** default constructor */
-	Named( ) : object(R_MissingArg), tag("") {} ;
-	
-	/**
-	 * @param tag name to give to the object 
-	 * @param value value of the object
-	 */
-	Named( const std::string& tag, SEXP value ) : object(value), tag(tag) {}; 
-	
-	/**
-	 * uses NULL as the value
-	 * @param tag name to give to the object
-	 */
-	Named( const std::string& tag ) : object(R_MissingArg), tag(tag){} ;
-	
-	template<typename T>
-	Named( const std::string& tag, const T& value ) : object(wrap(value)), tag(tag) {}
-	
-	/**
-	 * This allows the syntax : 
-	 * Language( "rnorm", Named( "mean" ) = 10 ) ;
-	 */
-	template <typename T>
-	Named& operator=( const T& o ){
-		object = wrap( o ) ;
-		return *this ;
-	}
-	
-	inline SEXP getSEXP() const { return object.asSexp() ; }
-	
-	inline std::string getTag() const { return tag ; }
-	
-private:
-	RObject object ;
-	std::string tag ;
-} ;
-
-namespace traits {
-
-template <typename T> class named_object {
-	public:
-		named_object( const std::string& name_, const T& o_) : 
-			name(name_), object(o_){} 
-		const std::string& name ;
-		const T& object ;
-		operator ::Rcpp::Named(){
-			return ::Rcpp::Named(name, object) ;	
-		}
-} ;
-
-template <typename T>
-named_object<T> named( const std::string& name, const T& o){
-	return named_object<T>( name, o );	
-} ;
-
-template <typename T> struct is_named : public false_type{} ;
-template <typename T> struct is_named< named_object<T> >   : public true_type {} ;
-
-
-} // namespace traits
-
+namespace Rcpp{ 
 
 class Argument {
 public:
@@ -111,6 +43,15 @@ private:
 	std::string name ;	
 } ;
 
+
+template <typename T>
+Argument Named( const std::string& name){
+	return Argument( name );	
+}
+template <typename T>
+traits::named_object<T> Named( const std::string& name, const T& o){
+	return traits::named_object<T>( name, o );	
+}
 
 namespace internal{
 

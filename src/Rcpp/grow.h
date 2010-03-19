@@ -27,8 +27,7 @@
 
 namespace Rcpp{
 
-SEXP pairlist() ;
-
+inline SEXP pairlist() { return R_NilValue ; }
 
 #ifdef HAS_VARIADIC_TEMPLATES
 
@@ -155,16 +154,33 @@ SEXP pairlist( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5&
 /* </code-bloat> */
 #endif
 	
-	
+namespace internal{
+
+template <typename T>
+SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
+	return Rf_cons( wrap(head), tail ) ;	
+}
+
+template <typename T>
+SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
+	SEXP x;
+	x = PROTECT( Rf_cons( wrap( head.object) , tail) ) ;
+	SET_TAG( x, Rf_install( head.name.c_str() ) ); 
+	UNPROTECT(1); 
+	return x; 	
+}
+
+} // namespace internal
+
+
 /**
  * grows a pairlist. First wrap the head into a SEXP, then 
  * grow the tail pairlist
  */
-template<typename T>
+template <typename T>
 SEXP grow(const T& head, SEXP tail){
-	return Rf_cons( wrap(head), tail ) ;
+	return internal::grow__dispatch( typename traits::is_named<T>::type(), head, tail ) ;
 }
-template<> SEXP grow<Named>(const Named& head, SEXP tail) ;
 
 
 } // namespace Rcpp
