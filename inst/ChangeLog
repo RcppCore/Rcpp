@@ -1,5 +1,9 @@
 2010-03-19  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/Named.h: Named is no longer a class, but a templated function. 
+	This preserves all the existing interface, but also allows Named to be used
+	in making simple vectors, e.g through the Vector::create factory functions
+
 	* src/Rcpp/Vector.h: Vector gains the "create" factory methods taking up 
 	to 20 arguments that can be named (using the Argument class or the _ 
 	placeholder)
