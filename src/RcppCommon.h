@@ -195,6 +195,7 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
 #include <Rcpp/traits/integral_constant.h>
 #include <Rcpp/traits/same_type.h>
+#include <Rcpp/traits/named_object.h>
 #include <Rcpp/traits/is_convertible.h>
 #include <Rcpp/traits/has_iterator.h>
 #include <Rcpp/traits/has_na.h>

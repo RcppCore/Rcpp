@@ -166,7 +166,8 @@ template<typename... Args>
 	 * (this require traversing the entire pairlist)
 	 *
 	 * @param object anything that can be wrapped by one 
-	 * of the wrap functions, or an object of class Named
+	 * of the wrap functions, named objects (instances of traits::named_object<> 
+	 * are treated specially
 	 */
 	template <typename T>
 	void push_back( const T& object){
@@ -268,7 +269,13 @@ template<typename... Args>
 			SETCAR( node, wrap(rhs) ) ;
 			return *this ;
 		}
-		Proxy& operator=(const Named& rhs) ;
+		
+		template <typename U>
+		Proxy& operator=(const traits::named_object<U>& rhs){
+			SETCAR( node, rhs.object ) ;
+			SET_TAG( node, Rf_install( rhs.name.c_str() ) ) ;
+			return *this ;
+		}
 		
 		template <typename T> operator T() const {
 			return as<T>( CAR(node) ) ;
@@ -282,8 +289,6 @@ template<typename... Args>
 	Proxy operator[]( int i )  ;
 	
 	friend class Proxy; 
-	
-	
 	
 	virtual ~DottedPair() = 0 ;
 	
