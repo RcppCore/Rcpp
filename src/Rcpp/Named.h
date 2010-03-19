@@ -72,14 +72,39 @@ private:
 	std::string tag ;
 } ;
 
+namespace traits {
+
+template <typename T> class named_object {
+	public:
+		named_object( const std::string& name_, const T& o_) : 
+			name(name_), object(o_){} 
+		const std::string& name ;
+		const T& object ;
+		operator ::Rcpp::Named(){
+			return ::Rcpp::Named(name, object) ;	
+		}
+} ;
+
+template <typename T>
+named_object<T> named( const std::string& name, const T& o){
+	return named_object<T>( name, o );	
+} ;
+
+template <typename T> struct is_named : public false_type{} ;
+template <typename T> struct is_named< named_object<T> >   : public true_type {} ;
+
+
+} // namespace traits
+
+
 class Argument {
 public:
 	Argument() : name(){} ;
 	Argument( const std::string& name_) : name(name_){} 
 	
 	template<typename T>
-	Named operator=( const T& t){
-		return Named( name, t ) ;	
+	traits::named_object<T> operator=( const T& t){
+		return traits::named_object<T>( name, t ) ;	
 	}
 	
 private:
@@ -88,16 +113,16 @@ private:
 
 
 namespace internal{
-	
+
 class NamedPlaceHolder {
 public:
 	NamedPlaceHolder(){}
 	~NamedPlaceHolder(){}
-	Named operator[]( const std::string& arg) const {
-		return Named( arg ) ;
+	Argument operator[]( const std::string& arg) const {
+		return Argument( arg ) ;
 	}
-	Named operator()(const std::string& arg) const {
-		return Named( arg ) ;
+	Argument operator()(const std::string& arg) const {
+		return Argument( arg ) ;
 	}
 	operator SEXP() const { return R_MissingArg ; }
 } ;

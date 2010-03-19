@@ -48,6 +48,7 @@
 /* new api */
 
 #include <Rcpp/RObject.h>
+#include <Rcpp/Named.h>
 
 #include <Rcpp/S4.h>
 #include <Rcpp/exceptions.h>
@@ -60,7 +61,6 @@
 #include <Rcpp/XPtr.h>
 #include <Rcpp/Symbol.h>
 #include <Rcpp/Language.h>
-#include <Rcpp/Named.h>
 #include <Rcpp/make_list.h>
 #include <Rcpp/DottedPair.h>
 #include <Rcpp/Pairlist.h>

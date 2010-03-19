@@ -216,7 +216,8 @@ namespace internal{
 	template <int RTYPE>
 	class string_element_converter {
 	public:
-		// typedef typename ::Rcpp::traits::storage_typ
+		typedef SEXP target ;
+		
 		string_element_converter(){};
 		
 		template <typename T>
@@ -228,11 +229,16 @@ namespace internal{
 		SEXP get(const std::string& input){
 			return Rf_mkChar( input.c_str() ) ;
 		}
+		
+		SEXP get(const char& input){
+			return Rf_mkChar( &input ) ;
+		}
 	} ;
 	
 	template <int RTYPE>
 	class generic_element_converter {
 	public:
+		typedef SEXP target ;
 		generic_element_converter(){};
 		
 		template <typename T>
@@ -681,7 +687,59 @@ public:
 		cache.update(*this) ;
 	}
 	
+	template <typename T1>
+	static SEXP create( const T1& t1){
+		return create__dispatch( typename traits::integral_constant< bool, traits::is_named<T1>::value >::type(), t1 ) ;  		
+	}
+	
 private:
+	
+	template <typename T1>
+	static SEXP create__dispatch( traits::false_type, const T1& t1 ){
+		Vector res(1) ;
+		iterator it( res.begin() );
+		
+		////
+		*it = converter.get(t1) ; ++it ;
+		//// 
+		
+		return res ;
+	}
+	
+	template <typename T1>
+	static SEXP create__dispatch( traits::true_type, const T1& t1){
+		Vector res(1) ;                                                                      
+		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 1 ) ) ;
+		int index = 0 ;
+		iterator it( res.begin() );
+		
+		////
+		replace_element( it, names, index, t1 ) ; ++it; ++index ;
+		////
+		
+		res.attr("names") = names ;
+		UNPROTECT(1); // names
+		return res ;
+	}
+	
+	template <typename U>
+	static void replace_element( iterator it, SEXP names, int index, const U& u){
+		replace_element__dispatch( typename traits::is_named<U>::type(), 
+			it, names, index, u ) ;
+	}
+	
+	template <typename U>
+	static void replace_element__dispatch( traits::false_type, iterator it, SEXP names, int index, const U& u){
+		typedef typename converter_type::target target_type ;
+		target_type value = converter.get(u); *it = value ;
+	}
+	
+	template <typename U>
+	static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, int index, const U& u){
+		*it = converter.get(u.object ) ;
+		SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
+	}
+	
 	
 	void set_sexp(SEXP x){
 		Base::setSEXP( x) ;
@@ -1200,6 +1258,17 @@ namespace internal{
 		 */
 		string_proxy& operator=(const std::string& rhs){
 			set( Rf_mkChar( rhs.c_str() ) ) ;
+			return *this ;
+		}
+		
+		string_proxy& operator=(const char& rhs){
+			set( Rf_mkChar( &rhs ) ) ;
+			return *this ;	
+		}
+		
+		string_proxy& operator=(SEXP rhs){
+			// TODO: check this is a CHARSXP
+			set( rhs ) ;
 			return *this ;
 		}
 		
