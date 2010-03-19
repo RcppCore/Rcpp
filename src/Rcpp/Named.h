@@ -43,9 +43,7 @@ private:
 	std::string name ;	
 } ;
 
-
-template <typename T>
-Argument Named( const std::string& name){
+inline Argument Named( const std::string& name){
 	return Argument( name );	
 }
 template <typename T>
