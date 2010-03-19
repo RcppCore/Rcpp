@@ -30,7 +30,8 @@
 enum ColType {			// Supported data frame column types.
     COLTYPE_DOUBLE, COLTYPE_INT, COLTYPE_STRING,
     COLTYPE_FACTOR, COLTYPE_LOGICAL, 
-    COLTYPE_DATE, COLTYPE_DATETIME 
+    COLTYPE_DATE, COLTYPE_DATETIME,
+    COLTYPE_UNKNOWN = -1
 };
 class ColDatum;			// forward declaration, see below
 
