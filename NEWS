@@ -1,12 +1,11 @@
 0.7.11	(under develpment)
 
-	o	new templated functions Rcpp::make_list taking up to 20 arguments
-	and creating a generic vector
+	o	Vector<> gains a set of templated factory methods "create". create 
+	takes up to 20 arguments and can create named or unnamed vectors. 
 	
 	o	new class Rcpp::Argument, similar to Named but it does not hold the 
-	object, only the name. This allows a package to pre-declare a set of 
-	arguments it typically uses and have a nicer construct. An example is 
-	given in the runit.Argument.R file
+	object, only the name. Argument is used in the create factory methods 
+	to associate a name with a value.
 
 0.7.10  2010-03-15
 

@@ -61,7 +61,6 @@
 #include <Rcpp/XPtr.h>
 #include <Rcpp/Symbol.h>
 #include <Rcpp/Language.h>
-#include <Rcpp/make_list.h>
 #include <Rcpp/DottedPair.h>
 #include <Rcpp/Pairlist.h>
 #include <Rcpp/Function.h>
