@@ -1,5 +1,8 @@
 2010-03-19  Romain Francois <romain@r-enthusiasts.com>
 
+	* src/Rcpp/Vector.h : Matrix gains a diag method to create diagonal 
+	matrices
+
 	* src/Rcpp/Named.h: Named is no longer a class, but a templated function.
 	This preserves all the existing interface, but also allows Named to be used
 	in making simple vectors, e.g through the Vector::create factory functions

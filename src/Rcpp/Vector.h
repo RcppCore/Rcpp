@@ -2172,6 +2172,9 @@ template <int RTYPE>
 class Matrix : public Vector<RTYPE> {
 public:
 	typedef Vector<RTYPE> VECTOR ;
+	typedef typename VECTOR::iterator iterator ;
+    typedef typename VECTOR::converter_type converter_type ;
+    	
 	Matrix() : VECTOR() {}
 	
 	Matrix(SEXP x) throw(RObject::not_compatible) : VECTOR(){
@@ -2203,6 +2206,17 @@ public:
 		return *this ;
 	}
 	
+	template <typename U>
+    static Matrix diag( int size, const U& diag_value ){
+    	Matrix res(size,size) ;
+    	iterator it( res.begin() ) ;
+    	for( int i=0; i<size; i++){
+    		*it = converter_type::get( diag_value );
+    		it += ( size + 1 ); 
+    	}
+    	return res ;
+    }
+    
 private:
 	virtual void update(){
 		VECTOR::update_vector() ;
