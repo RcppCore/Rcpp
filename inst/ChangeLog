@@ -1,3 +1,12 @@
+2010-03-19  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/Vector.h: Vector gains the "create" factory methods taking up 
+	to 20 arguments that can be named (using the Argument class or the _ 
+	placeholder)
+	
+	* src/Rcpp/make_list.h: removed since Vector::create does the job more generically
+	and more efficently
+
 2010-03-16  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/make_list.h: set of helper factories make_list to facilitate 
