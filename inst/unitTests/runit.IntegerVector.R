@@ -251,3 +251,14 @@ test.IntegerVector.erase <- function(){
 	
 }
 
+test.IntegerVector.fill <- function(){
+	funx <- cfunction(signature(x = "integer"), '
+	IntegerVector y(x) ;
+	y.fill(10) ;
+	return y ;', 
+		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	x <- 1:10
+	funx(x)
+	checkEquals( x, rep(10L, 10 ), msg = "IntegerVector.fill" )
+}
+
