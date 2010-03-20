@@ -2,7 +2,12 @@
 ## Use R's internal knowledge of path settings to find the lib/ directory
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
-	packageLibPath( package = "Rcpp" )
+    if (nzchar(.Platform$r_arch)) {	## eg amd64, ia64, mips
+        path <- system.file("lib",.Platform$r_arch,package="Rcpp")
+    } else {
+        path <- system.file("lib",package="Rcpp")
+    }
+    path
 }
 
 ## Provide linker flags -- i.e. -L/path/to/libRcpp -- as well as an
@@ -10,10 +15,23 @@ RcppLdPath <- function() {
 ## location.  This is not needed on OS X where we encode this as library
 ## built time (see src/Makevars) or Windows where we use a static library
 ## Updated Jan 2010:  We now default to static linking but allow the use
-##                    of rpath on Linux if static==FALSE has been chose
+##                    of rpath on Linux if static==FALSE has been chosen
 ##                    Note that this is probably being called from LdFlags()
-RcppLdFlags <- function(static=staticLinking()) {
-    packageLdFlags( "Rcpp", static )
+RcppLdFlags <- function(static=TRUE) {
+    rcppdir <- RcppLdPath()
+    if (static) {                               # static is default on Windows and OS X
+        flags <- paste(rcppdir, "/libRcpp.a", sep="")
+        if (.Platform$OS.type=="windows") {
+            flags <- shQuote(flags)
+        }
+    } else {					# else for dynamic linking
+        flags <- paste("-L", rcppdir, " -lRcpp", sep="") # baseline setting
+        if ((.Platform$OS.type == "unix") &&    # on Linux, we can use rpath to encode path
+            (length(grep("^linux",R.version$os)))) {
+            flags <- paste(flags, " -Wl,-rpath,", rcppdir, sep="")
+        }
+    }
+    invisible(flags)
 }
 
 # indicates if Rcpp was compiled with GCC >= 4.3
@@ -21,8 +39,11 @@ canUseCXX0X <- function() .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
 
 ## Provide compiler flags -- i.e. -I/path/to/Rcpp.h
 RcppCxxFlags <- function(cxx0x=FALSE) {
-    iflag <- includeFlag( package = "Rcpp" )
-    paste( iflag, if( cxx0x && canUseCXX0X() ) " -std=c++0x" else "" )
+    path <- RcppLdPath()
+    if (.Platform$OS.type=="windows") {
+        path <- shQuote(path)
+    }
+    paste("-I", path, if( cxx0x && canUseCXX0X() ) " -std=c++0x" else "", sep="")
 }
 
 ## Shorter names, and call cat() directly
@@ -31,7 +52,7 @@ CxxFlags <- function(cxx0x=FALSE) {
     cat(RcppCxxFlags(cxx0x=cxx0x))
 }
 ## LdFlags defaults to static linking on the non-Linux platforms Windows and OS X
-LdFlags <- function(static=staticLinking()) {
+LdFlags <- function(static=ifelse(length(grep("^linux",R.version$os))==0, TRUE, FALSE)) {
     cat(RcppLdFlags(static=static))
 }
 
@@ -47,74 +68,4 @@ RcppCxx0xFlags <- function(){
 }
 
 Cxx0xFlags <- function() cat( RcppCxx0xFlags() )
-
-
-
-
-# indicates the default linking on the current platform
-#
-# default is to use static linking on windows an OSX
-staticLinking <- function(){
-	.Platform$OS.type == "windows" || grepl( "^darwin", R.version$os )
-}
-
-# the /lib path of the specified package (maybe including the arch)
-packageLibPath <- function( package = "Rcpp" ){
-	if (nzchar(.Platform$r_arch)) {	## eg amd64, ia64, mips
-        system.file("lib",.Platform$r_arch,package=package)
-    } else {
-        system.file("lib",package=package)
-    }
-}
-
-# on windows wrap the file with shQuote, 
-# otherwise, do nothing
-wrapFile <- function( file ){
-	if (.Platform$OS.type=="windows") {
-        file <- shQuote(file)
-    }
-    file
-}
-
-# generic include flag 
-includeFlag <- function( package = "Rcpp" ){
-	paste( "-I", wrapFile(packageLibPath(package)), sep = "" )
-}
-
-# path to the static library file
-staticLib <- function(package = "Rcpp" ){
-	libfoo.a <- file.path( packageLibPath(package = package), sprintf( "lib%s.a", package ) )
-	wrapFile( libfoo.a )
-}
-
-# dynamic library flags for the given package
-dynamicLib <- function( package = "Rcpp" ){
-	libPath <- packageLibPath( package )
-
-	# general default
-	flags <- sprintf( "-L%s -l%s", 
-		libPath, 
-		package
-	)
-	
-	# linux -rpath bonus
-	if (.Platform$OS.type == "unix") {
-        if (length(grep("^linux",R.version$os))) {
-            flags <- sprintf( "%s -Wl,-rpath,%s", flags, libPath)
-        }
-    }
-    
-    flags
-}
-
-
-packageLdFlags <- function( package = "Rcpp", static = staticLinking() ){
-	if( static ){
-		staticLib( package = package )
-	} else {
-		dynamicLib( package = package )
-	}
-}
-
-
 
