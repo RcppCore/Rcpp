@@ -83,7 +83,7 @@ includeFlag <- function( package = "Rcpp" ){
 
 # path to the static library file
 staticLib <- function(package = "Rcpp" ){
-	libfoo.a <- file.path( packageLibPath(), sprintf( "lib%s.a", package ) )
+	libfoo.a <- file.path( packageLibPath(package = package), sprintf( "lib%s.a", package ) )
 	wrapFile( libfoo.a )
 }
 
