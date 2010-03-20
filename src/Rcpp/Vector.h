@@ -413,6 +413,10 @@ namespace traits{
 		typedef bool type ;
 	} ;
 	
+	template <int RTYPE> struct is_trivial  : public true_type{} ;
+	template <> struct is_trivial<VECSXP>   : public false_type{} ;
+	template <> struct is_trivial<EXPRSXP>  : public false_type{} ;
+
 } // traits 
 
 template <typename VECTOR>
@@ -465,6 +469,12 @@ public:
 		init() ;
     }
     
+    template <typename U>
+    Vector( const size_t& size, const U& u){
+    	Base::setSEXP( Rf_allocVector( RTYPE, size) ) ;
+		fill( u ) ;	
+    }
+    
     Vector( const Dimension& dims) : Base() {
     	Base::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
 		init() ;
@@ -472,6 +482,16 @@ public:
 			Base::attr( "dim" ) = dims;
 		}
     }
+    
+    template <typename U>
+    Vector( const Dimension& dims, const U& u) : Base() {
+    	Base::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
+		fill(u) ;
+		if( dims.size() > 1 ){
+			Base::attr( "dim" ) = dims;
+		}
+    }
+    
     
     internal::ListInitialization<iterator,init_type> operator=( init_type x){
 		iterator start = begin() ; *start = x; 
@@ -552,6 +572,32 @@ public:
     	throw index_out_of_bounds() ;
     	return -1 ; /* -Wall */
     }
+    
+    private:
+	
+	template <typename U>
+	void fill_dispatch( traits::false_type, const U& u){
+		// when this is not trivial, this is SEXP
+		SEXP elem = PROTECT( converter_type::get( u ) ); 
+		iterator it(begin());
+		for( int i=0; i<size ; i++, ++it){
+			*it = ::Rf_duplicate( elem ) ;
+		}
+		UNPROTECT(1) ; /* elem */
+	}
+	
+	template <typename U>
+	void fill__dispatch( traits::true_type, const U& u){
+		std::fill( begin(), end(), converter_type::get( u ) ) ;
+	}
+	
+	public:	
+	
+	template <typename U>
+	void fill( const U& u){
+		fill__dispatch( typename traits::is_trivial<RTYPE>::type(), u ) ;
+	}
+
     
     /* TODO: 3 dimensions, ... n dimensions through variadic templates */
     
@@ -682,7 +728,7 @@ public:
 	void update_vector(){ 
 		cache.update(*this) ;
 	}
-
+		
 /* <code-bloat>
 
 public:
@@ -2199,7 +2245,7 @@ public:
 		VECTOR::setSEXP( x ) ;
 	}
 	
-	Matrix& operator=(const Matrix& other) {
+	Matrix& operator=(const Matrix& other) {                                                         
 		SEXP x = other.asSexp() ;
 		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
 		VECTOR::setSEXP( x ) ;

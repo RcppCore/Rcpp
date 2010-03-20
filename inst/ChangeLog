@@ -1,3 +1,8 @@
+2010-03-20  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/Vector.h : Vector gains a templated fill method to fill all 
+	elements of a vector with the same value
+
 2010-03-19  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Vector.h : Matrix gains a diag method to create diagonal 
