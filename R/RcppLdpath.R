@@ -63,7 +63,7 @@ packageLibPath <- function( package = "Rcpp" ){
 	if (nzchar(.Platform$r_arch)) {	## eg amd64, ia64, mips
         system.file("lib",.Platform$r_arch,package=package)
     } else {
-        system.file("lib",package="RInside")
+        system.file("lib",package=package)
     }
 }
 
@@ -110,9 +110,9 @@ dynamicLib <- function( package = "Rcpp" ){
 
 packageLdFlags <- function( package = "Rcpp", static = staticLinking() ){
 	if( static ){
-		staticLib( package )
+		staticLib( package = package )
 	} else {
-		dynamicLib( package )
+		dynamicLib( package = package )
 	}
 }
 
