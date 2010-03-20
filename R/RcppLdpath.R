@@ -69,3 +69,8 @@ RcppCxx0xFlags <- function(){
 
 Cxx0xFlags <- function() cat( RcppCxx0xFlags() )
 
+# default is to use static linking on windows an OSX
+staticLinking <- function(){
+	.Platform$OS.type == "windows" || grepl( "^darwin", R.version$os )
+}
+
