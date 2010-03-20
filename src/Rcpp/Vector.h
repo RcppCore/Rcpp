@@ -2220,6 +2220,7 @@ public:
 	typedef Vector<RTYPE> VECTOR ;
 	typedef typename VECTOR::iterator iterator ;
     typedef typename VECTOR::converter_type converter_type ;
+    typedef typename VECTOR::stored_type stored_type ;
     	
 	Matrix() : VECTOR() {}
 	
@@ -2253,13 +2254,14 @@ public:
 	}
 	
 	template <typename U>
+    void fill_diag( const U& u){
+    	fill_diag__dispatch( typename traits::is_trivial<RTYPE>::type(), u ) ;	
+    }
+	
+	template <typename U>
     static Matrix diag( int size, const U& diag_value ){
     	Matrix res(size,size) ;
-    	iterator it( res.begin() ) ;
-    	for( int i=0; i<size; i++){
-    		*it = converter_type::get( diag_value );
-    		it += ( size + 1 ); 
-    	}
+    	res.fill_diag( diag_value ) ;
     	return res ;
     }
     
@@ -2267,6 +2269,29 @@ private:
 	virtual void update(){
 		VECTOR::update_vector() ;
 	}
+	
+	template <typename U>
+	void fill_diag__dispatch( traits::false_type, const U& u){
+		SEXP elem = PROTECT( converter_type::get( u ) ) ;
+		int n = Matrix::size() ;
+		iterator it( Matrix::begin()) ;
+		for( int i=0; i<n; i++){
+    		*it = ::Rf_duplicate( elem );
+    		it += ( n + 1 ); 
+    	}
+    	UNPROTECT(1); // elem
+	}
+	
+	template <typename U>
+	void fill_diag__dispatch( traits::true_type, const U& u){
+		stored_type elem = converter_type::get( u ) ;
+		int n = Matrix::size() ;
+		iterator it( Matrix::begin()) ;
+		for( int i=0; i<n; i++){
+    		*it = elem ;
+    		it += ( n + 1 ); 
+    	}
+    }
 	    
 } ;
 
