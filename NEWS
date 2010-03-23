@@ -7,7 +7,10 @@
 	Named(.,.) and Named(.)=. are preserved, and extended to work also on 
 	simple vectors (through Vector<>::create) 
 	
-    o	Applied patch by Alistair Gee to make ColDatum more robust 
+    o	Applied patch by Alistair Gee to make ColDatum more robust
+    
+    o	fixed a bug in Vector that caused random behavior due to the lack of
+    copy constructor in the Vector template
         
 0.7.10  2010-03-15
 

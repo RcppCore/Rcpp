@@ -1,3 +1,13 @@
+2010-03-23  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/Vector.h: fixed critical bug. Vector did not have copy constructor
+	and assignement operators
+	
+	* src/exceptions.cpp: added the demangle helper function to help debugging
+	
+	* src/RcppCommon.h: added the DEMANGLE macro and the RCPP_DEBUG macro to help
+	debugging. 
+
 2010-03-20  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Vector.h : Vector gains a templated fill method to fill all 
