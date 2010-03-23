@@ -25,7 +25,7 @@ test.CharacterVector <- function(){
 	funx <- cfunction(signature(), '
 	CharacterVector x(10) ;
 	for( int i=0; i<10; i++) x[i] = "foo" ;
-	return x ;', 
+	return x ;',
 		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
 	checkEquals( funx(), rep("foo",10L), msg = "CharacterVector" )
 }
@@ -33,13 +33,13 @@ test.CharacterVector <- function(){
 test.CharacterVector.STRSXP <- function(){
 	funx <- cfunction(signature(vec = "character" ), '
 	CharacterVector x(vec) ;
-	std::string st = "" ; 
-	for( int i=0; i<x.size(); i++) { 
+	std::string st = "" ;
+	for( int i=0; i<x.size(); i++) {
 		st += x[i] ;
 	}
-	return wrap( st ) ;', 
+	return wrap( st ) ;',
 		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
-	checkEquals( funx(letters), paste(letters,collapse="" ), 
+	checkEquals( funx(letters), paste(letters,collapse="" ),
 		msg = "CharacterVector( STRSXP) " )
 }
 
@@ -47,8 +47,8 @@ test.CharacterVector.initializer.list <- function(){
 	if( Rcpp:::capabilities()[["initializer lists"]] ){
 		funx <- cfunction(signature(), '
 		CharacterVector x = {"foo", "bar"} ;
-		return x ;', 
-			Rcpp=TRUE, verbose=FALSE, 
+		return x ;',
+			Rcpp=TRUE, verbose=FALSE,
 			includes = "using namespace Rcpp;",
 			cxxargs = "-std=c++0x" )
 		checkEquals( funx(), c("foo","bar"), msg = "CharacterVector( initializer list) " )
@@ -58,13 +58,13 @@ test.CharacterVector.initializer.list <- function(){
 test.CharacterVector.plusequals <- function(){
 	funx <- cfunction(signature(), '
 	CharacterVector x(2) ;
-	x[0] = "foo" ; 
+	x[0] = "foo" ;
 	x[1] = "bar" ;
 	x[0] += "bar" ;
 	x[1] += x[0] ;
 	return x ;
 	', Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
-	checkEquals( funx(), c("foobar", "barfoobar"), 
+	checkEquals( funx(), c("foobar", "barfoobar"),
 		msg = "StringProxy::operator+=" )
 }
 
@@ -80,10 +80,10 @@ test.CharacterVector.matrix.indexing <- function(){
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	x <- matrix( as.character(1:16), ncol = 4 )
 	checkEquals( funx(x), paste(diag(x), collapse = ""), msg = "matrix indexing" )
-	
+
 	y <- as.vector( x )
 	checkException( funx(y) , msg = "not a matrix" )
-	
+
 	funx <- cfunction(signature(x = "integer" ), '
 		CharacterVector m(x) ;
 		for( size_t i=0 ; i<4; i++){
@@ -91,12 +91,12 @@ test.CharacterVector.matrix.indexing <- function(){
 		}
 		return m ;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
-	checkEquals( diag(funx(x)), rep("foo", 4) , 
+	checkEquals( diag(funx(x)), rep("foo", 4) ,
 		msg = "matrix indexing lhs" )
 }
 
 test.CharacterVector.assign <- function(){
-	
+
 	funx <- cfunction(signature(), '
 		const char* x[] = { "foo", "bar", "bling", "boom" } ;
 		CharacterVector y ;
@@ -104,8 +104,8 @@ test.CharacterVector.assign <- function(){
 		return y;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	checkEquals( funx(), c("foo", "bar", "bling", "boom"), msg = "assign(char**, char**)" )
-	
-	
+
+
 	funx <- cfunction(signature(), '
 		std::vector<std::string> vec(4) ;
 		vec[0] = "foo";
@@ -117,7 +117,7 @@ test.CharacterVector.assign <- function(){
 		return y;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	checkEquals( funx(), c("foo", "bar", "bling", "boom"), msg = "assign(char**, char**)" )
-	
+
 }
 
 test.CharacterVector.range.constructors <- function(){
@@ -128,8 +128,8 @@ test.CharacterVector.range.constructors <- function(){
 		return y;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	checkEquals( funx(), c("foo", "bar", "bling", "boom"), msg = "assign(char**, char**)" )
-	
-	
+
+
 	funx <- cfunction(signature(), '
 		std::vector<std::string> vec(4) ;
 		vec[0] = "foo";
@@ -147,22 +147,22 @@ test.CharacterVector.Dimension.constructor <- function(){
 	funx <- cfunction(signature(), '
 		return CharacterVector( Dimension( 5 ) ) ;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
-	checkEquals( funx(), 
-		character(5) , 
+	checkEquals( funx(),
+		character(5) ,
 		msg = "CharacterVector( Dimension(5))" )
-	
+
 	funx <- cfunction(signature(), '
 		return CharacterVector( Dimension( 5, 5 ) ) ;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
-	checkEquals( funx(), 
-		matrix( "", ncol = 5, nrow = 5) , 
+	checkEquals( funx(),
+		matrix( "", ncol = 5, nrow = 5) ,
 		msg = "CharacterVector( Dimension(5,5))" )
-	
+
 	funx <- cfunction(signature(), '
 		return CharacterVector( Dimension( 2, 3, 4) ) ;
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
-	checkEquals( funx(), 
-		array( "", dim = c(2,3,4) ) , 
+	checkEquals( funx(),
+		array( "", dim = c(2,3,4) ) ,
 		msg = "CharacterVector( Dimension(2,3,4))" )
 }
 
@@ -179,24 +179,24 @@ test.CharacterVector.iterator <- function(){
 		return wrap(res) ;
 	;
 		', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
-	checkEquals( 
-		funx(letters), 
-		paste(letters, collapse=""), 
+	checkEquals(
+		funx(letters),
+		paste(letters, collapse=""),
 		msg = "CharacterVector::iterator explicit looping" )
-	
+
 	funx <- cfunction(signature(x = "character"), '
 		CharacterVector letters(x) ;
-		std::string res( 
-			std::accumulate( 
+		std::string res(
+			std::accumulate(
 				letters.begin(), letters.end(), std::string() ) ) ;
 		return wrap(res) ;
 	;
 		', Rcpp = TRUE, includes = "using namespace Rcpp;" )
-	checkEquals( 
-		funx(letters), 
-		paste(letters, collapse=""), 
+	checkEquals(
+		funx(letters),
+		paste(letters, collapse=""),
 		msg = "CharacterVector::iterator using std::accumulate" )
-	
+
 }
 
 test.CharacterVector.reverse <- function(){
@@ -224,7 +224,6 @@ test.CharacterVector.names.indexing <- function(){
 }
 
 test.CharacterVector.comma <- function(){
-	
 	funx <- cfunction(signature(), '
         	CharacterVector x(3) ;
         	x = "foo", "bar", "bling" ;
@@ -232,3 +231,23 @@ test.CharacterVector.comma <- function(){
         Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
         checkEquals( funx(), c("foo","bar", "bling" ), msg = "CharacterVector comma operator" )
 }
+
+test.CharacterVector.listOf <- function() {
+    src <- '
+    List ll(l);
+    CharacterVector cv1 = ll["foo"];
+    CharacterVector cv2 = ll["bar"];
+    std::string rv1 = std::string(cv1[0]) + cv1[1] + cv1[2];
+    std::string rv2 = std::string(cv2[0]) + cv2[1] + cv2[2];
+    return List::create(_["foo"] = rv1, _["bar"] = rv2);
+    '
+    fun <- cfunction(signature(l = "list"), src, Rcpp = TRUE, includes = "using namespace Rcpp;" )
+    checkEquals(fun(list(foo=c("tic","tac","toe"),
+                         bar=c("Eenie","Meenie","Moe"))),
+                list(foo="tictactoe", bar="EenieMeenieMoe"),
+                msg="CharacterVector from list")
+}
+
+
+
+
