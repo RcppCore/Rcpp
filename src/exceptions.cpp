@@ -29,6 +29,20 @@
 #include <exception_defines.h>
 #include <cxxabi.h>
 
+std::string demangle( const char* name){
+	std::string real_class ;
+	int status =-1 ;
+	char *dem = 0;
+	dem = abi::__cxa_demangle(name, 0, 0, &status);
+	if( status == 0 ){
+		real_class = dem ;
+		free(dem);
+	} else {
+		real_class = name ;
+	}
+	return real_class ;
+}
+
 /* much inspired from the __verbose_terminate_handler of the GCC */
 void forward_uncaught_exceptions_to_r(){
 	
@@ -86,6 +100,9 @@ void forward_uncaught_exceptions_to_r(){
 		     Rf_mkString("exception : we don't know how to get the exception message with your compiler, patches welcome"), 
 		     R_NilValue ), R_FindNamespace(Rf_mkString("Rcpp"))
 	     ) ; 
+}
+std::string demangle( const char* name){
+	return std::string( name ) ;	
 }
 #endif
 SEXP initUncaughtExceptionHandler(){
