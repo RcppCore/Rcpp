@@ -43,11 +43,13 @@ namespace internal{
 		if (Rf_length(x) != 1) {
     			throw std::range_error( "expecting a single value");
     		}
-    		return T( CHAR( STRING_ELT(x,0 ) ) ) ;
+    		return T( CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ) ;
 	}
 	
 	template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_generic_tag ){
+		RCPP_DEBUG( "as(SEXP = <%p>, r_type_generic_tag )", x ) ;
 		::Rcpp::traits::Exporter<T> exporter(x);
+		RCPP_DEBUG( "exporter type = %s", DEMANGLE(exporter) ) ;
 		return exporter.get() ;
 	}
 	

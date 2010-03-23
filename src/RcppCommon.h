@@ -24,6 +24,8 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
+void logTxtFunction(const char* file, const int line, const char* expression ) ;
+
 #define ___RCPP_HANDLE_CASE___( ___RTYPE___ , ___FUN___ , ___OBJECT___ , ___RCPPTYPE___ )	\
 	case ___RTYPE___ :																	\
 		return ___FUN___( ::Rcpp::___RCPPTYPE___< ___RTYPE___ >( ___OBJECT___ ) ) ;	
@@ -110,6 +112,9 @@ namespace internal{
 #include <tr1/unordered_set>
 #endif
 
+std::string demangle( const char* name) ;
+#define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str() 
+
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
 #define R_NO_REMAP
 #include <R.h>
@@ -139,14 +144,6 @@ int rcpp_call_test_(SEXP) ;
 extern "C" SEXP rcpp_call_test(SEXP x) ;
 
 char *copyMessageToR(const char* const mesg);
-
-// simple logging help
-inline void logTxtFunction(const char* file, const int line, const char* expression); 
-
-#ifndef logTxt
-//#define logTxt(x) logTxtFunction(__FILE__, __LINE__, x);
-#define logTxt(x) 
-#endif
 
 /* in exceptions.cpp */
 void forward_uncaught_exceptions_to_r() ;
@@ -191,6 +188,18 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 
 } // namespace Rcpp
 
+// simple logging help
+#define RCPP_DEBUG_LEVEL 0
+
+#ifndef logTxt
+	#if RCPP_DEBUG_LEVEL > 0
+		#define logTxt(x) ::logTxtFunction(__FILE__, __LINE__, x);
+		#define RCPP_DEBUG( fmt , ... ) Rprintf( "%s:%d " fmt "\n" , __FILE__, __LINE__,##__VA_ARGS__ ) ;
+	#else
+		#define logTxt(x)
+		#define RCPP_DEBUG( fmt , ... )
+	#endif
+#endif
 
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
 #include <Rcpp/traits/integral_constant.h>
