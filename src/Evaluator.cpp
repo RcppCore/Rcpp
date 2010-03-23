@@ -29,8 +29,7 @@ namespace Rcpp {
     const char* Evaluator::eval_error::what() const throw(){ return message.c_str() ; }
 
    SEXP Evaluator::run(SEXP expr, SEXP env) throw(eval_error) {
-	
-   	SEXP call = PROTECT( Rf_lang3( Rf_install("rcpp_tryCatch") , expr, env ) ) ;
+	SEXP call = PROTECT( Rf_lang3( Rf_install("rcpp_tryCatch") , expr, env ) ) ;
 	
    	Environment RCPP = Environment::Rcpp_namespace(); 
    	

@@ -112,7 +112,7 @@ namespace internal{
 #include <tr1/unordered_set>
 #endif
 
-std::string demangle( const char* name) ;
+std::string demangle( const std::string& name) ;
 #define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str() 
 
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
@@ -204,6 +204,10 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 #else
 	#define RCPP_DEBUG( fmt , ... )
 #endif
+
+SEXP stack_trace( const char *file, int line) ;
+#define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
+#define Rcpp_error(MESSAGE) throw new Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
 
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
 #include <Rcpp/traits/integral_constant.h>
