@@ -149,7 +149,9 @@ namespace internal{
 	public:
 		typedef ::Rcpp::Vector<RTYPE> VECTOR ;
 		generic_name_proxy( VECTOR& v, const std::string& name_) :
-			parent(v), name(name_){} ;
+			parent(v), name(name_){
+				RCPP_DEBUG( "generic_name_proxy( VECTOR& = %p, const string& = %s)", v.asSexp(), name_.c_str() );
+		} ;
 		generic_name_proxy( const generic_name_proxy& other ) : 
 			parent(other.parent), name(other.name){} ;
 		~generic_name_proxy(){} ;
@@ -177,7 +179,13 @@ namespace internal{
 		
 		template <typename T>
 		operator T(){
+			#if RCPP_DEBUG_LEVEL > 0
+			SEXP res = get() ;
+			RCPP_DEBUG( "generic_name_proxy::get() = <%p> ", res ) ;
+			return ::Rcpp::as<T>( res ) ;
+			#else
 			return ::Rcpp::as<T>( get() ) ;
+			#endif
 		}
 		
 	private:
@@ -422,10 +430,20 @@ namespace traits{
 template <typename VECTOR>
 class VectorBase : public RObject{
 public:
-	VectorBase() : RObject(){}
-	VectorBase(SEXP x) : RObject(x){}
-	~VectorBase(){}
-	VectorBase(const VectorBase& v) : RObject( v.asSexp() ){}
+	VectorBase() : RObject(){
+		RCPP_DEBUG( "VectorBase()" ) ;
+	}
+	VectorBase(SEXP x) : RObject(x){
+		update() ;
+		RCPP_DEBUG( "VectorBase( SEXP = <%p> ) = <%p>", x, asSexp() ) ;
+	}
+	~VectorBase(){
+		RCPP_DEBUG( "~VectorBase" ) ;
+	}
+	VectorBase(const VectorBase& v) : RObject( v.asSexp() ){
+		update() ;
+		RCPP_DEBUG( "VectorBase( const VectorBase& = <%p> ) ) = <%p>", v.asSexp(), asSexp() ) ;
+	}
 	VectorBase& operator=(const VectorBase& v) {
 		setSEXP( v.asSexp() ) ;
 		return *this ;
@@ -434,6 +452,7 @@ public:
 		return static_cast<VECTOR&>(*this) ;
 	}
 	virtual void update(){
+		RCPP_DEBUG( "%s::update", DEMANGLE(VectorBase) ) ;
 		(static_cast<VECTOR&>(*this)).update_vector() ;
 	}
 } ;
@@ -455,13 +474,26 @@ public:
 	struct r_type : traits::integral_constant<int,RTYPE>{} ;
 	
 	Vector() : Base() {
+		RCPP_DEBUG( "Vector()" ) ;
 		Base::setSEXP( Rf_allocVector( RTYPE, 0 ) ) ;
 		init() ;
 	} ;
-    ~Vector(){};
+    ~Vector(){
+    	RCPP_DEBUG( "~Vector()" ) ;
+	};
     
+	Vector( const Vector& other) : Base(other.asSexp()) {
+		update() ;
+	}
+	
+	Vector& operator=( const Vector& other ){
+		Base::setSEXP( other.asSexp() ) ;	
+	}
+	
     Vector( SEXP x ) : Base() {
+    	RCPP_DEBUG( "Vector<%d>( SEXP = <%p> )", RTYPE, x) ;
     	Base::setSEXP( r_cast<RTYPE>( x ) ) ;
+    	RCPP_DEBUG( "===========") ;
     }
     
     Vector( const size_t& size ) : Base()  {
@@ -725,7 +757,8 @@ public:
 		return erase_range__impl( first, last ) ;
 	}
 	
-	void update_vector(){ 
+	void update_vector(){
+		RCPP_DEBUG(  "update_vector, VECTOR = %s", DEMANGLE(Vector) ) ;
 		cache.update(*this) ;
 	}
 		
@@ -2206,7 +2239,8 @@ private:
 		internal::r_init_vector<RTYPE>(Base::m_sexp) ;
 	}
 
-	virtual void update(){ 
+	virtual void update(){
+		RCPP_DEBUG( "%s::update", DEMANGLE(Vector) ) ;
 		update_vector() ;
 	}
 	
@@ -2267,6 +2301,7 @@ public:
     
 private:
 	virtual void update(){
+		RCPP_DEBUG( "%s::update", DEMANGLE(Matrix) ) ;
 		VECTOR::update_vector() ;
 	}
 	
@@ -2482,7 +2517,9 @@ namespace internal{
 		 * @param index index 
 		 */
 		string_proxy( VECTOR& v, int index_ ) : 
-			parent(&v), index(index_){}
+			parent(&v), index(index_){
+				RCPP_DEBUG( "string_proxy( VECTOR& = <%p>, index_ = %d) ", v.asSexp(), index_ ) ;
+		}
 			
 		string_proxy( const string_proxy& other ) : 
 			parent(other.parent), index(other.index){} ;
@@ -2556,7 +2593,7 @@ namespace internal{
 		 * C string
 		 */
 		 operator /*const */ char*() const {
-		 	 return const_cast<char*>( CHAR(STRING_ELT( *parent, index )) );
+		 	 return const_cast<char*>( CHAR(get()) );
 		 }
 		
 		/**
