@@ -482,8 +482,8 @@ public:
     	RCPP_DEBUG( "~Vector()" ) ;
 	};
     
-	Vector( const Vector& other) : Base(other.asSexp()) {
-		update() ;
+	Vector( const Vector& other) : Base() {
+		Base::setSEXP(other.asSexp()) ;
 	}
 	
 	Vector& operator=( const Vector& other ){
