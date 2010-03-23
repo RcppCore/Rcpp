@@ -431,14 +431,14 @@ template <typename VECTOR>
 class VectorBase : public RObject{
 public:
 	VectorBase() : RObject(){
-		RCPP_DEBUG( "VectorBase()" ) ;
+		RCPP_DEBUG( "VectorBase()", 0 ) ;
 	}
 	VectorBase(SEXP x) : RObject(x){
 		update() ;
 		RCPP_DEBUG( "VectorBase( SEXP = <%p> ) = <%p>", x, asSexp() ) ;
 	}
 	~VectorBase(){
-		RCPP_DEBUG( "~VectorBase" ) ;
+		RCPP_DEBUG( "~VectorBase", 0 ) ;
 	}
 	VectorBase(const VectorBase& v) : RObject( v.asSexp() ){
 		update() ;
@@ -474,12 +474,12 @@ public:
 	struct r_type : traits::integral_constant<int,RTYPE>{} ;
 	
 	Vector() : Base() {
-		RCPP_DEBUG( "Vector()" ) ;
+		RCPP_DEBUG( "Vector()", 0 ) ;
 		Base::setSEXP( Rf_allocVector( RTYPE, 0 ) ) ;
 		init() ;
 	} ;
     ~Vector(){
-    	RCPP_DEBUG( "~Vector()" ) ;
+    	RCPP_DEBUG( "~Vector()", 0 ) ;
 	};
     
 	Vector( const Vector& other) : Base() {
@@ -493,7 +493,7 @@ public:
     Vector( SEXP x ) : Base() {
     	RCPP_DEBUG( "Vector<%d>( SEXP = <%p> )", RTYPE, x) ;
     	Base::setSEXP( r_cast<RTYPE>( x ) ) ;
-    	RCPP_DEBUG( "===========") ;
+    	RCPP_DEBUG( "===========", 0) ;
     }
     
     Vector( const size_t& size ) : Base()  {
