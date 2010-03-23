@@ -194,11 +194,15 @@ inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 #ifndef logTxt
 	#if RCPP_DEBUG_LEVEL > 0
 		#define logTxt(x) ::logTxtFunction(__FILE__, __LINE__, x);
-		#define RCPP_DEBUG( fmt , ... ) Rprintf( "%s:%d " fmt "\n" , __FILE__, __LINE__,##__VA_ARGS__ ) ;
 	#else
 		#define logTxt(x)
-		#define RCPP_DEBUG( fmt , ... )
 	#endif
+#endif
+
+#if RCPP_DEBUG_LEVEL > 0
+	#define RCPP_DEBUG( fmt , ... ) Rprintf( "%s:%d " fmt "\n" , __FILE__, __LINE__,##__VA_ARGS__ ) ;
+#else
+	#define RCPP_DEBUG( fmt , ... )
 #endif
 
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
