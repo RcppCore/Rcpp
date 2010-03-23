@@ -15,14 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-cpp_exception <- function( message = "C++ exception", class = NULL ){
+cpp_exception <- function( message = "C++ exception", class = NULL, cppstack = rcpp_get_current_stack_trace() ){
 	callstack <- sys.calls()
 	ncalls <- length(callstack)
 	call <- if( ncalls > 1L) callstack[[ ncalls - 1L ]] else match.call()
 	classes <- c( class, "C++Error", "error", "condition" )
 	condition <- structure( 
-		list( message = message, call = call ), 
+		list( message = message, call = call, cppstack = cppstack ), 
 		class = classes )
+	rcpp_set_current_stack_trace( NULL )
 	stop( condition )
 }
 
@@ -70,4 +71,13 @@ rcpp_tryCatch <- function(expr,env){
 	else cond <- value[[1L]]
 	.rcpp_error_recorder(cond)
 }
+
+rcpp_set_current_stack_trace <- function( trace ){
+	exceptions[["stack_trace"]] <- trace
+}
+rcpp_get_current_stack_trace <- function(){
+	exceptions[["stack_trace"]]
+}
+rcpp_set_current_stack_trace( NULL )
+
 

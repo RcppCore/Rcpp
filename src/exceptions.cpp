@@ -21,6 +21,15 @@
 
 #include <Rcpp.h>
 
+namespace Rcpp{
+	exception::exception( const char* message_, const char* file, int line) : message(message_){
+		SEXP call = PROTECT( Rf_lang2( Rf_install("rcpp_set_current_stack_trace") , stack_trace(file,line) ) ) ;
+		Rf_eval( call, R_FindNamespace( Rf_mkString( "Rcpp") ) ) ;
+		UNPROTECT(1) ;
+	}
+	exception::~exception() throw(){}
+}
+
 /* for now, the fancy exception handling is only available in GCC, 
    simply because we've not investigated if it is available in other 
    compilers */
@@ -29,11 +38,11 @@
 #include <exception_defines.h>
 #include <cxxabi.h>
 
-std::string demangle( const char* name){
+std::string demangle( const std::string& name ){
 	std::string real_class ;
 	int status =-1 ;
 	char *dem = 0;
-	dem = abi::__cxa_demangle(name, 0, 0, &status);
+	dem = abi::__cxa_demangle(name.c_str(), 0, 0, &status);
 	if( status == 0 ){
 		real_class = dem ;
 		free(dem);
@@ -48,8 +57,8 @@ void forward_uncaught_exceptions_to_r(){
 	
     std::string exception_class ;
     bool has_exception_class = false;
-    std::string exception_what ; 
-	
+    std::string exception_what ;
+    
     // Make sure there was an exception; terminate is also called for an
     // attempt to rethrow when there is no suitable exception.
     std::type_info *t = abi::__cxa_current_exception_type();
@@ -73,12 +82,10 @@ void forward_uncaught_exceptions_to_r(){
 	
     // If the exception is derived from std::exception, we can give more
     // information.
-    try { 
+    try {              
     	__throw_exception_again;
-#ifdef __EXCEPTIONS    	
     } catch (std::exception &exc) { 
     	exception_what = exc.what() ;
-#endif
     } catch (...) { 
     	exception_what = "unrecognized exception" ;
     }
@@ -87,8 +94,8 @@ void forward_uncaught_exceptions_to_r(){
 	    Rf_lang3( 
 		     Rf_install("cpp_exception"), 
 		     Rf_mkString(exception_what.c_str()), 
-		     has_exception_class ? Rf_mkString(exception_class.c_str()) : R_NilValue
-		      ), R_FindNamespace(Rf_mkString("Rcpp"))
+		     has_exception_class ? Rf_mkString(exception_class.c_str()) : R_NilValue), 
+		R_FindNamespace(Rf_mkString("Rcpp"))
 	     ) ; 
 }
 
@@ -98,11 +105,12 @@ void forward_uncaught_exceptions_to_r(){
 	    Rf_lang3( 
 		     Rf_install("cpp_exception"), 
 		     Rf_mkString("exception : we don't know how to get the exception message with your compiler, patches welcome"), 
-		     R_NilValue ), R_FindNamespace(Rf_mkString("Rcpp"))
+		     R_NilValue), 
+		R_FindNamespace(Rf_mkString("Rcpp"))
 	     ) ; 
 }
-std::string demangle( const char* name){
-	return std::string( name ) ;	
+std::string demangle( const std::string& name ){
+	return name ;	
 }
 #endif
 SEXP initUncaughtExceptionHandler(){
