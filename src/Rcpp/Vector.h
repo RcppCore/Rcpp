@@ -2110,7 +2110,7 @@ private:
 	iterator insert__impl( iterator position, const stored_type& object){
 		int n = size() ;
 		iterator start = begin() ;
-		int pos = position - start ;
+		// int pos = position - start ;
 		Vector target( n+1 ) ;
 		iterator target_it = target.begin();
 		iterator it = begin() ;
