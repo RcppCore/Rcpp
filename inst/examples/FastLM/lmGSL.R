@@ -55,8 +55,9 @@ lmGSL <- function() {
     gsl_vector_free (c);
     gsl_matrix_free (cov);
 
-    Rcpp::Pairlist res(Rcpp::Named( "coef", coefr), Rcpp::Named( "stderr", stderrestr));
-    return res;
+
+    return Rcpp::List::create( Rcpp::Named( "coef", coefr),
+                               Rcpp::Named( "stderr", stderrestr));
     '
 
     ## turn into a function that R can call
