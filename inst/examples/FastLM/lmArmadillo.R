@@ -44,9 +44,8 @@ lmArmadillo <- function() {
         stderrestr[i] = sqrt(covmat(i,i));
     }
 
-    Rcpp::Pairlist res(Rcpp::Named( "coefficients", coefr),
-                       Rcpp::Named( "stderr", stderrestr));
-    return res;
+    return Rcpp::List::create( Rcpp::Named( "coefficients", coefr),
+                               Rcpp::Named( "stderr", stderrestr));
     '
 
     ## turn into a function that R can call
