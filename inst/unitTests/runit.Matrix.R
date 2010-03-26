@@ -28,10 +28,10 @@ test.NumericMatrix <- function(){
 	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
 	x <- matrix( 1:16 + .5, ncol = 4 )
 	checkEquals( funx(x), sum(diag(x)), msg = "matrix indexing" )
-	
+
 	y <- as.vector( x )
 	checkException( funx(y) , msg = "not a matrix" )
-	
+
 }
 
 test.CharacterMatrix <- function(){
@@ -66,7 +66,7 @@ test.GenericMatrix <- function( ){
 test.IntegerMatrix.diag <- function(){
 	fx <- cfunction( signature(), '
 		return IntegerMatrix::diag( 5, 1 ) ;
-	', 
+	',
 	Rcpp  = TRUE, includes = "using namespace Rcpp;" )
 	expected <- matrix( 0L, nrow = 5, ncol = 5 )
 	diag( expected ) <- 1L
@@ -76,12 +76,26 @@ test.IntegerMatrix.diag <- function(){
 test.CharacterMatrix.diag <- function(){
 	fx <- cfunction( signature(), '
 		return CharacterMatrix::diag( 5, "foo" ) ;
-	', 
+	',
 	Rcpp  = TRUE, includes = "using namespace Rcpp;" )
 	expected <- matrix( "", nrow = 5, ncol = 5 )
 	diag( expected ) <- "foo"
 	checkEquals( fx(), expected, msg = "CharacterMatrix::diag" )
-	
 }
 
+test.NumericMatrix.Ctors <- function(){
+	funx <- cfunction(signature(), '
+		NumericMatrix m(3);
+		return m;
+	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
+	x <- matrix(0, 3, 3)
+	checkEquals( funx(), x, msg = "matrix from single int" )
+
+	funx <- cfunction(signature(), '
+		NumericMatrix m(3,3);
+		return m;
+	', Rcpp = TRUE, includes = "using namespace Rcpp;"  )
+	x <- matrix(0, 3, 3)
+	checkEquals( funx(), x, msg = "matrix from two int" )
+}
 
