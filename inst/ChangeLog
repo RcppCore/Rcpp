@@ -1,21 +1,39 @@
+2010-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.7.11
+
+	* debian/*: Similarly updated for new release to Debian
+
+	* inst/examples/FastLM: Updated to use new create() method
+
+        * inst/unitTests/runit.Matrix.R: New unit test new Matrix constructors
+
+2010-03-26  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/Vector.h: Fixed bug in diag()
+
+2010-03-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/runit.CharacterVector.R: New unit test or bug found by Doug
+
 2010-03-23  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Vector.h: fixed critical bug. Vector did not have copy constructor
 	and assignement operators
-	
+
 	* src/exceptions.cpp: added the demangle helper function to help debugging
-	
+
 	* src/RcppCommon.h: added the DEMANGLE macro and the RCPP_DEBUG macro to help
-	debugging. 
+	debugging.
 
 2010-03-20  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/Vector.h : Vector gains a templated fill method to fill all 
+	* src/Rcpp/Vector.h : Vector gains a templated fill method to fill all
 	elements of a vector with the same value
 
 2010-03-19  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Rcpp/Vector.h : Matrix gains a diag method to create diagonal 
+	* src/Rcpp/Vector.h : Matrix gains a diag method to create diagonal
 	matrices
 
 	* src/Rcpp/Named.h: Named is no longer a class, but a templated function.
@@ -23,7 +41,7 @@
 	in making simple vectors, e.g through the Vector::create factory functions
 
 	* src/Rcpp/Vector.h: Vector gains the "create" factory methods taking up
-	to 20 arguments that can be named (using the Argument class or the _ 
+	to 20 arguments that can be named (using the Argument class or the _
 	placeholder)
 
 	* src/Rcpp/make_list.h: removed since Vector::create does the job more generically
@@ -32,7 +50,7 @@
 2010-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Rcpp/Vector.h: Matrix now also accepts a single int in the
-	  constructor to create matrices of square sizes 
+	  constructor to create matrices of square sizes
 
 	* src/RcppFrame.h: Patch by Alistair Gee to make ColDatum more robust
 	  src/RcppFrame.h: Idem
