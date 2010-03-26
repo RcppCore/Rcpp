@@ -23,7 +23,7 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 source("lmArmadillo.R")
-# source("lmGSL.R")
+source("lmGSL.R")
 
 set.seed(42)
 n <- 25000
@@ -34,16 +34,16 @@ y <- as.numeric(X %*% truecoef + rnorm(n))
 
 N <- 100
 
-# lmgsl <- lmGSL()
+lmgsl <- lmGSL()
 lmarma <- lmArmadillo()
 
 tlm <- mean(replicate(N, system.time( lmfit <- lm(y ~ X - 1) )["elapsed"]), trim=0.05)
 tlmfit <- mean(replicate(N, system.time(lmfitfit <- lm.fit(X, y))["elapsed"]), trim=0.05)
-# tlmgsl <- mean(replicate(N, system.time(lmgsl(y, X))["elapsed"]), trim=0.05)
+tlmgsl <- mean(replicate(N, system.time(lmgsl(y, X))["elapsed"]), trim=0.05)
 tlmarma <- mean(replicate(N, system.time(lmarma(y, X))["elapsed"]), trim=0.05)
 
-res <- c(tlm, tlmfit, 
-	# tlmgsl, 
+res <- c(tlm, tlmfit,
+	tlmgsl,
 	tlmarma)
 data <- t(data.frame(results=res, ratios=tlm/res))
 cat("For n=", n, " and k=", k, "\n", sep="")
