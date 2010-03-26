@@ -41,6 +41,7 @@ public:
 		
 		Proxy_Iterator& operator=( const Proxy_Iterator& other ){
 			proxy.import( other.proxy ) ;
+			return *this ;
 		}
 		
 		inline Proxy_Iterator& operator++(){
