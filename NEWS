@@ -1,7 +1,13 @@
-0.7.11	(under develpment)
+0.7.11	2010-03-26
 
-    o	Vector<> gains a set of templated factory methods "create". create 
-	takes up to 20 arguments and can create named or unnamed vectors. 
+    o	Vector<> gains a set of templated factory methods "create" which
+	takes up to 20 arguments and can create named or unnamed vectors.
+        This greatly facilitates creating objects that are returned to R. 
+
+    o	Matrix now has a diag() method to create diagonal matrices, and
+	a new constructor using a single int to create square matrices
+
+    o	Vector now has a new fill() method to propagate a single value
 	
     o	Named is no more a class but a templated function. Both interfaces
 	Named(.,.) and Named(.)=. are preserved, and extended to work also on 
@@ -9,8 +15,8 @@
 	
     o	Applied patch by Alistair Gee to make ColDatum more robust
     
-    o	fixed a bug in Vector that caused random behavior due to the lack of
-    copy constructor in the Vector template
+    o	Fixed a bug in Vector that caused random behavior due to the lack of
+        copy constructor in the Vector template
         
 0.7.10  2010-03-15
 
