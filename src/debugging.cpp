@@ -21,17 +21,17 @@
 
 #include <Rcpp.h>
 
-#ifdef __GNUC__
+#if defined(__GNUC__) && !defined(WIN32)
 #include <execinfo.h>
 #include <cxxabi.h>
 
 static std::string demangler_one( const char* input){
-	static std::string buffer ;
-	buffer = input ;
-	buffer.resize( buffer.find_last_of( '+' ) - 1 ) ;
-    buffer.erase( 
-    	buffer.begin(), 
-    	buffer.begin() + buffer.find_last_of( ' ' ) + 1) ;
+    static std::string buffer ;
+    buffer = input ;
+    buffer.resize( buffer.find_last_of( '+' ) - 1 ) ;
+    buffer.erase(
+	 buffer.begin(), 
+	 buffer.begin() + buffer.find_last_of( ' ' ) + 1) ;
     return demangle( buffer) ;
 }
 
