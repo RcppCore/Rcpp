@@ -487,7 +487,8 @@ public:
 	}
 	
 	Vector& operator=( const Vector& other ){
-		Base::setSEXP( other.asSexp() ) ;	
+		Base::setSEXP( other.asSexp() ) ;
+		return *this ;
 	}
 	
     Vector( SEXP x ) : Base() {
