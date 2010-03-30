@@ -21,7 +21,18 @@
 
 #include <Rcpp.h>
 
-#if defined(__GNUC__) && !defined(WIN32)
+#if defined(__GNUC__)
+#if defined(WIN32)
+/* silly version for windows */
+SEXP stack_trace( const char* file, int line ){
+    Rcpp::List trace = Rcpp::List::create( 
+    	Rcpp::Named( "file"  ) = file, 
+    	Rcpp::Named( "line"  ) = line, 
+    	Rcpp::Named( "stack" ) = "C++ stack not available on windows (mingw does not have the execinfo.h file)" ) ;
+    trace.attr("class") = "Rcpp_stack_trace" ;
+    return trace ;
+}
+#else /* !defined(WIN32) */ 
 #include <execinfo.h>
 #include <cxxabi.h>
 
@@ -62,8 +73,8 @@ SEXP stack_trace( const char *file, int line) {
     trace.attr("class") = "Rcpp_stack_trace" ;
     return trace ;
 }
-
-#else
+#endif 
+#else /* !defined( __GNUC__ ) */
 SEXP stack_trace( const char *file, int line) {
 	return R_NilValue ;
 }
