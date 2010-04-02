@@ -1,3 +1,7 @@
+0.7.12
+
+	o	new class Rcpp::Formula to help building formulae in C++
+
 0.7.11	2010-03-26
 
     o	Vector<> gains a set of templated factory methods "create" which
