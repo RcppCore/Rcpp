@@ -1,3 +1,8 @@
+2010-04-2	Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Rcpp/Formula.h: new Rcpp::Formula class
+	* inst/unitTests/runit.Formula.R: unit test for Rcpp::Formula
+
 2010-03-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.7.11
@@ -14,7 +19,7 @@
 
 2010-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
-        * inst/unitTests/runit.CharacterVector.R: New unit test or bug found by Doug
+        * inst/unitTests/runit.CharacterVector.R: New unit test for bug found by Doug
 
 2010-03-23  Romain Francois <romain@r-enthusiasts.com>
 
