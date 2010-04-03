@@ -18,3 +18,12 @@
 .onLoad <- function(libname, pkgname){
 	.Call( "initRcpp", PACKAGE = pkgname )
 }
+
+httpd_delegate <- function(path, query, ...){
+	if( grepl( "^/Rcpp/", path ) ){
+		clazz <- sub( "^/Rcpp/.*[.]html$", "\\1", path )
+		tf <- tempfile()
+		unit_test_examples( clazz, tf )
+		return( list( file = tf ) )
+	}
+}
