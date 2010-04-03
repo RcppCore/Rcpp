@@ -122,6 +122,17 @@ const char * sexp_to_name(int sexp_type) {
 
 SEXP initRcpp(){
 	initUncaughtExceptionHandler() ;
+	using namespace Rcpp ;
+	Environment tools = Environment::namespace_env( "tools" );
+	Environment::Binding httpd_ = tools["httpd"] ;
+	httpd_.unlock() ;
+	
+	Function httpd = httpd_ ;
+	Language body( httpd.body() ) ;
+	body.insert( 1, ExpressionVector("if( ! is.null( .result <- Rcpp:::httpd_delegate(path, query, ...) ) ){ return( .result ) }")[0] ) ;
+	httpd_ = httpd ;
+	httpd_.lock() ;
+	
 	return R_NilValue ;
 }
    
