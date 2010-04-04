@@ -415,7 +415,7 @@ namespace traits{
 		typedef typename storage_type<RTYPE>::type type ;
 	} ;
 	template<> struct init_type<STRSXP>{
-		typedef std::string type ;
+		typedef const char* type ;
 	} ;
 	template<> struct init_type<LGLSXP>{
 		typedef bool type ;
@@ -491,6 +491,17 @@ public:
 		return *this ;
 	}
 	
+	template <typename T>
+	Vector& operator=( const T& x){
+		Base::setSEXP( r_cast<RTYPE>( wrap(x) ) ) ;
+		return *this ;
+	}
+
+	internal::ListInitialization<iterator,init_type> operator=( init_type x){
+		iterator start = begin() ; *start = x; 
+		return internal::ListInitialization<iterator,init_type>( start + 1 ) ; ;
+	}
+	
     Vector( SEXP x ) : Base() {
     	RCPP_DEBUG( "Vector<%d>( SEXP = <%p> )", RTYPE, x) ;
     	Base::setSEXP( r_cast<RTYPE>( x ) ) ;
@@ -525,12 +536,7 @@ public:
 		}
     }
     
-    
-    internal::ListInitialization<iterator,init_type> operator=( init_type x){
-		iterator start = begin() ; *start = x; 
-		return internal::ListInitialization<iterator,init_type>( start + 1 ) ; ;
-	}
-	
+   
 	template <typename InputIterator>
 	Vector( InputIterator first, InputIterator last) : Base(){
 		assign( first, last ) ;
