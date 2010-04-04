@@ -39,7 +39,8 @@ canUseCXX0X <- function() .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
 
 ## Provide compiler flags -- i.e. -I/path/to/Rcpp.h
 RcppCxxFlags <- function(cxx0x=FALSE) {
-    path <- RcppLdPath()
+    # path <- RcppLdPath()
+    path <- system.file( "include", package = "Rcpp" )
     if (.Platform$OS.type=="windows") {
         path <- shQuote(path)
     }

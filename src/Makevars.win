@@ -10,7 +10,7 @@
 #
 # Contributions from Brian D Ripley are also gratefully acknowledged 
 
-PKG_CPPFLAGS =	-I.
+PKG_CPPFLAGS =	-I../inst/include/
 
 ## all sources and objects
 SOURCES =	$(wildcard *.cpp)
@@ -32,20 +32,12 @@ endif
 
 RM = 		rm -f
 
-.PHONY: 	all clean userdir
+.PHONY: 	all clean
 
 all: 		userdir $(USERLIB) $(SHLIB)
 
 clean:
 		${RM} $(OBJECTS) $(SHLIB)
-
-userdir:
-		-mkdir -p $(USERDIR)/Rcpp/internal 2>/dev/null
-		-mkdir -p $(USERDIR)/Rcpp/traits 2>/dev/null
-		cp -vax *.h $(USERDIR)
-		cp -vax Rcpp/*.h $(USERDIR)/Rcpp
-		cp -vax Rcpp/internal/*.h $(USERDIR)/Rcpp/internal
-		cp -vax Rcpp/traits/*.h $(USERDIR)/Rcpp/traits
 
 $(USERLIB):	$(OBJECTS)
 
