@@ -1,3 +1,18 @@
+2010-04-4	Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/* : headers are moved to inst/include so that they are 
+	are not duplicated on multi arch platforms
+
+	* R/RcppLdPath.R: RcppCxxFlags is updated to reflect the above change
+
+	* src/Makevars: simplified as the headers don't need to be copied to each 
+	arch lib directory anymore
+
+	* src/Makevars.win: same
+
+	* inst/include/Rcpp/Vector.h : Vector<> gains a templated assignment 
+	operator 
+	
 2010-04-2	Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Formula.h: new Rcpp::Formula class
