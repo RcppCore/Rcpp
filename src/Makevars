@@ -29,18 +29,11 @@ USERDIR =	../inst/lib
 USERLIB	=	libRcpp$(DYLIB_EXT)
 USERLIBST =	libRcpp.a
 
-PKG_CPPFLAGS += -I.
+PKG_CPPFLAGS += -I../inst/include/
 
 userLibrary: 	$(USERLIB) $(USERLIBST)
 		-@if test ! -e $(USERDIR)$(R_ARCH); then mkdir -p $(USERDIR)$(R_ARCH); fi
-		-@if test ! -e $(USERDIR)$(R_ARCH)/Rcpp; then mkdir -p $(USERDIR)$(R_ARCH)/Rcpp; fi
-		-@if test ! -e $(USERDIR)$(R_ARCH)/Rcpp/internal; then mkdir -p $(USERDIR)$(R_ARCH)/Rcpp/internal; fi
-		-@if test ! -e $(USERDIR)$(R_ARCH)/Rcpp/traits; then mkdir -p $(USERDIR)$(R_ARCH)/Rcpp/traits; fi
 		cp $(USERLIB) $(USERDIR)$(R_ARCH)
-		cp Rcpp*.h $(USERDIR)$(R_ARCH)
-		cp Rcpp/*.h $(USERDIR)$(R_ARCH)/Rcpp
-		cp Rcpp/internal/*.h $(USERDIR)$(R_ARCH)/Rcpp/internal
-		cp Rcpp/traits/*.h $(USERDIR)$(R_ARCH)/Rcpp/traits
 		cp $(USERLIBST) $(USERDIR)$(R_ARCH)
 		rm $(USERLIB) $(USERLIBST)
 
