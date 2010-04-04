@@ -48,13 +48,13 @@
 \section{Usage for package building}{
   \pkg{Rcpp} provides a header file and a library inside the installed
   package in the directory \code{lib}. From within \R, you can compute
-  the directory location via \code{system.file("lib", "Rcpp.h", 
+  the directory location via \code{system.file("include", "Rcpp.h", 
     package="Rcpp")}. For Windows, it will be a static library
   \sQuote{Rcpp.a}. For Linux and Mac OS X, it will be \sQuote{libRcpp.so}.
 
   To use \code{Rcpp} in another package, you need to include the header
   during compilation. This typically requires use of the \code{-I} to
-  provide the location as in \code{-I/usr/local/lib/R/site-library/Rcpp/lib}.
+  provide the location as in \code{-I/usr/local/lib/R/site-library/Rcpp/include}.
   Similarly, for linking we need to provide the location of the library
   via \code{-L} as well as the actual library. An example for Linux
   would be \code{-L/usr/local/lib/R/site-library/Rcpp/lib -lRcpp}.
@@ -66,10 +66,10 @@
 
   \preformatted{
 # compile flag providing header directory containing Rcpp.h
-PKG_CXXFLAGS=`Rscript -e 'Rcpp:::CxxFlags()'`
+PKG_CXXFLAGS=$(shell Rscript -e 'Rcpp:::CxxFlags()')
 
-# link flag providing libary as well as path to library, and optionally rpath
-PKG_LIBS=`Rscript -e 'Rcpp:::LdFlags()'`
+# link flag providing library as well as path to library, and optionally rpath
+PKG_LIBS=$(shell Rscript -e 'Rcpp:::LdFlags()')
 }
 
   Alternatively, one can also encode the test for these variables using
