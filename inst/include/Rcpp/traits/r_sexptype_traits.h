@@ -50,6 +50,11 @@ template<> struct r_sexptype_traits<long>{ enum{ rtype = REALSXP } ; } ;
 */
 template<> struct r_sexptype_traits<long double>{ enum{ rtype = REALSXP } ; } ;
 
+/* short are represented as integer vector in R
+*/
+template<> struct r_sexptype_traits<short>{ enum{ rtype = INTSXP } ; } ;
+
+
 /**
  * Indicates if a primitive type needs a static_cast
  */
