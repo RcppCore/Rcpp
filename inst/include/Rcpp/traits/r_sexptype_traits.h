@@ -45,6 +45,11 @@ template<> struct r_sexptype_traits<float>{ enum{ rtype = REALSXP } ; } ;
    to be preserved than int */
 template<> struct r_sexptype_traits<long>{ enum{ rtype = REALSXP } ; } ;
 
+/* long double are represented as numeric vectors because we cannot do better in R
+   some precision will be lost though
+*/
+template<> struct r_sexptype_traits<long double>{ enum{ rtype = REALSXP } ; } ;
+
 /**
  * Indicates if a primitive type needs a static_cast
  */
