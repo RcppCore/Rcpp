@@ -1,3 +1,7 @@
+2010-04-6	Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/traits/*.h: added support for long
+
 2010-04-4	Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/* : headers are moved to inst/include so that they are 
