@@ -41,6 +41,9 @@ template<> struct r_sexptype_traits<Rbyte>{ enum{ rtype = RAWSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned int>{ enum{ rtype = INTSXP } ; } ;
 template<> struct r_sexptype_traits<float>{ enum{ rtype = REALSXP } ; } ;
 
+/* long are represented as numeric vectors which allows more precision 
+   to be preserved than int */
+template<> struct r_sexptype_traits<long>{ enum{ rtype = REALSXP } ; } ;
 
 /**
  * Indicates if a primitive type needs a static_cast

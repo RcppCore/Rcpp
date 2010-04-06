@@ -91,6 +91,10 @@ template<> struct r_type_traits<unsigned int>{ typedef r_type_primitive_tag r_ca
 template<> struct r_type_traits<float>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<const char*>{ typedef r_type_string_tag r_category ; } ;
 
+/* long */
+template<> struct r_type_traits<long>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,long> >{ typedef r_type_primitive_tag r_category ; } ;
+
 } // traits
 } // Rcpp
 
