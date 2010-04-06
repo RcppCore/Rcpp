@@ -44,6 +44,7 @@ template<> struct r_sexptype_traits<float>{ enum{ rtype = REALSXP } ; } ;
 /* long are represented as numeric vectors which allows more precision 
    to be preserved than int */
 template<> struct r_sexptype_traits<long>{ enum{ rtype = REALSXP } ; } ;
+template<> struct r_sexptype_traits<unsigned long>{ enum{ rtype = REALSXP } ; } ;
 
 /* long double are represented as numeric vectors because we cannot do better in R
    some precision will be lost though
@@ -53,6 +54,7 @@ template<> struct r_sexptype_traits<long double>{ enum{ rtype = REALSXP } ; } ;
 /* short are represented as integer vector in R
 */
 template<> struct r_sexptype_traits<short>{ enum{ rtype = INTSXP } ; } ;
+template<> struct r_sexptype_traits<unsigned short>{ enum{ rtype = INTSXP } ; } ;
 
 
 /**
