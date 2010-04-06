@@ -65,6 +65,8 @@ template <> struct wrap_type_traits< std::complex<double> > { typedef wrap_type_
 
 template <> struct wrap_type_traits<long> { typedef wrap_type_primitive_tag wrap_category; } ;
 
+template <> struct wrap_type_traits<long double> { typedef wrap_type_primitive_tag wrap_category; } ;
+
 } // namespace traits
 } // namespace Rcpp
 #endif
