@@ -584,7 +584,7 @@ template <typename value_type, typename InputIterator> SEXP primitive_rowmajor_w
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	SEXP out = PROTECT( ::Rf_allocVector( RTYPE, nrow * ncol ) );
-	value_type* ptr = r_vector_start<RTYPE,STORAGE>( out );
+	STORAGE* ptr = r_vector_start<RTYPE,STORAGE>( out );
 	int i=0, j=0 ;
 	for( j=0; j<ncol; j++){
 		for( i=0; i<nrow; i++, ++first ){
