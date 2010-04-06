@@ -95,6 +95,10 @@ template<> struct r_type_traits<const char*>{ typedef r_type_string_tag r_catego
 template<> struct r_type_traits<long>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,long> >{ typedef r_type_primitive_tag r_category ; } ;
 
+/* unsigned long */
+template<> struct r_type_traits<unsigned long>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,unsigned long> >{ typedef r_type_primitive_tag r_category ; } ;
+
 /* long double */
 template<> struct r_type_traits<long double>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,long double> >{ typedef r_type_primitive_tag r_category ; } ;
@@ -103,6 +107,9 @@ template<> struct r_type_traits< std::pair<const std::string,long double> >{ typ
 template<> struct r_type_traits<short>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,short> >{ typedef r_type_primitive_tag r_category ; } ;
 
+/* short */
+template<> struct r_type_traits<unsigned short>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,unsigned short> >{ typedef r_type_primitive_tag r_category ; } ;
 
 } // traits
 } // Rcpp
