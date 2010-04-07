@@ -1,6 +1,17 @@
 0.7.12
 
 	o	new class Rcpp::Formula to help building formulae in C++
+	
+	o	Rcpp.package.skeleton gains an argument "example_code" and can now be 
+	used with an empty list, so that only the skeleton is generated
+	
+	o	wrap now supports containers of the following types: long, long double, 
+	unsigned long, short and unsigned short which are silently converted 
+	to the most acceptable R type.
+	
+	o	All Rcpp headers have been moved to the inst/include directory, allowing 
+	use of LinkingTo: Rcpp. But the Makevars and Makevars.win still need
+	to link against the user library. 
 
 0.7.11	2010-03-26
 
