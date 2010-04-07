@@ -18,14 +18,27 @@
 Rcpp.package.skeleton <- function(
 	name = "anRpackage", list = character(), environment = .GlobalEnv,
 	path = ".", force = FALSE, namespace = TRUE, 
-	code_files = character() ){
+	code_files = character(), 
+	example_code = TRUE ){
+	
+	env <- parent.frame(1)
+	
+	if( !length(list) ){
+		fake <- TRUE
+		assign( "Rcpp.fake.fun", function(){}, envir = env )
+		list <- "Rcpp.fake.fun"
+	} else {
+		fake <- FALSE
+	}
 	
 	# first let the traditional version do its business
 	call <- match.call()
 	call[[1]] <- as.name("package.skeleton")
 	call[["namespace"]] <- namespace
-	print( call )	
-	env <- parent.frame(1)
+	if( "example_code" %in% names( call ) ){
+		# remove the example_code argument
+		call[["example_code"]] <- NULL
+	}
 	
 	tryCatch( eval( call, envir = env ), error = function(e){
 		stop( "error while calling `package.skeleton`" )
@@ -76,18 +89,26 @@ Rcpp.package.skeleton <- function(
 		message( " >> added Makevars.win file with Rcpp settings" )
 	}
 	
-	header <- readLines( file.path( skeleton, "rcpp_hello_world.h" ) )
-	header <- gsub( "@PKG@", name, header, fixed = TRUE )
-	writeLines( header , file.path( src, "rcpp_hello_world.h" ) )
-	message( " >> added example header file using Rcpp classes")
-	
-	file.copy( file.path( skeleton, "rcpp_hello_world.cpp" ), src )
-	message( " >> added example src file using Rcpp classes")
-	
-	rcode <- readLines( file.path( skeleton, "rcpp_hello_world.R" ) )
-	rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
-	writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
-	message( " >> added example R file calling the C++ example")
+	if( example_code ){
+		header <- readLines( file.path( skeleton, "rcpp_hello_world.h" ) )
+		header <- gsub( "@PKG@", name, header, fixed = TRUE )
+		writeLines( header , file.path( src, "rcpp_hello_world.h" ) )
+		message( " >> added example header file using Rcpp classes")
+		
+		file.copy( file.path( skeleton, "rcpp_hello_world.cpp" ), src )
+		message( " >> added example src file using Rcpp classes")
+		
+		rcode <- readLines( file.path( skeleton, "rcpp_hello_world.R" ) )
+		rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
+		writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
+		message( " >> added example R file calling the C++ example")
+	}
+	if( fake ){
+		rm( "Rcpp.fake.fun", envir = env )
+		unlink( file.path( root, "R"  , "Rcpp.fake.fun.R" ) )
+		unlink( file.path( root, "man", "Rcpp.fake.fun.Rd" ) )
+		
+	}
 	
 	invisible( NULL )
 }
