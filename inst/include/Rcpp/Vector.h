@@ -562,18 +562,18 @@ public:
      */
     inline R_len_t size() const { return ::Rf_length( Base::m_sexp ) ; }
     
-    inline int ncol(){
+    inline int ncol() const {
     	return dims()[1]; 
     }
     
-    inline int nrow(){
+    inline int nrow() const {
     	return dims()[0]; 
     }
 
-    inline int cols() { 
+    inline int cols() const { 
 	return dims()[1]; 
     }
-    inline int rows() { 
+    inline int rows() const { 
 	return dims()[0]; 
     }
 	
