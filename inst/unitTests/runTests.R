@@ -16,7 +16,7 @@ if(require("RUnit", quietly = TRUE)) {
     ## --- Testing ---
 
     ## Define tests
-    testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
+    testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path, testFileRegexp = "^runit[.]as" )
 
     if(interactive()) {
         cat("Now have RUnit Test Suite 'testSuite' for package '", pkg,
@@ -77,8 +77,12 @@ if(require("RUnit", quietly = TRUE)) {
 
         ##  stop() if there are any failures i.e. FALSE to unit test.
         ## This will cause R CMD check to return error and stop
-        if(getErrors(tests)$nFail > 0) {
-            stop("one of the unit tests failed")
+        err <- getErrors(tests)
+        if( (err$nFail + err$nErr) > 0) {
+            stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
+        } else{
+        	success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
+        	cat( sprintf( "%d / %d", success, err$nTestFunc ) )
         }
     }
 } else {
