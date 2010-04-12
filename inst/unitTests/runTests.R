@@ -16,7 +16,7 @@ if(require("RUnit", quietly = TRUE)) {
     ## --- Testing ---
 
     ## Define tests
-    testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path, testFileRegexp = "^runit[.]as" )
+    testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path )
 
     if(interactive()) {
         cat("Now have RUnit Test Suite 'testSuite' for package '", pkg,
