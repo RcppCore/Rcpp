@@ -34,7 +34,7 @@ RM = 		rm -f
 
 .PHONY: 	all clean
 
-all: 		userdir $(USERLIB) $(SHLIB)
+all: 		$(USERLIB) $(SHLIB)
 
 clean:
 		${RM} $(OBJECTS) $(SHLIB)
