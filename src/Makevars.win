@@ -34,12 +34,17 @@ RM = 		rm -f
 
 .PHONY: 	all clean
 
-all: 		$(USERLIB) $(SHLIB)
+all: 		userlib $(SHLIB)
 
 clean:
 		${RM} $(OBJECTS) $(SHLIB)
 
 $(USERLIB):	$(OBJECTS)
+
+userlib:	userdir $(USERLIB)
+
+userdir:
+		-mkdir -p $(USERDIR)
 
 
 
