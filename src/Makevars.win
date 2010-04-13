@@ -18,7 +18,7 @@ OBJECTS =	$(SOURCES:.cpp=.o)
 
 ## we place it inside the inst/ directory so that it gets installed by the package
 USERDIR	= 	../inst/lib$(R_ARCH)
-STATICLIB=	libRcpp.a
+STATICLIB =	libRcpp.a
 USERLIB	= 	$(USERDIR)/$(STATICLIB)
 
 ## C++0X support enabled if 
@@ -44,7 +44,7 @@ $(USERLIB):	$(OBJECTS)
 
 userlib:	$(STATICLIB)
 		-mkdir -p $(USERDIR)
-		-mv libRcpp.a $(USERLIB) 
+		-mv $(STATICLIB) $(USERLIB) 
 
 $(STATICLIB):	$(OBJECTS)
 
