@@ -1,4 +1,9 @@
 
+## make sure system.file returns an absolute path
+system.file <- function(...){
+	tools:::file_path_as_absolute( base:::system.file( ... ) )
+}
+
 ## Use R's internal knowledge of path settings to find the lib/ directory
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {

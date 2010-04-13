@@ -21,6 +21,9 @@ if(require("RUnit", quietly = TRUE)) {
 
   stopifnot(file.exists(path), file.info(path.expand(path))$isdir)
 
+  # without this, we get many bunch of unit test failures
+  Sys.setenv( R_TESTS = "" )
+  
   source(file.path(path, "runTests.R"), echo = TRUE)
 } else {
 	print( "package RUnit not available, cannot run unit tests" )
