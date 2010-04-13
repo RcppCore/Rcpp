@@ -12,10 +12,6 @@
 
 PKG_CPPFLAGS =	-I../inst/include/
 
-## all sources and objects
-SOURCES =	$(wildcard *.cpp)
-OBJECTS =	$(SOURCES:.cpp=.o)
-
 ## we place it inside the inst/ directory so that it gets installed by the package
 USERDIR	= 	../inst/lib$(R_ARCH)
 STATICLIB =	libRcpp.a
