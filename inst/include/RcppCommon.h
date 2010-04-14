@@ -125,6 +125,8 @@ std::string demangle( const std::string& name) ;
 #include <Rversion.h>
 #define RCPP_GET_NAMES(x)	Rf_getAttrib(x, R_NamesSymbol)
 
+extern "C" SEXP do_dot_cpp(SEXP) ;
+
 // #ifdef BUILDING_DLL
 // #define RcppExport extern "C" __declspec(dllexport)
 // #else
@@ -147,6 +149,7 @@ char *copyMessageToR(const char* const mesg);
 
 /* in exceptions.cpp */
 void forward_uncaught_exceptions_to_r() ;
+void forward_exception_to_r( const std::exception& ) ;
 RcppExport SEXP initUncaughtExceptionHandler() ; 
 
 /* just testing variadic templates */

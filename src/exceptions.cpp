@@ -98,7 +98,30 @@ void forward_uncaught_exceptions_to_r(){
 		R_FindNamespace(Rf_mkString("Rcpp"))
 	     ) ; 
 }
-
+void forward_exception_to_r( const std::exception& ex){
+	std::string exception_class ;
+    std::string exception_what  = ex.what();
+   	const char *name = typeid(ex).name() ;
+   	// now we need to demangle "name"
+   	{
+		int status = -1;
+		char *dem = 0;
+		dem = abi::__cxa_demangle(name, 0, 0, &status);
+		if( status == 0){
+			exception_class = dem ; /* great we can use the demangled name */
+			free(dem);
+		} else{
+			exception_class = name ; /* just using the mangled name */
+		}
+   }
+   Rf_eval( 
+	    Rf_lang3( 
+		     Rf_install("cpp_exception"), 
+		     Rf_mkString(exception_what.c_str()), 
+		     Rf_mkString(exception_class.c_str())
+		), R_FindNamespace(Rf_mkString("Rcpp"))
+	) ; 
+}
 #else
 void forward_uncaught_exceptions_to_r(){
 	Rf_eval( 
@@ -108,6 +131,16 @@ void forward_uncaught_exceptions_to_r(){
 		     R_NilValue), 
 		R_FindNamespace(Rf_mkString("Rcpp"))
 	     ) ; 
+}
+void forward_exception_to_r( const std::exception& ex){
+	Rf_eval( 
+	    Rf_lang3( 
+		     Rf_install("cpp_exception"), 
+		     Rf_mkString(ex.what()), 
+		     R_NilValue), 
+		R_FindNamespace(Rf_mkString("Rcpp"))
+	     ) ; 
+	
 }
 std::string demangle( const std::string& name ){
 	return name ;	

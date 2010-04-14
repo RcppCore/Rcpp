@@ -121,6 +121,8 @@ const char * sexp_to_name(int sexp_type) {
 }
 
 SEXP initRcpp(){
+	// TODO: we should not setup a custom terminate 
+	//       as this does not work as expected on windows
 	initUncaughtExceptionHandler() ;
 	return R_NilValue ;
 }
