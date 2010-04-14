@@ -1,6 +1,7 @@
 useDynLib(Rcpp)
 
 export(Rcpp.package.skeleton)
+export(.Cpp)
 
 importFrom( utils, capture.output )
 
