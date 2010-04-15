@@ -15,23 +15,39 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-cpp_function <- function(..., .Cpp = TRUE){
-	ok <- FALSE
-	if( "package:inline" %in% search() ){
-		ok <- TRUE
-	} else{
-		ok <- tryCatch( {
-			require( "inline" )
-			TRUE 
-		} , error = function(e) FALSE )
+HAVEINLINE <- FALSE
+cfunction <- function(...) stop( "inline not available" ) 
+
+cppfunction <- function (sig = character(), body = character(), includes = character(), 
+    otherdefs = character(), verbose = FALSE, 
+    cppargs = character(), cxxargs = character(), libargs = character(), 
+    .Cpp = TRUE){
+	
+    ok <- HAVEINLINE
+	if( !ok){
+		if( "package:inline" %in% search() ){
+			ok <- TRUE
+		} else{
+			ok <- tryCatch( {
+				require( "inline" )
+				TRUE 
+			} , error = function(e) FALSE )
+		}
+		if( ! ok ){
+			stop( "package inline is not available" )	
+		}
+		HAVEINLINE <<- TRUE
+		cfunction <<- get( "cfunction", asNamespace( "inline" ) )
 	}
-	if( ! ok ){
-		stop( "package inline is not available" )	
-	}
-	cfunction <- get( "cfunction", asNamespace( "inline" ) )
-	fx <- cfunction( ... )
+	fx <- cfunction( sig = sig, body = body, includes = includes, 
+		otherdefs = otherdefs, language = "C++", convention = ".Call", 
+		Rcpp = TRUE, cppargs = cppargs, cxxargs = cxxargs, libargs = libargs, 
+		verbose = verbose )
+	)
 	if( isTRUE( .Cpp ) ){
 		# replace .Call by Rcpp::.Cpp
+		# this is somewhat heuristic, maybe we should search for .Call as opposed
+		# to assume it is in this position
 		body( fx@.Data )[[4]][[1]] <- call( "::", as.name("Rcpp"), as.name(".Cpp") )
 	}
 	fx
