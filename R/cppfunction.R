@@ -33,7 +33,7 @@ cppfunction <- function (sig = character(), body = character(), includes = chara
     cppargs = character(), cxxargs = character(), libargs = character(), 
     .Cpp = TRUE, namespace = TRUE ){
 	
-    ok <- HAVEINLINE
+    ok <- HAVEINLINE                                                                                
 	if( !ok){
 		if( "package:inline" %in% search() ){
 			ok <- TRUE
@@ -51,15 +51,18 @@ cppfunction <- function (sig = character(), body = character(), includes = chara
 	if( isTRUE( namespace ) ){
 		includes <- c( includes, "using namespace Rcpp;" )
 	}
+	body <- sprintf( "try{ %s } catch( std::exception& __rcpp__ex__ ){ forward_exception_to_r( __rcpp__ex__ ) ; }", 
+		body                                                                                   
+	)
 	fx <- cfunction( sig = sig, body = body, includes = includes, 
 		otherdefs = otherdefs, language = "C++", convention = ".Call", 
 		Rcpp = TRUE, cppargs = cppargs, cxxargs = cxxargs, libargs = libargs, 
 		verbose = verbose )
-	if( isTRUE( .Cpp ) ){
-		# replace .Call by Rcpp::.Cpp
-		# this is somewhat heuristic, maybe we should search for .Call as opposed
-		# to assume it is in this position
-		body( fx@.Data )[[4]][[1]] <- call( "::", as.name("Rcpp"), as.name(".Cpp") )
-	}
+	# if( isTRUE( .Cpp ) ){
+	# 	# replace .Call by Rcpp::.Cpp
+	# 	# this is somewhat heuristic, maybe we should search for .Call as opposed
+	# 	# to assume it is in this position
+	# 	body( fx@.Data )[[4]][[1]] <- call( "::", as.name("Rcpp"), as.name(".Cpp") )
+	# }
 	fx
 }
