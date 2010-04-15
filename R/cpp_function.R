@@ -43,7 +43,6 @@ cppfunction <- function (sig = character(), body = character(), includes = chara
 		otherdefs = otherdefs, language = "C++", convention = ".Call", 
 		Rcpp = TRUE, cppargs = cppargs, cxxargs = cxxargs, libargs = libargs, 
 		verbose = verbose )
-	)
 	if( isTRUE( .Cpp ) ){
 		# replace .Call by Rcpp::.Cpp
 		# this is somewhat heuristic, maybe we should search for .Call as opposed
