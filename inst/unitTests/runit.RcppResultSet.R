@@ -17,16 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppResultSet.double <- function() {
     src <- 'double y = 1.23456;
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], 1.23456, msg = "RcppResultRet.double")
 }
 
@@ -35,7 +31,7 @@ test.RcppResultSet.int <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], 42, msg = "RcppResultSet.int")
 }
 
@@ -44,7 +40,7 @@ test.RcppResultSet.string <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], "hello unit tests", msg = "RcppResultSet.string")
 }
 
@@ -53,7 +49,7 @@ test.RcppResultSet.double.vector <- function() {
             RcppResultSet rs;
             rs.add("foo", y, 3);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], c(1.1, 2.2, 3.3), msg = "RcppResultSet.double.vector")
 }
 
@@ -62,7 +58,7 @@ test.RcppResultSet.int.vector <- function() {
             RcppResultSet rs;
             rs.add("foo", y, 3);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], c(11, 22, 33), msg = "RcppResultSet.int.vector")
 }
 
@@ -73,7 +69,7 @@ test.RcppResultSet.double.matrix <- function() {
             RcppResultSet rs;
             rs.add("foo", y, 2, 2);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], matrix(c(1.1, 2.2, 3.3, 4.4), 2, byrow=TRUE), msg = "RcppResultSet.double.matrix")
 }
 
@@ -84,7 +80,7 @@ test.RcppResultSet.int.matrix <- function() {
             RcppResultSet rs;
             rs.add("foo", y, 2, 2);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], matrix(c(11, 22, 33, 44), 2, byrow=TRUE), msg = "RcppResultSet.int.matrix")
 }
 
@@ -93,7 +89,7 @@ test.RcppResultSet.RcppDate <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], as.Date("2000-01-01"), msg = "RcppResultSet.RcppDate")
 }
 
@@ -102,7 +98,7 @@ test.RcppResultSet.RcppDateVector <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="ANY"), src)
     v <- c(as.Date("2000-01-01"), as.Date("2001-01-01"))
     checkEquals(funx(v)[[1]], v, msg = "RcppResultSet.RcppDateVector")
 }
@@ -112,7 +108,7 @@ test.RcppResultSet.RcppDatetime <- function() {
              RcppResultSet rs;
              rs.add("foo", y);
   	     return rs.getReturnList();';
-     funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+     funx <- cppfunction(signature(x="numeric"), src)
      # setting tz = "UTC" because otherwise the format gets set as the tz
      posixt <- as.POSIXct("2000-01-01 01:02:03.456", "%Y-%m-%d %H:%M:%OS", tz = "UTC" )
      result <- funx(as.numeric(posixt))[[1]]
@@ -127,7 +123,7 @@ test.RcppResultSet.RcppDatetimeVector <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="ANY"), src)
     now <- Sys.time()
     attr(now, "tzone") <- NULL # no attribute gets set at the C++ level
     v <- now + 0:9
@@ -139,7 +135,7 @@ test.RcppResultSet.RcppStringVector <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="ANY"), src)
     v <- c("hello", "goodbye")
     checkEquals(funx(v)[[1]], v, msg = "RcppResultSet.RcppStringVector")
 }
@@ -152,7 +148,7 @@ test.RcppResultSet.std.vector.double <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], c(1.1, 2.2, 3.3), msg = "RcppResultSet.std.vector.double")
 }
 
@@ -164,7 +160,7 @@ test.RcppResultSet.std.vector.int <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], c(11, 22, 33), msg = "RcppResultSet.std.vector.int")
 }
 
@@ -179,7 +175,7 @@ test.RcppResultSet.std.vector.std.vector.double <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], matrix(c(1.1, 2.2, 3.3, 1.1, 2.2, 3.3), nrow=2, ncol=3, byrow=TRUE), msg = "RcppResultSet.std.vector.std.vector.double")
 }
 
@@ -194,7 +190,7 @@ test.RcppResultSet.std.vector.std.vector.int <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], matrix(c(11, 22, 33, 11, 22, 33), nrow=2, ncol=3, byrow=TRUE), msg = "RcppResultSet.std.vector.std.vector.int")
 }
 
@@ -207,7 +203,7 @@ test.RcppResultSet.std.vector.std.vector.int <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx()[[1]], c("hello", "goodbye"), msg = "RcppResultSet.std.vector.std.string")
 }
 
@@ -216,7 +212,7 @@ test.RcppResultSet.RcppVector.int <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="integer"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="integer"), src)
     x <- c(11,22,33)
     checkEquals(funx(x)[[1]], x, msg = "RcppResultSet.RcppVector.int")
 }
@@ -226,7 +222,7 @@ test.RcppResultSet.RcppVector.double <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="double"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="double"), src)
     x <- c(1.1,2.2,3.3)
     checkEquals(funx(x)[[1]], x, msg = "RcppResultSet.RcppVector.double")
 }
@@ -236,7 +232,7 @@ test.RcppResultSet.RcppMatrix.int <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="integer"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="integer"), src)
     x <- matrix(1:9, 3, 3)
     checkEquals(funx(x)[[1]], x, msg = "RcppResultSet.RcppMatrix.int")
 }
@@ -246,7 +242,7 @@ test.RcppResultSet.RcppMatrix.double <- function() {
             RcppResultSet rs;
             rs.add("foo", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="double"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="double"), src)
     x <- matrix(1.1*c(1:9), 3, 3)
     checkEquals(funx(x)[[1]], x, msg = "RcppResultSet.RcppMatrix.double")
 }
@@ -256,7 +252,7 @@ test.RcppResultSet.RcppFrame <- function() {
             RcppResultSet rs;
             rs.add("", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="ANY"), src)
     x <- data.frame(x=1:9, y=LETTERS[1:9], z=sample(c(TRUE,FALSE), 9, replace=TRUE))
     checkEquals( as.data.frame(funx(x)[[1]]), x, msg = "RcppResultSet.RcppFrame")
 }
@@ -265,7 +261,7 @@ test.RcppResultSet.SEXP <- function() {
     src <- 'RcppResultSet rs;
             rs.add("", x, false);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="ANY"), src)
     x <- list(foo=1.23, bar=123, glim="glom")
     checkEquals( funx(x)[[1]], x, msg = "RcppResultSet.SEXP")
 }

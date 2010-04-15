@@ -17,17 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppVectorView.int <- function() {
     src <- 'RcppVectorView<int> m(x);
             RcppResultSet rs;
             rs.add("size",  m.size());
             rs.add("p2",    m(1));
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     checkEquals(funx(x=c(1:6)), list(size=6, p2=2), msg="RcppVectorView.int")
 }
 
@@ -37,7 +33,7 @@ test.RcppVectorView.double <- function() {
             rs.add("size", m.size());
             rs.add("p2",   m(1));
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     checkEquals(funx(x=1.0*c(1:6)), list(size=6, p2=2), msg="RcppVectorView.double")
 }
 

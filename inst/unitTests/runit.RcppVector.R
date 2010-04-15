@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppVector.int <- function() {
     src <- 'RcppVector<int> m(x);
             RcppResultSet rs;
@@ -29,7 +25,7 @@ test.RcppVector.int <- function() {
             std::vector<int> v = m.stlVector();
             rs.add("v",     v);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     checkEquals(funx(x=c(1:6)), list(size=6, p2=2, v=c(1:6)), msg="RcppVector.int")
 }
 
@@ -41,7 +37,7 @@ test.RcppVector.double <- function() {
             std::vector<double> v = m.stlVector();
             rs.add("v",     v);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     checkEquals(funx(x=c(1:6)), list(size=6, p2=2, v=c(1:6)), msg="RcppVector.double")
 }
 
@@ -53,7 +49,7 @@ test.RcppVector.double.na.nan <- function() {
             rs.add("nan_4", R_IsNaN(m(3)));
             rs.add("nan_5", R_IsNaN(m(4)));
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     x <- 1:6
     x[2] <- NA
     x[4] <- NaN

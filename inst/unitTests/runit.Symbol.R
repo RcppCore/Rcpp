@@ -17,12 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.Symbol <- function(){
-	funx <- cfunction(signature(), '
+	funx <- cppfunction(signature(), '
 	SEXP res = PROTECT( Rf_allocVector( LGLSXP, 4) ) ;
 	/* SYMSXP */
 	LOGICAL(res)[0] = Symbol( Rf_install("foobar") ).asSexp() == Rf_install("foobar") ? TRUE : FALSE ;
@@ -38,7 +34,7 @@ test.Symbol <- function(){
 	
 	UNPROTECT(1) ; /* res */
 	return res ;
-	', Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	' )
 	res <- funx()
 	checkTrue( res[1L], msg = "Symbol creation - SYMSXP " )
 	checkTrue( res[2L], msg = "Symbol creation - CHARSXP " )
@@ -47,8 +43,7 @@ test.Symbol <- function(){
 }
 
 test.Symbol.notcompatible <- function(){
-	funx <- cfunction(signature(x="ANY"), 'return Symbol(x);', 
-		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	funx <- cppfunction(signature(x="ANY"), 'return Symbol(x);' )
 	checkException( funx(funx), msg = "Symbol not compatible with function" )
 	checkException( funx(asNamespace("Rcpp")), msg = "Symbol not compatible with environment" )
 	checkException( funx(1:10), msg = "Symbol not compatible with integer" )
