@@ -17,45 +17,36 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.ComplexVector <- function(){
-	funx <- cfunction(signature(), '
+	funx <- cppfunction(signature(), '
 	ComplexVector x(10) ;
 	Rcomplex rc ;
 	for( int i=0; i<10; i++) {
 		rc.r = rc.i = i + 0.0 ;
 		x[i] = rc ;
 	}
-	return x ;', 
-		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	return x ;'  )
 	checkEquals( funx(), 0:9*(1+1i), msg = "ComplexVector" )
 }
 
 test.ComplexVector.INTSXP <- function(){
-	funx <- cfunction(signature(vec = "complex" ), '
+	funx <- cppfunction(signature(vec = "complex" ), '
 	ComplexVector x(vec) ;
 	for( int i=0; i<x.size(); i++) { 
 		x[i].r = x[i].r*2 ;
 		x[i].i = x[i].i*2 ;
 	}
-	return x ;', 
-		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	return x ;'  )
 	checkEquals( funx(0:9*(1+1i)), 2*0:9*(1+1i), msg = "ComplexVector( CPLXSXP) " )
 }
 
 test.ComplexVector.initializer.list <- function(){
 	if( Rcpp:::capabilities()[["initializer lists"]] ){
-		funx <- cfunction(signature(), '
+		funx <- cppfunction(signature(), '
 		Rcomplex c1 ; c1.r = c1.i = 0.0 ;
 		Rcomplex c2 ; c2.r = c2.i = 1.0 ;
 		ComplexVector x = { c1, c2 } ;
-		return x ;', 
-			Rcpp=TRUE, verbose=FALSE, 
-			includes = "using namespace Rcpp;", 
-			cxxargs = "-std=c++0x" )
+		return x ;', cxxargs = "-std=c++0x" )
 		checkEquals( funx(), c( 0:1*(1+1i)), msg = "ComplexVector( initializer list) " )
 	}
 }

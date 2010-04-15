@@ -17,15 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.exceptions <- function(){
-	funx <- cfunction(signature(), '
+	funx <- cppfunction(signature(), '
 	throw std::range_error("boom") ;
 	return R_NilValue ;
-	', Rcpp=TRUE, verbose=FALSE)
+	')
 	e <- tryCatch(  funx(), "C++Error" = function(e) e )
 	checkTrue( "C++Error" %in% class(e), msg = "exception class C++Error" )
 	checkTrue( "std::range_error" %in% class(e), msg = "exception class std::range_error" )

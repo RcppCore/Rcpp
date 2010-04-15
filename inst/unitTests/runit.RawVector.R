@@ -17,38 +17,30 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.RawVector <- function(){
-	funx <- cfunction(signature(), '
+	funx <- cppfunction(signature(), '
 	RawVector x(10) ;
 	for( int i=0; i<10; i++) x[i] = (Rbyte)i ;
-	return x ;', 
-		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	return x ;' )
 	checkEquals( funx(), as.raw(0:9), msg = "RawVector(int)" )
 }
 
 test.RawVector.REALSXP <- function(){
-	funx <- cfunction(signature(vec = "raw" ), '
+	funx <- cppfunction(signature(vec = "raw" ), '
 	RawVector x(vec) ;
 	for( int i=0; i<x.size(); i++) { 
 		x[i] = x[i]*2 ;
 	}
-	return x ;', 
-		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+	return x ;'  )
 	checkEquals( funx(as.raw(0:9)), as.raw(2*0:9), msg = "RawVector( RAWSXP) " )
 }
 
 test.RawVector.initializer.list <- function(){
 	if( Rcpp:::capabilities()[["initializer lists"]] ){
-		funx <- cfunction(signature(), '
+		funx <- cppfunction(signature(), '
 		RawVector x = {0,1,2,3} ;
 		for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
-		return x ;', 
-			Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;",
-			cxxargs = "-std=c++0x" )
+		return x ;', cxxargs = "-std=c++0x" )
 		checkEquals( funx(), as.raw(2*0:3), msg = "RawVector( initializer list) " )
 	}
 }

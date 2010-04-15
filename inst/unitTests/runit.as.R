@@ -17,15 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.as.int <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	int y = as<int>(x) ;
-	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;")
+	return wrap(y) ;' )
 	checkEquals( funx(10), 10L, msg = "as<int>( REALSXP ) " )
 	checkEquals( funx(10L), 10L, msg = "as<int>( INTSXP ) " )
 	checkEquals( funx(as.raw(10L)), 10L, msg = "as<int>( RAWSXP ) " )
@@ -33,10 +28,10 @@ test.as.int <- function(){
 }
 
 test.as.double <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	double y = as<double>(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;")
+	' )
 	checkEquals( funx(10), 10.0, msg = "as<double>( REALSXP ) " )
 	checkEquals( funx(10L), 10.0, msg = "as<double>( INTSXP ) " )
 	checkEquals( funx(as.raw(10L)), 10.0, msg = "as<double>( RAWSXP ) " )
@@ -44,10 +39,10 @@ test.as.double <- function(){
 }
 
 test.as.raw <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	Rbyte y = as<Rbyte>(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;")
+	' )
 	checkEquals( funx(10), as.raw(10), msg = "as<Rbyte>( REALSXP ) " )
 	checkEquals( funx(10L), as.raw(10), msg = "as<Rbyte>( INTSXP ) " )
 	checkEquals( funx(as.raw(10L)), as.raw(10), msg = "as<Rbyte>( RAWSXP ) " )
@@ -55,10 +50,10 @@ test.as.raw <- function(){
 }
 
 test.as.bool <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	bool y = as<bool>(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;")
+	' )
 	checkEquals( funx(10), as.logical(10), msg = "as<bool>( REALSXP ) " )
 	checkEquals( funx(10L), as.logical(10), msg = "as<bool>( INTSXP ) " )
 	checkEquals( funx(as.raw(10L)), as.logical(10), msg = "as<bool>( RAWSXP ) " )
@@ -66,20 +61,18 @@ test.as.bool <- function(){
 }
 
 test.as.string <- function(){
-	funx <- cfunction(signature(x="character"), '
-	string y = as<string>(x) ;
+	funx <- cppfunction(signature(x="character"), '
+	std::string y = as<std::string>(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	' )
 	checkEquals( funx("foo"), "foo", msg = "as<string>( STRSXP ) " )
 }
 
 test.as.vector.int <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	vector<int> y = as< vector<int> >(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	', includes = "using namespace std;" )
 	checkEquals( funx(1:10), 1:10 , msg = "as<vector<int>>( INTSXP ) " )
 	checkEquals( funx(as.numeric(1:10)), 1:10 , msg = "as<vector<int>>( REALSXP ) " )
 	checkEquals( funx(as.raw(1:10)), 1:10 , msg = "as<vector<int>>( RAWSXP ) " )
@@ -87,11 +80,10 @@ test.as.vector.int <- function(){
 }
 
 test.as.vector.double <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	vector<double> y = as< vector<double> >(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	', includes = "using namespace std;" )
 	checkEquals( funx(1:10), as.numeric(1:10) , msg = "as<vector<double>>( INTSXP ) " )
 	checkEquals( funx(as.numeric(1:10)), as.numeric(1:10) , msg = "as<vector<double>>( REALSXP ) " )
 	checkEquals( funx(as.raw(1:10)), as.numeric(1:10), msg = "as<vector<double>>( RAWSXP ) " )
@@ -99,11 +91,10 @@ test.as.vector.double <- function(){
 }
 
 test.as.vector.raw <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	vector<Rbyte> y = as< vector<Rbyte> >(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	', includes = "using namespace std;" )
 	checkEquals( funx(1:10), as.raw(1:10) , msg = "as<vector<Rbyte>>( INTSXP ) " )
 	checkEquals( funx(as.numeric(1:10)), as.raw(1:10) , msg = "as<vector<Rbyte>>( REALSXP ) " )
 	checkEquals( funx(as.raw(1:10)), as.raw(1:10) , msg = "as<vector<Rbyte>>( RAWSXP ) " )
@@ -111,11 +102,10 @@ test.as.vector.raw <- function(){
 }
 
 test.as.vector.bool <- function(){
-	funx <- cfunction(signature(x="numeric"), '
+	funx <- cppfunction(signature(x="numeric"), '
 	vector<bool> y = as< vector<bool> >(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	', includes = "using namespace std;" )
 	checkEquals( funx(0:10), as.logical(0:10) , msg = "as<vector<bool>>( INTSXP ) " )
 	checkEquals( funx(as.numeric(0:10)), as.logical(0:10) , msg = "as<vector<bool>>( REALSXP ) " )
 	checkEquals( funx(as.raw(0:10)), as.logical(0:10) , msg = "as<vector<bool>>( RAWSXP ) " )
@@ -124,30 +114,27 @@ test.as.vector.bool <- function(){
 
 
 test.as.vector.bool <- function(){
-	funx <- cfunction(signature(x="character"), '
+	funx <- cppfunction(signature(x="character"), '
 	vector<string> y = as< vector<string> >(x) ;
 	return wrap(y) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	', includes = "using namespace std;" )
 	checkEquals( funx(letters), letters , msg = "as<vector<string>>( STRSXP ) " )
 	
 }
 
 test.as.deque.int <- function(){
-	funx <- cfunction(signature(x="integer"), '
+	funx <- cppfunction(signature(x="integer"), '
 	deque<int> y = as< deque<int> >(x) ;
 	return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	', includes = "using namespace std;" )
 	checkEquals( funx(1:10), sum(1:10) , msg = "as<deque<int>>( INTSXP ) " )
 }
 
 test.as.list.int <- function(){
-	funx <- cfunction(signature(x="integer"), '
+	funx <- cppfunction(signature(x="integer"), '
 	list<int> y = as< list<int> >(x) ;
 	return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;
-	', Rcpp=TRUE, verbose=FALSE, 
-	includes =c( "using namespace Rcpp;", "using namespace std;" ) )
+	', includes = "using namespace std;" )
 	checkEquals( funx(1:10), sum(1:10) , msg = "as<list<int>>( INTSXP ) " )
 }
 

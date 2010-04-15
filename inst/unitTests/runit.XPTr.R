@@ -17,13 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.XPtr <- function(){
 	
-	funx <- cfunction(signature(), '
+	funx <- cppfunction(signature(), '
 		/* creating a pointer to a vector<int> */
 		std::vector<int>* v = new std::vector<int> ;
 		v->push_back( 1 ) ;
@@ -38,13 +34,13 @@ test.XPtr <- function(){
 		   the external pointer is no more protected by p, but it gets 
 		   protected by being on the R side */
 		return( p ) ;
-	', Rcpp=TRUE, verbose=FALSE)
+	')
 	xp <- funx()
 	checkEquals( typeof( xp ), "externalptr", 
 		msg = "checking external pointer creation" )
 	
 	# passing the pointer back to C++
-	funx <- cfunction(signature(x = "externalptr" ), '
+	funx <- cppfunction(signature(x = "externalptr" ), '
 		/* wrapping x as smart external pointer */
 		/* The SEXP based constructor does not protect the SEXP from 
 		   garbage collection automatically, it is already protected 
@@ -56,7 +52,7 @@ test.XPtr <- function(){
 		
 		/* just return the front of the vector as a SEXP */
 		return( Rcpp::wrap( p->front() ) ) ;
-	', Rcpp=TRUE, verbose=FALSE)
+	')
 	front <- funx(xp)
 	checkEquals( front, 1L, msg = "check usage of external pointer" )
 }

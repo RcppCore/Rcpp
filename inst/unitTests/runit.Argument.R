@@ -17,18 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 runit.Argument <- function(){
 
-	fx <- cfunction( signature(), '
+	fx <- cppfunction( signature(), '
 		Argument x("x") ;
 		Argument y("y") ;
 	
 		return make_list( x = 2, y = 3 ); 
-	', 
-	Rcpp = TRUE, includes = "using namespace Rcpp; " )
+	' )
 	checkEquals( fx(), list( x = 2L, y = 3L ) , msg = "Argument")	
 }

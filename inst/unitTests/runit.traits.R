@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.has.iterator <- function(){
 	
 	has_iterator <- function(clazz = "std::vector<int>" ){
@@ -28,8 +24,7 @@ test.has.iterator <- function(){
 		bool ok = Rcpp::traits::has_iterator< %s >::value ;
 		return wrap(ok) ;
 		'
-		funx <- cfunction(signature(),sprintf( code, clazz ) , 
-		Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;" )
+		funx <- cppfunction(signature(),sprintf( code, clazz ) )
 		funx()
 	}
 	checkTrue( has_iterator( "std::vector<int>" ), msg = "has_iterator< std::vector<int> >" )

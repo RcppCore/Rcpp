@@ -17,21 +17,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppParams.Double <- function() {
     src <- 'double y = 2 * RcppParams(x).getDoubleValue("val");
 	    return Rcpp::wrap(y);';
-    funx <- cfunction(signature(x="ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="ANY"), src)
     checkEquals(funx(list(val=1.234)), 2*1.234, msg="RcppParams.getDoubleValue")
 }
 
 test.RcppParams.Int <- function() {
     src <- 'int y = 2 * RcppParams(x).getIntValue("val");
 	    return Rcpp::wrap(y);';
-    funx <- cfunction(signature(x="ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="ANY"), src)
     checkEquals(funx(list(val=42)), 2*42, msg="RcppParams.getIntValue")
 }
 
@@ -39,14 +35,14 @@ test.RcppParams.String <- function() {
     src <- 'std::string y = RcppParams(x).getStringValue("val");
             y = y + y; // trivial string operation
 	    return Rcpp::wrap(y);';
-    funx <- cfunction(signature(x = "ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x = "ANY"), src)
     checkEquals(funx(list(val="a test string")), "a test stringa test string", msg = "RcppParams.getStringValue")
 }
 
 test.RcppParams.Bool <- function() {
     src <- 'bool y = RcppParams(x).getBoolValue("val");
 	    return Rcpp::wrap(y);';
-    funx <- cfunction(signature(x = "ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x = "ANY"), src)
     checkEquals(funx(list(val=FALSE)), FALSE, msg = "RcppParams.getBoolValue")
 }
 
@@ -55,7 +51,7 @@ test.RcppParams.Date <- function() {
             RcppResultSet rs;
             rs.add("date", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x = "ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x = "ANY"), src)
     checkEquals(funx(list(val=as.Date("2000-01-01")))[[1]], as.Date("2000-01-01"), msg = "RcppParams.getDateValue")
 }
 
@@ -64,7 +60,7 @@ test.RcppParams.Datetime <- function() {
             RcppResultSet rs;
             rs.add("datetime", y);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x = "ANY"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x = "ANY"), src)
     posixt <- as.POSIXct(strptime("2000-01-02 03:04:05.678", "%Y-%m-%d %H:%M:%0S"))
     attr(posixt, "tzone") <- NULL    ## because we don't set a tzone attribute in C++
     checkEquals(funx(list(val=posixt))[[1]], posixt, msg = "RcppParams.getDatetimeValue")

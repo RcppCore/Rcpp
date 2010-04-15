@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppDatetime.get.functions <- function() {
     src <- 'RcppDatetime dt = RcppDatetime(x);
             RcppResultSet rs;
@@ -33,7 +29,7 @@ test.RcppDatetime.get.functions <- function() {
             rs.add("second",   dt.getSecond());
             rs.add("microsec", dt.getMicroSec());
             return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     checkEquals(funx(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456"))),
                 list(year=2001, month=2, day=3, wday=6, hour=1, minute=2, second=3, microsec=123456),
                 msg = "RcppDate.get.functions")
@@ -51,7 +47,7 @@ test.RcppDatetime.operators <- function() {
              rs.add("ge",      d2 >= d1);
              rs.add("le",      d2 <= d1);
    	     return rs.getReturnList();';
-     funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+     funx <- cppfunction(signature(x="numeric"), src)
      checkEquals(funx(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456"))),
                       list(diff=3600, bigger=1, smaller=0, equal=0, ge=1, le=0), msg = "RcppDatetime.operators")
 }

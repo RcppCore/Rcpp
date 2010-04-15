@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 generate.dot.cpp.code <- function(i, suffix = "" ){
 	code <- sprintf( '.Cpp( "testfun_%s%d" %s, PACKAGE = "Rcpp" )', suffix, i, 
 		if( i == 0L ) "" else paste( ", ", paste( 0:(i-1), collapse = ", "), sep = "" )

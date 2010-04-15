@@ -17,22 +17,19 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
 
 test.evaluator.error <- function(){
-	funx <- cfunction(signature(),  '
+	funx <- cppfunction(signature(),  '
 	return Rcpp::Evaluator::run( Rf_lang2( Rf_install("stop"), Rf_mkString( "boom" ) ) ) ;
-	', Rcpp=TRUE, verbose=FALSE)
+	' )
 	
 	checkException( funx(), msg = "Evaluator::run( stop() )" )
 }
 
 test.evaluator.ok <- function(){
-	funx <- cfunction(signature(x="integer"),  '
+	funx <- cppfunction(signature(x="integer"),  '
 	return Rcpp::Evaluator::run( Rf_lang2( Rf_install("sample"), x ) ) ;
-	', Rcpp=TRUE, verbose=FALSE)
+	' )
 	
 	checkEquals( sort(funx(1:10)), 1:10, msg = "Evaluator running fine" )
 }

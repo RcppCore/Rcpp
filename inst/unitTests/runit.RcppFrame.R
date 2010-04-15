@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppFrame <- function() {
     src <- 'std::vector<std::string> names;
             names.push_back("A");
@@ -42,7 +38,7 @@ test.RcppFrame <- function() {
             RcppResultSet rs;
             rs.add("data.frame", fr);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     dframe <- data.frame(funx()[[1]]) ## needs a data.frame() call on first list elem
     checkEquals(dframe, data.frame(A=c(1.23,4.56), B=c(42,21), C=c(FALSE,TRUE)), msg = "RcppFrame")
 }
