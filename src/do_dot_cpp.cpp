@@ -61,8 +61,8 @@ SEXP do_dot_cpp(SEXP args){
     	- the second argument is the external pointer to the function */
     SEXP p = CDR(CDDR(args)) ;
     if( p == R_NilValue ){
-    	if( ::Rf_isNull( np ) || INTEGER(np)[0] != 0 ){
-    		::Rf_error( "incorrect number of arguments" ) ;
+    	if( ! ::Rf_isNull( np ) && INTEGER(np)[0] != 0 ){
+    		::Rf_error( "the registered routine expects no arguments" ) ;
     	}
     	/* no arguments, simple case */
     	try{                               
