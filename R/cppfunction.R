@@ -21,7 +21,7 @@ cfunction <- function(...) stop( "inline not available" )
 cppfunction <- function (sig = character(), body = character(), includes = character(), 
     otherdefs = character(), verbose = FALSE, 
     cppargs = character(), cxxargs = character(), libargs = character(), 
-    .Cpp = TRUE){
+    .Cpp = TRUE, namespace = TRUE ){
 	
     ok <- HAVEINLINE
 	if( !ok){
@@ -38,6 +38,9 @@ cppfunction <- function (sig = character(), body = character(), includes = chara
 		}
 		HAVEINLINE <<- TRUE
 		cfunction <<- get( "cfunction", asNamespace( "inline" ) )
+	}
+	if( isTRUE( namespace ) ){
+		includes <- c( includes, "using namespace Rcpp;" )
 	}
 	fx <- cfunction( sig = sig, body = body, includes = includes, 
 		otherdefs = otherdefs, language = "C++", convention = ".Call", 
