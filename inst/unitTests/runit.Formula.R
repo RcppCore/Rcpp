@@ -17,25 +17,19 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( inline ) )
-}
-
 test.Formula <- function(){
-	funx <- cfunction(signature(), '
+	funx <- cppfunction(signature(), '
 	Formula f( "x ~ y + z" ) ;
 	return f;
-	',
-	Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;")
+	' )
 	checkEquals( funx(), x ~ y + z, msg = "Formula( string )" )
 }
 
 test.Formula.SEXP <- function(){
-	funx <- cfunction(signature( form = "ANY" ), '
+	funx <- cppfunction(signature( form = "ANY" ), '
 	Formula f(form) ;
 	return f;
-	',
-	Rcpp=TRUE, verbose=FALSE, includes = "using namespace Rcpp;")
+	' )
 	checkEquals( funx( x ~ y + z), x ~ y + z, msg = "Formula( SEXP = formula )" )
 	checkEquals( funx( "x ~ y + z" ), x ~ y + z, msg = "Formula( SEXP = STRSXP )" )
 	checkEquals( funx( parse( text = "x ~ y + z") ), x ~ y + z, msg = "Formula( SEXP = EXPRSXP )" )

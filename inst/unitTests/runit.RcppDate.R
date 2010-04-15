@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppDate.get.functions <- function() {
     src <- 'RcppDate dt = RcppDate(12,31,1999);
             RcppResultSet rs;
@@ -29,7 +25,7 @@ test.RcppDate.get.functions <- function() {
             rs.add("year",  dt.getYear());
             rs.add("julian",dt.getJulian());
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx(), list(month=12, day=31, year=1999, julian=10956), msg = "RcppDate.get.functions")
 }
 
@@ -44,7 +40,7 @@ test.RcppDate.operators <- function() {
             rs.add("ge",      d2 >= d1);
             rs.add("le",      d2 <= d1);
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(), src)
     checkEquals(funx(), list(diff=1, bigger=1, smaller=0, equal=0, ge=1, le=0), msg = "RcppDate.operators")
 }
 

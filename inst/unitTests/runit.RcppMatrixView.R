@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( inline ) )
-}
-
 test.RcppMatrixView.int <- function() {
     src <- 'RcppMatrixView<int> m(x);
             RcppResultSet rs;
@@ -30,7 +26,7 @@ test.RcppMatrixView.int <- function() {
             rs.add("cols",  m.cols());
             rs.add("p22",   m(1,1));
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     checkEquals(funx(x=matrix(1:6,2,3,byrow=TRUE)),
                      list(dim1=2, dim2=3, rows=2, cols=3, p22=5),
                      msg = "RcppViewMatrix.int")
@@ -45,7 +41,7 @@ test.RcppMatrixView.double <- function() {
             rs.add("cols",  m.cols());
             rs.add("p22",   m(1,1));
 	    return rs.getReturnList();';
-    funx <- cfunction(signature(x="numeric"), src, Rcpp=TRUE)
+    funx <- cppfunction(signature(x="numeric"), src)
     checkEquals(funx(x=matrix(1.0*(1:6),2,3,byrow=TRUE)),
                      list(dim1=2, dim2=3, rows=2, cols=3, p22=5),
                      msg = "RcppMatrixView.double")
