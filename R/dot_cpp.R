@@ -15,11 +15,28 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+
+is.valid.for.dot.call <- function( symbol ){
+	cl <- oldClass( symbol )
+	identical( cl, "NativeSymbolInfo" ) || identical( cl, c("CallRoutine", "NativeSymbolInfo") )
+}
+
 .Cpp <- function(name, ..., PACKAGE){
-	symbol <- if( missing(PACKAGE) ){
-		getNativeSymbolInfo( name )
+	symbol <- if( inherits( name , "NativeSymbolInfo" ) ){
+		name
 	} else{
-		getNativeSymbolInfo( name, PACKAGE )
+		if( missing(PACKAGE) ){
+			getNativeSymbolInfo( name )
+		} else{
+			getNativeSymbolInfo( name, PACKAGE )
+		}
 	}
-	.External( "do_dot_cpp", symbol$address, ..., PACKAGE = "Rcpp" )
+	if( ! is.valid.for.dot.call(symbol ) ){
+		stop( ".Cpp only supports .Call compatible routines" )
+	}
+	.External( "do_dot_cpp", 
+		symbol$address,         # external pointer tp the C routine
+		symbol$numParameters,   # number of parameters it expects (or NULL)
+		...,                    # actual parameters 
+		PACKAGE = "Rcpp" )
 }
