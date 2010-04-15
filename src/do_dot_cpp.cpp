@@ -22,18 +22,15 @@
 #include <Rcpp.h>
 #include <R_ext/Rdynload.h>
 
+/* borrowed from R */
+
 /* because here we know we are using c++ */
 typedef SEXP (*VarFun)(...);
-
-/* This looks up entry points in DLLs in a platform specific way. */
 #define MAX_ARGS 65
-
-/* Maximum length of entry-point name, including nul terminator */
 #define MaxSymbolBytes 1024
-
-/* Work around casting issues: works where it is needed */
 typedef union {void *p; DL_FUNC fn;} fn_ptr;
 
+/* retrieves a function pointer from an external pointer */
 static DL_FUNC get_fun_symbol(SEXP s){
     fn_ptr tmp;
     tmp.p =  EXTPTR_PTR(s);
@@ -55,14 +52,18 @@ SEXP do_dot_cpp(SEXP args){
 	
     /* grab the external pointer to the native routine */
     SEXP xp = CADR( args ) ;
+    SEXP np = CADDR( args ) ;
     DL_FUNC ofun = get_fun_symbol(xp) ;
     
     SEXP res = R_NilValue ;
     /* 
     	- the first argument is "do_dot_cpp" 
     	- the second argument is the external pointer to the function */
-    SEXP p = CDDR(args) ;
-    if( p == R_NilValue ){	
+    SEXP p = CDR(CDDR(args)) ;
+    if( p == R_NilValue ){
+    	if( ::Rf_isNull( np ) || INTEGER(np)[0] != 0 ){
+    		::Rf_error( "incorrect number of arguments" ) ;
+    	}
     	/* no arguments, simple case */
     	try{                               
 			res = (SEXP) ofun() ;               
@@ -79,7 +80,10 @@ SEXP do_dot_cpp(SEXP args){
     		p = CDR(p) ;
     	}
     	if( p != R_NilValue ){
-    		Rf_error( "too many arguments in foreign function call" );
+    		::Rf_error( "too many arguments in foreign function call" );
+    	}
+    	if( ! ::Rf_isNull(np) && INTEGER(np)[0] != nargs ){
+    		::Rf_error( "incorrect number of arguments in foreign function call, expecting %d arguments, got %d", INTEGER(np)[0], nargs );
     	}
     	/* we know there is at least one argument otherwise we would not 
     	   be in this branch */
