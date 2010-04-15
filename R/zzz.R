@@ -17,5 +17,9 @@
 
 .onLoad <- function(libname, pkgname){
 	.Call( "initRcpp", PACKAGE = pkgname )
+	if( "package:inline" %in% search() ){
+		HAVEINLINE <<- TRUE	
+		cfunction <<- get( "cfunction", asNamespace( "inline" ) )
+	}
 }
 
