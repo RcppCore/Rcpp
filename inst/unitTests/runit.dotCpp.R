@@ -21,8 +21,8 @@
 	suppressMessages( require( inline ) )
 }
 
-generate.dot.cpp.code <- function(i ){
-	code <- sprintf( '.Cpp( "testfun_%d" %s, PACKAGE = "Rcpp" )', i, 
+generate.dot.cpp.code <- function(i, suffix = "" ){
+	code <- sprintf( '.Cpp( "testfun_%s%d" %s, PACKAGE = "Rcpp" )', suffix, i, 
 		if( i == 0L ) "" else paste( ", ", paste( 0:(i-1), collapse = ", "), sep = "" )
 	)
 	parse( text = code )
@@ -32,6 +32,19 @@ test.dot.cpp <- function(){
 	for( i in 0:65 ){
 		expr <- generate.dot.cpp.code(i)
 		checkEquals( eval(expr), i, msg = sprintf( ".Cpp (%d arguments)", i ) )
+	}
+}
+
+test.dot.cpp.exceptions <- function(){
+	for( i in 0:65 ){
+		expr <- generate.dot.cpp.code(i, "ex_")
+		error <- tryCatch( {
+			eval(expr)
+			FALSE	
+		}, "std::range_error" = function(e){
+			TRUE
+		} )
+		checkTrue( error, msg = sprintf( ".Cpp (%d arguments) throwing exception", i ) )
 	}
 }
 

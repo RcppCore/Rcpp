@@ -27,7 +27,6 @@
 /* because here we know we are using c++ */
 typedef SEXP (*VarFun)(...);
 #define MAX_ARGS 65
-#define MaxSymbolBytes 1024
 typedef union {void *p; DL_FUNC fn;} fn_ptr;
 
 /* retrieves a function pointer from an external pointer */
