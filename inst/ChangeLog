@@ -1,23 +1,32 @@
-2010-04-6	Romain Francois <romain@r-enthusiasts.com>
+2010-04-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.7.12
+
+	* debian/*: Similarly updated for new release to Debian
+
+	* RcppLdpath.R: Remove shQuote() from trying to protect spaces in
+ 	  Windows pathnames as it breaks backticks expansion usage
+
+2010-04-06  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/traits/*.h: added support for long
 
-2010-04-4	Romain Francois <romain@r-enthusiasts.com>
+2010-04-04  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/* : headers are moved to inst/include so that they are 
+	* inst/include/* : headers are moved to inst/include so that they are
 	are not duplicated on multi arch platforms
 
 	* R/RcppLdPath.R: RcppCxxFlags is updated to reflect the above change
 
-	* src/Makevars: simplified as the headers don't need to be copied to each 
+	* src/Makevars: simplified as the headers don't need to be copied to each
 	arch lib directory anymore
 
 	* src/Makevars.win: same
 
-	* inst/include/Rcpp/Vector.h : Vector<> gains a templated assignment 
-	operator 
-	
-2010-04-2	Romain Francois <romain@r-enthusiasts.com>
+	* inst/include/Rcpp/Vector.h : Vector<> gains a templated assignment
+	operator
+
+2010-04-02  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Rcpp/Formula.h: new Rcpp::Formula class
 	* inst/unitTests/runit.Formula.R: unit test for Rcpp::Formula
