@@ -1,17 +1,25 @@
-0.7.12
+0.7.13
 
-	o	new class Rcpp::Formula to help building formulae in C++
+    o	new class Rcpp::Formula to help building formulae in C++
 	
-	o	Rcpp.package.skeleton gains an argument "example_code" and can now be 
+    o	Rcpp.package.skeleton gains an argument "example_code" and can now be 
 	used with an empty list, so that only the skeleton is generated
 	
-	o	wrap now supports containers of the following types: long, long double, 
-	unsigned long, short and unsigned short which are silently converted 
+    o   wrap now supports containers of the following types: long, long double,
+	unsigned long, short and unsigned short which are silently converted
 	to the most acceptable R type.
 	
-	o	All Rcpp headers have been moved to the inst/include directory, allowing 
-	use of LinkingTo: Rcpp. But the Makevars and Makevars.win still need
-	to link against the user library. 
+    o   All Rcpp headers have been moved to the inst/include directory,
+	allowing use of LinkingTo: Rcpp. But the Makevars and Makevars.win
+	are still need to link against the user library.
+
+    o	Revert to not double-quote protecting the path on Windows as this
+        breaks backticks expansion used n Makevars.win etc
+
+0.7.12  2010-04-16
+
+    o   Undo shQuote() to protect Windows path names (which may contain
+        spaces) as backticks use is still broken; use of $(shell ...) works
 
 0.7.11	2010-03-26
 
@@ -24,9 +32,9 @@
 
     o	Vector now has a new fill() method to propagate a single value
 	
-    o	Named is no more a class but a templated function. Both interfaces
-	Named(.,.) and Named(.)=. are preserved, and extended to work also on 
-	simple vectors (through Vector<>::create) 
+    o   Named is no more a class but a templated function. Both interfaces
+	Named(.,.) and Named(.)=. are preserved, and extended to work also on
+	simple vectors (through Vector<>::create)
 	
     o	Applied patch by Alistair Gee to make ColDatum more robust
     
@@ -35,11 +43,12 @@
         
 0.7.10  2010-03-15
 
-    o	new class Rcpp::S4 whose constructor checks if the object is an S4 object
+    o   new class Rcpp::S4 whose constructor checks if the object is an S4
+        object
 	
-    o	maximum number of templated arguments to the pairlist function, 
-	the DottedPair constructor, the Language constructor and the 
-	Pairlist constructor has been updated to 20 (was 5) and a script has been
+    o   maximum number of templated arguments to the pairlist function, the
+	DottedPair constructor, the Language constructor and the Pairlist
+	constructor has been updated to 20 (was 5) and a script has been
 	added to the source tree should we want to change it again
 
     o   use shQuote() to protect Windows path names (which may contain spaces)
@@ -51,10 +60,10 @@
     o	bugfix on 64 bit platforms. The traits classes (wrap_type_traits, etc)
 	used size_t when they needed to actually use unsigned int
 
-    o	fixed pre gcc 4.3 compatibility. The trait class that was used to 
-	identify if a type is convertible to another had too many false positives
-	on pre gcc 4.3 (no tr1 or c++0x features). fixed by implementing the 
-	section 2.7 of "Modern C++ Design" book. 
+    o   fixed pre gcc 4.3 compatibility. The trait class that was used to
+	identify if a type is convertible to another had too many false
+	positives on pre gcc 4.3 (no tr1 or c++0x features). fixed by
+	implementing the section 2.7 of "Modern C++ Design" book.
 
 0.7.8   2010-03-09
 
