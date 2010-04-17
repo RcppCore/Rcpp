@@ -21,9 +21,9 @@ cppfunction(sig = character(), body = character(), includes = character(),
 \item{cppargs}{See \link[inline]{cfunction}}
 \item{cxxargs}{See \link[inline]{cfunction}}
 \item{libargs}{See \link[inline]{cfunction}}
-}
 \item{namespace}{If \code{TRUE} the line "using namespace Rcpp; " is added
 to the includes list}
+}
 }
 \details{
 	As opposed to \link[inline]{cfunction}, this function can only code 
