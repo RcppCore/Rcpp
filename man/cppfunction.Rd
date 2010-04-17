@@ -9,8 +9,8 @@ with inlined c++ code that uses Rcpp classes
 }
 \usage{
 cppfunction(sig = character(), body = character(), includes = character(), 
-otherdefs = character(), verbose = FALSE, cppargs = character(), 
-cxxargs = character(), libargs = character(), .Cpp = TRUE, namespace = TRUE)
+	otherdefs = character(), verbose = FALSE, cppargs = character(), 
+	cxxargs = character(), libargs = character(), namespace = TRUE)
 }
 \arguments{
 \item{sig}{Signature. See \link[inline]{cfunction}}
@@ -21,9 +21,6 @@ cxxargs = character(), libargs = character(), .Cpp = TRUE, namespace = TRUE)
 \item{cppargs}{See \link[inline]{cfunction}}
 \item{cxxargs}{See \link[inline]{cfunction}}
 \item{libargs}{See \link[inline]{cfunction}}
-\item{.Cpp}{If \code{TRUE} (which is the default and is recommended), 
-  	  the call to \link{.Call} is replaced by a call to \link{.Cpp}
-  	  which is identical except that it handles c++ exceptions
 }
 \item{namespace}{If \code{TRUE} the line "using namespace Rcpp; " is added
 to the includes list}
