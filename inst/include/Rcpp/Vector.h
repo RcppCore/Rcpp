@@ -2658,6 +2658,10 @@ namespace internal{
 			std::for_each( begin(), end(), op );
 		}
 		
+		bool operator==( const char* other){
+			return strcmp( begin(), other ) == 0 ;
+		}
+		
 		private:
 			static std::string buffer ;
 		
