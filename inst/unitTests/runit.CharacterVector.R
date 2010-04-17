@@ -229,6 +229,16 @@ test.CharacterVector.listOf <- function() {
                 msg="CharacterVector from list")
 }
 
-
-
+test.CharacterVector.find <- function(){
+	
+	fx <- cppfunction( signature( x = "character"),
+	'
+	CharacterVector y(x) ;
+	CharacterVector::iterator it = std::find( y.begin(), y.end(), "foo" ) ;
+	return wrap( std::distance( y.begin(), it ) ) ;
+	' )
+	
+	checkEquals( fx( c("bar", "foo", "bob") ), 1L, msg = "support for std::find in CharacterVector" )
+     
+}
 
