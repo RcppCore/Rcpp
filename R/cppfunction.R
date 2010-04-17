@@ -67,7 +67,7 @@ extern "C" void R_init_%s( DllInfo* info ){
 cppfunction <- function (sig = character(), body = character(), includes = character(), 
     otherdefs = character(), verbose = FALSE, 
     cppargs = character(), cxxargs = character(), libargs = character(), 
-    .Cpp = TRUE, namespace = TRUE ){
+    namespace = TRUE ){
 	
     ok <- HAVEINLINE                                                                                
 	if( !ok){
