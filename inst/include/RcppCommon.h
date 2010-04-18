@@ -24,6 +24,14 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
+#define RCPP_CLIENT_INIT(DLLNAME)                               \
+#include <RcppCommon.h>                                         \
+#if defined(WIN32)                                              \
+extern "C" void R_init_##DLLNAME( DllInfo* info){               \
+	std::set_terminate( forward_uncaught_exceptions_to_r ) ;    \
+}                                                               \
+#endif                                                          \
+
 void logTxtFunction(const char* file, const int line, const char* expression ) ;
 
 #define ___RCPP_HANDLE_CASE___( ___RTYPE___ , ___FUN___ , ___OBJECT___ , ___RCPPTYPE___ )	\
