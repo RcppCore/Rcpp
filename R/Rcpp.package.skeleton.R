@@ -95,7 +95,7 @@ Rcpp.package.skeleton <- function(
 /* this helps exception forwarding on windows */
 	
 #if defined(WIN32)
-extern "C" R_init_%s( DllInfo* info){
+extern "C" void R_init_%s( DllInfo* info){
 	std::set_terminate( forward_uncaught_exceptions_to_r ) ;
 }
 #endif
