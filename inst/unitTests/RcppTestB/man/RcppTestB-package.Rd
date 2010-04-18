@@ -1,6 +1,6 @@
-\name{RcppTestA-package}
-\alias{RcppTestA-package}
-\alias{RcppTestA}
+\name{RcppTestB-package}
+\alias{RcppTestB-package}
+\alias{RcppTestB}
 \docType{package}
 \title{
 Dummy package part of Rcpp unit tests
@@ -10,7 +10,7 @@ Dummy package part of Rcpp unit tests
 }
 \details{
 \tabular{ll}{
-Package: \tab RcppTestA\cr
+Package: \tab RcppTestB\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2010-04-10\cr
