@@ -24,13 +24,13 @@
 
 #define RCPP_DECORATE(__FUN__) __FUN__##__rcpp__wrapper__
 
-res <- sapply( 0:65, function(i){
-	txt <- sprintf( '
-	#define RCPP_WRAPPER_%d(__NAME__) extern "C" SEXP RCPP_DECORATE(__NAME__)(%s){ return  __NAME__(%s) ; }', i, 
-	if( i == 0 ) "" else paste( sprintf( "SEXP x%d", 0:(i-1) ), collapse = ", " ), 
-	if( i == 0 ) "" else paste( sprintf( "x%d", 0:(i-1) ), collapse = ", " ) 
-	)
-})
+// res <- sapply( 0:65, function(i){
+// 	txt <- sprintf( '
+// 	#define RCPP_WRAPPER_%d(__NAME__) extern "C" SEXP RCPP_DECORATE(__NAME__)(%s){ return  __NAME__(%s) ; }', i, 
+// 	if( i == 0 ) "" else paste( sprintf( "SEXP x%d", 0:(i-1) ), collapse = ", " ), 
+// 	if( i == 0 ) "" else paste( sprintf( "x%d", 0:(i-1) ), collapse = ", " ) 
+// 	)
+// })
    
 
 #define RCPP_WRAPPER_0(__NAME__) extern "C" SEXP RCPP_DECORATE(__NAME__)(){ return  __NAME__() ; }
