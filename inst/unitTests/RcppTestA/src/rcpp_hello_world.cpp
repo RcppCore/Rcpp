@@ -9,7 +9,7 @@ SEXP rcpp_hello_world(){
 }
 
 #if defined(WIN32)
-extern "C" R_init_RcppTestA( DllInfo* info){
+extern "C" void R_init_RcppTestA( DllInfo* info){
 	std::set_terminate( forward_uncaught_exceptions_to_r ) ;
 }
 #endif
