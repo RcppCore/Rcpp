@@ -1,4 +1,4 @@
-Package: RcppTestA
+Package: RcppTestB
 Type: Package
 Title: Dummy package part of Rcpp unit tests
 Version: 1.0
@@ -8,5 +8,5 @@ Maintainer: Romain and Dirk <RomainAndDirk@r-enthusiasts.com>
 Description: Dummy package part of Rcpp uni tests
 License: GPL (>= 2)
 LazyLoad: yes
-Depends: Rcpp (>= 0.7.11.4)
+Depends: Rcpp (>= 0.7.12.6)
 LinkingTo: Rcpp
