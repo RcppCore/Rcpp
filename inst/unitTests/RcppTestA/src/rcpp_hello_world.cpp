@@ -8,6 +8,11 @@ SEXP rcpp_hello_world(){
 	return z ;
 }
 
+SEXP hello_world_ex(){
+	throw std::range_error( "boom" ) ;
+	return R_NilValue ;
+}
+
 #if defined(WIN32)
 extern "C" void R_init_RcppTestA( DllInfo* info){
 	std::set_terminate( forward_uncaught_exceptions_to_r ) ;
