@@ -68,4 +68,6 @@
 #include <Rcpp/StringTransformer.h>
 #include <Rcpp/Formula.h>
 
+#include <Rcpp/preprocessor.h>
+
 #endif
