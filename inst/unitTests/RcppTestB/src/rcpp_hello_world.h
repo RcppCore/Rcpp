@@ -4,5 +4,6 @@
 #include <Rcpp.h>
 
 RcppExport SEXP rcpp_hello_world() ;
+RcppExport SEXP hello_world_ex() ;
 
 #endif

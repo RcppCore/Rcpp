@@ -34,6 +34,7 @@
 	hello_world <- get( "rcpp_hello_world", asNamespace( pkg ) )
 	checkEquals( hello_world(), list( c("foo", "bar"), c(0.0, 1.0) ), msg = "code from client package" )
 	
+	checkException( .Call("hello_world_ex", PACKAGE = pkg ), msg = "exception in client package" )
 }
 
 test.client.package <- function(){
