@@ -24,7 +24,6 @@ cppfunction(sig = character(), body = character(), includes = character(),
 \item{namespace}{If \code{TRUE} the line "using namespace Rcpp; " is added
 to the includes list}
 }
-}
 \details{
 	As opposed to \link[inline]{cfunction}, this function can only code 
 	that is designed to use the \link{.Call} interface, the language is 
