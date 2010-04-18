@@ -2567,6 +2567,11 @@ namespace internal{
 			return *this ;
 		}
 		
+		void import( const string_proxy& other){
+			parent = other.parent ;
+			index  = other.index ;
+		}
+		
 		/**
 		 * lhs use. Adds the content of the rhs proxy to the 
 		 * element this proxy refers to.
@@ -2636,9 +2641,9 @@ namespace internal{
 			set( ::Rf_mkChar(x.c_str()) ) ;
 		}
 		
-		inline iterator begin(){ return CHAR( STRING_ELT( *parent, index ) ) ; }
-		inline iterator end(){ return begin() + size() ; }
-		inline int size(){ return strlen( begin() ) ; }
+		inline iterator begin() const { return CHAR( STRING_ELT( *parent, index ) ) ; }
+		inline iterator end() const { return begin() + size() ; }
+		inline int size() const { return strlen( begin() ) ; }
 		inline reference operator[]( int n ){ return *( begin() + n ) ; }
 		
 		template <typename UnaryOperator>
@@ -2661,12 +2666,45 @@ namespace internal{
 		bool operator==( const char* other){
 			return strcmp( begin(), other ) == 0 ;
 		}
-		
+			
 		private:
 			static std::string buffer ;
 		
 	} ;
 	
+	template <int RT>
+	bool operator<( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
+		return strcmp( 
+			const_cast<char *>(lhs.begin() ), 
+			const_cast<char *>(rhs.begin())
+			) < 0 ;
+	}
+
+	template <int RT>
+	bool operator>( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
+		return strcmp( 
+			const_cast<char *>(lhs.begin() ), 
+			const_cast<char *>(rhs.begin())
+			) > 0 ;
+	}
+	
+	template <int RT>
+	bool operator>=( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
+		return strcmp( 
+			const_cast<char *>(lhs.begin() ), 
+			const_cast<char *>(rhs.begin())
+			) >= 0 ;
+	}
+	
+	template <int RT>
+	bool operator<=( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
+		return strcmp( 
+			const_cast<char *>(lhs.begin() ), 
+			const_cast<char *>(rhs.begin())
+			) <= 0 ;
+		return res ;
+	}
+		
 	template<int RTYPE> std::string string_proxy<RTYPE>::buffer ;
 	
 	inline std::ostream& operator<<(std::ostream& os, const string_proxy<STRSXP>& proxy) {
