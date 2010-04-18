@@ -51,8 +51,7 @@ compileCode_hook <- function( f, code){
 	functions <- sapply( calls, function(.){ if( is.name(.[[1]]) ) as.character( .[[1]]) else "" } )
 	if( "cppfunction" %in% functions ){
 sprintf( 
-'#include <R_ext/Rdynload.h>
-%s
+'%s
 #if defined(WIN32)
 extern "C" void R_init_%s( DllInfo* info ){
 	std::set_terminate( forward_uncaught_exceptions_to_r ) ;
