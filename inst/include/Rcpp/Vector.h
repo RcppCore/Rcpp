@@ -2702,7 +2702,6 @@ namespace internal{
 			const_cast<char *>(lhs.begin() ), 
 			const_cast<char *>(rhs.begin())
 			) <= 0 ;
-		return res ;
 	}
 		
 	template<int RTYPE> std::string string_proxy<RTYPE>::buffer ;
