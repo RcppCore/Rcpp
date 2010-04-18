@@ -1,0 +1,2 @@
+## Use the R_HOME indirection to support installations of multiple R version
+PKG_LIBS = $(shell $(R_HOME)/bin/Rscript --vanilla -e "Rcpp:::LdFlags()" )
