@@ -66,7 +66,7 @@ extern "C" void R_init_%s( DllInfo* info ){
 cppfunction <- function (sig = character(), body = character(), includes = character(), 
     otherdefs = character(), verbose = FALSE, 
     cppargs = character(), cxxargs = character(), libargs = character(), 
-    namespace = TRUE ){
+    namespace = TRUE, forward.exceptions = TRUE ){
 	
     ok <- HAVEINLINE                                                                                
 	if( !ok){
@@ -85,6 +85,9 @@ cppfunction <- function (sig = character(), body = character(), includes = chara
 	}
 	if( isTRUE( namespace ) ){
 		includes <- c( includes, "using namespace Rcpp;" )
+	}
+	if( isTRUE( forward.exceptions ) ){
+		body <- sprintf( "try{ %s } catch( std::exception& __ex__){ forward_exception_to_r( __ex__ ) ; } ", body )
 	}
 	fx <- cfunction( sig = sig, body = body, includes = includes, 
 		otherdefs = otherdefs, language = "C++", convention = ".Call", 
