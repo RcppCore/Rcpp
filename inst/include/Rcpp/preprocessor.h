@@ -30,7 +30,8 @@ namespace internal{
 	public:
 		converter( ) : x(R_NilValue){} ;
 		converter( SEXP x_) : x(x_){} ;
-		converter( const converter& other){
+		converter( const converter& other) : x(other.x){}
+		operator=( const converter& other){
 			x = other.x ;
 			return *this ;
 		}
