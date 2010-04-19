@@ -23,6 +23,8 @@ cppfunction(sig = character(), body = character(), includes = character(),
 \item{libargs}{See \link[inline]{cfunction}}
 \item{namespace}{If \code{TRUE} the line "using namespace Rcpp; " is added
 to the includes list}
+\item{forward.exceptions}{If \code{TRUE}, the body is explicitely wrapped so that 
+c++ exceptions are forwarded as R conditions. }
 }
 \details{
 	As opposed to \link[inline]{cfunction}, this function can only code 
