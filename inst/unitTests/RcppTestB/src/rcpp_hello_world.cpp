@@ -9,12 +9,11 @@ SEXP rcpp_hello_world(){
 }
 
 SEXP hello_world_ex(){
-	throw std::range_error( "boom" ) ;
+	try{
+		throw std::range_error( "boom" ) ;
+	} catch( std::exception& __ex__ ){
+		forward_exception_to_r( __ex__ ) ;	
+	}
 	return R_NilValue ;
 }
 
-#if defined(WIN32)
-extern "C" void R_init_RcppTestB( DllInfo* info){
-	std::set_terminate( forward_uncaught_exceptions_to_r ) ;
-}
-#endif

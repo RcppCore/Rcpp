@@ -88,20 +88,7 @@ Rcpp.package.skeleton <- function(
 		file.copy( file.path( skeleton, "Makevars.win" ), Makevars.win )
 		message( " >> added Makevars.win file with Rcpp settings" )
 	}
-	
-	zzz <- file.path( src, "zzz.cpp" )
-	writeLines( sprintf('
-#include <RcppCommon.h>
-/* this helps exception forwarding on windows */
-	
-#if defined(WIN32)
-extern "C" void R_init_%s( DllInfo* info){
-	std::set_terminate( forward_uncaught_exceptions_to_r ) ;
-}
-#endif
-', name), zzz )
-	message( ">> added windows exception forwarding helper file zzz.cpp" )
-	
+		
 	if( example_code ){
 		header <- readLines( file.path( skeleton, "rcpp_hello_world.h" ) )
 		header <- gsub( "@PKG@", name, header, fixed = TRUE )
