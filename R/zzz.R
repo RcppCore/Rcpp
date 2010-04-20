@@ -16,7 +16,6 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .onLoad <- function(libname, pkgname){
-	.Call( "initRcpp", PACKAGE = pkgname )
 	if( "package:inline" %in% search() ){
 		init.inline()
 	}

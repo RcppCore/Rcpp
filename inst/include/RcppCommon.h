@@ -168,8 +168,6 @@ RcppExport SEXP capabilities() ;
 
 const char * sexp_to_name(int sexp_type); 
 
-RcppExport SEXP initRcpp() ;
-
 namespace Rcpp{
 /* internal namespace for things not intended to be used by the 
    user */
