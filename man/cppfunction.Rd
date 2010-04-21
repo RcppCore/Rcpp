@@ -10,7 +10,8 @@ with inlined c++ code that uses Rcpp classes
 \usage{
 cppfunction(sig = character(), body = character(), includes = character(), 
 	otherdefs = character(), verbose = FALSE, cppargs = character(), 
-	cxxargs = character(), libargs = character(), namespace = TRUE)
+	cxxargs = character(), libargs = character(), namespace = TRUE,
+	forward.exceptions = TRUE)
 }
 \arguments{
 \item{sig}{Signature. See \link[inline]{cfunction}}
