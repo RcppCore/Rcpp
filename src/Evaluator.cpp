@@ -59,8 +59,14 @@ namespace Rcpp {
 namespace internal{
 /* this is defined here because we need to be sure that Evaluator is 
    defined */
-    SEXP convert_using_rfunction(SEXP x, const char* const fun){
-    	    return Evaluator::run( Rf_lcons( Rf_install(fun), Rf_cons(x, R_NilValue) ) ) ; 
+    SEXP convert_using_rfunction(SEXP x, const char* const fun) {
+    	SEXP res = R_NilValue ;
+    	try{    
+    		res = Evaluator::run( Rf_lcons( Rf_install(fun), Rf_cons(x, R_NilValue) ) ) ;
+    	} catch( Evaluator::eval_error& e){
+    		throw not_compatible( std::string("could not convert using R function : ") + fun  ) ;
+    	}
+    	return res;
     }
     
     SEXP try_catch( SEXP expr, SEXP env ){
