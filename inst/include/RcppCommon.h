@@ -224,6 +224,7 @@ SEXP stack_trace( const char *file, int line) ;
 
 #include <Rcpp/internal/caster.h>
 #include <Rcpp/internal/r_vector.h>
+#include <Rcpp/exceptions.h>
 #include <Rcpp/r_cast.h>
 
 #include <Rcpp/internal/export.h>
