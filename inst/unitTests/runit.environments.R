@@ -291,7 +291,8 @@ test.environment.constructor.int <- function(){
 
 test.environment.remove <- function(){
 	funx <- cppfunction(signature( env = "environment", name = "character" ), '
-	return wrap( Environment(env).remove( as<std::string>(name) ) ) ;
+	bool res = Environment(env).remove( as<std::string>(name) ) ;
+	return wrap( res ) ;
 	'  )
 	
 	e <- new.env( )
