@@ -359,7 +359,7 @@ public:
     /**
      * remove an object from this environment
      */
-    bool remove( const std::string& name ) throw(binding_is_locked) ;
+    bool remove( const std::string& name ) throw(binding_is_locked,no_such_binding) ;
     
     /**
      * locks this environment. See ?lockEnvironment
