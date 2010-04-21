@@ -29,18 +29,7 @@ namespace Rcpp{
 class RObject {
 public:
 
-	/**
-   	 * Exception thrown when attempting to convert a SEXP
-   	 */
-   	class not_compatible: public std::exception{
-   		public:
-   			not_compatible(const std::string& message) throw() : message(message){};
-   			virtual ~not_compatible() throw(){} ;
-   			virtual const char* what() const throw() ; 
-   		private:
-   			std::string message ;
-   	} ;
-
+	
 	/**
    	 * Exception thrown when attempting to convert a SEXP
    	 */

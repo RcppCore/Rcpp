@@ -2265,14 +2265,14 @@ public:
     	
 	Matrix() : VECTOR() {}
 	
-	Matrix(SEXP x) throw(RObject::not_compatible) : VECTOR(){
-		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
+	Matrix(SEXP x) throw(not_compatible) : VECTOR(){
+		if( ! ::Rf_isMatrix(x) ) throw not_compatible("not a matrix") ;
 		SEXP y = r_cast<RTYPE>( x ) ;
 		VECTOR::setSEXP( y );
 	}
 	
-	Matrix( const Dimension& dims) : VECTOR() {
-		if( dims.size() != 2 ) throw RObject::not_compatible("not a matrix") ;
+	Matrix( const Dimension& dims) throw(not_compatible) : VECTOR() {
+		if( dims.size() != 2 ) throw not_compatible("not a matrix") ;
 		VECTOR::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
 		VECTOR::init() ;
 		VECTOR::attr( "dim" ) = dims ;
@@ -2281,15 +2281,15 @@ public:
 	Matrix( const int& nrows, const int& ncols) : VECTOR( Dimension( nrows, ncols ) ) {}
 	Matrix( const int& n) : VECTOR( Dimension( n, n ) ) {}
 	
-	Matrix( const Matrix& other) : VECTOR() {
+	Matrix( const Matrix& other) throw(not_compatible) : VECTOR() {
 		SEXP x = other.asSexp() ;
-		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
+		if( ! ::Rf_isMatrix(x) ) throw not_compatible("not a matrix") ;
 		VECTOR::setSEXP( x ) ;
 	}
 	
-	Matrix& operator=(const Matrix& other) {                                                         
+	Matrix& operator=(const Matrix& other) throw(not_compatible) {                                                         
 		SEXP x = other.asSexp() ;
-		if( ! ::Rf_isMatrix(x) ) throw RObject::not_compatible("not a matrix") ;
+		if( ! ::Rf_isMatrix(x) ) not_compatible("not a matrix") ;
 		VECTOR::setSEXP( x ) ;
 		return *this ;
 	}

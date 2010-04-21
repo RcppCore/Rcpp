@@ -24,6 +24,18 @@
 
 namespace Rcpp{
 
+/**
+ * Exception thrown when attempting to convert a SEXP
+ */
+class not_compatible: public std::exception{
+	public:
+		not_compatible(const std::string& message) throw() : message(message){};
+		virtual ~not_compatible() throw(){} ;
+		virtual const char* what() const throw(){ return message.c_str() ; } ; 
+	private:
+		std::string message ;
+} ;
+
 class not_a_matrix : public std::exception{
 	public:
 		not_a_matrix(){} ;
@@ -64,12 +76,6 @@ class S4_creation_error : public std::exception{
  class no_such_binding: public std::exception{
  	public:
  		
- 		no_such_binding() throw() : message(){}
- 		no_such_binding(const no_such_binding& other) throw() : message(other.message){} ;
- 		no_such_binding& operator=( const no_such_binding& other ){
- 			message = other.message ; 
- 			return *this ;
- 		}
  		/**
  		 * @param binding name of the binding
  		 */

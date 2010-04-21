@@ -150,10 +150,6 @@ RObject::SlotProxy RObject::slot(const std::string& name) const throw(not_s4){
 	return SlotProxy( *this, name ) ;
 }
 
-
-const char* RObject::not_compatible::what( ) const throw() {
-	return message.c_str() ;
-}
 const char* RObject::not_s4::what( ) const throw() {
 	return "not an S4 object" ;
 }
