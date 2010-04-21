@@ -146,7 +146,7 @@ test.environment.bindingIsActive <- function(){
 	checkTrue( !funx(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
 	checkTrue( funx(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
 	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::Environment::no_such_binding" = function(e) TRUE ), 
+		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
 		msg = "Environment::bindingIsActive(no binding) -> exception)" )
 	
 }
@@ -167,7 +167,7 @@ test.environment.bindingIsLocked <- function(){
 	checkTrue( !funx(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
 	checkTrue( funx(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
 	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::Environment::no_such_binding" = function(e) TRUE ), 
+		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
 		msg = "Environment::bindingIsLocked(no binding) -> exception)" )
 	
 }
@@ -195,7 +195,7 @@ test.environment.lockBinding <- function(){
 	funx(e, "b")
 	checkTrue( bindingIsLocked("b", e ), msg = "Environment::lockBinding()" )
 	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::Environment::no_such_binding" = function(e) TRUE ), 
+		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
 		msg = "Environment::lockBinding(no binding) -> exception)" )
 	
 }
@@ -215,7 +215,7 @@ test.environment.unlockBinding <- function(){
 	funx(e, "b")
 	checkTrue( !bindingIsLocked("b", e ), msg = "Environment::lockBinding()" )
 	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::Environment::no_such_binding" = function(e) TRUE ), 
+		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
 		msg = "Environment::unlockBinding(no binding) -> exception)" )
 	
 }

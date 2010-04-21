@@ -120,9 +120,8 @@ const char * sexp_to_name(int sexp_type) {
     }
 }
 
-void R_init_Rcpp(DllInfo* info){
-	// initUncaughtExceptionHandler() ;
-	// return R_NilValue ;
+extern "C" void R_init_Rcpp(DllInfo* info){
+	initUncaughtExceptionHandler() ;
 }
    
 namespace Rcpp{
