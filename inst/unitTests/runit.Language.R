@@ -20,8 +20,6 @@
 test.Language <- function(){
 	funx <- cppfunction(signature(x="ANY"), 'return Language(x) ;' )
 	checkEquals( funx( call("rnorm") ), call("rnorm" ), msg = "Language( LANGSXP )" )
-	# checkEquals( funx( list( as.name("rnorm") ) ), call("rnorm" ), 
-	# 	msg = "Language( list with 1st arg symbol )" )
 	checkException( funx(funx), msg = "Language not compatible with function" )
 	checkException( funx(new.env()), msg = "Language not compatible with environment" )
 	checkException( funx(1:10), msg = "Language not compatible with integer" )

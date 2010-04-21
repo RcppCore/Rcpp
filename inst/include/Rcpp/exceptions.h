@@ -55,7 +55,39 @@ class S4_creation_error : public std::exception{
 	private:
 		std::string message ;
 } ;
-	
+
+
+/**
+  * Exception thrown when attempting to perform an operation on 
+  * a binding and there is no such binding
+  */
+ class no_such_binding: public std::exception{
+ 	public:
+ 		
+ 		no_such_binding() throw() : message(){}
+ 		no_such_binding(const no_such_binding& other) throw() : message(other.message){} ;
+ 		no_such_binding& operator=( const no_such_binding& other ){
+ 			message = other.message ; 
+ 			return *this ;
+ 		}
+ 		/**
+ 		 * @param binding name of the binding
+ 		 */
+ 		no_such_binding( const std::string& binding) throw() : 
+ 		 	message( std::string("no such binding : '") + binding + "'" ) {};
+ 		
+ 		virtual ~no_such_binding() throw(){} ;
+ 		
+ 		/**
+ 		 * The message: no such binding : '{binding}' 
+ 		 */
+ 		 virtual const char* what() const throw(){ return message.c_str() ; }
+ 		
+ 	private:
+ 		std::string message ;
+ } ;
+    
+
 } // namesapce Rcpp
 
 #endif

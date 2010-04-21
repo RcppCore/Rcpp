@@ -23,7 +23,7 @@
 #define Rcpp_Environment_h
 
 #include <RcppCommon.h>
-
+#include <Rcpp/exceptions.h>
 #include <Rcpp/Evaluator.h>
 #include <Rcpp/Symbol.h>
 #include <Rcpp/Language.h>
@@ -44,28 +44,6 @@ public:
 		std::string binding ;
 	}        ;
 	
-   /**
-     * Exception thrown when attempting to perform an operation on 
-     * a binding and there is no such binding
-     */
-    class no_such_binding: public std::exception{
-    	public:
-    		/**
-    		 * @param binding name of the binding
-    		 */
-    		no_such_binding( const std::string& binding) ;
-    		
-    		virtual ~no_such_binding() throw() ;
-    		
-    		/**
-    		 * The message: no such binding : '{binding}' 
-    		 */
-    		virtual const char* what() const throw();
-    		
-    	private:
-    		std::string message ;
-    } ;
-    
     /**
      * Exception thrown when attempting to assign a value to a binding 
      * that is locked
