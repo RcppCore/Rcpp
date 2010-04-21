@@ -52,7 +52,11 @@ cppfunction <- function (sig = character(), body = character(), includes = chara
 		includes <- c( includes, "using namespace Rcpp;" )
 	}
 	if( isTRUE( forward.exceptions ) ){
-		body <- sprintf( "try{ %s } catch( std::exception& __ex__){ forward_exception_to_r( __ex__ ) ; } ", body )
+		body <- sprintf( 
+"BEGIN_RCPP
+%s
+END_RCPP
+", body )
 	}
 	fx <- cfunction( sig = sig, body = body, includes = includes, 
 		otherdefs = otherdefs, language = "C++", convention = ".Call", 
