@@ -22,20 +22,7 @@
 
 #include <RcppDatetime.h>
 #include <time.h> // for strftime
-
-static int rcpp_round( double x ) { // needed as C++ has no round which trips up Solaris
-    int y = static_cast<int>(x);
-    double diff = x - y ;
-    if (diff >= 0.5 ) y++ ; 
-    return y ;
-}
-
-// for what it is worth, a double round(double) can defined as
-//    double round(double r) {
-//      return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
-//    }
-// see e.g. http://stackoverflow.com/questions/485525/round-for-float-in-c
-// and in particular the answer by Johannes Schaub
+#include <Rmath.h> // for Rf_fround
 
 RcppDatetime::RcppDatetime(void) : m_d(0), 
 				   m_parsed(false), 
@@ -59,7 +46,7 @@ void RcppDatetime::parseTime() {
     m_tm = *localtime(&tt);			// parse time type into time structure 
 
     // m_us is fractional (micro)secs is diff. between (fractional) m_d and m_tm
-    m_us = rcpp_round( (m_d - tt) * 1.0e6);	
+    m_us = static_cast<int>( ::Rf_fround( (m_d - tt) * 1.0e6), 0.0 );	
 
     m_parsed = true;				// and note that we parsed the time type
 }
