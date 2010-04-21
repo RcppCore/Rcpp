@@ -135,7 +135,7 @@ namespace Rcpp {
     	return true ;
     }
     
-    bool Environment::remove( const std::string& name) throw(binding_is_locked){
+    bool Environment::remove( const std::string& name) throw(binding_is_locked,no_such_binding){
     	    if( exists(name) ){
     	    	    if( bindingIsLocked(name) ){
     	    	    	    throw binding_is_locked(name) ;
