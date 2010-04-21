@@ -47,6 +47,14 @@ namespace internal{
 } // namespace internal
 } // namespace Rcpp
 
+#ifndef BEGIN_RCPP
+#define BEGIN_RCPP try{ 
+#endif 
+
+#ifndef END_RCPP
+#define END_RCPP } catch( std::exception& __ex___ ){ forward_exception_to_r( __ex__ ) ; }
+#endif
+
 #include <Rcpp/preprocessor_generated.h>
 
 #endif
