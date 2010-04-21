@@ -3,6 +3,7 @@
 // RcppDatetime.h: Rcpp R/C++ interface class library -- Datetime type support
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
+// Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,12 +23,19 @@
 #include <RcppDatetime.h>
 #include <time.h> // for strftime
 
-static int rcpp_round( double x ){
-	int y = static_cast<int>(x);
-	double diff = x - y ;
-	if( diff >= 0.5 ) y++ ; 
-	return y ;
+static int rcpp_round( double x ) { // needed as C++ has no round which trips up Solaris
+    int y = static_cast<int>(x);
+    double diff = x - y ;
+    if (diff >= 0.5 ) y++ ; 
+    return y ;
 }
+
+// for what it is worth, a double round(double) can defined as
+//    double round(double r) {
+//      return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
+//    }
+// see e.g. http://stackoverflow.com/questions/485525/round-for-float-in-c
+// and in particular the answer by Johannes Schaub
 
 RcppDatetime::RcppDatetime(void) : m_d(0), 
 				   m_parsed(false), 
