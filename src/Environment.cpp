@@ -225,15 +225,7 @@ namespace Rcpp {
     	return Environment( ENCLOS(m_sexp) ) ; 
     }
     
-    /* exceptions */
-    
-    Environment::no_such_binding::no_such_binding(const std::string& binding) :
-    	message( "no such binding : '" + binding + "'" ) {}
-    const char* Environment::no_such_binding::what() const throw(){
-    	return message.c_str() ;
-    }
-    Environment::no_such_binding::~no_such_binding() throw() {}
-    
+    /* exceptions */    
     Environment::binding_is_locked::binding_is_locked(const std::string& binding) : 
     	message("binding is locked : '" + binding + "'" ) {}
     const char* Environment::binding_is_locked::what() const throw(){
