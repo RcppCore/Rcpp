@@ -22,6 +22,13 @@
 #include <RcppDatetime.h>
 #include <time.h> // for strftime
 
+static int rcpp_round( double x ){
+	int y = static_cast<int>(x);
+	double diff = x - y ;
+	if( diff >= 0.5 ) y++ ; 
+	return y ;
+}
+
 RcppDatetime::RcppDatetime(void) : m_d(0), 
 				   m_parsed(false), 
 				   m_us(0) { 
@@ -44,7 +51,7 @@ void RcppDatetime::parseTime() {
     m_tm = *localtime(&tt);			// parse time type into time structure 
 
     // m_us is fractional (micro)secs is diff. between (fractional) m_d and m_tm
-    m_us = static_cast<int>(round( (m_d - tt) * 1.0e6));	
+    m_us = rcpp_round( (m_d - tt) * 1.0e6);	
 
     m_parsed = true;				// and note that we parsed the time type
 }
