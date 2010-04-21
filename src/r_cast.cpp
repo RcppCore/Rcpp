@@ -25,7 +25,7 @@
 namespace Rcpp{
 namespace internal{
 
-template<> SEXP r_true_cast<INTSXP>(SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<INTSXP>(SEXP x) throw(::Rcpp::not_compatible){
 	switch( TYPEOF(x) ){
 	case REALSXP:
 	case RAWSXP:
@@ -33,12 +33,12 @@ template<> SEXP r_true_cast<INTSXP>(SEXP x) throw(not_compatible){
 	case CPLXSXP:
 		return Rf_coerceVector( x, INTSXP) ;
 	default:
-		throw not_compatible( "not compatible with INTSXP" ) ;
+		throw ::Rcpp::not_compatible( "not compatible with INTSXP" ) ;
 	}
 	return R_NilValue ; /* -Wall */
 }
 
-template<> SEXP r_true_cast<REALSXP>( SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<REALSXP>( SEXP x) throw(::Rcpp::not_compatible){
 	switch( TYPEOF( x ) ){
 	case INTSXP:
 	case LGLSXP:
@@ -46,12 +46,12 @@ template<> SEXP r_true_cast<REALSXP>( SEXP x) throw(not_compatible){
 	case RAWSXP:
 		return Rf_coerceVector( x, REALSXP );
 	default:
-		throw not_compatible( "not compatible with INTSXP" ) ;
+		throw ::Rcpp::not_compatible( "not compatible with INTSXP" ) ;
 	}
 	return R_NilValue ; /* -Wall */
 }
 
-template<> SEXP r_true_cast<LGLSXP>( SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<LGLSXP>( SEXP x) throw(::Rcpp::not_compatible){
 	switch( TYPEOF( x ) ){
 	case REALSXP:
 	case INTSXP:
@@ -59,12 +59,12 @@ template<> SEXP r_true_cast<LGLSXP>( SEXP x) throw(not_compatible){
 	case RAWSXP:
 		return Rf_coerceVector( x, LGLSXP );
 	default:
-		throw not_compatible( "not compatible with LGLSXP" ) ;
+		throw ::Rcpp::not_compatible( "not compatible with LGLSXP" ) ;
 	}
 	return R_NilValue ; /* -Wall */
 }
 
-template<> SEXP r_true_cast<RAWSXP>( SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<RAWSXP>( SEXP x) throw(::Rcpp::not_compatible){
 	switch( TYPEOF( x ) ){
 	case LGLSXP:
 	case REALSXP:
@@ -72,13 +72,13 @@ template<> SEXP r_true_cast<RAWSXP>( SEXP x) throw(not_compatible){
 	case CPLXSXP:
 		return Rf_coerceVector( x, RAWSXP );
 	default:
-		throw not_compatible( "not compatible with RAWSXP" ) ;
+		throw ::Rcpp::not_compatible( "not compatible with RAWSXP" ) ;
 	}
 	return R_NilValue ; /* -Wall */
 }
 
 
-template<> SEXP r_true_cast<CPLXSXP>( SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<CPLXSXP>( SEXP x) throw(::Rcpp::not_compatible){
 	switch( TYPEOF( x ) ){
 	case RAWSXP:
 	case LGLSXP:
@@ -86,12 +86,12 @@ template<> SEXP r_true_cast<CPLXSXP>( SEXP x) throw(not_compatible){
 	case INTSXP:
 		return Rf_coerceVector( x, CPLXSXP );
 	default:
-		throw not_compatible( "not compatible with CPLXSXP" ) ;
+		throw ::Rcpp::not_compatible( "not compatible with CPLXSXP" ) ;
 	}
 	return R_NilValue ; /* -Wall */
 }
 
-template<> SEXP r_true_cast<STRSXP>( SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<STRSXP>( SEXP x) throw(::Rcpp::not_compatible){
 	switch( TYPEOF( x ) ){
 	case CPLXSXP:
 	case RAWSXP:
@@ -104,20 +104,20 @@ template<> SEXP r_true_cast<STRSXP>( SEXP x) throw(not_compatible){
 	case SYMSXP:
 		return Rf_ScalarString( PRINTNAME( x ) ) ; 
 	default:
-		throw not_compatible( "not compatible with STRSXP" ) ;
+		throw ::Rcpp::not_compatible( "not compatible with STRSXP" ) ;
 	}
 	return R_NilValue ; /* -Wall */
 }
 
-template<> SEXP r_true_cast<VECSXP>(SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<VECSXP>(SEXP x) throw(::Rcpp::not_compatible){
 	return convert_using_rfunction(x, "as.list" ) ;
 }
     
-template<> SEXP r_true_cast<EXPRSXP>(SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<EXPRSXP>(SEXP x) throw(::Rcpp::not_compatible){
 	return convert_using_rfunction(x, "as.expression" ) ;
 }
 
-template<> SEXP r_true_cast<LISTSXP>(SEXP x) throw(not_compatible){
+template<> SEXP r_true_cast<LISTSXP>(SEXP x) throw(::Rcpp::not_compatible){
 	switch( TYPEOF(x) ){
 	case LANGSXP:
 		{
@@ -133,7 +133,7 @@ template<> SEXP r_true_cast<LISTSXP>(SEXP x) throw(not_compatible){
 	
 }
 
-template<> SEXP r_true_cast<LANGSXP>(SEXP x) throw(not_compatible) {
+template<> SEXP r_true_cast<LANGSXP>(SEXP x) throw(::Rcpp::not_compatible) {
 	return convert_using_rfunction(x, "as.call" ) ;
 }
 
