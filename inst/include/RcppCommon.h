@@ -168,13 +168,15 @@ RcppExport SEXP capabilities() ;
 
 const char * sexp_to_name(int sexp_type); 
 
+#include <Rcpp/exceptions.h>
+
 namespace Rcpp{
 /* internal namespace for things not intended to be used by the 
    user */
 namespace internal{	
 	
 	/* defined in Evaluator.cpp */
-	SEXP convert_using_rfunction(SEXP x, const char* const fun) ;
+	SEXP convert_using_rfunction(SEXP x, const char* const fun) throw(::Rcpp::not_compatible) ;
 	
 	SEXP try_catch( SEXP expr, SEXP env ) ;
 	SEXP try_catch( SEXP expr ) ;
@@ -224,7 +226,6 @@ SEXP stack_trace( const char *file, int line) ;
 
 #include <Rcpp/internal/caster.h>
 #include <Rcpp/internal/r_vector.h>
-#include <Rcpp/exceptions.h>
 #include <Rcpp/r_cast.h>
 
 #include <Rcpp/internal/export.h>
