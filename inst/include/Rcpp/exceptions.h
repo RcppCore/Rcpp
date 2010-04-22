@@ -24,75 +24,36 @@
 
 namespace Rcpp{
 
-/**
- * Exception thrown when attempting to convert a SEXP
- */
-class not_compatible: public std::exception{
-	public:
-		not_compatible(const std::string& message) throw() : message(message){};
-		virtual ~not_compatible() throw(){} ;
-		virtual const char* what() const throw(){ return message.c_str() ; } ; 
-	private:
-		std::string message ;
+#define RCPP_EXCEPTION_CLASS(__CLASS__,__WHAT__)                               \
+class __CLASS__ : public std::exception{                                       \
+public:                                                                        \
+	__CLASS__( const std::string& message ) throw() : message( __WHAT__ ){} ;  \
+	virtual ~__CLASS__() throw(){} ;                                           \
+	virtual const char* what() const throw(){ return message.c_str() ; } ;     \
+private:                                                                       \
+	std::string message ;                                                      \
 } ;
 
-class not_a_matrix : public std::exception{
-	public:
-		not_a_matrix(){} ;
-		virtual ~not_a_matrix() throw() {} ;
-		virtual const char* what() const throw() { return "not a matrix" ; };
-	} ;
-
-class index_out_of_bounds: public std::exception{
-   	public:
-   		index_out_of_bounds() throw(){};
-   		virtual ~index_out_of_bounds() throw(){};
-   		virtual const char* what() const throw(){ return "index out of bounds" ; } ;
-   	} ;
-   		
-class parse_error : public std::exception{
-	public:
-		parse_error() throw(){};
-		virtual ~parse_error() throw(){};
-		virtual const char* what() const throw(){ return "parse error" ; } ;
-	} ;
-
-class S4_creation_error : public std::exception{
-	public:
-		S4_creation_error(const std::string& klass) throw() : message("error creating object of S4 class : ") {
-			message += klass ;
-		} ;
-		virtual ~S4_creation_error() throw(){};
-		virtual const char* what() const throw(){ return "" ; } ;
-	private:
-		std::string message ;
+#define RCPP_SIMPLE_EXCEPTION_CLASS(__CLASS__,__MESSAGE__)                     \
+class __CLASS__ : public std::exception{                                       \
+public:                                                                        \
+	__CLASS__() throw() {} ;                                                   \
+	virtual ~__CLASS__() throw(){} ;                                           \
+	virtual const char* what() const throw(){ return __MESSAGE__ ; } ;         \
 } ;
 
+RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "not a matrix" )
+RCPP_SIMPLE_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds" )
+RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "parse error") 
+RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object" )
+RCPP_SIMPLE_EXCEPTION_CLASS(no_such_slot, "no such slot" )
 
-/**
-  * Exception thrown when attempting to perform an operation on 
-  * a binding and there is no such binding
-  */
- class no_such_binding: public std::exception{
- 	public:
- 		
- 		/**
- 		 * @param binding name of the binding
- 		 */
- 		no_such_binding( const std::string& binding) throw() : 
- 		 	message( std::string("no such binding : '") + binding + "'" ) {};
- 		
- 		virtual ~no_such_binding() throw(){} ;
- 		
- 		/**
- 		 * The message: no such binding : '{binding}' 
- 		 */
- 		 virtual const char* what() const throw(){ return message.c_str() ; }
- 		
- 	private:
- 		std::string message ;
- } ;
-    
+RCPP_EXCEPTION_CLASS(not_compatible, message )
+RCPP_EXCEPTION_CLASS(S4_creation_error, std::string("error creating object of S4 class : ") + message )
+RCPP_EXCEPTION_CLASS(no_such_binding, std::string("no such binding : '") + message + "'" )
+
+#undef RCPP_EXCEPTION_CLASS
+#undef RCPP_SIMPLE_EXCEPTION_CLASS
 
 } // namesapce Rcpp
 

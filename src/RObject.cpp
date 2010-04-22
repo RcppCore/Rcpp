@@ -86,7 +86,7 @@ bool RObject::hasAttribute( const std::string& attr) const {
     return false; /* give up */
 }
 
-RObject::SlotProxy::SlotProxy( const RObject& v, const std::string& name) : 
+RObject::SlotProxy::SlotProxy( const RObject& v, const std::string& name) throw(no_such_slot) : 
 	parent(v), slot_name(name)
 {
 	if( !R_has_slot( v, Rf_install(name.c_str())) ){
@@ -99,9 +99,6 @@ RObject::SlotProxy& RObject::SlotProxy::operator=(const SlotProxy& rhs){
 	return *this ;
 }
 
-const char* RObject::no_such_slot::what( ) const throw() {
-	return "no such slot" ;
-}
 
 SEXP RObject::SlotProxy::get() const {
 	return internal::try_catch( 
@@ -145,13 +142,9 @@ bool RObject::hasSlot(const std::string& name) const throw(not_s4){
 	return R_has_slot( m_sexp, Rf_mkString(name.c_str()) ) ;
 }
 
-RObject::SlotProxy RObject::slot(const std::string& name) const throw(not_s4){
+RObject::SlotProxy RObject::slot(const std::string& name) const throw(not_s4,no_such_slot){
 	if( !Rf_isS4(m_sexp) ) throw not_s4() ;
 	return SlotProxy( *this, name ) ;
-}
-
-const char* RObject::not_s4::what( ) const throw() {
-	return "not an S4 object" ;
 }
 
 } // namespace Rcpp
