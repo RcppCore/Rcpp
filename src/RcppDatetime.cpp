@@ -46,7 +46,7 @@ void RcppDatetime::parseTime() {
     m_tm = *localtime(&tt);			// parse time type into time structure 
 
     // m_us is fractional (micro)secs is diff. between (fractional) m_d and m_tm
-    m_us = static_cast<int>( ::Rf_fround( (m_d - tt) * 1.0e6), 0.0 );	
+    m_us = static_cast<int>( ::Rf_fround( (m_d - tt) * 1.0e6, 0.0 ) );	
 
     m_parsed = true;				// and note that we parsed the time type
 }
