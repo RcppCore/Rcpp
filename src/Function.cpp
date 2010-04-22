@@ -23,13 +23,6 @@
 
 namespace Rcpp {
 	
-	const char* Function::not_a_closure::what() const throw(){
-		return "not a closure" ; 
-	}
-	const char* Function::no_such_function::what() const throw(){
-		return "no such function" ;
-	}
-	
 	Function::Function( SEXP x = R_NilValue ) throw(not_compatible) : RObject( ){
 		switch( TYPEOF(x) ){
 		case CLOSXP:

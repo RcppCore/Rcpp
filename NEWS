@@ -1,20 +1,48 @@
 0.7.13
 
+    o   All Rcpp headers have been moved to the inst/include directory,
+	allowing use of LinkingTo: Rcpp. But the Makevars and Makevars.win
+	are still need to link against the user library.
+
+	o	Automatic exception forwarding has been withdrawn because of portability
+	issues (it did not work on windows). Exception forwarding is still possible
+	but is now based on explicit code of the form: 
+	
+	try{
+	  // user code
+	} catch( std::exception& __ex__){ 
+		forward_exception_to_r( __ex___ ) ;
+	}
+	
+	Alternatively, the macro BEGIN_RCPP and END_RCPP can use used to enclose
+	code so that it captures exceptions and forward them to R. 
+	
+	BEGIN_RCPP
+	// user code
+	END_RCPP
+	
+	o	Rcpp now depends on inline (>= 0.3.4)
+	
+	o	new R function "cppfunction" that invokes cfunction from inline with 
+	focus on Rcpp usage (enforcing .Call, adding the Rcpp namespace, set up 
+	exception forwarding). cppfunction uses BEGIN_RCPP and END_RCPP macros 
+	to enclose the user code
+
     o	new class Rcpp::Formula to help building formulae in C++
 	
     o	Rcpp.package.skeleton gains an argument "example_code" and can now be 
-	used with an empty list, so that only the skeleton is generated
+	used with an empty list, so that only the skeleton is generated. It has also
+	been reworked to show how to use LinkingTo: Rcpp
 	
     o   wrap now supports containers of the following types: long, long double,
 	unsigned long, short and unsigned short which are silently converted
 	to the most acceptable R type.
 	
-    o   All Rcpp headers have been moved to the inst/include directory,
-	allowing use of LinkingTo: Rcpp. But the Makevars and Makevars.win
-	are still need to link against the user library.
-
     o	Revert to not double-quote protecting the path on Windows as this
         breaks backticks expansion used n Makevars.win etc
+        
+    o	Exceptions classes have been moved out of Rcpp classes, e.g. Rcpp::RObject::not_a_matrix
+    is now Rcpp::not_a_matrix
 
 0.7.12  2010-04-16
 

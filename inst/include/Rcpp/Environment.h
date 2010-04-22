@@ -34,86 +34,6 @@ namespace Rcpp{
 
 class Environment: public RObject{
 public:
-
-	class not_found : public std::exception{
-	public:
-		not_found( const std::string& binding ) ;
-		virtual ~not_found() throw() ;
-		virtual const char* what() const throw();
-	private:
-		std::string binding ;
-	}        ;
-	
-    /**
-     * Exception thrown when attempting to assign a value to a binding 
-     * that is locked
-     */
-    class binding_is_locked: public std::exception{
-    	public:
-    		/**
-    		 * @param binding name of the binding
-    		 */
-    		binding_is_locked( const std::string& binding) ;
-    		virtual ~binding_is_locked() throw() ;
-
-    		/**
-    		 * The message: binding is locked : '{binding}' 
-    		 */
-    		virtual const char* what() const throw() ;
-
-    	private:
-    		std::string message ;
-    } ;
-    
-    /**
-     * Exception thrown when attempting to get a namespace that does
-     * not exist
-     */
-    class no_such_namespace: public std::exception{
-    	public:
-    		/**
-    		 * @param package name of the package
-    		 */
-    		no_such_namespace( const std::string& package) ;
-    		
-    		virtual ~no_such_namespace() throw() ;
-    		
-    		/**
-    		 * The message: no such namespace : '{package}' 
-    		 */
-    		virtual const char* what() const throw() ;
-    		
-    		
-    	private:
-    		std::string message ;
-    } ;
-    
-    /**
-     * Exception thrown when attempting to get an environment from a 
-     * name
-     */
-    class no_such_env: public std::exception{
-    	public:
-    		/**
-    		 * @param name name of the environment, e.g "package:Rcpp"
-    		 */
-    		no_such_env( const std::string& name) ;
-    		
-    		/**
-    		 * @paral pos search path position where there is no environment
-    		 */
-    		no_such_env(int pos) ;
-    		virtual ~no_such_env() throw() ;
-    		
-    		/**
-    		 * The message: no such environment : '{name}' 
-    		 */
-    		virtual const char* what() const throw() ;
-    		
-    		
-    	private:
-    		std::string message ;
-    } ;
     
     /**
      * proxy class to allow read and write access to a binding in
@@ -312,7 +232,7 @@ public:
      * @param name name of the object
      *
      */
-    SEXP find( const std::string& name) const ;
+    SEXP find( const std::string& name) const throw(binding_not_found) ;
     
     /**
      * Indicates if an object called name exists in the 

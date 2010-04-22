@@ -23,23 +23,13 @@
 #define Rcpp_Evaluator_h
 
 #include <RcppCommon.h>
-
 #include <Rcpp/Environment.h>
 
 namespace Rcpp{ 
 
 class Evaluator{
 public:
-	
-	class eval_error : public std::exception{
-	public:
-		eval_error( const std::string& message ) throw() ;
-		virtual ~eval_error() throw() ;
-		virtual const char* what() const throw() ;
-	private:
-		std::string message ;
-	} ;
-	
+		
 	static SEXP run(SEXP expr) throw(eval_error) ; 
 	static SEXP run(SEXP expr, SEXP env) throw(eval_error) ;
 };

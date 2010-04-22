@@ -24,6 +24,26 @@
 
 namespace Rcpp{
 
+class exception : public std::exception {
+	public:
+		exception(const char* message_, const char* file, int line ) ;
+		virtual ~exception() throw() ;
+		virtual const char* what() const throw() { return message.c_str() ; };
+	private:
+		std::string message ;
+} ;
+
+class no_such_env : public std::exception{                                     
+public:                                                                        
+	no_such_env( const std::string& name ) throw() : message( std::string("no such environment: '") + name + "'" ){} ;
+	no_such_env( int pos ) throw() : message( "no environment in given position ") {} ;
+	virtual ~no_such_env() throw(){} ;                                         
+	virtual const char* what() const throw(){ return message.c_str() ; } ;     
+private:                                                                       
+	std::string message ;                                                      
+} ;
+
+
 #define RCPP_EXCEPTION_CLASS(__CLASS__,__WHAT__)                               \
 class __CLASS__ : public std::exception{                                       \
 public:                                                                        \
@@ -47,10 +67,19 @@ RCPP_SIMPLE_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds" )
 RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "parse error") 
 RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object" )
 RCPP_SIMPLE_EXCEPTION_CLASS(no_such_slot, "no such slot" )
+RCPP_SIMPLE_EXCEPTION_CLASS(not_a_closure, "not a closure" )
+RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "no such function" )
+RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "promise not yet evaluated" )
+
 
 RCPP_EXCEPTION_CLASS(not_compatible, message )
 RCPP_EXCEPTION_CLASS(S4_creation_error, std::string("error creating object of S4 class : ") + message )
 RCPP_EXCEPTION_CLASS(no_such_binding, std::string("no such binding : '") + message + "'" )
+RCPP_EXCEPTION_CLASS(binding_not_found, std::string("binding not found: '") + message + "'" )
+RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("binding is locked: '") + message + "'" )
+RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("no such namespace: '") + message + "'" )
+RCPP_EXCEPTION_CLASS(eval_error, message )
+
 
 #undef RCPP_EXCEPTION_CLASS
 #undef RCPP_SIMPLE_EXCEPTION_CLASS

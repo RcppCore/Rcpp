@@ -32,13 +32,6 @@ namespace Rcpp{
 class Promise : public RObject {     
 public:
 
-	class unevaluated_promise : public std::exception{
-	public:
-		unevaluated_promise() throw(){}; 
-		virtual ~unevaluated_promise() throw(){} ;
-		virtual const char* what() const throw() ;
-	} ;
-
 	Promise( SEXP x) throw(not_compatible) ;
 	
 	Promise( const Promise& other) ;
