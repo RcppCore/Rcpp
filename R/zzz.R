@@ -15,9 +15,5 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.onLoad <- function(libname, pkgname){
-	if( "package:inline" %in% search() ){
-		init.inline()
-	}
-}
+.onLoad <- function(libname, pkgname){}
 

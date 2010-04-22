@@ -5,3 +5,5 @@ export(cppfunction)
 
 importFrom( utils, capture.output )
 
+importFrom( inline, cfunction )
+

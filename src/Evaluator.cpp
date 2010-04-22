@@ -23,11 +23,6 @@
 
 namespace Rcpp {
 
-    Evaluator::eval_error::eval_error( const std::string& message) throw() :
-    	message(message){}
-    Evaluator::eval_error::~eval_error( ) throw(){}
-    const char* Evaluator::eval_error::what() const throw(){ return message.c_str() ; }
-
    SEXP Evaluator::run(SEXP expr, SEXP env) throw(eval_error) {
 	SEXP call = PROTECT( Rf_lang3( Rf_install("rcpp_tryCatch") , expr, env ) ) ;
 	
@@ -63,7 +58,7 @@ namespace internal{
     	SEXP res = R_NilValue ;
     	try{    
     		res = Evaluator::run( Rf_lcons( Rf_install(fun), Rf_cons(x, R_NilValue) ) ) ;
-    	} catch( Evaluator::eval_error& e){
+    	} catch( eval_error& e){
     		throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
     	}
     	return res;

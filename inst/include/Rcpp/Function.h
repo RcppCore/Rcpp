@@ -36,28 +36,6 @@ class Function : public RObject{
 public:
 
 	/**
-	 * thrown when attempting to get/set the environment of 
-	 * a function that is a not a closure (CLOSXP)
-	 */
-	class not_a_closure : public std::exception{
-	public:
-		not_a_closure() throw() {} ;
-		virtual ~not_a_closure() throw() {} ;
-		virtual const char* what() const throw() ;
-	} ;
-	
-	/**
-	 * thrown when attempting to find a function that 
-	 * does not exist.
-	 */
-	class no_such_function : public std::exception{
-	public:
-		no_such_function() throw(){};
-		virtual ~no_such_function() throw(){}
-		virtual const char* what() const throw() ;
-	} ;
-	
-	/**
 	 * Attempts to convert the SEXP to a pair list
 	 *
 	 * @throw not_compatible if the SEXP could not be converted

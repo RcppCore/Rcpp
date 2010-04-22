@@ -16,38 +16,12 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 NAMESPACE <- environment()
-HAVEINLINE <- FALSE
-cfunction <- function(...) stop( "inline not available" )
-
-init.inline <- function(){
-	unlockBinding( "HAVEINLINE", NAMESPACE )
-	unlockBinding( "cfunction", NAMESPACE )
-	assignInNamespace( "HAVEINLINE", TRUE, NAMESPACE )
-	assignInNamespace( "cfunction" , get( "cfunction", asNamespace( "inline" )), NAMESPACE )
-	lockBinding( "HAVEINLINE", NAMESPACE )
-	lockBinding( "cfunction", NAMESPACE )
-}
 
 cppfunction <- function (sig = character(), body = character(), includes = character(), 
     otherdefs = character(), verbose = FALSE, 
     cppargs = character(), cxxargs = character(), libargs = character(), 
     namespace = TRUE, forward.exceptions = TRUE ){
 	
-    ok <- HAVEINLINE                                                                                
-	if( !ok){
-		if( "package:inline" %in% search() ){
-			ok <- TRUE
-		} else{
-			ok <- tryCatch( {
-				require( "inline", character.only = TRUE, quietly = TRUE )
-				TRUE 
-			} , error = function(e) FALSE )
-		}
-		if( ! ok ){
-			stop( "package inline is not available" )	
-		}
-		init.inline()
-	}
 	if( isTRUE( namespace ) ){
 		includes <- c( includes, "using namespace Rcpp;" )
 	}
