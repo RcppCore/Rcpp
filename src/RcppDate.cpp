@@ -126,3 +126,4 @@ void RcppDate::jdn2mdy() {
     day   = d;
     year  = y;
 }
+
