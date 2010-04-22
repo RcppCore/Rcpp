@@ -266,15 +266,6 @@ private:
     
 };
 
-class exception : public std::exception {
-	public:
-		exception(const char* message_, const char* file, int line ) ;
-		virtual ~exception() throw() ;
-		virtual const char* what() const throw() { return message.c_str() ; };
-	private:
-		std::string message ;
-} ;
-
 } // namespace Rcpp
 
 #endif

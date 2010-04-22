@@ -23,10 +23,6 @@
 
 namespace Rcpp {
 
-	const char* Promise::unevaluated_promise::what() const throw() {
-		return "promise not yet evaluated" ;
-	}
-	
 	Promise::Promise(SEXP x) throw(not_compatible) : RObject(){
 		if( TYPEOF(x) == PROMSXP ){
 			setSEXP( x ) ;

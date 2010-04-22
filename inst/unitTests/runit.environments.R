@@ -92,23 +92,10 @@ test.environment.assign <- function(){
 	
 	lockBinding( "a", e )
 	checkTrue( 
-		tryCatch( { funx(e, "a", letters ) ; FALSE}, "Rcpp::Environment::binding_is_locked" = function(e) TRUE ), 
+		tryCatch( { funx(e, "a", letters ) ; FALSE}, "Rcpp::binding_is_locked" = function(e) TRUE ), 
 		msg = "cannot assign to locked binding (catch exception)" )
 
 }
-
-## test.environment.assign.templated <- function(){
-## 	
-## 	funx <- cppfunction(signature(x="environment", name = "character", object = "ANY" ), '
-## 	Environment env(x) ;
-## 	std::string st = as<std::string>(name) ;
-## 	return wrap( env.assign(st, object) ) ;
-## 	' )
-## 	
-## 	e <- new.env( )
-## 	
-## 	
-## }
 
 test.environment.isLocked <- function(){
 	funx <- cppfunction(signature(x="environment" ), '
@@ -250,7 +237,7 @@ test.environment.namespace.env <- function(){
 	return Environment::namespace_env(st); ' )
 	checkEquals( funx("Rcpp"), asNamespace("Rcpp"), msg = "REnvironment::base_namespace" )
 	checkTrue( 
-		tryCatch( { funx("----" ) ; FALSE}, "Rcpp::Environment::no_such_namespace" = function(e) TRUE ), 
+		tryCatch( { funx("----" ) ; FALSE}, "Rcpp::no_such_namespace" = function(e) TRUE ), 
 		msg = "Environment::namespace_env(no namespace) -> exception)" )
 	
 }

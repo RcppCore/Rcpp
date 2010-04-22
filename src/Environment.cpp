@@ -23,15 +23,7 @@
 
 namespace Rcpp {
 
-	Environment::not_found::not_found(const std::string& binding_) : binding(binding_){}
-	Environment::not_found::~not_found() throw(){}
-	const char* Environment::not_found::what() const throw(){
-		std::string message( "not found : " ) ;
-		message += binding ;
-		return message.c_str() ;
-	}
-	
-    Environment::Environment() : RObject(R_NilValue){}
+	Environment::Environment() : RObject(R_NilValue){}
 
     Environment::Environment( SEXP x = R_GlobalEnv) throw(not_compatible) : RObject(x){
     	if( ! Rf_isEnvironment(x) ) {
@@ -40,7 +32,7 @@ namespace Rcpp {
     		SEXP res ;
     		try{
     			res = Evaluator::run( Rf_lang2(Rf_install("as.environment"), x ) ) ;
-    		} catch( const Evaluator::eval_error& ex){
+    		} catch( const eval_error& ex){
     			throw not_compatible( "cannot convert to environment"  ) ; 
     		}
     		setSEXP( res ) ;
@@ -58,7 +50,7 @@ namespace Rcpp {
     		try{
     			res = Evaluator::run( 
     				Rf_lang2( Rf_install("as.environment"), Rf_mkString(name.c_str()) ) ) ;
-    		} catch( const Evaluator::eval_error& ex){
+    		} catch( const eval_error& ex){
     			throw no_such_env(name) ;
     		}
     		setSEXP( res ) ;
@@ -69,7 +61,7 @@ namespace Rcpp {
     	   SEXP res ;
     	   try{
     	   	   res =  Evaluator::run( Rf_lang2( Rf_install("as.environment"), Rf_ScalarInteger(pos) ) ) ;
-    	   } catch( const Evaluator::eval_error& ex){
+    	   } catch( const eval_error& ex){
     	   	   throw no_such_env(pos) ;
     	   }
     	   setSEXP( res ) ;
@@ -106,19 +98,19 @@ namespace Rcpp {
     	if( res == R_UnboundValue ) return R_NilValue ;
     	
     	/* We need to evaluate if it is a promise */
-	if( TYPEOF(res) == PROMSXP){
+    	if( TYPEOF(res) == PROMSXP){
     		res = Rf_eval( res, m_sexp ) ;
     	}
     	return res ;
     }
     
-    SEXP Environment::find( const std::string& name) const {
+    SEXP Environment::find( const std::string& name) const throw(binding_not_found) {
     	SEXP res = Rf_findVar( Rf_install(name.c_str()), m_sexp ) ;
     	
-    	if( res == R_UnboundValue ) throw not_found(name) ;
+    	if( res == R_UnboundValue ) throw binding_not_found(name) ;
     	
     	/* We need to evaluate if it is a promise */
-	if( TYPEOF(res) == PROMSXP){
+    	if( TYPEOF(res) == PROMSXP){
     		res = Rf_eval( res, m_sexp ) ;
     	}
     	return res ;
@@ -215,7 +207,7 @@ namespace Rcpp {
     	SEXP env = R_NilValue ;
     	try{
     		env = Evaluator::run( Rf_lang2(Rf_install("getNamespace"), Rf_mkString(package.c_str()) ) ) ;
-    	} catch( const Evaluator::eval_error& ex){
+    	} catch( const eval_error& ex){
     		throw no_such_namespace( package  ) ; 
     	}
     	return Environment( env ) ;
@@ -224,32 +216,6 @@ namespace Rcpp {
     Environment Environment::parent() const throw() {
     	return Environment( ENCLOS(m_sexp) ) ; 
     }
-    
-    /* exceptions */    
-    Environment::binding_is_locked::binding_is_locked(const std::string& binding) : 
-    	message("binding is locked : '" + binding + "'" ) {}
-    const char* Environment::binding_is_locked::what() const throw(){
-    	return message.c_str() ;
-    }
-    Environment::binding_is_locked::~binding_is_locked() throw() {}
-    
-    Environment::no_such_namespace::no_such_namespace(const std::string& package) : 
-    	message("no such namespace : '" + package + "'" ) {}
-    const char* Environment::no_such_namespace::what() const throw(){
-    	return message.c_str() ;
-    }
-    Environment::no_such_namespace::~no_such_namespace() throw() {}
-    
-    Environment::no_such_env::no_such_env(const std::string& name) : 
-    	message("no environment called : '" + name + "'" ) {}
-    Environment::no_such_env::no_such_env(int pos) : 
-    	message("no environment in the given position" ) {}
-    const char* Environment::no_such_env::what() const throw(){
-    	return message.c_str() ;
-    }
-    Environment::no_such_env::~no_such_env() throw() {}
-    
-    
     
     Environment::Binding::Binding( Environment& env_, const std::string& name_): 
     	env(env_), name(name_){}
