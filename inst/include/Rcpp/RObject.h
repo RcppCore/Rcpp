@@ -28,27 +28,6 @@ namespace Rcpp{
 
 class RObject {
 public:
-
-	
-	/**
-   	 * Exception thrown when attempting to convert a SEXP
-   	 */
-   	class not_s4: public std::exception{
-   		public:
-   			not_s4() throw(){};
-   			virtual ~not_s4() throw(){} ;
-   			virtual const char* what() const throw() ; 
-   	} ;
-   	
-   	/**
-   	 * Exception thrown when attempting to convert a SEXP
-   	 */
-   	class no_such_slot : public std::exception{
-   		public:
-   			no_such_slot() throw(){};
-   			virtual ~no_such_slot() throw(){} ;
-   			virtual const char* what() const throw() ;
-   	} ;
    	
     /**
      * default constructor. uses R_NilValue
@@ -169,7 +148,7 @@ public:
 		 * @param v parent object of which we get/set a slot
 		 * @param name slot name
 		 */
-		SlotProxy( const RObject& v, const std::string& name) ;
+		SlotProxy( const RObject& v, const std::string& name) throw(no_such_slot) ;
 
 		/**
 		 * lhs use. Assigns the target slot using the current 
@@ -262,7 +241,7 @@ public:
      *
      * @throw not_s4 if this is not an S4 object
      */
-    SlotProxy slot(const std::string& name) const throw(not_s4) ;
+    SlotProxy slot(const std::string& name) const throw(not_s4,no_such_slot) ;
     
 protected:
 
