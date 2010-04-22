@@ -4,6 +4,13 @@ system.file <- function(...){
 	tools:::file_path_as_absolute( base:::system.file( ... ) )
 }
 
+## identifies if the default linking on the platform should be static 
+## or dynamic. Currently only linux uses dynamic linking by default
+## although it works fine on mac osx as well
+staticLinking <- function(){
+	! grepl( "^linux", R.version$os ) 
+}
+
 ## Use R's internal knowledge of path settings to find the lib/ directory
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
@@ -22,7 +29,7 @@ RcppLdPath <- function() {
 ## Updated Jan 2010:  We now default to static linking but allow the use
 ##                    of rpath on Linux if static==FALSE has been chosen
 ##                    Note that this is probably being called from LdFlags()
-RcppLdFlags <- function(static=TRUE) {
+RcppLdFlags <- function(static=staticLinking()) {
     rcppdir <- RcppLdPath()
     if (static) {                               # static is default on Windows and OS X
         flags <- paste(rcppdir, "/libRcpp.a", sep="")
@@ -58,7 +65,7 @@ CxxFlags <- function(cxx0x=FALSE) {
     cat(RcppCxxFlags(cxx0x=cxx0x))
 }
 ## LdFlags defaults to static linking on the non-Linux platforms Windows and OS X
-LdFlags <- function(static=ifelse(length(grep("^linux",R.version$os))==0, TRUE, FALSE)) {
+LdFlags <- function(static=staticLinking()) {
     cat(RcppLdFlags(static=static))
 }
 
