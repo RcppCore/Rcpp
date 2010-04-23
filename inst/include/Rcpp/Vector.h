@@ -502,7 +502,7 @@ public:
 		return internal::ListInitialization<iterator,init_type>( start + 1 ) ; ;
 	}
 	
-    Vector( SEXP x ) : Base() {
+    Vector( SEXP x ) throw(not_compatible) : Base() {
     	RCPP_DEBUG( "Vector<%d>( SEXP = <%p> )", RTYPE, x) ;
     	Base::setSEXP( r_cast<RTYPE>( x ) ) ;
     	RCPP_DEBUG( "===========", 0) ;
