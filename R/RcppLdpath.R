@@ -1,14 +1,14 @@
 
 ## make sure system.file returns an absolute path
-system.file <- function(...){
-	tools:::file_path_as_absolute( base:::system.file( ... ) )
+system.file <- function(...) {
+    tools:::file_path_as_absolute( base:::system.file( ... ) )
 }
 
-## identifies if the default linking on the platform should be static 
+## identifies if the default linking on the platform should be static
 ## or dynamic. Currently only linux uses dynamic linking by default
 ## although it works fine on mac osx as well
-staticLinking <- function(){
-	! grepl( "^linux", R.version$os ) 
+staticLinking <- function() {
+    ! grepl( "^linux", R.version$os )
 }
 
 ## Use R's internal knowledge of path settings to find the lib/ directory
@@ -75,9 +75,9 @@ RcppCapabilities <- capabilities <- function() .Call("capabilities", PACKAGE = "
 # compile, load and call the cxx0x.c script to identify whether
 # the compiler is GCC >= 4.3
 RcppCxx0xFlags <- function(){
-	script <- system.file( "discovery", "cxx0x.R", package = "Rcpp" )
-	flag <- capture.output( source( script ) )
-	flag
+    script <- system.file( "discovery", "cxx0x.R", package = "Rcpp" )
+    flag <- capture.output( source( script ) )
+    flag
 }
 
 Cxx0xFlags <- function() cat( RcppCxx0xFlags() )
