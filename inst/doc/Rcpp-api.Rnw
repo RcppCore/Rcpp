@@ -1,0 +1,94 @@
+\documentclass[10pt]{article}
+%\VignetteIndexEntry{Rcpp-API}
+\usepackage{vmargin}
+
+\setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+\usepackage[colorlinks]{hyperref}
+\author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
+\title{Rcpp : API}
+\begin{document}
+\maketitle
+
+
+\section{Rcpp classes}
+
+\section{vectors}
+
+\subsection[Rcpp::IntegerVector : integer vectors]{\texttt{Rcpp::IntegerVector} : integer vectors}
+
+The \texttt{Rcpp::IntegerVector} class manages integer vectors, 
+R objects of SEXP type \texttt{INTSXP}.
+
+\subsubsection{Creating integer vectors}
+
+The \texttt{IntegerVector} class offers several ways to 
+create integer vectors. 
+
+\paragraph{Constructors}
+
+\begin{verbatim}
+IntegerVector( SEXP x ) throw(not_compatible) ;
+\end{verbatim}
+
+This constructor creates a \texttt{IntegerVector} from an existing \texttt{SEXP}, 
+The object is coerced to an integer vector and an \texttt{not\_compatible}
+exception is thrown if the coercion fails.
+
+\begin{verbatim}
+IntegerVector( size_t& size ) ;
+IntegerVector( size_t& size, const int& x )  ;
+\end{verbatim}
+
+Creates an \texttt{IntegerVector} of the given size. The first 
+form initialiezs all values to 0 and the second form initializes all values
+to the value of \texttt{x}. 
+
+\begin{verbatim}
+IntegerVector( const Dimension& dims ) ;
+IntegerVector( const Dimension& dims, const int& x ) ;
+\end{verbatim}
+
+Creates an \texttt{IntegerVector} of the requested dimensions. The first 
+form initialiezs all values to 0 and the second form initializes all values
+to the value of \texttt{x}. 
+
+\begin{verbatim}
+template <typename InputIterator>
+IntegerVector( InputIterator first, InputIterator last) ;
+\end{verbatim}
+
+Range based constructor. Creates an \texttt{IntegerVector} 
+containing the values of the range. 
+
+\paragraph{create factory functions}
+
+\begin{verbatim}
+template <typename T1>
+static IntegerVector create( const T1& t1) ;
+
+template <typename T1, typename T2>
+static IntegerVector create( const T1& t1, const T2& t2) ;
+
+...
+
+\end{verbatim}
+
+In addition to constructors, \texttt{IntegerVector} defines a set 
+of templated factory functions \texttt{create}.  \texttt{IntegerVector:::create}
+can be seen as a function taking a variable number of arguments (currently up to 20) 
+and creating an \texttt{IntegerVector} from them. 
+
+Valid types are \texttt{int} and instances of \texttt{Rcpp::traits::named\_object<int>}
+which are typically created by using the \texttt{Rcpp::Named} function
+or the \texttt{\_} variable: 
+
+\begin{verbatim}
+IntegerVector x = IntegerVector::create( 1, 2, 3) ;
+IntegerVector x = IntegerVector::create( Named( "x" ) = 2, Named( "y" ) = 3) ;
+IntegerVector x = IntegerVector::create( _["x"] = 2, _["y"] = 3) ;
+\end{verbatim}
+
+
+\end{document}
+
