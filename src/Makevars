@@ -28,19 +28,25 @@ USERLIBST =	libRcpp.a
 PKG_CPPFLAGS += -I../inst/include/
 
 userLibrary: 	$(USERLIB) $(USERLIBST)
-		-@if test ! -e $(USERDIR)$(R_ARCH); then mkdir -p $(USERDIR)$(R_ARCH); fi
-		cp $(USERLIB) $(USERDIR)$(R_ARCH)
-		cp $(USERLIBST) $(USERDIR)$(R_ARCH)
-		rm $(USERLIB) $(USERLIBST)
+ifneq ($(DYLIB_EXT),)
+			-@if test ! -e $(USERDIR)$(R_ARCH); then mkdir -p $(USERDIR)$(R_ARCH); fi
+			cp $(USERLIB) $(USERDIR)$(R_ARCH)
+			cp $(USERLIBST) $(USERDIR)$(R_ARCH)
+			rm $(USERLIB) $(USERLIBST)
+endif
 
 $(USERLIB): 	$(OBJECTS)
-		$(SHLIB_CXXLD) -o $(USERLIB) $^ $(SHLIB_CXXLDFLAGS) $(ALL_LIBS)
-		@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
-
+ifneq ($(DYLIB_EXT),)
+			$(SHLIB_CXXLD) -o $(USERLIB) $^ $(SHLIB_CXXLDFLAGS) $(ALL_LIBS)
+			@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
+endif
+		
 $(USERLIBST): 	$(OBJECTS)
-		$(AR) qc $(USERLIBST) $^
-		@if test -n "$(RANLIB)"; then $(RANLIB) $(USERLIBST); fi
-
+ifneq ($(DYLIB_EXT),)
+			$(AR) qc $(USERLIBST) $^
+			@if test -n "$(RANLIB)"; then $(RANLIB) $(USERLIBST); fi
+endif
+		
 .PHONY: 	all clean userLibrary 
 
 clean:
