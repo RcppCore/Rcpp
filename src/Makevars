@@ -17,7 +17,11 @@ ifeq ($(RCPP_CXX0X),yes)
 CLINK_CPPFLAGS = $(shell Rscript "cxx0x/cxx0x.R")
 endif
 
+ifeq ($(DYLIB_EXT),)
+all:
+else
 all: 	$(SHLIB) userLibrary 
+endif
 
 ## we place it inside the inst/ directory so that it gets installed by the package
 USERDIR =	../inst/lib
@@ -28,24 +32,18 @@ USERLIBST =	libRcpp.a
 PKG_CPPFLAGS += -I../inst/include/
 
 userLibrary: 	$(USERLIB) $(USERLIBST)
-ifneq ($(DYLIB_EXT),)
-			-@if test ! -e $(USERDIR)$(R_ARCH); then mkdir -p $(USERDIR)$(R_ARCH); fi
-			cp $(USERLIB) $(USERDIR)$(R_ARCH)
-			cp $(USERLIBST) $(USERDIR)$(R_ARCH)
-			rm $(USERLIB) $(USERLIBST)
-endif
+		-@if test ! -e $(USERDIR)$(R_ARCH); then mkdir -p $(USERDIR)$(R_ARCH); fi
+		cp $(USERLIB) $(USERDIR)$(R_ARCH)
+		cp $(USERLIBST) $(USERDIR)$(R_ARCH)
+		rm $(USERLIB) $(USERLIBST)
 
 $(USERLIB): 	$(OBJECTS)
-ifneq ($(DYLIB_EXT),)
-			$(SHLIB_CXXLD) -o $(USERLIB) $^ $(SHLIB_CXXLDFLAGS) $(ALL_LIBS)
-			@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
-endif
+		$(SHLIB_CXXLD) -o $(USERLIB) $^ $(SHLIB_CXXLDFLAGS) $(ALL_LIBS)
+		@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
 		
 $(USERLIBST): 	$(OBJECTS)
-ifneq ($(DYLIB_EXT),)
-			$(AR) qc $(USERLIBST) $^
-			@if test -n "$(RANLIB)"; then $(RANLIB) $(USERLIBST); fi
-endif
+		$(AR) qc $(USERLIBST) $^
+		@if test -n "$(RANLIB)"; then $(RANLIB) $(USERLIBST); fi
 		
 .PHONY: 	all clean userLibrary 
 
