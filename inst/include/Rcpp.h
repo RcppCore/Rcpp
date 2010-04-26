@@ -67,6 +67,7 @@
 #include <Rcpp/WeakReference.h>
 #include <Rcpp/StringTransformer.h>
 #include <Rcpp/Formula.h>
+#include <Rcpp/DataFrame.h>
 
 #include <Rcpp/preprocessor.h>
 
