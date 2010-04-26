@@ -29,6 +29,8 @@
 	to enclose the user code
 
     o	new class Rcpp::Formula to help building formulae in C++
+    
+    o   new class Rcpp::DataFrame to help building data frames in C++
 	
     o	Rcpp.package.skeleton gains an argument "example_code" and can now be 
 	used with an empty list, so that only the skeleton is generated. It has also
