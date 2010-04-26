@@ -1,3 +1,7 @@
+2010-04-26	Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/DataFrame_*.h: new class Rcpp::DataFrame
+
 2010-04-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.7.12
