@@ -17,7 +17,7 @@ ifeq ($(RCPP_CXX0X),yes)
 CLINK_CPPFLAGS = $(shell Rscript "cxx0x/cxx0x.R")
 endif
 
-ifeq ($(DYLIB_EXT),)
+ifeq ($(SHLIB),)
 all:
 else
 all: 	$(SHLIB) userLibrary 

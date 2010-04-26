@@ -1,7 +1,7 @@
 
 ## make sure system.file returns an absolute path
-system.file <- function(...) {
-    tools:::file_path_as_absolute( base:::system.file( ... ) )
+system_file <- function(...){
+	tools:::file_path_as_absolute( base:::system.file( ... ) )
 }
 
 ## identifies if the default linking on the platform should be static
@@ -15,9 +15,9 @@ staticLinking <- function() {
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
     if (nzchar(.Platform$r_arch)) {	## eg amd64, ia64, mips
-        path <- system.file("lib",.Platform$r_arch,package="Rcpp")
+        path <- system_file("lib",.Platform$r_arch,package="Rcpp")
     } else {
-        path <- system.file("lib",package="Rcpp")
+        path <- system_file("lib",package="Rcpp")
     }
     path
 }
@@ -52,7 +52,7 @@ canUseCXX0X <- function() .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
 ## Provide compiler flags -- i.e. -I/path/to/Rcpp.h
 RcppCxxFlags <- function(cxx0x=FALSE) {
     # path <- RcppLdPath()
-    path <- system.file( "include", package = "Rcpp" )
+    path <- system_file( "include", package = "Rcpp" )
     #if (.Platform$OS.type=="windows") {
     #    path <- shQuote(path)
     #}
