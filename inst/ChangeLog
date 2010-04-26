@@ -1,6 +1,8 @@
 2010-04-26	Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/DataFrame_*.h: new class Rcpp::DataFrame
+	
+	* inst/include/Rcpp/preprocessor.h: added RCPP_XP_FIELD macro
 
 2010-04-16  Dirk Eddelbuettel  <edd@debian.org>
 
