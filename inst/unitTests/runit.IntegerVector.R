@@ -246,3 +246,14 @@ test.IntegerVector.fill <- function(){
 	checkEquals( x, rep(10L, 10 ), msg = "IntegerVector.fill" )
 }
 
+test.IntegerVector.zero <- function( ){
+	funx <- cppfunction(signature(x = "integer"), 'return IntegerVector(0);' )
+	checkEquals( funx(), integer(0), msg = "IntegerVector(0)" )
+}
+
+test.IntegerVector.create.zero <- function( ){
+	funx <- cppfunction(signature(x = "integer"), 'return IntegerVector::create();' )
+	checkEquals( funx(), integer(0), msg = "IntegerVector::create()" )
+}
+
+
