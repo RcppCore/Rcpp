@@ -69,6 +69,4 @@
 #include <Rcpp/Formula.h>
 #include <Rcpp/DataFrame.h>
 
-#include <Rcpp/preprocessor.h>
-
 #endif
