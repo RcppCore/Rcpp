@@ -1,8 +1,15 @@
+2010-04-28	Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Vector.h: changed Vector( size_t ) to Vector( int )
+	to allow Vector( 0 ) and Vector::create()
+
 2010-04-27	Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/preprocessor.h: new macro RCPP_ENUM_TRAITS to 
 	generate traits needed to support wrap for an enum type (used in 
 	RProtoBuf)
+	
+	* R/Rcpp.package.skeleton.R: correctly handle the example_code argument
 
 2010-04-26	Romain Francois <romain@r-enthusiasts.com>
 

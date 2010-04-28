@@ -508,13 +508,13 @@ public:
     	RCPP_DEBUG( "===========", 0) ;
     }
     
-    Vector( const size_t& size ) : Base()  {
+    Vector( const int& size ) : Base()  {
     	Base::setSEXP( Rf_allocVector( RTYPE, size) ) ;
 		init() ;
     }
     
     template <typename U>
-    Vector( const size_t& size, const U& u){
+    Vector( const int& size, const U& u){
     	Base::setSEXP( Rf_allocVector( RTYPE, size) ) ;
 		fill( u ) ;	
     }
@@ -769,6 +769,10 @@ public:
 		cache.update(*this) ;
 	}
 		
+	Vector create(){
+		return Vector( 0 ) ;
+	}
+	
 /* <code-bloat>
 
 public:
