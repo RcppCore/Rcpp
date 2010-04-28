@@ -92,7 +92,9 @@ public:
     SEXP getTag() ;
     
     void setDeleteFinalizer() ;
-  		
+  	
+    inline operator T*(){ return (T*)(EXTPTR_PTR(m_sexp)) ; }
+	
 };
 
 template<typename T>

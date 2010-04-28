@@ -43,7 +43,7 @@ namespace Rcpp {
 		return *this ;
 	}
 	
-	S4::S4( const std::string& klass ) {
+	S4::S4( const std::string& klass ) throw(S4_creation_error) {
 		SEXP oo = PROTECT( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) ) ;
   		if (!Rf_inherits(oo, klass.c_str())) {
   			UNPROTECT( 1) ;
