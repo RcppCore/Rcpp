@@ -59,7 +59,7 @@ public:
 	 * @param klass name of the target S4 class
 	 * @throw not_s4 if klass does not map to a known S4 class
 	 */
-	S4( const std::string& klass ) ;
+	S4( const std::string& klass ) throw(S4_creation_error) ;
 	
 } ;
 

@@ -1,8 +1,19 @@
+2010-04-27	Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/preprocessor.h: new macro RCPP_ENUM_TRAITS to 
+	generate traits needed to support wrap for an enum type (used in 
+	RProtoBuf)
+
 2010-04-26	Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/DataFrame_*.h: new class Rcpp::DataFrame
 	
 	* inst/include/Rcpp/preprocessor.h: added RCPP_XP_FIELD macro
+	
+	* inst/include/Rcpp/preprocessor_generated.h: added the set of macros
+	RCPP_WRAPPER_0, ..., RCPP_WRAPPER_65 to help wrapping existing 
+	C functions into .Call callables functions
+	
 
 2010-04-16  Dirk Eddelbuettel  <edd@debian.org>
 

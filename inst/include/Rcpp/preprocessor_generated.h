@@ -753,6 +753,671 @@ __OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, 
 
 // }}}
 
+// {{{ RCPP_FUNCTION_VOID 
+
+
+#define RCPP_FUNCTION_VOID_0(__NAME__)           \
+void RCPP_DECORATE(__NAME__)() ;                  \
+extern "C" SEXP __NAME__(){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)() ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)()
+
+#define RCPP_FUNCTION_VOID_1(__NAME__, ___0)           \
+void RCPP_DECORATE(__NAME__)(___0) ;                  \
+extern "C" SEXP __NAME__(SEXP x0){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0)
+
+#define RCPP_FUNCTION_VOID_2(__NAME__, ___0, ___1)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1)
+
+#define RCPP_FUNCTION_VOID_3(__NAME__, ___0, ___1, ___2)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2)
+
+#define RCPP_FUNCTION_VOID_4(__NAME__, ___0, ___1, ___2, ___3)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3)
+
+#define RCPP_FUNCTION_VOID_5(__NAME__, ___0, ___1, ___2, ___3, ___4)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4)
+
+#define RCPP_FUNCTION_VOID_6(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5)
+
+#define RCPP_FUNCTION_VOID_7(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6)
+
+#define RCPP_FUNCTION_VOID_8(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7)
+
+#define RCPP_FUNCTION_VOID_9(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8)
+
+#define RCPP_FUNCTION_VOID_10(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9)
+
+#define RCPP_FUNCTION_VOID_11(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10)
+
+#define RCPP_FUNCTION_VOID_12(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11)
+
+#define RCPP_FUNCTION_VOID_13(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12)
+
+#define RCPP_FUNCTION_VOID_14(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13)
+
+#define RCPP_FUNCTION_VOID_15(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14)
+
+#define RCPP_FUNCTION_VOID_16(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15)
+
+#define RCPP_FUNCTION_VOID_17(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16)
+
+#define RCPP_FUNCTION_VOID_18(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17)
+
+#define RCPP_FUNCTION_VOID_19(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18)
+
+#define RCPP_FUNCTION_VOID_20(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19)
+
+#define RCPP_FUNCTION_VOID_21(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20)
+
+#define RCPP_FUNCTION_VOID_22(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21)
+
+#define RCPP_FUNCTION_VOID_23(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22)
+
+#define RCPP_FUNCTION_VOID_24(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23)
+
+#define RCPP_FUNCTION_VOID_25(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24)
+
+#define RCPP_FUNCTION_VOID_26(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25)
+
+#define RCPP_FUNCTION_VOID_27(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26)
+
+#define RCPP_FUNCTION_VOID_28(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27)
+
+#define RCPP_FUNCTION_VOID_29(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28)
+
+#define RCPP_FUNCTION_VOID_30(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29)
+
+#define RCPP_FUNCTION_VOID_31(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30)
+
+#define RCPP_FUNCTION_VOID_32(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31)
+
+#define RCPP_FUNCTION_VOID_33(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32)
+
+#define RCPP_FUNCTION_VOID_34(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33)
+
+#define RCPP_FUNCTION_VOID_35(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34)
+
+#define RCPP_FUNCTION_VOID_36(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35)
+
+#define RCPP_FUNCTION_VOID_37(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36)
+
+#define RCPP_FUNCTION_VOID_38(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37)
+
+#define RCPP_FUNCTION_VOID_39(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38)
+
+#define RCPP_FUNCTION_VOID_40(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39)
+
+#define RCPP_FUNCTION_VOID_41(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40)
+
+#define RCPP_FUNCTION_VOID_42(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41)
+
+#define RCPP_FUNCTION_VOID_43(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42)
+
+#define RCPP_FUNCTION_VOID_44(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43)
+
+#define RCPP_FUNCTION_VOID_45(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44)
+
+#define RCPP_FUNCTION_VOID_46(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45)
+
+#define RCPP_FUNCTION_VOID_47(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46)
+
+#define RCPP_FUNCTION_VOID_48(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47)
+
+#define RCPP_FUNCTION_VOID_49(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48)
+
+#define RCPP_FUNCTION_VOID_50(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49)
+
+#define RCPP_FUNCTION_VOID_51(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50)
+
+#define RCPP_FUNCTION_VOID_52(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51)
+
+#define RCPP_FUNCTION_VOID_53(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52)
+
+#define RCPP_FUNCTION_VOID_54(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53)
+
+#define RCPP_FUNCTION_VOID_55(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54)
+
+#define RCPP_FUNCTION_VOID_56(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55)
+
+#define RCPP_FUNCTION_VOID_57(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56)
+
+#define RCPP_FUNCTION_VOID_58(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57)
+
+#define RCPP_FUNCTION_VOID_59(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58)
+
+#define RCPP_FUNCTION_VOID_60(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59)
+
+#define RCPP_FUNCTION_VOID_61(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60)
+
+#define RCPP_FUNCTION_VOID_62(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61)
+
+#define RCPP_FUNCTION_VOID_63(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62)
+
+#define RCPP_FUNCTION_VOID_64(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 ), ::Rcpp::internal::converter( x63 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63)
+
+#define RCPP_FUNCTION_VOID_65(__NAME__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63, ___64)           \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63, ___64) ;                  \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63, SEXP x64){                       \
+BEGIN_RCPP                                          \
+RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 ), ::Rcpp::internal::converter( x63 ), ::Rcpp::internal::converter( x64 )) ;                       \
+END_RCPP                                            \
+return R_NilValue ;                                 \
+}                                                   \
+void RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63, ___64)
+
+// }}}
+
 // {{{ RCPP_FUNCTION_NODECL
 
 
@@ -1421,7 +2086,7 @@ __OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, 
 // {{{ RCPP_XP_METHOD
 
 
-#define RCPP_XP_METHOD_0(__NAME__,__CLASS__,__METHOD__)   \
+#define RCPP_XP_METHOD_0(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp  ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1432,7 +2097,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_1(__NAME__,__CLASS__,__METHOD__, ___0)   \
+#define RCPP_XP_METHOD_1(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1443,7 +2108,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_2(__NAME__,__CLASS__,__METHOD__, ___0, ___1)   \
+#define RCPP_XP_METHOD_2(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1454,7 +2119,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_3(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2)   \
+#define RCPP_XP_METHOD_3(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1465,7 +2130,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_4(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3)   \
+#define RCPP_XP_METHOD_4(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1476,7 +2141,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_5(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4)   \
+#define RCPP_XP_METHOD_5(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1487,7 +2152,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_6(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5)   \
+#define RCPP_XP_METHOD_6(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1498,7 +2163,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_7(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6)   \
+#define RCPP_XP_METHOD_7(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1509,7 +2174,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_8(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7)   \
+#define RCPP_XP_METHOD_8(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1520,7 +2185,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_9(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8)   \
+#define RCPP_XP_METHOD_9(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1531,7 +2196,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_10(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9)   \
+#define RCPP_XP_METHOD_10(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1542,7 +2207,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_11(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10)   \
+#define RCPP_XP_METHOD_11(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1553,7 +2218,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_12(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11)   \
+#define RCPP_XP_METHOD_12(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1564,7 +2229,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_13(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12)   \
+#define RCPP_XP_METHOD_13(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1575,7 +2240,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_14(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13)   \
+#define RCPP_XP_METHOD_14(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1586,7 +2251,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_15(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14)   \
+#define RCPP_XP_METHOD_15(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1597,7 +2262,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_16(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15)   \
+#define RCPP_XP_METHOD_16(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1608,7 +2273,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_17(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16)   \
+#define RCPP_XP_METHOD_17(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1619,7 +2284,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_18(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17)   \
+#define RCPP_XP_METHOD_18(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1630,7 +2295,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_19(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18)   \
+#define RCPP_XP_METHOD_19(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1641,7 +2306,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_20(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19)   \
+#define RCPP_XP_METHOD_20(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1652,7 +2317,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_21(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20)   \
+#define RCPP_XP_METHOD_21(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1663,7 +2328,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_22(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21)   \
+#define RCPP_XP_METHOD_22(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1674,7 +2339,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_23(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22)   \
+#define RCPP_XP_METHOD_23(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1685,7 +2350,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_24(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23)   \
+#define RCPP_XP_METHOD_24(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1696,7 +2361,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_25(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24)   \
+#define RCPP_XP_METHOD_25(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1707,7 +2372,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_26(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25)   \
+#define RCPP_XP_METHOD_26(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1718,7 +2383,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_27(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26)   \
+#define RCPP_XP_METHOD_27(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1729,7 +2394,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_28(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27)   \
+#define RCPP_XP_METHOD_28(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1740,7 +2405,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_29(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28)   \
+#define RCPP_XP_METHOD_29(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1751,7 +2416,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_30(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29)   \
+#define RCPP_XP_METHOD_30(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1762,7 +2427,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_31(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30)   \
+#define RCPP_XP_METHOD_31(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1773,7 +2438,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_32(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31)   \
+#define RCPP_XP_METHOD_32(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1784,7 +2449,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_33(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32)   \
+#define RCPP_XP_METHOD_33(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1795,7 +2460,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_34(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33)   \
+#define RCPP_XP_METHOD_34(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1806,7 +2471,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_35(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34)   \
+#define RCPP_XP_METHOD_35(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1817,7 +2482,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_36(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35)   \
+#define RCPP_XP_METHOD_36(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1828,7 +2493,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_37(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36)   \
+#define RCPP_XP_METHOD_37(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1839,7 +2504,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_38(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37)   \
+#define RCPP_XP_METHOD_38(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1850,7 +2515,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_39(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38)   \
+#define RCPP_XP_METHOD_39(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1861,7 +2526,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_40(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39)   \
+#define RCPP_XP_METHOD_40(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1872,7 +2537,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_41(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40)   \
+#define RCPP_XP_METHOD_41(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1883,7 +2548,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_42(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41)   \
+#define RCPP_XP_METHOD_42(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1894,7 +2559,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_43(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42)   \
+#define RCPP_XP_METHOD_43(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1905,7 +2570,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_44(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43)   \
+#define RCPP_XP_METHOD_44(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1916,7 +2581,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_45(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44)   \
+#define RCPP_XP_METHOD_45(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1927,7 +2592,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_46(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45)   \
+#define RCPP_XP_METHOD_46(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1938,7 +2603,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_47(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46)   \
+#define RCPP_XP_METHOD_47(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1949,7 +2614,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_48(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47)   \
+#define RCPP_XP_METHOD_48(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1960,7 +2625,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_49(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48)   \
+#define RCPP_XP_METHOD_49(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1971,7 +2636,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_50(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49)   \
+#define RCPP_XP_METHOD_50(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1982,7 +2647,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_51(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50)   \
+#define RCPP_XP_METHOD_51(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -1993,7 +2658,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_52(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51)   \
+#define RCPP_XP_METHOD_52(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2004,7 +2669,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_53(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52)   \
+#define RCPP_XP_METHOD_53(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2015,7 +2680,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_54(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53)   \
+#define RCPP_XP_METHOD_54(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2026,7 +2691,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_55(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54)   \
+#define RCPP_XP_METHOD_55(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2037,7 +2702,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_56(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55)   \
+#define RCPP_XP_METHOD_56(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2048,7 +2713,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_57(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56)   \
+#define RCPP_XP_METHOD_57(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2059,7 +2724,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_58(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57)   \
+#define RCPP_XP_METHOD_58(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2070,7 +2735,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_59(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58)   \
+#define RCPP_XP_METHOD_59(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2081,7 +2746,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_60(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59)   \
+#define RCPP_XP_METHOD_60(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2092,7 +2757,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_61(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60)   \
+#define RCPP_XP_METHOD_61(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2103,7 +2768,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_62(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61)   \
+#define RCPP_XP_METHOD_62(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2114,7 +2779,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_63(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62)   \
+#define RCPP_XP_METHOD_63(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2125,7 +2790,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_64(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63)   \
+#define RCPP_XP_METHOD_64(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2136,7 +2801,7 @@ return res ;                                                 \
 }
 
 
-#define RCPP_XP_METHOD_65(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63, ___64)   \
+#define RCPP_XP_METHOD_65(__NAME__,__CLASS__,__METHOD__ )   \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63, SEXP x64 ){                      \
 SEXP res = R_NilValue ;                                      \
 BEGIN_RCPP                                                   \
@@ -2162,7 +2827,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_1(__NAME__,__CLASS__,__METHOD__, ___0)    \
+#define RCPP_XP_METHOD_VOID_1(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2172,7 +2837,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_2(__NAME__,__CLASS__,__METHOD__, ___0, ___1)    \
+#define RCPP_XP_METHOD_VOID_2(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2182,7 +2847,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_3(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2)    \
+#define RCPP_XP_METHOD_VOID_3(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2192,7 +2857,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_4(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3)    \
+#define RCPP_XP_METHOD_VOID_4(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2202,7 +2867,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_5(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4)    \
+#define RCPP_XP_METHOD_VOID_5(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2212,7 +2877,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_6(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5)    \
+#define RCPP_XP_METHOD_VOID_6(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2222,7 +2887,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_7(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6)    \
+#define RCPP_XP_METHOD_VOID_7(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2232,7 +2897,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_8(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7)    \
+#define RCPP_XP_METHOD_VOID_8(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2242,7 +2907,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_9(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8)    \
+#define RCPP_XP_METHOD_VOID_9(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2252,7 +2917,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_10(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9)    \
+#define RCPP_XP_METHOD_VOID_10(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2262,7 +2927,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_11(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10)    \
+#define RCPP_XP_METHOD_VOID_11(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2272,7 +2937,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_12(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11)    \
+#define RCPP_XP_METHOD_VOID_12(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2282,7 +2947,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_13(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12)    \
+#define RCPP_XP_METHOD_VOID_13(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2292,7 +2957,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_14(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13)    \
+#define RCPP_XP_METHOD_VOID_14(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2302,7 +2967,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_15(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14)    \
+#define RCPP_XP_METHOD_VOID_15(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2312,7 +2977,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_16(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15)    \
+#define RCPP_XP_METHOD_VOID_16(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2322,7 +2987,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_17(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16)    \
+#define RCPP_XP_METHOD_VOID_17(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2332,7 +2997,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_18(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17)    \
+#define RCPP_XP_METHOD_VOID_18(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2342,7 +3007,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_19(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18)    \
+#define RCPP_XP_METHOD_VOID_19(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2352,7 +3017,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_20(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19)    \
+#define RCPP_XP_METHOD_VOID_20(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2362,7 +3027,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_21(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20)    \
+#define RCPP_XP_METHOD_VOID_21(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2372,7 +3037,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_22(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21)    \
+#define RCPP_XP_METHOD_VOID_22(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2382,7 +3047,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_23(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22)    \
+#define RCPP_XP_METHOD_VOID_23(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2392,7 +3057,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_24(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23)    \
+#define RCPP_XP_METHOD_VOID_24(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2402,7 +3067,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_25(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24)    \
+#define RCPP_XP_METHOD_VOID_25(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2412,7 +3077,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_26(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25)    \
+#define RCPP_XP_METHOD_VOID_26(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2422,7 +3087,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_27(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26)    \
+#define RCPP_XP_METHOD_VOID_27(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2432,7 +3097,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_28(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27)    \
+#define RCPP_XP_METHOD_VOID_28(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2442,7 +3107,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_29(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28)    \
+#define RCPP_XP_METHOD_VOID_29(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2452,7 +3117,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_30(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29)    \
+#define RCPP_XP_METHOD_VOID_30(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2462,7 +3127,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_31(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30)    \
+#define RCPP_XP_METHOD_VOID_31(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2472,7 +3137,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_32(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31)    \
+#define RCPP_XP_METHOD_VOID_32(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2482,7 +3147,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_33(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32)    \
+#define RCPP_XP_METHOD_VOID_33(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2492,7 +3157,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_34(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33)    \
+#define RCPP_XP_METHOD_VOID_34(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2502,7 +3167,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_35(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34)    \
+#define RCPP_XP_METHOD_VOID_35(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2512,7 +3177,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_36(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35)    \
+#define RCPP_XP_METHOD_VOID_36(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2522,7 +3187,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_37(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36)    \
+#define RCPP_XP_METHOD_VOID_37(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2532,7 +3197,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_38(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37)    \
+#define RCPP_XP_METHOD_VOID_38(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2542,7 +3207,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_39(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38)    \
+#define RCPP_XP_METHOD_VOID_39(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2552,7 +3217,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_40(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39)    \
+#define RCPP_XP_METHOD_VOID_40(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2562,7 +3227,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_41(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40)    \
+#define RCPP_XP_METHOD_VOID_41(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2572,7 +3237,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_42(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41)    \
+#define RCPP_XP_METHOD_VOID_42(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2582,7 +3247,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_43(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42)    \
+#define RCPP_XP_METHOD_VOID_43(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2592,7 +3257,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_44(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43)    \
+#define RCPP_XP_METHOD_VOID_44(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2602,7 +3267,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_45(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44)    \
+#define RCPP_XP_METHOD_VOID_45(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2612,7 +3277,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_46(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45)    \
+#define RCPP_XP_METHOD_VOID_46(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2622,7 +3287,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_47(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46)    \
+#define RCPP_XP_METHOD_VOID_47(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2632,7 +3297,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_48(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47)    \
+#define RCPP_XP_METHOD_VOID_48(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2642,7 +3307,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_49(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48)    \
+#define RCPP_XP_METHOD_VOID_49(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2652,7 +3317,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_50(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49)    \
+#define RCPP_XP_METHOD_VOID_50(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2662,7 +3327,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_51(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50)    \
+#define RCPP_XP_METHOD_VOID_51(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2672,7 +3337,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_52(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51)    \
+#define RCPP_XP_METHOD_VOID_52(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2682,7 +3347,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_53(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52)    \
+#define RCPP_XP_METHOD_VOID_53(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2692,7 +3357,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_54(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53)    \
+#define RCPP_XP_METHOD_VOID_54(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2702,7 +3367,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_55(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54)    \
+#define RCPP_XP_METHOD_VOID_55(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2712,7 +3377,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_56(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55)    \
+#define RCPP_XP_METHOD_VOID_56(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2722,7 +3387,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_57(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56)    \
+#define RCPP_XP_METHOD_VOID_57(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2732,7 +3397,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_58(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57)    \
+#define RCPP_XP_METHOD_VOID_58(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2742,7 +3407,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_59(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58)    \
+#define RCPP_XP_METHOD_VOID_59(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2752,7 +3417,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_60(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59)    \
+#define RCPP_XP_METHOD_VOID_60(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2762,7 +3427,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_61(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60)    \
+#define RCPP_XP_METHOD_VOID_61(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2772,7 +3437,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_62(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61)    \
+#define RCPP_XP_METHOD_VOID_62(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2782,7 +3447,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_63(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62)    \
+#define RCPP_XP_METHOD_VOID_63(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2792,7 +3457,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_64(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63)    \
+#define RCPP_XP_METHOD_VOID_64(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2802,7 +3467,7 @@ END_RCPP                                                           \
 }
 
 
-#define RCPP_XP_METHOD_VOID_65(__NAME__,__CLASS__,__METHOD__, ___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, ___8, ___9, ___10, ___11, ___12, ___13, ___14, ___15, ___16, ___17, ___18, ___19, ___20, ___21, ___22, ___23, ___24, ___25, ___26, ___27, ___28, ___29, ___30, ___31, ___32, ___33, ___34, ___35, ___36, ___37, ___38, ___39, ___40, ___41, ___42, ___43, ___44, ___45, ___46, ___47, ___48, ___49, ___50, ___51, ___52, ___53, ___54, ___55, ___56, ___57, ___58, ___59, ___60, ___61, ___62, ___63, ___64)    \
+#define RCPP_XP_METHOD_VOID_65(__NAME__,__CLASS__,__METHOD__)    \
 extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63, SEXP x64 ){                            \
 BEGIN_RCPP                                                         \
 ::Rcpp::XPtr<__CLASS__> ptr(xp) ;                                  \
@@ -2813,5 +3478,1402 @@ END_RCPP                                                           \
 
 
 // }}}
+
+// {{{ RCPP_XP_METHOD_CAST
+
+
+#define RCPP_XP_METHOD_CAST_0(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp  ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__(  ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_1(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_2(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_3(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_4(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_5(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_6(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_7(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_8(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_9(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_10(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_11(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_12(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_13(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_14(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_15(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_16(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_17(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_18(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_19(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_20(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_21(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_22(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_23(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_24(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_25(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_26(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_27(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_28(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_29(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_30(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_31(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_32(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_33(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_34(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_35(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_36(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_37(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_38(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_39(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_40(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_41(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_42(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_43(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_44(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_45(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_46(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_47(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_48(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_49(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_50(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_51(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_52(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_53(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_54(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_55(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_56(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_57(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_58(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_59(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_60(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_61(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_62(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_63(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_64(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 ), ::Rcpp::internal::converter( x63 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+#define RCPP_XP_METHOD_CAST_65(__NAME__,__CLASS__,__METHOD__,__CAST__)   \
+extern "C" SEXP __NAME__( SEXP xp ,  SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63, SEXP x64 ){                      \
+SEXP res = R_NilValue ;                                      \
+BEGIN_RCPP                                                   \
+	::Rcpp::XPtr<__CLASS__> ptr(xp) ;                        \
+	res = ::Rcpp::wrap( __CAST__( ptr->__METHOD__( ::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 ), ::Rcpp::internal::converter( x63 ), ::Rcpp::internal::converter( x64 ) ) ) ) ;\
+END_RCPP                                                     \
+return res ;                                                 \
+}
+
+
+// }}}
+
+// {{{ RCPP_WRAPPER
+
+
+#define RCPP_WRAPPER_0(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__() ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_1(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_2(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_3(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_4(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_5(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_6(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_7(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_8(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_9(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_10(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_11(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_12(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_13(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_14(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_15(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_16(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_17(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_18(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_19(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_20(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_21(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_22(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_23(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_24(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_25(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_26(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_27(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_28(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_29(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_30(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_31(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_32(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_33(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_34(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_35(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_36(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_37(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_38(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_39(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_40(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_41(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_42(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_43(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_44(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_45(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_46(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_47(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_48(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_49(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_50(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_51(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_52(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_53(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_54(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_55(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_56(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_57(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_58(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_59(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_60(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_61(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_62(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_63(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_64(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 ), ::Rcpp::internal::converter( x63 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+#define RCPP_WRAPPER_65(__OUT__,__NAME__)           \
+extern "C" SEXP __OUT__(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6, SEXP x7, SEXP x8, SEXP x9, SEXP x10, SEXP x11, SEXP x12, SEXP x13, SEXP x14, SEXP x15, SEXP x16, SEXP x17, SEXP x18, SEXP x19, SEXP x20, SEXP x21, SEXP x22, SEXP x23, SEXP x24, SEXP x25, SEXP x26, SEXP x27, SEXP x28, SEXP x29, SEXP x30, SEXP x31, SEXP x32, SEXP x33, SEXP x34, SEXP x35, SEXP x36, SEXP x37, SEXP x38, SEXP x39, SEXP x40, SEXP x41, SEXP x42, SEXP x43, SEXP x44, SEXP x45, SEXP x46, SEXP x47, SEXP x48, SEXP x49, SEXP x50, SEXP x51, SEXP x52, SEXP x53, SEXP x54, SEXP x55, SEXP x56, SEXP x57, SEXP x58, SEXP x59, SEXP x60, SEXP x61, SEXP x62, SEXP x63, SEXP x64){                        \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( __NAME__(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 ), ::Rcpp::internal::converter( x4 ), ::Rcpp::internal::converter( x5 ), ::Rcpp::internal::converter( x6 ), ::Rcpp::internal::converter( x7 ), ::Rcpp::internal::converter( x8 ), ::Rcpp::internal::converter( x9 ), ::Rcpp::internal::converter( x10 ), ::Rcpp::internal::converter( x11 ), ::Rcpp::internal::converter( x12 ), ::Rcpp::internal::converter( x13 ), ::Rcpp::internal::converter( x14 ), ::Rcpp::internal::converter( x15 ), ::Rcpp::internal::converter( x16 ), ::Rcpp::internal::converter( x17 ), ::Rcpp::internal::converter( x18 ), ::Rcpp::internal::converter( x19 ), ::Rcpp::internal::converter( x20 ), ::Rcpp::internal::converter( x21 ), ::Rcpp::internal::converter( x22 ), ::Rcpp::internal::converter( x23 ), ::Rcpp::internal::converter( x24 ), ::Rcpp::internal::converter( x25 ), ::Rcpp::internal::converter( x26 ), ::Rcpp::internal::converter( x27 ), ::Rcpp::internal::converter( x28 ), ::Rcpp::internal::converter( x29 ), ::Rcpp::internal::converter( x30 ), ::Rcpp::internal::converter( x31 ), ::Rcpp::internal::converter( x32 ), ::Rcpp::internal::converter( x33 ), ::Rcpp::internal::converter( x34 ), ::Rcpp::internal::converter( x35 ), ::Rcpp::internal::converter( x36 ), ::Rcpp::internal::converter( x37 ), ::Rcpp::internal::converter( x38 ), ::Rcpp::internal::converter( x39 ), ::Rcpp::internal::converter( x40 ), ::Rcpp::internal::converter( x41 ), ::Rcpp::internal::converter( x42 ), ::Rcpp::internal::converter( x43 ), ::Rcpp::internal::converter( x44 ), ::Rcpp::internal::converter( x45 ), ::Rcpp::internal::converter( x46 ), ::Rcpp::internal::converter( x47 ), ::Rcpp::internal::converter( x48 ), ::Rcpp::internal::converter( x49 ), ::Rcpp::internal::converter( x50 ), ::Rcpp::internal::converter( x51 ), ::Rcpp::internal::converter( x52 ), ::Rcpp::internal::converter( x53 ), ::Rcpp::internal::converter( x54 ), ::Rcpp::internal::converter( x55 ), ::Rcpp::internal::converter( x56 ), ::Rcpp::internal::converter( x57 ), ::Rcpp::internal::converter( x58 ), ::Rcpp::internal::converter( x59 ), ::Rcpp::internal::converter( x60 ), ::Rcpp::internal::converter( x61 ), ::Rcpp::internal::converter( x62 ), ::Rcpp::internal::converter( x63 ), ::Rcpp::internal::converter( x64 )) ) ;                \
+END_RCPP                                            \
+return res ;                                        \
+}
+
+
+// }}}
+
 #endif
 
