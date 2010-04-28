@@ -196,6 +196,7 @@ compatibility for code that used it.
 ===== Links =====
 
 Rcpp main page: http://dirk.eddelbuettel.com/code/rcpp.html
+R-forge project page: http://r-forge.r-project.org/projects/rcpp/
 Dirk's blog section about Rcpp: http://dirk.eddelbuettel.com/blog/code/rcpp/
 Romain's blog section about Rcpp: http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
 
