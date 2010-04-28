@@ -1,4 +1,4 @@
-cpp version 0.7.0 went onto CRAN this weekend. The key new features are
+Rcpp version 0.7.0 went onto CRAN this weekend. The key new features are
 
   o inline support, taken from Oleg Sklyar's neat inline package and 
     adapted/extented to support Rcpp as well as external libraries
