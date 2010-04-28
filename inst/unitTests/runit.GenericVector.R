@@ -121,7 +121,6 @@ test.List.iterator <- function(){
 		std::transform( input.begin(), input.end(), output.begin(), fun ) ;
 		output.names() = input.names() ;
 		return output ;
-	
 	'  )
 	
 	data <- list( x = letters, y = LETTERS, z = 1:4 )
