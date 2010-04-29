@@ -1,29 +1,38 @@
 
-Rcpp version 0.8.0 was released to CRAN today. This is a major redesign
-of the package, and underlying c++ library
+===== Summary =====
 
-===== outline =====
+Version 0.8.0 of the Rcpp package was released to CRAN today. This release
+marks another milestone in the ongoing redesign of the package, and
+underlying C++ library.
+
+
+===== Overview =====
 
 Rcpp is an R package and C++ library that facilitates integration of C++
 code in R packages. 
 
-The package features a set of C++ classes (Rcpp::IntegerVector, Rcpp::Function, 
-Rcpp::Environment, ...) that facilitate manipulation of R objects of matching
-types (integer vectors, functions, environments, etc ...). 
+The package features a set of C++ classes (Rcpp::IntegerVector,
+Rcpp::Function, Rcpp::Environment, ...) that makes it easier to manipulate R
+objects of matching types (integer vectors, functions, environments, etc
+...).
 
-Rcpp takes advantage of C++ explicit constructor/destructor lifecycle of 
-objects to manage garbage collection automatically and transparently. We 
-believe this is a major improvement over PROTECT/UNPROTECT. When an Rcpp object
-is created, it protects the underlying SEXP so that the garbage collector does 
-not attempt to reclaim the memory. This protection is withdrawn when the object 
-goes out of scope. 
+Rcpp takes advantage of C++ language features such as the explicit
+constructor/destructor lifecycle of objects to manage garbage collection
+automatically and transparently. We believe this is a major improvement over
+PROTECT/UNPROTECT. When an Rcpp object is created, it protects the underlying
+SEXP so that the garbage collector does not attempt to reclaim the
+memory. This protection is withdrawn when the object goes out of
+scope. Moreover, users generally do not need to manage memory directly (via
+calls to new / delete or malloc / free) as this is done by the Rcpp classes
+or the corresponding STL containers.
+
 
 ===== API =====
 
-Classes of the new Rcpp api belong to the Rcpp namespace. Each class is associated
-to a given SEXP type and exposes an interface that allows manipulation of the 
-object that feels more natural than the usual use of macros and functions 
-provided by the R API. 
+Classes of the new Rcpp API belong to the Rcpp namespace. Each class is
+associated to a given SEXP type and exposes an interface that allows
+manipulation of the object that may feel more natural than the usual use of
+macros and functions provided by the R API.
 
 ----------------------------------------------------------
 SEXP type         |    Rcpp class                 
@@ -54,101 +63,111 @@ WEAKREFSXP        |    Rcpp::WeakReference
 EXTPTRSXP         |    template <typename T> Rcpp::XPtr
 ----------------------------------------------------------
 
-Some SEXP types don't have dedicated Rcpp classes : NILSXP, DOTSXP, DOTSXP, 
+Some SEXP types do not have dedicated Rcpp classes : NILSXP, DOTSXP, 
 ANYSXP, BCODESXP and CHARSXP. 
 
+Still missing are a few convenience classes such as Rcpp::Date or
+Rcpp::Datetime which would map useful and frequently used R data types, but
+which do not have an underlying SEXP type.
 
-===== Data interchange =====
 
-Data interchange between R and C++ is managed by extensible 
-and powerful yet simple mechanisms. 
+===== Data Interchange =====
 
-Conversion of a C++ object is managed by the template function Rcpp::wrap. wrap
-currently manages :
-- primitive types : int, double, bool, float, Rbyte, ...
-- std::string, const char*
-- STL containers such as std::vector<T>, given that the type T is wrappable
-- STL maps such as std::map< std::string, T> given that the type T is wrappable
-- any class that can be implicitely converted to SEXP, through operator SEXP()
+Data interchange between R and C++ is managed by extensible and powerful yet
+simple mechanisms.
 
-Conversion of an R object to a C++ object is managed by the Rcpp::as<T> template
-which can handle: 
-- primitive types
-- std::string, const char* 
-- STL containers such as std::vector<T>
+Conversion of a C++ object is managed by the template function Rcpp::wrap. 
+This function currently manages :
+ - primitive types : int, double, bool, float, Rbyte, ...
+ - std::string, const char*
+ - STL containers such as std::vector<T> and STL maps such as 
+   std::map< std::string, T> provided that the template type T is wrappable 
+-  any class that can be implicitely converted to SEXP, through operator SEXP()
 
-Rcpp::wrap and Rcpp::as are often used implicitely. For example, when assigning 
-objects to an environment: 
+Conversion of an R object to a C++ object is managed by the Rcpp::as<T>
+template which can handle:
+ - primitive types
+ - std::string, const char* 
+ - STL containers such as std::vector<T>
 
-// grab the global environment
-Rcpp::Environment global = Rcpp::Environment::global_env() ;
-std::deque<bool> z( 3 ); z[0] = false; z[1] = true; z[3] = false ;
+Rcpp::wrap and Rcpp::as are often used implicitely. For example, when
+assigning objects to an environment:
 
-global["x"] = 2 ;                    // implicit call of wrap<int>
-global["y"] = "foo";                 // implicit call of wrap<char*>
-global["z"] = z ;                    // implicit call of wrap< std::deque<bool> >
+  // grab the global environment
+  Rcpp::Environment global = Rcpp::Environment::global_env() ;
+  std::deque<bool> z( 3 ); z[0] = false; z[1] = true; z[3] = false ;
 
-int x = global["x"] ;                // implicit call of as<int>
-std::string y = global["y"]          // implicit call of as<std::string>
-std::vector<bool> z1 = global["z"] ; // implicit call of as< std::vector<bool> >
+  global["x"] = 2 ;                    // implicit call of wrap<int>
+  global["y"] = "foo";                 // implicit call of wrap<char*>
+  global["z"] = z ;                    // impl. call of wrap<std::deque<bool>>
 
+  int x = global["x"] ;                // implicit call of as<int>
+  std::string y = global["y"]          // implicit call of as<std::string>
+  std::vector<bool> z1 = global["z"] ; // impl. call of as<std::vector<bool>>
 
 Rcpp contains several examples that illustrate wrap and as. The mechanism was 
 designed to be extensible. We have developped separate packages to illustrate
 how to extend Rcpp conversion mechanisms to third party types. 
-- RcppArmadillo : conversion of types from the armadillo c++ library. 
-- RcppGSL       : conversion of types from the GNU scientific library. 
+ - RcppArmadillo : conversion of types from the Armadillo c++ library. 
+ - RcppGSL       : conversion of types from the GNU Scientific Library. 
+
+Rcpp is also used for data interchange by the RInside package which provides
+and easy way of embedding an R instance inside of C++ programs.
 
 
 ===== inline use =====
 
-Rcpp depends on the inline package, and defines an R function cppfunction
-that acts as a facade function to the inline::cfuntion, with specialization
-for C++ use. 
+Rcpp depends on the inline package by Oleg Sklyar et al. Rcpp then uses the
+'cfunction' provided by inline (with argument Rcpp=TRUE) to compile, link and
+load C++ function from the R session.
 
-This allows quick prototyping of compiled code. Our entire unit tests are based 
+As of version 0.8.0 of Rcpp, we also define an R function cppfunction that
+acts as a facade function to the inline::cfuntion, with specialization for
+C++ use.
+
+This allows quick prototyping of compiled code. All our unit tests are based 
 on cppfunction and can serve as examples of how to use the mechanism. For example
 this function (from the runit.GenericVector.R unit test file) defines from
 R a c++ (simplified) version of lapply: 
 
-cpp_lapply <- cppfunction(signature(x = "list", g = "function" ), '
-		Function fun(g) ;
-		List input(x) ;
-		List output( input.size() ) ;
-		std::transform( input.begin(), input.end(), output.begin(), fun ) ;
-		output.names() = input.names() ;
-		return output ;
-	'  )
-cpp_lapply( iris, summary )	
+  ## create a compiled function cpp_lapply using cppfunction 
+  cpp_lapply <- cppfunction(signature(x = "list", g = "function" ), 
+  		'Function fun(g) ;
+		 List input(x) ;
+		 List output( input.size() ) ;
+		 std::transform( input.begin(), input.end(), output.begin(), fun ) ;
+		 output.names() = input.names() ;
+		 return output ;
+	    ')
+  ## call cpp_lapply on the iris data with the R function summary
+  cpp_lapply( iris, summary )	
 
 
-
-===== Using Rcpp in other package =====
+===== Using Rcpp in other packages =====
 
 Rcpp is designed so that its classes are used from other packages. Using Rcpp
 requires : 
-- using the header files provided by Rcpp. This is typically done by adding this
-  line in the package DESRIPTION file: 
+ - using the header files provided by Rcpp. This is typically done by adding this
+   line in the package DESRIPTION file: 
   
-LinkingTo: Rcpp
+	LinkingTo: Rcpp
 
   and add the following line in the package code: 
   
-#include <Rcpp.h>
+	#include <Rcpp.h>
 
 - linking against the Rcpp dynamic or static library, which is achieved by 
   adding this line to the src/Makevars of the package:
   
-PKG_LIBS = $(shell $(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()" )
+	PKG_LIBS = $(shell $(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()" )
 
   and this line to the src/Makevars.win file: 
   
-PKG_LIBS = $(shell Rscript.exe -e "Rcpp:::LdFlags()")
+	PKG_LIBS = $(shell Rscript.exe -e "Rcpp:::LdFlags()")
 
-
-Rcpp contains a function Rcpp.package.skeleton, modelled after package.skeleton
-from the utils package, that creates a skeleton of a package using Rcpp, 
-including example code. 
+Rcpp contains a function Rcpp.package.skeleton, modelled after
+package.skeleton from the utils package in base r, that creates a skeleton of
+a package using Rcpp, including example code.
 
 
 ===== C++ exceptions =====
@@ -165,7 +184,7 @@ SEXP foo( ){
 }
 
 Alternatively, functions can enclose the user code with the macros BEGIN_RCPP
-and END_RCPP, which is the recommended way. 
+and END_RCPP, which provides for a more compact way of programming. 
 
 SEXP foo( ){
 	BEGIN_RCPP
@@ -183,14 +202,24 @@ Source code for unit test functions are stored in the unitTests directory
 of the installed package and the results are collected in the "Rcpp-unitTests"
 vignette. 
 
+[Dirk--FIXME: Example of how to call from the installed package?]
+
 
 ===== Backwards compatibility =====
 
-We believe the new API is much better than the previous set of classes, 
-which we now call the "classic Rcpp api", therefore we recommend package
-authors that use Rcpp to move to the new API. However, the classic API 
-is still maintained and will continue to be maintained to ensure backwards
-compatibility for code that used it.
+We believe the new API is now more complete and useful than the previous set
+of classes, which we refer to as the "classic Rcpp API". We would therefore
+recommend to package authors using 'classic' Rcpp to move to the new API.
+However, the classic API is still maintained and will continue to be
+maintained to ensure backwards compatibility for code that uses it.
+
+
+===== Documentation =====
+
+The package contains a vignette which provides a short and succinct
+introduction to the Rcpp package along with several motivating examples.
+Also provided is a vignette containing the regression test summary from
+the time the package was built.
 
 
 ===== Links =====
@@ -200,8 +229,15 @@ R-forge project page: http://r-forge.r-project.org/projects/rcpp/
 Dirk's blog section about Rcpp: http://dirk.eddelbuettel.com/blog/code/rcpp/
 Romain's blog section about Rcpp: http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
 
+
 ===== Support =====
 
 Questions about Rcpp should be directed to the Rcpp-devel mailing list
 https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel
+
+
+
+ -- Dirk Eddelbuettel and Romain Francois
+    Chicago, IL, USA, and Montpellier, France
+	May 2010
 
