@@ -46,7 +46,7 @@ template<> SEXP r_true_cast<REALSXP>( SEXP x) throw(::Rcpp::not_compatible){
 	case RAWSXP:
 		return Rf_coerceVector( x, REALSXP );
 	default:
-		throw ::Rcpp::not_compatible( "not compatible with INTSXP" ) ;
+		throw ::Rcpp::not_compatible( "not compatible with REALSXP" ) ;
 	}
 	return R_NilValue ; /* -Wall */
 }
