@@ -1,7 +1,7 @@
 
 ## make sure system.file returns an absolute path
-system_file <- function(...){
-	tools:::file_path_as_absolute( base:::system.file( ... ) )
+Rcpp.system.file <- function(...){
+	tools:::file_path_as_absolute( base:::system.file( ..., package = "Rcpp" ) )
 }
 
 ## identifies if the default linking on the platform should be static
@@ -15,9 +15,9 @@ staticLinking <- function() {
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
     if (nzchar(.Platform$r_arch)) {	## eg amd64, ia64, mips
-        path <- system_file("lib",.Platform$r_arch,package="Rcpp")
+        path <- Rcpp.system.file("lib",.Platform$r_arch)
     } else {
-        path <- system_file("lib",package="Rcpp")
+        path <- Rcpp.system.file("lib")
     }
     path
 }
@@ -52,7 +52,7 @@ canUseCXX0X <- function() .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
 ## Provide compiler flags -- i.e. -I/path/to/Rcpp.h
 RcppCxxFlags <- function(cxx0x=FALSE) {
     # path <- RcppLdPath()
-    path <- system_file( "include", package = "Rcpp" )
+    path <- Rcpp.system.file( "include" )
     #if (.Platform$OS.type=="windows") {
     #    path <- shQuote(path)
     #}
@@ -75,7 +75,7 @@ RcppCapabilities <- capabilities <- function() .Call("capabilities", PACKAGE = "
 # compile, load and call the cxx0x.c script to identify whether
 # the compiler is GCC >= 4.3
 RcppCxx0xFlags <- function(){
-    script <- system.file( "discovery", "cxx0x.R", package = "Rcpp" )
+    script <- Rcpp.system.file( "discovery", "cxx0x.R" )
     flag <- capture.output( source( script ) )
     flag
 }
