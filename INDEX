@@ -1,3 +1,5 @@
+cppfunction             Functionality to dynamically define R functions
+                        with inlined c++ code that uses Rcpp classes
 Rcpp-package            R / C++ interface
 Rcpp.package.skeleton   Create a skeleton for a new package depending
                         on Rcpp
