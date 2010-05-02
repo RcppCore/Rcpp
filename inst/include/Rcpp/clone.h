@@ -34,7 +34,9 @@ template <typename T> T clone(T object) {
 	SEXP x = object ;
 	return T( Rf_duplicate( x ) ) ; 
 }
-template<> SEXP clone(SEXP object) ;
+template<> inline SEXP clone(SEXP object){
+	return ::Rf_duplicate( object ) ;
+}
 
 } // namespace Rcpp
 
