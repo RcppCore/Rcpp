@@ -1,6 +1,8 @@
 2010-05-02	Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/as.h: add throw(not_compatible) in Rcpp::as	
+	* inst/include/Rcpp/as.h: add throw(not_compatible) in Rcpp::as
+
+	* inst/include/Rcpp/clone.h: the clone(SEXP) moves to the headers	
 
 2010-04-28	Romain Francois <romain@r-enthusiasts.com>
 

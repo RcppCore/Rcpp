@@ -94,6 +94,7 @@ const char * sexp_to_name(int sexp_type) {
     switch (sexp_type) {
     case NILSXP:	return "NILSXP";
     case SYMSXP:	return "SYMSXP";
+    case RAWSXP:	return "RAWSXP";
     case LISTSXP:	return "LISTSXP";
     case CLOSXP:	return "CLOSXP";
     case ENVSXP:	return "ENVSXP";
