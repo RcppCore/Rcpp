@@ -189,6 +189,10 @@ SEXP stack_trace( const char *file, int line) ;
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 #define Rcpp_error(MESSAGE) throw new Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
 
+#if RCPP_DEBUG_LEVEL > 0
+  #include <typeinfo>
+#endif
+
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
 #include <Rcpp/traits/integral_constant.h>
 #include <Rcpp/traits/same_type.h>
