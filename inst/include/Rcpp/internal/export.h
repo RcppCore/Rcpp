@@ -29,7 +29,7 @@ namespace internal{
 	/* iterating */
 	
 	template <typename InputIterator, typename value_type>
-	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ){
+	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ) throw(::Rcpp::not_compatible){
 		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
@@ -39,7 +39,7 @@ namespace internal{
 	}
 	
 	template <typename InputIterator, typename value_type>
-	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::true_type ){
+	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::true_type ) throw(::Rcpp::not_compatible){
 		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
@@ -49,7 +49,7 @@ namespace internal{
 	}
 	
 	template <typename InputIterator, typename value_type>
-	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_primitive_tag ){
+	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_primitive_tag ) throw(::Rcpp::not_compatible){
 		export_range__impl<InputIterator,value_type>(
 			x, 
 			first,
@@ -57,8 +57,8 @@ namespace internal{
 	}
 	
 	template <typename InputIterator, typename value_type>
-	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ){
-		if( ! ::Rf_isString( x) ) throw std::range_error( "expecting a string vector" ) ;
+	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ) throw(::Rcpp::not_compatible){
+		if( ! ::Rf_isString( x) ) throw ::Rcpp::not_compatible( "expecting a string vector" ) ;
 		std::string buf ;
 		R_len_t n = ::Rf_length(x) ;
 		for( R_len_t i=0; i<n; i++, ++first ){
@@ -67,7 +67,7 @@ namespace internal{
 	}
 	
 	template <typename InputIterator>
-	void export_range( SEXP x, InputIterator first ){
+	void export_range( SEXP x, InputIterator first ) throw(::Rcpp::not_compatible){
 		export_range__dispatch<InputIterator,typename std::iterator_traits<InputIterator>::value_type>( 
 			x, 
 			first, 
@@ -79,7 +79,7 @@ namespace internal{
 	/* indexing */
 	
 	template <typename T, typename value_type>
-	void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::false_type ){
+	void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::false_type ) throw(::Rcpp::not_compatible){
 		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
@@ -92,7 +92,7 @@ namespace internal{
 	}
 	
 	template <typename T, typename value_type>
-	void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::true_type ){
+	void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::true_type ) throw(::Rcpp::not_compatible){
 		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
@@ -105,7 +105,7 @@ namespace internal{
 	}
 
 	template <typename T, typename value_type>
-	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_primitive_tag ){
+	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_primitive_tag ) throw(::Rcpp::not_compatible){
 		export_indexing__impl<T,value_type>(
 			x, 
 			res,
@@ -113,8 +113,8 @@ namespace internal{
 	}
 	
 	template <typename T, typename value_type>
-	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_string_tag ){
-		if( ! ::Rf_isString( x) ) throw std::range_error( "expecting a string vector" ) ;
+	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_string_tag ) throw(::Rcpp::not_compatible){
+		if( ! ::Rf_isString( x) ) throw Rcpp::not_compatible( "expecting a string vector" ) ;
 		std::string buf ;
 		R_len_t n = ::Rf_length(x) ;
 		for( R_len_t i=0; i<n; i++ ){
@@ -123,7 +123,7 @@ namespace internal{
 	}
 	
 	template <typename T, typename value_type>
-	void export_indexing( SEXP x, T& res ){
+	void export_indexing( SEXP x, T& res ) throw(::Rcpp::not_compatible) {
 		export_indexing__dispatch<T,value_type>( 
 			x, 
 			res, 
