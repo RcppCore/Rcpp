@@ -82,7 +82,7 @@ if(require("RUnit", quietly = TRUE)) {
             stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
         } else{
         	success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
-        	cat( sprintf( "%d / %d", success, err$nTestFunc ) )
+        	cat( sprintf( "%d / %d\n", success, err$nTestFunc ) )
         }
     }
 } else {

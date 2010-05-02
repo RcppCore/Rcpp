@@ -769,7 +769,7 @@ public:
 		cache.update(*this) ;
 	}
 		
-	Vector create(){
+	static Vector create(){
 		return Vector( 0 ) ;
 	}
 	
