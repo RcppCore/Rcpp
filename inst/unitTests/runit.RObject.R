@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2009 - 2010	Romain Francois
+# Copyright (C) 2009 - 2010  Romain Francois and Dirk Eddelbuettel
 #
 # This file is part of Rcpp.
 #
@@ -29,8 +29,9 @@ test.RObject.asDouble <- function(){
 	'
 	funx <- cppfunction(signature(x="numeric"), foo )
 	checkEquals( funx(2.123), 4.246, msg = "as<double>( REALSXP ) " )
-	checkEquals( funx(2L), 4.0, msg = "as<double>( INTSXP) " )
-	checkException( funx(x='2'), msg = "as<double>( STRSXP) -> exception" )
+	checkEquals( funx(2L), 4.0, msg = "as<double>( INTSXP ) " )
+	checkEquals( funx(as.raw(2L)), 4.0, msg = "as<double>( RAWSXP )" )
+	checkException( funx(x='2'), msg = "as<double>( STRSXP ) -> exception" )
 	checkException( funx(x=2:3), msg = "as<double> expects the vector to be of length 1" )
 }
 
@@ -45,7 +46,7 @@ test.RObject.asInt <- function(){
 	checkEquals( funx(as.raw(2L)), 4.0, msg = "as<int>( RAWSXP )" )
 	checkException( funx(x='2'), msg = "as<int> can not convert character" )
 	checkException( funx(x=2:3), msg = "as<int> expects the vector to be of length 1" )
-	
+
 }
 
 test.RObject.asStdString <- function(){
@@ -58,9 +59,9 @@ test.RObject.asStdString <- function(){
 	checkException( funx(0L), msg = "as<std::string> expects character vector" )
 	checkException( funx(0.1), msg = "as<std::string> expects character vector" )
 	checkException( funx(as.raw(0L)), msg = "as<std::string> expects character vector" )
-	
+
 	checkException( funx(letters), msg = "as<std::string> expects single string" )
-	
+
 }
 
 test.RObject.asRaw <- function(){
@@ -94,13 +95,13 @@ test.RObject.asLogical <- function(){
 	checkTrue( funx(0.0), msg = "as<bool>0.0) -> false" )
 	checkTrue( !funx(as.raw(1)), msg = "as<bool>(aw.raw(1)) -> true" )
 	checkTrue( funx(as.raw(0)), msg = "as<bool>(as.raw(0)) -> false" )
-	
+
 	checkException( funx(NULL), msg = "as<bool>(NULL) -> exception" )
 	checkException( funx(c(TRUE,FALSE)), msg = "as<bool>(>1 logical) -> exception" )
 	checkException( funx(1:2), msg = "as<bool>(>1 integer) -> exception" )
 	checkException( funx(1:2+.1), msg = "as<bool>(>1 numeric) -> exception" )
 	checkException( funx(as.raw(1:2)), msg = "as<bool>(>1 raw) -> exception" )
-	
+
 	checkException( funx(integer(0)), msg = "as<bool>(0 integer) -> exception" )
 	checkException( funx(numeric(0)), msg = "as<bool>(0 numeric) -> exception" )
 	checkException( funx(raw(0)), msg = "as<bool>(0 raw) -> exception" )
@@ -120,7 +121,7 @@ test.RObject.asStdVectorIntResultsSet <- function(){
     checkEquals( funx(x=2:5+.1), 2:5*2L, msg = "as<std::vector<int> >(numeric) via RcppResultSet" )
     checkEquals( funx(x=as.raw(2:5)), 2:5*2L, msg = "as<std::vector<int> >(raw) via RcppResultSet" )
     checkException( funx("foo"), msg = "as<std::vector<int> >(character) -> exception" )
-    
+
 }
 
 test.RObject.asStdVectorInt <- function(){
@@ -136,7 +137,7 @@ test.RObject.asStdVectorInt <- function(){
     checkEquals( funx(x=as.raw(2:5)), 2:5*2L, msg = "as< std::vector<int> >(raw)" )
     checkException( funx("foo"), msg = "as< std::vector<int> >(character) -> exception" )
     checkException( funx(NULL), msg = "as< std::vector<int> >(NULL) -> exception" )
-    
+
 }
 
 test.RObject.asStdVectorDouble <- function(){
@@ -152,7 +153,7 @@ test.RObject.asStdVectorDouble <- function(){
 	checkEquals( funx(x=as.raw(2:5)), 2*(2:5), msg = "as< std::vector<double> >(raw)" )
 	checkException( funx("foo"), msg = "as< std::vector<double> >(character) -> exception" )
     checkException( funx(NULL), msg = "as< std::vector<double> >(NULL) -> exception" )
-    
+
 }
 
 test.RObject.asStdVectorRaw <- function(){
@@ -168,7 +169,7 @@ test.RObject.asStdVectorRaw <- function(){
 	checkEquals( funx(x=as.numeric(0:9)), as.raw(2*(0:9)), msg = "as< std::vector<Rbyte> >(numeric)" )
 	checkException( funx("foo"), msg = "as< std::vector<Rbyte> >(character) -> exception" )
     checkException( funx(NULL), msg = "as< std::vector<Rbyte> >(NULL) -> exception" )
-    
+
 }
 
 test.RObject.asStdVectorBool <- function(){
@@ -224,7 +225,7 @@ test.RObject.stdsetdouble <- function(){
 	funx <- cppfunction(signature(), foo, includes = "#include <set>")
 	checkEquals( funx(), as.numeric(0:1), msg = "wrap( set<double>" )
 }
-	
+
 test.RObject.stdsetraw <- function(){
 	foo <- '
 		std::set<Rbyte> bs ;
