@@ -7,7 +7,7 @@ rm -f confdefs.h config.log config.status \
 	inst/doc/*.out \
 	inst/doc/.build.timestamp \
 	inst/doc/*.Rd inst/doc/*.aux inst/doc/*.log inst/doc/*.tex \
-	inst/doc/latex/*.aux inst/doc/latex/*.log 
+	inst/doc/latex/*.aux inst/doc/latex/*.log \
 	inst/examples/ConvolveBenchmarks/*.o  \
         inst/examples/ConvolveBenchmarks/*.so \
 	inst/examples/functionCallback/*.so \
