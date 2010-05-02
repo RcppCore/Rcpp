@@ -26,8 +26,8 @@ namespace Rcpp{
 
 namespace internal{
 	
-	template <typename T> T as( SEXP x, ::Rcpp::traits::r_type_primitive_tag ){
-		if( ::Rf_length(x) != 1 ) throw std::range_error( "expecting a single value" ) ;
+	template <typename T> T as( SEXP x, ::Rcpp::traits::r_type_primitive_tag ) throw(::Rcpp::not_compatible) {
+		if( ::Rf_length(x) != 1 ) throw ::Rcpp::not_compatible( "expecting a single value" ) ;
 		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
 		SEXP y = PROTECT( r_cast<RTYPE>(x) );
 		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
@@ -36,17 +36,17 @@ namespace internal{
 		return res ; 
 	}
 	
-	template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_tag ){
+	template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_tag ) throw(::Rcpp::not_compatible) {
 		if( ! ::Rf_isString(x) ){
-			throw std::range_error( "expecting a string" ) ;
+			throw ::Rcpp::not_compatible( "expecting a string" ) ;
 		}
 		if (Rf_length(x) != 1) {
-    			throw std::range_error( "expecting a single value");
+    			throw ::Rcpp::not_compatible( "expecting a single value");
     		}
     		return T( CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ) ;
 	}
 	
-	template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_generic_tag ){
+	template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_generic_tag ) throw(::Rcpp::not_compatible) {
 		RCPP_DEBUG( "as(SEXP = <%p>, r_type_generic_tag )", x ) ;
 		::Rcpp::traits::Exporter<T> exporter(x);
 		RCPP_DEBUG( "exporter type = %s", DEMANGLE(exporter) ) ;
@@ -71,7 +71,7 @@ namespace internal{
  * Environment x = ... ; // some environment
  * Foo y = x["bla"] ;    // if as<Foo> makes sense then this works !!
  */
-template <typename T> T as( SEXP m_sexp) {
+template <typename T> T as( SEXP m_sexp) throw(not_compatible) {
 	return internal::as<T>( m_sexp, typename traits::r_type_traits<T>::r_category() ) ;
 }
 

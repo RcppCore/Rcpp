@@ -247,12 +247,12 @@ test.IntegerVector.fill <- function(){
 }
 
 test.IntegerVector.zero <- function( ){
-	funx <- cppfunction(signature(x = "integer"), 'return IntegerVector(0);' )
+	funx <- cppfunction(signature(), 'return IntegerVector(0);' )
 	checkEquals( funx(), integer(0), msg = "IntegerVector(0)" )
 }
 
 test.IntegerVector.create.zero <- function( ){
-	funx <- cppfunction(signature(x = "integer"), 'return IntegerVector::create();' )
+	funx <- cppfunction(signature(), 'return IntegerVector::create();' )
 	checkEquals( funx(), integer(0), msg = "IntegerVector::create()" )
 }
 
