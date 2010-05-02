@@ -172,8 +172,13 @@ a package using Rcpp, including example code.
 
 ===== C++ exceptions =====
 
-Rcpp forwards exceptions as R conditions using the C++ function
-"forward_exception_to_r". For example : 
+C++ exceptions are R contexts are both based on non local jumps (at least 
+on the implementation of exceptions in gcc), so care must be ensure
+that one system does not void assumptions of the other. It is therefore 
+very strongly recommended that each function using c++ catches 
+c++ exceptions. Rcpp offers the function forward_exception_to_r
+to facilitate forwarding the exception to the "R side" as an R condition. 
+For example : 
 
 SEXP foo( ){
 	try{
@@ -181,6 +186,7 @@ SEXP foo( ){
 	} catch( std::exception& __ex__){
 		forward_exception_to_r( __ex__ ) ;
 	}
+	// return something
 }
 
 Alternatively, functions can enclose the user code with the macros BEGIN_RCPP
@@ -190,7 +196,12 @@ SEXP foo( ){
 	BEGIN_RCPP
 	// user code
 	END_RCPP
+	// return something
 }
+
+The use of BEGIN_RCPP and END_RCPP is recommended to anticipate future changes
+of Rcpp. We might for example decide to install dedicated handlers for specific 
+exceptions later.
 
 
 ===== Quality Assurance =====
