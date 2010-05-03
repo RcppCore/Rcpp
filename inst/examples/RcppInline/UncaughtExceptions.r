@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2009 Romain Francois
+# Copyright (C) 2009 - 2010  Romain Francois and Dirk Eddelbuettel
 #
 # This file is part of Rcpp.
 #
@@ -19,14 +19,11 @@
 
 require(Rcpp)
 require(inline)
-funx <- cfunction(signature(), '
-throw std::range_error("boom") ;
-return R_NilValue ;
-', Rcpp=TRUE, verbose=FALSE)
+funx <- cppfunction(signature(), 'throw std::range_error("boom"); return R_NilValue ; ')
 tryCatch(  funx(), "C++Error" = function(e){
 	cat( sprintf( "C++ exception of class '%s' : %s\n", class(e)[1L], e$message  ) )
 } )
-# or using a direct handler 
+# or using a direct handler
 tryCatch(  funx(), "std::range_error" = function(e){
         cat( sprintf( "C++ exception of class '%s' : %s\n", class(e)[1L], e$message  ) )
 } )
