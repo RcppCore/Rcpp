@@ -1,7 +1,7 @@
 
 ## make sure system.file returns an absolute path
 Rcpp.system.file <- function(...){
-	tools:::file_path_as_absolute( base:::system.file( ..., package = "Rcpp" ) )
+    tools:::file_path_as_absolute( base:::system.file( ..., package = "Rcpp" ) )
 }
 
 ## identifies if the default linking on the platform should be static
