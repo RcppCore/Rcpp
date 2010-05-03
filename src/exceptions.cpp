@@ -32,6 +32,8 @@ namespace Rcpp{
 #define RCPP_EXCEPTION_WHAT(__CLASS__) \
 const char* __CLASS__::what() const throw(){ return message.c_str(); }
 
+RCPP_EXCEPTION_WHAT(exception)
+
 RCPP_EXCEPTION_WHAT(not_compatible)
 RCPP_EXCEPTION_WHAT(S4_creation_error)
 RCPP_EXCEPTION_WHAT(no_such_binding)
@@ -42,7 +44,19 @@ RCPP_EXCEPTION_WHAT(eval_error)
 
 #undef RCPP_EXCEPTION_WHAT
 
+#define RCPP_SIMPLE_EXCEPTION_WHAT(__CLASS__,__MESSAGE__)  \
+const char* __CLASS__::what() const throw(){ return __MESSAGE__ ; }
 
+RCPP_SIMPLE_EXCEPTION_WHAT(not_a_matrix, "not a matrix" )
+RCPP_SIMPLE_EXCEPTION_WHAT(index_out_of_bounds, "index out of bounds" )
+RCPP_SIMPLE_EXCEPTION_WHAT(parse_error, "parse error") 
+RCPP_SIMPLE_EXCEPTION_WHAT(not_s4, "not an S4 object" )
+RCPP_SIMPLE_EXCEPTION_WHAT(no_such_slot, "no such slot" )
+RCPP_SIMPLE_EXCEPTION_WHAT(not_a_closure, "not a closure" )
+RCPP_SIMPLE_EXCEPTION_WHAT(no_such_function, "no such function" )
+RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
+
+#undef RCPP_SIMPLE_EXCEPTION_WHAT
 }
 
 /* for now, the fancy exception handling is only available in GCC, 
