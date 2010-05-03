@@ -29,6 +29,10 @@ or the corresponding STL containers.
 
 ===== API =====
 
+Rcpp provides two APIs: an older set of classes we refer to the classic API
+(see below for the section 'Backwards Compatibility) as well as second and
+newer set of classes. 
+
 Classes of the new Rcpp API belong to the Rcpp namespace. Each class is
 associated to a given SEXP type and exposes an interface that allows
 manipulation of the object that may feel more natural than the usual use of
@@ -41,7 +45,7 @@ INTSXP            |    Rcpp::IntegerVector
 REALSXP           |    Rcpp::NumericVector
 RAWSXP            |    Rcpp::RawVector
 LGLSXP            |    Rcpp::LogicalVector
-CPLXSXP           |    Rcpp::ComplexVector
+CPLXSXP           |    Rcpp::ComplexVector 
 STRSXP            |    Rcpp::CharacterVector
 VECSXP            |    Rcpp::List
 EXPRSXP           |    Rcpp::ExpressionVector
@@ -108,7 +112,7 @@ assigning objects to an environment:
 Rcpp contains several examples that illustrate wrap and as. The mechanism was 
 designed to be extensible. We have developped separate packages to illustrate
 how to extend Rcpp conversion mechanisms to third party types. 
- - RcppArmadillo : conversion of types from the Armadillo c++ library. 
+ - RcppArmadillo : conversion of types from the Armadillo C++ library. 
  - RcppGSL       : conversion of types from the GNU Scientific Library. 
 
 Rcpp is also used for data interchange by the RInside package which provides
@@ -128,7 +132,7 @@ C++ use.
 This allows quick prototyping of compiled code. All our unit tests are based 
 on cppfunction and can serve as examples of how to use the mechanism. For example
 this function (from the runit.GenericVector.R unit test file) defines from
-R a c++ (simplified) version of lapply: 
+R a C++ (simplified) version of lapply: 
 
   ## create a compiled function cpp_lapply using cppfunction 
   cpp_lapply <- cppfunction(signature(x = "list", g = "function" ), 
@@ -175,8 +179,8 @@ a package using Rcpp, including example code.
 C++ exceptions are R contexts are both based on non local jumps (at least 
 on the implementation of exceptions in gcc), so care must be ensure
 that one system does not void assumptions of the other. It is therefore 
-very strongly recommended that each function using c++ catches 
-c++ exceptions. Rcpp offers the function forward_exception_to_r
+very strongly recommended that each function using C++ catches 
+C++ exceptions. Rcpp offers the function forward_exception_to_r
 to facilitate forwarding the exception to the "R side" as an R condition. 
 For example : 
 
@@ -206,23 +210,35 @@ exceptions later.
 
 ===== Quality Assurance =====
 
-Rcpp uses the packages RUnit and inline to manage unit tests of Rcpp. Rcpp
-currently has over 200 unit test functions with very good coverage. 
+Rcpp uses the RUnit package by Matthias Burger et al and the aforementioned
+inline package by Oleg Sklyar et al to provide unit testing. Rcpp currently
+has over 220 unit test functions with very good coverage of the critical
+parts of the package and library.
 
 Source code for unit test functions are stored in the unitTests directory 
 of the installed package and the results are collected in the "Rcpp-unitTests"
 vignette. 
 
-[Dirk--FIXME: Example of how to call from the installed package?]
+The unit tests can be both during the standard R package build and testing
+process, and also when the package is installed.  The latter use is helpful
+to ensure that no system components have changed in a way that affect the
+Rcpp package since it has been installed.  To run the tests, execute
+
+   Rcpp:::test()
+
+where an output directory can be provided as an optional first argument.
 
 
-===== Backwards compatibility =====
+===== Backwards Compatibility =====
 
 We believe the new API is now more complete and useful than the previous set
 of classes, which we refer to as the "classic Rcpp API". We would therefore
 recommend to package authors using 'classic' Rcpp to move to the new API.
 However, the classic API is still maintained and will continue to be
 maintained to ensure backwards compatibility for code that uses it.
+
+Packages uses the 'Classic API' can use features of the new API selectively
+and in incremental steps. This provides for a non-disruptive upgrade path.
 
 
 ===== Documentation =====
