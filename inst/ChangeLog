@@ -1,3 +1,10 @@
+2010-05-03	Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/exceptions.h : move the what methods of exception 
+	classes so that the symbol is defined for sure in the shared library. This
+	seems to make a difference dur to vague linkage issues. decrypted from
+	http://gcc.gnu.org/wiki/Visibility
+
 2010-05-02	Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/as.h: add throw(not_compatible) in Rcpp::as
