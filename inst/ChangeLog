@@ -1,39 +1,43 @@
-2010-05-03	Romain Francois <romain@r-enthusiasts.com>
+2010-05-03  Dirk Eddelbuettel  <edd@dexter>
 
-	* inst/include/Rcpp/exceptions.h : move the what methods of exception 
-	classes so that the symbol is defined for sure in the shared library. This
-	seems to make a difference dur to vague linkage issues. decrypted from
-	http://gcc.gnu.org/wiki/Visibility
+	* inst/unitTests/runit.DataFrame.R: unit tests for Rcpp::DataFrame
 
-2010-05-02	Romain Francois <romain@r-enthusiasts.com>
+2010-05-03  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/exceptions.h : move the what methods of exception
+	classes so that the symbol is defined for sure in the shared
+	library. This seems to make a difference due to vague linkage
+	issues. Decrypted from http://gcc.gnu.org/wiki/Visibility
+
+2010-05-02  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/as.h: add throw(not_compatible) in Rcpp::as
 
-	* inst/include/Rcpp/clone.h: the clone(SEXP) moves to the headers	
+	* inst/include/Rcpp/clone.h: the clone(SEXP) moves to the headers
 
-2010-04-28	Romain Francois <romain@r-enthusiasts.com>
+2010-04-28  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Vector.h: changed Vector( size_t ) to Vector( int )
 	to allow Vector( 0 ) and Vector::create()
 
-2010-04-27	Romain Francois <romain@r-enthusiasts.com>
+2010-04-27  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/preprocessor.h: new macro RCPP_ENUM_TRAITS to 
-	generate traits needed to support wrap for an enum type (used in 
+	* inst/include/Rcpp/preprocessor.h: new macro RCPP_ENUM_TRAITS to
+	generate traits needed to support wrap for an enum type (used in
 	RProtoBuf)
-	
-	* R/Rcpp.package.skeleton.R: correctly handle the example_code argument
 
-2010-04-26	Romain Francois <romain@r-enthusiasts.com>
+	* R/Rcpp.package.skeleton.R: correctly handle the example_code
+	argument
+
+2010-04-26  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/DataFrame_*.h: new class Rcpp::DataFrame
-	
+
 	* inst/include/Rcpp/preprocessor.h: added RCPP_XP_FIELD macro
-	
+
 	* inst/include/Rcpp/preprocessor_generated.h: added the set of macros
-	RCPP_WRAPPER_0, ..., RCPP_WRAPPER_65 to help wrapping existing 
+	RCPP_WRAPPER_0, ..., RCPP_WRAPPER_65 to help wrapping existing
 	C functions into .Call callables functions
-	
 
 2010-04-16  Dirk Eddelbuettel  <edd@debian.org>
 
