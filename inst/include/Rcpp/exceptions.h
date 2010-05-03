@@ -62,14 +62,14 @@ public:                                                                        \
 	virtual const char* what() const throw() ;                                 \
 } ;
 
-RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix)
-RCPP_SIMPLE_EXCEPTION_CLASS(index_out_of_bounds)
-RCPP_SIMPLE_EXCEPTION_CLASS(parse_error) 
-RCPP_SIMPLE_EXCEPTION_CLASS(not_s4)
-RCPP_SIMPLE_EXCEPTION_CLASS(no_such_slot)
-RCPP_SIMPLE_EXCEPTION_CLASS(not_a_closure)
-RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function)
-RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise)
+RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "not a matrix")
+RCPP_SIMPLE_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds")
+RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "parse error") 
+RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object")
+RCPP_SIMPLE_EXCEPTION_CLASS(no_such_slot, "no such slot")
+RCPP_SIMPLE_EXCEPTION_CLASS(not_a_closure, "not a closure")
+RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "no such function")
+RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "promise not yet evaluated")
 
 
 RCPP_EXCEPTION_CLASS(not_compatible, message )
