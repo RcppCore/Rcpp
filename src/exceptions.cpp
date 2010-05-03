@@ -28,6 +28,21 @@ namespace Rcpp{
 		UNPROTECT(1) ;
 	}
 	exception::~exception() throw(){}
+
+#define RCPP_EXCEPTION_WHAT(__CLASS__) \
+const char* __CLASS__::what() const throw(){ return message.c_str(); }
+
+RCPP_EXCEPTION_WHAT(not_compatible)
+RCPP_EXCEPTION_WHAT(S4_creation_error)
+RCPP_EXCEPTION_WHAT(no_such_binding)
+RCPP_EXCEPTION_WHAT(binding_not_found)
+RCPP_EXCEPTION_WHAT(binding_is_locked)
+RCPP_EXCEPTION_WHAT(no_such_namespace)
+RCPP_EXCEPTION_WHAT(eval_error)
+
+#undef RCPP_EXCEPTION_WHAT
+
+
 }
 
 /* for now, the fancy exception handling is only available in GCC, 

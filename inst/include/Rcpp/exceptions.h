@@ -49,7 +49,7 @@ class __CLASS__ : public std::exception{                                       \
 public:                                                                        \
 	__CLASS__( const std::string& message ) throw() : message( __WHAT__ ){} ;  \
 	virtual ~__CLASS__() throw(){} ;                                           \
-	virtual const char* what() const throw(){ return message.c_str() ; } ;     \
+	virtual const char* what() const throw() ;                                 \
 private:                                                                       \
 	std::string message ;                                                      \
 } ;
