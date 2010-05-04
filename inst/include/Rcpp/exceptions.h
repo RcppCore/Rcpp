@@ -25,22 +25,29 @@
 namespace Rcpp{
 
 class exception : public std::exception {
-	public:
-		exception(const char* message_, const char* file, int line ) ;
-		virtual ~exception() throw() ;
-		virtual const char* what() const throw() ;
-	private:
-		std::string message ;
+public:
+    exception(const char* message_, const char* file, int line ) ;
+    virtual ~exception() throw() ;
+    virtual const char* what() const throw() ;
+private:
+    std::string message ;
 } ;
+
+// simple helper
+static std::string toString(const int i) { 
+    std::ostringstream ostr;
+    ostr << i;
+    return ostr.str();
+}
 
 class no_such_env : public std::exception{                                     
 public:                                                                        
-	no_such_env( const std::string& name ) throw() : message( std::string("no such environment: '") + name + "'" ){} ;
-	no_such_env( int pos ) throw() : message( "no environment in given position ") {} ;
-	virtual ~no_such_env() throw(){} ;                                         
-	virtual const char* what() const throw(){ return message.c_str() ; } ;     
+    no_such_env( const std::string& name ) throw() : message( std::string("no such environment: '") + name + "'" ){} ;
+    no_such_env( int pos ) throw() : message( "no environment in given position '" + toString(pos) + "'") {} ;
+    virtual ~no_such_env() throw(){} ;                                         
+    virtual const char* what() const throw(){ return message.c_str() ; } ;     
 private:                                                                       
-	std::string message ;                                                      
+    std::string message ;                                                      
 } ;
 
 
