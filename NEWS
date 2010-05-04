@@ -1,34 +1,35 @@
-0.8.0
+0.8.0   (under development)
 
     o   All Rcpp headers have been moved to the inst/include directory,
-	allowing use of LinkingTo: Rcpp. But the Makevars and Makevars.win
-	are still need to link against the user library.
+	allowing use of 'LinkingTo: Rcpp'. But the Makevars and Makevars.win
+	are still needed to link against the user library.
 
-	o	Automatic exception forwarding has been withdrawn because of portability
-	issues (it did not work on windows). Exception forwarding is still possible
-	but is now based on explicit code of the form: 
+    o   Automatic exception forwarding has been withdrawn because of
+	portability issues (as it did not work on the Windows platform).
+	Exception forwarding is still possible but is now based on explicit
+	code of the form:
 	
-	try{
-	  // user code
-	} catch( std::exception& __ex__){ 
-		forward_exception_to_r( __ex___ ) ;
-	}
+	  try {
+	    // user code
+	  } catch( std::exception& __ex__){ 
+	    forward_exception_to_r( __ex___ ) ;
+	  }
 	
 	Alternatively, the macro BEGIN_RCPP and END_RCPP can use used to enclose
 	code so that it captures exceptions and forward them to R. 
 	
-	BEGIN_RCPP
-	// user code
-	END_RCPP
+	  BEGIN_RCPP
+	  // user code
+	  END_RCPP
 	
-	o   new __experimental__ macros 
+    o   new __experimental__ macros 
 	
-	The macros RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65 to help creating c++
+	The macros RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65 to help creating C++
 	functions hiding some code repetition: 
 	
-	RCPP_FUNCTION_2( int, foobar, int x, int y){
-		return x + y ;
-	}
+	  RCPP_FUNCTION_2( int, foobar, int x, int y){
+	    return x + y ;
+	  }
 
 	The first argument is the output type, the second argument is the 
 	name of the function, and the other arguments are arguments of the C++ 
@@ -36,68 +37,64 @@
 	an intermediate function compatible with the .Call interface and handles 
 	exceptions
 	
+	Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65 
+	can be used when the C++ function to create returns void. The generated
+	R function will return R_NilValue in this case.
 	
-	Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65
-	can be used when the C++ function to create returns void. The generated R
-	function will return R_NilValue in this case. 
-	
-	RCPP_FUNCTION_VOID_2( foobar, std::string foo ){
-		// do something with foo
-	}
+	  RCPP_FUNCTION_VOID_2( foobar, std::string foo ){
+	    // do something with foo
+	  }
 
-	
 	The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate 
 	calling a method of an object that is stored in an external pointer. For 
 	example: 
 	
-	RCPP_XP_METHOD_0( foobar, std::vector<int> , size )
+	  RCPP_XP_METHOD_0( foobar, std::vector<int> , size )
 	
-	creates the .Call compatible function called foobar that calls the size
-	method of the std::vector<int> class. This uses the Rcpp::XPtr< std::vector<int> >
-	class.
+	creates the .Call compatible function called foobar that calls the
+	size method of the std::vector<int> class. This uses the Rcpp::XPtr<
+	std::vector<int> > class.
 	
+	The macros RCPP_XP_METHOD_CAST_0, ... is similar but the result of
+	the method called is first passed to another function before being
+	wrapped to a SEXP.  For example, if one wanted the result as a double
 	
-	The macros RCPP_XP_METHOD_CAST_0, ... is similar but the result of the method 
-	called is first passed to another function before being wrapped to a SEXP.
-	For example, if one wanted the result as a double
+	   RCPP_XP_METHOD_CAST_0( foobar, std::vector<int> , size, double )
 	
-	RCPP_XP_METHOD_CAST_0( foobar, std::vector<int> , size, double )
+	The macros RCPP_XP_METHOD_VOID_0, ... are used when calling the
+	method is only used for its side effect.
 	
+	  RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back ) 
 	
-	The macros RCPP_XP_METHOD_VOID_0, ... are used when calling the method 
-	is only used for its side effect. 
+	Assuming xp is an external pointer to a std::vector<int>, this could
+	be called like this :
 	
-	RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back ) 
+	  .Call( "foobar", xp, 2L )
 	
-	Assuming xp is an external pointer to a std::vector<int>, this could be 
-	called like this :
+    o	Rcpp now depends on inline (>= 0.3.4)
 	
-	.Call( "foobar", xp, 2L )
-	
-	o	Rcpp now depends on inline (>= 0.3.4)
-	
-	o	new R function "cppfunction" that invokes cfunction from inline with 
-	focus on Rcpp usage (enforcing .Call, adding the Rcpp namespace, set up 
-	exception forwarding). cppfunction uses BEGIN_RCPP and END_RCPP macros 
-	to enclose the user code
+    o   A new R function "cppfunction" was added which invokes cfunction from
+	inline with focus on Rcpp usage (enforcing .Call, adding the Rcpp
+	namespace, set up exception forwarding). cppfunction uses BEGIN_RCPP
+	and END_RCPP macros to enclose the user code
 
     o	new class Rcpp::Formula to help building formulae in C++
     
     o   new class Rcpp::DataFrame to help building data frames in C++
 	
-    o	Rcpp.package.skeleton gains an argument "example_code" and can now be 
-	used with an empty list, so that only the skeleton is generated. It has also
-	been reworked to show how to use LinkingTo: Rcpp
+    o   Rcpp.package.skeleton gains an argument "example_code" and can now be
+	used with an empty list, so that only the skeleton is generated. It
+	has also been reworked to show how to use LinkingTo: Rcpp
 	
     o   wrap now supports containers of the following types: long, long double,
 	unsigned long, short and unsigned short which are silently converted
 	to the most acceptable R type.
 	
     o	Revert to not double-quote protecting the path on Windows as this
-        breaks backticks expansion used n Makevars.win etc
+	breaks backticks expansion used n Makevars.win etc
         
-    o	Exceptions classes have been moved out of Rcpp classes, e.g. Rcpp::RObject::not_a_matrix
-    is now Rcpp::not_a_matrix
+    o   Exceptions classes have been moved out of Rcpp classes,
+	e.g. Rcpp::RObject::not_a_matrix is now Rcpp::not_a_matrix
 
 0.7.12  2010-04-16
 
