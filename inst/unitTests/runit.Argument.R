@@ -19,10 +19,10 @@
 
 test.Argument <- function(){
     fx <- cppfunction( signature(), '
-	Argument x("x") ;
-	Argument y("y") ;
+	Argument x("x");
+	Argument y("y");
 
-	return make_list( x = 2, y = 3 );
+	return List::create( x = 2, y = 3 );
     ' )
     checkEquals( fx(), list( x = 2L, y = 3L ) , msg = "Argument")
 }
