@@ -32,10 +32,10 @@ public:
 
 	Formula() ;
 	
-	Formula(SEXP lang) ;
+	Formula(SEXP lang) throw(not_compatible) ;
 
 	Formula(const Formula& other) ;
-	explicit Formula( const std::string& code ); 
+	explicit Formula( const std::string& code ) throw(not_compatible) ; 
 
 	Formula& operator=(const Formula& other) ;
 	
