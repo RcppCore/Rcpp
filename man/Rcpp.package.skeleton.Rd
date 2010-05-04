@@ -30,18 +30,17 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	In addition to \link[utils]{package.skeleton} : 
 	
 	The \samp{DESCRIPTION} file gains a Depends line requesting that 
-	the package depends on Rcpp and a LinkingTo lines so that the package
+	the package depends on Rcpp and a LinkingTo line so that the package
 	finds Rcpp header files.
 	
 	The \samp{NAMESPACE}, if any, gains a \code{useDynLib} directive.
 	
 	The \samp{src} directory is created if it does not exists and 
 	a \samp{Makevars} file is added setting the environment variables
-	\samp{PKG_CXXFLAGS} and \samp{PKG_LIBS} to accomodate the necessary flags
-	to link with the Rcpp library. 
+	\samp{PKG_LIBS} to accomodate the necessary flags to link with the Rcpp library. 
 	
 	If the \code{example_code} argument is set to \code{TRUE}, 
-	xample files \samp{rcpp_hello_world.h} and \samp{rcpp_hello_world.cpp}
+	example files \samp{rcpp_hello_world.h} and \samp{rcpp_hello_world.cpp}
 	are also created in the \samp{src}. An R file \samp{rcpp_hello_world.R} is 
 	expanded in the \samp{R} directory, the \code{rcpp_hello_world} function
 	defined in this files makes use of the C++ function \samp{rcpp_hello_world}
@@ -63,8 +62,7 @@ see the \emph{R Installation and Administration} manual,
 }
 \examples{
 \dontrun{
-f <- function(){}
-Rcpp.package.skeleton( "foobar", "f" )
+Rcpp.package.skeleton( "foobar" )
 }
 }
 \keyword{ programming }
