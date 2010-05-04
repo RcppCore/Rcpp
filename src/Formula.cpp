@@ -25,7 +25,7 @@ namespace Rcpp{
 	
 	Formula::Formula() : Language(){}
 	
-	Formula::Formula(SEXP x) : Language(){
+	Formula::Formula(SEXP x) throw(not_compatible) : Language(){
 		switch( TYPEOF( x ) ){
 		case LANGSXP:
 			if( ::Rf_inherits( x, "formula") ){
@@ -47,7 +47,7 @@ namespace Rcpp{
 					setSEXP( z ) ;
 				}
 			} else{
-				Rcpp_error( "cannot create formula from empty list or expression" ) ;	
+				throw not_compatible( "cannot create formula from empty list or expression" ) ;	
 			}
 			break;
 		default:
@@ -56,7 +56,7 @@ namespace Rcpp{
 		}
 	}
 	
-	Formula::Formula( const std::string& code) : Language() {
+	Formula::Formula( const std::string& code) throw(not_compatible) : Language() {
 		setSEXP( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") );	
 	}
 	
