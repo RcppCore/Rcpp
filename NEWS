@@ -21,6 +21,59 @@
 	// user code
 	END_RCPP
 	
+	o   new __experimental__ macros 
+	
+	The macros RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65 to help creating c++
+	functions hiding some code repetition: 
+	
+	RCPP_FUNCTION_2( int, foobar, int x, int y){
+		return x + y ;
+	}
+
+	The first argument is the output type, the second argument is the 
+	name of the function, and the other arguments are arguments of the C++ 
+	function. Behind the scenes, the RCPP_FUNCTION_2 macro creates 
+	an intermediate function compatible with the .Call interface and handles 
+	exceptions
+	
+	
+	Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65
+	can be used when the C++ function to create returns void. The generated R
+	function will return R_NilValue in this case. 
+	
+	RCPP_FUNCTION_VOID_2( foobar, std::string foo ){
+		// do something with foo
+	}
+
+	
+	The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate 
+	calling a method of an object that is stored in an external pointer. For 
+	example: 
+	
+	RCPP_XP_METHOD_0( foobar, std::vector<int> , size )
+	
+	creates the .Call compatible function called foobar that calls the size
+	method of the std::vector<int> class. This uses the Rcpp::XPtr< std::vector<int> >
+	class.
+	
+	
+	The macros RCPP_XP_METHOD_CAST_0, ... is similar but the result of the method 
+	called is first passed to another function before being wrapped to a SEXP.
+	For example, if one wanted the result as a double
+	
+	RCPP_XP_METHOD_CAST_0( foobar, std::vector<int> , size, double )
+	
+	
+	The macros RCPP_XP_METHOD_VOID_0, ... are used when calling the method 
+	is only used for its side effect. 
+	
+	RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back ) 
+	
+	Assuming xp is an external pointer to a std::vector<int>, this could be 
+	called like this :
+	
+	.Call( "foobar", xp, 2L )
+	
 	o	Rcpp now depends on inline (>= 0.3.4)
 	
 	o	new R function "cppfunction" that invokes cfunction from inline with 
