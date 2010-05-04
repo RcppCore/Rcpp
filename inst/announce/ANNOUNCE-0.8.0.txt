@@ -184,24 +184,25 @@ C++ exceptions. Rcpp offers the function forward_exception_to_r
 to facilitate forwarding the exception to the "R side" as an R condition. 
 For example : 
 
-SEXP foo( ){
-	try{
-		// user code
-	} catch( std::exception& __ex__){
-		forward_exception_to_r( __ex__ ) ;
-	}
-	// return something
-}
+  SEXP foo( ) {
+    try {
+      // user code here
+    } catch( std::exception& __ex__){
+      forward_exception_to_r( __ex__ ) ;
+    }
+    // return something here
+  }
 
 Alternatively, functions can enclose the user code with the macros BEGIN_RCPP
-and END_RCPP, which provides for a more compact way of programming. 
+and END_RCPP, which provides for a more compact way of programming.  The
+function above could be written as follows using the macros:
 
-SEXP foo( ){
-	BEGIN_RCPP
-	// user code
-	END_RCPP
-	// return something
-}
+  SEXP foo( ) {
+    BEGIN_RCPP
+    // user code here
+    END_RCPP
+    // return something here
+  }
 
 The use of BEGIN_RCPP and END_RCPP is recommended to anticipate future changes
 of Rcpp. We might for example decide to install dedicated handlers for specific 
@@ -210,18 +211,18 @@ exceptions later.
 
 ===== Experimental code generation macros =====
 
-Rcpp contains various macros that generate boilter plate code. 
-RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65
-RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65
-RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65
-RCPP_XP_METHOD_CAST_0, ..., RCPP_XP_METHOD_CAST_65
-RCPP_XP_METHOD_VOID_0, ..., RCPP_XP_METHOD_VOID_65
+Rcpp contains several macros that can generate repetitive 'boiler plate' code:
+  RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65
+  RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65
+  RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65
+  RCPP_XP_METHOD_CAST_0, ..., RCPP_XP_METHOD_CAST_65
+  RCPP_XP_METHOD_VOID_0, ..., RCPP_XP_METHOD_VOID_65
 
 For example: 
 
-	RCPP_FUNCTION_2( int, foobar, int x, int y){
-		return x + y ;
-	}
+  RCPP_FUNCTION_2( int, foobar, int x, int y){
+     return x + y ;
+  }
 
 This will create a .Call compatible function "foobar" that calls a 
 c++ function for which we provide the argument list (int x, int y)
@@ -238,7 +239,7 @@ highlight and RProtoBuf
 
 Rcpp uses the RUnit package by Matthias Burger et al and the aforementioned
 inline package by Oleg Sklyar et al to provide unit testing. Rcpp currently
-has over 220 unit test functions with very good coverage of the critical
+has over 230 unit test functions with very good coverage of the critical
 parts of the package and library.
 
 Source code for unit test functions are stored in the unitTests directory 
