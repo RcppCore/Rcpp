@@ -208,6 +208,32 @@ of Rcpp. We might for example decide to install dedicated handlers for specific
 exceptions later.
 
 
+===== Experimental code generation macros =====
+
+Rcpp contains various macros that generate boilter plate code. 
+RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65
+RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65
+RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65
+RCPP_XP_METHOD_CAST_0, ..., RCPP_XP_METHOD_CAST_65
+RCPP_XP_METHOD_VOID_0, ..., RCPP_XP_METHOD_VOID_65
+
+For example: 
+
+	RCPP_FUNCTION_2( int, foobar, int x, int y){
+		return x + y ;
+	}
+
+This will create a .Call compatible function "foobar" that calls a 
+c++ function for which we provide the argument list (int x, int y)
+and the return type (int). The macro also encloses the call 
+in BEGIN_RCPP/END_RCPP so that exceptions are properly forwarded to R.
+
+Examples of the other macros are given in the NEWS file.
+
+This feature is still experimental, but is being used in packages
+highlight and RProtoBuf
+
+
 ===== Quality Assurance =====
 
 Rcpp uses the RUnit package by Matthias Burger et al and the aforementioned
