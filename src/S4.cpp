@@ -27,20 +27,28 @@ namespace Rcpp {
 
 	S4::S4() : RObject(){}
 	
-	S4::S4(SEXP x) : RObject(){
-		if( ! ::Rf_isS4(x) ){
-			throw not_s4() ;
-		} else{
-			setSEXP( x) ;
-		}
+	S4::S4(SEXP x) throw(not_s4) : RObject(){
+		set( x) ;
 	}
 	
 	S4::S4( const S4& other) : RObject(){
 		setSEXP( other.asSexp() ) ;	
 	}
 	
+	S4::S4( const RObject::SlotProxy& proxy ) throw(not_s4) : RObject() {
+		set( proxy ) ;
+	}
+	S4::S4( const RObject::AttributeProxy& proxy ) throw(not_s4) : RObject() {
+		set( proxy ) ;
+	}
+	
 	S4& S4::operator=( const S4& other){
 		setSEXP( other.asSexp() ) ;
+		return *this ;
+	}
+	
+	S4& S4::operator=( SEXP other ) throw(not_s4) {
+		set( other ) ;
 		return *this ;
 	}
 	
@@ -82,6 +90,14 @@ namespace Rcpp {
 		}
 		return false ;
 		
+	}
+	
+	void S4::set( SEXP x) throw(not_s4) {
+		if( ! ::Rf_isS4(x) ){
+			throw not_s4() ;
+		} else{
+			setSEXP( x) ;
+		}
 	}
 	
 } // namespace Rcpp
