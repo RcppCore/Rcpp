@@ -260,12 +260,12 @@ namespace internal{
 	} ;
 	
 	template <int RTYPE>
-	SEXP vector_from_string( const std::string& st ){
+	SEXP vector_from_string( const std::string& st ) throw(not_compatible) {
 		return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
 	}
 	
 	template <int RTYPE>
-	SEXP vector_from_string_expr( const std::string& code){
+	SEXP vector_from_string_expr( const std::string& code) throw(parse_error) {
 		ParseStatus status;
 		SEXP expr = PROTECT( ::Rf_mkString( code.c_str() ) );
 		SEXP res  = PROTECT( ::R_ParseVector(expr, -1, &status, R_NilValue));
@@ -550,7 +550,7 @@ public:
 		assign( first, last ) ;
 	}
 
-	Vector( const std::string& st ) : Base(){
+	Vector( const std::string& st ) throw(parse_error,not_compatible) : Base(){
 		Base::setSEXP( internal::vector_from_string<RTYPE>(st) );
 	}
 	
@@ -570,18 +570,18 @@ public:
      */
     inline R_len_t size() const { return ::Rf_length( Base::m_sexp ) ; }
     
-    inline int ncol() const {
+    inline int ncol() const throw(not_a_matrix) {
     	return dims()[1]; 
     }
     
-    inline int nrow() const {
+    inline int nrow() const throw(not_a_matrix){
     	return dims()[0]; 
     }
 
-    inline int cols() const { 
+    inline int cols() const throw(not_a_matrix){ 
 	return dims()[1]; 
     }
-    inline int rows() const { 
+    inline int rows() const throw(not_a_matrix){ 
 	return dims()[0]; 
     }
 	
@@ -2249,7 +2249,7 @@ private:
 		return result ;
 	}
 	
-	inline int* dims() const {
+	inline int* dims() const throw(not_a_matrix) {
 		if( !::Rf_isMatrix(Base::m_sexp) ) throw not_a_matrix() ;
 		return INTEGER( ::Rf_getAttrib( Base::m_sexp, ::Rf_install( "dim") ) ) ;
 	}
