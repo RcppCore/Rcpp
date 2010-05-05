@@ -109,3 +109,27 @@ test.S4.is <- function(){
 	checkTrue( fx( tr2 ), msg = 'trackCurve is trackCurve' )
 	
 }
+
+test.Vector.SlotProxy.ambiguity <- function(){
+	setClass("track", representation(x="numeric", y="numeric"))
+	setClass("trackCurve", representation(smooth = "numeric"), contains = "track")
+	
+	tr1 <- new( "track", x = 2, y = 3 )
+	fx <- cppfunction( signature(tr="ANY"), 
+		' S4 o(tr); return NumericVector(o.slot("x")); '
+	)
+	checkEquals( fx(tr1), 2, "Vector( SlotProxy ) ambiguity" )
+	
+}
+
+test.Vector.AttributeProxy.ambiguity <- function(){
+	x <- 1:10
+	attr( x, "foo" ) <- "bar"
+	
+	fx <- cppfunction( signature(tr="ANY"), 
+		' S4 o(tr); return CharacterVector(o.slot("foo")); '
+	)
+	checkEquals( fx(tr1), "bar", "Vector( AttributeProxy ) ambiguity" )
+	
+}
+
