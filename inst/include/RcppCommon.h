@@ -236,6 +236,16 @@ bool any( InputIterator first, InputIterator last, const T& value ){
     return false;
 } ;             
 
+/**
+ * stl-like algorithm to identify if the predicate is true for any
+ * of the objects in the range
+ */
+template<class InputIterator, class Predicate>
+bool any_if( InputIterator first, InputIterator last, Predicate pred ){
+  for ( ; first!=last ; first++ ) if ( pred(*first) ) return true ;
+  return false;
+}
+
 }
 
 #endif
