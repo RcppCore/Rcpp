@@ -21,6 +21,7 @@
 
 #include <Rcpp/S4.h>
 #include <Rcpp/exceptions.h>
+#include <Rcpp/Vector.h>
 
 namespace Rcpp {
 
@@ -51,6 +52,36 @@ namespace Rcpp {
   		}
   		setSEXP( oo ) ;
   		UNPROTECT( 1) ; /* oo */
+	}
+	
+	bool S4::is( const std::string& clazz ) {
+		CharacterVector cl = attr("class");
+		
+		// simple test for exact match
+		if( ! clazz.compare( cl[0] ) ) return true ;
+		
+		try{
+			// 
+			// mimic the R call: 
+			// names( slot( getClassDef( cl ), "contains" ) )
+			// 
+			CharacterVector res = internal::try_catch( 
+				Rf_lang2(
+					Rf_install( "names" ),
+					Rf_lang3( 
+						Rf_install( "slot" ),
+						Rf_lang2( Rf_install( "getClassDef"), cl ), 
+						Rf_mkString( "contains" )
+					) 
+				)
+			) ;
+			return any( res.begin(), res.end(), clazz.c_str() ) ;
+		} catch( ... ){
+			// we catch eval_error and also not_compatible when 
+			// contains is NULL
+		}
+		return false ;
+		
 	}
 	
 } // namespace Rcpp

@@ -156,8 +156,8 @@ namespace internal{
 	/* defined in Evaluator.cpp */
 	SEXP convert_using_rfunction(SEXP x, const char* const fun) throw(::Rcpp::not_compatible) ;
 	
-	SEXP try_catch( SEXP expr, SEXP env ) ;
-	SEXP try_catch( SEXP expr ) ;
+	SEXP try_catch( SEXP expr, SEXP env ) throw(::Rcpp::eval_error) ;
+	SEXP try_catch( SEXP expr ) throw(::Rcpp::eval_error) ;
 	
 } // namespace internal 
 
@@ -223,5 +223,19 @@ RcppExport SEXP RcppXPtrExample_create_external_pointer() ;
 RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP ); 
 
 #include <Rcpp/preprocessor.h>
+    
+namespace Rcpp{
+	                          
+/**
+ * stl like algorithm to identify if any of the objects in the range
+ * is equal to the value
+ */
+template<class InputIterator, class T>
+bool any( InputIterator first, InputIterator last, const T& value ){
+    for ( ;first!=last; first++) if ( *first==value ) return true;
+    return false;
+} ;             
+
+}
 
 #endif

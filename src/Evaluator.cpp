@@ -64,10 +64,10 @@ namespace internal{
     	return res;
     }
     
-    SEXP try_catch( SEXP expr, SEXP env ){
+    SEXP try_catch( SEXP expr, SEXP env ) throw(::Rcpp::eval_error) {
     	    return Evaluator::run(expr, env) ;
     }
-    SEXP try_catch( SEXP expr ){
+    SEXP try_catch( SEXP expr ) throw(::Rcpp::eval_error) {
     	    return Evaluator::run(expr) ;
     }
     

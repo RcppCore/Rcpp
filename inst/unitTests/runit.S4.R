@@ -86,3 +86,26 @@ test.S4 <- function(){
 	
 }
 
+
+test.S4.is <- function(){
+	setClass("track", representation(x="numeric", y="numeric"))
+	setClass("trackCurve", representation(smooth = "numeric"), contains = "track")
+	
+	tr1 <- new( "track", x = 2, y = 3 )
+	tr2 <- new( "trackCurve", x = 2, y = 3, smooth = 5 )
+	
+	fx <- cppfunction( signature(tr="ANY"), '
+		S4 o(tr) ;
+		return wrap( o.is( "track" ) ) ;
+		' )
+	checkTrue( fx( tr1 ), msg = 'track is track' )
+	checkTrue( fx( tr2 ), msg = 'trackCurve is track' )
+	
+	fx <- cppfunction( signature(tr="ANY"), '
+		S4 o(tr) ;
+		return wrap( o.is( "trackCurve" ) ) ;
+		' )
+	checkTrue( !fx( tr1 ), msg = 'track is not trackCurve' )
+	checkTrue( fx( tr2 ), msg = 'trackCurve is trackCurve' )
+	
+}
