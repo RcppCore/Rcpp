@@ -491,6 +491,14 @@ public:
 		return *this ;
 	}
 	
+	Vector( const RObject::SlotProxy& proxy ) throw(not_compatible) {
+		Base::setSEXP( r_cast<RTYPE>( proxy ) ) ;
+	}
+	
+	Vector( const RObject::AttributeProxy& proxy ) throw(not_compatible) {
+		Base::setSEXP( r_cast<RTYPE>( proxy ) ) ;
+	}
+	
 	template <typename T>
 	Vector& operator=( const T& x){
 		Base::setSEXP( r_cast<RTYPE>( wrap(x) ) ) ;
