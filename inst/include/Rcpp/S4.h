@@ -39,7 +39,7 @@ public:
 	 *
 	 * @param x must be an S4 object
 	 */
-	S4(SEXP x); 
+	S4(SEXP x) throw(not_s4) ; 
 	
 	/**
 	 * copy constructor
@@ -48,10 +48,15 @@ public:
 	 */
 	S4(const S4& other) ;
 	
+	S4(const RObject::SlotProxy& proxy ) throw(not_s4) ;
+	S4(const RObject::AttributeProxy& proxy ) throw(not_s4);
+	
 	/**
 	 * assignment operator. 
 	 */
 	S4& operator=( const S4& other);
+	
+	S4& operator=( SEXP other ) throw(not_s4) ; 
 	
 	/**
 	 * Creates an S4 object of the requested class. 
@@ -66,6 +71,8 @@ public:
 	 */
 	bool is( const std::string& clazz) ;
 	
+private:
+	void set( SEXP x) throw(not_s4) ;
 } ;
 
 } // namespace Rcpp
