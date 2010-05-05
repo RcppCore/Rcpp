@@ -80,10 +80,10 @@ public:
 	MatrixExporter( SEXP x) : object(x){}
 	~MatrixExporter(){}
 	
-	T get(){
+	T get() throw(::Rcpp::not_a_matrix) {
 		SEXP dims = PROTECT( ::Rf_getAttrib( object, Rf_install("dim") ) ) ;
 		if( dims == R_NilValue || ::Rf_length(dims) != 2 ){
-			throw std::range_error( "not a matrix" ) ;
+			throw ::Rcpp::not_a_matrix() ;
 		}
 		int* dims_ = INTEGER(dims) ;
 		T result( dims_[0], dims_[1] ) ;
