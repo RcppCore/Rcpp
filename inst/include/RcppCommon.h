@@ -234,7 +234,7 @@ template<class InputIterator, class T>
 bool any( InputIterator first, InputIterator last, const T& value ){
     for ( ;first!=last; first++) if ( *first==value ) return true;
     return false;
-} ;             
+}
 
 /**
  * stl-like algorithm to identify if the predicate is true for any
