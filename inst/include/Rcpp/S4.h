@@ -61,6 +61,11 @@ public:
 	 */
 	S4( const std::string& klass ) throw(S4_creation_error) ;
 	
+	/**
+	 * Indicates if this object is an instance of the given S4 class
+	 */
+	bool is( const std::string& clazz) ;
+	
 } ;
 
 } // namespace Rcpp
