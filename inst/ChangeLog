@@ -4,6 +4,10 @@
 	is of a given S4 class, following Doug's advice in lme4a
 	
 	* inst/include/RcppCommon.h: new STL-like algorithms Rcpp::any and Rcpp::any_if
+	
+	* inst/include/Rcpp/Vector.h: Vector gains a constructor taking a 
+	SlotProxy and a constructor taking an AttributeProxy, allowing this construct
+	NumericVector x( y.slot( "foo" ) )
 
 2010-05-04  Romain Francois <romain@r-enthusiasts.com>
 
