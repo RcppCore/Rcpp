@@ -17,6 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.setUp <- function(){
+	suppressMessages( require( datasets ) )
+	data( iris )
+}
+
 test.DataFrame.FromSEXP <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
     fun <- cppfunction( signature(x='ANY'), '
@@ -47,3 +52,29 @@ test.DataFrame.CreateTwo <- function() {
 	' )
     checkEquals( fun(), DF, msg = "DataFrame create2")
 }
+
+test.DataFrame.SlotProxy <- function(){
+	
+	setClass("track", representation(x="data.frame", y = "function"))
+	tr1 <- new( "track", x = iris, y = rnorm )                    
+	fun <- cppfunction( signature(x="ANY", y="character"), '
+		S4 o(x) ;
+		return DataFrame( o.slot( as<std::string>(y) )) ;
+	' )
+	checkTrue( identical( fun(tr1, "x"), iris ), msg = "DataFrame( SlotProxy )" )
+	checkException( fun(tr1, "y"), msg = "DataFrame( SlotProxy ) -> exception" )
+}
+
+test.DataFrame.AttributeProxy <- function(){
+	
+	tr1 <- structure( NULL, x = iris, y = rnorm )
+	fun <- cppfunction( signature(x="ANY", y="character"), '
+		List o(x) ;
+		return DataFrame( o.attr( as<std::string>(y) )) ;
+	' )
+	checkTrue( identical( fun(tr1, "x"), iris) , msg = "DataFrame( AttributeProxy )" )
+	checkException( fun(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
+	
+}
+
+

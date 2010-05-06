@@ -38,12 +38,13 @@ namespace Rcpp{
 		DataFrame(): List( internal::empty_data_frame() ){}
 		
 		DataFrame(SEXP x) throw(not_compatible) : List(){
-			/* this might throw not_compatible */
-			SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
-			setSEXP( y ) ;
+			set(x) ;
 		}
 		
 		DataFrame( const DataFrame& other): List(other.asSexp()) {}
+		
+		DataFrame( const RObject::SlotProxy& proxy ) throw(not_compatible){ set(proxy); }
+		DataFrame( const RObject::AttributeProxy& proxy ) throw(not_compatible){ set(proxy); }
 		
 		DataFrame& operator=( DataFrame& other){
 			setSEXP( other.asSexp() ) ;
@@ -51,8 +52,7 @@ namespace Rcpp{
 		}
 		
 		DataFrame& operator=( SEXP x) throw( not_compatible) {
-			SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
-			setSEXP( y ); 
+			set(x) ;
 			return *this ;
 		}
 		
@@ -62,6 +62,12 @@ namespace Rcpp{
 		
 #include <Rcpp/DataFrame_generated.h>		
 
+	private:
+		void set(SEXP x) throw(not_compatible) {
+			SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
+			setSEXP( y ) ;
+		}
+		
 	} ;
 	
 }
