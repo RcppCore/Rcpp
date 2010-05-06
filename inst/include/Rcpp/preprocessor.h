@@ -105,7 +105,7 @@ template<> struct r_sexptype_traits<__CLASS__>{                   \
 		         
 #define ___RCPP_RETURN___( __FUN__, __SEXP__ , __RCPPTYPE__ )						\
 	SEXP __TMP__ = __SEXP__ ;															\
-	switch( TYPEOF( __TMP__ ) ){														\
+	switch( TYPEOF( __TMP__ ) ){										 				\
 		___RCPP_HANDLE_CASE___( INTSXP  , __FUN__ , __TMP__ , __RCPPTYPE__ )			\
 		___RCPP_HANDLE_CASE___( REALSXP , __FUN__ , __TMP__ , __RCPPTYPE__ )			\
 		___RCPP_HANDLE_CASE___( RAWSXP  , __FUN__ , __TMP__ , __RCPPTYPE__ )			\
@@ -121,5 +121,12 @@ template<> struct r_sexptype_traits<__CLASS__>{                   \
 #define RCPP_RETURN_VECTOR( _FUN_, _SEXP_ )  ___RCPP_RETURN___( _FUN_, _SEXP_ , Vector ) 
 #define RCPP_RETURN_MATRIX( _FUN_, _SEXP_ )  ___RCPP_RETURN___( _FUN_, _SEXP_ , Matrix )
 
+#define RCPP_REGISTER(__NAME__) 
+
+// from boost preprocessor library
+#include <boost/preprocessor/cat.hpp>
+
+#define RCPP_CLASS_START <Rcpp/class_start.h>
+#define RCPP_CLASS_STOP <Rcpp/class_stop.h>
 
 #endif
