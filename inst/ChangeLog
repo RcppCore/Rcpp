@@ -1,3 +1,8 @@
+2010-05-06  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/DataFrame.h: DataFrame( RObject::SlotProxy ) and 
+	DataFrame( RObject::AttributeProxy ) constructors
+
 2010-05-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/S4.h: S4 gains a "is" method to identify if an object 
@@ -5,9 +10,9 @@
 	
 	* inst/include/RcppCommon.h: new STL-like algorithms Rcpp::any and Rcpp::any_if
 	
-	* inst/include/Rcpp/Vector.h: Vector gains a constructor taking a 
-	SlotProxy and a constructor taking an AttributeProxy, allowing this construct
-	NumericVector x( y.slot( "foo" ) )
+	* inst/include/Rcpp/Vector.h: Vector gains a constructor taking an 
+	RObject::SlotProxy and a constructor taking an RObject::AttributeProxy, 
+	allowing this construct NumericVector x( y.slot( "foo" ) )
 
 2010-05-04  Romain Francois <romain@r-enthusiasts.com>
 
