@@ -123,10 +123,4 @@ template<> struct r_sexptype_traits<__CLASS__>{                   \
 
 #define RCPP_REGISTER(__NAME__) 
 
-// from boost preprocessor library
-#include <boost/preprocessor/cat.hpp>
-
-#define RCPP_CLASS_START <Rcpp/class_start.h>
-#define RCPP_CLASS_STOP <Rcpp/class_stop.h>
-
 #endif
