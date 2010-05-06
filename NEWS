@@ -45,6 +45,39 @@
 	    // do something with foo
 	  }
 
+	  
+	The macro RCPP_XP_FIELD_GET generates a .Call compatible function that
+	can be used to access the value of a field of a class handled by an 
+	external pointer. For example with a class like this: 
+	
+	class Foo{
+		public:
+			int bar ;
+	}
+	
+	  RCPP_XP_FIELD_GET( Foo_bar_get, Foo, bar ) ;
+	  
+	RCPP_XP_FIELD_GET will generate the .Call compatible function called
+	Foo_bar_get that can be used to retrieved the value of bar.
+	
+	
+	The macro RCPP_FIELD_SET generates a .Call compatible function that 
+	can be used to set the value of a field. For example:
+	
+	  RCPP_XP_FIELD_SET( Foo_bar_set, Foo, bar ) ;
+	
+	generates the .Call compatible function called "Foo_bar_set" that 
+	can be used to set the value of bar
+	
+	
+	The macro RCPP_XP_FIELD generates both getter and setter. For example
+	
+	  RCPP_XP_FIELD( Foo_bar, Foo, bar )
+	  
+	generates the .Call compatible Foo_bar_get and Foo_bar_set using the 
+	macros RCPP_XP_FIELD_GET and RCPP_XP_FIELD_SET previously described
+	
+	  
 	The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate 
 	calling a method of an object that is stored in an external pointer. For 
 	example: 

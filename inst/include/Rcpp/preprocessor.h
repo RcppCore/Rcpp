@@ -57,15 +57,29 @@ namespace internal{
 
 #include <Rcpp/preprocessor_generated.h>
 
-#define RCPP_XP_FIELD(__NAME__,__CLASS__,__FIELD__)          \
-extern "C" SEXP __NAME__( SEXP xp ){                         \
-	SEXP res = R_NilValue ;                                  \
-	BEGIN_RCPP                                               \
-		::Rcpp::XPtr<__CLASS__> ptr(xp) ;                    \
-		res = ::Rcpp::wrap( ptr->__FIELD__ ) ;               \
-	END_RCPP                                                 \
-	return res ;                                             \
+#define RCPP_XP_FIELD_GET(__NAME__,__CLASS__,__FIELD__)        \
+extern "C" SEXP __NAME__( SEXP xp ){                           \
+	SEXP res = R_NilValue ;                                    \
+	BEGIN_RCPP                                                 \
+		::Rcpp::XPtr<__CLASS__> ptr(xp) ;                      \
+		res = ::Rcpp::wrap( ptr->__FIELD__ ) ;                 \
+	END_RCPP                                                   \
+	return res ;                                               \
 }
+
+#define RCPP_XP_FIELD_SET(__NAME__,__CLASS__,__FIELD__)        \
+extern "C" SEXP __NAME__( SEXP xp, SEXP value ){               \
+	BEGIN_RCPP                                                 \
+		::Rcpp::XPtr<__CLASS__> ptr(xp) ;                      \
+		ptr->__FIELD__ = ::Rcpp::internal::converter(value) ;  \
+	END_RCPP                                                   \
+	return R_NilValue ;                                        \
+}
+
+#define RCPP_XP_FIELD(__PREFIX__,__CLASS__,__FIELD__)          \
+RCPP_XP_FIELD_GET( __PREFIX__##_get, __CLASS__, __FIELD__ )    \
+RCPP_XP_FIELD_SET( __PREFIX__##_set, __CLASS__, __FIELD__ )    
+
 
 #define RCPP_TRAITS(__CLASS__,__SEXPTYPE__)                     \
 namespace Rcpp{ namespace traits {                                \
