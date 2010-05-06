@@ -50,10 +50,10 @@
 	can be used to access the value of a field of a class handled by an 
 	external pointer. For example with a class like this: 
 	
-	class Foo{
+	  class Foo{
 		public:
 			int bar ;
-	}
+	  }
 	
 	  RCPP_XP_FIELD_GET( Foo_bar_get, Foo, bar ) ;
 	  

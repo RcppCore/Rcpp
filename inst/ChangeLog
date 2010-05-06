@@ -1,38 +1,38 @@
 2010-05-06  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/DataFrame.h: DataFrame( RObject::SlotProxy ) and 
+	* inst/include/Rcpp/DataFrame.h: DataFrame( RObject::SlotProxy ) and
 	DataFrame( RObject::AttributeProxy ) constructors
-	
-	* inst/include/Rcpp/DataFrame.h: DataFrame::create now uses the R function
-	data.frame and not as.data.frame, which respects the stringsAsFactors
-	argument.
-	
-	* inst/include/Rcpp/preprocessor.h: added RCPP_XP_FIELD_SET and RCPP_XP_FIELD_SET
-	macros to generate getter and setter for a field of a class handled by an 
-	external pointer. RCPP_XP_FIELD is modified to generate both getter and 
-	setter
+
+	* inst/include/Rcpp/DataFrame.h: DataFrame::create now uses the R
+	function data.frame and not as.data.frame, which respects the
+	stringsAsFactors argument.
+
+	* inst/include/Rcpp/preprocessor.h: added RCPP_XP_FIELD_SET and
+	RCPP_XP_FIELD_SET macros to generate getter and setter for a field of
+	a class handled by an external pointer. RCPP_XP_FIELD is modified to
+	generate both getter and setter
 
 2010-05-05  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/S4.h: S4 gains a "is" method to identify if an object 
-	is of a given S4 class, following Doug's advice in lme4a
-	
-	* inst/include/Rcpp/algo.h: new STL-like algorithms Rcpp::any and Rcpp::any_if
-	
-	* inst/include/Rcpp/Vector.h: Vector gains a constructor taking an 
-	RObject::SlotProxy and a constructor taking an RObject::AttributeProxy, 
+	* inst/include/Rcpp/S4.h: S4 gains a "is" method to identify if an
+	object is of a given S4 class, following Doug's advice in lme4a
+
+	* inst/include/Rcpp/algo.h: new STL-like algorithms Rcpp::any and
+	Rcpp::any_if
+
+	* inst/include/Rcpp/Vector.h: Vector gains a constructor taking an
+	RObject::SlotProxy and a constructor taking an RObject::AttributeProxy,
 	allowing this construct NumericVector x( y.slot( "foo" ) )
 
 2010-05-04  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/preprocessor_generated.h: new macros to hide most of 
+	* inst/include/Rcpp/preprocessor_generated.h: new macros to hide most of
 	the boiler plate code
-	
-	RCPP_FUNCTION_0, ..., RCPP_FUNCTION_1
-	RCPP_FUNCTION_VOID_0, ...
-	RCPP_XP_METHOD_0, ...
-	RCPP_XP_METHOD_CAST_0, ...
-	RCPP_XP_METHOD_VOID_0, ...
+	  RCPP_FUNCTION_0, ..., RCPP_FUNCTION_1
+	  RCPP_FUNCTION_VOID_0, ...
+	  RCPP_XP_METHOD_0, ...
+	  RCPP_XP_METHOD_CAST_0, ...
+	  RCPP_XP_METHOD_VOID_0, ...
 
 2010-05-03  Dirk Eddelbuettel  <edd@dexter>
 
