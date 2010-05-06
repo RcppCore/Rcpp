@@ -2,13 +2,17 @@
 
 	* inst/include/Rcpp/DataFrame.h: DataFrame( RObject::SlotProxy ) and 
 	DataFrame( RObject::AttributeProxy ) constructors
+	
+	* inst/include/Rcpp/DataFrame.h: DataFrame::create now uses the R function
+	data.frame and not as.data.frame, which respects the stringsAsFactors
+	argument.
 
 2010-05-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/S4.h: S4 gains a "is" method to identify if an object 
 	is of a given S4 class, following Doug's advice in lme4a
 	
-	* inst/include/RcppCommon.h: new STL-like algorithms Rcpp::any and Rcpp::any_if
+	* inst/include/Rcpp/algo.h: new STL-like algorithms Rcpp::any and Rcpp::any_if
 	
 	* inst/include/Rcpp/Vector.h: Vector gains a constructor taking an 
 	RObject::SlotProxy and a constructor taking an RObject::AttributeProxy, 

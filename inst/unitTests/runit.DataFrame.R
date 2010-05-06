@@ -77,4 +77,19 @@ test.DataFrame.AttributeProxy <- function(){
 	
 }
 
+test.DataFrame.CreateTwo.stringsAsFactors <- function() {
+    DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors = FALSE )
+    fun <- cppfunction( signature(), '
+        IntegerVector v = IntegerVector::create(1,2,3);
+        std::vector<std::string> s(3);
+        s[0] = "a";
+        s[1] = "b";
+        s[2] = "c";
+		return DataFrame::create(
+			_["a"] = v, 
+			_["b"] = s, 
+			_["stringsAsFactors"] = false );
+	' )
+    checkEquals( fun(), DF, msg = "DataFrame create2 stringsAsFactors = false")
+}
 

@@ -64,8 +64,12 @@ namespace Rcpp{
 
 	private:
 		void set(SEXP x) throw(not_compatible) {
-			SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
-			setSEXP( y ) ;
+			if( ::Rf_inherits( x, "data.frame" )){
+				setSEXP( x ) ;
+			} else{
+				SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
+				setSEXP( y ) ;
+			}
 		}
 		
 	} ;
