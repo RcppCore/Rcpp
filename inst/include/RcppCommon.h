@@ -223,29 +223,6 @@ RcppExport SEXP RcppXPtrExample_create_external_pointer() ;
 RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP ); 
 
 #include <Rcpp/preprocessor.h>
-    
-namespace Rcpp{
-	                          
-/**
- * stl like algorithm to identify if any of the objects in the range
- * is equal to the value
- */
-template<class InputIterator, class T>
-bool any( InputIterator first, InputIterator last, const T& value ){
-    for ( ;first!=last; first++) if ( *first==value ) return true;
-    return false;
-}
-
-/**
- * stl-like algorithm to identify if the predicate is true for any
- * of the objects in the range
- */
-template<class InputIterator, class Predicate>
-bool any_if( InputIterator first, InputIterator last, Predicate pred ){
-  for ( ; first!=last ; first++ ) if ( pred(*first) ) return true ;
-  return false;
-}
-
-}
+#include <Rcpp/algo.h>
 
 #endif
