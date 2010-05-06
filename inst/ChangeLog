@@ -6,6 +6,11 @@
 	* inst/include/Rcpp/DataFrame.h: DataFrame::create now uses the R function
 	data.frame and not as.data.frame, which respects the stringsAsFactors
 	argument.
+	
+	* inst/include/Rcpp/preprocessor.h: added RCPP_XP_FIELD_SET and RCPP_XP_FIELD_SET
+	macros to generate getter and setter for a field of a class handled by an 
+	external pointer. RCPP_XP_FIELD is modified to generate both getter and 
+	setter
 
 2010-05-05  Romain Francois <romain@r-enthusiasts.com>
 
