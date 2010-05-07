@@ -11,6 +11,10 @@ dir.create( "unitTests-results" )
 path <- system.file("unitTests", package = pkg)
 testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
 tests <- runTestSuite(testSuite)
+err <- getErrors(tests)
+if( (err$nFail + err$nErr) > 0) {
+    stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
+}
 printHTMLProtocol(tests, fileName= sprintf( "unitTests-results/%s-unitTests.html" , pkg ) )
 printTextProtocol(tests, fileName= sprintf( "unitTests-results/%s-unitTests.txt"  , pkg ) )
 if( file.exists( "/tmp" ) ){
