@@ -127,7 +127,7 @@ test.Vector.AttributeProxy.ambiguity <- function(){
 	attr( x, "foo" ) <- "bar"
 	
 	fx <- cppfunction( signature(tr="ANY"), 
-		' S4 o(tr); return CharacterVector(o.slot("foo")); '
+		' IntegerVector o(tr); return CharacterVector(o.attr("foo")); '
 	)
 	checkEquals( fx(x), "bar", "Vector( AttributeProxy ) ambiguity" )
 	
