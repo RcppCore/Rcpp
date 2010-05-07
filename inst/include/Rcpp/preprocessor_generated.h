@@ -31,8 +31,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 0 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -54,8 +54,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 1 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -77,8 +77,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 2 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -100,8 +100,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 3 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -123,8 +123,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 4 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -146,8 +146,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 5 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -169,8 +169,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 6 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -192,8 +192,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 7 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -215,8 +215,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 8 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -238,8 +238,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 9 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -261,8 +261,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 10 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -284,8 +284,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 11 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -307,8 +307,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 12 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -330,8 +330,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 13 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -353,8 +353,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 14 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -376,8 +376,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 15 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -399,8 +399,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 16 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -422,8 +422,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 17 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -445,8 +445,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 18 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -468,8 +468,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 19 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -491,8 +491,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 20 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -514,8 +514,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 21 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -537,8 +537,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 22 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -560,8 +560,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 23 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -583,8 +583,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 24 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -606,8 +606,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 25 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -629,8 +629,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 26 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -652,8 +652,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 27 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -675,8 +675,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 28 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -698,8 +698,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 29 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -721,8 +721,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 30 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -744,8 +744,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 31 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -767,8 +767,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 32 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -790,8 +790,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 33 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -813,8 +813,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 34 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -836,8 +836,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 35 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -859,8 +859,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 36 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -882,8 +882,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 37 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -905,8 +905,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 38 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -928,8 +928,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 39 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -951,8 +951,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 40 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -974,8 +974,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 41 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -997,8 +997,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 42 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1020,8 +1020,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 43 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1043,8 +1043,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 44 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1066,8 +1066,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 45 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1089,8 +1089,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 46 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1112,8 +1112,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 47 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1135,8 +1135,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 48 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1158,8 +1158,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 49 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1181,8 +1181,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 50 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1204,8 +1204,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 51 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1227,8 +1227,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 52 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1250,8 +1250,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 53 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1273,8 +1273,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 54 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1296,8 +1296,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 55 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1319,8 +1319,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 56 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1342,8 +1342,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 57 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1365,8 +1365,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 58 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1388,8 +1388,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 59 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1411,8 +1411,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 60 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1434,8 +1434,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 61 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1457,8 +1457,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 62 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1480,8 +1480,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 63 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61, #___62                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1503,8 +1503,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 64 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61, #___62, #___63                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1526,8 +1526,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 65 ,                             \
-        _["out"] = #__OUT__ ,                       \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = #__OUT__ ,                       \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61, #___62, #___63, #___64                                       \
         	) ) ;                                    \
     info.attr( "class" ) = "rcppfunctioninfo" ;      \
@@ -1555,8 +1555,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 0 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1577,8 +1577,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 1 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1599,8 +1599,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 2 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1621,8 +1621,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 3 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1643,8 +1643,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 4 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1665,8 +1665,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 5 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1687,8 +1687,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 6 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1709,8 +1709,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 7 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1731,8 +1731,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 8 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1753,8 +1753,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 9 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1775,8 +1775,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 10 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1797,8 +1797,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 11 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1819,8 +1819,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 12 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1841,8 +1841,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 13 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1863,8 +1863,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 14 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1885,8 +1885,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 15 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1907,8 +1907,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 16 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1929,8 +1929,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 17 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1951,8 +1951,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 18 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1973,8 +1973,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 19 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -1995,8 +1995,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 20 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2017,8 +2017,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 21 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2039,8 +2039,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 22 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2061,8 +2061,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 23 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2083,8 +2083,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 24 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2105,8 +2105,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 25 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2127,8 +2127,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 26 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2149,8 +2149,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 27 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2171,8 +2171,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 28 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2193,8 +2193,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 29 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2215,8 +2215,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 30 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2237,8 +2237,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 31 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2259,8 +2259,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 32 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2281,8 +2281,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 33 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2303,8 +2303,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 34 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2325,8 +2325,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 35 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2347,8 +2347,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 36 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2369,8 +2369,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 37 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2391,8 +2391,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 38 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2413,8 +2413,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 39 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2435,8 +2435,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 40 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2457,8 +2457,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 41 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2479,8 +2479,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 42 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2501,8 +2501,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 43 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2523,8 +2523,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 44 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2545,8 +2545,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 45 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2567,8 +2567,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 46 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2589,8 +2589,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 47 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2611,8 +2611,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 48 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2633,8 +2633,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 49 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2655,8 +2655,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 50 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2677,8 +2677,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 51 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2699,8 +2699,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 52 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2721,8 +2721,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 53 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2743,8 +2743,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 54 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2765,8 +2765,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 55 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2787,8 +2787,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 56 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2809,8 +2809,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 57 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2831,8 +2831,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 58 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2853,8 +2853,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 59 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2875,8 +2875,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 60 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2897,8 +2897,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 61 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2919,8 +2919,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 62 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2941,8 +2941,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 63 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61, #___62                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2963,8 +2963,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 64 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61, #___62, #___63                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \
@@ -2985,8 +2985,8 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)( ){         \
     using Rcpp::_ ;                                 \
 	Rcpp::List info = Rcpp::List::create(           \
         _["n"]   = 65 ,                             \
-        _["out"] = R_NilValue ,                     \
-        _["in"]  = Rcpp::CharacterVector::create(   \
+        _["output"] = R_NilValue ,                     \
+        _["input"]  = Rcpp::CharacterVector::create(   \
         	#___0, #___1, #___2, #___3, #___4, #___5, #___6, #___7, #___8, #___9, #___10, #___11, #___12, #___13, #___14, #___15, #___16, #___17, #___18, #___19, #___20, #___21, #___22, #___23, #___24, #___25, #___26, #___27, #___28, #___29, #___30, #___31, #___32, #___33, #___34, #___35, #___36, #___37, #___38, #___39, #___40, #___41, #___42, #___43, #___44, #___45, #___46, #___47, #___48, #___49, #___50, #___51, #___52, #___53, #___54, #___55, #___56, #___57, #___58, #___59, #___60, #___61, #___62, #___63, #___64                                       \
         	) );                                      \
     info.attr( "class" ) = "rcppfunctionvoidinfo";  \

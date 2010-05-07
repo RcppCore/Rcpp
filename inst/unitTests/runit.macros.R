@@ -45,6 +45,14 @@ test.RCPPFUNCTION <- function(){
 	')
 	checkEquals( fx(), 10L, msg = "RCPP_FUNCTION_0" )
 	
+	dll <- tail( getLoadedDLLs(), 1 )
+	info <- .Call( dll[[ length(dll) ]]$foo__rcpp_info__ )
+	checkEquals( info, 
+		structure( list( 
+		n = 0L, 
+		output = "int", 
+		input = character(0) ), class = "rcppfunctioninfo" ) )
+	
 	fx <- cppfunction( signature(x = "numeric", y = "numeric" ), '
 		return foo(x, y) ;
 	', includes = '
