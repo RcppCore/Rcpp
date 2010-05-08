@@ -56,8 +56,19 @@ namespace internal{
 #endif
 
 #include <Rcpp/preprocessor_generated.h>
+// from boost preprocessor library
+#include <Rcpp/preprocessor/cat.hpp>
 
 #define RCPP_XP_FIELD_GET(__NAME__,__CLASS__,__FIELD__)        \
+extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)(){         \
+	using Rcpp::_ ;                                            \
+	Rcpp::List info = Rcpp::List::create(                      \
+        _["class"]  = #__CLASS__  ,                            \
+        _["field"]  = #__FIELD__ ,                             \
+        )   ;                                                  \
+    info.attr( "class" ) = "rcppxpfieldgetinfo" ;              \
+    return info   ;                                            \
+}                                                              \
 extern "C" SEXP __NAME__( SEXP xp ){                           \
 	SEXP res = R_NilValue ;                                    \
 	BEGIN_RCPP                                                 \
@@ -68,6 +79,15 @@ extern "C" SEXP __NAME__( SEXP xp ){                           \
 }
 
 #define RCPP_XP_FIELD_SET(__NAME__,__CLASS__,__FIELD__)        \
+extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)(){         \
+	using Rcpp::_ ;                                            \
+	Rcpp::List info = Rcpp::List::create(                      \
+        _["class"]  = #__CLASS__  ,                            \
+        _["field"]  = #__FIELD__ ,                             \
+        )   ;                                                  \
+    info.attr( "class" ) = "rcppxpfieldsetinfo" ;              \
+    return info   ;                                            \
+}                                                              \
 extern "C" SEXP __NAME__( SEXP xp, SEXP value ){               \
 	BEGIN_RCPP                                                 \
 		::Rcpp::XPtr<__CLASS__> ptr(xp) ;                      \
@@ -77,8 +97,8 @@ extern "C" SEXP __NAME__( SEXP xp, SEXP value ){               \
 }
 
 #define RCPP_XP_FIELD(__PREFIX__,__CLASS__,__FIELD__)          \
-RCPP_XP_FIELD_GET( __PREFIX__##_get, __CLASS__, __FIELD__ )    \
-RCPP_XP_FIELD_SET( __PREFIX__##_set, __CLASS__, __FIELD__ )    
+RCPP_XP_FIELD_GET( RCPP_PP_CAT(__PREFIX__,_get), __CLASS__, __FIELD__ )    \
+RCPP_XP_FIELD_SET( RCPP_PP_CAT(__PREFIX__,_set), __CLASS__, __FIELD__ )    
 
 
 #define RCPP_TRAITS(__CLASS__,__SEXPTYPE__)                     \
@@ -123,10 +143,5 @@ template<> struct r_sexptype_traits<__CLASS__>{                   \
 
 #define RCPP_REGISTER(__NAME__) 
 
-// from boost preprocessor library
-#include <Rcpp/preprocessor/cat.hpp>
-
-#define RCPP_CLASS_START <Rcpp/class_start.h>
-#define RCPP_CLASS_STOP <Rcpp/class_stop.h>
 
 #endif
