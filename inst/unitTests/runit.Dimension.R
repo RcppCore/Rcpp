@@ -36,6 +36,6 @@ test.Dimension.const <- function(){
 	return wrap(ss.nrow());
 	'
 	ff <- cppfunction(signature(ia = "integer"), cpp,includes = cdef)
-    checkEquals( ff(2L, 2L), 2L, msg = "testing const operator[]" )
+    checkEquals( ff( c(2L, 2L)) , 2L, msg = "testing const operator[]" )
 	
 }
