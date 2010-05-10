@@ -64,7 +64,7 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)(){         \
 	using Rcpp::_ ;                                            \
 	Rcpp::List info = Rcpp::List::create(                      \
         _["class"]  = #__CLASS__  ,                            \
-        _["field"]  = #__FIELD__ ,                             \
+        _["field"]  = #__FIELD__                              \
         )   ;                                                  \
     info.attr( "class" ) = "rcppxpfieldgetinfo" ;              \
     return info   ;                                            \
@@ -83,7 +83,7 @@ extern "C" SEXP RCPP_PP_CAT(__NAME__,__rcpp_info__)(){         \
 	using Rcpp::_ ;                                            \
 	Rcpp::List info = Rcpp::List::create(                      \
         _["class"]  = #__CLASS__  ,                            \
-        _["field"]  = #__FIELD__ ,                             \
+        _["field"]  = #__FIELD__                              \
         )   ;                                                  \
     info.attr( "class" ) = "rcppxpfieldsetinfo" ;              \
     return info   ;                                            \

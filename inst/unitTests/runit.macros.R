@@ -17,7 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.getInfo <- function( symbol, fx ){
+
+.getDll <- function( fx ){
 	env <- environment( fx@.Data )
 	f <- get( "f", env )
 	dlls <- getLoadedDLLs()
@@ -26,6 +27,14 @@
 	} else{
 		dlls[[ match( f, names(dlls) ) ]]
 	}
+	dll
+}
+
+.getInfo <- function( symbol, fx ){
+	env <- environment( fx@.Data )
+	f <- get( "f", env )
+	dlls <- getLoadedDLLs()
+	dll <- .getDll( fx )
 	info_symbol <- paste( symbol, "__rcpp_info__", sep = "" )
 	routine <- getNativeSymbolInfo( info_symbol, dll )
 	info <- .Call( routine )
@@ -170,6 +179,40 @@ test.RCPPXPMETHOD <- function(){
 	checkEquals( info[["cast"]], "double") 
 	
 	checkEquals( class(info), "rcppxpmethodcastinfo" )
+	
+}
+
+test.RCPPXPFIELD <- function(){
+	
+	cl <- '
+	class Foo {
+		public:
+			int x ;
+			Foo( int x_) : x(x_){}
+	} ;
+	RCPP_XP_FIELD( Foo_x, Foo, x )
+	RCPP_FUNCTION_0(SEXP, newFoo){
+		return Rcpp::XPtr<Foo>( new Foo(2), true ) ; 
+	}
+	'
+	
+	fx <- cppfunction( signature(xp = "externalptr"), '', include = cl )
+	
+	get_info <- .getInfo( "Foo_x_get", fx )
+	set_info <- .getInfo( "Foo_x_set", fx )
+	checkEquals( get_info[["class"]], "Foo" )
+	checkEquals( set_info[["class"]], "Foo" )
+	checkEquals( get_info[["field"]], "x" )
+	checkEquals( set_info[["field"]], "x" )
+	checkEquals( class( get_info ), "rcppxpfieldgetinfo" )
+	checkEquals( class( set_info ), "rcppxpfieldsetinfo" )
+	
+	dll <- .getDll( fx )
+	xp <- .Call( dll$newFoo )
+	
+	checkEquals( .Call( dll$Foo_x_get, xp ), 2L )
+	.Call( dll$Foo_x_set, xp, 10L )
+	checkEquals( .Call( dll$Foo_x_get, xp ), 10L )
 	
 }
 
