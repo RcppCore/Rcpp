@@ -24,7 +24,7 @@ test.Dimension.const <- function(){
 	
 	cdef <- '
 	class simple {
-	    Dimension dd;
+	    Rcpp::Dimension dd;
 	public:
 	    simple(SEXP xp) : dd(xp) {}
 	    int nrow() const { return dd[0]; }
