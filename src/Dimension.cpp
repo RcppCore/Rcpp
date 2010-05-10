@@ -65,7 +65,12 @@ namespace Rcpp{
 		return std::accumulate( dims.begin(), dims.end(), 1, std::multiplies<int>() ) ;
 	}
 	
-	int& Dimension::operator[](int i) throw(std::range_error){
+	Dimension::reference Dimension::operator[](int i) throw(std::range_error){
+		if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
+		return dims.at(i) ;
+	}
+
+	Dimension::const_reference Dimension::operator[](int i) const throw(std::range_error){
 		if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
 		return dims.at(i) ;
 	}

@@ -23,11 +23,14 @@
 #define Rcpp_Dimension_h
 
 #include <RcppCommon.h>
-
+ 
 namespace Rcpp{ 
 
 class Dimension {
 public:
+	typedef std::vector<int>::reference reference ;
+	typedef std::vector<int>::const_reference const_reference ;
+	
 	Dimension() ;
 	Dimension(SEXP dims);
 	Dimension( const Dimension& other ) ;
@@ -40,7 +43,8 @@ public:
 	int size() const ;
 	int prod() const ;
 	
-	int& operator[](int i) throw(std::range_error) ;
+	reference operator[](int i) throw(std::range_error) ;
+	const_reference operator[](int i) const throw(std::range_error) ;
 	
 private:
 	std::vector<int> dims ;
