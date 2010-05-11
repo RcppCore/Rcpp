@@ -43,3 +43,7 @@ r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Argument.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.RcppFrame.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Vector.create.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.DataFrame.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Dimension.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Formula.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.client.package.R

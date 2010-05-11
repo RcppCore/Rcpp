@@ -1,4 +1,4 @@
-0.8.0   (under development)
+0.8.0   2010-05-11
 
     o   All Rcpp headers have been moved to the inst/include directory,
 	allowing use of 'LinkingTo: Rcpp'. But the Makevars and Makevars.win
