@@ -107,9 +107,22 @@ template<> struct r_type_traits< std::pair<const std::string,long double> >{ typ
 template<> struct r_type_traits<short>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,short> >{ typedef r_type_primitive_tag r_category ; } ;
 
-/* short */
+/* unsigned short */
 template<> struct r_type_traits<unsigned short>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,unsigned short> >{ typedef r_type_primitive_tag r_category ; } ;
+
+/* long long int */
+#ifdef LONG_LONG_MAX
+template<> struct r_type_traits<long long int>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,long long int> >{ typedef r_type_primitive_tag r_category ; } ;
+#endif
+
+/* unsigned long long int */
+#ifdef ULONG_LONG_MAX
+template<> struct r_type_traits<unsigned long long int>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,unsigned long long int> >{ typedef r_type_primitive_tag r_category ; } ;
+#endif
+
 
 } // traits
 } // Rcpp

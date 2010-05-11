@@ -77,6 +77,7 @@ namespace internal{
 #include <numeric>
 #include <algorithm>
 #include <complex>
+#include <limits.h>
 
 #ifdef HAS_INIT_LISTS
 #include <initializer_list>
