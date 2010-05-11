@@ -1,16 +1,22 @@
+2010-05-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.8.0
+
+	* debian/*: Similarly updated for new release to Debian
+
 2010-05-11  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/traits/*.h: added support for long long int and 
+	* inst/include/Rcpp/traits/*.h: added support for long long int and
 	unsigned long long int, which is size_t on win64
 
 2010-05-10  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Dimension.h: added a const operator[], requested
 	in the Rcpp-devel thread : http://article.gmane.org/gmane.comp.lang.r.rcpp/327
-	
+
 	* inst/include/Rcpp/preprocessor.h: added __rcpp_info__ pseudo reflection information
 	to RCPP_XP_FIELD
-	
+
 	* inst/unitTests/runit.macros.R: testing RCPP_XP_FIELD
 
 2010-05-06  Romain Francois <romain@r-enthusiasts.com>
@@ -49,7 +55,7 @@
 	  RCPP_XP_METHOD_CAST_0, ...
 	  RCPP_XP_METHOD_VOID_0, ...
 
-2010-05-03  Dirk Eddelbuettel  <edd@dexter>
+2010-05-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.DataFrame.R: unit tests for Rcpp::DataFrame
 
