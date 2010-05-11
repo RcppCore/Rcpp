@@ -56,6 +56,15 @@ template<> struct r_sexptype_traits<long double>{ enum{ rtype = REALSXP } ; } ;
 template<> struct r_sexptype_traits<short>{ enum{ rtype = INTSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned short>{ enum{ rtype = INTSXP } ; } ;
 
+/* long long int */
+#ifdef LONG_LONG_MAX
+template<> struct r_sexptype_traits<long long int>{ enum{ rtype = REALSXP } ; } ;
+#endif
+
+/* unsigned long long int */
+#ifdef ULONG_LONG_MAX
+template<> struct r_sexptype_traits<unsigned long long int>{ enum{ rtype = REALSXP } ; } ;
+#endif
 
 /**
  * Indicates if a primitive type needs a static_cast
@@ -65,6 +74,7 @@ template<> struct r_sexptype_needscast<int>          : public false_type{} ;
 template<> struct r_sexptype_needscast<double>       : public false_type{} ;
 template<> struct r_sexptype_needscast<Rcomplex>     : public false_type{} ;
 template<> struct r_sexptype_needscast<Rbyte>        : public false_type{} ;
+
 
 } // traits
 } // Rcpp
