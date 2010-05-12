@@ -32,7 +32,7 @@ template<class InputIterator, class T>
 inline bool __any( InputIterator first, InputIterator last, const T& value, std::input_iterator_tag ){
     for ( ;first!=last; first++) if ( *first==value ) return true;
     return false;
-} ;             
+}          
 
 /* RAI case */	
 template<class RandomAccessIterator, class T>
@@ -78,7 +78,7 @@ inline bool __any( RandomAccessIterator __first, RandomAccessIterator __last, co
 	}
 	
 
-} ;             
+}
 
 
 /**
@@ -144,7 +144,7 @@ inline bool __any_if( RandomAccessIterator __first, RandomAccessIterator __last,
 	}
 	
 
-} ;             
+}          
 
 
 /**
