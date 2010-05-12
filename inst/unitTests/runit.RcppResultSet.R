@@ -115,7 +115,7 @@ test.RcppResultSet.RcppDatetime <- function() {
      # RcppDateTime discards the timezone, so we have to set it back 
      # otherwise the comparison fails on the attributes
      attr( result, "tzone") <- "UTC" 
-     checkEquals( result, posixt, msg = "RcppResultSet.RcppDatetime")
+     checkTrue( (result - posixt) == 0.0 , msg = "RcppResultSet.RcppDatetime")
 }
 
 test.RcppResultSet.RcppDatetimeVector <- function() {
@@ -127,7 +127,7 @@ test.RcppResultSet.RcppDatetimeVector <- function() {
     now <- Sys.time()
     attr(now, "tzone") <- NULL # no attribute gets set at the C++ level
     v <- now + 0:9
-    checkEquals(funx(v)[[1]], v, msg = "RcppResultSet.RcppDatetimeVector")
+    checkTrue( sum( funx(v)[[1]] - v ) == 0.0 , msg = "RcppResultSet.RcppDatetimeVector")
 }
 
 test.RcppResultSet.RcppStringVector <- function() {
