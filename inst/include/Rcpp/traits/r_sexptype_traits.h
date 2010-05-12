@@ -57,6 +57,7 @@ template<> struct r_sexptype_traits<short>{ enum{ rtype = INTSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned short>{ enum{ rtype = INTSXP } ; } ;
 
 /* long long int */
+#ifdef __GNUC__
 #ifdef LONG_LONG_MAX
 template<> struct r_sexptype_traits<long long int>{ enum{ rtype = REALSXP } ; } ;
 #endif
@@ -64,6 +65,7 @@ template<> struct r_sexptype_traits<long long int>{ enum{ rtype = REALSXP } ; } 
 /* unsigned long long int */
 #ifdef ULONG_LONG_MAX
 template<> struct r_sexptype_traits<unsigned long long int>{ enum{ rtype = REALSXP } ; } ;
+#endif
 #endif
 
 /**
