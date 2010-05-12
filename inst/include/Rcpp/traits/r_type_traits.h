@@ -111,6 +111,7 @@ template<> struct r_type_traits< std::pair<const std::string,short> >{ typedef r
 template<> struct r_type_traits<unsigned short>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,unsigned short> >{ typedef r_type_primitive_tag r_category ; } ;
 
+#ifdef __GNUC__
 /* long long int */
 #ifdef LONG_LONG_MAX
 template<> struct r_type_traits<long long int>{ typedef r_type_primitive_tag r_category ; } ;
@@ -122,7 +123,7 @@ template<> struct r_type_traits< std::pair<const std::string,long long int> >{ t
 template<> struct r_type_traits<unsigned long long int>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,unsigned long long int> >{ typedef r_type_primitive_tag r_category ; } ;
 #endif
-
+#endif
 
 } // traits
 } // Rcpp
