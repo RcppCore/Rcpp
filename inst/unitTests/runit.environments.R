@@ -163,7 +163,6 @@ test.environment.NotAnEnvironment <- function(){
 	funx <- cppfunction(signature(x="ANY"), 'Rcpp::Environment env(x) ;' )
 	checkException( funx( funx ), msg = "not an environment" )
 	checkException( funx( letters ), msg = "not an environment" )
-	checkException( funx( iris ), msg = "not an environment" )
 	checkException( funx( NULL ), msg = "not an environment" )
 }
 
