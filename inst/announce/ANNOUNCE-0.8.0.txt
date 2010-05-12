@@ -239,7 +239,7 @@ highlight and RProtoBuf
 
 Rcpp uses the RUnit package by Matthias Burger et al and the aforementioned
 inline package by Oleg Sklyar et al to provide unit testing. Rcpp currently
-has over 430 unit tests (called from more than 230 unit test functions) with
+has over 500 unit tests (called from more than 230 unit test functions) with
 very good coverage of the critical parts of the package and library.
 
 Source code for unit test functions are stored in the unitTests directory 
