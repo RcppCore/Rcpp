@@ -61,7 +61,7 @@ test.RcppParams.Datetime <- function() {
             rs.add("datetime", y);
 	    return rs.getReturnList();';
     funx <- cppfunction(signature(x = "ANY"), src)
-    posixt <- as.POSIXct(strptime("2000-01-02 03:04:05.678", "%Y-%m-%d %H:%M:%0S"))
+    posixt <- as.POSIXct(strptime("2000-01-02 03:04:05.678", "%Y-%m-%d %H:%M:%OS"))
     attr(posixt, "tzone") <- NULL    ## because we don't set a tzone attribute in C++
     checkEquals(funx(list(val=posixt))[[1]], posixt, msg = "RcppParams.getDatetimeValue")
 }
