@@ -96,7 +96,7 @@ This function currently manages :
 </p>
 
 
-<p>Conversion of an R object to a C++ object is managed by the Rcpp::as<T>
+<p>Conversion of an R object to a C++ object is managed by the Rcpp::as&lt;T&gt;
 template which can handle:
 <ul>
 <li>primitive types</li>
@@ -143,8 +143,8 @@ and easy way of embedding an R instance inside of C++ programs.</p>
 'cfunction' provided by inline (with argument Rcpp=TRUE) to compile, link and
 load C++ function from the R session.</p>
 
-<p>As of version 0.8.0 of Rcpp, we also define an R function <strong>cppfunction</strong> that
-acts as a facade function to the <a href="http://finzi.psych.upenn.edu/R/library/inline/html/cfunction.html">inline::cfuntion</strong>, with specialization for
+<p>As of version 0.8.0 of Rcpp, we also define an R function <a href="http://finzi.psych.upenn.edu/R/library/Rcpp/html/cppfunction.html">cppfunction</a> that
+acts as a facade function to the <a href="http://finzi.psych.upenn.edu/R/library/inline/html/cfunction.html">inline::cfuntion</a>, with specialization for
 C++ use.</p>
 
 <p>This allows quick prototyping of compiled code. All our unit tests are based 
