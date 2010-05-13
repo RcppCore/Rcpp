@@ -44,8 +44,8 @@ Description: Seamless R and C++ integration
  C++ function and compile, link and load it given the 'inlined' character
  argument which makes C++ integration very easy.
  .
- Several examples are included, and over 220 unit tests provide addtional
- usage examples.
+ Several examples are included, and over 530 unit tests in over 240 unit test
+ functions provide addtional usage examples.
 Depends: R (>= 2.10.0), inline (>= 0.3.4)
 Suggests: RUnit 
 SystemRequirements: GNU make
