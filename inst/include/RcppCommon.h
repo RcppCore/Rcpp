@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
 // RcppCommon.h: Rcpp R/C++ interface class library -- common include and defines statements
 //
@@ -30,16 +30,18 @@ void logTxtFunction(const char* file, const int line, const char* expression ) ;
  * \brief Rcpp API
  */
 namespace Rcpp{
-/**
- * \brief traits used to dispatch wrap
- */
-namespace traits{
-} // traits
-/**
- * \brief internal implementation details
- */
-namespace internal{	
-} // internal 
+
+	/**
+	 * \brief traits used to dispatch wrap
+	 */
+	namespace traits{
+	} // traits
+
+	/**
+	 * \brief internal implementation details
+	 */
+	namespace internal{	
+	} // internal 
 } // Rcpp
 
 #ifdef __GNUC__
@@ -113,12 +115,12 @@ std::string demangle( const std::string& name) ;
 
 
 namespace Rcpp{
-namespace internal{
-template <typename T> int rcpp_call_test(T t){
-	return T::r_type::value ;
-}
-int rcpp_call_test_(SEXP) ;
-}
+	namespace internal{
+		template <typename T> int rcpp_call_test(T t){
+			return T::r_type::value ;
+		}
+		int rcpp_call_test_(SEXP) ;
+	}
 }
 
 extern "C" SEXP rcpp_call_test(SEXP x) ;
@@ -150,22 +152,22 @@ const char * sexp_to_name(int sexp_type);
 #include <Rcpp/exceptions.h>
 
 namespace Rcpp{
-/* internal namespace for things not intended to be used by the 
-   user */
-namespace internal{	
+	/* internal namespace for things not intended to be used by the 
+	   user */
+	namespace internal{	
 	
-	/* defined in Evaluator.cpp */
-	SEXP convert_using_rfunction(SEXP x, const char* const fun) throw(::Rcpp::not_compatible) ;
+		/* defined in Evaluator.cpp */
+		SEXP convert_using_rfunction(SEXP x, const char* const fun) throw(::Rcpp::not_compatible) ;
 	
-	SEXP try_catch( SEXP expr, SEXP env ) throw(::Rcpp::eval_error) ;
-	SEXP try_catch( SEXP expr ) throw(::Rcpp::eval_error) ;
+		SEXP try_catch( SEXP expr, SEXP env ) throw(::Rcpp::eval_error) ;
+		SEXP try_catch( SEXP expr ) throw(::Rcpp::eval_error) ;
 	
-} // namespace internal 
+	} // namespace internal 
 
-inline bool Rboolean_to_bool( int x){ return x == TRUE ; }
-inline bool int_to_bool(int x){ return x != 0 ; }
-inline bool double_to_bool(double x){ return x != 0.0 ; }
-inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
+	inline bool Rboolean_to_bool( int x){ return x == TRUE ; }
+	inline bool int_to_bool(int x){ return x != 0 ; }
+	inline bool double_to_bool(double x){ return x != 0.0 ; }
+	inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 
 } // namespace Rcpp
 
