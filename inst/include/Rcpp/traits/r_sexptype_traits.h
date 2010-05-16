@@ -56,27 +56,27 @@ template<> struct r_sexptype_traits<long double>{ enum{ rtype = REALSXP } ; } ;
 template<> struct r_sexptype_traits<short>{ enum{ rtype = INTSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned short>{ enum{ rtype = INTSXP } ; } ;
 
-#ifdef __GNUC__
-    __extension__ typedef long long long_long_type;
-    __extension__ typedef unsigned long long ulong_long_type;
-#else
-    typedef long long long_long_type;
-    typedef unsigned long long ulong_long_type;
-#endif
+// #ifdef __GNUC__
+//     __extension__ typedef long long long_long_type;
+//     __extension__ typedef unsigned long long ulong_long_type;
+// #else
+//     typedef long long long_long_type;
+//     typedef unsigned long long ulong_long_type;
+// #endif
 
 /* long long int */
-#ifdef __GNUC__
-#ifdef HAS_CXX0X
-#ifdef LONG_LONG_MAX
-template<> struct r_sexptype_traits<long long int>{ enum{ rtype = REALSXP } ; } ;
-#endif
+//#ifdef __GNUC__
+//#ifdef HAS_CXX0X
+//#ifdef LONG_LONG_MAX
+//template<> struct r_sexptype_traits<long long int>{ enum{ rtype = REALSXP } ; } ;
+//#endif
 
 /* unsigned long long int */
-#ifdef ULONG_LONG_MAX
-template<> struct r_sexptype_traits<unsigned long long int>{ enum{ rtype = REALSXP } ; } ;
-#endif
-#endif
-#endif
+//#ifdef ULONG_LONG_MAX
+//template<> struct r_sexptype_traits<unsigned long long int>{ enum{ rtype = REALSXP } ; } ;
+//#endif
+//#endif
+//#endif
 
 /**
  * Indicates if a primitive type needs a static_cast
