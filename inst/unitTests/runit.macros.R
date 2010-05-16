@@ -45,8 +45,8 @@ test.macro.switch <- function(){
 	rcpp_typeof <- function(x){
 		.Call( "rcpp_call_test", x, PACKAGE = "Rcpp" )
 	}
-	sexp_types <- c( integer = 13L, double = 14L, raw = 24L, 
-		complex = 15L, logical = 10L, list = 19L, 
+	sexp_types <- c( integer = 13L, double = 14L, raw = 24L,
+		complex = 15L, logical = 10L, list = 19L,
 		"expression" = 20L, character = 16 )
 	checkEquals( rcpp_typeof(1L ), sexp_types[[ "integer" ]], msg = "RCPP_RETURN_VECTOR <INTSXP> " )
 	checkEquals( rcpp_typeof(1.0), sexp_types[["double"]], msg = "RCPP_RETURN_VECTOR <REALSXP> " )
@@ -59,7 +59,7 @@ test.macro.switch <- function(){
 }
 
 test.RCPPFUNCTION <- function(){
-	
+
 	fx <- cppfunction( signature(), '
 		return foo() ;
 	', includes = '
@@ -68,13 +68,13 @@ test.RCPPFUNCTION <- function(){
 	}
 	')
 	checkEquals( fx(), 10L, msg = "RCPP_FUNCTION_0" )
-	
-	checkEquals( .getInfo( "foo", fx ) , 
-		structure( list( 
-		n = 0L, 
-		output = "int", 
+
+	checkEquals( .getInfo( "foo", fx ) ,
+		structure( list(
+		n = 0L,
+		output = "int",
 		input = character(0) ), class = "rcppfunctioninfo" ) )
-	
+
 	fx <- cppfunction( signature(x = "numeric", y = "numeric" ), '
 		return foo(x, y) ;
 	', includes = '
@@ -83,13 +83,13 @@ test.RCPPFUNCTION <- function(){
 	}
 	')
 	checkEquals( fx( 10, 10), 100, msg = "RCPP_FUNCTION_2" )
-	
-	checkEquals( .getInfo( "foo", fx ) , 
-		structure( list( 
-		n = 2L, 
-		output = "double", 
+
+	checkEquals( .getInfo( "foo", fx ) ,
+		structure( list(
+		n = 2L,
+		output = "double",
 		input = c("double x","double y") ), class = "rcppfunctioninfo" ) )
-	
+
 }
 
 test.RCPPFUNCTION.VOID <- function(){
@@ -101,13 +101,13 @@ test.RCPPFUNCTION.VOID <- function(){
 	}
 	')
 	checkEquals( capture.output( x <- fx() ) , "hello", 10L, msg = "RCPP_FUNCTION_VOID_0" )
-	
+
 	info <- .getInfo( "foo", fx )
 	checkEquals( info[["n"]], 0L )
 	checkEquals( info[["input"]], character(0) )
-	checkEquals( info[["output"]], NULL) 
+	checkEquals( info[["output"]], NULL)
 	checkEquals( class(info), "rcppfunctionvoidinfo" )
-	
+
 	fx <- cppfunction( signature(x = "character", y = "integer" ), '
 		return foo(x, y) ;
 	', includes = '
@@ -116,74 +116,74 @@ test.RCPPFUNCTION.VOID <- function(){
 	}
 	')
 	checkEquals( capture.output( x <- fx("world", 3L) ) , "hello world (3)", 10L, msg = "RCPP_FUNCTION_VOID_0" )
-	
+
 	info <- .getInfo( "foo", fx )
 	checkEquals( info[["n"]], 2L )
 	checkEquals( info[["input"]], c("std::string x","int y") )
-	checkEquals( info[["output"]], NULL) 
+	checkEquals( info[["output"]], NULL)
 	checkEquals( class(info), "rcppfunctionvoidinfo" )
-		
+
 }
 
-test.RCPPXPMETHOD <- function(){
-	
-	fx <- cppfunction( signature(), '
-		std::vector<int>* v = new std::vector<int>(5) ;
-		return XPtr< std::vector<int> >(v,true) ;
-	' )
-	xp <- fx()
-	
-	f_size <- cppfunction( signature( xp = "externalptr" ), '
-		return get_size( xp ) ;
-	', includes = '
-		RCPP_XP_METHOD_0( get_size, std::vector<int>, size )
-	' )
-	checkEquals( f_size(xp), 5L, msg = "RCPP_XP_METHOD_0" )
-	
-	info <- .getInfo( "get_size", f_size )
-	checkEquals( info[["n"]], 0L )
-	checkEquals( info[["class"]], "std::vector<int>" )
-	checkEquals( info[["method"]], "size") 
-	checkEquals( class(info), "rcppxpmethodinfo" )
-	
-	
-	f_push_back <- cppfunction( signature( xp = "externalptr", x = "integer" ), '
-		vec_push_back( xp, x );
-		return R_NilValue ;
-	', includes = '
-		RCPP_XP_METHOD_VOID_1( vec_push_back, std::vector<int>, push_back )
-	' )
-	f_push_back( xp, 10L )
-	f_push_back( xp, 20L )
-	checkEquals( f_size(xp), 7L, msg = "RCPP_XP_METHOD_0" )
-	
-	info <- .getInfo( "vec_push_back", f_push_back )
-	checkEquals( info[["n"]], 1L )
-	checkEquals( info[["class"]], "std::vector<int>" )
-	checkEquals( info[["method"]], "push_back") 
-	checkEquals( class(info), "rcppxpmethodvoidinfo" )
-	
-	
-	f_front_cast <- cppfunction( signature( xp = "externalptr" ), '
-		return front( xp ) ;
-	', includes = '
-		RCPP_XP_METHOD_CAST_0( front, std::vector<int>, front, double )
-	' )
-	checkEquals( f_front_cast(xp), 0, msg = "RCPP_XP_METHOD_CAST value" )
-	checkEquals( typeof( f_front_cast(xp) ), "double", msg = "RCPP_XP_METHOD_CAST type" )
-	
-	info <- .getInfo( "front", f_front_cast )
-	checkEquals( info[["n"]], 0L )
-	checkEquals( info[["class"]], "std::vector<int>" )
-	checkEquals( info[["method"]], "front") 
-	checkEquals( info[["cast"]], "double") 
-	
-	checkEquals( class(info), "rcppxpmethodcastinfo" )
-	
-}
+## test.RCPPXPMETHOD <- function(){
+
+## 	fx <- cppfunction( signature(), '
+## 		std::vector<int>* v = new std::vector<int>(5) ;
+## 		return XPtr< std::vector<int> >(v,true) ;
+## 	' )
+## 	xp <- fx()
+
+## 	f_size <- cppfunction( signature( xp = "externalptr" ), '
+## 		return get_size( xp ) ;
+## 	', includes = '
+## 		RCPP_XP_METHOD_0( get_size, std::vector<int>, size )
+## 	' )
+## 	checkEquals( f_size(xp), 5L, msg = "RCPP_XP_METHOD_0" )
+
+## 	info <- .getInfo( "get_size", f_size )
+## 	checkEquals( info[["n"]], 0L )
+## 	checkEquals( info[["class"]], "std::vector<int>" )
+## 	checkEquals( info[["method"]], "size")
+## 	checkEquals( class(info), "rcppxpmethodinfo" )
+
+
+## 	f_push_back <- cppfunction( signature( xp = "externalptr", x = "integer" ), '
+## 		vec_push_back( xp, x );
+## 		return R_NilValue ;
+## 	', includes = '
+## 		RCPP_XP_METHOD_VOID_1( vec_push_back, std::vector<int>, push_back )
+## 	' )
+## 	f_push_back( xp, 10L )
+## 	f_push_back( xp, 20L )
+## 	checkEquals( f_size(xp), 7L, msg = "RCPP_XP_METHOD_0" )
+
+## 	info <- .getInfo( "vec_push_back", f_push_back )
+## 	checkEquals( info[["n"]], 1L )
+## 	checkEquals( info[["class"]], "std::vector<int>" )
+## 	checkEquals( info[["method"]], "push_back")
+## 	checkEquals( class(info), "rcppxpmethodvoidinfo" )
+
+
+## 	f_front_cast <- cppfunction( signature( xp = "externalptr" ), '
+## 		return front( xp ) ;
+## 	', includes = '
+## 		RCPP_XP_METHOD_CAST_0( front, std::vector<int>, front, double )
+## 	' )
+## 	checkEquals( f_front_cast(xp), 0, msg = "RCPP_XP_METHOD_CAST value" )
+## 	checkEquals( typeof( f_front_cast(xp) ), "double", msg = "RCPP_XP_METHOD_CAST type" )
+
+## 	info <- .getInfo( "front", f_front_cast )
+## 	checkEquals( info[["n"]], 0L )
+## 	checkEquals( info[["class"]], "std::vector<int>" )
+## 	checkEquals( info[["method"]], "front")
+## 	checkEquals( info[["cast"]], "double")
+
+## 	checkEquals( class(info), "rcppxpmethodcastinfo" )
+
+## }
 
 test.RCPPXPFIELD <- function(){
-	
+
 	cl <- '
 	class Foo {
 		public:
@@ -192,12 +192,12 @@ test.RCPPXPFIELD <- function(){
 	} ;
 	RCPP_XP_FIELD( Foo_x, Foo, x )
 	RCPP_FUNCTION_0(SEXP, newFoo){
-		return Rcpp::XPtr<Foo>( new Foo(2), true ) ; 
+		return Rcpp::XPtr<Foo>( new Foo(2), true ) ;
 	}
 	'
-	
+
 	fx <- cppfunction( signature(xp = "externalptr"), '', include = cl )
-	
+
 	get_info <- .getInfo( "Foo_x_get", fx )
 	set_info <- .getInfo( "Foo_x_set", fx )
 	checkEquals( get_info[["class"]], "Foo" )
@@ -206,14 +206,14 @@ test.RCPPXPFIELD <- function(){
 	checkEquals( set_info[["field"]], "x" )
 	checkEquals( class( get_info ), "rcppxpfieldgetinfo" )
 	checkEquals( class( set_info ), "rcppxpfieldsetinfo" )
-	
+
 	dll <- .getDll( fx )
 	xp <- .Call( dll$newFoo )
-	
+
 	checkEquals( .Call( dll$Foo_x_get, xp ), 2L )
 	.Call( dll$Foo_x_set, xp, 10L )
 	checkEquals( .Call( dll$Foo_x_get, xp ), 10L )
-	
+
 }
 
 
