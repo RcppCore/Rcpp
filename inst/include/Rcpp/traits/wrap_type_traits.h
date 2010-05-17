@@ -71,25 +71,10 @@ template <> struct wrap_type_traits<long double> { typedef wrap_type_primitive_t
 template <> struct wrap_type_traits<short> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<unsigned short> { typedef wrap_type_primitive_tag wrap_category; } ;
 
-// #ifdef __GNUC__
-//     __extension__ typedef long long long_long_type;
-//     __extension__ typedef unsigned long long ulong_long_type;
-// #else
-//     typedef long long long_long_type;
-//     typedef unsigned long long ulong_long_type;
-// #endif
-
-//#ifdef __GNUC__
-//#ifdef HAS_CXX0X
-//#ifdef LONG_LONG_MAX
-//template <> struct wrap_type_traits<long long int> { typedef wrap_type_primitive_tag wrap_category; } ;
-//#endif
-
-//#ifdef ULONG_LONG_MAX
-//template <> struct wrap_type_traits<unsigned long long int> { typedef wrap_type_primitive_tag wrap_category; } ;
-//#endif 
-//#endif
-//#endif
+#ifdef RCPP_HAS_LONG_LONG_TYPES
+template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
+#endif
 
 } // namespace traits
 } // namespace Rcpp
