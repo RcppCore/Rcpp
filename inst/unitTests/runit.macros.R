@@ -141,13 +141,12 @@ test.RCPPXPMETHOD <- function(){
 	' )
 	checkEquals( f_back(xp), 5L, msg = "RCPP_XP_METHOD_0" )
 
-	info <- .getInfo( "get_back", f_size )
+	info <- .getInfo( "get_back", f_back )
 	checkEquals( info[["n"]], 0L )
 	checkEquals( info[["class"]], "std::vector<int>" )
 	checkEquals( info[["method"]], "back")
 	checkEquals( class(info), "rcppxpmethodinfo" )
-
-
+	
 	f_push_back <- cppfunction( signature( xp = "externalptr", x = "integer" ), '
 		vec_push_back( xp, x );
 		return R_NilValue ;
@@ -218,4 +217,18 @@ test.RCPPXPFIELD <- function(){
 
 }
 
+### regression test for long long support
+test.long.long <- function(){
+	
+	fx <- cppfunction( signature(), '
+		return foo() ;
+	', includes = '
+	RCPP_FUNCTION_0(size_t, foo){
+		std::vector<int> v(10) ;
+		return v.size() ;
+	}
+	')
+	checkEquals( as.integer(fx()), 10L, msg = "long long support" )
+
+}
 

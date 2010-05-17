@@ -34,7 +34,7 @@ struct wrap_type_primitive_tag{};
 /**
  * unknown. Implicit conversion to SEXP will be tried.
  */
-struct wrap_type_unknown_tag{};          // unknown, not sure what to do with this type
+struct wrap_type_unknown_tag{};
 
 /**
  * Type trait that helps the dispatch of wrap to the proper method
