@@ -40,14 +40,14 @@ firstExample <- function() {
 
     ## turn into a function that R can call
     ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
-    funx <- cfunction(signature(ignored="numeric"), gslrng,
+    funx <- cfunction(signature(), gslrng,
                       includes="#include <gsl/gsl_rng.h>",
                       Rcpp=FALSE,
                       cppargs="-I/usr/include",
                       libargs="-lgsl -lgslcblas")
 
     cat("Calling first example\n")
-    funx(0)
+    funx()
     invisible(NULL)
 }
 
