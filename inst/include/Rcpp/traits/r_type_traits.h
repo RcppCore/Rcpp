@@ -111,29 +111,13 @@ template<> struct r_type_traits< std::pair<const std::string,short> >{ typedef r
 template<> struct r_type_traits<unsigned short>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,unsigned short> >{ typedef r_type_primitive_tag r_category ; } ;
 
-// #ifdef __GNUC__
-//     __extension__ typedef long long long_long_type;
-//     __extension__ typedef unsigned long long ulong_long_type;
-// #else
-//     typedef long long long_long_type;
-//     typedef unsigned long long ulong_long_type;
-// #endif
-
-//#ifdef __GNUC__
-//#ifdef HAS_CXX0X
 /* long long int */
-//#ifdef LONG_LONG_MAX
-//template<> struct r_type_traits<long long int>{ typedef r_type_primitive_tag r_category ; } ;
-//template<> struct r_type_traits< std::pair<const std::string,long long int> >{ typedef r_type_primitive_tag r_category ; } ;
-//#endif
-
-/* unsigned long long int */
-//#ifdef ULONG_LONG_MAX
-//template<> struct r_type_traits<unsigned long long int>{ typedef r_type_primitive_tag r_category ; } ;
-//template<> struct r_type_traits< std::pair<const std::string,unsigned long long int> >{ typedef r_type_primitive_tag r_category ; } ;
-//#endif
-//#endif
-//#endif
+#ifdef RCPP_HAS_LONG_LONG_TYPES
+template<> struct r_type_traits<rcpp_long_long_type>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,rcpp_long_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits<rcpp_ulong_long_type>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,rcpp_ulong_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
+#endif
 
 } // traits
 } // Rcpp

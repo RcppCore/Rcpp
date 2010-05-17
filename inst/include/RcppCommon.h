@@ -196,6 +196,14 @@ SEXP stack_trace( const char *file, int line) ;
   #include <typeinfo>
 #endif
 
+#ifdef __GNUC__
+#ifdef LONG_LONG_MAX
+    __extension__ typedef long long int rcpp_long_long_type;
+    __extension__ typedef unsigned long long int rcpp_ulong_long_type;
+    #define RCPP_HAS_LONG_LONG_TYPES
+#endif
+#endif
+
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
 #include <Rcpp/traits/integral_constant.h>
 #include <Rcpp/traits/same_type.h>
