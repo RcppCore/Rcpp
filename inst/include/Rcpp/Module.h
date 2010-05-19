@@ -45,19 +45,25 @@ class Module {
 		Module(const char* name_) : name(name_), functions() {}
 		      
 		SEXP invoke( const std::string& name, SEXP* args, int nargs){
-			MAP::iterator it = functions.find( name );
-			if( it == functions.end() ){
-				::Rf_error( "no such function" ) ;
+			try{
+				MAP::iterator it = functions.find( name );
+				if( it == functions.end() ){
+					throw std::range_error( "no such function" ) ; 
+				}
+				CppFunction* fun = it->second ;
+				if( fun->nargs() > nargs ){
+					throw std::range_error( "incorrect number of arguments" ) ; 	
+				}
+				 
+				return Rcpp::List::create( 
+					Rcpp::Named("result") = fun->operator()( args ), 
+					Rcpp::Named("void")   = fun->is_void() 
+				) ;
+			} catch( std::exception& __ex__ ){
+				forward_exception_to_r( __ex__ ); 
 			}
-			CppFunction* fun = it->second ;
-			if( fun->nargs() > nargs ){
-				::Rf_error( "expecting %d arguments", fun->nargs() ) ;	
-			}
-			return Rcpp::List::create( 
-				Rcpp::Named("result") = fun->operator()( args ), 
-				Rcpp::Named("void")   = fun->is_void() 
-			) ;
-		}
+			return R_NilValue ; // -Wall
+		}                                                                                  
 		
 		Rcpp::IntegerVector functions_arity() ;
 		
