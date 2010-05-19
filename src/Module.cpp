@@ -63,18 +63,13 @@ namespace Rcpp{
 		x.names() = names ;
 		return x ;
 	}
-		
 	
 	
 	CppFunction0<void>::CppFunction0( void (*fun)(void) ) : 
 		CppFunction(), ptr_fun(fun){}
 	
-	SEXP CppFunction0<void>::operator()(SEXP* args){
-		try{
-			ptr_fun() ;
-		} catch( std::exception& __ex__ ){
-			forward_exception_to_r( __ex__ ) ;
-		}
+	SEXP CppFunction0<void>::operator()(SEXP* args) throw(std::exception) {
+		ptr_fun() ;
 		return R_NilValue ;
 	}
 		

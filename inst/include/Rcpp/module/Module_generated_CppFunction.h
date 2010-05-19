@@ -26,14 +26,8 @@ template <typename OUT>
 class CppFunction0 : public CppFunction {
 	public:
 		CppFunction0(OUT (*fun)(void) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun() ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		SEXP operator()(SEXP* args) throw(std::range_error) {
+			return Rcpp::wrap( ptr_fun() ) ;
 		}
 		
 		inline int nargs(){ return 0; }
@@ -48,7 +42,7 @@ class CppFunction0<void> : public CppFunction {
 	public:
 		CppFunction0(void (*fun)(void) )  ;
 		
-		SEXP operator()(SEXP* args) ;
+		SEXP operator()(SEXP* args) throw(std::exception) ;
 		
 		inline int nargs(){ return 0; }
 		inline bool is_void(){ return true; }
@@ -63,14 +57,9 @@ class CppFunction1 : public CppFunction {
 	public:
 
 		CppFunction1(OUT (*fun)(U0) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 1; }
@@ -83,12 +72,9 @@ template <typename U0>
 class CppFunction1<void,U0> : public CppFunction {
 	public:
 		CppFunction1(void (*fun)(U0) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -106,14 +92,9 @@ class CppFunction2 : public CppFunction {
 	public:
 
 		CppFunction2(OUT (*fun)(U0, U1) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 2; }
@@ -126,12 +107,9 @@ template <typename U0, typename U1>
 class CppFunction2<void,U0, U1> : public CppFunction {
 	public:
 		CppFunction2(void (*fun)(U0, U1) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -149,14 +127,9 @@ class CppFunction3 : public CppFunction {
 	public:
 
 		CppFunction3(OUT (*fun)(U0, U1, U2) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 3; }
@@ -169,12 +142,9 @@ template <typename U0, typename U1, typename U2>
 class CppFunction3<void,U0, U1, U2> : public CppFunction {
 	public:
 		CppFunction3(void (*fun)(U0, U1, U2) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -192,14 +162,9 @@ class CppFunction4 : public CppFunction {
 	public:
 
 		CppFunction4(OUT (*fun)(U0, U1, U2, U3) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 4; }
@@ -212,12 +177,9 @@ template <typename U0, typename U1, typename U2, typename U3>
 class CppFunction4<void,U0, U1, U2, U3> : public CppFunction {
 	public:
 		CppFunction4(void (*fun)(U0, U1, U2, U3) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -235,14 +197,9 @@ class CppFunction5 : public CppFunction {
 	public:
 
 		CppFunction5(OUT (*fun)(U0, U1, U2, U3, U4) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 5; }
@@ -255,12 +212,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4>
 class CppFunction5<void,U0, U1, U2, U3, U4> : public CppFunction {
 	public:
 		CppFunction5(void (*fun)(U0, U1, U2, U3, U4) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -278,14 +232,9 @@ class CppFunction6 : public CppFunction {
 	public:
 
 		CppFunction6(OUT (*fun)(U0, U1, U2, U3, U4, U5) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 6; }
@@ -298,12 +247,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction6<void,U0, U1, U2, U3, U4, U5> : public CppFunction {
 	public:
 		CppFunction6(void (*fun)(U0, U1, U2, U3, U4, U5) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -321,14 +267,9 @@ class CppFunction7 : public CppFunction {
 	public:
 
 		CppFunction7(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 7; }
@@ -341,12 +282,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction7<void,U0, U1, U2, U3, U4, U5, U6> : public CppFunction {
 	public:
 		CppFunction7(void (*fun)(U0, U1, U2, U3, U4, U5, U6) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -364,14 +302,9 @@ class CppFunction8 : public CppFunction {
 	public:
 
 		CppFunction8(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 8; }
@@ -384,12 +317,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction8<void,U0, U1, U2, U3, U4, U5, U6, U7> : public CppFunction {
 	public:
 		CppFunction8(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -407,14 +337,9 @@ class CppFunction9 : public CppFunction {
 	public:
 
 		CppFunction9(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 9; }
@@ -427,12 +352,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction9<void,U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppFunction {
 	public:
 		CppFunction9(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -450,14 +372,9 @@ class CppFunction10 : public CppFunction {
 	public:
 
 		CppFunction10(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 10; }
@@ -470,12 +387,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction10<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppFunction {
 	public:
 		CppFunction10(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -493,14 +407,9 @@ class CppFunction11 : public CppFunction {
 	public:
 
 		CppFunction11(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 11; }
@@ -513,12 +422,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction11<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public CppFunction {
 	public:
 		CppFunction11(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -536,14 +442,9 @@ class CppFunction12 : public CppFunction {
 	public:
 
 		CppFunction12(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 12; }
@@ -556,12 +457,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction12<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : public CppFunction {
 	public:
 		CppFunction12(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -579,14 +477,9 @@ class CppFunction13 : public CppFunction {
 	public:
 
 		CppFunction13(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 13; }
@@ -599,12 +492,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction13<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> : public CppFunction {
 	public:
 		CppFunction13(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -622,14 +512,9 @@ class CppFunction14 : public CppFunction {
 	public:
 
 		CppFunction14(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 14; }
@@ -642,12 +527,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction14<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13> : public CppFunction {
 	public:
 		CppFunction14(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -665,14 +547,9 @@ class CppFunction15 : public CppFunction {
 	public:
 
 		CppFunction15(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 15; }
@@ -685,12 +562,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction15<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14> : public CppFunction {
 	public:
 		CppFunction15(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -708,14 +582,9 @@ class CppFunction16 : public CppFunction {
 	public:
 
 		CppFunction16(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 16; }
@@ -728,12 +597,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction16<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15> : public CppFunction {
 	public:
 		CppFunction16(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -751,14 +617,9 @@ class CppFunction17 : public CppFunction {
 	public:
 
 		CppFunction17(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 17; }
@@ -771,12 +632,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction17<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16> : public CppFunction {
 	public:
 		CppFunction17(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -794,14 +652,9 @@ class CppFunction18 : public CppFunction {
 	public:
 
 		CppFunction18(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 18; }
@@ -814,12 +667,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction18<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17> : public CppFunction {
 	public:
 		CppFunction18(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -837,14 +687,9 @@ class CppFunction19 : public CppFunction {
 	public:
 
 		CppFunction19(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 19; }
@@ -857,12 +702,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction19<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18> : public CppFunction {
 	public:
 		CppFunction19(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -880,14 +722,9 @@ class CppFunction20 : public CppFunction {
 	public:
 
 		CppFunction20(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 20; }
@@ -900,12 +737,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction20<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19> : public CppFunction {
 	public:
 		CppFunction20(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -923,14 +757,9 @@ class CppFunction21 : public CppFunction {
 	public:
 
 		CppFunction21(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 21; }
@@ -943,12 +772,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction21<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20> : public CppFunction {
 	public:
 		CppFunction21(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -966,14 +792,9 @@ class CppFunction22 : public CppFunction {
 	public:
 
 		CppFunction22(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 22; }
@@ -986,12 +807,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction22<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21> : public CppFunction {
 	public:
 		CppFunction22(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1009,14 +827,9 @@ class CppFunction23 : public CppFunction {
 	public:
 
 		CppFunction23(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 23; }
@@ -1029,12 +842,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction23<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22> : public CppFunction {
 	public:
 		CppFunction23(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1052,14 +862,9 @@ class CppFunction24 : public CppFunction {
 	public:
 
 		CppFunction24(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 24; }
@@ -1072,12 +877,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction24<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23> : public CppFunction {
 	public:
 		CppFunction24(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1095,14 +897,9 @@ class CppFunction25 : public CppFunction {
 	public:
 
 		CppFunction25(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 25; }
@@ -1115,12 +912,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction25<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24> : public CppFunction {
 	public:
 		CppFunction25(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1138,14 +932,9 @@ class CppFunction26 : public CppFunction {
 	public:
 
 		CppFunction26(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 26; }
@@ -1158,12 +947,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction26<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25> : public CppFunction {
 	public:
 		CppFunction26(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1181,14 +967,9 @@ class CppFunction27 : public CppFunction {
 	public:
 
 		CppFunction27(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 27; }
@@ -1201,12 +982,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction27<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26> : public CppFunction {
 	public:
 		CppFunction27(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1224,14 +1002,9 @@ class CppFunction28 : public CppFunction {
 	public:
 
 		CppFunction28(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 28; }
@@ -1244,12 +1017,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction28<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27> : public CppFunction {
 	public:
 		CppFunction28(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1267,14 +1037,9 @@ class CppFunction29 : public CppFunction {
 	public:
 
 		CppFunction29(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 29; }
@@ -1287,12 +1052,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction29<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28> : public CppFunction {
 	public:
 		CppFunction29(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1310,14 +1072,9 @@ class CppFunction30 : public CppFunction {
 	public:
 
 		CppFunction30(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 30; }
@@ -1330,12 +1087,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction30<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29> : public CppFunction {
 	public:
 		CppFunction30(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1353,14 +1107,9 @@ class CppFunction31 : public CppFunction {
 	public:
 
 		CppFunction31(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 31; }
@@ -1373,12 +1122,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction31<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30> : public CppFunction {
 	public:
 		CppFunction31(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1396,14 +1142,9 @@ class CppFunction32 : public CppFunction {
 	public:
 
 		CppFunction32(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 32; }
@@ -1416,12 +1157,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction32<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31> : public CppFunction {
 	public:
 		CppFunction32(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1439,14 +1177,9 @@ class CppFunction33 : public CppFunction {
 	public:
 
 		CppFunction33(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 33; }
@@ -1459,12 +1192,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction33<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32> : public CppFunction {
 	public:
 		CppFunction33(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1482,14 +1212,9 @@ class CppFunction34 : public CppFunction {
 	public:
 
 		CppFunction34(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 34; }
@@ -1502,12 +1227,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction34<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33> : public CppFunction {
 	public:
 		CppFunction34(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1525,14 +1247,9 @@ class CppFunction35 : public CppFunction {
 	public:
 
 		CppFunction35(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 35; }
@@ -1545,12 +1262,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction35<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34> : public CppFunction {
 	public:
 		CppFunction35(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1568,14 +1282,9 @@ class CppFunction36 : public CppFunction {
 	public:
 
 		CppFunction36(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 36; }
@@ -1588,12 +1297,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction36<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35> : public CppFunction {
 	public:
 		CppFunction36(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1611,14 +1317,9 @@ class CppFunction37 : public CppFunction {
 	public:
 
 		CppFunction37(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 37; }
@@ -1631,12 +1332,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction37<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36> : public CppFunction {
 	public:
 		CppFunction37(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1654,14 +1352,9 @@ class CppFunction38 : public CppFunction {
 	public:
 
 		CppFunction38(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 38; }
@@ -1674,12 +1367,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction38<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37> : public CppFunction {
 	public:
 		CppFunction38(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1697,14 +1387,9 @@ class CppFunction39 : public CppFunction {
 	public:
 
 		CppFunction39(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 39; }
@@ -1717,12 +1402,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction39<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38> : public CppFunction {
 	public:
 		CppFunction39(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1740,14 +1422,9 @@ class CppFunction40 : public CppFunction {
 	public:
 
 		CppFunction40(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 40; }
@@ -1760,12 +1437,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction40<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39> : public CppFunction {
 	public:
 		CppFunction40(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1783,14 +1457,9 @@ class CppFunction41 : public CppFunction {
 	public:
 
 		CppFunction41(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 41; }
@@ -1803,12 +1472,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction41<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40> : public CppFunction {
 	public:
 		CppFunction41(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1826,14 +1492,9 @@ class CppFunction42 : public CppFunction {
 	public:
 
 		CppFunction42(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 42; }
@@ -1846,12 +1507,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction42<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41> : public CppFunction {
 	public:
 		CppFunction42(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1869,14 +1527,9 @@ class CppFunction43 : public CppFunction {
 	public:
 
 		CppFunction43(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 43; }
@@ -1889,12 +1542,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction43<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42> : public CppFunction {
 	public:
 		CppFunction43(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1912,14 +1562,9 @@ class CppFunction44 : public CppFunction {
 	public:
 
 		CppFunction44(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 44; }
@@ -1932,12 +1577,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction44<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43> : public CppFunction {
 	public:
 		CppFunction44(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1955,14 +1597,9 @@ class CppFunction45 : public CppFunction {
 	public:
 
 		CppFunction45(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 45; }
@@ -1975,12 +1612,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction45<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44> : public CppFunction {
 	public:
 		CppFunction45(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -1998,14 +1632,9 @@ class CppFunction46 : public CppFunction {
 	public:
 
 		CppFunction46(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 46; }
@@ -2018,12 +1647,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction46<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45> : public CppFunction {
 	public:
 		CppFunction46(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2041,14 +1667,9 @@ class CppFunction47 : public CppFunction {
 	public:
 
 		CppFunction47(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 47; }
@@ -2061,12 +1682,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction47<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46> : public CppFunction {
 	public:
 		CppFunction47(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2084,14 +1702,9 @@ class CppFunction48 : public CppFunction {
 	public:
 
 		CppFunction48(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 48; }
@@ -2104,12 +1717,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction48<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47> : public CppFunction {
 	public:
 		CppFunction48(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2127,14 +1737,9 @@ class CppFunction49 : public CppFunction {
 	public:
 
 		CppFunction49(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 49; }
@@ -2147,12 +1752,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction49<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48> : public CppFunction {
 	public:
 		CppFunction49(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2170,14 +1772,9 @@ class CppFunction50 : public CppFunction {
 	public:
 
 		CppFunction50(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 50; }
@@ -2190,12 +1787,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction50<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49> : public CppFunction {
 	public:
 		CppFunction50(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2213,14 +1807,9 @@ class CppFunction51 : public CppFunction {
 	public:
 
 		CppFunction51(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 51; }
@@ -2233,12 +1822,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction51<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50> : public CppFunction {
 	public:
 		CppFunction51(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2256,14 +1842,9 @@ class CppFunction52 : public CppFunction {
 	public:
 
 		CppFunction52(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 52; }
@@ -2276,12 +1857,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction52<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51> : public CppFunction {
 	public:
 		CppFunction52(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2299,14 +1877,9 @@ class CppFunction53 : public CppFunction {
 	public:
 
 		CppFunction53(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 53; }
@@ -2319,12 +1892,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction53<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52> : public CppFunction {
 	public:
 		CppFunction53(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2342,14 +1912,9 @@ class CppFunction54 : public CppFunction {
 	public:
 
 		CppFunction54(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 54; }
@@ -2362,12 +1927,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction54<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53> : public CppFunction {
 	public:
 		CppFunction54(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2385,14 +1947,9 @@ class CppFunction55 : public CppFunction {
 	public:
 
 		CppFunction55(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 55; }
@@ -2405,12 +1962,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction55<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54> : public CppFunction {
 	public:
 		CppFunction55(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2428,14 +1982,9 @@ class CppFunction56 : public CppFunction {
 	public:
 
 		CppFunction56(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 56; }
@@ -2448,12 +1997,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction56<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55> : public CppFunction {
 	public:
 		CppFunction56(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2471,14 +2017,9 @@ class CppFunction57 : public CppFunction {
 	public:
 
 		CppFunction57(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 57; }
@@ -2491,12 +2032,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction57<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56> : public CppFunction {
 	public:
 		CppFunction57(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2514,14 +2052,9 @@ class CppFunction58 : public CppFunction {
 	public:
 
 		CppFunction58(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 58; }
@@ -2534,12 +2067,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction58<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57> : public CppFunction {
 	public:
 		CppFunction58(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2557,14 +2087,9 @@ class CppFunction59 : public CppFunction {
 	public:
 
 		CppFunction59(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 59; }
@@ -2577,12 +2102,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction59<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58> : public CppFunction {
 	public:
 		CppFunction59(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2600,14 +2122,9 @@ class CppFunction60 : public CppFunction {
 	public:
 
 		CppFunction60(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 60; }
@@ -2620,12 +2137,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction60<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59> : public CppFunction {
 	public:
 		CppFunction60(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2643,14 +2157,9 @@ class CppFunction61 : public CppFunction {
 	public:
 
 		CppFunction61(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 61; }
@@ -2663,12 +2172,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction61<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60> : public CppFunction {
 	public:
 		CppFunction61(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2686,14 +2192,9 @@ class CppFunction62 : public CppFunction {
 	public:
 
 		CppFunction62(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 62; }
@@ -2706,12 +2207,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction62<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61> : public CppFunction {
 	public:
 		CppFunction62(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2729,14 +2227,9 @@ class CppFunction63 : public CppFunction {
 	public:
 
 		CppFunction63(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 63; }
@@ -2749,12 +2242,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction63<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62> : public CppFunction {
 	public:
 		CppFunction63(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2772,14 +2262,9 @@ class CppFunction64 : public CppFunction {
 	public:
 
 		CppFunction64(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 64; }
@@ -2792,12 +2277,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction64<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63> : public CppFunction {
 	public:
 		CppFunction64(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ) ) ;
 			return R_NilValue ;
 		}
 		
@@ -2815,14 +2297,9 @@ class CppFunction65 : public CppFunction {
 	public:
 
 		CppFunction65(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ), Rcpp::as<U64>( args[64] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ), Rcpp::as<U64>( args[64] ) ) ) ;
 		}
 		
 		inline int nargs(){ return 65; }
@@ -2835,12 +2312,9 @@ template <typename U0, typename U1, typename U2, typename U3, typename U4, typen
 class CppFunction65<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64> : public CppFunction {
 	public:
 		CppFunction65(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ), Rcpp::as<U64>( args[64] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as<U0>( args[0] ), Rcpp::as<U1>( args[1] ), Rcpp::as<U2>( args[2] ), Rcpp::as<U3>( args[3] ), Rcpp::as<U4>( args[4] ), Rcpp::as<U5>( args[5] ), Rcpp::as<U6>( args[6] ), Rcpp::as<U7>( args[7] ), Rcpp::as<U8>( args[8] ), Rcpp::as<U9>( args[9] ), Rcpp::as<U10>( args[10] ), Rcpp::as<U11>( args[11] ), Rcpp::as<U12>( args[12] ), Rcpp::as<U13>( args[13] ), Rcpp::as<U14>( args[14] ), Rcpp::as<U15>( args[15] ), Rcpp::as<U16>( args[16] ), Rcpp::as<U17>( args[17] ), Rcpp::as<U18>( args[18] ), Rcpp::as<U19>( args[19] ), Rcpp::as<U20>( args[20] ), Rcpp::as<U21>( args[21] ), Rcpp::as<U22>( args[22] ), Rcpp::as<U23>( args[23] ), Rcpp::as<U24>( args[24] ), Rcpp::as<U25>( args[25] ), Rcpp::as<U26>( args[26] ), Rcpp::as<U27>( args[27] ), Rcpp::as<U28>( args[28] ), Rcpp::as<U29>( args[29] ), Rcpp::as<U30>( args[30] ), Rcpp::as<U31>( args[31] ), Rcpp::as<U32>( args[32] ), Rcpp::as<U33>( args[33] ), Rcpp::as<U34>( args[34] ), Rcpp::as<U35>( args[35] ), Rcpp::as<U36>( args[36] ), Rcpp::as<U37>( args[37] ), Rcpp::as<U38>( args[38] ), Rcpp::as<U39>( args[39] ), Rcpp::as<U40>( args[40] ), Rcpp::as<U41>( args[41] ), Rcpp::as<U42>( args[42] ), Rcpp::as<U43>( args[43] ), Rcpp::as<U44>( args[44] ), Rcpp::as<U45>( args[45] ), Rcpp::as<U46>( args[46] ), Rcpp::as<U47>( args[47] ), Rcpp::as<U48>( args[48] ), Rcpp::as<U49>( args[49] ), Rcpp::as<U50>( args[50] ), Rcpp::as<U51>( args[51] ), Rcpp::as<U52>( args[52] ), Rcpp::as<U53>( args[53] ), Rcpp::as<U54>( args[54] ), Rcpp::as<U55>( args[55] ), Rcpp::as<U56>( args[56] ), Rcpp::as<U57>( args[57] ), Rcpp::as<U58>( args[58] ), Rcpp::as<U59>( args[59] ), Rcpp::as<U60>( args[60] ), Rcpp::as<U61>( args[61] ), Rcpp::as<U62>( args[62] ), Rcpp::as<U63>( args[63] ), Rcpp::as<U64>( args[64] ) ) ;
 			return R_NilValue ;
 		}
 		
