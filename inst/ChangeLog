@@ -1,3 +1,14 @@
+
+2010-05-19  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Module.h : adding the concept of Rcpp modules, inspired
+	from boost.python
+	
+	* R/Module.R: R side support for modules
+	
+	* R/getDLL.R: generic (s4) function to get the DLL based on either its name
+	e.g. getDLL( "Rcpp" ) or an object of class CFunc (from the inline package)
+
 2010-05-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.0
