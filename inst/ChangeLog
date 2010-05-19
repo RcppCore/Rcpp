@@ -1,6 +1,9 @@
 
 2010-05-19  Romain Francois <romain@r-enthusiasts.com>
 
+	* inst/include/Rcpp/as.h: add throw specification to as specialization, 
+	reported by suncc compiler on CRAN checks
+
 	* inst/include/Rcpp/Module.h : adding the concept of Rcpp modules, inspired
 	from boost.python
 	
