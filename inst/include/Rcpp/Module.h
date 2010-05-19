@@ -33,144 +33,10 @@ class CppFunction {
 		virtual bool is_void(){ return false ; }
 };
 
-template <typename OUT>
-class CppFunction0 : public CppFunction {
-	public:
-		CppFunction0(OUT (*fun)(void) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun() ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
-		}
-		
-		inline int nargs(){ return 0; }
-		
-	private:
-		OUT (*ptr_fun)(void) ;	
-} ;
+#include <Rcpp/module/Module_generated_CppFunction.h>
 
-template <>
-class CppFunction0<void> : public CppFunction {
-	public:
-		CppFunction0(void (*fun)(void) )  ;
-		
-		SEXP operator()(SEXP* args) ;
-		
-		inline int nargs(){ return 0; }
-		inline bool is_void(){ return true; }
-		
-	private:
-		void (*ptr_fun)(void) ;	
-} ;
+#include <Rcpp/module/Module_generated_make_function.h>
 
-
-template <typename OUT, typename U0>
-class CppFunction1 : public CppFunction {
-	public:
-		CppFunction1(OUT (*fun)(U0 u0) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( Rcpp::as<U0>( args[0] ) ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
-		}
-		
-		inline int nargs(){ return 1; }
-		
-	private:
-		OUT (*ptr_fun)(U0 u0) ;	
-} ;
-
-template <typename U0>
-class CppFunction1<void,U0> : public CppFunction {
-	public:
-		CppFunction1(void (*fun)(U0 u0) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( Rcpp::as<U0>( args[0] ) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return R_NilValue ;
-		}
-		
-		inline int nargs(){ return 1; }
-		inline bool is_void(){ return true; }
-		
-	private:
-		void (*ptr_fun)(U0 u0) ;	
-} ;
-
-
-
-template <typename OUT, typename U0, typename U1>
-class CppFunction2 : public CppFunction {
-	public:
-		CppFunction2(OUT (*fun)(U0 u0, U1 u1) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			SEXP res = R_NilValue ;
-			try{
-				res = Rcpp::wrap( ptr_fun( 
-					Rcpp::as<U0>( args[0] ), 
-					Rcpp::as<U1>( args[1] )
-					) ) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return res ;
-		}
-		inline int nargs(){ return 2; }
-		
-		
-	private:
-		OUT (*ptr_fun)(U0 u0, U1 u1) ;	
-} ;
-
-template <typename U0, typename U1>
-class CppFunction2<void,U0,U1> : public CppFunction {
-	public:
-		CppFunction2(void (*fun)(U0 u0, U1 u1) ) : CppFunction(), ptr_fun(fun){}
-		SEXP operator()(SEXP* args){
-			try{
-				ptr_fun( 
-					Rcpp::as<U0>( args[0] ), 
-					Rcpp::as<U1>( args[1] )
-					);
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ) ;
-			}
-			return R_NilValue ;
-		}
-		inline int nargs(){ return 2; }
-		inline bool is_void(){ return true; }
-		
-		
-	private:
-		void (*ptr_fun)(U0 u0, U1 u1) ;	
-} ;
-
-template <typename OUT>
-CppFunction* make_function( OUT (*fun)(void) ){
-	return new CppFunction0<OUT>( fun ) ;
-}
-
-template <typename OUT, typename U0>
-CppFunction* make_function( OUT (*fun)(U0 u0) ){
-	return new CppFunction1<OUT,U0>( fun ) ;
-}
-
-template <typename OUT, typename U0, typename U1>
-CppFunction* make_function( OUT (*fun)(U0 u0, U1 u1) ){
-	return new CppFunction2<OUT,U0,U1>( fun ) ;
-}
-	
 class Module {
 	public:    
 		typedef std::map<std::string,CppFunction*> MAP ;
@@ -203,31 +69,12 @@ class Module {
 		
 	private:
 		std::map<std::string,CppFunction*> functions ;
-		
+		           
 };
 
 extern Rcpp::Module* current_scope ;
 
-template <typename OUT>
-void function( const char* name,  OUT (*fun)(void)){
-	if( Rcpp::current_scope ){
-		Rcpp::current_scope->Add( name, new CppFunction0<OUT>( fun ) ) ;
-	}
-}
-
-template <typename OUT, typename U0>
-void function( const char* name,  OUT (*fun)(U0 u0)){
-	if( Rcpp::current_scope ){
-		Rcpp::current_scope->Add( name, new CppFunction1<OUT,U0>( fun ) ) ;
-	}
-}
-
-template <typename OUT, typename U0, typename U1>
-void function( const char* name,  OUT (*fun)(U0 u0, U1 u1)){
-	if( Rcpp::current_scope ){
-		Rcpp::current_scope->Add( name, new CppFunction2<OUT,U0,U1>( fun ) ) ;
-	}
-}
+#include <Rcpp/module/Module_generated_function.h>
 
 
 }
