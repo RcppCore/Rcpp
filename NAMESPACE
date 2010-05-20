@@ -6,7 +6,6 @@ export(cppfunction)
 importFrom( utils, capture.output )
 
 importFrom( inline, cfunction )
-exportMethods( getDLL )
 exportClasses( Module )
 export( Module )
 
