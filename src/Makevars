@@ -14,7 +14,7 @@
 ## - the environment variable RCPP_CXX0X is set to yes
 ## - it makes sense (GCC >= 4.3)
 ifeq ($(RCPP_CXX0X),yes)
-CLINK_CPPFLAGS = $(shell Rscript "cxx0x/cxx0x.R")
+CLINK_CPPFLAGS = $(shell $(R_HOME)/bin/Rscript "cxx0x/cxx0x.R")
 endif
 
 ifeq ($(SHLIB),)

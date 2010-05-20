@@ -21,7 +21,7 @@ USERLIB	= 	$(USERDIR)/$(STATICLIB)
 ## - the RCPP_CXX0X environment variable is set to "yes"
 ## - it is possible (GCC>=4.3)
 ifeq ($(RCPP_CXX0X),yes)
-CLINK_CPPFLAGS := $shell(Rscript.exe cxx0x/cxx0x.R)
+CLINK_CPPFLAGS := $shell("${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" cxx0x/cxx0x.R)
 endif
 
 ## the 'package' library contains both Rcpp.{cpp,h} and the RcppExample used to demonstrate the package
