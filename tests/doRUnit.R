@@ -15,16 +15,21 @@
 if(require("RUnit", quietly = TRUE)) {
   pkg <- "Rcpp"
 
-  require( pkg, character.only=TRUE)
+  if( ! nzchar(Sys.getenv("RCPP_DISABLE_UNIT_TESTS")) ){  
+    require( pkg, character.only=TRUE)
+    
+    path <- system.file("unitTests", package = pkg)
+    
+    stopifnot(file.exists(path), file.info(path.expand(path))$isdir)
+    
+    # without this, we get many bunch of unit test failures
+    Sys.setenv( R_TESTS = "" )
+    
+    source(file.path(path, "runTests.R"), echo = TRUE)
+  } else{
+  	print( "unit test are disabled" )  
+  }
 
-  path <- system.file("unitTests", package = pkg)
-
-  stopifnot(file.exists(path), file.info(path.expand(path))$isdir)
-
-  # without this, we get many bunch of unit test failures
-  Sys.setenv( R_TESTS = "" )
-  
-  source(file.path(path, "runTests.R"), echo = TRUE)
 } else {
 	print( "package RUnit not available, cannot run unit tests" )
 }
