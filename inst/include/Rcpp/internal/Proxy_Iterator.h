@@ -85,26 +85,26 @@ public:
 			return &proxy ;
 		}
 		
-		inline bool operator==( const Proxy_Iterator& y) {
+		inline bool operator==( const Proxy_Iterator& y) const {
 			return ( this->proxy.index == y.proxy.index ) && ( this->proxy.parent == y.proxy.parent );
 		}
-		inline bool operator!=( const Proxy_Iterator& y) {
+		inline bool operator!=( const Proxy_Iterator& y) const {
 			return ( this->proxy.index != y.proxy.index ) || ( this->proxy.parent != y.proxy.parent );
 		}
-		inline bool operator<( const Proxy_Iterator& other ) {
+		inline bool operator<( const Proxy_Iterator& other ) const {
 			return proxy.index < other.proxy.index ;
 		}
-		inline bool operator>( const Proxy_Iterator& other ) {
+		inline bool operator>( const Proxy_Iterator& other ) const {
 			return proxy.index > other.proxy.index ;
 		}
-		inline bool operator<=( const Proxy_Iterator& other ) {
+		inline bool operator<=( const Proxy_Iterator& other ) const {
 			return proxy.index <= other.proxy.index ;
 		}
-		inline bool operator>=( const Proxy_Iterator& other ) {
+		inline bool operator>=( const Proxy_Iterator& other ) const {
 			return proxy.index >= other.proxy.index ;
 		}
 		
-		inline difference_type operator-(const Proxy_Iterator& other) {
+		inline difference_type operator-(const Proxy_Iterator& other) const {
 			return proxy.index - other.proxy.index ;
 		}
 
