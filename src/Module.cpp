@@ -76,5 +76,8 @@ namespace Rcpp{
 	}
 	
 }
+#else
+/* quiet ranlib */ 
+void dummy(){}
 #endif
 

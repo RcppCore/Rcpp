@@ -260,12 +260,12 @@ namespace internal{
 	} ;
 	
 	template <int RTYPE>
-	SEXP vector_from_string( const std::string& st ) throw(not_compatible) {
+	SEXP vector_from_string( const std::string& st ) throw(parse_error,not_compatible) {
 		return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
 	}
 	
 	template <int RTYPE>
-	SEXP vector_from_string_expr( const std::string& code) throw(parse_error) {
+	SEXP vector_from_string_expr( const std::string& code) throw(parse_error,not_compatible) {
 		ParseStatus status;
 		SEXP expr = PROTECT( ::Rf_mkString( code.c_str() ) );
 		SEXP res  = PROTECT( ::R_ParseVector(expr, -1, &status, R_NilValue));
@@ -282,7 +282,7 @@ namespace internal{
 	}
 	
 	template <>
-	inline SEXP vector_from_string<EXPRSXP>( const std::string& st ) throw(not_compatible) {
+	inline SEXP vector_from_string<EXPRSXP>( const std::string& st ) throw(parse_error,not_compatible) {
 		return vector_from_string_expr<EXPRSXP>( st ) ;
 	}
 	
