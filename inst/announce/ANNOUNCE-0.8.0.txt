@@ -163,11 +163,11 @@ requires :
 - linking against the Rcpp dynamic or static library, which is achieved by 
   adding this line to the src/Makevars of the package:
   
-	PKG_LIBS = $(shell $(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()" )
+	PKG_LIBS = $(shell ${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()" )
 
   and this line to the src/Makevars.win file: 
   
-	PKG_LIBS = $(shell Rscript.exe -e "Rcpp:::LdFlags()")
+	PKG_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
 
 Rcpp contains a function Rcpp.package.skeleton, modelled after
 package.skeleton from the utils package in base r, that creates a skeleton of
