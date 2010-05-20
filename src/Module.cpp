@@ -19,7 +19,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifdef RCPP_EXPERIMENTAL
+#ifdef RCPP_ENABLE_MODULES
 
 #include <Rcpp.h>
 

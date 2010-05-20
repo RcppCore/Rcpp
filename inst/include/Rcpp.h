@@ -69,8 +69,7 @@
 #include <Rcpp/Formula.h>
 #include <Rcpp/DataFrame.h>
 
-// #define RCPP_EXPERIMENTAL
-#ifdef RCPP_EXPERIMENTAL
+#ifdef RCPP_ENABLE_MODULES
 #include <Rcpp/Module.h>
 #endif
 
