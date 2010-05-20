@@ -24,6 +24,8 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
+#include <Rcpp/config.h>
+
 void logTxtFunction(const char* file, const int line, const char* expression ) ;
 
 /**
