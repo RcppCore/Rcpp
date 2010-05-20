@@ -74,8 +74,8 @@ extern "C" SEXP __NAME__( SEXP xp ){                           \
 	BEGIN_RCPP                                                 \
 		::Rcpp::XPtr<__CLASS__> ptr(xp) ;                      \
 		res = ::Rcpp::wrap( ptr->__FIELD__ ) ;                 \
-	END_RCPP                                                   \
 	return res ;                                               \
+	END_RCPP                                                   \
 }
 
 #define RCPP_XP_FIELD_SET(__NAME__,__CLASS__,__FIELD__)        \
@@ -93,7 +93,6 @@ extern "C" SEXP __NAME__( SEXP xp, SEXP value ){               \
 		::Rcpp::XPtr<__CLASS__> ptr(xp) ;                      \
 		ptr->__FIELD__ = ::Rcpp::internal::converter(value) ;  \
 	END_RCPP                                                   \
-	return R_NilValue ;                                        \
 }
 
 #define RCPP_XP_FIELD(__PREFIX__,__CLASS__,__FIELD__)          \
