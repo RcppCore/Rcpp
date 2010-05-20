@@ -140,7 +140,5 @@ template<> struct r_sexptype_traits< __CLASS__ >{                   \
 #define RCPP_RETURN_VECTOR( _FUN_, _SEXP_ )  ___RCPP_RETURN___( _FUN_, _SEXP_ , Vector ) 
 #define RCPP_RETURN_MATRIX( _FUN_, _SEXP_ )  ___RCPP_RETURN___( _FUN_, _SEXP_ , Matrix )
 
-#define RCPP_REGISTER(__NAME__) 
-
 
 #endif
