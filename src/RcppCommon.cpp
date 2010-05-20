@@ -69,7 +69,7 @@ SEXP capabilities(){
 	LOGICAL(cap)[4] = FALSE ;
 #endif
 
-#ifdef RCPP_EXPERIMENTAL
+#ifdef RCPP_ENABLE_MODULES
 	LOGICAL(cap)[5] = TRUE ;
 #else
 	LOGICAL(cap)[5] = FALSE ;

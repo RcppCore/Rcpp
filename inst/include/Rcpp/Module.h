@@ -22,7 +22,8 @@
 #ifndef Rcpp_Module_h
 #define Rcpp_Module_h
 
-#ifdef RCPP_EXPERIMENTAL
+#ifdef RCPP_ENABLE_MODULES
+
 namespace Rcpp{
 
 class CppFunction {
