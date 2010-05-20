@@ -52,7 +52,7 @@ namespace internal{
 #endif 
 
 #ifndef END_RCPP
-#define END_RCPP } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; }
+#define END_RCPP } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; } return R_NilValue;
 #endif
 
 #include <Rcpp/preprocessor_generated.h>
