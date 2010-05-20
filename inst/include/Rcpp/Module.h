@@ -8,7 +8,7 @@
 //
 // Rcpp is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 2 of the License, or
+// the Free Software Foundation, either version 2 of the License, or           
 // (at your option) any later version.
 //
 // Rcpp is distributed in the hope that it will be useful, but
@@ -22,6 +22,7 @@
 #ifndef Rcpp_Module_h
 #define Rcpp_Module_h
 
+#ifdef RCPP_EXPERIMENTAL
 namespace Rcpp{
 
 class CppFunction {
@@ -33,16 +34,30 @@ class CppFunction {
 		virtual bool is_void(){ return false ; }
 };
 
+
+// templates CppFunction0, ..., CppFunction65
 #include <Rcpp/module/Module_generated_CppFunction.h>
 
+// make_function factories
 #include <Rcpp/module/Module_generated_make_function.h>
+
+class class_Base {
+public:
+	class_Base(const char* name_) : name(name_){} ;
+	
+	virtual SEXP invoke( const std::string& method_name, SEXP *args, int nargs ) = 0 ;
+	
+private:
+	std::string name ;
+} ;
 
 class Module {
 	public:    
 		typedef std::map<std::string,CppFunction*> MAP ;
+		typedef std::map<std::string,class_Base*> CLASS_MAP ;
 	
 		Module() : name(), functions() {}
-		Module(const char* name_) : name(name_), functions() {}
+		Module(const char* name_) : name(name_), functions(), classes() {}
 		      
 		SEXP invoke( const std::string& name, SEXP* args, int nargs){
 			try{
@@ -74,14 +89,66 @@ class Module {
 		std::string name ;
 		
 	private:
-		std::map<std::string,CppFunction*> functions ;
+		MAP functions ;
+		CLASS_MAP classes ;
 		           
 };
 
+template <typename Class>
+class CppMethod {
+	public:
+		CppMethod() {}
+		virtual SEXP operator()(SEXP* args) { return R_NilValue ; }
+		virtual ~CppMethod(){}
+		virtual int nargs(){ return 0 ; }
+		virtual bool is_void(){ return false ; }
+	
+} ;
+
+template <typename Class>
+class class_{
+public:
+	typedef class_ self ;
+	typedef CppMethod<Class> method ;
+	typedef std::map<std::string,method*> METHOD_MAP ;
+	typedef std::pair<const std::string,method*> PAIR ;
+	
+	class_( const char* name_ ) : class_Base(name_), methods() {}
+	
+	SEXP invoke( const std::string& method_name, SEXP *args, int nargs ){ 
+		try{
+			typename METHOD_MAP::iterator it = methods.find( method_name ) ;
+			if( it == methods.end() ){
+				throw std::range_error( "no such method" ) ; 
+			}
+			method* met =  it->second ;
+			if( met->nargs() > nargs ){
+				throw std::range_error( "incorrect number of arguments" ) ; 	
+			}
+			return Rcpp::List::create( 
+					Rcpp::Named("result") = met->operator()( args ), 
+					Rcpp::Named("void")   = met->is_void() 
+				) ;
+				
+		} catch( std::exception& __ex__ ){
+			forward_exception_to_r( __ex__ ); 
+		}
+		return R_NilValue ; // -Wall		
+	}
+	
+	self& AddMethod( const char* name, method* m){
+		methods.insert( PAIR( name,m ) ) ;  
+		return *this ;
+	}
+	
+private:
+	METHOD_MAP methods ;
+} ;
+
 extern Rcpp::Module* current_scope ;
 
+// function factories
 #include <Rcpp/module/Module_generated_function.h>
-
 
 }
 
@@ -97,7 +164,7 @@ extern "C" SEXP _rcpp_module_boot_##name(){                          \
   return mod_xp ;                                                    \
 }                                                                    \
 void _rcpp_module_##name##_init()
-  
+#endif  
 
 #endif
 
