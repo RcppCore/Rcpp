@@ -1,133 +1,132 @@
 0.8.0   2010-05-17
 
     o   All Rcpp headers have been moved to the inst/include directory,
-	allowing use of 'LinkingTo: Rcpp'. But the Makevars and Makevars.win
-	are still needed to link against the user library.
+		allowing use of 'LinkingTo: Rcpp'. But the Makevars and Makevars.win
+		are still needed to link against the user library.
 
     o   Automatic exception forwarding has been withdrawn because of
-	portability issues (as it did not work on the Windows platform).
-	Exception forwarding is still possible but is now based on explicit
-	code of the form:
+		portability issues (as it did not work on the Windows platform).
+		Exception forwarding is still possible but is now based on explicit
+		code of the form:
 	
-	  try {
-	    // user code
-	  } catch( std::exception& __ex__){ 
-	    forward_exception_to_r( __ex___ ) ;
-	  }
+	      try {
+	        // user code
+	      } catch( std::exception& __ex__){ 
+	        forward_exception_to_r( __ex___ ) ;
+	      }
 	
-	Alternatively, the macro BEGIN_RCPP and END_RCPP can use used to enclose
-	code so that it captures exceptions and forward them to R. 
+		Alternatively, the macro BEGIN_RCPP and END_RCPP can use used to enclose
+		code so that it captures exceptions and forward them to R. 
 	
-	  BEGIN_RCPP
-	  // user code
-	  END_RCPP
+	      BEGIN_RCPP
+	      // user code
+	      END_RCPP
 	
     o   new __experimental__ macros 
 	
-	The macros RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65 to help creating C++
-	functions hiding some code repetition: 
+		The macros RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65 to help creating C++
+		functions hiding some code repetition: 
 	
-	  RCPP_FUNCTION_2( int, foobar, int x, int y){
-	    return x + y ;
-	  }
+	      RCPP_FUNCTION_2( int, foobar, int x, int y){
+	       return x + y ;
+	      }
 
-	The first argument is the output type, the second argument is the 
-	name of the function, and the other arguments are arguments of the C++ 
-	function. Behind the scenes, the RCPP_FUNCTION_2 macro creates 
-	an intermediate function compatible with the .Call interface and handles 
-	exceptions
+		The first argument is the output type, the second argument is the
+	    name of the function, and the other arguments are arguments of the
+	    C++ function. Behind the scenes, the RCPP_FUNCTION_2 macro creates an
+	    intermediate function compatible with the .Call interface and handles
+	    exceptions
 	
-	Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65 
-	can be used when the C++ function to create returns void. The generated
-	R function will return R_NilValue in this case.
+		Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65 
+	    can be used when the C++ function to create returns void. The generated
+	    R function will return R_NilValue in this case.
 	
-	  RCPP_FUNCTION_VOID_2( foobar, std::string foo ){
-	    // do something with foo
-	  }
-
+	      RCPP_FUNCTION_VOID_2( foobar, std::string foo ){
+	       // do something with foo
+	      }
 	  
-	The macro RCPP_XP_FIELD_GET generates a .Call compatible function that
-	can be used to access the value of a field of a class handled by an 
-	external pointer. For example with a class like this: 
+	    The macro RCPP_XP_FIELD_GET generates a .Call compatible function that
+	    can be used to access the value of a field of a class handled by an 
+	    external pointer. For example with a class like this: 
 	
-	  class Foo{
-		public:
-			int bar ;
-	  }
+	      class Foo{
+		    public:
+			  int bar ;
+	      }
 	
-	  RCPP_XP_FIELD_GET( Foo_bar_get, Foo, bar ) ;
+	      RCPP_XP_FIELD_GET( Foo_bar_get, Foo, bar ) ;
 	  
-	RCPP_XP_FIELD_GET will generate the .Call compatible function called
-	Foo_bar_get that can be used to retrieved the value of bar.
+	    RCPP_XP_FIELD_GET will generate the .Call compatible function called
+	    Foo_bar_get that can be used to retrieved the value of bar.
 	
 	
-	The macro RCPP_FIELD_SET generates a .Call compatible function that 
-	can be used to set the value of a field. For example:
+	    The macro RCPP_FIELD_SET generates a .Call compatible function that 
+	    can be used to set the value of a field. For example:
 	
-	  RCPP_XP_FIELD_SET( Foo_bar_set, Foo, bar ) ;
+	      RCPP_XP_FIELD_SET( Foo_bar_set, Foo, bar ) ;
 	
-	generates the .Call compatible function called "Foo_bar_set" that 
-	can be used to set the value of bar
+	    generates the .Call compatible function called "Foo_bar_set" that 
+	    can be used to set the value of bar
 	
 	
-	The macro RCPP_XP_FIELD generates both getter and setter. For example
+	    The macro RCPP_XP_FIELD generates both getter and setter. For example
 	
-	  RCPP_XP_FIELD( Foo_bar, Foo, bar )
+	      RCPP_XP_FIELD( Foo_bar, Foo, bar )
 	  
-	generates the .Call compatible Foo_bar_get and Foo_bar_set using the 
-	macros RCPP_XP_FIELD_GET and RCPP_XP_FIELD_SET previously described
+	    generates the .Call compatible Foo_bar_get and Foo_bar_set using the 
+	    macros RCPP_XP_FIELD_GET and RCPP_XP_FIELD_SET previously described
 	
 	  
-	The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate 
-	calling a method of an object that is stored in an external pointer. For 
-	example: 
+	    The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate 
+	    calling a method of an object that is stored in an external pointer. For 
+	    example: 
 	
-	  RCPP_XP_METHOD_0( foobar, std::vector<int> , size )
+	      RCPP_XP_METHOD_0( foobar, std::vector<int> , size )
 	
-	creates the .Call compatible function called foobar that calls the
-	size method of the std::vector<int> class. This uses the Rcpp::XPtr<
-	std::vector<int> > class.
+	    creates the .Call compatible function called foobar that calls the
+	    size method of the std::vector<int> class. This uses the Rcpp::XPtr<
+	    std::vector<int> > class.
 	
-	The macros RCPP_XP_METHOD_CAST_0, ... is similar but the result of
-	the method called is first passed to another function before being
-	wrapped to a SEXP.  For example, if one wanted the result as a double
+	    The macros RCPP_XP_METHOD_CAST_0, ... is similar but the result of
+	    the method called is first passed to another function before being
+	    wrapped to a SEXP.  For example, if one wanted the result as a double
 	
-	   RCPP_XP_METHOD_CAST_0( foobar, std::vector<int> , size, double )
+	      RCPP_XP_METHOD_CAST_0( foobar, std::vector<int> , size, double )
 	
-	The macros RCPP_XP_METHOD_VOID_0, ... are used when calling the
-	method is only used for its side effect.
+	    The macros RCPP_XP_METHOD_VOID_0, ... are used when calling the
+	    method is only used for its side effect.
 	
-	  RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back ) 
+	     RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back ) 
 	
-	Assuming xp is an external pointer to a std::vector<int>, this could
-	be called like this :
+	    Assuming xp is an external pointer to a std::vector<int>, this could
+	    be called like this :
 	
-	  .Call( "foobar", xp, 2L )
+	      .Call( "foobar", xp, 2L )
 	
     o	Rcpp now depends on inline (>= 0.3.4)
 	
     o   A new R function "cppfunction" was added which invokes cfunction from
-	inline with focus on Rcpp usage (enforcing .Call, adding the Rcpp
-	namespace, set up exception forwarding). cppfunction uses BEGIN_RCPP
-	and END_RCPP macros to enclose the user code
+	    inline with focus on Rcpp usage (enforcing .Call, adding the Rcpp
+	    namespace, set up exception forwarding). cppfunction uses BEGIN_RCPP
+	    and END_RCPP macros to enclose the user code
 
     o	new class Rcpp::Formula to help building formulae in C++
     
     o   new class Rcpp::DataFrame to help building data frames in C++
 	
     o   Rcpp.package.skeleton gains an argument "example_code" and can now be
-	used with an empty list, so that only the skeleton is generated. It
-	has also been reworked to show how to use LinkingTo: Rcpp
+	    used with an empty list, so that only the skeleton is generated. It
+	    has also been reworked to show how to use LinkingTo: Rcpp
 	
     o   wrap now supports containers of the following types: long, long double,
-	unsigned long, short and unsigned short which are silently converted
-	to the most acceptable R type.
+	    unsigned long, short and unsigned short which are silently converted
+	    to the most acceptable R type.
 	
     o	Revert to not double-quote protecting the path on Windows as this
-	breaks backticks expansion used n Makevars.win etc
+	    breaks backticks expansion used n Makevars.win etc
         
     o   Exceptions classes have been moved out of Rcpp classes,
-	e.g. Rcpp::RObject::not_a_matrix is now Rcpp::not_a_matrix
+	    e.g. Rcpp::RObject::not_a_matrix is now Rcpp::not_a_matrix
 
 0.7.12  2010-04-16
 
@@ -137,17 +136,17 @@
 0.7.11	2010-03-26
 
     o	Vector<> gains a set of templated factory methods "create" which
-	takes up to 20 arguments and can create named or unnamed vectors.
+	    takes up to 20 arguments and can create named or unnamed vectors.
         This greatly facilitates creating objects that are returned to R. 
 
     o	Matrix now has a diag() method to create diagonal matrices, and
-	a new constructor using a single int to create square matrices
+	    a new constructor using a single int to create square matrices
 
     o	Vector now has a new fill() method to propagate a single value
 	
     o   Named is no more a class but a templated function. Both interfaces
-	Named(.,.) and Named(.)=. are preserved, and extended to work also on
-	simple vectors (through Vector<>::create)
+	    Named(.,.) and Named(.)=. are preserved, and extended to work also on
+	    simple vectors (through Vector<>::create)
 	
     o	Applied patch by Alistair Gee to make ColDatum more robust
     
@@ -160,9 +159,9 @@
         object
 	
     o   maximum number of templated arguments to the pairlist function, the
-	DottedPair constructor, the Language constructor and the Pairlist
-	constructor has been updated to 20 (was 5) and a script has been
-	added to the source tree should we want to change it again
+	    DottedPair constructor, the Language constructor and the Pairlist
+	    constructor has been updated to 20 (was 5) and a script has been
+	    added to the source tree should we want to change it again
 
     o   use shQuote() to protect Windows path names (which may contain spaces)
 
@@ -171,12 +170,12 @@
     o	Another small improvement to Windows build flags
 
     o	bugfix on 64 bit platforms. The traits classes (wrap_type_traits, etc)
-	used size_t when they needed to actually use unsigned int
+	    used size_t when they needed to actually use unsigned int
 
     o   fixed pre gcc 4.3 compatibility. The trait class that was used to
-	identify if a type is convertible to another had too many false
-	positives on pre gcc 4.3 (no tr1 or c++0x features). fixed by
-	implementing the section 2.7 of "Modern C++ Design" book.
+	    identify if a type is convertible to another had too many false
+	    positives on pre gcc 4.3 (no tr1 or c++0x features). fixed by
+	    implementing the section 2.7 of "Modern C++ Design" book.
 
 0.7.8   2010-03-09
 
@@ -211,7 +210,7 @@
     	types. The package RcppArmadillo has examples of this
 
     o   new template class Rcpp::fixed_call that can be used in STL algorithms
-	such as std::generate.
+	    such as std::generate.
 
     o	RcppExample et al have been moved to a new package RcppExamples;
         src/Makevars and src/Makevars.win simplified accordingly
@@ -231,7 +230,7 @@
 
     o	A new package RcppArmadillo (to be released shortly) now serves 
         as a concrete example on how to extend Rcpp to work with a modern 
-	C++ library such as the heavily-templated Armadillo library
+	    C++ library such as the heavily-templated Armadillo library
 
     o	Added a new vignette 'Rcpp-introduction' based on a just-submitted 
         overview article on Rcpp
@@ -248,7 +247,7 @@
 0.7.6   2010-02-12
 
     o   SEXP_Vector (and ExpressionVector and GenericVector, a.k.a List) now
-	have methods push_front, push_back and insert that are templated
+	    have methods push_front, push_back and insert that are templated
 
     o   SEXP_Vector now has int- and range-valued erase() members
 
@@ -260,7 +259,7 @@
         so that STL algorithms can be applied to Rcpp objects
 
     o   CharacterVector gains a random access iterator, begin() and end() to
-	support STL algorithms; iterator dereferences to a StringProxy
+	    support STL algorithms; iterator dereferences to a StringProxy
 
     o   Restore Windows build; successfully tested on 32 and 64 bit;
 
@@ -371,9 +370,9 @@
     	of as and wrap templates. If as<Foo> makes sense, one can 
     	directly extract a Foo from the environment. If wrap<Bar> makes
     	sense then one can insert a Bar directly into the environment. 
-    	Foo foo = env["x"] ;  /* as<Foo> is used */
-	Bar bar ;
-	env["y"] = bar ;      /* wrap<Bar> is used */    	
+    	  Foo foo = env["x"] ;  /* as<Foo> is used */
+	      Bar bar ;
+	      env["y"] = bar ;      /* wrap<Bar> is used */    	
 
     o	Environment::assign becomes a template and also uses wrap to 
     	create a suitable SEXP
@@ -486,7 +485,7 @@
     	C++ builtin and stl types. Factored out of RObject
     	
     o	new class Rcpp::Named to deal with named with named objects 
-	in a pairlist, or a call
+	    in a pairlist, or a call
 
     o	new class Rcpp::Symbol to manage symbols (SYMSXP)
     
