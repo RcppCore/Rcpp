@@ -1,16 +1,16 @@
-
 2010-05-19  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/as.h: add throw specification to as specialization, 
-	reported by suncc compiler on CRAN checks
+	* inst/include/Rcpp/as.h: add throw specification to as
+	specialization, reported by suncc compiler on CRAN checks
 
-	* inst/include/Rcpp/Module.h : adding the concept of Rcpp modules, inspired
-	from boost.python
-	
+	* inst/include/Rcpp/Module.h : adding the concept of Rcpp modules,
+	inspired from boost.python
+
 	* R/Module.R: R side support for modules
-	
-	* R/getDLL.R: generic (s4) function to get the DLL based on either its name
-	e.g. getDLL( "Rcpp" ) or an object of class CFunc (from the inline package)
+
+	* R/getDLL.R: generic (s4) function to get the DLL based on either
+	its name e.g. getDLL( "Rcpp" ) or an object of class CFunc (from the
+	inline package)
 
 2010-05-17  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -26,10 +26,11 @@
 2010-05-10  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Dimension.h: added a const operator[], requested
-	in the Rcpp-devel thread : http://article.gmane.org/gmane.comp.lang.r.rcpp/327
+	in the Rcpp-devel thread :
+	http://article.gmane.org/gmane.comp.lang.r.rcpp/327
 
-	* inst/include/Rcpp/preprocessor.h: added __rcpp_info__ pseudo reflection information
-	to RCPP_XP_FIELD
+	* inst/include/Rcpp/preprocessor.h: added __rcpp_info__ pseudo
+	reflection information to RCPP_XP_FIELD
 
 	* inst/unitTests/runit.macros.R: testing RCPP_XP_FIELD
 
