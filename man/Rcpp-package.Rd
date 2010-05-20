@@ -66,10 +66,10 @@
 
   \preformatted{
 # compile flag providing header directory containing Rcpp.h
-PKG_CXXFLAGS=$(shell Rscript -e 'Rcpp:::CxxFlags()')
+PKG_CXXFLAGS=$(shell $(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()')
 
 # link flag providing library as well as path to library, and optionally rpath
-PKG_LIBS=$(shell Rscript -e 'Rcpp:::LdFlags()')
+PKG_LIBS=$(shell $(R_HOME)/bin/Rscript -e 'Rcpp:::LdFlags()')
 }
 
   Alternatively, one can also encode the test for these variables using
