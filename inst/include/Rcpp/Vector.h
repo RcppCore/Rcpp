@@ -282,7 +282,7 @@ namespace internal{
 	}
 	
 	template <>
-	inline SEXP vector_from_string<EXPRSXP>( const std::string& st ){
+	inline SEXP vector_from_string<EXPRSXP>( const std::string& st ) throw(not_compatible) {
 		return vector_from_string_expr<EXPRSXP>( st ) ;
 	}
 	
