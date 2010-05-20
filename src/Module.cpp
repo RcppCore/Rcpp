@@ -19,6 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifdef RCPP_EXPERIMENTAL
+
 #include <Rcpp.h>
 
 #define MAX_ARGS 65
@@ -72,8 +74,7 @@ namespace Rcpp{
 		ptr_fun() ;
 		return R_NilValue ;
 	}
-		
-	
 	
 }
+#endif
 
