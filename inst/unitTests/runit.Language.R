@@ -189,3 +189,15 @@ test.Language.fixed.call <- function(){
 	checkEquals( res, exp, msg = "std::generate" )
 }
 
+test.Language.in.env <- function(){
+
+	fx <- cppfunction( signature(x = "environment" ), '
+		Environment env(x) ;
+		Language call( "sum", Symbol("y") ) ;
+		return call.eval( env ) ;
+	' )
+	
+	e <- new.env()
+	e[["y"]] <- 1:10
+	checkEquals( fx(e), sum(1:10), msg = "Language::eval( SEXP )" )
+}

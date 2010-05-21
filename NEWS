@@ -1,3 +1,7 @@
+0.8.1   (under development)
+
+	o	Evaluating a call inside an environment did not work properly
+
 0.8.0   2010-05-17
 
     o   All Rcpp headers have been moved to the inst/include directory,
