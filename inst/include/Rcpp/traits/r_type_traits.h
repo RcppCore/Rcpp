@@ -69,6 +69,7 @@ template <typename T> struct r_type_traits { typedef r_type_generic_tag r_catego
  */
 template <typename T> struct r_type_traits< std::pair<const std::string,T> > { typedef r_type_pairstring_generic_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,int> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,const int> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,double> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,Rbyte> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,Rcomplex> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
@@ -80,6 +81,7 @@ template<> struct r_type_traits< std::pair<const std::string,unsigned int> >{ ty
 template<> struct r_type_traits< std::pair<const std::string,float> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 
 template<> struct r_type_traits<int>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits<const int>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<double>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<Rbyte>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<Rcomplex>{ typedef r_type_primitive_tag r_category ; } ;
