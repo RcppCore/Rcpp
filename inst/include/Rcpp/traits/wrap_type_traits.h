@@ -51,6 +51,8 @@ template <typename T> struct wrap_type_traits { typedef wrap_type_unknown_tag wr
  * Total specialization for primitive types
  */
 template <> struct wrap_type_traits<int> { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits<const int> { typedef wrap_type_primitive_tag wrap_category; } ;
+
 template <> struct wrap_type_traits<double> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<Rbyte> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<Rcomplex> { typedef wrap_type_primitive_tag wrap_category; } ;
