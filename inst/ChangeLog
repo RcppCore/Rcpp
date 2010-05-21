@@ -1,3 +1,24 @@
+2010-05-21  Romain Francois <romain@r-enthusiasts.com>
+
+	* R/exceptions.R: rework rcpp_tryCatch to prevent evaluating the expression
+	too early (reported by Doug Bates on Rcpp-devel)
+	
+	* src/Evaluator.cpp: rework Evaluator::run() so that it correctly evaluates
+	inside an environment (reported by Doug Bates on Rcpp-devel)
+
+2010-05-20  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Vector.h : correct throw specs for vector_from_string
+	(reported by Brian Ripley from solaris)
+	
+	* inst/include/Rcpp/internal/Proxy_Iterator.h: fixed constness of several
+	operators in Proxy_Iterator to try to suite suncc/solaris
+	
+	* inst/include/Rcpp/config.h: define RCPP_ENABLE_MODULES to hide
+	the experimental module features from the official api
+	
+	* R/getDLL.R: removed and promoted to getDynLib in inline
+
 2010-05-19  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/as.h: add throw specification to as
