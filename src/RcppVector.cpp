@@ -22,69 +22,6 @@
 
 #include <RcppVector.h>
 
-template <typename T> 
-RcppVector<T>::RcppVector(SEXP vec) {
-    int i;
-
-    // The function Rf_isVector returns TRUE for vectors AND
-    // matrices, so it does not distinguish. We could
-    // check the dim attribute here to be sure that it
-    // is not present (i.e., dimAttr == R_NilValue, not 0!).
-    // But it is easier to simply check if it is set via
-    // Rf_isMatrix (in which case we don't have a vector).
-    if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
-	throw std::range_error("RcppVector: invalid numeric vector in constructor");
-    len = Rf_length(vec);
-    v = (T *) R_alloc(len, sizeof(T));
-    if (Rf_isInteger(vec)) {
-	for (i = 0; i < len; i++)
-	    v[i] = (T)(INTEGER(vec)[i]);
-    }	
-    else if (Rf_isReal(vec)) {
-	for (i = 0; i < len; i++)
-	    v[i] = (T)(REAL(vec)[i]);
-    }
-}
-
-template <typename T>
-RcppVector<T>::RcppVector(int _len) {
-    len = _len;
-    v = (T *) R_alloc(len, sizeof(T));
-    for (int i = 0; i < len; i++)
-	v[i] = 0;
-}
-
-template <typename T>
-int RcppVector<T>::size() const { 
-    return len; 
-}
-
-template <typename T>
-inline T& RcppVector<T>::operator()(int i) const {
-    if (i < 0 || i >= len) {
-	std::ostringstream oss;
-	oss << "RcppVector: subscript out of range: " << i;
-	throw std::range_error(oss.str());
-    }
-    return v[i];
-}
-
-template <typename T>
-T *RcppVector<T>::cVector() const {
-    T* tmp = (T *)R_alloc(len, sizeof(T));
-    for (int i = 0; i < len; i++)
-	tmp[i] = v[i];
-    return tmp;
-}
-
-template <typename T>
-std::vector<T> RcppVector<T>::stlVector() const {
-    std::vector<T> tmp(len);
-    for (int i = 0; i < len; i++)
-	tmp[i] = v[i];
-    return tmp;
-}
-
 // Explicit instantiation (required for external linkage)
 template class RcppVector<int>;
 template class RcppVector<double>;
