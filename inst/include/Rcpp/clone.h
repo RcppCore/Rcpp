@@ -30,13 +30,15 @@ namespace Rcpp{
    - T can be converted to SEXP 
    - T has a SEXP constructor
 */
-template <typename T> T clone(T object) {
-	SEXP x = object ;
-	return T( Rf_duplicate( x ) ) ; 
+template <typename T> T clone(const T& object) {
+    SEXP x = const_cast<T&>(object) ;
+    return T( Rf_duplicate( x ) ) ; 
 }
+#if 0
 template<> inline SEXP clone(SEXP object){
-	return ::Rf_duplicate( object ) ;
+    return ::Rf_duplicate( object ) ;
 }
+#endif
 
 } // namespace Rcpp
 
