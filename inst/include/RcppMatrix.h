@@ -42,4 +42,102 @@ private:
     T **a;
 };
 
+
+template <typename T>
+RcppMatrix<T>::RcppMatrix(SEXP mat) {
+
+    if (!Rf_isNumeric(mat) || !Rf_isMatrix(mat))
+	throw std::range_error("RcppMatrix: invalid numeric matrix in constructor");
+
+    // Get matrix dimensions
+    SEXP dimAttr = Rf_getAttrib(mat, R_DimSymbol);
+    dim1 = INTEGER(dimAttr)[0];
+    dim2 = INTEGER(dimAttr)[1];
+
+    // We guard against  the possibility that R might pass an integer matrix.
+    // Can be prevented using R code: temp <- as.double(a), dim(temp) <- dim(a)
+    int i,j;
+    int isInt = Rf_isInteger(mat);
+    T *m = (T *)R_alloc(dim1*dim2, sizeof(T));
+    a = (T **)R_alloc(dim1, sizeof(T *));
+    for (i = 0; i < dim1; i++)
+	a[i] = m + i*dim2;
+    if (isInt) {
+	for (i=0; i < dim1; i++)
+	    for (j=0; j < dim2; j++)
+		a[i][j] = (T)(INTEGER(mat)[i+dim1*j]);
+    }	
+    else {
+	for (i=0; i < dim1; i++)
+	    for (j=0; j < dim2; j++)
+		a[i][j] = (T)(REAL(mat)[i+dim1*j]);
+    }	
+}
+
+template <typename T>
+RcppMatrix<T>::RcppMatrix(int _dim1, int _dim2) {
+    dim1 = _dim1;
+    dim2 = _dim2;
+    int i,j;
+    T *m = (T *)R_alloc(dim1*dim2, sizeof(T));
+    a = (T **)R_alloc(dim1, sizeof(T *));
+    for (i = 0; i < dim1; i++)
+	a[i] = m + i*dim2;
+    for (i=0; i < dim1; i++)
+	for (j=0; j < dim2; j++)
+	    a[i][j] = 0;
+}
+
+template <typename T> int RcppMatrix<T>::getDim1() const { 
+    return dim1; 
+}
+
+template <typename T> int RcppMatrix<T>::getDim2() const { 
+    return dim2; 
+}
+
+template <typename T> int RcppMatrix<T>::rows() const { 
+    return dim1; 
+}
+
+template <typename T> int RcppMatrix<T>::cols() const { 
+    return dim2; 
+}
+
+template <typename T>
+T& RcppMatrix<T>::operator()(int i, int j) const {
+    if (i < 0 || i >= dim1 || j < 0 || j >= dim2) {
+	std::ostringstream oss;
+	oss << "RcppMatrix: subscripts out of range: " << i << ", " << j;
+	throw std::range_error(oss.str());
+    }
+    return a[i][j];
+}
+
+template <typename T>
+T **RcppMatrix<T>::cMatrix() {
+    int i,j;
+    T *m = (T *)R_alloc(dim1*dim2, sizeof(T));
+    T **tmp = (T **)R_alloc(dim1, sizeof(T *));
+    for (i = 0; i < dim1; i++)
+	tmp[i] = m + i*dim2;
+    for (i=0; i < dim1; i++)
+	for (j=0; j < dim2; j++)
+	    tmp[i][j] = a[i][j];
+    return tmp;
+}
+
+template <typename T>
+std::vector<std::vector<T> > RcppMatrix<T>::stlMatrix() {
+    int i,j;
+    std::vector<std::vector<T> > temp;
+    for (i = 0; i < dim1; i++) {
+	temp.push_back(std::vector<T>(dim2));
+    }
+    for (i = 0; i < dim1; i++)
+	for (j = 0; j < dim2; j++)
+	    temp[i][j] = a[i][j];
+    return temp;
+}
+
 #endif
