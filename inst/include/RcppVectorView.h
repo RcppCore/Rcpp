@@ -36,4 +36,31 @@ private:
     T *v;
 };
 
+template <typename T>
+RcppVectorView<T>::RcppVectorView(SEXP vec) {
+    if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
+	throw std::range_error("RcppVectorView: invalid numeric vector in constructor");
+    len = Rf_length(vec);
+    if (Rf_isInteger(vec)) {
+	v = (T *)(INTEGER(vec));
+    } else if (Rf_isReal(vec)) {
+	v = (T *)(REAL(vec));
+    }
+}
+
+template <typename T>
+inline int RcppVectorView<T>::size() const { 
+    return len; 
+}
+
+template <typename T>
+inline T RcppVectorView<T>::operator()(int i) const {
+    if (i < 0 || i >= len) {
+	std::ostringstream oss;
+	oss << "RcppVectorView: subscript out of range: " << i;
+	throw std::range_error(oss.str());
+    }
+    return v[i];
+}
+
 #endif

@@ -22,51 +22,6 @@
 
 #include <RcppMatrixView.h>
 
-template <typename T>
-RcppMatrixView<T>::RcppMatrixView(SEXP mat) {
-    if (!Rf_isNumeric(mat) || !Rf_isMatrix(mat))
-	throw std::range_error("RcppMatrixView: invalid numeric matrix in constructor");
-    // Get matrix dimensions
-    SEXP dimAttr = Rf_getAttrib(mat, R_DimSymbol);
-    d1 = INTEGER(dimAttr)[0];
-    d2 = INTEGER(dimAttr)[1];
-    if (Rf_isInteger(mat)) {
-	a = (T *)(INTEGER(mat));
-    } else if (Rf_isReal(mat)) {
-	a = (T *)(REAL(mat));
-    }
-}
-
-template <typename T>
-inline int RcppMatrixView<T>::dim1() const { 
-    return d1; 
-}
-
-template <typename T>
-inline int RcppMatrixView<T>::dim2() const { 
-    return d2; 
-}
-
-template <typename T>
-inline int RcppMatrixView<T>::rows() const { 
-    return d1; 
-}
-
-template <typename T>
-inline int RcppMatrixView<T>::cols() const { 
-    return d2; 
-}
-
-template <typename T>
-inline T RcppMatrixView<T>::operator()(int i, int j) const {
-    if (i < 0 || i >= d1 || j < 0 || j >= d2) {
-	std::ostringstream oss;
-	oss << "RcppMatrixView: subscripts out of range: " << i << ", " << j;
-	throw std::range_error(oss.str());
-    }
-    return a[i + d1 * j];
-}
-
 template class RcppMatrixView<int>;
 template class RcppMatrixView<double>;
 
