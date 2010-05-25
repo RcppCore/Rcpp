@@ -16,30 +16,30 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 # not yet
-# setClass( "Module", representation( pointer = "externalptr" ) )
-# 
-# Module <- function( module, PACKAGE ){
-# 	name <- sprintf( "_rcpp_module_boot_%s", module )
-# 	symbol <- getNativeSymbolInfo( name, PACKAGE )
-# 	xp  <- .Call( symbol )
-# 	new( "Module", pointer = xp ) 
-# }
-# 
-# setMethod( "$", "Module", function(x, name){
-# 	function( ... ) {
-# 		res <- .External(  "Module__invoke" , x@pointer, name, ..., PACKAGE = "Rcpp"  )
-# 		if( isTRUE( res$void ) ) invisible(NULL) else res$result	
-# 	}
-# } )
-# 
-# setMethod( "show", "Module", function( object ){
-# 	info <- .Call( "Module__funtions_arity", object@pointer, PACKAGE = "Rcpp" )
-# 	name <- .Call( "Module__name", object@pointer )
-# 	txt <- sprintf( "Rcpp module '%s' \n\t%d functions: ", name, length(info) )
-# 	writeLines( txt )
-# 	txt <- sprintf( "%15s : %d arguments", names(info), info )
-# 	writeLines( txt )
-# } )
+setClass( "Module", representation( pointer = "externalptr" ) )
+
+Module <- function( module, PACKAGE ){
+	name <- sprintf( "_rcpp_module_boot_%s", module )
+	symbol <- getNativeSymbolInfo( name, PACKAGE )
+	xp  <- .Call( symbol )
+	new( "Module", pointer = xp ) 
+}
+
+setMethod( "$", "Module", function(x, name){
+	function( ... ) {
+		res <- .External(  "Module__invoke" , x@pointer, name, ..., PACKAGE = "Rcpp"  )
+		if( isTRUE( res$void ) ) invisible(NULL) else res$result	
+	}
+} )
+
+setMethod( "show", "Module", function( object ){
+	info <- .Call( "Module__funtions_arity", object@pointer, PACKAGE = "Rcpp" )
+	name <- .Call( "Module__name", object@pointer )
+	txt <- sprintf( "Rcpp module '%s' \n\t%d functions: ", name, length(info) )
+	writeLines( txt )
+	txt <- sprintf( "%15s : %d arguments", names(info), info )
+	writeLines( txt )
+} )
 
 #TODO: maybe attach( Module ), with( Module )
 

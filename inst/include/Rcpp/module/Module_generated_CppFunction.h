@@ -40,9 +40,12 @@ class CppFunction0 : public CppFunction {
 template <>
 class CppFunction0<void> : public CppFunction {
 	public:
-		CppFunction0(void (*fun)(void) )  ;
+		CppFunction0(void (*fun)(void) ) : CppFunction(), ptr_fun(fun){} ;
 		
-		SEXP operator()(SEXP* args) throw(std::exception) ;
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun() ;
+			return R_NilValue ;
+		}
 		
 		inline int nargs(){ return 0; }
 		inline bool is_void(){ return true; }
