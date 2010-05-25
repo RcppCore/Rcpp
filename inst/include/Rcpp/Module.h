@@ -21,7 +21,8 @@
 
 #ifndef Rcpp_Module_h
 #define Rcpp_Module_h
-
+   
+#include <Rcpp/config.h>
 #ifdef RCPP_ENABLE_MODULES
 
 namespace Rcpp{
@@ -55,7 +56,10 @@ private:
 class Module {
 	public:    
 		typedef std::map<std::string,CppFunction*> MAP ;
+		typedef std::pair<const std::string,CppFunction*> FUNCTION_PAIR ;
+		
 		typedef std::map<std::string,class_Base*> CLASS_MAP ;
+		typedef std::pair<const std::string,class_Base*> CLASS_PAIR ;
 	
 		Module() : name(), functions() {}
 		Module(const char* name_) : name(name_), functions(), classes() {}
@@ -82,9 +86,14 @@ class Module {
 		}                                                                                  
 		
 		Rcpp::IntegerVector functions_arity() ;
+		Rcpp::CharacterVector class_names() ;
 		
 		inline void Add( const char* name, CppFunction* ptr){
-			functions.insert( std::pair<std::string,CppFunction*>( name, ptr ) ) ;
+			functions.insert( FUNCTION_PAIR( name, ptr ) ) ;
+		}
+		
+		inline void AddClass(const char* name, class_Base* cptr){
+			classes.insert( CLASS_PAIR( name, cptr ) ) ;
 		}
 
 		std::string name ;
@@ -95,6 +104,12 @@ class Module {
 		           
 };
 
+}
+extern "C" Rcpp::Module* getCurrentScope() ;
+extern "C" void setCurrentScope( Rcpp::Module* ) ;
+
+namespace Rcpp{
+	
 template <typename Class>
 class CppMethod {
 	public:
@@ -107,17 +122,19 @@ class CppMethod {
 } ;
 
 template <typename Class>
-class class_{
+class class_ : public class_Base {
 public:
 	typedef class_ self ;
 	typedef CppMethod<Class> method ;
 	typedef std::map<std::string,method*> METHOD_MAP ;
 	typedef std::pair<const std::string,method*> PAIR ;
 	
-	class_( const char* name_ ) : class_Base(name_), methods() {}
+	class_( const char* name_ ) : class_Base(name_), methods() {
+		getCurrentScope()->AddClass( name_, this ) ;
+	}
 	
 	SEXP invoke( const std::string& method_name, SEXP *args, int nargs ){ 
-		try{
+		BEGIN_RCPP
 			typename METHOD_MAP::iterator it = methods.find( method_name ) ;
 			if( it == methods.end() ){
 				throw std::range_error( "no such method" ) ; 
@@ -130,11 +147,7 @@ public:
 					Rcpp::Named("result") = met->operator()( args ), 
 					Rcpp::Named("void")   = met->is_void() 
 				) ;
-				
-		} catch( std::exception& __ex__ ){
-			forward_exception_to_r( __ex__ ); 
-		}
-		return R_NilValue ; // -Wall		
+		END_RCPP	
 	}
 	
 	self& AddMethod( const char* name, method* m){
@@ -146,8 +159,6 @@ private:
 	METHOD_MAP methods ;
 } ;
 
-extern Rcpp::Module* current_scope ;
-
 // function factories
 #include <Rcpp/module/Module_generated_function.h>
 
@@ -158,10 +169,10 @@ extern Rcpp::Module* current_scope ;
 void _rcpp_module_##name##_init() ;                                  \
 static Rcpp::Module _rcpp_module_##name( # name ) ;                  \
 extern "C" SEXP _rcpp_module_boot_##name(){                          \
-  ::Rcpp::current_scope =  & _rcpp_module_##name ;                   \
+  ::setCurrentScope( & _rcpp_module_##name ) ;                   \
   _rcpp_module_##name##_init( ) ;                                    \
   Rcpp::XPtr<Rcpp::Module> mod_xp( & _rcpp_module_##name , false ) ; \
-  ::Rcpp::current_scope =  0 ;                                       \
+  ::setCurrentScope( 0 ) ;                                       \
   return mod_xp ;                                                    \
 }                                                                    \
 void _rcpp_module_##name##_init()
