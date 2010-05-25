@@ -19,9 +19,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifdef RCPP_ENABLE_MODULES
-
 #include <Rcpp.h>
+
+#ifdef RCPP_ENABLE_MODULES
 
 #define MAX_ARGS 65
 
@@ -50,9 +50,32 @@ extern "C" SEXP Module__name( SEXP mod_xp ){
 	return Rcpp::wrap( module->name );
 }
 
+extern "C" SEXP Module__classes( SEXP mod_xp ){
+	Rcpp::XPtr<Rcpp::Module> mod(mod_xp) ;
+	return mod->class_names() ;
+}
+
 namespace Rcpp{
-	Rcpp::Module* current_scope = 0 ;
-	                                   
+	static Module* current_scope  ;
+}
+
+Rcpp::Module* getCurrentScope(){ return Rcpp::current_scope ; }
+void setCurrentScope( Rcpp::Module* scope ){ Rcpp::current_scope = scope ; }
+void R_init_Rcpp( DllInfo* info){
+	Rcpp::current_scope = 0 ;
+}
+
+namespace Rcpp{
+	Rcpp::CharacterVector Module::class_names(){
+		int n = classes.size() ;
+		Rcpp::CharacterVector names( n );
+		CLASS_MAP::iterator it = classes.begin() ;
+		for( int i=0; i<n; i++, ++it){
+			names[i] = it->first ;
+		}
+		return names ;
+	}
+	
 	Rcpp::IntegerVector Module::functions_arity(){
 		int n = functions.size() ;
 		Rcpp::IntegerVector x( n ) ;
@@ -66,16 +89,9 @@ namespace Rcpp{
 		return x ;
 	}
 	
-	
-	CppFunction0<void>::CppFunction0( void (*fun)(void) ) : 
-		CppFunction(), ptr_fun(fun){}
-	
-	SEXP CppFunction0<void>::operator()(SEXP* args) throw(std::exception) {
-		ptr_fun() ;
-		return R_NilValue ;
-	}
-	
 }
+
+
 #else
 /* quiet ranlib */ 
 void dummy(){}
