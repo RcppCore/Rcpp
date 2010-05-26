@@ -73,8 +73,6 @@ class Module {
 		Module(const char* name_)  ;
 		      
 		SEXP invoke( const std::string& name, SEXP* args, int nargs) ;                        
-		SEXP newClassInstance( const std::string& clazz, SEXP* args, int nargs) ;                        
-		SEXP invokeMethod( const std::string& clazz, const std::string& meth, SEXP obj, SEXP* args, int nargs ) ;
 		
 		Rcpp::IntegerVector functions_arity() ;
 		Rcpp::CharacterVector class_names() ;
@@ -196,7 +194,8 @@ class_<Class>* class_<Class>::singleton ;
 class CppClass : public S4{
 public:
 	typedef Rcpp::XPtr<Rcpp::Module> XP ;
-	CppClass( Module* p, const std::string& name ) ;
+	CppClass( Module* p, class_Base* clazz ) ;
+	CppClass( SEXP x) ;
 } ;
 
 class CppObject : public S4{
@@ -212,10 +211,10 @@ public:
 void _rcpp_module_##name##_init() ;                                  \
 static Rcpp::Module _rcpp_module_##name( # name ) ;                  \
 extern "C" SEXP _rcpp_module_boot_##name(){                          \
-  ::setCurrentScope( & _rcpp_module_##name ) ;                   \
+  ::setCurrentScope( & _rcpp_module_##name ) ;                       \
   _rcpp_module_##name##_init( ) ;                                    \
   Rcpp::XPtr<Rcpp::Module> mod_xp( & _rcpp_module_##name , false ) ; \
-  ::setCurrentScope( 0 ) ;                                       \
+  ::setCurrentScope( 0 ) ;                                           \
   return mod_xp ;                                                    \
 }                                                                    \
 void _rcpp_module_##name##_init()
