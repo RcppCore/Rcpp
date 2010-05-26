@@ -27,6 +27,9 @@
 
 namespace Rcpp{
 
+class CppClass ;
+class CppObject ;
+
 class CppFunction {
 	public:
 		CppFunction() {}
@@ -45,11 +48,16 @@ class CppFunction {
 
 class class_Base {
 public:
+	class_Base() :name(){} ;
 	class_Base(const char* name_) : name(name_){} ;
 	
-	virtual SEXP invoke( const std::string& method_name, SEXP *args, int nargs ) = 0 ;
+	virtual bool has_method( const std::string& m ){ return false ; }
+	virtual SEXP newInstance(SEXP *args, int nargs){  return R_NilValue; }
+	virtual SEXP invoke( const std::string& method_name, SEXP obj, SEXP *args, int nargs ){ 
+		return R_NilValue ;
+	}
+	virtual ~class_Base(){}
 	
-private:
 	std::string name ;
 } ;
 
@@ -61,32 +69,16 @@ class Module {
 		typedef std::map<std::string,class_Base*> CLASS_MAP ;
 		typedef std::pair<const std::string,class_Base*> CLASS_PAIR ;
 	
-		Module() : name(), functions() {}
-		Module(const char* name_) : name(name_), functions(), classes() {}
+		Module()  ;
+		Module(const char* name_)  ;
 		      
-		SEXP invoke( const std::string& name, SEXP* args, int nargs){
-			try{
-				MAP::iterator it = functions.find( name );
-				if( it == functions.end() ){
-					throw std::range_error( "no such function" ) ; 
-				}
-				CppFunction* fun = it->second ;
-				if( fun->nargs() > nargs ){
-					throw std::range_error( "incorrect number of arguments" ) ; 	
-				}
-				 
-				return Rcpp::List::create( 
-					Rcpp::Named("result") = fun->operator()( args ), 
-					Rcpp::Named("void")   = fun->is_void() 
-				) ;
-			} catch( std::exception& __ex__ ){
-				forward_exception_to_r( __ex__ ); 
-			}
-			return R_NilValue ; // -Wall
-		}                                                                                  
+		SEXP invoke( const std::string& name, SEXP* args, int nargs) ;                        
+		SEXP newClassInstance( const std::string& clazz, SEXP* args, int nargs) ;                        
+		SEXP invokeMethod( const std::string& clazz, const std::string& meth, SEXP obj, SEXP* args, int nargs ) ;
 		
 		Rcpp::IntegerVector functions_arity() ;
 		Rcpp::CharacterVector class_names() ;
+		Rcpp::List classes_info() ;
 		
 		inline void Add( const char* name, CppFunction* ptr){
 			functions.insert( FUNCTION_PAIR( name, ptr ) ) ;
@@ -96,6 +88,16 @@ class Module {
 			classes.insert( CLASS_PAIR( name, cptr ) ) ;
 		}
 
+		inline bool has_function( const std::string& m){
+			return functions.find(m) != functions.end() ;
+		}
+		
+		inline bool has_class( const std::string& m){
+			return classes.find(m) != classes.end() ;
+		}
+		
+		Rcpp::CppClass get_class(const std::string& ) ;
+		
 		std::string name ;
 		
 	private:
@@ -113,54 +115,95 @@ namespace Rcpp{
 template <typename Class>
 class CppMethod {
 	public:
+		typedef Rcpp::XPtr<Class> XP ;   
+	
 		CppMethod() {}
-		virtual SEXP operator()(SEXP* args) { return R_NilValue ; }
+		virtual SEXP operator()(Class* object, SEXP* args) { return R_NilValue ; }
 		virtual ~CppMethod(){}
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
 	
 } ;
 
+#include <Rcpp/module/Module_generated_CppMethod.h>
+
+
 template <typename Class>
 class class_ : public class_Base {
 public:
-	typedef class_ self ;
-	typedef CppMethod<Class> method ;
-	typedef std::map<std::string,method*> METHOD_MAP ;
-	typedef std::pair<const std::string,method*> PAIR ;
+	typedef class_<Class> self ;
+	typedef CppMethod<Class> method_class ;
+	typedef std::map<std::string,method_class*> METHOD_MAP ;
+	typedef std::pair<const std::string,method_class*> PAIR ;
+	typedef Rcpp::XPtr<Class> XP ;   
 	
 	class_( const char* name_ ) : class_Base(name_), methods() {
-		getCurrentScope()->AddClass( name_, this ) ;
+		if( !singleton ){
+			singleton = new self ;
+			singleton->name = name_ ;
+			getCurrentScope()->AddClass( name_, singleton ) ;
+		}
 	}
 	
-	SEXP invoke( const std::string& method_name, SEXP *args, int nargs ){ 
+	SEXP newInstance( SEXP* args, int nargs ){
+		SEXP out = XP( new Class, true ) ;
+		return out ;
+	}
+	
+	SEXP invoke( const std::string& method_name, SEXP object, SEXP *args, int nargs ){ 
 		BEGIN_RCPP
-			typename METHOD_MAP::iterator it = methods.find( method_name ) ;
-			if( it == methods.end() ){
-				throw std::range_error( "no such method" ) ; 
-			}
-			method* met =  it->second ;
-			if( met->nargs() > nargs ){
-				throw std::range_error( "incorrect number of arguments" ) ; 	
-			}
-			return Rcpp::List::create( 
-					Rcpp::Named("result") = met->operator()( args ), 
-					Rcpp::Named("void")   = met->is_void() 
-				) ;
+		typename METHOD_MAP::iterator it = methods.find( method_name ) ;
+		if( it == methods.end() ){
+			throw std::range_error( "no such method" ) ; 
+		}
+		method_class* met =  it->second ;
+		if( met->nargs() > nargs ){
+			throw std::range_error( "incorrect number of arguments" ) ; 	
+		}
+		return Rcpp::List::create( 
+				Rcpp::Named("result") = met->operator()( XP(object), args ), 
+				Rcpp::Named("void")   = met->is_void() 
+			) ;
 		END_RCPP	
 	}
 	
-	self& AddMethod( const char* name, method* m){
-		methods.insert( PAIR( name,m ) ) ;  
+	self& AddMethod( const char* name, method_class* m){
+		singleton->methods.insert( PAIR( name,m ) ) ;  
 		return *this ;
+	}
+
+#include <Rcpp/module/Module_generated_method.h>
+		
+	inline bool has_method( const std::string& m){
+		return methods.find(m) != methods.end() ;
 	}
 	
 private:
 	METHOD_MAP methods ;
-} ;
+	static self* singleton ;
+	
+	class_( ) : class_Base(), methods(){}; 
+	
+} ;   
+
+template <typename Class> 
+class_<Class>* class_<Class>::singleton ;
+
 
 // function factories
 #include <Rcpp/module/Module_generated_function.h>
+
+class CppClass : public S4{
+public:
+	typedef Rcpp::XPtr<Rcpp::Module> XP ;
+	CppClass( Module* p, const std::string& name ) ;
+} ;
+
+class CppObject : public S4{
+public:
+	typedef Rcpp::XPtr<Rcpp::Module> XP ;
+	CppObject( Module* p, class_Base*, SEXP xp ) ;
+} ;
 
 }
 

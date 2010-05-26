@@ -23,7 +23,7 @@
 #define RCPP__CONFIG_H
 
 // comment to disable Rcpp modules
-// #define RCPP_ENABLE_MODULES
+#define RCPP_ENABLE_MODULES
 
 #endif
 
