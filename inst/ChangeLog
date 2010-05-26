@@ -1,3 +1,11 @@
+2010-05-26  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Module.h: 
+	* src/Module.cpp : limited support for exposing c++ classes in Rcpp modules
+	
+	* R/Module.R : classes "C++Class", "C++Object" holding external pointers
+	and $ method dispatching internally
+
 2010-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Rcpp*.cpp: Moved template code from the older API to headers
