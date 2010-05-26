@@ -56,8 +56,6 @@ setMethod( "show", "Module", function( object ){
 	writeLines( txt )
 } )
 
-#TODO: maybe attach( Module ), with( Module )
-
 setMethod( "new", "C++Class", function(Class, ...){
 	.External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
 } )
