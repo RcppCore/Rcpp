@@ -42,21 +42,6 @@ RCPP_FUNCTION_2( Rcpp::CppClass, Module__get_class, XP_Module module, std::strin
 	return module->get_class( cl ) ;
 }
 
-extern "C" SEXP Module__invoke( SEXP args){
-	SEXP p = CDR(args) ;
-	XP_Module module( CAR(p) ) ; p = CDR(p) ;
-	std::string fun = Rcpp::as<std::string>( CAR(p) ) ; p = CDR(p) ;
-	
-	SEXP cargs[MAX_ARGS] ;
-    int nargs = 0 ;
-   	for(; nargs<MAX_ARGS; nargs++){
-   		if( p == R_NilValue ) break ;
-   		cargs[nargs] = CAR(p) ;
-   		p = CDR(p) ;
-   	}
-   	return module->invoke( fun, cargs, nargs ) ;
-}
-
 extern "C" SEXP Module__funtions_arity( SEXP mod_xp ){
 	Rcpp::XPtr<Rcpp::Module> module(mod_xp) ;
 	return module->	functions_arity() ;
@@ -72,11 +57,14 @@ extern "C" SEXP Module__classes_info( SEXP mod_xp ){
 	return mod->classes_info() ;
 }
 
-extern "C" SEXP Module__class__newInstance(SEXP args){
+
+
+// .External functions
+extern "C" SEXP Module__invoke( SEXP args){
 	SEXP p = CDR(args) ;
-	
 	XP_Module module( CAR(p) ) ; p = CDR(p) ;
-	std::string clazz = Rcpp::as<std::string>( CAR(p) ) ; p = CDR(p) ;
+	std::string fun = Rcpp::as<std::string>( CAR(p) ) ; p = CDR(p) ;
+	
 	SEXP cargs[MAX_ARGS] ;
     int nargs = 0 ;
    	for(; nargs<MAX_ARGS; nargs++){
@@ -84,13 +72,27 @@ extern "C" SEXP Module__class__newInstance(SEXP args){
    		cargs[nargs] = CAR(p) ;
    		p = CDR(p) ;
    	}
-   	return module->newClassInstance( clazz, cargs, nargs ) ;
+   	return module->invoke( fun, cargs, nargs ) ;
+}
+
+extern "C" SEXP class__newInstance(SEXP args){
+	SEXP p = CDR(args) ;
+	
+	XP_Module module( CAR(p) ) ; p = CDR(p) ;
+	XP_Class clazz( CAR(p) ) ; p = CDR(p);
+	SEXP cargs[MAX_ARGS] ;
+    int nargs = 0 ;
+   	for(; nargs<MAX_ARGS; nargs++){
+   		if( p == R_NilValue ) break ;
+   		cargs[nargs] = CAR(p) ;
+   		p = CDR(p) ;
+   	}
+   	return Rcpp::CppObject( module, clazz, clazz->newInstance(cargs, nargs ) ) ;
 }
 
 extern "C" SEXP Class__invoke_method(SEXP args){
 	SEXP p = CDR(args) ;
 	
-	XP_Module module( CAR(p) ) ; p = CDR(p) ;
 	XP_Class clazz( CAR(p) ) ; p = CDR(p);
 	std::string met = Rcpp::as<std::string>( CAR(p) ) ; p = CDR(p) ;
 	SEXP obj = CAR(p); p = CDR(p) ;
@@ -102,7 +104,8 @@ extern "C" SEXP Class__invoke_method(SEXP args){
    		cargs[nargs] = CAR(p) ;
    		p = CDR(p) ;
    	}
-   	return module->invokeMethod( clazz->name, met, obj, cargs, nargs ) ;
+   	
+   	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
 
 
@@ -139,17 +142,6 @@ namespace Rcpp{
 		END_RCPP
 	}                                                                                  
 	
-	SEXP Module::newClassInstance( const std::string& name, SEXP* args, int nargs){
-		BEGIN_RCPP
-			CLASS_MAP::iterator it = classes.find( name );
-			if( it == classes.end() ){
-				throw std::range_error( "no such class" ) ; 
-			}
-			class_Base* cl = it->second ;
-			return CppObject( this, cl, cl->newInstance(args, nargs ) );
-		END_RCPP
-	}                                                                                  
-	
 	Rcpp::List Module::classes_info(){
 		int n = classes.size() ;
 		Rcpp::CharacterVector names(n) ;
@@ -157,7 +149,7 @@ namespace Rcpp{
 		CLASS_MAP::iterator it = classes.begin() ;
 		for( int i=0; i<n; i++, ++it){
 			names[i] = it->first ;
-			info[i]  = CppClass( this , it->first ) ;
+			info[i]  = CppClass( this , it->second ) ;
 		}
 		info.names() = names ;
 		return info ;
@@ -186,9 +178,11 @@ namespace Rcpp{
 		return x ;
 	}
 	
-	CppClass::CppClass( Module* p, const std::string& name ) : S4("C++Class") {
-		slot( "module" ) = XP( p, false ) ;
-		slot( "name" )   = name ;
+	CppClass::CppClass( SEXP x) : S4(x){}
+	
+	CppClass::CppClass( Module* p, class_Base* cl ) : S4("C++Class") {
+		slot( "module"  ) = XP( p, false ) ;
+		slot( "pointer" ) = XP_Class( cl ) ;
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
@@ -198,17 +192,11 @@ namespace Rcpp{
 	}
 	
 	CppClass Module::get_class( const std::string& cl ){
-		return CppClass( this, cl ) ;
-	}
-	
-	SEXP Module::invokeMethod( const std::string& clazz, const std::string& meth, SEXP obj, SEXP* args, int nargs ){
 		BEGIN_RCPP
-			CLASS_MAP::iterator it = classes.find( clazz );
-			if( it == classes.end() ){
-				throw std::range_error( "no such class" ) ; 
-			}
-			return it->second->invoke( meth, obj, args, nargs ) ;
-		END_RCPP	
+			CLASS_MAP::iterator it = classes.find(cl) ;
+			if( it == classes.end() ) throw std::range_error( "no such class" ) ;
+			return CppClass( this, it->second ) ;
+		END_RCPP
 	}
 	
 }

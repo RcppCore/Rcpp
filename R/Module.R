@@ -18,7 +18,7 @@
 setGeneric( "new" )
 
 setClass( "Module", representation( pointer = "externalptr" ) )
-setClass( "C++Class", representation( module = "externalptr", name = "character" ) )
+setClass( "C++Class", representation( pointer = "externalptr", module = "externalptr" ) )
 setClass( "C++Object", representation( module = "externalptr", cppclass = "externalptr", pointer = "externalptr" ) )
 
 Module <- function( module, PACKAGE ){
@@ -45,7 +45,7 @@ setMethod( "show", "Module", function( object ){
 	info <- .Call( "Module__funtions_arity", object@pointer, PACKAGE = "Rcpp" )
 	name <- .Call( "Module__name", object@pointer )
 	txt <- sprintf( "Rcpp module '%s' \n\t%d functions: ", name, length(info) )
-	writeLines( txt )           
+	writeLines( txt )                       
 	txt <- sprintf( "%15s : %d arguments", names(info), info )
 	writeLines( txt )
 	                                                     
@@ -59,13 +59,13 @@ setMethod( "show", "Module", function( object ){
 #TODO: maybe attach( Module ), with( Module )
 
 setMethod( "new", "C++Class", function(Class, ...){
-	.External( "Module__class__newInstance", Class@module, Class@name, ..., PACKAGE = "Rcpp" )
+	.External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
 } )
 
 setMethod( "$", "C++Object", function(x, name){
 	if( .Call( "Class__has_method", x@cppclass, name, PACKAGE = "Rcpp" ) ){
 		function(...){
-			res <- .External( "Class__invoke_method", x@module, x@cppclass, name, x@pointer, ..., PACKAGE = "Rcpp" )
+			res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ..., PACKAGE = "Rcpp" )
 			if( isTRUE( res$void ) ) invisible(NULL) else res$result
 		}
 	} else{
