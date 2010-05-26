@@ -46,6 +46,17 @@ test.Module <- function(){
 		Rprintf( "hello (x = %d, y = %5.2f)\\n", x, y ) ;
 	}
 	
+	class World {
+	public:
+	    World() : msg("hello"){}
+	    void set(std::string msg) { this->msg = msg; }
+	    std::string greet() { return msg; }
+	
+	private:
+	    std::string msg;
+	};
+
+	
 	
 	RCPP_MODULE(yada){
 		using namespace Rcpp ;
@@ -57,17 +68,28 @@ test.Module <- function(){
 		function( "bla1"  , &bla1   ) ;
 		function( "bla2"  , &bla2   ) ;
 		
+		class_<World>( "World" )
+			.method( "greet", &World::greet )
+			.method( "set", &World::set )
+		;
+
 	}                     
 	
 	'
 	fx <- cppfunction( signature(), "" , include = inc )
 	
-	mod <- Module( "yada", getDLL(fx) )
+	mod <- Module( "yada", getDynLib(fx) )
 	checkEquals( mod$bar( 2L ), 4L )
 	checkEquals( mod$foo( 2L, 10.0 ), 20.0 )
 	checkEquals( mod$hello(), "hello" )
 	checkEquals( capture.output( mod$bla() ), "hello" )
 	checkEquals( capture.output( mod$bla1(2L) ), "hello (x = 2)" )
     checkEquals( capture.output( mod$bla2(2L, 5.0) ), "hello (x = 2, y =  5.00)" )
-   
+    
+    World <- mod$World
+    w <- new( World )
+    checkEquals( w$greet(), "hello" )
+    w$set( "hello world" ) 
+    checkEquals( w$greet(), "hello world" )
+    
 }
