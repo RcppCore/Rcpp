@@ -9,6 +9,8 @@
 	Modules are created internally using the RCPP_MODULE macro and retrieved
 	in the R side with the Module function. The unit test file 
 	runit.Module.R shows an example.
+	
+	The Rcpp-modules vignette documents the feature
 
 0.8.0   2010-05-17
 
