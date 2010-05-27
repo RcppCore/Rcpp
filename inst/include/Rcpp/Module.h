@@ -124,7 +124,7 @@ class CppMethod {
 } ;
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
-
+#include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
 
 template <typename Class>
 class class_ : public class_Base {
@@ -171,7 +171,8 @@ public:
 	}
 
 #include <Rcpp/module/Module_generated_method.h>
-		
+#include <Rcpp/module/Module_generated_Pointer_method.h>
+	
 	inline bool has_method( const std::string& m){
 		return methods.find(m) != methods.end() ;
 	}
