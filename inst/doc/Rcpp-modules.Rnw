@@ -67,13 +67,10 @@
 \abstract{
   \noindent
   \textsl{Rcpp modules} have been introduced in version 0.8.1 of \texttt{Rcpp}
-  to allow programmers to simply expose c++ functions and classes to R. 
-  
+  to allow programmers to simply expose c++ functions and classes to R.  
   \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
   C++ library which provides the same features (and much more) for 
-  python.
-  
-  This document is a short overview of the capabilities of modules.
+  python. This document is a short overview of the capabilities of modules.
 }
 
 \section{Motivation}
