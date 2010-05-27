@@ -70,7 +70,7 @@
   to allow programmers to simply expose c++ functions and classes to R.  
   \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
   C++ library which provides the same features (and much more) for 
-  python. This document is a short overview of the capabilities of modules.
+  Python. This document is a short overview of the capabilities of modules.
 }
 
 \section{Motivation}
@@ -137,7 +137,7 @@ class in a way that makes both the internal c++ code and the R code easier.
 
 \section{Rcpp modules}
 
-Rcpp modules are inspired from python modules that are generated
+Rcpp modules are inspired from Python modules that are generated
 by the \texttt{Boost.Python} library. They provide an easy way to expose
 c++ functions and classes to R, grouped together in a single entity. 
 
