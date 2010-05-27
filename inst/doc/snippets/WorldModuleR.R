@@ -13,4 +13,6 @@ w <- new( World )
 w$greet()
 w$set( "hello world" ) 
 w$greet()
+w$clear()
+w$greet()
 

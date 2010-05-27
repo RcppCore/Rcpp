@@ -68,7 +68,7 @@
   \noindent
   \textsl{Rcpp modules} have been introduced in version 0.8.1 of \texttt{Rcpp}
   to allow programmers to simply expose c++ functions and classes to R.  
-  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
+  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python} \cite{Boost:Python}
   C++ library which provides the same features (and much more) for 
   Python. This document is a short overview of the capabilities of modules.
 }
@@ -119,7 +119,7 @@ simple \texttt{World} class below:
 
 We might want a way to create objects of this class, and use the member
 functions \texttt{greet} and \texttt{set} to alter the object. External pointers 
-are the perfect vessel for this, and using the 
+\cite{R:exts} are the perfect vessel for this, and using the 
 \texttt{Rcpp:::XPtr} template from \texttt{Rcpp} we can expose the class
 by exposing three functions : 
 
@@ -187,7 +187,7 @@ can be managed by the \texttt{Rcpp::wrap} template
 
 Rcpp modules also provide a mechanism for exposing c++ classes. The mechanism 
 internally uses external pointers, but the user should consider this implementation
-details. 
+details as this is properly encapsulated. 
 
 A class is exposed using the \texttt{class\_} class. The \texttt{World}
 class may be exposed to R :
@@ -197,12 +197,21 @@ class may be exposed to R :
 \texttt{class\_} is templated by the c++ class or struct that is to be exposed
 to R. The parameter of the \texttt{class\_<World>} constructor is the name we will
 use on the R side. It usually makes sense to use the same name as the class 
-name, but this is not forced. 
+name, but this is not forced, which might be useful when exposing a class 
+generated from a template. 
 
 The construction of the object is then followed by two calls to the 
-\texttt{method} member function of \texttt{class\_<World>}. Each call simply 
-register a member function by providing the name to use on the R 
-side (e.g. "greet") and the reference to the member function. 
+\texttt{method} member function of \texttt{class\_<World>}. \texttt{method}
+can expose :
+\begin{itemize}
+\item member functions of the target class, such as \texttt{greet} or \texttt{set}, by 
+providing the name that will be used on the R side (e.g. \texttt{greet}) and 
+a pointer to the actual member function (e.g. \texttt{\&World::greet} )
+\item free funtions that take a pointer to the target class as their 
+first parameter such as the C++ function \texttt{clearWorld} in the previous
+example. Again, we provide the R name for the method (\texttt{clear}) and 
+a pointer to the c++ function. 
+\end{itemize}
 
 The module exposes the default constructor of the \texttt{World} class as well
 to support creation of \texttt{World} objects from R. The Rcpp module assumes
@@ -215,6 +224,10 @@ responsabilities for type conversion for input and output types.
 \texttt{Boost.Python} has many more features that we would like to port 
 to Rcpp modules : class inheritance, overloading, default arguments, ... 
 
+\section{References}
+
+\bibliographystyle{plain}
+\bibliography{modules}
 
 \end{document}
 
