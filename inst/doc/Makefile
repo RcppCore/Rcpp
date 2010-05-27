@@ -32,6 +32,8 @@ Rcpp-introduction.pdf: Rcpp-introduction.Rnw
 Rcpp-modules.pdf: snippets Rcpp-modules.Rnw 
 	( cd snippets ; Rscript highlight.R ; cd .. )
 	R CMD Sweave Rcpp-modules.Rnw
+	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = FALSE )"
+	bibtex Rcpp-modules
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = TRUE )"
 	rm -fr Rcpp-modules.tex
 	rm -fr snippets/*.tex
