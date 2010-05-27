@@ -1,0 +1,223 @@
+\documentclass[10pt]{article}
+%\VignetteIndexEntry{Rcpp-modules}
+\usepackage{vmargin}
+\usepackage{color}           
+\usepackage{alltt}           
+
+\setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+% from highlight
+\input{snippets/highlight.sty}
+\newsavebox{\hlboxopenbrace}
+\newsavebox{\hlboxclosebrace}
+\newsavebox{\hlboxlessthan}
+\newsavebox{\hlboxgreaterthan}
+\newsavebox{\hlboxdollar}
+\newsavebox{\hlboxunderscore}
+\newsavebox{\hlboxand}
+\newsavebox{\hlboxhash}
+\newsavebox{\hlboxat}
+\newsavebox{\hlboxbackslash}
+\newsavebox{\hlboxpercent}
+\newsavebox{\hlboxhat}
+
+\setbox\hlboxopenbrace=\hbox{\verb.{.}
+\setbox\hlboxclosebrace=\hbox{\verb.}.}
+\setbox\hlboxlessthan=\hbox{\verb.<.}
+\setbox\hlboxgreaterthan=\hbox{\verb.>.}
+\setbox\hlboxdollar=\hbox{\verb.$.}
+\setbox\hlboxunderscore=\hbox{\verb._.}
+\setbox\hlboxand=\hbox{\verb.&.}
+\setbox\hlboxhash=\hbox{\verb.#.}
+\setbox\hlboxat=\hbox{\verb.@.}
+\setbox\hlboxbackslash=\hbox{\verb.\.}
+\setbox\hlboxpercent=\hbox{\verb.\%.}
+\setbox\hlboxhat=\hbox{\verb.^.}
+\def\urltilda{\kern -.15em\lower .7ex\hbox{\~{}}\kern .04em}
+
+% from R package "highlight"
+\newsavebox{\hlboxsinglequote}
+\setbox\hlboxsinglequote=\hbox{\verb.'.}
+
+\newcommand{\hlnumber}[1]{\textcolor[rgb]{0.0823529411764706,0.0784313725490196,0.709803921568627}{#1}}%
+\newcommand{\hlfunctioncall}[1]{\textcolor[rgb]{1,0,0}{#1}}%
+\newcommand{\hlstring}[1]{\textcolor[rgb]{0.6,0.6,1}{#1}}%
+\newcommand{\hlkeyword}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
+\newcommand{\hlargument}[1]{\textcolor[rgb]{0.694117647058824,0.247058823529412,0.0196078431372549}{#1}}%
+\newcommand{\hlcomment}[1]{\textcolor[rgb]{0.8,0.8,0.8}{#1}}%
+\newcommand{\hlroxygencomment}[1]{\textcolor[rgb]{0,0.592156862745098,1}{#1}}%
+\newcommand{\hlformalargs}[1]{\textcolor[rgb]{0.0705882352941176,0.713725490196078,0.0705882352941176}{#1}}%
+\newcommand{\hleqformalargs}[1]{\textcolor[rgb]{0.0705882352941176,0.713725490196078,0.0705882352941176}{#1}}%
+\newcommand{\hlassignement}[1]{\textcolor[rgb]{0.215686274509804,0.215686274509804,0.384313725490196}{\textbf{#1}}}%
+\newcommand{\hlpackage}[1]{\textcolor[rgb]{0.588235294117647,0.713725490196078,0.145098039215686}{#1}}%
+\newcommand{\hlslot}[1]{\textit{#1}}%
+\newcommand{\hlsymbol}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlprompt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+
+
+
+\usepackage[colorlinks]{hyperref}
+\author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
+\title{Exposing C++ functions and classes with Rcpp modules}
+
+
+\begin{document}
+\maketitle
+
+\abstract{
+  \noindent
+  \textsl{Rcpp modules} have been introduced in version 0.8.1 of \texttt{Rcpp}
+  to allow programmers to simply expose c++ functions and classes to R. 
+  
+  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
+  C++ library which provides the same features (and much more) for 
+  python.
+  
+  This document is a short overview of the capabilities of modules.
+}
+
+\section{Motivation}
+
+Exposing C++ functionality to R is greatly facilitated by the 
+\texttt{Rcpp} package and underlying C++ library. \texttt{Rcpp}
+facilitates R and C++ integration by replacing use of the 
+traditionnal R API by a consistent set of c++ classes. 
+
+However, these facilities were limited to a function by function basis. The 
+programmer would implement a \texttt{.Call} compatible function
+using classes of the \texttt{Rcpp} api. 
+
+\subsection{exposing functions}
+
+Exposing existing C++ functions to R through \texttt{Rcpp}
+usually involves writing an additional wrapper function that is responsible
+for converting input objects to the appropriate types, calling the function
+and converting the results back to a suitable type that can be returned to 
+R : the traditionnal \texttt{SEXP} from the R api or any type from the 
+\texttt{Rcpp} api that offer implicit conversion to \texttt{SEXP} (many of them do).
+
+Consider the \texttt{hello} function below: 
+
+\input{snippets/hello}
+
+One can expose a such a function using \texttt{Rcpp} converters
+
+\input{snippets/helloexpose}
+
+Or more traditionally using the R API :
+
+\input{snippets/helloexposerapi}
+
+Either way requires implication from the programmer and quickly becomes an 
+time sink when many functions are involved. \textsl{Rcpp modules} provides a
+much nicer way to expose the \texttt{hello} function to R.
+
+\subsection{exposing classes}
+
+Exposing c++ classes or structs is even more of a challenge because it
+requires writing glue code for each function that is to be exposed. Consider the 
+simple \texttt{World} class below: 
+
+\input{snippets/World}
+
+We might want a way to create objects of this class, and use the member
+functions \texttt{greet} and \texttt{set} to alter the object. External pointers 
+are the perfect vessel for this, and using the 
+\texttt{Rcpp:::XPtr} template from \texttt{Rcpp} we can expose the class
+by exposing three functions : 
+
+\input{snippets/WorldRcpp}
+
+which can be used from R with some S4 glue code: 
+
+\input{snippets/WorldRcppR}
+
+\texttt{Rcpp} considerably simplifies the code that would be involved for using 
+external pointers with the traditional R API. This still involves 
+a lot of pattern code that quickly becomes hard to maintain and error prone. 
+\textsl{Rcpp modules} offer a much nicer way to expose the \texttt{World}
+class in a way that makes both the internal c++ code and the R code easier. 
+
+\section{Rcpp modules}
+
+Rcpp modules are inspired from python modules that are generated
+by the \texttt{Boost.Python} library. They provide an easy way to expose
+c++ functions and classes to R, grouped together in a single entity. 
+
+The module is created in a cpp file using the \texttt{RCPP\_MODULE}
+macro, which then contains declarative code of what the module 
+exposes to R. 
+
+\subsection{exposing c++ functions}
+
+Consider the \texttt{hello} function from the previous section. 
+We can expose it to R :
+
+\input{snippets/helloModule}
+
+The code creates a module called an Rcpp module called \texttt{yada}
+that exposes the \texttt{hello} function. \texttt{Rcpp} automatically 
+deduces the conversions that are needed for input and output. 
+
+On the R side, the module is simply retrieved by using the \texttt{Module}
+function from \texttt{Rcpp}:
+
+\input{snippets/helloModuleR}
+
+A module can contain any number of calls to \texttt{function} to register
+many internal functions to R. For example, these 6 functions : 
+
+\input{snippets/functions}
+
+can be exposed with the following minimal code: 
+
+\input{snippets/functionsModule}
+
+and used from R: 
+
+\input{snippets/functionsModuleR}
+
+The requirements on the functions to be exposed are: 
+\begin{itemize}
+\item It takes between 0 and 65 parameters. 
+\item The type of each input parameter must be manageable by the \texttt{Rcpp::as}
+template. 
+\item The output type must be either \texttt{void} or any type that 
+can be managed by the \texttt{Rcpp::wrap} template
+\end{itemize}
+
+\subsection{exposing c++ classes}
+
+Rcpp modules also provide a mechanism for exposing c++ classes. The mechanism 
+internally uses external pointers, but the user should consider this implementation
+details. 
+
+A class is exposed using the \texttt{class\_} class. The \texttt{World}
+class may be exposed to R :
+
+\input{snippets/WorldModule}
+
+\texttt{class\_} is templated by the c++ class or struct that is to be exposed
+to R. The parameter of the \texttt{class\_<World>} constructor is the name we will
+use on the R side. It usually makes sense to use the same name as the class 
+name, but this is not forced. 
+
+The construction of the object is then followed by two calls to the 
+\texttt{method} member function of \texttt{class\_<World>}. Each call simply 
+register a member function by providing the name to use on the R 
+side (e.g. "greet") and the reference to the member function. 
+
+The module exposes the default constructor of the \texttt{World} class as well
+to support creation of \texttt{World} objects from R. The Rcpp module assumes
+responsabilities for type conversion for input and output types. 
+
+\input{snippets/WorldModuleR}
+
+\section{Future extensions}
+
+\texttt{Boost.Python} has many more features that we would like to port 
+to Rcpp modules : class inheritance, overloading, default arguments, ... 
+
+
+\end{document}
+
