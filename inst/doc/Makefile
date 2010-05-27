@@ -1,5 +1,5 @@
 
-all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf
+all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf
 
 clean:
 	touch Rcpp-unitTests.pdf
@@ -28,4 +28,10 @@ Rcpp-introduction.pdf: Rcpp-introduction.Rnw
 	R CMD Sweave Rcpp-introduction.Rnw
 	Rscript -e "tools::texi2dvi( 'Rcpp-introduction.tex', pdf = TRUE, clean = TRUE )"
 	rm -fr Rcpp-introduction.tex
+
+Rcpp-modules.pdf: snippets Rcpp-modules.Rnw 
+	( cd snippets ; Rscript highlight.R ; cd .. )
+	R CMD Sweave Rcpp-modules.Rnw
+	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = TRUE )"
+	rm -fr Rcpp-modules.tex
 
