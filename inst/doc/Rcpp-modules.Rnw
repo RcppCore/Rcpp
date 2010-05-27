@@ -95,15 +95,15 @@ R : the traditionnal \texttt{SEXP} from the R api or any type from the
 
 Consider the \texttt{hello} function below: 
 
-\input{snippets/hello}
+\InputIfFileExists{snippets/hello}{}{}
 
 One can expose a such a function using \texttt{Rcpp} converters
 
-\input{snippets/helloexpose}
+\InputIfFileExists{snippets/helloexpose}{}{}
 
 Or more traditionally using the R API :
 
-\input{snippets/helloexposerapi}
+\InputIfFileExists{snippets/helloexposerapi}{}{}
 
 Either way requires implication from the programmer and quickly becomes an 
 time sink when many functions are involved. \textsl{Rcpp modules} provides a
@@ -115,7 +115,7 @@ Exposing c++ classes or structs is even more of a challenge because it
 requires writing glue code for each function that is to be exposed. Consider the 
 simple \texttt{World} class below: 
 
-\input{snippets/World}
+\InputIfFileExists{snippets/World}{}{}
 
 We might want a way to create objects of this class, and use the member
 functions \texttt{greet} and \texttt{set} to alter the object. External pointers 
@@ -123,11 +123,11 @@ are the perfect vessel for this, and using the
 \texttt{Rcpp:::XPtr} template from \texttt{Rcpp} we can expose the class
 by exposing three functions : 
 
-\input{snippets/WorldRcpp}
+\InputIfFileExists{snippets/WorldRcpp}{}{}
 
 which can be used from R with some S4 glue code: 
 
-\input{snippets/WorldRcppR}
+\InputIfFileExists{snippets/WorldRcppR}{}{}
 
 \texttt{Rcpp} considerably simplifies the code that would be involved for using 
 external pointers with the traditional R API. This still involves 
@@ -150,7 +150,7 @@ exposes to R.
 Consider the \texttt{hello} function from the previous section. 
 We can expose it to R :
 
-\input{snippets/helloModule}
+\InputIfFileExists{snippets/helloModule}{}{}
 
 The code creates a module called an Rcpp module called \texttt{yada}
 that exposes the \texttt{hello} function. \texttt{Rcpp} automatically 
@@ -159,20 +159,20 @@ deduces the conversions that are needed for input and output.
 On the R side, the module is simply retrieved by using the \texttt{Module}
 function from \texttt{Rcpp}:
 
-\input{snippets/helloModuleR}
+\InputIfFileExists{snippets/helloModuleR}{}{}
 
 A module can contain any number of calls to \texttt{function} to register
 many internal functions to R. For example, these 6 functions : 
 
-\input{snippets/functions}
+\InputIfFileExists{snippets/functions}{}{}
 
 can be exposed with the following minimal code: 
 
-\input{snippets/functionsModule}
+\InputIfFileExists{snippets/functionsModule}{}{}
 
 and used from R: 
 
-\input{snippets/functionsModuleR}
+\InputIfFileExists{snippets/functionsModuleR}{}{}
 
 The requirements on the functions to be exposed are: 
 \begin{itemize}
@@ -192,7 +192,7 @@ details.
 A class is exposed using the \texttt{class\_} class. The \texttt{World}
 class may be exposed to R :
 
-\input{snippets/WorldModule}
+\InputIfFileExists{snippets/WorldModule}{}{}
 
 \texttt{class\_} is templated by the c++ class or struct that is to be exposed
 to R. The parameter of the \texttt{class\_<World>} constructor is the name we will
@@ -208,7 +208,7 @@ The module exposes the default constructor of the \texttt{World} class as well
 to support creation of \texttt{World} objects from R. The Rcpp module assumes
 responsabilities for type conversion for input and output types. 
 
-\input{snippets/WorldModuleR}
+\InputIfFileExists{snippets/WorldModuleR}{}{}
 
 \section{Future extensions}
 
