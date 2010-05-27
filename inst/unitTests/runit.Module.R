@@ -56,7 +56,9 @@ test.Module <- function(){
 	    std::string msg;
 	};
 
-	
+	void clearWorld( World* w ){ 
+		w->set( "" );
+	}
 	
 	RCPP_MODULE(yada){
 		using namespace Rcpp ;
@@ -71,6 +73,7 @@ test.Module <- function(){
 		class_<World>( "World" )
 			.method( "greet", &World::greet )
 			.method( "set", &World::set )
+			.method( "clear", &clearWorld )
 		;
 
 	}                     
@@ -91,5 +94,8 @@ test.Module <- function(){
     checkEquals( w$greet(), "hello" )
     w$set( "hello world" ) 
     checkEquals( w$greet(), "hello world" )
+    w$clear( )
+    checkEquals( w$greet(), "" )
+    
     
 }
