@@ -1,3 +1,12 @@
+2010-05-28  Romain Francois <romain@r-enthusiasts.com>
+
+	* R/cppfunction.R: withdrawn, we now use inline::cxxfunction which is
+	more flexible and we no longer need to depend on inline
+	* man/cppfunction.Rd: *
+	
+	* inst/unitTests/runTests.R: The tests now require a recent version 
+	of inline (>= 0.3.4.2)
+	
 2010-05-27  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Module.h: adding support for registering a free function

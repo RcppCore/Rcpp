@@ -195,7 +195,7 @@ test.RObject.asStdVectorString <- function(){
     	    iv[i] = iv[i] + iv[i];
     	}
  	return(Rcpp::wrap( iv ));'
-	funx <- cppfunction(signature(x="character"), foo, )
+	funx <- cppfunction(signature(x="character"), foo )
 	checkEquals( funx(c("foo", "bar")), c("foofoo", "barbar"), msg = "as< std::vector<std::string> >(character)" )
 	checkException( funx(1L), msg = "as< std::vector<std::string> >(integer) -> exception" )
 	checkException( funx(1.0), msg = "as< std::vector<std::string> >(numeric) -> exception" )
