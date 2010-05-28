@@ -55,5 +55,5 @@ using namespace Rcpp;
 }
 }
 
-inline_cxx_plugin <- Rcpp.plugin.maker() 
+inlineCxxPlugin <- Rcpp.plugin.maker() 
 
