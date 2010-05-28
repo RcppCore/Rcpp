@@ -47,7 +47,7 @@ Description: Seamless R and C++ integration
  Several examples are included, and over 530 unit tests in over 240 unit test
  functions provide addtional usage examples.
 Depends: R (>= 2.10.0), methods
-Suggests: RUnit 
+Suggests: RUnit, inline
 SystemRequirements: GNU make
 URL: http://dirk.eddelbuettel.com/code/rcpp.html, http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
 License: GPL (>= 2)
