@@ -15,20 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-Makevars.Rcpp <- '
-## Use the R_HOME indirection to support installations of multiple R version
-PKG_LIBS = $(shell $(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()" )
-'
-
-Makevars.win.Rcpp <- '
-## Use the R_HOME indirection to support installations of multiple R version
-PKG_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
-'
-
-Rcpp.plugin.maker <- function( include.before = "", include.after = "", 
-	LinkingTo = "Rcpp", Depends = "Rcpp", libs = "", 
-	Makevars = Makevars.Rcpp, 
-	Makevars.win = Makevars.win.Rcpp
+Rcpp.plugin.maker <- function( 
+	include.before = "", 
+	include.after = "", 
+	LinkingTo     = unique( c( package, "Rcpp" ) ), 
+	Depends       = unique( c( package, "Rcpp" ) ), 
+	libs          = "", 
+	Makevars      = readLines( system.file("skeleton", "Makevars"    , package = package ) ) , 
+	Makevars.win  = readLines( system.file("skeleton", "Makevars.win", package = package ) ), 
+	package       = "Rcpp"
 ){
 	function( ... ){
 includes <- sprintf( "%s
