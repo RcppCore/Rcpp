@@ -4,8 +4,8 @@ if( ! require( "inline", character.only = TRUE, quietly = TRUE ) ){
 	stop( "The inline package is required to run Rcpp unit tests" )
 }
 
-if( compareVersion( packageDescription( "inline" )[["Version"]], "0.3.4.3" ) < 0 ){
-	stop( "Rcpp unit tests need at least the version 0.3.4.3 of inline" )
+if( compareVersion( packageDescription( "inline" )[["Version"]], "0.3.4.4" ) < 0 ){
+	stop( "Rcpp unit tests need at least the version 0.3.4.4 of inline" )
 }
 
 cppfunction <- function(...){
