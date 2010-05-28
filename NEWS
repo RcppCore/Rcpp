@@ -11,6 +11,14 @@
 	runit.Module.R shows an example.
 	
 	The Rcpp-modules vignette documents the feature
+	
+	o	cppfunction has been withdrawn since the introduction of the more 
+	flexible cxxfunction in the inline package. Rcpp no longer depend
+	on inline since many uses of Rcpp do not require inline at all. We still 
+	use inline for unit tests but this is now handled locally in the
+	unit tests loader runTests.R. Users of cppfunction can redefine it as: 
+	
+	cppfunction <- function(...) cxxfunction( ..., plugin = "Rcpp" )
 
 0.8.0   2010-05-17
 

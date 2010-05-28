@@ -54,7 +54,7 @@ test.CharacterVector.plusequals <- function(){
 	x[0] += "bar" ;
 	x[1] += x[0] ;
 	return x ;
-	',  )
+	' )
 	checkEquals( funx(), c("foobar", "barfoobar"),
 		msg = "StringProxy::operator+=" )
 }
