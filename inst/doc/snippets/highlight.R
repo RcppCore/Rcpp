@@ -17,13 +17,11 @@ for( f in cppfiles ){
 }
 
 require( highlight )
-r <- renderer_latex( doc = FALSE )
-r$header <- function(){
-	"\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}\n\\ttfamily\\noindent\n\\hlstd{}"
+if( compareVersion( "0.1-9", packageDescription( "highlight" )[["Version"]] ) ){
+	stop( "version 0.1-9 of highlight is required for the minipage argument" )
 }
-r$footer <- function(){
-	"\\mbox{}\n\\normalfont\n\\end{minipage}}\\vspace{1em}"
-}
+
+r <- renderer_latex( doc = FALSE, minipage = TRUE )
 rfiles <- setdiff( list.files( pattern = "[.]R$" ), "highlight.R" )
 for( f in rfiles ){
 	base <- sub( "[.]R$", "", f )
