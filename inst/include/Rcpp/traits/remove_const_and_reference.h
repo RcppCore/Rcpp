@@ -30,7 +30,7 @@ namespace Rcpp{ namespace traits {
 	
 	template <typename T>
 	struct remove_const_and_reference {
-		typedef typename remove_reference< typename remove_const<T>::type >::type type ;
+		typedef typename remove_const< typename remove_reference<T>::type >::type type ;
 	} ;
 	
 }}
