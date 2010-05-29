@@ -106,3 +106,8 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	new( "Module", pointer = xp ) 
 }
 
+setGeneric( ".DollarNames" )
+setMethod( ".DollarNames", signature( x = "C++Object", pattern = "character" ), function(x, pattern ){
+	grep( pattern, .Call( "CppClass__methods" , x@cppclass, PACKAGE = "Rcpp" ), value = TRUE )
+} )
+

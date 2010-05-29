@@ -2,6 +2,8 @@
 
 	* R/Module.R: when a Module is loaded, it creates extensions of the 
 	class C++Object for each internal class to enable S4 dispatch
+	
+	* R/Module.R: support for completion of methods of C++ objects
 
 2010-05-28  Romain Francois <romain@r-enthusiasts.com>
 
