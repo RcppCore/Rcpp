@@ -262,7 +262,7 @@ to Rcpp modules : class inheritance, overloading, default arguments, ...
 \section{References}
 
 \bibliographystyle{abbrvnat}
-\bibliography{modules}
+\bibliography{Rcpp-modules}
 
 \end{document}
 
