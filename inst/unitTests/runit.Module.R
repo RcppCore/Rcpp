@@ -17,7 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-if( Rcpp:::capabilities()[["Rcpp modules"]] )
+if( Rcpp:::capabilities()[["Rcpp modules"]] ) {
+	
 test.Module <- function(){
 
 	inc  <- '
@@ -98,4 +99,69 @@ test.Module <- function(){
     checkEquals( w$greet(), "" )
     
     
+}
+
+
+test.Module.stdvec <- function(){
+
+code <- ''
+
+inc  <- '
+typedef std::vector<double> vec ;
+
+void vec_assign( vec* obj, Rcpp::NumericVector data ){
+	obj->assign( data.begin(), data.end() ) ;
+}
+
+void vec_insert( vec* obj, int position, Rcpp::NumericVector data){
+	vec::iterator it = obj->begin() + position ;
+	obj->insert( it, data.begin(), data.end() ) ;
+}
+
+Rcpp::NumericVector vec_asR( vec* obj){
+	return Rcpp::wrap( *obj ) ;
+}
+
+RCPP_MODULE(yada){
+	using namespace Rcpp ;
+	
+	class_<vec>( "vec")
+	 	.method( "size", &vec::size)
+ 		.method( "max_size", &vec::max_size) 
+ 		.method( "resize", &vec::resize) 
+ 		.method( "capacity", &vec::capacity) 
+ 		.method( "empty", &vec::empty) 
+ 		.method( "reserve", &vec::reserve) 
+ 		.method( "push_back", &vec::push_back )
+ 		.method( "pop_back", &vec::pop_back )
+ 		.method( "clear", &vec::clear )
+ 		
+ 		.const_method( "back", &vec::back )
+		.const_method( "front", &vec::front )
+		.const_method( "at", &vec::at )
+		
+		.method( "assign", &vec_assign )
+		.method( "insert", &vec_insert )
+		.method( "as.vector", &vec_asR ) 
+			
+		
+	;
+}                     
+
+'
+	fx <- cxxfunction( signature(), "", include = inc, plugin = "Rcpp" )
+	
+	yada <- Rcpp:::Module( "yada", getDynLib( fx ) )
+	v <- new( yada$vec )
+	v$assign( 1:10 )
+	
+	checkEquals( v$back(), 10 )
+	v$push_back( 10 )
+	checkEquals( as.integer(v$size()), 11L )
+	checkEquals( v$at( 0 ), 1 )
+	checkEquals( v$as.vector(), c(1:10, 10 ) )
+	
+}
+
+
 }

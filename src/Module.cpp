@@ -46,6 +46,10 @@ RCPP_FUNCTION_2( Rcpp::CppClass, Module__get_class, XP_Module module, std::strin
 RCPP_FUNCTION_1( bool, CppObject__needs_init, SEXP xp ){
 	return EXTPTR_PTR(xp) == 0 ;
 }
+RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__methods, XP_Class cl){
+	return cl->method_names() ;
+}
+
 
 extern "C" SEXP Module__funtions_arity( SEXP mod_xp ){
 	Rcpp::XPtr<Rcpp::Module> module(mod_xp) ;
