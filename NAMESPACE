@@ -3,9 +3,12 @@ useDynLib(Rcpp)
 import( methods )
 export(Rcpp.package.skeleton)
 
-importFrom( utils, capture.output )
+importFrom( utils, capture.output, assignInNamespace )
 
 exportClasses( Module, "C++Class", "C++Object" )
 export( Module )
 exportMethods( new )
+
+importFrom( utils, .DollarNames )
+exportMethods( .DollarNames )
 
