@@ -68,18 +68,23 @@ setMethod( "new", "C++Class", function(Class,...){
 	new( out$cl, pointer = out$xp, cppclass = Class@pointer, module = Class@module )
 } )
 
+MethodInvoker <- function( x, name ){
+	function(...){
+		res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ... , PACKAGE = "Rcpp" )
+		if( isTRUE( res$void ) ) invisible(NULL) else res$result
+	}
+}
+
 dollar_cppobject <- function(x, name){
 	if( .Call( "Class__has_method", x@cppclass, name, PACKAGE = "Rcpp" ) ){
-		function(...){
-			res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ..., PACKAGE = "Rcpp" )
-			if( isTRUE( res$void ) ) invisible(NULL) else res$result
-		}
+		MethodInvoker( x, name )
 	} else{
 		stop( "no such method" )
 	}
 }
 
 setMethod( "$", "C++Object", dollar_cppobject )
+
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()) ){
 	name <- sprintf( "_rcpp_module_boot_%s", module )
@@ -89,10 +94,10 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	if( length( classes ) ){
 		clnames <- names( classes )
 		for( i in seq_along(classes) ){
+			CLASS <- classes[[i]]
 			setClass( clnames[i], contains = "C++Object", where = where )
 			init <- function(.Object, ...){
 				if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){
-					CLASS <- classes[[i]]
 					out <- new_CppObject_xp( CLASS, ... )
 					.Object@pointer <- out$xp
 					.Object@cppclass <- CLASS@pointer
@@ -101,6 +106,21 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 				.Object
 			}
 			setMethod( "initialize", clnames[i], init , where = where )
+			
+			METHODS <- .Call( "CppClass__methods" , CLASS@pointer , PACKAGE = "Rcpp" )
+			if( "[[" %in% METHODS ){
+				setMethod( "[[", clnames[i], function(x, i, j, ...){
+					MethodInvoker( x, "[[" )( i )
+				}, where = where )
+			}
+			
+			if( "[[<-" %in% METHODS ){
+				setReplaceMethod( "[[", clnames[i], function(x, i, j, ..., exact = TRUE, value ){
+					MethodInvoker( x, "[[<-" )( i, value )
+					x
+				}, where = where )
+			}
+			
 		}
 	}
 	new( "Module", pointer = xp ) 

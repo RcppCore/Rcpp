@@ -230,11 +230,6 @@ the STL.
 
 \InputIfFileExists{snippets/stdvectorback}{}{}
 
-The following example illustrates how to use Rcpp modules to expose
-the class \texttt{std::vector<double>} from the STL. 
-
-\InputIfFileExists{snippets/modulestdvec}{}{}
-
 \subsubsection{S4 dispatch}
 
 When a C++ class is exposed by the \texttt{class\_} template, 
@@ -243,6 +238,20 @@ a new S4 class is registered as well. This allows implementation of R-level
 method for C++ \texttt{World} objects: 
 
 \InputIfFileExists{snippets/S4dispatch}{}{}
+
+\subsubsection{Special methods}
+
+\texttt{Rcpp} considers the methods \texttt{[[} and \texttt{[[<-} special, 
+and promote them to indexing methods on the R side. 
+
+\subsubsection{Full example}
+
+The following example illustrates how to use Rcpp modules to expose
+the class \texttt{std::vector<double>} from the STL. 
+
+\InputIfFileExists{snippets/modulestdvec}{}{}
+
+
 
 \section{Future extensions}
 
