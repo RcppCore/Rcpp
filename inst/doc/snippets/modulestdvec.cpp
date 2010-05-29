@@ -15,6 +15,10 @@ Rcpp::NumericVector vec_asR( vec* obj ){
 	return Rcpp::wrap( *obj ) ;
 }
 
+void vec_set( vec* obj, int i, double value ){
+	obj->at( i ) = value ;
+}
+
 RCPP_MODULE(yada){
 	using namespace Rcpp ;
 	
@@ -42,6 +46,11 @@ RCPP_MODULE(yada){
 		.method( "assign", &vec_assign )
 		.method( "insert", &vec_insert )
 		.method( "as.vector", &vec_asR ) 
+		
+		// special methods for indexing
+		.const_method( "[[", &vec::at )
+		.method( "[[<-", &vec_set )
+
 	;
 }                     
 
