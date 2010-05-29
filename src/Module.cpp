@@ -34,7 +34,6 @@ RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
 RCPP_FUNCTION_1( std::string, Class__name, XP_Class cl){
 	return cl->name ;
 }
-
 RCPP_FUNCTION_2( bool, Module__has_function, XP_Module module, std::string met ){
 	return module->has_function( met ) ;
 }
@@ -43,6 +42,9 @@ RCPP_FUNCTION_2( bool, Module__has_class, XP_Module module, std::string cl ){
 }
 RCPP_FUNCTION_2( Rcpp::CppClass, Module__get_class, XP_Module module, std::string cl ){
 	return module->get_class( cl ) ;
+}
+RCPP_FUNCTION_1( bool, CppObject__needs_init, SEXP xp ){
+	return EXTPTR_PTR(xp) == 0 ;
 }
 
 extern "C" SEXP Module__funtions_arity( SEXP mod_xp ){
