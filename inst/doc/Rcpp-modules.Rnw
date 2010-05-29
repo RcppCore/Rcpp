@@ -3,6 +3,7 @@
 \usepackage{vmargin}
 \usepackage{color}           
 \usepackage{alltt}           
+\usepackage[authoryear,round,longnamesfirst]{natbib}
 
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
@@ -67,31 +68,31 @@
 \abstract{
   \noindent
   \textsl{Rcpp modules} have been introduced in version 0.8.1 of \texttt{Rcpp}
-  to allow programmers to simply expose c++ functions and classes to R.  
-  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python} \cite{Boost:Python}
+  to allow programmers to simply expose C++ functions and classes to R.  
+  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python} \citep{Boost:Python}
   C++ library which provides the same features (and much more) for 
   Python. This document is a short overview of the capabilities of modules.
 }
 
 \section{Motivation}
 
-Exposing C++ functionality to R is greatly facilitated by the 
-\texttt{Rcpp} package and underlying C++ library. \texttt{Rcpp}
-facilitates R and C++ integration by replacing use of the 
-traditionnal R API by a consistent set of c++ classes. 
+Exposing C++ functionality to R is greatly facilitated by the \texttt{Rcpp}
+package and underlying C++ library \citep{CRAN:Rcpp}. \texttt{Rcpp}
+facilitates R and C++ integration by replacing use of the traditionnal R API
+by a consistent set of C++ classes.
 
-However, these facilities were limited to a function by function basis. The 
-programmer would implement a \texttt{.Call} compatible function
-using classes of the \texttt{Rcpp} api. 
+However, these facilities are limited to a function by function basis. The 
+programmer has to implement a \texttt{.Call} compatible function
+using classes of the \texttt{Rcpp} API. 
 
-\subsection{exposing functions}
+\subsection{Exposing functions}
 
 Exposing existing C++ functions to R through \texttt{Rcpp}
 usually involves writing an additional wrapper function that is responsible
 for converting input objects to the appropriate types, calling the function
 and converting the results back to a suitable type that can be returned to 
-R : the traditionnal \texttt{SEXP} from the R api or any type from the 
-\texttt{Rcpp} api that offer implicit conversion to \texttt{SEXP} (many of them do).
+R: the traditionnal \texttt{SEXP} from the R API or any type from the 
+\texttt{Rcpp} API that offer implicit conversion to \texttt{SEXP} (many of them do).
 
 Consider the \texttt{hello} function below: 
 
@@ -105,13 +106,13 @@ Or more traditionally using the R API :
 
 \InputIfFileExists{snippets/helloexposerapi}{}{}
 
-Either way requires implication from the programmer and quickly becomes an 
-time sink when many functions are involved. \textsl{Rcpp modules} provides a
-much nicer way to expose the \texttt{hello} function to R.
+Either way requires direct involvement from the programmer and quickly
+becomes an time sink when many functions are involved. \textsl{Rcpp modules}
+provides a much more efficient way to expose the \texttt{hello} function to R.
 
-\subsection{exposing classes}
+\subsection{Exposing classes}
 
-Exposing c++ classes or structs is even more of a challenge because it
+Exposing C++ classes or structs is even more of a challenge because it
 requires writing glue code for each function that is to be exposed. Consider the 
 simple \texttt{World} class below: 
 
@@ -119,7 +120,7 @@ simple \texttt{World} class below:
 
 We might want a way to create objects of this class, and use the member
 functions \texttt{greet} and \texttt{set} to alter the object. External pointers 
-\cite{R:exts} are the perfect vessel for this, and using the 
+\citep{R:exts} are the perfect vessel for this, and using the 
 \texttt{Rcpp:::XPtr} template from \texttt{Rcpp} we can expose the class
 by exposing three functions : 
 
@@ -133,19 +134,19 @@ which can be used from R with some S4 glue code:
 external pointers with the traditional R API. This still involves 
 a lot of pattern code that quickly becomes hard to maintain and error prone. 
 \textsl{Rcpp modules} offer a much nicer way to expose the \texttt{World}
-class in a way that makes both the internal c++ code and the R code easier. 
+class in a way that makes both the internal C++ code and the R code easier. 
 
 \section{Rcpp modules}
 
 Rcpp modules are inspired from Python modules that are generated
 by the \texttt{Boost.Python} library. They provide an easy way to expose
-c++ functions and classes to R, grouped together in a single entity. 
+C++ functions and classes to R, grouped together in a single entity. 
 
 The module is created in a cpp file using the \texttt{RCPP\_MODULE}
 macro, which then contains declarative code of what the module 
 exposes to R. 
 
-\subsection{exposing c++ functions}
+\subsection{Exposing C++ functions}
 
 Consider the \texttt{hello} function from the previous section. 
 We can expose it to R :
@@ -183,18 +184,18 @@ template.
 can be managed by the \texttt{Rcpp::wrap} template
 \end{itemize}
 
-\subsection{exposing c++ classes}
+\subsection{Exposing C++ classes}
 
-Rcpp modules also provide a mechanism for exposing c++ classes. The mechanism 
-internally uses external pointers, but the user should consider this implementation
-details as this is properly encapsulated. 
+Rcpp modules also provide a mechanism for exposing C++ classes. The mechanism
+internally uses external pointers, but the user should consider this as
+hidden implementation details as this is properly encapsulated.
 
 A class is exposed using the \texttt{class\_} class. The \texttt{World}
 class may be exposed to R :
 
 \InputIfFileExists{snippets/WorldModule}{}{}
 
-\texttt{class\_} is templated by the c++ class or struct that is to be exposed
+\texttt{class\_} is templated by the C++ class or struct that is to be exposed
 to R. The parameter of the \texttt{class\_<World>} constructor is the name we will
 use on the R side. It usually makes sense to use the same name as the class 
 name, but this is not forced, which might be useful when exposing a class 
@@ -210,7 +211,7 @@ a pointer to the actual member function (e.g. \texttt{\&World::greet} )
 \item free funtions that take a pointer to the target class as their 
 first parameter such as the C++ function \texttt{clearWorld} in the previous
 example. Again, we provide the R name for the method (\texttt{clear}) and 
-a pointer to the c++ function. 
+a pointer to the C++ function. 
 \end{itemize}
 
 The module exposes the default constructor of the \texttt{World} class as well
@@ -219,7 +220,7 @@ responsabilities for type conversion for input and output types.
 
 \InputIfFileExists{snippets/WorldModuleR}{}{}
 
-\subsubsection{const and non const member functions}
+\subsubsection{Const and non-const member functions}
 
 \texttt{method} is able to expose both \texttt{const} and \texttt{non const}
 member functions of a class. There are however situations where
@@ -260,7 +261,7 @@ to Rcpp modules : class inheritance, overloading, default arguments, ...
 
 \section{References}
 
-\bibliographystyle{plain}
+\bibliographystyle{abbrvnat}
 \bibliography{modules}
 
 \end{document}
