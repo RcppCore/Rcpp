@@ -1,3 +1,8 @@
+2010-05-29  Romain Francois <romain@r-enthusiasts.com>
+
+	* R/Module.R: when a Module is loaded, it creates extensions of the 
+	class C++Object for each internal class to enable S4 dispatch
+
 2010-05-28  Romain Francois <romain@r-enthusiasts.com>
 
 	* R/cppfunction.R: withdrawn, we now use inline::cxxfunction which is

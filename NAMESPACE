@@ -1,9 +1,9 @@
 useDynLib(Rcpp)
 
+import( methods )
 export(Rcpp.package.skeleton)
 
 importFrom( utils, capture.output )
-importFrom( methods, new )
 
 exportClasses( Module, "C++Class", "C++Object" )
 export( Module )
