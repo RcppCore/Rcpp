@@ -56,6 +56,7 @@ public:
 	virtual SEXP invoke( const std::string& method_name, SEXP obj, SEXP *args, int nargs ){ 
 		return R_NilValue ;
 	}
+	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
 	
 	std::string name ;
@@ -173,8 +174,18 @@ public:
 #include <Rcpp/module/Module_generated_method.h>
 #include <Rcpp/module/Module_generated_Pointer_method.h>
 	
-	inline bool has_method( const std::string& m){
+	bool has_method( const std::string& m){
 		return methods.find(m) != methods.end() ;
+	}
+	
+	Rcpp::CharacterVector method_names(){
+		int n = methods.size() ;
+		Rcpp::CharacterVector out(n) ;
+		typename METHOD_MAP::iterator it = methods.begin( ) ;
+		for( int i=0; i<n; i++, ++it){
+			out[i] = it->first ;
+		} 
+		return out ;
 	}
 	
 private:
