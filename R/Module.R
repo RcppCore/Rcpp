@@ -17,6 +17,8 @@
 
 setGeneric( "new" )
 
+internal.classes <- environment()
+
 setClass( "Module", representation( pointer = "externalptr" ) )
 setClass( "C++Class", representation( pointer = "externalptr", module = "externalptr" ) )
 setClass( "C++Object", representation( module = "externalptr", cppclass = "externalptr", pointer = "externalptr" ) )
@@ -49,7 +51,7 @@ setMethod( "show", "Module", function( object ){
 	writeLines( txt )
 } )
 
-setMethod( "new", "C++Class", function(Class, ...){
+new_CppObject_xp <- function(Class, ...){
 	xp <- .External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
 	cl <- .Call( "Class__name", Class@pointer, PACKAGE = "Rcpp" )
 	
@@ -58,7 +60,12 @@ setMethod( "new", "C++Class", function(Class, ...){
 	if( ! cl %in% names( known_cpp_classes ) ){
 		cl <- "C++Object"
 	}
-	new( cl, pointer = xp, cppclass = Class@pointer, module = Class@module )
+	list( cl = cl, xp = xp )
+}
+
+setMethod( "new", "C++Class", function(Class,...){
+	out <- new_CppObject_xp( Class, ... )
+	new( out$cl, pointer = out$xp, cppclass = Class@pointer, module = Class@module )
 } )
 
 dollar_cppobject <- function(x, name){
@@ -83,10 +90,19 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 		clnames <- names( classes )
 		for( i in seq_along(classes) ){
 			setClass( clnames[i], contains = "C++Object", where = where )
+			init <- function(.Object, ...){
+				if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){
+					CLASS <- classes[[i]]
+					out <- new_CppObject_xp( CLASS, ... )
+					.Object@pointer <- out$xp
+					.Object@cppclass <- CLASS@pointer
+					.Object@module <- CLASS@module
+				}
+				.Object
+			}
+			setMethod( "initialize", clnames[i], init , where = where )
 		}
 	}
 	new( "Module", pointer = xp ) 
 }
-
-
 
