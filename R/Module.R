@@ -21,13 +21,6 @@ setClass( "Module", representation( pointer = "externalptr" ) )
 setClass( "C++Class", representation( pointer = "externalptr", module = "externalptr" ) )
 setClass( "C++Object", representation( module = "externalptr", cppclass = "externalptr", pointer = "externalptr" ) )
 
-Module <- function( module, PACKAGE ){
-	name <- sprintf( "_rcpp_module_boot_%s", module )
-	symbol <- getNativeSymbolInfo( name, PACKAGE )
-	xp  <- .Call( symbol )
-	new( "Module", pointer = xp ) 
-}
-
 setMethod( "$", "Module", function(x, name){
 	if( .Call( "Module__has_function", x@pointer, name, PACKAGE = "Rcpp" ) ){
 		function( ... ) {
@@ -57,10 +50,18 @@ setMethod( "show", "Module", function( object ){
 } )
 
 setMethod( "new", "C++Class", function(Class, ...){
-	.External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
+	xp <- .External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
+	cl <- .Call( "Class__name", Class@pointer, PACKAGE = "Rcpp" )
+	
+	cpp <- getClass( "C++Object" )
+	known_cpp_classes <- cpp@subclasses
+	if( ! cl %in% names( known_cpp_classes ) ){
+		cl <- "C++Object"
+	}
+	new( cl, pointer = xp, cppclass = Class@pointer, module = Class@module )
 } )
 
-setMethod( "$", "C++Object", function(x, name){
+dollar_cppobject <- function(x, name){
 	if( .Call( "Class__has_method", x@cppclass, name, PACKAGE = "Rcpp" ) ){
 		function(...){
 			res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ..., PACKAGE = "Rcpp" )
@@ -69,5 +70,23 @@ setMethod( "$", "C++Object", function(x, name){
 	} else{
 		stop( "no such method" )
 	}
-} )
+}
+
+setMethod( "$", "C++Object", dollar_cppobject )
+
+Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()) ){
+	name <- sprintf( "_rcpp_module_boot_%s", module )
+	symbol <- getNativeSymbolInfo( name, PACKAGE )
+	xp  <- .Call( symbol )
+	classes <- .Call( "Module__classes_info", xp, PACKAGE = "Rcpp" )
+	if( length( classes ) ){
+		clnames <- names( classes )
+		for( i in seq_along(classes) ){
+			setClass( clnames[i], contains = "C++Object", where = where )
+		}
+	}
+	new( "Module", pointer = xp ) 
+}
+
+
 
