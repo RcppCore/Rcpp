@@ -219,6 +219,22 @@ responsabilities for type conversion for input and output types.
 
 \InputIfFileExists{snippets/WorldModuleR}{}{}
 
+\subsubsection{const and non const member functions}
+
+\texttt{method} is able to expose both \texttt{const} and \texttt{non const}
+member functions of a class. There are however situations where
+a class defines two versions of the same method, differing only in their 
+signature by the \texttt{const}-ness. It is for example the case of the 
+member functions \texttt{back} of the \texttt{std::vector} template from 
+the STL. 
+
+\InputIfFileExists{snippets/stdvectorback}{}{}
+
+The following example illustrates how to use Rcpp modules to expose
+the class \texttt{std::vector<double>} from the STL. 
+
+\InputIfFileExists{snippets/modulestdvec}{}{}
+
 \section{Future extensions}
 
 \texttt{Boost.Python} has many more features that we would like to port 
