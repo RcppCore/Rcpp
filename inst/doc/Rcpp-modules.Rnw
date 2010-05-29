@@ -235,6 +235,15 @@ the class \texttt{std::vector<double>} from the STL.
 
 \InputIfFileExists{snippets/modulestdvec}{}{}
 
+\subsubsection{S4 dispatch}
+
+When a C++ class is exposed by the \texttt{class\_} template, 
+a new S4 class is registered as well. This allows implementation of R-level 
+(S4) dispatch. For example, one might implement the \texttt{show}
+method for C++ \texttt{World} objects: 
+
+\InputIfFileExists{snippets/S4dispatch}{}{}
+
 \section{Future extensions}
 
 \texttt{Boost.Python} has many more features that we would like to port 
