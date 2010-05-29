@@ -37,5 +37,8 @@ Rcpp-modules.pdf: snippets Rcpp-modules.Rnw
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = TRUE )"
 	rm -fr Rcpp-modules.tex
 	rm -fr snippets/*.tex
-
-
+	rm -fr Rcpp-modules.bbl
+	rm -fr Rcpp-modules.blg
+	rm -fr Rcpp-modules.aux
+	rm -fr Rcpp-modules.out
+	rm -fr Rcpp-modules.log
