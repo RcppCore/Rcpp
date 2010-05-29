@@ -31,6 +31,9 @@ typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ;
 RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
 	return cl->has_method(m) ;
 }
+RCPP_FUNCTION_1( std::string, Class__name, XP_Class cl){
+	return cl->name ;
+}
 
 RCPP_FUNCTION_2( bool, Module__has_function, XP_Module module, std::string met ){
 	return module->has_function( met ) ;
@@ -87,7 +90,7 @@ extern "C" SEXP class__newInstance(SEXP args){
    		cargs[nargs] = CAR(p) ;
    		p = CDR(p) ;
    	}
-   	return Rcpp::CppObject( module, clazz, clazz->newInstance(cargs, nargs ) ) ;
+   	return clazz->newInstance(cargs, nargs ) ;
 }
 
 extern "C" SEXP Class__invoke_method(SEXP args){
