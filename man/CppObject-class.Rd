@@ -12,6 +12,11 @@ C++ internal objects instanciated from a class exposed in an Rcpp module
 	Objects can be created by the \code{new} method of the
 	\linkS4class{"C++Class"} class.
 }
+\section{Extends}{
+	Class \code{"\linkS4class{C++ObjectS3}"}, directly.
+	Class \code{"\linkS4class{oldClass}"}, by class "C++ObjectS3", distance 2.
+}
+
 \section{Slots}{
   \describe{
     \item{\code{module}:}{external pointer to the module}

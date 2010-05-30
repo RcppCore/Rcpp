@@ -17,11 +17,16 @@
 
 setGeneric( "new" )
 
-internal.classes <- environment()
-
+setOldClass( "C++ObjectS3" )
 setClass( "Module", representation( pointer = "externalptr" ) )
 setClass( "C++Class", representation( pointer = "externalptr", module = "externalptr" ) )
-setClass( "C++Object", representation( module = "externalptr", cppclass = "externalptr", pointer = "externalptr" ) )
+setClass( "C++Object", 
+	representation( 
+		module = "externalptr", 
+		cppclass = "externalptr", 
+		pointer = "externalptr"
+		), 
+	contains = "C++ObjectS3" )
 
 setMethod( "$", "Module", function(x, name){
 	if( .Call( "Module__has_function", x@pointer, name, PACKAGE = "Rcpp" ) ){
@@ -126,8 +131,13 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	new( "Module", pointer = xp ) 
 }
 
-setGeneric( ".DollarNames" )
-setMethod( ".DollarNames", signature( x = "C++Object", pattern = "character" ), function(x, pattern ){
-	grep( pattern, .Call( "CppClass__methods" , x@cppclass, PACKAGE = "Rcpp" ), value = TRUE )
+
+setGeneric( "complete", function(x) standardGeneric("complete") )
+setMethod( "complete", "C++Object", function(x){
+	.Call( "CppClass__methods" , x@cppclass, PACKAGE = "Rcpp" )
 } )
+
+".DollarNames.C++ObjectS3" <- function( x, pattern ){
+	grep( pattern, complete(x) , value = TRUE )
+}
 

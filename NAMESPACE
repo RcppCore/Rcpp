@@ -5,10 +5,10 @@ export(Rcpp.package.skeleton)
 
 importFrom( utils, capture.output, assignInNamespace )
 
-exportClasses( Module, "C++Class", "C++Object" )
+exportClasses( Module, "C++Class", "C++Object", "C++ObjectS3" )
 export( Module )
 exportMethods( new )
 
 importFrom( utils, .DollarNames )
-exportMethods( .DollarNames )
+S3method( .DollarNames, "C++ObjectS3" )
 
