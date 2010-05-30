@@ -1,3 +1,7 @@
+2010-05-30  Romain Francois <romain@r-enthusiasts.com>
+
+	* R/Module.R: completion for C++ modules. 
+
 2010-05-29  Romain Francois <romain@r-enthusiasts.com>
 
 	* R/Module.R: when a Module is loaded, it creates extensions of the 

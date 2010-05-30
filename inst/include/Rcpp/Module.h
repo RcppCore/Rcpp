@@ -78,6 +78,7 @@ class Module {
 		Rcpp::IntegerVector functions_arity() ;
 		Rcpp::CharacterVector class_names() ;
 		Rcpp::List classes_info() ;
+		Rcpp::CharacterVector complete() ;
 		
 		inline void Add( const char* name, CppFunction* ptr){
 			functions.insert( FUNCTION_PAIR( name, ptr ) ) ;
