@@ -15,12 +15,5 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.onLoad <- function(libname, pkgname){
-	# FIXME: there ought to be a better way to do this without 
-	#        highjacking utils::.DollarNames
-	utils <- asNamespace( "utils" )
-	unlockBinding( ".DollarNames", utils )
-	assignInNamespace( ".DollarNames", .DollarNames, utils )
-	lockBinding( ".DollarNames", utils )
-}
+.onLoad <- function(libname, pkgname){}
 
