@@ -29,9 +29,11 @@ Rcpp-introduction.pdf: Rcpp-introduction.Rnw
 	Rscript -e "tools::texi2dvi( 'Rcpp-introduction.tex', pdf = TRUE, clean = TRUE )"
 	rm -fr Rcpp-introduction.tex
 
-Rcpp-modules.pdf: snippets Rcpp-modules.Rnw 
+Rcpp-modules.pdf: Rcpp-modules/Rcpp-modules.Rnw
+	rm Rcpp-modules.Rnw 
+	cp -f Rcpp-modules/Rcpp-modules.Rnw .
 	( cd snippets ; Rscript highlight.R ; cd .. )
-	R CMD Sweave Rcpp-modules.Rnw
+	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(); Sweave( 'Rcpp-modules.Rnw', driver = driver ); "
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = FALSE )"
 	bibtex Rcpp-modules
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = TRUE )"
@@ -42,3 +44,5 @@ Rcpp-modules.pdf: snippets Rcpp-modules.Rnw
 	rm -fr Rcpp-modules.aux
 	rm -fr Rcpp-modules.out
 	rm -fr Rcpp-modules.log
+	rm Rcpp-modules.Rnw
+	cp Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw

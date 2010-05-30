@@ -17,9 +17,9 @@ for( f in cppfiles ){
 }
 
 require( highlight )
-if( compareVersion( "0.1-9", packageDescription( "highlight" )[["Version"]] ) ){
-	stop( "version 0.1-9 of highlight is required for the minipage argument" )
-}
+# if( compareVersion( "0.1-9", packageDescription( "highlight" )[["Version"]] ) ){
+# 	stop( "version 0.1-9 of highlight is required for the minipage argument" )
+# }
 
 r <- renderer_latex( doc = FALSE, minipage = TRUE )
 rfiles <- setdiff( list.files( pattern = "[.]R$" ), "highlight.R" )
