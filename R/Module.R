@@ -56,6 +56,10 @@ setMethod( "show", "Module", function( object ){
 	writeLines( txt )
 } )
 
+.DollarNames.Module <- function(x, pattern){
+	grep( pattern , .Call( "Module__complete", x@pointer, PACKAGE = "Rcpp"), value = TRUE )	
+}
+
 new_CppObject_xp <- function(Class, ...){
 	xp <- .External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
 	cl <- .Call( "Class__name", Class@pointer, PACKAGE = "Rcpp" )
