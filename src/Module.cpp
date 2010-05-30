@@ -49,24 +49,18 @@ RCPP_FUNCTION_1( bool, CppObject__needs_init, SEXP xp ){
 RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__methods, XP_Class cl){
 	return cl->method_names() ;
 }
-
-
-extern "C" SEXP Module__funtions_arity( SEXP mod_xp ){
-	Rcpp::XPtr<Rcpp::Module> module(mod_xp) ;
+RCPP_FUNCTION_1( Rcpp::IntegerVector, Module__funtions_arity, XP_Module module ){
 	return module->	functions_arity() ;
 }
-
-extern "C" SEXP Module__name( SEXP mod_xp ){
-	Rcpp::XPtr<Rcpp::Module> module(mod_xp) ;
-	return Rcpp::wrap( module->name );
+RCPP_FUNCTION_1( std::string, Module__name, XP_Module module ){
+	return module->name;
 }
-
-extern "C" SEXP Module__classes_info( SEXP mod_xp ){
-	Rcpp::XPtr<Rcpp::Module> mod(mod_xp) ;
-	return mod->classes_info() ;
+RCPP_FUNCTION_1( Rcpp::List, Module__classes_info, XP_Module module ){
+	return module->classes_info() ;
 }
-
-
+RCPP_FUNCTION_1( Rcpp::CharacterVector, Module__complete, XP_Module module ){
+	return module->complete() ;
+}
 
 // .External functions
 extern "C" SEXP Module__invoke( SEXP args){
@@ -116,7 +110,6 @@ extern "C" SEXP Class__invoke_method(SEXP args){
    	
    	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
-
 
 namespace Rcpp{
 	static Module* current_scope  ;
@@ -185,6 +178,30 @@ namespace Rcpp{
 		}
 		x.names() = names ;
 		return x ;
+	}
+	
+	Rcpp::CharacterVector Module::complete(){
+		int nf = functions.size() ;
+		int nc = classes.size() ;
+		int n = nf + nc ;
+		Rcpp::CharacterVector res( n ) ;
+		int i=0;
+		MAP::iterator it = functions.begin();
+		std::string buffer ;
+		for( ; i<nf; i++, ++it) {
+			buffer = it->first ;
+			if( (it->second)->nargs() == 0 ) {
+				buffer += "()" ;
+			} else {
+				buffer += "( " ;
+			}
+			res[i] = buffer ;
+		}
+		CLASS_MAP::iterator cit = classes.begin() ;
+		for( int j=0; j<nc; j++, i++, ++cit){
+			res[i] = cit->first ;
+		}
+		return res ;
 	}
 	
 	CppClass::CppClass( SEXP x) : S4(x){}
