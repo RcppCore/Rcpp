@@ -105,7 +105,8 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 		for( i in seq_along(classes) ){
 			CLASS <- classes[[i]]
 			setClass( clnames[i], contains = "C++Object", where = where )
-			init <- function(.Object, ...){
+			setMethod( "initialize", clnames[i], function(.Object, ...){
+				.Object <- callNextMethod()
 				if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){
 					out <- new_CppObject_xp( CLASS, ... )
 					.Object@pointer <- out$xp
@@ -113,8 +114,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 					.Object@module <- CLASS@module
 				}
 				.Object
-			}
-			setMethod( "initialize", clnames[i], init , where = where )
+			} , where = where )
 			
 			METHODS <- .Call( "CppClass__methods" , CLASS@pointer , PACKAGE = "Rcpp" )
 			if( "[[" %in% METHODS ){
