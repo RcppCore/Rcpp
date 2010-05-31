@@ -57,6 +57,7 @@ public:
 		return R_NilValue ;
 	}
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
+	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
 	
 	std::string name ;
@@ -137,7 +138,7 @@ public:
 	typedef std::pair<const std::string,method_class*> PAIR ;
 	typedef Rcpp::XPtr<Class> XP ;   
 	
-	class_( const char* name_ ) : class_Base(name_), methods() {
+	class_( const char* name_ ) : class_Base(name_), methods(), specials(0) {
 		if( !singleton ){
 			singleton = new self ;
 			singleton->name = name_ ;
@@ -169,6 +170,7 @@ public:
 	
 	self& AddMethod( const char* name, method_class* m){
 		singleton->methods.insert( PAIR( name,m ) ) ;  
+		if( *name == '[' ) singleton->specials++ ;
 		return *this ;
 	}
 
@@ -189,11 +191,31 @@ public:
 		return out ;
 	}
 	
+	Rcpp::CharacterVector complete(){
+		int n = methods.size() - specials ;
+		Rcpp::CharacterVector out(n) ;
+		typename METHOD_MAP::iterator it = methods.begin( ) ;
+		std::string buffer ;
+		for( int i=0; i<n; ++it){  
+			buffer = it->first ;
+			if( buffer[0] == '[' ) continue ;
+			if( (it->second)->nargs() == 0){
+				buffer += "() " ;
+			} else {
+				buffer += "( " ;
+			}
+			out[i] = buffer ;
+			i++ ;
+		} 
+		return out ;
+	}
+	
 private:
 	METHOD_MAP methods ;
 	static self* singleton ;
+	int specials ;
 	
-	class_( ) : class_Base(), methods(){}; 
+	class_( ) : class_Base(), methods(), specials(0) {}; 
 	
 } ;   
 
