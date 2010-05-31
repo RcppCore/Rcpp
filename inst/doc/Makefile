@@ -4,8 +4,10 @@ all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf
 clean:
 	touch Rcpp-unitTests.pdf
 	touch Rcpp-introduction.pdf
+	touch Rcpp-modules.pdf
 	rm Rcpp-introduction.pdf
 	rm Rcpp-unitTests.pdf
+	rm Rcpp-modules.pdf
 	touch index.html
 	rm index.html
 
@@ -37,7 +39,6 @@ Rcpp-modules.pdf: Rcpp-modules/Rcpp-modules.Rnw
 	bibtex Rcpp-modules
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = TRUE )"
 	rm -fr Rcpp-modules.tex
-	rm -fr snippets/*.tex
 	rm -fr Rcpp-modules.bbl
 	rm -fr Rcpp-modules.blg
 	rm -fr Rcpp-modules.aux
