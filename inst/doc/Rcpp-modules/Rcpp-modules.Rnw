@@ -11,7 +11,7 @@
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
-\title{Exposing \proglang[C++} functions and classes with Rcpp modules}
+\title{Exposing \proglang{C++} functions and classes with Rcpp modules}
 
 \begin{document}
 \maketitle
@@ -19,18 +19,18 @@
 \abstract{
   \noindent
   \textsl{Rcpp modules} have been introduced in version 0.8.1 of \pkg{Rcpp}
-  to allow programmers to simply expose \proglang[C++} functions and classes to R.  
+  to allow programmers to simply expose \proglang{C++} functions and classes to R.  
   \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python} \citep{Boost:Python}
-  \proglang[C++} library which provides the same features (and much more) for 
+  \proglang{C++} library which provides the same features (and much more) for 
   Python. This document is a short overview of the capabilities of modules.
 }
 
 \section{Motivation}
 
-Exposing \proglang[C++} functionality to R is greatly facilitated by the \pkg{Rcpp}
-package and underlying \proglang[C++} library \citep{CRAN:Rcpp}. \pkg{Rcpp}
-facilitates R and \proglang[C++} integration by replacing use of the traditionnal R API
-by a consistent set of \proglang[C++} classes.
+Exposing \proglang{C++} functionality to R is greatly facilitated by the \pkg{Rcpp}
+package and underlying \proglang{C++} library \citep{CRAN:Rcpp}. \pkg{Rcpp}
+facilitates R and \proglang{C++} integration by replacing use of the traditionnal R API
+by a consistent set of \proglang{C++} classes.
 
 However, these facilities are limited to a function by function basis. The 
 programmer has to implement a \texttt{.Call} compatible function
@@ -38,7 +38,7 @@ using classes of the \pkg{Rcpp} API.
 
 \subsection{Exposing functions}
 
-Exposing existing \proglang[C++} functions to R through \pkg{Rcpp}
+Exposing existing \proglang{C++} functions to R through \pkg{Rcpp}
 usually involves writing an additional wrapper function that is responsible
 for converting input objects to the appropriate types, calling the function
 and converting the results back to a suitable type that can be returned to 
@@ -81,7 +81,7 @@ provides a much more efficient way to expose the \texttt{hello} function to R.
 
 \subsection{Exposing classes}
 
-Exposing \proglang[C++} classes or structs is even more of a challenge because it
+Exposing \proglang{C++} classes or structs is even more of a challenge because it
 requires writing glue code for each function that is to be exposed. Consider the 
 simple \texttt{World} class below: 
 
@@ -147,19 +147,19 @@ w$greet()
 external pointers with the traditional R API. This still involves 
 a lot of pattern code that quickly becomes hard to maintain and error prone. 
 \textsl{Rcpp modules} offer a much nicer way to expose the \texttt{World}
-class in a way that makes both the internal \proglang[C++} code and the R code easier. 
+class in a way that makes both the internal \proglang{C++} code and the R code easier. 
 
 \section{Rcpp modules}
 
 Rcpp modules are inspired from Python modules that are generated
 by the \texttt{Boost.Python} library. They provide an easy way to expose
-\proglang[C++} functions and classes to R, grouped together in a single entity. 
+\proglang{C++} functions and classes to R, grouped together in a single entity. 
 
 The module is created in a cpp file using the \texttt{RCPP\_MODULE}
 macro, which then contains declarative code of what the module 
 exposes to R. 
 
-\subsection{Exposing \proglang[C++} functions}
+\subsection{Exposing \proglang{C++} functions}
 
 Consider the \texttt{hello} function from the previous section. 
 We can expose it to R :
@@ -257,9 +257,9 @@ template.
 can be managed by the \texttt{Rcpp::wrap} template
 \end{itemize}
 
-\subsection{Exposing \proglang[C++} classes}
+\subsection{Exposing \proglang{C++} classes}
 
-Rcpp modules also provide a mechanism for exposing \proglang[C++} classes. The mechanism
+Rcpp modules also provide a mechanism for exposing \proglang{C++} classes. The mechanism
 internally uses external pointers, but the user should consider this as
 hidden implementation details as this is properly encapsulated.
 
@@ -293,7 +293,7 @@ RCPP_MODULE(yada){
 }                     
 @
 
-\texttt{class\_} is templated by the \proglang[C++} class or struct that is to be exposed
+\texttt{class\_} is templated by the \proglang{C++} class or struct that is to be exposed
 to R. The parameter of the \texttt{class\_<World>} constructor is the name we will
 use on the R side. It usually makes sense to use the same name as the class 
 name, but this is not forced, which might be useful when exposing a class 
@@ -307,9 +307,9 @@ can expose :
 providing the name that will be used on the R side (e.g. \texttt{greet}) and 
 a pointer to the actual member function (e.g. \texttt{\&World::greet} )
 \item free funtions that take a pointer to the target class as their 
-first parameter such as the \proglang[C++} function \texttt{clearWorld} in the previous
+first parameter such as the \proglang{C++} function \texttt{clearWorld} in the previous
 example. Again, we provide the R name for the method (\texttt{clear}) and 
-a pointer to the \proglang[C++} function. 
+a pointer to the \proglang{C++} function. 
 \end{itemize}
 
 The module exposes the default constructor of the \texttt{World} class as well
@@ -352,10 +352,10 @@ const_reference back ( ) const;
 
 \subsubsection{S4 dispatch}
 
-When a \proglang[C++} class is exposed by the \texttt{class\_} template, 
+When a \proglang{C++} class is exposed by the \texttt{class\_} template, 
 a new S4 class is registered as well. This allows implementation of R-level 
 (S4) dispatch. For example, one might implement the \texttt{show}
-method for \proglang[C++} \texttt{World} objects: 
+method for \proglang{C++} \texttt{World} objects: 
 
 <<eval=FALSE>>=
 setMethod( "show", "World", function(object){
