@@ -11,20 +11,6 @@
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{Exposing C++ functions and classes with Rcpp modules}
 
-
-\definecolor{gray}{rgb}{0.95,0.95,0.95}
-\newsavebox{\highlightbox}
-\renewenvironment{Hchunk}%
-{%
-\vspace{1em}\noindent\begin{lrbox}{\highlightbox}%
-\begin{minipage}[b]{.9\textwidth}%
-}%
-{%
-\end{minipage}%
-\end{lrbox}%
-\fcolorbox{gray}{gray}{\usebox{\highlightbox}}%
-\vspace{1em}}%
-
 \begin{document}
 \maketitle
 
