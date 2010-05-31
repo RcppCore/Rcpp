@@ -12,4 +12,5 @@ exportMethods( new )
 importFrom( utils, .DollarNames )
 S3method( .DollarNames, "C++ObjectS3" )
 S3method( .DollarNames, "Module" )
+exportMethods( complete )
 

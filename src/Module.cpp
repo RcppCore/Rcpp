@@ -61,6 +61,10 @@ RCPP_FUNCTION_1( Rcpp::List, Module__classes_info, XP_Module module ){
 RCPP_FUNCTION_1( Rcpp::CharacterVector, Module__complete, XP_Module module ){
 	return module->complete() ;
 }
+extern "C" SEXP CppClass__complete( SEXP xp){
+	XP_Class cl(xp) ;
+	return cl->complete(); 
+}
 
 // .External functions
 extern "C" SEXP Module__invoke( SEXP args){
@@ -191,7 +195,7 @@ namespace Rcpp{
 		for( ; i<nf; i++, ++it) {
 			buffer = it->first ;
 			if( (it->second)->nargs() == 0 ) {
-				buffer += "()" ;
+				buffer += "() " ;
 			} else {
 				buffer += "( " ;
 			}

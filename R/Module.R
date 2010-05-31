@@ -138,10 +138,11 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 
 setGeneric( "complete", function(x) standardGeneric("complete") )
 setMethod( "complete", "C++Object", function(x){
-	.Call( "CppClass__methods" , x@cppclass, PACKAGE = "Rcpp" )
+	xp <- x@cppclass
+	.Call( "CppClass__complete" , xp , PACKAGE = "Rcpp" )
 } )
 
 ".DollarNames.C++ObjectS3" <- function( x, pattern ){
-	grep( pattern, complete(x) , value = TRUE )
+	grep( pattern, complete(x), value = TRUE )
 }
 
