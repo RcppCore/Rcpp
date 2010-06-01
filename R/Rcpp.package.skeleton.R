@@ -27,7 +27,17 @@ Rcpp.package.skeleton <- function(
 	if( !length(list) ){
 		fake <- TRUE
 		assign( "Rcpp.fake.fun", function(){}, envir = env )
+		if( example_code ){
+			assign( "rcpp_hello_world", function(){}, envir = env )
+		}
+		remove_hello_world <- TRUE
 	} else {
+		if( ! "rcpp_hello_world" %in% list ){
+			call[["list"]] <- c( "rcpp_hello_world", call[["list"]] )
+			remove_hello_world <- TRUE
+		} else{
+			remove_hello_world <- FALSE
+		}
 		fake <- FALSE
 	}
 	
@@ -44,7 +54,7 @@ Rcpp.package.skeleton <- function(
 	}
 	
 	if( fake ){
-		call[["list"]] <- "Rcpp.fake.fun"
+		call[["list"]] <- c( if( isTRUE(example_code)) "rcpp_hello_world" , "Rcpp.fake.fun" )
 	}
 	
 	tryCatch( eval( call, envir = env ), error = function(e){
@@ -59,8 +69,12 @@ Rcpp.package.skeleton <- function(
 	# Add Rcpp to the DESCRIPTION
 	DESCRIPTION <- file.path( root, "DESCRIPTION" )
 	if( file.exists( DESCRIPTION ) ){
+		depends <- c( 
+			if( isTRUE(module) ) "methods", 
+			sprintf( "Rcpp (>= %s)", packageDescription("Rcpp")[["Version"]] )
+		) 
 		x <- cbind( read.dcf( DESCRIPTION ), 
-			"Depends" = sprintf( "Rcpp (>= %s)", packageDescription("Rcpp")[["Version"]]  ), 
+			"Depends" = paste( depends, collapse = ", ") , 
 			"LinkingTo" = "Rcpp", 
 			"SystemRequirements" = "GNU make" )
 		write.dcf( x, file = DESCRIPTION )
@@ -117,6 +131,15 @@ Rcpp.package.skeleton <- function(
 		rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
 		writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
 		message( " >> added example R file calling the C++ example")
+		
+		hello.Rd <- file.path( root, "man", "rcpp_hello_world.Rd")
+		unlink( hello.Rd )
+		file.copy( 
+			system.file("skeleton", "rcpp_hello_world.Rd", package = "Rcpp" ), 
+			hello.Rd
+			)
+		message( " >> added Rd file for rcpp_hello_world")
+		
 	}
 	
 	if( isTRUE( module ) ){
@@ -135,11 +158,19 @@ Rcpp.package.skeleton <- function(
 		message( " >> copied the example module " )
 		
 	}
+	
+	lines <- readLines( package.doc <- file.path( root, "man", sprintf( "%s-package.Rd", name ) ) )
+	lines <- sub( "~~ simple examples", "%% ~~ simple examples", lines )
+	writeLines( lines, package.doc )
+	
 	if( fake ){
 		rm( "Rcpp.fake.fun", envir = env )
 		unlink( file.path( root, "R"  , "Rcpp.fake.fun.R" ) )
 		unlink( file.path( root, "man", "Rcpp.fake.fun.Rd" ) )
-		
+	}
+	
+	if( isTRUE(remove_hello_world) ){
+		rm( "rcpp_hello_world", envir = env )
 	}
 	
 	invisible( NULL )

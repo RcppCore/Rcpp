@@ -1,13 +1,11 @@
 \name{yada}
 \alias{yada}
-\docType{data}
 \title{
-	Rcpp module: %% ~~ Name of the module ~~
+	Rcpp module yada
 }
 \description{
-	Rcpp module %%  ~~ A concise description of the module ~~
+	Rcpp module yada
 }
-\usage{data(yada)}
 \details{
 	The module contains the following items: 
 	
