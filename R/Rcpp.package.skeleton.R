@@ -124,8 +124,12 @@ Rcpp.package.skeleton <- function(
 			system.file( "skeleton", "zzz.R", package = "Rcpp" ), 
 			file.path( root, "R" )
 		)
-		
+		file.copy( 
+			system.file( "skeleton", "yada.Rd", package = "Rcpp" ), 
+			file.path( root, "man" )
+		)
 		message( " >> copied the example module " )
+		
 	}
 	if( fake ){
 		rm( "Rcpp.fake.fun", envir = env )
