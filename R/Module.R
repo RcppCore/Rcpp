@@ -155,6 +155,7 @@ setGeneric( "prompt" )
 setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ...){
 	lines <- readLines( system.file( "prompt", "module.Rd", package = "Rcpp" ) )
 	if( is.null(name) ) name <- .Call( "Module__name", object@pointer, PACKAGE = "Rcpp" )
+	if( is.null(filename) ) filename <- sprintf( "%s-module.Rd", name )
 	lines <- gsub( "NAME", name, lines )
 	
 	info <- functions( object )

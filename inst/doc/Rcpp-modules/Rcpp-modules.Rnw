@@ -29,6 +29,9 @@ link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/l
 		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
 	}
 }
+linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	link( sprintf("%s-class", cl), package, text, root )
+}
 @
 
 \begin{document}
@@ -456,9 +459,11 @@ RCPP_MODULE(yada){
 
 \section{Using modules in other packages}
 
+\subsection{namespace import/export}
+
 When using \pkg{Rcpp} modules in a packages, the client package needs to 
 import a set of classes from \pkg{Rcpp}. This is achieved by adding the 
-following line to the \texttt{NAMESPACE} file. 
+following line to the \texttt{NAMESPACE} file.
 
 <<echo=FALSE,eval=TRUE>>=
 options( prompt = " ", continue = " " )
@@ -488,9 +493,26 @@ yada <- new( "Module" )
 options( prompt = "> ", continue = "+ " )
 @
 
+\subsection{support for modules in skeleton generator}
+
 The \Sexpr{link("Rcpp.package.skeleton")} function has been improved to help
 \pkg{Rcpp} modules. When the \texttt{module} argument is set to \texttt{TRUE}, 
 the skeleton generator installs code that uses a simple module. 
+
+<<eval=FALSE>>=
+Rcpp.package.skeleton( "testmod", module = TRUE )
+@
+
+\subsection{module documentation}
+
+\pkg{Rcpp} defines a \Sexpr{link("prompt")} method for the 
+\Sexpr{linkS4class("Module")} class, allowing generation of a skeleton of an Rd
+file containing some information about the module.
+
+<<eval=FALSE>>=
+yada <- Module( "yada" )
+prompt( yada, "yada-module.Rd" )
+@
 
 \section{Future extensions}
 
