@@ -1,3 +1,10 @@
+2010-06-01  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: document how to use modules
+	in other packages (namespace, etc ...)
+	
+	* R/Rcpp.package.skeleton: added the module argument
+
 2010-05-30  Romain Francois <romain@r-enthusiasts.com>
 
 	* R/Module.R: completion for C++ modules. 

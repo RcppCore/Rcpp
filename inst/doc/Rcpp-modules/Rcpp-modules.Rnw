@@ -13,6 +13,24 @@
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{Exposing \proglang{C++} functions and classes with Rcpp modules}
 
+<<echo=FALSE>>=
+link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	h <- if( missing(package) ) {
+		as.character( help( f ) )
+	} else {
+		as.character( help( f, package = paste( package, sep = "" ) ) )
+	}
+	if( ! length(h) ){
+		sprintf( "\\\\textbf{%s}", f )
+	} else {
+		rx <- "^.*/([^/]*?)/help/(.*?)$"
+		package <- sub( rx, "\\1", h, perl = TRUE )
+		page <- sub( rx, "\\2", h, perl = TRUE )
+		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+	}
+}
+@
+
 \begin{document}
 \maketitle
 
@@ -33,7 +51,7 @@ facilitates R and \proglang{C++} integration by replacing use of the traditionna
 by a consistent set of \proglang{C++} classes.
 
 However, these facilities are limited to a function by function basis. The 
-programmer has to implement a \texttt{.Call} compatible function
+programmer has to implement a \Sexpr{link(".Call")} compatible function
 using classes of the \pkg{Rcpp} API. 
 
 \subsection{Exposing functions}
@@ -181,7 +199,7 @@ The code creates a module called an Rcpp module called \texttt{yada}
 that exposes the \texttt{hello} function. \pkg{Rcpp} automatically 
 deduces the conversions that are needed for input and output. 
 
-On the R side, the module is simply retrieved by using the \texttt{Module}
+On the R side, the module is simply retrieved by using the \Sexpr{link("Module")}
 function from \pkg{Rcpp}:
 
 <<eval=FALSE>>=
@@ -350,6 +368,10 @@ reference back ( );
 const_reference back ( ) const;
 @
 
+To resolve the ambiguity, it is possible to use \texttt{const\_method}
+or \texttt{nonconst\_method} instead of \texttt{method} in order 
+to restrict the candidate methods. 
+
 \subsubsection{S4 dispatch}
 
 When a \proglang{C++} class is exposed by the \texttt{class\_} template, 
@@ -431,6 +453,44 @@ RCPP_MODULE(yada){
 	;
 }                     
 @
+
+\section{Using modules in other packages}
+
+When using \pkg{Rcpp} modules in a packages, the client package needs to 
+import a set of classes from \pkg{Rcpp}. This is achieved by adding the 
+following line to the \texttt{NAMESPACE} file. 
+
+<<echo=FALSE,eval=TRUE>>=
+options( prompt = " ", continue = " " )
+@
+
+<<eval=FALSE>>=
+importClassesFrom( Rcpp, "C++ObjectS3", "C++Object", "C++Class", "Module" )
+@
+
+Loading modules that are defined in a package is best placed inside the 
+\Sexpr{link(".onLoad" )} hook for the package. 
+
+<<eval=FALSE>>=
+NAMESPACE <- environment()
+# this will be replaced by the real module
+yada <- new( "Module" )
+
+.onLoad <- function(libname, pkgname){
+	# load the module and store it in our namespace
+	unlockBinding( "yada" , NAMESPACE )
+	assign( "yada",  Module( "yada" ), NAMESPACE )
+	lockBinding( "yada", NAMESPACE )
+}
+@
+
+<<echo=FALSE,eval=TRUE>>=
+options( prompt = "> ", continue = "+ " )
+@
+
+The \Sexpr{link("Rcpp.package.skeleton")} function has been improved to help
+\pkg{Rcpp} modules. When the \texttt{module} argument is set to \texttt{TRUE}, 
+the skeleton generator installs code that uses a simple module. 
 
 \section{Future extensions}
 
