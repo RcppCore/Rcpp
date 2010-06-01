@@ -72,12 +72,12 @@ Rcpp.package.skeleton <- function(
 		ns <- file( NAMESPACE, open = "w" )
 		if( ! grepl( "useDynLib", lines ) ){
 			lines <- c( sprintf( "useDynLib(%s)", name), lines)
-			writeLines( lines, con = nm )
+			writeLines( lines, con = ns )
 			message( " >> added useDynLib directive to NAMESPACE" )
 		}
 		
 		if(isTRUE(module)){
-			writeLines( 'importClassesFrom( Rcpp, "C++ObjectS3", "C++Object", "C++Class", "Module" )', nm )
+			writeLines( 'importClassesFrom( Rcpp, "C++ObjectS3", "C++Object", "C++Class", "Module" )', ns )
 		}
 		close( ns )
 	}
