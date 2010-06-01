@@ -35,10 +35,14 @@ Rcpp.package.skeleton <- function(
 	call <- match.call()
 	call[[1]] <- as.name("package.skeleton")
 	call[["namespace"]] <- namespace
+	# remove Rcpp specific arguments
 	if( "example_code" %in% names( call ) ){
-		# remove the example_code argument
 		call[["example_code"]] <- NULL
 	}
+	if( "module" %in% names( call ) ){
+		call[["module"]] <- NULL
+	}
+	
 	if( fake ){
 		call[["list"]] <- "Rcpp.fake.fun"
 	}
