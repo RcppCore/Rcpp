@@ -19,7 +19,8 @@ Rcpp.package.skeleton <- function(
 	name = "anRpackage", list = character(), environment = .GlobalEnv,
 	path = ".", force = FALSE, namespace = TRUE, 
 	code_files = character(), 
-	example_code = TRUE ){
+	example_code = TRUE, 
+	module = FALSE ){
 	
 	env <- parent.frame(1)
 	
@@ -68,11 +69,17 @@ Rcpp.package.skeleton <- function(
 	NAMESPACE <- file.path( root, "NAMESPACE")
 	if( file.exists( NAMESPACE ) ){
 		lines <- readLines( NAMESPACE )
+		ns <- file( NAMESPACE, open = "w" )
 		if( ! grepl( "useDynLib", lines ) ){
 			lines <- c( sprintf( "useDynLib(%s)", name), lines)
-			writeLines( lines, con = NAMESPACE )
+			writeLines( lines, con = nm )
 			message( " >> added useDynLib directive to NAMESPACE" )
 		}
+		
+		if(isTRUE(module)){
+			writeLines( 'importClassesFrom( Rcpp, "C++ObjectS3", "C++Object", "C++Class", "Module" )', nm )
+		}
+		close( ns )
 	}
 	
 	# lay things out in the src directory
@@ -106,6 +113,19 @@ Rcpp.package.skeleton <- function(
 		rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
 		writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
 		message( " >> added example R file calling the C++ example")
+	}
+	
+	if( isTRUE( module ) ){
+		file.copy( 
+			system.file( "skeleton", "rcpp_module.cpp", package = "Rcpp" ), 
+			file.path( root, "src" )
+		)
+		file.copy( 
+			system.file( "skeleton", "zzz.R", package = "Rcpp" ), 
+			file.path( root, "R" )
+		)
+		
+		message( " >> copied the example module " )
 	}
 	if( fake ){
 		rm( "Rcpp.fake.fun", envir = env )
