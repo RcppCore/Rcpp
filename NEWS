@@ -1,7 +1,5 @@
 0.8.1   (under development)
 
-	o	Evaluating a call inside an environment did not work properly
-	
 	o	Rcpp modules. An Rcpp module is a collection of internal (c++)
 	functions and classes that are exposed to R. Inspired from
 	Boost.Python
@@ -11,6 +9,11 @@
 	runit.Module.R shows an example.
 	
 	The Rcpp-modules vignette documents the feature
+	
+	o	Rcpp.package.skeleton has been improved to generate a package using 
+	an Rcpp module, controlled by the "module" argument
+
+	o	Evaluating a call inside an environment did not work properly
 	
 	o	cppfunction has been withdrawn since the introduction of the more 
 	flexible cxxfunction in the inline package. Rcpp no longer depend

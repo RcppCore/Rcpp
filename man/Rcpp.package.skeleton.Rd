@@ -63,7 +63,12 @@ see the \emph{R Installation and Administration} manual,
 }
 \examples{
 \dontrun{
+# simple package
 Rcpp.package.skeleton( "foobar" )
+
+# package with a module
+Rcpp.package.skeleton( "testmod", module = TRUE )
+
 }
 }
 \keyword{ programming }
