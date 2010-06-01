@@ -3,6 +3,7 @@
 \docType{class}
 \alias{Module-class}
 \alias{$,Module-method}
+\alias{prompt,Module-method}
 
 \title{Rcpp modules}
 \description{
@@ -18,8 +19,9 @@ Collection of internal c++ functions and classes exposed to R
 }
 \section{Methods}{
   \describe{
-    \item{$}{\code{signature(x = "Module")}: extract a function or a class from the module }
-	 }
+    \item{$}{\code{signature(x = "Module")}: extract a function or a class from the module. }
+    \item{prompt}{\code{signature(object = "Module")}: generates skeleton of a documentation for a Module. }
+  }
 }
 \seealso{
 	\code{\link{Module}}

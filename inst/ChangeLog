@@ -4,6 +4,9 @@
 	in other packages (namespace, etc ...)
 	
 	* R/Rcpp.package.skeleton: added the module argument
+	
+	* R/Module.R: prompt method for Module objects to generate skeleton of an Rd
+	file with the list of functions and classes defined by the module.
 
 2010-05-30  Romain Francois <romain@r-enthusiasts.com>
 
