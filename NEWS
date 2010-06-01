@@ -10,6 +10,9 @@
 	
 	The Rcpp-modules vignette documents the feature
 	
+	o 	The vignette "Rcpp-package" details the steps involved in making a
+	package that uses Rcpp. 
+
 	o	Rcpp.package.skeleton has been improved to generate a package using 
 	an Rcpp module, controlled by the "module" argument
 
