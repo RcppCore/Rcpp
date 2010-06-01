@@ -47,6 +47,9 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	defined in this files makes use of the C++ function \samp{rcpp_hello_world}
 	defined in the C++ file. These files are given as an example and should 
 	eventually by removed from the generated package.
+	
+	If the \code{module} argument is \code{TRUE}, a sample Rcpp module will 
+	be generated as well. 
 }
 \value{
 Nothing, used for its side effects
@@ -68,6 +71,12 @@ Rcpp.package.skeleton( "foobar" )
 
 # package with a module
 Rcpp.package.skeleton( "testmod", module = TRUE )
+
+# the Rcpp-package vignette
+vignette( "Rcpp-package" )
+
+# the Rcpp-modules vignette for information about modules
+vignette( "Rcpp-modules" )
 
 }
 }

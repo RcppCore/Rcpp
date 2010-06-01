@@ -1,5 +1,9 @@
 2010-06-01  Romain Francois <romain@r-enthusiasts.com>
 
+	* inst/doc/Rcpp-package*: new mini vignette "Rcpp-package" to improve the 
+	documentation of Rcpp.package.skeleton and details the steps involved in 
+	making a package that uses Rcpp
+
 	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: document how to use modules
 	in other packages (namespace, etc ...)
 	
