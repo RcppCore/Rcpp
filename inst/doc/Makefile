@@ -1,5 +1,5 @@
 
-all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf
+all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf
 
 clean:
 	touch Rcpp-unitTests.pdf
@@ -46,3 +46,21 @@ Rcpp-modules.pdf: Rcpp-modules/Rcpp-modules.Rnw
 	rm -fr Rcpp-modules.log
 	rm Rcpp-modules.Rnw
 	cp Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
+
+Rcpp-package.pdf : Rcpp-package/Rcpp-package.Rnw
+	rm Rcpp-package.Rnw
+	cp -f Rcpp-package/Rcpp-package.Rnw .
+	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-package.Rnw', driver = driver ); "
+	Rscript -e "tools::texi2dvi( 'Rcpp-package.tex', pdf = TRUE, clean = FALSE )"
+	bibtex Rcpp-package
+	Rscript -e "tools::texi2dvi( 'Rcpp-package.tex', pdf = TRUE, clean = TRUE )"
+	rm -fr Rcpp-package.tex
+	rm -fr Rcpp-package.bbl
+	rm -fr Rcpp-package.blg
+	rm -fr Rcpp-package.aux
+	rm -fr Rcpp-package.out
+	rm -fr Rcpp-package.log
+	rm Rcpp-package.Rnw
+	cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
+	
+	
