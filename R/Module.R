@@ -94,7 +94,6 @@ dollar_cppobject <- function(x, name){
 
 setMethod( "$", "C++Object", dollar_cppobject )
 
-
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()) ){
 	name <- sprintf( "_rcpp_module_boot_%s", module )
 	symbol <- getNativeSymbolInfo( name, PACKAGE )
@@ -145,4 +144,40 @@ setMethod( "complete", "C++Object", function(x){
 ".DollarNames.C++ObjectS3" <- function( x, pattern ){
 	grep( pattern, complete(x), value = TRUE )
 }
+
+setGeneric( "functions", function(object, ...) standardGeneric( "functions" ) )
+setMethod( "functions", "Module", function(object, ...){
+	.Call( "Module__funtions_arity", object@pointer, PACKAGE = "Rcpp" )
+} )
+
+
+setGeneric( "prompt" )
+setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ...){
+	lines <- readLines( system.file( "prompt", "module.Rd", package = "Rcpp" ) )
+	if( is.null(name) ) name <- .Call( "Module__name", object@pointer, PACKAGE = "Rcpp" )
+	lines <- gsub( "NAME", name, lines )
+	
+	info <- functions( object )
+	f.txt <- if( length( info ) ){
+		sprintf( "functions: \\\\describe{
+%s
+		}", paste( sprintf( "        \\\\item{%s}{ ~~ description of function %s ~~ }", names(info), names(info) ), collapse = "\n" ) )
+	} else {
+		"" 
+	}
+	lines <- sub( "FUNCTIONS", f.txt, lines )
+	
+	classes <- .Call( "Module__classes_info", object@pointer, PACKAGE = "Rcpp" )
+	c.txt <- if( length( classes ) ){
+		sprintf( "classes: \\\\describe{
+%s
+		}", paste( sprintf( "        \\\\item{%s}{ ~~ description of class %s ~~ }", names(classes), names(classes) ), collapse = "\n" ) )
+	} else {
+		"" 
+	}
+	lines <- sub( "CLASSES", c.txt, lines )
+	
+	writeLines( lines, filename )
+	invisible(NULL)
+} )
 

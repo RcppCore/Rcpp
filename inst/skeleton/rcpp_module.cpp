@@ -1,5 +1,29 @@
 #include <Rcpp.h>
 
+std::string hello() {
+	throw std::range_error( "boom" ) ;
+}
+
+int bar( int x){
+	return x*2 ;
+}
+        
+double foo( int x, double y){
+	return x * y ;
+}
+
+void bla( ){
+	Rprintf( "hello\\n" ) ;
+}
+
+void bla1( int x){
+	Rprintf( "hello (x = %d)\\n", x ) ;
+}
+  
+void bla2( int x, double y){
+	Rprintf( "hello (x = %d, y = %5.2f)\\n", x, y ) ;
+}
+
 class World {
 public:
     World() : msg("hello"){}
@@ -10,18 +34,22 @@ private:
     std::string msg;
 };
 
-void clearWorld( World* w){
-	w->set( "" ) ;
-}
+
 
 RCPP_MODULE(yada){
 	using namespace Rcpp ;
+	                  
+	function( "hello" , &hello ) ;
+	function( "bar"   , &bar   ) ;
+	function( "foo"   , &foo   ) ;
+	function( "bla"   , &bla   ) ;
+	function( "bla1"  , &bla1   ) ;
+	function( "bla2"  , &bla2   ) ;
 	
 	class_<World>( "World" )
 		.method( "greet", &World::greet )
 		.method( "set", &World::set )
-		.method( "clear", &clearWorld )
 	;
+}                     
 
-}            
 
