@@ -156,6 +156,9 @@ local({
 })
 @
 
+\section{Examples}
+
+CRAN contains several packages that use \pkg{Rcpp} ... TODO
 
 \section{References}
 
