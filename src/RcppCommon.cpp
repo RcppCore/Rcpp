@@ -23,6 +23,7 @@
 
 #include <Rcpp.h>
 #include <cstring>
+#include <stdio.h>
 
 // Paul Roebuck has observed that the memory used by an exception message
 // is not reclaimed if error() is called inside of a catch block (due to
@@ -196,5 +197,11 @@ SEXP RcppXPtrExample_create_external_pointer(){
 SEXP RcppXPtrExample_get_external_pointer(SEXP x){
 	Rcpp::XPtr< std::vector<int> > p(x) ;
 	return Rf_ScalarInteger( p->back( ) ) ;
+}
+
+SEXP as_character_externalptr(SEXP xp){
+	char buffer[20] ;
+	sprintf( buffer, "<%p>", EXTPTR_PTR(x) ) ;
+	return wrap( (const char*)buffer ) ;
 }
 
