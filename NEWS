@@ -26,6 +26,8 @@
 	
 	cppfunction <- function(...) cxxfunction( ..., plugin = "Rcpp" )
 
+	o	support for std::complex was incomplete
+	
 0.8.0   2010-05-17
 
     o   All Rcpp headers have been moved to the inst/include directory,

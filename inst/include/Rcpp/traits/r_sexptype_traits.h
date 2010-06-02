@@ -63,6 +63,11 @@ template<> struct r_sexptype_traits<rcpp_long_long_type>{ enum{ rtype = REALSXP 
 template<> struct r_sexptype_traits<rcpp_ulong_long_type>{ enum{ rtype = REALSXP } ; } ;
 #endif
 
+/* std::complex */
+template<> struct r_sexptype_traits< std::complex<double> >{ enum{ rtype = CPLXSXP } ; } ;
+template<> struct r_sexptype_traits< std::complex<float> >{ enum{ rtype = CPLXSXP } ; } ;
+
+
 /**
  * Indicates if a primitive type needs a static_cast
  */

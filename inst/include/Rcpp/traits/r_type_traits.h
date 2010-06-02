@@ -113,6 +113,14 @@ template<> struct r_type_traits< std::pair<const std::string,short> >{ typedef r
 template<> struct r_type_traits<unsigned short>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,unsigned short> >{ typedef r_type_primitive_tag r_category ; } ;
 
+/* std::complex<double> */
+template<> struct r_type_traits< std::complex<double> >{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,std::complex<double> > >{ typedef r_type_primitive_tag r_category ; } ;
+
+/* std::complex<float> */
+template<> struct r_type_traits< std::complex<float> >{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,std::complex<float> > >{ typedef r_type_primitive_tag r_category ; } ;
+
 /* long long int */
 #ifdef RCPP_HAS_LONG_LONG_TYPES
 template<> struct r_type_traits<rcpp_long_long_type>{ typedef r_type_primitive_tag r_category ; } ;
