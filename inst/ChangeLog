@@ -1,5 +1,10 @@
 2010-06-01  Romain Francois <romain@r-enthusiasts.com>
 
+	* inst/include/Rcpp/traits/r_type_traits.h: added missing support for
+	std::complex<double>, needed by RcppArmadillo
+
+2010-06-01  Romain Francois <romain@r-enthusiasts.com>
+
 	* inst/doc/Rcpp-package*: new mini vignette "Rcpp-package" to improve the 
 	documentation of Rcpp.package.skeleton and details the steps involved in 
 	making a package that uses Rcpp
