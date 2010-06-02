@@ -1,8 +1,11 @@
-2010-06-01  Romain Francois <romain@r-enthusiasts.com>
+2010-06-02  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/traits/r_type_traits.h: added missing support for
 	std::complex<double>, needed by RcppArmadillo
 
+	* src/RcppCommon.cpp: added internal .Call function as_character_externalptr
+	to extract the address of the pointer wrapped by an external pointer
+	
 2010-06-01  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/doc/Rcpp-package*: new mini vignette "Rcpp-package" to improve the 
