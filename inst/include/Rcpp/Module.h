@@ -33,7 +33,9 @@ class CppObject ;
 class CppFunction {
 	public:
 		CppFunction() {}
-		virtual SEXP operator()(SEXP* args) { return R_NilValue ; } ;
+		virtual SEXP operator()(SEXP*) { 
+			return R_NilValue ;
+		}
 		virtual ~CppFunction(){} ;
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
@@ -51,9 +53,13 @@ public:
 	class_Base() :name(){} ;
 	class_Base(const char* name_) : name(name_){} ;
 	
-	virtual bool has_method( const std::string& m ){ return false ; }
-	virtual SEXP newInstance(SEXP *args, int nargs){  return R_NilValue; }
-	virtual SEXP invoke( const std::string& method_name, SEXP obj, SEXP *args, int nargs ){ 
+	virtual bool has_method( const std::string& ){ 
+		return false ; 
+	}
+	virtual SEXP newInstance(SEXP *, int){ 
+		return R_NilValue;
+	}
+	virtual SEXP invoke( const std::string&, SEXP, SEXP *, int ){ 
 		return R_NilValue ;
 	}
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
