@@ -149,6 +149,11 @@ RcppExport inline SEXP canUseCXX0X(){ return Rf_ScalarLogical( FALSE ); }
 RcppExport SEXP test_named() ;
 RcppExport SEXP capabilities() ;
 
+/**
+ * the address of the pointer wrapped by an external pointer
+ */
+RcppExport SEXP as_character_externalptr(SEXP); 
+
 const char * sexp_to_name(int sexp_type); 
 
 #include <Rcpp/exceptions.h>
