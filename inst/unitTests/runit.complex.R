@@ -29,7 +29,7 @@ test.vector.complex <- function(){
 	', plugin = "Rcpp" )
 	checkEquals( 
 		fx(), 
-		list( float = rep(0+0i), double = rep(0+0i) ), 
+		list( float = rep(0+0i, 10), double = rep(0+0i, 10) ), 
 		msg = "range wrap over std::complex" )
 }
 
