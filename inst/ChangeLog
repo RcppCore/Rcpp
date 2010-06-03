@@ -2,7 +2,9 @@
 
 	* src/RcppCommn.cpp: added show method for C++Object and C++Class
 	
-	* inst/include/Rcpp/XPtr.h: missing bits in the XPtr interface
+	* inst/include/Rcpp/XPtr.h: getTag and getProtected are deprecated, will be 
+	removed in Rcpp 0.8.2. methods tag and prot should be used instead. The new
+	methods support both lhs and rhs use.
 
 2010-06-02  Romain Francois <romain@r-enthusiasts.com>
 

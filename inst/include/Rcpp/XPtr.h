@@ -44,8 +44,8 @@ public:
      * @param xp external pointer to wrap
      */
     explicit XPtr(SEXP m_sexp, SEXP tag = R_NilValue, SEXP prot = R_NilValue) : RObject(m_sexp){
-    	setTag( tag ) ;
-    	setProtected( prot ) ;
+    	R_SetExternalPtrTag( m_sexp, tag ) ;
+    	R_SetExternalPtrProtected( m_sexp, prot ) ;
     } ;
 		
     /**
@@ -59,7 +59,7 @@ public:
      *        so you need to make sure the pointer can be "delete" d
      *        this way (has to be a C++ object)
      */
-    explicit XPtr(T* p, bool set_delete_finalizer) ;
+    explicit XPtr(T* p, bool set_delete_finalizer, SEXP tag = R_NilValue, SEXP prot = R_NilValue) ;
 
     XPtr( const XPtr& other ) : RObject( other.asSexp() ) {}
     
@@ -93,26 +93,83 @@ public:
      * R_MakeExternalPointer function. See Writing R extensions
      */
     SEXP getTag() ;
-    
-    template <typename U>
-    void setTag( const U& u){
-    	R_SetExternalPtrTag( m_sexp, Rcpp::wrap( u ) );
-    }
-    
-    template <typename U>
-    void setProtected( const U& u){
-    	R_SetExternalPtrProtected( m_sexp, Rcpp::wrap( u ) );
-    }
-    
+        
     void setDeleteFinalizer() ;
   	
     inline operator T*(){ return (T*)(EXTPTR_PTR(m_sexp)) ; }
+
+    class TagProxy{
+    public:
+    	TagProxy( XPtr& xp_ ): xp(xp_){}
+    	
+    	template <typename U>
+    	TagProxy& operator=( const U& u){
+    		set( Rcpp::wrap(u) );
+    		return *this ;
+    	}
+    	
+    	template <typename U>
+    	operator U(){
+    		return Rcpp::as<U>( get() ) ;
+    	}
+    	
+    	operator SEXP(){ return get(); }
+    	
+    	inline SEXP get(){
+    		return R_ExternalPtrTag(xp.asSexp()) ;
+    	}
+    	
+    	inline void set( SEXP x){
+    		R_SetExternalPtrTag( xp.asSexp(), x ) ;
+    	}
+    	
+    private:
+    	XPtr& xp ;
+    } ;
+
+	TagProxy tag(){
+		return TagProxy( *this ) ;
+	}
+    
+    class ProtectedProxy{
+    public:
+    	ProtectedProxy( XPtr& xp_ ): xp(xp_){}
+    	
+    	template <typename U>
+    	ProtectedProxy& operator=( const U& u){
+    		set( Rcpp::wrap(u) );
+    		return *this ;
+    	}
+    	
+    	template <typename U>
+    	operator U(){
+    		return Rcpp::as<U>( get() ) ;
+    	}
+
+    	operator SEXP(){ return get() ; }
+    	
+    	inline SEXP get(){
+    		return R_ExternalPtrProtected(xp.asSexp()) ;
+    	}
+    	
+    	inline void set( SEXP x){
+    		R_SetExternalPtrProtected( xp.asSexp(), x ) ;
+    	}
+    	
+    private:
+    	XPtr& xp ;
+    } ;
+
+	ProtectedProxy prot(){
+		return ProtectedProxy( *this ) ;
+	}
 	
+    
 };
 
 template<typename T>
-XPtr<T>::XPtr(T* p, bool set_delete_finalizer = true) : RObject() {
-    setSEXP( R_MakeExternalPtr( (void*)p , R_NilValue, R_NilValue) ) ;
+XPtr<T>::XPtr(T* p, bool set_delete_finalizer = true, SEXP tag, SEXP prot) : RObject() {
+    setSEXP( R_MakeExternalPtr( (void*)p , tag, prot) ) ;
     if( set_delete_finalizer ){
 	setDeleteFinalizer() ;
     }
@@ -135,11 +192,13 @@ T* XPtr<T>::operator->() const {
 
 template<typename T>
 SEXP XPtr<T>::getProtected(){
+    Rprintf( "getProtected is deprecated in Rcpp 0.8.1, and will be removed in version 0.8.2, use prot() instead\n" ) ;
     return EXTPTR_PROT(m_sexp) ;
 }
 
 template<typename T>
 SEXP XPtr<T>::getTag(){
+	Rprintf( "getTag is deprecated in Rcpp 0.8.1, and will be removed in version 0.8.2, use tag() instead\n" ) ;
     return EXTPTR_TAG(m_sexp) ;
 }
 
