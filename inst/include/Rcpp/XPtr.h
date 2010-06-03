@@ -43,7 +43,10 @@ public:
      *
      * @param xp external pointer to wrap
      */
-    explicit XPtr(SEXP m_sexp) : RObject(m_sexp){} ;
+    explicit XPtr(SEXP m_sexp, SEXP tag = R_NilValue, SEXP prot = R_NilValue) : RObject(m_sexp){
+    	setTag( tag ) ;
+    	setProtected( prot ) ;
+    } ;
 		
     /**
      * creates a new external pointer wrapping the dumb pointer p. 
@@ -90,6 +93,16 @@ public:
      * R_MakeExternalPointer function. See Writing R extensions
      */
     SEXP getTag() ;
+    
+    template <typename U>
+    void setTag( const U& u){
+    	R_SetExternalPtrTag( m_sexp, Rcpp::wrap( u ) );
+    }
+    
+    template <typename U>
+    void setProtected( const U& u){
+    	R_SetExternalPtrProtected( m_sexp, Rcpp::wrap( u ) );
+    }
     
     void setDeleteFinalizer() ;
   	
