@@ -1,6 +1,8 @@
 2010-06-03  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/RcppCommn.cpp: added show method for C++Object and C++Class
+	
+	* inst/include/Rcpp/XPtr.h: missing bits in the XPtr interface
 
 2010-06-02  Romain Francois <romain@r-enthusiasts.com>
 
