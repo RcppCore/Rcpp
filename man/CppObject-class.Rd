@@ -3,6 +3,7 @@
 \docType{class}
 \alias{C++Object-class}
 \alias{$,C++Object-method}
+\alias{show,C++Object-method}
 
 \title{c++ internal objects}
 \description{
@@ -27,6 +28,7 @@ C++ internal objects instanciated from a class exposed in an Rcpp module
 \section{Methods}{
   \describe{
     \item{$}{\code{signature(x = "C++Object")}: invokes a method on the object }
+	\item{show}{\code{signature(object = "C++Object")}: print the object }
 	 }
 }
 \keyword{classes}
