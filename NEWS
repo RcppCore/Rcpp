@@ -27,6 +27,10 @@
 	cppfunction <- function(...) cxxfunction( ..., plugin = "Rcpp" )
 
 	o	support for std::complex was incomplete
+
+	o	The methods XPtr<T>::getTag and XPtr<T>::getProtected are deprecated, 
+	and will be removed in Rcpp 0.8.2. The methods tag() and prot() should
+	be used instead. tag() and prot() support both LHS and RHS use.	
 	
 0.8.0   2010-05-17
 
