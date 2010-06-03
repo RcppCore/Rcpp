@@ -3,6 +3,7 @@
 \docType{class}
 \alias{C++Class-class}
 \alias{new,C++Class-method}
+\alias{show,C++Class-method}
 
 \title{Reflection information for an internal c++ class}
 \description{
@@ -24,6 +25,7 @@ Information about an internal c++ class.
     of this class using its default constructor. This creates
     instances of the class \linkS4class{"C++Object"}
     }
+    \item{show}{\code{signature(object = "C++Class")}: prints the class. }
 	 }
 }
 \keyword{classes}

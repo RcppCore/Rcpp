@@ -201,7 +201,7 @@ SEXP RcppXPtrExample_get_external_pointer(SEXP x){
 
 SEXP as_character_externalptr(SEXP xp){
 	char buffer[20] ;
-	sprintf( buffer, "<%p>", EXTPTR_PTR(x) ) ;
-	return wrap( (const char*)buffer ) ;
+	sprintf( buffer, "%p", EXTPTR_PTR(xp) ) ;
+	return Rcpp::wrap( (const char*)buffer ) ;
 }
 

@@ -182,3 +182,25 @@ setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ..
 	invisible(NULL)
 } )
 
+setMethod( "show", "C++Object", function(object){
+	txt <- sprintf( "C++ object <%s> of class '%s' <%s>", 
+		externalptr_address(object@pointer), 
+		.Call( "Class__name", object@cppclass, PACKAGE = "Rcpp" ), 
+		externalptr_address(object@cppclass)
+	)
+	writeLines( txt )
+} )
+
+setMethod( "show", "C++Class", function(object){
+	txt <- sprintf( "C++ class '%s' <%s>", 
+		.Call( "Class__name", object@pointer, PACKAGE = "Rcpp" ), 
+		externalptr_address(object@pointer) )
+	writeLines( txt )
+	
+	met <- .Call( "CppClass__methods", object@pointer, PACKAGE = "Rcpp" )
+	if( length( met ) ){
+		txt <- sprintf( "\n%d methods : \n%s", length(met), paste( sprintf("    %s", met), collapse = "\n") )
+		writeLines( txt )
+	}
+} )
+
