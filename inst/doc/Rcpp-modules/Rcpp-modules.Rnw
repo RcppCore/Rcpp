@@ -1,12 +1,20 @@
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-modules}
 \usepackage{vmargin}
-\usepackage{color}
-\usepackage{alltt}
-\usepackage[authoryear,round,longnamesfirst]{natbib}
-
-\usepackage[colorlinks]{hyperref}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+\usepackage{color, alltt}
+\usepackage[authoryear,round,longnamesfirst]{natbib}
+\usepackage[colorlinks]{hyperref}
+\definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
+\hypersetup{
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link
+}
+
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 
@@ -400,18 +408,18 @@ and promotes them to indexing methods on the \proglang{R} side.
 \subsubsection{Properties}
 
 A C++ class exposed by a module may expose data members as properties. Properties
-are declared by the \texttt{property} method of \texttt{class\_}. 
+are declared by the \texttt{property} method of \texttt{class\_}.
 
 <<lang=cpp>>=
 class Num{
 public:
     Num() : x(0.0), y(0){} ;
-    
+
     double getX() { return x ; }
     void setX(double value){ x = value ; }
-    
+
     int getY() { return y ; }
-    
+
 private:
     double x ;
     int y ;
@@ -421,10 +429,10 @@ RCPP_MODULE(yada){
 	using namespace Rcpp ;
 
 	class_<Num>( "Num" )
-	
+
 		// read and write property
 		.property( "x", &Num::getX, &Num::setX )
-		
+
 		// read-only property
 		.property( "y", &Num::getY )
 	;
@@ -435,8 +443,8 @@ The \texttt{x} property is declared with both getter (\texttt{getX}) and
 setter (\texttt{x}) so that we can read and write the property at the R level
 with the dollar operator.
 
-The\texttt{y} property only exposes a getter (\texttt{getY}) so attempting to 
-set the property from R will generate an error. 
+The\texttt{y} property only exposes a getter (\texttt{getY}) so attempting to
+set the property from R will generate an error.
 
 <<eval=FALSE>>=
 mod <- Module( "yada" )
@@ -454,12 +462,12 @@ w$y <- 10L
 @
 
 Getters may be const or non-const member functions of the target class taking
-no parameters. Free functions taking a pointer to the target class are also 
+no parameters. Free functions taking a pointer to the target class are also
 allowed as getters.
 
 Setters can be non-const member function taking one parameter or a free
 function taking a pointer to target class as the first parameter, and the new
-value as the second parameter. 
+value as the second parameter.
 
 \subsubsection{Full example}
 
