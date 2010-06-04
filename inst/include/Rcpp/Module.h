@@ -56,6 +56,9 @@ public:
 	virtual bool has_method( const std::string& ){ 
 		return false ; 
 	}
+	virtual bool has_property( const std::string& ) { 
+		return false ;
+	}
 	virtual SEXP newInstance(SEXP *, int){ 
 		return R_NilValue;
 	}
@@ -65,6 +68,13 @@ public:
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
+	
+	virtual SEXP getProperty( const std::string&, SEXP ) throw(std::range_error) {
+		throw std::range_error( "cannot retrieve property" ) ;
+	}
+	virtual void setProperty( const std::string&, SEXP, SEXP) throw(std::range_error){
+		throw std::range_error( "cannot set property" ) ;
+	}
 	
 	std::string name ;
 } ;
@@ -129,11 +139,22 @@ class CppMethod {
 		virtual ~CppMethod(){}
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
-	
 } ;
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
+
+template <typename Class>
+class CppProperty {
+	public:
+		typedef Rcpp::XPtr<Class> XP ;
+		
+		CppProperty(){} ;
+		virtual SEXP get(Class* ) throw(std::range_error){ throw std::range_error("cannot retrieve property"); }
+		virtual void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("cannot set property"); }
+} ;
+
+#include <Rcpp/module/Module_Property.h>
 
 template <typename Class>
 class class_ : public class_Base {
@@ -142,9 +163,13 @@ public:
 	typedef CppMethod<Class> method_class ;
 	typedef std::map<std::string,method_class*> METHOD_MAP ;
 	typedef std::pair<const std::string,method_class*> PAIR ;
-	typedef Rcpp::XPtr<Class> XP ;   
+	typedef Rcpp::XPtr<Class> XP ;
 	
-	class_( const char* name_ ) : class_Base(name_), methods(), specials(0) {
+	typedef CppProperty<Class> prop_class ;
+	typedef std::map<std::string,prop_class*> PROPERTY_MAP ;
+	typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
+	
+	class_( const char* name_ ) : class_Base(name_), methods(), properties(), specials(0) {
 		if( !singleton ){
 			singleton = new self ;
 			singleton->name = name_ ;
@@ -179,12 +204,20 @@ public:
 		if( *name == '[' ) singleton->specials++ ;
 		return *this ;
 	}
+	
+	self& AddProperty( const char* name, prop_class* p){
+		singleton->properties.insert( PROP_PAIR( name, p ) ) ;
+		return *this ;
+	}
 
 #include <Rcpp/module/Module_generated_method.h>
 #include <Rcpp/module/Module_generated_Pointer_method.h>
 	
 	bool has_method( const std::string& m){
 		return methods.find(m) != methods.end() ;
+	}
+	bool has_property( const std::string& m){
+		return properties.find(m) != properties.end() ;
 	}
 	
 	Rcpp::CharacterVector method_names(){
@@ -199,10 +232,12 @@ public:
 	
 	Rcpp::CharacterVector complete(){
 		int n = methods.size() - specials ;
-		Rcpp::CharacterVector out(n) ;
+		int ntotal = n + properties.size() ;
+		Rcpp::CharacterVector out(ntotal) ;
 		typename METHOD_MAP::iterator it = methods.begin( ) ;
 		std::string buffer ;
-		for( int i=0; i<n; ++it){  
+		int i=0 ;
+		for( ; i<n; ++it){  
 			buffer = it->first ;
 			if( buffer[0] == '[' ) continue ;
 			if( (it->second)->nargs() == 0){
@@ -212,16 +247,41 @@ public:
 			}
 			out[i] = buffer ;
 			i++ ;
-		} 
+		}
+		typename PROPERTY_MAP::iterator prop_it = properties.begin(); 
+		for( ; i<ntotal; i++, ++prop_it){
+			out[i] = prop_it->first ;
+		}
 		return out ;
 	}
 	
+	SEXP getProperty( const std::string& name, SEXP object) throw(std::range_error) {
+		typename PROPERTY_MAP::iterator it = properties.find( name ) ;
+		if( it == properties.end() ){
+			throw std::range_error( "no such property" ) ; 
+		}
+		prop_class* prop =  it->second ;
+		return prop->get( XP(object) ); 
+	}
+	void setProperty( const std::string& name, SEXP object, SEXP value) throw(std::range_error){
+		typename PROPERTY_MAP::iterator it = properties.find( name ) ;
+		if( it == properties.end() ){
+			throw std::range_error( "no such property" ) ; 
+		}
+		prop_class* prop =  it->second ;
+		return prop->set( XP(object), value ); 
+	}
+
+#include <Rcpp/module/Module_Add_Property.h>
+	
+	
 private:
 	METHOD_MAP methods ;
+	PROPERTY_MAP properties ;
 	static self* singleton ;
 	int specials ;
 	
-	class_( ) : class_Base(), methods(), specials(0) {}; 
+	class_( ) : class_Base(), methods(), properties(), specials(0) {}; 
 	
 } ;   
 
