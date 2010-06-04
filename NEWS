@@ -1,34 +1,38 @@
 0.8.1   (under development)
 
-	o	Rcpp modules. An Rcpp module is a collection of internal (c++)
-	functions and classes that are exposed to R. Inspired from
-	Boost.Python
+    o   This release add Rcpp modules. An Rcpp module is a collection of
+	internal (c++) functions and classes that are exposed to R. Inspired
+	from Boost.Python
 	
-	Modules are created internally using the RCPP_MODULE macro and retrieved
-	in the R side with the Module function. The unit test file 
+	Modules are created internally using the RCPP_MODULE macro and
+	retrieved in the R side with the Module function. The unit test file
 	runit.Module.R shows an example.
 	
-	The Rcpp-modules vignette documents the feature
+	The Rcpp-modules vignette documents the feature.
+
+        Rpp modules require the current CRAN release of inline (>= 0.3.5)  
 	
-	o 	The vignette "Rcpp-package" details the steps involved in making a
+    o   The vignette "Rcpp-package" details the steps involved in making a
 	package that uses Rcpp. 
 
-	o	Rcpp.package.skeleton has been improved to generate a package using 
+    o   Rcpp.package.skeleton has been improved to generate a package using 
 	an Rcpp module, controlled by the "module" argument
 
-	o	Evaluating a call inside an environment did not work properly
+    o   Evaluating a call inside an environment did not work properly
 	
-	o	cppfunction has been withdrawn since the introduction of the more 
-	flexible cxxfunction in the inline package. Rcpp no longer depend
-	on inline since many uses of Rcpp do not require inline at all. We still 
-	use inline for unit tests but this is now handled locally in the
-	unit tests loader runTests.R. Users of cppfunction can redefine it as: 
+    o   cppfunction has been withdrawn since the introduction of the more
+	flexible cxxfunction in the inline package (0.3.5). Rcpp no longer
+	depends on inline since many uses of Rcpp do not require inline at
+	all. We still use inline for unit tests but this is now handled
+	locally in the unit tests loader runTests.R. 
+
+        Users of the now-withdrawn function cppfunction can redefine it as:
 	
-	cppfunction <- function(...) cxxfunction( ..., plugin = "Rcpp" )
+	   cppfunction <- function(...) cxxfunction( ..., plugin = "Rcpp" )
 
-	o	support for std::complex was incomplete
+    o   Support for std::complex was incomplete and has been enhanced.
 
-	o	The methods XPtr<T>::getTag and XPtr<T>::getProtected are deprecated, 
+    o   The methods XPtr<T>::getTag and XPtr<T>::getProtected are deprecated, 
 	and will be removed in Rcpp 0.8.2. The methods tag() and prot() should
 	be used instead. tag() and prot() support both LHS and RHS use.	
 	
