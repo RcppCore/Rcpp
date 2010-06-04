@@ -5,12 +5,10 @@
 	from Boost.Python
 	
 	Modules are created internally using the RCPP_MODULE macro and
-	retrieved in the R side with the Module function. The unit test file
-	runit.Module.R shows an example.
-	
-	The Rcpp-modules vignette documents the feature.
-
-        Rpp modules require the current CRAN release of inline (>= 0.3.5)  
+	retrieved in the R side with the Module function. This is a preview 
+	release of the module functionality, which will keep improving until
+	the Rcpp 0.9.0 release. The vignette "Rcpp-modules" documents the current
+	feature set of modules.
 	
     o   The vignette "Rcpp-package" details the steps involved in making a
 	package that uses Rcpp. 
