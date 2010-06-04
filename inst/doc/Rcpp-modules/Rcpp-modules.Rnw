@@ -396,6 +396,71 @@ setMethod( "show", "World", function(object){
 \pkg{Rcpp} considers the methods \texttt{[[} and \texttt{[[<-} special,
 and promotes them to indexing methods on the \proglang{R} side.
 
+
+\subsubsection{Properties}
+
+A C++ class exposed by a module may expose data members as properties. Properties
+are declared by the \texttt{property} method of \texttt{class\_}. 
+
+<<lang=cpp>>=
+class Num{
+public:
+    Num() : x(0.0), y(0){} ;
+    
+    double getX() { return x ; }
+    void setX(double value){ x = value ; }
+    
+    int getY() { return y ; }
+    
+private:
+    double x ;
+    int y ;
+};
+
+RCPP_MODULE(yada){
+	using namespace Rcpp ;
+
+	class_<Num>( "Num" )
+	
+		// read and write property
+		.property( "x", &Num::getX, &Num::setX )
+		
+		// read-only property
+		.property( "y", &Num::getY )
+	;
+}
+@
+
+The \texttt{x} property is declared with both getter (\texttt{getX}) and
+setter (\texttt{x}) so that we can read and write the property at the R level
+with the dollar operator.
+
+The\texttt{y} property only exposes a getter (\texttt{getY}) so attempting to 
+set the property from R will generate an error. 
+
+<<eval=FALSE>>=
+mod <- Module( "yada" )
+Num <- mod$Num
+w <- new( Num )
+w$x
+# [1] 0
+w$x <- 2.0
+w$x
+# [1] 2
+w$y
+# [1] 0
+# y is read-only, this generates an error
+w$y <- 10L
+@
+
+Getters may be const or non-const member functions of the target class taking
+no parameters. Free functions taking a pointer to the target class are also 
+allowed as getters.
+
+Setters can be non-const member function taking one parameter or a free
+function taking a pointer to target class as the first parameter, and the new
+value as the second parameter. 
+
 \subsubsection{Full example}
 
 The following example illustrates how to use Rcpp modules to expose
