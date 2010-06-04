@@ -69,14 +69,11 @@ extern "C" SEXP CppClass__complete( SEXP xp){
 	return cl->complete(); 
 }
 RCPP_FUNCTION_3(SEXP, CppClass__get, XP_Class cl, SEXP obj, std::string name){
-	BEGIN_RCPP
 	return cl->getProperty( name, obj ) ;
-	END_RCPP
 }
 RCPP_FUNCTION_4(SEXP, CppClass__set, XP_Class cl, SEXP obj, std::string name, SEXP value){
-	BEGIN_RCPP
 	cl->setProperty( name, obj, value ) ;
-	END_RCPP
+	return R_NilValue ;
 }
 
 
