@@ -31,7 +31,7 @@ foo <- '
   return rl;
 '
 
-funx <- cfunction(signature(v="numeric"), foo, Rcpp=TRUE)
+funx <- cxxfunction(signature(v="numeric"), foo, plugin = "Rcpp" )
 
 dd.inline.rcpp <- function() {
     x <- integer(10000)

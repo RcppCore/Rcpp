@@ -20,7 +20,7 @@
 require(Rcpp)
 require(inline)
 
-funx <- cfunction(signature(), '
+funx <- cxxfunction(signature(), '
 	/* creating a pointer to a vector<int> */
 	std::vector<int>* v = new std::vector<int> ;
 	v->push_back( 1 ) ;
@@ -35,12 +35,12 @@ funx <- cfunction(signature(), '
 	   the external pointer is no more protected by p, but it gets 
 	   protected by being on the R side */
 	return( p ) ;
-', Rcpp=TRUE, verbose=FALSE)
+', plugin = "Rcpp" )
 xp <- funx()
 stopifnot( identical( typeof( xp ), "externalptr" ) )
 
 # passing the pointer back to C++
-funx <- cfunction(signature(x = "externalptr" ), '
+funx <- cxxfunction(signature(x = "externalptr" ), '
 	/* wrapping x as smart external pointer */
 	/* The SEXP based constructor does not protect the SEXP from 
 	   garbage collection automatically, it is already protected 
@@ -52,7 +52,7 @@ funx <- cfunction(signature(x = "externalptr" ), '
 	
 	/* just return the front of the vector as a SEXP */
 	return( Rcpp::wrap( p->front() ) ) ;
-', Rcpp=TRUE, verbose=FALSE)
+', plugin = "Rcpp" )
 front <- funx(xp)
 stopifnot( identical( front, 1L ) )
 
