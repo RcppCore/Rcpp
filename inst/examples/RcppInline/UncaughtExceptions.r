@@ -19,7 +19,10 @@
 
 require(Rcpp)
 require(inline)
-funx <- cppfunction(signature(), 'throw std::range_error("boom"); return R_NilValue ; ')
+funx <- cxxfunction(	
+	signature(), 
+	'throw std::range_error("boom"); return R_NilValue ; ', 
+	plugin = "Rcpp" )
 tryCatch(  funx(), "C++Error" = function(e){
 	cat( sprintf( "C++ exception of class '%s' : %s\n", class(e)[1L], e$message  ) )
 } )
@@ -29,5 +32,4 @@ tryCatch(  funx(), "std::range_error" = function(e){
 } )
 # just to check things carry on
 print( rnorm(10) )
-
 
