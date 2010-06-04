@@ -69,10 +69,10 @@ public:
 	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
 	
-	virtual SEXP getProperty( const std::string&, SEXP ) throw(std::range_error) {
+	virtual SEXP getProperty( const std::string&, SEXP ) {
 		throw std::range_error( "cannot retrieve property" ) ;
 	}
-	virtual void setProperty( const std::string&, SEXP, SEXP) throw(std::range_error){
+	virtual void setProperty( const std::string&, SEXP, SEXP) {
 		throw std::range_error( "cannot set property" ) ;
 	}
 	
@@ -255,21 +255,26 @@ public:
 		return out ;
 	}
 	
-	SEXP getProperty( const std::string& name, SEXP object) throw(std::range_error) {
+	SEXP getProperty( const std::string& name, SEXP object) {
+	BEGIN_RCPP
 		typename PROPERTY_MAP::iterator it = properties.find( name ) ;
 		if( it == properties.end() ){
 			throw std::range_error( "no such property" ) ; 
 		}
 		prop_class* prop =  it->second ;
 		return prop->get( XP(object) ); 
+	END_RCPP
 	}
-	void setProperty( const std::string& name, SEXP object, SEXP value) throw(std::range_error){
+	
+	void setProperty( const std::string& name, SEXP object, SEXP value)  {
+	BEGIN_RCPP
 		typename PROPERTY_MAP::iterator it = properties.find( name ) ;
 		if( it == properties.end() ){
 			throw std::range_error( "no such property" ) ; 
 		}
 		prop_class* prop =  it->second ;
 		return prop->set( XP(object), value ); 
+	END_RCPP
 	}
 
 #include <Rcpp/module/Module_Add_Property.h>
