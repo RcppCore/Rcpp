@@ -166,35 +166,45 @@ RCPP_MODULE(yada){
 test.Module.property <- function(){
 
 	inc  <- '
-	
-	class World {
+	class Num{
 	public:
-	    World() : msg("hello"){}
-	    void set(std::string msg) { this->msg = msg; }
-	    std::string greet() { return msg; }
-	
+	    Num() : x(0.0), y(0){} ;
+	    
+	    double getX() const { return x ; }
+	    void setX(double value){ x = value ; }
+	    
+	    int getY() { return y ; }
+	    
 	private:
-	    std::string msg;
+	    double x ;
+	    int y ;
 	};
-
+	
 	RCPP_MODULE(yada){
 		using namespace Rcpp ;
-		
-		class_<World>( "World" )
-			.property( "msg", &World::greet, &World::set ) 
-		;
-
-	}                     
 	
+		class_<Num>( "Num" )
+		
+			// read and write property
+			.property( "x", &Num::getX, &Num::setX )
+			
+			// read-only property
+			.property( "y", &Num::getY )
+		;
+	}
 	'
 	fx <- cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
 	
 	mod <- Module( "yada", getDynLib(fx) )
-	World <- mod$World
-    w <- new( World )
-    checkEquals( w$msg, "hello" )
-    w$msg <- "hello world"
-    checkEquals( w$msg, "hello world" )
+	Num <- mod$Num
+    w <- new( Num )
+    checkEquals( w$x, 0.0 )  
+    checkEquals( w$y, 0L )  
+    
+    w$x <- 2.0
+    checkEquals( w$x, 2.0 )  
+    
+    checkException( { w$y <- 3 } )
 }
 
 }
