@@ -1,13 +1,13 @@
 2010-06-04  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h: 
-	* R/Module.R: support for properties of C++ objects 
+	* inst/include/Rcpp/Module.h:
+	* R/Module.R: support for properties of C++ objects
 
 2010-06-03  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/RcppCommn.cpp: added show method for C++Object and C++Class
-	
-	* inst/include/Rcpp/XPtr.h: getTag and getProtected are deprecated, will be 
+
+	* inst/include/Rcpp/XPtr.h: getTag and getProtected are deprecated, will be
 	removed in Rcpp 0.8.2. methods tag and prot should be used instead. The new
 	methods support both lhs and rhs use.
 
@@ -18,30 +18,30 @@
 
 	* src/RcppCommon.cpp: added internal .Call function as_character_externalptr
 	to extract the address of the pointer wrapped by an external pointer
-	
+
 2010-06-01  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/doc/Rcpp-package*: new mini vignette "Rcpp-package" to improve the 
-	documentation of Rcpp.package.skeleton and details the steps involved in 
+	* inst/doc/Rcpp-package*: new mini vignette "Rcpp-package" to improve the
+	documentation of Rcpp.package.skeleton and details the steps involved in
 	making a package that uses Rcpp
 
 	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: document how to use modules
 	in other packages (namespace, etc ...)
-	
+
 	* R/Rcpp.package.skeleton: added the module argument
-	
+
 	* R/Module.R: prompt method for Module objects to generate skeleton of an Rd
 	file with the list of functions and classes defined by the module.
 
 2010-05-30  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/Module.R: completion for C++ modules. 
+	* R/Module.R: completion for C++ modules.
 
 2010-05-29  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/Module.R: when a Module is loaded, it creates extensions of the 
+	* R/Module.R: when a Module is loaded, it creates extensions of the
 	class C++Object for each internal class to enable S4 dispatch
-	
+
 	* R/Module.R: support for completion of methods of C++ objects
 
 2010-05-28  Romain Francois <romain@r-enthusiasts.com>
@@ -49,10 +49,10 @@
 	* R/cppfunction.R: withdrawn, we now use inline::cxxfunction which is
 	more flexible and we no longer need to depend on inline
 	* man/cppfunction.Rd: *
-	
-	* inst/unitTests/runTests.R: The tests now require a recent version 
+
+	* inst/unitTests/runTests.R: The tests now require a recent version
 	of inline (>= 0.3.4.2)
-	
+
 2010-05-27  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Module.h: adding support for registering a free function
@@ -61,9 +61,9 @@
 
 2010-05-26  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h: 
+	* inst/include/Rcpp/Module.h:
 	* src/Module.cpp : limited support for exposing c++ classes in Rcpp modules
-	
+
 	* R/Module.R : classes "C++Class", "C++Object" holding external pointers
 	and $ method dispatching internally
 
