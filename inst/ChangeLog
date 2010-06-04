@@ -1,3 +1,8 @@
+2010-06-04  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Module.h: 
+	* R/Module.R: support for properties of C++ objects 
+
 2010-06-03  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/RcppCommn.cpp: added show method for C++Object and C++Class

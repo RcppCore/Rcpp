@@ -31,6 +31,9 @@ typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ;
 RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
 	return cl->has_method(m) ;
 }
+RCPP_FUNCTION_2( bool, Class__has_property, XP_Class cl, std::string m){
+	return cl->has_property(m) ;
+}
 RCPP_FUNCTION_1( std::string, Class__name, XP_Class cl){
 	return cl->name ;
 }
@@ -65,6 +68,19 @@ extern "C" SEXP CppClass__complete( SEXP xp){
 	XP_Class cl(xp) ;
 	return cl->complete(); 
 }
+RCPP_FUNCTION_3(SEXP, CppClass__get, XP_Class cl, SEXP obj, std::string name){
+	BEGIN_RCPP
+	return cl->getProperty( name, obj ) ;
+	END_RCPP
+}
+RCPP_FUNCTION_4(SEXP, CppClass__set, XP_Class cl, SEXP obj, std::string name, SEXP value){
+	BEGIN_RCPP
+	cl->setProperty( name, obj, value ) ;
+	END_RCPP
+}
+
+
+
 
 // .External functions
 extern "C" SEXP Module__invoke( SEXP args){
