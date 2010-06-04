@@ -274,7 +274,7 @@ public:
 		}
 		prop_class* prop =  it->second ;
 		return prop->set( XP(object), value ); 
-	END_RCPP
+	VOID_END_RCPP
 	}
 
 #include <Rcpp/module/Module_Add_Property.h>
