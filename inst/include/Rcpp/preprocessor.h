@@ -51,8 +51,12 @@ namespace internal{
 #define BEGIN_RCPP try{ 
 #endif 
 
+#ifndef VOID_END_RCPP
+#define VOID_END_RCPP } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; }
+#endif
+
 #ifndef END_RCPP
-#define END_RCPP } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; } return R_NilValue;
+#define END_RCPP VOID_END_RCPP return R_NilValue;
 #endif
 
 #include <Rcpp/preprocessor_generated.h>
