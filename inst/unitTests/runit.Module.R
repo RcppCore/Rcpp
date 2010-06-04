@@ -163,5 +163,38 @@ RCPP_MODULE(yada){
 	
 }
 
+test.Module.property <- function(){
+
+	inc  <- '
+	
+	class World {
+	public:
+	    World() : msg("hello"){}
+	    void set(std::string msg) { this->msg = msg; }
+	    std::string greet() { return msg; }
+	
+	private:
+	    std::string msg;
+	};
+
+	RCPP_MODULE(yada){
+		using namespace Rcpp ;
+		
+		class_<World>( "World" )
+			.property( "msg", &World::greet, &World::set ) 
+		;
+
+	}                     
+	
+	'
+	fx <- cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
+	
+	mod <- Module( "yada", getDynLib(fx) )
+	World <- mod$World
+    w <- new( World )
+    checkEquals( w$msg, "hello" )
+    w$msg <- "hello world"
+    checkEquals( w$msg, "hello world" )
+}
 
 }

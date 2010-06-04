@@ -82,17 +82,29 @@ MethodInvoker <- function( x, name ){
 		res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ... , PACKAGE = "Rcpp" )
 		if( isTRUE( res$void ) ) invisible(NULL) else res$result
 	}
+	
 }
 
 dollar_cppobject <- function(x, name){
 	if( .Call( "Class__has_method", x@cppclass, name, PACKAGE = "Rcpp" ) ){
 		MethodInvoker( x, name )
-	} else{
-		stop( "no such method" )
+	} else if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ) {
+		.Call( "CppClass__get", x@cppclass, x@pointer, name, PACKAGE = "Rcpp" )
+	} else {
+		stop( "no such method or property" )
 	}
 }
 
 setMethod( "$", "C++Object", dollar_cppobject )
+
+dollargets_cppobject <- function(x, name, value){
+	if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ){
+		.Call( "CppClass__set", x@cppclass, x@pointer, name, value, PACKAGE = "Rcpp" )
+	}
+	x
+}
+
+setReplaceMethod( "$", "C++Object", dollargets_cppobject )
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()) ){
 	name <- sprintf( "_rcpp_module_boot_%s", module )
@@ -134,7 +146,6 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	new( "Module", pointer = xp ) 
 }
 
-
 setGeneric( "complete", function(x) standardGeneric("complete") )
 setMethod( "complete", "C++Object", function(x){
 	xp <- x@cppclass
@@ -149,7 +160,6 @@ setGeneric( "functions", function(object, ...) standardGeneric( "functions" ) )
 setMethod( "functions", "Module", function(object, ...){
 	.Call( "Module__funtions_arity", object@pointer, PACKAGE = "Rcpp" )
 } )
-
 
 setGeneric( "prompt" )
 setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ...){
