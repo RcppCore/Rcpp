@@ -39,6 +39,24 @@ class CppProperty_GetMethod : public CppProperty<Class> {
 				
 } ;
 
+// getter through a const member function
+template <typename Class, typename PROP>
+class CppProperty_GetConstMethod : public CppProperty<Class> {
+	public: 	
+		typedef PROP (Class::*GetMethod)(void) const ;
+		typedef CppProperty<Class> prop_class ;
+
+		CppProperty_GetConstMethod( GetMethod getter_ ) : getter(getter_){}
+		
+		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
+		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
+
+	private:
+		GetMethod getter ;
+				
+} ;
+
+
 // getter through a free function taking a pointer to Class
 template <typename Class, typename PROP>
 class CppProperty_GetPointerMethod : public CppProperty<Class> {
@@ -81,6 +99,32 @@ class CppProperty_GetMethod_SetMethod : public CppProperty<Class> {
 		SetMethod setter ;
 				
 } ;
+template <typename Class, typename PROP>
+class CppProperty_GetConstMethod_SetMethod : public CppProperty<Class> {
+	public: 	
+		typedef PROP (Class::*GetMethod)(void) const ;
+		typedef void (Class::*SetMethod)(PROP) ;
+		typedef CppProperty<Class> prop_class ;
+
+		CppProperty_GetConstMethod_SetMethod( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		
+		SEXP get(Class* object) throw(std::range_error){ 
+			return Rcpp::wrap( (object->*getter)() ) ; 
+		}
+		void set(Class* object, SEXP value) throw(std::range_error){ 
+			(object->*setter)( 
+				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
+			) ;
+		}		
+
+	private:
+		GetMethod getter ;
+		SetMethod setter ;
+				
+} ;
+
+
+
 
 // getter though a member function, setter through a pointer function
 template <typename Class, typename PROP>
@@ -91,6 +135,29 @@ class CppProperty_GetMethod_SetPointer : public CppProperty<Class> {
 		typedef CppProperty<Class> prop_class ;
 
 		CppProperty_GetMethod_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		
+		SEXP get(Class* object) throw(std::range_error){ 
+			return Rcpp::wrap( (object->*getter)() ) ;
+		}
+		void set(Class* object, SEXP value) throw(std::range_error){ 
+			setter( object, 
+				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
+			) ;
+		}		
+
+	private:
+		GetMethod getter ;
+		SetMethod setter ;
+				
+} ;
+template <typename Class, typename PROP>
+class CppProperty_GetConstMethod_SetPointer : public CppProperty<Class> {
+	public: 	
+		typedef PROP (Class::*GetMethod)(void) const ;
+		typedef void (*SetMethod)(Class*,PROP) ;
+		typedef CppProperty<Class> prop_class ;
+
+		CppProperty_GetConstMethod_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
 		
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ;
