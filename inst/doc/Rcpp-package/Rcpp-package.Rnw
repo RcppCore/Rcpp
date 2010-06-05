@@ -76,38 +76,56 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
 \abstract{
   \noindent This document provides a short overview of how to use
   \pkg{Rcpp}~\citep{CRAN:Rcpp} when writing an \proglang{R} package.  It
-  complements the \textsl{Writing R Extensions} manual~\citep{R:exts} which
-  is the authoritative source on how to extend \proglang{R} in general. We
-  strongly encourage the reader to familiarize himself with that manual
-  before reading this document which provides additional information on using
-  \pkg{Rcpp} in add-on packages.
+  shows how usage of the function \Sexpr{link("Rcpp.package.skeleton")}
+  provides a complete and self-sufficient example package using
+  \pkg{Rcpp}. All components of the directory tree created by
+  \Sexpr{link("Rcpp.package.skeleton")} are discussed in detail.  This
+  document thereby complements the \textsl{Writing R Extensions}
+  manual~\citep{R:exts} which is the authoritative source on how to extend
+  \proglang{R} in general.
 }
 
 \section{Introduction}
 
-\pkg{Rcpp}~\citep{CRAN:Rcpp} is an extension package for \proglang{R}.
-However, it is somewhat different from a traditional \proglang{R} package
-because its key component is a \proglang{C++} library. A client package that
-wants to make use of the \pkg{Rcpp} features must link against the library
-provided by \pkg{Rcpp}.
+\pkg{Rcpp}~\citep{CRAN:Rcpp} is an extension package for \proglang{R} which
+offers an easy-to-use yet featureful interface between \proglang{C++} and
+\proglang{R}.  However, it is somewhat different from a traditional
+\proglang{R} package because its key component is a \proglang{C++} library. A
+client package that wants to make use of the \pkg{Rcpp} features must link
+against the library provided by \pkg{Rcpp}.
 
-However, \proglang{R} only has limited support for \proglang{C(++)}-level
-dependencies between packages~\citep{R:exts}. The \texttt{LinkingTo}
-declaration in the package \texttt{DESCRIPTION} file allows the client
-package to retrieve the headers of the target package (here \pkg{Rcpp}), but
-support for linking against a library is not provided by \proglang{R} and has
-to be added manually.
+It should be noted that \proglang{R} has only limited support for
+\proglang{C(++)}-level dependencies between packages~\citep{R:exts}. The
+\texttt{LinkingTo} declaration in the package \texttt{DESCRIPTION} file
+allows the client package to retrieve the headers of the target package (here
+\pkg{Rcpp}), but support for linking against a library is not provided by
+\proglang{R} and has to be added manually.
 
 This document follows the steps of the \Sexpr{link("Rcpp.package.skeleton")}
 function to illustrate a recommended way of using \pkg{Rcpp} from a client
 package. We illustrate this using a simple \proglang{C++} function
 which will be called by an \proglang{R} function.
 
-\section{Rcpp.package.skeleton}
+We strongly encourage the reader to become familiar with the material in the
+\textsl{Writing R Extensions} manual~\citep{R:exts}, as well as with other
+documents on \proglang{R} package creation such as \cite{Leisch:2008}. Given
+a basic understanding of how to create \proglang{R} package, the present
+document aims to provide the additional information on how to use \pkg{Rcpp}
+in such add-on packages.
+
+\section{Using \texttt{Rcpp.package.skeleton}}
+
+\subsection{Overview}
 
 \pkg{Rcpp} provides a function \Sexpr{link("Rcpp.package.skeleton")}, modeled
 after the base \proglang{R} function \Sexpr{link("package.skeleton")}, which
 facilitates creation of a skeleton package using \pkg{Rcpp}.
+
+\Sexpr{link("Rcpp.package.skeleton")} has a number of arguments documented on
+its help page (and similar to those of \Sexpr{link("package.skeleton")}). The
+main argument is the first one which provides the name of the package one
+aims to create by invoking the function.  An illustration of a call using an
+argument \texttt{mypackage} is provided below.
 
 <<echo=FALSE>>=
 here <- getwd()
@@ -169,7 +187,7 @@ package, and it also includes the different components needed for using
 The skeleton contains an example \proglang{R} function
 \texttt{rcpp\_hello\_world} that uses the \Sexpr{link(".Call")} interface to
 invoke the \proglang{C++} function \texttt{rcpp\_hello\_world} from the
-package.
+package \texttt{mypackage}.
 
 <<echo=FALSE,results=tex>>=
 ex_highlight( file.path( gendir, "mypackage", "R", "rcpp_hello_world.R" ), FALSE )
@@ -179,6 +197,11 @@ ex_highlight( file.path( gendir, "mypackage", "R", "rcpp_hello_world.R" ), FALSE
 transport of actual \proglang{R} objects back and forth between the
 \proglang{R} side and the \proglang{C++} side. \proglang{R} objects
 (\texttt{SEXP}) can be conveniently manipulated using the \pkg{Rcpp} API.
+
+Noe that in this example, no arguments were passed from \proglang{R} down to
+the \proglang{C++} layer.  Doing so is straightforward (and one of the key
+features of \pkg{Rcpp}) but not central to our discussion of the package
+creation mechanics.
 
 \subsection{C++ code}
 
@@ -190,21 +213,22 @@ ex_highlight( file.path( gendir, "mypackage", "src", "rcpp_hello_world.h" )  )
 @
 
 The header includes the \texttt{Rcpp.h} file, which is the only file that
-needs to be included to use \pkg{Rcpp}. The function is then implemented
-in the \texttt{rcpp\_hello\_world.rcpp} file
+needs to be included to use \pkg{Rcpp}. The function is then implemented in
+the \texttt{rcpp\_hello\_world.rcpp} file
 
 <<echo=FALSE,results=tex>>=
 ex_highlight( file.path( gendir, "mypackage", "src", "rcpp_hello_world.cpp" )  )
 @
 
 The function creates an \proglang{R} list that contains a
-\Sexpr{link("character")} vector and a \Sexpr{link("numeric")} using \pkg{Rcpp}
-classes.
+\Sexpr{link("character")} vector and a \Sexpr{link("numeric")} vector using \pkg{Rcpp}
+classes. At the \proglang{R} level, we will therefore receive a list of
+length two containing these two vectors.
 
 \subsection{DESCRIPTION}
 
 The skeleton generates an appropriate \texttt{DESCRIPTION} file, using
-\texttt{Depends} and \texttt{LinkingTo} :
+both \texttt{Depends:} and \texttt{LinkingTo} for \pkg{Rcpp}:
 
 <<echo=FALSE,results=tex>>=
 ex_highlight( file.path( gendir, "mypackage", "DESCRIPTION" ), verbatim = TRUE )
@@ -257,13 +281,24 @@ more reliable than using backticks.
 
 \subsection{NAMESPACE}
 
-The \texttt{Rcpp.package.skeleton()} function also creates a file
-\texttt{NAMESPACE}. This file serves two purposes. First, it ensure that the
-dymanic library contained in the package we are creating via
-\texttt{Rcpp.package.skeleton()} will be loaded and thereby made available to
-the newly created \proglang{R} package. Second, it declares which functions
-should be globally visible from the namespace of this package.  As a
-reasonable default, we export all functions.
+The \Sexpr{link("Rcpp.package.skeleton")} function also creates a file
+\texttt{NAMESPACE}.
+
+<<echo=FALSE,results=tex>>=
+local({
+	tf <- sprintf( "%s.make", tempfile() )
+	file.copy( file.path( gendir, "mypackage", "NAMESPACE" ), tf )
+	ex_highlight( tf )
+	unlink( tf )
+})
+@
+
+This file serves two purposes. First, it ensure that the dynamic library
+contained in the package we are creating via
+\Sexpr{link("Rcpp.package.skeleton")} will be loaded and thereby made
+available to the newly created \proglang{R} package. Second, it declares
+which functions should be globally visible from the namespace of this
+package.  As a reasonable default, we export all functions.
 
 \subsection{Help files}
 
@@ -308,9 +343,10 @@ manual~\citep{R:exts} for details.
 
 \section{Summary}
 
-This document described how to use \pkg{Rcpp} when writing an \proglang{R}
-extension package. The use of the \texttt{Rcpp.package.skeleton()} was shown
-in detail, and references to further examples were provided.
+This document described how to use the \pkg{Rcpp} package for \proglang{R}
+amd \proglang{C++} integration when writing an \proglang{R} extension
+package. The use of the \Sexpr{link("Rcpp.package.skeleton")} was shown in
+detail, and references to further examples were provided.
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp-modules}

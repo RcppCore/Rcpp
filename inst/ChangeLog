@@ -1,3 +1,7 @@
+2010-06-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-package*: Extended mini vignette "Rcpp-package" 
+
 2010-06-04  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Module.h:
