@@ -113,6 +113,10 @@ setwd( gendir )
 Rcpp.package.skeleton( "mypackage" )
 @
 
+% <<>>=
+% Rcpp.package.skeleton( "mypackage" )
+% writeLines( system( "tree" , intern = TRUE ) )
+% @
 \begin{Hchunk}
 \begin{Hinput}
 \ttfamily\noindent
