@@ -77,7 +77,7 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
   \noindent This document provides a short overview of how to use
   \pkg{Rcpp}~\citep{CRAN:Rcpp} when writing an \proglang{R} package.  It
   shows how usage of the function \Sexpr{link("Rcpp.package.skeleton")}
-  provides a complete and self-sufficient example package using
+  creates a complete and self-sufficient example package using
   \pkg{Rcpp}. All components of the directory tree created by
   \Sexpr{link("Rcpp.package.skeleton")} are discussed in detail.  This
   document thereby complements the \textsl{Writing R Extensions}
@@ -182,7 +182,7 @@ as it fulfills two roles. It creates the complete set of files needed for a
 package, and it also includes the different components needed for using
 \pkg{Rcpp} that we discuss in the following sections.
 
-\subsection{R code}
+\subsection{\proglang{R} code}
 
 The skeleton contains an example \proglang{R} function
 \texttt{rcpp\_hello\_world} that uses the \Sexpr{link(".Call")} interface to
@@ -203,7 +203,7 @@ the \proglang{C++} layer.  Doing so is straightforward (and one of the key
 features of \pkg{Rcpp}) but not central to our discussion of the package
 creation mechanics.
 
-\subsection{C++ code}
+\subsection{\proglang{C++} code}
 
 The \proglang{C++} function is declared in the \texttt{rcpp\_hello\_world.h}
 header file:
@@ -225,13 +225,18 @@ The function creates an \proglang{R} list that contains a
 classes. At the \proglang{R} level, we will therefore receive a list of
 length two containing these two vectors.
 
-\subsection{DESCRIPTION}
+\subsection{\texttt{DESCRIPTION}}
 
 The skeleton generates an appropriate \texttt{DESCRIPTION} file, using
 both \texttt{Depends:} and \texttt{LinkingTo} for \pkg{Rcpp}:
 
 <<echo=FALSE,results=tex>>=
-ex_highlight( file.path( gendir, "mypackage", "DESCRIPTION" ), verbatim = TRUE )
+local({
+	tf <- sprintf( "%s.make", tempfile() )
+	file.copy( file.path( gendir, "mypackage", "DESCRIPTION" ), tf )
+	ex_highlight( tf )
+	unlink( tf )
+})
 @
 
 \Sexpr{link("Rcpp.package.skeleton")} adds the three last lines to the
@@ -246,7 +251,7 @@ The \texttt{SystemRequirements} declaration indicates that the package depends
 on \proglang{GNU Make} which is needed when compiling the client package
 on platforms such as Solaris.
 
-\subsection{Makevars and Makevars.win}
+\subsection{\texttt{Makevars} and \texttt{Makevars.win}}
 
 Unfortunately, the \texttt{LinkingTo} declaration in itself is not
 enough to link to the user \proglang{C++} library of \pkg{Rcpp}. Until more
@@ -279,7 +284,7 @@ The use of \verb|$(shell)| to execute a sub-command is a \proglang{GNU Make}
 extension to the standard \proglang{Make} language which we have found to be
 more reliable than using backticks.
 
-\subsection{NAMESPACE}
+\subsection{\texttt{NAMESPACE}}
 
 The \Sexpr{link("Rcpp.package.skeleton")} function also creates a file
 \texttt{NAMESPACE}.
@@ -308,6 +313,36 @@ being provided and exported.
 
 The \textsl{Writing R Extensions} manual~\citep{R:exts} provides the complete
 documentation on how to create suitable content for help files.
+
+\subsubsection{\texttt{mypackage-package.Rd}}
+
+The help file \texttt{mypackage-package.Rd} can be used to describe
+the new package.
+
+<<echo=FALSE,results=tex>>=
+local({
+	tf <- sprintf( "%s.make", tempfile() )
+	file.copy( file.path( gendir, "mypackage", "man", "mypackage-package.Rd" ), tf )
+	ex_highlight( tf )
+	unlink( tf )
+})
+@
+
+
+\subsubsection{\texttt{rcpp\_hello\_world.Rd}}
+
+The help file \texttt{rcpp\_hello\_world.Rd} serves as documentation for the
+example \proglang{R} function.
+
+<<echo=FALSE,results=tex>>=
+local({
+	tf <- sprintf( "%s.make", tempfile() )
+	file.copy( file.path( gendir, "mypackage", "man", "rcpp_hello_world.Rd" ), tf )
+	ex_highlight( tf )
+	unlink( tf )
+})
+@
+
 
 \section{Further examples}
 
