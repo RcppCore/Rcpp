@@ -102,8 +102,8 @@ package.
 \section{Rcpp.package.skeleton}
 
 \pkg{Rcpp} includes a function \Sexpr{link("Rcpp.package.skeleton")}, modeled
-after \Sexpr{link("package.skeleton")}, that facilitates creation of a skeleton
-package using \pkg{Rcpp}. This is by far the simplest way.
+after the base \proglang{R} function \Sexpr{link("package.skeleton")}, which
+facilitates creation of a skeleton package using \pkg{Rcpp}.
 
 <<echo=FALSE>>=
 here <- getwd()
@@ -129,7 +129,6 @@ Rcpp.package.skeleton( "mypackage" )
 \ttfamily\noindent
 \hlprompt{\usebox{\hlboxgreaterthan}{\ }}\hlfunctioncall{writeLines}\hlkeyword{(}{\ }\hlfunctioncall{system}\hlkeyword{(}{\ }\hlstring{"tree"}\hlkeyword{,}{\ }\hlargument{intern}{\ }\hlargument{=}{\ }\hlnumber{TRUE}{\ }\hlkeyword{)}{\ }\hlkeyword{)}\mbox{}
 \normalfont
-
 \end{Hinput}
 
 \begin{Houtput}
@@ -153,11 +152,13 @@ Rcpp.package.skeleton( "mypackage" )
 \hlstd{}4{\ }directories,{\ }10{\ }files\hspace*{\fill}\\
 \hlstd{}\mbox{}
 \normalfont
-
 \end{Houtput}
 \end{Hchunk}
 
-
+Using \Sexpr{link("Rcpp.package.skeleton")} is by far the simplest approach
+as it fulfills two roles. It creates the complete set of files needed for a
+package, and it also includes the different components needed for using
+\pkg{Rcpp} that we discuss in the following sections.
 
 \subsection{R code}
 
@@ -264,6 +265,26 @@ older (but still supported and appropriate) instructions. The full list
 of packages using \pkg{Rcpp} can be found at the
 \href{http://CRAN.R-project.org/package=Rcpp}{CRAN page} of \pkg{Rcpp}.
 
+\section{Other compilers}
+
+Less experienced \proglang{R} users on the Windows platform frequently ask
+about using \pkg{Rcpp} with the Visual Studio toolchain.  That is simply not
+possible as \proglang{R} is built with the \pkg{gcc} compiler. Different
+compilers have different linking conventions. These conventions are
+particularly hairy when it comes to using \proglang{C++}.  In short, it is
+not possible to simply drop sources (or header files) from \pkg{Rcpp} into a
+\proglang{C++} project built with Visual Studio, and this note makes no
+attempt at claiming otherwise.
+
+\pkg{Rcpp} is fully useable on Windows provided the standard Windows
+toolchain for \proglang{R} is used. See the \textsl{Writing R Extensions}
+manual~\citep{R:exts} for details.
+
+\section{Summary}
+
+This document described how to use \pkg{Rcpp} when writing an \proglang{R}
+extension package. The use of the \texttt{Rcpp.package.skeleton()} was shown
+in detail, and references to further examples were provided.
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp-modules}
