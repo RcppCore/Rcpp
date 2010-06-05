@@ -105,21 +105,55 @@ package.
 after \Sexpr{link("package.skeleton")}, that facilitates creation of a skeleton
 package using \pkg{Rcpp}. This is by far the simplest way.
 
+<<echo=FALSE>>=
+here <- getwd()
+gendir <- tempfile()
+dir.create( gendir )
+setwd( gendir )
+Rcpp.package.skeleton( "mypackage" )
+@
 
-%<<echo=FALSE>>=
-%here <- getwd()
-%gendir <- tempfile()
-%dir.create( gendir )
-%setwd( gendir )
-%<<>>=
-%Rcpp.package.skeleton( "mypackage" )
-%writeLines( system( "tree -n", intern = TRUE ) )
-%<<echo=FALSE>>=
-%setwd( here )
-%@
-%% Can we do manual ascii art here, please ?  I didn't even have tree(1)
-%% installed.  You may be able to assume 'ls -lR' but tree is too much
-%% I fear
+\begin{Hchunk}
+\begin{Hinput}
+\ttfamily\noindent
+\hlprompt{\usebox{\hlboxgreaterthan}{\ }}\hlfunctioncall{Rcpp.package.skeleton}\hlkeyword{(}{\ }\hlstring{"mypackage"}{\ }\hlkeyword{)}\mbox{}
+\normalfont
+
+\end{Hinput}
+
+\begin{Hinput}
+\ttfamily\noindent
+\hlprompt{\usebox{\hlboxgreaterthan}{\ }}\hlfunctioncall{writeLines}\hlkeyword{(}{\ }\hlfunctioncall{system}\hlkeyword{(}{\ }\hlstring{"tree"}\hlkeyword{,}{\ }\hlargument{intern}{\ }\hlargument{=}{\ }\hlnumber{TRUE}{\ }\hlkeyword{)}{\ }\hlkeyword{)}\mbox{}
+\normalfont
+
+\end{Hinput}
+
+\begin{Houtput}
+\ttfamily\noindent
+.\hspace*{\fill}\\
+\hlstd{}\usebox{\hlboxbacktick}--{\ }mypackage\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|--{\ }DESCRIPTION\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|--{\ }NAMESPACE\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|--{\ }R\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.R\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|--{\ }Read-and-delete-me\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|--{\ }man\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|{\ }{\ }{\ }|--{\ }mypackage-package.Rd\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }|{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.Rd\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }src\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }|--{\ }Makevars\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }|--{\ }Makevars.win\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }|--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.cpp\hspace*{\fill}\\
+\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.h\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlstd{}4{\ }directories,{\ }10{\ }files\hspace*{\fill}\\
+\hlstd{}\mbox{}
+\normalfont
+
+\end{Houtput}
+\end{Hchunk}
+
+
 
 \subsection{R code}
 
