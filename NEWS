@@ -1,17 +1,19 @@
 0.8.1   (under development)
 
-    o   This release add Rcpp modules. An Rcpp module is a collection of
-	internal (c++) functions and classes that are exposed to R. Inspired
-	from Boost.Python
+    o   This release adds Rcpp modules. An Rcpp module is a collection of
+	internal (C++) functions and classes that are exposed to R. This
+	functionality has been inspired by Boost.Python.
 	
 	Modules are created internally using the RCPP_MODULE macro and
 	retrieved in the R side with the Module function. This is a preview 
 	release of the module functionality, which will keep improving until
-	the Rcpp 0.9.0 release. The vignette "Rcpp-modules" documents the current
-	feature set of modules.
+	the Rcpp 0.9.0 release. 
+
+        The new vignette "Rcpp-modules" documents the current feature set of
+        Rcpp modules.
 	
-    o   The vignette "Rcpp-package" details the steps involved in making a
-	package that uses Rcpp. 
+    o   The new vignette "Rcpp-package" details the steps involved in making a
+	package that uses Rcpp.
 
     o   Rcpp.package.skeleton has been improved to generate a package using 
 	an Rcpp module, controlled by the "module" argument
