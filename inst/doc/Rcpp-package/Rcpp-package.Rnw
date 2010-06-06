@@ -352,14 +352,15 @@ contains various examples of using \pkg{Rcpp} using both the extended
 (``new'') API and the older (``classic'') API.  Hence, the \pkg{RcppExamples}
 package is provided as a template for employing \pkg{Rcpp} in packages.
 
-Other CRAN packages using the \pkg{Rcpp} package are \pkg{highlight}
-\citep{CRAN:highlight} and \pkg{minqa} \citep{CRAN:minqa} both of which
-follow precisely the guidelines of this document. Several other packages
-follow older (but still supported and appropriate) instructions. They can
-serve examples on how to get data to and from \proglang{C++} routines, but
-should not be considered templates for how to connect to \pkg{Rcpp}. The full
-list of packages using \pkg{Rcpp} can be found at the
-\href{http://CRAN.R-project.org/package=Rcpp}{CRAN page} of \pkg{Rcpp}.
+Other CRAN packages using the \pkg{Rcpp} package are \pkg{RcppArmadillo}
+\citep{CRAN:RcppArmadillo}, \pkg{highlight} \citep{CRAN:highlight},
+and \pkg{minqa} \citep{CRAN:minqa} all of which follow precisely the guidelines
+of this document. Several other packages follow older (but still supported
+and appropriate) instructions. They can serve examples on how to get data to
+and from \proglang{C++} routines, but should not be considered templates for
+how to connect to \pkg{Rcpp}. The full list of packages using \pkg{Rcpp} can
+be found at the \href{http://CRAN.R-project.org/package=Rcpp}{CRAN page} of
+\pkg{Rcpp}.
 
 \section{Other compilers}
 
