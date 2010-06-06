@@ -19,7 +19,7 @@
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
-\title{\pkg{Rcpp} frequently asked questions}
+\title{Frequently Asked Questions about \pkg{Rcpp}}
 
 <<echo=FALSE>>=
 link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
@@ -49,19 +49,22 @@ require(inline)
 \maketitle
 
 \abstract{
-  \noindent This document presents frequently asked questions about the 
-  \pkg{Rcpp} \citep{CRAN:Rcpp} package. 
+  \noindent This document attempts to answer the most Frequently Asked
+  Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp} package.
 }
 
-\section{Compiling}
-\subsection{How to use \pkg{Rcpp} in my package ?}
+\section{Compiling and Linking}
 
+\subsection{How to use \pkg{Rcpp} in my package ?}
 \label{make-package}
 
-\pkg{Rcpp} has been specifically designed to be used by other packages. 
-Making a package that uses \pkg{Rcpp} depends on the same mechanics that are 
-involved in making any \proglang{R} package that use compiled code \citep{R:exts}.
-Further steps, specific to \pkg{Rcpp} are described in a separate vignette. 
+\pkg{Rcpp} has been specifically designed to be used by other packages.
+Making a package that uses \pkg{Rcpp} depends on the same mechanics that are
+involved in making any \proglang{R} package that use compiled code --- so
+reading the \textsl{Writing R Extensions} manual \citep{R:exts} is a required
+first step.
+
+Further steps, specific to \pkg{Rcpp}, are described in a separate vignette.
 
 <<eval=FALSE>>=
 vignette( "Rcpp-package" )
@@ -70,15 +73,15 @@ vignette( "Rcpp-package" )
 \subsection{How to quickly prototype my code ?}
 \label{using-inline}
 
-The \pkg{inline} package \citep{CRAN:inline} provides the function
+The \pkg{inline} package \citep{CRAN:inline} provides the functions
 \Sexpr{link("cfunction")} and \Sexpr{link("cxxfunction")}. Below is a simple
-function that uses \texttt{accumulate} from the Standard Template Library to 
-sum the elements of a numeric vector. 
+function that uses \texttt{accumulate} from the (\proglang{C++}) Standard
+Template Library to sum the elements of a numeric vector.
 
 <<>>=
-fx <- cxxfunction( signature( x = "numeric" ), 
+fx <- cxxfunction( signature( x = "numeric" ),
 ' NumericVector xx(x); return wrap( std::accumulate( xx.begin(), xx.end(), 0.0 ) ) ; '
-, plugin = "Rcpp" 
+, plugin = "Rcpp"
 	)
 res <- fx( seq( 1, 10, by = 0.5 ) )
 res
@@ -87,13 +90,13 @@ stopifnot( identical( res, sum( seq( 1, 10, by = 0.5 ) ) ) )
 @
 
 \pkg{Rcpp} uses \pkg{inline} to power its entire unit test suite. Consult the
-\texttt{unitTests} directory of \pkg{Rcpp} for further examples.
+\texttt{unitTests} directory of \pkg{Rcpp} for over five hundred further examples.
 
 <<eval=FALSE>>=
 list.files( system.file( "unitTests", package = "Rcpp" ), pattern = "^runit[.]" )
 @
 
-One might want to use code that lives in a \proglang{C++} file instead of writing 
+One might want to use code that lives in a \proglang{C++} file instead of writing
 the code in a character string in R. This is easily achieved by using
 \Sexpr{link("readLines")} :
 
@@ -101,19 +104,19 @@ the code in a character string in R. This is easily achieved by using
 fx <- cxxfunction( signature(), readLines( "myfile.cpp"), plugin = "Rcpp" )
 @
 
-The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very 
+The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
 useful as it shows how \pkg{inline} runs the show.
 
 \subsection{But I want to compile my code with R CMD SHLIB}
 
-The recommended way is to use a package and follow \faq{make-package}. The next 
-recommanded way is to use \pkg{inline} and follow \faq{using-inline}
+The recommended way is to use a package and follow \faq{make-package}. The
+alternate recommendation is to use \pkg{inline} and follow \faq{using-inline}
 because it takes care of all the details.
 
-However, some people have expressed that they prefer not to follow recommended
+However, some people have shown that they prefer not to follow recommended
 guidelines and compile their code using the traditional \texttt{R CMD SHLIB}. To
 do this, we need to help \texttt{SHLIB} and let it know about the header files
-that \pkg{Rcpp} provides and the \proglang{C++} library the code must link 
+that \pkg{Rcpp} provides and the \proglang{C++} library the code must link
 against.
 
 <<lang=bash>>=
@@ -122,58 +125,88 @@ $ export PKG_CXXFLAGS=`Rscript -e "Rcpp:::CxxFlags()"`
 $ R CMD SHLIB myfile.cpp
 @
 
+This approach corresponds to the very earliest ways of building programs and
+can still be found in some older documents (as \textit{e.g.} some of Dirk's
+HPC Tutorial slides).  It is still not recommended as there are tools and
+automation mechanisms that can do the work for you.
+
+
+\subsection{What about \texttt{LinkingTo} ?}
+
+\proglang{R} has only limited support for cross-package linkage.
+
+We now employ the \texttt{LinkingTo} field of the \texttt{DESCRIPTION} file
+of packages using \pkg{Rcpp}. But this only helps in having \proglang{R}
+compute the location of the header files for us.
+
+The actual library location and argument still needs to be provided by the
+user. How to do so has been shown above, and we recommned you use either
+\faq{make-package} or  \faq{using-inline}.
+
+If and when \texttt{LinkingTo} changes and lives up to its name, we will be
+sure to adapt \pkg{Rcpp} as well.
+
 \subsection{Does \pkg{Rcpp} work on windows}
 
-Yes. 
+Yes of course. See the Windows binaries provided by CRAN.
+
 
 \subsection{Can I use \pkg{Rcpp} with Visual Studio}
 
-No. 
+Not a chance.
+
+And that is not because we are meanies but because \proglang{R} and Visual
+Studio simply do not get along. As \pkg{Rcpp} is all about extending
+\proglang{R} with \proglang{C++} interfaces, we are bound by the available
+toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
+complain to its vendor if you are still upset.
 
 
 \section{API}
 
 \subsection{Can I do matrix algebra with \pkg{Rcpp} ? }
 
-\emph{
-\pkg{Rcpp} allows element-wise operations on vector and matrices through 
-operator overloading and STL interface, but what if I want to multiply a 
-matrix by a vector, etc ...
-}
+\begin{quote}
+  \emph{\pkg{Rcpp} allows element-wise operations on vector and matrices through
+    operator overloading and STL interface, but what if I want to multiply a
+    matrix by a vector, etc ...}
+\end{quote}
 
-Currently, \pkg{Rcpp} does not provide binary operators to allow operations
-involving entire objects. Adding operators to \pkg{Rcpp} would be a major 
+\noindent Currently, \pkg{Rcpp} does not provide binary operators to allow operations
+involving entire objects. Adding operators to \pkg{Rcpp} would be a major
 project (if done right) involving advanced techniques such as expression
-templates. We currently do not plan to go in this direction, but we would 
+templates. We currently do not plan to go in this direction, but we would
 welcome external help. Please send us a design document.
 
 However, we have developed the \pkg{RcppArmadillo} package that provides
-a bridge between \pkg{Rcpp} and Armadillo. 
+a bridge between \pkg{Rcpp} and Armadillo.
 % TODO: add a reference to armadillo \ref{}
 Armadillo does support binary operators on its types in a way that takes
 full advantage of expression templates to remove temporaries and
-allow chaining of operations. 
+allow chaining of operations.
 
 % TODO: add an example of using armadillo to do matrix operations
 % <<lang=cpp>>=
-% 
+%
 % @
 
 \section{Support}
 \subsection{Where can I ask further questions ?}
 
-The \href{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel}{Rcpp-devel}
-mailing list hosted at R-forge is the best place. 
+The
+\href{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel}{Rcpp-devel}
+mailing list hosted at R-forge is by far the best place.  You may also want
+to look at the list archives to see if your question has been asked before.
 
 \subsection{I like it. How can I help ?}
 \label{helping}
 
-We maintain some feature request in the r-forge tracker in the \pkg{Rcpp} project
-page. If you feel you want to draft code for these, we would be glad to 
-study patches and incorporate them in \pkg{Rcpp}. 
+We maintain some feature request in the R-forge tracker in the \pkg{Rcpp}
+project page. If you feel you want to draft code for these, we would be glad
+to study patches and incorporate them in \pkg{Rcpp}.
 
-You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN 
-that use \proglang{C++}, yet are not using \pkg{Rcpp}. 
+You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
+that use \proglang{C++}, yet are not using \pkg{Rcpp}.
 
 \subsection{I don't like it. How can I help ?}
 
