@@ -1,4 +1,11 @@
 
+## There is an old bug in texidvi that makes it not swallow the ~
+## marker used to denote whitespace. This is actually due to fixing
+## another bug they whereby you could not run texidvi on directory
+## names containing a tilde (as we happen to do for Debian builds of R
+## alpha/beta/rc releases). The 'tilde' bug will go away as it
+## reportedly has been squashed upstream but I am still bitten by it
+## on Ubuntu so for Dirk will insist on pdflatex and this variable helps
 whoami=$(shell whoami)
 
 all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf
@@ -76,7 +83,7 @@ endif
 	rm -fr Rcpp-package.log
 	rm Rcpp-package.Rnw
 	cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
-	
+
 Rcpp-FAQ.pdf : Rcpp-FAQ/Rcpp-FAQ.Rnw
 	rm Rcpp-FAQ.Rnw
 	cp -f Rcpp-FAQ/Rcpp-FAQ.Rnw .
