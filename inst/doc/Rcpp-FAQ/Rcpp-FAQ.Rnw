@@ -1,0 +1,187 @@
+\documentclass[10pt]{article}
+%\VignetteIndexEntry{Rcpp-FAQ}
+\usepackage{vmargin}
+\setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+\usepackage{color, alltt}
+\usepackage[authoryear,round,longnamesfirst]{natbib}
+\usepackage[colorlinks]{hyperref}
+\definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
+\hypersetup{
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link
+}
+
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+
+\author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
+\title{\pkg{Rcpp} frequently asked questions}
+
+<<echo=FALSE>>=
+link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	h <- if( missing(package) ) {
+		as.character( help( f ) )
+	} else {
+		as.character( help( f, package = paste( package, sep = "" ) ) )
+	}
+	if( ! length(h) ){
+		sprintf( "\\\\textbf{%s}", f )
+	} else {
+		rx <- "^.*/([^/]*?)/help/(.*?)$"
+		package <- sub( rx, "\\1", h, perl = TRUE )
+		page <- sub( rx, "\\2", h, perl = TRUE )
+		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+	}
+}
+linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	link( sprintf("%s-class", cl), package, text, root )
+}
+require(inline)
+@
+
+\newcommand{\faq}[1]{\textbf{FAQ~\ref{#1}}}
+
+\begin{document}
+\maketitle
+
+\abstract{
+  \noindent This document presents frequently asked questions about the 
+  \pkg{Rcpp} \citep{CRAN:Rcpp} package. 
+}
+
+\section{Compiling}
+\subsection{How to use \pkg{Rcpp} in my package ?}
+
+\label{make-package}
+
+\pkg{Rcpp} has been specifically designed to be used by other packages. 
+Making a package that uses \pkg{Rcpp} depends on the same mechanics that are 
+involved in making any \proglang{R} package that use compiled code \citep{R:exts}.
+Further steps, specific to \pkg{Rcpp} are described in a separate vignette. 
+
+<<eval=FALSE>>=
+vignette( "Rcpp-package" )
+@
+
+\subsection{How to quickly prototype my code ?}
+\label{using-inline}
+
+The \pkg{inline} package \citep{CRAN:inline} provides the function
+\Sexpr{link("cfunction")} and \Sexpr{link("cxxfunction")}. Below is a simple
+function that uses \texttt{accumulate} from the Standard Template Library to 
+sum the elements of a numeric vector. 
+
+<<>>=
+fx <- cxxfunction( signature( x = "numeric" ), 
+' NumericVector xx(x); return wrap( std::accumulate( xx.begin(), xx.end(), 0.0 ) ) ; '
+, plugin = "Rcpp" 
+	)
+res <- fx( seq( 1, 10, by = 0.5 ) )
+res
+<<echo=FALSE>>=
+stopifnot( identical( res, sum( seq( 1, 10, by = 0.5 ) ) ) )
+@
+
+\pkg{Rcpp} uses \pkg{inline} to power its entire unit test suite. Consult the
+\texttt{unitTests} directory of \pkg{Rcpp} for further examples.
+
+<<eval=FALSE>>=
+list.files( system.file( "unitTests", package = "Rcpp" ), pattern = "^runit[.]" )
+@
+
+One might want to use code that lives in a \proglang{C++} file instead of writing 
+the code in a character string in R. This is easily achieved by using
+\Sexpr{link("readLines")} :
+
+<<eval=FALSE>>=
+fx <- cxxfunction( signature(), readLines( "myfile.cpp"), plugin = "Rcpp" )
+@
+
+The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very 
+useful as it shows how \pkg{inline} runs the show.
+
+\subsection{But I want to compile my code with R CMD SHLIB}
+
+The recommended way is to use a package and follow \faq{make-package}. The next 
+recommanded way is to use \pkg{inline} and follow \faq{using-inline}
+because it takes care of all the details.
+
+However, some people have expressed that they prefer not to follow recommended
+guidelines and compile their code using the traditional \texttt{R CMD SHLIB}. To
+do this, we need to help \texttt{SHLIB} and let it know about the header files
+that \pkg{Rcpp} provides and the \proglang{C++} library the code must link 
+against.
+
+<<lang=bash>>=
+$ export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
+$ export PKG_CXXFLAGS=`Rscript -e "Rcpp:::CxxFlags()"`
+$ R CMD SHLIB myfile.cpp
+@
+
+\subsection{Does \pkg{Rcpp} work on windows}
+
+Yes. 
+
+\subsection{Can I use \pkg{Rcpp} with Visual Studio}
+
+No. 
+
+
+\section{API}
+
+\subsection{Can I do matrix algebra with \pkg{Rcpp} ? }
+
+\emph{
+\pkg{Rcpp} allows element-wise operations on vector and matrices through 
+operator overloading and STL interface, but what if I want to multiply a 
+matrix by a vector, etc ...
+}
+
+Currently, \pkg{Rcpp} does not provide binary operators to allow operations
+involving entire objects. Adding operators to \pkg{Rcpp} would be a major 
+project (if done right) involving advanced techniques such as expression
+templates. We currently do not plan to go in this direction, but we would 
+welcome external help. Please send us a design document.
+
+However, we have developed the \pkg{RcppArmadillo} package that provides
+a bridge between \pkg{Rcpp} and Armadillo. 
+% TODO: add a reference to armadillo \ref{}
+Armadillo does support binary operators on its types in a way that takes
+full advantage of expression templates to remove temporaries and
+allow chaining of operations. 
+
+% TODO: add an example of using armadillo to do matrix operations
+% <<lang=cpp>>=
+% 
+% @
+
+\section{Support}
+\subsection{Where can I ask further questions ?}
+
+The \href{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel}{Rcpp-devel}
+mailing list hosted at R-forge is the best place. 
+
+\subsection{I like it. How can I help ?}
+\label{helping}
+
+We maintain some feature request in the r-forge tracker in the \pkg{Rcpp} project
+page. If you feel you want to draft code for these, we would be glad to 
+study patches and incorporate them in \pkg{Rcpp}. 
+
+You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN 
+that use \proglang{C++}, yet are not using \pkg{Rcpp}. 
+
+\subsection{I don't like it. How can I help ?}
+
+It is very generous of you to still want to help. Perhaps you can tell us
+what it is that you dislike. We are very open to \emph{constructive} criticism.
+
+\bibliographystyle{abbrvnat}
+\bibliography{Rcpp-modules}
+
+\end{document}
+
