@@ -6,7 +6,7 @@
 \usepackage{color, alltt}
 \usepackage[authoryear,round,longnamesfirst]{natbib}
 \usepackage[colorlinks]{hyperref}
-\definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
+\definecolor{link}{rgb}{0,0,0.5}	%% next few lines courtesy of RJournal.sty
 \hypersetup{
     colorlinks,%
     citecolor=link,%
@@ -107,9 +107,19 @@ fx <- cxxfunction( signature(), readLines( "myfile.cpp"), plugin = "Rcpp" )
 The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
 useful as it shows how \pkg{inline} runs the show.
 
+\subsection{How to convert my prototyped code to a package?}
+\label{from-inline-to-package}
+
+Since release 0.3.5 of \pkg{inline}, one can combine \faq{using-inline} and
+\faq{make-package}. See \verb|help("package.skeleton-methods")| once
+\pkg{inline} is loaded and use the skeleton-generating functionality to
+transform a prototyped function into the minimal structure of a package.
+After that you can proceed with working on the package in the spirit of
+\faq{make-package}.
+
 \subsection{But I want to compile my code with R CMD SHLIB}
 
-The recommended way is to use a package and follow \faq{make-package}. The
+The recommended way is to create a package and follow \faq{make-package}. The
 alternate recommendation is to use \pkg{inline} and follow \faq{using-inline}
 because it takes care of all the details.
 
@@ -181,7 +191,7 @@ templates. We currently do not plan to go in this direction, but we would
 welcome external help. Please send us a design document.
 
 However, we have developed the \pkg{RcppArmadillo} package that provides a
-bridge between \pkg{Rcpp} and Armadillo \citep{Armadillo}.  Armadillo
+bridge between \pkg{Rcpp} and \pkg{Armadillo} \citep{Armadillo}.  \pkg{Armadillo}
 supports binary operators on its types in a way that takes full advantage of
 expression templates to remove temporaries and allow chaining of
 operations. That is a mouthful of words meaning that it makes the code go
@@ -192,6 +202,17 @@ meta programming, an advanced \proglang{C++} technique.
 % <<lang=cpp>>=
 %
 % @
+
+\subsection{Is the API documented ? }
+
+You bet. We use \proglang{doxygen} to generate html, latex and man page
+documentation from the source. The html documentation is available for
+\href{http://dirk.eddelbuettel.com/code/rcpp/html/index.html}{browsing}, as a
+\href{http://dirk.eddelbuettel.com/code/rcpp/Rcpp_refman.pdf}{very large pdf file},
+and all three formats are also available a zip-archives:
+\href{http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-html.zip}{html},
+\href{http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-latex.zip}{latex}, and
+\href{http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-man.zip}{man}.
 
 \section{Support}
 \subsection{Where can I ask further questions ?}
