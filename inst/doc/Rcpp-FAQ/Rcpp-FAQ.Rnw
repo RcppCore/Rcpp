@@ -126,9 +126,10 @@ $ R CMD SHLIB myfile.cpp
 @
 
 This approach corresponds to the very earliest ways of building programs and
-can still be found in some older documents (as \textit{e.g.} some of Dirk's
-HPC Tutorial slides).  It is still not recommended as there are tools and
-automation mechanisms that can do the work for you.
+can still be found in some deprecated documents (as \textit{e.g.} some of
+Dirk's older 'Intro to HPC with R' tutorial slides).  It is still not
+recommended as there are tools and automation mechanisms that can do the work
+for you.
 
 
 \subsection{What about \texttt{LinkingTo} ?}
@@ -141,7 +142,8 @@ compute the location of the header files for us.
 
 The actual library location and argument still needs to be provided by the
 user. How to do so has been shown above, and we recommned you use either
-\faq{make-package} or  \faq{using-inline}.
+\faq{make-package} or \faq{using-inline} both which use the \pkg{Rcpp}
+function \texttt{Rcpp:::LdFlags()}.
 
 If and when \texttt{LinkingTo} changes and lives up to its name, we will be
 sure to adapt \pkg{Rcpp} as well.
@@ -178,12 +180,13 @@ project (if done right) involving advanced techniques such as expression
 templates. We currently do not plan to go in this direction, but we would
 welcome external help. Please send us a design document.
 
-However, we have developed the \pkg{RcppArmadillo} package that provides
-a bridge between \pkg{Rcpp} and Armadillo.
-% TODO: add a reference to armadillo \ref{}
-Armadillo does support binary operators on its types in a way that takes
-full advantage of expression templates to remove temporaries and
-allow chaining of operations.
+However, we have developed the \pkg{RcppArmadillo} package that provides a
+bridge between \pkg{Rcpp} and Armadillo \citep{Armadillo}.  Armadillo
+supports binary operators on its types in a way that takes full advantage of
+expression templates to remove temporaries and allow chaining of
+operations. That is a mouthful of words meaning that it makes the code go
+faster by using fiendishly clever ways available via the so-called template
+meta programming, an advanced \proglang{C++} technique.
 
 % TODO: add an example of using armadillo to do matrix operations
 % <<lang=cpp>>=
