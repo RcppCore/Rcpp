@@ -269,7 +269,7 @@ local({
 })
 @
 
-The \texttt{Makevars.win} is the equivalent, targetting windows.
+The \texttt{Makevars.win} is the equivalent, targeting windows.
 
 <<echo=FALSE,results=tex>>=
 local({
@@ -373,14 +373,14 @@ not possible to simply drop sources (or header files) from \pkg{Rcpp} into a
 \proglang{C++} project built with Visual Studio, and this note makes no
 attempt at claiming otherwise.
 
-\pkg{Rcpp} is fully useable on Windows provided the standard Windows
+\pkg{Rcpp} is fully usable on Windows provided the standard Windows
 toolchain for \proglang{R} is used. See the \textsl{Writing R Extensions}
 manual~\citep{R:exts} for details.
 
 \section{Summary}
 
 This document described how to use the \pkg{Rcpp} package for \proglang{R}
-amd \proglang{C++} integration when writing an \proglang{R} extension
+and \proglang{C++} integration when writing an \proglang{R} extension
 package. The use of the \Sexpr{link("Rcpp.package.skeleton")} was shown in
 detail, and references to further examples were provided.
 
