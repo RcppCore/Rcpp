@@ -1,0 +1,4 @@
+\documentclass[10pt]{article}
+%\VignetteIndexEntry{Rcpp-FAQ}
+\begin{document}
+\end{document}

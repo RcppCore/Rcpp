@@ -1,15 +1,17 @@
 
 whoami=$(shell whoami)
 
-all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf
+all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf
 
 clean:
 	touch Rcpp-unitTests.pdf
 	touch Rcpp-introduction.pdf
 	touch Rcpp-modules.pdf
+	touch Rcpp-FAQ.pdf
 	rm Rcpp-introduction.pdf
 	rm Rcpp-unitTests.pdf
 	rm Rcpp-modules.pdf
+	rm Rcpp-FAQ.pdf
 	touch index.html
 	rm index.html
 
@@ -74,3 +76,25 @@ endif
 	rm -fr Rcpp-package.log
 	rm Rcpp-package.Rnw
 	cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
+	
+Rcpp-FAQ.pdf : Rcpp-FAQ/Rcpp-FAQ.Rnw
+	rm Rcpp-FAQ.Rnw
+	cp -f Rcpp-FAQ/Rcpp-FAQ.Rnw .
+	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-FAQ.Rnw', driver = driver ); "
+	Rscript -e "tools::texi2dvi( 'Rcpp-FAQ.tex', pdf = TRUE, clean = FALSE )"
+	bibtex Rcpp-FAQ
+ifeq ($(whoami),edd)
+	pdflatex Rcpp-FAQ
+	pdflatex Rcpp-FAQ
+else
+	Rscript -e "tools::texi2dvi( 'Rcpp-FAQ.tex', pdf = TRUE, clean = TRUE )"
+endif
+	rm -fr Rcpp-FAQ.tex
+	rm -fr Rcpp-FAQ.bbl
+	rm -fr Rcpp-FAQ.blg
+	rm -fr Rcpp-FAQ.aux
+	rm -fr Rcpp-FAQ.out
+	rm -fr Rcpp-FAQ.log
+	rm Rcpp-FAQ.Rnw
+	cp Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
+
