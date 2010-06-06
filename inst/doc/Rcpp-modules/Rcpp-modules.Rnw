@@ -48,20 +48,20 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 \abstract{
   \noindent
   This note discusses \textsl{Rcpp modules} which have been introduced in
-  version 0.8.1 of \pkg{Rcpp}.  \textsl{Rcpp modules} allow programmers to
+  version 0.8.1 of the \pkg{Rcpp} package.  \textsl{Rcpp modules} allow programmers to
   expose \proglang{C++} functions and classes to \proglang{R} with relative
   ease.  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
   \proglang{C++} library \citep{Boost:Python} which provides the same
-  features (and much more) for Python. This document is a short overview of
-  the capabilities of modules.
+  features (and much more) for Python.
+  % redunant:  This document is a short overview of the capabilities of \textsl{Rcpp modules}.
 }
 
 \section{Motivation}
 
 Exposing \proglang{C++} functionality to \proglang{R} is greatly facilitated
 by the \pkg{Rcpp} package and underlying \proglang{C++} library
-\citep{CRAN:Rcpp}. \pkg{Rcpp} smoothese many of the rough edges in
-\proglang{R} and \proglang{C++} integration by replacing the traditionnal
+\citep{CRAN:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
+\proglang{R} and \proglang{C++} integration by replacing the traditional
 \proglang{R} API \citep{R:exts} with a consistent set of \proglang{C++}
 classes.
 
@@ -76,9 +76,9 @@ usually involves several steps. One often writes either an additional wrapper
 function that is responsible for converting input objects to the appropriate
 types, calling the actual worker function and converting the results back to
 a suitable type that can be returned to R. Alternatively, one can alter the
-worker function by changes its signature and return value the interface
+worker function by changes to its signature and return value of the interface
 prescribed by the \texttt{.Call()} function of the \proglang{R} API. The
-return type has to the traditionnal \texttt{SEXP} from the \proglang{R}
+return type has to the traditional \texttt{SEXP} from the \proglang{R}
 API. But with \pkg{Rcpp} we can also use one of the many types from the
 \pkg{Rcpp} API that offers implicit conversion to \texttt{SEXP}.
 
@@ -353,7 +353,7 @@ The construction of the object is then followed by two calls to the
 \item member functions of the target class, such as \texttt{greet} or \texttt{set}, by
 providing the name that will be used on the \proglang{R} side (e.g. \texttt{greet}) and
 a pointer to the actual member function (e.g. \texttt{\&World::greet} )
-\item free funtions that take a pointer to the target class as their
+\item free functions that take a pointer to the target class as their
 first parameter such as the \proglang{C++} function \texttt{clearWorld} in the previous
 example. Again, we provide the \proglang{R} name for the method (\texttt{clear}) and
 a pointer to the \proglang{C++} function.
@@ -361,7 +361,7 @@ a pointer to the \proglang{C++} function.
 
 The module exposes the default constructor of the \texttt{World} class as
 well to support creation of \texttt{World} objects from \proglang{R}. The
-\pkg{Rcpp} module assumes responsabilities for type conversion for input and
+\pkg{Rcpp} module assumes responsibilities for type conversion for input and
 output types.
 
 <<eval=FALSE>>=
@@ -515,7 +515,7 @@ void vec_set( vec* obj, int i, double value ){
 
 RCPP_MODULE(yada){
     using namespace Rcpp ;
-    
+
     // we expose the class std::vector<double> as "vec" on the R side
     class_<vec>( "vec")
 
@@ -529,18 +529,18 @@ RCPP_MODULE(yada){
     .method( "push_back", &vec::push_back )
     .method( "pop_back", &vec::pop_back )
     .method( "clear", &vec::clear )
-    
+
     // specifically exposing const member functions
     .const_method( "back", &vec::back )
     .const_method( "front", &vec::front )
     .const_method( "at", &vec::at )
-    
+
     // exposing free functions taking a std::vector<double>*
     // as their first argument
     .method( "assign", &vec_assign )
     .method( "insert", &vec_insert )
     .method( "as.vector", &vec_asR )
-    
+
     // special methods for indexing
     .const_method( "[[", &vec::at )
     .method( "[[<-", &vec_set )
@@ -607,12 +607,18 @@ prompt( yada, "yada-module.Rd" )
 @
 
 \section{Future extensions}
-       
+
 \texttt{Boost.Python} has many more features that we would like to port
 to Rcpp modules : class inheritance, overloading, default arguments, enum
 types, ...
 
-\section{References}
+\section{Summary}
+
+This note introduced \textsl{Rcpp modules} and illustrated how to expose
+\proglang{C++} function and classes more easily to \proglang{R}.
+\textsl{Rcpp modules} is a relatively new addition to the \pkg{Rcpp} package
+and will probably undergo a few more changes. We hope that \proglang{R} and
+\proglang{C++} programmers find \textsl{Rcpp modules} useful.
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp-modules}
