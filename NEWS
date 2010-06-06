@@ -15,6 +15,9 @@
     o   The new vignette "Rcpp-package" details the steps involved in making a
 	package that uses Rcpp.
 
+    o   The new vignette "Rcpp-FAQ" collects a number of frequently asked
+	questions and answers about Rcpp.
+
     o   Rcpp.package.skeleton has been improved to generate a package using 
 	an Rcpp module, controlled by the "module" argument
 
