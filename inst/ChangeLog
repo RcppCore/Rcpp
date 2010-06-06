@@ -1,6 +1,10 @@
+2010-06-05  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/doc/Rcpp-FAQ*: new mini vignette "Rcpp-FAQ"
+
 2010-06-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-package*: Extended mini vignette "Rcpp-package" 
+	* inst/doc/Rcpp-FAQ*: Extended mini vignette "Rcpp-FAQ"
 
 2010-06-04  Romain Francois <romain@r-enthusiasts.com>
 
