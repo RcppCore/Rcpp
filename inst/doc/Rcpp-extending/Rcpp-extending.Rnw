@@ -1,0 +1,88 @@
+\documentclass[10pt]{article}
+%\VignetteIndexEntry{Rcpp-extending}
+\usepackage{vmargin}
+\setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+\usepackage{color, alltt}
+\usepackage[authoryear,round,longnamesfirst]{natbib}
+\usepackage[colorlinks]{hyperref}
+\definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
+\hypersetup{
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link
+}
+
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+
+\author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
+\title{Extending \pkg{Rcpp}}
+
+<<echo=FALSE>>=
+link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	h <- if( missing(package) ) {
+		as.character( help( f ) )
+	} else {
+		as.character( help( f, package = paste( package, sep = "" ) ) )
+	}
+	if( ! length(h) ){
+		sprintf( "\\\\textbf{%s}", f )
+	} else {
+		rx <- "^.*/([^/]*?)/help/(.*?)$"
+		package <- sub( rx, "\\1", h, perl = TRUE )
+		page <- sub( rx, "\\2", h, perl = TRUE )
+		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+	}
+}
+linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	link( sprintf("%s-class", cl), package, text, root )
+}
+@
+
+\begin{document}
+\maketitle
+
+\abstract{
+  \noindent
+  This note gives an overview of the mechanics programmers should follow to 
+  extend \pkg{Rcpp} \citep{CRAN:Rcpp} with their own classes. This document
+  is based on our experience to extending \pkg{Rcpp} to work with 
+  Armadillo \citep{Armadillo} classes, available in the separate package
+  \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}. This document assumes 
+  knowledge of \pkg{Rcpp} as well as some knowledge of \proglang{C++}
+  templates.
+  }
+
+  
+\section{Introduction}
+
+\pkg{Rcpp} pilots data interchange between \proglang{R} and \proglang{C++}
+through the templates \texttt{Rcpp::wrap} and \texttt{Rcpp::as} whose 
+declarations are : 
+
+<<lang=cpp>>=
+// conversion from C++ to R
+template <typename T> SEXP wrap(const T& object) ;
+
+// conversion from R to C++
+template <typename T> T as( SEXP m_sexp) throw(not_compatible) ;
+@
+
+These converters are often used implicitely, as in the following code chunk:
+
+<<lang=cpp>>=
+
+@
+
+
+
+
+
+\bibliographystyle{abbrvnat}
+\bibliography{Rcpp-modules}
+
+\end{document}
+
