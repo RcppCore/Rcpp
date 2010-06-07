@@ -392,7 +392,7 @@ package. The use of the \Sexpr{link("Rcpp.package.skeleton")} was shown in
 detail, and references to further examples were provided.
 
 \bibliographystyle{abbrvnat}
-\bibliography{Rcpp-modules}
+\bibliography{Rcpp}
 
 \end{document}
 

@@ -347,7 +347,7 @@ to either user-defined or third-party classes via the \texttt{Rcpp::as} and
 approaches were discussed.
 
 \bibliographystyle{abbrvnat}
-\bibliography{Rcpp-modules}
+\bibliography{Rcpp}
 
 \end{document}
 
