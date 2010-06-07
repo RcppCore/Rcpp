@@ -80,8 +80,8 @@ require( Rcpp )
   \noindent
   This note provides an overview of the steps programmers should follow to
   extend \pkg{Rcpp} \citep{CRAN:Rcpp} for use with their own classes. This document
-  is based on our experience to extending \pkg{Rcpp} to work with the
-  Armadillo \citep{Armadillo} classes, available in the separate package
+  is based on our experience in extending \pkg{Rcpp} to work with the
+  \pkg{Armadillo} \citep{Armadillo} classes, available in the separate package
   \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}. This document assumes
   knowledge of \pkg{Rcpp} as well as some knowledge of \proglang{C++}
   templates.
@@ -90,10 +90,10 @@ require( Rcpp )
 
 \section{Introduction}
 
-\pkg{Rcpp} facilitates data interchange between \proglang{R} and \proglang{C++}
-through the templates \texttt{Rcpp::as} (for conversion from \proglang{C++}) and
-\texttt{Rcpp::wrap} (for conversion to \proglang{C++}).
-Their declarations are as follows:
+\pkg{Rcpp} facilitates data interchange between \proglang{R} and
+\proglang{C++} through the templated member functions \texttt{Rcpp::as} (for
+conversion from \proglang{C++}) and \texttt{Rcpp::wrap} (for conversion to
+\proglang{C++}).  Their declarations are as follows:
 
 <<lang=cpp>>=
 // conversion from R to C++
@@ -338,6 +338,13 @@ of the \texttt{Bling<T>} type.
 unlink( "code.cpp" )
 @
 
+\section{Summary}
+
+The \pkg{Rcpp} package greatly facilitates the transfer of objects between
+\proglang{R} and \proglang{C++}. This note has shown how to extend \pkg{Rcpp}
+to either user-defined or third-party classes via the \texttt{Rcpp::as} and
+\texttt{Rcpp::wrap} template member functions. Both intrusive and
+non-intrusive approaches were discussed.
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp-modules}
