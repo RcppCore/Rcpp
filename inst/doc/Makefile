@@ -8,17 +8,19 @@
 ## on Ubuntu so for Dirk will insist on pdflatex and this variable helps
 whoami=$(shell whoami)
 
-all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf
+all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf
 
 clean:
 	touch Rcpp-unitTests.pdf
 	touch Rcpp-introduction.pdf
 	touch Rcpp-modules.pdf
 	touch Rcpp-FAQ.pdf
+	touch Rcpp-extending.pdf
 	rm Rcpp-introduction.pdf
 	rm Rcpp-unitTests.pdf
 	rm Rcpp-modules.pdf
 	rm Rcpp-FAQ.pdf
+	rm Rcpp-extending.pdf
 	touch index.html
 	rm index.html
 
@@ -105,24 +107,24 @@ endif
 	rm Rcpp-FAQ.Rnw
 	cp Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
 
-# Rcpp-extending.pdf : Rcpp-extending/Rcpp-extending.Rnw
-# 	rm Rcpp-extending.Rnw
-# 	cp -f Rcpp-extending/Rcpp-extending.Rnw .
-# 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-extending.Rnw', driver = driver ); "
-# 	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = FALSE )"
-# 	bibtex Rcpp-extending
-# ifeq ($(whoami),edd)
-# 	pdflatex Rcpp-extending
-# 	pdflatex Rcpp-extending
-# else
-# 	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = TRUE )"
-# endif
-# 	rm -fr Rcpp-extending.tex
-# 	rm -fr Rcpp-extending.bbl
-# 	rm -fr Rcpp-extending.blg
-# 	rm -fr Rcpp-extending.aux
-# 	rm -fr Rcpp-extending.out
-# 	rm -fr Rcpp-extending.log
-# 	rm Rcpp-extending.Rnw
-# 	cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
+Rcpp-extending.pdf : Rcpp-extending/Rcpp-extending.Rnw
+	rm Rcpp-extending.Rnw
+	cp -f Rcpp-extending/Rcpp-extending.Rnw .
+	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-extending.Rnw', driver = driver ); "
+	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = FALSE )"
+	bibtex Rcpp-extending
+ifeq ($(whoami),edd)
+	pdflatex Rcpp-extending
+	pdflatex Rcpp-extending
+else
+	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = TRUE )"
+endif
+	rm -fr Rcpp-extending.tex
+	rm -fr Rcpp-extending.bbl
+	rm -fr Rcpp-extending.blg
+	rm -fr Rcpp-extending.aux
+	rm -fr Rcpp-extending.out
+	rm -fr Rcpp-extending.log
+	rm Rcpp-extending.Rnw
+	cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
 	
