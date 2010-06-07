@@ -78,28 +78,29 @@ require( Rcpp )
 
 \abstract{
   \noindent
-  This note gives an overview of the mechanics programmers should follow to 
-  extend \pkg{Rcpp} \citep{CRAN:Rcpp} with their own classes. This document
-  is based on our experience to extending \pkg{Rcpp} to work with 
+  This note provides an overview of the steps programmers should follow to
+  extend \pkg{Rcpp} \citep{CRAN:Rcpp} for use with their own classes. This document
+  is based on our experience to extending \pkg{Rcpp} to work with the
   Armadillo \citep{Armadillo} classes, available in the separate package
-  \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}. This document assumes 
+  \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}. This document assumes
   knowledge of \pkg{Rcpp} as well as some knowledge of \proglang{C++}
   templates.
   }
 
-  
+
 \section{Introduction}
 
-\pkg{Rcpp} pilots data interchange between \proglang{R} and \proglang{C++}
-through the templates \texttt{Rcpp::wrap} and \texttt{Rcpp::as} whose 
-declarations are : 
+\pkg{Rcpp} facilitates data interchange between \proglang{R} and \proglang{C++}
+through the templates \texttt{Rcpp::as} (for conversion from \proglang{C++}) and
+\texttt{Rcpp::wrap} (for conversion to \proglang{C++}).
+Their declarations are as follows:
 
 <<lang=cpp>>=
-// conversion from C++ to R
-template <typename T> SEXP wrap(const T& object) ;
-
 // conversion from R to C++
 template <typename T> T as( SEXP m_sexp) throw(not_compatible) ;
+
+// conversion from C++ to R
+template <typename T> SEXP wrap(const T& object) ;
 @
 
 These converters are often used implicitely, as in the following code chunk:
@@ -115,8 +116,8 @@ std::vector<double> x = input["x"] ;
 
 // return an R list
 // this is achieved through implicit call to Rcpp::wrap
-return List::create( 
-    _["front"] = x.front(), 
+return List::create(
+    _["front"] = x.front(),
     _["back"]  = x.back()
     ) ;
 '
@@ -127,32 +128,32 @@ ex_highlight( "code.cpp" )
 @
 
 <<>>=
-fx <- cxxfunction( signature( input_ = "list"), 
-	paste( readLines( "code.cpp" ), collapse = "\n" ), 
+fx <- cxxfunction( signature( input_ = "list"),
+	paste( readLines( "code.cpp" ), collapse = "\n" ),
 	plugin = "Rcpp"
 	)
 input <- list( x = seq(1, 10, by = 0.5) )
 fx( input )
 @
 
-\pkg{Rcpp} converters \texttt{Rcpp::as} and \texttt{Rcpp::wrap} have been 
-designed to be extensible to user defined types and third party types.
+The \pkg{Rcpp} converter function \texttt{Rcpp::as} and \texttt{Rcpp::wrap} have been
+designed to be extensible to user-defined types and third-party types.
 
 \section[Extending Rcpp::wrap]{Extending \texttt{Rcpp::wrap} }
 
-The \pkg{Rcpp::wrap} converter is extensible in essentially two ways : intrusive 
-and non-intrusive. 
+The \pkg{Rcpp::wrap} converter is extensible in essentially two ways : intrusive
+and non-intrusive.
 
 \subsection{Intrusive extension}
 
-When extending \pkg{Rcpp} with your own data type, the recommended way to 
-let \texttt{Rcpp::wrap} know about them is to implement a conversion to 
-\texttt{SEXP}. The template meta programming dispatch is able to recognize that
-a type is convertible to a \texttt{SEXP} and \texttt{Rcpp::wrap} will use
-that conversion. 
+When extending \pkg{Rcpp} with your own data type, the recommended way is to
+implement a conversion to \texttt{SEXP}. This lets \texttt{Rcpp::wrap} know
+about the new data type.  The template meta programming (TMP) dispatch is able to
+recognize that a type is convertible to a \texttt{SEXP} and
+\texttt{Rcpp::wrap} will use that conversion.
 
-The caveat is that the type must be declared before the main header 
-file \texttt{Rcpp.h} is included. 
+The caveat is that the type must be declared before the main header
+file \texttt{Rcpp.h} is included.
 
 <<lang=cpp>>=
 #include <RcppCommon.h>
@@ -160,7 +161,7 @@ file \texttt{Rcpp.h} is included.
 class Foo{
     public:
         Foo() ;
-        
+
         // this operator enables implicit Rcpp::wrap
         operator SEXP() ;
 }
@@ -169,17 +170,17 @@ class Foo{
 @
 
 This is called \emph{intrusive} because the conversion to \texttt{SEXP}
-operator has to be declared within the class. 
+operator has to be declared within the class.
 
-\subsection{Non intrusive extension}
+\subsection{Non-intrusive extension}
 
 It is often desirable to offer automatic conversion to third-party types, over
-which the developer has no control and can therefore not include a conversion 
-to \texttt{SEXP} operator in the class definition. 
+which the developer has no control and can therefore not include a conversion
+to \texttt{SEXP} operator in the class definition.
 
-To provide automatic conversion from \proglang{C++} to \proglang{R}, one must 
-declare a specialization of the \texttt{Rcpp::wrap} template between
-\texttt{RcppCommon.h} and \texttt{Rcpp.h} includes. 
+To provide automatic conversion from \proglang{C++} to \proglang{R}, one must
+declare a specialization of the \texttt{Rcpp::wrap} template between the
+includes of \texttt{RcppCommon.h} and \texttt{Rcpp.h}.
 
 <<lang=cpp>>=
 #include <RcppCommon.h>
@@ -191,21 +192,21 @@ declare a specialization of the \texttt{Rcpp::wrap} template between
 namespace Rcpp{
     template <> SEXP wrap( const Bar& ) ;
 }
-                                
-// this must appear after the specialization, 
+
+// this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 @
 
-It should be noted that only the declaration is required, the implementation
-can appear after the \texttt{Rcpp.h} file is included, and therefore take 
+It should be noted that only the declaration is required. The implementation
+can appear after the \texttt{Rcpp.h} file is included, and therefore take
 full advantage of the \pkg{Rcpp} type system.
 
 \subsection{Templates and partial specialization}
 
-It is perfectly valid to declare a partial specialization for the 
-\texttt{Rcpp::wrap} template. The compiler will identify the appropriate 
-overload: 
+It is perfectly valid to declare a partial specialization for the
+\texttt{Rcpp::wrap} template. The compiler will identify the appropriate
+overload:
 
 <<lang=cpp>>=
 #include <RcppCommon.h>
@@ -215,12 +216,12 @@ overload:
 
 // declaring the partial specialization
 namespace Rcpp{ namespace traits {
-    
+
     template <typename T> SEXP wrap( const Bling<T>& ) ;
 
 } }
-                                
-// this must appear after the specialization, 
+
+// this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 
@@ -229,13 +230,13 @@ namespace Rcpp{ namespace traits {
 
 \section[Extending Rcpp::as]{Extending \texttt{Rcpp::as}}
 
-Conversion from \proglang{R} to \proglang{C++} is also possible 
-in both intrusive and non-intrusive ways. 
+Conversion from \proglang{R} to \proglang{C++} is also possible
+in both intrusive and non-intrusive ways.
 
 \subsection{Intrusive extension}
 
 As part of its template meta programming dispatch logic, \pkg{Rcpp::as}
-will attempt to use the constructor of the target class taking a \texttt{SEXP}. 
+will attempt to use the constructor of the target class taking a \texttt{SEXP}.
 
 <<lang=cpp>>=
 #include <RcppCommon.h>
@@ -245,7 +246,7 @@ will attempt to use the constructor of the target class taking a \texttt{SEXP}.
 class Foo{
     public:
         Foo() ;
-        
+
         // this constructor enables implicit Rcpp::as
         Foo(SEXP) ;
 }
@@ -253,14 +254,14 @@ class Foo{
 #include <Rcpp.h>
 
 
-// this must appear after the specialization, 
+// this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 @
 
 \subsection{Non intrusive extension}
 
-It is also possible to fully specialize \texttt{Rcpp::as} to enable 
+It is also possible to fully specialize \texttt{Rcpp::as} to enable
 non intrusive implicit conversion capabilities.
 
 <<lang=cpp>>=
@@ -273,19 +274,19 @@ non intrusive implicit conversion capabilities.
 namespace Rcpp{
     template <> Bar as( SEXP ) throw(not_compatible) ;
 }
-                                
-// this must appear after the specialization, 
+
+// this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 @
 
 \subsection{Templates and partial specialization}
 
-The signature of \texttt{Rcpp::as} does not allow partial specialization. 
-When exposing a templated class to \texttt{Rcpp::as}, the programmer must 
-specialize the \pkg{Rcpp::traits::Exporter} template class. The TMP dispatch 
+The signature of \texttt{Rcpp::as} does not allow partial specialization.
+When exposing a templated class to \texttt{Rcpp::as}, the programmer must
+specialize the \pkg{Rcpp::traits::Exporter} template class. The TMP dispatch
 will recognize that a specialization of \texttt{Exporter} is available
-and delegate the conversion to this class. \pkg{Rcpp} defines 
+and delegate the conversion to this class. \pkg{Rcpp} defines
 the \texttt{Rcpp::traits::Exporter} template class as follows :
 
 <<lang=cpp>>=
@@ -295,7 +296,7 @@ namespace Rcpp{ namespace traits{
     public:
         Exporter( SEXP x ) : t(x){}
         inline T get(){ return t ; }
-    
+
     private:
         T t ;
     } ;
@@ -303,7 +304,7 @@ namespace Rcpp{ namespace traits{
 } }
 @
 
-This is the reason why the default behavior of \texttt{Rcpp::as} is to 
+This is the reason why the default behavior of \texttt{Rcpp::as} is to
 invoke the constructor of the type \texttt{T} taking a \texttt{SEXP}.
 
 Since partial specialization of class templates is allowed, we can expose
@@ -319,17 +320,17 @@ a set of classes as follows:
 namespace Rcpp{ namespace traits {
     template <typename T> class Exporter< Bling<T> >;
 } }
-                                
-// this must appear after the specialization, 
+
+// this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 @
 
-Using this approach, the requirements on the \texttt{Exporter< Bling<T> >}
+Using this approach, the requirements for the \texttt{Exporter< Bling<T> >}
 class are:
 \begin{itemize}
 \item it should have a constructor taking a \texttt{SEXP}
-\item it should have a methods called \texttt{get} that returns an instance 
+\item it should have a methods called \texttt{get} that returns an instance
 of the \texttt{Bling<T>} type.
 \end{itemize}
 
