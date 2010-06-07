@@ -621,7 +621,7 @@ and will probably undergo a few more changes. We hope that \proglang{R} and
 \proglang{C++} programmers find \textsl{Rcpp modules} useful.
 
 \bibliographystyle{abbrvnat}
-\bibliography{Rcpp-modules}
+\bibliography{Rcpp}
 
 \end{document}
 

@@ -277,7 +277,7 @@ although Armadillo turns it into only one operation, which makes it quite fast.
 Armadillo benchmarks against other \proglang{C++} matrix algebra libraries
 are provided on \href{http://arma.sourceforge.net/speed.html}{the Armadillo website}.
 
-It should be noted that code below depends on the version \texttt{0.3.5} of 
+It should be noted that code below depends on the version \texttt{0.3.5} of
 \pkg{inline} and the version \texttt{0.2.2} of \pkg{RcppArmadillo}
 
 \subsection{Is the API documented ? }
@@ -315,7 +315,7 @@ It is very generous of you to still want to help. Perhaps you can tell us
 what it is that you dislike. We are very open to \emph{constructive} criticism.
 
 \bibliographystyle{abbrvnat}
-\bibliography{Rcpp-modules}
+\bibliography{Rcpp}
 
 \end{document}
 
