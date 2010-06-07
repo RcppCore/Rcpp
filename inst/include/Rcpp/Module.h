@@ -90,19 +90,19 @@ class Module {
 		Module()  ;
 		Module(const char* name_)  ;
 		      
-		SEXP invoke( const std::string& name, SEXP* args, int nargs) ;                        
+		SEXP invoke( const std::string& /* name */ SEXP* /* args */, int /* nargs */ ) ;                        
 		
 		Rcpp::IntegerVector functions_arity() ;
 		Rcpp::CharacterVector class_names() ;
 		Rcpp::List classes_info() ;
 		Rcpp::CharacterVector complete() ;
 		
-		inline void Add( const char* name, CppFunction* ptr){
-			functions.insert( FUNCTION_PAIR( name, ptr ) ) ;
+		inline void Add( const char* name_ , CppFunction* ptr){
+			functions.insert( FUNCTION_PAIR( name_ , ptr ) ) ;
 		}
 		
-		inline void AddClass(const char* name, class_Base* cptr){
-			classes.insert( CLASS_PAIR( name, cptr ) ) ;
+		inline void AddClass(const char* name_ , class_Base* cptr){
+			classes.insert( CLASS_PAIR( name_ , cptr ) ) ;
 		}
 
 		inline bool has_function( const std::string& m){
