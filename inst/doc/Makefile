@@ -105,3 +105,24 @@ endif
 	rm Rcpp-FAQ.Rnw
 	cp Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
 
+Rcpp-extending.pdf : Rcpp-extending/Rcpp-extending.Rnw
+	rm Rcpp-extending.Rnw
+	cp -f Rcpp-extending/Rcpp-extending.Rnw .
+	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-extending.Rnw', driver = driver ); "
+	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = FALSE )"
+	bibtex Rcpp-extending
+ifeq ($(whoami),edd)
+	pdflatex Rcpp-extending
+	pdflatex Rcpp-extending
+else
+	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = TRUE )"
+endif
+	rm -fr Rcpp-extending.tex
+	rm -fr Rcpp-extending.bbl
+	rm -fr Rcpp-extending.blg
+	rm -fr Rcpp-extending.aux
+	rm -fr Rcpp-extending.out
+	rm -fr Rcpp-extending.log
+	rm Rcpp-extending.Rnw
+	cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
+	
