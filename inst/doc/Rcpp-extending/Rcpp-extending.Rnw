@@ -84,8 +84,8 @@ require( Rcpp )
   \pkg{Armadillo} \citep{Armadillo} classes, available in the separate package
   \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}. This document assumes
   knowledge of \pkg{Rcpp} as well as some knowledge of \proglang{C++}
-  templates.
-  }
+  templates \citep{Abrahams+Gurtovoy:2004}.
+}
 
 
 \section{Introduction}
@@ -148,7 +148,7 @@ and non-intrusive.
 
 When extending \pkg{Rcpp} with your own data type, the recommended way is to
 implement a conversion to \texttt{SEXP}. This lets \texttt{Rcpp::wrap} know
-about the new data type.  The template meta programming (TMP) dispatch is able to
+about the new data type.  The template meta programming (or TMP) dispatch is able to
 recognize that a type is convertible to a \texttt{SEXP} and
 \texttt{Rcpp::wrap} will use that conversion.
 
