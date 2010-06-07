@@ -18,6 +18,10 @@
     o   The new vignette "Rcpp-FAQ" collects a number of frequently asked
         questions and answers about Rcpp.
 
+    o   The new vignette "Rcpp-extending" documents how to extend Rcpp
+    	with user defined types or types from third party libraries. Based on
+    	our experience with RcppArmadillo
+        
     o   Rcpp.package.skeleton has been improved to generate a package using 
         an Rcpp module, controlled by the "module" argument
 
