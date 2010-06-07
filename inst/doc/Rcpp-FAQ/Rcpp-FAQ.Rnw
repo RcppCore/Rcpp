@@ -138,8 +138,8 @@ the code in a character string in R. This is easily achieved by using
 \Sexpr{link("readLines")} :
 
 <<eval=FALSE>>=
-fx <- cxxfunction( signature(), 
-	paste( readLines( "myfile.cpp"), collapse = "\n" ), 
+fx <- cxxfunction( signature(),
+	paste( readLines( "myfile.cpp"), collapse = "\n" ),
 	plugin = "Rcpp" )
 @
 
@@ -237,7 +237,7 @@ operations. That is a mouthful of words meaning that it makes the code go
 faster by using fiendishly clever ways available via the so-called template
 meta programming, an advanced \proglang{C++} technique.
 
-The following example is adapted from the examples available at the project 
+The following example is adapted from the examples available at the project
 page of Armadillo. It calculate $ x' \times Y^{-1} \times z$
 
 <<echo=FALSE>>=
@@ -246,14 +246,14 @@ writeLines( '
     arma::colvec x = Rcpp::as<arma::colvec> (x_);
     arma::mat Y = Rcpp::as<arma::mat>( Y_ ) ;
     arma::colvec z = Rcpp::as<arma::colvec>( z_ ) ;
-       
-    // calculate the result 
+
+    // calculate the result
     double result = arma::as_scalar(
         arma::trans(x) * arma::inv(Y) * z
         );
-    
+
     // return it to R
-    return Rcpp::wrap( result );	
+    return Rcpp::wrap( result );
 ', "myfile.cpp" )
 @
 <<echo=FALSE,results=tex>>=
@@ -261,21 +261,22 @@ ex_highlight( "myfile.cpp" )
 @
 
 <<>>=
-fx <- cxxfunction( 
-	signature(x_ = "numeric", Y_ = "matrix", z_ = "numeric" ), 
-	paste( readLines( "myfile.cpp" ), collapse = "\n" ), 
+fx <- cxxfunction(
+	signature(x_ = "numeric", Y_ = "matrix", z_ = "numeric" ),
+	paste( readLines( "myfile.cpp" ), collapse = "\n" ),
 	plugin = "RcppArmadillo" )
-fx( 1:4, diag( 4 ), 1:4 ) 
+fx( 1:4, diag( 4 ), 1:4 )
 @
 <<echo=FALSE>>=
 unlink( "myfile.cpp" )
 @
 
-The focus is on the code \verb|arma::trans(x) * arma::inv(Y) * z|, which 
-performs the same operation as the R code \verb|t(x) %*% solve(Y) %*% z|, 
-although Armadillo turns it into only one operation, which makes it quite fast. 
-See \href{http://arma.sourceforge.net/speed.html}{http://arma.sourceforge.net/speed.html}
-for Armadillo benchmarks against other \proglang{C++} matrix algebra libraries. 
+The focus is on the code \verb|arma::trans(x) * arma::inv(Y) * z|, which
+performs the same operation as the R code \verb|t(x) %*% solve(Y) %*% z|,
+although Armadillo turns it into only one operation, which makes it quite fast.
+Armadillo benchmarks against other \proglang{C++} matrix algebra libraries
+are provided on \href{http://arma.sourceforge.net/speed.html}{the Armadillo website}.
+
 
 \subsection{Is the API documented ? }
 
