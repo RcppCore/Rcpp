@@ -18,7 +18,7 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 if( Rcpp:::capabilities()[["Rcpp modules"]] ) {
-	
+
 test.Module <- function(){
 
 	inc  <- '
@@ -101,7 +101,8 @@ test.Module <- function(){
     
 }
 
-
+# hide this one for now (suncc not happy about overloads)
+if(FALSE){
 test.Module.stdvec <- function(){
 
 code <- ''
@@ -161,6 +162,7 @@ RCPP_MODULE(yada){
 	checkEquals( v$at( 0 ), 1 )
 	checkEquals( v$as.vector(), c(1:10, 10 ) )
 	
+}
 }
 
 test.Module.property <- function(){

@@ -199,14 +199,14 @@ public:
 		END_RCPP	
 	}
 	
-	self& AddMethod( const char* name, method_class* m){
-		singleton->methods.insert( PAIR( name,m ) ) ;  
-		if( *name == '[' ) singleton->specials++ ;
+	self& AddMethod( const char* name_, method_class* m){
+		singleton->methods.insert( PAIR( name_,m ) ) ;  
+		if( *name_ == '[' ) singleton->specials++ ;
 		return *this ;
 	}
 	
-	self& AddProperty( const char* name, prop_class* p){
-		singleton->properties.insert( PROP_PAIR( name, p ) ) ;
+	self& AddProperty( const char* name_, prop_class* p){
+		singleton->properties.insert( PROP_PAIR( name_, p ) ) ;
 		return *this ;
 	}
 
@@ -255,9 +255,9 @@ public:
 		return out ;
 	}
 	
-	SEXP getProperty( const std::string& name, SEXP object) {
+	SEXP getProperty( const std::string& name_, SEXP object) {
 	BEGIN_RCPP
-		typename PROPERTY_MAP::iterator it = properties.find( name ) ;
+		typename PROPERTY_MAP::iterator it = properties.find( name_ ) ;
 		if( it == properties.end() ){
 			throw std::range_error( "no such property" ) ; 
 		}
@@ -266,9 +266,9 @@ public:
 	END_RCPP
 	}
 	
-	void setProperty( const std::string& name, SEXP object, SEXP value)  {
+	void setProperty( const std::string& name_, SEXP object, SEXP value)  {
 	BEGIN_RCPP
-		typename PROPERTY_MAP::iterator it = properties.find( name ) ;
+		typename PROPERTY_MAP::iterator it = properties.find( name_ ) ;
 		if( it == properties.end() ){
 			throw std::range_error( "no such property" ) ; 
 		}
