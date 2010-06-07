@@ -90,7 +90,7 @@ class Module {
 		Module()  ;
 		Module(const char* name_)  ;
 		      
-		SEXP invoke( const std::string& /* name */ SEXP* /* args */, int /* nargs */ ) ;                        
+		SEXP invoke( const std::string& /* name */,  SEXP* /* args */, int /* nargs */ ) ;                        
 		
 		Rcpp::IntegerVector functions_arity() ;
 		Rcpp::CharacterVector class_names() ;
