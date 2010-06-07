@@ -282,7 +282,6 @@ namespace Rcpp{
 \subsection{Templates and partial specialization}
 
 The signature of \texttt{Rcpp::as} does not allow partial specialization. 
-
 When exposing a templated class to \texttt{Rcpp::as}, the programmer must 
 specialize the \pkg{Rcpp::traits::Exporter} template class. The TMP dispatch 
 will recognize that a specialization of \texttt{Exporter} is available
