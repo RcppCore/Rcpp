@@ -91,7 +91,7 @@ require( Rcpp )
 \section{Introduction}
 
 \pkg{Rcpp} facilitates data interchange between \proglang{R} and
-\proglang{C++} through the templated member functions \texttt{Rcpp::as} (for
+\proglang{C++} through the templated functions \texttt{Rcpp::as} (for
 conversion from \proglang{C++}) and \texttt{Rcpp::wrap} (for conversion to
 \proglang{C++}).  Their declarations are as follows:
 
@@ -343,8 +343,8 @@ unlink( "code.cpp" )
 The \pkg{Rcpp} package greatly facilitates the transfer of objects between
 \proglang{R} and \proglang{C++}. This note has shown how to extend \pkg{Rcpp}
 to either user-defined or third-party classes via the \texttt{Rcpp::as} and
-\texttt{Rcpp::wrap} template member functions. Both intrusive and
-non-intrusive approaches were discussed.
+\texttt{Rcpp::wrap} template functions. Both intrusive and non-intrusive
+approaches were discussed.
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp-modules}
