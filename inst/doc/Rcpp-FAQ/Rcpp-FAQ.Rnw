@@ -41,6 +41,35 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 	link( sprintf("%s-class", cl), package, text, root )
 }
 require(inline)
+# this will be integrated to package highlight later
+ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
+	if( verbatim ){
+		writeLines( "\\begin{verbatim}" )
+		writeLines( readLines( file ) )
+		writeLines( "\\end{verbatim}" )
+	} else {
+		tf <- tempfile()
+		if( external.highlight ){
+			cmd <- sprintf( 'highlight --input="%s" --output="%s" -L --pretty-symbols', file, tf )
+			tryCatch( {
+				system( cmd )
+				tex <- readLines( tf )
+				keep <- seq( which( tex == "\\noindent" ), which( tex == "\\normalfont" ) )
+				tex <- c(
+					"\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}" ,
+					tex[ keep ],
+					"\\end{minipage}}\\vspace{1em}" )
+				writeLines( tex )
+			})
+		} else {
+			r = renderer_latex( minipage = TRUE, doc = FALSE )
+			tex <- highlight( file, renderer = r , output = NULL )
+			writeLines( tex )
+		}
+	}
+	invisible(NULL)
+}
+
 @
 
 \newcommand{\faq}[1]{\textbf{FAQ~\ref{#1}}}
@@ -101,7 +130,9 @@ the code in a character string in R. This is easily achieved by using
 \Sexpr{link("readLines")} :
 
 <<eval=FALSE>>=
-fx <- cxxfunction( signature(), readLines( "myfile.cpp"), plugin = "Rcpp" )
+fx <- cxxfunction( signature(), 
+	paste( readLines( "myfile.cpp"), collapse = "\n" ), 
+	plugin = "Rcpp" )
 @
 
 The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
@@ -198,10 +229,45 @@ operations. That is a mouthful of words meaning that it makes the code go
 faster by using fiendishly clever ways available via the so-called template
 meta programming, an advanced \proglang{C++} technique.
 
-% TODO: add an example of using armadillo to do matrix operations
-% <<lang=cpp>>=
-%
-% @
+The following example is adapted from the examples available at the project 
+page of Armadillo. It calculate $ x' \times Y^{-1} \times z$
+
+<<echo=FALSE>>=
+writeLines( '
+    // copy the data to armadillo structures
+    arma::colvec x = Rcpp::as<arma::colvec> (x_);
+    arma::mat Y = Rcpp::as<arma::mat>( Y_ ) ;
+    arma::colvec z = Rcpp::as<arma::colvec>( z_ ) ;
+       
+    // calculate the result 
+    double result = arma::as_scalar(
+        arma::trans(x) * arma::inv(Y) * z
+        );
+    
+    // return it to R
+    return Rcpp::wrap( result );	
+', "myfile.cpp" )
+@
+<<echo=FALSE,results=tex>>=
+ex_highlight( "myfile.cpp" )
+@
+
+<<>>=
+fx <- cxxfunction( 
+	signature(x_ = "numeric", Y_ = "matrix", z_ = "numeric" ), 
+	paste( readLines( "myfile.cpp" ), collapse = "\n" ), 
+	plugin = "RcppArmadillo" )
+fx( 1:4, diag( 4 ), 1:4 ) 
+@
+<<echo=FALSE>>=
+unlink( "myfile.cpp" )
+@
+
+The focus is on the code \verb|arma::trans(x) * arma::inv(Y) * z|, which 
+performs the same operation as the R code \verb|t(x) %*% solve(Y) %*% z|, 
+although Armadillo turns it into only one operation, which makes it quite fast. 
+See \href{http://arma.sourceforge.net/speed.html}{http://arma.sourceforge.net/speed.html}
+for Armadillo benchmarks against other \proglang{C++} matrix algebra libraries. 
 
 \subsection{Is the API documented ? }
 
