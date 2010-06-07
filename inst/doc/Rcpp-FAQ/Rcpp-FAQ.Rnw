@@ -82,6 +82,14 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
   Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp} package.
 }
 
+\section{Get started}
+
+\subsection{How do I get started ?}
+
+<<eval=FALSE>>=
+vignette( "Rcpp-introduction" )
+@
+
 \section{Compiling and Linking}
 
 \subsection{How to use \pkg{Rcpp} in my package ?}
