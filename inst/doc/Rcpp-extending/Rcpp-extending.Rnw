@@ -116,9 +116,9 @@ std::vector<double> x = input["x"] ;
 // return an R list
 // this is achieved through implicit call to Rcpp::wrap
 return List::create( 
-	_["front"] = x.front(), 
-	_["back"]  = x.back()
-	) ;
+    _["front"] = x.front(), 
+    _["back"]  = x.back()
+    ) ;
 '
 writeLines( code, "code.cpp" )
 @
@@ -301,7 +301,7 @@ namespace Rcpp{ namespace traits{
         T t ;
     } ;
 
-}Ê}
+} }
 @
 
 This is the reason why the default behavior of \texttt{Rcpp::as} is to 
