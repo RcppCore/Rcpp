@@ -154,23 +154,18 @@ that conversion.
 The caveat is that the type must be declared before the main header 
 file \texttt{Rcpp.h} is included. 
 
-<<echo=FALSE>>=
-code <- '
+<<lang=cpp>>=
 #include <RcppCommon.h>
 
 class Foo{
     public:
         Foo() ;
+        
+        // this operator enables implicit Rcpp::wrap
         operator SEXP() ;
 }
 
 #include <Rcpp.h>
-'
-writeLines( code, "code.cpp" )
-@
-
-<<echo=FALSE,results=tex>>=
-ex_highlight( "code.cpp" )
 @
 
 This is called \emph{intrusive} because the conversion to \texttt{SEXP}
@@ -186,8 +181,7 @@ To provide automatic conversion from \proglang{C++} to \proglang{R}, one must
 declare a specialization of the \texttt{Rcpp::wrap} template between
 \texttt{RcppCommon.h} and \texttt{Rcpp.h} includes. 
 
-<<echo=FALSE>>=
-code <- '
+<<lang=cpp>>=
 #include <RcppCommon.h>
 
 // third party library that declares class Bar
@@ -197,22 +191,141 @@ code <- '
 namespace Rcpp{
     template <> SEXP wrap( const Bar& ) ;
 }
-
+                                
 // this must appear after the specialization, 
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
-'
-writeLines( code, "code.cpp" )
-@
-
-<<echo=FALSE,results=tex>>=
-ex_highlight( "code.cpp" )
 @
 
 It should be noted that only the declaration is required, the implementation
 can appear after the \texttt{Rcpp.h} file is included, and therefore take 
 full advantage of the \pkg{Rcpp} type system.
 
+\subsection{Templates and partial specialization}
+
+It is perfectly valid to declare a partial specialization for the 
+\texttt{Rcpp::wrap} template. The compiler will identify the appropriate 
+overload: 
+
+<<lang=cpp>>=
+#include <RcppCommon.h>
+
+// third party library that declares template class Bling<T>
+#include <foobar.h>
+
+// declaring the partial specialization
+namespace Rcpp{ namespace traits {
+    
+    template <typename T> SEXP wrap( const Bling<T>& ) ;
+
+} }
+                                
+// this must appear after the specialization, 
+// otherwise the specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+
+@
+
+
+\section[Extending Rcpp::as]{Extending \texttt{Rcpp::as}}
+
+Conversion from \proglang{R} to \proglang{C++} is also possible 
+in both intrusive and non-intrusive ways. 
+
+\subsection{Intrusive extension}
+
+As part of its template meta programming dispatch logic, \pkg{Rcpp::as}
+will attempt to use the constructor of the target class taking a \texttt{SEXP}. 
+
+<<lang=cpp>>=
+#include <RcppCommon.h>
+
+#include <RcppCommon.h>
+
+class Foo{
+    public:
+        Foo() ;
+        
+        // this constructor enables implicit Rcpp::as
+        Foo(SEXP) ;
+}
+
+#include <Rcpp.h>
+
+
+// this must appear after the specialization, 
+// otherwise the specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+@
+
+\subsection{Non intrusive extension}
+
+It is also possible to fully specialize \texttt{Rcpp::as} to enable 
+non intrusive implicit conversion capabilities.
+
+<<lang=cpp>>=
+#include <RcppCommon.h>
+
+// third party library that declares class Bar
+#include <foobar.h>
+
+// declaring the specialization
+namespace Rcpp{
+    template <> Bar as( SEXP ) throw(not_compatible) ;
+}
+                                
+// this must appear after the specialization, 
+// otherwise the specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+@
+
+\subsection{Templates and partial specialization}
+
+The signature of \texttt{Rcpp::as} does not allow partial specialization. 
+
+When exposing a templated class to \texttt{Rcpp::as}, the programmer must 
+specialize the \pkg{Rcpp::traits::Exporter} template class. The TMP dispatch 
+will recognize that a specialization of \texttt{Exporter} is available
+and delegate the conversion to this class. \pkg{Rcpp} defines 
+the \texttt{Rcpp::traits::Exporter} template class as follows :
+
+<<lang=cpp>>=
+namespace Rcpp{ namespace traits{
+
+    template <typename T> class Exporter{
+    public:
+        Exporter( SEXP x ) : t(x){}
+        inline T get(){ return t ; }
+    
+    private:
+        T t ;
+    } ;
+
+}Ê}
+@
+
+This is the reason why the default behavior of \texttt{Rcpp::as} is to 
+invoke the constructor of the type \texttt{T} taking a \texttt{SEXP}.
+
+Since partial specialization of class templates is allowed, we can expose
+a set of classes as follows:
+
+<<lang=cpp>>=
+#include <RcppCommon.h>
+
+// third party library that declares template class Bling<T>
+#include <foobar.h>
+
+// declaring the partial specialization
+namespace Rcpp{ namespace traits {
+    template <typename T> class Exporter< Bling<T> >;
+} }
+                                
+// this must appear after the specialization, 
+// otherwise the specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+
+@
 
 <<echo=FALSE>>=
 unlink( "code.cpp" )
