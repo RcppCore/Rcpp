@@ -40,6 +40,37 @@ link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/l
 linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
 	link( sprintf("%s-class", cl), package, text, root )
 }
+# this will be integrated to package highlight later
+ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
+	if( verbatim ){
+		writeLines( "\\begin{verbatim}" )
+		writeLines( readLines( file ) )
+		writeLines( "\\end{verbatim}" )
+	} else {
+		tf <- tempfile()
+		if( external.highlight ){
+			cmd <- sprintf( 'highlight --input="%s" --output="%s" -L --pretty-symbols', file, tf )
+			tryCatch( {
+				system( cmd )
+				tex <- readLines( tf )
+				keep <- seq( which( tex == "\\noindent" ), which( tex == "\\normalfont" ) )
+				tex <- c(
+					"\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}" ,
+					tex[ keep ],
+					"\\end{minipage}}\\vspace{1em}" )
+				writeLines( tex )
+			})
+		} else {
+			r = renderer_latex( minipage = TRUE, doc = FALSE )
+			tex <- highlight( file, renderer = r , output = NULL )
+			writeLines( tex )
+		}
+	}
+	invisible(NULL)
+}
+
+require( inline )
+require( Rcpp )
 @
 
 \begin{document}
@@ -73,12 +104,119 @@ template <typename T> T as( SEXP m_sexp) throw(not_compatible) ;
 
 These converters are often used implicitely, as in the following code chunk:
 
-<<lang=cpp>>=
+<<echo=FALSE>>=
+code <- '
+// we get a list from R
+List input(input_) ;
 
+// pull std::vector<double> from R list
+// this is achieved through an implicit call to Rcpp::as
+std::vector<double> x = input["x"] ;
+
+// return an R list
+// this is achieved through implicit call to Rcpp::wrap
+return List::create( 
+	_["front"] = x.front(), 
+	_["back"]  = x.back()
+	) ;
+'
+writeLines( code, "code.cpp" )
+@
+<<echo=FALSE,results=tex>>=
+ex_highlight( "code.cpp" )
 @
 
+<<>>=
+fx <- cxxfunction( signature( input_ = "list"), 
+	paste( readLines( "code.cpp" ), collapse = "\n" ), 
+	plugin = "Rcpp"
+	)
+input <- list( x = seq(1, 10, by = 0.5) )
+fx( input )
+@
+
+\pkg{Rcpp} converters \texttt{Rcpp::as} and \texttt{Rcpp::wrap} have been 
+designed to be extensible to user defined types and third party types.
+
+\section[Extending Rcpp::wrap]{Extending \texttt{Rcpp::wrap} }
+
+The \pkg{Rcpp::wrap} converter is extensible in essentially two ways : intrusive 
+and non-intrusive. 
+
+\subsection{Intrusive extension}
+
+When extending \pkg{Rcpp} with your own data type, the recommended way to 
+let \texttt{Rcpp::wrap} know about them is to implement a conversion to 
+\texttt{SEXP}. The template meta programming dispatch is able to recognize that
+a type is convertible to a \texttt{SEXP} and \texttt{Rcpp::wrap} will use
+that conversion. 
+
+The caveat is that the type must be declared before the main header 
+file \texttt{Rcpp.h} is included. 
+
+<<echo=FALSE>>=
+code <- '
+#include <RcppCommon.h>
+
+class Foo{
+    public:
+        Foo() ;
+        operator SEXP() ;
+}
+
+#include <Rcpp.h>
+'
+writeLines( code, "code.cpp" )
+@
+
+<<echo=FALSE,results=tex>>=
+ex_highlight( "code.cpp" )
+@
+
+This is called \emph{intrusive} because the conversion to \texttt{SEXP}
+operator has to be declared within the class. 
+
+\subsection{Non intrusive extension}
+
+It is often desirable to offer automatic conversion to third-party types, over
+which the developer has no control and can therefore not include a conversion 
+to \texttt{SEXP} operator in the class definition. 
+
+To provide automatic conversion from \proglang{C++} to \proglang{R}, one must 
+declare a specialization of the \texttt{Rcpp::wrap} template between
+\texttt{RcppCommon.h} and \texttt{Rcpp.h} includes. 
+
+<<echo=FALSE>>=
+code <- '
+#include <RcppCommon.h>
+
+// third party library that declares class Bar
+#include <foobar.h>
+
+// declaring the specialization
+namespace Rcpp{
+    template <> SEXP wrap( const Bar& ) ;
+}
+
+// this must appear after the specialization, 
+// otherwise the specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+'
+writeLines( code, "code.cpp" )
+@
+
+<<echo=FALSE,results=tex>>=
+ex_highlight( "code.cpp" )
+@
+
+It should be noted that only the declaration is required, the implementation
+can appear after the \texttt{Rcpp.h} file is included, and therefore take 
+full advantage of the \pkg{Rcpp} type system.
 
 
+<<echo=FALSE>>=
+unlink( "code.cpp" )
+@
 
 
 \bibliographystyle{abbrvnat}
