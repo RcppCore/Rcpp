@@ -324,8 +324,15 @@ namespace Rcpp{ namespace traits {
 // this must appear after the specialization, 
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
-
 @
+
+Using this approach, the requirements on the \texttt{Exporter< Bling<T> >}
+class are:
+\begin{itemize}
+\item it should have a constructor taking a \texttt{SEXP}
+\item it should have a methods called \texttt{get} that returns an instance 
+of the \texttt{Bling<T>} type.
+\end{itemize}
 
 <<echo=FALSE>>=
 unlink( "code.cpp" )
