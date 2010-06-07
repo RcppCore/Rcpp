@@ -143,9 +143,9 @@ namespace Rcpp{
 	Module::Module() : name(), functions(), classes() {}
 	Module::Module(const char* name_) : name(name_), functions(), classes() {}
 	
-	SEXP Module::invoke( const std::string& name, SEXP* args, int nargs){
+	SEXP Module::invoke( const std::string& name_, SEXP* args, int nargs){
 		BEGIN_RCPP
-			MAP::iterator it = functions.find( name );
+			MAP::iterator it = functions.find( name_ );
 			if( it == functions.end() ){
 				throw std::range_error( "no such function" ) ; 
 			}
