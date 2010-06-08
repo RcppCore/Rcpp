@@ -1,4 +1,4 @@
-0.8.1   (under development)
+0.8.1   2010-06-08
 
     o   This release adds Rcpp modules. An Rcpp module is a collection of
         internal (C++) functions and classes that are exposed to R. This
