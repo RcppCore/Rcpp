@@ -47,3 +47,5 @@ r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Dimension.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Formula.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.client.package.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Module.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.complex.R
