@@ -158,7 +158,7 @@ file \texttt{Rcpp.h} is included.
 <<lang=cpp>>=
 #include <RcppCommon.h>
 
-class Foo{
+class Foo {
     public:
         Foo() ;
 
@@ -189,7 +189,7 @@ includes of \texttt{RcppCommon.h} and \texttt{Rcpp.h}.
 #include <foobar.h>
 
 // declaring the specialization
-namespace Rcpp{
+namespace Rcpp {
     template <> SEXP wrap( const Bar& ) ;
 }
 
@@ -215,11 +215,13 @@ overload:
 #include <foobar.h>
 
 // declaring the partial specialization
-namespace Rcpp{ namespace traits {
+namespace Rcpp {
+    namespace traits {
 
-    template <typename T> SEXP wrap( const Bling<T>& ) ;
+        template <typename T> SEXP wrap( const Bling<T>& ) ;
 
-} }
+    }
+}
 
 // this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
@@ -271,7 +273,7 @@ non intrusive implicit conversion capabilities.
 #include <foobar.h>
 
 // declaring the specialization
-namespace Rcpp{
+namespace Rcpp {
     template <> Bar as( SEXP ) throw(not_compatible) ;
 }
 
@@ -290,18 +292,19 @@ and delegate the conversion to this class. \pkg{Rcpp} defines
 the \texttt{Rcpp::traits::Exporter} template class as follows :
 
 <<lang=cpp>>=
-namespace Rcpp{ namespace traits{
+namespace Rcpp {
+    namespace traits {
 
-    template <typename T> class Exporter{
-    public:
-        Exporter( SEXP x ) : t(x){}
-        inline T get(){ return t ; }
+        template <typename T> class Exporter{
+        public:
+            Exporter( SEXP x ) : t(x){}
+            inline T get(){ return t ; }
 
-    private:
-        T t ;
-    } ;
-
-} }
+        private:
+            T t ;
+        } ;
+    }
+}
 @
 
 This is the reason why the default behavior of \texttt{Rcpp::as} is to
@@ -317,9 +320,11 @@ a set of classes as follows:
 #include <foobar.h>
 
 // declaring the partial specialization
-namespace Rcpp{ namespace traits {
-    template <typename T> class Exporter< Bling<T> >;
-} }
+namespace Rcpp {
+    namespace traits {
+        template <typename T> class Exporter< Bling<T> >;
+    }
+}
 
 // this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
