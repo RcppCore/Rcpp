@@ -291,6 +291,14 @@ and all three formats are also available a zip-archives:
 \href{http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-latex.zip}{latex}, and
 \href{http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-man.zip}{man}.
 
+\subsection{Does it work ?}
+
+We take quality seriously and have developped an extensive unit test suite to
+cover many possible uses of the \pkg{Rcpp} API. 
+
+We are always on the look for more coverage in our testing. Please let us know
+if something has not been tested enough.
+
 \section{Support}
 \subsection{Where can I ask further questions ?}
 
@@ -307,12 +315,18 @@ project page. If you feel you want to draft code for these, we would be glad
 to study patches and incorporate them in \pkg{Rcpp}.
 
 You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
-that use \proglang{C++}, yet are not using \pkg{Rcpp}.
+that use \proglang{C++}, yet are not using \pkg{Rcpp}. You can write a
+review of \pkg{Rcpp} in \href{http://crantastic.org}{crantastic}.
 
 \subsection{I don't like it. How can I help ?}
 
 It is very generous of you to still want to help. Perhaps you can tell us
 what it is that you dislike. We are very open to \emph{constructive} criticism.
+
+\subsection{Can I have commercial support for \pkg{Rcpp} ?}
+
+Sure you can. Just send us an email, we'll be happy to either deal with the 
+request or redirect it. 
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
