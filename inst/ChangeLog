@@ -1,3 +1,9 @@
+2010-06-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.8.1
+
+	* debian/*: Similarly updated for new release to Debian
+
 2010-06-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/doc/Rcpp-FAQ*: new mini vignette "Rcpp-FAQ"
