@@ -6,7 +6,7 @@
 \usepackage{color, alltt}
 \usepackage[authoryear,round,longnamesfirst]{natbib}
 \usepackage[colorlinks]{hyperref}
-\definecolor{link}{rgb}{0,0,0.5}	%% next few lines courtesy of RJournal.sty
+\definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
 \hypersetup{
     colorlinks,%
     citecolor=link,%
