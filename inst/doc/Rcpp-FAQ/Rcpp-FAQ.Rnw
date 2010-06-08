@@ -82,7 +82,7 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
   Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp} package.
 }
 
-\section{Get started}
+\section{Getting started}
 
 \subsection{How do I get started ?}
 
@@ -92,7 +92,7 @@ vignette( "Rcpp-introduction" )
 
 \section{Compiling and Linking}
 
-\subsection{How to use \pkg{Rcpp} in my package ?}
+\subsection{How do I use \pkg{Rcpp} in my package ?}
 \label{make-package}
 
 \pkg{Rcpp} has been specifically designed to be used by other packages.
@@ -107,7 +107,7 @@ Further steps, specific to \pkg{Rcpp}, are described in a separate vignette.
 vignette( "Rcpp-package" )
 @
 
-\subsection{How to quickly prototype my code ?}
+\subsection{How do I quickly prototype my code ?}
 \label{using-inline}
 
 The \pkg{inline} package \citep{CRAN:inline} provides the functions
@@ -146,7 +146,7 @@ fx <- cxxfunction( signature(),
 The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
 useful as it shows how \pkg{inline} runs the show.
 
-\subsection{How to convert my prototyped code to a package?}
+\subsection{How do I convert my prototyped code to a package?}
 \label{from-inline-to-package}
 
 Since release 0.3.5 of \pkg{inline}, one can combine \faq{using-inline} and
@@ -291,15 +291,16 @@ and all three formats are also available a zip-archives:
 \href{http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-latex.zip}{latex}, and
 \href{http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-man.zip}{man}.
 
-\subsection{Does it work ?}
+\subsection{Does it really work ?}
 
 We take quality seriously and have developped an extensive unit test suite to
-cover many possible uses of the \pkg{Rcpp} API. 
+cover many possible uses of the \pkg{Rcpp} API.
 
 We are always on the look for more coverage in our testing. Please let us know
 if something has not been tested enough.
 
 \section{Support}
+
 \subsection{Where can I ask further questions ?}
 
 The
@@ -315,8 +316,9 @@ project page. If you feel you want to draft code for these, we would be glad
 to study patches and incorporate them in \pkg{Rcpp}.
 
 You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
-that use \proglang{C++}, yet are not using \pkg{Rcpp}. You can write a
-review of \pkg{Rcpp} in \href{http://crantastic.org}{crantastic}.
+that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could write a
+review of \pkg{Rcpp} in \href{http://crantastic.org}{crantastic}, blog about
+it or get the word out otherwise.
 
 \subsection{I don't like it. How can I help ?}
 
@@ -325,8 +327,8 @@ what it is that you dislike. We are very open to \emph{constructive} criticism.
 
 \subsection{Can I have commercial support for \pkg{Rcpp} ?}
 
-Sure you can. Just send us an email, we'll be happy to either deal with the 
-request or redirect it. 
+Sure you can. Just send us an email, and we will be happy to discuss the
+request..
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
