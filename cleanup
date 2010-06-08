@@ -15,6 +15,7 @@ rm -f confdefs.h config.log config.status \
         inst/discovery/cxx0x.Rout \
 	src/Makedeps libRcpp.a
 rm -rf	autom4te.cache
-rm -rf  inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ inst/doc/auto
+rm -rf  inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
+   	inst/doc/auto inst/doc/Rcpp-*/auto/ 
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;
