@@ -1,3 +1,8 @@
+2010-06-08  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/RcppCommon.cpp: track if demangling is available (currently only 
+	available with gcc)
+
 2010-06-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.1
