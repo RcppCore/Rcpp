@@ -19,8 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__generated__Vector_create.h
-#define Rcpp__generated__Vector_create.h
+#ifndef Rcpp__generated__Vector_create_h
+#define Rcpp__generated__Vector_create_h
 
 /* <code-bloat>
 
