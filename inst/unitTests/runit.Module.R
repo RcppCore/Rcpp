@@ -50,7 +50,7 @@ test.Module <- function(){
 	class World {
 	public:
 	    World() : msg("hello"){}
-	    void set(std::string msg) { this->msg = msg; }
+	    void set(std::string msg_) { this->msg = msg_; }
 	    std::string greet() { return msg; }
 	
 	private:
