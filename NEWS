@@ -1,3 +1,8 @@
+0.8.2   2010-06-09
+
+    o   Bug-fix release for suncc compiler with thanks to Brian Ripley for
+        additional testing.
+
 0.8.1   2010-06-08
 
     o   This release adds Rcpp modules. An Rcpp module is a collection of
