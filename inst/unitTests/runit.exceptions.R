@@ -18,21 +18,27 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 test.exceptions <- function(){
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	
 	funx <- cppfunction(signature(), '
 	throw std::range_error("boom") ;
 	return R_NilValue ;
 	')
 	e <- tryCatch(  funx(), "C++Error" = function(e) e )
 	checkTrue( "C++Error" %in% class(e), msg = "exception class C++Error" )
-	checkTrue( "std::range_error" %in% class(e), msg = "exception class std::range_error" )
+	
+	if( can.demangle ){
+		checkTrue( "std::range_error" %in% class(e), msg = "exception class std::range_error" )
+	}
 	checkEquals( e$message, "boom", msg = "exception message" )
 	
-	# same with direct handler
-	e <- tryCatch(  funx(), "std::range_error" = function(e) e )
-	checkTrue( "C++Error" %in% class(e), msg = "(direct handler) exception class C++Error" )
-	checkTrue( "std::range_error" %in% class(e), msg = "(direct handler) exception class std::range_error" )
-	checkEquals( e$message, "boom", msg = "(direct handler) exception message" )
-	
+	if( can.demangle ){
+		# same with direct handler
+		e <- tryCatch(  funx(), "std::range_error" = function(e) e )
+		checkTrue( "C++Error" %in% class(e), msg = "(direct handler) exception class C++Error" )
+		checkTrue( "std::range_error" %in% class(e), msg = "(direct handler) exception class std::range_error" )
+		checkEquals( e$message, "boom", msg = "(direct handler) exception message" )
+	}
 	f <- function(){
 		try( funx(), silent = TRUE)
 		"hello world" 
