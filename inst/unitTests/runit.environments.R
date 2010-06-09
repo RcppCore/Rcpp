@@ -91,10 +91,17 @@ test.environment.assign <- function(){
 	checkEquals( e$b, Rcpp:::CxxFlags, msg = "Environment::assign, checking value 2" )
 	
 	lockBinding( "a", e )
-	checkTrue( 
-		tryCatch( { funx(e, "a", letters ) ; FALSE}, "Rcpp::binding_is_locked" = function(e) TRUE ), 
-		msg = "cannot assign to locked binding (catch exception)" )
-
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	if( can.demangle ){
+		checkTrue( 
+			tryCatch( { funx(e, "a", letters ) ; FALSE}, "Rcpp::binding_is_locked" = function(e) TRUE ), 
+			msg = "cannot assign to locked binding (catch exception)" )
+	} else {
+		checkTrue( 
+			tryCatch( { funx(e, "a", letters ) ; FALSE}, "error" = function(e) TRUE ), 
+			msg = "cannot assign to locked binding (catch exception)" )
+	}
+	
 }
 
 test.environment.isLocked <- function(){
@@ -132,10 +139,17 @@ test.environment.bindingIsActive <- function(){
 
 	checkTrue( !funx(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
 	checkTrue( funx(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
-	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
-		msg = "Environment::bindingIsActive(no binding) -> exception)" )
-	
+
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	if( can.demangle ){
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
+			msg = "Environment::bindingIsActive(no binding) -> exception)" )
+	} else {
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ), 
+			msg = "Environment::bindingIsActive(no binding) -> exception)" )
+	}
 }
 
 test.environment.bindingIsLocked <- function(){
@@ -153,10 +167,17 @@ test.environment.bindingIsLocked <- function(){
 	
 	checkTrue( !funx(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
 	checkTrue( funx(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
-	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
-		msg = "Environment::bindingIsLocked(no binding) -> exception)" )
-	
+
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	if( can.demangle ){
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
+			msg = "Environment::bindingIsLocked(no binding) -> exception)" )
+	} else {
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ), 
+			msg = "Environment::bindingIsLocked(no binding) -> exception)" )
+	}
 }
 
 test.environment.NotAnEnvironment <- function(){
@@ -180,10 +201,17 @@ test.environment.lockBinding <- function(){
 	e$b <- letters
 	funx(e, "b")
 	checkTrue( bindingIsLocked("b", e ), msg = "Environment::lockBinding()" )
-	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
-		msg = "Environment::lockBinding(no binding) -> exception)" )
-	
+
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	if( can.demangle ){
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
+			msg = "Environment::lockBinding(no binding) -> exception)" )
+	} else {
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ), 
+			msg = "Environment::lockBinding(no binding) -> exception)" )
+	}
 }
 
 test.environment.unlockBinding <- function(){
@@ -200,10 +228,17 @@ test.environment.unlockBinding <- function(){
 	lockBinding( "b", e )
 	funx(e, "b")
 	checkTrue( !bindingIsLocked("b", e ), msg = "Environment::lockBinding()" )
-	checkTrue( 
-		tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
-		msg = "Environment::unlockBinding(no binding) -> exception)" )
-	
+
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	if( can.demangle ){
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
+			msg = "Environment::unlockBinding(no binding) -> exception)" )
+	}Êelse {
+		checkTrue( 
+			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ), 
+			msg = "Environment::unlockBinding(no binding) -> exception)" )
+	}
 }
 
 test.environment.global.env <- function(){
@@ -235,10 +270,17 @@ test.environment.namespace.env <- function(){
 	std::string st = as<std::string>(env) ;
 	return Environment::namespace_env(st); ' )
 	checkEquals( funx("Rcpp"), asNamespace("Rcpp"), msg = "REnvironment::base_namespace" )
-	checkTrue( 
-		tryCatch( { funx("----" ) ; FALSE}, "Rcpp::no_such_namespace" = function(e) TRUE ), 
-		msg = "Environment::namespace_env(no namespace) -> exception)" )
-	
+
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	if( can.demangle ){
+		checkTrue( 
+			tryCatch( { funx("----" ) ; FALSE}, "Rcpp::no_such_namespace" = function(e) TRUE ), 
+			msg = "Environment::namespace_env(no namespace) -> exception)" )
+	}Êelse {
+		checkTrue( 
+			tryCatch( { funx("----" ) ; FALSE}, error = function(e) TRUE ), 
+			msg = "Environment::namespace_env(no namespace) -> exception)" )
+	}
 }
 
 test.environment.constructor.SEXP <- function(){

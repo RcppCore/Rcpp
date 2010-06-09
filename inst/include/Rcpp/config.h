@@ -25,5 +25,10 @@
 // comment to disable Rcpp modules
 #define RCPP_ENABLE_MODULES
 
+#ifdef __GNUC__
+#define RCPP_HAS_DEMANGLING
+#endif
+
+
 #endif
 

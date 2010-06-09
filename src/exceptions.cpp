@@ -62,7 +62,7 @@ RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
 /* for now, the fancy exception handling is only available in GCC, 
    simply because we've not investigated if it is available in other 
    compilers */
-#ifdef __GNUC__
+#ifdef RCPP_HAS_DEMANGLING
 #include <typeinfo>
 #include <exception_defines.h>
 #include <cxxabi.h>

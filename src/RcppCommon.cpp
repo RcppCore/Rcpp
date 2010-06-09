@@ -76,7 +76,7 @@ SEXP capabilities(){
 	LOGICAL(cap)[5] = FALSE ;
 #endif
 
-#ifdef __GNUC__
+#ifdef RCPP_HAS_DEMANGLING
 	LOGICAL(cap)[6] = TRUE ;
 #else
 	LOGICAL(cap)[6] = FALSE ;
