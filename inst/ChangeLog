@@ -1,3 +1,9 @@
+2010-06-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.8.2
+
+	* debian/*: Similarly updated for new release to Debian
+
 2010-06-08  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/RcppCommon.cpp: track if demangling is available (currently only 
