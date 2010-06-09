@@ -234,7 +234,7 @@ test.environment.unlockBinding <- function(){
 		checkTrue( 
 			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ), 
 			msg = "Environment::unlockBinding(no binding) -> exception)" )
-	}Êelse {
+	} else {
 		checkTrue( 
 			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ), 
 			msg = "Environment::unlockBinding(no binding) -> exception)" )
@@ -276,7 +276,7 @@ test.environment.namespace.env <- function(){
 		checkTrue( 
 			tryCatch( { funx("----" ) ; FALSE}, "Rcpp::no_such_namespace" = function(e) TRUE ), 
 			msg = "Environment::namespace_env(no namespace) -> exception)" )
-	}Êelse {
+	} else {
 		checkTrue( 
 			tryCatch( { funx("----" ) ; FALSE}, error = function(e) TRUE ), 
 			msg = "Environment::namespace_env(no namespace) -> exception)" )
