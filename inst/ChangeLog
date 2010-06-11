@@ -6,6 +6,9 @@
 	* inst/include/Rcpp/Module.h: support for exposing public data 
 	members
 
+	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: a section to mention fields
+	as a way to expose data members
+
 2010-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.2
