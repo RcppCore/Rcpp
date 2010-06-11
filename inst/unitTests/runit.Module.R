@@ -209,4 +209,44 @@ test.Module.property <- function(){
     checkException( { w$y <- 3 } )
 }
 
+          
+test.Module.member <- function(){
+
+	inc  <- '
+	class Num{
+	public:
+	    Num() : x(0.0), y(0){} ;
+	    	    
+	    double x ;
+	    int y ;
+	};
+	
+	RCPP_MODULE(yada){
+		using namespace Rcpp ;
+	
+		class_<Num>( "Num" )
+		
+			// read and write data member
+			.field( "x", &Num::x )
+			
+			// read only data member
+			.field_readonly( "y", &Num::y )
+		;
+	}
+	'
+	fx <- cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
+	
+	mod <- Module( "yada", getDynLib(fx) )
+	Num <- mod$Num
+    w <- new( Num )
+    checkEquals( w$x, 0.0 )  
+    checkEquals( w$y, 0L )  
+    
+    w$x <- 2.0
+    checkEquals( w$x, 2.0 )  
+    
+    checkException( { w$y <- 3 } )
+}
+
+
 }
