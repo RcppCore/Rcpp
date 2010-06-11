@@ -9,6 +9,8 @@
 	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: a section to mention fields
 	as a way to expose data members
 
+	* inst/Rcpp/traits/is_na.h : new helper class Rcpp::traits::is_na
+
 2010-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.2

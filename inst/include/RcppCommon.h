@@ -223,6 +223,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/storage_type.h>
 #include <Rcpp/traits/r_type_traits.h>
 #include <Rcpp/traits/wrap_type_traits.h>
+#include <Rcpp/traits/is_na.h>
 
 #include <Rcpp/traits/is_const.h>
 #include <Rcpp/traits/is_reference.h>
