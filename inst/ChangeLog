@@ -1,3 +1,11 @@
+2010-06-11  Romain Francois <romain@r-enthusiasts.com>
+
+	* R/help.R: workaround to allow the syntax "Rcpp ? something" to 
+	bring Rcpp documentation
+
+	* inst/include/Rcpp/Module.h: support for exposing public data 
+	members
+
 2010-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.2
