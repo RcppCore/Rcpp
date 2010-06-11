@@ -38,6 +38,8 @@ public:
 			NA_LOGICAL : ( lhs[i] < rhs[i] ) ;
 	}
 	
+	inline int size() const { return lhs.size() ; }
+	
 	class iterator {
 	public:
 		typedef int difference_type ;
