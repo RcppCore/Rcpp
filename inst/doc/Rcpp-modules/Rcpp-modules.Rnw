@@ -53,7 +53,6 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
   ease.  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
   \proglang{C++} library \citep{Boost:Python} which provides the same
   features (and much more) for Python.
-  % redunant:  This document is a short overview of the capabilities of \textsl{Rcpp modules}.
 }
 
 \section{Motivation}
@@ -421,10 +420,42 @@ setMethod( "show", "World", function(object){
 \pkg{Rcpp} considers the methods \texttt{[[} and \texttt{[[<-} special,
 and promotes them to indexing methods on the \proglang{R} side.
 
+\subsubsection{Exposing public data members}
+
+Public data members of a \proglang{C++} class can be exposed by 
+\texttt{field} or \texttt{field\_readonly}. 
+
+<<lang=cpp>>=
+	class Num{
+	public:
+	    Num() : x(0.0), y(0){} ;
+	    	    
+	    double x ;
+	    int y ;
+	};
+	
+	RCPP_MODULE(yada){
+		using namespace Rcpp ;
+	
+		class_<Num>( "Num" )
+		
+			// read and write data member
+			.field( "x", &Num::x )
+			
+			// read only data member
+			.field_readonly( "y", &Num::y )
+		;
+	}
+@
+
+Here, the class \texttt{Num} exposes the data member \texttt{x}
+with read/write access, and the data member \texttt{y} with only
+read access.
 
 \subsubsection{Properties}
 
-A C++ class exposed by a module may expose data members as properties. Properties
+Properties provides a more general way to expose data members, 
+through the explicit registration of getter and setter. Properties
 are declared by the \texttt{property} method of \texttt{class\_}.
 
 <<lang=cpp>>=
