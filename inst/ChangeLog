@@ -1,9 +1,9 @@
 2010-06-11  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/help.R: workaround to allow the syntax "Rcpp ? something" to 
+	* R/help.R: workaround to allow the syntax "Rcpp ? something" to
 	bring Rcpp documentation
 
-	* inst/include/Rcpp/Module.h: support for exposing public data 
+	* inst/include/Rcpp/Module.h: support for exposing public data
 	members
 
 	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: a section to mention fields
