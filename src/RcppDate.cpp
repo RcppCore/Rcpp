@@ -45,6 +45,11 @@ RcppDate::RcppDate(int month_, int day_, int year_) : month(month_),
     mdy2jdn();
 }
 
+RcppDate::RcppDate(SEXP dt) {
+    jdn = Rcpp::as<int>(dt) + Jan1970Offset;
+    jdn2mdy();
+}
+
 // Print an RcppDate.
 std::ostream& operator<<(std::ostream& os, const RcppDate& date) {
     os << date.getYear() << "-" << date.getMonth() << "-" << date.getDay();
