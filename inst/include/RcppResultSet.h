@@ -4,6 +4,7 @@
 //
 // Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
+// Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -36,6 +37,13 @@
 #include <RcppNumList.h>
 #include <RcppStringVector.h>
 #include <RcppVector.h>
+
+namespace Rcpp {
+    SEXP wrap(RcppDate &date);
+    SEXP wrap(RcppDatetime &date);
+    SEXP wrap(RcppDateVector &datevec);
+    SEXP wrap(RcppDatetimeVector &dtvec);
+}
 
 class RcppResultSet {
 public:

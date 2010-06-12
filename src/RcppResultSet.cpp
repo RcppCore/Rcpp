@@ -4,6 +4,7 @@
 //
 // Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
+// Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -24,27 +25,41 @@
 
 RcppResultSet::RcppResultSet() : numProtected(0) { }
 
-void RcppResultSet::add(std::string name, RcppDate& date) {
+namespace Rcpp { 
+SEXP wrap(RcppDate &date) {
     SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
-    numProtected++;
+    //numProtected++;
     REAL(value)[0] = date.getJDN() - RcppDate::Jan1970Offset;
     SEXP dateclass = PROTECT(Rf_allocVector(STRSXP,1));
-    numProtected++;
+    //numProtected++;
     SET_STRING_ELT(dateclass, 0, Rf_mkChar("Date"));
     Rf_setAttrib(value, R_ClassSymbol, dateclass); 
-    values.push_back(make_pair(name, value));
+    UNPROTECT(2);
+    return value;
+}
 }
 
-void RcppResultSet::add(std::string name, RcppDatetime& datetime) {
+void RcppResultSet::add(std::string name, RcppDate& date) {
+    values.push_back(make_pair(name, Rcpp::wrap(date)));
+}
+
+namespace Rcpp { 
+SEXP wrap(RcppDatetime &datetime) {
     SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
-    numProtected++;
+    //numProtected++;
     REAL(value)[0] = datetime.getFractionalTimestamp();
     SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-    numProtected++;
+    //numProtected++;
     SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
     SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
     Rf_setAttrib(value, R_ClassSymbol, datetimeclass); 
-    values.push_back(make_pair(name, value));
+    UNPROTECT(2);
+    return value;
+}
+}
+
+void RcppResultSet::add(std::string name, RcppDatetime& datetime) {
+    values.push_back(make_pair(name, Rcpp::wrap(datetime)));
 }
 
 void RcppResultSet::add(std::string name, double x) {
@@ -78,31 +93,45 @@ void RcppResultSet::add(std::string name, double *vec, int len) {
     values.push_back(make_pair(name, value));
 }
 
-void RcppResultSet::add(std::string name, RcppDateVector& datevec) {
+namespace Rcpp { 
+SEXP wrap(RcppDateVector& datevec) {
     SEXP value = PROTECT(Rf_allocVector(REALSXP, datevec.size()));
-    numProtected++;
+    //numProtected++;
     for (int i = 0; i < datevec.size(); i++) {
 	REAL(value)[i] = datevec(i).getJDN() - RcppDate::Jan1970Offset;
     }
     SEXP dateclass = PROTECT(Rf_allocVector(STRSXP,1));
-    numProtected++;
+    //numProtected++;
     SET_STRING_ELT(dateclass, 0, Rf_mkChar("Date"));
     Rf_setAttrib(value, R_ClassSymbol, dateclass); 
-    values.push_back(make_pair(name, value));
+    UNPROTECT(2);
+    return value;
+}
 }
 
-void RcppResultSet::add(std::string name, RcppDatetimeVector &dtvec) {
+void RcppResultSet::add(std::string name, RcppDateVector& datevec) {
+    values.push_back(make_pair(name, Rcpp::wrap(datevec)));
+}
+
+namespace Rcpp { 
+SEXP wrap(RcppDatetimeVector &dtvec) {
     SEXP value = PROTECT(Rf_allocVector(REALSXP, dtvec.size()));
-    numProtected++;
+    //numProtected++;
     for (int i = 0; i < dtvec.size(); i++) {
 	REAL(value)[i] = dtvec(i).getFractionalTimestamp();
     }
     SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-    numProtected++;
+    //numProtected++;
     SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
     SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
     Rf_setAttrib(value, R_ClassSymbol, datetimeclass); 
-    values.push_back(make_pair(name, value));
+    UNPROTECT(2);
+    return value;
+}
+}
+
+void RcppResultSet::add(std::string name, RcppDatetimeVector &dtvec) {
+    values.push_back(make_pair(name, Rcpp::wrap(dtvec)));
 }
 
 void RcppResultSet::add(std::string name, RcppStringVector& stringvec) {
