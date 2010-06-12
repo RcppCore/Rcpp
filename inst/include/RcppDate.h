@@ -39,6 +39,7 @@ public:
     RcppDate();
     RcppDate(int Rjdn);
     RcppDate(int month_, int day_, int year_);
+    RcppDate(SEXP dt);
     int getMonth() const { return month; }
     int getDay()  const  { return day; }
     int getYear() const  { return year; }
