@@ -44,16 +44,10 @@ test.RcppDate.operators <- function() {
     checkEquals(funx(), list(diff=1, bigger=1, smaller=0, equal=0, ge=1, le=0), msg = "RcppDate.operators")
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+test.RcppDate.wrap <- function() {
+    src <- 'RcppDate dt = RcppDate(12,31,1999);
+	    return wrap(dt);';
+    funx <- cppfunction(signature(), src)
+    checkEquals(funx(), as.Date("1999-12-31"), msg = "RcppDate.wrap")
+}
 
