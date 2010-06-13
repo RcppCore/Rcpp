@@ -1,3 +1,8 @@
+2010-06-13  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Vector.h: added new factory functions for Vector:
+	Vector::import and Vector::import_transform
+
 2010-06-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppDate.cpp: Simple RcppDate(SEXP) ctor added
