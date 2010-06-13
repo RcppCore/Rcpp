@@ -27,7 +27,8 @@ RcppResultSet::RcppResultSet() : numProtected(0) { }
 
 namespace Rcpp { 
 
-    SEXP wrap(RcppDate &date) {
+    // template specialisation for wrap() on the date and datetime classes
+    template <> SEXP wrap(const RcppDate &date) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
 	REAL(value)[0] = date.getJDN() - RcppDate::Jan1970Offset;
 	SEXP dateclass = PROTECT(Rf_allocVector(STRSXP,1));
@@ -37,7 +38,7 @@ namespace Rcpp {
 	return value;
     }
 
-    SEXP wrap(RcppDatetime &datetime) {
+    template <> SEXP wrap(const RcppDatetime &datetime) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
 	REAL(value)[0] = datetime.getFractionalTimestamp();
 	SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
@@ -48,7 +49,7 @@ namespace Rcpp {
 	return value;
     }
 
-    SEXP wrap(RcppDateVector& datevec) {
+    template <> SEXP wrap(const RcppDateVector& datevec) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, datevec.size()));
 	for (int i = 0; i < datevec.size(); i++) {
 	    REAL(value)[i] = datevec(i).getJDN() - RcppDate::Jan1970Offset;
@@ -60,7 +61,7 @@ namespace Rcpp {
 	return value;
     }
 
-    SEXP wrap(RcppDatetimeVector &dtvec) {
+    template <> SEXP wrap(const RcppDatetimeVector &dtvec) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, dtvec.size()));
 	for (int i = 0; i < dtvec.size(); i++) {
 	    REAL(value)[i] = dtvec(i).getFractionalTimestamp();

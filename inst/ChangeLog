@@ -1,3 +1,11 @@
+2010-06-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/RcppResultSet.cpp: Proper template specialisation for wrap
+	* inst/include/RcppResultSet.h: Idem
+
+	* src/RcppDateVector.cpp: Add const qualifier to operator()(int i)
+	* inst/include/RcppResultSet.h: Idem
+
 2010-06-13  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Vector.h: added new factory functions for Vector:
@@ -7,8 +15,6 @@
 
 	* src/RcppDate.cpp: Simple RcppDate(SEXP) ctor added
 	* inst/include/RcppDate.h: Idem
-
-2010-06-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppResultSet.cpp: carved out four new wrap() functions by
 	splitting the existing code in add() methods off
