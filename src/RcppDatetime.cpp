@@ -35,6 +35,9 @@ RcppDatetime::RcppDatetime(const double d) : m_d(d),
 }
 
 RcppDatetime::RcppDatetime(SEXP ds) { 
+    if (Rf_length(ds) != 1) {
+	throw std::range_error("RcppDatetime: expect one argument in SEXP constructor");
+    }
     m_d = REAL(ds)[0]; 
     m_parsed = false; 
     m_us = 0;

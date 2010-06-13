@@ -46,7 +46,11 @@ RcppDate::RcppDate(int month_, int day_, int year_) : month(month_),
 }
 
 RcppDate::RcppDate(SEXP dt) {
-    jdn = Rcpp::as<int>(dt) + Jan1970Offset;
+    if (Rf_length(dt) != 1) {
+	throw std::range_error("RcppDate: expect one argument in SEXP constructor");
+    }
+    //jdn = Rcpp::as<int>(dt) + Jan1970Offset;
+    jdn = INTEGER(dt)[0] + Jan1970Offset;
     jdn2mdy();
 }
 
