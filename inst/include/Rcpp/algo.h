@@ -158,14 +158,14 @@ inline bool any_if( InputIterator first, InputIterator last, Predicate pred){
 
 
 template <typename T>
-bool any( const T& t){
+SEXP any( const T& t){
 	bool seen_na = false ;
 	int n = t.size() ;
 	for( int i=0 ; i<n ; i++){
-		if( t[i] == TRUE ) return TRUE ;
+		if( t[i] == TRUE ) return Rf_ScalarLogical( TRUE );
 		if( t[i] == NA_LOGICAL ) seen_na = true;
 	}
-	return seen_na ? NA_LOGICAL : FALSE ;
+	return seen_na ? Rf_ScalarLogical(NA_LOGICAL) : Rf_ScalarLogical(FALSE) ;
 }
 
 
