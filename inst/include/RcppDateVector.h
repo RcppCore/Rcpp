@@ -4,6 +4,7 @@
 //
 // Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
+// Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,7 +31,7 @@ class RcppDateVector {
 public:
     RcppDateVector(SEXP vec);
     ~RcppDateVector();
-    RcppDate& operator()(int i);
+    RcppDate& operator()(int i) const;
     int size() const;
 private:
     RcppDate *v;

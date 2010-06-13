@@ -39,7 +39,7 @@ RcppDateVector::~RcppDateVector() {
     delete [] v;
 }
 
-RcppDate& RcppDateVector::operator()(int i) {
+RcppDate& RcppDateVector::operator()(int i) const {
     if (i < 0 || i >= length) {
 	std::ostringstream oss;
 	oss << "RcppDateVector: subscript out of range: " << i;

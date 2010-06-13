@@ -39,10 +39,11 @@
 #include <RcppVector.h>
 
 namespace Rcpp {
-    SEXP wrap(RcppDate &date);
-    SEXP wrap(RcppDatetime &date);
-    SEXP wrap(RcppDateVector &datevec);
-    SEXP wrap(RcppDatetimeVector &dtvec);
+    // template specialisation for wrap() on the date and datetime classes
+    template <> SEXP wrap<RcppDate>(const RcppDate &date);
+    template <> SEXP wrap<RcppDatetime>(const RcppDatetime &date);
+    template <> SEXP wrap<RcppDateVector>(const RcppDateVector &datevec);
+    template <> SEXP wrap<RcppDatetimeVector>(const RcppDatetimeVector &dtvec);
 }
 
 class RcppResultSet {
