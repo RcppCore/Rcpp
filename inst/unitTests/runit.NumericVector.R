@@ -71,3 +71,34 @@ test.NumericVector.matrix.indexing <- function(){
 	
 }
 
+test.NumericVector.import <- function(){
+	fx <- cxxfunction( signature(), '
+		std::vector<int> v(10) ;
+		for( int i=0; i<10; i++) v[i] = i ;
+		
+		return IntegerVector::import( v.begin(), v.end() ) ;
+	
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx(), 0:9, msg = "IntegerVector::import" ) 
+	
+}
+
+test.NumericVector.import.transform <- function(){
+	
+	inc <- '
+	inline double square( double x){ return x*x; }
+	
+	'
+	fx <- cxxfunction( signature(), '
+		std::vector<double> v(10) ;
+		for( int i=0; i<10; i++) v[i] = i ;
+		
+		return NumericVector::import_transform( v.begin(), v.end(), square ) ;
+	
+	', include = inc, plugin = "Rcpp" )
+	
+	checkEquals( fx(), (0:9)^2, msg = "NumericVector::import_transform" )
+	
+}
+
