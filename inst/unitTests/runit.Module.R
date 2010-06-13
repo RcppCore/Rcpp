@@ -17,6 +17,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.tearDown <- function(){
+	gc()
+}
+
 if( Rcpp:::capabilities()[["Rcpp modules"]] ) {
 
 test.Module <- function(){
@@ -213,9 +217,9 @@ test.Module.property <- function(){
 test.Module.member <- function(){
 
 	inc  <- '
-	class Num{
+	class Number{
 	public:
-	    Num() : x(0.0), y(0){} ;
+	    Number() : x(0.0), y(0){} ;
 	    	    
 	    double x ;
 	    int y ;
@@ -224,21 +228,21 @@ test.Module.member <- function(){
 	RCPP_MODULE(yada){
 		using namespace Rcpp ;
 	
-		class_<Num>( "Num" )
+		class_<Number>( "Number" )
 		
 			// read and write data member
-			.field( "x", &Num::x )
+			.field( "x", &Number::x )
 			
 			// read only data member
-			.field_readonly( "y", &Num::y )
+			.field_readonly( "y", &Number::y )
 		;
 	}
 	'
 	fx <- cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
 	
 	mod <- Module( "yada", getDynLib(fx) )
-	Num <- mod$Num
-    w <- new( Num )
+	Number <- mod$Number
+    w <- new( Number )
     checkEquals( w$x, 0.0 )  
     checkEquals( w$y, 0L )  
     
