@@ -36,7 +36,7 @@ namespace traits{
 	
 	template <> 
 	inline bool is_na<REALSXP>( double x ){
-		return x == NA_REAL ;
+		return R_IsNA(x) ;
 	}
 	
 	template <> 
