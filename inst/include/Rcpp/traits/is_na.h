@@ -50,6 +50,9 @@ namespace traits{
 	template <>
 	inline bool is_na<STRSXP>( SEXP x ){ return x == NA_STRING ; }
 	
+	template <>
+	inline bool is_na<LGLSXP>( int x ){ return x == NA_LOGICAL ; }
+	
 }
 }
 
