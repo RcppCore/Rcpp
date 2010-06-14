@@ -1618,6 +1618,4 @@ RCPP_GENERATE_SWAP( string_proxy,STRSXP)
 
 }
 
-#include <Rcpp/operators/VectorOperators.h>
-
 #endif 
