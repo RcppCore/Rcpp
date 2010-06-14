@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// VectorOperators.h: Rcpp R/C++ interface class library -- vector operators
-//                                                                      
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// LogicalResult.h: Rcpp R/C++ interface class library -- 
+//
+// Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,37 +19,37 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__operators_VectorOperators_h
-#define Rcpp__operators_VectorOperators_h
+#ifndef Rcpp__sugar__LogicalResult_h
+#define Rcpp__sugar__LogicalResult_h
 
 namespace Rcpp{
+namespace sugar{  
 
-template <int RTYPE>
-class LessThan {
+template <typename T>
+class LogicalResult {
 public:
-	typedef Vector<RTYPE> VEC ;
-	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	
-	LessThan( const VEC& lhs_, const VEC& rhs_) : 
-		lhs(lhs_), rhs(rhs_){}
-	
-	inline int operator[]( int i ) const {
-		return ( traits::is_na<RTYPE>(lhs[i]) || traits::is_na<RTYPE>(rhs[i]) ) ? 
-			NA_LOGICAL : ( lhs[i] < rhs[i] ) ;
+	LogicalResult() {} ;
+		
+	inline int operator[]( int i){
+		return static_cast<T*>(this)->operator[]( i ) ;
 	}
 	
-	inline int size() const { return lhs.size() ; }
+	inline int size(){
+		return static_cast<T&>(*this).size() ;
+	}
+	
+public:
 	
 	class iterator {
 	public:
 		typedef int difference_type ;
-		typedef STORAGE storage_type ;
 		typedef int value_type ;
 		typedef const int* pointer ;
 		typedef int reference ;
 		typedef std::random_access_iterator_tag iterator_category ;
 		
-		iterator( const LessThan& comp_, int index_ = 0 ) : 
+		iterator( const LogicalResult& comp_, int index_ = 0 ) : 
 			comp(comp_), index(index_) {}
 		                                                     
 		inline difference_type operator-( const iterator& other ){
@@ -114,25 +114,17 @@ public:
 		}
 
 	private:
-		const LessThan& comp ;
+		const LogicalResult& comp ;
 		int index ;
 	} ;
 	
 	inline iterator begin() const { return iterator(*this, 0 ) ; }
-	inline iterator end() const { return iterator(*this, lhs.size() ) ; }
-	
-private:
-	const VEC& lhs ;
-	const VEC& rhs ;
+	inline iterator end() const { return iterator(*this, size() ) ; }
+
 	
 } ;
 
 }
-
-template <int RTYPE>
-inline Rcpp::LessThan<RTYPE> operator<( const Rcpp::Vector<RTYPE>& lhs , const Rcpp::Vector<RTYPE>& rhs ){
-	return Rcpp::LessThan<RTYPE>( lhs, rhs ) ;
 }
-
 
 #endif
