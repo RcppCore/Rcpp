@@ -24,6 +24,7 @@
 
 // implementations
 #include <Rcpp/sugar/any.h>
+#include <Rcpp/sugar/all.h>
 #include <Rcpp/sugar/logical_operators.h>
 
 #endif
