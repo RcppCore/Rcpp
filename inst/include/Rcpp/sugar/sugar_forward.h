@@ -27,5 +27,6 @@
 
 // abstractions
 #include <Rcpp/sugar/SingleLogicalResult.h>
+#include <Rcpp/sugar/LogicalResult.h>
 
 #endif
