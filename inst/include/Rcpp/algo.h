@@ -156,19 +156,6 @@ inline bool any_if( InputIterator first, InputIterator last, Predicate pred){
 	return __any_if( first, last, pred, typename std::iterator_traits<InputIterator>::iterator_category() ) ;
 }
 
-
-template <typename T>
-SEXP any( const T& t){
-	bool seen_na = false ;
-	int n = t.size() ;
-	for( int i=0 ; i<n ; i++){
-		if( t[i] == TRUE ) return Rf_ScalarLogical( TRUE );
-		if( t[i] == NA_LOGICAL ) seen_na = true;
-	}
-	return seen_na ? Rf_ScalarLogical(NA_LOGICAL) : Rf_ScalarLogical(FALSE) ;
-}
-
-
 }
 
 #endif
