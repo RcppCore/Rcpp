@@ -130,12 +130,12 @@ Language( const Function& function, const Args&... args) : DottedPair(function, 
 	/**
 	 * eval this call in the global environment
 	 */
-	SEXP eval() ;
+	SEXP eval() throw(eval_error) ;
 
 	/**
 	 * eval this call in the requested environment
 	 */
-	SEXP eval(SEXP env) ;
+	SEXP eval(SEXP env) throw(eval_error) ;
 
 	~Language() ;
 
