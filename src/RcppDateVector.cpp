@@ -4,6 +4,7 @@
 //
 // Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
+// Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,23 +30,17 @@ RcppDateVector::RcppDateVector(SEXP vec) {
     int len = Rf_length(vec);
     if (len == 0)
 	throw std::range_error("RcppDateVector: null vector in constructor");
-    v = new RcppDate[len];
+    v.resize(len);
     for (i = 0; i < len; i++)
-	v[i] = RcppDate((int)REAL(vec)[i]);
-    length = len;
+	v[i] = RcppDate( (int) REAL(vec)[i]);
 }
 
 RcppDateVector::RcppDateVector(int n) {
-    v = new RcppDate[n];
-    length = n;
+    v.resize(n);
 }
 
-RcppDateVector::~RcppDateVector() {
-    delete [] v;
-}
-
-RcppDate& RcppDateVector::operator()(int i) const {
-    if (i < 0 || i >= length) {
+const RcppDate& RcppDateVector::operator()(unsigned int i) const {
+    if (i >= v.size()) {
 	std::ostringstream oss;
 	oss << "RcppDateVector: subscript out of range: " << i;
 	throw std::range_error(oss.str());
@@ -54,11 +49,11 @@ RcppDate& RcppDateVector::operator()(int i) const {
 }
 
 int RcppDateVector::size() const { 
-    return length; 
+    return v.size(); 
 }
 
-void RcppDateVector::set(int i, const RcppDate &d) {
-    if (i < 0 || i >= length) {
+void RcppDateVector::set(unsigned int i, const RcppDate &d) {
+    if (i >= v.size()) {
 	std::ostringstream oss;
 	oss << "RcppDateVector: subscript out of range: " << i;
 	throw std::range_error(oss.str());
