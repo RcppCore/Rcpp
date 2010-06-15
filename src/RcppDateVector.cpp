@@ -35,6 +35,11 @@ RcppDateVector::RcppDateVector(SEXP vec) {
     length = len;
 }
 
+RcppDateVector::RcppDateVector(int n) {
+    v = new RcppDate[n];
+    length = n;
+}
+
 RcppDateVector::~RcppDateVector() {
     delete [] v;
 }
@@ -50,4 +55,13 @@ RcppDate& RcppDateVector::operator()(int i) const {
 
 int RcppDateVector::size() const { 
     return length; 
+}
+
+void RcppDateVector::set(int i, const RcppDate &d) {
+    if (i < 0 || i >= length) {
+	std::ostringstream oss;
+	oss << "RcppDateVector: subscript out of range: " << i;
+	throw std::range_error(oss.str());
+    }
+    v[i] = d;
 }
