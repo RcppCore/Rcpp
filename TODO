@@ -1,42 +1,47 @@
 
-documentation
+Documentation
 
-	*	Bring "Rcpp ? NumericVector" into life. The hook is in place, we just need
-		to come up with some way to generate useful documentation for it: general
-		description of the class, related unit test cases, etc ...
+    o   Bring "Rcpp ? NumericVector" into life. The hook is in place, we just need
+	to come up with some way to generate useful documentation for it: general
+	description of the class, related unit test cases, etc ...
 		
-	*	rework ?Rcpp which is mainly old api centric
+    o   Rework ?Rcpp which is mainly old api centric
+
 
 API:
 
-	*	Rcpp::Date and Rcpp::DateVector
+    o   Rcpp::Date and Rcpp::DateVector 
 	
-	*	Rcpp::DateTime and Rcpp::DateTimeVector
+    o   Rcpp::DateTime and Rcpp::DateTimeVector
 
-modules: 
+    o   Rcpp::Factor and Rcpp::Ordered
 
-	*	exposing constructors. For now we can only construct internal objects 
-		with the default constructor of the target class. Maybe we can provide
-		some R level dispatch. Maybe look at ?selectMethod
+
+Modules: 
+
+    o   Exposing constructors. For now we can only construct internal objects 
+	with the default constructor of the target class. Maybe we can provide
+	some R level dispatch. Maybe look at ?selectMethod
 	
-	*	class inheritance. If we have Foo and Bar : public Foo, and we expose
-		both Foo and Bar to R, R level class Bar should enjoy methods of Foo
-		and the S4 inheritance should reflect the C++ level inheritance
+    o   Class inheritance. If we have Foo and Bar : public Foo, and we expose
+	both Foo and Bar to R, R level class Bar should enjoy methods of Foo
+	and the S4 inheritance should reflect the C++ level inheritance
 		
-	*	method overloading: methods are currently stored in a map<string,.>
-		so there can only be one method for a given name, which defeats C++
-		overloading. Maybe we can do better than that. This might also need 
-		R level dispatch (?selectMethod)
+    o   Method overloading: methods are currently stored in a map<string,.>
+	so there can only be one method for a given name, which defeats C++
+	overloading. Maybe we can do better than that. This might also need 
+	R level dispatch (?selectMethod)
 	
+
 R 2.12.0
 
-	*	remove the C++ObjectS3 class as it is no longer needed:
-		http://permalink.gmane.org/gmane.comp.lang.r.devel/24610
+    o   Remove the C++ObjectS3 class as it is no longer needed:
+	http://permalink.gmane.org/gmane.comp.lang.r.devel/24610
 
 		
-sugar
+Syntactic sugar
 
-	*	duplicated, unique, is_na, count, sum
+    o   duplicated, unique, is_na, count, sum
 	
-	*	other operators: +,-, ...
+    o   other operators: +,-, ...
 
