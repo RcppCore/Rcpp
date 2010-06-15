@@ -30,9 +30,11 @@
 class RcppDateVector {
 public:
     RcppDateVector(SEXP vec);
+    RcppDateVector(int n);
     ~RcppDateVector();
     RcppDate& operator()(int i) const;
     int size() const;
+    void set(int i, const RcppDate &d);
 private:
     RcppDate *v;
     int length;

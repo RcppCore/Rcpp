@@ -51,3 +51,11 @@ int RcppDatetimeVector::size() const {
     return length; 
 }
 
+void RcppDatetimeVector::set(int i, const RcppDatetime &dt) {
+    if (i < 0 || i >= length) {
+	std::ostringstream oss;
+	oss << "RcppDatetimeVector: subscript out of range: " << i;
+	throw std::range_error(oss.str());
+    }
+    v[i] = dt;
+}

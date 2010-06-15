@@ -1,3 +1,10 @@
+2010-06-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/RcppDatetimeVector.cpp: Add ctor from int and setter method
+	* inst/include/RcppDatetimeVector.h: Idem
+	* src/RcppDateVector.cpp: Add ctor from int and setter method
+	* inst/include/RcppDateVector.h: Idem
+
 2010-06-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppResultSet.cpp: Proper template specialisation for wrap

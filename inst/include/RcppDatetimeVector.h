@@ -28,9 +28,11 @@
 class RcppDatetimeVector {
 public:
     RcppDatetimeVector(SEXP vec);
+    RcppDatetimeVector(int n);
     ~RcppDatetimeVector();
     RcppDatetime &operator()(int i) const;
     int size() const;
+    void set(int i, const RcppDatetime &dt);
 private:
     RcppDatetime *v;
     int length;

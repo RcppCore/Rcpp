@@ -6,6 +6,9 @@
 
     o   RcppDate now has a constructor from SEXP as well
 
+    o   RcppDateVector and RcppDatetimeVector get constructors from int,
+        and simple setter functions for individual elements
+
 0.8.2   2010-06-09
 
     o   Bug-fix release for suncc compiler with thanks to Brian Ripley for
