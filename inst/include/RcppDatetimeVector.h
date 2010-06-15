@@ -3,6 +3,7 @@
 // RcppDatetimeeVector.h: Rcpp R/C++ interface class library -- Datetime vector support
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
+// Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,13 +30,12 @@ class RcppDatetimeVector {
 public:
     RcppDatetimeVector(SEXP vec);
     RcppDatetimeVector(int n);
-    ~RcppDatetimeVector();
-    RcppDatetime &operator()(int i) const;
+    ~RcppDatetimeVector() {};
+    const RcppDatetime &operator()(unsigned int i) const;
     int size() const;
-    void set(int i, const RcppDatetime &dt);
+    void set(unsigned int i, const RcppDatetime &dt);
 private:
-    RcppDatetime *v;
-    int length;
+    std::vector<RcppDatetime> v;
 };
 
 #endif

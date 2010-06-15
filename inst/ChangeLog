@@ -1,3 +1,10 @@
+2010-06-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/RcppDatetimeVector.cpp: Use std::vector internally
+	* inst/include/RcppDatetimeVector.h: Idem
+	* src/RcppDateVector.cpp: Use std::vector internally
+	* inst/include/RcppDateVector.h: Idem
+
 2010-06-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppDatetimeVector.cpp: Add ctor from int and setter method

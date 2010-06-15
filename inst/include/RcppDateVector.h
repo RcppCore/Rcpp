@@ -31,13 +31,12 @@ class RcppDateVector {
 public:
     RcppDateVector(SEXP vec);
     RcppDateVector(int n);
-    ~RcppDateVector();
-    RcppDate& operator()(int i) const;
+    ~RcppDateVector() {};
+    const RcppDate& operator()(unsigned int i) const;
     int size() const;
-    void set(int i, const RcppDate &d);
+    void set(unsigned int i, const RcppDate &d);
 private:
-    RcppDate *v;
-    int length;
+    std::vector<RcppDate> v;
 };
 
 #endif
