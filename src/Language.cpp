@@ -71,11 +71,11 @@ namespace Rcpp {
 		SET_TAG( m_sexp, R_NilValue ) ;
 	}
 	
-	SEXP Language::eval(){
+	SEXP Language::eval() throw(eval_error) {
 		return eval( R_GlobalEnv ) ;
 	}
 	
-	SEXP Language::eval( SEXP env ){
+	SEXP Language::eval( SEXP env ) throw(eval_error) {
 		return internal::try_catch( m_sexp, env );
 	}
 	
