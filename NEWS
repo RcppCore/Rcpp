@@ -8,6 +8,10 @@
 
     o   RcppDateVector and RcppDatetimeVector get constructors from int,
         and simple setter functions for individual elements
+        
+    o   new API class Rcpp::InternalFunction that can expose C++ functions
+    	to R without modules. The function is exposed as an S4 object of 
+    	class C++Function
 
 0.8.2   2010-06-09
 
