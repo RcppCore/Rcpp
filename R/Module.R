@@ -126,9 +126,13 @@ dollargets_cppobject <- function(x, name, value){
 setReplaceMethod( "$", "C++Object", dollargets_cppobject )
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()) ){
-	name <- sprintf( "_rcpp_module_boot_%s", module )
-	symbol <- getNativeSymbolInfo( name, PACKAGE )
-	xp  <- .Call( symbol )
+	if( identical( typeof( module ), "externalptr" ) ){
+		xp <- module
+	} else {
+		name <- sprintf( "_rcpp_module_boot_%s", module )
+		symbol <- getNativeSymbolInfo( name, PACKAGE )
+		xp  <- .Call( symbol )
+	}
 	classes <- .Call( "Module__classes_info", xp, PACKAGE = "Rcpp" )
 	if( length( classes ) ){
 		clnames <- names( classes )
