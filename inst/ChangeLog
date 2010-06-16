@@ -2,6 +2,12 @@
 
 	* inst/include/Rcpp/InternalFunction.h: new class Rcpp::InternalFunction
 	* R/Module.R: R support for Rcpp::InternalFunction
+	
+	* inst/include/Rcpp/Module.h: added the LOAD_RCPP_MODULE macro to 
+	allow loading a module from C++
+	
+	* R/Module.R: if the first argument is an external pointer already, 
+	Module assumes it is a module pointer. (R support for the item above)
 
 2010-06-15  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -325,6 +325,9 @@ extern "C" SEXP _rcpp_module_boot_##name(){                          \
   return mod_xp ;                                                    \
 }                                                                    \
 void _rcpp_module_##name##_init()
+
+#define LOAD_RCPP_MODULE(NAME) Rf_eval( Rf_lang2( Rf_install("Module"), _rcpp_module_boot_##NAME() ), R_GlobalEnv )
+
 #endif  
 
 #endif
