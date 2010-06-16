@@ -27,6 +27,25 @@ setClass( "C++Object",
 		pointer = "externalptr"
 		), 
 	contains = "C++ObjectS3" )
+setClass( "C++Function", 
+	representation( pointer = "externalptr" ), 
+	contains = "function"
+)
+     
+internal_function <- function(pointer){
+	f <- function(xp){
+		force(xp)
+		function(...){
+			.External( "InternalFunction_invoke" , PACKAGE = "Rcpp", xp, ... )
+		}
+	}
+	o <- new( "C++Function", f(pointer) )
+	o@pointer <- pointer
+	o
+}
+setMethod( "show", "C++Function", function(object){
+	writeLines( sprintf( "internal C++ function <%s>", externalptr_address(object@pointer) ) )
+} )
 
 setMethod( "$", "Module", function(x, name){
 	if( .Call( "Module__has_function", x@pointer, name, PACKAGE = "Rcpp" ) ){
