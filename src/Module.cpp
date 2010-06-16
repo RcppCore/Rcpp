@@ -27,6 +27,7 @@
 
 typedef Rcpp::XPtr<Rcpp::Module> XP_Module ; 
 typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ; 
+typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ; 
 
 RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
 	return cl->has_method(m) ;
@@ -77,9 +78,21 @@ RCPP_FUNCTION_4(SEXP, CppClass__set, XP_Class cl, SEXP obj, std::string name, SE
 }
 
 
-
-
 // .External functions
+extern "C" SEXP InternalFunction_invoke( SEXP args ){
+	SEXP p = CDR(args) ;
+	XP_Function fun( CAR(p) ) ; p = CDR(p) ;
+	
+	SEXP cargs[MAX_ARGS] ;
+    int nargs = 0 ;
+   	for(; nargs<MAX_ARGS; nargs++){
+   		if( p == R_NilValue ) break ;
+   		cargs[nargs] = CAR(p) ;
+   		p = CDR(p) ;
+   	}
+   	return fun->operator()( cargs ) ;
+}
+
 extern "C" SEXP Module__invoke( SEXP args){
 	SEXP p = CDR(args) ;
 	XP_Module module( CAR(p) ) ; p = CDR(p) ;

@@ -73,6 +73,7 @@
 #include <Rcpp/Module.h>
 #endif
 
+#include <Rcpp/InternalFunction.h>
 #include <Rcpp/sugar/sugar.h>
 
 #endif
