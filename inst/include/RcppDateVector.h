@@ -33,8 +33,8 @@ public:
     RcppDateVector(int n);
     ~RcppDateVector() {};
     const RcppDate& operator()(unsigned int i) const;
+    RcppDate& operator()(unsigned int i);
     int size() const;
-    void set(unsigned int i, const RcppDate &d);
 private:
     std::vector<RcppDate> v;
 };
