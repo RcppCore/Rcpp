@@ -1,12 +1,17 @@
-2010-06-13  Romain Francois <romain@r-enthusiasts.com>
+2010-06-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/RcppDateVector.cpp: Also provide non-const operator()(int i)
+	* inst/include/RcppDateVector.h: Idem
+
+2010-06-16  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/InternalFunction.h: new class Rcpp::InternalFunction
 	* R/Module.R: R support for Rcpp::InternalFunction
-	
-	* inst/include/Rcpp/Module.h: added the LOAD_RCPP_MODULE macro to 
+
+	* inst/include/Rcpp/Module.h: added the LOAD_RCPP_MODULE macro to
 	allow loading a module from C++
-	
-	* R/Module.R: if the first argument is an external pointer already, 
+
+	* R/Module.R: if the first argument is an external pointer already,
 	Module assumes it is a module pointer. (R support for the item above)
 
 2010-06-15  Dirk Eddelbuettel  <edd@debian.org>
@@ -18,9 +23,9 @@
 
 2010-06-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/RcppDatetimeVector.cpp: Add ctor from int and setter method
+	* src/RcppDatetimeVector.cpp: Add constructor from int
 	* inst/include/RcppDatetimeVector.h: Idem
-	* src/RcppDateVector.cpp: Add ctor from int and setter method
+	* src/RcppDateVector.cpp: Add constructor from int
 	* inst/include/RcppDateVector.h: Idem
 
 2010-06-13  Dirk Eddelbuettel  <edd@debian.org>
@@ -29,7 +34,7 @@
 	* inst/include/RcppResultSet.h: Idem
 
 	* src/RcppDateVector.cpp: Add const qualifier to operator()(int i)
-	* inst/include/RcppResultSet.h: Idem
+	* inst/include/RcppDateVector.h: Idem
 
 2010-06-13  Romain Francois <romain@r-enthusiasts.com>
 
