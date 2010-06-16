@@ -288,9 +288,6 @@ public:
      */
     void lock(bool bindings) ;
     
-    /* maybe we should have a separate class, e.g. Binding to deal
-       with the 4 below functions ? */
-    
     /**
      * Locks the given binding in the environment. 
      * see ?bindingIsLocked
