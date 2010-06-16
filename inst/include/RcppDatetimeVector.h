@@ -32,8 +32,8 @@ public:
     RcppDatetimeVector(int n);
     ~RcppDatetimeVector() {};
     const RcppDatetime &operator()(unsigned int i) const;
+    RcppDatetime &operator()(unsigned int i);
     int size() const;
-    void set(unsigned int i, const RcppDatetime &dt);
 private:
     std::vector<RcppDatetime> v;
 };

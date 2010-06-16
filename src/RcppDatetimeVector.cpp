@@ -43,15 +43,16 @@ const RcppDatetime & RcppDatetimeVector::operator()(unsigned int i) const {
     return v[i];
 }
 
-int RcppDatetimeVector::size() const { 
-    return v.size(); 
-}
-
-void RcppDatetimeVector::set(unsigned int i, const RcppDatetime &dt) {
+RcppDatetime & RcppDatetimeVector::operator()(unsigned int i) {
     if (i >= v.size()) {
 	std::ostringstream oss;
 	oss << "RcppDatetimeVector: subscript out of range: " << i;
 	throw std::range_error(oss.str());
     }
-    v[i] = dt;
+    return v[i];
 }
+
+int RcppDatetimeVector::size() const { 
+    return v.size(); 
+}
+
