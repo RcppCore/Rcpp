@@ -1,3 +1,7 @@
+2010-06-17  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Vector.h: split into more manageable files
+
 2010-06-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppDateVector.cpp: Also provide non-const operator()(int i)
