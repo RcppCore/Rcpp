@@ -226,7 +226,6 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/is_na.h>
 #include <Rcpp/traits/is_trivial.h>
 #include <Rcpp/traits/init_type.h>
-#include <Rcpp/traits/get_iterator.h>
 
 #include <Rcpp/traits/is_const.h>
 #include <Rcpp/traits/is_reference.h>
@@ -252,18 +251,6 @@ RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP );
 
 #include <Rcpp/preprocessor.h>
 #include <Rcpp/algo.h>
-
-
-// namespace Rcpp{
-// namespace sugar{
-// template <typename T> class LogicalResult ;
-// }
-// 
-// namespace traits{
-// 	template <typename T>
-// 	struct get_iterator	< Rcpp::sugar::LogicalResult<T> > ;
-// }
-// }
 
 #include <Rcpp/vector/VectorBase.h>
 

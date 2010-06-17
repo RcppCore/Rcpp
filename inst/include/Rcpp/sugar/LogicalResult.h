@@ -126,14 +126,6 @@ public:
 
 } // namespace sugar
 
-namespace traits{
-	template <typename T>
-	struct get_iterator	< Rcpp::sugar::LogicalResult<T> >{
-		typedef typename Rcpp::sugar::LogicalResult<T>::iterator type ;
-	} ;
-	
-} // namespace traits
-
 }
 
 #endif
