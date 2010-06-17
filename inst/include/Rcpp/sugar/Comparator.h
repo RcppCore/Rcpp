@@ -26,7 +26,7 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, typename Operator, typename LHS_TYPE, typename RHS_TYPE>
-class Comparator : public LogicalResult< Comparator<RTYPE,Operator,LHS_TYPE,RHS_TYPE> > {
+class Comparator : public LogicalResult< Comparator<RTYPE,Operator,LHS_TYPE,RHS_TYPE>, true > {
 public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef r_binary_op<RTYPE,Operator> R_OPERATOR ;
