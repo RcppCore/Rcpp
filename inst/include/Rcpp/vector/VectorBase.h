@@ -35,16 +35,95 @@ public:
 	VECTOR& get_ref(){
 		return static_cast<VECTOR&>(*this) ;
 	}
-	
-	// FIXME (or not): cannot get the iterator stuff to work
-	//                 we can probaly live without
-	// typedef typename traits::get_iterator<VECTOR>::type iterator ;
-	// inline iterator begin(){ return static_cast<VECTOR*>(this)->begin() ; }
-	// inline iterator end(){ return static_cast<VECTOR*>(this)->end() ; }
 
 	inline stored_type operator[]( int i) const { return static_cast<const VECTOR*>(this)->operator[](i) ; }
 	
 	inline int size() const { return static_cast<const VECTOR*>(this)->size() ; }
+	
+	class iterator {
+	public:
+		typedef stored_type reference ;
+		typedef stored_type* pointer ;
+		typedef int difference_type ;
+		typedef stored_type value_type;
+		typedef std::random_access_iterator_tag iterator_category ;
+
+		iterator( const VectorBase& object_, int index_ ) : object(object_), index(index_){} 
+		iterator( const iterator& other) : object(other.object), index(other.index){};
+		
+		inline iterator& operator++(){
+			index++ ;
+			return *this ;
+		}
+		inline iterator& operator++(int){
+			index++;
+			return *this ;
+		}
+		
+		inline iterator& operator--(){
+			index-- ;
+			return *this ;
+		}
+		inline iterator& operator--(int){
+			index--; 
+			return *this ;
+		}
+		                    
+		inline iterator operator+(difference_type n) const {
+			return iterator( object, index+n ) ;
+		}
+		inline iterator operator-(difference_type n) const {
+			return iterator( object, index-n ) ;
+		}
+		
+		inline iterator& operator+=(difference_type n) {
+			index += n ;
+			return *this ;
+		}
+		inline iterator& operator-=(difference_type n) {
+			index -= n; 
+			return *this ;
+		}
+
+		inline reference operator*() {
+			return object[index] ;
+		}
+		inline pointer operator->(){
+			return &object[index] ;
+		}
+		
+		inline bool operator==( const iterator& y) const {
+			return ( index == y.index ) ;
+		}
+		inline bool operator!=( const iterator& y) const {
+			return ( index != y.index ) ;
+		}
+		inline bool operator<( const iterator& other ) const {
+			return index < other.index ;
+		}
+		inline bool operator>( const iterator& other ) const {
+			return index > other.index ;
+		}
+		inline bool operator<=( const iterator& other ) const {
+			return index <= other.index ;
+		}
+		inline bool operator>=( const iterator& other ) const {
+			return index >= other.index ;
+		}
+		
+		inline difference_type operator-(const iterator& other) const {
+			return index - other.index ;
+		}
+	
+			
+	private:
+		const VectorBase& object ;
+		int index; 
+	} ;
+	
+	inline iterator begin() const { return iterator(*this, 0) ; }
+	inline iterator end() const { return iterator(*this, size() ) ; }
+	
 } ;
 
 } // namespace Rcpp
