@@ -232,11 +232,6 @@ namespace traits {
 	template<> struct r_vector_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
 	template<> struct r_vector_iterator<STRSXP> : proxy_based_iterator<STRSXP>{} ;
 
-	template <int RTYPE>
-	struct get_iterator< Rcpp::Vector<RTYPE> >{
-		typedef typename traits::r_vector_iterator<RTYPE>::type type ;
-	} ;
-	
 }  // traits
 
 
