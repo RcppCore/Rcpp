@@ -24,11 +24,12 @@ test.sugar.plus <- function( ){
 		return List::create(
 			xx + 10, 
 			10 + xx, 
-			xx + xx
+			xx + xx, 
+			xx + xx + xx
 			) ;
 	', plugin = "Rcpp" )
 	
-	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10)  )
+	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
 }
 
 test.sugar.plus.seqlen <- function( ){
@@ -42,5 +43,15 @@ test.sugar.plus.seqlen <- function( ){
 	', plugin = "Rcpp" )
 	
 	checkEquals( fx() , list( 11:20,11:20, 1:10+1:10)  )
+}
+
+test.sugar.plus.all <- function( ){
+
+	fx <- cxxfunction( signature( x = "integer" ), '
+		IntegerVector xx(x) ;
+		return all( (xx+xx) < 10 ) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx(1:10) , FALSE )
 }
 
