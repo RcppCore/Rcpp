@@ -23,8 +23,6 @@
 #define Rcpp__vector__proxy_h
 
 namespace internal{
-	template <int RTYPE> class string_proxy ;
-	template <int RTYPE> class generic_proxy ;
 	
 	template <int RTYPE> class simple_name_proxy {
 	public:
@@ -192,5 +190,55 @@ namespace internal{
 		}
 	} ;
 }
+
+namespace traits {
+	
+	template <int RTYPE> 
+	struct r_vector_name_proxy{
+		typedef typename ::Rcpp::internal::simple_name_proxy<RTYPE> type ;
+	} ;
+	template<> struct r_vector_name_proxy<STRSXP>{
+		typedef ::Rcpp::internal::string_name_proxy<STRSXP> type ;
+	} ;
+	template<> struct r_vector_name_proxy<VECSXP>{
+		typedef ::Rcpp::internal::generic_name_proxy<VECSXP> type ;
+	} ;
+	template<> struct r_vector_name_proxy<EXPRSXP>{
+		typedef ::Rcpp::internal::generic_name_proxy<EXPRSXP> type ;
+	} ;
+
+	template <int RTYPE>
+	struct r_vector_proxy{
+		typedef typename storage_type<RTYPE>::type& type ;
+	} ;
+	template<> struct r_vector_proxy<STRSXP> {
+		typedef ::Rcpp::internal::string_proxy<STRSXP> type ;
+	} ;
+	template<> struct r_vector_proxy<EXPRSXP> {
+		typedef ::Rcpp::internal::generic_proxy<EXPRSXP> type ;
+	} ;
+	template<> struct r_vector_proxy<VECSXP> {
+		typedef ::Rcpp::internal::generic_proxy<VECSXP> type ;
+	} ;
+
+	template <int RTYPE>
+	struct r_vector_iterator {
+		typedef typename storage_type<RTYPE>::type* type ;
+	};
+	template <int RTYPE> struct proxy_based_iterator{
+		typedef ::Rcpp::internal::Proxy_Iterator< typename r_vector_proxy<RTYPE>::type > type ;
+	} ;
+	template<> struct r_vector_iterator<VECSXP> : proxy_based_iterator<VECSXP>{} ;
+	template<> struct r_vector_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
+	template<> struct r_vector_iterator<STRSXP> : proxy_based_iterator<STRSXP>{} ;
+
+	template <int RTYPE>
+	struct get_iterator< Rcpp::Vector<RTYPE> >{
+		typedef typename traits::r_vector_iterator<RTYPE>::type type ;
+	} ;
+	
+}  // traits
+
+
 
 #endif

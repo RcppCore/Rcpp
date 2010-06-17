@@ -78,4 +78,19 @@ namespace internal {
 	} ;
 }
 
+namespace traits{
+	template <int RTYPE> struct r_vector_element_converter{
+		typedef typename ::Rcpp::internal::element_converter<RTYPE> type ;
+	} ;
+	template<> struct r_vector_element_converter<STRSXP>{
+		typedef ::Rcpp::internal::string_element_converter<STRSXP> type ;
+	} ;
+	template<> struct r_vector_element_converter<VECSXP>{
+		typedef ::Rcpp::internal::generic_element_converter<VECSXP> type ;
+	} ;
+	template<> struct r_vector_element_converter<EXPRSXP>{
+		typedef ::Rcpp::internal::generic_element_converter<EXPRSXP> type ;
+	} ;
+}
+
 #endif
