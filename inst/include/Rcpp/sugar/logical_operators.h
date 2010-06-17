@@ -25,40 +25,6 @@
 namespace Rcpp{
 namespace sugar{
 
-#undef RCPP_OP
-#define RCPP_OP(NAME,OP)   	                                     \
-template <int RTYPE>                                                \
-class NAME {                                                        \
-public:                                                             \
-	typedef typename traits::storage_type<RTYPE>::type STORAGE ;    \
-	inline bool compare_one( STORAGE lhs, STORAGE rhs) const {      \
-		return lhs OP rhs ;                                         \
-	}                                                               \
-} ;
-RCPP_OP(less,<)
-RCPP_OP(greater,>)
-RCPP_OP(less_or_equal,<=)
-RCPP_OP(greater_or_equal,>=)
-RCPP_OP(equal,==)
-RCPP_OP(not_equal,!=)
-#undef RCPP_OP
-
-	
-template <int RTYPE, typename T>
-class r_binary_op : public T {
-public:
-	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	
-	r_binary_op(){}
-	
-	inline int compare( STORAGE lhs, STORAGE rhs) const {
-		return ( traits::is_na<RTYPE>(lhs) || traits::is_na<RTYPE>(rhs) ) ? 
-		NA_LOGICAL : static_cast<int>( compare_one( lhs, rhs ) ) ;
-	}
-	
-} ;
-
-
 template <int RTYPE, typename Operator>
 class Comparator : public LogicalResult< Comparator<RTYPE,Operator> > {
 public:

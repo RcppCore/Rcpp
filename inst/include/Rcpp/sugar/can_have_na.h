@@ -25,8 +25,7 @@
 namespace Rcpp{
 
 template <typename T>
-struct can_have_na : Rcpp::traits::true_type {} ;
-
+struct can_have_na :  T::can_have_na::type {} ;
 
 } // Rcpp
 #endif
