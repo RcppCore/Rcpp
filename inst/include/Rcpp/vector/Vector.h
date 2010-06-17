@@ -87,6 +87,16 @@ public:
 		init() ;
     }
     
+    template <bool __NA__, typename __VEC__>
+    Vector( const VectorBase<RTYPE,__NA__,__VEC__>& other ){
+    	int n = other.size() ;
+    	RObject::setSEXP( Rf_allocVector( RTYPE, other.size() ) ) ;
+		iterator start = begin() ; 
+		for( int i=0; i<n; i++, ++start){
+			*start = other[i] ;
+		}
+    }
+    
     template <typename U>
     Vector( const int& size, const U& u){
     	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;

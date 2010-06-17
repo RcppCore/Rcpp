@@ -31,96 +31,13 @@ public:
 	
 	LogicalResult() {} ;
 		
-	inline int operator[]( int i){
-		return static_cast<T*>(this)->operator[]( i ) ;
+	inline int operator[]( int i) const {
+		return static_cast<const T*>(this)->operator[]( i ) ;
 	}
 	
-	inline int size(){
-		return static_cast<T&>(*this).size() ;
+	inline int size() const {
+		return static_cast<const T&>(*this).size() ;
 	}
-	
-// public:
-// 	
-// 	class iterator {
-// 	public:
-// 		typedef int difference_type ;
-// 		typedef int value_type ;
-// 		typedef const int* pointer ;
-// 		typedef int reference ;
-// 		typedef std::random_access_iterator_tag iterator_category ;
-// 		
-// 		iterator( const LogicalResult& comp_, int index_ = 0 ) : 
-// 			comp(comp_), index(index_) {}
-// 		                                                     
-// 		inline difference_type operator-( const iterator& other ){
-// 			return index - other.index ;
-// 		}
-// 		inline bool operator==( const iterator& other ){
-// 			return index == other.index ;
-// 		}
-// 		inline bool operator<( const iterator& other ){
-// 			return index < other.index ;
-// 		}
-// 		inline bool operator>( const iterator& other ){
-// 			return index > other.index ;
-// 		}
-// 		inline bool operator<=( const iterator& other ){
-// 			return index <= other.index ;
-// 		}
-// 		inline bool operator>=( const iterator& other ){
-// 			return index >= other.index ;
-// 		}
-// 		inline bool operator!=( const iterator& other ){
-// 			return index != other.index ;
-// 		}
-// 		
-// 		inline reference operator*(){
-// 			return comp[index] ;
-// 		}
-// 		inline pointer operator->(){
-// 			return &comp[index] ;
-// 		}
-// 
-// 		inline iterator& operator++(){
-// 			index++; 
-// 			return *this ;
-// 		}
-// 		inline iterator& operator++(int){
-// 			index++ ;
-// 			return *this ;
-// 		}
-// 		inline iterator& operator--(){
-// 			index-- ;
-// 			return *this ;
-// 		}
-// 		inline iterator& operator--(int){
-// 			index-- ;
-// 			return *this ;
-// 		}
-// 		inline iterator& operator+=(difference_type n) {
-// 			index += n ;
-// 			return *this ;
-// 		}
-// 		inline iterator& operator-=(difference_type n) {
-// 			index -= n ;
-// 			return *this ;
-// 		}
-// 		
-// 		inline iterator operator+(difference_type n) const {
-// 			return iterator( comp, index + n ) ;
-// 		}
-// 		inline iterator operator-(difference_type n) const {
-// 			return iterator( comp, index - n ) ;
-// 		}
-// 
-// 	private:
-// 		const LogicalResult& comp ;
-// 		int index ;
-// 	} ;
-// 	
-// 	inline iterator begin() const { return iterator(*this, 0 ) ; }
-// 	inline iterator end() const { return iterator(*this, size() ) ; }
-
 	
 } ;
 

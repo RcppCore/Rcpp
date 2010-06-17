@@ -55,7 +55,7 @@ test.RcppDatetime.operators <- function() {
 test.RcppDatetime.wrap <- function() {
     src <- 'RcppDatetime dt = RcppDatetime(981183723.123456);
 	    return wrap(dt);';
-    funx <- cppfunction(signature(), src)
+    funx <- cxxfunction(signature(), src, plugin = "Rcpp" )
     checkEquals(as.numeric(funx()), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456")),
                 msg = "RcppDatetime.wrap")
 }
