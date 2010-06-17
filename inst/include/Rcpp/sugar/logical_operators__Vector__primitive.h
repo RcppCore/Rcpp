@@ -23,104 +23,268 @@
 #ifndef Rcpp__sugar__logical_operators__Vector__primitive_h
 #define Rcpp__sugar__logical_operators__Vector__primitive_h
 
-/* Vector op primitive */
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::less<RTYPE> > 
-operator<( const Rcpp::Vector<RTYPE>& lhs , typename Rcpp::traits::storage_type<RTYPE>::type rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::less<RTYPE> >( 
-		lhs, rhs
+/* Vector < primitive */
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::less<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator<( 
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs , 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::less<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
 		) ;
 }
-
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::greater<RTYPE> > 
-operator>( const Rcpp::Vector<RTYPE>& lhs , typename Rcpp::traits::storage_type<RTYPE>::type rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::greater<RTYPE> >( 
-		lhs, rhs
-		) ;
-}
-
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::less_or_equal<RTYPE> > 
-operator<=( const Rcpp::Vector<RTYPE>& lhs , typename Rcpp::traits::storage_type<RTYPE>::type rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::less_or_equal<RTYPE> >( 
-		lhs, rhs
-		) ;
-}
-
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::greater_or_equal<RTYPE> > 
-operator>=( const Rcpp::Vector<RTYPE>& lhs , typename Rcpp::traits::storage_type<RTYPE>::type rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::greater_or_equal<RTYPE> >( 
-		lhs, rhs
-		) ;
-}
-
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::equal<RTYPE> > 
-operator==( const Rcpp::Vector<RTYPE>& lhs , typename Rcpp::traits::storage_type<RTYPE>::type rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::equal<RTYPE> >( 
-		lhs, rhs
-		) ;
-}
-
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::not_equal<RTYPE> > 
-operator!=( const Rcpp::Vector<RTYPE>& lhs , typename Rcpp::traits::storage_type<RTYPE>::type rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::not_equal<RTYPE> >( 
-		lhs, rhs
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::less<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator>( 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs,
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::less<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
 		) ;
 }
 
 
 
-/* primitive op Vector */
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::greater<RTYPE> > 
-operator<( typename Rcpp::traits::storage_type<RTYPE>::type lhs , const Rcpp::Vector<RTYPE>& rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::greater<RTYPE> >( 
-		rhs, lhs
+/* Vector > primitive */
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::greater<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator>( 
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs , 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::greater<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
+		) ;
+}
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::greater<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator<( 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs,
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::greater<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
 		) ;
 }
 
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::less<RTYPE> > 
-operator>( typename Rcpp::traits::storage_type<RTYPE>::type lhs , const Rcpp::Vector<RTYPE>& rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::less<RTYPE> >( 
-		rhs, lhs
+
+
+/* Vector <= primitive */
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::less_or_equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator<=( 
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs , 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::less_or_equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
+		) ;
+}
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::less_or_equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator>=( 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs,
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs 
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::less_or_equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
 		) ;
 }
 
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::greater_or_equal<RTYPE> > 
-operator<=( typename Rcpp::traits::storage_type<RTYPE>::type lhs , const Rcpp::Vector<RTYPE>& rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::greater_or_equal<RTYPE> >( 
-		rhs, lhs
+
+
+
+/* Vector >= primitive */
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::greater_or_equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator>=( 
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs , 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::greater_or_equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
+		) ;
+}
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::greater_or_equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator<=( 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs,
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::greater_or_equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
 		) ;
 }
 
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::less_or_equal<RTYPE> > 
-operator>=( typename Rcpp::traits::storage_type<RTYPE>::type lhs , const Rcpp::Vector<RTYPE>& rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::less_or_equal<RTYPE> >( 
-		rhs, lhs
+
+
+/* Vector == primitive */
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator==( 
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs , 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
+		) ;
+}
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator==( 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs,
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
 		) ;
 }
 
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::equal<RTYPE> > 
-operator==( typename Rcpp::traits::storage_type<RTYPE>::type lhs , const Rcpp::Vector<RTYPE>& rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::equal<RTYPE> >( 
-		rhs, lhs
+
+
+/* Vector != primitive */
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::not_equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator!=( 
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs , 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::not_equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
+		) ;
+}
+template <int RTYPE, bool na, typename VEC_TYPE>
+inline Rcpp::sugar::Comparator_With_One_Value<
+	RTYPE , 
+	Rcpp::sugar::not_equal<RTYPE>, 
+	na, 
+	Rcpp::VectorBase<RTYPE,na,VEC_TYPE>
+	> 
+operator!=( 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs,
+	const Rcpp::VectorBase<RTYPE,na,VEC_TYPE>& lhs 
+	){
+	return Rcpp::sugar::Comparator_With_One_Value<
+		RTYPE, 
+		Rcpp::sugar::not_equal<RTYPE>, 
+		na,
+		Rcpp::VectorBase<RTYPE,na,VEC_TYPE> 
+		>( 
+			lhs, rhs
 		) ;
 }
 
-template <int RTYPE>
-inline Rcpp::sugar::Comparator_With_One_Value< RTYPE , Rcpp::sugar::not_equal<RTYPE> > 
-operator!=( typename Rcpp::traits::storage_type<RTYPE>::type lhs , const Rcpp::Vector<RTYPE>& rhs ){
-	return Rcpp::sugar::Comparator_With_One_Value<RTYPE, Rcpp::sugar::not_equal<RTYPE> >( 
-		rhs, lhs
-		) ;
-}
 
 #endif
