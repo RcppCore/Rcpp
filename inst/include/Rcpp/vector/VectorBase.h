@@ -42,9 +42,9 @@ public:
 	// inline iterator begin(){ return static_cast<VECTOR*>(this)->begin() ; }
 	// inline iterator end(){ return static_cast<VECTOR*>(this)->end() ; }
 
-	inline stored_type operator[]( int i) const { return static_cast<VECTOR*>(this)->operator[](i) ; }
+	inline stored_type operator[]( int i) const { return static_cast<const VECTOR*>(this)->operator[](i) ; }
 	
-	inline int size() const { return static_cast<VECTOR*>(this)->size() ; }
+	inline int size() const { return static_cast<const VECTOR*>(this)->size() ; }
 } ;
 
 } // namespace Rcpp
