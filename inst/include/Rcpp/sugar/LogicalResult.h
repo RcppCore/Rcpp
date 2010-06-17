@@ -25,8 +25,8 @@
 namespace Rcpp{
 namespace sugar{  
 
-template <typename T>
-class LogicalResult : public Rcpp::VectorBase<LGLSXP,true,LogicalResult<T> > {
+template <typename T, bool na>
+class LogicalResult : public Rcpp::VectorBase<LGLSXP,na,LogicalResult<T,na> > {
 public:
 	
 	LogicalResult() {} ;

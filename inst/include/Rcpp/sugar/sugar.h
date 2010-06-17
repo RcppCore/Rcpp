@@ -25,6 +25,7 @@
 // implementations
 #include <Rcpp/sugar/any.h>
 #include <Rcpp/sugar/all.h>
+#include <Rcpp/sugar/is_na.h>
 
 #include <Rcpp/sugar/Comparator.h>
 #include <Rcpp/sugar/Comparator_With_One_Value.h>

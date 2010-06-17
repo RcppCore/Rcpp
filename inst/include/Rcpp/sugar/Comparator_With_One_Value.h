@@ -27,7 +27,7 @@ namespace sugar{
 
 template <int RTYPE, typename Operator, bool na, typename VEC_TYPE>
 class Comparator_With_One_Value : 
-	public LogicalResult< Comparator_With_One_Value<RTYPE,Operator,na,VEC_TYPE> > {
+	public LogicalResult< Comparator_With_One_Value<RTYPE,Operator,na,VEC_TYPE>, true > {
 public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef r_binary_op<RTYPE,Operator> R_OPERATOR ;
