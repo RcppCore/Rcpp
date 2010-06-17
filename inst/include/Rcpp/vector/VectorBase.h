@@ -27,7 +27,7 @@ template <int RTYPE, bool na, typename VECTOR>
 class VectorBase {
 public:
 	struct r_type : traits::integral_constant<int,RTYPE>{} ;
-	struct can_contain_na : traits::integral_constant<bool,na>{} ;
+	struct can_have_na : traits::integral_constant<bool,na>{} ;
 	
 	typedef typename traits::get_iterator<VECTOR>::type iterator ;
 	typedef typename traits::storage_type<RTYPE>::type stored_type ;
@@ -40,6 +40,7 @@ public:
 
 	inline stored_type operator[]( int i) const { return static_cast<VECTOR*>(this)->operator[](i) ; }
 	
+	inline int size() const { return static_cast<VECTOR*>(this)->size() ; }
 } ;
 
 #endif

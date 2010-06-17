@@ -23,6 +23,7 @@
 #define RCPP_SUGAR_H
 
 // implementations
+#include <Rcpp/sugar/r_binary_op.h>
 #include <Rcpp/sugar/any.h>
 #include <Rcpp/sugar/all.h>
 #include <Rcpp/sugar/logical_operators.h>
