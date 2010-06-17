@@ -27,7 +27,18 @@ test.sugar.plus <- function( ){
 			) ;
 	', plugin = "Rcpp" )
 	
-	
 	checkEquals( fx(1:10) , list( 11:20,11:20)  )
+}
+
+test.sugar.plus.seqlen <- function( ){
+
+	fx <- cxxfunction( signature(), '
+		return List::create(
+			seq_len(10) + 10, 
+			10 + seq_len(10) 
+			) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx() , list( 11:20,11:20)  )
 }
 
