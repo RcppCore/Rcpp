@@ -23,6 +23,8 @@
 #define Rcpp__vector__VectorBase_h
 
 namespace Rcpp{
+
+
 	
 /** a base class for vectors, modelled after the CRTP */
 template <int RTYPE, bool na, typename VECTOR>
