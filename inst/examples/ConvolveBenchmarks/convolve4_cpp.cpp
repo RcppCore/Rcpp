@@ -10,13 +10,12 @@ RcppExport SEXP convolve4cpp(SEXP a, SEXP b) {
     int n_xa = xa.size() ;
     int n_xb = xb.size() ;
     int nab = n_xa + n_xb - 1;
-    Rcpp::NumericVector xab(nab);
+    Rcpp::NumericVector xab(nab,0.0);
     
     double* pa = xa.begin() ;
     double* pb = xb.begin() ;
     double* pab = xab.begin() ;
     int i,j=0; 
-    for (i = 0; i < nab; i++) pab[i] = 0.0;
     for (i = 0; i < n_xa; i++)
 	for (j = 0; j < n_xb; j++) 
 	    pab[i + j] += pa[i] * pb[j];
