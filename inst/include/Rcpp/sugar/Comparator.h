@@ -25,14 +25,13 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, typename Operator>
-class Comparator : public LogicalResult< Comparator<RTYPE,Operator> > {
+template <int RTYPE, typename Operator, typename LHS_TYPE, typename RHS_TYPE>
+class Comparator : public LogicalResult< Comparator<RTYPE,Operator,LHS_TYPE,RHS_TYPE> > {
 public:
-	typedef Vector<RTYPE> VEC ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef r_binary_op<RTYPE,Operator> R_OPERATOR ;
 	
-	Comparator( const VEC& lhs_, const VEC& rhs_) : 
+	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) : 
 		op(), lhs(lhs_), rhs(rhs_){}
 	
 	inline int operator[]( int i ) const {
@@ -43,8 +42,8 @@ public:
 	
 private:
 	R_OPERATOR op ;
-	const VEC& lhs ;
-	const VEC& rhs ;
+	const LHS_TYPE& lhs ;
+	const RHS_TYPE& rhs ;
 	
 } ;
 
