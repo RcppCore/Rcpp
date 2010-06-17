@@ -1,6 +1,10 @@
 2010-06-17  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Vector.h: split into more manageable files
+	
+	* inst/include/Rcpp/vector/VectorBase.h: simplify the VectorBase class
+	so that it is just implementing CRTP. It does not inherit from RObject anymore.
+	This will help implementation of sugar.
 
 2010-06-16  Dirk Eddelbuettel  <edd@debian.org>
 
