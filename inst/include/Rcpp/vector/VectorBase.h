@@ -22,25 +22,30 @@
 #ifndef Rcpp__vector__VectorBase_h
 #define Rcpp__vector__VectorBase_h
 
+namespace Rcpp{
+	
 /** a base class for vectors, modelled after the CRTP */
 template <int RTYPE, bool na, typename VECTOR>
 class VectorBase {
 public:
 	struct r_type : traits::integral_constant<int,RTYPE>{} ;
 	struct can_have_na : traits::integral_constant<bool,na>{} ;
-	
-	typedef typename traits::get_iterator<VECTOR>::type iterator ;
 	typedef typename traits::storage_type<RTYPE>::type stored_type ;
 	
 	VECTOR& get_ref(){
 		return static_cast<VECTOR&>(*this) ;
 	}
-	inline iterator begin(){ return static_cast<VECTOR*>(this)->begin() ; }
-	inline iterator end(){ return static_cast<VECTOR*>(this)->end() ; }
+	
+	// FIXME (or not): cannot get the iterator stuff to work
+	//                 we can probaly live without
+	// typedef typename traits::get_iterator<VECTOR>::type iterator ;
+	// inline iterator begin(){ return static_cast<VECTOR*>(this)->begin() ; }
+	// inline iterator end(){ return static_cast<VECTOR*>(this)->end() ; }
 
 	inline stored_type operator[]( int i) const { return static_cast<VECTOR*>(this)->operator[](i) ; }
 	
 	inline int size() const { return static_cast<VECTOR*>(this)->size() ; }
 } ;
 
+} // namespace Rcpp
 #endif

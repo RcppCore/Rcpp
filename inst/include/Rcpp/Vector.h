@@ -31,9 +31,6 @@
 
 namespace Rcpp{
 
-#include <Rcpp/vector/get_iterator.h>
-#include <Rcpp/vector/VectorBase.h>
-
 #include <Rcpp/vector/00_forward_Vector.h>
 #include <Rcpp/vector/00_forward_proxy.h>
 #include <Rcpp/vector/00_forward_eval_methods.h>
