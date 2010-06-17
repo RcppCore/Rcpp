@@ -23,8 +23,5 @@
 #define Rcpp__vector__forward_Vector_h
 
 template <int RTYPE> class Vector ;
-namespace traits {
-	template <int RTYPE> struct get_iterator< Rcpp::Vector<RTYPE> > ; 
-}
 
 #endif
