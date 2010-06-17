@@ -19,7 +19,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__vector__get_iterator_h
-#define Rcpp__vector__get_iterator_h
+#ifndef Rcpp__traits__get_iterator_h
+#define Rcpp__traits__get_iterator_h
+
+namespace Rcpp{
+namespace traits{
+
+	template <typename T>
+	struct get_iterator{
+		typedef typename T::iterator type ;
+	} ;
+	
+}  // traits
+}  // Rcpp
 
 #endif

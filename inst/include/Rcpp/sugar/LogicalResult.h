@@ -26,7 +26,7 @@ namespace Rcpp{
 namespace sugar{  
 
 template <typename T>
-class LogicalResult {
+class LogicalResult : public Rcpp::VectorBase<LGLSXP,true,LogicalResult<T> > {
 public:
 	
 	LogicalResult() {} ;
@@ -124,7 +124,16 @@ public:
 	
 } ;
 
-}
+} // namespace sugar
+
+namespace traits{
+	template <typename T>
+	struct get_iterator	< Rcpp::sugar::LogicalResult<T> >{
+		typedef typename Rcpp::sugar::LogicalResult<T>::iterator type ;
+	} ;
+	
+} // namespace traits
+
 }
 
 #endif
