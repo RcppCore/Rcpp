@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// sugar.h: Rcpp R/C++ interface class library -- main file for Rcpp::sugar
+// seq_along.h: Rcpp R/C++ interface class library -- any
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -19,17 +19,33 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_H
-#define RCPP_SUGAR_H
+#ifndef Rcpp__sugar__seq_along_h
+#define Rcpp__sugar__seq_along_h
 
-// implementations
-#include <Rcpp/sugar/any.h>
-#include <Rcpp/sugar/all.h>
-#include <Rcpp/sugar/is_na.h>
-#include <Rcpp/sugar/seq_along.h>
+namespace Rcpp{
+namespace sugar{
 
-#include <Rcpp/sugar/Comparator.h>
-#include <Rcpp/sugar/Comparator_With_One_Value.h>
-#include <Rcpp/sugar/logical_operators.h>
+template <typename T>
+class SeqAlong : public VectorBase< INTSXP,false,SeqAlong<T> > {
+public:
+	SeqAlong( int len_ ) : len(len_){}
+	
+	inline int operator[]( int i ) const {
+		return 1 + i ;
+	}
+	inline int size() const { return len ; }
+	         
+private:
+	const int len ;
+} ;
+	
+} // sugar
 
+template <int RTYPE, bool _NA_, typename T>
+inline sugar::SeqAlong<T> seq_along( const Rcpp::VectorBase<RTYPE,_NA_,T>& t){
+	return sugar::SeqAlong<T>( t.size() ) ;
+}
+
+} // Rcpp
 #endif
+
