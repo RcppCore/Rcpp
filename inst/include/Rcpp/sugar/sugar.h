@@ -31,5 +31,6 @@
 #include <Rcpp/sugar/Comparator.h>
 #include <Rcpp/sugar/Comparator_With_One_Value.h>
 #include <Rcpp/sugar/logical_operators.h>
+#include <Rcpp/sugar/plus.h>
 
 #endif
