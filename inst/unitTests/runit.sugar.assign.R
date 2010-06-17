@@ -17,14 +17,35 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-test.sugar.assign <- function( ){
+test.sugar.constructor <- function( ){
 
 	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
 	
 		NumericVector xx(x) ;
 		NumericVector yy(y) ;
 		
-		LogicalVector res = xx < yy ;
+		LogicalVector res( xx < yy ) ;
+		return res ;
+		
+	', plugin = "Rcpp" )
+
+
+	checkEquals( fx( 1, 0 ), FALSE )
+	checkEquals( fx( 1:10, 2:11 ), rep(TRUE,10) )
+	checkEquals( fx( 0, 1 ), TRUE )
+	checkTrue( identical( fx( NA, 1 ), NA ) )
+	
+}
+
+test.sugar.assignment <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
+	
+		NumericVector xx(x) ;
+		NumericVector yy(y) ;
+		
+		LogicalVector res; 
+		res = xx < yy ;
 		return res ;
 		
 	', plugin = "Rcpp" )
