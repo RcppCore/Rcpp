@@ -7,6 +7,9 @@ Documentation
 		
     o   Rework ?Rcpp which is mainly old api centric
 
+    o	Add a vignette about Rcpp sugar
+    
+    o	Add a vignette about the api
 
 API:
 
@@ -38,14 +41,15 @@ R 2.12.0
     o   Remove the C++ObjectS3 class as it is no longer needed:
 	http://permalink.gmane.org/gmane.comp.lang.r.devel/24610
 
-		
+	o	Order of classes in POSIXt, ...
+	
 Syntactic sugar
 
     o   duplicated, unique, count, sum, rep
     
     o	for matrices: row, col, lower_tri, upper_tri
 	
-    o   other operators: -, /, *, ...
+    o   other operators: /, *, ...
     
     o	lazy version of sapply as in this thread:
     	http://article.gmane.org/gmane.comp.lang.r.rcpp/455
@@ -53,4 +57,11 @@ Syntactic sugar
     o	lapply
     
     o	for character vectors: nchar, grepl, sub, gsub
+    
+    o	some way to lazily extract subsets of vectors so that we could do: 
+    
+    	IntegerVector xx(20) ;
+    	xx[ range(0,9) ] = seq_len(10 ) ;
+    	
+    	
 
