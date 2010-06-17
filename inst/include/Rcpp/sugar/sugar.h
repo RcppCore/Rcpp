@@ -25,6 +25,9 @@
 // implementations
 #include <Rcpp/sugar/any.h>
 #include <Rcpp/sugar/all.h>
+
+#include <Rcpp/sugar/Comparator.h>
+#include <Rcpp/sugar/Comparator_With_One_Value.h>
 #include <Rcpp/sugar/logical_operators.h>
 
 #endif

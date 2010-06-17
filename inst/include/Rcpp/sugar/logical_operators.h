@@ -22,60 +22,6 @@
 #ifndef Rcpp__sugar__logical_operators_h
 #define Rcpp__sugar__logical_operators_h
 
-namespace Rcpp{
-namespace sugar{
-
-template <int RTYPE, typename Operator>
-class Comparator : public LogicalResult< Comparator<RTYPE,Operator> > {
-public:
-	typedef Vector<RTYPE> VEC ;
-	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef r_binary_op<RTYPE,Operator> R_OPERATOR ;
-	
-	Comparator( const VEC& lhs_, const VEC& rhs_) : 
-		op(), lhs(lhs_), rhs(rhs_){}
-	
-	inline int operator[]( int i ) const {
-		return op.compare( lhs[i], rhs[i] ) ;
-	}
-	
-	inline int size() const { return lhs.size() ; }
-	
-private:
-	R_OPERATOR op ;
-	const VEC& lhs ;
-	const VEC& rhs ;
-	
-} ;
-
-template <int RTYPE, typename Operator>
-class Comparator_With_One_Value : public LogicalResult< Comparator_With_One_Value<RTYPE,Operator> > {
-public:
-	typedef Vector<RTYPE> VEC ;
-	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef r_binary_op<RTYPE,Operator> R_OPERATOR ;
-	
-	Comparator_With_One_Value( const VEC& lhs_, STORAGE rhs_ ) : 
-		op(), lhs(lhs_), rhs(rhs_){}
-	
-	inline int operator[]( int i ) const {
-		return op.compare( lhs[i], rhs ) ;
-	}
-	
-	inline int size() const { return lhs.size() ; }
-	
-private:
-	R_OPERATOR op ;
-	const VEC& lhs ;
-	STORAGE rhs ;
-} ;
-
-
-
-} // sugar
-} // Rcpp
-
-
 /* Vector op Vector */
 template <int RTYPE>
 inline Rcpp::sugar::Comparator< RTYPE , Rcpp::sugar::less<RTYPE> > 
