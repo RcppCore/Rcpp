@@ -37,3 +37,13 @@ test.sugar.isna.isna <- function( ){
 	checkEquals( fx( c(1:5,NA,7:10) ) , rep(FALSE,10) )
 }
 
+test.sugar.any.isna <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric" ), '
+		NumericVector xx(x) ;
+		return any( is_na( xx ) ) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx( c(1:5,NA,7:10) ) , TRUE )
+}
+
