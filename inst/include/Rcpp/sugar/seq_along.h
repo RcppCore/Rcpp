@@ -25,10 +25,9 @@
 namespace Rcpp{
 namespace sugar{
 
-template <typename T>
-class SeqAlong : public VectorBase< INTSXP,false,SeqAlong<T> > {
+class SeqLen : public VectorBase< INTSXP,false,SeqLen > {
 public:
-	SeqAlong( int len_ ) : len(len_){}
+	SeqLen( int len_ ) : len(len_){}
 	
 	inline int operator[]( int i ) const {
 		return 1 + i ;
@@ -36,15 +35,21 @@ public:
 	inline int size() const { return len ; }
 	         
 private:
-	const int len ;
+	int len ;
 } ;
 	
 } // sugar
 
 template <int RTYPE, bool _NA_, typename T>
-inline sugar::SeqAlong<T> seq_along( const Rcpp::VectorBase<RTYPE,_NA_,T>& t){
-	return sugar::SeqAlong<T>( t.size() ) ;
+inline sugar::SeqLen seq_along( const Rcpp::VectorBase<RTYPE,_NA_,T>& t){
+	return sugar::SeqLen( t.size() ) ;
 }
+
+inline sugar::SeqLen seq_len( const size_t& n){
+	return sugar::SeqLen( n ) ;
+}
+
+
 
 } // Rcpp
 #endif

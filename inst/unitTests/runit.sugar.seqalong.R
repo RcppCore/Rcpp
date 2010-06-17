@@ -32,3 +32,14 @@ test.sugar.seqlaong <- function( ){
 	checkEquals( fx( rnorm(10)) , 1:10  )
 }
 
+test.sugar.seqlen <- function( ){
+
+	fx <- cxxfunction( signature( ), '
+		IntegerVector res = seq_len( 10 );
+		return res ;
+	', plugin = "Rcpp" )
+	
+	
+	checkEquals( fx() , 1:10  )
+}
+
