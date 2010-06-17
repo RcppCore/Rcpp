@@ -41,7 +41,7 @@ R 2.12.0
 		
 Syntactic sugar
 
-    o   duplicated, unique, count, sum, seq_len, rep
+    o   duplicated, unique, count, sum, rep
     
     o	for matrices: row, col, lower_tri, upper_tri
 	
