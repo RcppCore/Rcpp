@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// eval_methods.h: Rcpp R/C++ interface class library -- 
+// init_type.h: Rcpp R/C++ interface class library -- support traits for vector
 //
 // Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 //
@@ -19,26 +19,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__vector__eval_methods_h
-#define Rcpp__vector__eval_methods_h
+#ifndef Rcpp__traits__init_type_h
+#define Rcpp__traits__init_type_h
 
-namespace internal{
-	
-	template <int RTYPE> class expr_eval_methods {
-	public:
-		typedef Rcpp::Vector<RTYPE> VECTOR ;
-		
-		SEXP eval(){
-			SEXP xp = ( static_cast<VECTOR&>(*this) ).asSexp() ;
-			return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, R_NilValue) ) ) ;
-		} ;
-		SEXP eval( const ::Rcpp::Environment& env ){
-			SEXP xp = ( static_cast<VECTOR&>(*this) ).asSexp() ;
-			return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, ::Rf_cons(env.asSexp(), R_NilValue)) ) ) ;
-		} ;
+namespace Rcpp {
+namespace traits {
+
+	template<int RTYPE> struct init_type {
+		typedef typename storage_type<RTYPE>::type type ;
+	} ;
+	template<> struct init_type<STRSXP>{
+		typedef const char* type ;
+	} ;
+	template<> struct init_type<LGLSXP>{
+		typedef bool type ;
 	} ;
 	
-	template<> class eval_methods<EXPRSXP> : public expr_eval_methods<EXPRSXP> {} ;
-	
 }
+}
+
 #endif

@@ -32,9 +32,9 @@ namespace std {
 			a.swap(b) ;												\
 		}
 
-RCPP_GENERATE_SWAP( generic_proxy,VECSXP)
-RCPP_GENERATE_SWAP( generic_proxy,EXPRSXP)
-RCPP_GENERATE_SWAP( string_proxy,STRSXP)
+RCPP_GENERATE_SWAP(generic_proxy,VECSXP)
+RCPP_GENERATE_SWAP(generic_proxy,EXPRSXP)
+RCPP_GENERATE_SWAP(string_proxy,STRSXP)
 #undef RCPP_GENERATE_SWAP
 
 }

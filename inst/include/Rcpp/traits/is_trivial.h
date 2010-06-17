@@ -30,6 +30,6 @@ namespace traits{
 	template <> struct is_trivial<EXPRSXP>  : public false_type{} ;
 
 } // traits
-}Ê// Rcpp   
-
+} // Rcpp
+	
 #endif

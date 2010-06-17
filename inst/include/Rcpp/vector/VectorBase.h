@@ -23,12 +23,23 @@
 #define Rcpp__vector__VectorBase_h
 
 /** a base class for vectors, modelled after the CRTP */
-template <typename VECTOR>
+template <int RTYPE, bool na, typename VECTOR>
 class VectorBase {
 public:
+	struct r_type : traits::integral_constant<int,RTYPE>{} ;
+	struct can_contain_na : traits::integral_constant<bool,na>{} ;
+	
+	typedef typename traits::get_iterator<VECTOR>::type iterator ;
+	typedef typename traits::storage_type<RTYPE>::type stored_type ;
+	
 	VECTOR& get_ref(){
 		return static_cast<VECTOR&>(*this) ;
 	}
+	inline iterator begin(){ return static_cast<VECTOR*>(this)->begin() ; }
+	inline iterator end(){ return static_cast<VECTOR*>(this)->end() ; }
+
+	inline stored_type operator[]( int i) const { return static_cast<VECTOR*>(this)->operator[](i) ; }
+	
 } ;
 
 #endif
