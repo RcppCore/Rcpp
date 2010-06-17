@@ -20,8 +20,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__sugar__logical_operators_h
-#define Rcpp__sugar__logical_operators_h
+#ifndef Rcpp__sugar__logical_operators__Vector__Vector_h
+#define Rcpp__sugar__logical_operators__Vector__Vector_h
 
 /* Vector < Vector */ 
 template <int RTYPE,bool LHS_NA,typename LHS_T,bool RHS_NA, typename RHS_T>
