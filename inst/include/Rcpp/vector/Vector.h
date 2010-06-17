@@ -24,9 +24,9 @@
 
 template <int RTYPE>
 class Vector :
-	public RObject, 
-	public VectorBase< Vector<RTYPE> >, 
-	public internal::eval_methods< Vector<RTYPE> >
+	public RObject,       
+	public VectorBase< RTYPE, true, Vector<RTYPE> >, 
+	public internal::eval_methods<RTYPE>
 	{
 public:
 	typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
@@ -38,8 +38,6 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type stored_type ;
 	typedef MatrixRow<RTYPE> Row ;
 	typedef MatrixColumn<RTYPE> Column ;
-	
-	struct r_type : traits::integral_constant<int,RTYPE>{} ;
 	
 	Vector() : RObject() {
 		RCPP_DEBUG( "Vector()", 0 ) ;

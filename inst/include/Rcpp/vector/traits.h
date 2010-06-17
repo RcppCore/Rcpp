@@ -24,58 +24,6 @@
  
 namespace traits{
 
-	template <int RTYPE> struct r_vector_element_converter{
-		typedef typename ::Rcpp::internal::element_converter<RTYPE> type ;
-	} ;
-	template<> struct r_vector_element_converter<STRSXP>{
-		typedef ::Rcpp::internal::string_element_converter<STRSXP> type ;
-	} ;
-	template<> struct r_vector_element_converter<VECSXP>{
-		typedef ::Rcpp::internal::generic_element_converter<VECSXP> type ;
-	} ;
-	template<> struct r_vector_element_converter<EXPRSXP>{
-		typedef ::Rcpp::internal::generic_element_converter<EXPRSXP> type ;
-	} ;
-	
-	template <int RTYPE> 
-	struct r_vector_name_proxy{
-		typedef typename ::Rcpp::internal::simple_name_proxy<RTYPE> type ;
-	} ;
-	template<> struct r_vector_name_proxy<STRSXP>{
-		typedef ::Rcpp::internal::string_name_proxy<STRSXP> type ;
-	} ;
-	template<> struct r_vector_name_proxy<VECSXP>{
-		typedef ::Rcpp::internal::generic_name_proxy<VECSXP> type ;
-	} ;
-	template<> struct r_vector_name_proxy<EXPRSXP>{
-		typedef ::Rcpp::internal::generic_name_proxy<EXPRSXP> type ;
-	} ;
-	
-	template <int RTYPE>
-	struct r_vector_proxy{
-		typedef typename storage_type<RTYPE>::type& type ;
-	} ;
-	template<> struct r_vector_proxy<STRSXP> {
-		typedef ::Rcpp::internal::string_proxy<STRSXP> type ;
-	} ;
-	template<> struct r_vector_proxy<EXPRSXP> {
-		typedef ::Rcpp::internal::generic_proxy<EXPRSXP> type ;
-	} ;
-	template<> struct r_vector_proxy<VECSXP> {
-		typedef ::Rcpp::internal::generic_proxy<VECSXP> type ;
-	} ;
-	
-	template <int RTYPE>
-	struct r_vector_iterator {
-		typedef typename storage_type<RTYPE>::type* type ;
-	};
-	template <int RTYPE> struct proxy_based_iterator{
-		typedef ::Rcpp::internal::Proxy_Iterator< typename r_vector_proxy<RTYPE>::type > type ;
-	} ;
-	template<> struct r_vector_iterator<VECSXP> : proxy_based_iterator<VECSXP>{} ;
-	template<> struct r_vector_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
-	template<> struct r_vector_iterator<STRSXP> : proxy_based_iterator<STRSXP>{} ;
-	
 	template <int RTYPE>
 	class r_vector_cache{
 	public:
@@ -127,17 +75,7 @@ namespace traits{
 	public:
 		r_vector_cache() : proxy_cache<STRSXP>(){} ;
 	} ;
-	
-	template<int RTYPE> struct init_type {
-		typedef typename storage_type<RTYPE>::type type ;
-	} ;
-	template<> struct init_type<STRSXP>{
-		typedef const char* type ;
-	} ;
-	template<> struct init_type<LGLSXP>{
-		typedef bool type ;
-	} ;
-	
+		
 } // traits 
 
 #endif
