@@ -30,8 +30,8 @@ Description: Seamless R and C++ integration
  The reverse conversion (from R to C++) is performed by the Rcpp::as function
  template offering a similar degree of flexibility.
  .
- The package also contains a set of classes---which we call the `classic Rcpp
- API'---that were provided in an earlier API for R and C++ integration. Due
+ The package also contains a set of classes---which we call the 'classic' Rcpp
+ API---that were provided in an earlier API for R and C++ integration. Due
  to its continued use, the classic API is retained and will be supported for
  the foreseable future. The classic API includes support for R types real,
  integer, character, vector, matrix, Date, datetime (i.e.  POSIXct) at
