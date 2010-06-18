@@ -57,3 +57,24 @@ test.sugar.sapply.rawfun <- function( ){
 	checkEquals( fx(1:10) , (1:10)^2 )
 }
 
+test.sugar.sapply.square <- function( ){
+
+	inc <- '
+	template <typename T>
+	class square : public std::unary_function<T,T> {
+	public:
+		T operator()( T t) const { return t*t ; }
+	} ;
+	'
+	
+	fx <- cxxfunction( signature( x = "numeric" ), '
+	
+		NumericVector xx(x) ;
+		return all( sapply( xx * xx , square<double>() ) < 10 );
+	
+	', include = inc, plugin = "Rcpp" )
+	
+	checkTrue( fx(1:10)  )
+}
+
+
