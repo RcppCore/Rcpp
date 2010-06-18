@@ -225,6 +225,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/r_type_traits.h>
 #include <Rcpp/traits/wrap_type_traits.h>
 #include <Rcpp/traits/is_na.h>
+#include <Rcpp/traits/get_na.h>
 #include <Rcpp/traits/is_trivial.h>
 #include <Rcpp/traits/init_type.h>
 
