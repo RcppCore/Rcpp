@@ -39,5 +39,6 @@
 
 // unary operators
 #include <Rcpp/sugar/not.h>
+#include <Rcpp/sugar/unary_minus.h>
 
 #endif

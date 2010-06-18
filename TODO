@@ -98,6 +98,8 @@ Syntactic sugar
     	
 		not sure what is best. Actually the last version is a bad idea because
 		in R : NA == TRUE is NA
+
+	o	Compound operators: ++,--,+=, -=, ...
 		
 Testing
 
