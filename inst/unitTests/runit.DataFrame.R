@@ -33,27 +33,43 @@ test.DataFrame.FromSEXP <- function() {
 
 test.DataFrame.index.byName <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
-    fun <- cppfunction( signature(x='ANY'), '
-	DataFrame df(x) ;
-	return df["a"];
+    fun <- cppfunction( signature(x='ANY', y='character'), '
+	DataFrame df(x);
+        std::string s = as<std::string>(y);
+	return df[s];
     ' )
-    checkEquals( fun(DF), DF$a, msg = "DataFrame column by name")
+    checkEquals( fun(DF, "a"), DF$a, msg = "DataFrame column by name 'a'")
+    checkEquals( fun(DF, "b"), DF$b, msg = "DataFrame column by name 'b'")
 }
 
 test.DataFrame.index.byPosition <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
-    fun <- cppfunction( signature(x='ANY'), '
-	DataFrame df(x) ;
-	return df[0];
+    fun <- cppfunction( signature(x='ANY', y='integer'), '
+	DataFrame df(x);
+        int i = as<int>(y);
+	return df[i];
     ' )
-    checkEquals( fun(DF), DF$a, msg = "DataFrame column by position")
+    checkEquals( fun(DF, 0), DF$a, msg = "DataFrame column by position 0")
+    checkEquals( fun(DF, 1), DF$b, msg = "DataFrame column by position 1")
+}
+
+test.DataFrame.string.element <- function() {
+    DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors=FALSE)
+    fun <- cppfunction( signature(x='ANY'), '
+        DataFrame df(x);
+        CharacterVector b = df[1];
+        std::string s;
+        s = b[1];
+        return wrap(s);
+    ' )
+    checkEquals( fun(DF), DF[2,"b"], msg = "DataFrame string element")
 }
 
 test.DataFrame.CreateOne <- function() {
     DF <- data.frame(a=1:3)
     fun <- cppfunction( signature(), '
         IntegerVector v = IntegerVector::create(1,2,3);
-		return DataFrame::create(Named("a")=v);
+        return DataFrame::create(Named("a")=v);
     ' )
     checkEquals( fun(), DF, msg = "DataFrame create1")
 }
