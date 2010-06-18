@@ -45,7 +45,12 @@ R 2.12.0
 	
 Syntactic sugar
 
-    o   duplicated, unique, count, sum, rep, head, tail
+    o   duplicated, unique, count, sum, rep, head, tail, pmin, pmax
+    
+    o	min, max with specialization of the binary operators, so that we can do 
+    	things like this lazily: 
+    	
+    	min( x ) < 4
     
     o	for matrices: we first need CRTP with matrix interface, so we need to
     	make Matrix inherit from MatrixBase and make MatrixBase a template that
@@ -73,4 +78,26 @@ Syntactic sugar
     	xx[ range(0,9) ] = seq_len(10 ) ;
     	
     	
+Testing
 
+	o	we need to update the doRUnit.R file and replace : 
+	
+	        ##  stop() if there are any failures i.e. FALSE to unit test.
+       		## This will cause R CMD check to return error and stop
+       		err <- getErrors(tests)
+       		if( (err$nFail + err$nErr) > 0) {
+       		    stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
+       		} else{
+       			success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
+       			cat( sprintf( "%d / %d\n", success, err$nTestFunc ) )
+       		}
+       
+       	by something that extract information from "err". This is needed because
+       	on win builder or cran checks, we only ever get the last 13 lines of 
+       	output. So we need to make the best use of these 13 lines
+       	
+   o	Testing has become slow. That would be good to find ways to make it faster
+   		such as combine multiple functions in a single cxxfunction call or alternatively
+   		make another package (perhaps internal to this one that would contain 
+   		test cases)
+       		
