@@ -330,6 +330,10 @@ what it is that you dislike. We are very open to \emph{constructive} criticism.
 Sure you can. Just send us an email, and we will be happy to discuss the
 request..
 
+\subsection{I want to learn quickly. Do you provide training courses.}
+
+Yes. Just send us an email.
+
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
 
