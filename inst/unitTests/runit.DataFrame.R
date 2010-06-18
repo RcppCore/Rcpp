@@ -31,6 +31,24 @@ test.DataFrame.FromSEXP <- function() {
     checkEquals( fun(DF), DF, msg = "DataFrame pass-through")
 }
 
+test.DataFrame.index.byName <- function() {
+    DF <- data.frame(a=1:3, b=c("a","b","c"))
+    fun <- cppfunction( signature(x='ANY'), '
+	DataFrame df(x) ;
+	return df["a"];
+    ' )
+    checkEquals( fun(DF), DF$a, msg = "DataFrame column by name")
+}
+
+test.DataFrame.index.byPosition <- function() {
+    DF <- data.frame(a=1:3, b=c("a","b","c"))
+    fun <- cppfunction( signature(x='ANY'), '
+	DataFrame df(x) ;
+	return df[0];
+    ' )
+    checkEquals( fun(DF), DF$a, msg = "DataFrame column by position")
+}
+
 test.DataFrame.CreateOne <- function() {
     DF <- data.frame(a=1:3)
     fun <- cppfunction( signature(), '
@@ -54,9 +72,9 @@ test.DataFrame.CreateTwo <- function() {
 }
 
 test.DataFrame.SlotProxy <- function(){
-	
+
 	setClass("track", representation(x="data.frame", y = "function"))
-	tr1 <- new( "track", x = iris, y = rnorm )                    
+	tr1 <- new( "track", x = iris, y = rnorm )
 	fun <- cppfunction( signature(x="ANY", y="character"), '
 		S4 o(x) ;
 		return DataFrame( o.slot( as<std::string>(y) )) ;
@@ -66,7 +84,7 @@ test.DataFrame.SlotProxy <- function(){
 }
 
 test.DataFrame.AttributeProxy <- function(){
-	
+
 	tr1 <- structure( NULL, x = iris, y = rnorm )
 	fun <- cppfunction( signature(x="ANY", y="character"), '
 		List o(x) ;
@@ -74,7 +92,7 @@ test.DataFrame.AttributeProxy <- function(){
 	' )
 	checkTrue( identical( fun(tr1, "x"), iris) , msg = "DataFrame( AttributeProxy )" )
 	checkException( fun(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
-	
+
 }
 
 test.DataFrame.CreateTwo.stringsAsFactors <- function() {
@@ -86,8 +104,8 @@ test.DataFrame.CreateTwo.stringsAsFactors <- function() {
         s[1] = "b";
         s[2] = "c";
 		return DataFrame::create(
-			_["a"] = v, 
-			_["b"] = s, 
+			_["a"] = v,
+			_["b"] = s,
 			_["stringsAsFactors"] = false );
 	' )
     checkEquals( fun(), DF, msg = "DataFrame create2 stringsAsFactors = false")
