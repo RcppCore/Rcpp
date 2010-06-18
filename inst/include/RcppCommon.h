@@ -233,6 +233,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/remove_const.h>
 #include <Rcpp/traits/remove_reference.h>
 #include <Rcpp/traits/remove_const_and_reference.h>
+#include <Rcpp/traits/result_of.h>
 
 #include <Rcpp/internal/caster.h>
 #include <Rcpp/internal/r_vector.h>
