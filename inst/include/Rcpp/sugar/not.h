@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// not.h: Rcpp R/C++ interface class library -- operator+
+// not.h: Rcpp R/C++ interface class library -- unary operator!
 //                                                                      
 // Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 //
