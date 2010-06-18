@@ -212,6 +212,14 @@ Studio simply do not get along. As \pkg{Rcpp} is all about extending
 toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
 complain to its vendor if you are still upset.
 
+\subsection{Does \pkg{Rcpp} work on solaris/suncc}
+
+Yes. 
+
+\subsection{Does \pkg{Rcpp} work with Revolution R}
+
+We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
+with the compilers used by Revolution R. 
 
 \section{API}
 
@@ -333,6 +341,7 @@ request..
 \subsection{I want to learn quickly. Do you provide training courses.}
 
 Yes. Just send us an email.
+
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
