@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// logical_operators.h: Rcpp R/C++ interface class library -- vector operators
-//                                                                      
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// any.h: Rcpp R/C++ interface class library -- any
+//
+// Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,7 +19,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__sugar__logical_operators_h
-#define Rcpp__sugar__logical_operators_h
+#ifndef Rcpp__sugar__operators__operators_h
+#define Rcpp__sugar__operators__operators_h
+
+// binary operators
+#include <Rcpp/sugar/operators/Comparator.h>
+#include <Rcpp/sugar/operators/Comparator_With_One_Value.h>
+
+#include <Rcpp/sugar/operators/logical_operators__Vector__Vector.h> 
+#include <Rcpp/sugar/operators/logical_operators__Vector__primitive.h> 
+#include <Rcpp/sugar/operators/plus.h>
+#include <Rcpp/sugar/operators/minus.h>
+#include <Rcpp/sugar/operators/times.h>
+#include <Rcpp/sugar/operators/divides.h>
+
+// unary operators
+#include <Rcpp/sugar/operators/not.h>
+#include <Rcpp/sugar/operators/unary_minus.h>
 
 #endif
