@@ -23,7 +23,7 @@
 #define RCPP_SUGAR_FORWARD_H
 
 // traits
-#include <Rcpp/sugar/r_binary_op.h>
+#include <Rcpp/sugar/operators/r_binary_op.h>
 #include <Rcpp/sugar/can_have_na.h>
 
 // abstractions
