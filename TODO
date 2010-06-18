@@ -76,7 +76,8 @@ Syntactic sugar
     
     	IntegerVector xx(20) ;
     	xx[ range(0,9) ] = seq_len(10 ) ;
-    	
+    
+    o		
     	
 Testing
 
