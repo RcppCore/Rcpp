@@ -77,8 +77,22 @@ Syntactic sugar
     	IntegerVector xx(20) ;
     	xx[ range(0,9) ] = seq_len(10 ) ;
     
-    o		
+    o	SingleLogicalResult does not have an operator bool() because of R missing 
+		values. So we need is_true, is_false and is_na for SingleLogicalResult
+		objects so that we can do: 
+		
+		if( is_true( all( x < 5 ) ) ){
+			...
+		}
     	
+		We can already do 
+		
+		if( all( x < 5 ).is_true() ){
+			...
+		}
+    	
+		but the syntax above seems more natural. maybe not.
+		
 Testing
 
 	o	we need to update the doRUnit.R file and replace : 
