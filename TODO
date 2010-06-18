@@ -47,7 +47,16 @@ Syntactic sugar
 
     o   duplicated, unique, count, sum, rep, head, tail
     
-    o	for matrices: row, col, lower_tri, upper_tri
+    o	for matrices: we first need CRTP with matrix interface, so we need to
+    	make Matrix inherit from MatrixBase and make MatrixBase a template that
+    	implements CRTP and a matrix interface: 
+    		- operator[]                (treating the matrix as a vector)
+    		- operator()( int, int )    (matrix indexing)
+    		- nrow                      (number of rows)
+    		- ncol                      (number of columns)     
+    		- size                      (nrow*ncol)
+    	
+    o	matrix functions : row, col, lower_tri, upper_tri
 	
     o   other operators: /, *, ...
     
