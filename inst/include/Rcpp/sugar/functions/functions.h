@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// sugar.h: Rcpp R/C++ interface class library -- main file for Rcpp::sugar
+// functions.h: Rcpp R/C++ interface class library -- sugar functions
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -19,10 +19,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_H
-#define RCPP_SUGAR_H
+#ifndef RCPP_SUGAR_FUNCTIONS_H
+#define RCPP_SUGAR_FUNCTIONS_H
 
-#include <Rcpp/sugar/functions/functions.h>
-#include <Rcpp/sugar/operators/operators.h>
+#include <Rcpp/sugar/functions/any.h>
+#include <Rcpp/sugar/functions/all.h>
+#include <Rcpp/sugar/functions/is_na.h>
+#include <Rcpp/sugar/functions/seq_along.h>
 
 #endif
