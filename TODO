@@ -45,7 +45,7 @@ R 2.12.0
 	
 Syntactic sugar
 
-    o   duplicated, unique, count, sum, rep, head, tail, pmin, pmax, ifelse
+    o   duplicated, unique, count, sum, rep, head, tail, pmin, pmax
     
     o	min, max with specialization of the binary operators, so that we can do 
     	things like this lazily: 
