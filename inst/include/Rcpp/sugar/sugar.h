@@ -28,7 +28,7 @@
 #include <Rcpp/sugar/is_na.h>
 #include <Rcpp/sugar/seq_along.h>
 
-// operators
+// binary operators
 #include <Rcpp/sugar/Comparator.h>
 #include <Rcpp/sugar/Comparator_With_One_Value.h>
 #include <Rcpp/sugar/logical_operators.h>
@@ -36,5 +36,8 @@
 #include <Rcpp/sugar/minus.h>
 #include <Rcpp/sugar/times.h>
 #include <Rcpp/sugar/divides.h>
+
+// unary operators
+#include <Rcpp/sugar/not.h>
 
 #endif
