@@ -1,8 +1,9 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// functions.h: Rcpp R/C++ interface class library -- sugar functions
+// result_of.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,13 +20,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_FUNCTIONS_H
-#define RCPP_SUGAR_FUNCTIONS_H
+#ifndef Rcpp__traits__result_of__h
+#define Rcpp__traits__result_of__h
 
-#include <Rcpp/sugar/functions/any.h>
-#include <Rcpp/sugar/functions/all.h>
-#include <Rcpp/sugar/functions/is_na.h>
-#include <Rcpp/sugar/functions/seq_along.h>
-#include <Rcpp/sugar/functions/sapply.h>
+namespace Rcpp{
+namespace traits{
+
+template <typename T>
+struct result_of{
+	typedef typename T::result_type type ;
+} ;
+
+template <typename RESULT_TYPE, typename INPUT_TYPE>
+struct result_of< RESULT_TYPE (*)(INPUT_TYPE) >{
+	typedef RESULT_TYPE type ;
+} ;
+
+}
+}     
 
 #endif
+
