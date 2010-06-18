@@ -62,9 +62,7 @@ Syntactic sugar
     		- size                      (nrow*ncol)
     	
     o	matrix functions : row, col, lower_tri, upper_tri
-	
-    o   other operators: /, ...
-    
+
     o	lazy version of sapply as in this thread:
     	http://article.gmane.org/gmane.comp.lang.r.rcpp/455
     	
