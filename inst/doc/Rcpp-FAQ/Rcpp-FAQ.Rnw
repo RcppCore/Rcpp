@@ -221,6 +221,15 @@ Yes.
 We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
 with the compilers used by Revolution R. 
 
+\subsection{Is it related to CXXR}
+
+CXXR is an ambitious project that aims to totally refactor the \proglang{R}
+interpreter in \proglang{C++}. There are a few similaritites with \pkg{Rcpp}
+but the projects are unrelated. 
+
+CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
+but they do it in very different ways. 
+
 \section{API}
 
 \subsection{Can I do matrix algebra with \pkg{Rcpp} ? }
