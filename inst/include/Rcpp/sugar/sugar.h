@@ -22,17 +22,19 @@
 #ifndef RCPP_SUGAR_H
 #define RCPP_SUGAR_H
 
-// implementations
+// functions
 #include <Rcpp/sugar/any.h>
 #include <Rcpp/sugar/all.h>
 #include <Rcpp/sugar/is_na.h>
 #include <Rcpp/sugar/seq_along.h>
 
+// operators
 #include <Rcpp/sugar/Comparator.h>
 #include <Rcpp/sugar/Comparator_With_One_Value.h>
 #include <Rcpp/sugar/logical_operators.h>
 #include <Rcpp/sugar/plus.h>
 #include <Rcpp/sugar/minus.h>
 #include <Rcpp/sugar/times.h>
+#include <Rcpp/sugar/divides.h>
 
 #endif
