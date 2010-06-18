@@ -63,9 +63,6 @@ Syntactic sugar
     	
     o	matrix functions : row, col, lower_tri, upper_tri
 
-    o	lazy version of sapply as in this thread:
-    	http://article.gmane.org/gmane.comp.lang.r.rcpp/455
-    	
     o	lapply
     
     o	for character vectors: nchar, grepl, sub, gsub
