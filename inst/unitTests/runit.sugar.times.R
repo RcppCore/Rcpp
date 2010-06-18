@@ -39,3 +39,23 @@ test.sugar.times <- function( ){
 	)
 }
 
+test.sugar.divides <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric" ), '
+		NumericVector xx(x) ;
+		return List::create(
+			xx / 10, 
+			10 / xx, 
+			xx / xx
+			) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx(1:10) , 
+		list( 
+			1:10/10,
+			10/1:10,
+			rep(1,10)
+		)
+	)
+}
+    
