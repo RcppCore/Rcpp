@@ -91,7 +91,14 @@ Syntactic sugar
 			...
 		}
     	
-		but the syntax above seems more natural. maybe not.
+		but the syntax above seems more natural. maybe not. Or we can add an 
+		operator int() and do this: 
+		
+		if( all( x < 5 ) == TRUE ){
+			...
+		}
+    	
+		not sure what is best
 		
 Testing
 
