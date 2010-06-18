@@ -33,5 +33,6 @@
 #include <Rcpp/sugar/logical_operators.h>
 #include <Rcpp/sugar/plus.h>
 #include <Rcpp/sugar/minus.h>
+#include <Rcpp/sugar/times.h>
 
 #endif
