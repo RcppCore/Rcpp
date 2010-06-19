@@ -1,0 +1,60 @@
+\documentclass[10pt]{article}
+%\VignetteIndexEntry{Rcpp-sugar}
+\usepackage{vmargin}
+\setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+\usepackage{color, alltt}
+\usepackage[authoryear,round,longnamesfirst]{natbib}
+\usepackage[colorlinks]{hyperref}
+\definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
+\hypersetup{
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link
+}
+
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+
+\author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
+\title{\pkg{Rcpp} syntactic sugar}
+
+<<echo=FALSE>>=
+link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	h <- if( missing(package) ) {
+		as.character( help( f ) )
+	} else {
+		as.character( help( f, package = paste( package, sep = "" ) ) )
+	}
+	if( ! length(h) ){
+		sprintf( "\\\\textbf{%s}", f )
+	} else {
+		rx <- "^.*/([^/]*?)/help/(.*?)$"
+		package <- sub( rx, "\\1", h, perl = TRUE )
+		page <- sub( rx, "\\2", h, perl = TRUE )
+		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+	}
+}
+linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	link( sprintf("%s-class", cl), package, text, root )
+}
+@
+
+\begin{document}
+\maketitle
+
+\abstract{
+  \noindent
+  Since version 0.8.3, \pkg{Rcpp}\cite{CRAN:Rcpp} defines syntactic sugar that allows
+  usage of a subset of the \proglang{R} syntax in \proglang{C++} code. 
+  
+  \pkg{Rcpp::sugar} is based on the technique of expression templates.
+}
+
+\bibliographystyle{abbrvnat}
+\bibliography{Rcpp}
+
+\end{document}
+
