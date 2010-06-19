@@ -17,6 +17,7 @@
 
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+\newcommand{\sugar}{\textsl{Rcpp sugar}}
 
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{\pkg{Rcpp} syntactic sugar}
@@ -47,11 +48,70 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 
 \abstract{
   \noindent
-  Since version 0.8.3, \pkg{Rcpp}\cite{CRAN:Rcpp} defines syntactic sugar that allows
-  usage of a subset of the \proglang{R} syntax in \proglang{C++} code. 
+  This note describes \sugar{} which has been introduced in
+  the version 0.8.3 of \pkg{Rcpp}\citep{CRAN:Rcpp}. \sugar{} 
+  brings a high level syntax to \proglang{C++} code written using classes
+  of the \pkg{Rcpp} API. 
   
-  \pkg{Rcpp::sugar} is based on the technique of expression templates.
+  \sugar{} is based on the technique of expression templates.
 }
+
+\section{Motivation}
+
+\pkg{Rcpp} facilitates development of internal compiled code in an \proglang{R}
+package by abstracting low-level details of the \proglang{R} API \citep{R:exts}
+into a consistent set of \proglang{C++} classes.
+
+Code written using \pkg{Rcpp} classes is easier to read, write and maintain, 
+without losing performance. Consider the following code: 
+
+<<lang=cpp>>=
+RcppExport SEXP foo( SEXP x, SEXP y){
+    Rcpp::NumericVector xx(x) ;
+    Rcpp::NumericVector yy(y) ;
+    int n = xx.size() ;
+    Rcpp::NumericVector res( n ) ;
+    double x_ = 0.0 ;
+    double y_ = 0.0 ;
+    for( int i=0; i<n; i++){
+        x_ = xx[i] ;
+        y_ = yy[i] ;
+        if( x_ < y_ ){
+            res[i] = x_ * x_ ;
+        } else {
+            res[i] = -( y_ * y_)  ;
+        }
+    }
+    return res ;
+}
+@
+
+The aim of the \texttt{foo} code is simple. Given two \texttt{numeric} vectors, 
+we create a third one. This is typical low level \proglang{C++} code that 
+that would be written much more consicely in \proglang{R} thanks to vectorisation.
+
+<<eval=FALSE>>=
+foo <- function(x, y){
+	ifelse( x < y, x*x, -(y*y) )
+}
+@
+
+The motivation of \sugar{} is to bring a subset of the high level \proglang{R}
+syntax in \proglang{C++}. With \sugar{}, the \proglang{C++} version of 
+\texttt{foo} becomes: 
+
+<<lang=cpp>>=
+RcppExport SEXP foo( SEXP x, SEXP y){
+    Rcpp::NumericVector xx(x) ;
+    Rcpp::NumericVector yy(y) ;
+    Rcpp::NumericVector res = ifelse( xx < yy, xx*xx, -(yy*yy) ) ;
+    return res ;
+}
+@
+
+\sugar{} is written using expression templates and lazy evaluation techniques, 
+which not only allows a much nicer high level syntax, but also makes it 
+very efficient. 
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
