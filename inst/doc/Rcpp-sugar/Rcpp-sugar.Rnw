@@ -48,12 +48,17 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 
 \abstract{
   \noindent
-  This note describes \sugar{} which has been introduced in
-  the version 0.8.3 of \pkg{Rcpp}\citep{CRAN:Rcpp}. \sugar{} 
-  brings a high level syntax to \proglang{C++} code written using classes
-  of the \pkg{Rcpp} API. 
-  
-  \sugar{} is based on the technique of expression templates.
+  This note describes \sugar~which has been introduced in
+  version 0.8.3 of \pkg{Rcpp} \citep{CRAN:Rcpp}. \sugar~
+  offers to bring a higher-level of abstraction to \proglang{C++} code
+  written using the \pkg{Rcpp} API.
+
+  \sugar~is based on expression templates
+  \citep{Abrahams+Gurtovoy:2004,Vandevoorde+Josuttis:2003} and provides
+  some 'syntactic sugar' facilities directly in \pkg{Rcpp} which is similar
+  to the classes \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo} offered for
+  linear algebra \proglang{C++} classes based on \pkg{Armadillo}
+  \citep{Armadillo}.
   % TODO: reference to armadillo, blitz, etc ...
 }
 
@@ -63,8 +68,8 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 package by abstracting low-level details of the \proglang{R} API \citep{R:exts}
 into a consistent set of \proglang{C++} classes.
 
-Code written using \pkg{Rcpp} classes is easier to read, write and maintain, 
-without losing performance. Consider the following code: 
+Code written using \pkg{Rcpp} classes is easier to read, write and maintain,
+without loosing performance. Consider the following code:
 
 <<lang=cpp>>=
 RcppExport SEXP foo( SEXP x, SEXP y){
@@ -87,8 +92,8 @@ RcppExport SEXP foo( SEXP x, SEXP y){
 }
 @
 
-The aim of the \texttt{foo} code is simple. Given two \texttt{numeric} vectors, 
-we create a third one. This is typical low level \proglang{C++} code that 
+The aim of the \texttt{foo} code is simple. Given two \texttt{numeric} vectors,
+we create a third one. This is typical low-level \proglang{C++} code that
 that would be written much more consicely in \proglang{R} thanks to vectorisation.
 
 <<eval=FALSE>>=
@@ -97,9 +102,9 @@ foo <- function(x, y){
 }
 @
 
-The motivation of \sugar{} is to bring a subset of the high level \proglang{R}
-syntax in \proglang{C++}. With \sugar{}, the \proglang{C++} version of 
-\texttt{foo} becomes: 
+The motivation of \sugar~is to bring a subset of the high-level \proglang{R}
+syntax in \proglang{C++}. With \sugar, the \proglang{C++} version of
+\texttt{foo} becomes:
 
 <<lang=cpp>>=
 RcppExport SEXP foo( SEXP x, SEXP y){
@@ -110,20 +115,20 @@ RcppExport SEXP foo( SEXP x, SEXP y){
 }
 @
 
-\sugar{} is written using expression templates and lazy evaluation techniques, 
-which not only allows a much nicer high level syntax, but also makes it 
-very efficient. 
+\sugar~is written using expression templates and lazy evaluation techniques,
+which not only allows a much nicer high-level syntax, but also makes it
+very efficient (as we detail in section~\ref{sec:performance} below).
 
-\section{Operators}  
+\section{Operators}
 
-\sugar{} takes advantage of \proglang{C++} operator overloading. 
+\sugar~takes advantage of \proglang{C++} operator overloading.
 
 \subsection{binary arithmetic operators}
 
 \subsubsection{operator+}
 
-The \texttt{operator+} is used to add two \sugar{} expressions of the same 
-size or one \sugar{} expression with a single value of the appropriate type.
+The \texttt{operator+} is used to add two \sugar~expressions of the same
+size or one \sugar~expression with a single value of the appropriate type.
 
 <<lang=cpp>>=
 // two numeric vectors of the same size
@@ -143,8 +148,8 @@ NumericVector res = x * y + y / 2.0 ;
 
 \subsubsection{operator-}
 
-The \texttt{operator-} is used to substract two \sugar{} expressions of the same 
-size or one \sugar{} expression with a single value of the appropriate type.
+The \texttt{operator-} is used to substract two \sugar~expressions of the same
+size or one \sugar~expression with a single value of the appropriate type.
 
 <<lang=cpp>>=
 // two numeric vectors of the same size
@@ -164,8 +169,8 @@ NumericVector res = x * y - y / 2.0 ;
 
 \subsubsection{operator*}
 
-The \texttt{operator*} is used to multiply two \sugar{} expressions of the same 
-size or one \sugar{} expression with a single value of the appropriate type.
+The \texttt{operator*} is used to multiply two \sugar~expressions of the same
+size or one \sugar~expression with a single value of the appropriate type.
 
 <<lang=cpp>>=
 // two numeric vectors of the same size
@@ -185,8 +190,8 @@ NumericVector res = x * ( y - 2.0 ) ;
 
 \subsubsection{operator/}
 
-The \texttt{operator*} is used to divide two \sugar{} expressions of the same 
-size or one \sugar{} expression with a single value of the appropriate type.
+The \texttt{operator*} is used to divide two \sugar~expressions of the same
+size or one \sugar~expression with a single value of the appropriate type.
 
 <<lang=cpp>>=
 // two numeric vectors of the same size
@@ -217,7 +222,7 @@ NumericVector res = x / ( y * y ) ;
 
 \subsubsection{operator-}
 \subsubsection{operator!}
-   
+
 \section{Functions}
 
 \subsection{all}
@@ -232,6 +237,7 @@ NumericVector res = x / ( y * y ) ;
 \subsection{lapply}
 
 \section{Performance}
+\label{sec:performance}
 
 \section{Implementation}
 
