@@ -68,17 +68,15 @@ public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
 	pmax_op_Vector_Primitive( STORAGE right_ ) : 
-		right(right_), isna( Rcpp::traits::is_na<RTYPE>(right_) ){}
+		right(right_) {}
 	
 	inline STORAGE operator()( STORAGE left ) const {
-		if( isna ) return right ;
 		if( Rcpp::traits::is_na<RTYPE>(left) ) return left ;
 		return left > right ? left : right ;
 	}	
 		
 private:
 	STORAGE right ;
-	bool isna ;	
 } ;
 
 template <int RTYPE> class pmax_op_Vector_Primitive<RTYPE,false> {
@@ -86,16 +84,14 @@ public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
 	pmax_op_Vector_Primitive( STORAGE right_ ) : 
-		right(right_), isna( Rcpp::traits::is_na<RTYPE>(right_) ){}
+		right(right_){}
 	
 	inline STORAGE operator()( STORAGE left ) const {
-		if( isna ) return right ;
 		return left > right ? left : right ;
 	}	
 		
 private:
 	STORAGE right ;
-	bool isna ;	
 } ;
 
 
@@ -146,17 +142,19 @@ public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef pmax_op_Vector_Primitive<RTYPE,LHS_NA> OPERATOR ;
 	
-	Pmax_Vector_Primitive( const LHS_TYPE& lhs_, STORAGE rhs ) : 
-		lhs(lhs_), op(rhs) {}
+	Pmax_Vector_Primitive( const LHS_TYPE& lhs_, STORAGE rhs_ ) : 
+		lhs(lhs_), op(rhs_), rhs(rhs_), isna( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 	
 	inline STORAGE operator[]( int i ) const {
-		return op( lhs[i] ) ;
+		return isna ? rhs : op( lhs[i] ) ;
 	}
 	inline int size() const { return lhs.size() ; }
 	         
 private:
 	const LHS_TYPE& lhs ;
 	OPERATOR op ;
+	STORAGE rhs ;
+	bool isna ;
 } ;
 
 
