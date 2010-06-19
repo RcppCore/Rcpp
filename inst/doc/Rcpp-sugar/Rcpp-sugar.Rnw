@@ -161,30 +161,113 @@ be a primitive value of the appropriate type, for example adding a
 
 \subsection{binary logical operators}
 
-\subsubsection{operator<}
-\subsubsection{operator>}
-\subsubsection{operator<=}
-\subsubsection{operator>=}
-\subsubsection{operator==}
-\subsubsection{operator!=}
+Binary logical operators create a \texttt{logical} sugar expression
+from either two sugar expressions of the same type or one sugar expression
+and a primitive value of the associated type. 
+
+<<lang=cpp>>=
+// two integer vectors of the same size
+NumericVector x ;
+NumericVector y ;
+
+// expressions involving two vectors
+LogicalVector res = x < y ;
+LogicalVector res = x > y ;
+LogicalVector res = x <= y ;
+LogicalVector res = x >= y ;
+LogicalVector res = x == y ;
+LogicalVector res = x != y ;
+
+// one vector, one single value
+LogicalVector res = x < 2 ;
+LogicalVector res = 2 > x;
+LogicalVector res = y <= 2 ;
+LogicalVector res = 2 != y;
+
+// two expressions
+LogicalVector res = ( x + y ) <  ( x*x ) ;
+LogicalVector res = ( x + y ) >= ( x*x ) ;
+LogicalVector res = ( x + y ) == ( x*x ) ;
+@
 
 \subsection{Unary operators}
 
 \subsubsection{operator-}
+
+The unary \texttt{operator-} can be used to negate a sugar expression.
+
+<<lang=cpp>>=
+// a numeric vector
+NumericVector x ;
+
+// negate x
+NumericVector res = -x ;
+
+// use it as part of an expression
+NumericVector res = -x * ( x + 2.0 ) ;
+@
+
 \subsubsection{operator!}
 
-\section{Functions}
+The unary \texttt{operator!} negates a logical sugar expression: 
 
-\subsection{all}
-\subsection{any}
-\subsection{is na}
-\subsection{ifelse}
-\subsection{seq along}
-\subsection{seq len}
-\subsection{pmin}
-\subsection{pmax}
-\subsection{sapply}
-\subsection{lapply}
+<<lang=cpp>>=
+// two integer vectors of the same size
+NumericVector x ;
+NumericVector y ;
+
+// negate the expression "x < y"
+LogicalVector res = ! ( x < y );
+@
+
+\section{Functions}
+      
+\sugar~defines functions that closely match the behavior of \proglang{R}
+functions of the same name. 
+
+\subsection{Functions producing a single logical result}
+
+\subsubsection{all}
+
+Given a logical sugar expression, identifies if all the elements are
+\texttt{TRUE}. This respects \proglang{R} missing values. 
+
+<<lang=cpp>>=
+IntegerVector x = seq_len( 1000 ) ;
+all( x*x < 3 ) ;
+@
+
+This creates an object of a class that has member functions \texttt{is\_true}, 
+\texttt{is\_false}, \texttt{is\_na} and a conversion to \texttt{SEXP} operator. 
+
+One important thing to highlight is that \texttt{all} is lazy. Unlike R, 
+there is no need to fully evaluate the expression. In the example above, 
+the result of \texttt{all} is fully resolved after evaluating only the two 
+first indices of the expression \verb|xx * xx < 3|.
+
+\subsubsection{any}
+
+Given a logical sugar expression, identifies if any the element is
+\texttt{TRUE}. This respects \proglang{R} missing values. 
+
+<<lang=cpp>>=
+IntegerVector x = seq_len( 1000 ) ;
+any( x*x < 3 ) ;
+@
+
+\texttt{any} is lazy too, so it will only need to resolve the first element
+of the example above. 
+
+\subsection{Functions producing sugar expressions}
+
+\subsubsection{is na}
+\subsubsection{ifelse}
+\subsubsection{seq along}
+\subsubsection{seq len}
+\subsubsection{pmin}
+\subsubsection{pmax}
+\subsubsection{sapply}
+\subsubsection{lapply}
 
 \section{Performance}
 \label{sec:performance}
