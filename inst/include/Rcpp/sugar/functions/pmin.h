@@ -25,6 +25,42 @@
 namespace Rcpp{
 namespace sugar{
 
+template <int RTYPE, bool LHS_NA, bool RHS_NA> class pmin_op {
+public:
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	
+	inline STORAGE operator()( STORAGE left, STORAGE right ) const {
+		if( Rcpp::traits::is_na<RTYPE>(left) ) return left ;
+		if( Rcpp::traits::is_na<RTYPE>(right) ) return right ;
+		return left < right ? left : right ;
+	}
+	
+} ;
+template <int RTYPE, bool LHS_NA> class pmin_op<RTYPE,LHS_NA,false> {
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	
+	inline STORAGE operator()( STORAGE left, STORAGE right ) const {
+		if( Rcpp::traits::is_na<RTYPE>(left) ) return left ;
+		return left < right ? left : right ;
+	}
+} ;
+template <int RTYPE, bool RHS_NA> class pmin_op<RTYPE,false,RHS_NA> {
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	
+	inline STORAGE operator()( STORAGE left, STORAGE right ) const {
+		if( Rcpp::traits::is_na<RTYPE>(right) ) return right ;
+		return left < right ? left : right ;
+	}
+} ;
+template <int RTYPE> class pmin_op<RTYPE,false,false> {
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	
+	inline STORAGE operator()( STORAGE left, STORAGE right ) const {
+		return left < right ? left : right ;
+	}
+} ;
+
+	
 template <
 	int RTYPE, 
 	bool LHS_NA, typename LHS_T, 
@@ -39,19 +75,20 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	typedef pmin_op<RTYPE,LHS_NA,RHS_NA> OPERATOR ;
 	
-	Pmin_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_) {}
+	Pmin_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
+		lhs(lhs_), rhs(rhs_), op() {}
 	
 	inline STORAGE operator[]( int i ) const {
-		STORAGE left = lhs[i] ;
-		STORAGE right = rhs[i] ;
-		return left < right ? left : right ;
+		return op( lhs[i], rhs[i] ) ;
 	}
 	inline int size() const { return lhs.size() ; }
 	         
 private:
 	const LHS_TYPE& lhs ;
 	const RHS_TYPE& rhs ;
+	OPERATOR op ;
 } ;
 	
 } // sugar
