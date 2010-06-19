@@ -29,5 +29,6 @@
 #include <Rcpp/sugar/functions/sapply.h>
 #include <Rcpp/sugar/functions/lapply.h>
 #include <Rcpp/sugar/functions/ifelse.h>
+#include <Rcpp/sugar/functions/pmin.h>
 
 #endif
