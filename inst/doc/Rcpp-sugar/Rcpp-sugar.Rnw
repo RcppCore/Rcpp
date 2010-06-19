@@ -118,7 +118,7 @@ very efficient.
 
 \sugar{} takes advantage of \proglang{C++} operator overloading. 
 
-\subsection{binary operators}
+\subsection{binary arithmetic operators}
 
 \subsubsection{operator+}
 
@@ -204,6 +204,14 @@ NumericVector res = 2.0 / x;
 NumericVector res = x / ( y * y ) ;
 @
 
+\subsection{binary logical operators}
+
+\subsubsection{operator<}
+\subsubsection{operator>}
+\subsubsection{operator<=}
+\subsubsection{operator>=}
+\subsubsection{operator==}
+\subsubsection{operator!=}
 
 \subsection{Unary operators}
 
