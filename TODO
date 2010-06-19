@@ -61,9 +61,7 @@ Syntactic sugar
     		- ncol                      (number of columns)     
     		- size                      (nrow*ncol)
     	
-    o	matrix functions : row, col, lower_tri, upper_tri
-
-    o	lapply
+    o	matrix functions : row, col, lower_tri, upper_tri, outer, diag, apply
     
     o	for character vectors: nchar, grepl, sub, gsub
     
