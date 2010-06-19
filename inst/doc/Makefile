@@ -8,15 +8,17 @@
 ## on Ubuntu so for Dirk will insist on pdflatex and this variable helps
 whoami=$(shell whoami)
 
-all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf
+all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf
 
 clean:
 	touch Rcpp-unitTests.pdf
+	touch Rcpp-sugar.pdf
 	touch Rcpp-introduction.pdf
 	touch Rcpp-modules.pdf
 	touch Rcpp-FAQ.pdf
 	touch Rcpp-extending.pdf
 	rm Rcpp-introduction.pdf
+	rm Rcpp-sugar.pdf
 	rm Rcpp-unitTests.pdf
 	rm Rcpp-modules.pdf
 	rm Rcpp-FAQ.pdf
@@ -127,4 +129,25 @@ endif
 	rm -fr Rcpp-extending.log
 	rm Rcpp-extending.Rnw
 	cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
+
+Rcpp-sugar.pdf : Rcpp-sugar/Rcpp-sugar.Rnw
+	rm Rcpp-sugar.Rnw
+	cp -f Rcpp-sugar/Rcpp-sugar.Rnw .
+	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-sugar.Rnw', driver = driver ); "
+	Rscript -e "tools::texi2dvi( 'Rcpp-sugar.tex', pdf = TRUE, clean = FALSE )"
+	bibtex Rcpp-sugar
+ifeq ($(whoami),edd)
+	pdflatex Rcpp-sugar
+	pdflatex Rcpp-sugar
+else
+	Rscript -e "tools::texi2dvi( 'Rcpp-sugar.tex', pdf = TRUE, clean = TRUE )"
+endif
+	rm -fr Rcpp-sugar.tex
+	rm -fr Rcpp-sugar.bbl
+	rm -fr Rcpp-sugar.blg
+	rm -fr Rcpp-sugar.aux
+	rm -fr Rcpp-sugar.out
+	rm -fr Rcpp-sugar.log
+	rm Rcpp-sugar.Rnw
+	cp Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
 	
