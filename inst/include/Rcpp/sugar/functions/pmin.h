@@ -37,6 +37,7 @@ public:
 	
 } ;
 template <int RTYPE, bool LHS_NA> class pmin_op<RTYPE,LHS_NA,false> {
+public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
 	inline STORAGE operator()( STORAGE left, STORAGE right ) const {
@@ -45,6 +46,7 @@ template <int RTYPE, bool LHS_NA> class pmin_op<RTYPE,LHS_NA,false> {
 	}
 } ;
 template <int RTYPE, bool RHS_NA> class pmin_op<RTYPE,false,RHS_NA> {
+public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
 	inline STORAGE operator()( STORAGE left, STORAGE right ) const {
@@ -53,6 +55,7 @@ template <int RTYPE, bool RHS_NA> class pmin_op<RTYPE,false,RHS_NA> {
 	}
 } ;
 template <int RTYPE> class pmin_op<RTYPE,false,false> {
+public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
 	inline STORAGE operator()( STORAGE left, STORAGE right ) const {
@@ -60,7 +63,43 @@ template <int RTYPE> class pmin_op<RTYPE,false,false> {
 	}
 } ;
 
+template <int RTYPE,bool NA> class pmin_op_Vector_Primitive {
+public:
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+
+	pmin_op_Vector_Primitive( STORAGE right_ ) : 
+		right(right_), isna( Rcpp::traits::is_na<RTYPE>(right_) ){}
 	
+	inline STORAGE operator()( STORAGE left ) const {
+		if( isna ) return right ;
+		if( Rcpp::traits::is_na<RTYPE>(left) ) return left ;
+		return left < right ? left : right ;
+	}	
+		
+private:
+	STORAGE right ;
+	bool isna ;	
+} ;
+
+template <int RTYPE> class pmin_op_Vector_Primitive<RTYPE,false> {
+public:
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+
+	pmin_op_Vector_Primitive( STORAGE right_ ) : 
+		right(right_), isna( Rcpp::traits::is_na<RTYPE>(right_) ){}
+	
+	inline STORAGE operator()( STORAGE left ) const {
+		if( isna ) return right ;
+		return left < right ? left : right ;
+	}	
+		
+private:
+	STORAGE right ;
+	bool isna ;	
+} ;
+
+
+
 template <
 	int RTYPE, 
 	bool LHS_NA, typename LHS_T, 
@@ -90,7 +129,38 @@ private:
 	const RHS_TYPE& rhs ;
 	OPERATOR op ;
 } ;
+
+
+
+template <
+	int RTYPE, 
+	bool LHS_NA, typename LHS_T
+	>
+class Pmin_Vector_Primitive : public VectorBase< 
+	RTYPE , 
+	true ,
+	Pmin_Vector_Primitive<RTYPE,LHS_NA,LHS_T>
+> {
+public:
+	typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	typedef pmin_op_Vector_Primitive<RTYPE,LHS_NA> OPERATOR ;
 	
+	Pmin_Vector_Primitive( const LHS_TYPE& lhs_, STORAGE rhs ) : 
+		lhs(lhs_), op(rhs) {}
+	
+	inline STORAGE operator[]( int i ) const {
+		return op( lhs[i] ) ;
+	}
+	inline int size() const { return lhs.size() ; }
+	         
+private:
+	const LHS_TYPE& lhs ;
+	OPERATOR op ;
+} ;
+
+
+
 } // sugar
 
 template <
@@ -105,6 +175,32 @@ pmin(
 	){
 	return sugar::Pmin_Vector_Vector<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs, rhs ) ;
 }
+
+template <
+	int RTYPE, 
+	bool LHS_NA, typename LHS_T
+>
+inline sugar::Pmin_Vector_Primitive<RTYPE,LHS_NA,LHS_T> 
+pmin( 
+	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, 
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs 
+	){
+	return sugar::Pmin_Vector_Primitive<RTYPE,LHS_NA,LHS_T>( lhs, rhs ) ;
+}
+
+
+template <
+	int RTYPE, 
+	bool RHS_NA, typename RHS_T
+>
+inline sugar::Pmin_Vector_Primitive<RTYPE,RHS_NA,RHS_T> 
+pmin( 
+	typename Rcpp::traits::storage_type<RTYPE>::type lhs,  
+	const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs 
+	){
+	return sugar::Pmin_Vector_Primitive<RTYPE,RHS_NA,RHS_T>( rhs, lhs ) ;
+}
+
 
 } // Rcpp
 

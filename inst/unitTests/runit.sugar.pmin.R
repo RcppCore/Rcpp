@@ -31,3 +31,21 @@ test.sugar.pmin <- function( ){
 	checkEquals( fx(1:10, 10:1) , c(1:5,5:1) )
 }
 
+test.sugar.pmin.one <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric" ), '
+		NumericVector xx(x) ;
+		return List::create( 
+			pmin( xx, 5), 
+			pmin( 5, xx)
+			) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx(1:10) , 
+		list( 
+			c(1:5,rep(5,5)), 
+			c(1:5,rep(5,5))
+			) )
+}
+
+
