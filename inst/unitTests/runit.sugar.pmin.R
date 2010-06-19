@@ -45,7 +45,41 @@ test.sugar.pmin.one <- function( ){
 		list( 
 			c(1:5,rep(5,5)), 
 			c(1:5,rep(5,5))
-			) )
+		)
+	)
 }
 
+
+
+test.sugar.pmax <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
+	
+		NumericVector xx(x) ;
+		NumericVector yy(y) ;
+		NumericVector res = pmax( xx, yy );
+		return res ;
+	
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx(1:10, 10:1) , c(10:6,6:10) )
+}
+
+test.sugar.pmax.one <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric" ), '
+		NumericVector xx(x) ;
+		return List::create( 
+			pmax( xx, 5), 
+			pmax( 5, xx)
+			) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx(1:10) , 
+		list( 
+			c(rep(5,5), 6:10), 
+			c(rep(5,5), 6:10) 
+		)
+	) 
+}
 
