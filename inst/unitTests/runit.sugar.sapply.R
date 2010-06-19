@@ -70,10 +70,29 @@ test.sugar.sapply.square <- function( ){
 	fx <- cxxfunction( signature( x = "numeric" ), '
 	
 		NumericVector xx(x) ;
-		return all( sapply( xx * xx , square<double>() ) < 10 );
+		return all( sapply( xx * xx , square<double>() ) < 10.0 );
 	
 	', include = inc, plugin = "Rcpp" )
 	
-	checkTrue( fx(1:10)  )
+	checkTrue( ! fx(1:10)  )
+}
+
+test.sugar.sapply.list <- function( ){
+
+	inc <- '
+	template <typename T>
+	class square : public std::unary_function<T,T> {
+	public:
+		T operator()( T t) const { return t*t ; }
+	} ;
+	'
+	
+	fx <- cxxfunction( signature( x = "integer" ), '
+		IntegerVector xx(x) ;
+		List res = sapply( xx, seq_len );
+		return res ;
+	', include = inc, plugin = "Rcpp" )
+	
+	checkEquals( fx(1:10), lapply( 1:10, seq_len ) )
 }
 
