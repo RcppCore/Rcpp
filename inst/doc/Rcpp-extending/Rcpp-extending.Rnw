@@ -92,8 +92,11 @@ require( Rcpp )
 
 \pkg{Rcpp} facilitates data interchange between \proglang{R} and
 \proglang{C++} through the templated functions \texttt{Rcpp::as} (for
-conversion from \proglang{C++}) and \texttt{Rcpp::wrap} (for conversion to
-\proglang{C++}).  Their declarations are as follows:
+conversion of objects from \proglang{R} to \proglang{C++}) and
+\texttt{Rcpp::wrap} (for conversion from \proglang{C++} to \proglang{R}).  In
+other words, we convert between the so-called \proglang{S}-expression
+pointers (in type \texttt{SEXP}) to a templated \proglang{C++} type, and vice
+versa.  The corresponding function declarations are as follows:
 
 <<lang=cpp>>=
 // conversion from R to C++
