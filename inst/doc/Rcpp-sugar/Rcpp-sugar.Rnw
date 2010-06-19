@@ -113,6 +113,58 @@ RcppExport SEXP foo( SEXP x, SEXP y){
 which not only allows a much nicer high level syntax, but also makes it 
 very efficient. 
 
+\section{Operators}  
+
+\sugar{} takes advantage of \proglang{C++} operator overloading. 
+
+\subsection{binary operators}
+
+\subsubsection{operator+}
+
+The \texttt{operator+} is used to add two \sugar{} expressions of the same 
+size or one \sugar{} expression with a single value of the appropriate type.
+
+<<lang=cpp>>=
+// two numeric vectors of the same size
+NumericVector x ;
+NumericVector y ;
+
+// adding them
+NumericVector res = x + y ;
+
+// adding a single value
+NumericVector res = x + 2.0 ;
+NumericVector res = 2.0 + x;
+
+// adding expressions
+NumericVector res = x * y + y / 2.0 ;
+@
+
+\subsubsection{operator-}
+\subsubsection{operator*}
+\subsubsection{operator/}
+
+\subsection{Unary operators}
+
+\subsubsection{operator-}
+\subsubsection{operator!}
+   
+\section{Functions}
+
+\subsection{all}
+\subsection{any}
+\subsection{is na}
+\subsection{ifelse}
+\subsection{seq along}
+\subsection{seq len}
+\subsection{pmin}
+\subsection{pmax}
+\subsection{sapply}
+\subsection{lapply}
+
+
+\section{Implementation}
+
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
 
