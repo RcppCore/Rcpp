@@ -27,6 +27,7 @@
 #include <Rcpp/sugar/functions/is_na.h>
 #include <Rcpp/sugar/functions/seq_along.h>
 #include <Rcpp/sugar/functions/sapply.h>
+#include <Rcpp/sugar/functions/lapply.h>
 #include <Rcpp/sugar/functions/ifelse.h>
 
 #endif
