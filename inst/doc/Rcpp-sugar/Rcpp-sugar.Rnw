@@ -125,89 +125,39 @@ very efficient (as we detail in section~\ref{sec:performance} below).
 
 \subsection{binary arithmetic operators}
 
-\subsubsection{operator+}
-
-The \texttt{operator+} is used to add two \sugar~expressions of the same
-size or one \sugar~expression with a single value of the appropriate type.
+\sugar~defines the usual binary arithmetic operators : \texttt{+}, \texttt{-},
+\texttt{*}, \texttt{/}. 
 
 <<lang=cpp>>=
 // two numeric vectors of the same size
 NumericVector x ;
 NumericVector y ;
 
-// two vectors
+// expressions involving two vectors
 NumericVector res = x + y ;
-
-// one vector, one single value
-NumericVector res = x + 2.0 ;
-NumericVector res = 2.0 + x;
-
-// two expressions
-NumericVector res = x * y + y / 2.0 ;
-@
-
-\subsubsection{operator-}
-
-The \texttt{operator-} is used to substract two \sugar~expressions of the same
-size or one \sugar~expression with a single value of the appropriate type.
-
-<<lang=cpp>>=
-// two numeric vectors of the same size
-NumericVector x ;
-NumericVector y ;
-
-// two vectors
 NumericVector res = x - y ;
-
-// one vector, one single value
-NumericVector res = x - 2.0 ;
-NumericVector res = 2.0 - x;
-
-// two expressions
-NumericVector res = x * y - y / 2.0 ;
-@
-
-\subsubsection{operator*}
-
-The \texttt{operator*} is used to multiply two \sugar~expressions of the same
-size or one \sugar~expression with a single value of the appropriate type.
-
-<<lang=cpp>>=
-// two numeric vectors of the same size
-NumericVector x ;
-NumericVector y ;
-
-// two vectors
 NumericVector res = x * y ;
-
-// one vector, one single value
-NumericVector res = x * 2.0 ;
-NumericVector res = 2.0 * x;
-
-// two expressions
-NumericVector res = x * ( y - 2.0 ) ;
-@
-
-\subsubsection{operator/}
-
-The \texttt{operator*} is used to divide two \sugar~expressions of the same
-size or one \sugar~expression with a single value of the appropriate type.
-
-<<lang=cpp>>=
-// two numeric vectors of the same size
-NumericVector x ;
-NumericVector y ;
-
-// two vectors
 NumericVector res = x / y ;
 
 // one vector, one single value
-NumericVector res = x / 2.0 ;
-NumericVector res = 2.0 / x;
+NumericVector res = x + 2.0 ;
+NumericVector res = 2.0 - x;
+NumericVector res = y * 2.0 ;
+NumericVector res = 2.0 / y;
 
 // two expressions
+NumericVector res = x * y + y / 2.0 ;
+NumericVector res = x * ( y - 2.0 ) ;
 NumericVector res = x / ( y * y ) ;
 @
+
+The left hand side (lhs) and the right hand side (rhs) of each binary 
+arithmetic expression must be of the same type (for example they should be both
+\texttt{numeric} expressions). 
+
+The lhs and the rhs can either have the same size or one of them could 
+be a primitive value of the appropriate type, for example adding a 
+\texttt{NumericVector} and a \texttt{double}. 
 
 \subsection{binary logical operators}
 
