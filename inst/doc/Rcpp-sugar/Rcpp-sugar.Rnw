@@ -260,14 +260,45 @@ of the example above.
 
 \subsection{Functions producing sugar expressions}
 
-\subsubsection{is na}
-\subsubsection{ifelse}
-\subsubsection{seq along}
-\subsubsection{seq len}
+\subsubsection{is\_na}
+
+Given a sugar expression of any type, \texttt{is\_na} produces a logical
+sugar expression of the same length. Each element of the result expression
+evaluates to \texttt{TRUE} if the corresponding input is a missing value, or
+\texttt{FALSE} otherwise.
+
+<<lang=cpp>>=
+IntegerVector x = IntegerVector::create( 0, 1, NA_INTEGER, 3 ) ;
+
+is_na( x )
+all( is_na( x ) )
+any( ! is_na( x ) )
+@
+
+\subsubsection{seq\_along}
+
+Given a sugar expression of any type, \texttt{seq\_len} creates an 
+integer sugar expression whose values go from 1 to the sire of the input.
+
+<<lang=cpp>>=
+IntegerVector x = IntegerVector::create( 0, 1, NA_INTEGER, 3 ) ;
+
+seq_along( x )
+seq_along( x * x * x * x * x * x * x )
+@
+
+This is the most lazy function, as it only needs to call the \texttt{size}
+member function of the input expression. The input expression need not to be 
+resolved. The two examples above gives the same result with the same efficiency
+at runtime. The compile time will be affected by the complexity of the 
+second expression, since the abstract syntax tree is built at compile time.
+
+\subsubsection{seq\_len}
 \subsubsection{pmin}
 \subsubsection{pmax}
 \subsubsection{sapply}
 \subsubsection{lapply}
+\subsubsection{ifelse}
 
 \section{Performance}
 \label{sec:performance}
