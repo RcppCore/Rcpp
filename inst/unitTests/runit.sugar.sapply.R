@@ -77,4 +77,3 @@ test.sugar.sapply.square <- function( ){
 	checkTrue( fx(1:10)  )
 }
 
-
