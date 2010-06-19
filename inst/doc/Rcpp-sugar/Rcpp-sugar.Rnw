@@ -54,6 +54,7 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
   of the \pkg{Rcpp} API. 
   
   \sugar{} is based on the technique of expression templates.
+  % TODO: reference to armadillo, blitz, etc ...
 }
 
 \section{Motivation}
@@ -129,20 +130,80 @@ size or one \sugar{} expression with a single value of the appropriate type.
 NumericVector x ;
 NumericVector y ;
 
-// adding them
+// two vectors
 NumericVector res = x + y ;
 
-// adding a single value
+// one vector, one single value
 NumericVector res = x + 2.0 ;
 NumericVector res = 2.0 + x;
 
-// adding expressions
+// two expressions
 NumericVector res = x * y + y / 2.0 ;
 @
 
 \subsubsection{operator-}
+
+The \texttt{operator-} is used to substract two \sugar{} expressions of the same 
+size or one \sugar{} expression with a single value of the appropriate type.
+
+<<lang=cpp>>=
+// two numeric vectors of the same size
+NumericVector x ;
+NumericVector y ;
+
+// two vectors
+NumericVector res = x - y ;
+
+// one vector, one single value
+NumericVector res = x - 2.0 ;
+NumericVector res = 2.0 - x;
+
+// two expressions
+NumericVector res = x * y - y / 2.0 ;
+@
+
 \subsubsection{operator*}
+
+The \texttt{operator*} is used to multiply two \sugar{} expressions of the same 
+size or one \sugar{} expression with a single value of the appropriate type.
+
+<<lang=cpp>>=
+// two numeric vectors of the same size
+NumericVector x ;
+NumericVector y ;
+
+// two vectors
+NumericVector res = x * y ;
+
+// one vector, one single value
+NumericVector res = x * 2.0 ;
+NumericVector res = 2.0 * x;
+
+// two expressions
+NumericVector res = x * ( y - 2.0 ) ;
+@
+
 \subsubsection{operator/}
+
+The \texttt{operator*} is used to divide two \sugar{} expressions of the same 
+size or one \sugar{} expression with a single value of the appropriate type.
+
+<<lang=cpp>>=
+// two numeric vectors of the same size
+NumericVector x ;
+NumericVector y ;
+
+// two vectors
+NumericVector res = x / y ;
+
+// one vector, one single value
+NumericVector res = x / 2.0 ;
+NumericVector res = 2.0 / x;
+
+// two expressions
+NumericVector res = x / ( y * y ) ;
+@
+
 
 \subsection{Unary operators}
 
@@ -162,6 +223,7 @@ NumericVector res = x * y + y / 2.0 ;
 \subsection{sapply}
 \subsection{lapply}
 
+\section{Performance}
 
 \section{Implementation}
 
