@@ -106,7 +106,7 @@ template <typename T> T as( SEXP m_sexp) throw(not_compatible) ;
 template <typename T> SEXP wrap(const T& object) ;
 @
 
-These converters are often used implicitely, as in the following code chunk:
+These converters are often used implicitly, as in the following code chunk:
 
 <<echo=FALSE>>=
 code <- '
