@@ -294,8 +294,49 @@ at runtime. The compile time will be affected by the complexity of the
 second expression, since the abstract syntax tree is built at compile time.
 
 \subsubsection{seq\_len}
+
+\texttt{seq\_len} creates an integer sugar expression whose i-th
+element expands to \texttt{i}. \texttt{seq\_len} is particularly useful in 
+conjunction with \texttt{sapply} and \texttt{lapply}. 
+
+<<lang=cpp>>=
+// 1, 2, ..., 10
+IntegerVector x = seq_len( 10 ) ;
+
+lapply( seq_len(10), seq_len )
+@
+
 \subsubsection{pmin}
+
+Given two sugar expressions of the same type and size, or one expression and
+one primitive value of the appropriate type, \texttt{pmin} generates a sugar
+expression of the same type whose i\textsuperscript{th} element expands to the 
+lowest value between the i\textsuperscript{th} element of the first expression 
+and the i\textsuperscript{th} element of the second expression.
+
+<<lang=cpp>>=
+IntegerVector x = seq_len( 10 ) ;
+
+pmin( x, x*x )
+pmin( x*x, 2 )
+@
+
 \subsubsection{pmax}
+
+Given two sugar expressions of the same type and size, or one expression and
+one primitive value of the appropriate type, \texttt{pmax} generates a sugar
+expression of the same type whose i\textsuperscript{th} element expands to the 
+greatest value between the i\textsuperscript{th} element of the first expression 
+and the i\textsuperscript{th} element of the second expression.
+
+<<lang=cpp>>=
+IntegerVector x = seq_len( 10 ) ;
+
+pmin( x, x*x )
+pmin( x*x, 2 )
+@
+
+
 \subsubsection{sapply}
 \subsubsection{lapply}
 \subsubsection{ifelse}
