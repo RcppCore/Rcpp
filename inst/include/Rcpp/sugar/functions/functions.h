@@ -30,5 +30,6 @@
 #include <Rcpp/sugar/functions/lapply.h>
 #include <Rcpp/sugar/functions/ifelse.h>
 #include <Rcpp/sugar/functions/pmin.h>
+#include <Rcpp/sugar/functions/pmax.h>
 
 #endif
