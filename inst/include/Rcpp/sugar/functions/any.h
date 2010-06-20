@@ -26,9 +26,9 @@ namespace Rcpp{
 namespace sugar{
 
 template <typename T>
-class Any : public SingleLogicalResult< Any<T> >{
+class Any : public SingleLogicalResult< true, Any<T> >{
 public:
-	typedef SingleLogicalResult< Any<T> > PARENT ;
+	typedef SingleLogicalResult< true , Any<T> > PARENT ;
 	Any( const T& t ) : PARENT() , object(t) {}
 	
 	void apply(){
