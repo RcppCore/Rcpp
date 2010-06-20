@@ -27,7 +27,9 @@ namespace sugar{
 
 template <int RTYPE, bool NA, typename T, typename Function>
 class Sapply : public VectorBase< 
-	Rcpp::traits::r_sexptype_traits<typename ::Rcpp::traits::result_of<Function>::type >::rtype , 
+	Rcpp::traits::r_sexptype_traits<
+		typename ::Rcpp::traits::result_of<Function>::type
+	>::rtype , 
 	true ,
 	Sapply<RTYPE,NA,T,Function>
 > {

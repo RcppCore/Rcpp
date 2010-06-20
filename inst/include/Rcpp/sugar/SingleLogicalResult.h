@@ -25,7 +25,21 @@
 namespace Rcpp{
 namespace sugar{  
 
-template <typename T>
+template <bool> 
+class forbidden_conversion ;
+
+template <> 
+class forbidden_conversion<true>{} ;
+
+template <bool x>
+class conversion_to_bool_is_forbidden : 
+	conversion_to_bool_is_forbidden<x>{
+	public:
+		void touch(){}
+}; 
+
+
+template <bool NA,typename T>
 class SingleLogicalResult {
 public:
 	const static int UNRESOLVED = -5 ;
@@ -56,6 +70,12 @@ public:
 	operator SEXP(){
 		apply() ;
 		return Rf_ScalarLogical( result ) ;
+	}
+	
+	operator bool(){
+		conversion_to_bool_is_forbidden<!NA> x ;
+		x.touch() ;
+		return is_true() ;
 	}
 	
 	inline int size(){ return 1 ; }
