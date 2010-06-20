@@ -74,15 +74,15 @@
 //! \example ConvolveBenchmarks/convolve2_c.c
 //! The basic convolution example from Section 5.10.1 of 'Writing R Extensions'
 
-//! \example ConvolveBenchmarks/convolve2_cpp.c
+//! \example ConvolveBenchmarks/convolve2_cpp.cpp
 //! A simple version of the basic convolution example from Section 5.10.1 
 //! of 'Writing R Extensions', now rewritten for Rcpp using RcppVector<double>.
 
-//! \example ConvolveBenchmarks/convolve3_cpp.c
+//! \example ConvolveBenchmarks/convolve3_cpp.cpp
 //! A more efficient version of the basic convolution example from Section 5.10.1 
 //! of 'Writing R Extensions', now rewritten for Rcpp and using Rcpp::NumericVector.
 
-//! \example ConvolveBenchmarks/convolve4_cpp.c
+//! \example ConvolveBenchmarks/convolve4_cpp.cpp
 //! An even more efficient version of the basic convolution example from Section 5.10.1 
 //! of 'Writing R Extensions', now rewritten for Rcpp and using Rcpp::NumericVector as
 //! well as direct pointer operations for better performance.
@@ -93,3 +93,22 @@
 
 //! \example ConvolveBenchmarks/exampleRCode.r
 //! R file / littler script to run and time the various implementations.
+
+
+//! \example FastLM/benchmark.r
+//! Linear model benchmark master file
+
+//! \example FastLM/fastLMviaArmadillo.r
+//! Runs lm via Armadillo and times the run
+
+//! \example FastLM/fastLMviaGSL.r
+//! Runs lm via GSL and times the run
+
+//! \example FastLM/lmArmadillo.r
+//! Armadillo-based implementation of a bare-boned lm()
+
+//! \example FastLM/lmGSL.r
+//! GSL-based implementation of a bare-boned lm()
+
+
+
