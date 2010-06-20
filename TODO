@@ -95,7 +95,12 @@ Syntactic sugar
 		in R : NA == TRUE is NA
 
 	o	Compound operators: ++,--,+=, -=, ...
+
+	o	operators &&, || and ! for SingleLogicalResult objects, so that we can
+		do things like : 
 		
+		any( x < y ) || all( x > 0 )
+	
 Testing
 
 	o	we need to update the doRUnit.R file and replace : 
