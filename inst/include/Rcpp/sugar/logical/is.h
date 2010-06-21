@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// logical.h: Rcpp R/C++ interface class library -- 
+// is.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -19,16 +19,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_LOGICAL_H
-#define RCPP_SUGAR_LOGICAL_H
+#ifndef RCPP_SUGAR_LOGICAL_IS_H
+#define RCPP_SUGAR_LOGICAL_IS_H
 
-#include <Rcpp/sugar/logical/can_have_na.h>
+namespace Rcpp{
 
-#include <Rcpp/sugar/logical/SingleLogicalResult.h>
-#include <Rcpp/sugar/logical/not.h>
-#include <Rcpp/sugar/logical/and.h>
-#include <Rcpp/sugar/logical/or.h>
+	template <bool NA, typename T>
+	inline bool is_true( const Rcpp::sugar::SingleLogicalResult<NA,T>& x){
+		return x.is_true() ;
+	}
 
-#include <Rcpp/sugar/logical/is.h>
+	template <bool NA, typename T>
+	inline bool is_false( const Rcpp::sugar::SingleLogicalResult<NA,T>& x){
+		return x.is_false() ;
+	}
 
+	template <bool NA, typename T>
+	inline bool is_na( const Rcpp::sugar::SingleLogicalResult<NA,T>& x){
+		return x.is_na() ;
+	}
+	
+	
+}
 #endif
