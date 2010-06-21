@@ -70,36 +70,7 @@ Syntactic sugar
     	IntegerVector xx(20) ;
     	xx[ range(0,9) ] = seq_len(10 ) ;
     
-    o	SingleLogicalResult does not have an operator bool() because of R missing 
-		values. So we need is_true, is_false and is_na for SingleLogicalResult
-		objects so that we can do: 
-		
-		if( is_true( all( x < 5 ) ) ){
-			...
-		}
-    	
-		We can already do 
-		
-		if( all( x < 5 ).is_true() ){
-			...
-		}
-    	
-		but the syntax above seems more natural. maybe not. Or we can add an 
-		operator int() and do this: 
-		
-		if( all( x < 5 ) == TRUE ){
-			...
-		}
-    	
-		not sure what is best. Actually the last version is a bad idea because
-		in R : NA == TRUE is NA
-
 	o	Compound operators: ++,--,+=, -=, ...
-
-	o	operators &&, || and ! for SingleLogicalResult objects, so that we can
-		do things like : 
-		
-		any( x < y ) || all( x > 0 )
 	
 Testing
 
