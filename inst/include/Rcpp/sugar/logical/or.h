@@ -177,10 +177,10 @@ public:
 	typedef SingleLogicalResult<LHS_NA,LHS_T> LHS_TYPE ;
 	typedef SingleLogicalResult< 
 		LHS_NA , 
-		And_SingleLogicalResult_bool<LHS_NA,LHS_T>
+		Or_SingleLogicalResult_bool<LHS_NA,LHS_T>
 	> BASE ;
-	
-	And_SingleLogicalResult_bool( const LHS_TYPE& lhs_, bool rhs_) :
+	              
+	Or_SingleLogicalResult_bool( const LHS_TYPE& lhs_, bool rhs_) :
 		lhs(lhs_), rhs(rhs_){} ;
 	
 	inline void apply(){
