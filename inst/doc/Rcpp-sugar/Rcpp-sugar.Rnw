@@ -516,6 +516,46 @@ sapply( const Rcpp::VectorBase<RTYPE,_NA_,T>& t, Function fun ){
 }
 @
 
+\subsubsection{The sapply function}
+
+\texttt{sapply} is a template function that takes two arguments. 
+\begin{itemize}
+\item The first argument
+is a sugar expression, which we recognize because of the relationship with 
+the \texttt{VectorBase} class template. 
+\item The second argument is the function to apply. 
+\end{itemize}
+
+The \texttt{sapply} function itself does not do anything, it is just used
+to trigger compiler detection of the template parameters that will be used
+in the \texttt{sugar::Sapply} template. 
+
+\subsubsection{Detection of return type of the function}
+
+In order to decide which kind of expression is built, the \texttt{Sapply}
+template class queries the template argument via the \texttt{Rcpp::traits::result\_of}
+template. 
+
+<<lang=cpp>>=
+	typename ::Rcpp::traits::result_of<Function>::type 
+@
+
+The \texttt{result\_of} type trait is implemented as such: 
+
+<<lang=cpp>>=
+template <typename T>
+struct result_of{
+	typedef typename T::result_type type ;
+} ;
+
+template <typename RESULT_TYPE, typename INPUT_TYPE>
+struct result_of< RESULT_TYPE (*)(INPUT_TYPE) >{
+	typedef RESULT_TYPE type ;
+} ;
+@
+
+
+
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
 
