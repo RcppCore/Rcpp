@@ -25,7 +25,7 @@
 #include <Rcpp/sugar/logical/SingleLogicalResult.h>
 #include <Rcpp/sugar/logical/not.h>
 #include <Rcpp/sugar/logical/and.h>
-// #include <Rcpp/sugar/logical/or.h>
+#include <Rcpp/sugar/logical/or.h>
 
 
 #endif
