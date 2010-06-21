@@ -19,13 +19,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_FORWARD_H
-#define RCPP_SUGAR_FORWARD_H
+#ifndef RCPP_SUGAR_LOGICAL_H
+#define RCPP_SUGAR_LOGICAL_H
 
-// traits
-#include <Rcpp/sugar/operators/r_binary_op.h>
-
-// abstractions
-#include <Rcpp/sugar/logical/logical.h>
+#include <Rcpp/sugar/logical/SingleLogicalResult.h>
 
 #endif
