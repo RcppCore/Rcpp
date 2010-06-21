@@ -27,6 +27,6 @@
 #include <Rcpp/sugar/can_have_na.h>
 
 // abstractions
-#include <Rcpp/sugar/SingleLogicalResult.h>
+#include <Rcpp/sugar/logical/SingleLogicalResult.h>
 
 #endif
