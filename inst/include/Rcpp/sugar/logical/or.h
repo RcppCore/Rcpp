@@ -165,6 +165,38 @@ private:
 	
 } ;
 
+
+template <bool LHS_NA, typename LHS_T>
+class Or_SingleLogicalResult_bool : 
+public SingleLogicalResult< 
+	LHS_NA , 
+	And_SingleLogicalResult_bool<LHS_NA,LHS_T>
+	>
+{
+public: 
+	typedef SingleLogicalResult<LHS_NA,LHS_T> LHS_TYPE ;
+	typedef SingleLogicalResult< 
+		LHS_NA , 
+		And_SingleLogicalResult_bool<LHS_NA,LHS_T>
+	> BASE ;
+	
+	And_SingleLogicalResult_bool( const LHS_TYPE& lhs_, bool rhs_) :
+		lhs(lhs_), rhs(rhs_){} ;
+	
+	inline void apply(){
+		if( rhs ){
+			BASE::set( TRUE ) ;
+		} else{
+			BASE::set( lhs.get() ) ;
+		}
+	}
+		
+private:
+	const LHS_TYPE& lhs ;
+	bool rhs ;
+	
+} ;
+
 }
 }
 
@@ -176,6 +208,23 @@ operator||(
 ){
 	return Rcpp::sugar::Or_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs, rhs ) ;
 }
+ 
+template <bool LHS_NA, typename LHS_T>
+inline Rcpp::sugar::Or_SingleLogicalResult_bool<LHS_NA,LHS_T>
+operator||( 
+	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs, 
+	bool rhs
+){
+	return Rcpp::sugar::Or_SingleLogicalResult_bool<LHS_NA,LHS_T>( lhs, rhs ) ;
+}
 
+template <bool LHS_NA, typename LHS_T>
+inline Rcpp::sugar::Or_SingleLogicalResult_bool<LHS_NA,LHS_T>
+operator||( 
+	bool rhs, 
+	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs
+){
+	return Rcpp::sugar::Or_SingleLogicalResult_bool<LHS_NA,LHS_T>( lhs, rhs ) ;
+}
 
 #endif

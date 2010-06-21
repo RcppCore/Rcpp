@@ -212,7 +212,7 @@ operator&&(
 }
 
 template <bool LHS_NA, typename LHS_T>
-inline Rcpp::sugar::And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T>
+inline Rcpp::sugar::And_SingleLogicalResult_bool<LHS_NA,LHS_T>
 operator&&( 
 	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs, 
 	bool rhs
@@ -221,7 +221,7 @@ operator&&(
 }
 
 template <bool LHS_NA, typename LHS_T>
-inline Rcpp::sugar::And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T>
+inline Rcpp::sugar::And_SingleLogicalResult_bool<LHS_NA,LHS_T>
 operator&&( 
 	bool rhs, 
 	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs
