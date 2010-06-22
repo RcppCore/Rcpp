@@ -29,12 +29,20 @@
 namespace Rcpp{
 namespace traits{
 
-  template<typename T>
-  class _has_rtype_helper : __sfinae_types {
+	template <int RTYPE>
+	struct expands_to_logical__impl{} ;
+	
+	template <>
+	struct expands_to_logical__impl<LGLSXP> {
+		struct r_expands_to_logical{}; 
+	} ;
+
+	template<typename T>
+	class _has_rtype_helper : __sfinae_types {
       template<typename U> struct _Wrap_type { };
 
       template<typename U>
-        static __one __test(_Wrap_type<typename U::r_type>*);
+        static __one __test(_Wrap_type<typename U::r_expands_to_logical>*);
 
       template<typename U>
         static __two __test(...);
@@ -42,9 +50,9 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
-		
+  
   template<typename T> struct expands_to_logical : 
-  	integral_constant<bool,_has_rtype_helper<T>::value & T::r_type::value == LGLSXP > { };
+  	integral_constant<bool, _has_rtype_helper<T>::value >{ };
     
     
 } 
