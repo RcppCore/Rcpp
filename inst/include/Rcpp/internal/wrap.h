@@ -424,7 +424,8 @@ SEXP wrap_dispatch_unknown_iterable__logical( const T& object, ::Rcpp::traits::f
  */
 template <typename T>
 SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::true_type){
-	return wrap_dispatch_unknown_iterable__logical( object, typename ::Rcpp::traits::expands_to_logical<T>::type() ) ;
+	return wrap_dispatch_unknown_iterable__logical( object, 
+		typename ::Rcpp::traits::expands_to_logical<T>::type() ) ;
 }
 
 template <typename T, typename elem_type>
