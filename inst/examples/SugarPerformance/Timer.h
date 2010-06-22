@@ -1,8 +1,29 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+//
+// Timer.h: Rcpp R/C++ interface class library -- simple timer class
+//
+// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+//
+// This file is part of Rcpp.
+//
+// Rcpp is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// (at your option) any later version.
+//
+// Rcpp is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-// Simple timer class based on atimer.h / atimer.cxx found a few years ago at 
+
+// Simple timer class based on on ideas in atimer.h / atimer.cxx found a few years ago at 
 //     http://www.cs.uiowa.edu/~sriram/30/fall03/ 
 //     and attributed to Amir Elaguizy while under GPL
-// That class site is still preserved. Also has a link to a simpler class at duke.edu
+// but converted to using gettimeofday/GetSystemTime instead
 
 #ifndef TIMER_H
 #define TIMER_H
@@ -13,86 +34,34 @@ int timeval_subtract (struct timeval *result, struct timeval *x, struct timeval 
 
 class Timer {
 public:
-	Timer() { 
-		start_t.time.tv_sec = 0; 
-		start_t.time.tv_usec = 0; 
-		end_t.time.tv_sec = 0; 
-		end_t.time.tv_usec = 0;
-		myCumulative = 0; 
-		myElapsed = 0; 
+	Timer() {  Reset(); }
+	void Start()  { start_t = getFractionalSeconds(); }
+	void Stop() { 
+		end_t = getFractionalSeconds(); 
+		elapsed = end_t - start_t;			// Calculate elapsed time in seconds
+		cumul += elapsed;
 	}
-      
-	void Start()  {
-		ntp_gettime(&start_t);
-	}
-
-	void Stop() {
-		ntptimeval result;
-
-		ntp_gettime(&end_t);
-		timeval_subtract(&result.time, &end_t.time, &start_t.time);
-
-		// Calculate elapsed time in seconds
-		myElapsed = (result.time.tv_sec + (result.time.tv_usec / 1000000.0)); 
-		myCumulative += myElapsed;
-	}
-
-	void Reset() {
-		end_t.time.tv_sec = 0;
-		end_t.time.tv_usec = 0;
-		start_t.time.tv_sec = 0;
-		start_t.time.tv_usec = 0;
-		myElapsed = 0;
-		myCumulative = 0;
-	}
-
-	double ElapsedTime()  {
-		return myElapsed;
-	}
-
-	double CumulativeTime() { 
-		return myCumulative;
-	}
+	void Reset() { end_t = start_t = elapsed = cumul = 0.0; }
+	double ElapsedTime() { return elapsed; }
+	double CumulativeTime() { return cumul; }
 
 
 private:
-	ntptimeval start_t, end_t;
-	double myElapsed;
-	double myCumulative;
+	double start_t, end_t, elapsed, cumul;
 
-	int timeval_subtract (struct timeval *result, struct timeval *x, struct timeval *y) {
-		// NOTE: THIS FUNCTION IS GNU CODE AND IS USED UNDER THE GPL.
-		// Purpose:
-		//   Put the result of subtraction of x & y into result
-		//
-		// Arguments:
-		//   result - the container for the result of subtraction
-		//   x - the ending time
-		//   y - the starting time
-		// 
-		// Return value:
-		//   0 if result is positive (normal state)
-		//   1 if result is negative (error state)
-		
-		// Perform the carry for the later subtraction by updating y.
-		if (x->tv_usec < y->tv_usec) {
-			int nsec = (y->tv_usec - x->tv_usec) / 1000000 + 1;
-			y->tv_usec -= 1000000 * nsec;
-			y->tv_sec += nsec;
-		}
-		if (x->tv_usec - y->tv_usec > 1000000) {
-			int nsec = (x->tv_usec - y->tv_usec) / 1000000;
-			y->tv_usec += 1000000 * nsec;
-			y->tv_sec -= nsec;
-		}
-	
-		// Compute the time remaining to wait.
-		//    tv_usec is certainly positive.
-		result->tv_sec = x->tv_sec - y->tv_sec;
-		result->tv_usec = x->tv_usec - y->tv_usec;
-		
-		// Return 1 if result is negative. 
-		return x->tv_sec < y->tv_sec;
+	double getFractionalSeconds(void) {
+        #if !defined(__WIN32__)
+		struct timeval tv; 											// see gettimeofday(2)
+		gettimeofday(&tv, NULL);
+		double t = (double) tv.tv_sec + (double) 1e-6 * tv.tv_usec; // seconds.microseconds since epoch 
+        #endif
+        #if defined(__WIN32__)
+		time_t temp = time(NULL);
+		SYSTEMTIME st; 
+		GetSystemTime(&st);
+		double t = temp + 1e-3*st.wMilliseconds;    				// milliseconds in windows
+        #endif
+		return(t);
 	}
 };
 
