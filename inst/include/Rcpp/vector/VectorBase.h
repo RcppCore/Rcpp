@@ -23,12 +23,10 @@
 #define Rcpp__vector__VectorBase_h
 
 namespace Rcpp{
-
-
 	
 /** a base class for vectors, modelled after the CRTP */
 template <int RTYPE, bool na, typename VECTOR>
-class VectorBase {
+class VectorBase : public traits::expands_to_logical__impl<RTYPE> {
 public:
 	struct r_type : traits::integral_constant<int,RTYPE>{} ;
 	struct can_have_na : traits::integral_constant<bool,na>{} ;
