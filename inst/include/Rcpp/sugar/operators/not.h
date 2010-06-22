@@ -66,7 +66,7 @@ namespace sugar{
 	class not_<CPLXSXP,false>{
 	public:
 		inline int apply( Rcomplex x ) const {
-			return (x.r == 0.0 & x.i == 0.0 ) ? FALSE : TRUE ;
+			return ((x.r == 0.0) & (x.i == 0.0) ) ? FALSE : TRUE ;
 		}
 	} ;
 	
