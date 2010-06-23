@@ -31,10 +31,8 @@ namespace Rcpp {
     template <> SEXP wrap(const RcppDate &date) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
 	REAL(value)[0] = date.getJDN() - RcppDate::Jan1970Offset;
-	SEXP dateclass = PROTECT(Rf_allocVector(STRSXP,1));
-	SET_STRING_ELT(dateclass, 0, Rf_mkChar("Date"));
-	Rf_setAttrib(value, R_ClassSymbol, dateclass); 
-	UNPROTECT(2);
+	Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("Date")); 
+	UNPROTECT(1);
 	return value;
     }
 
@@ -54,10 +52,8 @@ namespace Rcpp {
 	for (int i = 0; i < datevec.size(); i++) {
 	    REAL(value)[i] = datevec(i).getJDN() - RcppDate::Jan1970Offset;
 	}
-	SEXP dateclass = PROTECT(Rf_allocVector(STRSXP,1));
-	SET_STRING_ELT(dateclass, 0, Rf_mkChar("Date"));
-	Rf_setAttrib(value, R_ClassSymbol, dateclass); 
-	UNPROTECT(2);
+	Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("Date")); 
+	UNPROTECT(1);
 	return value;
     }
 
