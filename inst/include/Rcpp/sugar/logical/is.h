@@ -26,17 +26,17 @@ namespace Rcpp{
 
 	template <bool NA, typename T>
 	inline bool is_true( const Rcpp::sugar::SingleLogicalResult<NA,T>& x){
-		return x.is_true() ;
+		return const_cast< Rcpp::sugar::SingleLogicalResult<NA,T>& >(x).is_true() ;
 	}
 
 	template <bool NA, typename T>
 	inline bool is_false( const Rcpp::sugar::SingleLogicalResult<NA,T>& x){
-		return x.is_false() ;
+		return const_cast< Rcpp::sugar::SingleLogicalResult<NA,T>& >(x).is_false() ;
 	}
 
 	template <bool NA, typename T>
 	inline bool is_na( const Rcpp::sugar::SingleLogicalResult<NA,T>& x){
-		return x.is_na() ;
+		return const_cast< Rcpp::sugar::SingleLogicalResult<NA,T>& >(x).is_na() ;
 	}
 	
 	

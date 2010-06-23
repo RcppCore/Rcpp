@@ -68,9 +68,7 @@ private:
 			}
 		}
 	}
-	
-	
-private:
+
 } ;
 
 } // sugar
