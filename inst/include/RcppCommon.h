@@ -240,6 +240,10 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/internal/r_vector.h>
 #include <Rcpp/r_cast.h>
 
+#include <Rcpp/internal/wrap_forward.h>
+
+#include <Rcpp/Date_forward.h>
+
 #include <Rcpp/internal/export.h>
 #include <Rcpp/traits/Exporter.h>
 #include <Rcpp/internal/r_coerce.h>

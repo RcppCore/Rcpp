@@ -27,7 +27,7 @@ namespace Rcpp{
 namespace traits{
 
 /**
- * Identifies a primitive type that needs to special handling
+ * Identifies a primitive type that needs no special handling
  * int, double, Rbyte, Rcomplex
  */
 struct r_type_primitive_tag{} ;
