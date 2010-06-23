@@ -34,5 +34,6 @@
 #include <Rcpp/sugar/functions/sign.h>
 #include <Rcpp/sugar/functions/diff.h>
 #include <Rcpp/sugar/functions/abs.h>
+#include <Rcpp/sugar/functions/exp.h>
 
 #endif

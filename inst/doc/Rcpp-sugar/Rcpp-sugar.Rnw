@@ -449,6 +449,8 @@ IntegerVector xx;
 abs( xx )
 @
 
+\subsubsection{exp}
+
 
 \section{Performance}
 \label{sec:performance}
