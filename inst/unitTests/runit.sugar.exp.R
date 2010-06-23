@@ -32,3 +32,18 @@ test.sugar.exp <- function( ){
 	checkEquals( fx(x,y) , list( exp(x), exp(y) ) )
 }
 
+test.sugar.floor <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
+	
+		NumericVector xx(x) ;
+		IntegerVector yy(y) ;
+		
+		return List::create( floor(xx), floor(yy) ) ;
+	', plugin = "Rcpp" )
+	
+	x <- rnorm(10)
+	y <- -10:10
+	checkEquals( fx(x,y) , list( floor(x), floor(y) ) )
+}
+
