@@ -664,6 +664,42 @@ public:
 	
 	traits::r_vector_cache<RTYPE> cache ;
 
+public:
+	
+	class RangeIndexer {
+	public:
+		
+			// TODO: check if the indexer is valid
+		RangeIndexer( Vector& vec_, const Range& range_) : 
+			vec(vec_), range(range_) {}
+		
+			// TODO: size exceptions
+		template <bool NA, typename T>	
+		RangeIndexer& operator=( const VectorBase<RTYPE,NA,T>& x){
+			int n = size() ;
+			for( int i=0; i<n; i++){
+				vec[ range[i] ] = x[i] ;
+			}
+			return *this ;
+		}
+			
+		inline Proxy operator[]( int i ){
+			return vec[ range[i] ] ;
+		}
+		
+		inline int size(){
+			return range.size() ;
+		}
+		
+	private:
+		Vector& vec ;
+		const Range& range ;
+	} ;
+	
+	inline RangeIndexer operator[]( const Range& range ){
+		return RangeIndexer( const_cast<Vector&>(*this), range );
+	}
+	
 } ; /* Vector */
 
 #endif
