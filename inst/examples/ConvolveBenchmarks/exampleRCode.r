@@ -36,6 +36,12 @@ v4 <- .Call("convolve4cpp", a, b)
 t4 <- system.time(replicate(1000, .Call("convolve4cpp", a, b)))
 
 
+## load the sugar based version
+dyn.load( "convolve5_cpp.so" )
+v5 <- .Call( "convolve5cpp", a, b )
+t5 <- system.time(replicate(1000, .Call("convolve5cpp", a, b)))
+
+
 ## load shared library with wrapper code and callback class
 dyn.load("convolve7_c.so")
 
@@ -44,15 +50,16 @@ v7 <- .Call("convolve7", a, b)
 t7 <- system.time(replicate(1000, .Call("convolve7", a, b)))
 
 
-res <- data.frame(rbind(t1, t7, t2, t3, t4))
+res <- data.frame(rbind(t1, t7, t2, t3, t4, t5))
 rownames(res) <- c("Writing R extensions",
                    "Less careful use of R API",
                    "RcppVector<double>::operator()",
                    "Rcpp::NumericVector::operator[]",
-                   "Rcpp::NumericVector::begin()")
+                   "Rcpp::NumericVector::begin()", 
+                   "sugar" )
 print(res)
 
-results <- list( v1, v2, v3, v4, v7)
+results <- list( v1, v2, v3, v4, v7, v5)
 for (i in seq_along(results) ){
     stopifnot( all.equal(results[[1L]], results[[i]] ) )
 }
