@@ -57,8 +57,7 @@ SEXP primitive_range_wrap__impl( InputIterator first, InputIterator last, ::Rcpp
 		caster< T, typename ::Rcpp::traits::storage_type<RTYPE>::type >
 		) ; 
 	UNPROTECT(1) ;
-	// return wrap_extra_steps<T>( x ) ;
-	return x ;
+	return wrap_extra_steps<T>( x ) ;
 }
 
 /**
@@ -76,7 +75,7 @@ SEXP primitive_range_wrap__impl( InputIterator first, InputIterator last, ::Rcpp
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
 	std::copy( first, last, r_vector_start<RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x) ) ; 
 	UNPROTECT(1) ;
-	return x ;
+	return wrap_extra_steps<T>( x ) ;
 }
 
 
@@ -160,7 +159,7 @@ SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator last, 
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
-	return x ;
+	return wrap_extra_steps<T>( x ) ;
 }
 
 /** 
@@ -189,7 +188,7 @@ SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator last, 
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
-	return x ;
+	return wrap_extra_steps<T>( x ) ;
 }
 
 
