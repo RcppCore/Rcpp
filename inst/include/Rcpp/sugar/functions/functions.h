@@ -35,5 +35,6 @@
 #include <Rcpp/sugar/functions/diff.h>
 #include <Rcpp/sugar/functions/abs.h>
 #include <Rcpp/sugar/functions/exp.h>
+#include <Rcpp/sugar/functions/floor.h>
 
 #endif
