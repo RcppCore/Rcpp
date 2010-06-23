@@ -20,25 +20,41 @@
 test.Date.ctor.mdy <- function() {
     src <- 'Rcpp::Date dt = Rcpp::Date(12,31,2005);
 	    return Rcpp::wrap(dt);';
-    fun <- cppfunction(signature(), src)
+    fun <- cxxfunction(signature(), src, plugin = "Rcpp" )
     checkEquals(fun(), as.Date("2005-12-31"), msg = "Date.ctor.mdy")
 }
 
 test.Date.ctor.ymd <- function() {
     src <- 'Rcpp::Date dt = Rcpp::Date(2005,12,31);
 	    return Rcpp::wrap(dt);';
-    fun <- cppfunction(signature(), src)
+    fun <- cxxfunction(signature(), src, plugin = "Rcpp" )
     checkEquals(fun(), as.Date("2005-12-31"), msg = "Date.ctor.ymd")
 }
 
 test.Date.ctor.int <- function() {
     src <- 'Rcpp::Date dt = Rcpp::Date(Rcpp::as<int>(d));
 	    return Rcpp::wrap(dt);';
-    fun <- cppfunction(signature(d="numeric"), src)
+    fun <- cxxfunction(signature(d="numeric"), src, plugin = "Rcpp")
     d <- as.Date("2005-12-31")
     checkEquals(fun(as.numeric(d)), d, msg = "Date.ctor.int")
     checkEquals(fun(-1), as.Date("1970-01-01")-1, msg = "Date.ctor.int")
     checkException(fun("foo"), msg = "Date.ctor -> exception" )
 }
 
+test.vector.Date <- function(){
+	fx <- cxxfunction( , '
+		std::vector<Date> v(2) ;
+		v[0] = Date(2005,12,31) ;
+		v[1] = Date(12,31,2005) ;
+		return wrap( v ) ;
+	', plugin = "Rcpp" )
+	
+	checkTrue( 
+		identical( 
+			fx(), 
+			c( as.Date( "2005/12/31",  "2005/12/31" ) )
+		)
+	)
+	
+}
 
