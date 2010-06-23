@@ -28,25 +28,29 @@ namespace Rcpp {
 
 	class DateVector {
 	public:
-		typedef std::vector<Date>::iterator iterator ;
-		typedef std::vector<Date>::const_iterator const_iterator ;
+		typedef std::vector<Date>::iterator iterator;
+		typedef std::vector<Date>::const_iterator const_iterator;
 		
 		// TODO: use a custom exception class instead of std::range_error
-		DateVector(SEXP vec) throw(std::range_error) ;
+		DateVector(SEXP vec) throw(std::range_error);
 		DateVector(int n);
 		~DateVector() {};
-		const Date& operator()(unsigned int i) const throw(std::range_error) ;
-		Date& operator()(unsigned int i) throw(std::range_error) ;
+
+		const Date& operator()(unsigned int i) const throw(std::range_error);
+		Date& operator()(unsigned int i) throw(std::range_error);
+
 		const Date& operator[](unsigned int i) const;
 		Date& operator[](unsigned int i);
+
 		int size() const;
+
 		std::vector<Date> getDates() const;
 		
-		inline iterator begin(){ return v.begin() ; }
-		inline iterator end(){ return v.end() ; }
+		inline iterator begin(){ return v.begin(); }
+		inline iterator end(){ return v.end(); }
 		
-		inline const_iterator begin() const { return v.begin() ; }
-		inline const_iterator end() const { return v.end() ; }
+		inline const_iterator begin() const { return v.begin(); }
+		inline const_iterator end() const { return v.end(); }
 		
 		inline operator SEXP() const { return wrap( v ) ; } 
 		

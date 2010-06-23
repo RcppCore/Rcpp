@@ -27,6 +27,8 @@
 
 namespace Rcpp {
 
+    const int Date::QLtoJan1970Offset = 25569;  // Offset between R / Unix epoch date and the QL base date
+
     Date::Date() {
 	d = 0; 
     };
