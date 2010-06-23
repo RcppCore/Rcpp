@@ -411,6 +411,19 @@ sapply( seq_len(10), square<int>() ) ;
 \texttt{lapply} is similar to \texttt{sapply} except that the result is
 allways an list expression (an expression of type \texttt{VECSXP}. 
 
+\subsubsection{sign}
+
+Given a numeric or integer expression, \texttt{sign} expands to an expression
+whose values are one of 1, 0, -1 or \texttt{NA}, depending on the sign 
+of the input expression.
+
+<<lang=cpp>>=
+IntegerVector xx;
+
+sign( xx )
+sign( xx * xx )
+@
+
 \section{Performance}
 \label{sec:performance}
 
