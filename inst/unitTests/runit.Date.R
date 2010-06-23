@@ -51,3 +51,13 @@ test.vector.Date <- function(){
     checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "Date.vector")
 }
 
+test.vector.DateVector <- function(){
+	fx <- cxxfunction( , '
+		DateVector v(2) ;
+		v[0] = Date(2005,12,31) ;
+		v[1] = Date(12,31,2005) ;
+		return wrap( v ) ;
+	', plugin = "Rcpp" )
+    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "Date.vector")
+}
+

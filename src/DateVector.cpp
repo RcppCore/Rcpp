@@ -40,7 +40,7 @@ namespace Rcpp {
 
 	DateVector::DateVector(int n) : v(n){}
 
-	const Date & DateVector::operator()(unsigned int i) const {
+	const Date & DateVector::operator()(unsigned int i) const throw(std::range_error) {
 		if (i >= v.size()) {
 			std::ostringstream oss;
 			oss << "DateVector: subscript out of range: " << i;
@@ -49,7 +49,7 @@ namespace Rcpp {
 		return v[i];
 	}
 
-	Date & DateVector::operator()(unsigned int i) {
+	Date & DateVector::operator()(unsigned int i) throw(std::range_error) {
 		if (i >= v.size()) {
 			std::ostringstream oss;
 			oss << "DateVector: subscript out of range: " << i;
