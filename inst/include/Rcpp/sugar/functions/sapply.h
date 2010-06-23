@@ -34,11 +34,11 @@ class Sapply : public VectorBase<
 	Sapply<RTYPE,NA,T,Function>
 > {
 public:
-	const static int RESULT_R_TYPE = Rcpp::traits::r_sexptype_traits<
-		typename ::Rcpp::traits::result_of<Function>::type 
-		>::rtype ;
-	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
 	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
+	const static int RESULT_R_TYPE = 
+		Rcpp::traits::r_sexptype_traits<result_type>::rtype ;
+	
+	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
 	typedef typename Rcpp::traits::r_vector_element_converter<RESULT_R_TYPE>::type converter_type ;
 	typedef typename Rcpp::traits::storage_type<RESULT_R_TYPE>::type STORAGE ;
 	
