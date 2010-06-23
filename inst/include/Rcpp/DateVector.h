@@ -32,11 +32,12 @@ namespace Rcpp {
 		typedef std::vector<Date>::iterator iterator ;
 		typedef std::vector<Date>::const_iterator const_iterator ;
 		
-		DateVector(SEXP vec);
+		// TODO: use a custom exception class instead of std::range_error
+		DateVector(SEXP vec) throw(std::range_error) ;
 		DateVector(int n);
 		~DateVector() {};
-		const Date& operator()(unsigned int i) const;
-		Date& operator()(unsigned int i);
+		const Date& operator()(unsigned int i) const throw(std::range_error) ;
+		Date& operator()(unsigned int i) throw(std::range_error) ;
 		const Date& operator[](unsigned int i) const;
 		Date& operator[](unsigned int i);
 		int size() const;
