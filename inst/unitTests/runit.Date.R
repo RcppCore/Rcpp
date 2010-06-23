@@ -48,13 +48,6 @@ test.vector.Date <- function(){
 		v[1] = Date(12,31,2005) ;
 		return wrap( v ) ;
 	', plugin = "Rcpp" )
-	
-	checkTrue( 
-		identical( 
-			fx(), 
-			c( as.Date( "2005/12/31",  "2005/12/31" ) )
-		)
-	)
-	
+    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "Date.vector")
 }
 
