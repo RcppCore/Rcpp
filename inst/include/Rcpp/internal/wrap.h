@@ -30,14 +30,11 @@
 
 namespace Rcpp{
 
-// pre-declaring wrap :
-template <typename T> SEXP wrap(const T& object) ;
-
+template <typename T> SEXP wrap( const T& object ) ;
+	
 namespace internal{
-
-// pre declaring
-template <typename InputIterator> SEXP range_wrap(InputIterator first, InputIterator last) ;
-template <typename InputIterator> SEXP rowmajor_wrap(InputIterator first, int nrow, int ncol) ;
+	template <typename InputIterator> SEXP range_wrap(InputIterator first, InputIterator last) ;
+	template <typename InputIterator> SEXP rowmajor_wrap(InputIterator first, int nrow, int ncol) ;
 
 // {{{ range wrap 
 // {{{ unnamed range wrap
@@ -60,6 +57,7 @@ SEXP primitive_range_wrap__impl( InputIterator first, InputIterator last, ::Rcpp
 		caster< T, typename ::Rcpp::traits::storage_type<RTYPE>::type >
 		) ; 
 	UNPROTECT(1) ;
+	// return wrap_extra_steps<T>( x ) ;
 	return x ;
 }
 

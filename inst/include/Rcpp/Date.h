@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// DataFrame.h: Rcpp R/C++ interface class library -- data frames
+// Date.h: Rcpp R/C++ interface class library -- dates
 //
 // Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 //
@@ -60,6 +60,22 @@ namespace Rcpp {
     // template specialisation for wrap() on the date 
     template <> SEXP wrap<Rcpp::Date>(const Rcpp::Date &date);
 
+    // needed to wrap containers of Date such as vector<Date> 
+    // or map<string,Date>
+    namespace internal{
+       template<> inline double caster<Rcpp::Date,double>( Rcpp::Date from){
+       	return static_cast<double>( from.getDate() ) ;
+       }
+       template<> inline Rcpp::Date caster<double,Rcpp::Date>( double from){
+       	return Rcpp::Date( static_cast<int>( from ) ) ;
+       }
+    }
+    
+    template<> inline SEXP wrap_extra_steps<Rcpp::Date>( SEXP x ){
+    	Rf_setAttrib( Rf_install("class"), x, Rf_mkString( "Date" ) ) ;
+    	return x ;
+    }
+	
 }
 
 #endif
