@@ -64,23 +64,23 @@ src <- sprintf( '
 }
 
 benchmark( '
-		NumericVector res1( n ) ;
-        double x_ = 0.0 ;
-        double y_ = 0.0 ;
-        for( int i=0; i<n; i++){
-            x_ = x[i] ;
-            y_ = y[i] ;
-            if( R_IsNA(x_) || R_IsNA(y_) ){
-                res1[i] = NA_REAL;
-            } else if( x_ < y_ ){
-                res1[i] = x_ * x_ ;
-            } else {
-                res1[i] = -( y_ * y_)  ;
-            }
+    NumericVector res1( n ) ;
+    double x_ = 0.0 ;
+    double y_ = 0.0 ;
+    for( int i=0; i<n; i++){
+        x_ = x[i] ;
+        y_ = y[i] ;
+        if( R_IsNA(x_) || R_IsNA(y_) ){
+            res1[i] = NA_REAL;
+        } else if( x_ < y_ ){
+            res1[i] = x_ * x_ ;
+        } else {
+            res1[i] = -( y_ * y_)  ;
         }
+    }
 
 ', '
-	NumericVector res2 = ifelse( x < y, x*x, -(y*y) ) ;
+    NumericVector res2 = ifelse( x < y, x*x, -(y*y) ) ;
 ', quote(ifelse(x<y, x*x, -(y*y) )) 
 )
 
