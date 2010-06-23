@@ -9,10 +9,12 @@ src <- '
     unsigned int runs = as<int>(runss);
     int n = x.size() ;
 
-    Timer timer;
-
-    // approach one
-    timer.Start();
+    // Timer timer;
+    // 
+    // // approach one
+    // timer.Start();
+    Function sys_time( "Sys.time") ;
+    double start = as<double>( sys_time( ) );
     for (unsigned int i=0; i<runs; i++) {
         NumericVector res1( n ) ;
         double x_ = 0.0 ;
@@ -27,22 +29,39 @@ src <- '
             }
         }
     }
-    timer.Stop();
-    double t1 = timer.ElapsedTime();
-    timer.Reset();
+    // timer.Stop();
+    // double t1 = timer.ElapsedTime();
+    // timer.Reset();
+    double t1 = as<double>( sys_time( ) ) - start;
 
     // approach two
-    timer.Start();
+    // timer.Start();   
+    start = as<double>( sys_time( ) ) ;
     for (unsigned int i=0; i<runs; i++) {
         NumericVector res2 = ifelse( x < y, x*x, -(y*y) ) ;
     }
-    timer.Stop();
-    double t2 = timer.ElapsedTime();
+    // timer.Stop();
+    // double t2 = timer.ElapsedTime();
+    double t2 = as<double>( sys_time( ) ) - start;
 
+    
+    ExpressionVector rcode( "ifelse( x<y, x*x, -(y*y) )" ) ;
+    Language call = rcode[0] ;
+    start = as<double>( sys_time( ) ) ;
+    for (unsigned int i=0; i<runs; i++) {
+        NumericVector res2 = Rf_eval( call, R_GlobalEnv ) ;
+    }
+    double t3 = as<double>( sys_time( ) ) - start ;
+    
     // FIXME return List(Named("standard") = t1,
     //            Named("sugar")    = t2);
-    NumericVector v(2); v[0] = t1, v[1] = t2;
-    return v;
+    // NumericVector v(2); v[0] = t1, v[1] = t2;
+    // return v;
+    return NumericVector::create( 
+    	_["hand written"] = t1, 
+    	_["sugar"] = t2, 
+    	_["R"]     = t3
+    	) ;
 '
 
 ## srcOne <- '
@@ -118,7 +137,8 @@ runs <- 500
 
 fun <- cxxfunction(signature(runss="numeric", xs="numeric", ys="numeric"),
                    src,
-                   includes='#include "Timer.h"',
+                   # includes='#include "Timer.h"',
+                   # includes = paste( readLines( "Timer.h" ), collapse = "\n" ),
                    plugin="Rcpp",
                    settings=settings)
 print(fun(runs, x, y))
