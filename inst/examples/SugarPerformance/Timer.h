@@ -28,14 +28,10 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <sys/timex.h>			// Probably implies Linux-only ...
-
-int timeval_subtract (struct timeval *result, struct timeval *x, struct timeval *y);
-
 class Timer {
 public:
-	Timer() {  Reset(); }
-	void Start()  { start_t = getFractionalSeconds(); }
+	Timer() : sys_time("Sys.time") { Reset(); }
+	void Start()  { start_t = getFractionalSeconds() ; }
 	void Stop() { 
 		end_t = getFractionalSeconds(); 
 		elapsed = end_t - start_t;			// Calculate elapsed time in seconds
@@ -47,21 +43,11 @@ public:
 
 
 private:
+	Function sys_time ;
 	double start_t, end_t, elapsed, cumul;
 
 	double getFractionalSeconds(void) {
-        #if !defined(__WIN32__)
-		struct timeval tv; 											// see gettimeofday(2)
-		gettimeofday(&tv, NULL);
-		double t = (double) tv.tv_sec + (double) 1e-6 * tv.tv_usec; // seconds.microseconds since epoch 
-        #endif
-        #if defined(__WIN32__)
-		time_t temp = time(NULL);
-		SYSTEMTIME st; 
-		GetSystemTime(&st);
-		double t = temp + 1e-3*st.wMilliseconds;    				// milliseconds in windows
-        #endif
-		return(t);
+        return as<double>( sys_time() ) ;
 	}
 };
 
