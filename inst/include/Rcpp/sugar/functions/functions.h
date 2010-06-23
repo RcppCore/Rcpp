@@ -32,5 +32,6 @@
 #include <Rcpp/sugar/functions/pmin.h>
 #include <Rcpp/sugar/functions/pmax.h>
 #include <Rcpp/sugar/functions/sign.h>
+#include <Rcpp/sugar/functions/diff.h>
 
 #endif
