@@ -3,6 +3,9 @@
 	* src/Date.cpp: Import mktime00() from R's src/main/datetime.c
 	* inst/include/Rcpp/Date.h: Add mktime00() declaration
 
+	* inst/include/Rcpp/DateVector.h: New DateVector class
+	* src/Date.cpp: Implementation for new DateVector class
+
 2010-06-23  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Date_forward.h: forward declaration of Rcpp::Date and

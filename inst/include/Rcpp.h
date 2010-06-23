@@ -69,6 +69,7 @@
 #include <Rcpp/Formula.h>
 #include <Rcpp/DataFrame.h>
 #include <Rcpp/Date.h>
+#include <Rcpp/DateVector.h>
 
 #ifdef RCPP_ENABLE_MODULES
 #include <Rcpp/Module.h>
