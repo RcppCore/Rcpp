@@ -64,7 +64,7 @@ namespace Rcpp {
 		return v.size(); 
 	}
 
-	std::vector<Date> DateVector::getVector() const {
+	std::vector<Date> DateVector::getDates() const {
 		return v;
 	}
 
