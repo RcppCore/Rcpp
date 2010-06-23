@@ -47,3 +47,18 @@ test.sugar.floor <- function( ){
 	checkEquals( fx(x,y) , list( floor(x), floor(y) ) )
 }
 
+test.sugar.ceil <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
+	
+		NumericVector xx(x) ;
+		IntegerVector yy(y) ;
+		
+		return List::create( ceil(xx), ceil(yy) ) ;
+	', plugin = "Rcpp" )
+	
+	x <- rnorm(10)
+	y <- -10:10
+	checkEquals( fx(x,y) , list( ceiling(x), ceiling(y) ) )
+}
+
