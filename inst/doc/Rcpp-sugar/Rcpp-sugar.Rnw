@@ -452,6 +452,7 @@ abs( xx )
 \subsubsection{exp}
 \subsubsection{floor}
 \subsubsection{ceil}
+\subsubsection{pow}
 
 \section{Performance}
 \label{sec:performance}
