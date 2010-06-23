@@ -37,5 +37,6 @@
 #include <Rcpp/sugar/functions/exp.h>
 #include <Rcpp/sugar/functions/floor.h>
 #include <Rcpp/sugar/functions/ceil.h>
+#include <Rcpp/sugar/functions/pow.h>
 
 #endif
