@@ -20,6 +20,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <Rcpp/Date.h>
+#include <Rcpp/Function.h>
 
 namespace Rcpp {
 
