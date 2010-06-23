@@ -487,11 +487,11 @@ class Sapply : public VectorBase<
 	Sapply<RTYPE,NA,T,Function>
 > {
 public:
-	const static int RESULT_R_TYPE = Rcpp::traits::r_sexptype_traits<
-		typename ::Rcpp::traits::result_of<Function>::type 
-		>::rtype ;
+	typedef typename ::Rcpp::traits::result_of<Function>::type  ;
+	const static int RESULT_R_TYPE = 
+		Rcpp::traits::r_sexptype_traits<result_type>::rtype ;
+	
 	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
-	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
 	typedef typename Rcpp::traits::r_vector_element_converter<RESULT_R_TYPE>::type converter_type ;
 	typedef typename Rcpp::traits::storage_type<RESULT_R_TYPE>::type STORAGE ;
 	
@@ -537,7 +537,7 @@ template class queries the template argument via the \texttt{Rcpp::traits::resul
 template. 
 
 <<lang=cpp>>=
-	typename ::Rcpp::traits::result_of<Function>::type 
+typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
 @
 
 The \texttt{result\_of} type trait is implemented as such: 
@@ -554,7 +554,22 @@ struct result_of< RESULT_TYPE (*)(INPUT_TYPE) >{
 } ;
 @
 
+The generic definition of \texttt{result\_of} targets functors 
+with a nested \texttt{result\_type} type. 
 
+The second definition is a partial specialization targetting 
+function pointers.
+
+\subsubsection{Indentification of expression type}
+
+Based on the result type of the function, the \texttt{r\_sexptype\_traits}
+trait is used to identify the expression type. 
+
+<<lang=cpp>>=
+const static int RESULT_R_TYPE = Rcpp::traits::r_sexptype_traits<
+    typename ::Rcpp::traits::result_of<Function>::type 
+>::rtype ;
+@
 
 \bibliographystyle{abbrvnat}
 \bibliography{Rcpp}
