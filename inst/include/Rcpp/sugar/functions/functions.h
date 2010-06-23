@@ -31,5 +31,6 @@
 #include <Rcpp/sugar/functions/ifelse.h>
 #include <Rcpp/sugar/functions/pmin.h>
 #include <Rcpp/sugar/functions/pmax.h>
+#include <Rcpp/sugar/functions/sign.h>
 
 #endif
