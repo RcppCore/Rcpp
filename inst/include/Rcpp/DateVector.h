@@ -29,6 +29,9 @@ namespace Rcpp {
 
 	class DateVector {
 	public:
+		typedef std::vector<Date>::iterator iterator ;
+		typedef std::vector<Date>::const_iterator const_iterator ;
+		
 		DateVector(SEXP vec);
 		DateVector(int n);
 		~DateVector() {};
@@ -38,6 +41,13 @@ namespace Rcpp {
 		Date& operator[](unsigned int i);
 		int size() const;
 		std::vector<Date> getDates() const;
+		
+		inline iterator begin(){ return v.begin() ; }
+		inline iterator end(){ return v.end() ; }
+		
+		inline const_iterator begin() const { return v.begin() ; }
+		inline const_iterator end() const { return v.end() ; }
+			
 	private:
 		std::vector<Date> v;
 	};
