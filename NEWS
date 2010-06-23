@@ -4,6 +4,8 @@
 
     o   Rcpp Modules can now expose public data members
 
+    o   New classes Date and DateVector with proper 'new' API integration
+
     o   RcppDate now has a constructor from SEXP as well
 
     o   RcppDateVector and RcppDatetimeVector get constructors from int
