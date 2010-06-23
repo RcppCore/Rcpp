@@ -62,3 +62,18 @@ test.sugar.ceil <- function( ){
 	checkEquals( fx(x,y) , list( ceiling(x), ceiling(y) ) )
 }
 
+test.sugar.pow <- function( ){
+
+	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
+	
+		NumericVector xx(x) ;
+		IntegerVector yy(y) ;
+		
+		return List::create( pow(xx, 3), pow(yy, 2.3) ) ;
+	', plugin = "Rcpp" )
+	
+	x <- rnorm(10)
+	y <- -10:10
+	checkEquals( fx(x,y) , list( x^3L , y^2.3 ) )
+}
+
