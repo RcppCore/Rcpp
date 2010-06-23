@@ -2,14 +2,15 @@
 suppressMessages(library(inline))
 suppressMessages(library(Rcpp))
 
-benchmark <- function( hand.written, sugar, expr  ){
+benchmark <- function( start, hand.written, sugar, expr, runs = 500, 
+	data = list( x = runif(1e5),  y = runif(1e5) ) ){
 
 src <- sprintf( '
-    NumericVector x(xs);
-    NumericVector y(ys);
     unsigned int runs = as<int>(runss);
-    int n = x.size() ;
-
+   	Environment e(env) ;
+    
+   	%s
+	    
     Timer timer;
     
     // approach one
@@ -29,7 +30,6 @@ src <- sprintf( '
     double t2 = timer.ElapsedTime();
     
     Language call(expr) ;
-    Environment e(env) ;
     
     timer.Reset(); timer.Start();   
     for (unsigned int i=0; i<runs; i++) {
@@ -44,26 +44,31 @@ src <- sprintf( '
     	_["R"]     = t3
     	) ;
 ', 
+	paste( start, collapse = "\n" ) ,
 	paste( hand.written, collapse = "\n" ), 
 	paste( sugar, collapse = "\n" ) )
 	
-
+	e <- environment()
+	for( i in names(data) ){
+		assign( i, data[[i]], envir = e )
+	}
+	
 	settings <- getPlugin("Rcpp")
 	settings$env$PKG_CXXFLAGS <- paste("-I", getwd(), " -O0", sep="")
 	
-	x <- runif(1e5)
-	y <- runif(1e5)
-	runs <- 500
-	
-	fun <- cxxfunction(signature(runss="numeric", xs="numeric", ys="numeric", expr = "language", env = "environment" ),
+	fun <- cxxfunction(signature(runss="integer", expr = "language", env = "environment" ),
 	                   src,
 	                   includes='#include "Timer.h"',
 	                   plugin="Rcpp",
 	                   settings=settings)
-	fun(runs, x, y, expr, environment() )
+	fun(runs, expr, environment() )
 }
 
 benchmark( '
+	NumericVector x = e["x"] ;
+	NumericVector y = e["y"] ;
+', '
+	int n = x.size() ;
     NumericVector res1( n ) ;
     double x_ = 0.0 ;
     double y_ = 0.0 ;
@@ -81,6 +86,7 @@ benchmark( '
 
 ', '
     NumericVector res2 = ifelse( x < y, x*x, -(y*y) ) ;
-', quote(ifelse(x<y, x*x, -(y*y) )) 
+', 
+	quote(ifelse(x<y, x*x, -(y*y) )) 
 )
 
