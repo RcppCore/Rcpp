@@ -60,6 +60,14 @@ namespace Rcpp {
 		return v[i];
 	}
 
+	const Date & DateVector::operator[](unsigned int i) const {
+		return v[i];
+	}
+
+	Date & DateVector::operator[](unsigned int i) {
+		return v[i];
+	}
+
 	int DateVector::size() const { 
 		return v.size(); 
 	}
