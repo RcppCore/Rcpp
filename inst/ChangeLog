@@ -1,3 +1,14 @@
+2010-06-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Date.h: New Date class (not yet complete)
+	* src/Date.cpp: Implementation for new Date class (not yet complete)
+	* inst/unitTests/runit.Date.R: first tests for Rcpp::Date
+
+2010-06-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/SugarBenchmark/: New example trying to benchmark
+	new syntactic 'sugar' classes
+
 2010-06-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppDoxygenExamples.h: Correct three wrong paths for

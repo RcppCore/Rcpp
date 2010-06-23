@@ -68,6 +68,7 @@
 #include <Rcpp/StringTransformer.h>
 #include <Rcpp/Formula.h>
 #include <Rcpp/DataFrame.h>
+#include <Rcpp/Date.h>
 
 #ifdef RCPP_ENABLE_MODULES
 #include <Rcpp/Module.h>
