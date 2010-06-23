@@ -34,6 +34,8 @@ namespace Rcpp {
 		~DateVector() {};
 		const Date& operator()(unsigned int i) const;
 		Date& operator()(unsigned int i);
+		const Date& operator[](unsigned int i) const;
+		Date& operator[](unsigned int i);
 		int size() const;
 		std::vector<Date> getDates() const;
 	private:
