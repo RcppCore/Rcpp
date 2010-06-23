@@ -1,6 +1,7 @@
 2010-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Date.cpp: Import mktime00() from R's src/main/datetime.c
+	* src/Date.cpp: Import mktime00() from R's src/main/datetime.c,
+	  completed class implementation
 	* inst/include/Rcpp/Date.h: Add mktime00() declaration
 
 	* inst/include/Rcpp/DateVector.h: New DateVector class

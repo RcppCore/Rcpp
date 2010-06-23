@@ -32,27 +32,24 @@ namespace Rcpp {
 		Date(const int &dt);	// from integer, just like R (with negative dates before Jan 1, 1970)
 		Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
 		Date(const unsigned int &m, const unsigned int &d, const unsigned int &y); 
-		~Date();
+		Date(const Date &copy);
+		~Date() {};
 		
-		int getDate(void) const; 
+		int getDate(void) const { return d; } 
 
 		static const int QLtoJan1970Offset;  // Offset between R / Unix epoch date and the QL base date
 
-#if 0		
-		// rest to follow
-		// assignment
-		// copy
-		// ...
-		
+		Date & operator=(const Date &newdate); 		// copy assignment operator 
+
 		// Minimal set of date operations.
-		friend Date   operator+(const Date &date, int offset);
-		friend int    operator-(const Date& date1, const Date& date2);
-		friend bool   operator<(const Date &date1, const Date& date2);
-		friend bool   operator>(const Date &date1, const Date& date2);
-		friend bool   operator==(const Date &date1, const Date& date2);
-		friend bool   operator>=(const Date &date1, const Date& date2);
-		friend bool   operator<=(const Date &date1, const Date& date2);
-#endif
+		friend Date  operator+(const Date &date, int offset);
+		friend int   operator-(const Date& date1, const Date& date2);
+		friend bool  operator<(const Date &date1, const Date& date2);
+		friend bool  operator>(const Date &date1, const Date& date2);
+		friend bool  operator==(const Date &date1, const Date& date2);
+		friend bool  operator>=(const Date &date1, const Date& date2);
+		friend bool  operator<=(const Date &date1, const Date& date2);
+		friend bool  operator!=(const Date &date1, const Date& date2);
 
     private:
         int d;					// day number, relative to epoch of Jan 1, 1970
