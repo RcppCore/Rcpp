@@ -2,7 +2,10 @@
 //
 // Date.h: Rcpp R/C++ interface class library -- Date type
 //
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010	      Dirk Eddelbuettel and Romain Francois
+//
+// The mktime00() function is
+// Copyright (C) 2000 - 2010  The R Development Core Team.
 //
 // This file is part of Rcpp.
 //
