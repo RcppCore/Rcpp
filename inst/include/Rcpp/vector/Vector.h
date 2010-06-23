@@ -682,7 +682,16 @@ public:
 			}
 			return *this ;
 		}
-			
+		
+		template <bool NA, typename T>	
+		RangeIndexer& operator+=( const VectorBase<RTYPE,NA,T>& x){
+			int n = size() ;
+			for( int i=0; i<n; i++){
+				vec[ range[i] ] += x[i] ;
+			}
+			return *this ;
+		}
+		
 		inline Proxy operator[]( int i ){
 			return vec[ range[i] ] ;
 		}

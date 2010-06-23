@@ -14,6 +14,7 @@ export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
 R CMD SHLIB convolve2_cpp.cpp
 R CMD SHLIB convolve3_cpp.cpp
 R CMD SHLIB convolve4_cpp.cpp
+R CMD SHLIB convolve5_cpp.cpp
 
 # call R so that we get an interactive session
 Rscript exampleRCode.r 
