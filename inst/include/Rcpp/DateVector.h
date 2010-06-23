@@ -2,7 +2,6 @@
 //
 // DateVector.h: Rcpp R/C++ interface class library -- Date vector support
 //
-// Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -48,7 +47,9 @@ namespace Rcpp {
 		
 		inline const_iterator begin() const { return v.begin() ; }
 		inline const_iterator end() const { return v.end() ; }
-			
+		
+		inline operator SEXP() const { return wrap( v ) ; } 
+		
 	private:
 		std::vector<Date> v;
 	};
