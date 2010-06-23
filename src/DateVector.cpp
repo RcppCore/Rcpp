@@ -25,7 +25,7 @@
 
 namespace Rcpp {
 
-	DateVector::DateVector(SEXP vec) {
+	DateVector::DateVector(SEXP vec) throw(std::range_error) : v()  {
 		int i;
 		if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
 			throw std::range_error("DateVector: invalid numeric vector in constructor");
@@ -38,9 +38,7 @@ namespace Rcpp {
 	}
 
 
-	DateVector::DateVector(int n) {
-		v.resize(n);
-	}
+	DateVector::DateVector(int n) : v(n){}
 
 	const Date & DateVector::operator()(unsigned int i) const {
 		if (i >= v.size()) {
