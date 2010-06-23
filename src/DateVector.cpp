@@ -2,7 +2,6 @@
 //
 // DateVector.cpp: Rcpp R/C++ interface class library -- Date vector support
 //
-// Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
