@@ -424,6 +424,32 @@ sign( xx )
 sign( xx * xx )
 @
 
+\subsubsection{diff}
+
+The i\textsuperscript{th} element of the result of \texttt{diff} is 
+the difference between the $(i+1)$\textsuperscript{th} and the 
+i\textsuperscript{th} element of the input expression. Supported types are
+integer and numeric.
+
+<<lang=cpp>>=
+IntegerVector xx;
+
+diff( xx )
+@
+
+\subsubsection{abs}
+
+The i\textsuperscript{th} element of the result of \texttt{abs} is 
+the absolute value of the i\textsuperscript{th} element of the input expression. 
+Supported types are integer and numeric.
+
+<<lang=cpp>>=
+IntegerVector xx;
+
+abs( xx )
+@
+
+
 \section{Performance}
 \label{sec:performance}
 
