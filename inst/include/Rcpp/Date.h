@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
 // Date.h: Rcpp R/C++ interface class library -- dates
 //
@@ -28,47 +28,49 @@ namespace Rcpp {
 
     class Date {
     public:	
-	Date();
-	Date(const int &dt);	// from integer, just like R (with negative dates before Jan 1, 1970)
-	Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
-	Date(const unsigned int &m, const unsigned int &d, const unsigned int &y); 
-	~Date();
+		Date();
+		Date(const int &dt);	// from integer, just like R (with negative dates before Jan 1, 1970)
+		Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
+		Date(const unsigned int &m, const unsigned int &d, const unsigned int &y); 
+		~Date();
 		
-	int getDate(void) const; 
+		int getDate(void) const; 
 
 #if 0		
-	// rest to follow
-	// assignment
-	// copy
-	// ...
-	
-	// Minimal set of date operations.
-	friend Date   operator+(const Date &date, int offset);
-	friend int    operator-(const Date& date1, const Date& date2);
-	friend bool   operator<(const Date &date1, const Date& date2);
-	friend bool   operator>(const Date &date1, const Date& date2);
-	friend bool   operator==(const Date &date1, const Date& date2);
-	friend bool   operator>=(const Date &date1, const Date& date2);
-	friend bool   operator<=(const Date &date1, const Date& date2);
+		// rest to follow
+		// assignment
+		// copy
+		// ...
+		
+		// Minimal set of date operations.
+		friend Date   operator+(const Date &date, int offset);
+		friend int    operator-(const Date& date1, const Date& date2);
+		friend bool   operator<(const Date &date1, const Date& date2);
+		friend bool   operator>(const Date &date1, const Date& date2);
+		friend bool   operator==(const Date &date1, const Date& date2);
+		friend bool   operator>=(const Date &date1, const Date& date2);
+		friend bool   operator<=(const Date &date1, const Date& date2);
 #endif
 
     private:
         int d;					// day number, relative to epoch of Jan 1, 1970
+
+		double mktime00(struct tm &tm) const; // from R's src/main/datetime.c
+
     };
 
 
     // template specialisation for wrap() on the date 
     template <> SEXP wrap<Rcpp::Date>(const Rcpp::Date &date);
 
-    // needed to wrap containers of Date such as vector<Date> 
-    // or map<string,Date>
-    namespace internal{
-       template<> inline double caster<Rcpp::Date,double>( Rcpp::Date from){
-       	return static_cast<double>( from.getDate() ) ;
-       }
-       template<> inline Rcpp::Date caster<double,Rcpp::Date>( double from){
-       	return Rcpp::Date( static_cast<int>( from ) ) ;
-       }
+    // needed to wrap containers of Date such as vector<Date> or map<string,Date>
+    namespace internal {
+		template<> inline double caster<Rcpp::Date,double>( Rcpp::Date from){
+			return static_cast<double>( from.getDate() ) ;
+		}
+		template<> inline Rcpp::Date caster<double,Rcpp::Date>( double from){
+			return Rcpp::Date( static_cast<int>( from ) ) ;
+		}
     }
     
     template<> inline SEXP wrap_extra_steps<Rcpp::Date>( SEXP x ){

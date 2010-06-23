@@ -53,7 +53,7 @@ namespace Rcpp {
 	    tm.tm_mon   = mon - 1;	// range 0 to 11
 	    tm.tm_year  = year - 1900;
 	}
-	double tmp = mktime(&tm);
+	double tmp = mktime00(tm); // use R's internal mktime() replacement
 	d = tmp/(24*60*60);
     }
 
@@ -64,6 +64,51 @@ namespace Rcpp {
     int Date::getDate(void) const { 
 	return d; 
     };
+
+
+    // Taken from R's src/main/datetime.c and made a member function called with C++ reference
+    /* Substitute for mktime -- no checking, always in GMT */
+    double Date::mktime00(struct tm &tm) const {
+
+	static const int days_in_month[12] =
+	    {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        #define isleap(y) ((((y) % 4) == 0 && ((y) % 100) != 0) || ((y) % 400) == 0)
+        #define days_in_year(year) (isleap(year) ? 366 : 365)
+
+	int day = 0;
+	int i, year, year0;
+	double excess = 0.0;
+
+	day = tm.tm_mday - 1;
+	year0 = 1900 + tm.tm_year;
+	/* safety check for unbounded loops */
+	if (year0 > 3000) {
+	    excess = (int)(year0/2000) - 1;
+	    year0 -= excess * 2000;
+	} else if (year0 < 0) {
+	    excess = -1 - (int)(-year0/2000);
+	    year0 -= excess * 2000;
+	}
+
+	for(i = 0; i < tm.tm_mon; i++) day += days_in_month[i];
+	if (tm.tm_mon > 1 && isleap(year0)) day++;
+	tm.tm_yday = day;
+
+	if (year0 > 1970) {
+	    for (year = 1970; year < year0; year++)
+		day += days_in_year(year);
+	} else if (year0 < 1970) {
+	    for (year = 1969; year >= year0; year--)
+		day -= days_in_year(year);
+	}
+
+	/* weekday: Epoch day was a Thursday */
+	if ((tm.tm_wday = (day + 4) % 7) < 0) tm.tm_wday += 7;
+	
+	return tm.tm_sec + (tm.tm_min * 60) + (tm.tm_hour * 3600)
+	    + (day + excess * 730485) * 86400.0;
+    }
 
 
     template <> SEXP wrap(const Date &date) {
