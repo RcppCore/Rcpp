@@ -38,8 +38,7 @@ namespace Rcpp {
     }
 
     Date::Date(const std::string &s, const std::string &fmt) {
-	// we cheat and call strptime() from R
-	Rcpp::Function strptime("strptime");
+	Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
 	d = Rcpp::as<int>(strptime(s, fmt));
     }
 
@@ -48,7 +47,7 @@ namespace Rcpp {
 	struct tm tm;;
 	tm.tm_sec = tm.tm_min = tm.tm_hour = tm.tm_isdst = 0;
 
-	// allow for special case (yyyy, mm, dd) which we prefer over (mm, dd, year)
+	// allow for ISO-notation case (yyyy, mm, dd) which we prefer over (mm, dd, year)
 	if (mon >= 1900 && day <= 12 && year <= 31) {
 	    tm.tm_year = mon - 1900;
 	    tm.tm_mon  = day - 1;       // range 0 to 11
@@ -58,25 +57,26 @@ namespace Rcpp {
 	    tm.tm_mon   = mon - 1;	// range 0 to 11
 	    tm.tm_year  = year - 1900;
 	}
-	double tmp = mktime00(tm); // use R's internal mktime() replacement
+	double tmp = mktime00(tm); 	// use mktime() replacement borrowed from R
 	d = tmp/(24*60*60);
     }
 
-    Date::~Date() {
-	// nothing to do
+    Date::Date(const Date &copy) {
+	d = copy.d;
     }
 
-    int Date::getDate(void) const { 
-	return d; 
-    };
-
+    Date & Date::operator=(const Date & newdate) {
+	if (this != &newdate) {
+	    d = newdate.d;
+	}
+	return *this;
+    }
 
     // Taken from R's src/main/datetime.c and made a member function called with C++ reference
     /* Substitute for mktime -- no checking, always in GMT */
     double Date::mktime00(struct tm &tm) const {
 
-	static const int days_in_month[12] =
-	    {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	static const int days_in_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
         #define isleap(y) ((((y) % 4) == 0 && ((y) % 100) != 0) || ((y) % 400) == 0)
         #define days_in_year(year) (isleap(year) ? 366 : 365)
@@ -115,6 +115,19 @@ namespace Rcpp {
 	    + (day + excess * 730485) * 86400.0;
     }
 
+    Date operator+(const Date &date, int offset) {
+	Date newdate(date.d);
+	newdate.d += offset;
+	return newdate;
+    }
+
+    int   operator-(const Date& d1, const Date& d2) { return d2.d - d1.d; }
+    bool  operator<(const Date &d1, const Date& d2) { return d1.d < d2.d; }
+    bool  operator>(const Date &d1, const Date& d2) { return d1.d > d2.d; }
+    bool  operator==(const Date &d1, const Date& d2) { return d1.d == d2.d; };
+    bool  operator>=(const Date &d1, const Date& d2) { return d1.d >= d2.d; };
+    bool  operator<=(const Date &d1, const Date& d2) { return d1.d <= d2.d; };
+    bool  operator!=(const Date &d1, const Date& d2) { return d1.d != d2.d; };
 
     template <> SEXP wrap(const Date &date) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
