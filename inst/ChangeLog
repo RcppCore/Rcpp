@@ -1,3 +1,8 @@
+2010-06-23  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Date_forward.h: forward declaration of Rcpp::Date and
+	support for wrap( container of Rcpp::Date ), e.g. wrap( vector<Date> )
+
 2010-06-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Date.h: New Date class (not yet complete)
