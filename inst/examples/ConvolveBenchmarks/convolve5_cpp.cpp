@@ -8,9 +8,7 @@ using namespace Rcpp ;
 RcppExport SEXP convolve5cpp(SEXP a, SEXP b) {
     NumericVector xa(a); int n_xa = xa.size() ;
     NumericVector xb(b); int n_xb = xb.size() ;
-    int nab = n_xa + n_xb - 1;
-    
-    NumericVector xab(nab,0.0);
+    NumericVector xab(n_xa + n_xb - 1,0.0);
     
     for(int i=0; i<n_xa; i++){
     	xab[ Range(i, i+n_xb-1) ] += xa[i] * xb ;
