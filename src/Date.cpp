@@ -32,12 +32,12 @@ namespace Rcpp {
     Date::Date() {
 	m_d = 0; 
 	update_tm();
-    };
+    }
 
     Date::Date(SEXP d) {
 	m_d = Rcpp::as<int>(d); 
 	update_tm();
-    };
+    }
 
     Date::Date(const int &dt) {
 	m_d = dt;
@@ -138,10 +138,10 @@ namespace Rcpp {
     int   operator-(const Date& d1, const Date& d2) { return d2.m_d - d1.m_d; }
     bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
     bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
-    bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; };
-    bool  operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; };
-    bool  operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; };
-    bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; };
+    bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; }
+    bool  operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; }
+    bool  operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
+    bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
 
     template <> SEXP wrap(const Date &date) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
