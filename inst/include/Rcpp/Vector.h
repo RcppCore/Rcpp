@@ -40,6 +40,8 @@ namespace Rcpp{
 template <int RTYPE> class MatrixRow ;
 template <int RTYPE> class MatrixColumn ;
 
+#include <Rcpp/vector/RangeIndexer.h>
+
 #include <Rcpp/vector/Vector.h>
 
 #include <Rcpp/vector/proxy.h>
