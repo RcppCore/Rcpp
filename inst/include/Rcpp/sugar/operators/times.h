@@ -131,7 +131,8 @@ namespace sugar{
 		
 		Times_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
 			lhs(lhs_), rhs(rhs_), m() {
-				m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
+			
+			m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
 				&Times_Vector_Primitive::rhs_is_na :
 				&Times_Vector_Primitive::rhs_is_not_na ;
 		}
