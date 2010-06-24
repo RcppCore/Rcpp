@@ -28,8 +28,8 @@ template <int RTYPE,bool LHS_NA,typename LHS_T,bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Comparator<
 	RTYPE , 
 	Rcpp::sugar::less<RTYPE>, 
-	Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-	Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+	LHS_NA, LHS_T, 
+	RHS_NA, RHS_T
 	> 
 operator<( 
 	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs , 
@@ -38,8 +38,8 @@ operator<(
 	return Rcpp::sugar::Comparator<
 		RTYPE, 
 		Rcpp::sugar::less<RTYPE>, 
-		Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-		Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+		LHS_NA, LHS_T, 
+		RHS_NA, RHS_T
 		>( 
 		lhs, rhs
 		) ;
@@ -49,8 +49,8 @@ template <int RTYPE,bool LHS_NA,typename LHS_T,bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Comparator<
 	RTYPE , 
 	Rcpp::sugar::greater<RTYPE>, 
-	Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-	Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+	LHS_NA, LHS_T, 
+	RHS_NA, RHS_T
 	> 
 operator>( 
 	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs , 
@@ -59,8 +59,8 @@ operator>(
 	return Rcpp::sugar::Comparator<
 		RTYPE, 
 		Rcpp::sugar::greater<RTYPE>, 
-		Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-		Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+		LHS_NA, LHS_T, 
+		RHS_NA, RHS_T
 		>( 
 		lhs, rhs
 		) ;
@@ -70,8 +70,8 @@ template <int RTYPE,bool LHS_NA,typename LHS_T,bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Comparator<
 	RTYPE , 
 	Rcpp::sugar::less_or_equal<RTYPE>, 
-	Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-	Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+	LHS_NA, LHS_T, 
+	RHS_NA, RHS_T
 	> 
 operator<=( 
 	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs , 
@@ -80,8 +80,8 @@ operator<=(
 	return Rcpp::sugar::Comparator<
 		RTYPE, 
 		Rcpp::sugar::less_or_equal<RTYPE>, 
-		Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-		Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+		LHS_NA, LHS_T, 
+		RHS_NA, RHS_T
 		>( 
 		lhs, rhs
 		) ;
@@ -91,8 +91,8 @@ template <int RTYPE,bool LHS_NA,typename LHS_T,bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Comparator<
 	RTYPE , 
 	Rcpp::sugar::greater_or_equal<RTYPE>, 
-	Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-	Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+	LHS_NA, LHS_T, 
+	RHS_NA, RHS_T
 	> 
 operator>=( 
 	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs , 
@@ -101,8 +101,8 @@ operator>=(
 	return Rcpp::sugar::Comparator<
 		RTYPE, 
 		Rcpp::sugar::greater_or_equal<RTYPE>, 
-		Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-		Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+		LHS_NA, LHS_T, 
+		RHS_NA, RHS_T
 		>( 
 		lhs, rhs
 		) ;
@@ -112,8 +112,8 @@ template <int RTYPE,bool LHS_NA,typename LHS_T,bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Comparator<
 	RTYPE , 
 	Rcpp::sugar::equal<RTYPE>, 
-	Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-	Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+	LHS_NA, LHS_T, 
+	RHS_NA, RHS_T
 	> 
 operator==( 
 	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs , 
@@ -122,8 +122,8 @@ operator==(
 	return Rcpp::sugar::Comparator<
 		RTYPE, 
 		Rcpp::sugar::equal<RTYPE>, 
-		Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-		Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+		LHS_NA, LHS_T, 
+		RHS_NA, RHS_T
 		>( 
 		lhs, rhs
 		) ;
@@ -133,8 +133,8 @@ template <int RTYPE,bool LHS_NA,typename LHS_T,bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Comparator<
 	RTYPE , 
 	Rcpp::sugar::not_equal<RTYPE>, 
-	Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-	Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+	LHS_NA, LHS_T, 
+	RHS_NA, RHS_T
 	> 
 operator!=( 
 	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs , 
@@ -143,8 +143,8 @@ operator!=(
 	return Rcpp::sugar::Comparator<
 		RTYPE, 
 		Rcpp::sugar::not_equal<RTYPE>, 
-		Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>, 
-		Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>
+		LHS_NA, LHS_T, 
+		RHS_NA, RHS_T
 		>( 
 		lhs, rhs
 		) ;
