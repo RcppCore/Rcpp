@@ -1,5 +1,34 @@
 0.8.3   (under development)
 
+	o	This release adds Rcpp sugar which brings (a subset of) the R syntax
+		into C++. This supports : 
+		- binary operators : <,>,<=,>=,==,!= between R vectors
+		- arithmetic operators: +,-,*,/ between compatible R vectors
+		- several functions that do similar as the R function of the same name:
+		abs, all, any, ceiling, diff, exp, ifelse, is_na, lapply, pmin, pmax, 
+		pow, sapply, seq_along, seq_len, sign
+		
+		Simple examples :
+		
+		// two numeric vector of the same size
+		NumericVector x ;
+		NumericVector y ;
+		NumericVector res = ifelse( x < y, x*x, -(y*y) ) ;
+		
+		// sapply'ing a C++ function
+		double square( double x ){ return x*x ; }
+		NumericVector res = sapply( x, square ) ;
+		
+		Rcpp sugar uses the technique of expression templates, pioneered by the 
+		Blitz++ libraray and used in many libraries (Boost::uBlas, Armadillo). 
+		Expression templates allow lazy evaluation of expressions, which 
+		coupled with inlining generates very efficient code, very closely 
+		approaching the performance of hand written loop code, and often
+		much more efficient than the equivalent (vectorized) R code.
+		
+		Rcpp sugar is curently limited to vectors, future releases will 
+		include support for matrices with sugar functions such as outer, etc ...
+
     o   New helper function so that "Rcpp?something" brings up Rcpp help
 
     o   Rcpp Modules can now expose public data members
