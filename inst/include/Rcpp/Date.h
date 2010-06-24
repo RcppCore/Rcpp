@@ -29,13 +29,24 @@ namespace Rcpp {
     class Date {
     public:	
 		Date();
+		Date(SEXP s); 
 		Date(const int &dt);	// from integer, just like R (with negative dates before Jan 1, 1970)
 		Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
 		Date(const unsigned int &m, const unsigned int &d, const unsigned int &y); 
 		Date(const Date &copy);
 		~Date() {};
 		
-		int getDate(void) const { return d; } 
+		int getDate(void) const { return m_d; } 
+
+		// intra-day useless for date class
+		//int getSeconds() const { return m_tm.tm_sec; }
+		//int getMinutes() const { return m_tm.tm_min; }
+		//int getHours()   const { return m_tm.tm_hour; }
+		int getDay()     const { return m_tm.tm_mday; }
+		int getMonth()   const { return m_tm.tm_mon + 1; } 		// makes it 1 .. 12
+		int getYear()    const { return m_tm.tm_year + 1900; }
+		int getWeekday() const { return m_tm.tm_wday + 1; } 	// makes it 1 .. 7
+		int getYearday() const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
 
 		static const int QLtoJan1970Offset;  // Offset between R / Unix epoch date and the QL base date
 
@@ -52,10 +63,12 @@ namespace Rcpp {
 		friend bool  operator!=(const Date &date1, const Date& date2);
 
     private:
-        int d;					// day number, relative to epoch of Jan 1, 1970
+        int m_d;					// day number, relative to epoch of Jan 1, 1970
+        struct tm m_tm;				// standard time representation
+
+		void update_tm();			// update m_tm based on m_d
 
 		double mktime00(struct tm &tm) const; // from R's src/main/datetime.c
-
     };
 
 
