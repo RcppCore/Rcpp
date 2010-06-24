@@ -2,19 +2,19 @@
 Documentation
 
     o   Bring "Rcpp ? NumericVector" into life. The hook is in place, we just need
-	to come up with some way to generate useful documentation for it: general
-	description of the class, related unit test cases, etc ...
-		
+        to come up with some way to generate useful documentation for it: general
+        description of the class, related unit test cases, etc ...
+                
     o   Rework ?Rcpp which is mainly old api centric
 
-    o	Add a vignette about Rcpp sugar
+    o   Add a vignette about Rcpp sugar [in progress]
     
-    o	Add a vignette about the api
+    o   Add a vignette about the api
 
-API:
+API
 
-    o   Rcpp::Date and Rcpp::DateVector 
-	
+    o   Rcpp::Date and Rcpp::DateVector [done 2010-06-23]
+        
     o   Rcpp::DateTime and Rcpp::DateTimeVector
 
     o   Rcpp::Factor and Rcpp::Ordered
@@ -23,72 +23,74 @@ API:
 Modules: 
 
     o   Exposing constructors. For now we can only construct internal objects 
-	with the default constructor of the target class. Maybe we can provide
-	some R level dispatch. Maybe look at ?selectMethod
-	
+        with the default constructor of the target class. Maybe we can provide
+        some R level dispatch. Maybe look at ?selectMethod
+        
     o   Class inheritance. If we have Foo and Bar : public Foo, and we expose
-	both Foo and Bar to R, R level class Bar should enjoy methods of Foo
-	and the S4 inheritance should reflect the C++ level inheritance
-		
+        both Foo and Bar to R, R level class Bar should enjoy methods of Foo
+        and the S4 inheritance should reflect the C++ level inheritance
+                
     o   Method overloading: methods are currently stored in a map<string,.>
-	so there can only be one method for a given name, which defeats C++
-	overloading. Maybe we can do better than that. This might also need 
-	R level dispatch (?selectMethod)
-	
+        so there can only be one method for a given name, which defeats C++
+        overloading. Maybe we can do better than that. This might also need 
+        R level dispatch (?selectMethod)
+        
 
 R 2.12.0
 
     o   Remove the C++ObjectS3 class as it is no longer needed:
-	http://permalink.gmane.org/gmane.comp.lang.r.devel/24610
+        http://permalink.gmane.org/gmane.comp.lang.r.devel/24610
 
-	o	Order of classes in POSIXt, ...
-	
+    o   Order of classes in POSIXt, ...
+        
 Syntactic sugar
 
     o   duplicated, unique, count, sum, rep, head, tail, sqrt
     
-    o	for complex vectors: Re, Im, Mod, Arg, Conj
+    o   for complex vectors: Re, Im, Mod, Arg, Conj
     
-    o	min, max with specialization of the binary operators, so that we can do 
-    	things like this lazily: 
-    	
-    	min( x ) < 4
+    o   min, max with specialization of the binary operators, so that we can do 
+        things like this lazily: 
+        
+        min( x ) < 4
     
-    o	for matrices: we first need CRTP with matrix interface, so we need to
-    	make Matrix inherit from MatrixBase and make MatrixBase a template tha	t
-    	implements CRTP and a matrix interface: 
-    		- operator[]                (treating the matrix as a vector)
-    		- operator()( int, int )    (matrix indexing)
-    		- nrow                      (number of rows)
-    		- ncol                      (number of columns)     
-    		- size                      (nrow*ncol)
-    	
-    o	matrix functions : row, col, lower_tri, upper_tri, outer, diag, apply
+    o   for matrices: we first need CRTP with matrix interface, so we need to
+        make Matrix inherit from MatrixBase and make MatrixBase a template tha  t
+        implements CRTP and a matrix interface: 
+                - operator[]                (treating the matrix as a vector)
+                - operator()( int, int )    (matrix indexing)
+                - nrow                      (number of rows)
+                - ncol                      (number of columns)     
+                - size                      (nrow*ncol)
+        
+    o   matrix functions : row, col, lower_tri, upper_tri, outer, diag, apply
     
-    o	for character vectors: nchar, grepl, sub, gsub
+    o   for character vectors: nchar, grepl, sub, gsub
     
-	o	Compound operators: ++,--,+=, -=, ...
-	
+    o   Compound operators: ++,--,+=, -=, ...
+        
 Testing
 
-	o	we need to update the doRUnit.R file and replace : 
-	
-	        ##  stop() if there are any failures i.e. FALSE to unit test.
-       		## This will cause R CMD check to return error and stop
-       		err <- getErrors(tests)
-       		if( (err$nFail + err$nErr) > 0) {
-       		    stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
-       		} else{
-       			success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
-       			cat( sprintf( "%d / %d\n", success, err$nTestFunc ) )
-       		}
+    o   we need to update the doRUnit.R file and replace : 
+        
+          ##  stop() if there are any failures i.e. FALSE to unit test.
+          ## This will cause R CMD check to return error and stop
+          err <- getErrors(tests)
+          if( (err$nFail + err$nErr) > 0) {
+              stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
+          } else{
+              success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
+              cat( sprintf( "%d / %d\n", success, err$nTestFunc ) )
+          }
        
-       	by something that extract information from "err". This is needed because
-       	on win builder or cran checks, we only ever get the last 13 lines of 
-       	output. So we need to make the best use of these 13 lines
-       	
-   o	Testing has become slow. That would be good to find ways to make it faster
-   		such as combine multiple functions in a single cxxfunction call or alternatively
-   		make another package (perhaps internal to this one that would contain 
-   		test cases)
-       		
+        by something that extract information from "err". This is needed because
+        on win builder or cran checks, we only ever get the last 13 lines of 
+        output. So we need to make the best use of these 13 lines
+        
+   o    Testing has become slow. That would be good to find ways to make it faster
+        such as combine multiple functions in a single cxxfunction call or alternatively
+        make another package (perhaps internal to this one that would contain 
+        test cases)
+                
+   o    Maybe make test function 'tier one' and 'tier two' and only the
+        second tier if an (environment ?) variable has been set?
