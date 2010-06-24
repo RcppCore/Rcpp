@@ -20,13 +20,20 @@
 test.sugar.times <- function( ){
 
 	fx <- cxxfunction( signature( x = "integer" ), '
-		IntegerVector xx(x) ;
+		IntegerVector xx(x) ; 
+		IntegerVector yy = clone<IntegerVector>( xx ) ;
+		yy[0] = NA_INTEGER ;
+		
 		return List::create(
-			xx * 10, 
-			10 * xx, 
-			xx * xx, 
-			xx * xx * xx
-			) ;
+            xx * 10, 
+            10 * xx, 
+            xx * xx, 
+            xx * xx * xx, 
+            xx * yy, 
+            yy * 10, 
+            10 * yy, 
+            NA_INTEGER * xx
+        ) ;
 	', plugin = "Rcpp" )
 	
 	checkEquals( fx(1:10) , 
@@ -34,11 +41,15 @@ test.sugar.times <- function( ){
 			10L*(1:10),
 			10L*(1:10),
 			(1:10)*(1:10), 
-			(1:10)*(1:10)*(1:10)
+			(1:10)*(1:10)*(1:10), 
+			c(NA,(2:10)*(2:10)), 
+			c(NA,10L*(2:10)), 
+			c(NA,10L*(2:10)), 
+			rep( NA_integer_, 10L )
 		)
 	)
 }
-
+                         
 test.sugar.divides <- function( ){
 
 	fx <- cxxfunction( signature( x = "numeric" ), '

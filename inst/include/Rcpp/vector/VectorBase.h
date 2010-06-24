@@ -36,7 +36,9 @@ public:
 		return static_cast<VECTOR&>(*this) ;
 	}
 
-	inline stored_type operator[]( int i) const { return static_cast<const VECTOR*>(this)->operator[](i) ; }
+	inline stored_type operator[]( int i) const { 
+		return static_cast<const VECTOR*>(this)->operator[](i) ;
+	}
 	
 	inline int size() const { return static_cast<const VECTOR*>(this)->size() ; }
 	
