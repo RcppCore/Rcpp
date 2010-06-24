@@ -1,6 +1,6 @@
 0.8.3   (under development)
 
-    o	This release adds Rcpp sugar which brings (a subset of) the R syntax
+    o	 This release adds Rcpp sugar which brings (a subset of) the R syntax
         into C++. This supports : 
         - binary operators : <,>,<=,>=,==,!= between R vectors
         - arithmetic operators: +,-,*,/ between compatible R vectors
@@ -28,6 +28,9 @@
         
         Rcpp sugar is curently limited to vectors, future releases will 
         include support for matrices with sugar functions such as outer, etc ...
+        
+        Rcpp sugar is documented in the Rcpp-sugar vignette, which contains
+        implementation details.
 
     o   New helper function so that "Rcpp?something" brings up Rcpp help
 
