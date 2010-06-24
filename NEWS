@@ -20,7 +20,7 @@
         NumericVector res = sapply( x, square ) ;
         
         Rcpp sugar uses the technique of expression templates, pioneered by the 
-        Blitz++ libraray and used in many libraries (Boost::uBlas, Armadillo). 
+        Blitz++ library and used in many libraries (Boost::uBlas, Armadillo). 
         Expression templates allow lazy evaluation of expressions, which 
         coupled with inlining generates very efficient code, very closely 
         approaching the performance of hand written loop code, and often
