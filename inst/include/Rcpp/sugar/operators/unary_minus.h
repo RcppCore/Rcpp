@@ -79,16 +79,17 @@ namespace sugar{
 	} ;
 	
 
-	template <int RTYPE, bool _NA_, typename VEC_TYPE>
+	template <int RTYPE, bool NA, typename T>
 	class UnaryMinus_Vector : public Rcpp::VectorBase< 
 		unary_minus_result_type<RTYPE>::value ,
-		_NA_, 
-		UnaryMinus_Vector< unary_minus_result_type<RTYPE>::value ,_NA_,VEC_TYPE> 
+		NA, 
+		UnaryMinus_Vector< unary_minus_result_type<RTYPE>::value ,NA,T> 
 		> {
 	public:
+		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename unary_minus_result_type<RTYPE>::type RESULT ;
-		typedef unary_minus<RTYPE,_NA_> OPERATOR ;
+		typedef unary_minus<RTYPE,NA> OPERATOR ;
 		
 		UnaryMinus_Vector( const VEC_TYPE& lhs_ ) : 
 			lhs(lhs_), op() {}
@@ -98,7 +99,6 @@ namespace sugar{
 		}
 		
 		inline int size() const { return lhs.size() ; }
-	
 		
 	private:
 		const VEC_TYPE& lhs ;
@@ -108,12 +108,12 @@ namespace sugar{
 }
 }
 
-template <int RTYPE,bool _NA_, typename T>
-inline Rcpp::sugar::UnaryMinus_Vector< RTYPE , _NA_ , Rcpp::VectorBase<RTYPE,_NA_,T> >
+template <int RTYPE,bool NA, typename T>
+inline Rcpp::sugar::UnaryMinus_Vector< RTYPE , NA , T >
 operator-( 
-	const Rcpp::VectorBase<RTYPE,_NA_,T>& x
+	const Rcpp::VectorBase<RTYPE,NA,T>& x
 ) {
-	return Rcpp::sugar::UnaryMinus_Vector<RTYPE,_NA_, Rcpp::VectorBase<RTYPE,_NA_,T> >( x ) ;
+	return Rcpp::sugar::UnaryMinus_Vector<RTYPE,NA, T >( x ) ;
 }
 
 
