@@ -32,26 +32,26 @@ test.sugar.plus <- function( ){
 	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
 }
 
-# test.sugar.plus.seqlen <- function( ){
-# 
-# 	fx <- cxxfunction( signature(), '
-# 		return List::create(
-# 			seq_len(10) + 10, 
-# 			10 + seq_len(10),
-# 			seq_len(10) + seq_len(10)
-# 			) ;
-# 	', plugin = "Rcpp" )
-# 	
-# 	checkEquals( fx() , list( 11:20,11:20, 1:10+1:10)  )
-# }
-# 
-# test.sugar.plus.all <- function( ){
-# 
-# 	fx <- cxxfunction( signature( x = "integer" ), '
-# 		IntegerVector xx(x) ;
-# 		return all( (xx+xx) < 10 ) ;
-# 	', plugin = "Rcpp" )
-# 	
-# 	checkEquals( fx(1:10) , FALSE )
-# }
+test.sugar.plus.seqlen <- function( ){
+
+	fx <- cxxfunction( signature(), '
+		return List::create(
+			seq_len(10) + 10, 
+			10 + seq_len(10),
+			seq_len(10) + seq_len(10)
+			) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx() , list( 11:20,11:20, 1:10+1:10)  )
+}
+
+test.sugar.plus.all <- function( ){
+
+	fx <- cxxfunction( signature( x = "integer" ), '
+		IntegerVector xx(x) ;
+		return all( (xx+xx) < 10 ) ;
+	', plugin = "Rcpp" )
+	
+	checkEquals( fx(1:10) , FALSE )
+}
 
