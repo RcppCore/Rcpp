@@ -1,16 +1,9 @@
-2010-06-16/24  Romain Francois <romain@r-enthusiasts.com>
+2010-06-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sugar/*: implementation of Rcpp sugar, covering
-	binary operators (<,>,<=,>=,!=,==) for logical vectors or logical expressions, 
-	arithmetic operators (+,-,*,/) for vectors and expressions, and several 
-	functions similar to the R functions of the same name, currently: 
-	abs, all, any, ceiling, diff, exp, ifelse, is_na, lapply, pmin, pmax, 
-	pow, sapply, seq_along, seq_len, sign
-	
-	* inst/doc/Rcpp-sugar/Rcpp-sugar.Rnw: vignette documenting Rcpp sugar
-	
-	* inst/examples/ConvolveBenchmarks: version of the convolution function
-	using sugar indexing. 
+	* inst/include/Rcpp/Date.h: add struct tm member variable and
+	sensible (ie non-intra-day) accessor functions; add SEXP ctor
+	* src/Date.cpp: Implementation of the above
+	* inst/unitTests/runit.Date.R: tests for the above
 
 2010-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -41,6 +34,20 @@
 
 	* inst/include/RcppDoxygenExamples.h: Correct three wrong paths for
 	ConvolveBenchmak example files, and add missing FastLM/ examples
+
+2010-06-18  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/*: implementation of Rcpp sugar, covering
+	binary operators (<,>,<=,>=,!=,==) for logical vectors or logical
+	expressions, arithmetic operators (+,-,*,/) for vectors and
+	expressions, and several functions similar to the R functions of the
+	same name, currently: abs, all, any, ceiling, diff, exp, ifelse,
+	is_na, lapply, pmin, pmax, pow, sapply, seq_along, seq_len, sign
+
+	* inst/doc/Rcpp-sugar/Rcpp-sugar.Rnw: vignette documenting Rcpp sugar
+
+	* inst/examples/ConvolveBenchmarks: version of the convolution function
+	using sugar indexing.
 
 2010-06-17  Romain Francois <romain@r-enthusiasts.com>
 

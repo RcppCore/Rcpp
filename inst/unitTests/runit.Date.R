@@ -17,6 +17,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+test.Date.ctor.sexp <- function() {
+    src <- 'Date dt = Date(d);
+	    return wrap(dt);'
+    fun <- cxxfunction(signature(d="Date"), src, plugin = "Rcpp" )
+    d <- as.Date("2005-12-31"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.1")
+    d <- as.Date("1970-01-01"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.2")
+    d <- as.Date("1969-12-31"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.3")
+    d <- as.Date("1954-07-04"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.4") # cf 'Miracle of Berne' ;-)
+    d <- as.Date("1789-07-14"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.5") # cf 'Quatorze Juillet' ;-)
+}
+
 test.Date.ctor.mdy <- function() {
     src <- 'Date dt = Date(12,31,2005);
 	    return wrap(dt);'
@@ -55,6 +66,19 @@ test.Date.operators <- function() {
     checkEquals(fun(),
                 list(diff=-1, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE, ne=TRUE),
                 msg = "Date.operators")
+}
+
+test.Date.components <- function() {
+    src <- 'Date d = Date(2005,12,31);
+            return List::create(Named("day") = d.getDay(),
+                                Named("month") = d.getMonth(),
+                                Named("year") = d.getYear(),
+                                Named("weekday") = d.getWeekday(),
+                                Named("yearday") = d.getYearday());'
+    fun <- cxxfunction(signature(), src, plugin="Rcpp")
+    checkEquals(fun(),
+                list(day=31, month=12, year=2005, weekday=7, yearday=365),
+                msg = "Date.components")
 }
 
 test.vector.Date <- function(){

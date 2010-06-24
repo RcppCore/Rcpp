@@ -30,46 +30,60 @@ namespace Rcpp {
     const int Date::QLtoJan1970Offset = 25569;  // Offset between R / Unix epoch date and the QL base date
 
     Date::Date() {
-	d = 0; 
+	m_d = 0; 
+	update_tm();
+    };
+
+    Date::Date(SEXP d) {
+	m_d = Rcpp::as<int>(d); 
+	update_tm();
     };
 
     Date::Date(const int &dt) {
-	d = dt;
+	m_d = dt;
+	update_tm();
     }
 
     Date::Date(const std::string &s, const std::string &fmt) {
 	Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
-	d = Rcpp::as<int>(strptime(s, fmt));
+	m_d = Rcpp::as<int>(strptime(s, fmt));
+	update_tm();
     }
 
     Date::Date(const unsigned int &mon, const unsigned int &day, const unsigned int &year) {
 
-	struct tm tm;;
-	tm.tm_sec = tm.tm_min = tm.tm_hour = tm.tm_isdst = 0;
+	m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = 0;
 
 	// allow for ISO-notation case (yyyy, mm, dd) which we prefer over (mm, dd, year)
 	if (mon >= 1900 && day <= 12 && year <= 31) {
-	    tm.tm_year = mon - 1900;
-	    tm.tm_mon  = day - 1;       // range 0 to 11
-	    tm.tm_mday = year;
+	    m_tm.tm_year = mon - 1900;
+	    m_tm.tm_mon  = day - 1;     // range 0 to 11
+	    m_tm.tm_mday = year;
 	} else {
-	    tm.tm_mday  = day;
-	    tm.tm_mon   = mon - 1;	// range 0 to 11
-	    tm.tm_year  = year - 1900;
+	    m_tm.tm_mday  = day;
+	    m_tm.tm_mon   = mon - 1;	// range 0 to 11
+	    m_tm.tm_year  = year - 1900;
 	}
-	double tmp = mktime00(tm); 	// use mktime() replacement borrowed from R
-	d = tmp/(24*60*60);
+	double tmp = mktime00(m_tm); 	// use mktime() replacement borrowed from R
+	m_d = tmp/(24*60*60);
     }
 
     Date::Date(const Date &copy) {
-	d = copy.d;
+	m_d = copy.m_d;
+	m_tm = copy.m_tm;
     }
 
     Date & Date::operator=(const Date & newdate) {
 	if (this != &newdate) {
-	    d = newdate.d;
+	    m_d = newdate.m_d;
+	    m_tm = newdate.m_tm;
 	}
 	return *this;
+    }
+
+    void Date::update_tm() {
+	time_t t = 24*60*60 * m_d;	// days since epoch to seconds since epoch
+	m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
     }
 
     // Taken from R's src/main/datetime.c and made a member function called with C++ reference
@@ -116,18 +130,18 @@ namespace Rcpp {
     }
 
     Date operator+(const Date &date, int offset) {
-	Date newdate(date.d);
-	newdate.d += offset;
+	Date newdate(date.m_d);
+	newdate.m_d += offset;
 	return newdate;
     }
 
-    int   operator-(const Date& d1, const Date& d2) { return d2.d - d1.d; }
-    bool  operator<(const Date &d1, const Date& d2) { return d1.d < d2.d; }
-    bool  operator>(const Date &d1, const Date& d2) { return d1.d > d2.d; }
-    bool  operator==(const Date &d1, const Date& d2) { return d1.d == d2.d; };
-    bool  operator>=(const Date &d1, const Date& d2) { return d1.d >= d2.d; };
-    bool  operator<=(const Date &d1, const Date& d2) { return d1.d <= d2.d; };
-    bool  operator!=(const Date &d1, const Date& d2) { return d1.d != d2.d; };
+    int   operator-(const Date& d1, const Date& d2) { return d2.m_d - d1.m_d; }
+    bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
+    bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
+    bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; };
+    bool  operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; };
+    bool  operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; };
+    bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; };
 
     template <> SEXP wrap(const Date &date) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
