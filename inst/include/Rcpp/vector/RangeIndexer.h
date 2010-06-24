@@ -26,6 +26,7 @@ namespace internal{
 
 template <int RTYPE, typename VECTOR>
 class RangeIndexer {
+public:
 	typedef typename VECTOR::Proxy Proxy ;
 	
 	// TODO: check if the indexer is valid
