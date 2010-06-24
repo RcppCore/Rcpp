@@ -18,6 +18,12 @@
 
 	* inst/include/Rcpp/Date_forward.h: forward declaration of Rcpp::Date and
 	support for wrap( container of Rcpp::Date ), e.g. wrap( vector<Date> )
+	
+	* inst/include/Rcpp/sugar/Range.h: added the concept of range to allow
+	modification of several elements of a vector.
+
+	* inst/examples/ConvolveBenchmarks: version of the convolution function
+	using sugar indexing.
 
 2010-06-22  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -45,9 +51,6 @@
 	is_na, lapply, pmin, pmax, pow, sapply, seq_along, seq_len, sign
 
 	* inst/doc/Rcpp-sugar/Rcpp-sugar.Rnw: vignette documenting Rcpp sugar
-
-	* inst/examples/ConvolveBenchmarks: version of the convolution function
-	using sugar indexing.
 
 2010-06-17  Romain Francois <romain@r-enthusiasts.com>
 
