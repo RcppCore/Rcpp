@@ -18,27 +18,43 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 test.Date.ctor.mdy <- function() {
-    src <- 'Rcpp::Date dt = Rcpp::Date(12,31,2005);
-	    return Rcpp::wrap(dt);';
+    src <- 'Date dt = Date(12,31,2005);
+	    return wrap(dt);'
     fun <- cxxfunction(signature(), src, plugin = "Rcpp" )
     checkEquals(fun(), as.Date("2005-12-31"), msg = "Date.ctor.mdy")
 }
 
 test.Date.ctor.ymd <- function() {
-    src <- 'Rcpp::Date dt = Rcpp::Date(2005,12,31);
-	    return Rcpp::wrap(dt);';
+    src <- 'Date dt = Date(2005,12,31);
+	    return wrap(dt);'
     fun <- cxxfunction(signature(), src, plugin = "Rcpp" )
     checkEquals(fun(), as.Date("2005-12-31"), msg = "Date.ctor.ymd")
 }
 
 test.Date.ctor.int <- function() {
-    src <- 'Rcpp::Date dt = Rcpp::Date(Rcpp::as<int>(d));
-	    return Rcpp::wrap(dt);';
+    src <- 'Date dt = Date(Rcpp::as<int>(d));
+	    return wrap(dt);'
     fun <- cxxfunction(signature(d="numeric"), src, plugin = "Rcpp")
     d <- as.Date("2005-12-31")
     checkEquals(fun(as.numeric(d)), d, msg = "Date.ctor.int")
     checkEquals(fun(-1), as.Date("1970-01-01")-1, msg = "Date.ctor.int")
     checkException(fun("foo"), msg = "Date.ctor -> exception" )
+}
+
+test.Date.operators <- function() {
+    src <- 'Date d1 = Date(2005,12,31);
+            Date d2 = d1 + 1;
+            return List::create(Named("diff") = d2 - d1,
+                                Named("bigger") = d2 > d1,
+                                Named("smaller") = d2 < d1,
+                                Named("equal") = d2 == d1,
+                                Named("ge") = d2 >= d1,
+                                Named("le") = d2 <= d1,
+                                Named("ne") = d2 != d1);'
+    fun <- cxxfunction(signature(), src, plugin="Rcpp")
+    checkEquals(fun(),
+                list(diff=-1, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE, ne=TRUE),
+                msg = "Date.operators")
 }
 
 test.vector.Date <- function(){
@@ -48,26 +64,26 @@ test.vector.Date <- function(){
 		v[1] = Date(12,31,2005) ;
 		return wrap( v ) ;
 	', plugin = "Rcpp" )
-    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "Date.vector")
+    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "Date.vector.wrap")
 }
 
-test.vector.DateVector <- function(){
+test.DateVector.wrap <- function(){
 	fx <- cxxfunction( , '
 		DateVector v(2) ;
 		v[0] = Date(2005,12,31) ;
 		v[1] = Date(12,31,2005) ;
 		return wrap( v ) ;
 	', plugin = "Rcpp" )
-    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "Date.vector")
+    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "DateVector.wrap")
 }
 
-test.vector.operator.SEXP <- function(){
+test.DateVector.operator.SEXP <- function(){
 	fx <- cxxfunction( , '
 		DateVector v(2) ;
 		v[0] = Date(2005,12,31) ;
 		v[1] = Date(12,31,2005) ;
 		return v ;
 	', plugin = "Rcpp" )
-    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "Date.vector")
+    checkEquals(fx(), rep(as.Date("2005-12-31"),2), msg = "DateVector.SEXP")
 }
 
