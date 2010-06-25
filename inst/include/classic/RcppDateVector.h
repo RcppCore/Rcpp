@@ -25,7 +25,7 @@
 #define RcppDateVector_h
 
 #include <RcppCommon.h>
-#include <RcppDate.h>
+#include <classic/RcppDate.h>
 
 class RcppDateVector {
 public:

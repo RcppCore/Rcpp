@@ -24,7 +24,7 @@
 #define RcppDatetimeVector_h
 
 #include <RcppCommon.h>
-#include <RcppDatetime.h>
+#include <classic/RcppDatetime.h>
 
 class RcppDatetimeVector {
 public:
