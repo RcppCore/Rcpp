@@ -81,5 +81,6 @@
 #include <Rcpp/sugar/sugar.h>
 
 #include <RcppResultSet__backward.h>
+#include <RcppList__backward.h>
 
 #endif
