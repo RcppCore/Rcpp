@@ -26,17 +26,17 @@
 
 #include <RcppCommon.h>
 
-#include <RcppDate.h>
-#include <RcppDateVector.h>
-#include <RcppDatetime.h>
-#include <RcppDatetimeVector.h>
-#include <RcppStringVector.h>
-#include <RcppFrame.h>
-#include <RcppList.h>
-#include <RcppMatrix.h>
-#include <RcppNumList.h>
-#include <RcppStringVector.h>
-#include <RcppVector.h>
+#include <classic/RcppDate.h>
+#include <classic/RcppDateVector.h>
+#include <classic/RcppDatetime.h>
+#include <classic/RcppDatetimeVector.h>
+#include <classic/RcppStringVector.h>
+#include <classic/RcppFrame.h>
+#include <classic/RcppList.h>
+#include <classic/RcppMatrix.h>
+#include <classic/RcppNumList.h>
+#include <classic/RcppStringVector.h>
+#include <classic/RcppVector.h>
 
 namespace Rcpp {
     // template specialisation for wrap() on the date and datetime classes

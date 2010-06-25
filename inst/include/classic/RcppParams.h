@@ -24,8 +24,8 @@
 #define RcppParams_h
 
 #include <RcppCommon.h>
-#include <RcppDate.h>
-#include <RcppDatetime.h>
+#include <classic/RcppDate.h>
+#include <classic/RcppDatetime.h>
 
 class RcppParams {
 public:
