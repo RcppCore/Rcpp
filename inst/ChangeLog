@@ -3,8 +3,9 @@
 	* inst/include/Rcpp/posix.h: anticipate R 2.12.0 switch of classes
 	POSIXt and POSIXct
 
-	* inst/include/classic: New home for the 'classic' API headers. Some 
-	refactoring of the internals so that they use the new api.
+	* inst/include/classic: New home for the 'classic' API headers. Also
+	some refactoring of the internals so that they can interoperate
+	bettwer withuse the new API.
 
 2010-06-24  Romain Francois <romain@r-enthusiasts.com>
 
