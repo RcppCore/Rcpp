@@ -66,6 +66,8 @@ public:
     void add(const std::string& name , const std::vector<std::vector<double> >& object) ;
     void add(const std::string& name , const std::vector<std::vector<int> >& object) ;
     
+    void add(const std::string& name, SEXP, bool ) ;
+    
     SEXP getReturnList();
     SEXP getSEXP();
 
