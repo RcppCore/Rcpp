@@ -24,6 +24,7 @@
 
 #include <Rcpp/Date.h>
 #include <Rcpp/Function.h>
+#include <time.h>		// for gmtime
 
 namespace Rcpp {
 
