@@ -1,6 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// Rcpp.h: R/C++ interface class library
+// doxygen/Examples.h: R/C++ interface class library --- Examples definitions for Doxygen
 //
 // Copyright (C) 2009 - 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -19,6 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+
+
 // This file is not used by any code but exists solely to group
 // example macros for Doxygen.
 //
@@ -31,6 +33,7 @@
 //
 // ie without the softlink nothing happens, despite the recursive example path set
 // in doxyfile etc and numerous other attempts I made.
+
 
 
 //! \example functionCallback/RcppFunctionCallExample.cpp
