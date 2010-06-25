@@ -49,7 +49,7 @@ test.RcppDatetime.operators <- function() {
    	     return rs.getReturnList();';
      funx <- cppfunction(signature(x="numeric"), src)
      checkEquals(funx(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456"))),
-                      list(diff=3600, bigger=1, smaller=0, equal=0, ge=1, le=0), msg = "RcppDatetime.operators")
+                      list(diff=3600, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE), msg = "RcppDatetime.operators")
 }
 
 test.RcppDatetime.wrap <- function() {
