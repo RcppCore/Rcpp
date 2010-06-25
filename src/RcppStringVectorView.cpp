@@ -20,7 +20,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppStringVectorView.h>
+#include <classic/RcppStringVectorView.h>
 
 RcppStringVectorView::RcppStringVectorView(SEXP vec) {
     if (Rf_isMatrix(vec) || Rf_isLogical(vec))
