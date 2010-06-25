@@ -146,11 +146,7 @@ namespace Rcpp {
     bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
 
     template <> SEXP wrap(const Date &date) {
-	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
-	REAL(value)[0] = date.getDate();
-	Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("Date") ); 
-	UNPROTECT(1);
-	return value;
+    return internal::new_date_object( date.getDate() ) ;
     }
 
 }

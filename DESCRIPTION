@@ -1,6 +1,6 @@
 Package: Rcpp
 Title: Rcpp R/C++ interface package
-Version: 0.8.2.12
+Version: 0.8.2.13
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Simon Urbanek, David Reiss and Douglas Bates; based on code written during 

@@ -1,9 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// RcppStringVector.h: Rcpp R/C++ interface class library -- string vector support
+// RcppList__backward.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2005 - 2006 Dominick Samperi
-// Copyright (C) 2008 - 2009 Dirk Eddelbuettel
 // Copyright (C) 2010	     Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -21,30 +19,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RcppStringVector_h
-#define RcppStringVector_h
+#ifndef RcppList__backward_h
+#define RcppList__backward_h
 
-#include <RcppCommon.h>
-
-class RcppStringVector {
-public:
-	typedef std::string* iterator ;
-	typedef const std::string* const_iterator ;
+template <typename T>
+void RcppList::append( const std::string& name, const T& value ) throw(std::range_error) {
+	if (currListPosn < 0 || currListPosn >= listSize)
+	throw std::range_error("RcppList::append(): list posn out of range");
 	
-    RcppStringVector(SEXP vec);
-    ~RcppStringVector();
-    std::string& operator()(int i) const;
-    int size() const;
-    std::vector<std::string> stlVector() const;
-    
-    inline const_iterator begin() const { return v ; }
-    inline const_iterator end() const { return v + length ; }
-    inline iterator begin() { return v ; }
-    inline iterator end() { return v + length ; }
-    
-private:
-    std::string *v;
-    int length;
-};
+	SET_VECTOR_ELT(listArg, currListPosn++, Rcpp::wrap(value) );
+    names.push_back(name);
+}
 
 #endif

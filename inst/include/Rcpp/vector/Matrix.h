@@ -46,6 +46,12 @@ public:
 	}
 	
 	Matrix( const int& nrows, const int& ncols) : VECTOR( Dimension( nrows, ncols ) ) {}
+	
+	template <typename Iterator>
+	Matrix( const int& nrows, const int& ncols, Iterator start ) : VECTOR( start, start + (nrows*ncols) ) {
+		VECTOR::attr( "dim" ) = Dimension( nrows, ncols ) ; 
+	}
+	
 	Matrix( const int& n) : VECTOR( Dimension( n, n ) ) {}
 	
 	Matrix( const Matrix& other) throw(not_compatible) : VECTOR() {

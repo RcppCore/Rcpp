@@ -28,9 +28,15 @@
 template <typename T>
 class RcppVectorView {
 public:
+	typedef T* iterator ;
+	
     RcppVectorView(SEXP vec);
     int size() const;
     T operator()(int i) const;
+    
+    inline iterator begin() { return v ; }
+    inline iterator end(){ return v + len ; }
+    
 private:
     int len;
     T *v;

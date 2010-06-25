@@ -21,7 +21,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppResultSet.h>
+#include <Rcpp.h>
 
 RcppResultSet::RcppResultSet() : numProtected(0) { }
 
@@ -61,200 +61,115 @@ namespace Rcpp {
 }
 
 void RcppResultSet::add(std::string name, RcppDate& date) {
-    values.push_back(make_pair(name, Rcpp::wrap(date)));
+    add__impl( name, date );
 }
 
 void RcppResultSet::add(std::string name, RcppDatetime& datetime) {
-    values.push_back(make_pair(name, Rcpp::wrap(datetime)));
+    add__impl( name, datetime );
 }
 
 void RcppResultSet::add(std::string name, double x) {
-    SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
-    numProtected++;
-    REAL(value)[0] = x;
-    values.push_back(make_pair(name, value));
+    add__impl( name, x );
 }
 
 void RcppResultSet::add(std::string name, int i) {
-    SEXP value = PROTECT(Rf_allocVector(INTSXP, 1));
-    numProtected++;
-    INTEGER(value)[0] = i;
-    values.push_back(make_pair(name, value));
+    add__impl( name, i );
 }
 
 void RcppResultSet::add(std::string name, std::string strvalue) {
-    SEXP value = PROTECT(Rf_allocVector(STRSXP, 1));
-    numProtected++;
-    SET_STRING_ELT(value, 0, Rf_mkChar(strvalue.c_str()));
-    values.push_back(make_pair(name, value));
+    add__impl( name, strvalue );
 }
 
 void RcppResultSet::add(std::string name, double *vec, int len) {
-    if (vec == 0)
+	if (vec == 0)
 	throw std::range_error("RcppResultSet::add: NULL double vector");
-    SEXP value = PROTECT(Rf_allocVector(REALSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-	REAL(value)[i] = vec[i];
-    values.push_back(make_pair(name, value));
+	add__impl( name, Rcpp::wrap( vec, vec + len) );
 }
 
 void RcppResultSet::add(std::string name, RcppDateVector& datevec) {
-    values.push_back(make_pair(name, Rcpp::wrap(datevec)));
+    add__impl( name, datevec ) ;
 }
 
 void RcppResultSet::add(std::string name, RcppDatetimeVector &dtvec) {
-    values.push_back(make_pair(name, Rcpp::wrap(dtvec)));
+    add__impl( name, dtvec ) ;
 }
 
 void RcppResultSet::add(std::string name, RcppStringVector& stringvec) {
-    int len = (int)stringvec.size();
-    SEXP value = PROTECT(Rf_allocVector(STRSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-        SET_STRING_ELT(value, i, Rf_mkChar(stringvec(i).c_str()));
-    values.push_back(make_pair(name, value));
+    add__impl( name, stringvec ) ;
 }
 
 void RcppResultSet::add(std::string name, int *vec, int len) {
-    if (vec == 0)
+	if (vec == 0)
 	throw std::range_error("RcppResultSet::add: NULL int vector");
-    SEXP value = PROTECT(Rf_allocVector(INTSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-	INTEGER(value)[i] = vec[i];
-    values.push_back(make_pair(name, value));
+	add__impl( name, Rcpp::wrap( vec, vec + len) );
 }
 
 void RcppResultSet::add(std::string name, double **mat, int nx, int ny) {
     if (mat == 0)
 	throw std::range_error("RcppResultSet::add: NULL double matrix");
-    SEXP value = PROTECT(Rf_allocMatrix(REALSXP, nx, ny));
-    numProtected++;
-    for (int i = 0; i < nx; i++)
-	for (int j = 0; j < ny; j++)
-	    REAL(value)[i + nx*j] = mat[i][j];
-    values.push_back(make_pair(name, value));
+	add__matrix( name, mat, nx, ny ) ;
 }
 
 void RcppResultSet::add(std::string name, int **mat, int nx, int ny) {
     if (mat == 0)
 	throw std::range_error("RcppResultSet::add: NULL int matrix");
-    SEXP value = PROTECT(Rf_allocMatrix(INTSXP, nx, ny));
-    numProtected++;
-    for (int i = 0; i < nx; i++)
-	for (int j = 0; j < ny; j++)
-	    INTEGER(value)[i + nx*j] = mat[i][j];
-    values.push_back(make_pair(name, value));
+	add__matrix( name, mat, nx, ny ) ;
 }
 
 void RcppResultSet::add(std::string name, std::vector<std::string>& vec) {
     if (vec.size() == 0)
 	throw std::range_error("RcppResultSet::add; zero length vector<string>");
-    int len = (int)vec.size();
-    SEXP value = PROTECT(Rf_allocVector(STRSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-        SET_STRING_ELT(value, i, Rf_mkChar(vec[i].c_str()));
-    values.push_back(make_pair(name, value));
+	add__impl( name, vec ) ;   
 }
 
 void RcppResultSet::add(std::string name, std::vector<int>& vec) {
     if (vec.size() == 0)
 	throw std::range_error("RcppResultSet::add; zero length vector<int>");
-    int len = (int)vec.size();
-    SEXP value = PROTECT(Rf_allocVector(INTSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-	INTEGER(value)[i] = vec[i];
-    values.push_back(make_pair(name, value));
+	add__impl( name, vec ) ;   
 }
 
 void RcppResultSet::add(std::string name, std::vector<double>& vec) {
     if (vec.size() == 0)
 	throw std::range_error("RcppResultSet::add; zero length vector<double>");
-    int len = (int)vec.size();
-    SEXP value = PROTECT(Rf_allocVector(REALSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-	REAL(value)[i] = vec[i];
-    values.push_back(make_pair(name, value));
+	add__impl( name, vec ) ;   
 }
 
 void RcppResultSet::add(std::string name, std::vector<std::vector<int> >& mat) {
-    if (mat.size() == 0)
-	throw std::range_error("RcppResultSet::add: zero length vector<vector<int> >");
-    else if (mat[0].size() == 0)
-	throw std::range_error("RcppResultSet::add: no columns in vector<vector<int> >");
-    int nx = (int)mat.size();
-    int ny = (int)mat[0].size();
-    SEXP value = PROTECT(Rf_allocMatrix(INTSXP, nx, ny));
-    numProtected++;
-    for (int i = 0; i < nx; i++)
-	for (int j = 0; j < ny; j++)
-	    INTEGER(value)[i + nx*j] = mat[i][j];
-    values.push_back(make_pair(name, value));
+	add__matrix__std( name, mat ) ;
 }
 
 void RcppResultSet::add(std::string name, std::vector<std::vector<double> >& mat) {
-    if (mat.size() == 0)
-	throw std::range_error("RcppResultSet::add: zero length vector<vector<double> >");
-    else if (mat[0].size() == 0)
-	throw std::range_error("RcppResultSet::add: no columns in vector<vector<double> >");
-    int nx = (int)mat.size();
-    int ny = (int)mat[0].size();
-    SEXP value = PROTECT(Rf_allocMatrix(REALSXP, nx, ny));
-    numProtected++;
-    for (int i = 0; i < nx; i++)
-	for (int j = 0; j < ny; j++)
-	    REAL(value)[i + nx*j] = mat[i][j];
-    values.push_back(make_pair(name, value));
+	add__matrix__std( name, mat ) ;
 }
 
 void RcppResultSet::add(std::string name, RcppVector<int>& vec) {
-    int len = vec.size();
-    int *a = vec.cVector();
-    SEXP value = PROTECT(Rf_allocVector(INTSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-	INTEGER(value)[i] = a[i];
-    values.push_back(make_pair(name, value));
+	add__impl( name, vec ) ;
 }
 
 void RcppResultSet::add(std::string name, RcppVector<double>& vec) {
-    int len = vec.size();
-    double *a = vec.cVector();
-    SEXP value = PROTECT(Rf_allocVector(REALSXP, len));
-    numProtected++;
-    for (int i = 0; i < len; i++)
-	REAL(value)[i] = a[i];
-    values.push_back(make_pair(name, value));
+	add__impl( name, vec ) ;
 }
 
 void RcppResultSet::add(std::string name, RcppMatrix<int>& mat) {
-    int nx = mat.getDim1();
-    int ny = mat.getDim2();
-    int **a = mat.cMatrix();
-    SEXP value = PROTECT(Rf_allocMatrix(INTSXP, nx, ny));
-    numProtected++;
-    for (int i = 0; i < nx; i++)
-	for (int j = 0; j < ny; j++)
-	    INTEGER(value)[i + nx*j] = a[i][j];
-    values.push_back(make_pair(name, value));
+    add__matrix( name, mat.cMatrix(), mat.getDim1(), mat.getDim2() ) ;
 }
 
 void RcppResultSet::add(std::string name, RcppMatrix<double>& mat) {
-    int nx = mat.getDim1();
-    int ny = mat.getDim2();
-    double **a = mat.cMatrix();
-    SEXP value = PROTECT(Rf_allocMatrix(REALSXP, nx, ny));
-    numProtected++;
-    for (int i = 0; i < nx; i++)
-	for (int j = 0; j < ny; j++)
-	    REAL(value)[i + nx*j] = a[i][j];
-    values.push_back(make_pair(name, value));
+    add__matrix( name, mat.cMatrix(), mat.getDim1(), mat.getDim2() ) ;
 }
 
+
+void RcppResultSet::add(std::string name, RcppList &list) {
+	add__impl( name, list ) ;
+}
+
+void RcppResultSet::add(std::string name, SEXP sexp, bool isProtected) {
+    values.push_back(make_pair(name, sexp));
+    if (isProtected)
+	numProtected++;
+}
+
+// FIXME: this code belongs to RcppFrame::operator SEXP
 void RcppResultSet::add(std::string name, RcppFrame& frame) {
     std::vector<std::string> colNames = frame.getColNames();
     std::vector<std::vector<ColDatum> > table = frame.getTableData();
@@ -333,28 +248,9 @@ void RcppResultSet::add(std::string name, RcppFrame& frame) {
     values.push_back(make_pair(name, rl));
 }
 
-void RcppResultSet::add(std::string name, RcppList &list) {
-    // we let RcppList export itself as a SEXP and send it along
-    values.push_back(make_pair(name, list.getList()));
-}
-
-void RcppResultSet::add(std::string name, SEXP sexp, bool isProtected) {
-    values.push_back(make_pair(name, sexp));
-    if (isProtected)
-	numProtected++;
-}
-
 SEXP RcppResultSet::getReturnList() {
-    int nret = (int)values.size();
-    SEXP rl = PROTECT(Rf_allocVector(VECSXP,nret));
-    SEXP nm = PROTECT(Rf_allocVector(STRSXP,nret));
-    std::list<std::pair<std::string,SEXP> >::iterator iter = values.begin();
-    for (int i = 0; iter != values.end(); iter++, i++) {
-	SET_VECTOR_ELT(rl, i, iter->second);
-	SET_STRING_ELT(nm, i, Rf_mkChar(iter->first.c_str()));
-    }
-    Rf_setAttrib(rl, R_NamesSymbol, nm);
-    UNPROTECT(numProtected+2);
+    SEXP rl = PROTECT( Rcpp::wrap( values ) ) ;
+    UNPROTECT(numProtected+1);
     return rl;
 }
 
@@ -362,6 +258,8 @@ SEXP RcppResultSet::getSEXP() {
     if (values.size() != 1) {
 	throw std::range_error("RcppResultSet::getSEXP only sensible for single return arguments");
     }
+    // FIXME: that looks soooo wrong
+    //        is this ever used ?
     SEXP val = values.begin()->second;
     UNPROTECT(numProtected);
     return val;
