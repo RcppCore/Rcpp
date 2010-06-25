@@ -5,7 +5,7 @@
 
 	* inst/include/classic: New home for the 'classic' API headers. Also
 	some refactoring of the internals so that they can interoperate
-	bettwer withuse the new API.
+	better withuse the new API.
 
 2010-06-24  Romain Francois <romain@r-enthusiasts.com>
 
