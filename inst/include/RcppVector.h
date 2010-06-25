@@ -4,6 +4,7 @@
 //
 // Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
+// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,12 +29,22 @@
 template <typename T>
 class RcppVector {
 public:
+	typedef T* iterator ;
+	typedef const T* const_iterator ;
+	
     RcppVector(SEXP vec);
     RcppVector(int len);
     int size() const;
     T& operator()(int i) const; 
     T *cVector() const;
     std::vector<T> stlVector() const;
+    
+    inline const_iterator begin() const { return v ; }
+    inline const_iterator end() const { return v + len ; }
+    
+    inline iterator begin(){ return v ; }
+    inline iterator end(){ return v + len ; }
+    
 private:
     int len;
     T *v;

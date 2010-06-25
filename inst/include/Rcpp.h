@@ -80,4 +80,6 @@
 #include <Rcpp/InternalFunction.h>
 #include <Rcpp/sugar/sugar.h>
 
+#include <RcppResultSet__backward.h>
+
 #endif

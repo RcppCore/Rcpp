@@ -48,6 +48,9 @@ namespace Rcpp {
 
 class RcppResultSet {
 public:
+	typedef std::pair<const std::string,SEXP> PAIR ;
+	typedef std::list<PAIR> LIST ; 
+	
     RcppResultSet();
     void add(std::string, double);
     void add(std::string, int);
@@ -77,7 +80,19 @@ public:
     SEXP getSEXP();
 protected:
     int numProtected;
-    std::list<std::pair<std::string,SEXP> > values;
+    LIST values;
+    
+private:
+	
+	// defined later because it needs wrap
+	template <typename T> 
+	void add__impl( const std::string& name, const T& t ) ;
+	
+	template <typename T> 
+	void add__matrix( const std::string& name, T**, int nx, int ny ) ;
+	
+	template <typename T> 
+	void add__matrix__std( const std::string& name, const std::vector<std::vector<T> >& mat ) throw(std::range_error) ;
 };
 
 #endif
