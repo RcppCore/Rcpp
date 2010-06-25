@@ -20,7 +20,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppStringVector.h>
+#include <classic/RcppStringVector.h>
 
 RcppStringVector::RcppStringVector(SEXP vec) {
     int i;

@@ -21,7 +21,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppDateVector.h>
+#include <classic/RcppDateVector.h>
 
 RcppDateVector::RcppDateVector(SEXP vec) {
     int i;

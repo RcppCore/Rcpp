@@ -20,7 +20,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppNumList.h>
+#include <classic/RcppNumList.h>
 
 RcppNumList::RcppNumList(SEXP theList) {
     if (!Rf_isNewList(theList))
