@@ -20,7 +20,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppFrame.h>
+#include <Rcpp.h>
 
 ColDatum::ColDatum() : type(COLTYPE_UNKNOWN), level(0) { }
 
@@ -272,4 +272,105 @@ int RcppFrame::cols() {
     return table[0].size(); 
 }
 
+namespace Rcpp{
+namespace internal {
+	inline SEXP factor_levels( std::string* names, int nlevels){
+		return Rcpp::wrap( names, names + nlevels ) ;
+	}
+}
+	template <> SEXP wrap<RcppFrame>( const RcppFrame& frame){
+		
+		int numProtected = 0 ;
+	    std::vector<std::string> colNames = const_cast<RcppFrame&>(frame).getColNames();
+	    std::vector<std::vector<ColDatum> > table = const_cast<RcppFrame&>(frame).getTableData();
+	    int ncol = colNames.size();
+	    int nrow = table.size();
+	    int levels = 0 ;
+	    SEXP value = R_NilValue ;
+		
+	    Rcpp::List rl( ncol ) ;
+	    Rcpp::CharacterVector nm( ncol ) ;
+	    
+	    for (int i=0; i < ncol; i++) { 
+			numProtected = 0 ;
+			
+			switch( table[0][i].getType() ){
+			case COLTYPE_DOUBLE :
+				value = PROTECT(Rf_allocVector(REALSXP,nrow));
+			    numProtected++;
+			    for (int j=0; j < nrow; j++)
+				REAL(value)[j] = table[j][i].getDoubleValue();
+				break ;
+				
+			case COLTYPE_INT:
+				value = PROTECT(Rf_allocVector(INTSXP,nrow));
+			    numProtected++;
+			    for (int j=0; j < nrow; j++)
+				INTEGER(value)[j] = table[j][i].getIntValue();
+				break ;
+				
+			case COLTYPE_FACTOR:
+				value = PROTECT(Rf_allocVector(INTSXP,nrow));
+			    numProtected++;
+			    levels = table[0][i].getFactorNumLevels();
+			    for (int k=0; k < levels; k++)
+				for (int j=0; j < nrow; j++) {
+				int level = table[j][i].getFactorLevel();
+				INTEGER(value)[j] = level;
+			    }
+			    Rf_setAttrib(value, R_LevelsSymbol, 
+			    	internal::factor_levels( 
+			    		table[0][i].getFactorLevelNames(), levels)
+			    	);
+			    Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("factor") );
+			    break ;
+			    
+			case COLTYPE_STRING:
+			    value = PROTECT(Rf_allocVector(STRSXP,nrow));
+			    numProtected++;
+			    for (int j=0; j < nrow; j++) {
+				SET_STRING_ELT(value, j, Rf_mkChar(table[j][i].getStringValue().c_str()));
+			    }
+			    break;
+			    
+			case COLTYPE_LOGICAL:
+				value = PROTECT(Rf_allocVector(LGLSXP,nrow));
+			    numProtected++;
+			    for (int j=0; j < nrow; j++) {
+				LOGICAL(value)[j] = table[j][i].getLogicalValue();
+			    }
+			    break;
+			    
+			case COLTYPE_DATE:    
+			    value = PROTECT(Rf_allocVector(REALSXP,nrow));
+			    numProtected++;
+			    for (int j=0; j < nrow; j++)
+				REAL(value)[j] = table[j][i].getDateRCode();
+			    Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("Date"));
+			    break; 
+			    
+			case COLTYPE_DATETIME:
+			    value = PROTECT(Rf_allocVector(REALSXP,nrow));
+			    numProtected++;
+			    for (int j=0; j < nrow; j++) {
+				// we could access the seconds as the internal double via getDouble but it's
+				// more proper to use the proper accessor (and if we ever added code ...)
+				REAL(value)[j] = table[j][i].getDatetimeValue().getFractionalTimestamp();
+			    }
+			    Rf_setAttrib(value, R_ClassSymbol, Rcpp::internal::getPosixClasses() );
+			    break; 
+			    
+			default:
+				// throw std::range_error("RcppResultSet::add invalid column type");
+				break ;
+				
+			}
+			rl[ i ] = value ;
+			nm[ i ] = colNames[i] ;
+			UNPROTECT( numProtected ) ;
+		} 
+		rl.names() = nm ;
+	    return rl ;			
+	}
+}	
 

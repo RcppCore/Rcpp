@@ -49,7 +49,6 @@ public:
     int cols();
 };
 
-
 class ColDatum {
 public:
     ColDatum();  
@@ -77,7 +76,7 @@ public:
     int getFactorLevel();
     std::string *getFactorLevelNames();
     std::string getFactorLevelName();
-
+    
 private:
     ColType type;
     std::string s;
@@ -89,5 +88,9 @@ private:
     RcppDate d;
 };
 
+namespace Rcpp{
+	// defined in RcppFrame__backward.h
+	template <> SEXP wrap<RcppFrame>( const RcppFrame& x) ;
+}
 
 #endif
