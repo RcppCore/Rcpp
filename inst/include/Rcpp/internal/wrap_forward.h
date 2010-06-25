@@ -29,10 +29,10 @@
 // don't include it directly
 
 namespace Rcpp{
-
-template <typename T> SEXP wrap_extra_steps( const SEXP object ){
-	return object ;
-}
+	
+template<typename T> SEXP wrap_extra_steps( SEXP x ){
+	return x ;
+} 
 
 } // Rcpp
 
