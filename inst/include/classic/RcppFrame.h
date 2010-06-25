@@ -24,8 +24,8 @@
 #define RcppFrame_h
 
 #include <RcppCommon.h>
-#include <RcppDate.h>
-#include <RcppDatetime.h>
+#include <classic/RcppDate.h>
+#include <classic/RcppDatetime.h>
 
 enum ColType {			// Supported data frame column types.
     COLTYPE_DOUBLE, COLTYPE_INT, COLTYPE_STRING,
