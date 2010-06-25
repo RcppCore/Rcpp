@@ -4,7 +4,7 @@
         into C++. This supports : 
         - binary operators : <,>,<=,>=,==,!= between R vectors
         - arithmetic operators: +,-,*,/ between compatible R vectors
-        - several functions that do similar as the R function of the same name:
+        - several functions that are similar to the R function of the same name:
         abs, all, any, ceiling, diff, exp, ifelse, is_na, lapply, pmin, pmax, 
         pow, sapply, seq_along, seq_len, sign
         
@@ -39,7 +39,7 @@
     o   New classes Date, Datetime, DateVector and DatetimeVector with proper
         'new' API integration such as as(), wrap(), iterators, ...
 
-    o   The so-classic API headers have been moved to a subdirectory classic/
+    o   The so-called classic API headers have been moved to a subdirectory classic/
         This should not affect client-code as only Rcpp.h was ever included.
 
     o   RcppDate now has a constructor from SEXP as well
