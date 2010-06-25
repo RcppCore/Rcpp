@@ -60,12 +60,16 @@ namespace Rcpp {
 
 }
 
+void RcppResultSet::add(const std::string& name , SEXP x, bool){
+	push_back( name, x ) ;
+}
+
 void RcppResultSet::add(const std::string& name , const std::vector<std::vector<double> >& object){
-	return add__matrix__std( name, object ) ;
+	add__matrix__std( name, object ) ;
 }
 
 void RcppResultSet::add(const std::string& name , const std::vector<std::vector<int> >& object){
-	return add__matrix__std( name, object ) ;
+	add__matrix__std( name, object ) ;
 }
     
 void RcppResultSet::add(const std::string& name, double *vec, int len) {
