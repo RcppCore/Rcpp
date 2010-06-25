@@ -70,7 +70,6 @@
 
 
 
-
 //! \example ConvolveBenchmarks/convolve2_c.c
 //! The basic convolution example from Section 5.10.1 of 'Writing R Extensions'
 
@@ -95,6 +94,7 @@
 //! R file / littler script to run and time the various implementations.
 
 
+
 //! \example FastLM/benchmark.r
 //! Linear model benchmark master file
 
@@ -109,6 +109,18 @@
 
 //! \example FastLM/lmGSL.r
 //! GSL-based implementation of a bare-boned lm()
+
+
+
+//! \example SugarPerformance/sugarBenchmarks.R
+//! Benchmarking the 'Rcpp sugar' extensions 
+
+//! \example SugarPerformance/Timer.h
+//! Simple C++ timer class in a headers-only implementation
+
+//! \example SugarPerformance/Timertest.cpp
+//! Simple test program for the C++ timer class 
+
 
 
 
