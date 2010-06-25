@@ -60,115 +60,36 @@ namespace Rcpp {
 
 }
 
-void RcppResultSet::add(std::string name, RcppDate& date) {
-    add__impl( name, date );
+void RcppResultSet::add(const std::string& name , const std::vector<std::vector<double> >& object){
+	return add__matrix__std( name, object ) ;
 }
 
-void RcppResultSet::add(std::string name, RcppDatetime& datetime) {
-    add__impl( name, datetime );
+void RcppResultSet::add(const std::string& name , const std::vector<std::vector<int> >& object){
+	return add__matrix__std( name, object ) ;
 }
-
-void RcppResultSet::add(std::string name, double x) {
-    add__impl( name, x );
-}
-
-void RcppResultSet::add(std::string name, int i) {
-    add__impl( name, i );
-}
-
-void RcppResultSet::add(std::string name, std::string strvalue) {
-    add__impl( name, strvalue );
-}
-
-void RcppResultSet::add(std::string name, double *vec, int len) {
+    
+void RcppResultSet::add(const std::string& name, double *vec, int len) {
 	if (vec == 0)
 	throw std::range_error("RcppResultSet::add: NULL double vector");
 	add__impl( name, Rcpp::wrap( vec, vec + len) );
 }
 
-void RcppResultSet::add(std::string name, RcppDateVector& datevec) {
-    add__impl( name, datevec ) ;
-}
-
-void RcppResultSet::add(std::string name, RcppDatetimeVector &dtvec) {
-    add__impl( name, dtvec ) ;
-}
-
-void RcppResultSet::add(std::string name, RcppStringVector& stringvec) {
-    add__impl( name, stringvec ) ;
-}
-
-void RcppResultSet::add(std::string name, int *vec, int len) {
+void RcppResultSet::add(const std::string& name, int *vec, int len) {
 	if (vec == 0)
 	throw std::range_error("RcppResultSet::add: NULL int vector");
 	add__impl( name, Rcpp::wrap( vec, vec + len) );
 }
 
-void RcppResultSet::add(std::string name, double **mat, int nx, int ny) {
+void RcppResultSet::add(const std::string& name, double **mat, int nx, int ny) {
     if (mat == 0)
 	throw std::range_error("RcppResultSet::add: NULL double matrix");
 	add__matrix( name, mat, nx, ny ) ;
 }
 
-void RcppResultSet::add(std::string name, int **mat, int nx, int ny) {
+void RcppResultSet::add(const std::string& name, int **mat, int nx, int ny) {
     if (mat == 0)
 	throw std::range_error("RcppResultSet::add: NULL int matrix");
 	add__matrix( name, mat, nx, ny ) ;
-}
-
-void RcppResultSet::add(std::string name, std::vector<std::string>& vec) {
-    if (vec.size() == 0)
-	throw std::range_error("RcppResultSet::add; zero length vector<string>");
-	add__impl( name, vec ) ;   
-}
-
-void RcppResultSet::add(std::string name, std::vector<int>& vec) {
-    if (vec.size() == 0)
-	throw std::range_error("RcppResultSet::add; zero length vector<int>");
-	add__impl( name, vec ) ;   
-}
-
-void RcppResultSet::add(std::string name, std::vector<double>& vec) {
-    if (vec.size() == 0)
-	throw std::range_error("RcppResultSet::add; zero length vector<double>");
-	add__impl( name, vec ) ;   
-}
-
-void RcppResultSet::add(std::string name, std::vector<std::vector<int> >& mat) {
-	add__matrix__std( name, mat ) ;
-}
-
-void RcppResultSet::add(std::string name, std::vector<std::vector<double> >& mat) {
-	add__matrix__std( name, mat ) ;
-}
-
-void RcppResultSet::add(std::string name, RcppVector<int>& vec) {
-	add__impl( name, vec ) ;
-}
-
-void RcppResultSet::add(std::string name, RcppVector<double>& vec) {
-	add__impl( name, vec ) ;
-}
-
-void RcppResultSet::add(std::string name, RcppMatrix<int>& mat) {
-    add__matrix( name, mat.cMatrix(), mat.getDim1(), mat.getDim2() ) ;
-}
-
-void RcppResultSet::add(std::string name, RcppMatrix<double>& mat) {
-    add__matrix( name, mat.cMatrix(), mat.getDim1(), mat.getDim2() ) ;
-}
-
-
-void RcppResultSet::add(std::string name, RcppList &list) {
-	add__impl( name, list ) ;
-}
-
-void RcppResultSet::add(std::string name, SEXP sexp, bool isProtected) {
-    push_back(name, sexp);
-}
-
-void RcppResultSet::add(std::string name, RcppFrame& frame) {
-    add__impl( name, frame ) ;
 }
 
 SEXP RcppResultSet::getReturnList() {

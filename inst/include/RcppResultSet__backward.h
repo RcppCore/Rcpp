@@ -28,15 +28,6 @@ void RcppResultSet::add__impl( const std::string& name, const T& t ){
 }
 
 template <typename T> 
-void RcppResultSet::add__matrix( const std::string& name, T** input, int nx, int ny ){
-	Rcpp::Matrix< Rcpp::traits::r_sexptype_traits<T>::rtype > mat( nx, ny ) ;
-	for (int i = 0; i < nx; i++)
-	for (int j = 0; j < ny; j++)
-	    mat[i + nx*j] = input[i][j];
-    push_back( name, mat );
-}
-
-template <typename T> 
 void RcppResultSet::add__matrix__std( const std::string& name, const std::vector<std::vector<T> >& mat ) throw(std::range_error) {
     int nx = (int)mat.size();
     if (nx == 0)
@@ -51,6 +42,16 @@ void RcppResultSet::add__matrix__std( const std::string& name, const std::vector
 	for (int j = 0; j < ny; j++)
 	    out[i + nx*j] = mat[i][j];
     push_back( name, out );
+}
+
+
+template <typename T> 
+void RcppResultSet::add__matrix( const std::string& name, T** input, int nx, int ny) {
+	Rcpp::Matrix< Rcpp::traits::r_sexptype_traits<T>::rtype > mat( nx, ny ) ;
+	for (int i = 0; i < nx; i++)
+	for (int j = 0; j < ny; j++)
+		mat[i + nx*j] = input[i][j] ;
+    push_back( name, mat );
 }
 
 #endif

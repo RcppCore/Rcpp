@@ -52,30 +52,20 @@ public:
 	typedef std::list<PAIR> LIST ; 
 	
     RcppResultSet();
-    void add(std::string, double);
-    void add(std::string, int);
-    void add(std::string, std::string);
-    void add(std::string, double *, int);
-    void add(std::string, int *, int);
-    void add(std::string, double **, int, int);
-    void add(std::string, int **, int, int);
-    void add(std::string, RcppDate&);
-    void add(std::string, RcppDateVector&);
-    void add(std::string, RcppDatetime&);
-    void add(std::string, RcppDatetimeVector&);
-    void add(std::string, RcppStringVector&);
-    void add(std::string, std::vector<double>&);
-    void add(std::string, std::vector<int>&);
-    void add(std::string, std::vector<std::vector<double> >&);
-    void add(std::string, std::vector<std::vector<int> >&);
-    void add(std::string, std::vector<std::string>&);
-    void add(std::string, RcppVector<int>&);
-    void add(std::string, RcppVector<double>&);
-    void add(std::string, RcppMatrix<int>&);
-    void add(std::string, RcppMatrix<double>&);
-    void add(std::string, RcppFrame&);
-    void add(std::string, RcppList&);
-    void add(std::string, SEXP, bool isProtected);
+    
+    template <typename T>
+    void add(const std::string& name, const T& object){
+    	return add__impl( name, object ) ;
+    }
+
+    void add(const std::string&, double *, int);
+    void add(const std::string&, int *, int);
+    void add(const std::string&, double **, int, int);
+    void add(const std::string&, int **, int, int);
+
+    void add(const std::string& name , const std::vector<std::vector<double> >& object) ;
+    void add(const std::string& name , const std::vector<std::vector<int> >& object) ;
+    
     SEXP getReturnList();
     SEXP getSEXP();
 
@@ -90,15 +80,15 @@ private:
 		numProtected++ ;
 	}
 	
-	// defined later because it needs wrap
 	template <typename T> 
-	void add__impl( const std::string& name, const T& t ) ;
-	
-	template <typename T> 
-	void add__matrix( const std::string& name, T**, int nx, int ny ) ;
-	
+	void add__impl( const std::string&, const T& ) ;
+
 	template <typename T> 
 	void add__matrix__std( const std::string& name, const std::vector<std::vector<T> >& mat ) throw(std::range_error) ;
+
+	template <typename T> 
+	void add__matrix( const std::string& name, T**, int, int ) ;
+
 };
 
 #endif
