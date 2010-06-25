@@ -11,6 +11,14 @@
 	* src/Date.cpp: Implementation of the above
 	* inst/unitTests/runit.Date.R: tests for the above
 
+	* inst/include/Rcpp/Datetime.h: New Datetime class
+	* src/Datetime.cpp: Implementation for new Datetime class
+	* inst/unitTests/runit.Datetime.R: first tests for Rcpp::Datetime
+	* inst/include/Rcpp/Datetime_forward.h: API Integration
+
+	* inst/include/Rcpp/DatetimeVector.h: New DatetimeVector class
+	* src/Datetime.cpp: Implementation for new DatetimeVector class
+
 2010-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Date.cpp: Import mktime00() from R's src/main/datetime.c,
@@ -24,7 +32,7 @@
 
 	* inst/include/Rcpp/Date_forward.h: forward declaration of Rcpp::Date and
 	support for wrap( container of Rcpp::Date ), e.g. wrap( vector<Date> )
-	
+
 	* inst/include/Rcpp/sugar/Range.h: added the concept of range to allow
 	modification of several elements of a vector.
 

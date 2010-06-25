@@ -70,6 +70,8 @@
 #include <Rcpp/DataFrame.h>
 #include <Rcpp/Date.h>
 #include <Rcpp/DateVector.h>
+#include <Rcpp/Datetime.h>
+#include <Rcpp/DatetimeVector.h>
 
 #ifdef RCPP_ENABLE_MODULES
 #include <Rcpp/Module.h>
