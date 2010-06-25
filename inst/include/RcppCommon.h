@@ -243,6 +243,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/internal/wrap_forward.h>
 
 #include <Rcpp/Date_forward.h>
+#include <Rcpp/Datetime_forward.h>
 
 #include <Rcpp/internal/export.h>
 #include <Rcpp/traits/Exporter.h>
