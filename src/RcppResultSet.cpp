@@ -164,7 +164,7 @@ void RcppResultSet::add(std::string name, RcppList &list) {
 }
 
 void RcppResultSet::add(std::string name, SEXP sexp, bool isProtected) {
-    values.push_back(make_pair(name, sexp));
+    push_back(name, sexp);
     if (isProtected)
 	numProtected++;
 }
@@ -245,7 +245,7 @@ void RcppResultSet::add(std::string name, RcppFrame& frame) {
 	SET_STRING_ELT(nm, i, Rf_mkChar(colNames[i].c_str()));
     }
     Rf_setAttrib(rl, R_NamesSymbol, nm);
-    values.push_back(make_pair(name, rl));
+    push_back(name, rl);
 }
 
 SEXP RcppResultSet::getReturnList() {

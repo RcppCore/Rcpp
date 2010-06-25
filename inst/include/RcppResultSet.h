@@ -78,11 +78,16 @@ public:
     void add(std::string, SEXP, bool isProtected);
     SEXP getReturnList();
     SEXP getSEXP();
+
 protected:
     int numProtected;
     LIST values;
     
 private:
+	
+	inline void push_back( const std::string& name, SEXP x){
+		values.push_back( PAIR(name, x ) ) ;
+	}
 	
 	// defined later because it needs wrap
 	template <typename T> 

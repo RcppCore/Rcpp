@@ -24,7 +24,7 @@
 
 template <typename T> 
 void RcppResultSet::add__impl( const std::string& name, const T& t ){
-	values.push_back(make_pair(name, Rcpp::wrap(t)));	
+	push_back( name, Rcpp::wrap(t) );	
 }
 
 template <typename T> 
@@ -33,7 +33,7 @@ void RcppResultSet::add__matrix( const std::string& name, T** input, int nx, int
 	for (int i = 0; i < nx; i++)
 	for (int j = 0; j < ny; j++)
 	    mat[i + nx*j] = input[i][j];
-    values.push_back( make_pair(name, mat.asSexp() ));
+    push_back( name, mat );
 }
 
 template <typename T> 
@@ -50,7 +50,7 @@ void RcppResultSet::add__matrix__std( const std::string& name, const std::vector
 	for (int i = 0; i < nx; i++)
 	for (int j = 0; j < ny; j++)
 	    out[i + nx*j] = mat[i][j];
-    values.push_back(make_pair( name, out.asSexp() ));
+    push_back( name, out );
 }
 
 #endif
