@@ -331,14 +331,16 @@ namespace internal {
 			    break ;
 			    }
 			case COLTYPE_STRING:
+				{
 			    value = PROTECT(Rf_allocVector(STRSXP,nrow));
 			    numProtected++;
 			    for (int j=0; j < nrow; j++) {
 				SET_STRING_ELT(value, j, Rf_mkChar(table[j][i].getStringValue().c_str()));
 			    }
 			    break;
-			    
+			    }
 			case COLTYPE_LOGICAL:
+				{
 				value = PROTECT(Rf_allocVector(LGLSXP,nrow));
 			    numProtected++;
 			    int* p = LOGICAL(value) ;
@@ -346,8 +348,9 @@ namespace internal {
 				p[j] = table[j][i].getLogicalValue();
 			    }
 			    break;
-			    
-			case COLTYPE_DATE:    
+			    }
+			case COLTYPE_DATE:  
+				{
 			    value = PROTECT(Rf_allocVector(REALSXP,nrow));
 			    numProtected++;
 			    double* p = REAL(value) ;
@@ -355,8 +358,9 @@ namespace internal {
 				p[j] = table[j][i].getDateRCode();
 			    Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("Date"));
 			    break; 
-			    
+			    }
 			case COLTYPE_DATETIME:
+				{
 			    value = PROTECT(Rf_allocVector(REALSXP,nrow));
 			    numProtected++;
 			    double* p = REAL(value) ;
@@ -367,7 +371,7 @@ namespace internal {
 			    }
 			    Rf_setAttrib(value, R_ClassSymbol, Rcpp::internal::getPosixClasses() );
 			    break; 
-			    
+			    }
 			default:
 				// throw std::range_error("RcppResultSet::add invalid column type");
 				break ;
