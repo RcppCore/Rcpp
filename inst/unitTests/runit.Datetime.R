@@ -49,9 +49,7 @@ test.Datetime.operators <- function() {
                 msg = "Datetime.operators")
 }
 
-
-# commented out for now : fails in europe
-test.RcppDatetime.wrap <- function() {
+test.Datetime.wrap <- function() {
     src <- 'Datetime dt = Datetime(981162123.123456);
 	    return wrap(dt);';
     fun <- cxxfunction(signature(), src, plugin = "Rcpp" )
