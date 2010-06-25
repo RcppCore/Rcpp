@@ -165,87 +165,12 @@ void RcppResultSet::add(std::string name, RcppList &list) {
 
 void RcppResultSet::add(std::string name, SEXP sexp, bool isProtected) {
     push_back(name, sexp);
-    if (isProtected)
-	numProtected++;
+//    if (isProtected)
+//	numProtected++;
 }
 
-// FIXME: this code belongs to RcppFrame::operator SEXP
 void RcppResultSet::add(std::string name, RcppFrame& frame) {
-    std::vector<std::string> colNames = frame.getColNames();
-    std::vector<std::vector<ColDatum> > table = frame.getTableData();
-    int ncol = colNames.size();
-    int nrow = table.size();
-    SEXP rl = PROTECT(Rf_allocVector(VECSXP,ncol));
-    SEXP nm = PROTECT(Rf_allocVector(STRSXP,ncol));
-    numProtected += 2;
-    for (int i=0; i < ncol; i++) {
-	SEXP value, names;
-	if (table[0][i].getType() == COLTYPE_DOUBLE) {
-	    value = PROTECT(Rf_allocVector(REALSXP,nrow));
-	    numProtected++;
-	    for (int j=0; j < nrow; j++)
-		REAL(value)[j] = table[j][i].getDoubleValue();
-	} else if (table[0][i].getType() == COLTYPE_INT) {
-	    value = PROTECT(Rf_allocVector(INTSXP,nrow));
-	    numProtected++;
-	    for (int j=0; j < nrow; j++)
-		INTEGER(value)[j] = table[j][i].getIntValue();
-	} else if (table[0][i].getType() == COLTYPE_FACTOR) {
-	    value = PROTECT(Rf_allocVector(INTSXP,nrow));
-	    numProtected++;
-	    int levels = table[0][i].getFactorNumLevels();
-	    names = PROTECT(Rf_allocVector(STRSXP,levels));
-	    numProtected++;
-	    std::string *levelNames = table[0][i].getFactorLevelNames();
-	    for (int k=0; k < levels; k++)
-		SET_STRING_ELT(names, k, Rf_mkChar(levelNames[k].c_str()));
-	    for (int j=0; j < nrow; j++) {
-		int level = table[j][i].getFactorLevel();
-		INTEGER(value)[j] = level;
-	    }
-	    Rf_setAttrib(value, R_LevelsSymbol, names);
-	    SEXP factorclass = PROTECT(Rf_allocVector(STRSXP,1));
-	    numProtected++;
-	    SET_STRING_ELT(factorclass, 0, Rf_mkChar("factor"));
-	    Rf_setAttrib(value, R_ClassSymbol, factorclass); 
-	} else if (table[0][i].getType() == COLTYPE_STRING) {
-	    value = PROTECT(Rf_allocVector(STRSXP,nrow));
-	    numProtected++;
-	    for (int j=0; j < nrow; j++) {
-		SET_STRING_ELT(value, j, Rf_mkChar(table[j][i].getStringValue().c_str()));
-	    }
-	} else if (table[0][i].getType() == COLTYPE_LOGICAL) {
-	    value = PROTECT(Rf_allocVector(LGLSXP,nrow));
-	    numProtected++;
-	    for (int j=0; j < nrow; j++) {
-		LOGICAL(value)[j] = table[j][i].getLogicalValue();
-	    }
-	} else if (table[0][i].getType() == COLTYPE_DATE) {
-	    value = PROTECT(Rf_allocVector(REALSXP,nrow));
-	    numProtected++;
-	    for (int j=0; j < nrow; j++)
-		REAL(value)[j] = table[j][i].getDateRCode();
-	    SEXP dateclass = PROTECT(Rf_allocVector(STRSXP,1));
-	    numProtected++;
-	    SET_STRING_ELT(dateclass, 0, Rf_mkChar("Date"));
-	    Rf_setAttrib(value, R_ClassSymbol, dateclass); 
-	} else if (table[0][i].getType() == COLTYPE_DATETIME) {
-	    value = PROTECT(Rf_allocVector(REALSXP,nrow));
-	    numProtected++;
-	    for (int j=0; j < nrow; j++) {
-		// we could access the seconds as the internal double via getDouble but it's
-		// more proper to use the proper accessor (and if we ever added code ...)
-		REAL(value)[j] = table[j][i].getDatetimeValue().getFractionalTimestamp();
-	    }
-	    Rf_setAttrib(value, R_ClassSymbol, Rcpp::internal::getPosixClasses() );
-	} else {
-	    throw std::range_error("RcppResultSet::add invalid column type");
-	}
-	SET_VECTOR_ELT(rl, i, value);
-	SET_STRING_ELT(nm, i, Rf_mkChar(colNames[i].c_str()));
-    }
-    Rf_setAttrib(rl, R_NamesSymbol, nm);
-    push_back(name, rl);
+    add__impl( name, frame ) ;
 }
 
 SEXP RcppResultSet::getReturnList() {
