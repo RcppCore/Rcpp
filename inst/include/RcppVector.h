@@ -69,7 +69,7 @@ RcppVector<T>::RcppVector(SEXP vec) {
 	    v[i] = (T)(INTEGER(vec)[i]);
     }	
     else if (Rf_isReal(vec)) {
-	for (i = 0; i < len; i++)
+    for (i = 0; i < len; i++)
 	    v[i] = (T)(REAL(vec)[i]);
     }
 }
@@ -78,8 +78,7 @@ template <typename T>
 RcppVector<T>::RcppVector(int _len) {
     len = _len;
     v = (T *) R_alloc(len, sizeof(T));
-    for (int i = 0; i < len; i++)
-	v[i] = 0;
+    std::fill( v, v + len, 0 ) ;
 }
 
 template <typename T>
@@ -100,17 +99,13 @@ inline T& RcppVector<T>::operator()(int i) const {
 template <typename T>
 T *RcppVector<T>::cVector() const {
     T* tmp = (T *)R_alloc(len, sizeof(T));
-    for (int i = 0; i < len; i++)
-	tmp[i] = v[i];
+    std::copy( v, v+len, tmp ) ;
     return tmp;
 }
 
 template <typename T>
 std::vector<T> RcppVector<T>::stlVector() const {
-    std::vector<T> tmp(len);
-    for (int i = 0; i < len; i++)
-	tmp[i] = v[i];
-    return tmp;
+    return std::vector<T> tmp( v, v + len );
 }
 
 #endif
