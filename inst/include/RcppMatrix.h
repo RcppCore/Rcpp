@@ -139,4 +139,13 @@ std::vector<std::vector<T> > RcppMatrix<T>::stlMatrix() {
     return temp;
 }
 
+namespace Rcpp{
+
+template <> SEXP wrap( const RcppMatrix<int>& );
+
+template <> SEXP wrap( const RcppMatrix<double>& );
+
+}
+
+
 #endif

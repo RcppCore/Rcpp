@@ -82,5 +82,6 @@
 
 #include <RcppResultSet__backward.h>
 #include <RcppList__backward.h>
+#include <RcppMatrix__backward.h>
 
 #endif
