@@ -42,7 +42,6 @@ private:
     T **a;
 };
 
-
 template <typename T>
 RcppMatrix<T>::RcppMatrix(SEXP mat) {
 
