@@ -22,6 +22,8 @@
 #ifndef Rcpp__CLASSIC__API_h
 #define Rcpp__CLASSIC__API_h
 
+#include <RcppCommon.h>
+
 #include <classic/RcppDate.h>
 #include <classic/RcppDateVector.h>
 #include <classic/RcppDatetime.h>
