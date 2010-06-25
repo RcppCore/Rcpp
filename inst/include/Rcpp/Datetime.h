@@ -72,23 +72,19 @@ namespace Rcpp {
     // template specialisation for wrap() on datetime
     template <> SEXP wrap<Rcpp::Datetime>(const Rcpp::Datetime &dt);
 
-    // needed to wrap containers of Date such as vector<Date> or map<string,Date>
+    // needed to wrap containers of Date such as vector<Datetime> or map<string,Datetime>
     namespace internal {
 		template<> inline double caster<Rcpp::Datetime,double>( Rcpp::Datetime from){
-			return static_cast<double>( from.getFractionalTimestamp() ) ;
+			return from.getFractionalTimestamp() ;
 		}
 		template<> inline Rcpp::Datetime caster<double,Rcpp::Datetime>( double from){
-			return Rcpp::Datetime( static_cast<double>( from ) ) ;
+			return Rcpp::Datetime( from ) ;
 		}
     }
     
     template<> inline SEXP wrap_extra_steps<Rcpp::Datetime>( SEXP x ){
-		SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-		SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
-		SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
-		Rf_setAttrib(x, R_ClassSymbol, datetimeclass); 
-		UNPROTECT(1);
-    	return x ;
+		Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses() ); 
+		return x ;
     }
 	
 }

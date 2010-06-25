@@ -127,14 +127,9 @@ void RcppFunction::appendToRList(std::string name, RcppDate& date) {
 void RcppFunction::appendToRList(std::string name, RcppDatetime& datetime) {
     if (currListPosn < 0 || currListPosn >= listSize)
 	throw std::range_error("RcppFunction::appendToRlist(RcppDatetime): list posn out of range");
-    SEXP valsxp = PROTECT(Rf_allocVector(REALSXP,1));
+    SEXP valsxp = PROTECT(Rf_ScalarReal(datetime.getFractionalTimestamp()));
     numProtected++;
-    REAL(valsxp)[0] = datetime.getFractionalTimestamp();
-    SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP, 2));
-    numProtected++;
-    SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
-    SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
-    Rf_setAttrib(valsxp, R_ClassSymbol, datetimeclass);
+    Rf_setAttrib(valsxp, R_ClassSymbol, Rcpp::internal::getPosixClasses() );
     SET_VECTOR_ELT(listArg, currListPosn++, valsxp);
     names.push_back(name);
 }
