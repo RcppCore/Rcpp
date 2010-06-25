@@ -20,7 +20,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppDatetime.h>
+#include <classic/RcppDatetime.h>
 #include <time.h> // for strftime
 #include <Rmath.h> // for Rf_fround
 
