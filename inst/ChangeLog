@@ -3,6 +3,8 @@
 	* inst/include/Rcpp/posix.h: anticipate R 2.12.0 switch of classes
 	POSIXt and POSIXct
 
+	* inst/include/classic: New home for the 'classic' API headers
+
 2010-06-24  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/vector/RangeIndexer.h: factored the RangeIndexer class
@@ -52,8 +54,8 @@
 
 2010-06-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/SugarBenchmark/: New example trying to benchmark
-	new syntactic 'sugar' classes
+	* inst/examples/SugarPerformance/: New example to benchmark the new
+	syntactic 'sugar' classes
 
 2010-06-19  Dirk Eddelbuettel  <edd@debian.org>
 
