@@ -1,3 +1,8 @@
+2010-06-25  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/posix.h: anticipate R 2.12.0 switch of classes
+	POSIXt and POSIXct
+
 2010-06-24  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/vector/RangeIndexer.h: factored the RangeIndexer class

@@ -109,12 +109,17 @@ std::string demangle( const std::string& name) ;
 #include <Rversion.h>
 #define RCPP_GET_NAMES(x)	Rf_getAttrib(x, R_NamesSymbol)
 
+#if defined(R_VERSION) && R_VERSION >= R_Version(2, 12, 0)
+#define R_2_12_0
+#endif
+
 // #ifdef BUILDING_DLL
 // #define RcppExport extern "C" __declspec(dllexport)
 // #else
 #define RcppExport extern "C"
 // #endif
 
+#include <Rcpp/internal/posixt.h>
 
 namespace Rcpp{
 	namespace internal{

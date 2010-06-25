@@ -89,14 +89,7 @@ namespace Rcpp {
     bool    operator!=(const Datetime &d1, const Datetime& d2) { return d1.m_dt != d2.m_dt; }
 
     template <> SEXP wrap(const Datetime &date) {
-		SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
-		REAL(value)[0] = date.getFractionalTimestamp();
-		SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-		SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
-		SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
-		Rf_setAttrib(value, R_ClassSymbol, datetimeclass); 
-		UNPROTECT(2);
-		return value;
+		return internal::new_posixt_object( date.getFractionalTimestamp() ) ;
     }
 
 }

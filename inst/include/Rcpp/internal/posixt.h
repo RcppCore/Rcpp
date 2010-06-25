@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// config.h: Rcpp R/C++ interface class library -- Rcpp configuration of optional features
+// posixt.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -19,15 +19,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP__CONFIG_H
-#define RCPP__CONFIG_H
+#ifndef Rcpp__internal__posixt_h
+#define Rcpp__internal__posixt_h
 
-// comment to disable Rcpp modules
-#define RCPP_ENABLE_MODULES
+namespace Rcpp{
+namespace internal{
+	
+SEXP getPosixClasses() ;
+SEXP new_posixt_object( double d) ;
+SEXP new_date_object( double d) ;
 
-#ifdef __GNUC__
-#define RCPP_HAS_DEMANGLING
+
+}
+}
+
 #endif
-
-#endif
-

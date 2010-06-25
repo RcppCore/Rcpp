@@ -52,12 +52,11 @@ test.RcppDatetime.operators <- function() {
                       list(diff=3600, bigger=1, smaller=0, equal=0, ge=1, le=0), msg = "RcppDatetime.operators")
 }
 
-# commented out for now : fails in europe
-#test.RcppDatetime.wrap <- function() {
-#    src <- 'RcppDatetime dt = RcppDatetime(981183723.123456);
-#	    return wrap(dt);';
-#    funx <- cxxfunction(signature(), src, plugin = "Rcpp" )
-#    checkEquals(as.numeric(funx()), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456")),
-#                msg = "RcppDatetime.wrap")
-#}
+test.RcppDatetime.wrap <- function() {
+    src <- 'RcppDatetime dt = RcppDatetime(981162123.123456);
+	    return wrap(dt);';
+    funx <- cxxfunction(signature(), src, plugin = "Rcpp" )
+    checkEquals(as.numeric(funx()), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
+                msg = "RcppDatetime.wrap")
+}
 

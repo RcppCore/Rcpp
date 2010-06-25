@@ -29,28 +29,18 @@ namespace Rcpp {
 
     // template specialisation for wrap() on the date and datetime classes
     template <> SEXP wrap(const RcppDate &date) {
-	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
-	REAL(value)[0] = date.getJDN() - RcppDate::Jan1970Offset;
-	Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("Date")); 
-	UNPROTECT(1);
-	return value;
+    return internal::new_date_object( date.getJDN() - RcppDate::Jan1970Offset ) ;
     }
 
     template <> SEXP wrap(const RcppDatetime &datetime) {
-	SEXP value = PROTECT(Rf_allocVector(REALSXP, 1));
-	REAL(value)[0] = datetime.getFractionalTimestamp();
-	SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-	SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
-	SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
-	Rf_setAttrib(value, R_ClassSymbol, datetimeclass); 
-	UNPROTECT(2);
-	return value;
-    }
+    return internal::new_posixt_object( datetime.getFractionalTimestamp() ) ;
+	}
 
     template <> SEXP wrap(const RcppDateVector& datevec) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, datevec.size()));
-	for (int i = 0; i < datevec.size(); i++) {
-	    REAL(value)[i] = datevec(i).getJDN() - RcppDate::Jan1970Offset;
+	double* p = REAL(value) ;
+	for (int i = 0; i < datevec.size(); i++,p++) {
+	    *p = datevec(i).getJDN() - RcppDate::Jan1970Offset;
 	}
 	Rf_setAttrib(value, R_ClassSymbol, Rf_mkString("Date")); 
 	UNPROTECT(1);
@@ -59,14 +49,12 @@ namespace Rcpp {
 
     template <> SEXP wrap(const RcppDatetimeVector &dtvec) {
 	SEXP value = PROTECT(Rf_allocVector(REALSXP, dtvec.size()));
-	for (int i = 0; i < dtvec.size(); i++) {
-	    REAL(value)[i] = dtvec(i).getFractionalTimestamp();
+	double* p = REAL(value) ;
+	for (int i = 0; i < dtvec.size(); i++,p++) {
+	    *p = dtvec(i).getFractionalTimestamp();
 	}
-	SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-	SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
-	SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
-	Rf_setAttrib(value, R_ClassSymbol, datetimeclass); 
-	UNPROTECT(2);
+	Rf_setAttrib(value, R_ClassSymbol, internal::getPosixClasses() ); 
+	UNPROTECT(1);
 	return value;
     }
 
@@ -334,11 +322,7 @@ void RcppResultSet::add(std::string name, RcppFrame& frame) {
 		// more proper to use the proper accessor (and if we ever added code ...)
 		REAL(value)[j] = table[j][i].getDatetimeValue().getFractionalTimestamp();
 	    }
-	    SEXP dateclass = PROTECT(Rf_allocVector(STRSXP,2));
-	    numProtected++;
-	    SET_STRING_ELT(dateclass, 0, Rf_mkChar("POSIXt"));
-	    SET_STRING_ELT(dateclass, 1, Rf_mkChar("POSIXct"));
-	    Rf_setAttrib(value, R_ClassSymbol, dateclass); 
+	    Rf_setAttrib(value, R_ClassSymbol, Rcpp::internal::getPosixClasses() );
 	} else {
 	    throw std::range_error("RcppResultSet::add invalid column type");
 	}
