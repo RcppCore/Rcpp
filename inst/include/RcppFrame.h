@@ -45,8 +45,13 @@ public:
     std::vector<std::string>& getColNames();
     std::vector<std::vector<ColDatum> >& getTableData();
     void addRow(std::vector<ColDatum> rowData);
-    int rows();
-    int cols();
+    int rows() const ;
+    int cols() const ;
+    
+    // the template is never defined, but 
+    // specializations are (in RcppFrame.cpp)
+    template <int COLUMN_TYPE> SEXP getColumn( int col ) const ;
+    
 };
 
 class ColDatum {
@@ -64,16 +69,16 @@ public:
     void setDatetimeValue(RcppDatetime datetime);
     void setFactorValue(std::string *names, int numNames, int factorLevel);
 
-    double getDoubleValue();
-    int getIntValue();
-    int getLogicalValue();
-    std::string getStringValue();
-    RcppDate getDateValue();
-    double getDateRCode();
-    RcppDatetime getDatetimeValue();
-    void checkFactorType();
-    int getFactorNumLevels();
-    int getFactorLevel();
+    double getDoubleValue() const ;
+    int getIntValue() const ;
+    int getLogicalValue() const ;
+    std::string getStringValue() const ;
+    RcppDate getDateValue() const ;
+    double getDateRCode() const ;
+    RcppDatetime getDatetimeValue() const;
+    void checkFactorType() const ;
+    int getFactorNumLevels() const ;
+    int getFactorLevel() const;
     std::string *getFactorLevelNames();
     std::string getFactorLevelName();
     
@@ -89,7 +94,6 @@ private:
 };
 
 namespace Rcpp{
-	// defined in RcppFrame__backward.h
 	template <> SEXP wrap<RcppFrame>( const RcppFrame& x) ;
 }
 

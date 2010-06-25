@@ -24,7 +24,7 @@
 
 template <typename T> 
 void RcppResultSet::add__impl( const std::string& name, const T& t ){
-	push_back( name, Rcpp::wrap(t) );	
+	push_back( name, Rcpp::wrap(t) );
 }
 
 template <typename T> 

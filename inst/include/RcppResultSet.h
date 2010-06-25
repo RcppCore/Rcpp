@@ -86,7 +86,8 @@ protected:
 private:
 	
 	inline void push_back( const std::string& name, SEXP x){
-		values.push_back( PAIR(name, x ) ) ;
+		values.push_back( PAIR(name, PROTECT(x) ) ) ;
+		numProtected++ ;
 	}
 	
 	// defined later because it needs wrap

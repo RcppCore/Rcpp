@@ -23,14 +23,14 @@
 
 #include <Rcpp.h>
 
-RcppResultSet::RcppResultSet() : numProtected(0) { }
+RcppResultSet::RcppResultSet() : numProtected(0), values() { }
 
 namespace Rcpp { 
 
     // template specialisation for wrap() on the date and datetime classes
     template <> SEXP wrap(const RcppDate &date) {
     return internal::new_date_object( date.getJDN() - RcppDate::Jan1970Offset ) ;
-    }
+    }                                                
 
     template <> SEXP wrap(const RcppDatetime &datetime) {
     return internal::new_posixt_object( datetime.getFractionalTimestamp() ) ;
@@ -165,8 +165,6 @@ void RcppResultSet::add(std::string name, RcppList &list) {
 
 void RcppResultSet::add(std::string name, SEXP sexp, bool isProtected) {
     push_back(name, sexp);
-//    if (isProtected)
-//	numProtected++;
 }
 
 void RcppResultSet::add(std::string name, RcppFrame& frame) {
@@ -175,7 +173,7 @@ void RcppResultSet::add(std::string name, RcppFrame& frame) {
 
 SEXP RcppResultSet::getReturnList() {
     SEXP rl = PROTECT( Rcpp::wrap( values ) ) ;
-    UNPROTECT(numProtected+1);
+	UNPROTECT(numProtected+1);
     return rl;
 }
 
