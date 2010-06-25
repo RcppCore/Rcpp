@@ -31,15 +31,14 @@ public:
     RcppList(void);
     ~RcppList();
     void setSize(int size);
-    void append(std::string name, double value);
-    void append(std::string name, int value);
-    void append(std::string name, std::string value);
-    //void append(std::string name, RcppDate& date);
-    //void append(std::string name, RcppDatetime& datetime);
-    void append(std::string name, SEXP sexp);
+    
+    // defined later because it needs wrap
+    template <typename T>
+    void append( const std::string& name, const T& value ) throw(std::range_error) ;
+    
     void clearProtectionStack();
     SEXP getList(void) const;
-
+    
 protected:
     friend class RcppResultSet;
 
@@ -48,5 +47,11 @@ private:
     int listSize, currListPosn, numProtected;
     std::vector<std::string> names;
 };
+
+namespace Rcpp{
+	template<> inline SEXP wrap<RcppList>( const RcppList& x ){
+		return x.getList( ) ;	
+	}
+}
 
 #endif

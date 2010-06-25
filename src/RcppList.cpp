@@ -28,50 +28,14 @@ RcppList::RcppList(void) : listArg(R_NilValue),
 }
 
 RcppList::~RcppList(void) {
-    UNPROTECT(numProtected);
+    clearProtectionStack() ;
 }
 
 void RcppList::setSize(int n) {
+	// FIXME: this should clear the protection stack
     listSize = n;
     listArg = PROTECT(Rf_allocVector(VECSXP, n));
     numProtected++;
-}
-
-void RcppList::append(std::string name, double value) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(double): list posn out of range");
-    SEXP valsxp = PROTECT(Rf_allocVector(REALSXP,1));
-    numProtected++;
-    REAL(valsxp)[0] = value;
-    SET_VECTOR_ELT(listArg, currListPosn++, valsxp);
-    names.push_back(name);
-}
-
-void RcppList::append(std::string name, int value) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(int): posn out of range");
-    SEXP valsxp = PROTECT(Rf_allocVector(INTSXP,1));
-    numProtected++;
-    INTEGER(valsxp)[0] = value;
-    SET_VECTOR_ELT(listArg, currListPosn++, valsxp);
-    names.push_back(name);
-}
-
-void RcppList::append(std::string name, std::string value) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(string): posn out of range");
-    SEXP valsxp = PROTECT(Rf_allocVector(STRSXP,1));
-    numProtected++;
-    SET_STRING_ELT(valsxp, 0, Rf_mkChar(value.c_str()));
-    SET_VECTOR_ELT(listArg, currListPosn++, valsxp);
-    names.push_back(name);
-}
-
-void RcppList::append(std::string name, SEXP sexp) {
-    if (currListPosn < 0 || currListPosn >= listSize)
-	throw std::range_error("RcppList::append(sexp): posn out of range");
-    SET_VECTOR_ELT(listArg, currListPosn++, sexp);
-    names.push_back(name);
 }
 
 void RcppList::clearProtectionStack() {
@@ -80,14 +44,9 @@ void RcppList::clearProtectionStack() {
 }
 
 SEXP RcppList::getList(void) const { 
-    SEXP li = PROTECT(Rf_allocVector(VECSXP, listSize));
-    SEXP nm = PROTECT(Rf_allocVector(STRSXP, listSize));
-    for (int i=0; i<listSize; i++) {
-	SET_VECTOR_ELT(li, i, VECTOR_ELT(listArg, i));
-	SET_STRING_ELT(nm, i, Rf_mkChar(names[i].c_str()));
-    }
-    Rf_setAttrib(li, R_NamesSymbol, nm);
-    UNPROTECT(2);
+    SEXP li = PROTECT(Rf_duplicate( listArg )) ;
+    Rf_setAttrib(li, R_NamesSymbol, Rcpp::wrap(names) );
+    UNPROTECT(1) ;
     return li; 
 }
 
