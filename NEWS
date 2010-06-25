@@ -36,7 +36,11 @@
 
     o   Rcpp Modules can now expose public data members
 
-    o   New classes Date and DateVector with proper 'new' API integration
+    o   New classes Date, Datetime, DateVector and DatetimeVector with proper
+        'new' API integration such as as(), wrap(), iterators, ...
+
+    o   The so-classic API headers have been moved to a subdirectory classic/
+        This should not affect client-code as only Rcpp.h was ever included.
 
     o   RcppDate now has a constructor from SEXP as well
 
