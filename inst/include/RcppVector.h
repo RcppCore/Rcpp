@@ -105,7 +105,7 @@ T *RcppVector<T>::cVector() const {
 
 template <typename T>
 std::vector<T> RcppVector<T>::stlVector() const {
-    return std::vector<T> tmp( v, v + len );
+    return std::vector<T>( v, v + len );
 }
 
 #endif
