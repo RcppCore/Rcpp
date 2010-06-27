@@ -20,7 +20,7 @@ API
     o   Rcpp::Factor and Rcpp::Ordered
 
 
-Modules: 
+Modules 
 
     o   Exposing constructors. For now we can only construct internal objects 
         with the default constructor of the target class. Maybe we can provide
@@ -81,20 +81,25 @@ Testing
           ## This will cause R CMD check to return error and stop
           err <- getErrors(tests)
           if( (err$nFail + err$nErr) > 0) {
-              stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
+              stop( sprintf( "unit test problems: %d failures, %d errors", 
+                             err$nFail, err$nErr) )
           } else{
               success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
               cat( sprintf( "%d / %d\n", success, err$nTestFunc ) )
           }
        
-        by something that extract information from "err". This is needed because
-        on win builder or cran checks, we only ever get the last 13 lines of 
-        output. So we need to make the best use of these 13 lines
+        by something that extract information from "err". This is needed
+        because on win builder or cran checks, we only ever get the last 13
+        lines of output. So we need to make the best use of these 13 lines
         
-   o    Testing has become slow. That would be good to find ways to make it faster
-        such as combine multiple functions in a single cxxfunction call or alternatively
-        make another package (perhaps internal to this one that would contain 
-        test cases)
+   o    Testing has become slow. That would be good to find ways to make it
+        faster such as combine multiple functions in a single cxxfunction
+        call or alternatively make another package (perhaps internal to this
+        one that would contain test cases)
                 
    o    Maybe make test function 'tier one' and 'tier two' and only the
         second tier if an (environment ?) variable has been set?
+
+   o    We now have more tests than we can run in the time budget permitted by
+        the Windows build infrastructure. Hence, we need a better ordering of
+        which tests to run.
