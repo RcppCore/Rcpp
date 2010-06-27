@@ -1,3 +1,11 @@
+2010-06-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runTests.R: Stop-gap measure to reduce the number of
+	tests run on Windows as we now have so many tests that the build
+	exceeds the time limit granted by the win-builder service. The forced
+	reduction of tests can be overcome by adding --allTests as a
+	command-line argument on Windows, or by running on another platform.
+
 2010-06-25  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/posix.h: anticipate R 2.12.0 switch of classes
@@ -9,9 +17,9 @@
 
 2010-06-24  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/RangeIndexer.h: factored the RangeIndexer class
-	out of Vector, so that we can at a later time specialize it for character
-	vectors, lists, etc ...
+	* inst/include/Rcpp/vector/RangeIndexer.h: factored the RangeIndexer
+	class out of Vector, so that we can at a later time specialize it for
+	character vectors, lists, etc ...
 
 2010-06-24  Dirk Eddelbuettel  <edd@debian.org>
 
