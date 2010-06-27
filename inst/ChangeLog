@@ -1,5 +1,9 @@
 2010-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION: Release 0.8.3
+
+	* debian/*: Similarly updated for new release to Debian
+
 	* inst/unitTests/runTests.R: Stop-gap measure to reduce the number of
 	tests run on Windows as we now have so many tests that the build
 	exceeds the time limit granted by the win-builder service. The forced
