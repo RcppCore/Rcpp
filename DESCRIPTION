@@ -1,6 +1,6 @@
 Package: Rcpp
 Title: Rcpp R/C++ interface package
-Version: 0.8.2.14
+Version: 0.8.3
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Simon Urbanek, David Reiss and Douglas Bates; based on code written during 
@@ -44,7 +44,7 @@ Description: Seamless R and C++ integration
  C++ function and compile, link and load it given the 'inlined' character
  argument which makes C++ integration very easy.
  .
- Several examples are included, and over 550 unit tests in over 250 unit test
+ Several examples are included, and over 720 unit tests in over 320 unit test
  functions provide addtional usage examples.
 Depends: R (>= 2.10.0), methods
 Suggests: RUnit, inline
