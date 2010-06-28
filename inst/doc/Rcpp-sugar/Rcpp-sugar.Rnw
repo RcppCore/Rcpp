@@ -76,12 +76,10 @@ provides a function \texttt{foo} as a \proglang{C++} extension to
 
 <<lang=cpp>>=
 RcppExport SEXP foo( SEXP x, SEXP y){
-    Rcpp::NumericVector xx(x) ;
-    Rcpp::NumericVector yy(y) ;
+    Rcpp::NumericVector xx(x), yy(y) ;
     int n = xx.size() ;
     Rcpp::NumericVector res( n ) ;
-    double x_ = 0.0 ;
-    double y_ = 0.0 ;
+    double x_ = 0.0, y_ = 0.0 ;
     for( int i=0; i<n; i++){
         x_ = xx[i] ;
         y_ = yy[i] ;

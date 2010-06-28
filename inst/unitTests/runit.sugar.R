@@ -17,29 +17,484 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-test.sugar.abs <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
-	
-		NumericVector xx(x) ;
-		IntegerVector yy(y) ;
+.setUp <- function(){
+	if( ! exists( ".rcpp.sugar", globalenv() ) ){
+		# definition of all the functions at once
 		
-		return List::create( abs(xx), abs(yy) ) ;
-	', plugin = "Rcpp" )
+		sugar.functions <- list( 
+			"runit_abs" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					IntegerVector yy(y) ;
+					
+					return List::create( abs(xx), abs(yy) ) ;
+				'
+			), 
+			"runit_all_one_less" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return all( xx < 5.0 ) ;
+				'
+			), 
+			"runit_all_one_greater" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return all( xx > 5.0 ) ;
+				'				
+			), 
+			"runit_all_one_less_or_equal" = list(
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return all( xx <= 5.0 ) ;
+				'
+			), 
+			"runit_all_one_greater_or_equal" = list( 
+				signature( x = "numeric" ), 
+				'
+				    NumericVector xx(x) ;
+					return all( xx >= 5.0 ) ;
+				'
+			), 
+			"runit_all_one_equal" = list( 
+				signature( x = "numeric" ), 
+				'
+				   	NumericVector xx(x) ;
+					return all( xx == 5.0 ) ;
+				'
+			),
+			"runit_all_not_equal_one" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return all( xx != 5.0 ) ;
+				'
+			), 
+			"runit_all_less" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					return all( xx < yy ) ;
+				'
+			), 
+			"runit_all_greater" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					return all( xx > yy ) ;
+				'
+			), 
+			"runit_all_less_or_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+						NumericVector xx(x) ;
+						NumericVector yy(y) ;
+						return all( xx <= yy ) ;
+				'				
+			), 
+			"runit_all_greater_or_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					return all( xx >= yy ) ;
+				'
+			), 
+			"runit_all_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+						NumericVector xx(x) ;
+						NumericVector yy(y) ;
+						return all( xx == yy ) ;
+				'				
+			), 
+			"runit_all_not_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+						NumericVector xx(x) ;
+						NumericVector yy(y) ;
+						return all( xx != yy ) ;
+				'				
+			), 
+			"runit_any_less" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					return any( xx < yy ) ;
+				'				 
+			), 
+			"runit_any_greater" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					return any( xx > yy ) ;
+				'				
+			), 
+			"runit_any_less_or_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+				NumericVector xx(x) ;
+				NumericVector yy(y) ;
+				
+				return any( xx <= yy ) ;
+				'				
+			), 
+			"runit_any_greater_or_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+				NumericVector xx(x) ;
+				NumericVector yy(y) ;
+				
+				return any( xx >= yy ) ;
+				'				
+			), 
+			"runit_any_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+				NumericVector xx(x) ;
+				NumericVector yy(y) ;
+				return any( xx == yy ) ;
+				'				
+			), 
+			"runit_any_not_equal" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+				NumericVector xx(x) ;
+				NumericVector yy(y) ;
+				return any( xx != yy ) ;
+				'				
+			), 
+			"runit_constructor" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					LogicalVector res( xx < yy ) ;
+					return res ;
+				'				
+			), 
+			"runit_assignment" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					LogicalVector res; 
+					res = xx < yy ;
+					return res ;
+				'	
+			), 
+			"runit_diff" = list( 
+				signature( x = "numeric" ) ,
+				'
+					NumericVector xx(x) ;
+					NumericVector res = diff( xx );
+					return res ;
+				'				
+			), 
+			"runit_exp" = list( 
+				signature( x = "numeric", y = "integer" ), 
+				'
+					NumericVector xx(x) ;
+					IntegerVector yy(y) ;
+					return List::create( exp(xx), exp(yy) ) ;
+				'				
+			), 
+			"runit_floor" = list( 
+				signature( x = "numeric", y = "integer" ), 
+				'
+					NumericVector xx(x) ;
+					IntegerVector yy(y) ;
+					return List::create( floor(xx), floor(yy) ) ;
+				'				
+			), 
+			"runit_ceil" = list( 
+				signature( x = "numeric", y = "integer" ), 
+				'
+					NumericVector xx(x) ;
+					IntegerVector yy(y) ;
+					return List::create( ceil(xx), ceil(yy) ) ;
+				'
+			), 
+			"runit_pow" = list( 
+				signature( x = "numeric", y = "integer" ),
+				'
+					NumericVector xx(x) ;
+					IntegerVector yy(y) ;
+					return List::create( pow(xx, 3), pow(yy, 2.3) ) ;
+				'				
+			), 
+			"runit_ifelse" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					
+					NumericVector res = ifelse( xx < yy, xx*xx, -(yy*yy) ) ;
+					return res ;
+				'				
+			), 
+			"runit_isna" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return wrap( is_na( xx ) ) ;
+				'				
+			), 
+			"runit_isna_isna" = list(
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return wrap( is_na( is_na( xx ) ) ) ;
+				'				
+			) , 
+			"runit_any_isna" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return any( is_na( xx ) ) ;
+				'				 
+			), 
+			"runit_lapply" = list( 
+				signature( x = "integer" ), 
+				'
+					IntegerVector xx(x) ;
+					List res = lapply( xx, seq_len );
+					return res ;
+				'				
+			), 
+			"runit_minus" = list( 
+				signature( x = "integer" ), 
+				'
+					IntegerVector xx(x) ;
+					return List::create(
+						xx - 10, 
+						10 - xx, 
+						xx - xx
+						) ;
+				'			
+			), 
+			"runit_any_equal_not" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					return any( !( xx == yy) ) ;
+				'				
+			), 
+			"runit_plus" = list( 
+				signature( x = "integer" ), 
+				'
+					IntegerVector xx(x) ;
+					return List::create(
+						xx + 10, 
+						10 + xx, 
+						xx + xx, 
+						xx + xx + xx
+						) ;
+				'			
+			), 
+			"runit_plus_seqlen" = list( 
+				signature(), 
+				'
+					return List::create(
+						seq_len(10) + 10, 
+						10 + seq_len(10),
+						seq_len(10) + seq_len(10)
+						) ;
+				'
+			), 
+			"runit_plus_all" = list( 
+				signature( x = "integer" ), '
+					IntegerVector xx(x) ;
+					return all( (xx+xx) < 10 ) ;
+				'
+			), 
+			"runit_pmin" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					NumericVector res = pmin( xx, yy );
+					return res ;
+				'				
+			), 
+			"runit_pmin_one" = list( 
+				signature( x = "numeric" ), '
+					NumericVector xx(x) ;
+					return List::create( 
+						pmin( xx, 5), 
+						pmin( 5, xx)
+						) ;
+				'				
+			), 
+			"runit_pmax" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+						NumericVector xx(x) ;
+						NumericVector yy(y) ;
+						NumericVector res = pmax( xx, yy );
+						return res ;
+				'				
+			), 
+			"runit_pmax_one" = list( 
+				signature( x = "numeric" ), 
+				'
+				NumericVector xx(x) ;
+				return List::create( 
+					pmax( xx, 5), 
+					pmax( 5, xx)
+					) ;
+				'	
+			), 
+			"runit_Range" = list( 
+				signature(  ), 
+				'
+					NumericVector xx(8) ;
+					xx[ Range(0,3) ] = exp( seq_len(4) ) ;
+					xx[ Range(4,7) ] = exp( - seq_len(4) ) ;
+					return xx ;
+				'	
+			), 
+			"runit_sapply" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector res = sapply( xx, square<double>() );
+					return res ;
+				'
+			), 
+			"runit_sapply_rawfun" = list( 
+				signature( x = "numeric" ), '
+					NumericVector xx(x) ;
+					NumericVector res = sapply( xx, raw_square );
+					return res ;
+				'
+			), 
+			"runit_sapply_square" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return all( sapply( xx * xx , square<double>() ) < 10.0 );
+				'
+			), 
+			"runit_sapply_list" = list( 
+				signature( x = "integer" ), '
+					IntegerVector xx(x) ;
+					List res = sapply( xx, seq_len );
+					return res ;
+				'
+			) , 
+			"runit_seqalong" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					IntegerVector res = seq_along( xx );
+					return res ;
+				'				
+			), 
+			"runit_seqlen" = list( 
+				signature( ), 
+				'
+					IntegerVector res = seq_len( 10 );
+					return res ;
+				'				
+			) , 
+			"runit_sign" = list( 
+				signature( x = "numeric", y = "integer" ), '
+					NumericVector xx(x) ;
+					IntegerVector yy(y) ;
+					
+					return List::create(
+						sign( xx ), 
+						sign( yy )
+						) ;
+				'	
+			), 
+			"runit_times" = list( 
+				signature( x = "integer" ), '
+					IntegerVector xx(x) ; 
+					IntegerVector yy = clone<IntegerVector>( xx ) ;
+					yy[0] = NA_INTEGER ;
+					
+					return List::create(
+    			        xx * 10, 
+    			        10 * xx, 
+    			        xx * xx, 
+    			        xx * xx * xx, 
+    			        xx * yy, 
+    			        yy * 10, 
+    			        10 * yy, 
+    			        NA_INTEGER * xx
+    			    ) ;
+				'	
+			), 
+			"runit_divides" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return List::create(
+						xx / 10, 
+						10 / xx, 
+						xx / xx
+						) ;
+				'	
+			), 
+			"runit_unary_minus" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy = - xx ;
+					return yy ;
+				'				
+			), 
+			"runit_wrap" = list( 
+				signature( x = "numeric", y = "numeric", env = "environment" ), 
+				'
+					NumericVector xx(x) ;
+					NumericVector yy(y) ;
+					Environment e(env) ;
+					e["foo"] = xx < yy  ;
+					return R_NilValue ;
+				'
+			)
+			
+		)
+		
+		signatures <- lapply( sugar.functions, "[[", 1L )
+		bodies <- lapply( sugar.functions, "[[", 2L )
+		fx <- cxxfunction( signatures, bodies, plugin = "Rcpp", 
+			include = '
+			template <typename T>
+			class square : public std::unary_function<T,T> {
+			public:
+				T operator()( T t) const { return t*t ; }
+			} ;
+			
+			double raw_square( double x){ return x*x; }
 	
+	')
+		getDynLib( fx ) # just forcing loading the dll now
+		assign( ".rcpp.sugar", fx, globalenv() )
+	}
+}
+
+test.sugar.abs <- function( ){
+	fx <- .rcpp.sugar$runit_abs
 	x <- rnorm(10)
 	y <- -10:10
 	checkEquals( fx(x,y) , list( abs(x), abs(y) ) )
 }
 
-
 test.sugar.all.one.less <- function( ){
 
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return all( xx < 5.0 ) ;
-	
-	', plugin = "Rcpp" )
+	fx <- .rcpp.sugar$runit_all_one_less
 	
 	checkTrue( fx( 1 ) )
 	checkTrue( ! fx( 1:10 ) )
@@ -51,12 +506,7 @@ test.sugar.all.one.less <- function( ){
 
 test.sugar.all.one.greater <- function( ){
 
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	    NumericVector xx(x) ;
-		return all( xx > 5.0 ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_one_greater
 	checkTrue( ! fx( 1 ) )
 	checkTrue( ! fx( 1:10 ) )
 	checkTrue( fx( 6:10 ) )
@@ -67,12 +517,7 @@ test.sugar.all.one.greater <- function( ){
 
 test.sugar.all.one.less.or.equal <- function( ){
 
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return all( xx <= 5.0 ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_one_less_or_equal
 	checkTrue( fx( 1 ) )
 	checkTrue( ! fx( 1:10 ) )
 	checkTrue( is.na( fx( NA ) ) )
@@ -83,13 +528,7 @@ test.sugar.all.one.less.or.equal <- function( ){
 }
 
 test.sugar.all.one.greater.or.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	    NumericVector xx(x) ;
-		return all( xx >= 5.0 ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_one_greater_or_equal
 	checkTrue( ! fx( 1 ) )
 	checkTrue( ! fx( 1:10 ) )
 	checkTrue( fx( 6:10 ) )
@@ -101,12 +540,7 @@ test.sugar.all.one.greater.or.equal <- function( ){
 
 test.sugar.all.one.equal <- function( ){
 
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	   	NumericVector xx(x) ;
-		return all( xx == 5.0 ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_one_equal
 	checkTrue( ! fx( 1 ) )
 	checkTrue( ! fx( 1:2 ) )
 	checkTrue( fx( rep(5,4) ) )
@@ -117,127 +551,61 @@ test.sugar.all.one.equal <- function( ){
 
 test.sugar.all.one.not.equal <- function( ){
 
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return all( xx != 5.0 ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_not_equal_one
 	checkTrue( fx( 1 ) )
 	checkTrue( fx( 1:2 ) )
 	checkTrue( ! fx( 5 ) )
 	checkTrue( is.na( fx( c(NA, 1) ) ) )
 	checkTrue( ! fx( c(NA, 5) ) )
-	
 }
 
 
 test.sugar.all.less <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return all( xx < yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_less
 	checkTrue( ! fx( 1, 0 ) )
 	checkTrue( fx( 1:10, 2:11 ) )
 	checkTrue( fx( 0, 1 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.all.greater <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return all( xx > yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_greater
 	checkTrue( fx( 1, 0 ) )
 	checkTrue( fx( 2:11, 1:10 ) )
 	checkTrue( ! fx( 0, 1 ) )
 	checkTrue( ! fx( 0:9, c(0:8,10) ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.all.less.or.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return all( xx <= yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_less_or_equal
 	checkTrue( fx( 1, 1 ) )
 	checkTrue( ! fx( 1:2, c(1,1) ) )
 	checkTrue( fx( 0, 1 ) )
 	checkTrue( ! fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.all.greater.or.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return all( xx >= yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_greater_or_equal
 	checkTrue( fx( 1, 1 ) )
 	checkTrue( fx( 1:2, c(1,1) ) )
 	checkTrue( ! fx( 0, 1 ) )
 	checkTrue( fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
-
 test.sugar.all.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return all( xx == yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_equal
 	checkTrue( fx( 1, 1 ) )
 	checkTrue( ! fx( 1:2, c(1,1) ) )
 	checkTrue( ! fx( 0, 1 ) )
 	checkTrue( ! fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.all.not.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return all( xx != yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_all_not_equal
 	checkTrue( ! fx( 1, 1 ) )
 	checkTrue( ! fx( 1:2, c(1,1) ) )
 	checkTrue( fx( 0, 1 ) )
@@ -246,54 +614,25 @@ test.sugar.all.not.equal <- function( ){
 	
 }
 
-
 test.sugar.any.less <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return any( xx < yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_less
 	checkTrue( ! fx( 1, 0 ) )
 	checkTrue( fx( 1:10, 2:11 ) )
 	checkTrue( fx( 0, 1 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.any.greater <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return any( xx > yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_greater
 	checkTrue( fx( 1, 0 ) )
 	checkTrue( fx( 2:11, 1:10 ) )
 	checkTrue( ! fx( 0, 1 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.any.less.or.equal <- function( ){
 
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return any( xx <= yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_less_or_equal
 	checkTrue( fx( 1, 1 ) )
 	checkTrue( fx( 1:2, c(1,1) ) )
 	checkTrue( fx( 0, 1 ) )
@@ -303,176 +642,78 @@ test.sugar.any.less.or.equal <- function( ){
 }
 
 test.sugar.any.greater.or.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return any( xx >= yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_greater_or_equal
 	checkTrue( fx( 1, 1 ) )
 	checkTrue( fx( 1:2, c(1,1) ) )
 	checkTrue( ! fx( 0, 1 ) )
 	checkTrue( fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 
 test.sugar.any.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return any( xx == yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_equal
 	checkTrue( fx( 1, 1 ) )
 	checkTrue( fx( 1:2, c(1,1) ) )
 	checkTrue( ! fx( 0, 1 ) )
 	checkTrue( ! fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.any.not.equal <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return any( xx != yy ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_not_equal
 	checkTrue( ! fx( 1, 1 ) )
 	checkTrue( fx( 1:2, c(1,1) ) )
 	checkTrue( fx( 0, 1 ) )
 	checkTrue( fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 test.sugar.constructor <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		LogicalVector res( xx < yy ) ;
-		return res ;
-		
-	', plugin = "Rcpp" )
-
-
+	fx <- .rcpp.sugar$runit_constructor
 	checkEquals( fx( 1, 0 ), FALSE )
 	checkEquals( fx( 1:10, 2:11 ), rep(TRUE,10) )
 	checkEquals( fx( 0, 1 ), TRUE )
 	checkTrue( identical( fx( NA, 1 ), NA ) )
-	
 }
 
 test.sugar.assignment <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		LogicalVector res; 
-		res = xx < yy ;
-		return res ;
-		
-	', plugin = "Rcpp" )
-
-
+	fx <- .rcpp.sugar$runit_assignment
 	checkEquals( fx( 1, 0 ), FALSE )
 	checkEquals( fx( 1:10, 2:11 ), rep(TRUE,10) )
 	checkEquals( fx( 0, 1 ), TRUE )
 	checkTrue( identical( fx( NA, 1 ), NA ) )
-	
 }
 
-
 test.sugar.diff <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector res = diff( xx );
-		
-		return res ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_diff
 	x <- rnorm( 100 )
 	checkEquals( fx(x) , diff(x) )
 }
 
-
 test.sugar.exp <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
-	
-		NumericVector xx(x) ;
-		IntegerVector yy(y) ;
-		
-		return List::create( exp(xx), exp(yy) ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_exp
 	x <- rnorm(10)
 	y <- -10:10
 	checkEquals( fx(x,y) , list( exp(x), exp(y) ) )
 }
 
 test.sugar.floor <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
-	
-		NumericVector xx(x) ;
-		IntegerVector yy(y) ;
-		
-		return List::create( floor(xx), floor(yy) ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_floor
 	x <- rnorm(10)
 	y <- -10:10
 	checkEquals( fx(x,y) , list( floor(x), floor(y) ) )
 }
 
 test.sugar.ceil <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
-	
-		NumericVector xx(x) ;
-		IntegerVector yy(y) ;
-		
-		return List::create( ceil(xx), ceil(yy) ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_ceil
 	x <- rnorm(10)
 	y <- -10:10
 	checkEquals( fx(x,y) , list( ceiling(x), ceiling(y) ) )
 }
 
 test.sugar.pow <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
-	
-		NumericVector xx(x) ;
-		IntegerVector yy(y) ;
-		
-		return List::create( pow(xx, 3), pow(yy, 2.3) ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_pow
 	x <- rnorm(10)
 	y <- -10:10
 	checkEquals( fx(x,y) , list( x^3L , y^2.3 ) )
@@ -480,165 +721,70 @@ test.sugar.pow <- function( ){
 
 
 test.sugar.ifelse <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		NumericVector res = ifelse( xx < yy, xx*xx, -(yy*yy) ) ;
-		return res ;
-	', plugin = "Rcpp" )
-
+	fx <- .rcpp.sugar$runit_ifelse
 	x <- 1:10
 	y <- 10:1
 	checkEquals( fx( x, y), ifelse( x<y, x*x, -(y*y) ) )
-	
 }
 
 
 test.sugar.isna <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return wrap( is_na( xx ) ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_isna
 	checkEquals( fx( 1:10) , rep(FALSE,10) )
 }
 
 test.sugar.isna.isna <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return wrap( is_na( is_na( xx ) ) ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_isna_isna
 	checkEquals( fx( c(1:5,NA,7:10) ) , rep(FALSE,10) )
 }
 
 test.sugar.any.isna <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return any( is_na( xx ) ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_isna
 	checkEquals( fx( c(1:5,NA,7:10) ) , TRUE )
 }
 
-
 test.sugar.lapply <- function( ){
-
-	fx <- cxxfunction( signature( x = "integer" ), '
-		IntegerVector xx(x) ;
-		List res = lapply( xx, seq_len );
-		return res ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_lapply
 	checkEquals( fx( 1:10 ), lapply( 1:10, seq_len ) )
 }
 
-
 test.sugar.minus <- function( ){
-
-	fx <- cxxfunction( signature( x = "integer" ), '
-		IntegerVector xx(x) ;
-		return List::create(
-			xx - 10, 
-			10 - xx, 
-			xx - xx
-			) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_minus
 	checkEquals( fx(1:10) , list( (1:10)-10L, 10L-(1:10), rep(0L,10) )  )
 }
 
-
 test.sugar.any.equal.not <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		
-		return any( !( xx == yy) ) ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_any_equal_not
 	checkTrue( ! fx( 1, 1 ) )
 	checkTrue( fx( 1:2, c(1,1) ) )
 	checkTrue( fx( 0, 1 ) )
 	checkTrue( fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
-	
 }
 
 
 test.sugar.plus <- function( ){
-
-	fx <- cxxfunction( signature( x = "integer" ), '
-		IntegerVector xx(x) ;
-		return List::create(
-			xx + 10, 
-			10 + xx, 
-			xx + xx, 
-			xx + xx + xx
-			) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_plus
 	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
 }
 
 test.sugar.plus.seqlen <- function( ){
-
-	fx <- cxxfunction( signature(), '
-		return List::create(
-			seq_len(10) + 10, 
-			10 + seq_len(10),
-			seq_len(10) + seq_len(10)
-			) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_plus_seqlen
 	checkEquals( fx() , list( 11:20,11:20, 1:10+1:10)  )
 }
 
 test.sugar.plus.all <- function( ){
-
-	fx <- cxxfunction( signature( x = "integer" ), '
-		IntegerVector xx(x) ;
-		return all( (xx+xx) < 10 ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_plus_all
 	checkEquals( fx(1:10) , FALSE )
 }
 
-
 test.sugar.pmin <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		NumericVector res = pmin( xx, yy );
-		return res ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_pmin
 	checkEquals( fx(1:10, 10:1) , c(1:5,5:1) )
 }
 
 test.sugar.pmin.one <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return List::create( 
-			pmin( xx, 5), 
-			pmin( 5, xx)
-			) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_pmin_one
 	checkEquals( fx(1:10) , 
 		list( 
 			c(1:5,rep(5,5)), 
@@ -647,32 +793,13 @@ test.sugar.pmin.one <- function( ){
 	)
 }
 
-
-
 test.sugar.pmax <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		NumericVector res = pmax( xx, yy );
-		return res ;
-	
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_pmax
 	checkEquals( fx(1:10, 10:1) , c(10:6,6:10) )
 }
 
 test.sugar.pmax.one <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return List::create( 
-			pmax( xx, 5), 
-			pmax( 5, xx)
-			) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_pmax_one
 	checkEquals( fx(1:10) , 
 		list( 
 			c(rep(5,5), 6:10), 
@@ -681,134 +808,44 @@ test.sugar.pmax.one <- function( ){
 	) 
 }
 
-
 test.sugar.Range <- function( ){
-
-	fx <- cxxfunction( signature(  ), '
-	
-		NumericVector xx(8) ;
-		xx[ Range(0,3) ] = exp( seq_len(4) ) ;
-		xx[ Range(4,7) ] = exp( - seq_len(4) ) ;
-		return xx ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_Range
 	checkEquals( fx() , c( exp(seq_len(4)), exp(-seq_len(4))  ) )
 }
 
 
 test.sugar.sapply <- function( ){
-
-	inc <- '
-	template <typename T>
-	class square : public std::unary_function<T,T> {
-	public:
-		T operator()( T t) const { return t*t ; }
-	} ;
-	'
-	
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector res = sapply( xx, square<double>() );
-		
-		return res ;
-	
-	', include = inc, plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_sapply
 	checkEquals( fx(1:10) , (1:10)^2 )
 }
 
 test.sugar.sapply.rawfun <- function( ){
-
-	inc <- '
-	double square( double x){ return x*x; }
-	'
-	
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector res = sapply( xx, square );
-		
-		return res ;
-	
-	', include = inc, plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_sapply_raw
 	checkEquals( fx(1:10) , (1:10)^2 )
 }
 
 test.sugar.sapply.square <- function( ){
-
-	inc <- '
-	template <typename T>
-	class square : public std::unary_function<T,T> {
-	public:
-		T operator()( T t) const { return t*t ; }
-	} ;
-	'
-	
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		return all( sapply( xx * xx , square<double>() ) < 10.0 );
-	
-	', include = inc, plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_sapply_square
 	checkTrue( ! fx(1:10)  )
 }
 
 test.sugar.sapply.list <- function( ){
-
-	fx <- cxxfunction( signature( x = "integer" ), '
-		IntegerVector xx(x) ;
-		List res = sapply( xx, seq_len );
-		return res ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_sapply_list
 	checkEquals( fx(1:10), lapply( 1:10, seq_len ) )
 }
 
-
-
 test.sugar.seqlaong <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-	
-		NumericVector xx(x) ;
-		IntegerVector res = seq_along( xx );
-		
-		return res ;
-	
-	', plugin = "Rcpp" )
-	
-	
+	fx <- .rcpp.sugar$runit_seqalong
 	checkEquals( fx( rnorm(10)) , 1:10  )
 }
 
 test.sugar.seqlen <- function( ){
-
-	fx <- cxxfunction( signature( ), '
-		IntegerVector res = seq_len( 10 );
-		return res ;
-	', plugin = "Rcpp" )
-	
-	
+	fx <- .rcpp.sugar$runit_seqlen
 	checkEquals( fx() , 1:10  )
 }
 
-
 test.sugar.sign <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "integer" ), '
-	
-		NumericVector xx(x) ;
-		IntegerVector yy(y) ;
-		
-		return List::create(
-			sign( xx ), 
-			sign( yy )
-			) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_sign
 	checkEquals( 
 		fx( seq(-10, 10, length.out = 51), -25:25 ), 
 		list( 
@@ -820,24 +857,7 @@ test.sugar.sign <- function( ){
 
 
 test.sugar.times <- function( ){
-
-	fx <- cxxfunction( signature( x = "integer" ), '
-		IntegerVector xx(x) ; 
-		IntegerVector yy = clone<IntegerVector>( xx ) ;
-		yy[0] = NA_INTEGER ;
-		
-		return List::create(
-            xx * 10, 
-            10 * xx, 
-            xx * xx, 
-            xx * xx * xx, 
-            xx * yy, 
-            yy * 10, 
-            10 * yy, 
-            NA_INTEGER * xx
-        ) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_times
 	checkEquals( fx(1:10) , 
 		list( 
 			10L*(1:10),
@@ -853,16 +873,7 @@ test.sugar.times <- function( ){
 }
                          
 test.sugar.divides <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		return List::create(
-			xx / 10, 
-			10 / xx, 
-			xx / xx
-			) ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_divides
 	checkEquals( fx(1:10) , 
 		list( 
 			1:10/10,
@@ -874,32 +885,14 @@ test.sugar.divides <- function( ){
 
 
 test.sugar.unary.minus <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric" ), '
-		NumericVector xx(x) ;
-		NumericVector yy = - xx ;
-		return yy ;
-	', plugin = "Rcpp" )
-	
+	fx <- .rcpp.sugar$runit_unary_minus
 	checkEquals( fx( seq(0,5,by=10) ), - seq(0,5,by=10) )
 	checkTrue( identical( fx( c(0,NA,2) ), c(0,NA,-2) ) )
-	
 }
 
 
 test.sugar.wrap <- function( ){
-
-	fx <- cxxfunction( signature( x = "numeric", y = "numeric", env = "environment" ), '
-	
-		NumericVector xx(x) ;
-		NumericVector yy(y) ;
-		Environment e(env) ;
-		
-		e["foo"] = xx < yy  ;
-		return R_NilValue ;
-		
-	', plugin = "Rcpp" )
-
+	fx <- .rcpp.sugar$runit_wrap
 	e <- new.env() 
 	fx( 1:10, 2:11, e )
 	checkEquals( e[["foo"]], rep(TRUE, 10 ) )
