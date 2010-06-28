@@ -463,6 +463,18 @@
 					e["foo"] = xx < yy  ;
 					return R_NilValue ;
 				'
+			), 
+			"runit_complex" = list( 
+				signature(x = "complex" ), 
+				'
+					ComplexVector cx( x );
+					return List::create( 
+						_["Re"] = Re( cx ), 
+						_["Im"] = Im( cx ), 
+						_["Conj"] = Conj( cx ), 
+						_["Mod"] = Mod( cx )
+						) ;
+				'
 			)
 			
 		)
@@ -896,6 +908,17 @@ test.sugar.wrap <- function( ){
 	e <- new.env() 
 	fx( 1:10, 2:11, e )
 	checkEquals( e[["foo"]], rep(TRUE, 10 ) )
-	
 }
 
+
+test.sugar.complex <- function( ){
+	x <- rnorm(10) + 1i*rnorm(10)
+	fx <- .rcpp.sugar$runit_complex
+	checkEquals( fx(x), list( 
+		Re = Re( x ), 
+		Im = Im( x ), 
+		Conj = Conj(x), 
+		Mod = Mod(x)
+		)
+	)
+}
