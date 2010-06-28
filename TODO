@@ -50,9 +50,7 @@ Syntactic sugar
     o	operator% 
     
     o	operator/ needs to handle the case of division by 0
-    
-    o   for complex vectors: Re, Im, Mod, Arg, Conj
-    
+
     o   min, max with specialization of the binary operators, so that we can do 
         things like this lazily: 
         
