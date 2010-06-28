@@ -1,3 +1,12 @@
+
+2010-06-28  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/Im.h:
+	* inst/include/Rcpp/sugar/Re.h:
+	* inst/include/Rcpp/sugar/Conj.h:
+	* inst/include/Rcpp/sugar/Mod.h: added sugar functions for
+	complex vectors: Re, Im, Conj, Mod
+
 2010-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.3
