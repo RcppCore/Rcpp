@@ -13,12 +13,7 @@ Documentation
 
 API
 
-    o   Rcpp::Date and Rcpp::DateVector [done 2010-06-23]
-        
-    o   Rcpp::DateTime and Rcpp::DateTimeVector
-
     o   Rcpp::Factor and Rcpp::Ordered
-
 
 Modules 
 
