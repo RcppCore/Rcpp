@@ -1,14 +1,13 @@
 Package: Rcpp
-Title: Rcpp R/C++ interface package
+Title: Seamless R and C++ Integration
 Version: 0.8.3.1
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Simon Urbanek, David Reiss and Douglas Bates; based on code written during 
  2005 and 2006 by Dominick Samperi 
 Maintainer: Dirk Eddelbuettel and Romain Francois <RomainAndDirk@r-enthusiasts.com>
-Description: Seamless R and C++ integration
- The Rcpp package contains a C++ library that facilitates the integration of
- R and C++ in various ways.
+Description: The Rcpp package provides a C++ library and template classes
+ which facilitates the integration of R and C++.
  .
  R data types (SEXP) are matched to C++ objects in a class hierarchy.  All R
  types are supported (vectors, functions, environment, etc ...)  and each
