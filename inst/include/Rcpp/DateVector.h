@@ -36,11 +36,11 @@ namespace Rcpp {
 		DateVector(int n);
 		~DateVector() {};
 
-		const Date& operator()(unsigned int i) const throw(std::range_error);
-		Date& operator()(unsigned int i) throw(std::range_error);
+		const Date& operator()(int i) const throw(std::range_error);
+		Date& operator()(int i) throw(std::range_error);
 
-		const Date& operator[](unsigned int i) const;
-		Date& operator[](unsigned int i);
+		const Date& operator[](int i) const throw(std::range_error);
+		Date& operator[](int i) throw(std::range_error);
 
 		int size() const;
 

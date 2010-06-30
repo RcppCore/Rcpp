@@ -39,8 +39,8 @@ namespace Rcpp {
 
 	DatetimeVector::DatetimeVector(int n) : v(n) {}
 
-	const Datetime & DatetimeVector::operator()(unsigned int i) const throw(std::range_error) {
-		if (i >= v.size()) {
+	const Datetime & DatetimeVector::operator()(int i) const throw(std::range_error) {
+		if (i < 0 || i >= static_cast<int>(v.size())) {
 			std::ostringstream oss;
 			oss << "DatetimeVector: subscript out of range: " << i;
 			throw std::range_error(oss.str());
@@ -48,8 +48,8 @@ namespace Rcpp {
 		return v[i];
 	}
 
-	Datetime & DatetimeVector::operator()(unsigned int i) throw(std::range_error) {
-		if (i >= v.size()) {
+	Datetime & DatetimeVector::operator()(int i) throw(std::range_error) {
+		if (i < 0 || i >= static_cast<int>(v.size())) {
 			std::ostringstream oss;
 			oss << "DatetimeVector: subscript out of range: " << i;
 			throw std::range_error(oss.str());
@@ -57,11 +57,21 @@ namespace Rcpp {
 		return v[i];
 	}
 
-	const Datetime & DatetimeVector::operator[](unsigned int i) const {
+	const Datetime & DatetimeVector::operator[](int i) const throw(std::range_error) {
+		if (i < 0 || i >= static_cast<int>(v.size())) {
+			std::ostringstream oss;
+			oss << "DatetimeVector: subscript out of range: " << i;
+			throw std::range_error(oss.str());
+		}
 		return v[i];
 	}
 
-	Datetime & DatetimeVector::operator[](unsigned int i) {
+	Datetime & DatetimeVector::operator[](int i) throw(std::range_error) {
+		if (i < 0 || i >= static_cast<int>(v.size())) {
+			std::ostringstream oss;
+			oss << "DatetimeVector: subscript out of range: " << i;
+			throw std::range_error(oss.str());
+		}
 		return v[i];
 	}
 
