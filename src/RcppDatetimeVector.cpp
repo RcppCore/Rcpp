@@ -34,8 +34,8 @@ RcppDatetimeVector::RcppDatetimeVector(SEXP vec) {
 	v[i] = RcppDatetime(REAL(vec)[i]);
 }
 
-const RcppDatetime & RcppDatetimeVector::operator()(unsigned int i) const {
-    if (i >= v.size()) {
+const RcppDatetime & RcppDatetimeVector::operator()(int i) const {
+    if (i < 0 || i >= static_cast<int>(v.size())) {
 	std::ostringstream oss;
 	oss << "RcppDatetimeVector: subscript out of range: " << i;
 	throw std::range_error(oss.str());
@@ -43,8 +43,8 @@ const RcppDatetime & RcppDatetimeVector::operator()(unsigned int i) const {
     return v[i];
 }
 
-RcppDatetime & RcppDatetimeVector::operator()(unsigned int i) {
-    if (i >= v.size()) {
+RcppDatetime & RcppDatetimeVector::operator()(int i) {
+    if (i < 0 || i >= static_cast<int>(v.size())) {
 	std::ostringstream oss;
 	oss << "RcppDatetimeVector: subscript out of range: " << i;
 	throw std::range_error(oss.str());

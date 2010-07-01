@@ -31,8 +31,8 @@ public:
     RcppDatetimeVector(SEXP vec);
     RcppDatetimeVector(int n);
     ~RcppDatetimeVector() {};
-    const RcppDatetime &operator()(unsigned int i) const;
-    RcppDatetime &operator()(unsigned int i);
+    const RcppDatetime &operator()(int i) const;
+    RcppDatetime &operator()(int i);
     int size() const;
 private:
     std::vector<RcppDatetime> v;
