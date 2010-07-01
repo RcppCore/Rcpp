@@ -39,8 +39,8 @@ RcppDateVector::RcppDateVector(int n) {
     v.resize(n);
 }
 
-const RcppDate& RcppDateVector::operator()(unsigned int i) const {
-    if (i >= v.size()) {
+const RcppDate& RcppDateVector::operator()(int i) const {
+    if (i < 0 || i >= static_cast<int>(v.size())) {
 	std::ostringstream oss;
 	oss << "RcppDateVector: subscript out of range: " << i;
 	throw std::range_error(oss.str());
@@ -48,8 +48,8 @@ const RcppDate& RcppDateVector::operator()(unsigned int i) const {
     return v[i];
 }
 
-RcppDate& RcppDateVector::operator()(unsigned int i) {
-    if (i >= v.size()) {
+RcppDate& RcppDateVector::operator()(int i) {
+    if (i < 0 || i >= static_cast<int>(v.size())) {
 	std::ostringstream oss;
 	oss << "RcppDateVector: subscript out of range: " << i;
 	throw std::range_error(oss.str());
