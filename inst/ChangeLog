@@ -1,3 +1,12 @@
+2010-07-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/RcppDateVector: Index argument is int here as well
+	* src/RcppDatetimeVector: Idem
+	* inst/include/classic/RcppDateVector.h: Idem
+	* inst/include/classic/RcppDatetimeVector.h: Idem
+
+	* inst/unitTests/runit.List.R: Added simple test for RcppList
+
 2010-06-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/DateVector: Index argument is int; throw declared
