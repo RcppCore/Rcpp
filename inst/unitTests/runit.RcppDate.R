@@ -17,37 +17,60 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.setUp <- function() {
+    if( ! exists( ".rcpp.RcppDate", globalenv() )) {
+        ## definition of all the functions at once
+
+        functions <- list("get_functions"=list(
+                          signature(),
+                          'RcppDate dt = RcppDate(12,31,1999);
+                           RcppResultSet rs;
+                           rs.add("month", dt.getMonth());
+                           rs.add("day",   dt.getDay());
+                           rs.add("year",  dt.getYear());
+                           rs.add("julian",dt.getJulian());
+                           return rs.getReturnList();'),
+
+                          "operators"=list(
+                          signature(),
+                          'RcppDate d1 = RcppDate(12,31,1999);
+                           RcppDate d2 = d1 + 1;
+                           RcppResultSet rs;
+                           rs.add("diff",    d2 - d1);
+                           rs.add("bigger",  d2 > d1);
+                           rs.add("smaller", d2 < d1);
+                           rs.add("equal",   d2 == d1);
+                           rs.add("ge",      d2 >= d1);
+                           rs.add("le",      d2 <= d1);
+                           return rs.getReturnList();'),
+
+                          "wrap"=list(
+                          signature(),
+                          'RcppDate dt = RcppDate(12,31,1999);
+                           return wrap(dt);')
+
+                          )
+
+        signatures <- lapply(functions, "[[", 1L)
+        bodies <- lapply(functions, "[[", 2L)
+        fun <- cxxfunction( signatures, bodies, plugin = "Rcpp")
+        getDynLib( fun ) # just forcing loading the dll now
+        assign( ".rcpp.RcppDate", fun, globalenv() )
+    }
+}
+
 test.RcppDate.get.functions <- function() {
-    src <- 'RcppDate dt = RcppDate(12,31,1999);
-            RcppResultSet rs;
-            rs.add("month", dt.getMonth());
-            rs.add("day",   dt.getDay());
-            rs.add("year",  dt.getYear());
-            rs.add("julian",dt.getJulian());
-	    return rs.getReturnList();';
-    funx <- cppfunction(signature(), src)
-    checkEquals(funx(), list(month=12, day=31, year=1999, julian=10956), msg = "RcppDate.get.functions")
+    fun <- .rcpp.RcppDate$get_functions
+    checkEquals(fun(), list(month=12, day=31, year=1999, julian=10956), msg = "RcppDate.get.functions")
 }
 
 test.RcppDate.operators <- function() {
-    src <- 'RcppDate d1 = RcppDate(12,31,1999);
-            RcppDate d2 = d1 + 1;
-            RcppResultSet rs;
-            rs.add("diff",    d2 - d1);
-            rs.add("bigger",  d2 > d1);
-            rs.add("smaller", d2 < d1);
-            rs.add("equal",   d2 == d1);
-            rs.add("ge",      d2 >= d1);
-            rs.add("le",      d2 <= d1);
-	    return rs.getReturnList();';
-    funx <- cppfunction(signature(), src)
-    checkEquals(funx(), list(diff=1, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE), msg = "RcppDate.operators")
+    fun <- .rcpp.RcppDate$operators
+    checkEquals(fun(), list(diff=1, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE), msg = "RcppDate.operators")
 }
 
 test.RcppDate.wrap <- function() {
-    src <- 'RcppDate dt = RcppDate(12,31,1999);
-	    return wrap(dt);';
-    funx <- cppfunction(signature(), src)
-    checkEquals(funx(), as.Date("1999-12-31"), msg = "RcppDate.wrap")
+    fun <- .rcpp.RcppDate$wrap
+    checkEquals(fun(), as.Date("1999-12-31"), msg = "RcppDate.wrap")
 }
 
