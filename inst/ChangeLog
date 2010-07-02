@@ -1,3 +1,10 @@
+2010-07-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/RcppStringVector: Now uses std::vector<std::string>
+	* inst/include/classic/RcppStringVector.h: Idem
+
+	* inst/unitTests/runit.List.R: Added simple test for RcppStringVector
+
 2010-07-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppDateVector: Index argument is int here as well
