@@ -37,7 +37,7 @@ test.RcppStringVector.wrap <- function() {
 
 test.RcppStringVector.begin <- function() {
     src <- 'RcppStringVector s = RcppStringVector(sx);
-            return wrap(*s.begin())';
+            return wrap(*s.begin());';
     fun <- cxxfunction(signature(sx="character"), src, plugin="Rcpp")
     sv <- c("tic", "tac", "toe")
     checkEquals(fun(sv), sv[1], msg = "RcppStringVector.begin")
