@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
 // RcppStringVector.h: Rcpp R/C++ interface class library -- string vector support
 //
@@ -32,19 +32,19 @@ public:
 	typedef const std::string* const_iterator ;
 	
     RcppStringVector(SEXP vec);
-    ~RcppStringVector();
-    std::string& operator()(int i) const;
+    ~RcppStringVector() {};
+    const std::string& operator()(int i) const;
+    std::string& operator()(int i);
     int size() const;
     std::vector<std::string> stlVector() const;
     
-    inline const_iterator begin() const { return v ; }
-    inline const_iterator end() const { return v + length ; }
-    inline iterator begin() { return v ; }
-    inline iterator end() { return v + length ; }
+    inline const_iterator begin() const { return &(v[0]); }
+    inline const_iterator end() const { return &(v[v.size()]); }
+    inline iterator begin() { return &(v[0]); }
+    inline iterator end() { return &(v[v.size()]); }
     
 private:
-    std::string *v;
-    int length;
+	std::vector<std::string> v;
 };
 
 #endif
