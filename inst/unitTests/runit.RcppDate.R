@@ -20,7 +20,6 @@
 .setUp <- function() {
     if( ! exists( ".rcpp.RcppDate", globalenv() )) {
         ## definition of all the functions at once
-
         functions <- list("get_functions"=list(
                           signature(),
                           'RcppDate dt = RcppDate(12,31,1999);
