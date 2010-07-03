@@ -25,186 +25,186 @@
                   'double y = 1.23456;
                    RcppResultSet rs;
                    rs.add("foo", y);
-	               return rs.getReturnList();'),
+	           return rs.getReturnList();'),
 
                   "int_"=list(
                   signature(),
                   'int y = 42;
                    RcppResultSet rs;
                    rs.add("foo", y);
-	               return rs.getReturnList();'),
+	           return rs.getReturnList();'),
 
                   "string_"=list(
                   signature(),
                   'std::string y = "hello unit tests";
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "double_vector"=list(
                   signature(),
                   'double y[3] = { 1.1, 2.2, 3.3 };
-                  RcppResultSet rs;
-                  rs.add("foo", y, 3);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y, 3);
+	           return rs.getReturnList();'),
 
                   "int_vector"=list(
                   signature(),
                   'int y[3] = { 11, 22, 33 };
-                  RcppResultSet rs;
-                  rs.add("foo", y, 3);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y, 3);
+	           return rs.getReturnList();'),
 
                   "double_matrix"=list(
                   signature(),
                   'double r1[2] = { 1.1, 2.2 };
-                  double r2[2] = { 3.3, 4.4 };
-                  double *y[2] = { r1, r2 };
-                  RcppResultSet rs;
-                  rs.add("foo", y, 2, 2);
-	              return rs.getReturnList();'),
+                   double r2[2] = { 3.3, 4.4 };
+                   double *y[2] = { r1, r2 };
+                   RcppResultSet rs;
+                   rs.add("foo", y, 2, 2);
+	           return rs.getReturnList();'),
 
                   "int_matrix"=list(
                   signature(),
                   'int r1[2] = { 11, 22 };
-                  int r2[2] = { 33, 44 };
-                  int *y[2] = { r1, r2 };
-                  RcppResultSet rs;
-                  rs.add("foo", y, 2, 2);
-	              return rs.getReturnList();'),
+                   int r2[2] = { 33, 44 };
+                   int *y[2] = { r1, r2 };
+                   RcppResultSet rs;
+                   rs.add("foo", y, 2, 2);
+	           return rs.getReturnList();'),
 
                   "RcppDate_"=list(
                   signature(),
                   'RcppDate y(01,01,2000); // silly North American mon-day-year
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "RcppDateVector_"=list(
                   signature(x="any"),
                   'RcppDateVector y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "RcppDatetime_"=list(
                   signature(x="any"),
                   'RcppDatetime y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-  	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+  	           return rs.getReturnList();'),
 
                   "RcppDatetimeVector_"=list(
                   signature(x="POSIXct"),
                   'RcppDatetimeVector y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "RcppStringVector_"=list(
                   signature(x="character"),
                   'RcppStringVector y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "std_vector_double"=list(
                   signature(),
                   'std::vector<double> y;
-                  y.push_back(1.1);
-                  y.push_back(2.2);
-                  y.push_back(3.3);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   y.push_back(1.1);
+                   y.push_back(2.2);
+                   y.push_back(3.3);
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "std_vector_int"=list(
                   signature(),
                   'std::vector<int> y;
-                  y.push_back(11);
-                  y.push_back(22);
-                  y.push_back(33);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   y.push_back(11);
+                   y.push_back(22);
+                   y.push_back(33);
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "std_vector_std_vector_double"=list(
                   signature(),
                   'std::vector<double> yy;
-                  yy.push_back(1.1);
-                  yy.push_back(2.2);
-                  yy.push_back(3.3);
-                  std::vector< std::vector<double> > y;
-                  y.push_back(yy);
-                  y.push_back(yy);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   yy.push_back(1.1);
+                   yy.push_back(2.2);
+                   yy.push_back(3.3);
+                   std::vector< std::vector<double> > y;
+                   y.push_back(yy);
+                   y.push_back(yy);
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "std_vector_std_vector_int"=list(
                   signature(),
                   'std::vector<int> yy;
-                  yy.push_back(11);
-                  yy.push_back(22);
-                  yy.push_back(33);
-                  std::vector< std::vector<int> > y;
-                  y.push_back(yy);
-                  y.push_back(yy);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   yy.push_back(11);
+                   yy.push_back(22);
+                   yy.push_back(33);
+                   std::vector< std::vector<int> > y;
+                   y.push_back(yy);
+                   y.push_back(yy);
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "std_vector_std_vector_string"=list(
                   signature(),
                   'std::string a("hello");
-                  std::string b("goodbye");
-                  std::vector< std::string > y;
-                  y.push_back(a);
-                  y.push_back(b);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-        	      return rs.getReturnList();'),
+                   std::string b("goodbye");
+                   std::vector< std::string > y;
+                   y.push_back(a);
+                   y.push_back(b);
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+        	   return rs.getReturnList();'),
 
                   "RcppVector_int"=list(
                   signature(x="integer"),
                   'RcppVector<int> y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "RcppVector_double"=list(
                   signature(x="double"),
                   'RcppVector<double> y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "RcppMatrix_int"=list(
                   signature(x="integer"),
                   'RcppMatrix<int> y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "RcppMatrix_double"=list(
                   signature(x="double"),
                   'RcppMatrix<double> y(x);
-                  RcppResultSet rs;
-                  rs.add("foo", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("foo", y);
+	           return rs.getReturnList();'),
 
                   "RcppFrame_"=list(
                   signature(x="any"),
                   'RcppFrame y(x);
-                  RcppResultSet rs;
-                  rs.add("", y);
-	              return rs.getReturnList();'),
+                   RcppResultSet rs;
+                   rs.add("", y);
+	           return rs.getReturnList();'),
 
                   "SEXP_"=list(
                   signature(x="any"),
                   'RcppResultSet rs;
-                  rs.add("", x, false);
-	              return rs.getReturnList();')
+                   rs.add("", x, false);
+	           return rs.getReturnList();')
 
                   )
 
