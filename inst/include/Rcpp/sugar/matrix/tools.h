@@ -1,9 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// result_of.h: Rcpp R/C++ interface class library -- traits to help wrap
+// matrix_functions.h: Rcpp R/C++ interface class library -- matrix sugar functions
 //
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -20,29 +19,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits__result_of__h
-#define Rcpp__traits__result_of__h
+#ifndef RCPP_SUGAR_MATRIX_TOOLS_H
+#define RCPP_SUGAR_MATRIX_TOOLS_H
 
 namespace Rcpp{
-namespace traits{
+namespace internal{
 
-template <typename T>
-struct result_of{
-	typedef typename T::result_type type ;
-} ;
+	inline int get_line( int index, int nr ){
+		return index % nr ;
+	}
 
-template <typename RESULT_TYPE, typename INPUT_TYPE>
-struct result_of< RESULT_TYPE (*)(INPUT_TYPE) >{
-	typedef RESULT_TYPE type ;
-} ;
-
-template <typename RESULT_TYPE, typename U1, typename U2>
-struct result_of< RESULT_TYPE (*)(U1, U2) >{
-	typedef RESULT_TYPE type ;
-} ;
+	inline int get_column( int index, int nr ){
+		int i = get_line( index, nr ); 
+		return (index-i) / nr ;
+	}
+	
+	inline int get_column( int index, int nr, int i ){
+		return (index-i) / nr ;
+	}
 
 }
-}     
+}
 
 #endif
-

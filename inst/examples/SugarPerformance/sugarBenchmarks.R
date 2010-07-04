@@ -193,7 +193,7 @@ results <- data.frame(
 
 results[[ "hand/sugar" ]] <- results[["hand.written" ]] / results[["sugar"]] 
 results[[ "R/sugar" ]]    <- results[["R" ]]            / results[["sugar"]] 
-results <- results[ order( results[["expr"]], results[["runs"]] ), ]
+# results <- results[ order( results[["expr"]], results[["runs"]] ), ]
 
 options( width = 300 )
 print( results )

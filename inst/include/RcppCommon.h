@@ -266,6 +266,7 @@ RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP );
 #include <Rcpp/algo.h>
 
 #include <Rcpp/vector/VectorBase.h>
+#include <Rcpp/vector/MatrixBase.h>
 
 #include <Rcpp/sugar/sugar_forward.h>
 

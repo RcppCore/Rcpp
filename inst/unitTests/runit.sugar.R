@@ -475,7 +475,19 @@
 						_["Mod"] = Mod( cx )
 						) ;
 				'
-			)
+			), 
+			"runit_rep" = list( 
+				signature( x = "integer" ),
+				'
+				IntegerVector xx(x);
+				List res = List::create( 
+					_["rep"]      = rep( xx, 3 ), 
+					_["rep_each"] = rep_each( xx, 3 ),
+					_["rep_len"]  = rep_len( xx, 12 ) 
+					) ;
+				return res ;
+				'
+				)
 			
 		)
 		
@@ -922,3 +934,15 @@ test.sugar.complex <- function( ){
 		)
 	)
 }
+
+test.sugar.rep <- function(){
+	fx <- .rcpp.sugar$runit_rep
+	checkEquals( fx(1:10), 
+		list( 
+			"rep" = rep( 1:10, 3 ),
+			"rep_each" = rep( 1:10, each = 3 ), 
+			"rep_len" = rep( 1:10, length.out = 12 )
+		)
+	)
+}
+
