@@ -25,10 +25,10 @@ lmGSL <- function() {
 
     src <- '
 
-    RcppVectorView<double> Yr(Ysexp);
-    RcppMatrixView<double> Xr(Xsexp);
+    Rcpp::NumericVector Yr(Ysexp);
+    Rcpp::NumericMatrix Xr(Xsexp);
 
-    int i,j,n = Xr.dim1(), k = Xr.dim2();
+    int i,j,n = Xr.nrow(), k = Xr.ncol();
     double chisq;
 
     gsl_matrix *X = gsl_matrix_alloc (n, k);
