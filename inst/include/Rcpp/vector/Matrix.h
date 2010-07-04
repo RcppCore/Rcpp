@@ -23,13 +23,14 @@
 #define Rcpp__vector__Matrix_h
    
 template <int RTYPE> 
-class Matrix : public Vector<RTYPE> {
+class Matrix : public Vector<RTYPE>, public MatrixBase<RTYPE,true, Matrix<RTYPE> > {
 public:
 	typedef Vector<RTYPE> VECTOR ;
 	typedef typename VECTOR::iterator iterator ;
     typedef typename VECTOR::converter_type converter_type ;
     typedef typename VECTOR::stored_type stored_type ;
-    	
+    typedef typename VECTOR::Proxy Proxy ;
+    
 	Matrix() : VECTOR() {}
 	
 	Matrix(SEXP x) throw(not_compatible) : VECTOR(){
@@ -67,6 +68,32 @@ public:
 		return *this ;
 	}
 	
+	template <bool NA, typename MAT>
+    Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR() {
+    	int nr = other.nrow() ;
+    	int nc = other.ncol() ;
+    	SEXP x = PROTECT( Rf_allocVector( RTYPE, nr * nc ) ) ;
+    	SEXP d = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
+    	INTEGER(d)[0] = nr ;
+    	INTEGER(d)[1] = nc ;
+    	Rf_setAttrib( x, Rf_install("dim"), d ) ;
+    	RObject::setSEXP( x ) ;
+    	UNPROTECT( 2 ) ;
+    	import_matrix_expression<NA,MAT>( other, nr * nc ) ;
+	}
+   
+private:
+	
+	template <bool NA, typename MAT>
+    void import_matrix_expression( const MatrixBase<RTYPE,NA,MAT>& other, int n ){
+    	iterator start = VECTOR::begin() ; 
+		for( int i=0; i<n; i++, ++start){
+			*start = other[i] ;
+		}
+    }
+
+public:
+	
 	template <typename U>
     void fill_diag( const U& u){
     	fill_diag__dispatch( typename traits::is_trivial<RTYPE>::type(), u ) ;	
@@ -77,6 +104,13 @@ public:
     	Matrix res(size,size) ;
     	res.fill_diag( diag_value ) ;
     	return res ;
+    }
+    
+    inline Proxy operator[]( int i ){
+    	return static_cast< Vector<RTYPE>* >( this )->operator[]( i ) ;
+    }
+    inline Proxy operator()( int i, int j ){
+    	return static_cast< Vector<RTYPE>* >( this )->operator()( i, j ) ;
     }
     
 private:
