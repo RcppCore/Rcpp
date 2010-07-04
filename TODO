@@ -36,7 +36,9 @@ R 2.12.0
     o   Remove the C++ObjectS3 class as it is no longer needed:
         http://permalink.gmane.org/gmane.comp.lang.r.devel/24610
 
-    o   Order of classes in POSIXt, ...
+    o   Order of classes in POSIXt: this currently is implemented internally
+    	with conditional compiling based on the version of R. The conditional
+    	compiling must disappear when we can depend on R 2.12.0
         
 Syntactic sugar
 
@@ -51,21 +53,23 @@ Syntactic sugar
         
         min( x ) < 4
     
-    o   for matrices: we first need CRTP with matrix interface, so we need to
-        make Matrix inherit from MatrixBase and make MatrixBase a template tha  t
-        implements CRTP and a matrix interface: 
-                - operator[]                (treating the matrix as a vector)
-                - operator()( int, int )    (matrix indexing)
-                - nrow                      (number of rows)
-                - ncol                      (number of columns)     
-                - size                      (nrow*ncol)
-        
-    o   matrix functions : row, col, lower_tri, upper_tri, outer, diag, apply
+    o   matrix functions : diag, apply
     
     o   for character vectors: nchar, grepl, sub, gsub
     
     o   Compound operators: ++,--,+=, -=, ...
         
+    o	lazy evaluation might not be the best thing for the sugar 
+    	implementation of outer. For example : 
+    	
+    	outer( x + y, z , plus<double>() )
+    	
+    	has to evaluate x[i] + y[i] as many times as the length
+    	of z. perhaps a better implementation would be to 
+    	first force the evaluation of x + y.
+
+    o	primitive should be allowed in ifelse, on the lhs, rhs or both
+    
 Testing
 
     o   we need to update the doRUnit.R file and replace : 

@@ -1,3 +1,22 @@
+2010-07-02  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/traits/result_of.h : also deal with functions
+	taking two arguments (useful for e.g. outer)
+
+	* inst/include/Rcpp/vector/MatrixBase.h : new CRTP base class
+	for Matrix to facilitate sugar syntax on matrices.
+	
+	* inst/include/Rcpp/sugar/matrix/outer.h : new sugar function: outer
+	* inst/include/Rcpp/sugar/matrix/row.h: new sugar function: row
+	* inst/include/Rcpp/sugar/matrix/col.h: new sugar function: col
+	* inst/include/Rcpp/sugar/matrix/lower_tri.h: new sugar function: lower_tri
+	* inst/include/Rcpp/sugar/matrix/upper_tri.h: new sugar function: upper_tri
+
+	* inst/include/Rcpp/sugar/functions/rep.h: new sugar function : rep
+	* inst/include/Rcpp/sugar/functions/rep.h: new sugar function : rep_len
+	* inst/include/Rcpp/sugar/functions/rep.h: new sugar function : rep_each
+	
+	
 2010-07-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppStringVector: Now uses std::vector<std::string>

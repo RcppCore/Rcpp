@@ -24,5 +24,6 @@
 
 #include <Rcpp/sugar/operators/operators.h>
 #include <Rcpp/sugar/functions/functions.h>
+#include <Rcpp/sugar/matrix/matrix_functions.h>
 
 #endif
