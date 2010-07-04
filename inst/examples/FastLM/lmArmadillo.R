@@ -49,7 +49,6 @@ lmArmadillo <- function() {
     '
 
     ## turn into a function that R can call
-    ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
     fun <- cfunction(signature(Ysexp="numeric", Xsexp="numeric"),
                      src,
                      includes="#include <armadillo>",
