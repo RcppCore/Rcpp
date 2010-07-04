@@ -27,7 +27,7 @@ source("lmGSL.R")
 
 set.seed(42)
 n <- 25000
-k <- 1
+k <- 9
 X <- cbind( rep(1,n), matrix(rnorm(n*k), ncol=k) )
 truecoef <- 1:(k+1)
 y <- as.numeric(X %*% truecoef + rnorm(n))
@@ -42,10 +42,10 @@ tlmfit <- mean(replicate(N, system.time(lmfitfit <- lm.fit(X, y))["elapsed"]), t
 tlmgsl <- mean(replicate(N, system.time(lmgsl(y, X))["elapsed"]), trim=0.05)
 tlmarma <- mean(replicate(N, system.time(lmarma(y, X))["elapsed"]), trim=0.05)
 
-res <- c(tlm, tlmfit,
-	tlmgsl,
-	tlmarma)
-data <- t(data.frame(results=res, ratios=tlm/res))
+res <- c(tlm, tlmfit, tlmgsl, tlmarma)
+data <- data.frame(results=res, ratios=tlm/res)
+rownames(data) <- c("lm", "lm.fit", "lmGSL", "lmArma")
 cat("For n=", n, " and k=", k, "\n", sep="")
-print(data)
+print(t(data))
+print(t(1/data[,1,drop=FALSE])) # regressions per second
 
