@@ -41,7 +41,7 @@ namespace internal{
 		 */
 		string_proxy( VECTOR& v, int index_ ) : 
 			parent(&v), index(index_){
-				RCPP_DEBUG( "string_proxy( VECTOR& = <%p>, index_ = %d) ", v.asSexp(), index_ ) ;
+				RCPP_DEBUG_2( "string_proxy( VECTOR& = <%p>, index_ = %d) ", v.asSexp(), index_ ) ;
 		}
 			
 		string_proxy( const string_proxy& other ) : 

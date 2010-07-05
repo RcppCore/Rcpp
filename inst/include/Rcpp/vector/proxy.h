@@ -135,7 +135,7 @@ namespace internal{
 		typedef ::Rcpp::Vector<RTYPE> VECTOR ;
 		generic_name_proxy( VECTOR& v, const std::string& name_) :
 			parent(v), name(name_){
-				RCPP_DEBUG( "generic_name_proxy( VECTOR& = %p, const string& = %s)", v.asSexp(), name_.c_str() );
+				RCPP_DEBUG_2( "generic_name_proxy( VECTOR& = %p, const string& = %s)", v.asSexp(), name_.c_str() );
 		} ;
 		generic_name_proxy( const generic_name_proxy& other ) : 
 			parent(other.parent), name(other.name){} ;
@@ -166,7 +166,7 @@ namespace internal{
 		operator T(){
 			#if RCPP_DEBUG_LEVEL > 0
 			SEXP res = get() ;
-			RCPP_DEBUG( "generic_name_proxy::get() = <%p> ", res ) ;
+			RCPP_DEBUG_1( "generic_name_proxy::get() = <%p> ", res ) ;
 			return ::Rcpp::as<T>( res ) ;
 			#else
 			return ::Rcpp::as<T>( get() ) ;
