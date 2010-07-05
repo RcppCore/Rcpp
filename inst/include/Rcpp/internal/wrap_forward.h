@@ -31,16 +31,6 @@ template<typename T> SEXP wrap_extra_steps( SEXP x ){
 	return x ;
 }
 
-namespace internal{
-	template <typename T>
-	class WrapIterableExtraStepsHelper {
-	public:
-		WrapIterableExtraStepsHelper( const T& ) {
-			Rprintf( "default WrapIterableExtraStepsHelper %s\n", DEMANGLE(T) ) ;
-		}
-		inline SEXP get( SEXP x ) const { return x ; }
-	} ;
-} // internal
 } // Rcpp
 
 #endif

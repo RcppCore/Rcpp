@@ -29,8 +29,8 @@ test.NumericMatrix.column <- function(){
 
 test.CharacterMatrix.column <- function(){
 	funx <- cppfunction(signature(x = "matrix" ), '
-		CharacterVector m(x) ;
-		CharacterVector::Column col = m.column(0) ;
+		CharacterMatrix m(x) ;
+		CharacterMatrix::Column col = m.column(0) ;
 		std::string res( 
 			std::accumulate( 
 				col.begin(), col.end(), std::string() ) ) ;
@@ -44,8 +44,8 @@ test.CharacterMatrix.column <- function(){
 test.List.column <- function(){
 	
 	funx <- cppfunction(signature(x = "matrix" ), '
-		List m(x) ;
-		List::Column col = m.column(0) ;
+		GenericMatrix m(x) ;
+		GenericMatrix::Column col = m.column(0) ;
 		IntegerVector out( col.size() ) ;
 		std::transform( 
 			col.begin(), col.end(),
@@ -59,5 +59,4 @@ test.List.column <- function(){
 	checkEquals( funx( m ), 1:4, msg = "List::Column" )
 	
 }
-
 
