@@ -374,7 +374,7 @@ public:
 	}
 	
 	void update_vector(){
-		RCPP_DEBUG(  "update_vector, VECTOR = %s", DEMANGLE(Vector) ) ;
+		RCPP_DEBUG_1(  "update_vector, VECTOR = %s", DEMANGLE(Vector) ) ;
 		cache.update(*this) ;
 	}
 		
