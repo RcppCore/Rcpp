@@ -115,7 +115,7 @@ public:
     
 private:
 	virtual void update(){
-		RCPP_DEBUG( "%s::update", DEMANGLE(Matrix) ) ;
+		RCPP_DEBUG_1( "%s::update", DEMANGLE(Matrix) ) ;
 		VECTOR::update_vector() ;
 	}
 	

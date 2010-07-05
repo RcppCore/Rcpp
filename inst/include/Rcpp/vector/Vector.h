@@ -40,12 +40,12 @@ public:
 	typedef MatrixColumn<RTYPE> Column ;
 	
 	Vector() : RObject() {
-		RCPP_DEBUG( "Vector()", 0 ) ;
+		RCPP_DEBUG( "Vector()" ) ;
 		RObject::setSEXP( Rf_allocVector( RTYPE, 0 ) ) ;
 		init() ;
 	} ;
     ~Vector(){
-    	RCPP_DEBUG( "~Vector()", 0 ) ;
+    	RCPP_DEBUG( "~Vector()" ) ;
 	};
     
 	Vector( const Vector& other) : RObject() {
@@ -77,9 +77,9 @@ public:
 	}
 	
     Vector( SEXP x ) throw(not_compatible) : RObject() {
-    	RCPP_DEBUG( "Vector<%d>( SEXP = <%p> )", RTYPE, x) ;
+    	RCPP_DEBUG_2( "Vector<%d>( SEXP = <%p> )", RTYPE, x) ;
     	RObject::setSEXP( r_cast<RTYPE>( x ) ) ;
-    	RCPP_DEBUG( "===========", 0) ;
+    	RCPP_DEBUG( "===========" ) ;
     }
     
     Vector( const int& size ) : RObject()  {
@@ -658,7 +658,7 @@ public:
 	}
 
 	virtual void update(){
-		RCPP_DEBUG( "%s::update", DEMANGLE(Vector) ) ;
+		RCPP_DEBUG_1( "%s::update", DEMANGLE(Vector) ) ;
 		update_vector() ;
 	}
 	
