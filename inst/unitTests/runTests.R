@@ -60,11 +60,11 @@ if(require("RUnit", quietly = TRUE)) {
     	if ("--allTests" %in% commandArgs(TRUE)) return(TRUE)
     	return(FALSE)
     }
-    if (.Platform$OS.type == "windows" && allTests() == FALSE) {
-        ## by imposing [D-Z] (instead of an implicit A-Z) we are going from
-        ## 45 tests to run down to 38 (numbers as of release 0.8.3)
-        testSuite$testFileRegexp <- "^runit.[D-Z]+\\.[rR]$"
-    }
+    ## if (.Platform$OS.type == "windows" && allTests() == FALSE) {
+    ##     ## by imposing [D-Z] (instead of an implicit A-Z) we are going from
+    ##     ## 45 tests to run down to 38 (numbers as of release 0.8.3)
+    ##     testSuite$testFileRegexp <- "^runit.[D-Z]+\\.[rR]$"
+    ## }
 
     if (interactive()) {
         cat("Now have RUnit Test Suite 'testSuite' for package '", pkg,
