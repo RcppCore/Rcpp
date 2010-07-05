@@ -40,13 +40,13 @@ public:
 		return static_cast<const MATRIX*>(this)->operator[](i) ;
 	}
 	
-	inline stored_type operator()( int i, int j){
+	inline stored_type operator()( int i, int j) throw(not_a_matrix) {
 		return static_cast<const MATRIX*>(this)->operator()(i, j) ;
 	}
 	
 	inline int size() const { return static_cast<const MATRIX&>(*this).size() ; }
-	inline int nrow() const { return static_cast<const MATRIX&>(*this).nrow() ; }
-	inline int ncol() const { return static_cast<const MATRIX&>(*this).ncol() ; }
+	inline int nrow() const throw(not_a_matrix) { return static_cast<const MATRIX&>(*this).nrow() ; }
+	inline int ncol() const throw(not_a_matrix) { return static_cast<const MATRIX&>(*this).ncol() ; }
 	
 	class iterator {
 	public:

@@ -155,21 +155,6 @@ public:
      */
     inline R_len_t size() const { return ::Rf_length( RObject::m_sexp ) ; }
     
-    inline int ncol() const throw(not_a_matrix) {
-    	return dims()[1]; 
-    }
-    
-    inline int nrow() const throw(not_a_matrix){
-    	return dims()[0]; 
-    }
-
-    inline int cols() const throw(not_a_matrix){ 
-	return dims()[1]; 
-    }
-    inline int rows() const throw(not_a_matrix){ 
-	return dims()[0]; 
-    }
-	
     /**
      * offset based on the dimensions of this vector
      */
@@ -647,12 +632,7 @@ public:
 		set_sexp(target.asSexp() );
 		return result ;
 	}
-	
-	inline int* dims() const throw(not_a_matrix) {
-		if( !::Rf_isMatrix(RObject::m_sexp) ) throw not_a_matrix() ;
-		return INTEGER( ::Rf_getAttrib( RObject::m_sexp, ::Rf_install( "dim") ) ) ;
-	}
-	
+		
 	void init(){
 		internal::r_init_vector<RTYPE>(RObject::m_sexp) ;
 	}
@@ -671,6 +651,13 @@ public:
 	inline Indexer operator[]( const Range& range ){
 		return Indexer( const_cast<Vector&>(*this), range );
 	}
+
+protected:
+	inline int* dims() const throw(not_a_matrix) {
+		if( !::Rf_isMatrix(RObject::m_sexp) ) throw not_a_matrix() ;
+		return INTEGER( ::Rf_getAttrib( RObject::m_sexp, ::Rf_install( "dim") ) ) ;
+	}
+
 	
 } ; /* Vector */
 

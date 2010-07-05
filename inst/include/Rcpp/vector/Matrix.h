@@ -124,7 +124,7 @@ private:
 		SEXP elem = PROTECT( converter_type::get( u ) ) ;
 		int n = Matrix::ncol() ;
 		int offset = n +1 ;
-		iterator it( Matrix::begin()) ;
+		iterator it( VECTOR::begin()) ;
 		for( int i=0; i<n; i++){
     		*it = ::Rf_duplicate( elem );
     		it += offset; 
@@ -137,13 +137,28 @@ private:
 		stored_type elem = converter_type::get( u ) ;
 		int n = Matrix::ncol() ;
 		int offset = n + 1 ;
-		iterator it( Matrix::begin()) ;
+		iterator it( VECTOR::begin()) ;
 		for( int i=0; i<n; i++){
     		*it = elem ;
     		it += offset; 
     	}
     }
+
+public:
+	inline int ncol() const throw(not_a_matrix) {
+    	return VECTOR::dims()[1]; 
+    }
+    inline int nrow() const throw(not_a_matrix){
+    	return VECTOR::dims()[0]; 
+    }
+    inline int cols() const throw(not_a_matrix){ 
+    	return VECTOR::dims()[1]; 
+    }
+    inline int rows() const throw(not_a_matrix){ 
+    	return VECTOR::dims()[0]; 
+    }
 	    
+    
 } ;
 
 #endif
