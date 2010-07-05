@@ -227,6 +227,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/is_convertible.h>
 #include <Rcpp/traits/has_iterator.h>
 #include <Rcpp/traits/expands_to_logical.h>
+#include <Rcpp/traits/matrix_interface.h>
 #include <Rcpp/traits/has_na.h>
 #include <Rcpp/traits/storage_type.h>
 #include <Rcpp/traits/r_sexptype_traits.h>
@@ -258,6 +259,10 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/Exporter.h>
 #include <Rcpp/internal/r_coerce.h>
 #include <Rcpp/as.h>
+
+#include <Rcpp/vector/VectorBase.h>
+#include <Rcpp/vector/MatrixBase.h>
+
 #include <Rcpp/internal/wrap.h>
 
 #include <Rcpp/internal/ListInitialization.h>
@@ -269,8 +274,6 @@ RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP );
 #include <Rcpp/preprocessor.h>
 #include <Rcpp/algo.h>
 
-#include <Rcpp/vector/VectorBase.h>
-#include <Rcpp/vector/MatrixBase.h>
 
 #include <Rcpp/sugar/sugar_forward.h>
 
