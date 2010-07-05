@@ -4,6 +4,9 @@
 	
 	* inst/include/Rcpp/vector/Matrix.h: move ncol, nrow, rows and cols in 
 	Matrix (used to be in Vector)
+	
+	* inst/include/Rcpp/traits/matrix_interface.h: new SFINAE helper to detect
+	matrix interface (helps matrix sugar expressions)
 
 2010-07-02  Romain Francois <romain@r-enthusiasts.com>
 
