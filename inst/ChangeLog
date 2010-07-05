@@ -1,6 +1,9 @@
 2010-07-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/RcppCommon.h : no more using variadic macros in RCPP_DEBUG
+	
+	* inst/include/Rcpp/vector/Matrix.h: move ncol, nrow, rows and cols in 
+	Matrix (used to be in Vector)
 
 2010-07-02  Romain Francois <romain@r-enthusiasts.com>
 
@@ -19,7 +22,6 @@
 	* inst/include/Rcpp/sugar/functions/rep.h: new sugar function : rep
 	* inst/include/Rcpp/sugar/functions/rep.h: new sugar function : rep_len
 	* inst/include/Rcpp/sugar/functions/rep.h: new sugar function : rep_each
-	
 	
 2010-07-02  Dirk Eddelbuettel  <edd@debian.org>
 
