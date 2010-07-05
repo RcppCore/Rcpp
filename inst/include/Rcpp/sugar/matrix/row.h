@@ -26,7 +26,7 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, bool LHS_NA, typename LHS_T>
-class Row : public VectorBase< 
+class Row : public MatrixBase< 
 	INTSXP , 
 	false ,
 	Row<RTYPE,LHS_NA,LHS_T>
@@ -37,10 +37,10 @@ public:
 	Row( const LHS_TYPE& lhs) : nr( lhs.nrow() ), nc( lhs.ncol() ) {}
 	
 	inline int operator[]( int index ) const {
-		return Rcpp::internal::get_line( index, nr) ;
+		return Rcpp::internal::get_line( index, nr) + 1;
 	}
 	inline int operator()( int i, int j ) const {
-		return i ;
+		return i + 1 ;
 	}
 	
 	inline int size() const { return nr * nc ; }

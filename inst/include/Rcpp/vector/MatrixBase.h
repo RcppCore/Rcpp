@@ -29,6 +29,7 @@ template <int RTYPE, bool na, typename MATRIX>
 class MatrixBase : public traits::expands_to_logical__impl<RTYPE> {
 public:
 	struct r_type : traits::integral_constant<int,RTYPE>{} ;
+	struct r_matrix_interface {} ;
 	struct can_have_na : traits::integral_constant<bool,na>{} ;
 	typedef typename traits::storage_type<RTYPE>::type stored_type ;
 	

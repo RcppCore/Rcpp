@@ -31,8 +31,9 @@
 namespace Rcpp{
 
 template <typename T> SEXP wrap( const T& object ) ;
-	
+
 namespace internal{
+	
 	template <typename InputIterator> SEXP range_wrap(InputIterator first, InputIterator last) ;
 	template <typename InputIterator> SEXP rowmajor_wrap(InputIterator first, int nrow, int ncol) ;
 
@@ -407,6 +408,28 @@ SEXP wrap_dispatch_unknown_iterable__logical( const T& object, ::Rcpp::traits::f
 }
 
 
+template <typename T>
+SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, ::Rcpp::traits::false_type ){
+	return wrap_dispatch_unknown_iterable__logical( object, 
+			typename ::Rcpp::traits::expands_to_logical<T>::type() );
+}
+
+template <typename T>
+SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, ::Rcpp::traits::true_type ){
+	SEXP res = PROTECT( 
+		wrap_dispatch_unknown_iterable__logical( object, 
+			typename ::Rcpp::traits::expands_to_logical<T>::type()
+		) 
+	) ;
+	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
+	INTEGER(dim)[0] = object.nrow() ;
+	INTEGER(dim)[1] = object.ncol() ;
+	Rf_setAttrib( res, Rf_install( "dim" ), dim ) ;
+	UNPROTECT(2) ;
+	return res ;
+}
+
+
 /**
  * Here we know for sure that type T has a T::iterator typedef
  * so we hope for the best and call the range based wrap with begin
@@ -421,8 +444,8 @@ SEXP wrap_dispatch_unknown_iterable__logical( const T& object, ::Rcpp::traits::f
  */
 template <typename T>
 SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::true_type){
-	return wrap_dispatch_unknown_iterable__logical( object, 
-		typename ::Rcpp::traits::expands_to_logical<T>::type() ) ;
+	return wrap_dispatch_unknown_iterable__matrix_interface( object, 
+		typename ::Rcpp::traits::matrix_interface<T>::type() ) ;
 }
 
 template <typename T, typename elem_type>
