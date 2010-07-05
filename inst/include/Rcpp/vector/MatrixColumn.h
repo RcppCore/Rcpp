@@ -26,13 +26,12 @@
 template <int RTYPE>
 class MatrixColumn {
 public:
-	typedef Vector<RTYPE> VECTOR ;
-	typedef typename VECTOR::Proxy Proxy ;
-	typedef typename VECTOR::value_type value_type ;
-	typedef typename VECTOR::iterator iterator ;
+	typedef Matrix<RTYPE> MATRIX ;
+	typedef typename MATRIX::Proxy Proxy ;
+	typedef typename MATRIX::value_type value_type ;
+	typedef typename MATRIX::iterator iterator ;
 	
-	MatrixColumn( VECTOR& object, int i ) : parent(object), index(i){
-		if( ! ::Rf_isMatrix(parent) ) throw not_a_matrix() ;
+	MatrixColumn( MATRIX& object, int i ) : parent(object), index(i){
 		if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
 	}
 	
@@ -61,7 +60,7 @@ public:
 	}
 	
 private:
-	VECTOR& parent; 
+	MATRIX& parent; 
 	int index ;
 } ;
 

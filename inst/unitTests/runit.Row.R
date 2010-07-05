@@ -29,8 +29,8 @@ test.NumericMatrix.row <- function(){
 
 test.CharacterMatrix.row <- function(){
 	funx <- cppfunction(signature(x = "matrix" ), '
-		CharacterVector m(x) ;
-		CharacterVector::Row first_row = m.row(0) ;
+		CharacterMatrix m(x) ;
+		CharacterMatrix::Row first_row = m.row(0) ;
 		std::string res( 
 			std::accumulate( 
 				first_row.begin(), first_row.end(), std::string() ) ) ;
@@ -44,8 +44,8 @@ test.CharacterMatrix.row <- function(){
 test.List.row <- function(){
 	
 	funx <- cppfunction(signature(x = "matrix" ), '
-		List m(x) ;
-		List::Row first_row = m.row(0) ;
+		GenericMatrix m(x) ;
+		GenericMatrix::Row first_row = m.row(0) ;
 		IntegerVector out( first_row.size() ) ;
 		std::transform( 
 			first_row.begin(), first_row.end(),

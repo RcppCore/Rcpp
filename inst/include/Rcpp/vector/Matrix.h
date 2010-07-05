@@ -158,6 +158,15 @@ public:
     	return VECTOR::dims()[0]; 
     }
 	    
+	typedef MatrixRow<RTYPE> Row ;
+	typedef MatrixColumn<RTYPE> Column ;
+
+	inline Row row( int i ){ return Row( *this, i ) ; }
+	inline Column column( int i ){ return Column(*this, i ) ; }
+	
+	inline iterator begin() const{ return VECTOR::begin() ; }
+	inline iterator end() const{ return VECTOR::end() ; }
+	 
     
 } ;
 

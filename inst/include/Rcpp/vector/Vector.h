@@ -36,8 +36,6 @@ public:
 	typedef typename traits::init_type<RTYPE>::type init_type ;
 	typedef typename traits::r_vector_element_converter<RTYPE>::type converter_type ;
 	typedef typename traits::storage_type<RTYPE>::type stored_type ;
-	typedef MatrixRow<RTYPE> Row ;
-	typedef MatrixColumn<RTYPE> Column ;
 	
 	Vector() : RObject() {
 		RCPP_DEBUG( "Vector()" ) ;
@@ -265,9 +263,6 @@ public:
 		return NamesProxy(*this) ;
 	}
     
-	inline Row row( int i ){ return Row( *this, i ) ; }
-	inline Column column( int i ){ return Column(*this, i ) ; }
-	
 	inline iterator begin() const{ return cache.get() ; }
 	inline iterator end() const{ return cache.get(size()) ; }
 	
