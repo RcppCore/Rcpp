@@ -239,8 +239,8 @@
 					return List::create( 
 						_["vec_vec" ]  = ifelse( xx < yy, xx*xx, -(yy*yy) ), 
 						_["vec_prim"]  = ifelse( xx < yy, 1.0  , -(yy*yy) ), 
-						_["prim_vec"]  = ifelse( xx < yy, xx*xx, 1.0      )
-						// , _["prim_prim"] = ifelse( xx < yy, 1.0, 2.0        )
+						_["prim_vec"]  = ifelse( xx < yy, xx*xx, 1.0      ), 
+						_["prim_prim"] = ifelse( xx < yy, 1.0, 2.0        )
 						) ;
 				'				
 			), 
@@ -491,7 +491,16 @@
 					) ;
 				return res ;
 				'
+				), 
+			"runit_rev" = list( 
+				signature( x = "integer" ),
+				'
+				IntegerVector xx(x);
+				IntegerVector yy = rev( xx * xx );
+				return yy ;
+				'
 				)
+			
 			
 		)
 		
@@ -755,8 +764,8 @@ test.sugar.ifelse <- function( ){
 	checkEquals( fx( x, y), list( 
 		"vec_vec"   = ifelse( x<y, x*x, -(y*y) ), 
 		"vec_prim"  = ifelse( x<y, 1.0, -(y*y) ), 
-		"prim_vec"  = ifelse( x<y, x*x, 1.0    )
-		# , "prim_prim" = ifelse( x<y, 1.0, 2.0    )
+		"prim_vec"  = ifelse( x<y, x*x, 1.0    ), 
+		"prim_prim" = ifelse( x<y, 1.0, 2.0    )
 	) )
 }
 
@@ -953,5 +962,11 @@ test.sugar.rep <- function(){
 			"rep_len" = rep( 1:10, length.out = 12 )
 		)
 	)
+}
+
+test.sugar.rev <- function(){
+	fx <- .rcpp.sugar$runit_rev
+	print( fx( 1:10 ) )
+	checkEquals( fx(1:10), rev( 1:10 * 1:10 ) )
 }
 

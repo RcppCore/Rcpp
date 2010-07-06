@@ -3,6 +3,8 @@
 	* inst/include/Rcpp/sugar/functions/ifelse.h: using compile time dispatch 
 	based on the NA-ness of the condition type. ifelse handles primitive
 	arguments on the lhs, rhs or both
+	
+	* inst/include/Rcpp/sugar/functions/rev.h: new sugar function: rev
 
 2010-07-05  Romain Francois <romain@r-enthusiasts.com>
 
