@@ -1,29 +1,34 @@
+2010-07-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Date.cpp: Imported mktime() from R (which is due to Arthur Olson)
+
 2010-07-06  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/functions/ifelse.h: using compile time dispatch 
+	* inst/include/Rcpp/sugar/functions/ifelse.h: using compile time dispatch
 	based on the NA-ness of the condition type. ifelse handles primitive
 	arguments on the lhs, rhs or both
-	
+
 	* inst/include/Rcpp/sugar/functions/rev.h: new sugar function: rev
 
 2010-07-05  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/RcppCommon.h : no more using variadic macros in RCPP_DEBUG
-	
-	* inst/include/Rcpp/vector/Matrix.h: move ncol, nrow, rows and cols in 
-	Matrix (used to be in Vector)
-	
-	* inst/include/Rcpp/traits/matrix_interface.h: new SFINAE helper to detect
-	matrix interface (helps matrix sugar expressions)
+	* inst/include/Rcpp/RcppCommon.h : no more using variadic macros in
+	RCPP_DEBUG
 
-2010-07-02  Romain Francois <romain@r-enthusiasts.com>
+	* inst/include/Rcpp/vector/Matrix.h: move ncol, nrow, rows and cols
+	in Matrix (used to be in Vector)
+
+	* inst/include/Rcpp/traits/matrix_interface.h: new SFINAE helper to
+	detect matrix interface (helps matrix sugar expressions)
+
+2010-07-03  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/traits/result_of.h : also deal with functions
 	taking two arguments (useful for e.g. outer)
 
 	* inst/include/Rcpp/vector/MatrixBase.h : new CRTP base class
 	for Matrix to facilitate sugar syntax on matrices.
-	
+
 	* inst/include/Rcpp/sugar/matrix/outer.h : new sugar function: outer
 	* inst/include/Rcpp/sugar/matrix/row.h: new sugar function: row
 	* inst/include/Rcpp/sugar/matrix/col.h: new sugar function: col
@@ -33,7 +38,7 @@
 	* inst/include/Rcpp/sugar/functions/rep.h: new sugar function : rep
 	* inst/include/Rcpp/sugar/functions/rep_len.h: new sugar function : rep_len
 	* inst/include/Rcpp/sugar/functions/rep_each.h: new sugar function : rep_each
-	
+
 2010-07-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/RcppStringVector: Now uses std::vector<std::string>
