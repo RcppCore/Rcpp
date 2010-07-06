@@ -95,11 +95,8 @@ Testing
    o    Testing has become slow. That would be good to find ways to make it
         faster such as combine multiple functions in a single cxxfunction
         call or alternatively make another package (perhaps internal to this
-        one that would contain test cases)
+        one that would contain test cases) [in progress]
                 
-   o    Maybe make test function 'tier one' and 'tier two' and only the
-        second tier if an (environment ?) variable has been set?
+   o    Maybe make test function 'tier one' and 'tier two' and run only the
+        first tier if an (environment ?) variable has been set?
 
-   o    We now have more tests than we can run in the time budget permitted by
-        the Windows build infrastructure. Hence, we need a better ordering of
-        which tests to run.
