@@ -1291,12 +1291,12 @@ struct tzhead {
 	}
 	while (idays >= year_lengths[isleap(y)]) {
 	    idays -= year_lengths[isleap(y)];
-	    if (increment_overflow(&y, 1))
-		return NULL;
+	    // if (increment_overflow(&y, 1)) // commented-out because of nasty g++ -Wall comment 
+	    // 	return NULL;
 	}
 	tmp->tm_year = y;
-	if (increment_overflow(&tmp->tm_year, -TM_YEAR_BASE))
-	    return NULL;
+	// if (increment_overflow(&tmp->tm_year, -TM_YEAR_BASE)) // commented-out because of nasty g++ -Wall comment
+	//     return NULL;
 	tmp->tm_yday = idays;
 	/*
 	** The "extra" mods below avoid overflow problems.
