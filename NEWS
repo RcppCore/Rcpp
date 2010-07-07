@@ -1,3 +1,19 @@
+0.8.4   (under development)
+
+    o	Sugar for matrices ... [FIXME]
+
+    o	The unit tests have been reorganised into fewer files with one call to
+ 	cxxfunction() (covering multiple tests) resulting in a significant speedup
+
+    o	The Date class now uses the same mktime() replacement that R uses
+        (based on original code from the timezone library by Arthur Olson)
+	permitting wide dates ranges on all operating system 
+
+    o   The FastLM/ example has been updated, a new benchmark based on the
+        historical Longley data set has been added
+
+    o   RcppStringVector now uses std::vector<std::string> internally
+
 0.8.3   2010-06-27
 
     o	This release adds Rcpp sugar which brings (a subset of) the R syntax
@@ -51,7 +67,7 @@
     o   New API class Rcpp::InternalFunction that can expose C++ functions
     	to R without modules. The function is exposed as an S4 object of 
     	class C++Function
-
+   
 0.8.2   2010-06-09
 
     o   Bug-fix release for suncc compiler with thanks to Brian Ripley for
