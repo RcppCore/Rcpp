@@ -1,6 +1,10 @@
 0.8.4   (under development)
 
-    o	Sugar for matrices ... [FIXME]
+	o	new sugar functions: rep, rep_len, rep_each, rev
+	
+    o	sugar has been extended to matrices: The Matrix class now extends the 
+    	Matrix_Base template that implements CRTP. Currently sugar functions 
+    	for matrices are: outer, col, row, lower_tri, upper_tri
 
     o	The unit tests have been reorganised into fewer files with one call to
  	cxxfunction() (covering multiple tests) resulting in a significant speedup
