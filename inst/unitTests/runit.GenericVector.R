@@ -119,9 +119,20 @@
                     list["foo"] = 10 ;
                     list["bar" ] = "foobar" ;
                     return list ;
-                   ')
-
-                  )
+                   '), 
+              "create_" = list( 
+              	signature(), 
+              	'
+					List output(2); 
+					output[0] = List::create( 10, "foo" ) ;
+					output[1] = List::create( 
+						_["foo"] = 10, 
+						_["bar"] = true ) ;
+					return output ;
+				'
+              )
+              
+        )
 
         g <- list("initializer_list"=list(
                   signature(),
@@ -269,4 +280,9 @@ test.List.implicit.push.back <- function(){
     checkEquals( fun(), list( foo = 10, bar = "foobar" ), msg = "List implicit push back" )
 }
 
+test.List.create <- function(){
+	fun <- .rcpp.List$create_
+    checkEquals( fun(), list( list( 10L, "foo" ), list(foo = 10L, bar =  TRUE ) ), 
+		msg = "List::create" )
+}
 
