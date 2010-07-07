@@ -530,9 +530,7 @@ test.sugar.abs <- function( ){
 }
 
 test.sugar.all.one.less <- function( ){
-
 	fx <- .rcpp.sugar$runit_all_one_less
-	
 	checkTrue( fx( 1 ) )
 	checkTrue( ! fx( 1:10 ) )
 	checkTrue( is.na( fx( NA ) ) )
@@ -542,7 +540,6 @@ test.sugar.all.one.less <- function( ){
 }
 
 test.sugar.all.one.greater <- function( ){
-
 	fx <- .rcpp.sugar$runit_all_one_greater
 	checkTrue( ! fx( 1 ) )
 	checkTrue( ! fx( 1:10 ) )
@@ -553,7 +550,6 @@ test.sugar.all.one.greater <- function( ){
 
 
 test.sugar.all.one.less.or.equal <- function( ){
-
 	fx <- .rcpp.sugar$runit_all_one_less_or_equal
 	checkTrue( fx( 1 ) )
 	checkTrue( ! fx( 1:10 ) )
@@ -587,7 +583,6 @@ test.sugar.all.one.equal <- function( ){
 }
 
 test.sugar.all.one.not.equal <- function( ){
-
 	fx <- .rcpp.sugar$runit_all_not_equal_one
 	checkTrue( fx( 1 ) )
 	checkTrue( fx( 1:2 ) )
