@@ -301,7 +301,130 @@
 					return NumericVector::import_transform( v.begin(), v.end(), square ) ;
 				
 				'
-        	)       
+        	)  , 
+        	
+        	
+        	
+        	
+        	
+        	"list_ctor"=list(
+                  signature(),
+                  'List x(10) ;
+	           for( int i=0; i<10; i++) x[i] = Rf_ScalarInteger( i * 2)  ;
+	           return x ;')
+
+                  ,"list_template_"=list(
+                   signature(),
+                   'List x(4) ;
+	            x[0] = "foo"  ;
+	            x[1] = 10 ;
+	            x[2] = 10.2 ;
+	            x[3] = false;
+	            return x ;')
+
+                  ,"list_VECSXP_"=list(
+                   signature(vec = "list" ),
+                   'List x(vec) ;
+                    return x ;')
+
+                  ,"list_matrix_indexing_1"=list(
+                   signature(x = "character" ),
+                   'GenericVector m(x) ;
+		    GenericVector out(4) ;
+		    for( size_t i=0 ; i<4; i++){
+		        out[i] = m(i,i) ;
+		    }
+		    return out ;')
+
+                  ,"list_matrix_indexing_2"=list(
+                   signature(x = "integer" ),
+                   'GenericVector m(x) ;
+		    for(size_t i=0 ; i<4; i++){
+		        m(i,i) = "foo" ;
+		    }
+		    return m ; ')
+
+                  ,"list_Dimension_constructor_1"=list(
+                   signature(),
+                   'return List( Dimension( 5 ) ) ;')
+
+                  ,"list_Dimension_constructor_2"=list(
+                   signature(),
+                   'return List( Dimension( 5, 5 ) );')
+
+                  ,"list_Dimension_constructor_3"=list(
+                   signature(),
+                   ' return List( Dimension( 2, 3, 4) ) ;')
+
+                  ,"list_iterator_"=list(
+                   signature(x = "list", g = "function" ),
+                   'Function fun(g) ;
+		    List input(x) ;
+		    List output( input.size() ) ;
+		    std::transform( input.begin(), input.end(), output.begin(), fun ) ;
+		    output.names() = input.names() ;
+		    return output ; ')
+
+                  ,"list_name_indexing"=list(
+                   signature(x = "data.frame"),
+                   'List df(x) ;
+	            IntegerVector df_x = df["x"] ;
+	            int res = std::accumulate( df_x.begin(), df_x.end(), 0 ) ;
+	            return wrap(res); ')
+
+                  ,"list_push_back"=list(
+                   signature(x = "list"),
+                   'List list(x) ;
+	            list.push_back( 10 ) ;
+	            list.push_back( "bar", "foo" ) ;
+	            return list ;
+	           ')
+
+                  ,"list_push_front"=list(
+                   signature(x = "list"),
+                   'List list(x) ;
+	            list.push_front( 10 ) ;
+	            list.push_front( "bar", "foo" ) ;
+	            return list ; ')
+
+                  ,"list_erase"=list(
+                   signature(x = "list"),
+                   'List list(x) ;
+	            list.erase( list.begin() ) ;
+	            return list ; ')
+
+                  ,"list_erase_range"=list(
+                   signature(x = "list"),
+	           'List list(x) ;
+	            list.erase( 0, 1 ) ;
+	            return list ; ')
+
+                  ,"list_implicit_push_back"=list(
+                   signature(),
+                   'List list ;
+                    list["foo"] = 10 ;
+                    list["bar" ] = "foobar" ;
+                    return list ;
+                   '), 
+              "list_create_" = list( 
+              	signature(), 
+              	'
+					List output(2); 
+					output[0] = List::create( 10, "foo" ) ;
+					output[1] = List::create( 
+						_["foo"] = 10, 
+						_["bar"] = true ) ;
+					return output ;
+				'
+              ), 
+              "list_stdcomplex" = list( 
+              		signature() , '
+              			std::vector< std::complex<double> > v_double(10) ;
+    					std::vector< std::complex<float> > v_float(10) ;
+    					return List::create( _["float"] = v_float, _["double"] = v_double ) ;
+    				'
+    			)
+              
                   
 
                   
@@ -342,7 +465,18 @@
 						for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 						return x ;
 					'
-        		)
+        		), 
+        		
+        		"list_initializer_list"=list(
+                  signature(),
+                  'SEXP x0 = PROTECT( Rf_ScalarInteger( 0 ) ) ;
+		   			SEXP x1 = PROTECT( Rf_ScalarInteger( 1 ) ) ;
+		   			SEXP x2 = PROTECT( Rf_ScalarInteger( 2 ) ) ;
+		   			List x = { x0, x1, x2} ;
+		   			UNPROTECT(3) ;
+		   			return x ;')
+
+                  
         	)     
         	f <- c(f,g)
         }
@@ -637,5 +771,143 @@ test.NumericVector.import <- function(){
 test.NumericVector.import.transform <- function(){
 	funx <- .rcpp.Vector$numeric_importtransform
 	checkEquals( funx(), (0:9)^2, msg = "NumericVector::import_transform" )
+}
+         
+
+
+
+
+test.List <- function(){
+    fun <- .rcpp.Vector$list_ctor
+    checkEquals( fun(), as.list( 2*0:9), msg = "GenericVector" )
+}
+
+test.List.template <- function(){
+    fun <- .rcpp.Vector$list_template_
+    checkEquals(fun(), list( "foo", 10L, 10.2, FALSE), msg = "GenericVector" )
+}
+
+test.List.VECSXP <- function(){
+    fun <- .rcpp.Vector$list_VECSXP_
+    checkEquals( fun(list(1,2)), list(1,2), msg = "GenericVector( VECSXP) " )
+}
+
+if( Rcpp:::capabilities()[["initializer lists"]] ){
+    test.List.initializer.list <- function(){
+        fun <- .rcpp.Vector$list_initializer_list
+        checkEquals( fun(), as.list(0:2), msg = "List( initializer list) " )
+    }
+}
+
+test.List.matrix.indexing <- function(){
+    fun <- .rcpp.Vector$list_matrix_indexing_1
+    ## a matrix of integer vectors
+    x <- structure( lapply( 1:16, function(x) seq.int(x) ), dim = c( 4, 4) )
+    checkEquals( fun(x), diag(x), msg = "matrix indexing 1" )
+
+    fun <- .rcpp.Vector$list_matrix_indexing_2
+    checkEquals(diag(fun(x)), rep(list("foo"), 4) , msg = "matrix indexing lhs" )
+
+    ## drop dimensions
+    dim(x) <- NULL
+    checkException( fun(x) , msg = "not a matrix" )
+}
+
+test.List.Dimension.constructor <- function(){
+    fun <- .rcpp.Vector$list_Dimension_constructor_1
+    checkEquals(fun(),
+		rep(list(NULL),5) ,
+                msg = "List( Dimension(5))" )
+
+    fun <- .rcpp.Vector$list_Dimension_constructor_2
+    checkEquals(fun(),
+		structure( rep( list(NULL), 25), dim = c(5,5) ),
+		msg = "List( Dimension(5,5))" )
+
+    fun <- .rcpp.Vector$list_Dimension_constructor_3
+    checkEquals(fun(),
+		array( rep(list(NULL)), dim = c(2,3,4) ) ,
+		msg = "List( Dimension(2,3,4))" )
+}
+
+test.List.iterator <- function() {
+    fun <- .rcpp.Vector$list_iterator_
+    data <- list( x = letters, y = LETTERS, z = 1:4 )
+    checkEquals(fun( data, length ),
+		list( x = 26L, y = 26L, z = 4L),
+		msg = "c++ version of lapply" )
+}
+
+test.List.name.indexing <- function(){
+    fun <- .rcpp.Vector$list_name_indexing
+    d <- data.frame( x = 1:10, y = letters[1:10] )
+    checkEquals( fun( d ), sum(1:10), msg = "List names based indexing" )
+}
+
+test.List.push.back <- function(){
+    fun <- .rcpp.Vector$list_push_back
+    d <- list( x = 1:10, y = letters[1:10] )
+    checkEquals(fun( d ),
+		list( x = 1:10, y = letters[1:10], 10L, foo = "bar" ),
+		msg = "List.push_back" )
+}
+
+test.List.push.front <- function(){
+    fun <- .rcpp.Vector$list_push_front
+    d <- list( x = 1:10, y = letters[1:10] )
+    checkEquals(fun(d),
+		list( foo = "bar", 10L, x = 1:10, y = letters[1:10] ),
+		msg = "List.push_front" )
+}
+
+# test.List.insert <- function(){
+#
+# 	funx <- cppfunction( signature(x = "list"),
+# 	'
+# 	List list(x) ;
+# 	list.insert( list.begin(), 10 ) ;
+# 	list.insert( list.end(), Named("foo", "bar" ) ) ;
+# 	return list ;
+# 	' )
+# 	d <- list( x = 1:10, y = letters[1:10] )
+# 	res <- funx( d )
+# 	checkEquals( res,
+# 		list( 10L, x = 1:10, y = letters[1:10], foo = "bar" ),
+# 		msg = "List.insert" )
+# }
+
+test.List.erase <- function(){
+    fun <- .rcpp.Vector$list_erase
+    d <- list( x = 1:10, y = letters[1:10] )
+    checkEquals(fun(d),
+		list( y = letters[1:10] ),
+		msg = "List.erase" )
+}
+
+test.List.erase.range <- function(){
+    fun <- .rcpp.Vector$list_erase_range
+    d <- list( x = 1:10, y = letters[1:10], z = 1:10 )
+    checkEquals(fun(d),
+		list( z = 1:10 ),
+		msg = "List.erase (range version)" )
+}
+
+test.List.implicit.push.back <- function(){
+    fun <- .rcpp.Vector$list_implicit_push_back
+    checkEquals( fun(), list( foo = 10, bar = "foobar" ), msg = "List implicit push back" )
+}
+
+test.List.create <- function(){
+	fun <- .rcpp.Vector$list_create_
+    checkEquals( fun(), list( list( 10L, "foo" ), list(foo = 10L, bar =  TRUE ) ), 
+		msg = "List::create" )
+}
+
+test.List.stdcomplex <- function(){
+	fun <- .rcpp.Vector$list_stdcomplex
+    checkEquals( 
+		fun(), 
+		list( float = rep(0+0i, 10), double = rep(0+0i, 10) ), 
+		msg = "range wrap over std::complex" )
 }
 
