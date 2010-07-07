@@ -1,4 +1,5 @@
 #!/usr/bin/r -t
+# -*- mode: R; tab-width: 4 -*-
 #
 # Copyright (C) 2010    Dirk Eddelbuettel and Romain Francois
 #
@@ -18,7 +19,10 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .setUp <- function() {
-    if( ! exists( ".rcpp.Date", globalenv() )) {
+
+    tests <- ".Rcpp.Date"
+    if( ! exists(tests, globalenv() )) {
+
         ## definition of all the functions at once
         f <- list("ctor_sexp"=list(
                   signature(d="Date"),
@@ -82,19 +86,48 @@
                     v[1] = Date(12,31,2005) ;
                     return wrap( v );')
 
+                  ,"Datetime_get_functions"=list(
+                   signature(x="Datetime"),
+                   'Datetime dt = Datetime(x);
+		            return List::create(Named("year") = dt.getYear(),
+    		                            Named("month") = dt.getMonth(),
+    		                                Named("day") = dt.getDay(),
+    		                                Named("wday") = dt.getWeekday(),
+    		                                Named("hour") = dt.getHours(),
+    		                                Named("minute") = dt.getMinutes(),
+    		                                Named("second") = dt.getSeconds(),
+    		                                Named("microsec") = dt.getMicroSeconds());')
+
+                  ,"Datetime_operators"=list(
+                   signature(),
+                   'Datetime d1 = Datetime(946774923.123456);
+		            Datetime d2 = d1 + 60*60;
+		            return List::create(Named("diff") = d2 - d1,
+		                                Named("bigger") = d2 > d1,
+		                                Named("smaller") = d2 < d1,
+		                                Named("equal") = d2 == d1,
+		                                Named("ge") = d2 >= d1,
+		                                Named("le") = d2 <= d1,
+		                                Named("ne") = d2 != d1);')
+
+                  ,"Datetime_wrap"=list(
+                   signature(),
+                   'Datetime dt = Datetime(981162123.123456);
+				    return wrap(dt);')
+
                   )
 
         signatures <- lapply(f, "[[", 1L)
         bodies <- lapply(f, "[[", 2L)
         fun <- cxxfunction( signatures, bodies, plugin = "Rcpp")
         getDynLib( fun ) # just forcing loading the dll now
-        assign( ".rcpp.Date", fun, globalenv() )
+        assign( tests, fun, globalenv() )
     }
 }
 
 
 test.Date.ctor.sexp <- function() {
-    fun <- .rcpp.Date$ctor_sexp
+    fun <- .Rcpp.Date$ctor_sexp
     d <- as.Date("2005-12-31"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.1")
     d <- as.Date("1970-01-01"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.2")
     d <- as.Date("1969-12-31"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.3")
@@ -103,17 +136,17 @@ test.Date.ctor.sexp <- function() {
 }
 
 test.Date.ctor.mdy <- function() {
-    fun <- .rcpp.Date$ctor_mdy
+    fun <- .Rcpp.Date$ctor_mdy
     checkEquals(fun(), as.Date("2005-12-31"), msg = "Date.ctor.mdy")
 }
 
 test.Date.ctor.ymd <- function() {
-    fun <- .rcpp.Date$ctor_ymd
+    fun <- .Rcpp.Date$ctor_ymd
     checkEquals(fun(), as.Date("2005-12-31"), msg = "Date.ctor.ymd")
 }
 
 test.Date.ctor.int <- function() {
-    fun <- .rcpp.Date$ctor_int
+    fun <- .Rcpp.Date$ctor_int
     d <- as.Date("2005-12-31")
     checkEquals(fun(as.numeric(d)), d, msg = "Date.ctor.int")
     checkEquals(fun(-1), as.Date("1970-01-01")-1, msg = "Date.ctor.int")
@@ -121,31 +154,50 @@ test.Date.ctor.int <- function() {
 }
 
 test.Date.operators <- function() {
-    fun <- .rcpp.Date$operators
+    fun <- .Rcpp.Date$operators
     checkEquals(fun(),
                 list(diff=-1, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE, ne=TRUE),
                 msg = "Date.operators")
 }
 
 test.Date.components <- function() {
-    fun <- .rcpp.Date$components
+    fun <- .Rcpp.Date$components
     checkEquals(fun(),
                 list(day=31, month=12, year=2005, weekday=7, yearday=365),
                 msg = "Date.components")
 }
 
 test.vector.Date <- function(){
-    fun <- .rcpp.Date$vector_Date
+    fun <- .Rcpp.Date$vector_Date
     checkEquals(fun(), rep(as.Date("2005-12-31"),2), msg = "Date.vector.wrap")
 }
 
 test.DateVector.wrap <- function(){
-    fun <- .rcpp.Date$Datevector_wrap
+    fun <- .Rcpp.Date$Datevector_wrap
     checkEquals(fun(), rep(as.Date("2005-12-31"),2), msg = "DateVector.wrap")
 }
 
 test.DateVector.operator.SEXP <- function(){
-    fun <- .rcpp.Date$operator_sexp
+    fun <- .Rcpp.Date$operator_sexp
     checkEquals(fun(), rep(as.Date("2005-12-31"),2), msg = "DateVector.SEXP")
 }
 
+test.Datetime.get.functions <- function() {
+    fun <- .Rcpp.Date$Datetime_get_functions
+    checkEquals(fun(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC"))),
+                list(year=2001, month=2, day=3, wday=7, hour=1, minute=2, second=3, microsec=123456),
+                msg = "Datetime.get.functions")
+}
+
+test.Datetime.operators <- function() {
+    fun <- .Rcpp.Date$Datetime_operators
+    checkEquals(fun(),
+                list(diff=-60*60, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE, ne=TRUE),
+                msg = "Datetime.operators")
+}
+
+test.Datetime.wrap <- function() {
+    fun <- .Rcpp.Date$Datetime_wrap
+    checkEquals(as.numeric(fun()), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
+                msg = "Datetime.wrap")
+}
