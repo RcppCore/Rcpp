@@ -88,7 +88,7 @@ public:
     template <bool __NA__, typename __VEC__>
     Vector( const VectorBase<RTYPE,__NA__,__VEC__>& other ) : RObject() {
     	int n = other.size() ;
-    	RObject::setSEXP( Rf_allocVector( RTYPE, other.size() ) ) ;
+    	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
     	import_expression<__NA__,__VEC__>( other, n ) ;
 	}
     
