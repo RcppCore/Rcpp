@@ -56,13 +56,30 @@
     			'
         	), 
         	"Dimension_const" = list( 
-        	signature( ia = "integer" ), 
-        	'
-			simple ss(ia);
-			return wrap(ss.nrow());
-			'
+        		signature( ia = "integer" ), 
+        		'
+				simple ss(ia);
+				return wrap(ss.nrow());
+				'
+        	), 
+        	"evaluator_error" = list( 
+        		signature(),  
+        		'
+				return Rcpp::Evaluator::run( Rf_lang2( Rf_install("stop"), Rf_mkString( "boom" ) ) ) ;
+				'
+        	), 
+        	"evaluator_ok" = list( 
+        		signature(x="integer"),  '
+				return Rcpp::Evaluator::run( Rf_lang2( Rf_install("sample"), x ) ) ;
+				'
+        	), 
+        	"exceptions_" = list( 
+        		signature(), '
+				throw std::range_error("boom") ;
+				return R_NilValue ;
+				'
         	)
-        )
+        )   
 
         signatures <- lapply(f, "[[", 1L)
         bodies <- lapply(f, "[[", 2L)
@@ -116,6 +133,45 @@ test.Dimension.const <- function(){
    checkEquals( funx( c(2L, 2L)) , 2L, msg = "testing const operator[]" )
 	
 }
+
+test.evaluator.error <- function(){
+   funx <- .rcpp.misc$evaluator_error
+   checkException( funx(), msg = "Evaluator::run( stop() )" )
+}
+
+test.evaluator.ok <- function(){
+	funx <- .rcpp.misc$evaluator_ok
+	checkEquals( sort(funx(1:10)), 1:10, msg = "Evaluator running fine" )
+}
+       
+test.exceptions <- function(){
+	can.demangle <- Rcpp:::capabilities()[["demangling"]]
+	
+	funx <- .rcpp.misc$exceptions_
+	e <- tryCatch(  funx(), "C++Error" = function(e) e )
+	checkTrue( "C++Error" %in% class(e), msg = "exception class C++Error" )
+	
+	if( can.demangle ){
+		checkTrue( "std::range_error" %in% class(e), msg = "exception class std::range_error" )
+	}
+	checkEquals( e$message, "boom", msg = "exception message" )
+	
+	if( can.demangle ){
+		# same with direct handler
+		e <- tryCatch(  funx(), "std::range_error" = function(e) e )
+		checkTrue( "C++Error" %in% class(e), msg = "(direct handler) exception class C++Error" )
+		checkTrue( "std::range_error" %in% class(e), msg = "(direct handler) exception class std::range_error" )
+		checkEquals( e$message, "boom", msg = "(direct handler) exception message" )
+	}
+	f <- function(){
+		try( funx(), silent = TRUE)
+		"hello world" 
+	}
+	checkEquals( f(), "hello world", msg = "life continues after an exception" )
+	
+}
+
+
 
 test.has.iterator <- function(){
 	
