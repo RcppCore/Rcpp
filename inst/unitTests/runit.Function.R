@@ -17,13 +17,75 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
+.setUp <- function() {
 	suppressMessages( require( stats ) )
+    tests <- ".rcpp.Function"
+    if( ! exists( tests, globalenv() )) {
+        ## definition of all the functions at once
+        f <- list( 
+        	"function_" = list( 
+        		signature(x="ANY"), 'return Function(x) ;'
+        	), 
+        	"function_variadic" = list( 
+        		signature(x="function", y = "ANY"), 
+        		'
+				Function sort(x) ;
+				return sort( y, Named("decreasing", true) ) ;
+				' 
+        	), 
+        	"function_env" = list( 
+        		signature(x="function"), 
+        		'
+					Function fun(x) ;
+					return fun.environment() ;
+				'
+        	), 
+        	"function_unarycall" = list( 
+        		signature(y = "list" ), 
+        		'
+				Function len( "length" ) ;
+				List x(y) ;
+				IntegerVector output( x.size() ) ;
+				std::transform( 
+					x.begin(), x.end(), 
+					output.begin(),
+					unary_call<IntegerVector,int>(len)
+					) ;
+				return output ;
+				'
+        	), 
+        	"function_binarycall" = list( 
+        		signature(x1 = "list", x2 = "integer" ), 
+        		'
+					Function pmin( "pmin" ) ;
+					List list(x1) ;
+					IntegerVector vec(x2) ;
+					List output( list.size() ) ;
+					std::transform( 
+						list.begin(), list.end(),
+						vec.begin(), 
+						output.begin(),
+						binary_call<IntegerVector,int,IntegerVector>(pmin)
+						) ;
+					return output ;
+				'
+        	)
+        )
+
+        signatures <- lapply(f, "[[", 1L)
+        bodies <- lapply(f, "[[", 2L)
+        fun <- cxxfunction(signatures, bodies,
+                           plugin = "Rcpp", includes = "using namespace std;",
+                           cxxargs = ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x",""))
+        getDynLib( fun ) # just forcing loading the dll now
+        assign( tests, fun, globalenv() )
+    }
 }
 
+
 test.Function <- function(){
-	funx <- cppfunction(signature(x="ANY"), 'return Function(x) ;' )
-	checkEquals( funx( rnorm ), rnorm, msg = "Function( CLOSXP )" )
+	funx <- .rcpp.Function$function_
+    checkEquals( funx( rnorm ), rnorm, msg = "Function( CLOSXP )" )
 	checkEquals( funx( is.function ), is.function, msg = "Pairlist( BUILTINSXP )" )
 	
 	checkException( funx(1:10), msg = "Function( INTSXP) " )
@@ -35,23 +97,15 @@ test.Function <- function(){
 }
 
 test.Function.variadic <- function(){
-	if( Rcpp:::capabilities()[["variadic templates"]] ){
-		funx <- cppfunction(signature(x="function", y = "ANY"), '
-		Function sort(x) ;
-		return sort( y, Named("decreasing", true) ) ;
-		', cxxargs = "-std=c++0x" )
-		checkEquals( funx( sort, sample(1:20) ), 
-			20:1, msg = "calling function" )
-		checkException( funx(sort, sort), msg = "Function, R error -> exception" )
-	}
+	funx <- .rcpp.Function$function_variadic
+    checkEquals( funx( sort, sample(1:20) ), 
+		20:1, msg = "calling function" )
+	checkException( funx(sort, sort), msg = "Function, R error -> exception" )
 }
 
 test.Function.env <- function(){
-	funx <- cppfunction(signature(x="function"), '
-	Function fun(x) ;
-	return fun.environment() ;
-	' )
-	checkEquals( funx(rnorm), asNamespace("stats" ), msg = "Function::environment" )
+	funx <- .rcpp.Function$function_env
+    checkEquals( funx(rnorm), asNamespace("stats" ), msg = "Function::environment" )
 	checkException( funx(is.function), 
 		msg = "Function::environment( builtin) : exception" )
 	checkException( funx(`~`), 
@@ -59,48 +113,19 @@ test.Function.env <- function(){
 }
 
 test.Function.unary.call <- function(){
-	
-	funx <- cppfunction(signature(y = "list" ), '
-	Function len( "length" ) ;
-	List x(y) ;
-	IntegerVector output( x.size() ) ;
-	std::transform( 
-		x.begin(), x.end(), 
-		output.begin(),
-		unary_call<IntegerVector,int>(len)
-		) ;
-	return output ;
-	'  )
-	
+	funx <- .rcpp.Function$function_unarycall
 	checkEquals( 
 		funx( lapply( 1:10, function(n) seq(from=n, to = 0 ) ) ), 
 		2:11 , 
 		msg = "unary_call(Fcuntion)" )
-	
 }
 
 test.Function.binary.call <- function(){
-	
-	funx <- cppfunction(signature(x1 = "list", x2 = "integer" ), '
-	Function pmin( "pmin" ) ;
-	List list(x1) ;
-	IntegerVector vec(x2) ;
-	List output( list.size() ) ;
-	std::transform( 
-		list.begin(), list.end(),
-		vec.begin(), 
-		output.begin(),
-		binary_call<IntegerVector,int,IntegerVector>(pmin)
-		) ;
-	return output ;
-	' )
-	
+	funx <- .rcpp.Function$function_binarycall
 	data <- lapply( 1:10, function(n) seq(from=n, to = 0 ) )
 	res <- funx( data , rep(5L,10) )
 	expected <- lapply( data, pmin, 5 )
-	
 	checkEquals( res, expected, 
 		msg = "binary_call(Function)" )
-	
 }
 
