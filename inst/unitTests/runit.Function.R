@@ -71,8 +71,7 @@
 				'
         	)
         )
-
-        signatures <- lapply(f, "[[", 1L)
+  signatures <- lapply(f, "[[", 1L)
         bodies <- lapply(f, "[[", 2L)
         fun <- cxxfunction(signatures, bodies,
                            plugin = "Rcpp", includes = "using namespace std;",
