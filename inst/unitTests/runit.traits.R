@@ -19,22 +19,29 @@
 
 test.has.iterator <- function(){
 	
-	has_iterator <- function(clazz = "std::vector<int>" ){
-		code <- '
-		bool ok = Rcpp::traits::has_iterator< %s >::value ;
-		return wrap(ok) ;
-		'
-		funx <- cppfunction(signature(),sprintf( code, clazz ) )
-		funx()
-	}
-	checkTrue( has_iterator( "std::vector<int>" ), msg = "has_iterator< std::vector<int> >" )
-	checkTrue( has_iterator( "std::list<int>" ), msg = "has_iterator< std::ist<int> >" )
-	checkTrue( has_iterator( "std::deque<int>" ), msg = "has_iterator< std::deque<int> >" )
-	checkTrue( has_iterator( "std::set<int>" ), msg = "has_iterator< std::set<int> >" )
-	checkTrue( has_iterator( "std::map<std::string,int>" ), msg = "has_iterator< std::map<string,int> >" )
+	classes <- c( "std::vector<int>", "std::list<int>", "std::deque<int>", 
+		"std::set<int>", "std::map<std::string,int>", 
+		"std::pair<std::string,int>", 
+		"Rcpp::Symbol"
+		)
+	code <- lapply( classes, function(.){
+			sprintf( '
+			bool ok = Rcpp::traits::has_iterator< %s >::value ;
+			return wrap(ok) ;
+			', . )
+		} )
+	signatures <- rep( list(signature()), 7 )
+	names( code ) <- names( signatures ) <- sprintf( "runit_has_iterator_%d", 1:7 )
+	fx <- cxxfunction( signatures, code, plugin = "Rcpp" )
 	
-	checkTrue( ! has_iterator( "std::pair<std::string,int>" ), msg = "has_iterator< std::pair<string,int> >" )
-	checkTrue( ! has_iterator( "Rcpp::Symbol" ), msg = "Rcpp::Symbol" )
+	checkTrue( fx$runit_has_iterator_1() , msg = "has_iterator< std::vector<int> >" )
+	checkTrue( fx$runit_has_iterator_2() , msg = "has_iterator< std::ist<int> >" )
+	checkTrue( fx$runit_has_iterator_3() , msg = "has_iterator< std::deque<int> >" )
+	checkTrue( fx$runit_has_iterator_4() , msg = "has_iterator< std::set<int> >" )
+	checkTrue( fx$runit_has_iterator_5() , msg = "has_iterator< std::map<string,int> >" )
+	
+	checkTrue( ! fx$runit_has_iterator_6(), msg = "has_iterator< std::pair<string,int> >" )
+	checkTrue( ! fx$runit_has_iterator_7(), msg = "Rcpp::Symbol" )
 	
 }
 
