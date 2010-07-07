@@ -487,7 +487,8 @@
 				List res = List::create( 
 					_["rep"]      = rep( xx, 3 ), 
 					_["rep_each"] = rep_each( xx, 3 ),
-					_["rep_len"]  = rep_len( xx, 12 ) 
+					_["rep_len"]  = rep_len( xx, 12 ), 
+					_["rep_prim_double"] = rep( 0.0, 10 )
 					) ;
 				return res ;
 				'
@@ -954,14 +955,14 @@ test.sugar.rep <- function(){
 		list( 
 			"rep" = rep( 1:10, 3 ),
 			"rep_each" = rep( 1:10, each = 3 ), 
-			"rep_len" = rep( 1:10, length.out = 12 )
+			"rep_len" = rep( 1:10, length.out = 12 ), 
+			"rep_prim_double" = rep( 0.0, 10 )
 		)
 	)
 }
 
 test.sugar.rev <- function(){
 	fx <- .rcpp.sugar$runit_rev
-	print( fx( 1:10 ) )
 	checkEquals( fx(1:10), rev( 1:10 * 1:10 ) )
 }
 
