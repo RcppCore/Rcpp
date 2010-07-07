@@ -145,7 +145,19 @@
 
                   ,"create_zero"=list(
                    signature(),
-                   'return IntegerVector::create();')
+                   'return IntegerVector::create();'
+                  ), 
+                  "create_" = list( 
+                  signature(), 
+                  '
+					List output(2); 
+					output[0] = IntegerVector::create( 10, 20 ) ;
+					output[1] = IntegerVector::create( 
+						_["foo"] = 20, 
+						_["bar"] = 30 ) ;
+					return output ;
+					' 
+                  )
 
                   )
 
@@ -325,6 +337,12 @@ test.IntegerVector.zero <- function( ){
 test.IntegerVector.create.zero <- function( ){
     fun <- .rcpp.IntegerVector$create_zero
     checkEquals( fun(), integer(0), msg = "IntegerVector::create()" )
+}
+
+test.IntegerVector.create <- function(){
+    fun <- .rcpp.IntegerVector$create_
+	checkEquals( fun(), list( c( 10L, 20L) , c(foo = 20L, bar = 30L) ), 
+		msg = "IntegerVector::create" )
 }
 
 

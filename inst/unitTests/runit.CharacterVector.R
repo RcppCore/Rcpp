@@ -157,7 +157,20 @@
                    signature(x = "character"),
                    'CharacterVector y(x) ;
 	            CharacterVector::iterator it = std::find( y.begin(), y.end(), "foo" ) ;
-	            return wrap( std::distance( y.begin(), it )); ')
+	            return wrap( std::distance( y.begin(), it )); '
+	            
+	            ), "create_" = list( 
+	            	signature(), 
+	            	'
+						List output(2); 
+						output[0] = CharacterVector::create( "foo", "bar" ) ;
+						output[1] = CharacterVector::create( 
+							_["foo"] = "bar", 
+							_["bar"] = "foo"
+							) ;
+						return output ;
+					'
+	            )
 
                    )
 
@@ -292,5 +305,11 @@ test.CharacterVector.listOf <- function() {
 test.CharacterVector.find <- function(){
     fun <- .rcpp.CharacterVector$find_
     checkEquals( fun( c("bar", "foo", "bob") ), 1L, msg = "support for std::find in CharacterVector" )
+}
+    
+test.CharacterVector.create <- function(){
+	fun <- .rcpp.CharacterVector$create_
+    checkEquals( fun(), list( c( "foo", "bar" ), c(foo = "bar", bar = "foo" ) ), 
+	 	msg = "CharacterVector::create" )
 }
 
