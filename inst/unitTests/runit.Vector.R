@@ -85,17 +85,49 @@
 				ExpressionVector code( "sort(x)" ) ;
 				return code.eval(env) ;
 				' 
+        	), 
+        	"complex_" = list( 
+        		signature(), 
+        		'
+				ComplexVector x(10) ;
+				Rcomplex rc ;
+				for( int i=0; i<10; i++) {
+					rc.r = rc.i = i + 0.0 ;
+					x[i] = rc ;
+				}
+				return x ;
+				'
+        	), 
+        	"complex_INTSXP" = list( 
+        		signature(vec = "complex" ), 
+        		'
+				ComplexVector x(vec) ;
+				for( int i=0; i<x.size(); i++) { 
+					x[i].r = x[i].r*2 ;
+					x[i].i = x[i].i*2 ;
+				}
+				return x ;
+				'
         	)
         	
         )
 
         if (Rcpp:::capabilities()[["initializer lists"]]) {
-        	g <- list(
+        	g <- list( 
         		"raw_initializer_list"=list(
         			signature(), 
         			'
 					RawVector x = {0,1,2,3} ;
 					for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
+					return x ;
+					'
+        		), 
+        		"complex_initializer_list" = list( 
+        			signature(), 
+        			'
+					Rcomplex c1 ; c1.r = c1.i = 0.0 ;
+					Rcomplex c2 ; c2.r = c2.i = 1.0 ;
+					ComplexVector x = { c1, c2 } ;
 					return x ;
 					'
         		)
@@ -168,5 +200,21 @@ test.ExpressionVector.eval.env <- function(){
 	e <- new.env()
 	e[["x"]] <- sample(1:10)
 	checkEquals( funx(e), 1:10, msg = "ExpressionVector::eval in specific environment" )
+}
+         
+test.ComplexVector <- function(){
+	funx <- .rcpp.Vector$complex_
+	checkEquals( funx(), 0:9*(1+1i), msg = "ComplexVector" )
+}
+
+test.ComplexVector.INTSXP <- function(){
+	funx <- .rcpp.Vector$complex_INTSXP
+	checkEquals( funx(0:9*(1+1i)), 2*0:9*(1+1i), msg = "ComplexVector( CPLXSXP) " )
+}
+if( Rcpp:::capabilities()[["initializer lists"]] ){
+	test.ComplexVector.initializer.list <- function(){
+		funx <- .rcpp.Vector$complex_initializer_list
+		checkEquals( funx(), c( 0:1*(1+1i)), msg = "ComplexVector( initializer list) " )
+	}
 }
 
