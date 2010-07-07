@@ -260,7 +260,49 @@
 					}
 					return dolly ;
 					'
-                  )
+                  ) , 
+                  
+                  
+                  
+           "numeric_" = list( 
+        		signature(),
+        		'
+				NumericVector x(10) ;
+				for( int i=0; i<10; i++) x[i] = i ;
+				return x ;
+				'
+        	), 
+        	"numeric_REALSXP" = list( 
+        		signature(vec = "numeric" ), 
+        		'
+				NumericVector x(vec) ;
+				for( int i=0; i<x.size(); i++) { 
+					x[i] = x[i]*2.0 ;
+				}
+				return x ;
+				'	
+        	), 
+        	"numeric_import" = list( 
+        		signature(), 
+        		'
+					std::vector<int> v(10) ;
+					for( int i=0; i<10; i++) v[i] = i ;
+					
+					return IntegerVector::import( v.begin(), v.end() ) ;
+				
+				'
+        	), 
+        	"numeric_importtransform" = list( 
+        		signature(), 
+        		'
+					std::vector<double> v(10) ;
+					for( int i=0; i<10; i++) v[i] = i ;
+					
+					return NumericVector::import_transform( v.begin(), v.end(), square ) ;
+				
+				'
+        	)       
+                  
 
                   
         )
@@ -291,15 +333,27 @@
 		   				for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 		   				return x ;
 		   			'
-		   		)
-        	)
+		   		), 
+		   		
+		   		"numeric_initlist" = list( 
+        			signature(), 
+        			'
+						NumericVector x = {0.0,1.0,2.0,3.0} ;
+						for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
+						return x ;
+					'
+        		)
+        	)     
         	f <- c(f,g)
         }
 
         signatures <- lapply(f, "[[", 1L)
         bodies <- lapply(f, "[[", 2L)
         fun <- cxxfunction(signatures, bodies,
-                           plugin = "Rcpp", includes = "using namespace std;",
+                           plugin = "Rcpp", includes = "
+                           using namespace std;
+                           inline double square( double x){ return x*x; }
+                           ",
                            cxxargs = ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x",""))
         getDynLib( fun ) # just forcing loading the dll now
         assign( tests, fun, globalenv() )
@@ -552,5 +606,36 @@ test.IntegerVector.clone <- function(){
 	y <- fun(x)
 	checkEquals( x, 1:10, msg = "clone" )
 	checkEquals( y, 10:1, msg = "clone" )
+}
+          
+
+
+
+
+test.NumericVector <- function(){
+	funx <- .rcpp.Vector$numeric_
+	checkEquals( funx(), as.numeric(0:9), msg = "NumericVector(int)" )
+}
+
+test.NumericVector.REALSXP <- function(){
+	funx <- .rcpp.Vector$numeric_REALSXP
+	checkEquals( funx(as.numeric(0:9)), 2*0:9, msg = "NumericVector( REALSXP) " )
+}
+
+if( Rcpp:::capabilities()[["initializer lists"]] ){
+	test.NumericVector.initializer.list <- function(){
+		funx <- .rcpp.Vector$numeric_initlist
+		checkEquals( funx(), as.numeric(2*0:3), msg = "NumericVector( initializer list) " )
+	}
+}
+
+test.NumericVector.import <- function(){
+	funx <- .rcpp.Vector$numeric_import
+	checkEquals( funx(), 0:9, msg = "IntegerVector::import" ) 
+}
+
+test.NumericVector.import.transform <- function(){
+	funx <- .rcpp.Vector$numeric_importtransform
+	checkEquals( funx(), (0:9)^2, msg = "NumericVector::import_transform" )
 }
 
