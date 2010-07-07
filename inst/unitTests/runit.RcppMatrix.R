@@ -128,7 +128,28 @@
 		            rs.add("p2",   m(1));
 	    			return rs.getReturnList();')
 
-                  )
+                  ,"RcppStringVector_classic"=list(
+                   signature(x="character"),
+                   'RcppStringVector s = RcppStringVector(x);
+		            RcppResultSet rs;
+		            rs.add("string", s);
+			        return rs.getReturnList();')
+
+                  ,"RcppStringVector_wrap"=list(
+                   signature(x="character"),
+                   'RcppStringVector s = RcppStringVector(x);
+			        return wrap(s);')
+
+                  ,"RcppStringVector_begin"=list(
+                   signature(x="character"),
+				   'RcppStringVector s = RcppStringVector(x);
+		            return wrap(*s.begin());')
+
+                  ,"RcppStringVector_end"=list(
+                   signature(x="character"),
+                   'RcppStringVector s = RcppStringVector(x);
+		            return wrap(s(s.size()-1));')
+                   )
 
         signatures <- lapply(f, "[[", 1L)
         bodies <- lapply(f, "[[", 2L)
@@ -211,6 +232,32 @@ test.RcppVectorView.int <- function() {
 test.RcppVectorView.double <- function() {
     funx <- .Rcpp.RcppMatrix$RcppVectorView_double
     checkEquals(funx(x=1.0*c(1:6)), list(size=6, p2=2), msg="RcppVectorView.double")
+}
+
+
+
+test.RcppStringVector.classic <- function() {
+    fun <- .Rcpp.RcppMatrix$RcppStringVector_classic
+    sv <- c("tic", "tac", "toe")
+    checkEquals(fun(sv), list(string=sv), msg = "RcppStringVector.classic")
+}
+
+test.RcppStringVector.wrap <- function() {
+    fun <- .Rcpp.RcppMatrix$RcppStringVector_wrap
+    sv <- c("tic", "tac", "toe")
+    checkEquals(fun(sv), sv, msg = "RcppStringVector.wrap")
+}
+
+test.RcppStringVector.begin <- function() {
+    fun <- .Rcpp.RcppMatrix$RcppStringVector_begin
+    sv <- c("tic", "tac", "toe")
+    checkEquals(fun(sv), sv[1], msg = "RcppStringVector.begin")
+}
+
+test.RcppStringVector.end <- function() {
+    fun <- .Rcpp.RcppMatrix$RcppStringVector_end
+    sv <- c("tic", "tac", "toe")
+    checkEquals(fun(sv), sv[3], msg = "RcppStringVector.begin")
 }
 
 
