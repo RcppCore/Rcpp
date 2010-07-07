@@ -48,7 +48,7 @@ if(require("RUnit", quietly = TRUE)) {
 
     ## Define tests
     testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path
-                                        # , testFileRegexp = "runit.Argument.R"
+                                    #   , testFileRegexp = "Vector"
                                  )
 
     ## this is crass but as we time out on Windows we have no choice
@@ -134,7 +134,27 @@ if(require("RUnit", quietly = TRUE)) {
         ## This will cause R CMD check to return error and stop
         err <- getErrors(tests)
         if( (err$nFail + err$nErr) > 0) {
-            stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
+        	data <- Filter( 
+        		function(x) any( sapply(x, function(.) .[["kind"]] ) %in% c("error","failure") ) , 
+        		tests[[1]]$sourceFileResults )
+        	err_msg <- sapply( data, 
+        	function(x) {
+        		raw.msg <- paste( 
+        			sapply( Filter( function(.) .[["kind"]] %in% c("error","failure"), x ), "[[", "msg" ), 
+        			collapse = " // "
+        			)
+        		raw.msg <- gsub( "Error in compileCode(f, code, language = language, verbose = verbose) : \n", "", raw.msg, fixed = TRUE )
+        		raw.msg <- gsub( "\n", "", raw.msg, fixed = TRUE )
+        		raw.msg
+        		}
+        	)
+        	
+        	msg <- sprintf( sprintf( "unit test problems: %d failures, %d errors\n%s",
+        		err$nFail, err$nErr, 
+        		paste( err_msg, collapse = "\n" )
+        		) 
+           
+        	stop( msg )
         } else{
             success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
             cat( sprintf( "%d / %d\n", success, err$nTestFunc ) )
