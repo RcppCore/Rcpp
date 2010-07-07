@@ -48,7 +48,7 @@ if(require("RUnit", quietly = TRUE)) {
 
     ## Define tests
     testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path
-                                    #   , testFileRegexp = "Vector"
+                                 #     , testFileRegexp = "Vector"
                                  )
 
     ## this is crass but as we time out on Windows we have no choice
@@ -148,12 +148,10 @@ if(require("RUnit", quietly = TRUE)) {
         		raw.msg
         		}
         	)
-        	
-        	msg <- sprintf( sprintf( "unit test problems: %d failures, %d errors\n%s",
+        	msg <- sprintf( "unit test problems: %d failures, %d errors\n%s",
         		err$nFail, err$nErr, 
         		paste( err_msg, collapse = "\n" )
-        		) 
-           
+        		)
         	stop( msg )
         } else{
             success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
