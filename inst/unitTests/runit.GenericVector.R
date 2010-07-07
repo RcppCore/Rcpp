@@ -130,7 +130,15 @@
 						_["bar"] = true ) ;
 					return output ;
 				'
-              )
+              ), 
+              "list_stdcomplex" = list( 
+              		signature() , '
+              			std::vector< std::complex<double> > v_double(10) ;
+    					std::vector< std::complex<float> > v_float(10) ;
+    					return List::create( _["float"] = v_float, _["double"] = v_double ) ;
+    				'
+    			)
+               	
               
         )
 
@@ -286,3 +294,10 @@ test.List.create <- function(){
 		msg = "List::create" )
 }
 
+test.List.stdcomplex <- function(){
+	fun <- .rcpp.List$list_stdcomplex
+    checkEquals( 
+		fun(), 
+		list( float = rep(0+0i, 10), double = rep(0+0i, 10) ), 
+		msg = "range wrap over std::complex" )
+}
