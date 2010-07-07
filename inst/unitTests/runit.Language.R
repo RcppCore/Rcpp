@@ -274,6 +274,19 @@
 					p[2] = p[0] ;
 					return p ;
 				'
+			), 
+			
+			"runit_formula_" = list( 
+				signature(), '
+					Formula f( "x ~ y + z" ) ;
+					return f;
+				' 
+			), 
+			"runit_formula_SEXP" = list( 
+				signature( form = "ANY" ), '
+					Formula f(form) ;
+					return f;
+				'
 			)
 			
 		)
@@ -451,5 +464,20 @@ test.Pairlist.square <- function(){
 
 	funx <- .rcpp.language$runit_pl_square_2
 	checkEquals( funx(), pairlist(1L, "foobar", 1L) , msg = "Pairlist::operator[] used as lvalue" )
+}
+
+
+test.Formula <- function(){
+	funx <- .rcpp.language$runit_formula_
+	checkEquals( funx(), x ~ y + z, msg = "Formula( string )" )
+}
+
+test.Formula.SEXP <- function(){
+	funx <- .rcpp.language$runit_formula_SEXP
+	checkEquals( funx( x ~ y + z), x ~ y + z, msg = "Formula( SEXP = formula )" )
+	checkEquals( funx( "x ~ y + z" ), x ~ y + z, msg = "Formula( SEXP = STRSXP )" )
+	checkEquals( funx( parse( text = "x ~ y + z") ), x ~ y + z, msg = "Formula( SEXP = EXPRSXP )" )
+	checkEquals( funx( list( "x ~ y + z") ), x ~ y + z, msg = "Formula( SEXP = VECSXP(1 = STRSXP) )" )
+	checkEquals( funx( list( x ~ y + z) ), x ~ y + z, msg = "Formula( SEXP = VECSXP(1 = formula) )" )
 }
 
