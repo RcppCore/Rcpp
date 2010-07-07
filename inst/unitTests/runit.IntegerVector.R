@@ -157,6 +157,17 @@
 						_["bar"] = 30 ) ;
 					return output ;
 					' 
+                  ), 
+                  "clone_" = list( 
+                  signature(x="integer"), 
+                  '
+					IntegerVector vec(x) ;
+					IntegerVector dolly = clone( vec ) ;
+					for( size_t i=0; i<10; i++){
+						dolly[i] = 10 - i ;
+					}
+					return dolly ;
+					'
                   )
 
                   )
@@ -345,4 +356,11 @@ test.IntegerVector.create <- function(){
 		msg = "IntegerVector::create" )
 }
 
+test.IntegerVector.clone <- function(){
+	x <- 1:10
+	fun <- .rcpp.IntegerVector$clone_
+	y <- fun(x)
+	checkEquals( x, 1:10, msg = "clone" )
+	checkEquals( y, 10:1, msg = "clone" )
+}
 
