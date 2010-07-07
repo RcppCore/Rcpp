@@ -500,7 +500,24 @@
 				IntegerVector yy = rev( xx * xx );
 				return yy ;
 				'
-				)
+				), 
+			"runit_outer" = list( 
+				signature( x = "numeric", y = "numeric" ), 
+				'
+				NumericVector xx(x) ;
+				NumericVector yy(y);
+				NumericMatrix m = outer( xx, yy, std::plus<double>() ) ;
+				return m ;
+				'		), 
+			"runit_row" = list( 
+				signature( x = "numeric" ), 
+				'
+				NumericMatrix xx(x) ;
+				return List::create( 
+					_["row"] = row( xx ), 
+					_["col"] = col( xx )
+					) ;
+				'	
 			
 			
 		)
@@ -964,5 +981,28 @@ test.sugar.rep <- function(){
 test.sugar.rev <- function(){
 	fx <- .rcpp.sugar$runit_rev
 	checkEquals( fx(1:10), rev( 1:10 * 1:10 ) )
+}
+
+
+
+
+
+
+
+
+
+
+			
+test.sugar.outer <- function( ){
+	fx <- .rcpp.sugar$runit_outer
+	x <- 1:2
+	y <- 1:5
+	checkEquals( fx(x,y) , outer(x,y,"+") )
+}
+
+test.sugar.row <- function( ){
+	fx <- .rcpp.sugar$runit_row
+	m <- matrix( 1:16, nc = 4 )
+	checkEquals( fx(m), list( row = row(m), col = col(m) ) ) 
 }
 
