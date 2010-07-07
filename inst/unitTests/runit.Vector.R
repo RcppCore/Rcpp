@@ -127,23 +127,6 @@
 	            }
 	            return x ;')
 
-                  ,"integer_matrix_indexing"=list(
-                   signature(x = "integer" ),
-                   'IntegerVector m(x) ;
-		    int trace = 0.0 ;
-		    for( size_t i=0 ; i<4; i++){
-		        trace += m(i,i) ;
-		    }
-		    return wrap( trace ) ;')
-
-                  ,"integer_matrix_indexing_lhs"=list(
-                   signature(x = "integer" ),
-                   'IntegerVector m(x) ;
-		    for( size_t i=0 ; i<4; i++){
-		        m(i,i) = 2 * i ;
-		    }
-		    return m ; ')
-
                   ,"integer_dimension_ctor_1"=list(
                    signature(),
                    'return IntegerVector( Dimension( 5 ) ) ;')
@@ -746,18 +729,6 @@ if (Rcpp:::capabilities()[["initializer lists"]]) {
         fun <- .rcpp.Vector$integer_initializer_list
         checkEquals( fun(), 2*0:3, msg = "IntegerVector( initializer list) " )
     }
-}
-
-test.IntegerVector.matrix.indexing <- function(){
-    fun <- .rcpp.Vector$integer_matrix_indexing
-    x <- matrix( 1:16, ncol = 4 )
-    checkEquals( fun(x), sum(diag(x)), msg = "matrix indexing" )
-
-    fun <- .rcpp.Vector$integer_matrix_indexing_lhs
-    checkEquals( diag(fun(x)), 2*0:3, msg = "matrix indexing lhs" )
-
-    y <- as.vector( x )
-    checkException( fun(y) , msg = "not a matrix" )
 }
 
 test.IntegerVector.Dimension.constructor <- function(){
