@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-
 .setUp <- function() {
     tests <- ".rcpp.Matrix"
     if( ! exists( tests, globalenv() )) {
