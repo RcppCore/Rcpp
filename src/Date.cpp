@@ -660,7 +660,7 @@ struct tzhead {
 	    ** guarantees can be opened."
 	    */
 	    char fullname[FILENAME_MAX + 1];
-	    const char *sname = name;
+	    // edd 08 Jul 2010 not currently needed  const char *sname = name;
 
 	    if (name[0] == ':')
 		++name;
