@@ -42,6 +42,7 @@
 #include <Rcpp/sugar/functions/rep_len.h>
 #include <Rcpp/sugar/functions/rep_each.h>
 #include <Rcpp/sugar/functions/rev.h>
+#include <Rcpp/sugar/functions/head.h>
 
 #include <Rcpp/sugar/functions/Re.h>
 #include <Rcpp/sugar/functions/Im.h>

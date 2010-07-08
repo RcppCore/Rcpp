@@ -1,3 +1,7 @@
+2010-07-08  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/functions/head.h: new sugar function : head
+
 2010-07-07  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/functions/rep.h: version of rep that takes a

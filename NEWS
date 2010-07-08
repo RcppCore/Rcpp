@@ -1,6 +1,6 @@
 0.8.4   (under development)
 
-	o	new sugar functions: rep, rep_len, rep_each, rev
+	o	new sugar functions: rep, rep_len, rep_each, rev, head, tail
 	
     o	sugar has been extended to matrices: The Matrix class now extends the 
     	Matrix_Base template that implements CRTP. Currently sugar functions 
