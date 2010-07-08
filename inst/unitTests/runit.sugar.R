@@ -539,14 +539,17 @@
 					) ;
 				'
 			), 
-			"runit_matrix_diag" = list( 
-				signature( x = "matrix" ), 
-				'
-					NumericMatrix xx(x) ;
-					return wrap( diag( xx ) ) ;
+			"runit_diag" = list( 
+				signature( x = "numeric", m = "matrix" ), '
+					NumericVector xx(x) ;
+					NumericMatrix mm(m) ;
+					return List::create( 
+						diag( xx ) , 
+						diag( mm ), 
+						diag( outer( xx, xx, std::plus<double>() ) )
+						) ;
 				'
 			)
-			
 		)
 		
 		signatures <- lapply( sugar.functions, "[[", 1L )
@@ -1047,9 +1050,12 @@ test.sugar.matrix.row <- function( ){
 	checkEquals( fx(m), list( row = row(m), col = col(m) ) ) 
 }
 
-test.sugar.matrix.diag <- function( ){
-	fx <- .rcpp.sugar$runit_matrix_diag
+test.sugar.diag <- function( ){
+	fx <- .rcpp.sugar$runit_diag
+	
+	x <- 1:4
 	m <- matrix( 1:16, nc = 4 )
-	checkEquals( fx(m), diag(m) ) 
+	checkEquals( fx(x, m), 
+		list( diag(x), diag(m), diag( outer( x, x, "+" ) ) ) ) 
 }
 

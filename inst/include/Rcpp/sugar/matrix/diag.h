@@ -22,16 +22,16 @@
 #ifndef Rcpp__sugar__diag_h
 #define Rcpp__sugar__diag_h
 
-namespace Rcpp{
+namespace Rcpp{	
 namespace sugar{
 	
 template <int RTYPE, bool NA, typename T>
-class Matrix_Diag : public Rcpp::VectorBase< RTYPE ,NA, Matrix_Diag<RTYPE,NA,T> > {
+class Diag_Extractor : public Rcpp::VectorBase< RTYPE ,NA, Diag_Extractor<RTYPE,NA,T> > {
 public:
 	typedef typename Rcpp::MatrixBase<RTYPE,NA,T> MAT_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
-	Matrix_Diag( const MAT_TYPE& object_ ) : object(object_), n(0) {
+	Diag_Extractor( const MAT_TYPE& object_ ) : object(object_), n(0) {
 		int nr = object.nrow() ;
 		int nc = object.ncol() ;
 		n = (nc < nr ) ? nc : nr ;
@@ -47,14 +47,48 @@ private:
 	int n ;
 } ;
 	
+
+template <int RTYPE, bool NA, typename T>
+class Diag_Maker : public Rcpp::MatrixBase< RTYPE ,NA, Diag_Maker<RTYPE,NA,T> > {
+public:
+	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	
+	Diag_Maker( const VEC_TYPE& object_ ) : object(object_), n(object_.size()) {}
+	
+	inline STORAGE operator[]( int index ) const {
+		int i = Rcpp::internal::get_line( index, n ) ;
+		int j = Rcpp::internal::get_column( index, n, i ) ;
+		return (i==j) ? object[i] : 0 ;
+	}
+	inline STORAGE operator()( int i, int j ) const {
+		return (i==j) ? object[i] : 0 ;
+	}
+	inline int size() const { return n * n; }
+	inline int ncol() const { return n; }
+	inline int nrow() const { return n; }
+	         
+private:
+	const VEC_TYPE& object ;
+	int n ;
+} ;
+
+template <typename T> struct diag_result_type_trait{
+	typedef typename Rcpp::traits::if_<
+		Rcpp::traits::matrix_interface<T>::value, 
+		Diag_Extractor< T::r_type::value , T::can_have_na::value , T >, 
+		Diag_Maker< T::r_type::value , T::can_have_na::value , T > 
+	>::type type ;
+} ;
+
 } // sugar
 
-template <int RTYPE,bool NA, typename T>
-inline sugar::Matrix_Diag<RTYPE,NA,T> diag( 
-	const MatrixBase<RTYPE,NA,T>& t 
-	){
-	return sugar::Matrix_Diag<RTYPE,NA,T>( t ) ;
+template <typename T>
+inline typename sugar::diag_result_type_trait<T>::type 
+diag( const T& t ){
+	return typename sugar::diag_result_type_trait<T>::type( t ) ;
 }
+
 
 } // Rcpp
 #endif

@@ -25,6 +25,9 @@
 template <int RTYPE> 
 class Matrix : public Vector<RTYPE>, public MatrixBase<RTYPE,true, Matrix<RTYPE> > {
 public:
+	struct r_type : traits::integral_constant<int,RTYPE>{} ;
+	struct can_have_na : traits::true_type{} ;
+	
 	typedef Vector<RTYPE> VECTOR ;
 	typedef typename VECTOR::iterator iterator ;
     typedef typename VECTOR::converter_type converter_type ;
