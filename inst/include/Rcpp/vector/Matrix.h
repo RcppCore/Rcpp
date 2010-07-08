@@ -113,6 +113,13 @@ public:
     	return static_cast< Vector<RTYPE>* >( this )->operator()( i, j ) ;
     }
     
+    inline Proxy operator[]( int i ) const {
+    	return static_cast< const Vector<RTYPE>* >( this )->operator[]( i ) ;
+    }
+    inline Proxy operator()( int i, int j ) const {
+    	return static_cast< const Vector<RTYPE>* >( this )->operator()( i, j ) ;
+    }
+    
 private:
 	virtual void update(){
 		RCPP_DEBUG_1( "%s::update", DEMANGLE(Matrix) ) ;

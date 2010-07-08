@@ -271,9 +271,18 @@ public:
 	inline Proxy operator()( const size_t& i) throw(index_out_of_bounds){
 		return cache.ref( offset(i) ) ;
 	}
+	// TODO: should it be const_Proxy
+	inline Proxy operator()( const size_t& i) const throw(index_out_of_bounds){
+		return cache.ref( offset(i) ) ;
+	}
 	inline Proxy operator()( const size_t& i, const size_t& j) throw(not_a_matrix,index_out_of_bounds){
 		return cache.ref( offset(i,j) ) ;
 	}
+	// TODO: should it be const_Proxy
+	inline Proxy operator()( const size_t& i, const size_t& j) const throw(not_a_matrix,index_out_of_bounds){
+		return cache.ref( offset(i,j) ) ;
+	}
+	
 	inline NameProxy operator[]( const std::string& name ){
 		return NameProxy( *this, name ) ;
 	}

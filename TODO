@@ -70,8 +70,6 @@ Syntactic sugar
     	has to evaluate x[i] + y[i] as many times as the length
     	of z. perhaps a better implementation would be to 
     	first force the evaluation of x + y.
-
-    o	primitive should be allowed in ifelse, on the lhs, rhs or both
     
 Testing
 
