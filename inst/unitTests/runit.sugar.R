@@ -528,6 +528,16 @@
 						_["neg"] = head( xx, -5 )
 					) ;
 				'
+			), 
+			"runit_tail" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return List::create( 
+						_["pos"] = tail( xx, 5 ), 
+						_["neg"] = tail( xx, -5 )
+					) ;
+				'
 			)
 			
 		)
@@ -1000,8 +1010,15 @@ test.sugar.head <- function(){
 		list( pos = 1:5, neg = 1:95 )
 		)
 }
-
-
+     
+test.sugar.tail <- function(){
+	fx <- .rcpp.sugar$runit_tail
+	checkEquals( 
+		fx(1:100), 
+		list( pos = 96:100, neg = 6:100 )
+		)
+}
+     
 
 
 
