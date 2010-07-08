@@ -56,7 +56,7 @@ Syntactic sugar
         
         min( x ) < 4
     
-    o   matrix functions : diag, apply
+    o   matrix functions : apply
     
     o   for character vectors: nchar, grepl, sub, gsub
     
