@@ -538,6 +538,13 @@
 						_["neg"] = tail( xx, -5 )
 					) ;
 				'
+			), 
+			"runit_matrix_diag" = list( 
+				signature( x = "matrix" ), 
+				'
+					NumericMatrix xx(x) ;
+					return wrap( diag( xx ) ) ;
+				'
 			)
 			
 		)
@@ -1027,16 +1034,22 @@ test.sugar.tail <- function(){
 
 
 			
-test.sugar.outer <- function( ){
+test.sugar.matrix.outer <- function( ){
 	fx <- .rcpp.sugar$runit_outer
 	x <- 1:2
 	y <- 1:5
 	checkEquals( fx(x,y) , outer(x,y,"+") )
 }
 
-test.sugar.row <- function( ){
+test.sugar.matrix.row <- function( ){
 	fx <- .rcpp.sugar$runit_row
 	m <- matrix( 1:16, nc = 4 )
 	checkEquals( fx(m), list( row = row(m), col = col(m) ) ) 
+}
+
+test.sugar.matrix.diag <- function( ){
+	fx <- .rcpp.sugar$runit_matrix_diag
+	m <- matrix( 1:16, nc = 4 )
+	checkEquals( fx(m), diag(m) ) 
 }
 
