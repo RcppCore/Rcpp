@@ -85,17 +85,17 @@ public:
 		init() ;
     }
     
-    template <bool __NA__, typename __VEC__>
-    Vector( const VectorBase<RTYPE,__NA__,__VEC__>& other ) : RObject() {
+    template <bool NA, typename VEC>
+    Vector( const VectorBase<RTYPE,NA,VEC>& other ) : RObject() {
     	int n = other.size() ;
     	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
-    	import_expression<__NA__,__VEC__>( other, n ) ;
+    	import_expression<NA,VEC>( other, n ) ;
 	}
     
 private:
 	
-	template <bool __NA__, typename __VEC__>
-    void import_expression( const VectorBase<RTYPE,__NA__,__VEC__>& other, int n ){
+	template <bool NA, typename VEC>
+    void import_expression( const VectorBase<RTYPE,NA,VEC>& other, int n ){
     	iterator start = begin() ; 
 		for( int i=0; i<n; i++, ++start){
 			*start = other[i] ;
