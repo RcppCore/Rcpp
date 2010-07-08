@@ -45,7 +45,7 @@ R 2.12.0
         
 Syntactic sugar
 
-    o   duplicated, unique, count, sum, head, tail, sqrt, log, log10, ln
+    o   duplicated, unique, count, sum, sqrt, log, log10, ln
     
     o	operator% 
     

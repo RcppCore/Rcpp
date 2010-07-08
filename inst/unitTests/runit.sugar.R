@@ -518,6 +518,16 @@
 					_["col"] = col( xx )
 					) ;
 				'	
+			), 
+			"runit_head" = list( 
+				signature( x = "numeric" ), 
+				'
+					NumericVector xx(x) ;
+					return List::create( 
+						_["pos"] = head( xx, 5 ), 
+						_["neg"] = head( xx, -5 )
+					) ;
+				'
 			)
 			
 		)
@@ -983,6 +993,13 @@ test.sugar.rev <- function(){
 	checkEquals( fx(1:10), rev( 1:10 * 1:10 ) )
 }
 
+test.sugar.head <- function(){
+	fx <- .rcpp.sugar$runit_head
+	checkEquals( 
+		fx(1:100), 
+		list( pos = 1:5, neg = 1:95 )
+		)
+}
 
 
 
