@@ -687,11 +687,15 @@ struct tzhead {
 		name = fullname;
 	    }
 	    if (doaccess && access(name, R_OK) != 0) {
-		Rf_warning("unknown timezone '%s'", sname);
+		// edd 08 Jul 2010  we use this without TZ for dates only 
+		//                  so no need to warn
+		//Rf_warning("unknown timezone '%s'", sname);
 		return -1;
 	    }
 	    if ((fid = open(name, OPEN_MODE)) == -1) {
-		Rf_warning("unknown timezone '%s'", sname);
+		// edd 08 Jul 2010  we use this without TZ for dates only 
+		//                  so no need to warn
+		//Rf_warning("unknown timezone '%s'", sname);
 		return -1;
 	    }
 		
