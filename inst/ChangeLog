@@ -3,6 +3,8 @@
 	* inst/include/Rcpp/sugar/functions/head.h: new sugar function : head
 	* inst/include/Rcpp/sugar/functions/tail.h: new sugar function : tail
 
+	* inst/include/Rcpp/sugar/functions/tail.h: new sugar function : diag
+
 2010-07-07  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/functions/rep.h: version of rep that takes a
