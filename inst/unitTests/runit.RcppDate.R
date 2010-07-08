@@ -1,4 +1,5 @@
 #!/usr/bin/r -t
+# -*- mode: R; tab-width: 4 -*-
 #
 # Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 #
@@ -51,36 +52,36 @@
                           ,"RcppDatetime_functions"=list(
                            signature(x="numeric"),
                            'RcppDatetime dt = RcppDatetime(x);
-		            RcppResultSet rs;
-		            rs.add("year",     dt.getYear());
-		            rs.add("month",    dt.getMonth());
-		            rs.add("day",      dt.getDay());
-		            rs.add("wday",     dt.getWeekday());
-		            rs.add("hour",     dt.getHour());
-		            rs.add("minute",   dt.getMinute());
-		            rs.add("second",   dt.getSecond());
-		            rs.add("microsec", dt.getMicroSec());
-		            return rs.getReturnList();')
+				            RcppResultSet rs;
+				            rs.add("year",     dt.getYear());
+				            rs.add("month",    dt.getMonth());
+				            rs.add("day",      dt.getDay());
+				            rs.add("wday",     dt.getWeekday());
+				            rs.add("hour",     dt.getHour());
+				            rs.add("minute",   dt.getMinute());
+				            rs.add("second",   dt.getSecond());
+				            rs.add("microsec", dt.getMicroSec());
+				            return rs.getReturnList();')
 
                           ,"RcppDatetime_operators"=list(
                            signature(x="numeric"),
                            'RcppDatetime d1 = RcppDatetime(946774923.123456);
-		            //RcppDatetime d1 = RcppDatetime(1152338523.456789);
-						// as.POSIXct("2006-07-08 01:02:03.456789")
-		            RcppDatetime d2 = d1 + 60*60;
-		            RcppResultSet rs;
-        	            rs.add("diff",    d2 - d1);
-	                    rs.add("bigger",  d2 > d1);
-	                    rs.add("smaller", d2 < d1);
-	                    rs.add("equal",   d2 == d1);
-	                    rs.add("ge",      d2 >= d1);
-	                    rs.add("le",      d2 <= d1);
-	            	    return rs.getReturnList();')
+				            //RcppDatetime d1 = RcppDatetime(1152338523.456789);
+							// as.POSIXct("2006-07-08 01:02:03.456789")
+				            RcppDatetime d2 = d1 + 60*60;
+				            RcppResultSet rs;
+        	    	        rs.add("diff",    d2 - d1);
+	            	        rs.add("bigger",  d2 > d1);
+		                    rs.add("smaller", d2 < d1);
+		                    rs.add("equal",   d2 == d1);
+	    	                rs.add("ge",      d2 >= d1);
+	        	            rs.add("le",      d2 <= d1);
+	            		    return rs.getReturnList();')
 
                            ,"RcppDatetime_wrap"=list(
                             signature(),
                             'RcppDatetime dt = RcppDatetime(981162123.123456);
-	    		     return wrap(dt);')
+			    		     return wrap(dt);')
 
                           )
 
@@ -89,6 +90,7 @@
         fun <- cxxfunction( signatures, bodies, plugin = "Rcpp")
         getDynLib( fun ) # just forcing loading the dll now
         assign( ".rcpp.RcppDate", fun, globalenv() )
+        Sys.setenv("TZ"="UTC")          # to ensure localtime is GMT
     }
 }
 
@@ -110,14 +112,14 @@ test.RcppDate.wrap <- function() {
 
 test.RcppDatetime.get.functions <- function() {
     fun <- .rcpp.RcppDate$RcppDatetime_functions
-    checkEquals(fun(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456"))),
+    checkEquals(fun(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
                 list(year=2001, month=2, day=3, wday=6, hour=1, minute=2, second=3, microsec=123456),
                 msg = "RcppDate.get.functions")
 }
 
 test.RcppDatetime.operators <- function() {
     fun <- .rcpp.RcppDate$RcppDatetime_operators
-    checkEquals(fun(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456"))),
+    checkEquals(fun(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC"))),
                 list(diff=3600, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE),
                 msg = "RcppDatetime.operators")
 }
