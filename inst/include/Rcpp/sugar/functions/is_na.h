@@ -25,11 +25,11 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, bool _NA_, typename VEC_TYPE>
-class IsNa : public ::Rcpp::VectorBase< LGLSXP, false, IsNa<RTYPE,_NA_,VEC_TYPE> > {
+template <int RTYPE, bool NA, typename VEC_TYPE>
+class IsNa : public ::Rcpp::VectorBase< LGLSXP, false, IsNa<RTYPE,NA,VEC_TYPE> > {
 public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef Rcpp::VectorBase<RTYPE,_NA_,VEC_TYPE> BASE ;
+	typedef Rcpp::VectorBase<RTYPE,NA,VEC_TYPE> BASE ;
 	
 	IsNa( const BASE& obj_) : obj(obj_){}
 	
@@ -69,9 +69,9 @@ private:
 	
 } // sugar
 
-template <int RTYPE, bool _NA_, typename T>
-inline sugar::IsNa<RTYPE,_NA_,T> is_na( const Rcpp::VectorBase<RTYPE,_NA_,T>& t){
-	return sugar::IsNa<RTYPE,_NA_,T>( t ) ;
+template <int RTYPE, bool NA, typename T>
+inline sugar::IsNa<RTYPE,NA,T> is_na( const Rcpp::VectorBase<RTYPE,NA,T>& t){
+	return sugar::IsNa<RTYPE,NA,T>( t ) ;
 }
 
 } // Rcpp

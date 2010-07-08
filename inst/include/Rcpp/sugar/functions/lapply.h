@@ -50,10 +50,10 @@ private:
 	
 } // sugar
 
-template <int RTYPE, bool _NA_, typename T, typename Function >
-inline sugar::Lapply<RTYPE,_NA_,T,Function> 
-lapply( const Rcpp::VectorBase<RTYPE,_NA_,T>& t, Function fun ){
-	return sugar::Lapply<RTYPE,_NA_,T,Function>( t, fun ) ;
+template <int RTYPE, bool NA, typename T, typename Function >
+inline sugar::Lapply<RTYPE,NA,T,Function> 
+lapply( const Rcpp::VectorBase<RTYPE,NA,T>& t, Function fun ){
+	return sugar::Lapply<RTYPE,NA,T,Function>( t, fun ) ;
 }
 
 } // Rcpp

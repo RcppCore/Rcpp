@@ -56,10 +56,10 @@ private:
 	
 } // sugar
 
-template <int RTYPE, bool _NA_, typename T, typename Function >
-inline sugar::Sapply<RTYPE,_NA_,T,Function> 
-sapply( const Rcpp::VectorBase<RTYPE,_NA_,T>& t, Function fun ){
-	return sugar::Sapply<RTYPE,_NA_,T,Function>( t, fun ) ;
+template <int RTYPE, bool NA, typename T, typename Function >
+inline sugar::Sapply<RTYPE,NA,T,Function> 
+sapply( const Rcpp::VectorBase<RTYPE,NA,T>& t, Function fun ){
+	return sugar::Sapply<RTYPE,NA,T,Function>( t, fun ) ;
 }
 
 } // Rcpp
