@@ -82,6 +82,14 @@
         	"S4_attrproxy" = list( 
         		signature(tr="ANY"), 
         		' IntegerVector o(tr); return CharacterVector(o.attr("foo")); '
+        	), 
+        	"S4_dotdata" = list( 
+        		signature( x = "ANY" ), 
+        		'
+        			S4 foo( x ) ; 
+        			foo.slot( ".Data" ) = "foooo" ; 
+        			return foo ;
+        		'
         	)
         )
         
@@ -171,5 +179,12 @@ test.Vector.AttributeProxy.ambiguity <- function(){
 	fx <- .rcpp.S4$S4_attrproxy
 	checkEquals( fx(x), "bar", "Vector( AttributeProxy ) ambiguity" )
 	
+}
+
+test.S4.dotdataslot <- function(){
+	setClass( "Foo", contains = "character", representation( x = "numeric" ) )
+	fx <- .rcpp.S4$S4_dotdata
+	foo <- fx( new( "Foo", "bla", x = 10 ) )
+	checkEquals( as.character( foo) , "foooo" )	
 }
 

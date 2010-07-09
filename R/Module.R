@@ -19,7 +19,10 @@ setGeneric( "new" )
 
 setOldClass( "C++ObjectS3" )
 setClass( "Module", representation( pointer = "externalptr" ) )
-setClass( "C++Class", representation( pointer = "externalptr", module = "externalptr" ) )
+setClass( "C++Class", 
+	representation( pointer = "externalptr", module = "externalptr" ), 
+	contains = "character"
+	)
 setClass( "C++Object", 
 	representation( 
 		module = "externalptr", 

@@ -40,4 +40,4 @@ install_help_workaround <- function(){
 	assign( ".tryHelp", th, utils )
 	lockBinding( ".tryHelp", utils )
 }
-
+ 
