@@ -15,6 +15,7 @@ Information about an internal c++ class.
 }
 \section{Slots}{
   \describe{
+  	\item{\code{.Data}:}{mangled name of the class}
     \item{\code{pointer}:}{external pointer to the internal infomation}
     \item{\code{module}:}{external pointer to the module}
   }

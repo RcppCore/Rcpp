@@ -1,3 +1,14 @@
+2010-07-09  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/RObject.cpp: adapt the SlotProxy class to deal with the special
+	case of the .Data slot (slot<- changes the internal SEXP)
+	
+	* R/Module.R: the C++Class now inherits from "character", to facilitate
+	S4 method dispatch
+	
+	* src/Module.cpp: The CppClass ctor sets the .Data of the C++Class object
+	to an obfuscated name to avoid class names clashes at the R level. 
+
 2010-07-08  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/functions/head.h: new sugar function : head
