@@ -138,11 +138,11 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	}
 	classes <- .Call( "Module__classes_info", xp, PACKAGE = "Rcpp" )
 	if( length( classes ) ){
-		clnames <- names( classes )
 		for( i in seq_along(classes) ){
 			CLASS <- classes[[i]]
-			setClass( clnames[i], contains = "C++Object", where = where )
-			setMethod( "initialize", clnames[i], function(.Object, ...){
+			clname <- as.character(CLASS)
+			setClass( clname, contains = "C++Object", where = where )
+			setMethod( "initialize",clname, function(.Object, ...){
 				.Object <- callNextMethod()
 				if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){
 					out <- new_CppObject_xp( CLASS, ... )
@@ -155,13 +155,13 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 			
 			METHODS <- .Call( "CppClass__methods" , CLASS@pointer , PACKAGE = "Rcpp" )
 			if( "[[" %in% METHODS ){
-				setMethod( "[[", clnames[i], function(x, i, j, ...){
+				setMethod( "[[", clname, function(x, i, j, ...){
 					MethodInvoker( x, "[[" )( i )
 				}, where = where )
 			}
 			
 			if( "[[<-" %in% METHODS ){
-				setReplaceMethod( "[[", clnames[i], function(x, i, j, ..., exact = TRUE, value ){
+				setReplaceMethod( "[[", clname, function(x, i, j, ..., exact = TRUE, value ){
 					MethodInvoker( x, "[[<-" )( i, value )
 					x
 				}, where = where )
