@@ -84,7 +84,7 @@ test.Module <- function(){
 	}                     
 	
 	'
-	fx <- cppfunction( signature(), "" , include = inc )
+	fx <- cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
 	
 	mod <- Module( "yada", getDynLib(fx) )
 	checkEquals( mod$bar( 2L ), 4L )

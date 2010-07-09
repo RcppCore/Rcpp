@@ -184,7 +184,7 @@ public:
 		SEXP get() const ;
 		void set(SEXP x ) const;
 	} ;
-    	
+    friend class SlotProxy ;	
 	
     /**
      * extract or set the given attribute

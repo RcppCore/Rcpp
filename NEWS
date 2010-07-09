@@ -18,6 +18,8 @@
         historical Longley data set has been added
 
     o   RcppStringVector now uses std::vector<std::string> internally
+    
+    o	setting the .Data slot of S4 objects did not work properly
 
 0.8.3   2010-06-27
 

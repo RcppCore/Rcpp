@@ -237,8 +237,19 @@ namespace Rcpp{
 	CppClass::CppClass( SEXP x) : S4(x){}
 	
 	CppClass::CppClass( Module* p, class_Base* cl ) : S4("C++Class") {
+		XP_Class clxp( cl ) ;
+		
 		slot( "module"  ) = XP( p, false ) ;
-		slot( "pointer" ) = XP_Class( cl ) ;
+		slot( "pointer" ) = clxp ;
+		
+		std::string mangled_name( "rcpp_" ) ;
+		char buffer[20] ;
+		sprintf( buffer, "%p", (void*)EXTPTR_PTR(clxp) ) ;
+	
+		mangled_name += (const char*) buffer ;
+		mangled_name += "_" ;
+		mangled_name += cl->name ;
+		slot( ".Data" ) = mangled_name ;
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
