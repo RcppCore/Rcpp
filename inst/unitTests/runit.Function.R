@@ -31,8 +31,8 @@
         		signature(x="function", y = "ANY"),
         		'
 				Function sort(x) ;
-				//return sort( y, Named("decreasing", true) ) ;
-				return sort( y ) ;
+				return sort( y, Named("decreasing", true) ) ;
+				// return sort( y ) ;
 				'
         	),
         	"function_env" = list(
@@ -99,7 +99,7 @@ test.Function <- function(){
 
 test.Function.variadic <- function(){
 	funx <- .rcpp.Function$function_variadic
-    checkEquals( funx( sort, sample(1:20) ), 1:20, msg = "calling function" )
+    checkEquals( funx( sort, sample(1:20) ), 20:1, msg = "calling function" )
 	checkException( funx(sort, sort), msg = "Function, R error -> exception" )
 }
 

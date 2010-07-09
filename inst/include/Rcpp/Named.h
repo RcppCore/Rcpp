@@ -35,7 +35,7 @@ public:
 	Argument( const std::string& name_) : name(name_){} 
 	
 	template<typename T>
-	traits::named_object<T> operator=( const T& t){
+	inline traits::named_object<T> operator=( const T& t){
 		return traits::named_object<T>( name, t ) ;	
 	}
 	
@@ -47,7 +47,7 @@ inline Argument Named( const std::string& name){
 	return Argument( name );	
 }
 template <typename T>
-traits::named_object<T> Named( const std::string& name, const T& o){
+inline traits::named_object<T> Named( const std::string& name, const T& o){
 	return traits::named_object<T>( name, o );	
 }
 
