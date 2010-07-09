@@ -404,12 +404,16 @@ to restrict the candidate methods.
 \subsubsection{S4 dispatch}
 
 When a \proglang{C++} class is exposed by the \texttt{class\_} template,
-a new S4 class is registered as well. This allows implementation of \proglang{R}-level
+a new S4 class is registered as well. The name of the S4 class is 
+obfuscated in order to avoid name clashes (i.e. two modules exposing the 
+same class). 
+
+This allows implementation of \proglang{R}-level
 (S4) dispatch. For example, one might implement the \texttt{show}
 method for \proglang{C++} \texttt{World} objects:
 
 <<eval=FALSE>>=
-setMethod( "show", "World", function(object){
+setMethod( "show", yada$World , function(object){
 	msg <- paste( "World object with message : ", object$greet() )
 	writeLines( msg )
 } )
