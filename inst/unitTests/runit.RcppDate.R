@@ -110,13 +110,13 @@ test.RcppDate.wrap <- function() {
     checkEquals(fun(), as.Date("1999-12-31"), msg = "RcppDate.wrap")
 }
 
-test.RcppDatetime.get.functions <- function() {
-    fun <- .rcpp.RcppDate$RcppDatetime_functions
-    ## checkEquals(fun(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
-    checkEquals(fun(981162123.123456),
-                list(year=2001, month=2, day=3, wday=6, hour=1, minute=2, second=3, microsec=123456),
-                msg = "RcppDate.get.functions")
-}
+#test.RcppDatetime.get.functions <- function() {
+#    fun <- .rcpp.RcppDate$RcppDatetime_functions
+#    checkEquals(#fun(as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC"))),
+#                fun(981162123.123456),
+#                list(year=2001, month=2, day=3, wday=6, hour=1, minute=2, second=3, microsec=123456),
+#                msg = "RcppDate.get.functions")
+#}
 
 test.RcppDatetime.operators <- function() {
     fun <- .rcpp.RcppDate$RcppDatetime_operators
