@@ -96,7 +96,7 @@ new_CppObject_xp <- function(Class, ...){
 
 setMethod( "new", "C++Class", function(Class,...){
 	out <- new_CppObject_xp( Class, ... )
-	new( out$cl, pointer = out$xp, cppclass = Class@pointer, module = Class@module )
+	new( as.character(Class), pointer = out$xp, cppclass = Class@pointer, module = Class@module )
 } )
 
 MethodInvoker <- function( x, name ){
@@ -104,7 +104,6 @@ MethodInvoker <- function( x, name ){
 		res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ... , PACKAGE = "Rcpp" )
 		if( isTRUE( res$void ) ) invisible(NULL) else res$result
 	}
-	
 }
 
 dollar_cppobject <- function(x, name){
