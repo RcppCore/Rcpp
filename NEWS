@@ -1,20 +1,21 @@
-0.8.4   (under development)
+0.8.4   2010-07-09
 
-	o	new sugar vector functions: rep, rep_len, rep_each, rev, head, tail, 
-		diag
+    o   new sugar vector functions: rep, rep_len, rep_each, rev, head, tail,
+	diag
 	
     o	sugar has been extended to matrices: The Matrix class now extends the 
     	Matrix_Base template that implements CRTP. Currently sugar functions 
     	for matrices are: outer, col, row, lower_tri, upper_tri, diag
 
-    o	The unit tests have been reorganised into fewer files with one call to
- 	cxxfunction() (covering multiple tests) resulting in a significant speedup
+    o   The unit tests have been reorganised into fewer files with one call
+ 	each to cxxfunction() (covering multiple tests) resulting in a
+ 	significant speedup
 
     o	The Date class now uses the same mktime() replacement that R uses
         (based on original code from the timezone library by Arthur Olson)
-	permitting wide dates ranges on all operating system 
+	permitting wide dates ranges on all operating systems
 
-    o   The FastLM/ example has been updated, a new benchmark based on the
+    o   The FastLM/example has been updated, a new benchmark based on the
         historical Longley data set has been added
 
     o   RcppStringVector now uses std::vector<std::string> internally
