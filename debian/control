@@ -48,6 +48,6 @@ Description: GNU R / C++ interface classes and examples
  C++ function and compile, link and load it given the 'inlined' character
  argument which makes C++ integration very easy.
  .
- Several examples are included, and over 430 unit tests in over 230
- functions provide addtional usage examples.
+ Several examples are included, and 735 unit tests in 329 functions
+ provide addtional usage examples.
 

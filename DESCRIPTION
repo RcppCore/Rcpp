@@ -1,6 +1,6 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.8.3.5
+Version: 0.8.4
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Simon Urbanek, David Reiss and Douglas Bates; based on code written during 
@@ -43,8 +43,8 @@ Description: The Rcpp package provides a C++ library and template classes
  C++ function and compile, link and load it given the 'inlined' character
  argument which makes C++ integration very easy.
  .
- Several examples are included, and over 720 unit tests in over 320 unit test
- functions provide addtional usage examples.
+ Several examples are included, and 735 unit tests in 329 unit test functions
+ provide addtional usage examples.
 Depends: R (>= 2.10.0), methods
 Suggests: RUnit, inline
 SystemRequirements: GNU make
