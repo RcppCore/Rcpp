@@ -12,7 +12,7 @@ C++ internal objects instanciated from a class exposed in an Rcpp module
 }
 \section{Objects from the Class}{
 	Objects can be created by the \code{new} method of the
-	\linkS4class{"C++Class"} class.
+	\linkS4class{C++Class} class.
 }
 \section{Extends}{
 	Class \code{"\linkS4class{C++ObjectS3}"}, directly.
