@@ -17,12 +17,8 @@ USERDIR	= 	../inst/lib$(R_ARCH)
 STATICLIB =	libRcpp.a
 USERLIB	= 	$(USERDIR)/$(STATICLIB)
 
-## C++0X support enabled if 
-## - the RCPP_CXX0X environment variable is set to "yes"
-## - it is possible (GCC>=4.3)
-ifeq ($(RCPP_CXX0X),yes)
-CLINK_CPPFLAGS := $shell("${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" cxx0x/cxx0x.R)
-endif
+## uncomment this to enable c++0x features (experimental)
+## CLINK_CPPFLAGS=-std=c++0x
 
 ## the 'package' library contains both Rcpp.{cpp,h} and the RcppExample used to demonstrate the package
 ## it is loaded via library(Rcpp) but is not used for compiling / linking against
