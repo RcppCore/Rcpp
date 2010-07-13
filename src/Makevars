@@ -1,6 +1,6 @@
 # -*- mode: Makefile; tab-width: 8 -*- 
 #
-# Makefile for Rcpp 
+# Makevars for Rcpp 
 #
 # Copyright (C) 2008 - 2009 Dirk Eddelbuettel <edd@debian.org>
 # Copyright (C) 2008        Simon Urbanek <simon.urbanek@r-project.org>
@@ -10,13 +10,10 @@
 ## files in this directory. userLibrary is an additional target for the second library
 ## that will be installed in ../inst/lib$(R_ARCH) and which users can link against.
 
-## C++0x enabled if 
-## - the environment variable RCPP_CXX0X is set to yes
-## - it makes sense (GCC >= 4.3)
-ifeq ($(RCPP_CXX0X),yes)
-CLINK_CPPFLAGS = $(shell $(R_HOME)/bin/Rscript "cxx0x/cxx0x.R")
-endif
+## uncomment this to enable c++0x features (experimental)
+## CLINK_CPPFLAGS=-std=c++0x
 
+## guarding against a bug in how 'R CMD check' checks for portable flags
 ifeq ($(SHLIB),)
 all:
 else
