@@ -5,8 +5,6 @@ Documentation
         to come up with some way to generate useful documentation for it: general
         description of the class, related unit test cases, etc ...
                 
-    o   Rework ?Rcpp which is mainly old api centric
-
     o   Add a vignette about Rcpp sugar [in progress]
     
     o   Add a vignette about the api
@@ -70,31 +68,4 @@ Syntactic sugar
     	has to evaluate x[i] + y[i] as many times as the length
     	of z. perhaps a better implementation would be to 
     	first force the evaluation of x + y.
-    
-Testing
-
-    o   we need to update the doRUnit.R file and replace : 
-        
-          ##  stop() if there are any failures i.e. FALSE to unit test.
-          ## This will cause R CMD check to return error and stop
-          err <- getErrors(tests)
-          if( (err$nFail + err$nErr) > 0) {
-              stop( sprintf( "unit test problems: %d failures, %d errors", 
-                             err$nFail, err$nErr) )
-          } else{
-              success <- err$nTestFunc - err$nFail - err$nErr - err$nDeactivated
-              cat( sprintf( "%d / %d\n", success, err$nTestFunc ) )
-          }
-       
-        by something that extract information from "err". This is needed
-        because on win builder or cran checks, we only ever get the last 13
-        lines of output. So we need to make the best use of these 13 lines
-        
-   o    Testing has become slow. That would be good to find ways to make it
-        faster such as combine multiple functions in a single cxxfunction
-        call or alternatively make another package (perhaps internal to this
-        one that would contain test cases) [in progress]
-                
-   o    Maybe make test function 'tier one' and 'tier two' and run only the
-        first tier if an (environment ?) variable has been set?
 
