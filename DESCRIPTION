@@ -6,46 +6,34 @@ Author: Dirk Eddelbuettel and Romain Francois, with contributions
  by Simon Urbanek, David Reiss and Douglas Bates; based on code written during 
  2005 and 2006 by Dominick Samperi 
 Maintainer: Dirk Eddelbuettel and Romain Francois <RomainAndDirk@r-enthusiasts.com>
-Description: The Rcpp package provides a C++ library and template classes
- which facilitates the integration of R and C++.
+Description: The Rcpp package provides a C++ library which facilitates the 
+ integration of R and C++.
  .
  R data types (SEXP) are matched to C++ objects in a class hierarchy.  All R
  types are supported (vectors, functions, environment, etc ...)  and each
  type is mapped to a dedicated class. For example, numeric vectors are
  represented as instances of the Rcpp::NumericVector class, environments are
  represented as instances of Rcpp::Environment, functions are represented as
- Rcpp::Function, etc ...
+ Rcpp::Function, etc ... The "Rcpp-introduction" vignette provides a good
+ entry point to Rcpp. 
  .
- The underlying C++ library also offers the Rcpp::wrap function which is a
- templated function that transforms an arbitrary object into a SEXP.  This
- makes it straightforward to implement C++ logic in terms of standard C++
- types such as STL containers and then wrap them when they need to be
- returned to R. Internally, wrap uses advanced template meta programming
- techniques and currently supports : primitive types (bool, int, double,
- size_t, Rbyte, Rcomplex, std::string), STL containers (e.g std::vector<T>)
- where T is wrappable, STL maps (e.g std::map<std::string,T>) where T is
- wrappable, and arbitrary types that support implicit conversion to SEXP.
+ Conversion from C++ to R and back is driven by the templates Rcpp::wrap 
+ and Rcpp::as which are highly flexible and extensible, as documented
+ in the "Rcpp-extending" vignette.
  .
- The reverse conversion (from R to C++) is performed by the Rcpp::as function
- template offering a similar degree of flexibility.
+ Rcpp also provides Rcpp modules, a framework that allows exposing 
+ C++ functions and classes to the R level. The "Rcpp-modules" vignette
+ details the current set of features of Rcpp-modules. 
  .
- The package also contains a set of classes---which we call the 'classic' Rcpp
- API---that were provided in an earlier API for R and C++ integration. Due
- to its continued use, the classic API is retained and will be supported for
- the foreseable future. The classic API includes support for R types real,
- integer, character, vector, matrix, Date, datetime (i.e.  POSIXct) at
- microsecond resolution, data frame, and function. Transfer to and from
- simple or complex SEXP objects is made easy thanks to automatic conversion
- made possible by C++ template conversion. Calling R functions from C++ is
- also supported.
- .
- C++ code can be 'inlined' by using the 'inline' package which will create a
- C++ function and compile, link and load it given the 'inlined' character
- argument which makes C++ integration very easy.
+ Rcpp includes a concept called Rcpp sugar that brings many R functions
+ into C++. Sugar takes advantage of lazy evaluation and expression templates
+ to achieve great performance while exposing a syntax that is much nicer
+ to use than the equivalent low-level loop code. The "Rcpp-sugar" vignette
+ gives an overview of the feature
  .
  Several examples are included, and 735 unit tests in 329 unit test functions
- provide addtional usage examples.
-Depends: R (>= 2.10.0), methods
+ provide additional usage examples.
+Depends: R (>= 2.11.0), methods
 Suggests: RUnit, inline
 SystemRequirements: GNU make
 URL: http://dirk.eddelbuettel.com/code/rcpp.html, http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
