@@ -1,3 +1,8 @@
+2010-07-16  Romain Francois <romain@r-enthusiasts.com>
+
+	* man/Rcpp-package.Rd : removed old content and point to the Rcpp-package
+	vignette for current guidelines.
+
 2010-07-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.4
