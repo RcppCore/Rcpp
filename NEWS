@@ -1,7 +1,7 @@
 0.8.5   (future)
 
-	o	speed improvements. Vector::names, RObject::slot have been improved
-		to take advantage of R API functions instead of callbacks to R
+    o   speed improvements. Vector::names, RObject::slot have been improved
+        to take advantage of R API functions instead of callbacks to R
 
 0.8.4   2010-07-09
 
@@ -18,9 +18,9 @@
 
     o	The Date class now uses the same mktime() replacement that R uses
         (based on original code from the timezone library by Arthur Olson)
-	permitting wide dates ranges on all operating systems
+	permitting wide date ranges on all operating systems
 
-    o   The FastLM/example has been updated, a new benchmark based on the
+    o   The FastLM example has been updated, a new benchmark based on the
         historical Longley data set has been added
 
     o   RcppStringVector now uses std::vector<std::string> internally
