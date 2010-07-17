@@ -1,7 +1,7 @@
 0.8.5   (future)
 
-	o	speed improvements. assigning vector names is faster as it avoids
-		making a callback to R if not necessary. 
+	o	speed improvements. Vector::names, RObject::slot have been improved
+		to take advantage of R API functions instead of callbacks to R
 
 0.8.4   2010-07-09
 

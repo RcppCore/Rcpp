@@ -101,19 +101,16 @@ RObject::SlotProxy& RObject::SlotProxy::operator=(const SlotProxy& rhs){
 
 
 SEXP RObject::SlotProxy::get() const {
-	return internal::try_catch( 
-		Rf_lcons( Rf_install("slot"), Rf_cons( parent , 
-			Rf_cons( Rf_mkString(slot_name.c_str()) , R_NilValue)))) ; 
-			
+	return R_do_slot( parent, Rf_install( slot_name.c_str() ) ) ;	
 }
 
 void RObject::SlotProxy::set( SEXP x) const {
-	SEXP new_obj = PROTECT( 
-		internal::try_catch( 
-			Rf_lcons( Rf_install("slot<-"), 
-					Rf_cons( parent, Rf_cons( Rf_mkString(slot_name.c_str()), 
-						Rf_cons( Rf_ScalarLogical(TRUE) , 
-							Rf_cons( x , R_NilValue)  ) ))))) ;
+	// the SEXP might change (.Data)
+	SEXP new_obj = PROTECT( R_do_slot_assign( 
+		parent, 
+		Rf_install( slot_name.c_str() ), 
+		x
+		) ) ;
 	const_cast<RObject&>(parent).setSEXP( new_obj ) ;
 	UNPROTECT(1) ;
 }

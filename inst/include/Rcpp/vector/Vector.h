@@ -256,11 +256,7 @@ public:
 				Rf_lcons( Rf_install("names<-"), 
 						Rf_cons( parent, Rf_cons( x , R_NilValue) )))) ;
 				/* names<- makes a new vector, so we have to change 
-				   the SEXP of the parent of this proxy, it might be 
-				   worth to work directly with the names attribute instead
-				   of using the names<- R function, but then we need to 
-				   take care of coercion, recycling, etc ... we cannot just 
-				   brutally assign the names attribute */
+				   the SEXP of the parent of this proxy */
 				const_cast<Vector&>(parent).setSEXP( new_vec ) ;
 				UNPROTECT(1) ; /* new_vec */
     			}
