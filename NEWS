@@ -1,3 +1,8 @@
+0.8.5   (future)
+
+	o	speed improvements. assigning vector names is faster as it avoids
+		making a callback to R if not necessary. 
+
 0.8.4   2010-07-09
 
     o   new sugar vector functions: rep, rep_len, rep_each, rev, head, tail,
