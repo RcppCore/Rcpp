@@ -1,3 +1,8 @@
+2010-07-17  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/vector/Vector.h: faster lhs use of names, only using callback
+	to R if necessary. (discovered while profiling RProtoBuf)
+	
 2010-07-16  Romain Francois <romain@r-enthusiasts.com>
 
 	* man/Rcpp-package.Rd : removed old content and point to the Rcpp-package

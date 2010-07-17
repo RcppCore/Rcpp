@@ -244,17 +244,27 @@ public:
 		}
 		
 		void set(SEXP x) const {
-			SEXP new_vec = PROTECT( internal::try_catch( 
-			Rf_lcons( Rf_install("names<-"), 
-					Rf_cons( parent, Rf_cons( x , R_NilValue) )))) ;
-			/* names<- makes a new vector, so we have to change 
-			   the SEXP of the parent of this proxy, it might be 
-			   worth to work directly with the names attribute instead
-			   of using the names<- R function, but then we need to 
-			   take care of coercion, recycling, etc ... we cannot just 
-			   brutally assign the names attribute */
-			const_cast<Vector&>(parent).setSEXP( new_vec ) ;
-			UNPROTECT(1) ; /* new_vec */
+			
+			/* check if we can use a fast version */
+			if( TYPEOF(x) == STRSXP && parent.size() == Rf_length(x) ){
+				SEXP y = const_cast<Vector&>(parent).asSexp() ; 
+				Rf_setAttrib( y, R_NamesSymbol, x ) ;
+			} else {
+				/* use the slower and more flexible version (callback to R) */
+			
+				SEXP new_vec = PROTECT( internal::try_catch( 
+				Rf_lcons( Rf_install("names<-"), 
+						Rf_cons( parent, Rf_cons( x , R_NilValue) )))) ;
+				/* names<- makes a new vector, so we have to change 
+				   the SEXP of the parent of this proxy, it might be 
+				   worth to work directly with the names attribute instead
+				   of using the names<- R function, but then we need to 
+				   take care of coercion, recycling, etc ... we cannot just 
+				   brutally assign the names attribute */
+				const_cast<Vector&>(parent).setSEXP( new_vec ) ;
+				UNPROTECT(1) ; /* new_vec */
+    			}
+    		
     		}
     		
 	} ;
