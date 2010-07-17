@@ -1,7 +1,10 @@
 2010-07-17  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/vector/Vector.h: faster lhs use of names, only using callback
+	* inst/include/Rcpp/vector/Vector.h: faster lhs use of names, only using callback
 	to R if necessary. (discovered while profiling RProtoBuf)
+	
+	* inst/include/Rcpp/RObject.h : faster lhs and rhs use of RObject::slot, 
+	using R API functions R_do_slot and R_do_slot_assign
 	
 2010-07-16  Romain Francois <romain@r-enthusiasts.com>
 
