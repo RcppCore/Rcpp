@@ -28,6 +28,7 @@
 #include <Rcpp/Date.h>
 #include <Rcpp/Function.h>
 #include <time.h>		// for gmtime
+#include <unistd.h>		// for read and close on Solaris
 
 namespace Rcpp {
 
@@ -686,12 +687,13 @@ struct tzhead {
 		if (strchr(name, '.') != NULL) doaccess = TRUE;
 		name = fullname;
 	    }
-	    if (doaccess && access(name, R_OK) != 0) {
+	    // edd 16 Jul 2010  comment out whole block
+	    //if (doaccess && access(name, R_OK) != 0) {
 		// edd 08 Jul 2010  we use this without TZ for dates only 
 		//                  so no need to warn
 		//Rf_warning("unknown timezone '%s'", sname);
-		return -1;
-	    }
+		//return -1;
+	    //}
 	    if ((fid = open(name, OPEN_MODE)) == -1) {
 		// edd 08 Jul 2010  we use this without TZ for dates only 
 		//                  so no need to warn
