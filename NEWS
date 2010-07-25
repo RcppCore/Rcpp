@@ -1,7 +1,13 @@
-0.8.5   (future)
+0.8.5   2010-07-25
 
     o   speed improvements. Vector::names, RObject::slot have been improved
         to take advantage of R API functions instead of callbacks to R
+
+    o   Some small updates to the Rd-based documentation which now points to 
+        content in the vignettes.  Also a small formatting change to suppress
+	a warning from the development version of R.
+
+    o   Minor changes to Date() code which may reenable SunStudio builds
 
 0.8.4   2010-07-09
 
