@@ -1,15 +1,42 @@
+2010-07-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.8.5
+
+	* debian/*: Similarly updated for new release to Debian
+
 2010-07-17  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h: faster lhs use of names, only using callback
-	to R if necessary. (discovered while profiling RProtoBuf)
-	
-	* inst/include/Rcpp/RObject.h : faster lhs and rhs use of RObject::slot, 
-	using R API functions R_do_slot and R_do_slot_assign
-	
+	* inst/include/Rcpp/vector/Vector.h: faster lhs use of names, only
+ 	using callback to R if necessary. (discovered while profiling
+	RProtoBuf)
+
+	* inst/include/Rcpp/RObject.h : faster lhs and rhs use of
+	RObject::slot, using R API functions R_do_slot and R_do_slot_assign
+
+2010-07-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Date.cpp: Small fix which may make Solaris/SunStudio happy
+
 2010-07-16  Romain Francois <romain@r-enthusiasts.com>
 
-	* man/Rcpp-package.Rd : removed old content and point to the Rcpp-package
-	vignette for current guidelines.
+	* man/Rcpp-package.Rd : removed old content and point to the
+	Rcpp-package vignette for current guidelines.
+
+	* DESCRIPTION: Updated to mention sugar and modules
+
+2010-07-10  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Makevars: Remove last call to $shell by turning C++0x
+	detection off (and into a switch users can edit) which should
+	make builds more stable
+	* src/Makevars.win: Idem
+	* src/cxx0x/cxx0x.R: Detection script deprecated for now
+
+2010-07-10  Romain Francois <romain@r-enthusiasts.com>
+
+	* man/CppClass-class.Rd: changed use of \linkS4Class to suppress a
+	warning with the development version of R
+	* man/CppObject-class.Rd: idem
 
 2010-07-09  Dirk Eddelbuettel  <edd@debian.org>
 
