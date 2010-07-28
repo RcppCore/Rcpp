@@ -22,6 +22,9 @@
 #ifndef RCPP_SUGAR_FUNCTIONS_H
 #define RCPP_SUGAR_FUNCTIONS_H
 
+/* for exp( double ) */
+#include <cmath>
+
 #include <Rcpp/sugar/functions/any.h>
 #include <Rcpp/sugar/functions/all.h>
 #include <Rcpp/sugar/functions/is_na.h>
