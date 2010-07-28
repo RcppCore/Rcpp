@@ -1,3 +1,7 @@
+0.8.6   (future)
+
+	o	patch to comply with solaris/suncc stricter standards
+
 0.8.5   2010-07-25
 
     o   speed improvements. Vector::names, RObject::slot have been improved
