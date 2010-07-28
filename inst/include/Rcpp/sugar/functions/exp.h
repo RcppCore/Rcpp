@@ -30,7 +30,7 @@ class exp__impl{
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	static inline double get( STORAGE x){
-		return Rcpp::traits::is_na<RTYPE>(x) ? NA_REAL : exp(x) ;
+		return Rcpp::traits::is_na<RTYPE>(x) ? NA_REAL : ::exp(x) ;
 	}
 } ;
 
@@ -39,7 +39,7 @@ class exp__impl<false,RTYPE>{
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	static inline double get( STORAGE x){
-		return exp(x) ;
+		return ::exp(x) ;
 	}
 } ;
 
@@ -47,7 +47,7 @@ template <>
 class exp__impl<false,INTSXP>{
 public:
 	static inline double get( int x){
-		return exp( static_cast<double>(x) ) ;
+		return ::exp( static_cast<double>(x) ) ;
 	}
 } ;
 
@@ -55,7 +55,7 @@ template <>
 class exp__impl<true,INTSXP>{
 public:
 	static inline double get( int x){
-		return Rcpp::traits::is_na<INTSXP>(x) ? NA_REAL : exp( static_cast<double>(x) ) ;
+		return Rcpp::traits::is_na<INTSXP>(x) ? NA_REAL : ::exp( static_cast<double>(x) ) ;
 	}
 } ;
 
