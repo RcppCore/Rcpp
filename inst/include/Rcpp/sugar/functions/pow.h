@@ -32,7 +32,7 @@ public:
 	pow__impl( EXPONENT_TYPE exponent_) : exponent(exponent_){}
 	
 	inline double get( STORAGE x) const {
-		return Rcpp::traits::is_na<RTYPE>(x) ? NA_INTEGER : pow(x, exponent) ;
+		return Rcpp::traits::is_na<RTYPE>(x) ? NA_INTEGER : ::pow(x, exponent) ;
 	}
 private:
 	EXPONENT_TYPE exponent ;
@@ -45,7 +45,7 @@ public:
 	pow__impl( EXPONENT_TYPE exponent_) : exponent(exponent_){}
 	
 	inline double get( STORAGE x) const {
-		return pow(x, exponent) ;
+		return ::pow(x, exponent) ;
 	}
 private:
 	EXPONENT_TYPE exponent ;
@@ -57,7 +57,7 @@ class Pow : public Rcpp::VectorBase< REALSXP ,NA, Pow<RTYPE,NA,T,EXPONENT_TYPE> 
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	typedef pow__impl<NA,RTYPE,EXPONENT_TYPE> OPERATOR ;
+	typedef pow__impl<NA,RTYPE, typename Rcpp::traits::remove_const<EXPONENT_TYPE>::type > OPERATOR ;
 	
 	Pow( const VEC_TYPE& object_, EXPONENT_TYPE exponent ) : 
 		object(object_), op(exponent) {}
