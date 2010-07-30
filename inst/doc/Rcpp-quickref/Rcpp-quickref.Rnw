@@ -92,7 +92,6 @@ rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
 
 \paragraph{Environment}.\newline
 
-\begin{small}
 <<lang=cpp>>=
 Environment stats("package:stats") ;
 Environment env( 2 ) ; // by position
@@ -124,7 +123,43 @@ bool b = glob.bindingIsActive("foo") ;
 Environment e = stats.parent() ;
 Environment e = glob.new_child() ;
 @
-\end{small}
+
+\newpage
+
+\paragraph{Rcpp sugar}.\newline
+
+<<lang=cpp>>=
+NumericVector x = NumericVector::create( 
+  -2.0, -1.0, 0.0, 1.0, 2.0 ) ;
+IntegerVector y = IntegerVector::create( 
+  -2, -1, 0, 1, 2 ) ;
+
+NumericVector xx = abs( x ) ;
+IntegerVector yy = abs( y ) ;
+
+bool b = all( x < 3.0 ).is_true()  ;
+bool b = any( y > 2 ).is_true() ;
+
+NumericVector xx = ceil( x );
+NumericVector xx = ceiling( x );
+NumericVector yy = floor( y );
+NumericVector yy = floor( y );
+
+NumericVector xx = exp( x ) ;
+NumericVector yy = exp( y ) ;
+
+NumericVector xx = head( x, 2 ) ;
+IntegerVector yy = head( y, 2 ) ;
+
+IntegerVector xx = seq_len( 10 ) ;
+IntegerVector yy = seq_along( y ) ;
+
+NumericVector xx = rep( x, 3 ) ;
+NumericVector xx = rep_len( x, 10 ) ;
+NumericVector xx = rep_each( x, 3 ) ;
+
+IntegerVector yy = rev( y ) ;
+@     
 
 
 \end{document}
