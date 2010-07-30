@@ -1,6 +1,8 @@
 0.8.6   (future)
 
-	o	patch to comply with solaris/suncc stricter standards
+	o	various patches to comply with solaris/suncc stricter standards
+	
+	o	new vignette Rcpp-quickref : quick reference guide of Rcpp API
 
 0.8.5   2010-07-25
 
