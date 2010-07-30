@@ -34,94 +34,94 @@ rcpp.version <- packageDescription( "Rcpp" )$Version
 \paragraph{Create simple vectors}: \newline
 
 <<lang=cpp>>=
-SEXP x ; std::vector<double> y(10) ;
+SEXP x; std::vector<double> y(10);
 
 // from SEXP
-NumericVector xx(x) ;
+NumericVector xx(x);
 
 // of a given size (filled with 0)
-NumericVector xx(10) ;
+NumericVector xx(10);
 // ... with a default for all values
-NumericVector xx(10, 2.0) ;
+NumericVector xx(10, 2.0);
 
 // range constructor
-NumericVector xx( y.begin(), y.end() ) ;
+NumericVector xx( y.begin(), y.end() );
 
 // using create
 NumericVector xx = NumericVector::create(
-    1.0, 2.0, 3.0, 4.0 ) ;
+    1.0, 2.0, 3.0, 4.0 );
 NumericVector yy = NumericVector::create(
     Named["foo"] = 1.0,
-    _["bar"]     = 2.0 ) ;  // short for Named
+    _["bar"]     = 2.0 );  // short for Named
 @
 
 \paragraph{Extract and set single elements}:\newline
 
 <<lang=cpp>>=
 // extract single values
-double x0 = xx[0] ;
-double x1 = xx(1) ;
+double x0 = xx[0];
+double x1 = xx(1);
 
-double y0 = yy["foo"] ;
-double y1 = yy["bar"] ;
+double y0 = yy["foo"];
+double y1 = yy["bar"];
 
 // set single values
-xx[0] = 2.1 ;
-xx(1) = 4.2 ;
+xx[0] = 2.1;
+xx(1) = 4.2;
 
-yy["foo"] = 3.0 ;
+yy["foo"] = 3.0;
 
 // grow the vector
-yy["foobar"] = 10.0 ;
+yy["foobar"] = 10.0;
 @
 
 \paragraph{STL interface}:\newline
 
 <<lang=cpp>>=
 std::accumulate( xx.begin(), xx.end(),
-    std::plus<double>(), 0.0 ) ;
-int n = xx.size() ;
+    std::plus<double>(), 0.0 );
+int n = xx.size();
 @
 
 \paragraph{Function}:\newline
 
 <<lang=cpp>>=
-Function rnorm("rnorm") ;
+Function rnorm("rnorm");
 rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
 @
 
 \paragraph{Environment}:\newline
 
 <<lang=cpp>>=
-Environment stats("package:stats") ;
-Environment env( 2 ) ; // by position
+Environment stats("package:stats");
+Environment env( 2 ); // by position
 
 // special environments
-Environment::Rcpp_namespace() ;
-Environment::base_env() ;
-Environment::base_namespace() ;
-Environment::global_env() ;
-Environment::empty_env() ;
+Environment::Rcpp_namespace();
+Environment::base_env();
+Environment::base_namespace();
+Environment::global_env();
+Environment::empty_env();
 
-Function rnorm = stats["rnorm"] ;
-glob["x"] = "foo" ;
-glob["y"] = 3 ;
-std::string x = glob["x"] ;
+Function rnorm = stats["rnorm"];
+glob["x"] = "foo";
+glob["y"] = 3;
+std::string x = glob["x"];
 
-glob.assign( "foo" , 3 ) ;
-int foo = glob.get( "foo" ) ;
-int foo = glob.find( "foo" ) ;
+glob.assign( "foo" , 3 );
+int foo = glob.get( "foo" );
+int foo = glob.find( "foo" );
 CharacterVector names = glob.ls()
-bool b = glob.exists( "foo" ) ;
-glob.remove( "foo" ) ;
+bool b = glob.exists( "foo" );
+glob.remove( "foo" );
 
-glob.lockBinding("foo") ;
-glob.unlockBinding("foo") ;
-bool b = glob.bindingIsLocked("foo") ;
-bool b = glob.bindingIsActive("foo") ;
+glob.lockBinding("foo");
+glob.unlockBinding("foo");
+bool b = glob.bindingIsLocked("foo");
+bool b = glob.bindingIsActive("foo");
 
-Environment e = stats.parent() ;
-Environment e = glob.new_child() ;
+Environment e = stats.parent();
+Environment e = glob.new_child();
 @
 
 \newpage
@@ -130,35 +130,35 @@ Environment e = glob.new_child() ;
 
 <<lang=cpp>>=
 NumericVector x = NumericVector::create(
-  -2.0, -1.0, 0.0, 1.0, 2.0 ) ;
+  -2.0, -1.0, 0.0, 1.0, 2.0 );
 IntegerVector y = IntegerVector::create(
-  -2, -1, 0, 1, 2 ) ;
+  -2, -1, 0, 1, 2 );
 
-NumericVector xx = abs( x ) ;
-IntegerVector yy = abs( y ) ;
+NumericVector xx = abs( x );
+IntegerVector yy = abs( y );
 
-bool b = all( x < 3.0 ).is_true()  ;
-bool b = any( y > 2 ).is_true() ;
+bool b = all( x < 3.0 ).is_true() ;
+bool b = any( y > 2 ).is_true();
 
 NumericVector xx = ceil( x );
 NumericVector xx = ceiling( x );
 NumericVector yy = floor( y );
 NumericVector yy = floor( y );
 
-NumericVector xx = exp( x ) ;
-NumericVector yy = exp( y ) ;
+NumericVector xx = exp( x );
+NumericVector yy = exp( y );
 
-NumericVector xx = head( x, 2 ) ;
-IntegerVector yy = head( y, 2 ) ;
+NumericVector xx = head( x, 2 );
+IntegerVector yy = head( y, 2 );
 
-IntegerVector xx = seq_len( 10 ) ;
-IntegerVector yy = seq_along( y ) ;
+IntegerVector xx = seq_len( 10 );
+IntegerVector yy = seq_along( y );
 
-NumericVector xx = rep( x, 3 ) ;
-NumericVector xx = rep_len( x, 10 ) ;
-NumericVector xx = rep_each( x, 3 ) ;
+NumericVector xx = rep( x, 3 );
+NumericVector xx = rep_len( x, 10 );
+NumericVector xx = rep_each( x, 3 );
 
-IntegerVector yy = rev( y ) ;
+IntegerVector yy = rev( y );
 @
 
 
