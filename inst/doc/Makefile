@@ -142,7 +142,7 @@ ifeq ($(whoami),edd)
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-sugar.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-sugar.tex
+	# rm -fr Rcpp-sugar.tex
 	rm -fr Rcpp-sugar.bbl
 	rm -fr Rcpp-sugar.blg
 	rm -fr Rcpp-sugar.aux
