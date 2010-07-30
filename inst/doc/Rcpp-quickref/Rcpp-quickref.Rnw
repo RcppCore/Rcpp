@@ -30,6 +30,28 @@ rcpp.version <- packageDescription( "Rcpp" )$Version
 \maketitle
 \thispagestyle{empty}
 
+% FIXME: without the dot, latex does not want to newline
+\paragraph{Simple Vectors}. \newline
+
+<<lang=cpp>>=
+SEXP x ; // from R
+std::vector<double> y(10) ;
+
+// from SEXP
+NumericVector xx(x) ;
+                     
+// of a given size (filled with 0)
+NumericVector xx(10) ; 
+// ... with a default for all values
+NumericVector xx(10, 2.0) ;
+
+// range constructor
+NumericVector xx( y.begin(), y.end() ) ;  
+
+// using create
+NumericVector xx = NumericVector::create( 
+  1.0, 2.0, 3.0, 4.0 ) ;
+@
 
 \end{document}
 
