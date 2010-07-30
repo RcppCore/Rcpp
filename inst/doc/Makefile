@@ -158,6 +158,7 @@ Rcpp-quickref.pdf : Rcpp-quickref/Rcpp-quickref.Rnw
 	rm Rcpp-quickref.Rnw
 	cp -f Rcpp-quickref/Rcpp-quickref.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-quickref.Rnw', driver = driver ); "
+	Rscript -e "tex <- readLines('Rcpp-quickref.tex'); tex <- gsub( 'begin{minipage}{0.9', 'begin{minipage}{0.42', tex, fixed = TRUE ) ; writeLines( tex, 'Rcpp-quickref.tex' )  "
 	Rscript -e "tools::texi2dvi( 'Rcpp-quickref.tex', pdf = TRUE, clean = FALSE )"
 	# bibtex Rcpp-quickref
 ifeq ($(whoami),edd)
@@ -172,7 +173,7 @@ endif
 	rm -fr Rcpp-quickref.aux
 	rm -fr Rcpp-quickref.out
 	rm -fr Rcpp-quickref.log
-	rm Rcpp-quickref.Rnw
+	rm -fr Rcpp-quickref.Rnw
 	cp Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
 
 	
