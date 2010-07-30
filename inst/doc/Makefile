@@ -8,16 +8,18 @@
 ## on Ubuntu so for Dirk will insist on pdflatex and this variable helps
 whoami=$(shell whoami)
 
-all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf
+all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
 
 clean:
 	touch Rcpp-unitTests.pdf
+	touch Rcpp-quickref.pdf
 	touch Rcpp-sugar.pdf
 	touch Rcpp-introduction.pdf
 	touch Rcpp-modules.pdf
 	touch Rcpp-FAQ.pdf
 	touch Rcpp-extending.pdf
 	rm Rcpp-introduction.pdf
+	rm Rcpp-quickref.pdf
 	rm Rcpp-sugar.pdf
 	rm Rcpp-unitTests.pdf
 	rm Rcpp-modules.pdf
@@ -142,7 +144,7 @@ ifeq ($(whoami),edd)
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-sugar.tex', pdf = TRUE, clean = TRUE )"
 endif
-	# rm -fr Rcpp-sugar.tex
+	rm -fr Rcpp-sugar.tex
 	rm -fr Rcpp-sugar.bbl
 	rm -fr Rcpp-sugar.blg
 	rm -fr Rcpp-sugar.aux
@@ -150,4 +152,27 @@ endif
 	rm -fr Rcpp-sugar.log
 	rm Rcpp-sugar.Rnw
 	cp Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
+
+Rcpp-quickref.pdf : Rcpp-quickref/Rcpp-quickref.Rnw
+	touch Rcpp-quickref.Rnw
+	rm Rcpp-quickref.Rnw
+	cp -f Rcpp-quickref/Rcpp-quickref.Rnw .
+	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-quickref.Rnw', driver = driver ); "
+	Rscript -e "tools::texi2dvi( 'Rcpp-quickref.tex', pdf = TRUE, clean = FALSE )"
+	# bibtex Rcpp-quickref
+ifeq ($(whoami),edd)
+	pdflatex Rcpp-quickref
+	pdflatex Rcpp-quickref
+else
+	Rscript -e "tools::texi2dvi( 'Rcpp-quickref.tex', pdf = TRUE, clean = TRUE )"
+endif
+	rm -fr Rcpp-quickref.tex
+	rm -fr Rcpp-quickref.bbl
+	rm -fr Rcpp-quickref.blg
+	rm -fr Rcpp-quickref.aux
+	rm -fr Rcpp-quickref.out
+	rm -fr Rcpp-quickref.log
+	rm Rcpp-quickref.Rnw
+	cp Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
+
 	
