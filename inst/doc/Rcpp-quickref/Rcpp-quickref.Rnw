@@ -1,0 +1,35 @@
+\documentclass[8pt,twocolumn,a4paper]{article}
+%\VignetteIndexEntry{Rcpp-quickref}
+
+\setlength{\hoffset}{-0.8in}
+\setlength{\voffset}{-0.8in}
+
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\footskip}{0pt}
+\setlength{\textheight}{27cm}
+\setlength{\textwidth}{20cm}
+
+\usepackage[colorlinks]{hyperref}
+
+<<echo=FALSE,print=FALSE>>=
+options( width= 50)
+library( "Rcpp" )
+rcpp.version <- packageDescription( "Rcpp" )$Version
+@
+% closing $ needed here
+
+\author{Romain Fran\c{c}ois \and Dirk Eddelbuettel}
+\title{Rcpp \Sexpr{rcpp.version}: Quick Reference Guide}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+
+\end{document}
+
