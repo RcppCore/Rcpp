@@ -237,7 +237,7 @@ namespace Rcpp{
 	CppClass::CppClass( SEXP x) : S4(x){}
 	
 	CppClass::CppClass( Module* p, class_Base* cl ) : S4("C++Class") {
-		XP_Class clxp( cl ) ;
+		XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
 		
 		slot( "module"  ) = XP( p, false ) ;
 		slot( "pointer" ) = clxp ;
