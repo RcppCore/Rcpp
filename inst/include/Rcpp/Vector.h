@@ -56,6 +56,8 @@ template <int RTYPE> class MatrixColumn ;
 
 #include <Rcpp/vector/string_proxy.h>
 
+#include <Rcpp/vector/LazyVector.h>
+
 }  // Rcpp
 
 #include <Rcpp/vector/swap.h>

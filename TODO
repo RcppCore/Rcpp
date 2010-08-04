@@ -64,13 +64,4 @@ Syntactic sugar
     o   for character vectors: nchar, grepl, sub, gsub
     
     o   Compound operators: ++,--,+=, -=, ...
-        
-    o   lazy evaluation might not be the best thing for the sugar 
-        implementation of outer. For example : 
-        
-        outer( x + y, z , plus<double>() )
-        
-        has to evaluate x[i] + y[i] as many times as the length
-        of z. perhaps a better implementation would be to 
-        first force the evaluation of x + y.
 
