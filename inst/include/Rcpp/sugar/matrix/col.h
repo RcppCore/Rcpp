@@ -36,9 +36,6 @@ public:
 	
 	Col( const LHS_TYPE& lhs) : nr( lhs.ncol() ), nc( lhs.ncol() ) {}
 	
-	// inline int operator[]( int index ) const {
-	// 	return Rcpp::internal::get_column( index, nr) + 1 ;
-	// }
 	inline int operator()( int i, int j ) const {
 		return j + 1 ;
 	}

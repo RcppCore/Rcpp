@@ -49,12 +49,6 @@ public:
 	Outer( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_, Function fun_ ) : 
 		lhs(lhs_), rhs(rhs_), fun(fun_), nr(lhs_.size()), nc(rhs_.size()) {}
 	
-	// inline STORAGE operator[]( int index ) const {
-	// 	int i = Rcpp::internal::get_line( index, nr ) ;
-	// 	int j = Rcpp::internal::get_column( index, nr, i ) ;
-	// 	return converter_type::get( fun( lhs[i], rhs[j] ) );
-	// }
-	
 	inline STORAGE operator()( int i, int j ) const {
 		return converter_type::get( fun( lhs[i], rhs[j] ) );
 	}
