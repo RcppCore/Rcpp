@@ -22,6 +22,8 @@
 #ifndef Rcpp__vector__MatrixBase_h
 #define Rcpp__vector__MatrixBase_h
 
+#include <Rcpp/sugar/matrix/tools.h>
+
 namespace Rcpp{
 	
 /** a base class for vectors, modelled after the CRTP */
@@ -37,10 +39,9 @@ public:
 		return static_cast<MATRIX&>(*this) ;
 	}
 
-	inline stored_type operator[]( int i) const { 
-		return static_cast<const MATRIX*>(this)->operator[](i) ;
-	}
-	
+	// inline stored_type operator[]( int i) const { 
+	// 	return static_cast<const MATRIX*>(this)->operator[](i) ;
+	// }
 	inline stored_type operator()( int i, int j) const throw(not_a_matrix) {
 		return static_cast<const MATRIX*>(this)->operator()(i, j) ;
 	}
@@ -57,40 +58,62 @@ public:
 		typedef stored_type value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
 
-		iterator( const MatrixBase& object_, int index_ ) : object(object_), index(index_){} 
-		iterator( const iterator& other) : object(other.object), index(other.index){};
+		iterator( const MatrixBase& object_, int index_ ) : 
+			object(object_), i(0), j(0), nr(object_.nrow()), nc(object_.ncol()) {
+			
+			update_index( index_) ;	
+		}
+		
+		iterator( const iterator& other) : 
+			object(other.object), i(other.i), j(other.j), nr(other.nr), nc(other.nc){}
 		
 		inline iterator& operator++(){
-			index++ ;
+			i++ ;
+			if( i == nr ){
+				j++ ;
+				i=0 ;
+			}
 			return *this ;
 		}
 		inline iterator& operator++(int){
-			index++;
+			i++ ;
+			if( i == nr ){
+				j++ ;
+				i=0 ;
+			}
 			return *this ;
 		}
 		
 		inline iterator& operator--(){
-			index-- ;
+			i-- ;
+			if( i == -1 ){
+				j-- ;
+				i = nr - 1 ;
+			}
 			return *this ;
 		}
 		inline iterator& operator--(int){
-			index--; 
+			i-- ;
+			if( i == -1 ){
+				j-- ;
+				i = nr - 1 ;
+			}
 			return *this ;
 		}
 		                    
 		inline iterator operator+(difference_type n) const {
-			return iterator( object, index+n ) ;
+			return iterator( object, i + (j*nr) + n ) ;
 		}
 		inline iterator operator-(difference_type n) const {
-			return iterator( object, index-n ) ;
+			return iterator( object, i + (j*nr) - n ) ;
 		}
 		
 		inline iterator& operator+=(difference_type n) {
-			index += n ;
+			update_index( i + j*nr + n );
 			return *this ;
 		}
 		inline iterator& operator-=(difference_type n) {
-			index -= n; 
+			update_index( i + j*nr - n );
 			return *this ;
 		}
 
@@ -98,42 +121,50 @@ public:
 			//  TODO: it might be better to call object( i, j )
 			//        as in many cases the sugar expression 
 			//        is faster with two indexes
-			return object[index] ;
+			return object(i,j) ;
 		}
 		inline pointer operator->(){
-			return &object[index] ;
+			return &object(i,j) ;
 		}
 		
 		inline bool operator==( const iterator& y) const {
-			return ( index == y.index ) ;
+			return ( i == y.i && j == y.j ) ;
 		}
 		inline bool operator!=( const iterator& y) const {
-			return ( index != y.index ) ;
+			return ( i != y.i || j != y.j ) ;
 		}
 		inline bool operator<( const iterator& other ) const {
-			return index < other.index ;
+			return index() < other.index() ;
 		}
 		inline bool operator>( const iterator& other ) const {
-			return index > other.index ;
+			return index() > other.index() ;
 		}
 		inline bool operator<=( const iterator& other ) const {
-			return index <= other.index ;
+			return index() <= other.index() ;
 		}
 		inline bool operator>=( const iterator& other ) const {
-			return index >= other.index ;
+			return index() >= other.index() ;
 		}
 		
 		inline difference_type operator-(const iterator& other) const {
-			return index - other.index ;
+			return index() - other.index() ;
 		}
 	
 			
 	private:
 		const MatrixBase& object ;
-		int index;
+		int i, j ;
+		int nr, nc ;
 		
-		// int i, j ;
-		// int nr, nc ;
+		inline void update_index( int index_ ){
+			i = internal::get_line( index_, nr );
+			j = internal::get_column( index_, nr, i ) ;
+		}
+		
+		inline int index() const {
+			return i + nr * j ;
+		}
+		
 	} ;
 	
 	inline iterator begin() const { return iterator(*this, 0) ; }
