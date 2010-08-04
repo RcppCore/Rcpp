@@ -56,11 +56,6 @@ public:
 	
 	Diag_Maker( const VEC_TYPE& object_ ) : object(object_), n(object_.size()) {}
 	
-	// inline STORAGE operator[]( int index ) const {
-	// 	int i = Rcpp::internal::get_line( index, n ) ;
-	// 	int j = Rcpp::internal::get_column( index, n, i ) ;
-	// 	return (i==j) ? object[i] : 0 ;
-	// }
 	inline STORAGE operator()( int i, int j ) const {
 		return (i==j) ? object[i] : 0 ;
 	}

@@ -74,9 +74,3 @@ Syntactic sugar
         of z. perhaps a better implementation would be to 
         first force the evaluation of x + y.
 
-
-Speed
-
-    o   rework lhs use of RObject::slot so that it uses R_do_slot_assign 
-        instead of an R callback
-    	

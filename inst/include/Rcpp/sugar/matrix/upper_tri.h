@@ -38,11 +38,6 @@ public:
 		nr( lhs.nrow() ), nc( lhs.ncol() ), 
 		getter( diag ? (&UpperTri::get_diag_true) : (&UpperTri::get_diag_false) ){}
 	
-	// inline int operator[]( int index ) const {
-	// 	int i = Rcpp::internal::get_line( index, nr ) ;
-	// 	int j = Rcpp::internal::get_column( index, nr, i ) ;
-	// 	return get(i,j) ; 
-	// }
 	inline int operator()( int i, int j ) const {
 		return get(i,j) ;
 	}
