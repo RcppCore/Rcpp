@@ -82,16 +82,18 @@ public:
     	Rf_setAttrib( x, Rf_install("dim"), d ) ;
     	RObject::setSEXP( x ) ;
     	UNPROTECT( 2 ) ;
-    	import_matrix_expression<NA,MAT>( other, nr * nc ) ;
+    	import_matrix_expression<NA,MAT>( other, nr, nc ) ;
 	}
    
 private:
 	
 	template <bool NA, typename MAT>
-    void import_matrix_expression( const MatrixBase<RTYPE,NA,MAT>& other, int n ){
-    	iterator start = VECTOR::begin() ; 
-		for( int i=0; i<n; i++, ++start){
-			*start = other[i] ;
+    void import_matrix_expression( const MatrixBase<RTYPE,NA,MAT>& other, int nr, int nc ){
+    	iterator start = VECTOR::begin() ;
+    	for( int j=0; j<nc; j++){
+			for( int i=0; i<nr; i++, ++start){
+				*start = other(i,j) ;
+			}
 		}
     }
 

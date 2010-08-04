@@ -22,7 +22,6 @@
 #ifndef RCPP_SUGAR_MATRIX_FUNCTIONS_H
 #define RCPP_SUGAR_MATRIX_FUNCTIONS_H
 
-#include <Rcpp/sugar/matrix/tools.h>
 #include <Rcpp/sugar/matrix/outer.h>
 #include <Rcpp/sugar/matrix/row.h>
 #include <Rcpp/sugar/matrix/col.h>
