@@ -1,3 +1,8 @@
+2010-08-04  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/: rework sugar matrix so that operator()(int,int)
+	is always used instead of operator[](int)
+
 2010-08-02  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/XPtr.h: give default values to tag and prot in XPtr ctor
