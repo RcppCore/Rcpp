@@ -20,30 +20,30 @@
 .setUp <- function(){
 	if( ! exists( ".rcpp.stats", globalenv() ) ){
 		# definition of all the functions at once
-		
-		f <- list( 
-			"runit_dbinom" = list( 
-				signature( x = "integer" ), 
+
+		f <- list(
+			"runit_dbinom" = list(
+				signature( x = "integer" ),
 				'
 					IntegerVector xx(x) ;
-					return List::create( 
-						_["false"] = stats::dbinom( xx, 10, .5), 
+					return List::create(
+						_["false"] = stats::dbinom( xx, 10, .5),
 						_["true"]  = stats::dbinom( xx, 10, .5, true )
-						) ; 
+						) ;
 				'
-			), 
-			"runit_dpois" = list( 
-				signature( x = "integer" ), 
+			),
+			"runit_dpois" = list(
+				signature( x = "integer" ),
 				'
 					IntegerVector xx(x) ;
-					return List::create( 
-						_["false"] = stats::dpois( xx, .5 ), 
+					return List::create(
+						_["false"] = stats::dpois( xx, .5 ),
 						_["true"]  = stats::dpois( xx, .5 , true )
-						) ; 
+						) ;
 				'
 			),
 		)
-		
+
 		signatures <- lapply( f, "[[", 1L )
 		bodies <- lapply( f, "[[", 2L )
 		fx <- cxxfunction( signatures, bodies, plugin = "Rcpp")
@@ -54,13 +54,13 @@
 
 test.stats.dbinom <- function( ){
 	fx <- .rcpp.stats$runit_dbinom
-	checkEquals( fx(1:10) , 
-	list( false = dbinom(1:10, 10, .5), true = dbinom(1:10, 10, .5, TRUE ) )
+	checkEquals( fx(1:10) ,
+                list( false = dbinom(1:10, 10, .5), true = dbinom(1:10, 10, .5, TRUE ) ) )
 }
 
 test.stats.dpois <- function( ){
 	fx <- .rcpp.stats$runit_dpois
-	checkEquals( fx(0:5) , 
-	list( false = dpois(0:5, .4), true = dpois(0:5, .4, TRUE ) )
+	checkEquals( fx(0:5) ,
+                list( false = dpois(0:5, .4), true = dpois(0:5, .4, TRUE ) ) )
 }
-   
+
