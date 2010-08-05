@@ -37,7 +37,7 @@ namespace impl {
 			vec(vec_), mu(mu_), sigma(sigma_), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			int x = vec[i] ;
+			double x = vec[i] ;
 			return Rcpp::traits::is_na<REALSXP>( x ) ? NA_REAL : ::dnorm( x, mu, sigma, log );
 		}
 		
