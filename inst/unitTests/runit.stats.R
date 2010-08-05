@@ -71,8 +71,40 @@
 						_["true"]  = stats::pt( xx, 5, true, true  )
 						) ;
 				'
-			)
-
+			),
+                        "runit_pnorm" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lowerNoLog"] = stats::pnorm( xx, 0.0, 1.0 ),
+ 						_["lowerLog"]  = stats::pnorm( xx, 0.0, 1.0, true, true ),
+ 						_["upperNoLog"] = stats::pnorm( xx, 0.0, 1.0, false ),
+ 						_["upperLog"]  = stats::pnorm( xx, 0.0, 1.0, false, true )
+ 						) ;
+                                '
+                        ),
+                        "runit_qnorm_prob" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lower"] = stats::qnorm( xx, 0.0, 1.0 ),
+ 						_["upper"] = stats::qnorm( xx, 0.0, 1.0, false)
+ 						) ;
+                                '
+                        ),
+                          ## need a separate test for log prob because different allowable range of x 
+                        "runit_qnorm_log" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lower"] = stats::qnorm( xx, 0.0, 1.0, true, true),
+ 						_["upper"] = stats::qnorm( xx, 0.0, 1.0, false, true)
+ 						) ;
+                                '
+                        )
 
 		)
 
@@ -99,7 +131,7 @@ test.stats.dpois <- function( ){
 }
 
 test.stats.dnorm <- function( ) {
-	fx <- .rcpp.stats$runit_dnorm
+    fx <- .rcpp.stats$runit_dnorm
     v <- seq(0.0, 1.0, by=0.1)
     checkEquals(fx(v),
                 list( false = dnorm(v, 0.0, 1.0), true = dnorm(v, 0.0, 1.0, TRUE ) ),
@@ -121,4 +153,46 @@ test.stats.pt <- function( ) {
                 list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
                 msg = "stats.pt" )
 }
+test.stats.pnorm <- function( ) {
+    fx <- .rcpp.stats$runit_pnorm
+    v <- qnorm(seq(0.0, 1.0, by=0.1))
+    checkEquals(fx(v),
+                list(lowerNoLog = pnorm(v),
+                     lowerLog   = pnorm(v, log=TRUE ),
+                     upperNoLog = pnorm(v, lower=FALSE),
+                     upperLog   = pnorm(v, lower=FALSE, log=TRUE)
+                     ),
+                msg = "stats.pnorm" )
+    ## Borrowed from R's d-p-q-r-tests.R
+    z <- c(-Inf,Inf,NA,NaN, rt(1000, df=2))
+    z.ok <- z > -37.5 | !is.finite(z)
+    pz <- fx(z)
+    checkEqualsNumeric(pz$lowerNoLog, 1 - pz$upperNoLog, msg = "stats.pnorm")
+    checkEqualsNumeric(pz$lowerNoLog, fx(-z)$upperNoLog, msg = "stats.pnorm")
+    checkEqualsNumeric(log(pz$lowerNoLog[z.ok]), pz$lowerLog[z.ok], msg = "stats.pnorm")
+    ## FIXME: Add tests that use non-default mu and sigma
+}
+
+test.stats.qnorm <- function( ) {
+    fx <- .rcpp.stats$runit_qnorm_prob
+    checkEquals(fx(c(0, 1, 1.1, -.1)),
+                list(lower = c(-Inf, Inf, NaN, NaN),
+                     upper = c(Inf, -Inf, NaN, NaN)
+                     ),
+                msg = "stats.qnorm" )
+    ## Borrowed from R's d-p-q-r-tests.R and Wichura (1988)
+    checkEqualsNumeric(fx(c( 0.25,  .001,	 1e-20))$lower,
+                       c(-0.6744897501960817, -3.090232306167814, -9.262340089798408),
+                       msg = "stats.qnorm",
+                       tol = 1e-15)
+
+    fx <- .rcpp.stats$runit_qnorm_log
+    checkEquals(fx(c(-Inf, 0, 0.1)),
+                list(lower = c(-Inf, Inf, NaN),
+                     upper = c(Inf, -Inf, NaN)
+                     ),
+                msg = "stats.qnorm" )
+    checkEqualsNumeric(fx(-1e5)$lower, -447.1974945)
+}
+
 
