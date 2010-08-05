@@ -35,7 +35,7 @@ public:
 		vec(vec_), n(n_), prob(prob_), log(log_) {}
 	
 	inline double operator[]( int i) const {
-		return ::dbinom( vec[i], n, prob, log ) ;
+	    return ::dbinom( vec[i], (double) n, prob, log ) ;
 	}
 	
 	inline int size() const { return vec.size(); }
@@ -48,11 +48,65 @@ private:
 	
 } ;
 
+template <bool NA, typename T>
+class PBinom : public Rcpp::VectorBase< REALSXP, NA, PBinom<NA,T> >{
+public:
+    typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
+	
+    PBinom( const VEC_TYPE& vec_, int n_, double prob_, bool lower_tail = true, bool log_ = false ) : 
+	vec(vec_), n(n_), prob(prob_), lower(lower_tail), log(log_) {}
+	
+    inline double operator[]( int i) const {
+	return ::pbinom( vec[i], (double) n, prob, lower, log ) ;
+    }
+	
+    inline int size() const { return vec.size(); }
+	
+private:
+    const VEC_TYPE& vec ;
+    int n ;
+    double prob ;
+    int lower, log ;
+	
+} ;
+
+template <bool NA, typename T>
+class QBinom : public Rcpp::VectorBase< REALSXP, NA, QBinom<NA,T> >{
+public:
+    typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
+	
+    QBinom( const VEC_TYPE& vec_, int n_, double prob_, bool lower_tail = true, bool log_ = false ) : 
+	vec(vec_), n(n_), prob(prob_), lower(lower_tail), log(log_) {}
+	
+	inline double operator[]( int i) const {
+	    return ::qbinom( vec[i], (double) n, prob, lower, log ) ;
+	}
+	
+	inline int size() const { return vec.size(); }
+	
+private:
+    const VEC_TYPE& vec ;
+    int n ;
+    double prob ;
+    int lower, log ;
+	
+} ;
+
 } // impl
 
 template <bool NA, typename T>
 inline impl::DBinom<NA,T> dbinom( const Rcpp::VectorBase<INTSXP,NA,T>& x, int size, double prob, bool log = false ){
 	return impl::DBinom<NA,T>( x, size, prob, log ); 
+}
+
+template <bool NA, typename T>
+inline impl::PBinom<NA,T> pbinom( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size, double prob, bool lower = false, bool log = false ){
+    return impl::PBinom<NA,T>( x, size, prob, lower, log ); 
+}
+
+template <bool NA, typename T>
+inline impl::QBinom<NA,T> qbinom( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size, double prob, bool lower = false, bool log = false ){
+    return impl::QBinom<NA,T>( x, size, prob, lower, log ); 
 }
 	
 }
