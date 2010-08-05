@@ -51,7 +51,18 @@
 						_["true"]  = stats::dnorm( xx, 0.0, 1.0, true )
 						) ;
 				'
+			),
+			"runit_dt" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+					return List::create(
+						_["false"] = stats::dt( xx, 5),
+						_["true"]  = stats::dt( xx, 5, true )
+						) ;
+				'
 			)
+
 
 		)
 
@@ -59,7 +70,7 @@
 		bodies <- lapply( f, "[[", 2L )
 		fx <- cxxfunction( signatures, bodies, plugin = "Rcpp")
 		getDynLib( fx ) # just forcing loading the dll now
-		assign( ".rcpp.stats", fx, globalenv() ) 
+		assign( ".rcpp.stats", fx, globalenv() )
 	}
 }
 
@@ -83,5 +94,13 @@ test.stats.dnorm <- function( ) {
     checkEquals(fx(v),
                 list( false = dnorm(v, 0.0, 1.0), true = dnorm(v, 0.0, 1.0, TRUE ) ),
                 msg = "stats.dnorm" )
+}
+
+test.stats.dt <- function( ) {
+	fx <- .rcpp.stats$runit_dt
+    v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(fx(v),
+                list( false = dt(v, 5), true = dt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
+                msg = "stats.dt" )
 }
 
