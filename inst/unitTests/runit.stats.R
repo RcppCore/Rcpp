@@ -31,8 +31,8 @@
 						_["true"]  = stats::dbinom( xx, 10, .5, true )
 						) ;
 				'
-			),
-			"runit_dpois" = list(
+			)
+			, "runit_dpois" = list(
 				signature( x = "integer" ),
 				'
 					IntegerVector xx(x) ;
@@ -41,8 +41,8 @@
 						_["true"]  = stats::dpois( xx, .5 , true )
 						) ;
 				'
-			),
-			"runit_dnorm" = list(
+			)
+			, "runit_dnorm" = list(
 				signature( x = "numeric" ),
 				'
 					NumericVector xx(x) ;
@@ -51,8 +51,8 @@
 						_["true"]  = stats::dnorm( xx, 0.0, 1.0, true )
 						) ;
 				'
-			),
-			"runit_dt" = list(
+			)
+			, "runit_dt" = list(
 				signature( x = "numeric" ),
 				'
 					NumericVector xx(x) ;
@@ -61,8 +61,8 @@
 						_["true"]  = stats::dt( xx, 5, true )
 						) ;
 				'
-			),
-			"runit_pt" = list(
+			)
+			, "runit_pt" = list(
 				signature( x = "numeric" ),
 				'
 					NumericVector xx(x) ;
@@ -71,8 +71,8 @@
 						_["true"]  = stats::pt( xx, 5, true, true  )
 						) ;
 				'
-			),
-                        "runit_pnorm" = list(
+			)
+            , "runit_pnorm" = list(
 				signature( x = "numeric" ),
 				'
 					NumericVector xx(x) ;
@@ -82,9 +82,9 @@
  						_["upperNoLog"] = stats::pnorm( xx, 0.0, 1.0, false ),
  						_["upperLog"]  = stats::pnorm( xx, 0.0, 1.0, false, true )
  						) ;
-                                '
-                        ),
-                        "runit_qnorm_prob" = list(
+                 '
+              )
+              , "runit_qnorm_prob" = list(
 				signature( x = "numeric" ),
 				'
 					NumericVector xx(x) ;
@@ -92,19 +92,31 @@
  						_["lower"] = stats::qnorm( xx, 0.0, 1.0 ),
  						_["upper"] = stats::qnorm( xx, 0.0, 1.0, false)
  						) ;
-                                '
-                        ),
-                          ## need a separate test for log prob because different allowable range of x 
-                        "runit_qnorm_log" = list(
-				signature( x = "numeric" ),
-				'
+                 '
+              )
+
+              ## need a separate test for log prob because different allowable range of x
+              , "runit_qnorm_log" = list(
+				   signature( x = "numeric" ),
+				   '
 					NumericVector xx(x) ;
  					return List::create(
  						_["lower"] = stats::qnorm( xx, 0.0, 1.0, true, true),
  						_["upper"] = stats::qnorm( xx, 0.0, 1.0, false, true)
  						) ;
-                                '
-                        )
+                   '
+              )
+              , "runit_qt" = list(
+				signature( x = "numeric", p = "list" ),
+				'
+					NumericVector xx(x);
+                    List pp(p);
+                    int df  = as<int>(pp["df"]);
+                    bool lt = as<bool>(pp["lower"]);
+                    bool lg = as<bool>(pp["log"]);
+					return wrap(stats::qt( xx, df, lt, lg));
+				'
+			  )
 
 		)
 
@@ -138,21 +150,6 @@ test.stats.dnorm <- function( ) {
                 msg = "stats.dnorm" )
 }
 
-test.stats.dt <- function( ) {
-	fx <- .rcpp.stats$runit_dt
-    v <- seq(0.0, 1.0, by=0.1)
-    checkEquals(fx(v),
-                list( false = dt(v, 5), true = dt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
-                msg = "stats.dt" )
-}
-
-test.stats.pt <- function( ) {
-	fx <- .rcpp.stats$runit_pt
-    v <- seq(0.0, 1.0, by=0.1)
-    checkEquals(fx(v),
-                list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
-                msg = "stats.pt" )
-}
 test.stats.pnorm <- function( ) {
     fx <- .rcpp.stats$runit_pnorm
     v <- qnorm(seq(0.0, 1.0, by=0.1))
@@ -193,6 +190,35 @@ test.stats.qnorm <- function( ) {
                      ),
                 msg = "stats.qnorm" )
     checkEqualsNumeric(fx(-1e5)$lower, -447.1974945)
+}
+
+test.stats.dt <- function( ) {
+	fx <- .rcpp.stats$runit_dt
+    v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(fx(v),
+                list( false = dt(v, 5), true = dt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
+                msg = "stats.dt" )
+}
+
+test.stats.pt <- function( ) {
+	fx <- .rcpp.stats$runit_pt
+    v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(fx(v),
+                list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
+                msg = "stats.pt" )
+}
+
+test.stats.qt <- function( ) {
+	fx <- .rcpp.stats$runit_qt
+    v <- seq(0.05, 0.95, by=0.05)
+    checkEquals(fx(v, list(df=5, lower=FALSE, log=FALSE)),
+                qt(v, df=5, lower=FALSE, log=FALSE), msg="stats.qt.f.f")
+    checkEquals(fx(v, list(df=5, lower=TRUE,  log=FALSE)),
+                qt(v, df=5, lower=TRUE,  log=FALSE), msg="stats.qt.t.f")
+    checkEquals(fx(-v, list(df=5, lower=FALSE,  log=TRUE)),
+                qt(-v, df=5, lower=FALSE,  log=TRUE), msg="stats.qt.f.t")
+    checkEquals(fx(-v, list(df=5, lower=TRUE,  log=TRUE)),
+                qt(-v, df=5, lower=TRUE,  log=TRUE), msg="stats.qt.t.t")
 }
 
 
