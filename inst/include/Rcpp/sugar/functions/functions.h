@@ -48,6 +48,8 @@
 #include <Rcpp/sugar/functions/head.h>
 #include <Rcpp/sugar/functions/tail.h>
 
+#include <Rcpp/sugar/functions/sum.h>
+
 #include <Rcpp/sugar/functions/Re.h>
 #include <Rcpp/sugar/functions/Im.h>
 #include <Rcpp/sugar/functions/Conj.h>
