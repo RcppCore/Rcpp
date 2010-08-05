@@ -61,6 +61,16 @@
 						_["true"]  = stats::dt( xx, 5, true )
 						) ;
 				'
+			),
+			"runit_pt" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+					return List::create(
+						_["false"] = stats::pt( xx, 5, true),
+						_["true"]  = stats::pt( xx, 5, true, true  )
+						) ;
+				'
 			)
 
 
@@ -102,5 +112,13 @@ test.stats.dt <- function( ) {
     checkEquals(fx(v),
                 list( false = dt(v, 5), true = dt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
                 msg = "stats.dt" )
+}
+
+test.stats.pt <- function( ) {
+	fx <- .rcpp.stats$runit_pt
+    v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(fx(v),
+                list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
+                msg = "stats.pt" )
 }
 
