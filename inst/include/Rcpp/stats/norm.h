@@ -37,8 +37,7 @@ namespace impl {
 			vec(vec_), mu(mu_), sigma(sigma_), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			double x = vec[i] ;
-			return Rcpp::traits::is_na<REALSXP>( x ) ? NA_REAL : ::dnorm( x, mu, sigma, log );
+			return ::dnorm( vec[i], mu, sigma, log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -48,30 +47,8 @@ namespace impl {
 		double mu, sigma;
 		int log;
 	
-};
-
-template <typename T>
-class DNorm<false,T> : public Rcpp::VectorBase< REALSXP, false, DNorm<false,T> >{
-public:
-	typedef typename Rcpp::VectorBase<REALSXP,false,T> VEC_TYPE;
+	};
 	
-	DNorm( const VEC_TYPE& vec_, double mu_, double sigma_, bool log_ = false ) : 
-		vec(vec_), mu(mu_), sigma(sigma_), log(log_) {}
-	
-	inline double operator[]( int i) const {
-		return ::dnorm( vec[i], mu, sigma, log );
-	}
-	
-	inline int size() const { return vec.size(); }
-	
-private:
-	const VEC_TYPE& vec;
-	double mu, sigma;
-	int log;
-	
-} ;
-
-
 } // impl
 
 template <bool NA, typename T>

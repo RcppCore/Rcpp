@@ -35,29 +35,6 @@ public:
 		vec(vec_), n(n_), prob(prob_), log(log_) {}
 	
 	inline double operator[]( int i) const {
-		int x = vec[i] ;
-		return Rcpp::traits::is_na<INTSXP>( x ) ? NA_REAL : ::dbinom( x, n, prob, log ) ;
-	}
-	
-	inline int size() const { return vec.size(); }
-	
-private:
-	const VEC_TYPE& vec ;
-	int n ;
-	double prob ;
-	int log ;
-	
-} ;
-
-template <typename T>
-class DBinom<false,T> : public Rcpp::VectorBase< REALSXP, false, DBinom<false,T> >{
-public:
-	typedef typename Rcpp::VectorBase<INTSXP,false,T> VEC_TYPE ;
-	
-	DBinom( const VEC_TYPE& vec_, int n_, double prob_, bool log_ ) : 
-		vec(vec_), n(n_), prob(prob_), log(log_) {}
-	
-	inline double operator[]( int i) const {
 		return ::dbinom( vec[i], n, prob, log ) ;
 	}
 	
@@ -70,7 +47,6 @@ private:
 	int log ;
 	
 } ;
-
 
 } // impl
 
