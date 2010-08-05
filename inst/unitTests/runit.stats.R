@@ -41,7 +41,7 @@
 						_["true"]  = stats::dpois( xx, .5 , true )
 						) ;
 				'
-			),
+			)
 		)
 
 		signatures <- lapply( f, "[[", 1L )
@@ -54,13 +54,15 @@
 
 test.stats.dbinom <- function( ){
 	fx <- .rcpp.stats$runit_dbinom
-	checkEquals( fx(1:10) ,
-                list( false = dbinom(1:10, 10, .5), true = dbinom(1:10, 10, .5, TRUE ) ) )
+	checkEquals(fx(1:10) ,
+                list( false = dbinom(1:10, 10, .5), true = dbinom(1:10, 10, .5, TRUE ) ),
+                msg = "stats.dbinom" )
 }
 
 test.stats.dpois <- function( ){
 	fx <- .rcpp.stats$runit_dpois
-	checkEquals( fx(0:5) ,
-                list( false = dpois(0:5, .4), true = dpois(0:5, .4, TRUE ) ) )
+	checkEquals(fx(0:5) ,
+                list( false = dpois(0:5, .4), true = dpois(0:5, .4, TRUE ) ),
+                msg = "stats.dpois" )
 }
 
