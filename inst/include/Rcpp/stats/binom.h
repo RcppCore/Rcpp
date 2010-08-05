@@ -76,7 +76,7 @@ private:
 
 template <bool NA, typename T>
 inline impl::DBinom<NA,T> dbinom( const Rcpp::VectorBase<INTSXP,NA,T>& x, int size, double prob, bool log = false ){
-	return impl::DBinom<NA,T>( x, size, prob ); 
+	return impl::DBinom<NA,T>( x, size, prob, log ); 
 }
 	
 }
