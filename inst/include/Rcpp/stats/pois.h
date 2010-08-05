@@ -35,28 +35,6 @@ public:
 		vec(vec_), lambda(lambda_), log(log_) {}
 	
 	inline double operator[]( int i) const {
-		int x = vec[i] ;
-		return Rcpp::traits::is_na<INTSXP>( x ) ? NA_REAL : ::dpois( x, lambda, log ) ;
-	}
-	
-	inline int size() const { return vec.size(); }
-	
-private:
-	const VEC_TYPE& vec ;
-	double lambda ;
-	int log ;
-	
-} ;
-
-template <typename T>
-class DPois<false,T> : public Rcpp::VectorBase< REALSXP, false, DPois<false,T> >{
-public:
-	typedef typename Rcpp::VectorBase<INTSXP,false,T> VEC_TYPE ;
-	
-	DPois( const VEC_TYPE& vec_, double lambda_, bool log_ = false ) : 
-		vec(vec_), lambda(lambda_), log(log_) {}
-	
-	inline double operator[]( int i) const {
 		return ::dpois( vec[i], lambda, log ) ;
 	}
 	
@@ -68,7 +46,6 @@ private:
 	int log ;
 	
 } ;
-
 
 } // impl
 
