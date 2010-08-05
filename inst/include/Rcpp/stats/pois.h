@@ -47,11 +47,65 @@ private:
 	
 } ;
 
+template <bool NA, typename T>
+class PPois : public Rcpp::VectorBase< REALSXP, NA, PPois<NA,T> >{
+public:
+    typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
+	
+    PPois( const VEC_TYPE& vec_, double lambda_, bool lower_tail = true, bool log_ = false ) : 
+	vec(vec_), lambda(lambda_), lower(lower_tail), log(log_) {}
+	
+    inline double operator[]( int i) const {
+	return ::ppois( vec[i], lambda, lower, log ) ;
+    }
+	
+    inline int size() const { return vec.size(); }
+	
+private:
+    const VEC_TYPE& vec ;
+    double lambda ;
+    int lower, log ;
+	
+} ;
+
+template <bool NA, typename T>
+class QPois : public Rcpp::VectorBase< REALSXP, NA, QPois<NA,T> >{
+public:
+    typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
+	
+    QPois( const VEC_TYPE& vec_, double lambda_, bool lower_tail = true, bool log_ = false ) : 
+	vec(vec_), lambda(lambda_), lower(lower_tail), log(log_) {}
+	
+    inline double operator[]( int i) const {
+	return ::qpois( vec[i], lambda, lower, log ) ;
+    }
+	
+    inline int size() const { return vec.size(); }
+	
+private:
+    const VEC_TYPE& vec ;
+    double lambda ;
+    int lower, log ;
+	
+} ;
+
 } // impl
 
 template <bool NA, typename T>
 inline impl::DPois<NA,T> dpois( const Rcpp::VectorBase<INTSXP,NA,T>& x, double lambda, bool log = false ){
 	return impl::DPois<NA,T>( x, lambda, log ); 
+}
+	
+template <bool NA, typename T>
+inline impl::PPois<NA,T> ppois( const Rcpp::VectorBase<REALSXP,NA,T>& x,
+				double lambda, bool lower = true, bool log = false ){
+    return impl::PPois<NA,T>( x, lambda, lower, log ); 
+}
+
+template <bool NA, typename T>
+inline impl::QPois<NA,T> qpois( const Rcpp::VectorBase<REALSXP,NA,T>& x,
+				double lambda, bool lower = true, bool log = false ){
+    return impl::QPois<NA,T>( x, lambda, lower, log ); 
 }
 	
 }
