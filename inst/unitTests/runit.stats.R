@@ -41,7 +41,18 @@
 						_["true"]  = stats::dpois( xx, .5 , true )
 						) ;
 				'
+			),
+			"runit_dnorm" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+					return List::create(
+						_["false"] = stats::dnorm( xx, 0.0, 1.0 ),
+						_["true"]  = stats::dnorm( xx, 0.0, 1.0, true )
+						) ;
+				'
 			)
+
 		)
 
 		signatures <- lapply( f, "[[", 1L )
@@ -64,5 +75,13 @@ test.stats.dpois <- function( ){
 	checkEquals(fx(0:5) ,
                 list( false = dpois(0:5, .5), true = dpois(0:5, .5, TRUE ) ),
                 msg = "stats.dpois" )
+}
+
+test.stats.dnorm <- function( ) {
+	fx <- .rcpp.stats$runit_dnorm
+    v <- seq(0.0, 1.0, by=0.1)
+	checkEquals(fx(v),
+                list( false = dnorm(v, 0.0, 1.0), true = dnorm(v, 0.0, 1.0, TRUE ) ),
+                msg = "stats.dnorm" )
 }
 

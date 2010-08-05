@@ -24,5 +24,6 @@
 
 #include <Rcpp/stats/binom.h>
 #include <Rcpp/stats/pois.h>
+#include <Rcpp/stats/norm.h>
 
 #endif
