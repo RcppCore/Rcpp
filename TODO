@@ -64,4 +64,8 @@ Syntactic sugar
     o   for character vectors: nchar, grepl, sub, gsub
     
     o   Compound operators: ++,--,+=, -=, ...
+    
+    o	other stats functions : dnorm, etc ...
+    
+    o	sum : deal with missing values
 
