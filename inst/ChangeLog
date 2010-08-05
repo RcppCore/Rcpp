@@ -1,4 +1,4 @@
-2010-08-04  Romain Francois <romain@r-enthusiasts.com>
+2010-08-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/functions/seq_along.h: added seq(int,int) to 
 	mimic the R syntax : seq( 0, 5 )
@@ -9,6 +9,9 @@
 	Rcpp::stats::dbinom inspired by Richard Chandler post on Rcpp-devel:
 	http://lists.r-forge.r-project.org/pipermail/rcpp-devel/2010-August/000940.html
 
+	* inst/include/Rcpp/sugar/sum.h: preliminary version of Rcpp::sum (does not 
+	deal with NA properly yet)
+	
 2010-08-04  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/: rework sugar matrix so that operator()(int,int)
