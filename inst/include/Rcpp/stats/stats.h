@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// Range.h: Rcpp R/C++ interface class library -- 
+// binom.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -19,32 +19,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_RANGE_H
-#define RCPP_SUGAR_RANGE_H
+#ifndef Rcpp__stats__stats_h
+#define Rcpp__stats__stats_h
 
-namespace Rcpp{
-
-	class Range : public VectorBase<INTSXP,false, Range >{
-	public:
-		Range( int start_, int end__ ) throw(std::range_error) : start(start_), end_(end__){
-			if( start_ > end_ ){
-				throw std::range_error( "upper value must be greater than lower value" ) ;
-			}
-		}
-		
-		inline int size() const{
-			return end_ - start + 1;
-		}
-		
-		inline int operator[]( int i) const {
-			return start + i ;
-		}
-		
-	private:
-		int start ;
-		int end_ ;
-	} ;
-	
-} 
+#include <Rcpp/stats/binom.h>
+#include <Rcpp/stats/pois.h>
 
 #endif

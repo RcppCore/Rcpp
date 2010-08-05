@@ -1,5 +1,16 @@
 2010-08-04  Romain Francois <romain@r-enthusiasts.com>
 
+	* inst/include/Rcpp/sugar/functions/seq_along.h: added seq(int,int) to 
+	mimic the R syntax : seq( 0, 5 )
+	
+	* inst/include/Rcpp/sugar/Range.h: fixed compiler confusion
+	
+	* inst/include/Rcpp/stats: new sugar functions Rcpp::stats::dpois and
+	Rcpp::stats::dbinom inspired by Richard Chandler post on Rcpp-devel:
+	http://lists.r-forge.r-project.org/pipermail/rcpp-devel/2010-August/000940.html
+
+2010-08-04  Romain Francois <romain@r-enthusiasts.com>
+
 	* inst/include/Rcpp/sugar/: rework sugar matrix so that operator()(int,int)
 	is always used instead of operator[](int)
 	

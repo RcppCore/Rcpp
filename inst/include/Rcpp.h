@@ -64,6 +64,7 @@
 
 #include <Rcpp/InternalFunction.h>
 #include <Rcpp/sugar/sugar.h>
+#include <Rcpp/stats/stats.h>
 
 #include <classic/classic_backward.h>
 

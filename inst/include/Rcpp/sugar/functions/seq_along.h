@@ -49,6 +49,9 @@ inline sugar::SeqLen seq_len( const size_t& n){
 	return sugar::SeqLen( n ) ;
 }
 
+inline Range seq(int start, int end){
+	return Range( start, end ) ;
+}
 
 
 } // Rcpp
