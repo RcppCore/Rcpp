@@ -48,12 +48,38 @@ namespace impl {
 		int log;
 	
 	};
+
+	template <bool NA, typename T>
+	class PT : public Rcpp::VectorBase< REALSXP, NA, PT<NA,T> >{
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
+	
+		PT( const VEC_TYPE& vec_, double df_, bool lowertail_ = true, bool log_ = false ) : 
+			vec(vec_), df(df_), lowertail(lowertail_), log(log_) {}
+		
+		inline double operator[]( int i) const {
+			return ::pt( vec[i], df, lowertail, log );
+		}
+		
+		inline int size() const { return vec.size(); }
+		
+	private:
+		const VEC_TYPE& vec;
+		double df;
+		int lowertail, log;
+	
+	};
 	
 } // impl
 
 template <bool NA, typename T>
 inline impl::DT<NA,T> dt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df, bool log = false ) {
 	return impl::DT<NA,T>( x, df, log ); 
+}
+
+template <bool NA, typename T>
+inline impl::PT<NA,T> pt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df, bool lowertail = true, bool log = false ) {
+	return impl::PT<NA,T>( x, df, lowertail, log ); 
 }
 	
 }
