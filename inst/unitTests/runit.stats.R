@@ -59,7 +59,7 @@
 		bodies <- lapply( f, "[[", 2L )
 		fx <- cxxfunction( signatures, bodies, plugin = "Rcpp")
 		getDynLib( fx ) # just forcing loading the dll now
-		assign( ".rcpp.stats", fx, globalenv() )
+		assign( ".rcpp.stats", fx, globalenv() ) 
 	}
 }
 
@@ -80,7 +80,7 @@ test.stats.dpois <- function( ){
 test.stats.dnorm <- function( ) {
 	fx <- .rcpp.stats$runit_dnorm
     v <- seq(0.0, 1.0, by=0.1)
-	checkEquals(fx(v),
+    checkEquals(fx(v),
                 list( false = dnorm(v, 0.0, 1.0), true = dnorm(v, 0.0, 1.0, TRUE ) ),
                 msg = "stats.dnorm" )
 }
