@@ -48,12 +48,66 @@ namespace impl {
 		int log;
 	
 	};
+
+	template <bool NA, typename T>
+	class PNorm : public Rcpp::VectorBase< REALSXP, NA, PNorm<NA,T> >{
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
+	
+		PNorm( const VEC_TYPE& vec_, double mu_, double sigma_,
+			   bool lower_tail = true, bool log_ = false ) : 
+			vec(vec_), mu(mu_), sigma(sigma_), lower(lower_tail), log(log_) {}
+		
+		inline double operator[]( int i) const {
+			return ::pnorm( vec[i], mu, sigma, lower, log );
+		}
+		
+		inline int size() const { return vec.size(); }
+		
+	private:
+		const VEC_TYPE& vec;
+		double mu, sigma;
+		int lower, log;
+	
+	};
+
+	template <bool NA, typename T>
+	class QNorm : public Rcpp::VectorBase< REALSXP, NA, QNorm<NA,T> >{
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
+	
+		QNorm( const VEC_TYPE& vec_, double mu_, double sigma_,
+			   bool lower_tail = true, bool log_ = false ) : 
+			vec(vec_), mu(mu_), sigma(sigma_), lower(lower_tail), log(log_) {}
+		
+		inline double operator[]( int i) const {
+			return ::qnorm( vec[i], mu, sigma, lower, log );
+		}
+		
+		inline int size() const { return vec.size(); }
+		
+	private:
+		const VEC_TYPE& vec;
+		double mu, sigma;
+		int lower, log;
+	
+	};
 	
 } // impl
 
 template <bool NA, typename T>
 inline impl::DNorm<NA,T> dnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mu, double sigma, bool log = false ) {
 	return impl::DNorm<NA,T>( x, mu, sigma, log ); 
+}
+
+template <bool NA, typename T>
+inline impl::PNorm<NA,T> pnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mu, double sigma, bool lower = true, bool log = false ) {
+	return impl::PNorm<NA,T>( x, mu, sigma, lower, log ); 
+}
+
+template <bool NA, typename T>
+inline impl::QNorm<NA,T> qnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mu, double sigma, bool lower = true, bool log = false ) {
+	return impl::QNorm<NA,T>( x, mu, sigma, lower, log ); 
 }
 	
 }
