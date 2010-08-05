@@ -46,9 +46,9 @@ R 2.12.0
         
 Syntactic sugar
 
-	o	Vector * Matrix, Matrix * Matrix
+    o	Vector * Matrix, Matrix * Matrix
 
-	o   duplicated, unique, count, sum, sqrt, log, log10, ln
+    o   duplicated, unique, count, sum, sqrt, log, log10, ln
     
     o   operator% 
     
@@ -65,7 +65,8 @@ Syntactic sugar
     
     o   Compound operators: ++,--,+=, -=, ...
     
-    o	other stats functions : dnorm, etc ...
+    o	other statistical distribution functions : dnorm, etc ...
+        as well as qbinom, pbinom, rbinom, qpois, ppois, rpois, ...
     
     o	sum : deal with missing values
 
