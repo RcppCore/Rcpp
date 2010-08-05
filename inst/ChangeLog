@@ -1,3 +1,8 @@
+2010-08-05  Douglas Bates  <bates@stat.wisc.edu>
+
+	* include/Rcpp/stats/norm.h (Rcpp): Added pnorm and qnorm and
+	corresponding tests in unitTests/runit.stats.R
+
 2010-08-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/functions/seq_along.h: added seq(int,int) to 
