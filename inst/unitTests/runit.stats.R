@@ -61,8 +61,59 @@
 						_["true"]  = stats::dt( xx, 5, true )
 						) ;
 				'
-			)
-			, "runit_pt" = list(
+			),
+                        "runit_pbinom" = list(
+				signature( x = "numeric", size = "integer", prob = "numeric" ),
+				'
+                                        int n = as<int>(size);
+                                        double p = as<double>(prob);
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lowerNoLog"] = stats::pbinom(xx, n, p ),
+ 						_["lowerLog"]   = stats::pbinom(xx, n, p, true, true ),
+ 						_["upperNoLog"] = stats::pbinom(xx, n, p, false ),
+ 						_["upperLog"]   = stats::pbinom(xx, n, p, false, true )
+ 						) ;
+                                '
+                        ),
+                          ## Using fixed values of n and p
+                        "runit_pbinom_fixed" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lowerNoLog"] = stats::pbinom(xx, 20, 0.5 ),
+ 						_["lowerLog"]   = stats::pbinom(xx, 20, 0.5, true, true ),
+ 						_["upperNoLog"] = stats::pbinom(xx, 20, 0.5, false ),
+ 						_["upperLog"]   = stats::pbinom(xx, 20, 0.5, false, true )
+ 						) ;
+                                '
+                        ),
+                        "runit_pnorm" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lowerNoLog"] = stats::pnorm( xx, 0.0, 1.0 ),
+ 						_["lowerLog"]   = stats::pnorm( xx, 0.0, 1.0, true, true ),
+ 						_["upperNoLog"] = stats::pnorm( xx, 0.0, 1.0, false ),
+ 						_["upperLog"]   = stats::pnorm( xx, 0.0, 1.0, false, true )
+ 						) ;
+                                '
+                        ),
+                        "runit_ppois" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lowerNoLog"] = stats::ppois( xx, 0.5 ),
+ 						_["lowerLog"]   = stats::ppois( xx, 0.5, true, true ),
+ 						_["upperNoLog"] = stats::ppois( xx, 0.5, false ),
+ 						_["upperLog"]   = stats::ppois( xx, 0.5, false, true )
+ 						) ;
+                                '
+                        ),
+			"runit_pt" = list(
 				signature( x = "numeric" ),
 				'
 					NumericVector xx(x) ;
@@ -71,16 +122,27 @@
 						_["true"]  = stats::pt( xx, 5, true, true  )
 						) ;
 				'
-			)
-            , "runit_pnorm" = list(
+			),
+                        "runit_qbinom_prob" = list(
+				signature( x = "numeric", size = "integer", prob = "numeric" ),
+				'
+                                        int n = as<int>(size);
+                                        double p = as<double>(prob);
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lower"] = stats::qbinom( xx, n, p ),
+ 						_["upper"] = stats::qbinom( xx, n, p, false)
+ 						) ;
+                                '
+                        ),
+                          ## Using fixed values of n and p
+                        "runit_qbinom_prob_fixed" = list(
 				signature( x = "numeric" ),
 				'
 					NumericVector xx(x) ;
  					return List::create(
- 						_["lowerNoLog"] = stats::pnorm( xx, 0.0, 1.0 ),
- 						_["lowerLog"]  = stats::pnorm( xx, 0.0, 1.0, true, true ),
- 						_["upperNoLog"] = stats::pnorm( xx, 0.0, 1.0, false ),
- 						_["upperLog"]  = stats::pnorm( xx, 0.0, 1.0, false, true )
+ 						_["lower"] = stats::qbinom( xx, 20, 0.5 ),
+ 						_["upper"] = stats::qbinom( xx, 20, 0.5, false)
  						) ;
                  '
               )
@@ -104,20 +166,19 @@
  						_["lower"] = stats::qnorm( xx, 0.0, 1.0, true, true),
  						_["upper"] = stats::qnorm( xx, 0.0, 1.0, false, true)
  						) ;
-                   '
-              )
-              , "runit_qt" = list(
-				signature( x = "numeric", p = "list" ),
+                                '
+                        ),
+                          
+                        "runit_qpois_prob" = list(
+				signature( x = "numeric" ),
 				'
-					NumericVector xx(x);
-                    List pp(p);
-                    int df  = as<int>(pp["df"]);
-                    bool lt = as<bool>(pp["lower"]);
-                    bool lg = as<bool>(pp["log"]);
-					return wrap(stats::qt( xx, df, lt, lg));
-				'
-			  )
-
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lower"] = stats::qpois( xx, 0.5 ),
+ 						_["upper"] = stats::qpois( xx, 0.5, false)
+ 						) ;
+                                '
+                        )
 		)
 
 		signatures <- lapply( f, "[[", 1L )
@@ -192,33 +253,72 @@ test.stats.qnorm <- function( ) {
     checkEqualsNumeric(fx(-1e5)$lower, -447.1974945)
 }
 
-test.stats.dt <- function( ) {
-	fx <- .rcpp.stats$runit_dt
-    v <- seq(0.0, 1.0, by=0.1)
-    checkEquals(fx(v),
-                list( false = dt(v, 5), true = dt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
-                msg = "stats.dt" )
+test.stats.pbinom <- function( ) {
+    fx <- .rcpp.stats$runit_pbinom
+    n <- 20
+    p <- 0.5
+    vv <- 0:n
+    checkEquals(fx(vv, n, p),
+                list(lowerNoLog = pbinom(vv, n, p),
+                     lowerLog   = pbinom(vv, n, p, log=TRUE),
+                     upperNoLog = pbinom(vv, n, p, lower=FALSE),
+                     upperLog   = pbinom(vv, n, p, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.pbinom")
 }
 
-test.stats.pt <- function( ) {
-	fx <- .rcpp.stats$runit_pt
-    v <- seq(0.0, 1.0, by=0.1)
-    checkEquals(fx(v),
-                list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
-                msg = "stats.pt" )
+test.stats.qbinom <- function( ) {
+    fx <- .rcpp.stats$runit_qbinom_prob
+    n <- 20
+    p <- 0.5
+    vv <- seq(0, 1, by = 0.1)
+    checkEquals(fx(vv, n, p),
+                list(lower = qbinom(vv, n, p),
+                     upper = qbinom(vv, n, p, lower=FALSE)
+                     ),
+                msg = " stats.qbinom")
 }
 
-test.stats.qt <- function( ) {
-	fx <- .rcpp.stats$runit_qt
-    v <- seq(0.05, 0.95, by=0.05)
-    checkEquals(fx(v, list(df=5, lower=FALSE, log=FALSE)),
-                qt(v, df=5, lower=FALSE, log=FALSE), msg="stats.qt.f.f")
-    checkEquals(fx(v, list(df=5, lower=TRUE,  log=FALSE)),
-                qt(v, df=5, lower=TRUE,  log=FALSE), msg="stats.qt.t.f")
-    checkEquals(fx(-v, list(df=5, lower=FALSE,  log=TRUE)),
-                qt(-v, df=5, lower=FALSE,  log=TRUE), msg="stats.qt.f.t")
-    checkEquals(fx(-v, list(df=5, lower=TRUE,  log=TRUE)),
-                qt(-v, df=5, lower=TRUE,  log=TRUE), msg="stats.qt.t.t")
+test.stats.pbinom.fixed <- function( ) {
+    fx <- .rcpp.stats$runit_pbinom_fixed
+    vv <- 0:20
+    checkEquals(fx(vv),
+                list(lowerNoLog = pbinom(vv, 20, 0.5),
+                     lowerLog   = pbinom(vv, 20, 0.5, log=TRUE),
+                     upperNoLog = pbinom(vv, 20, 0.5, lower=FALSE),
+                     upperLog   = pbinom(vv, 20, 0.5, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.pbinom.fixed")
 }
 
+test.stats.qbinom.fixed <- function( ) {
+    fx <- .rcpp.stats$runit_qbinom_prob_fixed
+    vv <- seq(0, 1, by = 0.1)
+    checkEquals(fx(vv),
+                list(lower = qbinom(vv, 20, 0.5),
+                     upper = qbinom(vv, 20, 0.5, lower=FALSE)
+                     ),
+                msg = " stats.qbinom.fixed")
+}
 
+test.stats.ppois <- function( ) {
+    fx <- .rcpp.stats$runit_ppois
+    vv <- 0:20
+    checkEquals(fx(vv),
+                list(lowerNoLog = ppois(vv, 0.5),
+                     lowerLog   = ppois(vv, 0.5, log=TRUE),
+                     upperNoLog = ppois(vv, 0.5, lower=FALSE),
+                     upperLog   = ppois(vv, 0.5, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.ppois")
+}
+
+test.stats.qpois.prob <- function( ) {
+    fx <- .rcpp.stats$runit_qpois_prob
+    vv <- seq(0, 1, by = 0.1)
+    checkEquals(fx(vv),
+                list(lower = qpois(vv, 0.5),
+                     upper = qpois(vv, 0.5, lower=FALSE)
+                     ),
+                msg = " stats.qpois.prob")
+}
