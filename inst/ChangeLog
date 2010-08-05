@@ -3,27 +3,33 @@
 	* include/Rcpp/stats/norm.h (Rcpp): Added pnorm and qnorm and
 	corresponding tests in unitTests/runit.stats.R
 
+2010-08-05  Dirk Eddelbuettel  <deddelbuettel@wtchi-stat-l2.wolve.com>
+
+	* inst/include/Rcpp/stats/norm.h: Added dnorm sugar function
+	* inst/include/Rcpp/stats/t.h: Added dt, pt, qt sugar functions
+        * inst/include/unitTests/runit.stats.R: Added corresponding tests
+
 2010-08-05  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/functions/seq_along.h: added seq(int,int) to 
+	* inst/include/Rcpp/sugar/functions/seq_along.h: added seq(int,int) to
 	mimic the R syntax : seq( 0, 5 )
-	
+
 	* inst/include/Rcpp/sugar/Range.h: fixed compiler confusion
-	
+
 	* inst/include/Rcpp/stats: new sugar functions Rcpp::stats::dpois and
 	Rcpp::stats::dbinom inspired by Richard Chandler post on Rcpp-devel:
 	http://lists.r-forge.r-project.org/pipermail/rcpp-devel/2010-August/000940.html
 
-	* inst/include/Rcpp/sugar/sum.h: preliminary version of Rcpp::sum (does not 
+	* inst/include/Rcpp/sugar/sum.h: preliminary version of Rcpp::sum (does not
 	deal with NA properly yet)
-	
+
 2010-08-04  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/: rework sugar matrix so that operator()(int,int)
 	is always used instead of operator[](int)
-	
-	* inst/include/Rcpp/sugar/matrix/outer.h: new implementation based on 
-	LazyVector, so that the value from the vector expression is only 
+
+	* inst/include/Rcpp/sugar/matrix/outer.h: new implementation based on
+	LazyVector, so that the value from the vector expression is only
 	retrieved once
 
 2010-08-02  Romain Francois <romain@r-enthusiasts.com>

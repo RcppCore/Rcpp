@@ -29,16 +29,14 @@ namespace stats {
 namespace impl {
 
 	template <bool NA, typename T>
-	class DT : public Rcpp::VectorBase< REALSXP, NA, DT<NA,T> >{
+	class DT : public Rcpp::VectorBase< REALSXP, NA, DT<NA,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
+
 		DT( const VEC_TYPE& vec_, double df_, bool log_ = false ) : 
 			vec(vec_), df(df_), log(log_) {}
 		
-		inline double operator[]( int i) const {
-			return ::dt( vec[i], df, log );
-		}
+		inline double operator[]( int i) const { return ::dt( vec[i], df, log ); }
 		
 		inline int size() const { return vec.size(); }
 		
@@ -50,16 +48,33 @@ namespace impl {
 	};
 
 	template <bool NA, typename T>
-	class PT : public Rcpp::VectorBase< REALSXP, NA, PT<NA,T> >{
+	class PT : public Rcpp::VectorBase< REALSXP, NA, PT<NA,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
+
 		PT( const VEC_TYPE& vec_, double df_, bool lowertail_ = true, bool log_ = false ) : 
 			vec(vec_), df(df_), lowertail(lowertail_), log(log_) {}
 		
-		inline double operator[]( int i) const {
-			return ::pt( vec[i], df, lowertail, log );
-		}
+		inline double operator[]( int i) const { return ::pt( vec[i], df, lowertail, log ); }
+		
+		inline int size() const { return vec.size(); }
+		
+	private:
+		const VEC_TYPE& vec;
+		double df;
+		int lowertail, log;
+	
+	};
+
+	template <bool NA, typename T>
+	class QT : public Rcpp::VectorBase< REALSXP, NA, QT<NA,T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
+
+		QT( const VEC_TYPE& vec_, double df_, bool lowertail_ = true, bool log_ = false ) : 
+			vec(vec_), df(df_), lowertail(lowertail_), log(log_) {}
+		
+		inline double operator[]( int i) const { return ::qt( vec[i], df, lowertail, log ); }
 		
 		inline int size() const { return vec.size(); }
 		
@@ -80,6 +95,11 @@ inline impl::DT<NA,T> dt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df, bo
 template <bool NA, typename T>
 inline impl::PT<NA,T> pt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df, bool lowertail = true, bool log = false ) {
 	return impl::PT<NA,T>( x, df, lowertail, log ); 
+}
+
+template <bool NA, typename T>
+inline impl::QT<NA,T> qt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df, bool lowertail = true, bool log = false ) {
+	return impl::QT<NA,T>( x, df, lowertail, log ); 
 }
 	
 }
