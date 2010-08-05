@@ -62,7 +62,7 @@ test.stats.dbinom <- function( ){
 test.stats.dpois <- function( ){
 	fx <- .rcpp.stats$runit_dpois
 	checkEquals(fx(0:5) ,
-                list( false = dpois(0:5, .4), true = dpois(0:5, .4, TRUE ) ),
+                list( false = dpois(0:5, .5), true = dpois(0:5, .5, TRUE ) ),
                 msg = "stats.dpois" )
 }
 
