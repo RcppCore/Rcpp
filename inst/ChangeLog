@@ -1,12 +1,12 @@
 2010-08-05  Douglas Bates  <bates@stat.wisc.edu>
 
-	* include/Rcpp/stats/binom.h (Rcpp): Added pbinom and qbinom,
+	* include/Rcpp/stats/binom.h: Added pbinom and qbinom,
 	and tests of same in runit.stats.R
 
-	* include/Rcpp/stats/pois.h (Rcpp): Added ppois and qpois (plus
+	* include/Rcpp/stats/pois.h: Added ppois and qpois (plus
 	tests in runit.stats.R).
 
-	* include/Rcpp/stats/norm.h (Rcpp): Added pnorm and qnorm and
+	* include/Rcpp/stats/norm.h: Added pnorm and qnorm and
 	corresponding tests in unitTests/runit.stats.R
 
 2010-08-05  Dirk Eddelbuettel  <deddelbuettel@wtchi-stat-l2.wolve.com>
