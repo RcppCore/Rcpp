@@ -1,8 +1,10 @@
 0.8.6   (future)
 
-	o	various patches to comply with solaris/suncc stricter standards
-	
+	o	new sugar functions (dpq)(unif|norm|pois|binom|t|beta)
+
 	o	new vignette Rcpp-quickref : quick reference guide of Rcpp API
+
+	o	various patches to comply with solaris/suncc stricter standards
 
 0.8.5   2010-07-25
 
