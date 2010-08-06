@@ -1,4 +1,5 @@
 #!/usr/bin/r -t
+# -*- mode: R; tab-width: 4 -*-
 #
 # Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 #
@@ -22,240 +23,221 @@
 		# definition of all the functions at once
 
 		f <- list(
-                          "runit_dbeta" = list(
-                          signature(x = "numeric",
-                                    a = "numeric", b = "numeric"),
-                          '
-    double aa = as<double>(a), bb = as<double>(b) ;
-    NumericVector xx(x) ;
-    return List::create(
-	_["NoLog"] = stats::dbeta( xx, aa, bb),
-	_["Log"]   = stats::dbeta( xx, aa, bb, true )
-	) ;
-			  '),
+				  "runit_dbeta" = list(
+				  signature(x = "numeric",
+							a = "numeric", b = "numeric"),
+				  '
+				  double aa = as<double>(a), bb = as<double>(b) ;
+				  NumericVector xx(x) ;
+				  return List::create(_["NoLog"] = stats::dbeta( xx, aa, bb),
+									  _["Log"]	 = stats::dbeta( xx, aa, bb, true ));
+				  ')
 
-                          "runit_dbinom" = list(
-                          signature( x = "integer" ),
-                          '
-					IntegerVector xx(x) ;
-					return List::create(
-						_["false"] = stats::dbinom( xx, 10, .5),
-						_["true"]  = stats::dbinom( xx, 10, .5, true )
-						) ;
-			  '),
-			  "runit_dunif" = list(
-                          signature( x = "integer" ),
-                          '
-					NumericVector xx(x) ;
-					return List::create(
-						_["NoLog"] = stats::dunif( xx, 0, 1),
-						_["Log"]  = stats::dunif( xx, 0, 1, true )
-						) ;
-			  '),
-             "runit_dgamma" = list( signature( x = "integer" ),
-              '
-					NumericVector xx(x) ;
-					return List::create(
-						_["NoLog"] = stats::dgamma( xx, 1.0, 1.0),
-						_["Log"]   = stats::dgamma( xx, 1.0, 1.0, true )
-						) ;
-			  '),
-			  "runit_dpois" = list(
-				signature( x = "integer" ),
-				'
-					IntegerVector xx(x) ;
-					return List::create(
-						_["false"] = stats::dpois( xx, .5 ),
-						_["true"]  = stats::dpois( xx, .5 , true )
-						) ;
-				'
-			)
-			, "runit_dnorm" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
-					return List::create(
-						_["false"] = stats::dnorm( xx, 0.0, 1.0 ),
-						_["true"]  = stats::dnorm( xx, 0.0, 1.0, true )
-						) ;
-				'
-			)
-			, "runit_dt" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
-					return List::create(
-						_["false"] = stats::dt( xx, 5),
-						_["true"]  = stats::dt( xx, 5, true )
-						) ;
-				'
-			),
-                         runit_pbeta = list(
-                         signature(x = "numeric",
-                                   a = "numeric", b = "numeric"),
-                          '
-    double aa = as<double>(a), bb = as<double>(b) ;
-    NumericVector xx(x) ;
-    return List::create(
-	_["lowerNoLog"] = stats::pbeta( xx, aa, bb),
-	_["lowerLog"]   = stats::pbeta( xx, aa, bb, true, true),
-	_["upperNoLog"] = stats::pbeta( xx, aa, bb, false),
-	_["upperLog"]   = stats::pbeta( xx, aa, bb, false, true)
-	) ;
-			  '),
+				  ,
+				  "runit_dbinom" = list(
+				  signature( x = "integer" ),
+				  '
+				  IntegerVector xx(x) ;
+				  return List::create(_["false"] = stats::dbinom( xx, 10, .5),
+									  _["true"]	 = stats::dbinom( xx, 10, .5, true ));
+				  ')
 
-                        "runit_pbinom" = list(
-				signature( x = "numeric", size = "integer", prob = "numeric" ),
-				'
-                                        int n = as<int>(size);
-                                        double p = as<double>(prob);
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lowerNoLog"] = stats::pbinom(xx, n, p ),
- 						_["lowerLog"]   = stats::pbinom(xx, n, p, true, true ),
- 						_["upperNoLog"] = stats::pbinom(xx, n, p, false ),
- 						_["upperLog"]   = stats::pbinom(xx, n, p, false, true )
- 						) ;
-                                '
-                        ),
-                          ## Using fixed values of n and p
-                        "runit_pbinom_fixed" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lowerNoLog"] = stats::pbinom(xx, 20, 0.5 ),
- 						_["lowerLog"]   = stats::pbinom(xx, 20, 0.5, true, true ),
- 						_["upperNoLog"] = stats::pbinom(xx, 20, 0.5, false ),
- 						_["upperLog"]   = stats::pbinom(xx, 20, 0.5, false, true )
- 						) ;
-                                '
-                        ),
-                        "runit_punif" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lowerNoLog"] = stats::punif( xx, 0.0, 1.0 ),
- 						_["lowerLog"]   = stats::punif( xx, 0.0, 1.0, true, true ),
- 						_["upperNoLog"] = stats::punif( xx, 0.0, 1.0, false ),
- 						_["upperLog"]   = stats::punif( xx, 0.0, 1.0, false, true )
- 						) ;
-                                '
-                        ),
-                        "runit_pgamma" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lowerNoLog"] = stats::pgamma( xx, 2.0, 1.0 ),
- 						_["lowerLog"]   = stats::pgamma( xx, 2.0, 1.0, true, true ),
- 						_["upperNoLog"] = stats::pgamma( xx, 2.0, 1.0, false ),
- 						_["upperLog"]   = stats::pgamma( xx, 2.0, 1.0, false, true )
- 						) ;
-                                '
-                        ),
-                        "runit_pnorm" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lowerNoLog"] = stats::pnorm( xx, 0.0, 1.0 ),
- 						_["lowerLog"]   = stats::pnorm( xx, 0.0, 1.0, true, true ),
- 						_["upperNoLog"] = stats::pnorm( xx, 0.0, 1.0, false ),
- 						_["upperLog"]   = stats::pnorm( xx, 0.0, 1.0, false, true )
- 						) ;
-                                '
-                        ),
-                        "runit_ppois" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lowerNoLog"] = stats::ppois( xx, 0.5 ),
- 						_["lowerLog"]   = stats::ppois( xx, 0.5, true, true ),
- 						_["upperNoLog"] = stats::ppois( xx, 0.5, false ),
- 						_["upperLog"]   = stats::ppois( xx, 0.5, false, true )
- 						) ;
-                                '
-                        ),
-			"runit_pt" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
-					return List::create(
-						_["false"] = stats::pt( xx, 5, true),
-						_["true"]  = stats::pt( xx, 5, true, true  )
-						) ;
-				'
-			),
-                        "runit_qbinom_prob" = list(
-				signature( x = "numeric", size = "integer", prob = "numeric" ),
-				'
-                                        int n = as<int>(size);
-                                        double p = as<double>(prob);
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lower"] = stats::qbinom( xx, n, p ),
- 						_["upper"] = stats::qbinom( xx, n, p, false)
- 						) ;
-                                '
-                        ),
-                          ## Using fixed values of n and p
-                        "runit_qbinom_prob_fixed" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lower"] = stats::qbinom( xx, 20, 0.5 ),
- 						_["upper"] = stats::qbinom( xx, 20, 0.5, false)
- 						) ;
-                 '
-              ),
-              "runit_qunif_prob" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lower"] = stats::qunif( xx, 0.0, 1.0 ),
- 						_["upper"] = stats::qunif( xx, 0.0, 1.0, false)
- 						) ;
-                 '
-              )
-              , "runit_qnorm_prob" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lower"] = stats::qnorm( xx, 0.0, 1.0 ),
- 						_["upper"] = stats::qnorm( xx, 0.0, 1.0, false)
- 						) ;
-                 '
-              )
+				  ,
+				  "runit_dunif" = list(
+				  signature( x = "integer" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["NoLog"] = stats::dunif( xx, 0, 1),
+									  _["Log"]	= stats::dunif( xx, 0, 1, true ));
+				  ')
 
-              ## need a separate test for log prob because different allowable range of x
-              , "runit_qnorm_log" = list(
-				   signature( x = "numeric" ),
-				   '
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lower"] = stats::qnorm( xx, 0.0, 1.0, true, true),
- 						_["upper"] = stats::qnorm( xx, 0.0, 1.0, false, true)
- 						) ;
-                                '
-                        ),
-                          
-                        "runit_qpois_prob" = list(
-				signature( x = "numeric" ),
-				'
-					NumericVector xx(x) ;
- 					return List::create(
- 						_["lower"] = stats::qpois( xx, 0.5 ),
- 						_["upper"] = stats::qpois( xx, 0.5, false)
- 						) ;
-                                '
-                        )
-		)
+				  ,
+				  "runit_dgamma" = list( signature( x = "integer" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["NoLog"] = stats::dgamma( xx, 1.0, 1.0),
+									  _["Log"]	 = stats::dgamma( xx, 1.0, 1.0, true ));
+				  ')
+
+				  ,
+				  "runit_dpois" = list(
+				  signature( x = "integer" ),
+				  '
+				  IntegerVector xx(x) ;
+				  return List::create(_["false"] = stats::dpois( xx, .5 ),
+									  _["true"]	 = stats::dpois( xx, .5 , true));
+				  ')
+
+				  ,
+				  "runit_dnorm" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["false"] = stats::dnorm( xx, 0.0, 1.0 ),
+									  _["true"]	 = stats::dnorm( xx, 0.0, 1.0, true ));
+				  ')
+
+				  ,
+				  "runit_dt" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["false"] = stats::dt( xx, 5),
+									  _["true"]	 = stats::dt( xx, 5, true ));
+				  ')
+
+				  ,
+				  runit_pbeta = list(
+				  signature(x = "numeric",
+							a = "numeric", b = "numeric"),
+				  '
+				  double aa = as<double>(a), bb = as<double>(b) ;
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = stats::pbeta( xx, aa, bb),
+									  _["lowerLog"]	  = stats::pbeta( xx, aa, bb, true, true),
+									  _["upperNoLog"] = stats::pbeta( xx, aa, bb, false),
+									  _["upperLog"]	  = stats::pbeta( xx, aa, bb, false, true));
+				  ')
+
+				  ,
+				  "runit_pbinom" = list(
+				  signature( x = "numeric", size = "integer", prob = "numeric" ),
+				  '
+				  int n = as<int>(size);
+				  double p = as<double>(prob);
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = stats::pbinom(xx, n, p ),
+									  _["lowerLog"]	  = stats::pbinom(xx, n, p, true, true ),
+									  _["upperNoLog"] = stats::pbinom(xx, n, p, false ),
+									  _["upperLog"]	  = stats::pbinom(xx, n, p, false, true ));
+				  ')
+
+				  ,
+				  ## Using fixed values of n and p
+				  "runit_pbinom_fixed" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = stats::pbinom(xx, 20, 0.5 ),
+									  _["lowerLog"]	  = stats::pbinom(xx, 20, 0.5, true, true ),
+									  _["upperNoLog"] = stats::pbinom(xx, 20, 0.5, false ),
+									  _["upperLog"]	  = stats::pbinom(xx, 20, 0.5, false, true ));
+				  ')
+
+				  ,
+				  "runit_punif" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = stats::punif( xx, 0.0, 1.0 ),
+									  _["lowerLog"]	  = stats::punif( xx, 0.0, 1.0, true, true ),
+									  _["upperNoLog"] = stats::punif( xx, 0.0, 1.0, false ),
+									  _["upperLog"]	  = stats::punif( xx, 0.0, 1.0, false, true ));
+				  ')
+
+				  ,
+				  "runit_pgamma" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = stats::pgamma( xx, 2.0, 1.0 ),
+									  _["lowerLog"]	  = stats::pgamma( xx, 2.0, 1.0, true, true ),
+									  _["upperNoLog"] = stats::pgamma( xx, 2.0, 1.0, false ),
+									  _["upperLog"]	  = stats::pgamma( xx, 2.0, 1.0, false, true ));
+				  ')
+
+				  ,
+				  "runit_pnorm" = list(signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = stats::pnorm( xx, 0.0, 1.0 ),
+									  _["lowerLog"]	  = stats::pnorm( xx, 0.0, 1.0, true, true ),
+									  _["upperNoLog"] = stats::pnorm( xx, 0.0, 1.0, false ),
+									  _["upperLog"]	  = stats::pnorm( xx, 0.0, 1.0, false, true ));
+				  ')
+
+				  ,
+				  "runit_ppois" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = stats::ppois( xx, 0.5 ),
+									  _["lowerLog"]	  = stats::ppois( xx, 0.5, true, true ),
+									  _["upperNoLog"] = stats::ppois( xx, 0.5, false ),
+									  _["upperLog"]	  = stats::ppois( xx, 0.5, false, true ));
+				  ')
+
+				  ,
+				  "runit_pt" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["false"] = stats::pt( xx, 5, true),
+									  _["true"]	 = stats::pt( xx, 5, true, true	 ));
+				  '
+				  )
+
+				  ,
+				  "runit_qbinom_prob" = list(
+				  signature( x = "numeric", size = "integer", prob = "numeric" ),
+				  '
+				  int n = as<int>(size);
+				  double p = as<double>(prob);
+				  NumericVector xx(x) ;
+				  return List::create(_["lower"] = stats::qbinom( xx, n, p ),
+									  _["upper"] = stats::qbinom( xx, n, p, false));
+				  ')
+
+				  ,
+				  ## Using fixed values of n and p
+				  "runit_qbinom_prob_fixed" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lower"] = stats::qbinom( xx, 20, 0.5 ),
+									  _["upper"] = stats::qbinom( xx, 20, 0.5, false));
+				  '
+				  )
+
+				  ,
+				  "runit_qunif_prob" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lower"] = stats::qunif( xx, 0.0, 1.0 ),
+									  _["upper"] = stats::qunif( xx, 0.0, 1.0, false));
+				  '
+				  )
+
+				  ,
+				  "runit_qnorm_prob" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lower"] = stats::qnorm( xx, 0.0, 1.0 ),
+									  _["upper"] = stats::qnorm( xx, 0.0, 1.0, false));
+				  ')
+
+				  ## need a separate test for log prob because different allowable range of x
+				  ,
+				  "runit_qnorm_log" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lower"] = stats::qnorm( xx, 0.0, 1.0, true, true),
+									  _["upper"] = stats::qnorm( xx, 0.0, 1.0, false, true));
+				  ')
+
+				  ,
+				  "runit_qpois_prob" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lower"] = stats::qpois( xx, 0.5 ),
+									  _["upper"] = stats::qpois( xx, 0.5, false));
+				  ')
+
+				  ) ## end of list of test function sources
 
 		signatures <- lapply( f, "[[", 1L )
 		bodies <- lapply( f, "[[", 2L )
@@ -306,7 +288,7 @@ test.stats.pgamma <- function( ) {
                      ),
                 msg = "stats.pgamma" )
 }
-   
+
 
 test.stats.pnorm <- function( ) {
     fx <- .rcpp.stats$runit_pnorm
@@ -327,7 +309,7 @@ test.stats.pnorm <- function( ) {
     checkEqualsNumeric(log(pz$lowerNoLog[z.ok]), pz$lowerLog[z.ok], msg = "stats.pnorm")
     ## FIXME: Add tests that use non-default mu and sigma
 }
-   
+
 test.stats.punif <- function( ) {
     fx <- .rcpp.stats$runit_punif
     v <- qunif(seq(0.0, 1.0, by=0.1))
