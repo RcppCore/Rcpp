@@ -100,12 +100,12 @@ inline impl::DBinom<NA,T> dbinom( const Rcpp::VectorBase<INTSXP,NA,T>& x, int si
 }
 
 template <bool NA, typename T>
-inline impl::PBinom<NA,T> pbinom( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size, double prob, bool lower = false, bool log = false ){
+inline impl::PBinom<NA,T> pbinom( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size, double prob, bool lower = true, bool log = false ){
     return impl::PBinom<NA,T>( x, size, prob, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QBinom<NA,T> qbinom( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size, double prob, bool lower = false, bool log = false ){
+inline impl::QBinom<NA,T> qbinom( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size, double prob, bool lower = true, bool log = false ){
     return impl::QBinom<NA,T>( x, size, prob, lower, log ); 
 }
 	
