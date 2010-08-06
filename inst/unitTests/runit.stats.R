@@ -44,7 +44,7 @@
 
 				  ,
 				  "runit_dunif" = list(
-				  signature( x = "integer" ),
+				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
 				  return List::create(_["NoLog"] = stats::dunif( xx, 0, 1),
@@ -52,7 +52,7 @@
 				  ')
 
 				  ,
-				  "runit_dgamma" = list( signature( x = "integer" ),
+				  "runit_dgamma" = list( signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
 				  return List::create(_["NoLog"] = stats::dgamma( xx, 1.0, 1.0),
@@ -88,8 +88,7 @@
 
 				  ,
 				  "runit_pbeta" = list(
-				  signature(x = "numeric",
-							a = "numeric", b = "numeric"),
+				  signature(x = "numeric", a = "numeric", b = "numeric"),
 				  '
 				  double aa = as<double>(a), bb = as<double>(b) ;
 				  NumericVector xx(x) ;
@@ -110,18 +109,6 @@
 									  _["lowerLog"]	  = stats::pbinom(xx, n, p, true, true ),
 									  _["upperNoLog"] = stats::pbinom(xx, n, p, false ),
 									  _["upperLog"]	  = stats::pbinom(xx, n, p, false, true ));
-				  ')
-
-				  ,
-				  ## Using fixed values of n and p
-				  "runit_pbinom_fixed" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = stats::pbinom(xx, 20, 0.5 ),
-									  _["lowerLog"]	  = stats::pbinom(xx, 20, 0.5, true, true ),
-									  _["upperNoLog"] = stats::pbinom(xx, 20, 0.5, false ),
-									  _["upperLog"]	  = stats::pbinom(xx, 20, 0.5, false, true ));
 				  ')
 
 				  ,
@@ -189,17 +176,6 @@
 				  ')
 
 				  ,
-				  ## Using fixed values of n and p
-				  "runit_qbinom_prob_fixed" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = stats::qbinom( xx, 20, 0.5 ),
-									  _["upper"] = stats::qbinom( xx, 20, 0.5, false));
-				  '
-				  )
-
-				  ,
 				  "runit_qunif_prob" = list(
 				  signature( x = "numeric" ),
 				  '
@@ -240,10 +216,10 @@
 
                   ,
                   "runit_qt" = list(
-                  signature( x = "numeric", df = "integer", lower = "logical", log = "logical" ),
+                  signature( x = "numeric", df = "numeric", lower = "logical", log = "logical" ),
                   '
 				  NumericVector xx(x);
-                  int d = as<int>(df);
+                  double d = as<double>(df);
                   bool lt = as<bool>(lower);
                   bool lg = as<bool>(log);
 			      return wrap(stats::qt( xx, d, lt, lg));
@@ -352,18 +328,6 @@ test.stats.pbinom <- function( ) {
                 msg = " stats.pbinom")
 }
 
-test.stats.pbinom.fixed <- function( ) {
-    fx <- .rcpp.stats$runit_pbinom_fixed
-    vv <- 0:20
-    checkEquals(fx(vv),
-                list(lowerNoLog = pbinom(vv, 20, 0.5),
-                     lowerLog   = pbinom(vv, 20, 0.5, log=TRUE),
-                     upperNoLog = pbinom(vv, 20, 0.5, lower=FALSE),
-                     upperLog   = pbinom(vv, 20, 0.5, lower=FALSE, log=TRUE)
-                     ),
-                msg = " stats.pbinom.fixed")
-}
-
 test.stats.punif <- function( ) {
     fx <- .rcpp.stats$runit_punif
     v <- qunif(seq(0.0, 1.0, by=0.1))
@@ -440,16 +404,6 @@ test.stats.qbinom <- function( ) {
                      upper = qbinom(vv, n, p, lower=FALSE)
                      ),
                 msg = " stats.qbinom")
-}
-
-test.stats.qbinom.fixed <- function( ) {
-    fx <- .rcpp.stats$runit_qbinom_prob_fixed
-    vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv),
-                list(lower = qbinom(vv, 20, 0.5),
-                     upper = qbinom(vv, 20, 0.5, lower=FALSE)
-                     ),
-                msg = " stats.qbinom.fixed")
 }
 
 test.stats.qunif <- function( ) {
