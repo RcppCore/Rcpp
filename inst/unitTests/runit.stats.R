@@ -486,4 +486,5 @@ test.stats.dunif <- function() {
 }
 
 # TODO: test.stats.qgamma
+# TODO: test.stats.(dpq)chisq
 
