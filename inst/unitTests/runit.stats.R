@@ -259,12 +259,42 @@
 	}
 }
 
+test.stats.dbeta <- function() {
+    fx <- .rcpp.stats$runit_dbeta
+    vv <- seq(0, 1, by = 0.1)
+    a <- 0.5; b <- 2.5
+    checkEquals(fx(vv, a, b),
+                list(NoLog = dbeta(vv, a, b),
+                     Log   = dbeta(vv, a, b, log=TRUE)
+                     ),
+                msg = " stats.qbeta")
+}
+
 test.stats.dbinom <- function( ){
 	fx <- .rcpp.stats$runit_dbinom
 	checkEquals(fx(1:10) ,
                 list( false = dbinom(1:10, 10, .5), true = dbinom(1:10, 10, .5, TRUE ) ),
                 msg = "stats.dbinom" )
 }
+
+test.stats.dunif <- function() {
+    fx <- .rcpp.stats$runit_dunif
+    vv <- seq(0, 1, by = 0.1)
+    checkEquals(fx(vv),
+                list(NoLog = dunif(vv),
+                     Log   = dunif(vv, log=TRUE)
+                     ),
+                msg = " stats.dunif")
+}
+
+test.stats.dgamma <- function( ) {
+    fx <- .rcpp.stats$runit_dgamma
+    v <- 1:4
+    checkEquals(fx(v),
+                list( NoLog = dgamma(v, 1.0, 1.0), Log = dgamma(v, 1.0, 1.0, log = TRUE ) ),
+                msg = "stats.dgamma" )
+}
+
 
 test.stats.dpois <- function( ){
 	fx <- .rcpp.stats$runit_dpois
@@ -281,12 +311,70 @@ test.stats.dnorm <- function( ) {
                 msg = "stats.dnorm" )
 }
 
-test.stats.dgamma <- function( ) {
-    fx <- .rcpp.stats$runit_dgamma
-    v <- 1:4
+test.stats.dt <- function( ) {
+	fx <- .rcpp.stats$runit_dt
+    v <- seq(0.0, 1.0, by=0.1)
     checkEquals(fx(v),
-                list( NoLog = dgamma(v, 1.0, 1.0), Log = dgamma(v, 1.0, 1.0, log = TRUE ) ),
-                msg = "stats.dgamma" )
+                list( false = dt(v, 5), true = dt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
+                msg = "stats.dt" )
+}
+
+test.stats.pbeta <- function( ) {
+    fx <- .rcpp.stats$runit_pbeta
+    a <- 0.5; b <- 2.5
+    v <- qbeta(seq(0.0, 1.0, by=0.1), a, b)
+    checkEquals(fx(v, a, b),
+                list(lowerNoLog = pbeta(v, a, b),
+                     lowerLog   = pbeta(v, a, b,              log=TRUE),
+                     upperNoLog = pbeta(v, a, b, lower=FALSE),
+                     upperLog   = pbeta(v, a, b, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.pbeta" )
+    ## Borrowed from R's d-p-q-r-tests.R
+    x <- c(.01, .10, .25, .40, .55, .71, .98)
+    pbval <- c(-0.04605755624088, -0.3182809860569, -0.7503593555585,
+               -1.241555830932, -1.851527837938, -2.76044482378, -8.149862739881)
+    checkEqualsNumeric(fx(x, 0.8, 2)$upperLog, pbval, msg = " stats.pbeta")
+    checkEqualsNumeric(fx(1-x, 2, 0.8)$lowerLog, pbval, msg = " stats.pbeta")
+}
+
+test.stats.pbinom <- function( ) {
+    fx <- .rcpp.stats$runit_pbinom
+    n <- 20
+    p <- 0.5
+    vv <- 0:n
+    checkEquals(fx(vv, n, p),
+                list(lowerNoLog = pbinom(vv, n, p),
+                     lowerLog   = pbinom(vv, n, p, log=TRUE),
+                     upperNoLog = pbinom(vv, n, p, lower=FALSE),
+                     upperLog   = pbinom(vv, n, p, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.pbinom")
+}
+
+test.stats.pbinom.fixed <- function( ) {
+    fx <- .rcpp.stats$runit_pbinom_fixed
+    vv <- 0:20
+    checkEquals(fx(vv),
+                list(lowerNoLog = pbinom(vv, 20, 0.5),
+                     lowerLog   = pbinom(vv, 20, 0.5, log=TRUE),
+                     upperNoLog = pbinom(vv, 20, 0.5, lower=FALSE),
+                     upperLog   = pbinom(vv, 20, 0.5, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.pbinom.fixed")
+}
+
+test.stats.punif <- function( ) {
+    fx <- .rcpp.stats$runit_punif
+    v <- qunif(seq(0.0, 1.0, by=0.1))
+    checkEquals(fx(v),
+                list(lowerNoLog = punif(v),
+                     lowerLog   = punif(v, log=TRUE ),
+                     upperNoLog = punif(v, lower=FALSE),
+                     upperLog   = punif(v, lower=FALSE, log=TRUE)
+                     ),
+                msg = "stats.punif" )
+    # TODO: also borrow from R's d-p-q-r-tests.R
 }
 
 test.stats.pgamma <- function( ) {
@@ -322,17 +410,46 @@ test.stats.pnorm <- function( ) {
     ## FIXME: Add tests that use non-default mu and sigma
 }
 
-test.stats.punif <- function( ) {
-    fx <- .rcpp.stats$runit_punif
-    v <- qunif(seq(0.0, 1.0, by=0.1))
-    checkEquals(fx(v),
-                list(lowerNoLog = punif(v),
-                     lowerLog   = punif(v, log=TRUE ),
-                     upperNoLog = punif(v, lower=FALSE),
-                     upperLog   = punif(v, lower=FALSE, log=TRUE)
+test.stats.ppois <- function( ) {
+    fx <- .rcpp.stats$runit_ppois
+    vv <- 0:20
+    checkEquals(fx(vv),
+                list(lowerNoLog = ppois(vv, 0.5),
+                     lowerLog   = ppois(vv, 0.5,              log=TRUE),
+                     upperNoLog = ppois(vv, 0.5, lower=FALSE),
+                     upperLog   = ppois(vv, 0.5, lower=FALSE, log=TRUE)
                      ),
-                msg = "stats.punif" )
-    # TODO: also borrow from R's d-p-q-r-tests.R
+                msg = " stats.ppois")
+}
+
+test.stats.pt <- function( ) {
+	fx <- .rcpp.stats$runit_pt
+    v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(fx(v),
+                list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
+                msg = "stats.pt" )
+}
+
+test.stats.qbinom <- function( ) {
+    fx <- .rcpp.stats$runit_qbinom_prob
+    n <- 20
+    p <- 0.5
+    vv <- seq(0, 1, by = 0.1)
+    checkEquals(fx(vv, n, p),
+                list(lower = qbinom(vv, n, p),
+                     upper = qbinom(vv, n, p, lower=FALSE)
+                     ),
+                msg = " stats.qbinom")
+}
+
+test.stats.qbinom.fixed <- function( ) {
+    fx <- .rcpp.stats$runit_qbinom_prob_fixed
+    vv <- seq(0, 1, by = 0.1)
+    checkEquals(fx(vv),
+                list(lower = qbinom(vv, 20, 0.5),
+                     upper = qbinom(vv, 20, 0.5, lower=FALSE)
+                     ),
+                msg = " stats.qbinom.fixed")
 }
 
 test.stats.qunif <- function( ) {
@@ -367,66 +484,6 @@ test.stats.qnorm <- function( ) {
     checkEqualsNumeric(fx(-1e5)$lower, -447.1974945)
 }
 
-test.stats.pbinom <- function( ) {
-    fx <- .rcpp.stats$runit_pbinom
-    n <- 20
-    p <- 0.5
-    vv <- 0:n
-    checkEquals(fx(vv, n, p),
-                list(lowerNoLog = pbinom(vv, n, p),
-                     lowerLog   = pbinom(vv, n, p, log=TRUE),
-                     upperNoLog = pbinom(vv, n, p, lower=FALSE),
-                     upperLog   = pbinom(vv, n, p, lower=FALSE, log=TRUE)
-                     ),
-                msg = " stats.pbinom")
-}
-
-test.stats.qbinom <- function( ) {
-    fx <- .rcpp.stats$runit_qbinom_prob
-    n <- 20
-    p <- 0.5
-    vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv, n, p),
-                list(lower = qbinom(vv, n, p),
-                     upper = qbinom(vv, n, p, lower=FALSE)
-                     ),
-                msg = " stats.qbinom")
-}
-
-test.stats.pbinom.fixed <- function( ) {
-    fx <- .rcpp.stats$runit_pbinom_fixed
-    vv <- 0:20
-    checkEquals(fx(vv),
-                list(lowerNoLog = pbinom(vv, 20, 0.5),
-                     lowerLog   = pbinom(vv, 20, 0.5, log=TRUE),
-                     upperNoLog = pbinom(vv, 20, 0.5, lower=FALSE),
-                     upperLog   = pbinom(vv, 20, 0.5, lower=FALSE, log=TRUE)
-                     ),
-                msg = " stats.pbinom.fixed")
-}
-
-test.stats.qbinom.fixed <- function( ) {
-    fx <- .rcpp.stats$runit_qbinom_prob_fixed
-    vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv),
-                list(lower = qbinom(vv, 20, 0.5),
-                     upper = qbinom(vv, 20, 0.5, lower=FALSE)
-                     ),
-                msg = " stats.qbinom.fixed")
-}
-
-test.stats.ppois <- function( ) {
-    fx <- .rcpp.stats$runit_ppois
-    vv <- 0:20
-    checkEquals(fx(vv),
-                list(lowerNoLog = ppois(vv, 0.5),
-                     lowerLog   = ppois(vv, 0.5,              log=TRUE),
-                     upperNoLog = ppois(vv, 0.5, lower=FALSE),
-                     upperLog   = ppois(vv, 0.5, lower=FALSE, log=TRUE)
-                     ),
-                msg = " stats.ppois")
-}
-
 test.stats.qpois.prob <- function( ) {
     fx <- .rcpp.stats$runit_qpois_prob
     vv <- seq(0, 1, by = 0.1)
@@ -435,48 +492,6 @@ test.stats.qpois.prob <- function( ) {
                      upper = qpois(vv, 0.5, lower=FALSE)
                      ),
                 msg = " stats.qpois.prob")
-}
-
-test.stats.dbeta <- function() {
-    fx <- .rcpp.stats$runit_dbeta
-    vv <- seq(0, 1, by = 0.1)
-    a <- 0.5; b <- 2.5
-    checkEquals(fx(vv, a, b),
-                list(NoLog = dbeta(vv, a, b),
-                     Log   = dbeta(vv, a, b, log=TRUE)
-                     ),
-                msg = " stats.qbeta")
-}
-
-
-test.stats.pbeta <- function( ) {
-    fx <- .rcpp.stats$runit_pbeta
-    a <- 0.5; b <- 2.5
-    v <- qbeta(seq(0.0, 1.0, by=0.1), a, b)
-    checkEquals(fx(v, a, b),
-                list(lowerNoLog = pbeta(v, a, b),
-                     lowerLog   = pbeta(v, a, b,              log=TRUE),
-                     upperNoLog = pbeta(v, a, b, lower=FALSE),
-                     upperLog   = pbeta(v, a, b, lower=FALSE, log=TRUE)
-                     ),
-                msg = " stats.pbeta" )
-    ## Borrowed from R's d-p-q-r-tests.R
-    x <- c(.01, .10, .25, .40, .55, .71, .98)
-    pbval <- c(-0.04605755624088, -0.3182809860569, -0.7503593555585,
-               -1.241555830932, -1.851527837938, -2.76044482378, -8.149862739881)
-    checkEqualsNumeric(fx(x, 0.8, 2)$upperLog, pbval, msg = " stats.pbeta")
-    checkEqualsNumeric(fx(1-x, 2, 0.8)$lowerLog, pbval, msg = " stats.pbeta")
-}
-
-
-test.stats.dunif <- function() {
-    fx <- .rcpp.stats$runit_dunif
-    vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv),
-                list(NoLog = dunif(vv),
-                     Log   = dunif(vv, log=TRUE)
-                     ),
-                msg = " stats.dunif")
 }
 
 test.stats.qt <- function( ) {
