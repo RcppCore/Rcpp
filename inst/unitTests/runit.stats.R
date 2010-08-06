@@ -22,17 +22,29 @@
 		# definition of all the functions at once
 
 		f <- list(
-			"runit_dbinom" = list(
-				signature( x = "integer" ),
-				'
+                          "runit_dbeta" = list(
+                          signature(x = "numeric",
+                                    a = "numeric", b = "numeric"),
+                          '
+    double aa = as<double>(a), bb = as<double>(b) ;
+    NumericVector xx(x) ;
+    return List::create(
+	_["NoLog"] = stats::dbeta( xx, aa, bb),
+	_["Log"]   = stats::dbeta( xx, aa, bb, true )
+	) ;
+			  '),
+
+                          "runit_dbinom" = list(
+                          signature( x = "integer" ),
+                          '
 					IntegerVector xx(x) ;
 					return List::create(
 						_["false"] = stats::dbinom( xx, 10, .5),
 						_["true"]  = stats::dbinom( xx, 10, .5, true )
 						) ;
-				'
-			)
-			, "runit_dpois" = list(
+			  '),
+
+                          "runit_dpois" = list(
 				signature( x = "integer" ),
 				'
 					IntegerVector xx(x) ;
@@ -62,6 +74,20 @@
 						) ;
 				'
 			),
+                         runit_pbeta = list(
+                         signature(x = "numeric",
+                                   a = "numeric", b = "numeric"),
+                          '
+    double aa = as<double>(a), bb = as<double>(b) ;
+    NumericVector xx(x) ;
+    return List::create(
+	_["lowerNoLog"] = stats::pbeta( xx, aa, bb),
+	_["lowerLog"]   = stats::pbeta( xx, aa, bb, true, true),
+	_["upperNoLog"] = stats::pbeta( xx, aa, bb, false),
+	_["upperLog"]   = stats::pbeta( xx, aa, bb, false, true)
+	) ;
+			  '),
+
                         "runit_pbinom" = list(
 				signature( x = "numeric", size = "integer", prob = "numeric" ),
 				'
@@ -306,7 +332,7 @@ test.stats.ppois <- function( ) {
     vv <- 0:20
     checkEquals(fx(vv),
                 list(lowerNoLog = ppois(vv, 0.5),
-                     lowerLog   = ppois(vv, 0.5, log=TRUE),
+                     lowerLog   = ppois(vv, 0.5,              log=TRUE),
                      upperNoLog = ppois(vv, 0.5, lower=FALSE),
                      upperLog   = ppois(vv, 0.5, lower=FALSE, log=TRUE)
                      ),
@@ -321,4 +347,35 @@ test.stats.qpois.prob <- function( ) {
                      upper = qpois(vv, 0.5, lower=FALSE)
                      ),
                 msg = " stats.qpois.prob")
+}
+
+test.stats.dbeta <- function() {
+    fx <- .rcpp.stats$runit_dbeta
+    vv <- seq(0, 1, by = 0.1)
+    a <- 0.5; b <- 2.5
+    checkEquals(fx(vv, a, b),
+                list(NoLog = dbeta(vv, a, b),
+                     Log   = dbeta(vv, a, b, log=TRUE)
+                     ),
+                msg = " stats.qbeta")
+}
+
+
+test.stats.pbeta <- function( ) {
+    fx <- .rcpp.stats$runit_pbeta
+    a <- 0.5; b <- 2.5
+    v <- qbeta(seq(0.0, 1.0, by=0.1), a, b)
+    checkEquals(fx(v, a, b),
+                list(lowerNoLog = pbeta(v, a, b),
+                     lowerLog   = pbeta(v, a, b,              log=TRUE),
+                     upperNoLog = pbeta(v, a, b, lower=FALSE),
+                     upperLog   = pbeta(v, a, b, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.pbeta" )
+    ## Borrowed from R's d-p-q-r-tests.R
+    x <- c(.01, .10, .25, .40, .55, .71, .98)
+    pbval <- c(-0.04605755624088, -0.3182809860569, -0.7503593555585,
+               -1.241555830932, -1.851527837938, -2.76044482378, -8.149862739881)
+    checkEqualsNumeric(fx(x, 0.8, 2)$upperLog, pbval, msg = " stats.pbeta")
+    checkEqualsNumeric(fx(1-x, 2, 0.8)$lowerLog, pbval, msg = " stats.pbeta")
 }
