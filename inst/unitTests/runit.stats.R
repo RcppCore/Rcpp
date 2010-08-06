@@ -52,7 +52,15 @@
 						_["Log"]  = stats::dunif( xx, 0, 1, true )
 						) ;
 			  '),
-                          "runit_dpois" = list(
+             "runit_dgamma" = list( signature( x = "integer" ),
+              '
+					NumericVector xx(x) ;
+					return List::create(
+						_["NoLog"] = stats::dgamma( xx, 1.0, 1.0),
+						_["Log"]   = stats::dgamma( xx, 1.0, 1.0, true )
+						) ;
+			  '),
+			  "runit_dpois" = list(
 				signature( x = "integer" ),
 				'
 					IntegerVector xx(x) ;
@@ -132,6 +140,18 @@
  						_["lowerLog"]   = stats::punif( xx, 0.0, 1.0, true, true ),
  						_["upperNoLog"] = stats::punif( xx, 0.0, 1.0, false ),
  						_["upperLog"]   = stats::punif( xx, 0.0, 1.0, false, true )
+ 						) ;
+                                '
+                        ),
+                        "runit_pgamma" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lowerNoLog"] = stats::pgamma( xx, 2.0, 1.0 ),
+ 						_["lowerLog"]   = stats::pgamma( xx, 2.0, 1.0, true, true ),
+ 						_["upperNoLog"] = stats::pgamma( xx, 2.0, 1.0, false ),
+ 						_["upperLog"]   = stats::pgamma( xx, 2.0, 1.0, false, true )
  						) ;
                                 '
                         ),
@@ -267,6 +287,27 @@ test.stats.dnorm <- function( ) {
                 msg = "stats.dnorm" )
 }
 
+test.stats.dgamma <- function( ) {
+    fx <- .rcpp.stats$runit_dgamma
+    v <- 1:4
+    checkEquals(fx(v),
+                list( NoLog = dgamma(v, 1.0, 1.0), Log = dgamma(v, 1.0, 1.0, log = TRUE ) ),
+                msg = "stats.dgamma" )
+}
+
+test.stats.pgamma <- function( ) {
+    fx <- .rcpp.stats$runit_pgamma
+    v <- (1:9)/10
+    checkEquals(fx(v),
+                list(lowerNoLog = pgamma(v, shape = 2.0),
+                     lowerLog   = pgamma(v, shape = 2.0, log=TRUE ),
+                     upperNoLog = pgamma(v, shape = 2.0, lower=FALSE),
+                     upperLog   = pgamma(v, shape = 2.0, lower=FALSE, log=TRUE)
+                     ),
+                msg = "stats.pgamma" )
+}
+   
+
 test.stats.pnorm <- function( ) {
     fx <- .rcpp.stats$runit_pnorm
     v <- qnorm(seq(0.0, 1.0, by=0.1))
@@ -286,7 +327,7 @@ test.stats.pnorm <- function( ) {
     checkEqualsNumeric(log(pz$lowerNoLog[z.ok]), pz$lowerLog[z.ok], msg = "stats.pnorm")
     ## FIXME: Add tests that use non-default mu and sigma
 }
-
+   
 test.stats.punif <- function( ) {
     fx <- .rcpp.stats$runit_punif
     v <- qunif(seq(0.0, 1.0, by=0.1))
@@ -443,4 +484,6 @@ test.stats.dunif <- function() {
                      ),
                 msg = " stats.dunif")
 }
+
+# TODO: test.stats.qgamma
 
