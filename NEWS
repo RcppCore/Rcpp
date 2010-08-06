@@ -1,6 +1,6 @@
 0.8.6   (future)
 
-	o	new sugar functions (dpq)(unif|norm|pois|binom|t|beta)
+	o	new sugar functions (dpq)(unif|norm|gamma|chisq|pois|binom|t|beta)
 
 	o	new vignette Rcpp-quickref : quick reference guide of Rcpp API
 

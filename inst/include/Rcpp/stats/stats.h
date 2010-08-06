@@ -25,6 +25,7 @@
 #include <Rcpp/stats/unif.h>
 #include <Rcpp/stats/norm.h>
 #include <Rcpp/stats/gamma.h>
+#include <Rcpp/stats/chisq.h>
 #include <Rcpp/stats/beta.h>
 #include <Rcpp/stats/t.h>
 
