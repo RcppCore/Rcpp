@@ -87,7 +87,7 @@
 				  ')
 
 				  ,
-				  runit_pbeta = list(
+				  "runit_pbeta" = list(
 				  signature(x = "numeric",
 							a = "numeric", b = "numeric"),
 				  '
@@ -237,7 +237,19 @@
 									  _["upper"] = stats::qpois( xx, 0.5, false));
 				  ')
 
-				  ) ## end of list of test function sources
+
+                  ,
+                  "runit_qt" = list(
+                  signature( x = "numeric", df = "integer", lower = "logical", log = "logical" ),
+                  '
+				  NumericVector xx(x);
+                  int d = as<int>(df);
+                  bool lt = as<bool>(lower);
+                  bool lg = as<bool>(log);
+			      return wrap(stats::qt( xx, d, lt, lg));
+				  ')
+
+                  ) ## end of list of test function sources
 
 		signatures <- lapply( f, "[[", 1L )
 		bodies <- lapply( f, "[[", 2L )
@@ -465,6 +477,19 @@ test.stats.dunif <- function() {
                      Log   = dunif(vv, log=TRUE)
                      ),
                 msg = " stats.dunif")
+}
+
+test.stats.qt <- function( ) {
+	fx <- .rcpp.stats$runit_qt
+    v <- seq(0.05, 0.95, by=0.05)
+    checkEquals(fx(v, df=5, lower=FALSE, log=FALSE),
+                qt(v, df=5, lower=FALSE, log=FALSE), msg="stats.qt.f.f")
+    checkEquals(fx(v, df=5, lower=TRUE,  log=FALSE),
+                qt(v, df=5, lower=TRUE,  log=FALSE), msg="stats.qt.t.f")
+    checkEquals(fx(-v, df=5, lower=FALSE, log=TRUE),
+                qt(-v, df=5, lower=FALSE, log=TRUE), msg="stats.qt.f.t")
+    checkEquals(fx(-v, df=5, lower=TRUE,  log=TRUE),
+                qt(-v, df=5, lower=TRUE,  log=TRUE), msg="stats.qt.t.t")
 }
 
 # TODO: test.stats.qgamma
