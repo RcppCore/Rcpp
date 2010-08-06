@@ -1,5 +1,7 @@
 2010-08-05  Douglas Bates  <bates@stat.wisc.edu>
 
+	* include/Rcpp/stats/beta.h: Added d-p-q beta and tests
+
 	* include/Rcpp/stats/binom.h: Added pbinom and qbinom,
 	and tests of same in runit.stats.R
 
