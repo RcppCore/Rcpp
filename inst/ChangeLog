@@ -1,7 +1,7 @@
 2010-08-05  Douglas Bates  <bates@stat.wisc.edu>
 
 	* include/Rcpp/stats/binom.h (Rcpp): Added pbinom and qbinom,
-	which are at present failing their tests in runit.stats.R
+	and tests of same in runit.stats.R
 
 	* include/Rcpp/stats/pois.h (Rcpp): Added ppois and qpois (plus
 	tests in runit.stats.R).
