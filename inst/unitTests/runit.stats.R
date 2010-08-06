@@ -43,7 +43,15 @@
 						_["true"]  = stats::dbinom( xx, 10, .5, true )
 						) ;
 			  '),
-
+			  "runit_dunif" = list(
+                          signature( x = "integer" ),
+                          '
+					NumericVector xx(x) ;
+					return List::create(
+						_["NoLog"] = stats::dunif( xx, 0, 1),
+						_["Log"]  = stats::dunif( xx, 0, 1, true )
+						) ;
+			  '),
                           "runit_dpois" = list(
 				signature( x = "integer" ),
 				'
@@ -115,6 +123,18 @@
  						) ;
                                 '
                         ),
+                        "runit_punif" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lowerNoLog"] = stats::punif( xx, 0.0, 1.0 ),
+ 						_["lowerLog"]   = stats::punif( xx, 0.0, 1.0, true, true ),
+ 						_["upperNoLog"] = stats::punif( xx, 0.0, 1.0, false ),
+ 						_["upperLog"]   = stats::punif( xx, 0.0, 1.0, false, true )
+ 						) ;
+                                '
+                        ),
                         "runit_pnorm" = list(
 				signature( x = "numeric" ),
 				'
@@ -169,6 +189,16 @@
  					return List::create(
  						_["lower"] = stats::qbinom( xx, 20, 0.5 ),
  						_["upper"] = stats::qbinom( xx, 20, 0.5, false)
+ 						) ;
+                 '
+              ),
+              "runit_qunif_prob" = list(
+				signature( x = "numeric" ),
+				'
+					NumericVector xx(x) ;
+ 					return List::create(
+ 						_["lower"] = stats::qunif( xx, 0.0, 1.0 ),
+ 						_["upper"] = stats::qunif( xx, 0.0, 1.0, false)
  						) ;
                  '
               )
@@ -255,6 +285,29 @@ test.stats.pnorm <- function( ) {
     checkEqualsNumeric(pz$lowerNoLog, fx(-z)$upperNoLog, msg = "stats.pnorm")
     checkEqualsNumeric(log(pz$lowerNoLog[z.ok]), pz$lowerLog[z.ok], msg = "stats.pnorm")
     ## FIXME: Add tests that use non-default mu and sigma
+}
+
+test.stats.punif <- function( ) {
+    fx <- .rcpp.stats$runit_punif
+    v <- qunif(seq(0.0, 1.0, by=0.1))
+    checkEquals(fx(v),
+                list(lowerNoLog = punif(v),
+                     lowerLog   = punif(v, log=TRUE ),
+                     upperNoLog = punif(v, lower=FALSE),
+                     upperLog   = punif(v, lower=FALSE, log=TRUE)
+                     ),
+                msg = "stats.punif" )
+    # TODO: also borrow from R's d-p-q-r-tests.R
+}
+
+test.stats.qunif <- function( ) {
+    fx <- .rcpp.stats$runit_qunif_prob
+    checkEquals(fx(c(0, 1, 1.1, -.1)),
+                list(lower = c(0, 1, NaN, NaN),
+                     upper = c(1, 0, NaN, NaN)
+                     ),
+                msg = "stats.qunif" )
+    # TODO: also borrow from R's d-p-q-r-tests.R
 }
 
 test.stats.qnorm <- function( ) {
@@ -379,3 +432,15 @@ test.stats.pbeta <- function( ) {
     checkEqualsNumeric(fx(x, 0.8, 2)$upperLog, pbval, msg = " stats.pbeta")
     checkEqualsNumeric(fx(1-x, 2, 0.8)$lowerLog, pbval, msg = " stats.pbeta")
 }
+
+
+test.stats.dunif <- function() {
+    fx <- .rcpp.stats$runit_dunif
+    vv <- seq(0, 1, by = 0.1)
+    checkEquals(fx(vv),
+                list(NoLog = dunif(vv),
+                     Log   = dunif(vv, log=TRUE)
+                     ),
+                msg = " stats.dunif")
+}
+

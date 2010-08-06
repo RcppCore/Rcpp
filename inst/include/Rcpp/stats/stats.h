@@ -22,10 +22,12 @@
 #ifndef Rcpp__stats__stats_h
 #define Rcpp__stats__stats_h
 
-#include <Rcpp/stats/binom.h>
+#include <Rcpp/stats/unif.h>
 #include <Rcpp/stats/beta.h>
-#include <Rcpp/stats/pois.h>
 #include <Rcpp/stats/norm.h>
 #include <Rcpp/stats/t.h>
+
+#include <Rcpp/stats/binom.h>
+#include <Rcpp/stats/pois.h>
 
 #endif
