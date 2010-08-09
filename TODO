@@ -67,7 +67,7 @@ Syntactic sugar
     
     o	other statistical distribution functions : nchisq, f, 
     	multinom, cauchy, exp, geom, hyper, nbinom, nbinom_mu,
-    	logis, nbeta, nf, nt, tukey, wilcox, signrank
+    	nbeta, nf, nt, tukey, wilcox, signrank
     
     o	sum : deal with missing values
 
