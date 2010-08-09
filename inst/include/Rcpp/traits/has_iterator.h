@@ -63,6 +63,21 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
+    
+  template<typename T>
+  class _is_generator_helper : __sfinae_types {
+      template<typename U> struct _Wrap_type { };
+
+      template<typename U>
+        static __one __test(_Wrap_type<typename U::r_generator>*);
+
+      template<typename U>
+        static __two __test(...);
+
+    public:
+      static const bool value = sizeof(__test<T>(0)) == 1;
+    };
+ 
   
   template<typename T>
   class _is_exporter_helper : __sfinae_types {
@@ -99,6 +114,9 @@ namespace traits{
 	
   template<typename T> struct is_exporter : 
     integral_constant<bool,_is_exporter_helper<T>::value> { };
+
+  template<typename T> struct is_generator : 
+    integral_constant<bool,_is_generator_helper<T>::value> { };
 
 } // traits
 } // Rcpp
