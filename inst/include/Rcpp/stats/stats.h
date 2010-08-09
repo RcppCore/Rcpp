@@ -29,6 +29,7 @@
 #include <Rcpp/stats/beta.h>
 #include <Rcpp/stats/t.h>
 #include <Rcpp/stats/lnorm.h>
+#include <Rcpp/stats/weibull.h>
 
 #include <Rcpp/stats/binom.h>
 #include <Rcpp/stats/pois.h>
