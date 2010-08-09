@@ -101,13 +101,31 @@ private:
 			*start = other[i] ;
 		}
     }
+
+    template <typename T>
+    inline void fill_or_generate( const T& t){
+    	fill_or_generate__impl( t, typename traits::is_generator<T>::type() ) ;
+    }
+    
+    template <typename T>
+    inline void fill_or_generate__impl( const T& gen, traits::true_type){
+    	iterator first = begin() ;
+    	iterator last = end() ;
+    	while( first != last ) *first++ = gen() ;
+    }
+    
+    template <typename T>
+    inline void fill_or_generate__impl( const T& t, traits::false_type){
+    	fill(t) ;
+    }
+    
 	
 public:
     
     template <typename U>
     Vector( const int& size, const U& u){
     	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
-		fill( u ) ;	
+		fill_or_generate( u ) ;	
     }
     
     Vector( const Dimension& dims) : RObject() {
