@@ -45,7 +45,12 @@ Rcpp-api.pdf: Rcpp-api.Rnw
 
 Rcpp-introduction.pdf: Rcpp-introduction.Rnw
 	R CMD Sweave Rcpp-introduction.Rnw
+ifeq ($(whoami),edd)
+	pdflatex Rcpp-introduction.tex
+	pdflatex Rcpp-introduction.tex
+else
 	Rscript -e "tools::texi2dvi( 'Rcpp-introduction.tex', pdf = TRUE, clean = TRUE )"
+endif
 	rm -fr Rcpp-introduction.tex
 
 Rcpp-modules.pdf: Rcpp-modules/Rcpp-modules.Rnw
@@ -176,4 +181,3 @@ endif
 	rm -fr Rcpp-quickref.Rnw
 	cp Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
 
-	
