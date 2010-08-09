@@ -1,6 +1,8 @@
 0.8.6   (future)
 
-	o	new sugar functions (dpq)(unif|norm|gamma|chisq|lnorm|weibull|logis|pois|binom|t|beta)
+	o	new sugar functions for statistical distributions (d-p-q functions) with
+		distributions : unif, norm, gamma, chisq, lnorm, weibull, logis, f, 
+		pois, binom, t, beta. 
 
 	o	new vignette Rcpp-quickref : quick reference guide of Rcpp API
 
