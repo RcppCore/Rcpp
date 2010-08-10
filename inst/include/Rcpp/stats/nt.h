@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DNt : public Rcpp::VectorBase< REALSXP, NA, DNt<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DNt<NA,T> dnt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, double ncp_, bool log = false ) {
-	return impl::DNt<NA,T>( x, df_, ncp_, log ); 
+inline stats::DNt<NA,T> dnt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, double ncp_, bool log = false ) {
+	return stats::DNt<NA,T>( x, df_, ncp_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PNt<NA,T> pnt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, double ncp_, bool lower = true, bool log = false ) {
-	return impl::PNt<NA,T>( x, df_, ncp_, lower, log ); 
+inline stats::PNt<NA,T> pnt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, double ncp_, bool lower = true, bool log = false ) {
+	return stats::PNt<NA,T>( x, df_, ncp_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QNt<NA,T> qnt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, double ncp_, bool lower = true, bool log = false ) {
-	return impl::QNt<NA,T>( x, df_, ncp_, lower, log ); 
+inline stats::QNt<NA,T> qnt( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, double ncp_, bool lower = true, bool log = false ) {
+	return stats::QNt<NA,T>( x, df_, ncp_, lower, log ); 
 }
 	
-}
 }
 
 #endif

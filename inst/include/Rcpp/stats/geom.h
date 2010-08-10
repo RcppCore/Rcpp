@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DGeom : public Rcpp::VectorBase< REALSXP, NA, DGeom<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DGeom<NA,T> dgeom( const Rcpp::VectorBase<REALSXP,NA,T>& x, double prob_, bool log = false ) {
-	return impl::DGeom<NA,T>( x, prob_, log ); 
+inline stats::DGeom<NA,T> dgeom( const Rcpp::VectorBase<REALSXP,NA,T>& x, double prob_, bool log = false ) {
+	return stats::DGeom<NA,T>( x, prob_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PGeom<NA,T> pgeom( const Rcpp::VectorBase<REALSXP,NA,T>& x, double prob_, bool lower = true, bool log = false ) {
-	return impl::PGeom<NA,T>( x, prob_, lower, log ); 
+inline stats::PGeom<NA,T> pgeom( const Rcpp::VectorBase<REALSXP,NA,T>& x, double prob_, bool lower = true, bool log = false ) {
+	return stats::PGeom<NA,T>( x, prob_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QGeom<NA,T> qgeom( const Rcpp::VectorBase<REALSXP,NA,T>& x, double prob_, bool lower = true, bool log = false ) {
-	return impl::QGeom<NA,T>( x, prob_, lower, log ); 
+inline stats::QGeom<NA,T> qgeom( const Rcpp::VectorBase<REALSXP,NA,T>& x, double prob_, bool lower = true, bool log = false ) {
+	return stats::QGeom<NA,T>( x, prob_, lower, log ); 
 }
 	
-}
 }
 
 #endif

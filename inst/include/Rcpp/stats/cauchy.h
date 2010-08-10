@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DCauchy : public Rcpp::VectorBase< REALSXP, NA, DCauchy<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DCauchy<NA,T> dcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool log = false ) {
-	return impl::DCauchy<NA,T>( x, location_, scale_, log ); 
+inline stats::DCauchy<NA,T> dcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool log = false ) {
+	return stats::DCauchy<NA,T>( x, location_, scale_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PCauchy<NA,T> pcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::PCauchy<NA,T>( x, location_, scale_, lower, log ); 
+inline stats::PCauchy<NA,T> pcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::PCauchy<NA,T>( x, location_, scale_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QCauchy<NA,T> qcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::QCauchy<NA,T>( x, location_, scale_, lower, log ); 
+inline stats::QCauchy<NA,T> qcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::QCauchy<NA,T>( x, location_, scale_, lower, log ); 
 }
 	
-}
 }
 
 #endif
