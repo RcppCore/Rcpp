@@ -1,6 +1,8 @@
 2010-08-10  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/stats/random/rnorm.h: Added rnorm and rnorm_
+
+	* inst/include/Rcpp/stats/random/runif.h: Added runif and runif_
 	
 	* inst/include/Rcpp/stats/stats.h : fixed name clash reported on Rcpp-devel
 	http://permalink.gmane.org/gmane.comp.lang.r.rcpp/610
