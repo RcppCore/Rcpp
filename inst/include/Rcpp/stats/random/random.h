@@ -23,5 +23,6 @@
 #define Rcpp__stats__random_random_h
 
 #include <Rcpp/stats/random/rnorm.h>
+#include <Rcpp/stats/random/runif.h>
 
 #endif
