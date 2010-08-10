@@ -37,6 +37,7 @@
 #include <Rcpp/stats/exp.h>
 #include <Rcpp/stats/cauchy.h>
 #include <Rcpp/stats/geom.h>
+#include <Rcpp/stats/hyper.h>
 
 #include <Rcpp/stats/binom.h>
 #include <Rcpp/stats/pois.h>
