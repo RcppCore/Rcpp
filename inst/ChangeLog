@@ -1,6 +1,9 @@
 2010-08-10  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/stats/random/rnorm.h: Added rnorm and rnorm_
+	
+	* inst/include/Rcpp/stats/stats.h : fixed name clash reported on Rcpp-devel
+	http://permalink.gmane.org/gmane.comp.lang.r.rcpp/610
 
 2010-08-09  Romain Francois <romain@r-enthusiasts.com>
 
