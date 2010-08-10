@@ -4,6 +4,8 @@
 
 	* inst/include/Rcpp/stats/random/runif.h: Added runif and runif_
 	
+	* inst/include/Rcpp/stats/random/rbeta.h: Added rbeta and rbeta_
+
 	* inst/include/Rcpp/stats/stats.h : fixed name clash reported on Rcpp-devel
 	http://permalink.gmane.org/gmane.comp.lang.r.rcpp/610
 
