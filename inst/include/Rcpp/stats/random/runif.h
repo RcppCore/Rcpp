@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rnorm.h: Rcpp R/C++ interface class library -- 
+// runif.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -19,44 +19,42 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_norm_h
-#define Rcpp__stats__random_norm_h
+#ifndef Rcpp__stats__random_runif_h
+#define Rcpp__stats__random_runif_h
 
 namespace Rcpp {
 namespace stats {
 
 template <bool seed>
-class NormGenerator : public Rcpp::Generator<seed,double> {
+class UnifGenerator : public Rcpp::Generator<seed,double> {
 public:
 	
-	NormGenerator( double mean_ = 0.0 , double sd_ = 1.0 ) : 
-		mean(mean_), sd(sd_) {}
+	UnifGenerator( double min = 0.0, double max = 1.0) : 
+		min(min_), max(max_), diff(max_ - min_) {}
 	
 	inline double operator()() const {
-		return mean + sd * ::norm_rand() ;
+		double u;
+		do {u = unif_rand();} while (u <= 0 || u >= 1);
+		return min + diff * u;
 	}
 	
 private:
-	double mean ;
-	double sd ;
+	double min; 
+	double max ;
+	double diff ;
 } ;
 
 template <bool seed>
-Rcpp::NumericVector rnorm__impl( int n, double mean, double sd ){
-	if (ISNAN(mean) || !R_FINITE(sd) || sd < 0.){
-		// TODO: R also throws a warning in that case, should we ?
-		return Rcpp::NumericVector( n, R_NaN ) ;
-	}  else if (sd == 0. || !R_FINITE(mean)){
-		return Rcpp::NumericVector( n, mean ) ;
-	} else {
-		return Rcpp::NumericVector( n, NormGenerator<seed>( mean, sd ) ); 
-	}
+Rcpp::NumericVector runif__impl( int n, double min, double max ){
+	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return Rcpp::NumericVector( n, R_NaN ) ;
+	if( min == max ) return Rcpp::NumericVector( n, min ) ;
+	return Rcpp::NumericVector( n, UnifGenerator<seed>( min, max ) ) ;
 }
-inline Rcpp::NumericVector rnorm( int n, double mean = 0.0, double sd = 1.0 ){
-	return rnorm__impl<true>( n, mean, sd );
+inline Rcpp::NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
+	return runif__impl<true>( n, min, max );
 }
-inline Rcpp::NumericVector rnorm_( int n, double mean = 0.0, double sd = 1.0 ){
-	return rnorm__impl<false>( n, mean, sd );
+inline Rcpp::NumericVector runif_( int n, double min = 0.0, double max = 1.0 ){
+	return runif__impl<false>( n, min, max );
 }
 
 }
