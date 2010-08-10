@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DNbeta : public Rcpp::VectorBase< REALSXP, NA, DNbeta<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DNbeta<NA,T> dnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool log = false ) {
-	return impl::DNbeta<NA,T>( x, shape1_, shape2_, ncp_, log ); 
+inline stats::DNbeta<NA,T> dnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool log = false ) {
+	return stats::DNbeta<NA,T>( x, shape1_, shape2_, ncp_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PNbeta<NA,T> pnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool lower = true, bool log = false ) {
-	return impl::PNbeta<NA,T>( x, shape1_, shape2_, ncp_, lower, log ); 
+inline stats::PNbeta<NA,T> pnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool lower = true, bool log = false ) {
+	return stats::PNbeta<NA,T>( x, shape1_, shape2_, ncp_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QNbeta<NA,T> qnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool lower = true, bool log = false ) {
-	return impl::QNbeta<NA,T>( x, shape1_, shape2_, ncp_, lower, log ); 
+inline stats::QNbeta<NA,T> qnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool lower = true, bool log = false ) {
+	return stats::QNbeta<NA,T>( x, shape1_, shape2_, ncp_, lower, log ); 
 }
 	
-}
 }
 
 #endif

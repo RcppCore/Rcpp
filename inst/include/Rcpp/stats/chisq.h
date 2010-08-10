@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DChisq : public Rcpp::VectorBase< REALSXP, NA, DChisq<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DChisq<NA,T> dchisq( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, bool log = false ) {
-	return impl::DChisq<NA,T>( x, df_, log ); 
+inline stats::DChisq<NA,T> dchisq( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, bool log = false ) {
+	return stats::DChisq<NA,T>( x, df_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PChisq<NA,T> pchisq( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, bool lower = true, bool log = false ) {
-	return impl::PChisq<NA,T>( x, df_, lower, log ); 
+inline stats::PChisq<NA,T> pchisq( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, bool lower = true, bool log = false ) {
+	return stats::PChisq<NA,T>( x, df_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QChisq<NA,T> qchisq( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, bool lower = true, bool log = false ) {
-	return impl::QChisq<NA,T>( x, df_, lower, log ); 
+inline stats::QChisq<NA,T> qchisq( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df_, bool lower = true, bool log = false ) {
+	return stats::QChisq<NA,T>( x, df_, lower, log ); 
 }
 	
-}
 }
 
 #endif

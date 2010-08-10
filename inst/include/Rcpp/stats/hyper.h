@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DHyper : public Rcpp::VectorBase< REALSXP, NA, DHyper<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DHyper<NA,T> dhyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool log = false ) {
-	return impl::DHyper<NA,T>( x, mm_, nn_, kk_, log ); 
+inline stats::DHyper<NA,T> dhyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool log = false ) {
+	return stats::DHyper<NA,T>( x, mm_, nn_, kk_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PHyper<NA,T> phyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool lower = true, bool log = false ) {
-	return impl::PHyper<NA,T>( x, mm_, nn_, kk_, lower, log ); 
+inline stats::PHyper<NA,T> phyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool lower = true, bool log = false ) {
+	return stats::PHyper<NA,T>( x, mm_, nn_, kk_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QHyper<NA,T> qhyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool lower = true, bool log = false ) {
-	return impl::QHyper<NA,T>( x, mm_, nn_, kk_, lower, log ); 
+inline stats::QHyper<NA,T> qhyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool lower = true, bool log = false ) {
+	return stats::QHyper<NA,T>( x, mm_, nn_, kk_, lower, log ); 
 }
 	
-}
 }
 
 #endif

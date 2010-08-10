@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DNf : public Rcpp::VectorBase< REALSXP, NA, DNf<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DNf<NA,T> dnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool log = false ) {
-	return impl::DNf<NA,T>( x, df1_, df2_, ncp_, log ); 
+inline stats::DNf<NA,T> dnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool log = false ) {
+	return stats::DNf<NA,T>( x, df1_, df2_, ncp_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PNf<NA,T> pnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool lower = true, bool log = false ) {
-	return impl::PNf<NA,T>( x, df1_, df2_, ncp_, lower, log ); 
+inline stats::PNf<NA,T> pnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool lower = true, bool log = false ) {
+	return stats::PNf<NA,T>( x, df1_, df2_, ncp_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QNf<NA,T> qnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool lower = true, bool log = false ) {
-	return impl::QNf<NA,T>( x, df1_, df2_, ncp_, lower, log ); 
+inline stats::QNf<NA,T> qnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool lower = true, bool log = false ) {
+	return stats::QNf<NA,T>( x, df1_, df2_, ncp_, lower, log ); 
 }
 	
-}
 }
 
 #endif

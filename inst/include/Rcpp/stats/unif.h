@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DUnif : public Rcpp::VectorBase< REALSXP, NA, DUnif<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DUnif<NA,T> dunif( const Rcpp::VectorBase<REALSXP,NA,T>& x, double min_ = 0.0, double max_ = 1.0, bool log = false ) {
-	return impl::DUnif<NA,T>( x, min_, max_, log ); 
+inline stats::DUnif<NA,T> dunif( const Rcpp::VectorBase<REALSXP,NA,T>& x, double min_ = 0.0, double max_ = 1.0, bool log = false ) {
+	return stats::DUnif<NA,T>( x, min_, max_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PUnif<NA,T> punif( const Rcpp::VectorBase<REALSXP,NA,T>& x, double min_ = 0.0, double max_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::PUnif<NA,T>( x, min_, max_, lower, log ); 
+inline stats::PUnif<NA,T> punif( const Rcpp::VectorBase<REALSXP,NA,T>& x, double min_ = 0.0, double max_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::PUnif<NA,T>( x, min_, max_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QUnif<NA,T> qunif( const Rcpp::VectorBase<REALSXP,NA,T>& x, double min_ = 0.0, double max_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::QUnif<NA,T>( x, min_, max_, lower, log ); 
+inline stats::QUnif<NA,T> qunif( const Rcpp::VectorBase<REALSXP,NA,T>& x, double min_ = 0.0, double max_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::QUnif<NA,T>( x, min_, max_, lower, log ); 
 }
 	
-}
 }
 
 #endif

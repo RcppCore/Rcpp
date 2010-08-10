@@ -29,8 +29,8 @@
 				  '
 				  double aa = as<double>(a), bb = as<double>(b) ;
 				  NumericVector xx(x) ;
-				  return List::create(_["NoLog"] = stats::dbeta( xx, aa, bb),
-									  _["Log"]	 = stats::dbeta( xx, aa, bb, true ));
+				  return List::create(_["NoLog"] = dbeta( xx, aa, bb),
+									  _["Log"]	 = dbeta( xx, aa, bb, true ));
 				  ')
 
 				  ,
@@ -38,8 +38,8 @@
 				  signature( x = "integer" ),
 				  '
 				  IntegerVector xx(x) ;
-				  return List::create(_["false"] = stats::dbinom( xx, 10, .5),
-									  _["true"]	 = stats::dbinom( xx, 10, .5, true ));
+				  return List::create(_["false"] = dbinom( xx, 10, .5),
+									  _["true"]	 = dbinom( xx, 10, .5, true ));
 				  ')
 
 				  ,
@@ -47,16 +47,16 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["NoLog"] = stats::dunif( xx, 0, 1),
-									  _["Log"]	= stats::dunif( xx, 0, 1, true ));
+				  return List::create(_["NoLog"] = dunif( xx, 0, 1),
+									  _["Log"]	= dunif( xx, 0, 1, true ));
 				  ')
 
 				  ,
 				  "runit_dgamma" = list( signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["NoLog"] = stats::dgamma( xx, 1.0, 1.0),
-									  _["Log"]	 = stats::dgamma( xx, 1.0, 1.0, true ));
+				  return List::create(_["NoLog"] = dgamma( xx, 1.0, 1.0),
+									  _["Log"]	 = dgamma( xx, 1.0, 1.0, true ));
 				  ')
 
 				  ,
@@ -64,8 +64,8 @@
 				  signature( x = "integer" ),
 				  '
 				  IntegerVector xx(x) ;
-				  return List::create(_["false"] = stats::dpois( xx, .5 ),
-									  _["true"]	 = stats::dpois( xx, .5 , true));
+				  return List::create(_["false"] = dpois( xx, .5 ),
+									  _["true"]	 = dpois( xx, .5 , true));
 				  ')
 
 				  ,
@@ -73,8 +73,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["false"] = stats::dnorm( xx, 0.0, 1.0 ),
-									  _["true"]	 = stats::dnorm( xx, 0.0, 1.0, true ));
+				  return List::create(_["false"] = dnorm( xx, 0.0, 1.0 ),
+									  _["true"]	 = dnorm( xx, 0.0, 1.0, true ));
 				  ')
 
 				  ,
@@ -82,8 +82,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["false"] = stats::dt( xx, 5),
-									  _["true"]	 = stats::dt( xx, 5, true ));
+				  return List::create(_["false"] = dt( xx, 5),
+									  _["true"]	 = dt( xx, 5, true ));
 				  ')
 
 				  ,
@@ -92,10 +92,10 @@
 				  '
 				  double aa = as<double>(a), bb = as<double>(b) ;
 				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = stats::pbeta( xx, aa, bb),
-									  _["lowerLog"]	  = stats::pbeta( xx, aa, bb, true, true),
-									  _["upperNoLog"] = stats::pbeta( xx, aa, bb, false),
-									  _["upperLog"]	  = stats::pbeta( xx, aa, bb, false, true));
+				  return List::create(_["lowerNoLog"] = pbeta( xx, aa, bb),
+									  _["lowerLog"]	  = pbeta( xx, aa, bb, true, true),
+									  _["upperNoLog"] = pbeta( xx, aa, bb, false),
+									  _["upperLog"]	  = pbeta( xx, aa, bb, false, true));
 				  ')
 
 				  ,
@@ -105,10 +105,10 @@
 				  int n = as<int>(size);
 				  double p = as<double>(prob);
 				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = stats::pbinom(xx, n, p ),
-									  _["lowerLog"]	  = stats::pbinom(xx, n, p, true, true ),
-									  _["upperNoLog"] = stats::pbinom(xx, n, p, false ),
-									  _["upperLog"]	  = stats::pbinom(xx, n, p, false, true ));
+				  return List::create(_["lowerNoLog"] = pbinom(xx, n, p ),
+									  _["lowerLog"]	  = pbinom(xx, n, p, true, true ),
+									  _["upperNoLog"] = pbinom(xx, n, p, false ),
+									  _["upperLog"]	  = pbinom(xx, n, p, false, true ));
 				  ')
 
 				  ,
@@ -116,10 +116,10 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = stats::punif( xx, 0.0, 1.0 ),
-									  _["lowerLog"]	  = stats::punif( xx, 0.0, 1.0, true, true ),
-									  _["upperNoLog"] = stats::punif( xx, 0.0, 1.0, false ),
-									  _["upperLog"]	  = stats::punif( xx, 0.0, 1.0, false, true ));
+				  return List::create(_["lowerNoLog"] = punif( xx, 0.0, 1.0 ),
+									  _["lowerLog"]	  = punif( xx, 0.0, 1.0, true, true ),
+									  _["upperNoLog"] = punif( xx, 0.0, 1.0, false ),
+									  _["upperLog"]	  = punif( xx, 0.0, 1.0, false, true ));
 				  ')
 
 				  ,
@@ -127,20 +127,20 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = stats::pgamma( xx, 2.0, 1.0 ),
-									  _["lowerLog"]	  = stats::pgamma( xx, 2.0, 1.0, true, true ),
-									  _["upperNoLog"] = stats::pgamma( xx, 2.0, 1.0, false ),
-									  _["upperLog"]	  = stats::pgamma( xx, 2.0, 1.0, false, true ));
+				  return List::create(_["lowerNoLog"] = pgamma( xx, 2.0, 1.0 ),
+									  _["lowerLog"]	  = pgamma( xx, 2.0, 1.0, true, true ),
+									  _["upperNoLog"] = pgamma( xx, 2.0, 1.0, false ),
+									  _["upperLog"]	  = pgamma( xx, 2.0, 1.0, false, true ));
 				  ')
 
 				  ,
 				  "runit_pnorm" = list(signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = stats::pnorm( xx, 0.0, 1.0 ),
-									  _["lowerLog"]	  = stats::pnorm( xx, 0.0, 1.0, true, true ),
-									  _["upperNoLog"] = stats::pnorm( xx, 0.0, 1.0, false ),
-									  _["upperLog"]	  = stats::pnorm( xx, 0.0, 1.0, false, true ));
+				  return List::create(_["lowerNoLog"] = pnorm( xx, 0.0, 1.0 ),
+									  _["lowerLog"]	  = pnorm( xx, 0.0, 1.0, true, true ),
+									  _["upperNoLog"] = pnorm( xx, 0.0, 1.0, false ),
+									  _["upperLog"]	  = pnorm( xx, 0.0, 1.0, false, true ));
 				  ')
 
 				  ,
@@ -148,10 +148,10 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = stats::ppois( xx, 0.5 ),
-									  _["lowerLog"]	  = stats::ppois( xx, 0.5, true, true ),
-									  _["upperNoLog"] = stats::ppois( xx, 0.5, false ),
-									  _["upperLog"]	  = stats::ppois( xx, 0.5, false, true ));
+				  return List::create(_["lowerNoLog"] = ppois( xx, 0.5 ),
+									  _["lowerLog"]	  = ppois( xx, 0.5, true, true ),
+									  _["upperNoLog"] = ppois( xx, 0.5, false ),
+									  _["upperLog"]	  = ppois( xx, 0.5, false, true ));
 				  ')
 
 				  ,
@@ -159,8 +159,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["false"] = stats::pt( xx, 5, true),
-									  _["true"]	 = stats::pt( xx, 5, true, true	 ));
+				  return List::create(_["false"] = pt( xx, 5, true),
+									  _["true"]	 = pt( xx, 5, true, true	 ));
 				  '
 				  )
 
@@ -171,8 +171,8 @@
 				  int n = as<int>(size);
 				  double p = as<double>(prob);
 				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = stats::qbinom( xx, n, p ),
-									  _["upper"] = stats::qbinom( xx, n, p, false));
+				  return List::create(_["lower"] = qbinom( xx, n, p ),
+									  _["upper"] = qbinom( xx, n, p, false));
 				  ')
 
 				  ,
@@ -180,8 +180,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = stats::qunif( xx, 0.0, 1.0 ),
-									  _["upper"] = stats::qunif( xx, 0.0, 1.0, false));
+				  return List::create(_["lower"] = qunif( xx, 0.0, 1.0 ),
+									  _["upper"] = qunif( xx, 0.0, 1.0, false));
 				  '
 				  )
 
@@ -190,8 +190,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = stats::qnorm( xx, 0.0, 1.0 ),
-									  _["upper"] = stats::qnorm( xx, 0.0, 1.0, false));
+				  return List::create(_["lower"] = qnorm( xx, 0.0, 1.0 ),
+									  _["upper"] = qnorm( xx, 0.0, 1.0, false));
 				  ')
 
 				  ## need a separate test for log prob because different allowable range of x
@@ -200,8 +200,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = stats::qnorm( xx, 0.0, 1.0, true, true),
-									  _["upper"] = stats::qnorm( xx, 0.0, 1.0, false, true));
+				  return List::create(_["lower"] = qnorm( xx, 0.0, 1.0, true, true),
+									  _["upper"] = qnorm( xx, 0.0, 1.0, false, true));
 				  ')
 
 				  ,
@@ -209,8 +209,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = stats::qpois( xx, 0.5 ),
-									  _["upper"] = stats::qpois( xx, 0.5, false));
+				  return List::create(_["lower"] = qpois( xx, 0.5 ),
+									  _["upper"] = qpois( xx, 0.5, false));
 				  ')
 
 
@@ -222,7 +222,7 @@
                   double d = as<double>(df);
                   bool lt = as<bool>(lower);
                   bool lg = as<bool>(log);
-			      return wrap(stats::qt( xx, d, lt, lg));
+			      return wrap(qt( xx, d, lt, lg));
 				  ')
 
                   ) ## end of list of test function sources

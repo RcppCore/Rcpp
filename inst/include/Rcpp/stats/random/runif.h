@@ -26,7 +26,7 @@ namespace Rcpp {
 namespace stats {
 
 template <bool seed>
-class UnifGenerator : public Rcpp::Generator<seed,double> {
+class UnifGenerator : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
@@ -44,20 +44,21 @@ private:
 	double diff ;
 } ;
 
+} // stats
+
 template <bool seed>
-Rcpp::NumericVector runif__impl( int n, double min, double max ){
-	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return Rcpp::NumericVector( n, R_NaN ) ;
-	if( min == max ) return Rcpp::NumericVector( n, min ) ;
-	return Rcpp::NumericVector( n, UnifGenerator<seed>( min, max ) ) ;
+NumericVector runif__impl( int n, double min, double max ){
+	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
+	if( min == max ) return NumericVector( n, min ) ;
+	return NumericVector( n, stats::UnifGenerator<seed>( min, max ) ) ;
 }
-inline Rcpp::NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
+inline NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
 	return runif__impl<true>( n, min, max );
 }
-inline Rcpp::NumericVector runif_( int n, double min = 0.0, double max = 1.0 ){
+inline NumericVector runif_( int n, double min = 0.0, double max = 1.0 ){
 	return runif__impl<false>( n, min, max );
 }
 
-}
-}
+} // Rcpp
 
 #endif

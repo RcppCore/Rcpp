@@ -26,7 +26,7 @@ namespace Rcpp {
 
 namespace stats {
 
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DBeta : public Rcpp::VectorBase< REALSXP, NA, DBeta<NA,T> > {
@@ -85,28 +85,27 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DBeta<NA,T> dbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double a, double b, bool log = false ) {
-	return impl::DBeta<NA,T>( x, a, b, log ); 
+inline stats::DBeta<NA,T> dbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double a, double b, bool log = false ) {
+	return stats::DBeta<NA,T>( x, a, b, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PBeta<NA,T> pbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x,
+inline stats::PBeta<NA,T> pbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x,
 								double a, double b,
 								bool lowertail = true, bool log = false ) {
-	return impl::PBeta<NA,T>( x, a, b, lowertail, log ); 
+	return stats::PBeta<NA,T>( x, a, b, lowertail, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QBeta<NA,T> qbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x,
+inline stats::QBeta<NA,T> qbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x,
 								double a, double b,
 								bool lowertail = true, bool log = false ) {
-	return impl::QBeta<NA,T>( x, a, b, lowertail, log ); 
+	return stats::QBeta<NA,T>( x, a, b, lowertail, log ); 
 }
 	
-}
 }
 
 #endif

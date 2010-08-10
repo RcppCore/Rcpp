@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DWeibull : public Rcpp::VectorBase< REALSXP, NA, DWeibull<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DWeibull<NA,T> dweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool log = false ) {
-	return impl::DWeibull<NA,T>( x, shape_, scale_, log ); 
+inline stats::DWeibull<NA,T> dweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool log = false ) {
+	return stats::DWeibull<NA,T>( x, shape_, scale_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PWeibull<NA,T> pweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::PWeibull<NA,T>( x, shape_, scale_, lower, log ); 
+inline stats::PWeibull<NA,T> pweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::PWeibull<NA,T>( x, shape_, scale_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QWeibull<NA,T> qweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::QWeibull<NA,T>( x, shape_, scale_, lower, log ); 
+inline stats::QWeibull<NA,T> qweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::QWeibull<NA,T>( x, shape_, scale_, lower, log ); 
 }
 	
-}
 }
 
 #endif

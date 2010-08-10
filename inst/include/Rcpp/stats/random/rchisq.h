@@ -26,7 +26,7 @@ namespace Rcpp {
 namespace stats {
 
 template <bool seed>
-class ChisqGenerator : public Rcpp::Generator<seed,double> {
+class ChisqGenerator : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
@@ -38,20 +38,20 @@ public:
 private:
 	double df_2 ;
 } ;
+} // stats
 
 template <bool seed>
-Rcpp::NumericVector rchisq__impl( int n, double df ){
-	if (!R_FINITE(df) || df < 0.0) return Rcpp::NumericVector(n, R_NaN) ;
-	return Rcpp::NumericVector( n, ChisqGenerator<seed>( df ) ) ;
+NumericVector rchisq__impl( int n, double df ){
+	if (!R_FINITE(df) || df < 0.0) return NumericVector(n, R_NaN) ;
+	return NumericVector( n, stats::ChisqGenerator<seed>( df ) ) ;
 }
-inline Rcpp::NumericVector rchisq( int n, double df ){
+inline NumericVector rchisq( int n, double df ){
 	return rchisq__impl<true>( n, df );
 }
-inline Rcpp::NumericVector rchisq_( int n, double df ){
+inline NumericVector rchisq_( int n, double df ){
 	return rchisq__impl<false>( n, df );
 }
 
-}
-}
+} // Rcpp
 
 #endif

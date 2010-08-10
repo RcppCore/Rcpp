@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DExp : public Rcpp::VectorBase< REALSXP, NA, DExp<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DExp<NA,T> dexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool log = false ) {
-	return impl::DExp<NA,T>( x, 1.0/shape, log ); 
+inline stats::DExp<NA,T> dexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool log = false ) {
+	return stats::DExp<NA,T>( x, 1.0/shape, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PExp<NA,T> pexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool lower = true, bool log = false ) {
-	return impl::PExp<NA,T>( x, 1.0/shape, lower, log ); 
+inline stats::PExp<NA,T> pexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool lower = true, bool log = false ) {
+	return stats::PExp<NA,T>( x, 1.0/shape, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QExp<NA,T> qexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool lower = true, bool log = false ) {
-	return impl::QExp<NA,T>( x, 1.0/shape, lower, log ); 
+inline stats::QExp<NA,T> qexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool lower = true, bool log = false ) {
+	return stats::QExp<NA,T>( x, 1.0/shape, lower, log ); 
 }
 	
-}
 }
 
 #endif

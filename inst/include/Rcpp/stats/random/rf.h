@@ -26,7 +26,7 @@ namespace Rcpp {
 namespace stats {
 
 template <bool seed>
-class FGenerator_Finite_Finite : public Rcpp::Generator<seed,double> {
+class FGenerator_Finite_Finite : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	FGenerator_Finite_Finite( double n1_, double n2_ ) : 
@@ -45,7 +45,7 @@ private:
 } ;
 
 template <bool seed>
-class FGenerator_NotFinite_Finite : public Rcpp::Generator<seed,double> {
+class FGenerator_NotFinite_Finite : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	FGenerator_NotFinite_Finite( double n2_ ) : n2( n2_), n2__2(n2_ / 2.0 ) {}
@@ -60,7 +60,7 @@ private:
 } ;
 
 template <bool seed>
-class FGenerator_Finite_NotFinite : public Rcpp::Generator<seed,double> {
+class FGenerator_Finite_NotFinite : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	FGenerator_Finite_NotFinite( double n1_ ) : n1(n1_), n1__2(n1_ / 2.0 ) {}
@@ -74,28 +74,29 @@ private:
 	double n1, n1__2 ;
 } ;
 
+} // stats 
+
 template <bool seed>
-Rcpp::NumericVector rf__impl( int n, double n1, double n2 ){
+NumericVector rf__impl( int n, double n1, double n2 ){
 	if (ISNAN(n1) || ISNAN(n2) || n1 <= 0. || n2 <= 0.)
-		return Rcpp::NumericVector( n, R_NaN ) ;
+		return NumericVector( n, R_NaN ) ;
 	if( R_FINITE( n1 ) && R_FINITE( n2 ) ){
-		return Rcpp::NumericVector( n, FGenerator_Finite_Finite<seed>( n1, n2 ) ) ;
+		return NumericVector( n, stats::FGenerator_Finite_Finite<seed>( n1, n2 ) ) ;
 	} else if( ! R_FINITE( n1 ) && ! R_FINITE( n2 ) ){
-		return Rcpp::NumericVector( n, 1.0 ) ;
+		return NumericVector( n, 1.0 ) ;
 	} else if( ! R_FINITE( n1 ) ) {
-		return Rcpp::NumericVector( n, FGenerator_NotFinite_Finite<seed>( n2 ) ) ;
+		return NumericVector( n, stats::FGenerator_NotFinite_Finite<seed>( n2 ) ) ;
 	} else {
-		return Rcpp::NumericVector( n, FGenerator_Finite_NotFinite<seed>( n1 ) ) ;	
+		return NumericVector( n, stats::FGenerator_Finite_NotFinite<seed>( n1 ) ) ;	
 	}
 }
-inline Rcpp::NumericVector rf( int n, double n1, double n2 ){
+inline NumericVector rf( int n, double n1, double n2 ){
 	return rf__impl<true>( n, n1, n2 );
 }
-inline Rcpp::NumericVector rf_( int n, double n1, double n2 ){
+inline NumericVector rf_( int n, double n1, double n2 ){
 	return rf__impl<false>( n, n1, n2 );
 }
 
-}
-}
+} // Rcpp
 
 #endif

@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DLnorm : public Rcpp::VectorBase< REALSXP, NA, DLnorm<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DLnorm<NA,T> dlnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool log = false ) {
-	return impl::DLnorm<NA,T>( x, meanlog_, sdlog_, log ); 
+inline stats::DLnorm<NA,T> dlnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool log = false ) {
+	return stats::DLnorm<NA,T>( x, meanlog_, sdlog_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PLnorm<NA,T> plnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::PLnorm<NA,T>( x, meanlog_, sdlog_, lower, log ); 
+inline stats::PLnorm<NA,T> plnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::PLnorm<NA,T>( x, meanlog_, sdlog_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QLnorm<NA,T> qlnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::QLnorm<NA,T>( x, meanlog_, sdlog_, lower, log ); 
+inline stats::QLnorm<NA,T> qlnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::QLnorm<NA,T>( x, meanlog_, sdlog_, lower, log ); 
 }
 	
-}
 }
 
 #endif

@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DGamma : public Rcpp::VectorBase< REALSXP, NA, DGamma<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DGamma<NA,T> dgamma( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool log = false ) {
-	return impl::DGamma<NA,T>( x, shape_, scale_, log ); 
+inline stats::DGamma<NA,T> dgamma( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool log = false ) {
+	return stats::DGamma<NA,T>( x, shape_, scale_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PGamma<NA,T> pgamma( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::PGamma<NA,T>( x, shape_, scale_, lower, log ); 
+inline stats::PGamma<NA,T> pgamma( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::PGamma<NA,T>( x, shape_, scale_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QGamma<NA,T> qgamma( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::QGamma<NA,T>( x, shape_, scale_, lower, log ); 
+inline stats::QGamma<NA,T> qgamma( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::QGamma<NA,T>( x, shape_, scale_, lower, log ); 
 }
 	
-}
 }
 
 #endif

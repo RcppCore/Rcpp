@@ -24,7 +24,7 @@
 
 namespace Rcpp{
 namespace stats{
-namespace impl{
+
 
 template <bool NA, typename T>
 class DPois : public Rcpp::VectorBase< REALSXP, NA, DPois<NA,T> >{
@@ -89,26 +89,25 @@ private:
 	
 } ;
 
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DPois<NA,T> dpois( const Rcpp::VectorBase<INTSXP,NA,T>& x, double lambda, bool log = false ){
-	return impl::DPois<NA,T>( x, lambda, log ); 
+inline stats::DPois<NA,T> dpois( const Rcpp::VectorBase<INTSXP,NA,T>& x, double lambda, bool log = false ){
+	return stats::DPois<NA,T>( x, lambda, log ); 
 }
 	
 template <bool NA, typename T>
-inline impl::PPois<NA,T> ppois( const Rcpp::VectorBase<REALSXP,NA,T>& x,
+inline stats::PPois<NA,T> ppois( const Rcpp::VectorBase<REALSXP,NA,T>& x,
 				double lambda, bool lower = true, bool log = false ){
-    return impl::PPois<NA,T>( x, lambda, lower, log ); 
+    return stats::PPois<NA,T>( x, lambda, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QPois<NA,T> qpois( const Rcpp::VectorBase<REALSXP,NA,T>& x,
+inline stats::QPois<NA,T> qpois( const Rcpp::VectorBase<REALSXP,NA,T>& x,
 				double lambda, bool lower = true, bool log = false ){
-    return impl::QPois<NA,T>( x, lambda, lower, log ); 
+    return stats::QPois<NA,T>( x, lambda, lower, log ); 
 }
 	
-}
 }
 
 #endif
