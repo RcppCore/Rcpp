@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// binom.h: Rcpp R/C++ interface class library --
+// random.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,23 +19,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__stats_h
-#define Rcpp__stats__stats_h
+#ifndef Rcpp__stats__random_random_h
+#define Rcpp__stats__random_random_h
 
-#include <Rcpp/stats/unif.h>
-#include <Rcpp/stats/norm.h>
-#include <Rcpp/stats/gamma.h>
-#include <Rcpp/stats/chisq.h>
-#include <Rcpp/stats/beta.h>
-#include <Rcpp/stats/t.h>
-#include <Rcpp/stats/lnorm.h>
-#include <Rcpp/stats/weibull.h>
-#include <Rcpp/stats/logis.h>
-#include <Rcpp/stats/f.h>
-
-#include <Rcpp/stats/binom.h>
-#include <Rcpp/stats/pois.h>
-
-#include <Rcpp/stats/random/random.h>
+#include <Rcpp/stats/random/rnorm.h>
 
 #endif
