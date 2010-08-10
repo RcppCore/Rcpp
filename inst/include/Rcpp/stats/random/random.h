@@ -28,5 +28,6 @@
 #include <Rcpp/stats/random/runif.h>
 #include <Rcpp/stats/random/rchisq.h>
 #include <Rcpp/stats/random/rexp.h>
+#include <Rcpp/stats/random/rf.h>
 
 #endif

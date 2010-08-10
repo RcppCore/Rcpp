@@ -10,7 +10,9 @@
 
 	* inst/include/Rcpp/stats/random/rchisq.h: Added rchisq and rchisq_
 
-	* inst/include/Rcpp/stats/random/rchisq.h: Added rexp and rexp_
+	* inst/include/Rcpp/stats/random/rexp.h: Added rexp and rexp_
+
+	* inst/include/Rcpp/stats/random/rf.h: Added rf and rf_
 
 	* inst/include/Rcpp/stats/stats.h : fixed name clash reported on Rcpp-devel
 	http://permalink.gmane.org/gmane.comp.lang.r.rcpp/610
