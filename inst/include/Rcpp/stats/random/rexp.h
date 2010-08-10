@@ -36,7 +36,7 @@ public:
 	}
 	
 private:
-	double rate ;
+	double scale ;
 } ;
 
 template <bool seed>

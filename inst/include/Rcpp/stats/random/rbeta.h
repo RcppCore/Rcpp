@@ -32,7 +32,7 @@ public:
 	BetaGenerator( double a_, double b_ ) : a(a_), b(b_) {}
 	
 	inline double operator()() const {
-		return ::dbeta( a, b );
+		return ::rbeta( a, b );
 	}
 	
 private:
@@ -41,7 +41,7 @@ private:
 
 template <bool seed>
 Rcpp::NumericVector rbeta__impl( int n, double a, double b ){
-	return Rcpp::NumericVector( n, BetaGenerator<seed>( min, max ) ) ;
+	return Rcpp::NumericVector( n, BetaGenerator<seed>( a, b ) ) ;
 }
 inline Rcpp::NumericVector rbeta( int n, double a, double b ){
 	return rbeta__impl<true>( n, a, b );

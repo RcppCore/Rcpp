@@ -33,7 +33,7 @@ public:
 		location(location_) , scale(scale_) {}
 	
 	inline double operator()() const {
-		return location + scale * tan(M_PI * unif_rand())
+		return location + scale * tan(M_PI * unif_rand()) ;
 	}
 	
 private:
@@ -53,7 +53,7 @@ Rcpp::NumericVector rcauchy__impl( int n, double location, double scale ){
 inline Rcpp::NumericVector rcauchy( int n, double location, double scale ){
 	return rcauchy__impl<true>( n, location, scale );
 }
-inline Rcpp::NumericVector rcauchy_( int n, ddouble location, double scale ){
+inline Rcpp::NumericVector rcauchy_( int n, double location, double scale ){
 	return rcauchy__impl<false>( n, location, scale );
 }
 
