@@ -35,17 +35,17 @@ namespace impl {
 		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
 	
 		DNbinom_mu( const VEC_TYPE& vec_, int size_, double mu_ , bool log_ = false ) : 
-			vec(vec_), size(size_), mu(mu_) , log(log_) {}
+			vec(vec_), siz(size_), mu(mu_) , log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::dnbinom_mu( vec[i], size, mu , log );
+			return ::dnbinom_mu( vec[i], siz, mu , log );
 		}
 		
 		inline int size() const { return vec.size(); }
 		
 	private:
 		const VEC_TYPE& vec;
-		int size; double mu; 
+		int siz; double mu; 
 		int log;
 	
 	};
@@ -57,17 +57,17 @@ namespace impl {
 	
 		PNbinom_mu( const VEC_TYPE& vec_, int size_, double mu_ ,
 			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), size(size_), mu(mu_) , lower(lower_tail), log(log_) {}
+			vec(vec_), siz(size_), mu(mu_) , lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::pnbinom_mu( vec[i], size, mu, lower, log );
+			return ::pnbinom_mu( vec[i], siz, mu, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }
 		
 	private:
 		const VEC_TYPE& vec;
-		int size; double mu; 
+		int siz; double mu; 
 		int lower, log;
 	
 	};
@@ -79,17 +79,17 @@ namespace impl {
 	
 		QNbinom_mu( const VEC_TYPE& vec_, int size_, double mu_ ,
 			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), size(size_), mu(mu_), lower(lower_tail), log(log_) {}
+			vec(vec_), siz(size_), mu(mu_), lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::qnbinom_mu( vec[i], size, mu, lower, log );
+			return ::qnbinom_mu( vec[i], siz, mu, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }
 		
 	private:
 		const VEC_TYPE& vec;
-		int size; double mu; 
+		int siz; double mu; 
 		int lower, log;
 	
 	};
