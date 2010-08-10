@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DLogis : public Rcpp::VectorBase< REALSXP, NA, DLogis<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DLogis<NA,T> dlogis( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool log = false ) {
-	return impl::DLogis<NA,T>( x, location_, scale_, log ); 
+inline stats::DLogis<NA,T> dlogis( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool log = false ) {
+	return stats::DLogis<NA,T>( x, location_, scale_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PLogis<NA,T> plogis( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::PLogis<NA,T>( x, location_, scale_, lower, log ); 
+inline stats::PLogis<NA,T> plogis( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::PLogis<NA,T>( x, location_, scale_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QLogis<NA,T> qlogis( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return impl::QLogis<NA,T>( x, location_, scale_, lower, log ); 
+inline stats::QLogis<NA,T> qlogis( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
+	return stats::QLogis<NA,T>( x, location_, scale_, lower, log ); 
 }
 	
-}
 }
 
 #endif

@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DNbinom_mu : public Rcpp::VectorBase< REALSXP, NA, DNbinom_mu<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DNbinom_mu<NA,T> dnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool log = false ) {
-	return impl::DNbinom_mu<NA,T>( x, size_, mu_, log ); 
+inline stats::DNbinom_mu<NA,T> dnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool log = false ) {
+	return stats::DNbinom_mu<NA,T>( x, size_, mu_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PNbinom_mu<NA,T> pnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool lower = true, bool log = false ) {
-	return impl::PNbinom_mu<NA,T>( x, size_, mu_, lower, log ); 
+inline stats::PNbinom_mu<NA,T> pnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool lower = true, bool log = false ) {
+	return stats::PNbinom_mu<NA,T>( x, size_, mu_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QNbinom_mu<NA,T> qnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool lower = true, bool log = false ) {
-	return impl::QNbinom_mu<NA,T>( x, size_, mu_, lower, log ); 
+inline stats::QNbinom_mu<NA,T> qnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool lower = true, bool log = false ) {
+	return stats::QNbinom_mu<NA,T>( x, size_, mu_, lower, log ); 
 }
 	
-}
 }
 
 #endif

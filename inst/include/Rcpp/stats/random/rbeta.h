@@ -26,31 +26,29 @@ namespace Rcpp {
 namespace stats {
 
 template <bool seed>
-class BetaGenerator : public Rcpp::Generator<seed,double> {
+class BetaGenerator : public ::Rcpp::Generator<seed,double> {
 public:
-	
 	BetaGenerator( double a_, double b_ ) : a(a_), b(b_) {}
-	
-	inline double operator()() const {
+	inline double operator()() const { 
 		return ::rbeta( a, b );
 	}
-	
 private:
 	double a, b ;
 } ;
 
+} // stats
+
 template <bool seed>
-Rcpp::NumericVector rbeta__impl( int n, double a, double b ){
-	return Rcpp::NumericVector( n, BetaGenerator<seed>( a, b ) ) ;
+NumericVector rbeta__impl( int n, double a, double b ){
+	return NumericVector( n, stats::BetaGenerator<seed>( a, b ) ) ;
 }
-inline Rcpp::NumericVector rbeta( int n, double a, double b ){
+inline NumericVector rbeta( int n, double a, double b ){
 	return rbeta__impl<true>( n, a, b );
 }
-inline Rcpp::NumericVector rbeta_( int n, double a, double b ){
+inline NumericVector rbeta_( int n, double a, double b ){
 	return rbeta__impl<false>( n, a, b );
 }
 
-}
-}
+} // Rcpp
 
 #endif

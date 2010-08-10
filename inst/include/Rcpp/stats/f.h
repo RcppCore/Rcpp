@@ -27,7 +27,7 @@
 
 namespace Rcpp {
 namespace stats {
-namespace impl {
+
 
 	template <bool NA, typename T>
 	class DF : public Rcpp::VectorBase< REALSXP, NA, DF<NA,T> >{
@@ -94,24 +94,23 @@ namespace impl {
 	
 	};
 	
-} // impl
+} // stats
 
 template <bool NA, typename T>
-inline impl::DF<NA,T> df( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, bool log = false ) {
-	return impl::DF<NA,T>( x, df1_, df2_, log ); 
+inline stats::DF<NA,T> df( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, bool log = false ) {
+	return stats::DF<NA,T>( x, df1_, df2_, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::PF<NA,T> pf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, bool lower = true, bool log = false ) {
-	return impl::PF<NA,T>( x, df1_, df2_, lower, log ); 
+inline stats::PF<NA,T> pf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, bool lower = true, bool log = false ) {
+	return stats::PF<NA,T>( x, df1_, df2_, lower, log ); 
 }
 
 template <bool NA, typename T>
-inline impl::QF<NA,T> qf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, bool lower = true, bool log = false ) {
-	return impl::QF<NA,T>( x, df1_, df2_, lower, log ); 
+inline stats::QF<NA,T> qf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, bool lower = true, bool log = false ) {
+	return stats::QF<NA,T>( x, df1_, df2_, lower, log ); 
 }
 	
-}
 }
 
 #endif

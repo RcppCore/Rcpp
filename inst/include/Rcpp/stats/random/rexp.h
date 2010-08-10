@@ -26,7 +26,7 @@ namespace Rcpp {
 namespace stats {
 
 template <bool seed>
-class ExpGenerator : public Rcpp::Generator<seed,double> {
+class ExpGenerator : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	ExpGenerator( double scale_ ) : scale(scale_) {}
@@ -39,23 +39,24 @@ private:
 	double scale ;
 } ;
 
+} // stats
+
 template <bool seed>
-Rcpp::NumericVector rexp__impl( int n, double scale ){
+NumericVector rexp__impl( int n, double scale ){
 	if (!R_FINITE(scale) || scale <= 0.0) {
-		if(scale == 0.) return Rcpp::NumericVector( n, 0.0 ) ;
+		if(scale == 0.) return NumericVector( n, 0.0 ) ;
 		/* else */
-		return Rcpp::NumericVector( n, R_NaN ) ;
+		return NumericVector( n, R_NaN ) ;
     }
-    return Rcpp::NumericVector( n, ExpGenerator<seed>( scale ) ) ;
+    return NumericVector( n, stats::ExpGenerator<seed>( scale ) ) ;
 }
-inline Rcpp::NumericVector rexp( int n, double rate ){
+inline NumericVector rexp( int n, double rate ){
 	return rexp__impl<true>( n, 1/rate );
 }
-inline Rcpp::NumericVector rexp_( int n, double rate ){
+inline NumericVector rexp_( int n, double rate ){
 	return rexp__impl<false>( n, 1/rate );
 }
 
-}
 }
 
 #endif
