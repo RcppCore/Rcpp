@@ -29,46 +29,49 @@ template <bool seed>
 class FGenerator_Finite_Finite : public Rcpp::Generator<seed,double> {
 public:
 	
-	FGenerator_Finite_Finite( double n1_, double n2_ ) : n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ) {}
+	FGenerator_Finite_Finite( double n1_, double n2_ ) : 
+		n1(n1_), n2(n2_), n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ) {}
 	
 	inline double operator()() const {
 		// here we know that both n1 and n2 are finite
-		// return ::rchisq( n1 ) / ::rchisq( n2 ) ;
-		return ::rgamma( n1__2, 2.0 ) / ::rgamma( n2__2, 2.0 ) ;
+		// return ( ::rchisq( n1 ) / n1 ) / ( ::rchisq( n2 ) / n2 );
+		return 
+			( ::rgamma( n1__2, 2.0 ) / n1 ) / 
+			( ::rgamma( n2__2, 2.0 ) / n2 ) ;
 	}
 	
 private:
-	double n1__2, n2__2 ;
+	double n1, n2, n1__2, n2__2 ;
 } ;
 
 template <bool seed>
 class FGenerator_NotFinite_Finite : public Rcpp::Generator<seed,double> {
 public:
 	
-	FGenerator_NotFinite_Finite( double n2_ ) : n2__2(n2_ / 2.0 ) {}
+	FGenerator_NotFinite_Finite( double n2_ ) : n2( n2_), n2__2(n2_ / 2.0 ) {}
 	
 	inline double operator()() const {
-		// return 1.0  / ::rchisq( n2 ) ;
-		return 1.0 / ::rgamma( n2__2, 2.0 ) ;
+		// return n2  / ::rchisq( n2 ) ;
+		return n2 / ::rgamma( n2__2, 2.0 ) ;
 	}
 	
 private:
-	double n2__2 ;
+	double n2, n2__2 ;
 } ;
 
 template <bool seed>
 class FGenerator_Finite_NotFinite : public Rcpp::Generator<seed,double> {
 public:
 	
-	FGenerator_Finite_NotFinite( double n1_ ) : n1__2(n1_ / 2.0 ) {}
+	FGenerator_Finite_NotFinite( double n1_ ) : n1(n1_), n1__2(n1_ / 2.0 ) {}
 	
 	inline double operator()() const {
-		// return ::rchisq( n1 ) ;
-		return ::rgamma( n1__2, 2.0 ) ;
+		// return ::rchisq( n1 ) / n1 ;
+		return ::rgamma( n1__2, 2.0 ) / n1 ;
 	}
 	
 private:
-	double n1__2 ;
+	double n1, n1__2 ;
 } ;
 
 template <bool seed>
