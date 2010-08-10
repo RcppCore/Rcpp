@@ -42,6 +42,7 @@
 #include <Rcpp/stats/nt.h>
 #include <Rcpp/stats/nchisq.h>
 #include <Rcpp/stats/nbeta.h>
+#include <Rcpp/stats/nf.h>
 
 #include <Rcpp/stats/binom.h>
 #include <Rcpp/stats/pois.h>
