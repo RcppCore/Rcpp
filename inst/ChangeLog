@@ -8,6 +8,10 @@
 
 	* inst/include/Rcpp/stats/random/rcauchy.h: Added rcauchy and rcauchy_
 
+	* inst/include/Rcpp/stats/random/rchisq.h: Added rchisq and rchisq_
+
+	* inst/include/Rcpp/stats/random/rchisq.h: Added rexp and rexp_
+
 	* inst/include/Rcpp/stats/stats.h : fixed name clash reported on Rcpp-devel
 	http://permalink.gmane.org/gmane.comp.lang.r.rcpp/610
 

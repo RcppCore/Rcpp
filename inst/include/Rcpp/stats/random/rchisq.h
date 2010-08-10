@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// random.h: Rcpp R/C++ interface class library -- 
+// rchisq.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -19,14 +19,39 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_random_h
-#define Rcpp__stats__random_random_h
+#ifndef Rcpp__stats__random_rchisq_h
+#define Rcpp__stats__random_rchisq_h
 
-#include <Rcpp/stats/random/rbeta.h>
-#include <Rcpp/stats/random/rnorm.h>
-#include <Rcpp/stats/random/rcauchy.h>
-#include <Rcpp/stats/random/runif.h>
-#include <Rcpp/stats/random/rchisq.h>
-#include <Rcpp/stats/random/rexp.h>
+namespace Rcpp {
+namespace stats {
+
+template <bool seed>
+class ChisqGenerator : public Rcpp::Generator<seed,double> {
+public:
+	
+	ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
+	
+	inline double operator()() const {
+		return ::rgamma( df_2, 2.0 ) ; 
+	}
+	
+private:
+	double df_2 ;
+} ;
+
+template <bool seed>
+Rcpp::NumericVector rchisq__impl( int n, double df ){
+	if (!R_FINITE(df) || df < 0.0) return Rcpp::NumericVector(n, R_NaN) ;
+	return Rcpp::NumericVector( n, ChisqGenerator<seed>( df ) ) ;
+}
+inline Rcpp::NumericVector rchisq( int n, double df ){
+	return rchisq__impl<true>( n, df );
+}
+inline Rcpp::NumericVector rchisq_( int n, double df ){
+	return rchisq__impl<false>( n, df );
+}
+
+}
+}
 
 #endif
