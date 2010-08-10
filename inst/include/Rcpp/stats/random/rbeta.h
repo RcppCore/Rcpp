@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// random.h: Rcpp R/C++ interface class library -- 
+// rbeta.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -19,11 +19,38 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_random_h
-#define Rcpp__stats__random_random_h
+#ifndef Rcpp__stats__random_rbeta_h
+#define Rcpp__stats__random_rbeta_h
 
-#include <Rcpp/stats/random/rbeta.h>
-#include <Rcpp/stats/random/rnorm.h>
-#include <Rcpp/stats/random/runif.h>
+namespace Rcpp {
+namespace stats {
+
+template <bool seed>
+class BetaGenerator : public Rcpp::Generator<seed,double> {
+public:
+	
+	BetaGenerator( double a_, double b_ ) : a(a_), b(b_) {}
+	
+	inline double operator()() const {
+		return ::dbeta( a, b );
+	}
+	
+private:
+	double a, b ;
+} ;
+
+template <bool seed>
+Rcpp::NumericVector rbeta__impl( int n, double a, double b ){
+	return Rcpp::NumericVector( n, BetaGenerator<seed>( min, max ) ) ;
+}
+inline Rcpp::NumericVector rbeta( int n, double a, double b ){
+	return rbeta__impl<true>( n, a, b );
+}
+inline Rcpp::NumericVector rbeta_( int n, double a, double b ){
+	return rbeta__impl<false>( n, a, b );
+}
+
+}
+}
 
 #endif
