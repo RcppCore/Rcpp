@@ -65,9 +65,10 @@ Syntactic sugar
     
     o   Compound operators: ++,--,+=, -=, ...
     
-    o	other statistical distribution functions : nchisq,
-    	multinom, cauchy, exp, geom, hyper, nbinom, nbinom_mu,
-    	nbeta, nf, nt, tukey, wilcox, signrank
+    o	other statistical distribution functions : 
+    	nchisq, nbinom, nbinom_mu, nbeta, nf, nt,
+    	multinom, 
+    	cauchy, geom, hyper, tukey, wilcox, signrank
     
     o	sum : deal with missing values
 
