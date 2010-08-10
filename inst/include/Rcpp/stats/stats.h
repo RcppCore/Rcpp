@@ -39,6 +39,8 @@
 #include <Rcpp/stats/geom.h>
 #include <Rcpp/stats/hyper.h>
 
+#include <Rcpp/stats/nt.h>
+
 #include <Rcpp/stats/binom.h>
 #include <Rcpp/stats/pois.h>
 
