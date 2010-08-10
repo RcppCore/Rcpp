@@ -22,6 +22,8 @@
 #ifndef Rcpp__stats__stats_h
 #define Rcpp__stats__stats_h
 
+#include <Rmath.h>
+
 #include <Rcpp/stats/unif.h>
 #include <Rcpp/stats/norm.h>
 #include <Rcpp/stats/gamma.h>

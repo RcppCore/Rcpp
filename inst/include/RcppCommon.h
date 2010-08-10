@@ -107,7 +107,6 @@ std::string demangle( const std::string& name) ;
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
-#include <Rmath.h>
 #define RCPP_GET_NAMES(x)	Rf_getAttrib(x, R_NamesSymbol)
 
 #if defined(R_VERSION) && R_VERSION >= R_Version(2, 12, 0)
