@@ -1,9 +1,14 @@
+2010-08-10  Douglas Bates  <bates@stat.wisc.edu>
+
+	* include/Rcpp/stats/nbinom[_mu].h: Replace conflicting data member name
+	'size' by 'siz'
+
 2010-08-10  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/stats/random/rnorm.h: Added rnorm and rnorm_
 
 	* inst/include/Rcpp/stats/random/runif.h: Added runif and runif_
-	
+
 	* inst/include/Rcpp/stats/random/rbeta.h: Added rbeta and rbeta_
 
 	* inst/include/Rcpp/stats/random/rcauchy.h: Added rcauchy and rcauchy_
@@ -24,12 +29,12 @@
 
 	* inst/include/Rcpp/vector/Vector.h: further dispatch to allow generators
 	to be passed to constructors of Vector
-	
-	* inst/include/Rcpp/traits/has_iterator.h: new SFINAE detection of 
+
+	* inst/include/Rcpp/traits/has_iterator.h: new SFINAE detection of
 	generators
-	
+
 	* inst/include/Rcpp/Generator.h : base template class for generators
-	
+
 2010-08-06  Douglas Bates  <bates@stat.wisc.edu>
 
 	* unitTests/runit.stats.R: Corrected instances of numeric
