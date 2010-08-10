@@ -67,8 +67,14 @@ Syntactic sugar
     
     o	other statistical distribution functions : 
     	nchisq, nbinom, nbinom_mu, nbeta, nf, nt,
-    	multinom, 
-    	tukey, wilcox, signrank
+    	
+    	multinom : this makes a matrix, not a vector
+    	
+    	signrank : has the weird call to .C( "signrank_free" ), need to understand that
+    	
+    	wilcox : has the weird call to .C( "wilcox_free" ), need to understand that
+    	
+    	tukey : only has p and q, no r or d
     
     o	sum : deal with missing values
 
