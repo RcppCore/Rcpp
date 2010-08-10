@@ -24,6 +24,7 @@
 
 #include <Rcpp/stats/random/rbeta.h>
 #include <Rcpp/stats/random/rnorm.h>
+#include <Rcpp/stats/random/rcauchy.h>
 #include <Rcpp/stats/random/runif.h>
 
 #endif
