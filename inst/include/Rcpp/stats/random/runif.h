@@ -29,7 +29,7 @@ template <bool seed>
 class UnifGenerator : public Rcpp::Generator<seed,double> {
 public:
 	
-	UnifGenerator( double min = 0.0, double max = 1.0) : 
+	UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
 		min(min_), max(max_), diff(max_ - min_) {}
 	
 	inline double operator()() const {
