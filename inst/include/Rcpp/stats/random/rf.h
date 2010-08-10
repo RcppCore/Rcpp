@@ -84,7 +84,7 @@ Rcpp::NumericVector rf__impl( int n, double n1, double n2 ){
 		return Rcpp::NumericVector( n, 1.0 ) ;
 	} else if( ! R_FINITE( n1 ) ) {
 		return Rcpp::NumericVector( n, FGenerator_NotFinite_Finite<seed>( n2 ) ) ;
-	} else if( ! R_FINITE( n2 ) ){
+	} else {
 		return Rcpp::NumericVector( n, FGenerator_Finite_NotFinite<seed>( n1 ) ) ;	
 	}
 }
