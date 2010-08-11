@@ -43,6 +43,10 @@
 		pentagamma, expm1, log1p, factorial, lfactorial
 		
 		(2 parameter) : choose, lchoose, beta, lbeta, psigamma
+		
+	* inst/include/Rcpp/sugar/math.h : using the SUGAR_MATH_1 macro to generate
+	sugar functions from function pointers : acos, acosh, atan, cos, cosh, 
+	log, log10, sqrt, sin, sinh, tan, tanh
 	
 2010-08-10  Douglas Bates  <bates@stat.wisc.edu>
 

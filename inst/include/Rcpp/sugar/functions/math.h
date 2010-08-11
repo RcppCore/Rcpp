@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// Mod.h: Rcpp R/C++ interface class library -- Mod
+// SugarBlock.h: Rcpp R/C++ interface class library -- sugar functions
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -19,36 +19,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__sugar__Mod_h
-#define Rcpp__sugar__Mod_h
+#ifndef RCPP_SUGAR_MATH_H
+#define RCPP_SUGAR_MATH_H
 
-namespace Rcpp{
-namespace sugar{
+SUGAR_MATH_1(acos,::acos)
+SUGAR_MATH_1(asin,::asin)
+SUGAR_MATH_1(atan,::atan)
+SUGAR_MATH_1(cos,::cos)
+SUGAR_MATH_1(cosh,::cosh)
+SUGAR_MATH_1(log,::log)
+SUGAR_MATH_1(log10,::log10)
+SUGAR_MATH_1(sqrt,::sqrt)
+SUGAR_MATH_1(sin,::sin)
+SUGAR_MATH_1(sinh,::sinh)
+SUGAR_MATH_1(tan,::tan)
+SUGAR_MATH_1(tanh,::tanh)
 
-template <bool NA, typename T>
-class Mod : public Rcpp::VectorBase< REALSXP,NA, Mod<NA,T> > {
-public:
-	typedef typename Rcpp::VectorBase<CPLXSXP,NA,T> VEC_TYPE ;
-	
-	Mod( const VEC_TYPE& object_ ) : object(object_){}
-	
-	inline double operator[]( int i ) const {
-		Rcomplex x = object[i] ;
-		return ::sqrt( x.i * x.i + x.r * x.r ); 
-	}
-	inline int size() const { return object.size() ; }
-	         
-private:
-	const VEC_TYPE& object ;
-} ;
-	
-} // sugar
-
-template <bool NA, typename T>
-inline sugar::Mod<NA,T> Mod( const VectorBase<CPLXSXP,NA,T>& t){
-	return sugar::Mod<NA,T>( t ) ;
-}
-
-} // Rcpp
 #endif
-

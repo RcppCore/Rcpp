@@ -48,7 +48,7 @@ Syntactic sugar
 
     o	Vector * Matrix, Matrix * Matrix
 
-    o   duplicated, unique, count, sum, sqrt, log, log10, ln
+    o   duplicated, unique, count, sum
     
     o   operator% 
     
@@ -67,7 +67,8 @@ Syntactic sugar
     
     o	other statistical distribution functions : 
     	
-    	multinom : this makes a matrix, not a vector
+    	multinom : this only has dmultinom which is handled in R, so maybe we can
+    	skip it
     	
     	signrank : has the weird call to .C( "signrank_free" ), need to understand that
     	
