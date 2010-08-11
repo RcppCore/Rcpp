@@ -77,3 +77,15 @@ Syntactic sugar
     
     o	sum : deal with missing values
 
+    o	other random generators: 
+    
+    	rmultinom : tricky because it generates a matrix
+    	
+    	rnbeta : the R version is implemented in R (not in C), 
+    	should we still have it in Rcpp in compile code ?
+    	
+    	rnf : idem
+    	
+    	rnt : idem
+    	
+    	

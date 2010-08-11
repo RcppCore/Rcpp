@@ -25,6 +25,9 @@
 /* for exp( double ) */
 #include <cmath>
 
+#include <Rcpp/sugar/functions/SugarBlock.h>
+#include <Rcpp/sugar/functions/gamma.h>
+
 #include <Rcpp/sugar/functions/any.h>
 #include <Rcpp/sugar/functions/all.h>
 #include <Rcpp/sugar/functions/is_na.h>
