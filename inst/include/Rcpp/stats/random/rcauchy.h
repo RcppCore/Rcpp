@@ -32,7 +32,7 @@ public:
 		location(location_) , scale(scale_) {}
 	
 	inline double operator()() const {
-		return location + scale * tan(M_PI * unif_rand()) ;
+		return location + scale * ::tan(M_PI * unif_rand()) ;
 	}
 	
 private:
