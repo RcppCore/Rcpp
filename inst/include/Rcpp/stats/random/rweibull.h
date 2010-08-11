@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// runif.h: Rcpp R/C++ interface class library -- 
+// rweibull.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -19,36 +19,35 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_runif_h
-#define Rcpp__stats__random_runif_h
+#ifndef Rcpp__stats__random_rweibull_h
+#define Rcpp__stats__random_rweibull_h
 
 namespace Rcpp {
 namespace stats {
 
-class UnifGenerator : public ::Rcpp::Generator<false,double> {
+class WeibullGenerator : public ::Rcpp::Generator<false,double> {
 public:
 	
-	UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
-		min(min_), max(max_), diff(max_ - min_) {}
+	WeibullGenerator( double shape_, double scale_ ) : 
+		shape_inv( 1/shape_), scale(scale_) {}
 	
 	inline double operator()() const {
-		double u;
-		do {u = unif_rand();} while (u <= 0 || u >= 1);
-		return min + diff * u;
+		return scale * ::R_pow(-log(unif_rand()), shape_inv );
 	}
 	
 private:
-	double min; 
-	double max ;
-	double diff ;
+	double shape_inv ;
+	double scale ;
 } ;
-
 } // stats
 
-inline NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
-	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
-	if( min == max ) return NumericVector( n, min ) ;
-	return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
+inline NumericVector rweibull( int n, double shape, double scale ){
+	if (!R_FINITE(shape) || !R_FINITE(scale) || shape <= 0. || scale <= 0.) {
+		if(scale == 0.) return NumericVector(n, 0.);
+		/* else */
+		return NumericVector(n, R_NaN);
+    }
+	return NumericVector( n, stats::WeibullGenerator( shape, scale ) ) ;
 }
 
 } // Rcpp

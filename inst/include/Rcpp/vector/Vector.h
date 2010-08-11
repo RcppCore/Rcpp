@@ -127,7 +127,34 @@ public:
     	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
 		fill_or_generate( u ) ;	
     }
+
+    Vector( const int& siz, stored_type (*gen)(void) ){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+		iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen() ;
+    }
     
+    template <typename U1>
+    Vector( const int& siz, stored_type (*gen)(U1), const U1& u1){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+		iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen(u1) ;
+	}
+    
+    template <typename U1, typename U2>
+    Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+		iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen(u1,u2) ;
+    }
+
+    template <typename U1, typename U2, typename U3>
+    Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+		iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen(u1,u2,u3) ;
+    }
+
     Vector( const Dimension& dims) : RObject() {
     	RObject::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
 		init() ;

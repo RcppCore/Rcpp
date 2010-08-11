@@ -25,8 +25,8 @@
 namespace Rcpp {
 namespace stats {
 
-template <bool seed>
-class NormGenerator : public Generator<seed,double> {
+
+class NormGenerator : public Generator<false,double> {
 public:
 	
 	NormGenerator( double mean_ = 0.0 , double sd_ = 1.0 ) : 
@@ -40,24 +40,58 @@ private:
 	double mean ;
 	double sd ;
 } ;
+
+
+class NormGenerator__sd1 : public Generator<false,double> {
+public:
+	
+	NormGenerator__sd1( double mean_ = 0.0 ) : mean(mean_) {}
+	
+	inline double operator()() const {
+		return mean + ::norm_rand() ;
+	}
+	
+private:
+	double mean ;
+} ;
+
+
+class NormGenerator__mean0 : public Generator<false,double> {
+public:
+	
+	NormGenerator__mean0( double sd_ = 1.0 ) : sd(sd_) {}
+	
+	inline double operator()() const {
+		return sd * ::norm_rand() ;
+	}
+	
+private:
+	double sd ;
+} ;
+
+
 } // stats
 
-template <bool seed>
-NumericVector rnorm__impl( int n, double mean, double sd ){
+inline NumericVector rnorm( int n, double mean = 0.0, double sd = 1.0 ){
 	if (ISNAN(mean) || !R_FINITE(sd) || sd < 0.){
 		// TODO: R also throws a warning in that case, should we ?
 		return NumericVector( n, R_NaN ) ;
 	}  else if (sd == 0. || !R_FINITE(mean)){
 		return NumericVector( n, mean ) ;
 	} else {
-		return NumericVector( n, stats::NormGenerator<seed>( mean, sd ) ); 
+		bool sd1 = sd == 1.0 ; 
+		bool mean0 = mean == 0.0 ;
+		if( sd1 && mean0 ){
+			return NumericVector( n, norm_rand ) ;
+		} else if( sd1 ){
+			return NumericVector( n, stats::NormGenerator__sd1( mean ) );
+		} else if( mean0 ){
+			return NumericVector( n, stats::NormGenerator__mean0( sd ) );
+		} else {
+			// general case
+			return NumericVector( n, stats::NormGenerator( mean, sd ) );
+		}
 	}
-}
-inline NumericVector rnorm( int n, double mean = 0.0, double sd = 1.0 ){
-	return rnorm__impl<true>( n, mean, sd );
-}
-inline NumericVector rnorm_( int n, double mean = 0.0, double sd = 1.0 ){
-	return rnorm__impl<false>( n, mean, sd );
 }
 
 } // Rcpp

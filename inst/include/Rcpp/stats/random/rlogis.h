@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// runif.h: Rcpp R/C++ interface class library -- 
+// rlogis.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -19,36 +19,37 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_runif_h
-#define Rcpp__stats__random_runif_h
+#ifndef Rcpp__stats__random_rlogis_h
+#define Rcpp__stats__random_rlogis_h
 
 namespace Rcpp {
 namespace stats {
 
-class UnifGenerator : public ::Rcpp::Generator<false,double> {
+class LogisGenerator : public ::Rcpp::Generator<false,double> {
 public:
 	
-	UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
-		min(min_), max(max_), diff(max_ - min_) {}
+	LogisGenerator( double location_, double scale_ ) : 
+		location(location_), scale(scale_) {}
 	
 	inline double operator()() const {
-		double u;
-		do {u = unif_rand();} while (u <= 0 || u >= 1);
-		return min + diff * u;
+		double u = unif_rand() ;
+		return location + scale * log(u / (1. - u));
 	}
 	
 private:
-	double min; 
-	double max ;
-	double diff ;
+	double location ;
+	double scale ;
 } ;
-
 } // stats
 
-inline NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
-	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
-	if( min == max ) return NumericVector( n, min ) ;
-	return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
+inline NumericVector rlogis( int n, double location, double scale ){
+	if (ISNAN(location) || !R_FINITE(scale))
+	return NumericVector( n, R_NaN ) ;
+
+    if (scale == 0. || !R_FINITE(location))
+	return NumericVector( n, location );
+    
+	return NumericVector( n, stats::LogisGenerator( location, scale ) ) ;
 }
 
 } // Rcpp

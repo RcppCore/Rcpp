@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// runif.h: Rcpp R/C++ interface class library -- 
+// rgeom.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -19,36 +19,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_runif_h
-#define Rcpp__stats__random_runif_h
+#ifndef Rcpp__stats__random_rgeom_h
+#define Rcpp__stats__random_rgeom_h
 
 namespace Rcpp {
 namespace stats {
 
-class UnifGenerator : public ::Rcpp::Generator<false,double> {
+class GeomGenerator : public ::Rcpp::Generator<false,double> {
 public:
 	
-	UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
-		min(min_), max(max_), diff(max_ - min_) {}
+	GeomGenerator( double p ) : lambda( (1-p)/p  ) {}
 	
 	inline double operator()() const {
-		double u;
-		do {u = unif_rand();} while (u <= 0 || u >= 1);
-		return min + diff * u;
+		return ::Rf_rpois(exp_rand() * lambda); 
 	}
 	
 private:
-	double min; 
-	double max ;
-	double diff ;
+	double lambda ;
 } ;
-
 } // stats
 
-inline NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
-	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
-	if( min == max ) return NumericVector( n, min ) ;
-	return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
+inline NumericVector rgeom( int n, double p ){
+	if (!R_FINITE(p) || p <= 0 || p > 1) 
+		return NumericVector( n, R_NaN );
+	return NumericVector( n, stats::GeomGenerator( p ) ) ;
 }
 
 } // Rcpp

@@ -25,8 +25,7 @@
 namespace Rcpp {
 namespace stats {
 
-template <bool seed>
-class CauchyGenerator : public ::Rcpp::Generator<seed,double> {
+class CauchyGenerator : public ::Rcpp::Generator<false,double> {
 public:
 	
 	CauchyGenerator( double location_, double scale_) : 
@@ -41,21 +40,15 @@ private:
 } ;
 } // stats
 
-template <bool seed>
-NumericVector rcauchy__impl( int n, double location, double scale ){
+// perhaps this should go to a cpp file
+inline NumericVector rcauchy( int n, double location, double scale ){
 	if (ISNAN(location) || !R_FINITE(scale) || scale < 0)
 		return NumericVector( n, R_NaN ) ;
 	
     if (scale == 0. || !R_FINITE(location))
     	return NumericVector( n, location ) ;
     
-	return NumericVector( n, stats::CauchyGenerator<seed>( location, scale ) ) ;
-}
-inline NumericVector rcauchy( int n, double location, double scale ){
-	return rcauchy__impl<true>( n, location, scale );
-}
-inline NumericVector rcauchy_( int n, double location, double scale ){
-	return rcauchy__impl<false>( n, location, scale );
+	return NumericVector( n, stats::CauchyGenerator( location, scale ) ) ;
 }
 
 } // Rcpp

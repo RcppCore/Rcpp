@@ -23,30 +23,9 @@
 #define Rcpp__stats__random_rbeta_h
 
 namespace Rcpp {
-namespace stats {
 
-template <bool seed>
-class BetaGenerator : public ::Rcpp::Generator<seed,double> {
-public:
-	BetaGenerator( double a_, double b_ ) : a(a_), b(b_) {}
-	inline double operator()() const { 
-		return ::rbeta( a, b );
-	}
-private:
-	double a, b ;
-} ;
-
-} // stats
-
-template <bool seed>
-NumericVector rbeta__impl( int n, double a, double b ){
-	return NumericVector( n, stats::BetaGenerator<seed>( a, b ) ) ;
-}
 inline NumericVector rbeta( int n, double a, double b ){
-	return rbeta__impl<true>( n, a, b );
-}
-inline NumericVector rbeta_( int n, double a, double b ){
-	return rbeta__impl<false>( n, a, b );
+	return NumericVector( n, ::Rf_rbeta, a, b ) ;
 }
 
 } // Rcpp
