@@ -25,27 +25,25 @@
 namespace Rcpp {
 namespace stats {
 
-template <bool seed>
-class FGenerator_Finite_Finite : public ::Rcpp::Generator<seed,double> {
+
+class FGenerator_Finite_Finite : public ::Rcpp::Generator<false,double> {
 public:
 	
 	FGenerator_Finite_Finite( double n1_, double n2_ ) : 
-		n1(n1_), n2(n2_), n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ) {}
+		n1(n1_), n2(n2_), n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ), ratio(n2_/n1_) {}
 	
 	inline double operator()() const {
 		// here we know that both n1 and n2 are finite
 		// return ( ::rchisq( n1 ) / n1 ) / ( ::rchisq( n2 ) / n2 );
-		return 
-			( ::rgamma( n1__2, 2.0 ) / n1 ) / 
-			( ::rgamma( n2__2, 2.0 ) / n2 ) ;
+		return ratio * ::rgamma( n1__2, 2.0 ) / ::rgamma( n2__2, 2.0 ) ;
 	}
 	
 private:
-	double n1, n2, n1__2, n2__2 ;
+	double n1, n2, n1__2, n2__2, ratio ;
 } ;
 
-template <bool seed>
-class FGenerator_NotFinite_Finite : public ::Rcpp::Generator<seed,double> {
+
+class FGenerator_NotFinite_Finite : public ::Rcpp::Generator<false,double> {
 public:
 	
 	FGenerator_NotFinite_Finite( double n2_ ) : n2( n2_), n2__2(n2_ / 2.0 ) {}
@@ -59,8 +57,8 @@ private:
 	double n2, n2__2 ;
 } ;
 
-template <bool seed>
-class FGenerator_Finite_NotFinite : public ::Rcpp::Generator<seed,double> {
+
+class FGenerator_Finite_NotFinite : public ::Rcpp::Generator<false,double> {
 public:
 	
 	FGenerator_Finite_NotFinite( double n1_ ) : n1(n1_), n1__2(n1_ / 2.0 ) {}
@@ -76,25 +74,18 @@ private:
 
 } // stats 
 
-template <bool seed>
-NumericVector rf__impl( int n, double n1, double n2 ){
+inline NumericVector rf( int n, double n1, double n2 ){
 	if (ISNAN(n1) || ISNAN(n2) || n1 <= 0. || n2 <= 0.)
 		return NumericVector( n, R_NaN ) ;
 	if( R_FINITE( n1 ) && R_FINITE( n2 ) ){
-		return NumericVector( n, stats::FGenerator_Finite_Finite<seed>( n1, n2 ) ) ;
+		return NumericVector( n, stats::FGenerator_Finite_Finite( n1, n2 ) ) ;
 	} else if( ! R_FINITE( n1 ) && ! R_FINITE( n2 ) ){
 		return NumericVector( n, 1.0 ) ;
 	} else if( ! R_FINITE( n1 ) ) {
-		return NumericVector( n, stats::FGenerator_NotFinite_Finite<seed>( n2 ) ) ;
+		return NumericVector( n, stats::FGenerator_NotFinite_Finite( n2 ) ) ;
 	} else {
-		return NumericVector( n, stats::FGenerator_Finite_NotFinite<seed>( n1 ) ) ;	
+		return NumericVector( n, stats::FGenerator_Finite_NotFinite( n1 ) ) ;	
 	}
-}
-inline NumericVector rf( int n, double n1, double n2 ){
-	return rf__impl<true>( n, n1, n2 );
-}
-inline NumericVector rf_( int n, double n1, double n2 ){
-	return rf__impl<false>( n, n1, n2 );
 }
 
 } // Rcpp

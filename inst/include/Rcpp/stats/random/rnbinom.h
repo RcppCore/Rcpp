@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// runif.h: Rcpp R/C++ interface class library -- 
+// rnbinom.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -19,36 +19,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_runif_h
-#define Rcpp__stats__random_runif_h
+#ifndef Rcpp__stats__random_rnbinom_h
+#define Rcpp__stats__random_rnbinom_h
 
 namespace Rcpp {
 namespace stats {
 
-class UnifGenerator : public ::Rcpp::Generator<false,double> {
+class NBinomGenerator : public ::Rcpp::Generator<false,double> {
 public:
 	
-	UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
-		min(min_), max(max_), diff(max_ - min_) {}
+	NBinomGenerator( double siz_, double prob_ ) : 
+		siz(siz_), lambda( (1-prob_)/prob_ ) {}
 	
 	inline double operator()() const {
-		double u;
-		do {u = unif_rand();} while (u <= 0 || u >= 1);
-		return min + diff * u;
+		return ::Rf_rpois( ::Rf_rgamma( siz, lambda ) ) ; 
 	}
 	
 private:
-	double min; 
-	double max ;
-	double diff ;
+	double siz ;
+	double lambda ;
 } ;
-
 } // stats
 
-inline NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
-	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
-	if( min == max ) return NumericVector( n, min ) ;
-	return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
+inline NumericVector rnbinom( int n, double siz, double prob ){
+	if(!R_FINITE(siz) || !R_FINITE(prob) || siz <= 0 || prob <= 0 || prob > 1)
+		/* prob = 1 is ok, PR#1218 */
+		return NumericVector( n, R_NaN ) ;
+    
+	return NumericVector( n, stats::NBinomGenerator( siz, prob ) ) ;
 }
 
 } // Rcpp

@@ -63,6 +63,11 @@
 #endif
 
 #include <Rcpp/InternalFunction.h>
+
+#include <Rmath.h>                  
+// undo some of the mess of Rmath
+#undef sign
+
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
 

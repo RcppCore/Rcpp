@@ -22,12 +22,25 @@
 #ifndef Rcpp__stats__random_random_h
 #define Rcpp__stats__random_random_h
 
-#include <Rcpp/stats/random/rbeta.h>
 #include <Rcpp/stats/random/rnorm.h>
-#include <Rcpp/stats/random/rcauchy.h>
 #include <Rcpp/stats/random/runif.h>
+#include <Rcpp/stats/random/rgamma.h>
+#include <Rcpp/stats/random/rbeta.h>
+#include <Rcpp/stats/random/rlnorm.h>
 #include <Rcpp/stats/random/rchisq.h>
-#include <Rcpp/stats/random/rexp.h>
+#include <Rcpp/stats/random/rnchisq.h>
 #include <Rcpp/stats/random/rf.h>
+#include <Rcpp/stats/random/rt.h>
+#include <Rcpp/stats/random/rbinom.h>
+#include <Rcpp/stats/random/rcauchy.h>
+#include <Rcpp/stats/random/rexp.h>
+#include <Rcpp/stats/random/rgeom.h>
+#include <Rcpp/stats/random/rnbinom.h>
+#include <Rcpp/stats/random/rnbinom_mu.h>
+#include <Rcpp/stats/random/rpois.h>
+#include <Rcpp/stats/random/rweibull.h>
+#include <Rcpp/stats/random/rlogis.h>
+#include <Rcpp/stats/random/rwilcox.h>
+#include <Rcpp/stats/random/rsignrank.h>
 
 #endif
