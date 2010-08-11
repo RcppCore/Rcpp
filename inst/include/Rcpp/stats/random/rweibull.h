@@ -32,7 +32,7 @@ public:
 		shape_inv( 1/shape_), scale(scale_) {}
 	
 	inline double operator()() const {
-		return scale * ::R_pow(-log(unif_rand()), shape_inv );
+		return scale * ::R_pow(-::log(unif_rand()), shape_inv );
 	}
 	
 private:

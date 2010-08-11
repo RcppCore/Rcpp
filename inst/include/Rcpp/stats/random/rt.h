@@ -38,7 +38,7 @@ public:
 		// return num / sqrt(rchisq(df) / df);
 		// replaced by the followoing line to skip the test in 
 		// rchisq because we already know
-		return num / sqrt( ::Rf_rgamma(df_2, 2.0) / df);
+		return num / ::sqrt( ::Rf_rgamma(df_2, 2.0) / df);
 	}
 	
 private:

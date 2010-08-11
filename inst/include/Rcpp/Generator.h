@@ -40,6 +40,13 @@ public:
 	~Generator(){ }	
 } ;
 
+class RNGScope{
+public:
+	RNGScope(){ GetRNGstate(); }
+	~RNGScope(){ PutRNGstate(); }	
+} ;
+
+
 }
 
 #endif

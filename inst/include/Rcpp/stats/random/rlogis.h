@@ -33,7 +33,7 @@ public:
 	
 	inline double operator()() const {
 		double u = unif_rand() ;
-		return location + scale * log(u / (1. - u));
+		return location + scale * ::log(u / (1. - u));
 	}
 	
 private:
