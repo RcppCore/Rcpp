@@ -37,16 +37,13 @@
 	* inst/include/Rcpp/sugar/SugarBlock.h : templates and macros to facilitate
 	generation of sugar functions that take one or two double parameters
 	
-	* inst/include/Rcpp/sugar/gamma.h: using SugarBlock to generate new 
+	* inst/include/Rcpp/sugar/math.h: using SugarBlock to generate new 
 	sugar functions: 
 		(1 parameter) : gamma, lgamma, digamma, trigamma, tetragamma, 
-		pentagamma, expm1, log1p, factorial, lfactorial
+		pentagamma, expm1, log1p, factorial, lfactorial, 
+		cos, acosh, atan, cos, cosh, log, log10, sqrt, sin, sinh, tan, tanh
 		
 		(2 parameter) : choose, lchoose, beta, lbeta, psigamma
-		
-	* inst/include/Rcpp/sugar/math.h : using the SUGAR_MATH_1 macro to generate
-	sugar functions from function pointers : acos, acosh, atan, cos, cosh, 
-	log, log10, sqrt, sin, sinh, tan, tanh
 	
 2010-08-10  Douglas Bates  <bates@stat.wisc.edu>
 
