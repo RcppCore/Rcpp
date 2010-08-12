@@ -42,6 +42,39 @@ private:
 	const T1& vec ;
 };
 
+template <bool NA, typename OUT, typename T1, typename FunPtr>
+class SugarMath_1<NA,OUT,int,T1,FunPtr> : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , NA, SugarMath_1<NA,OUT,int,T1,FunPtr> > {
+public:
+	SugarMath_1( FunPtr ptr_, const T1 & vec_) : ptr(ptr_), vec(vec_){}
+	
+	inline OUT operator[]( int i) const { 
+		int x = vec[i] ;
+		if( Rcpp::traits::is_na<INTSXP>(x) ) return Rcpp::traits::get_na<REALSXP>( ) ;
+		return ptr( x ) ;
+	}
+	inline int size() const { return vec.size() ; }
+	
+private:
+	FunPtr ptr ;
+	const T1& vec ;
+};
+
+template <typename OUT, typename T1, typename FunPtr>
+class SugarMath_1<false,OUT,int,T1,FunPtr> : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , false, SugarMath_1<false,OUT,int,T1,FunPtr> > {
+public:
+	SugarMath_1( FunPtr ptr_, const T1 & vec_) : ptr(ptr_), vec(vec_){}
+	
+	inline OUT operator[]( int i) const { 
+		return ptr( vec[i] ) ;
+	}
+	inline int size() const { return vec.size() ; }
+	
+private:
+	FunPtr ptr ;
+	const T1& vec ;
+};
+
+
 } // sugar
 } // Rcpp
 
@@ -53,6 +86,15 @@ private:
 		const VectorBase<REALSXP,NA,T>& t                                    \
 	){                                                                       \
 		return sugar::SugarMath_1<NA,double,double,T, double (*)(double)>(   \
+			__SYMBOL__ , t                                                   \
+		) ;                                                                  \
+	}                                                                        \
+	template <bool NA, typename T>                                           \
+	inline sugar::SugarMath_1<NA,double,int,T, double (*)(double) >          \
+	__NAME__(                                                                \
+		const VectorBase<INTSXP,NA,T>& t                                     \
+	){                                                                       \
+		return sugar::SugarMath_1<NA,double,int,T, double (*)(double)>(      \
 			__SYMBOL__ , t                                                   \
 		) ;                                                                  \
 	}                                                                        \
