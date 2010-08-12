@@ -22,30 +22,6 @@
 #ifndef RCPP_SUGAR_MATH_H
 #define RCPP_SUGAR_MATH_H
 
-SUGAR_BLOCK_1(gamma      , ::Rf_gammafn     )
-SUGAR_BLOCK_1(lgamma     , ::Rf_lgammafn    )
-SUGAR_BLOCK_1(digamma    , ::Rf_digamma     )
-SUGAR_BLOCK_1(trigamma   , ::Rf_trigamma    )
-SUGAR_BLOCK_1(tetragamma , ::Rf_tetragamma  )
-SUGAR_BLOCK_1(pentagamma , ::Rf_pentagamma  )
-SUGAR_BLOCK_1(expm1      , ::expm1          )
-SUGAR_BLOCK_1(log1p      , ::log1p          )
-
-namespace Rcpp{
-namespace internal{
-
-inline double factorial( double x ){
-	return ::Rf_gammafn( x + 1.0 ) ;
-}
-inline double lfactorial( double x ){
-	return ::Rf_lgammafn( x + 1.0 ) ;
-}
-
-}
-}
-SUGAR_BLOCK_1(factorial  , ::Rcpp::internal::factorial   )
-SUGAR_BLOCK_1(lfactorial , ::Rcpp::internal::lfactorial  )
-
 SUGAR_MATH_1(acos,::acos)
 SUGAR_MATH_1(asin,::asin)
 SUGAR_MATH_1(atan,::atan)
@@ -59,13 +35,38 @@ SUGAR_MATH_1(sinh,::sinh)
 SUGAR_MATH_1(tan,::tan)
 SUGAR_MATH_1(tanh,::tanh)
 
+SUGAR_MATH_1(gamma      , ::Rf_gammafn     )
+SUGAR_MATH_1(lgamma     , ::Rf_lgammafn    )
+SUGAR_MATH_1(digamma    , ::Rf_digamma     )
+SUGAR_MATH_1(trigamma   , ::Rf_trigamma    )
+SUGAR_MATH_1(tetragamma , ::Rf_tetragamma  )
+SUGAR_MATH_1(pentagamma , ::Rf_pentagamma  )
+SUGAR_MATH_1(expm1      , ::expm1          )
+SUGAR_MATH_1(log1p      , ::log1p          )
+
+namespace Rcpp{
+namespace internal{
+
+inline double factorial( double x ){
+	return ::Rf_gammafn( x + 1.0 ) ;
+}
+inline double lfactorial( double x ){
+	return ::Rf_lgammafn( x + 1.0 ) ;
+}
+
+}
+}
+SUGAR_MATH_1(factorial  , ::Rcpp::internal::factorial   )
+SUGAR_MATH_1(lfactorial , ::Rcpp::internal::lfactorial  )
+
+
+
+
 
 SUGAR_BLOCK_2(choose      , ::Rf_choose     )
 SUGAR_BLOCK_2(lchoose     , ::Rf_lchoose    )
-
 SUGAR_BLOCK_2(beta      , ::Rf_beta     )
 SUGAR_BLOCK_2(lbeta     , ::Rf_lbeta    )
-
 SUGAR_BLOCK_2(psigamma     , ::Rf_psigamma    )
 
 #endif
