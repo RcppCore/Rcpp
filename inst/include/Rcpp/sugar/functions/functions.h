@@ -26,7 +26,6 @@
 #include <cmath>
 
 #include <Rcpp/sugar/functions/SugarBlock.h>
-#include <Rcpp/sugar/functions/gamma.h>
 #include <Rcpp/sugar/functions/math.h>
 
 #include <Rcpp/sugar/functions/any.h>
