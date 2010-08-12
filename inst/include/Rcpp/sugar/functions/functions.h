@@ -40,10 +40,6 @@
 #include <Rcpp/sugar/functions/pmax.h>
 #include <Rcpp/sugar/functions/sign.h>
 #include <Rcpp/sugar/functions/diff.h>
-#include <Rcpp/sugar/functions/abs.h>
-#include <Rcpp/sugar/functions/exp.h>
-#include <Rcpp/sugar/functions/floor.h>
-#include <Rcpp/sugar/functions/ceil.h>
 #include <Rcpp/sugar/functions/pow.h>
 #include <Rcpp/sugar/functions/rep.h>
 #include <Rcpp/sugar/functions/rep_len.h>
