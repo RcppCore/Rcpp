@@ -49,6 +49,15 @@ Syntactic sugar
 	o	not sure rep should be lazy, i.e. rep( x, 4 ) fetches x[i] 4 times, 
 		maybe we should use LazyVector like in outer to somehow cache the 
 		result when it is judged expensive to calculate
+		
+	o 	crossprod
+	
+	o	SUGAR_MATH: is there overhead in having the function pointer, should
+		the macro generate code that statically calls the function ? It would 
+		probably be harder to write/debug
+		
+	o	Simplify the CPLXSXP functions Re,Im,Mod,Conj so that they are generated
+		by a macro similar to SUGAR_MATH_1
 
     o	Vector * Matrix, Matrix * Matrix
 
