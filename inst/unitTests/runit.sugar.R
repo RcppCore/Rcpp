@@ -1065,7 +1065,7 @@ test.sugar.wrap <- function( ){
 
 
 test.sugar.complex <- function( ){
-	x <- rnorm(10) + 1i*rnorm(10)
+	x <- c( rnorm(10), NA ) + 1i*c( rnorm(10), NA )
 	fx <- .rcpp.sugar$runit_complex
 	checkEquals( fx(x), list( 
 		Re = Re( x ), 
