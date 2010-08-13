@@ -476,7 +476,9 @@
 						_["Re"] = Re( cx ), 
 						_["Im"] = Im( cx ), 
 						_["Conj"] = Conj( cx ), 
-						_["Mod"] = Mod( cx )
+						_["Mod"] = Mod( cx ), 
+						_["exp"] = exp( cx ), 
+						_["log"] = log( cx )
 						) ;
 				'
 			), 
@@ -1071,7 +1073,9 @@ test.sugar.complex <- function( ){
 		Re = Re( x ), 
 		Im = Im( x ), 
 		Conj = Conj(x), 
-		Mod = Mod(x)
+		Mod = Mod(x), 
+		exp = exp(x), 
+		log = log(x)
 		)
 	)
 }

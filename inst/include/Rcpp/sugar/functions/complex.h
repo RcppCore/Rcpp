@@ -19,8 +19,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__sugar__Mod_h
-#define Rcpp__sugar__Mod_h
+#ifndef Rcpp__sugar__complex_h
+#define Rcpp__sugar__complex_h
+
+#ifdef HAVE_HYPOT
+# define RCPP_HYPOT ::hypot
+#else
+# define RCPP_HYPOT ::Rf_pythag
+#endif
 
 namespace Rcpp{
 namespace sugar{
@@ -62,6 +68,20 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 		y.i = -x.i ;
 		return y ;
 	}
+	// TODO: this does not use HAVE_C99_COMPLEX as in R, perhaps it should
+	inline Rcomplex complex__exp( Rcomplex x){
+		Rcomplex y ;
+		double expx = ::exp(x.r);
+    	y.r = expx * ::cos(x.i);
+    	y.i = expx * ::sin(x.i);
+		return y ;
+	}
+	inline Rcomplex complex__log( Rcomplex x){
+		Rcomplex y ;
+		y.i = ::atan2(x.i, x.r);
+		y.r = ::log( RCPP_HYPOT( x.r, x.i ) );
+	    return y ;
+	}
 } // internal
 
 #define RCPP_SUGAR_COMPLEX(__NAME__,__OUT__)                                \
@@ -70,7 +90,7 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 	__NAME__(                                                               \
 		const VectorBase<CPLXSXP,NA,T>& t                                   \
 		){                                                                  \
-		return sugar::SugarComplex<NA,__OUT__,T, __OUT__ (*)(Rcomplex) >(    \
+		return sugar::SugarComplex<NA,__OUT__,T, __OUT__ (*)(Rcomplex) >(   \
 			internal::complex__##__NAME__, t                                \
 		) ;                                                                 \
 	}
@@ -79,6 +99,8 @@ RCPP_SUGAR_COMPLEX( Re, double )
 RCPP_SUGAR_COMPLEX( Im, double )
 RCPP_SUGAR_COMPLEX( Mod, double )
 RCPP_SUGAR_COMPLEX( Conj, Rcomplex )
+RCPP_SUGAR_COMPLEX( exp, Rcomplex )
+RCPP_SUGAR_COMPLEX( log, Rcomplex )
 
 #undef RCPP_SUGAR_COMPLEX	 
 	
