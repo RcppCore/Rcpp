@@ -473,12 +473,15 @@
 				'
 					ComplexVector cx( x );
 					return List::create( 
-						_["Re"] = Re( cx ), 
-						_["Im"] = Im( cx ), 
+						_["Re"]   = Re( cx ), 
+						_["Im"]   = Im( cx ), 
 						_["Conj"] = Conj( cx ), 
-						_["Mod"] = Mod( cx ), 
-						_["exp"] = exp( cx ), 
-						_["log"] = log( cx )
+						_["Mod"]  = Mod( cx ), 
+						_["exp"]  = exp( cx ), 
+						_["log"]  = log( cx ), 
+						_["sqrt"] = sqrt( cx ), 
+						_["cos"]  = cos( cx ), 
+						_["cosh"] = cosh( cx )
 						) ;
 				'
 			), 
@@ -1070,12 +1073,15 @@ test.sugar.complex <- function( ){
 	x <- c( rnorm(10), NA ) + 1i*c( rnorm(10), NA )
 	fx <- .rcpp.sugar$runit_complex
 	checkEquals( fx(x), list( 
-		Re = Re( x ), 
-		Im = Im( x ), 
+		Re   = Re(x), 
+		Im   = Im(x), 
 		Conj = Conj(x), 
-		Mod = Mod(x), 
-		exp = exp(x), 
-		log = log(x)
+		Mod  = Mod(x), 
+		exp  = exp(x), 
+		log  = log(x), 
+		sqrt = sqrt(x), 
+		cos  = cos(x), 
+		cosh = cosh(x)
 		)
 	)
 }

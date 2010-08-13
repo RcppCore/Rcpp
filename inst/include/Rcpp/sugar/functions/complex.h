@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// Mod.h: Rcpp R/C++ interface class library -- Mod
+// complex.h: Rcpp R/C++ interface class library -- complex
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -82,6 +82,38 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 		y.r = ::log( RCPP_HYPOT( x.r, x.i ) );
 	    return y ;
 	}
+	inline Rcomplex complex__sqrt(Rcomplex z){
+	    Rcomplex r ;
+		double mag;
+	
+	    if( (mag = RCPP_HYPOT(z.r, z.i)) == 0.0)
+		r.r = r.i = 0.0;
+	    else if(z.r > 0) {
+	    	r.r = ::sqrt(0.5 * (mag + z.r) );
+		r.i = z.i / r.r / 2;
+	    }
+	    else {
+	    	r.i = ::sqrt(0.5 * (mag - z.r) );
+		if(z.i < 0)
+		    r.i = - r.i;
+		r.r = z.i / r.i / 2;
+	    }
+	    return r ;
+	}
+	inline Rcomplex complex__cos(Rcomplex z){
+	    Rcomplex r ;
+	    r.r = ::cos(z.r) * ::cosh(z.i);
+	    r.i = - ::sin(z.r) * ::sinh(z.i);
+	    return r ; 
+	}
+	inline Rcomplex complex__cosh(Rcomplex z){
+	    Rcomplex r;
+	    r.r = ::cos(-z.i) * ::cosh( z.r);
+	    r.i = - ::sin(-z.i) * ::sinh(z.r);
+	    return r ;
+	}
+	
+
 } // internal
 
 #define RCPP_SUGAR_COMPLEX(__NAME__,__OUT__)                                \
@@ -101,6 +133,9 @@ RCPP_SUGAR_COMPLEX( Mod, double )
 RCPP_SUGAR_COMPLEX( Conj, Rcomplex )
 RCPP_SUGAR_COMPLEX( exp, Rcomplex )
 RCPP_SUGAR_COMPLEX( log, Rcomplex )
+RCPP_SUGAR_COMPLEX( sqrt, Rcomplex )
+RCPP_SUGAR_COMPLEX( cos, Rcomplex ) 
+RCPP_SUGAR_COMPLEX( cosh, Rcomplex )
 
 #undef RCPP_SUGAR_COMPLEX	 
 	
