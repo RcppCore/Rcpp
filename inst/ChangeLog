@@ -1,3 +1,11 @@
+2010-08-13  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/complex.h: simplify complex sugar functions
+	Re, Im, Conj, Mod
+	
+	* inst/unitTests/runit.sugar.R: added regression test for complex functions
+	which did not handle NA properly before
+
 2010-08-12  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/math.h: replace previous versions of floor,
