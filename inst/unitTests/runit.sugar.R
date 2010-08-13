@@ -489,7 +489,9 @@
 						// _["acosh"] = acosh( cx ), 
 						_["asinh"] = asinh( cx ), 
 						_["atanh"] = atanh( cx ), 
-						_["cosh"]  = cosh( cx )
+						_["cosh"]  = cosh( cx ), 
+						_["sinh"]  = sinh( cx ), 
+						_["tanh"]  = tanh( cx )
 						) ;
 				'
 			), 
@@ -1097,7 +1099,9 @@ test.sugar.complex <- function( ){
 		# acosh = acosh(x),
 		asinh = asinh(x),
 		atanh = atanh(x), 
-		cosh  = cosh(x) 
+		cosh  = cosh(x), 
+		sinh = sinh(x), 
+		tanh = tanh(x)
 		
 		) 
 	)
