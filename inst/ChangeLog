@@ -5,7 +5,7 @@
 	
 	* inst/include/Rcpp/sugar/complex.h: new sugar functions operating on 
 	complex expressions: exp, log, sqrt, cos, sin, tan, acos, asin, atan, 
-	acosh, asinh, atanh, cosh
+	acosh, asinh, atanh, cosh, sinh, tanh
 	
 	* inst/unitTests/runit.sugar.R: added regression test for complex functions
 	which did not handle NA properly before
