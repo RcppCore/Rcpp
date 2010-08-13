@@ -241,7 +241,6 @@ RCPP_SUGAR_COMPLEX( atan, Rcomplex )
 RCPP_SUGAR_COMPLEX( acosh, Rcomplex ) 
 RCPP_SUGAR_COMPLEX( asinh, Rcomplex )
 RCPP_SUGAR_COMPLEX( atanh, Rcomplex )
-
 RCPP_SUGAR_COMPLEX( cosh, Rcomplex )
 
 
