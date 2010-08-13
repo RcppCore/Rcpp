@@ -13,12 +13,7 @@
 ## uncomment this to enable c++0x features (experimental)
 ## CLINK_CPPFLAGS=-std=c++0x
 
-## guarding against a bug in how 'R CMD check' checks for portable flags
-ifeq ($(SHLIB),)
-all:
-else
 all: 	$(SHLIB) userLibrary 
-endif
 
 ## we place it inside the inst/ directory so that it gets installed by the package
 USERDIR =	../inst/lib

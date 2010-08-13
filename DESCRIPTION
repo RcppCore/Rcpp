@@ -1,6 +1,6 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.8.5.6
+Version: 0.8.5.7
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Simon Urbanek, David Reiss and Douglas Bates; based on code written during 
@@ -35,7 +35,6 @@ Description: The Rcpp package provides a C++ library which facilitates the
  provide additional usage examples.
 Depends: R (>= 2.10.0), methods
 Suggests: RUnit, inline
-SystemRequirements: GNU make
 URL: http://dirk.eddelbuettel.com/code/rcpp.html, http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
 License: GPL (>= 2)
 BugReports: http://r-forge.r-project.org/tracker/?atid=637&group_id=155&func=browse
