@@ -3,6 +3,9 @@
 	* inst/include/Rcpp/sugar/complex.h: simplify complex sugar functions
 	Re, Im, Conj, Mod
 	
+	* inst/include/Rcpp/sugar/complex.h: new sugar functions operating on 
+	complex expressions: exp, log
+	
 	* inst/unitTests/runit.sugar.R: added regression test for complex functions
 	which did not handle NA properly before
 
