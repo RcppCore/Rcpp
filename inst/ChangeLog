@@ -1,17 +1,21 @@
+2010-08-13  Douglas Bates  <bates@stat.wisc.edu>
+
+	* include/Rcpp.h: undo more defines from Rmath.h
+
 2010-08-13  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/complex.h: simplify complex sugar functions
 	Re, Im, Conj, Mod
-	
-	* inst/include/Rcpp/sugar/complex.h: new sugar functions operating on 
-	complex expressions: exp, log, sqrt, cos, sin, tan, acos, asin, atan, 
+
+	* inst/include/Rcpp/sugar/complex.h: new sugar functions operating on
+	complex expressions: exp, log, sqrt, cos, sin, tan, acos, asin, atan,
 	acosh, asinh, atanh, cosh, sinh, tanh
-	
+
 	* inst/unitTests/runit.sugar.R: added regression test for complex functions
 	which did not handle NA properly before
-	
+
 	* DESCRIPTION: no longer requireing GNU make as we dont use it anymore
-	
+
 	* src/Makevars: removed the use of ifeq (which was the last thing requiring
 	GNU make)
 
@@ -33,12 +37,12 @@
 	           bool seed = true)
 
     	   template <typename U1, typename U2>
-    	   Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, 
+    	   Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1,
 	           const U2& u2, bool seed = true)
 
     	so that for example :
 
-    	   NumericVector( 10, norm_rand ) 
+    	   NumericVector( 10, norm_rand )
 
 	generates a N(0,1) vector of size 10
 
