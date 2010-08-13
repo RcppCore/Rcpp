@@ -209,6 +209,27 @@ inline Rcomplex complex__atan(Rcomplex z)
 	    r.i = -a.r;
 	    return r ;
 	}
+inline Rcomplex complex__sinh(Rcomplex z)
+{
+    Rcomplex r, b;
+    b.r = -z.i;
+    b.i =  z.r;
+    Rcomplex a = complex__sin(b);
+    r.r =  a.i;
+    r.i = -a.r;
+    return r ;
+}
+
+inline Rcomplex complex__tanh(Rcomplex z)
+{
+    Rcomplex r, b;
+    b.r = -z.i;
+    b.i =  z.r;
+    Rcomplex a = complex__tan(b);
+    r.r =  a.i;
+    r.i = -a.r;
+    return r ;
+}
 
 	
 
@@ -242,7 +263,8 @@ RCPP_SUGAR_COMPLEX( acosh, Rcomplex )
 RCPP_SUGAR_COMPLEX( asinh, Rcomplex )
 RCPP_SUGAR_COMPLEX( atanh, Rcomplex )
 RCPP_SUGAR_COMPLEX( cosh, Rcomplex )
-
+RCPP_SUGAR_COMPLEX( sinh, Rcomplex )
+RCPP_SUGAR_COMPLEX( tanh, Rcomplex )
 
 #undef RCPP_SUGAR_COMPLEX	 
 	
