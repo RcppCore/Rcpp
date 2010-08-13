@@ -29,6 +29,8 @@
 #include <Rcpp/sugar/functions/SugarMath.h>
 #include <Rcpp/sugar/functions/math.h>
 
+#include <Rcpp/sugar/functions/complex.h>
+
 #include <Rcpp/sugar/functions/any.h>
 #include <Rcpp/sugar/functions/all.h>
 #include <Rcpp/sugar/functions/is_na.h>
@@ -50,9 +52,5 @@
 
 #include <Rcpp/sugar/functions/sum.h>
 
-#include <Rcpp/sugar/functions/Re.h>
-#include <Rcpp/sugar/functions/Im.h>
-#include <Rcpp/sugar/functions/Conj.h>
-#include <Rcpp/sugar/functions/Mod.h>
 
 #endif
