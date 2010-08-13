@@ -473,15 +473,23 @@
 				'
 					ComplexVector cx( x );
 					return List::create( 
-						_["Re"]   = Re( cx ), 
-						_["Im"]   = Im( cx ), 
-						_["Conj"] = Conj( cx ), 
-						_["Mod"]  = Mod( cx ), 
-						_["exp"]  = exp( cx ), 
-						_["log"]  = log( cx ), 
-						_["sqrt"] = sqrt( cx ), 
-						_["cos"]  = cos( cx ), 
-						_["cosh"] = cosh( cx )
+						_["Re"]    = Re( cx ), 
+						_["Im"]    = Im( cx ), 
+						_["Conj"]  = Conj( cx ), 
+						_["Mod"]   = Mod( cx ), 
+						_["exp"]   = exp( cx ), 
+						_["log"]   = log( cx ), 
+						_["sqrt"]  = sqrt( cx ), 
+						_["cos"]   = cos( cx ), 
+						_["sin"]   = sin( cx ), 
+						_["tan"]   = tan( cx ), 
+						_["acos"]  = acos( cx ), 
+						_["asin"]  = asin( cx ), 
+						_["atan"]  = atan( cx ), 
+						// _["acosh"] = acosh( cx ), 
+						_["asinh"] = asinh( cx ), 
+						_["atanh"] = atanh( cx ), 
+						_["cosh"]  = cosh( cx )
 						) ;
 				'
 			), 
@@ -1073,16 +1081,25 @@ test.sugar.complex <- function( ){
 	x <- c( rnorm(10), NA ) + 1i*c( rnorm(10), NA )
 	fx <- .rcpp.sugar$runit_complex
 	checkEquals( fx(x), list( 
-		Re   = Re(x), 
-		Im   = Im(x), 
-		Conj = Conj(x), 
-		Mod  = Mod(x), 
-		exp  = exp(x), 
-		log  = log(x), 
-		sqrt = sqrt(x), 
-		cos  = cos(x), 
-		cosh = cosh(x)
-		)
+		Re    = Re(x), 
+		Im    = Im(x), 
+		Conj  = Conj(x), 
+		Mod   = Mod(x), 
+		exp   = exp(x), 
+		log   = log(x), 
+		sqrt  = sqrt(x), 
+		cos   = cos(x),
+		sin   = sin(x),
+		tan   = tan(x), 
+		acos  = acos(x),
+		asin  = asin(x),
+		atan  = atan(x), 
+		# acosh = acosh(x),
+		asinh = asinh(x),
+		atanh = atanh(x), 
+		cosh  = cosh(x) 
+		
+		) 
 	)
 }
 
