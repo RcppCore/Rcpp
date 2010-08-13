@@ -67,6 +67,9 @@
 #include <Rmath.h>                  
 // undo some of the mess of Rmath
 #undef sign
+#undef trunc
+#undef rround
+#undef prec
 
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
