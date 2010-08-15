@@ -1,7 +1,4 @@
-
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
-// auto generated file (from script/stats.R) 
 //
 // nbinom_mu.h: Rcpp R/C++ interface class library -- 
 //
@@ -25,93 +22,7 @@
 #ifndef Rcpp__stats__nbinom_mu_h
 #define Rcpp__stats__nbinom_mu_h
 
-namespace Rcpp {
-namespace stats {
-
-
-	template <bool NA, typename T>
-	class DNbinom_mu : public Rcpp::VectorBase< REALSXP, NA, DNbinom_mu<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DNbinom_mu( const VEC_TYPE& vec_, int size_, double mu_ , bool log_ = false ) : 
-			vec(vec_), siz(size_), mu(mu_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::dnbinom_mu( vec[i], siz, mu , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		int siz; double mu; 
-		int log;
-	
-	};
-
-	template <bool NA, typename T>
-	class PNbinom_mu : public Rcpp::VectorBase< REALSXP, NA, PNbinom_mu<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PNbinom_mu( const VEC_TYPE& vec_, int size_, double mu_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), siz(size_), mu(mu_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::pnbinom_mu( vec[i], siz, mu, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		int siz; double mu; 
-		int lower, log;
-	
-	};
-
-	template <bool NA, typename T>
-	class QNbinom_mu : public Rcpp::VectorBase< REALSXP, NA, QNbinom_mu<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QNbinom_mu( const VEC_TYPE& vec_, int size_, double mu_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), siz(size_), mu(mu_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::qnbinom_mu( vec[i], siz, mu, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		int siz; double mu; 
-		int lower, log;
-	
-	};
-	
-} // stats
-
-template <bool NA, typename T>
-inline stats::DNbinom_mu<NA,T> dnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool log = false ) {
-	return stats::DNbinom_mu<NA,T>( x, size_, mu_, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::PNbinom_mu<NA,T> pnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool lower = true, bool log = false ) {
-	return stats::PNbinom_mu<NA,T>( x, size_, mu_, lower, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::QNbinom_mu<NA,T> qnbinom_mu( const Rcpp::VectorBase<REALSXP,NA,T>& x, int size_, double mu_, bool lower = true, bool log = false ) {
-	return stats::QNbinom_mu<NA,T>( x, size_, mu_, lower, log ); 
-}
-	
-}
+RCPP_DPQ_2(nbinom_mu,::Rf_dnbinom_mu, ::Rf_pnbinom_mu, ::Rf_qnbinom_mu )
 
 #endif
 
