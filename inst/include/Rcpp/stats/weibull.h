@@ -28,90 +28,60 @@
 namespace Rcpp {
 namespace stats {
 
+inline double dweibull_1(double x, double shape /*, double scale [=1.0] */ , int give_log){
+    double tmp1, tmp2;
+#ifdef IEEE_754
+    if (ISNAN(x) || ISNAN(shape) )
+	return x + shape + 1.0;
+#endif
+    if (shape <= 0 ) return R_NaN ;
 
-	template <bool NA, typename T>
-	class DWeibull : public Rcpp::VectorBase< REALSXP, NA, DWeibull<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DWeibull( const VEC_TYPE& vec_, double shape_, double scale_ = 1.0 , bool log_ = false ) : 
-			vec(vec_), shape(shape_), scale(scale_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::Rf_dweibull( vec[i], shape, scale , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double shape; double scale; 
-		int log;
-	
-	};
+    if (x < 0) return R_D__0;
+    if (!R_FINITE(x)) return R_D__0;
+    /* need to handle x == 0 separately */
+    if(x == 0 && shape < 1) return ML_POSINF;
+    tmp1 = ::pow(x, shape - 1);
+    tmp2 = tmp1 * x;
+    /* These are incorrect if tmp1 == 0 */
+    return  give_log ?
+	-tmp2 + ::log(shape * tmp1 ) :
+	shape * tmp1 * ::exp(-tmp2) ;
+}
+inline double pweibull_1(double x, double shape /*, double scale [=1.0] */, int lower_tail, int log_p) {
+#ifdef IEEE_754
+    if (ISNAN(x) || ISNAN(shape) )
+	return x + shape + 1.0;
+#endif
+    if(shape <= 0) return R_NaN;
 
-	template <bool NA, typename T>
-	class PWeibull : public Rcpp::VectorBase< REALSXP, NA, PWeibull<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PWeibull( const VEC_TYPE& vec_, double shape_, double scale_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), shape(shape_), scale(scale_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::Rf_pweibull( vec[i], shape, scale, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double shape; double scale; 
-		int lower, log;
-	
-	};
+    if (x <= 0)
+	return R_DT_0;
+	x = -::pow(x , shape);
+    if (lower_tail)
+	return (log_p
+		/* log(1 - exp(x))  for x < 0 : */
+		? (x > -M_LN2 ? ::log(-::expm1(x)) : ::log1p(-::exp(x)))
+		: -::expm1(x));
+    /* else:  !lower_tail */
+    return R_D_exp(x);
+}
+inline double qweibull_1(double p, double shape /*, double scale [=1.0] */, int lower_tail, int log_p){
+#ifdef IEEE_754
+    if (ISNAN(p) || ISNAN(shape))
+	return p + shape + 1.0;
+#endif
+    if (shape <= 0 ) return R_NaN ;
 
-	template <bool NA, typename T>
-	class QWeibull : public Rcpp::VectorBase< REALSXP, NA, QWeibull<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QWeibull( const VEC_TYPE& vec_, double shape_, double scale_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), shape(shape_), scale(scale_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::Rf_qweibull( vec[i], shape, scale, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double shape; double scale; 
-		int lower, log;
-	
-	};
-	
+    R_Q_P01_boundaries(p, 0, ML_POSINF);
+
+    return ::pow(- R_DT_Clog(p), 1./shape) ;
+}
+
 } // stats
+} // Rcpp
 
-template <bool NA, typename T>
-inline stats::DWeibull<NA,T> dweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool log = false ) {
-	return stats::DWeibull<NA,T>( x, shape_, scale_, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::PWeibull<NA,T> pweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return stats::PWeibull<NA,T>( x, shape_, scale_, lower, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::QWeibull<NA,T> qweibull( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape_, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return stats::QWeibull<NA,T>( x, shape_, scale_, lower, log ); 
-}
-	
-}
+RCPP_DPQ_1(weibull,Rcpp::stats::dweibull_1,Rcpp::stats::pweibull_1,Rcpp::stats::qweibull_1)
+RCPP_DPQ_2(weibull,::Rf_dweibull,::Rf_pweibull,::Rf_qweibull)
 
 #endif
 
