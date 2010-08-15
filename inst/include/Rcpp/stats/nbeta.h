@@ -1,7 +1,4 @@
-
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
-// auto generated file (from script/stats.R) 
 //
 // nbeta.h: Rcpp R/C++ interface class library -- 
 //
@@ -25,93 +22,7 @@
 #ifndef Rcpp__stats__nbeta_h
 #define Rcpp__stats__nbeta_h
 
-namespace Rcpp {
-namespace stats {
-
-
-	template <bool NA, typename T>
-	class DNbeta : public Rcpp::VectorBase< REALSXP, NA, DNbeta<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DNbeta( const VEC_TYPE& vec_, double shape1_, double shape2_, double ncp_ , bool log_ = false ) : 
-			vec(vec_), shape1(shape1_), shape2(shape2_), ncp(ncp_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::dnbeta( vec[i], shape1, shape2, ncp , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double shape1; double shape2; double ncp; 
-		int log;
-	
-	};
-
-	template <bool NA, typename T>
-	class PNbeta : public Rcpp::VectorBase< REALSXP, NA, PNbeta<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PNbeta( const VEC_TYPE& vec_, double shape1_, double shape2_, double ncp_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), shape1(shape1_), shape2(shape2_), ncp(ncp_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::pnbeta( vec[i], shape1, shape2, ncp, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double shape1; double shape2; double ncp; 
-		int lower, log;
-	
-	};
-
-	template <bool NA, typename T>
-	class QNbeta : public Rcpp::VectorBase< REALSXP, NA, QNbeta<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QNbeta( const VEC_TYPE& vec_, double shape1_, double shape2_, double ncp_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), shape1(shape1_), shape2(shape2_), ncp(ncp_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::qnbeta( vec[i], shape1, shape2, ncp, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double shape1; double shape2; double ncp; 
-		int lower, log;
-	
-	};
-	
-} // stats
-
-template <bool NA, typename T>
-inline stats::DNbeta<NA,T> dnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool log = false ) {
-	return stats::DNbeta<NA,T>( x, shape1_, shape2_, ncp_, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::PNbeta<NA,T> pnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool lower = true, bool log = false ) {
-	return stats::PNbeta<NA,T>( x, shape1_, shape2_, ncp_, lower, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::QNbeta<NA,T> qnbeta( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape1_, double shape2_, double ncp_, bool lower = true, bool log = false ) {
-	return stats::QNbeta<NA,T>( x, shape1_, shape2_, ncp_, lower, log ); 
-}
-	
-}
+RCPP_DPQ_3(nbeta,::Rf_dnbeta,::Rf_pbeta,::Rf_qbeta)
 
 #endif
 

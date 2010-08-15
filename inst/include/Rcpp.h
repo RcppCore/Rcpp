@@ -64,17 +64,8 @@
 
 #include <Rcpp/InternalFunction.h>
 
-#include <Rmath.h>                  
-// undo some of the mess of Rmath
-#undef sign
-#undef trunc
-#undef rround
-#undef prec
-
-#undef beta
-#undef dbeta
-#undef pbeta
-#undef qbeta
+#include <Rmath.h>
+#include <Rcpp/sugar/undoRmath.h>
 
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>

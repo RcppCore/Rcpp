@@ -37,7 +37,7 @@ namespace stats {
 			vec(vec_), mu(mu_), sigma(sigma_), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::dnorm4( vec[i], mu, sigma, log );
+			return ::Rf_dnorm4( vec[i], mu, sigma, log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -59,7 +59,7 @@ namespace stats {
 			vec(vec_), mu(mu_), sigma(sigma_), lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::pnorm5( vec[i], mu, sigma, lower, log );
+			return ::Rf_pnorm5( vec[i], mu, sigma, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -81,7 +81,7 @@ namespace stats {
 			vec(vec_), mu(mu_), sigma(sigma_), lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::qnorm5( vec[i], mu, sigma, lower, log );
+			return ::Rf_qnorm5( vec[i], mu, sigma, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }

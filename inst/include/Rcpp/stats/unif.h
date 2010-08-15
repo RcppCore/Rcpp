@@ -38,7 +38,7 @@ namespace stats {
 			vec(vec_), min(min_), max(max_) , log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::dunif( vec[i], min, max , log );
+			return ::Rf_dunif( vec[i], min, max , log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -60,7 +60,7 @@ namespace stats {
 			vec(vec_), min(min_), max(max_) , lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::punif( vec[i], min, max, lower, log );
+			return ::Rf_punif( vec[i], min, max, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -82,7 +82,7 @@ namespace stats {
 			vec(vec_), min(min_), max(max_), lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::qunif( vec[i], min, max, lower, log );
+			return ::Rf_qunif( vec[i], min, max, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }

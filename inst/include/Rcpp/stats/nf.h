@@ -1,7 +1,4 @@
-
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
-// auto generated file (from script/stats.R) 
 //
 // nf.h: Rcpp R/C++ interface class library -- 
 //
@@ -25,93 +22,7 @@
 #ifndef Rcpp__stats__nf_h
 #define Rcpp__stats__nf_h
 
-namespace Rcpp {
-namespace stats {
-
-
-	template <bool NA, typename T>
-	class DNf : public Rcpp::VectorBase< REALSXP, NA, DNf<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DNf( const VEC_TYPE& vec_, double df1_, double df2_, double ncp_ , bool log_ = false ) : 
-			vec(vec_), df1(df1_), df2(df2_), ncp(ncp_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::dnf( vec[i], df1, df2, ncp , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double df1; double df2; double ncp; 
-		int log;
-	
-	};
-
-	template <bool NA, typename T>
-	class PNf : public Rcpp::VectorBase< REALSXP, NA, PNf<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PNf( const VEC_TYPE& vec_, double df1_, double df2_, double ncp_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), df1(df1_), df2(df2_), ncp(ncp_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::pnf( vec[i], df1, df2, ncp, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double df1; double df2; double ncp; 
-		int lower, log;
-	
-	};
-
-	template <bool NA, typename T>
-	class QNf : public Rcpp::VectorBase< REALSXP, NA, QNf<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QNf( const VEC_TYPE& vec_, double df1_, double df2_, double ncp_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), df1(df1_), df2(df2_), ncp(ncp_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::qnf( vec[i], df1, df2, ncp, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double df1; double df2; double ncp; 
-		int lower, log;
-	
-	};
-	
-} // stats
-
-template <bool NA, typename T>
-inline stats::DNf<NA,T> dnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool log = false ) {
-	return stats::DNf<NA,T>( x, df1_, df2_, ncp_, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::PNf<NA,T> pnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool lower = true, bool log = false ) {
-	return stats::PNf<NA,T>( x, df1_, df2_, ncp_, lower, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::QNf<NA,T> qnf( const Rcpp::VectorBase<REALSXP,NA,T>& x, double df1_, double df2_, double ncp_, bool lower = true, bool log = false ) {
-	return stats::QNf<NA,T>( x, df1_, df2_, ncp_, lower, log ); 
-}
-	
-}
+RCPP_DPQ_3(nf,::Rf_dnf,::Rf_pnf,::Rf_qnf)
 
 #endif
 
