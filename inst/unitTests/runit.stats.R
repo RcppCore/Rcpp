@@ -47,8 +47,8 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["NoLog"] = dunif( xx, 0, 1),
-									  _["Log"]	= dunif( xx, 0, 1, true ));
+				  return List::create(_["NoLog"] = dunif( xx, 0.0 , 1.0 ),
+									  _["Log"]	= dunif( xx, 0.0, 1.0 , true ));
 				  ')
 
 				  ,

@@ -68,7 +68,7 @@
 #define R_Q_P01_check(p)			\
     if ((log_p	&& p > 0) ||			\
 	(!log_p && (p < 0 || p > 1)) )		\
-	ML_ERR_return_NAN
+	return R_NaN
 
 /* Do the boundaries exactly for q*() functions :
  * Often  _LEFT_ = ML_NEGINF , and very often _RIGHT_ = ML_POSINF;
