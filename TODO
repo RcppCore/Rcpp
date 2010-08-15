@@ -7,8 +7,11 @@ Documentation
                 
     o   Add a vignette about Rcpp sugar [in progress]
     
+    o	Finish the quickref vignette
+    
+    o	Maybe a vignette about stats functions
+    
     o   Add a vignette about the API
-
 
 API
 
@@ -59,9 +62,6 @@ Syntactic sugar
 	the macro generate code that statically calls the function ? It would 
 	probably be harder to write/debug
 		
-    o	Simplify the CPLXSXP functions Re,Im,Mod,Conj so that they are generated
-	by a macro similar to SUGAR_MATH_1
-
     o	Vector * Matrix, Matrix * Matrix
 
     o   duplicated, unique, count, sum
