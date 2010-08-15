@@ -39,19 +39,60 @@ private:
 	double meanlog ;
 	double sdlog ;
 } ;
+
+class LNormGenerator_1 : public Generator<false,double> {
+public:
+	
+	LNormGenerator_1( double meanlog_ = 0.0 ) : 
+		meanlog(meanlog_) {}
+	
+	inline double operator()() const {
+		return exp( meanlog + ::norm_rand() ) ;
+	}
+	
+private:
+	double meanlog ;
+} ;
+
+class LNormGenerator_0 : public Generator<false,double> {
+public:
+	
+	LNormGenerator_1( ) {}
+	
+	inline double operator()() const {
+		return exp(::norm_rand() ) ;
+	}
+	
+} ;
+
 } // stats
 
-// TODO: move the default arguments to compile-time dispatch
-inline NumericVector rlnorm( int n, double meanlog = 0.0, double sdlog = 1.0 ){
+inline NumericVector rlnorm( int n, double meanlog, double sdlog ){
 	if (ISNAN(meanlog) || !R_FINITE(sdlog) || sdlog < 0.){
 		// TODO: R also throws a warning in that case, should we ?
 		return NumericVector( n, R_NaN ) ;
 	}  else if (sdlog == 0. || !R_FINITE(meanlog)){
-		return NumericVector( n, exp( mean ) ) ;
+		return NumericVector( n, exp( meanlog ) ) ;
 	} else {
 		return NumericVector( n, stats::LNormGenerator( meanlog, sdlog ) ); 
 	}
 }
+
+inline NumericVector rlnorm( int n, double meanlog /*, double sdlog = 1.0 */){
+	if (ISNAN(meanlog) ){
+		// TODO: R also throws a warning in that case, should we ?
+		return NumericVector( n, R_NaN ) ;
+	}  else if ( !R_FINITE(meanlog)){
+		return NumericVector( n, ::exp( meanlog ) ) ;
+	} else {
+		return NumericVector( n, stats::LNormGenerator_1( meanlog ) ); 
+	}
+}
+
+inline NumericVector rlnorm( int n /*, double meanlog [=0.], double sdlog = 1.0 */){
+	return NumericVector( n, stats::LNormGenerator_0( ) ); 
+}
+
 
 } // Rcpp
 
