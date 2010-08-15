@@ -27,91 +27,71 @@
 
 namespace Rcpp {
 namespace stats {
+	inline double d_exp_0( double x, int give_log){
 
+		#ifdef IEEE_754
+		    /* NaNs propagated correctly */
+		    if (ISNAN(x) ) return x + 1.0 ;
+		#endif
+    	
+    	if (x < 0.)
+		return R_D__0;
+		return give_log ? (-x) : ::exp(-x);
+	}
+	inline double q_exp_0( double p, int lower_tail, int log_p){
+		#ifdef IEEE_754
+		if (ISNAN(p)) return p + 1.0;
+		#endif
+		
+		if ((log_p	&& p > 0) || (!log_p && (p < 0 || p > 1)) ) return R_NaN ;
+		if (p == R_DT_0)
+		return 0;
+		
+		return - R_DT_Clog(p);
+	}
+	inline double p_exp_0(double x, int lower_tail, int log_p) {
+#ifdef IEEE_754
+    if (ISNAN(x) )
+	return x + 1.0 ;
+#endif
 
-	template <bool NA, typename T>
-	class DExp : public Rcpp::VectorBase< REALSXP, NA, DExp<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DExp( const VEC_TYPE& vec_, double rate_ = 1.0 , bool log_ = false ) : 
-			vec(vec_), rate(rate_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::dexp( vec[i], rate , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double rate; 
-		int log;
-	
-	};
-
-	template <bool NA, typename T>
-	class PExp : public Rcpp::VectorBase< REALSXP, NA, PExp<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PExp( const VEC_TYPE& vec_, double rate_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), rate(rate_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::pexp( vec[i], rate, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double rate; 
-		int lower, log;
-	
-	};
-
-	template <bool NA, typename T>
-	class QExp : public Rcpp::VectorBase< REALSXP, NA, QExp<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QExp( const VEC_TYPE& vec_, double rate_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), rate(rate_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::qexp( vec[i], rate, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double rate; 
-		int lower, log;
-	
-	};
+    if (x <= 0.)
+	return R_DT_0;
+    /* same as weibull( shape = 1): */
+    x = -x;
+    if (lower_tail)
+	return (log_p
+		/* log(1 - exp(x))  for x < 0 : */
+		? (x > -M_LN2 ? ::log(-::expm1(x)) : ::log1p(-::exp(x)))
+		: -::expm1(x));
+    /* else:  !lower_tail */
+    return R_D_exp(x);
+}
 	
 } // stats
+} // Rcpp
 
-template <bool NA, typename T>
-inline stats::DExp<NA,T> dexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool log = false ) {
-	return stats::DExp<NA,T>( x, 1.0/shape, log ); 
-}
+RCPP_DPQ_0(exp,Rcpp::stats::d_exp_0,Rcpp::stats::p_exp_0,Rcpp::stats::q_exp_0)
 
-template <bool NA, typename T>
-inline stats::PExp<NA,T> pexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool lower = true, bool log = false ) {
-	return stats::PExp<NA,T>( x, 1.0/shape, lower, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::QExp<NA,T> qexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape = 1.0, bool lower = true, bool log = false ) {
-	return stats::QExp<NA,T>( x, 1.0/shape, lower, log ); 
-}
+namespace Rcpp{
 	
+// we cannot use the RCPP_DPQ_1 macro here because of rate and shape
+template <bool NA, typename T>
+inline stats::D1<REALSXP,NA,T> dexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape, bool log = false ) {
+	return stats::D1<REALSXP,NA,T>( ::Rf_dexp, x, 1.0/shape, log ); 
 }
+
+template <bool NA, typename T>
+inline stats::P1<REALSXP,NA,T> pexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape, bool lower = true, bool log = false ) {
+	return stats::P1<REALSXP,NA,T>( ::Rf_pexp, x, 1.0/shape, lower, log ); 
+}
+
+template <bool NA, typename T>
+inline stats::Q1<REALSXP,NA,T> qexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape, bool lower = true, bool log = false ) {
+	return stats::Q1<REALSXP,NA,T>( ::Rf_qexp, x, 1.0/shape, lower, log ); 
+}
+
+} // Rcpp
 
 #endif
 

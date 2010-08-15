@@ -1,7 +1,4 @@
-
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
-// auto generated file (from script/stats.R) 
 //
 // hyper.h: Rcpp R/C++ interface class library -- 
 //
@@ -25,93 +22,7 @@
 #ifndef Rcpp__stats__hyper_h
 #define Rcpp__stats__hyper_h
 
-namespace Rcpp {
-namespace stats {
-
-
-	template <bool NA, typename T>
-	class DHyper : public Rcpp::VectorBase< REALSXP, NA, DHyper<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DHyper( const VEC_TYPE& vec_, double mm_, double nn_, double kk_ , bool log_ = false ) : 
-			vec(vec_), mm(mm_), nn(nn_), kk(kk_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::dhyper( vec[i], mm, nn, kk , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double mm; double nn; double kk; 
-		int log;
-	
-	};
-
-	template <bool NA, typename T>
-	class PHyper : public Rcpp::VectorBase< REALSXP, NA, PHyper<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PHyper( const VEC_TYPE& vec_, double mm_, double nn_, double kk_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), mm(mm_), nn(nn_), kk(kk_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::phyper( vec[i], mm, nn, kk, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double mm; double nn; double kk; 
-		int lower, log;
-	
-	};
-
-	template <bool NA, typename T>
-	class QHyper : public Rcpp::VectorBase< REALSXP, NA, QHyper<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QHyper( const VEC_TYPE& vec_, double mm_, double nn_, double kk_ ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), mm(mm_), nn(nn_), kk(kk_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::qhyper( vec[i], mm, nn, kk, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double mm; double nn; double kk; 
-		int lower, log;
-	
-	};
-	
-} // stats
-
-template <bool NA, typename T>
-inline stats::DHyper<NA,T> dhyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool log = false ) {
-	return stats::DHyper<NA,T>( x, mm_, nn_, kk_, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::PHyper<NA,T> phyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool lower = true, bool log = false ) {
-	return stats::PHyper<NA,T>( x, mm_, nn_, kk_, lower, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::QHyper<NA,T> qhyper( const Rcpp::VectorBase<REALSXP,NA,T>& x, double mm_, double nn_, double kk_, bool lower = true, bool log = false ) {
-	return stats::QHyper<NA,T>( x, mm_, nn_, kk_, lower, log ); 
-}
-	
-}
+RCPP_DPQ_3(hyper,::Rf_dhyper,::Rf_phyper,::Rf_qhyper)
 
 #endif
 
