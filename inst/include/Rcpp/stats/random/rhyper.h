@@ -25,7 +25,7 @@
 namespace Rcpp {
 
 inline NumericVector rhyper( int n, double nn1, double nn2, double kk ){
-	return NumericVector( n, ::Rf_rhyper, a, b ) ;
+	return NumericVector( n, ::Rf_rhyper, nn1, nn2, kk ) ;
 }
 
 } // Rcpp

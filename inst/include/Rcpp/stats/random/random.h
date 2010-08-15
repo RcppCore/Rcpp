@@ -42,5 +42,6 @@
 #include <Rcpp/stats/random/rlogis.h>
 #include <Rcpp/stats/random/rwilcox.h>
 #include <Rcpp/stats/random/rsignrank.h>
+#include <Rcpp/stats/random/rhyper.h>
 
 #endif
