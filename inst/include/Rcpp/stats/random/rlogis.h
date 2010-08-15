@@ -40,9 +40,36 @@ private:
 	double location ;
 	double scale ;
 } ;
+
+class LogisGenerator_1 : public ::Rcpp::Generator<false,double> {
+public:
+	
+	LogisGenerator_1( double location_) : 
+		location(location_) {}
+	
+	inline double operator()() const {
+		double u = unif_rand() ;
+		return location + ::log(u / (1. - u));
+	}
+	
+private:
+	double location ;
+} ;
+
+class LogisGenerator_0 : public ::Rcpp::Generator<false,double> {
+public:
+	
+	LogisGenerator_0() {}
+	
+	inline double operator()() const {
+		double u = unif_rand() ;
+		return ::log(u / (1. - u));
+	}
+
+} ;
+
 } // stats
 
-// TODO: move the default arguments to compile-time dispatch
 inline NumericVector rlogis( int n, double location, double scale ){
 	if (ISNAN(location) || !R_FINITE(scale))
 	return NumericVector( n, R_NaN ) ;
@@ -51,6 +78,20 @@ inline NumericVector rlogis( int n, double location, double scale ){
 	return NumericVector( n, location );
     
 	return NumericVector( n, stats::LogisGenerator( location, scale ) ) ;
+}
+
+inline NumericVector rlogis( int n, double location /*, double scale =1.0 */ ){
+	if (ISNAN(location) )
+	return NumericVector( n, R_NaN ) ;
+
+    if (!R_FINITE(location))
+	return NumericVector( n, location );
+    
+	return NumericVector( n, stats::LogisGenerator_1( location ) ) ;
+}
+
+inline NumericVector rlogis( int n /*, double location [=0.0], double scale =1.0 */ ){
+	return NumericVector( n, stats::LogisGenerator_0() ) ;
 }
 
 } // Rcpp
