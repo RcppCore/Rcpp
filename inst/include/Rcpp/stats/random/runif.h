@@ -45,10 +45,20 @@ private:
 
 } // stats
 
-inline NumericVector runif( int n, double min = 0.0, double max = 1.0 ){
+inline NumericVector runif( int n, double min, double max ){
 	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
 	if( min == max ) return NumericVector( n, min ) ;
 	return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
+}
+
+inline NumericVector runif( int n, double min /*, double max = 1.0 */ ){
+	if (!R_FINITE(min) || 1.0 < min) return NumericVector( n, R_NaN ) ;
+	if( min == 1.0 ) return NumericVector( n, 1.0 ) ;
+	return NumericVector( n, stats::UnifGenerator( min, 1.0 ) ) ;
+}
+
+inline NumericVector runif( int n /*, double min = 0.0, double max = 1.0 */ ){
+	return NumericVector( n, unif_rand ) ;
 }
 
 } // Rcpp
