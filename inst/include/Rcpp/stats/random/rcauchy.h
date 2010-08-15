@@ -38,6 +38,32 @@ public:
 private:
 	double location, scale ;
 } ;
+
+class CauchyGenerator_1 : public ::Rcpp::Generator<false,double> {
+public:
+	
+	CauchyGenerator_1( double location_) : 
+		location(location_){}
+	
+	inline double operator()() const {
+		return location + ::tan(M_PI * unif_rand()) ;
+	}
+	
+private:
+	double location ;
+} ;
+
+class CauchyGenerator_0 : public ::Rcpp::Generator<false,double> {
+public:
+	
+	CauchyGenerator_0(){}
+	
+	inline double operator()() const {
+		return ::tan(M_PI * unif_rand()) ;
+	}
+	
+} ;
+
 } // stats
 
 // perhaps this should go to a cpp file
@@ -49,6 +75,20 @@ inline NumericVector rcauchy( int n, double location, double scale ){
     	return NumericVector( n, location ) ;
     
 	return NumericVector( n, stats::CauchyGenerator( location, scale ) ) ;
+}
+
+inline NumericVector rcauchy( int n, double location /* , double scale [=1.0] */ ){
+	if (ISNAN(location))
+		return NumericVector( n, R_NaN ) ;
+	
+    if (!R_FINITE(location))
+    	return NumericVector( n, location ) ;
+    
+	return NumericVector( n, stats::CauchyGenerator_1( location ) ) ;
+}
+
+inline NumericVector rcauchy( int n /*, double location [=0.0] , double scale [=1.0] */ ){
+	return NumericVector( n, stats::CauchyGenerator_0() ) ;
 }
 
 } // Rcpp
