@@ -56,8 +56,8 @@ Syntactic sugar
 	maybe we should use LazyVector like in outer to somehow cache the 
 	result when it is judged expensive to calculate
 	
-	o	The current impl of "diff" might cause problems (e.g. with ifelse) due to 
-	laziness, it is probably best to not make it lazy
+    o	The current impl of "diff" might cause problems (e.g. with ifelse) due to 
+    laziness, it is probably best to not make it lazy
 
     o 	crossprod
 	

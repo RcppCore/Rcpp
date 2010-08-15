@@ -328,14 +328,16 @@ to look at the list archives to see if your question has been asked before.
 \subsection{I like it. How can I help ?}
 \label{helping}
 
-We maintain some feature request in the R-forge tracker in the \pkg{Rcpp}
-project page. If you feel you want to draft code for these, we would be glad
-to study patches and incorporate them in \pkg{Rcpp}.
+The current list of things to do is available in our \texttt{TODO} file. 
+\href{https://r-forge.r-project.org/scm/viewvc.php/pkg/Rcpp/TODO?view=markup&root=rcpp}. 
+If you are willing to donate time and have skills in C++, let us know. If you are 
+willing to donate money to sponsor improvements, let us know. 
 
 You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
 that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could write a
 review of \pkg{Rcpp} in \href{http://crantastic.org}{crantastic}, blog about
 it or get the word out otherwise.
+
 
 \subsection{I don't like it. How can I help ?}
 
