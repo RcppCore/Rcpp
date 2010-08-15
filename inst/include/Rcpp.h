@@ -71,6 +71,11 @@
 #undef rround
 #undef prec
 
+#undef beta
+#undef dbeta
+#undef pbeta
+#undef qbeta
+
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
 

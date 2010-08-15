@@ -25,93 +25,38 @@
 #ifndef Rcpp__stats__cauchy_h
 #define Rcpp__stats__cauchy_h
 
-namespace Rcpp {
-namespace stats {
+namespace Rcpp{
+namespace stats{
 
+inline double dcauchy_0(double x, int give_log){
+	return ::dcauchy(x,0.0,1.0, give_log) ;
+}
+inline double dcauchy_1(double x, double location, int give_log){
+	return ::dcauchy(x,location,1.0, give_log) ;
+}
 
-	template <bool NA, typename T>
-	class DCauchy : public Rcpp::VectorBase< REALSXP, NA, DCauchy<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DCauchy( const VEC_TYPE& vec_, double location_ = 0.0, double scale_ = 1.0 , bool log_ = false ) : 
-			vec(vec_), location(location_), scale(scale_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::dcauchy( vec[i], location, scale , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double location; double scale; 
-		int log;
-	
-	};
+inline double pcauchy_0(double x, int lower_tail, int log_p){
+	return ::pcauchy(x,0.0,1.0,lower_tail, log_p) ;
+}
+inline double pcauchy_1(double x, double location, int lower_tail, int log_p){
+	return ::pcauchy(x,location,1.0,lower_tail, log_p) ;
+}
 
-	template <bool NA, typename T>
-	class PCauchy : public Rcpp::VectorBase< REALSXP, NA, PCauchy<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PCauchy( const VEC_TYPE& vec_, double location_ = 0.0, double scale_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), location(location_), scale(scale_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::pcauchy( vec[i], location, scale, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double location; double scale; 
-		int lower, log;
-	
-	};
+inline double qcauchy_0(double p, int lower_tail, int log_p){
+	return ::qcauchy(p, 0.0, 1.0, lower_tail, log_p ) ;
+}
+inline double qcauchy_1(double p, double location, int lower_tail, int log_p){
+	return ::qcauchy(p, location, 1.0, lower_tail, log_p ) ;
+}
 
-	template <bool NA, typename T>
-	class QCauchy : public Rcpp::VectorBase< REALSXP, NA, QCauchy<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QCauchy( const VEC_TYPE& vec_, double location_ = 0.0, double scale_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), location(location_), scale(scale_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::qcauchy( vec[i], location, scale, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double location; double scale; 
-		int lower, log;
-	
-	};
-	
 } // stats
+} // Rcpp
 
-template <bool NA, typename T>
-inline stats::DCauchy<NA,T> dcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool log = false ) {
-	return stats::DCauchy<NA,T>( x, location_, scale_, log ); 
-}
 
-template <bool NA, typename T>
-inline stats::PCauchy<NA,T> pcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return stats::PCauchy<NA,T>( x, location_, scale_, lower, log ); 
-}
+RCPP_DPQ_0(cauchy,Rcpp::stats::dcauchy_0,Rcpp::stats::pcauchy_0,Rcpp::stats::qcauchy_0)
+RCPP_DPQ_1(cauchy,Rcpp::stats::dcauchy_1,Rcpp::stats::pcauchy_1,Rcpp::stats::qcauchy_1)
+RCPP_DPQ_2(cauchy,::dcauchy,::pcauchy,::qcauchy)
 
-template <bool NA, typename T>
-inline stats::QCauchy<NA,T> qcauchy( const Rcpp::VectorBase<REALSXP,NA,T>& x, double location_ = 0.0, double scale_ = 1.0, bool lower = true, bool log = false ) {
-	return stats::QCauchy<NA,T>( x, location_, scale_, lower, log ); 
-}
-	
-}
 
 #endif
 

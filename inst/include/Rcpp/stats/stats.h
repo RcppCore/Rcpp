@@ -24,6 +24,10 @@
 
 #include <Rcpp/stats/dpq/dpq.h>
 
+#define ML_POSINF	R_PosInf
+#define ML_NEGINF	R_NegInf
+#define ML_NAN		R_NaN
+
 #include <Rcpp/stats/unif.h>
 #include <Rcpp/stats/norm.h>
 #include <Rcpp/stats/gamma.h>

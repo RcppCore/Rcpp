@@ -28,90 +28,94 @@
 namespace Rcpp {
 namespace stats {
 
+inline double dlnorm_0(double x, int log_p){
+    double y;
 
-	template <bool NA, typename T>
-	class DLnorm : public Rcpp::VectorBase< REALSXP, NA, DLnorm<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		DLnorm( const VEC_TYPE& vec_, double meanlog_ = 0.0, double sdlog_ = 1.0 , bool log_ = false ) : 
-			vec(vec_), meanlog(meanlog_), sdlog(sdlog_) , log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::dlnorm( vec[i], meanlog, sdlog , log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double meanlog; double sdlog; 
-		int log;
-	
-	};
+#ifdef IEEE_754
+    if (ISNAN(x))
+	return x + 1.0 ;
+#endif
 
-	template <bool NA, typename T>
-	class PLnorm : public Rcpp::VectorBase< REALSXP, NA, PLnorm<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		PLnorm( const VEC_TYPE& vec_, double meanlog_ = 0.0, double sdlog_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), meanlog(meanlog_), sdlog(sdlog_) , lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::plnorm( vec[i], meanlog, sdlog, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double meanlog; double sdlog; 
-		int lower, log;
-	
-	};
+    if(x <= 0) return R_D__0;
 
-	template <bool NA, typename T>
-	class QLnorm : public Rcpp::VectorBase< REALSXP, NA, QLnorm<NA,T> >{
-	public:
-		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE;
-	
-		QLnorm( const VEC_TYPE& vec_, double meanlog_ = 0.0, double sdlog_ = 1.0 ,
-			   bool lower_tail = true, bool log_ = false ) : 
-			vec(vec_), meanlog(meanlog_), sdlog(sdlog_), lower(lower_tail), log(log_) {}
-		
-		inline double operator[]( int i) const {
-			return ::qlnorm( vec[i], meanlog, sdlog, lower, log );
-		}
-		
-		inline int size() const { return vec.size(); }
-		
-	private:
-		const VEC_TYPE& vec;
-		double meanlog; double sdlog; 
-		int lower, log;
-	
-	};
-	
+    y = ::log(x) ;
+    return (log_p ?
+	    -(M_LN_SQRT_2PI   + 0.5 * y * y + ::log(x)) :
+	    M_1_SQRT_2PI * ::exp(-0.5 * y * y)  / x );
+    /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
+
+}
+
+inline double dlnorm_1(double x, double meanlog, int log_p){
+    double y;
+
+#ifdef IEEE_754
+    if (ISNAN(x) || ISNAN(meanlog) )
+	return x + meanlog + 1.0 ;
+#endif
+   
+    if(x <= 0) return R_D__0;
+
+    y = (::log(x) - meanlog);
+    return (log_p ?
+	    -(M_LN_SQRT_2PI   + 0.5 * y * y + ::log(x)) :
+	    M_1_SQRT_2PI * ::exp(-0.5 * y * y)  / x );
+    /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
+
+}
+
+
+inline double plnorm_0(double x, int lower_tail, int log_p){
+#ifdef IEEE_754
+    if (ISNAN(x)  )
+	return x + 1.0 ;
+#endif
+
+    if (x > 0)
+    	return ::Rf_pnorm5(::log(x), 0.0, 1.0, lower_tail, log_p);
+    return R_DT_0;
+}
+
+inline double plnorm_1(double x, double meanlog, int lower_tail, int log_p) {
+#ifdef IEEE_754
+    if (ISNAN(x) || ISNAN(meanlog) )
+	return x + meanlog + 1.0 ;
+#endif
+
+	// TODO : use Rcpp::stats::pnorm_1
+    if (x > 0)
+    	return ::Rf_pnorm5(::log(x), meanlog, 1.0, lower_tail, log_p);
+    return R_DT_0;
+}
+
+inline double qlnorm_0(double p, double meanlog, int lower_tail, int log_p){
+#ifdef IEEE_754
+    if (ISNAN(p) )
+	return p + 1.0 ;
+#endif
+    R_Q_P01_boundaries(p, 0, ML_POSINF);
+
+    // TODO : use Rcpp::stats::qnorm_0
+    return ::exp(::Rf_qnorm5(p, 0.0, 1.0, lower_tail, log_p));
+}
+
+inline double qlnorm_1(double p, double meanlog, int lower_tail, int log_p){
+#ifdef IEEE_754
+    if (ISNAN(p) || ISNAN(meanlog))
+	return p + meanlog + 1.0 ;
+#endif
+    R_Q_P01_boundaries(p, 0, ML_POSINF);
+
+    // TODO : use Rcpp::stats::qnorm_1
+    return ::exp(::Rf_qnorm5(p, meanlog, 1.0, lower_tail, log_p));
+}
+
 } // stats
+} // Rcpp
 
-template <bool NA, typename T>
-inline stats::DLnorm<NA,T> dlnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool log = false ) {
-	return stats::DLnorm<NA,T>( x, meanlog_, sdlog_, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::PLnorm<NA,T> plnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool lower = true, bool log = false ) {
-	return stats::PLnorm<NA,T>( x, meanlog_, sdlog_, lower, log ); 
-}
-
-template <bool NA, typename T>
-inline stats::QLnorm<NA,T> qlnorm( const Rcpp::VectorBase<REALSXP,NA,T>& x, double meanlog_ = 0.0, double sdlog_ = 1.0, bool lower = true, bool log = false ) {
-	return stats::QLnorm<NA,T>( x, meanlog_, sdlog_, lower, log ); 
-}
-	
-}
+RCPP_DPQ_0(lnorm,Rcpp::stats::dlnorm_0,Rcpp::stats::plnorm_0,Rcpp::stats::qlnorm_0)
+RCPP_DPQ_1(lnorm,Rcpp::stats::dlnorm_1,Rcpp::stats::plnorm_1,Rcpp::stats::qlnorm_1)
+RCPP_DPQ_2(lnorm,::Rf_dlnorm,::Rf_plnorm,::Rf_qlnorm)
 
 #endif
 
