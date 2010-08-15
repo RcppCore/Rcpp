@@ -42,6 +42,7 @@ private:
 } ;
 } // stats
 
+// TODO: move the default arguments to compile-time dispatch
 inline NumericVector rlogis( int n, double location, double scale ){
 	if (ISNAN(location) || !R_FINITE(scale))
 	return NumericVector( n, R_NaN ) ;
