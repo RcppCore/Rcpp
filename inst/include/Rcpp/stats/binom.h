@@ -22,6 +22,6 @@
 #ifndef Rcpp__stats__binom_h
 #define Rcpp__stats__binom_h
 
-RCPP_DPQ_2(binom,::dbinom,::pbinom,::qbinom)
+RCPP_DPQ_2(binom,::Rf_dbinom,::Rf_pbinom,::Rf_qbinom)
 
 #endif

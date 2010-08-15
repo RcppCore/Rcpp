@@ -35,7 +35,7 @@ public:
 	inline double operator()() const {
 		// here we know that both n1 and n2 are finite
 		// return ( ::rchisq( n1 ) / n1 ) / ( ::rchisq( n2 ) / n2 );
-		return ratio * ::rgamma( n1__2, 2.0 ) / ::rgamma( n2__2, 2.0 ) ;
+		return ratio * ::Rf_rgamma( n1__2, 2.0 ) / ::Rf_rgamma( n2__2, 2.0 ) ;
 	}
 	
 private:
@@ -50,7 +50,7 @@ public:
 	
 	inline double operator()() const {
 		// return n2  / ::rchisq( n2 ) ;
-		return n2 / ::rgamma( n2__2, 2.0 ) ;
+		return n2 / ::Rf_rgamma( n2__2, 2.0 ) ;
 	}
 	
 private:
@@ -65,7 +65,7 @@ public:
 	
 	inline double operator()() const {
 		// return ::rchisq( n1 ) / n1 ;
-		return ::rgamma( n1__2, 2.0 ) / n1 ;
+		return ::Rf_rgamma( n1__2, 2.0 ) / n1 ;
 	}
 	
 private:
