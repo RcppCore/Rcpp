@@ -72,7 +72,7 @@ private:
 
 } // stats
 
-inline NumericVector rnorm( int n, double mean = 0.0, double sd = 1.0 ){
+inline NumericVector rnorm( int n, double mean, double sd){
 	if (ISNAN(mean) || !R_FINITE(sd) || sd < 0.){
 		// TODO: R also throws a warning in that case, should we ?
 		return NumericVector( n, R_NaN ) ;
@@ -92,6 +92,26 @@ inline NumericVector rnorm( int n, double mean = 0.0, double sd = 1.0 ){
 			return NumericVector( n, stats::NormGenerator( mean, sd ) );
 		}
 	}
+}
+
+inline NumericVector rnorm( int n, double mean /*, double sd [=1.0] */ ){
+	if (ISNAN(mean) ){
+		// TODO: R also throws a warning in that case, should we ?
+		return NumericVector( n, R_NaN ) ;
+	}  else if ( !R_FINITE(mean)){
+		return NumericVector( n, mean ) ;
+	} else {
+		bool mean0 = mean == 0.0 ;
+		if( mean0 ){
+			return NumericVector( n, norm_rand ) ;
+		} else {
+			return NumericVector( n, stats::NormGenerator__sd1( mean ) );
+		}
+	}
+}
+
+inline NumericVector rnorm( int n /*, double mean [=0.0], double sd [=1.0] */ ){
+	return NumericVector( n, norm_rand ) ;
 }
 
 } // Rcpp
