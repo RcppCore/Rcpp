@@ -22,6 +22,6 @@
 #ifndef Rcpp__stats__beta_h
 #define Rcpp__stats__beta_h
 
-RCPP_DPQ_2(beta,::dbeta,::pbeta,::qbeta)
+RCPP_DPQ_2(beta,::Rf_dbeta,::Rf_pbeta,::Rf_qbeta)
 
 #endif
