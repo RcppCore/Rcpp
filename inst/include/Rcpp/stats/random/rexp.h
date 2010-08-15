@@ -51,6 +51,9 @@ inline NumericVector rexp( int n, double rate ){
     	return NumericVector( n, ::exp_rand ) ;
     return NumericVector( n, stats::ExpGenerator( scale ) ) ;
 }
+inline NumericVector rexp( int n){
+	return NumericVector( n, ::exp_rand ) ;
+}
 
 }
 
