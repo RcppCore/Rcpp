@@ -52,9 +52,7 @@ Syntactic sugar
     o	not sure rep should be lazy, i.e. rep( x, 4 ) fetches x[i] 4 times, 
 	maybe we should use LazyVector like in outer to somehow cache the 
 	result when it is judged expensive to calculate
-	
-	o	convert dpq norm and dpq unif to use RCPP_DPQ
-	
+
     o 	crossprod
 	
     o	SUGAR_MATH: is there overhead in having the function pointer, should

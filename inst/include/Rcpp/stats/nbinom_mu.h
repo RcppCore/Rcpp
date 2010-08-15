@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__nbinom_mu_h
 #define Rcpp__stats__nbinom_mu_h
 
-RCPP_DPQ_2(nbinom_mu,::Rf_dnbinom_mu, ::Rf_pnbinom_mu, ::Rf_qnbinom_mu )
+RCPP_DPQ_2(nbinom_mu,::dnbinom_mu, ::pnbinom_mu, ::qnbinom_mu )
 
 #endif
 
