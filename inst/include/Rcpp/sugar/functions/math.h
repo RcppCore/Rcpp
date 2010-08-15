@@ -66,13 +66,10 @@ SUGAR_MATH_1(factorial  , ::Rcpp::internal::factorial   )
 SUGAR_MATH_1(lfactorial , ::Rcpp::internal::lfactorial  )
 
 
-
-
-
-SUGAR_BLOCK_2(choose      , ::Rf_choose     )
-SUGAR_BLOCK_2(lchoose     , ::Rf_lchoose    )
+SUGAR_BLOCK_2(choose    , ::Rf_choose   )
+SUGAR_BLOCK_2(lchoose   , ::Rf_lchoose  )
 SUGAR_BLOCK_2(beta      , ::Rf_beta     )
 SUGAR_BLOCK_2(lbeta     , ::Rf_lbeta    )
-SUGAR_BLOCK_2(psigamma     , ::Rf_psigamma    )
+SUGAR_BLOCK_2(psigamma  , ::Rf_psigamma )
 
 #endif

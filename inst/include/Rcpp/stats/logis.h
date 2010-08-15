@@ -38,7 +38,7 @@ namespace stats {
 			vec(vec_), location(location_), scale(scale_) , log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::dlogis( vec[i], location, scale , log );
+			return ::Rf_dlogis( vec[i], location, scale , log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -60,7 +60,7 @@ namespace stats {
 			vec(vec_), location(location_), scale(scale_) , lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::plogis( vec[i], location, scale, lower, log );
+			return ::Rf_plogis( vec[i], location, scale, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -82,7 +82,7 @@ namespace stats {
 			vec(vec_), location(location_), scale(scale_), lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::qlogis( vec[i], location, scale, lower, log );
+			return ::Rf_qlogis( vec[i], location, scale, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }

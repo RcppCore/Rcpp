@@ -1,3 +1,12 @@
+2010-08-15  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/SugarBlock.h: more control of the NA behavior 
+	in SUGAR_BLOCK_2. SUGAR_BLOCK_2 will now propagate the NA, and the new
+	SUGAR_BLOCK_2_NA will use a fixed NA (can be true or false). This can be
+	useful if the function that is sugar'ed never generates NA.
+	
+	* inst/include/Rcpp/sugar/undoRmath.h : undo the macros done by Rmath.h
+
 2010-08-13  Douglas Bates  <bates@stat.wisc.edu>
 
 	* include/Rcpp.h: undo more defines from Rmath.h

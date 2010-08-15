@@ -38,7 +38,7 @@ namespace stats {
 			vec(vec_), shape(shape_), scale(scale_) , log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::dweibull( vec[i], shape, scale , log );
+			return ::Rf_dweibull( vec[i], shape, scale , log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -60,7 +60,7 @@ namespace stats {
 			vec(vec_), shape(shape_), scale(scale_) , lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::pweibull( vec[i], shape, scale, lower, log );
+			return ::Rf_pweibull( vec[i], shape, scale, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }
@@ -82,7 +82,7 @@ namespace stats {
 			vec(vec_), shape(shape_), scale(scale_), lower(lower_tail), log(log_) {}
 		
 		inline double operator[]( int i) const {
-			return ::qweibull( vec[i], shape, scale, lower, log );
+			return ::Rf_qweibull( vec[i], shape, scale, lower, log );
 		}
 		
 		inline int size() const { return vec.size(); }
