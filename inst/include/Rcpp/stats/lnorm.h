@@ -72,7 +72,7 @@ inline double plnorm_0(double x, int lower_tail, int log_p){
 #endif
 
     if (x > 0)
-    	return ::Rf_pnorm5(::log(x), 0.0, 1.0, lower_tail, log_p);
+    	return Rcpp::stats::pnorm_0(::log(x), lower_tail, log_p);
     return R_DT_0;
 }
 
@@ -82,9 +82,8 @@ inline double plnorm_1(double x, double meanlog, int lower_tail, int log_p) {
 	return x + meanlog + 1.0 ;
 #endif
 
-	// TODO : use Rcpp::stats::pnorm_1
-    if (x > 0)
-    	return ::Rf_pnorm5(::log(x), meanlog, 1.0, lower_tail, log_p);
+	if (x > 0)
+    	return Rcpp::stats::pnorm_1(::log(x), meanlog, lower_tail, log_p);
     return R_DT_0;
 }
 
@@ -95,7 +94,6 @@ inline double qlnorm_0(double p, double meanlog, int lower_tail, int log_p){
 #endif
     R_Q_P01_boundaries(p, 0, ML_POSINF);
 
-    // TODO : use Rcpp::stats::qnorm_0
     return ::exp(::Rf_qnorm5(p, 0.0, 1.0, lower_tail, log_p));
 }
 
@@ -106,7 +104,6 @@ inline double qlnorm_1(double p, double meanlog, int lower_tail, int log_p){
 #endif
     R_Q_P01_boundaries(p, 0, ML_POSINF);
 
-    // TODO : use Rcpp::stats::qnorm_1
     return ::exp(::Rf_qnorm5(p, meanlog, 1.0, lower_tail, log_p));
 }
 
