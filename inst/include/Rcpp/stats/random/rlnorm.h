@@ -41,6 +41,7 @@ private:
 } ;
 } // stats
 
+// TODO: move the default arguments to compile-time dispatch
 inline NumericVector rlnorm( int n, double meanlog = 0.0, double sdlog = 1.0 ){
 	if (ISNAN(meanlog) || !R_FINITE(sdlog) || sdlog < 0.){
 		// TODO: R also throws a warning in that case, should we ?

@@ -49,7 +49,7 @@ private:
 } ;
 } // stats
 
-inline NumericVector rnchisq( int n, double df, double lambda = 1.0 ){
+inline NumericVector rnchisq( int n, double df, double lambda ){
 	if (!R_FINITE(df) || !R_FINITE(lambda) || df < 0. || lambda < 0.) 
 		return NumericVector(n, R_NaN) ;
 	if( lambda == 0.0 ){
@@ -57,6 +57,12 @@ inline NumericVector rnchisq( int n, double df, double lambda = 1.0 ){
 		return NumericVector( n, stats::ChisqGenerator( df ) ) ;
 	}
 	return NumericVector( n, stats::NChisqGenerator( df, lambda ) ) ;
+}
+
+inline NumericVector rnchisq( int n, double df /*, double lambda = 0.0 */ ){
+	if (!R_FINITE(df) || df < 0. ) 
+		return NumericVector(n, R_NaN) ;
+	return NumericVector( n, stats::ChisqGenerator( df ) ) ;
 }
 
 } // Rcpp
