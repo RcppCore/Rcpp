@@ -35,6 +35,10 @@ public:
 	VECTOR& get_ref(){
 		return static_cast<VECTOR&>(*this) ;
 	}
+	
+	const VECTOR& get_ref() const {
+		return static_cast<const VECTOR&>(*this) ;
+	}
 
 	inline stored_type operator[]( int i) const { 
 		return static_cast<const VECTOR*>(this)->operator[](i) ;
