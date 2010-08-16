@@ -97,8 +97,9 @@ private:
 	template <bool NA, typename VEC>
     void import_expression( const VectorBase<RTYPE,NA,VEC>& other, int n ){
     	iterator start = begin() ; 
-		for( int i=0; i<n; i++, ++start){
-			*start = other[i] ;
+		const VEC& ref = other.get_ref() ;
+    	for( int i=0; i<n; i++, ++start){
+			*start = ref[i] ;
 		}
     }
 
