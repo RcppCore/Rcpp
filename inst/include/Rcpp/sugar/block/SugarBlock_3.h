@@ -97,7 +97,7 @@ private:
 #define SUGAR_BLOCK_3(__NAME__,__SYMBOL__)                                                \
 namespace Rcpp{                                                                           \
 	template <bool T1_NA, typename T1, bool T2_NA, typename T2, bool T3_NA, typename T3>  \
-	inline sugar::SugarBlock_3__VVV<                                                      \
+	inline sugar::SugarBlock_3_VVV<                                                       \
 		(T1_NA||T2_NA||T3_NA) ,double,                                                    \
 		double,T1,                                                                        \
 		double,T2,                                                                        \
@@ -108,13 +108,13 @@ namespace Rcpp{                                                                 
 		const VectorBase<REALSXP,T2_NA,T2>& x2,                                           \
 		const VectorBase<REALSXP,T3_NA,T3>& x3                                            \
 	){                                                                                    \
-		return sugar::SugarBlock_3__VVV<                                                  \
+		return sugar::SugarBlock_3_VVV<                                                   \
 			(T1_NA||T2_NA||T3_NA) , double,                                               \
 			double,T1,                                                                    \
 			double,T2,                                                                    \
 			double,T3,                                                                    \
 		>(                                                                                \
-			__SYMBOL__ , x1, x2, x                                                        \
+			__SYMBOL__ , x1, x2, x3                                                       \
 		) ;                                                                               \
 	}                                                                                     \
 }
