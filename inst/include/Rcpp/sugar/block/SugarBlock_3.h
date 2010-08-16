@@ -100,7 +100,7 @@ namespace Rcpp{                                                                 
 	inline sugar::SugarBlock_3__VVV<                                                      \
 		(T1_NA||T2_NA||T3_NA) ,double,                                                    \
 		double,T1,                                                                        \
-		double,T2                                                                         \
+		double,T2,                                                                        \
 		double,T3                                                                         \
 	>                                                                                     \
 	__NAME__(                                                                             \
