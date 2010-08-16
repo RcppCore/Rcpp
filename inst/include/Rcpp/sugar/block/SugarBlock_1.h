@@ -19,8 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_BLOCK_H
-#define RCPP_SUGAR_BLOCK_H
+#ifndef RCPP_SUGAR_BLOCK_1H
+#define RCPP_SUGAR_BLOCK_1H
 
 namespace Rcpp{
 namespace sugar{
