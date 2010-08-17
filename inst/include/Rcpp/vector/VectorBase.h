@@ -31,6 +31,7 @@ public:
 	struct r_type : traits::integral_constant<int,RTYPE>{} ;
 	struct can_have_na : traits::integral_constant<bool,na>{} ;
 	typedef typename traits::storage_type<RTYPE>::type stored_type ;
+	typedef typename traits::storage_type<RTYPE>::type elem_type ;
 	
 	VECTOR& get_ref(){
 		return static_cast<VECTOR&>(*this) ;
