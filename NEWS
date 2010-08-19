@@ -1,11 +1,11 @@
 0.8.6   (future)
 
-	o	new macro RCPP_VERSION and Rcpp_Version to allow conditional compiling
-	based on the version of Rcpp
-	
-	#if defined(RCPP_VERSION) && RCPP_VERSION >= Rcpp_Version(0,8,6)
-	...
-	#endif
+    o	new macro RCPP_VERSION and Rcpp_Version to allow conditional compiling
+    based on the version of Rcpp
+    
+    #if defined(RCPP_VERSION) && RCPP_VERSION >= Rcpp_Version(0,8,6)
+    ...
+    #endif
 
     o   new sugar functions for statistical distributions (d-p-q-r functions)
 	with distributions : unif, norm, gamma, chisq, lnorm, weibull, logis,
