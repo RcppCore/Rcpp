@@ -113,6 +113,8 @@ std::string demangle( const std::string& name) ;
 #define R_2_12_0
 #endif
 
+#include <Rcpp/complex.h>
+
 // #ifdef BUILDING_DLL
 // #define RcppExport extern "C" __declspec(dllexport)
 // #else

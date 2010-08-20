@@ -1,3 +1,7 @@
+2010-08-20  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/complex.h : binary operators for Rcomplex : +,-,*,/
+
 2010-08-15  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/SugarBlock.h: more control of the NA behavior 
