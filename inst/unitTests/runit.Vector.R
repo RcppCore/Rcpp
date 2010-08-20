@@ -560,6 +560,18 @@
 							) ;
 						return output ;
 					'
+	            ), "complex_binary_sugar" = list( 
+	            	signature( x = "complex", y = "complex" ), 
+	            	'
+	            		ComplexVector xx(x), yy(y) ;
+	            		return List::create( 
+	            			_["+"] = xx + yy, 
+	            			_["-"] = xx - yy, 
+	            			_["*"] = xx * yy, 
+	            			_["/"] = xx / yy
+	            		) ;
+	            	
+	            	'
 	            )
 
                 
@@ -1163,6 +1175,21 @@ test.CharacterVector.create <- function(){
 	fun <- .rcpp.Vector$character_create_
     checkEquals( fun(), list( c( "foo", "bar" ), c(foo = "bar", bar = "foo" ) ), 
 	 	msg = "CharacterVector::create" )
+}
+
+test.ComplexVector.binary.operators <- function(){
+	fun <- .rcpp.Vector$complex_binary_sugar
+    x <- (1+1i) * 1:10
+    y <- (2-3i) * 1:10
+    
+	checkEquals( 
+		fun(x, y), 
+		list( 
+			"+" = x + y, 
+			"-" = x - y, 
+			"*" = x * y,
+			"/" = x / y
+		), msg = "complex binary operators" )
 }
 
 
