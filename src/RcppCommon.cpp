@@ -197,7 +197,7 @@ SEXP RcppXPtrExample_create_external_pointer(){
 	std::vector<int> *v = new std::vector<int> ;
 	v->push_back( 1 ) ;
 	v->push_back( 2 ) ;
-	Rcpp::XPtr< std::vector<int> > p(v) ;
+	Rcpp::XPtr< std::vector<int> > p(v, true) ;
 	return p ;
 }
 
