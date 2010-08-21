@@ -121,6 +121,11 @@ std::string demangle( const std::string& name) ;
 #define RcppExport extern "C"
 // #endif
 
+#ifdef _MSC_VER
+#define snprintf _snprintf
+#include <Rcpp/msvc/math.h>
+#endif
+
 #include <Rcpp/internal/posixt.h>
 
 namespace Rcpp{
