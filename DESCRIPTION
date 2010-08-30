@@ -38,4 +38,5 @@ Suggests: RUnit, inline
 URL: http://dirk.eddelbuettel.com/code/rcpp.html, http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
 License: GPL (>= 2)
 BugReports: http://r-forge.r-project.org/tracker/?atid=637&group_id=155&func=browse
+MailingList: Please send questions and comments regarding Rcpp to rcpp-devel@lists.r-forge.r-project.org
 
