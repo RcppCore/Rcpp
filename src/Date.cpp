@@ -29,12 +29,6 @@
 #include <Rcpp/Function.h>
 #include <time.h>		// for gmtime
 
-#ifdef _MSC_VER /* not included with MSVC 2008 or MSVC 2010 */
-#include <Rcpp/msvc/unistd.h>
-#else
-#include <unistd.h>		// for read and close on Solaris
-#endif
-
 namespace Rcpp {
 
     static struct tm * gmtime_(const time_t * const	timep); // see below
@@ -183,11 +177,7 @@ namespace Rcpp {
 
 #include "stdlib.h"
 
-#if defined(_MSC_VER) && _MSC_VER < 1600 /* missing from MSVC 2008 (1500), present with MSVC 2010 (1600) */
-#include "msvc/stdint.h"
-#else
 #include "stdint.h"
-#endif
 #include "stdio.h"
 #include "fcntl.h"
 #include "float.h"	/* for FLT_MAX and DBL_MAX */
