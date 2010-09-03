@@ -27,6 +27,7 @@ clean:
 	rm Rcpp-extending.pdf
 	touch index.html
 	rm index.html
+	rm -f *.tex 
 
 index.html: rcpp.index.html
 	cp rcpp.index.html index.html
