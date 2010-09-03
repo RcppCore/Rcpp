@@ -18,6 +18,14 @@
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 
+%% defined as a stop-gap measure til interaction with highlight is sorted out
+\newcommand{\hlboxlessthan}{   \hlnormalsizeboxlessthan}
+\newcommand{\hlboxgreaterthan}{\hlnormalsizeboxgreaterthan}
+\newcommand{\hlboxopenbrace}{  \hlnormalsizeboxopenbrace}
+\newcommand{\hlboxclosebrace}{ \hlnormalsizeboxclosebrace}
+\newcommand{\hlboxbacktick}{   \hlnormalsizeboxbacktick}
+\newcommand{\hlboxunderscore}{ \hlnormalsizeboxunderscore}
+
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{Frequently Asked Questions about \pkg{Rcpp}}
 
@@ -214,21 +222,21 @@ complain to its vendor if you are still upset.
 
 \subsection{Does \pkg{Rcpp} work on solaris/suncc}
 
-Yes. 
+Yes.
 
 \subsection{Does \pkg{Rcpp} work with Revolution R}
 
 We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
-with the compilers used by Revolution R. 
+with the compilers used by Revolution R.
 
 \subsection{Is it related to CXXR}
 
 CXXR is an ambitious project that aims to totally refactor the \proglang{R}
 interpreter in \proglang{C++}. There are a few similaritites with \pkg{Rcpp}
-but the projects are unrelated. 
+but the projects are unrelated.
 
 CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
-but they do it in very different ways. 
+but they do it in very different ways.
 
 \section{API}
 
@@ -328,10 +336,10 @@ to look at the list archives to see if your question has been asked before.
 \subsection{I like it. How can I help ?}
 \label{helping}
 
-The current list of things to do is available in our \texttt{TODO} file. 
-\href{https://r-forge.r-project.org/scm/viewvc.php/pkg/Rcpp/TODO?view=markup&root=rcpp}. 
-If you are willing to donate time and have skills in C++, let us know. If you are 
-willing to donate money to sponsor improvements, let us know. 
+The current list of things to do is available in our \texttt{TODO} file.
+\href{https://r-forge.r-project.org/scm/viewvc.php/pkg/Rcpp/TODO?view=markup&root=rcpp}.
+If you are willing to donate time and have skills in C++, let us know. If you are
+willing to donate money to sponsor improvements, let us know.
 
 You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
 that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could write a
