@@ -55,9 +55,9 @@ rownames(res) <- c("Writing R extensions",
                    "Less careful use of R API",
                    "RcppVector<double>::operator()",
                    "Rcpp::NumericVector::operator[]",
-                   "Rcpp::NumericVector::begin()", 
+                   "Rcpp::NumericVector::begin()",
                    "sugar" )
-print(res)
+print(res[,1:3])
 
 results <- list( v1, v2, v3, v4, v7, v5)
 for (i in seq_along(results) ){
