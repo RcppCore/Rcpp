@@ -12,7 +12,6 @@ RcppExport SEXP convolve3cpp(SEXP a, SEXP b){
     int nab = n_xa + n_xb - 1;
     Rcpp::NumericVector xab(nab);
 
-    for (int i = 0; i < nab; i++) xab[i] = 0.0;
     for (int i = 0; i < n_xa; i++)
         for (int j = 0; j < n_xb; j++) 
             xab[i + j] += xa[i] * xb[j];
