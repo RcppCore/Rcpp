@@ -51,8 +51,8 @@ t7 <- system.time(replicate(1000, .Call("convolve7", a, b)))
 
 
 res <- data.frame(rbind(t1, t7, t2, t3, t4, t5))
-rownames(res) <- c("Writing R extensions",
-                   "Less careful use of R API",
+rownames(res) <- c("Writing R extensions -- pointer arithm.",
+                   "Writing R extensions -- using [] acess",
                    "RcppVector<double>::operator()",
                    "Rcpp::NumericVector::operator[]",
                    "Rcpp::NumericVector::begin()",
