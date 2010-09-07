@@ -27,7 +27,14 @@ clean:
 	rm Rcpp-extending.pdf
 	touch index.html
 	rm index.html
-	rm -f *.tex 
+	rm -f *.tex
+	rm Rcpp-extending.Rnw ; cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
+	rm Rcpp-FAQ.Rnw ; cp Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
+	rm Rcpp-modules.Rnw ; cp Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
+	rm Rcpp-package.Rnw ; cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
+	rm Rcpp-quickref.Rnw ; cp Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
+	rm Rcpp-sugar.Rnw ; cp Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
+	
 
 index.html: rcpp.index.html
 	cp rcpp.index.html index.html
