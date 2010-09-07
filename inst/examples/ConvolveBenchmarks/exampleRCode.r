@@ -4,64 +4,51 @@ set.seed(42)
 a <- rnorm(100)
 b <- rnorm(100)
 
-## load shared library with wrapper code and callback class
+## load shared libraries with wrapper code
 dyn.load("convolve2_c.so")
-
-## call the wrapper function provided in the shared library
-v1 <- .Call("convolve2", a, b)
-t1 <- system.time(replicate(1000, .Call("convolve2", a, b)))
-
-
-## load shared library with wrapper code and callback class
 dyn.load("convolve2_cpp.so")
-
-## call the wrapper function provided in the shared library
-v2 <- .Call("convolve2cpp", a, b)[[1]]
-t2 <- system.time(replicate(1000, .Call("convolve2cpp", a, b)))
-
-
-## load shared library with wrapper code and callback class
 dyn.load("convolve3_cpp.so")
-
-## call the wrapper function provided in the shared library
-v3 <- .Call("convolve3cpp", a, b)
-t3 <- system.time(replicate(1000, .Call("convolve3cpp", a, b)))
-
-
-## load shared library with wrapper code and callback class
 dyn.load("convolve4_cpp.so")
-
-## call the wrapper function provided in the shared library
-v4 <- .Call("convolve4cpp", a, b)
-t4 <- system.time(replicate(1000, .Call("convolve4cpp", a, b)))
-
-
-## load the sugar based version
-dyn.load( "convolve5_cpp.so" )
-v5 <- .Call( "convolve5cpp", a, b )
-t5 <- system.time(replicate(1000, .Call("convolve5cpp", a, b)))
-
-
-## load shared library with wrapper code and callback class
+dyn.load("convolve5_cpp.so")
 dyn.load("convolve7_c.so")
 
-## call the wrapper function provided in the shared library
+## now run each one once for comparison of results,
+## and define test functions
+
+v1 <- .Call("convolve2", a, b)
+R_API_optimised <- function(a,b) .Call("convolve2", a, b)
+
+v2 <- .Call("convolve2cpp", a, b)[[1]]
+stopifnot(all.equal(v1, v2))
+RcppClassic <- function(a,b) .Call("convolve2cpp", a, b)
+
+v3 <- .Call("convolve3cpp", a, b)
+stopifnot(all.equal(v1, v3))
+RcppNew_std <- function(a,b) .Call("convolve3cpp", a, b)
+
+v4 <- .Call("convolve4cpp", a, b)
+stopifnot(all.equal(v1, v4))
+RcppNew_ptrs <- function(a,b) .Call("convolve4cpp", a, b)
+
+v5 <- .Call( "convolve5cpp", a, b )
+stopifnot(all.equal(v1, v5))
+RcppNew_sugar <- function(a,b) .Call("convolve5cpp", a, b)
+
 v7 <- .Call("convolve7", a, b)
-t7 <- system.time(replicate(1000, .Call("convolve7", a, b)))
+R_API_naive <- function(a,b) .Call("convolve7", a, b)
 
+## load benchmarkin helper function
+suppressMessages(library(rbenchmark))
+bm <- benchmark(R_API_optimised(a,b),
+                R_API_naive(a,b),
+                RcppClassic(a,b),
+                RcppNew_std(a,b),
+                RcppNew_ptrs(a,b),
+                RcppNew_sugar(a,b),
+                columns=c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
+                order="relative",
+                replications=10000)
+print(bm)
 
-res <- data.frame(rbind(t1, t7, t2, t3, t4, t5))
-rownames(res) <- c("Writing R extensions -- pointer arithm.",
-                   "Writing R extensions -- using [] acess",
-                   "RcppVector<double>::operator()",
-                   "Rcpp::NumericVector::operator[]",
-                   "Rcpp::NumericVector::begin()",
-                   "sugar" )
-print(res[,1:3])
-
-results <- list( v1, v2, v3, v4, v7, v5)
-for (i in seq_along(results) ){
-    stopifnot( all.equal(results[[1L]], results[[i]] ) )
-}
 cat("All results are equal\n") # as we didn't get stopped
 

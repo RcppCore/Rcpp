@@ -1,14 +1,43 @@
+2010-09-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/ConvolveBenchmarks/exampleRCode.r: Rewritten /
+	simplified using the rbenchmark::benchmark() function
+ 	* DESCRIPTION: Added Suggests: on rbenchmark package
+
+2010-09-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/ConvolveBenchmarks/exampleRCode.r: Some cosmetics
+
+	* inst/examples/ConvolveBenchmarks/convolve3_cpp.cpp: Remove one
+	unneccessary loop to set values to zero (which the ctor does for us)
+
+2010-09-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-extending/Rcpp-extending.Rnw: Add highlight definitions
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Idem
+	* inst/doc/Rcpp-package/Rcpp-package.Rnw: Idem
+
+2010-09-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/msvcmath.cpp: Undo unmotivated msvc patch
+	* inst/include/Rcpp/msvc/: Idem
+	* inst/include/Rcpp/XPtr.h: Idem
+	* inst/include/RcppCommon.h: Idem
+	* src/Date.cpp: Idem
+
+ 	* DESCRIPTION: Added Suggests: on highlight package
+
 2010-08-20  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/complex.h : binary operators for Rcomplex : +,-,*,/
 
 2010-08-15  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/SugarBlock.h: more control of the NA behavior 
+	* inst/include/Rcpp/sugar/SugarBlock.h: more control of the NA behavior
 	in SUGAR_BLOCK_2. SUGAR_BLOCK_2 will now propagate the NA, and the new
 	SUGAR_BLOCK_2_NA will use a fixed NA (can be true or false). This can be
 	useful if the function that is sugar'ed never generates NA.
-	
+
 	* inst/include/Rcpp/sugar/undoRmath.h : undo the macros done by Rmath.h
 
 2010-08-13  Douglas Bates  <bates@stat.wisc.edu>
