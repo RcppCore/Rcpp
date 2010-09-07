@@ -30,6 +30,7 @@
 \title{Writing a package that uses \pkg{Rcpp} }
 
 <<echo=FALSE>>=
+require( Rcpp )
 link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
 	h <- if( missing(package) ) {
 		as.character( help( f ) )
