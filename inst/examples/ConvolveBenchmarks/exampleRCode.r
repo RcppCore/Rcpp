@@ -20,19 +20,19 @@ R_API_optimised <- function(a,b) .Call("convolve2", a, b)
 
 v2 <- .Call("convolve2cpp", a, b)[[1]]
 stopifnot(all.equal(v1, v2))
-RcppClassic <- function(a,b) .Call("convolve2cpp", a, b)
+Rcpp_Classic <- function(a,b) .Call("convolve2cpp", a, b)
 
 v3 <- .Call("convolve3cpp", a, b)
 stopifnot(all.equal(v1, v3))
-RcppNew_std <- function(a,b) .Call("convolve3cpp", a, b)
+Rcpp_New_std <- function(a,b) .Call("convolve3cpp", a, b)
 
 v4 <- .Call("convolve4cpp", a, b)
 stopifnot(all.equal(v1, v4))
-RcppNew_ptrs <- function(a,b) .Call("convolve4cpp", a, b)
+Rcpp_New_ptr <- function(a,b) .Call("convolve4cpp", a, b)
 
 v5 <- .Call( "convolve5cpp", a, b )
 stopifnot(all.equal(v1, v5))
-RcppNew_sugar <- function(a,b) .Call("convolve5cpp", a, b)
+Rcpp_New_sugar <- function(a,b) .Call("convolve5cpp", a, b)
 
 v7 <- .Call("convolve7", a, b)
 R_API_naive <- function(a,b) .Call("convolve7", a, b)
@@ -41,10 +41,10 @@ R_API_naive <- function(a,b) .Call("convolve7", a, b)
 suppressMessages(library(rbenchmark))
 bm <- benchmark(R_API_optimised(a,b),
                 R_API_naive(a,b),
-                RcppClassic(a,b),
-                RcppNew_std(a,b),
-                RcppNew_ptrs(a,b),
-                RcppNew_sugar(a,b),
+                Rcpp_Classic(a,b),
+                Rcpp_New_std(a,b),
+                Rcpp_New_ptr(a,b),
+                Rcpp_New_sugar(a,b),
                 columns=c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
                 order="relative",
                 replications=10000)
