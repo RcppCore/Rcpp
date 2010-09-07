@@ -1,7 +1,6 @@
 #!/bin/bash
 
-rm *.o
-rm *.so
+rm -f *.o *.so
 
 # build the shared library for the C variant
 R CMD SHLIB convolve2_c.c
