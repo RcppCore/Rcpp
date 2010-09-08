@@ -12,6 +12,12 @@
     * src/Module.cpp : added R access (.Call) function CppClass__property_is_readonly 
 	to query if a class property is read only
 
+    * inst/include/Rcpp/Module.h : added class_Base::property_class method
+	to grab the C++ class of a property
+
+    * src/Module.cpp : added R access (.Call) function CppClass__property_class 
+	to grab the C++ class of a property
+
 2010-09-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/ConvolveBenchmarks/exampleRCode.r: Rewritten /
