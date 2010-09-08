@@ -1,9 +1,16 @@
 2010-09-10  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h : added class_Base::property_names method
+    * inst/include/Rcpp/Module.h : added class_Base::property_names method
 	to grab the names of all fields (properties)
-	* src/Module.cpp : added R access (.Call) function CppClass__properties 
+
+    * src/Module.cpp : added R access (.Call) function CppClass__properties 
 	to grab the names of the fields (property) from the XP of a class
+
+    * inst/include/Rcpp/Module.h : added class_Base::property_is_readonly method
+	to query if a property is read only
+
+    * src/Module.cpp : added R access (.Call) function CppClass__property_is_readonly 
+	to query if a class property is read only
 
 2010-09-06  Dirk Eddelbuettel  <edd@debian.org>
 
