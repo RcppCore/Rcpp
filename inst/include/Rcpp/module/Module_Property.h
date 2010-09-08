@@ -29,7 +29,7 @@ class CppProperty_GetMethod : public CppProperty<Class> {
 		typedef PROP (Class::*GetMethod)(void) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetMethod( GetMethod getter_ ) : getter(getter_){}
+		CppProperty_GetMethod( GetMethod getter_ ) : getter(getter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
 		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
@@ -37,6 +37,7 @@ class CppProperty_GetMethod : public CppProperty<Class> {
 		
 	private:
 		GetMethod getter ;
+		std::string class_name ;
 				
 } ;
 
@@ -47,7 +48,7 @@ class CppProperty_GetConstMethod : public CppProperty<Class> {
 		typedef PROP (Class::*GetMethod)(void) const ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetConstMethod( GetMethod getter_ ) : getter(getter_){}
+		CppProperty_GetConstMethod( GetMethod getter_ ) : getter(getter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
 		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
@@ -55,6 +56,7 @@ class CppProperty_GetConstMethod : public CppProperty<Class> {
 
 	private:
 		GetMethod getter ;
+		std::string class_name ;
 				
 } ;
 
@@ -66,7 +68,7 @@ class CppProperty_GetPointerMethod : public CppProperty<Class> {
 		typedef PROP (*GetMethod)(Class*) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetPointerMethod( GetMethod getter_ ) : getter(getter_){}
+		CppProperty_GetPointerMethod( GetMethod getter_ ) : getter(getter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( getter(object) ) ; }
 		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
@@ -74,7 +76,7 @@ class CppProperty_GetPointerMethod : public CppProperty<Class> {
 
 	private:
 		GetMethod getter ;
-				
+		std::string class_name ;				
 } ;
 
 
@@ -86,7 +88,7 @@ class CppProperty_GetMethod_SetMethod : public CppProperty<Class> {
 		typedef void (Class::*SetMethod)(PROP) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetMethod_SetMethod( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		CppProperty_GetMethod_SetMethod( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ; 
@@ -101,7 +103,7 @@ class CppProperty_GetMethod_SetMethod : public CppProperty<Class> {
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
-				
+		std::string class_name ;				
 } ;
 template <typename Class, typename PROP>
 class CppProperty_GetConstMethod_SetMethod : public CppProperty<Class> {
@@ -110,7 +112,7 @@ class CppProperty_GetConstMethod_SetMethod : public CppProperty<Class> {
 		typedef void (Class::*SetMethod)(PROP) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetConstMethod_SetMethod( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		CppProperty_GetConstMethod_SetMethod( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ; 
@@ -125,6 +127,7 @@ class CppProperty_GetConstMethod_SetMethod : public CppProperty<Class> {
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
+		std::string class_name ;
 				
 } ;
 
@@ -139,7 +142,7 @@ class CppProperty_GetMethod_SetPointer : public CppProperty<Class> {
 		typedef void (*SetMethod)(Class*,PROP) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetMethod_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		CppProperty_GetMethod_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ;
@@ -154,6 +157,7 @@ class CppProperty_GetMethod_SetPointer : public CppProperty<Class> {
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
+		std::string class_name ;
 				
 } ;
 template <typename Class, typename PROP>
@@ -163,7 +167,7 @@ class CppProperty_GetConstMethod_SetPointer : public CppProperty<Class> {
 		typedef void (*SetMethod)(Class*,PROP) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetConstMethod_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		CppProperty_GetConstMethod_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ;
@@ -178,6 +182,7 @@ class CppProperty_GetConstMethod_SetPointer : public CppProperty<Class> {
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
+		std::string class_name ;
 				
 } ;
 
@@ -189,7 +194,7 @@ class CppProperty_GetPointer_SetMethod : public CppProperty<Class> {
 		typedef void (Class::*SetMethod)(PROP) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetPointer_SetMethod( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		CppProperty_GetPointer_SetMethod( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( getter(object) ) ;
@@ -204,6 +209,7 @@ class CppProperty_GetPointer_SetMethod : public CppProperty<Class> {
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
+		std::string class_name ;
 				
 } ;
 
@@ -216,7 +222,7 @@ class CppProperty_GetPointer_SetPointer : public CppProperty<Class> {
 		typedef void (*SetMethod)(Class*,PROP) ;
 		typedef CppProperty<Class> prop_class ;
 
-		CppProperty_GetPointer_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_){}
+		CppProperty_GetPointer_SetPointer( GetMethod getter_, SetMethod setter_) : getter(getter_), setter(setter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( getter(object) ) ;
@@ -231,7 +237,8 @@ class CppProperty_GetPointer_SetPointer : public CppProperty<Class> {
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
-				
+		std::string class_name ;
+		
 } ;
 
 

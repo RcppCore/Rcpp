@@ -28,14 +28,16 @@
 		public: 	
 			typedef PROP Class::*pointer ;
 			
-			CppProperty_Getter_Setter( pointer ptr_ ) : ptr(ptr_) {}
+			CppProperty_Getter_Setter( pointer ptr_ ) : ptr(ptr_), class_name(DEMANGLE(PROP)) {}
 			
 			SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( object->*ptr ) ; }
 			void set(Class* object, SEXP value) throw(std::range_error){ object->*ptr = Rcpp::as<PROP>( value ) ; }		
 			bool is_readonly(){ return false ; }
+			std::string get_class(){ return class_name; }
 			
 		private:
 			pointer ptr ;
+			std::string class_name ;
 	} ;
 	
 	
@@ -45,14 +47,16 @@
 		public: 	
 			typedef PROP Class::*pointer ;
 			
-			CppProperty_Getter( pointer ptr_ ) : ptr(ptr_) {}
+			CppProperty_Getter( pointer ptr_ ) : ptr(ptr_), class_name(DEMANGLE(PROP)) {}
 			
 			SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( object->*ptr ) ; }
 			void set(Class* object, SEXP value) throw(std::range_error){ throw std::range_error("read only data member") ; }		
 			bool is_readonly(){ return true ; }
-
+			std::string get_class(){ return class_name; }
+			
 		private:
 			pointer ptr ;
+			std::string class_name ;
 	} ;
 
 	
