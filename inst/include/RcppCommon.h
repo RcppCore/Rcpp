@@ -82,6 +82,7 @@ namespace Rcpp{
 #include <algorithm>
 #include <complex>
 #include <limits.h>
+#include <typeinfo>
 
 #ifdef HAS_INIT_LISTS
 #include <initializer_list>
