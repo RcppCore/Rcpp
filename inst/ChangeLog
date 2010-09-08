@@ -1,3 +1,7 @@
+2010-09-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/RcppCommon.h: Also include typeinfo header file
+
 2010-09-08  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Module.h : added class_Base::property_names method
@@ -22,7 +26,7 @@
 
 	* inst/examples/ConvolveBenchmarks/exampleRCode.r: Rewritten /
 	simplified using the rbenchmark::benchmark() function
-	
+
  	* DESCRIPTION: Added Suggests: on rbenchmark package
 
 2010-09-04  Dirk Eddelbuettel  <edd@debian.org>
