@@ -66,6 +66,8 @@ public:
 		return R_NilValue ;
 	}
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
+	virtual Rcpp::CharacterVector property_names(){ return Rcpp::CharacterVector(0) ; }
+	
 	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
 	
@@ -224,6 +226,16 @@ public:
 		int n = methods.size() ;
 		Rcpp::CharacterVector out(n) ;
 		typename METHOD_MAP::iterator it = methods.begin( ) ;
+		for( int i=0; i<n; i++, ++it){
+			out[i] = it->first ;
+		} 
+		return out ;
+	}
+	
+	Rcpp::CharacterVector property_names(){
+		int n = properties.size() ;
+		Rcpp::CharacterVector out(n) ;
+		typename PROPERTY_MAP::iterator it = properties.begin( ) ;
 		for( int i=0; i<n; i++, ++it){
 			out[i] = it->first ;
 		} 
