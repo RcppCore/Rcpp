@@ -68,6 +68,7 @@ public:
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual Rcpp::CharacterVector property_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual bool property_is_readonly(const std::string& ) throw(std::range_error) { return false ; }
+	virtual std::string property_class(const std::string& ) throw(std::range_error){ return "" ; }
 	
 	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
@@ -156,6 +157,7 @@ class CppProperty {
 		virtual SEXP get(Class* ) throw(std::range_error){ throw std::range_error("cannot retrieve property"); }
 		virtual void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("cannot set property"); }
 		virtual bool is_readonly(){ return false; }
+		virtual std::string get_class(){ return ""; }
 } ;
 
 #include <Rcpp/module/Module_Property.h>
@@ -227,6 +229,11 @@ public:
 		typename PROPERTY_MAP::iterator it = properties.find( p ) ;
 		if( it == properties.end() ) throw std::range_error( "no such property" ) ;
 		return it->second->is_readonly() ;
+	}
+	std::string property_class(const std::string& p) throw(std::range_error) {
+		typename PROPERTY_MAP::iterator it = properties.find( p ) ;
+		if( it == properties.end() ) throw std::range_error( "no such property" ) ;
+		return it->second->get_class() ;
 	}
 	
 	Rcpp::CharacterVector method_names(){

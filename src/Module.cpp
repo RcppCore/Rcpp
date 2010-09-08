@@ -59,6 +59,10 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__properties, XP_Class cl){
 RCPP_FUNCTION_2( bool, CppClass__property_is_readonly, XP_Class cl, std::string p){
 	return cl->property_is_readonly(p) ;
 }
+RCPP_FUNCTION_2( std::string, CppClass__property_class, XP_Class cl, std::string p){
+	return cl->property_class(p) ;
+}
+
 RCPP_FUNCTION_1( Rcpp::IntegerVector, Module__funtions_arity, XP_Module module ){
 	return module->	functions_arity() ;
 }
