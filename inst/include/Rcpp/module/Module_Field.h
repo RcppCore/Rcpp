@@ -32,7 +32,8 @@
 			
 			SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( object->*ptr ) ; }
 			void set(Class* object, SEXP value) throw(std::range_error){ object->*ptr = Rcpp::as<PROP>( value ) ; }		
-	
+			bool is_readonly(){ return false ; }
+			
 		private:
 			pointer ptr ;
 	} ;
@@ -48,7 +49,8 @@
 			
 			SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( object->*ptr ) ; }
 			void set(Class* object, SEXP value) throw(std::range_error){ throw std::range_error("read only data member") ; }		
-	
+			bool is_readonly(){ return true ; }
+
 		private:
 			pointer ptr ;
 	} ;
