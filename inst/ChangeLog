@@ -1,27 +1,28 @@
-2010-09-10  Romain Francois <romain@r-enthusiasts.com>
+2010-09-08  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/Module.h : added class_Base::property_names method
+	* inst/include/Rcpp/Module.h : added class_Base::property_names method
 	to grab the names of all fields (properties)
 
-    * src/Module.cpp : added R access (.Call) function CppClass__properties 
+	* src/Module.cpp : added R access (.Call) function CppClass__properties
 	to grab the names of the fields (property) from the XP of a class
 
-    * inst/include/Rcpp/Module.h : added class_Base::property_is_readonly method
+	* inst/include/Rcpp/Module.h : added class_Base::property_is_readonly method
 	to query if a property is read only
 
-    * src/Module.cpp : added R access (.Call) function CppClass__property_is_readonly 
+	* src/Module.cpp : added R access (.Call) function CppClass__property_is_readonly
 	to query if a class property is read only
 
-    * inst/include/Rcpp/Module.h : added class_Base::property_class method
+	* inst/include/Rcpp/Module.h : added class_Base::property_class method
 	to grab the C++ class of a property
 
-    * src/Module.cpp : added R access (.Call) function CppClass__property_class 
+	* src/Module.cpp : added R access (.Call) function CppClass__property_class
 	to grab the C++ class of a property
 
 2010-09-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/ConvolveBenchmarks/exampleRCode.r: Rewritten /
 	simplified using the rbenchmark::benchmark() function
+	
  	* DESCRIPTION: Added Suggests: on rbenchmark package
 
 2010-09-04  Dirk Eddelbuettel  <edd@debian.org>
