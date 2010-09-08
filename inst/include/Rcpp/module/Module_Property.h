@@ -33,7 +33,8 @@ class CppProperty_GetMethod : public CppProperty<Class> {
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
 		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
-
+		bool is_readonly(){ return true ; }
+		
 	private:
 		GetMethod getter ;
 				
@@ -50,6 +51,7 @@ class CppProperty_GetConstMethod : public CppProperty<Class> {
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
 		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
+		bool is_readonly(){ return true ; }
 
 	private:
 		GetMethod getter ;
@@ -68,6 +70,7 @@ class CppProperty_GetPointerMethod : public CppProperty<Class> {
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( getter(object) ) ; }
 		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
+		bool is_readonly(){ return true ; }
 
 	private:
 		GetMethod getter ;
@@ -93,6 +96,7 @@ class CppProperty_GetMethod_SetMethod : public CppProperty<Class> {
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
 		}		
+		bool is_readonly(){ return false ; }
 
 	private:
 		GetMethod getter ;
@@ -116,6 +120,7 @@ class CppProperty_GetConstMethod_SetMethod : public CppProperty<Class> {
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
 		}		
+		bool is_readonly(){ return false ; }
 
 	private:
 		GetMethod getter ;
@@ -144,6 +149,7 @@ class CppProperty_GetMethod_SetPointer : public CppProperty<Class> {
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
 		}		
+		bool is_readonly(){ return false ; }
 
 	private:
 		GetMethod getter ;
@@ -167,6 +173,7 @@ class CppProperty_GetConstMethod_SetPointer : public CppProperty<Class> {
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
 		}		
+		bool is_readonly(){ return false ; }
 
 	private:
 		GetMethod getter ;
@@ -192,6 +199,7 @@ class CppProperty_GetPointer_SetMethod : public CppProperty<Class> {
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
 		}		
+		bool is_readonly(){ return false ; }
 
 	private:
 		GetMethod getter ;
@@ -218,6 +226,7 @@ class CppProperty_GetPointer_SetPointer : public CppProperty<Class> {
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
 		}		
+		bool is_readonly(){ return false ; }
 
 	private:
 		GetMethod getter ;
