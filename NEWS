@@ -1,20 +1,35 @@
-0.8.6   (future)
+0.8.6   2010-09-09
 
     o	new macro RCPP_VERSION and Rcpp_Version to allow conditional compiling
-    based on the version of Rcpp
+        based on the version of Rcpp
     
-    #if defined(RCPP_VERSION) && RCPP_VERSION >= Rcpp_Version(0,8,6)
-    ...
-    #endif
+           #if defined(RCPP_VERSION) && RCPP_VERSION >= Rcpp_Version(0,8,6)
+           ...
+           #endif
 
     o   new sugar functions for statistical distributions (d-p-q-r functions)
 	with distributions : unif, norm, gamma, chisq, lnorm, weibull, logis,
 	f, pois, binom, t, beta.
 
+    o   new ctor for Vector taking size and function pointer so that for example
+
+    	   NumericVector( 10, norm_rand )
+
+	generates a N(0,1) vector of size 10
+
+    o   added binary operators for complex numbers, as well as sugar support 
+
+    o   more sugar math functions: sqrt, log, log10, exp, sin, cos, ...
+
     o	new vignette Rcpp-quickref : quick reference guide of Rcpp API
 
     o	various patches to comply with solaris/suncc stricter standards
 
+    o	minor enhancements to ConvolutionBenchmark example
+
+    o	simplified src/Makefile to no longer require GNU make; packages using
+        Rcpp still do for the compile-time test of library locations
+    
 0.8.5   2010-07-25
 
     o   speed improvements. Vector::names, RObject::slot have been improved

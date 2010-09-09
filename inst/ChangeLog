@@ -1,3 +1,9 @@
+2010-09-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: Release 0.8.6
+
+	* debian/*: Similarly updated for new release to Debian
+
 2010-09-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: Also include typeinfo header file
