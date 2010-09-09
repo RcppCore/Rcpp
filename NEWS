@@ -21,7 +21,8 @@
 
     o   more sugar math functions: sqrt, log, log10, exp, sin, cos, ...
 
-    o	new vignette Rcpp-quickref : quick reference guide of Rcpp API
+    o	started new vignette Rcpp-quickref : quick reference guide of Rcpp API
+        (still work in progress)
 
     o	various patches to comply with solaris/suncc stricter standards
 
