@@ -2,7 +2,6 @@ C++Class-class          Reflection information for an internal c++
                         class
 C++Function-class       Class "C++Function"
 C++Object-class         c++ internal objects
-C++ObjectS3-class       Class "C++ObjectS3"
 Module                  Retrieves an Rcpp module
 Module-class            Rcpp modules
 Rcpp-package            R / C++ interface

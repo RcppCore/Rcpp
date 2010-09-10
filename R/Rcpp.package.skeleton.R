@@ -95,7 +95,7 @@ Rcpp.package.skeleton <- function(
 		}
 		
 		if(isTRUE(module)){
-			writeLines( 'importClassesFrom( Rcpp, "C++ObjectS3", "C++Object", "C++Class", "Module" )', ns )
+			writeLines( 'importClassesFrom( Rcpp, "C++Object", "C++Class", "Module" )', ns )
 		}
 		close( ns )
 	}
