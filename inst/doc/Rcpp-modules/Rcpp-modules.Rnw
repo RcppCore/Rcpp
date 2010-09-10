@@ -597,7 +597,7 @@ options( prompt = " ", continue = " " )
 @
 
 <<eval=FALSE>>=
-importClassesFrom( Rcpp, "C++ObjectS3", "C++Object", "C++Class", "Module" )
+importClassesFrom( Rcpp, "C++Object", "C++Class", "Module" )
 @
 
 Loading modules that are defined in a package is best placed inside the
