@@ -26,13 +26,8 @@ namespace internal{
 	
 SEXP getPosixClasses(){
 	SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-#ifdef R_2_12_0
 	SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXt"));
 	SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXct"));
-#else
-	SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
-	SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
-#endif
 	UNPROTECT(1) ;
 	return datetimeclass ;
 }
