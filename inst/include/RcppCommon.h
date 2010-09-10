@@ -110,10 +110,6 @@ std::string demangle( const std::string& name) ;
 #include <Rversion.h>
 #define RCPP_GET_NAMES(x)	Rf_getAttrib(x, R_NamesSymbol)
 
-#if defined(R_VERSION) && R_VERSION >= R_Version(2, 12, 0)
-#define R_2_12_0
-#endif
-
 #include <Rcpp/complex.h>
 
 // #ifdef BUILDING_DLL
