@@ -17,7 +17,6 @@
 
 setGeneric( "new" )
 
-setOldClass( "C++ObjectS3" )
 ## "Module" class as an environment with "pointer", "moduleName", and "packageName"
 ## Stands in for a reference class with those fields.
 setClass( "Module",  contains = "environment" )
@@ -30,8 +29,8 @@ setClass( "C++Object",
 		module = "externalptr", 
 		cppclass = "externalptr", 
 		pointer = "externalptr"
-		), 
-	contains = "C++ObjectS3" )
+		)
+	)
 setClass( "C++Function", 
 	representation( pointer = "externalptr" ), 
 	contains = "function"
@@ -131,9 +130,11 @@ setMethod( "show", "Module", function( object ){
     }
 } )
 
+setGeneric( ".DollarNames" )
 .DollarNames.Module <- function(x, pattern){
 	grep( pattern , .Call( "Module__complete", x@pointer, PACKAGE = "Rcpp"), value = TRUE )	
 }
+setMethod( ".DollarNames", "Module", .DollarNames.Module )
 
 new_CppObject_xp <- function(Class, ...){
 	xp <- .External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
@@ -263,9 +264,10 @@ setMethod( "complete", "C++Object", function(x){
 	.Call( "CppClass__complete" , xp , PACKAGE = "Rcpp" )
 } )
 
-".DollarNames.C++ObjectS3" <- function( x, pattern ){
+".DollarNames.C++Object" <- function( x, pattern ){
 	grep( pattern, complete(x), value = TRUE )
 }
+setMethod( ".DollarNames", "C++Object", `.DollarNames.C++Object` )
 
 setGeneric( "functions", function(object, ...) standardGeneric( "functions" ) )
 setMethod( "functions", "Module", function(object, ...){
