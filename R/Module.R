@@ -1,4 +1,4 @@
-# Copyright (C)        2010 Dirk Eddelbuettel and Romain Francois
+# Copyright (C)        2010 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -18,7 +18,9 @@
 setGeneric( "new" )
 
 setOldClass( "C++ObjectS3" )
-setClass( "Module", representation( pointer = "externalptr" ) )
+## "Module" class as an environment with "pointer", "moduleName", and "packageName"
+## Stands in for a reference class with those fields.
+setClass( "Module",  contains = "environment" )
 setClass( "C++Class", 
 	representation( pointer = "externalptr", module = "externalptr" ), 
 	contains = "character"
@@ -50,32 +52,83 @@ setMethod( "show", "C++Function", function(object){
 	writeLines( sprintf( "internal C++ function <%s>", externalptr_address(object@pointer) ) )
 } )
 
+## FIXME:  should be set to something that will not segfault if accidentally
+## called as a module pointer (but one hopes to intercept any such call)
+## AND:: curently a bug in identical() fails to return TRUE on externalptr's
+## so for now we initialize the "pointer" to a NULL (!)
+.badModulePointer <- NULL
+
+.setModulePointer <- function(module, value) {
+    assign("pointer", value, envir = as.environment(module))
+    value
+}
+
+.getModulePointer <- function(module, mustStart = TRUE) {
+    pointer <- get("pointer", envir = as.environment(module))
+    if(is.null(pointer) && mustStart) {
+## should be (except for bug noted in identical())        
+##    if(identical(pointer, .badModulePointer) && mustStart) {
+        Module(module, mustStart = TRUE) # will either initialize pointer or throw error
+        pointer <- get("pointer", envir = as.environment(module))
+    }
+    pointer
+}
+    
+
+setMethod("initialize", "Module",
+          function(.Object,
+                   moduleName = "UNKNOWN",
+                   packageName = "",
+                   pointer = .badModulePointer, ...) {
+              env <- new.env(TRUE, emptyenv())
+              as(.Object, "environment") <- env
+              assign("pointer", pointer, envir = env)
+              assign("packageName", packageName, envir = env)
+              assign("moduleName", moduleName, envir = env)
+              if(length(list(...)) > 0) {
+                  .Object <- callNextMethod(.Object, ...)
+              }
+              .Object
+          })
+                  
+
 setMethod( "$", "Module", function(x, name){
-	if( .Call( "Module__has_function", x@pointer, name, PACKAGE = "Rcpp" ) ){
+    pointer <- .getModulePointer(x)
+	if( .Call( "Module__has_function", pointer, name, PACKAGE = "Rcpp" ) ){
 		function( ... ) {
-			res <- .External(  "Module__invoke" , x@pointer, name, ..., PACKAGE = "Rcpp"  )
+			res <- .External(  "Module__invoke" , pointer, name, ..., PACKAGE = "Rcpp"  )
 			if( isTRUE( res$void ) ) invisible(NULL) else res$result	
 		}
-	} else if( .Call("Module__has_class", x@pointer, name, PACKAGE = "Rcpp" ) ){
-		.Call( "Module__get_class", x@pointer, name, PACKAGE = "Rcpp" )  
+	} else if( .Call("Module__has_class", pointer, name, PACKAGE = "Rcpp" ) ){
+		.Call( "Module__get_class", pointer, name, PACKAGE = "Rcpp" )  
 	} else{
 		stop( "no such method or class in module" )
 	}
 } )
 
 setMethod( "show", "Module", function( object ){
-	info <- .Call( "Module__funtions_arity", object@pointer, PACKAGE = "Rcpp" )
-	name <- .Call( "Module__name", object@pointer )
+    pointer <- .getModulePointer(object, FALSE)
+    if(identical(pointer, .badModulePointer)) {
+        object <- as.environment(object) ## not needed when 2.12.0 arrives
+        txt <- sprintf("Uninitialized module named \"%s\" from package \"%s\"",
+                       get("moduleName", envir = object),
+                       get("packageName", envir = object))
+        writeLines(txt)
+    }
+    else {
+	info <- .Call( "Module__funtions_arity", pointer, PACKAGE = "Rcpp" )
+	name <- .Call( "Module__name", pointer )
 	txt <- sprintf( "Rcpp module '%s' \n\t%d functions: ", name, length(info) )
 	writeLines( txt )                       
 	txt <- sprintf( "%15s : %d arguments", names(info), info )
 	writeLines( txt )
 	                                                     
-	info <- .Call( "Module__classes_info", object@pointer, PACKAGE = "Rcpp" )
+	info <- .Call( "Module__classes_info", pointer, PACKAGE = "Rcpp" )
 	txt <- sprintf( "\n\t%d classes : ", length(info) )
 	writeLines( txt )
 	txt <- sprintf( "%15s ", names(info) )
 	writeLines( txt )
+    }
 } )
 
 .DollarNames.Module <- function(x, pattern){
@@ -127,17 +180,50 @@ dollargets_cppobject <- function(x, name, value){
 
 setReplaceMethod( "$", "C++Object", dollargets_cppobject )
 
-Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()) ){
-	if( identical( typeof( module ), "externalptr" ) ){
+Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ){
+    if(is(module, "Module")) {
+        xp <- .getModulePointer(module, FALSE)
+        if(!missing(PACKAGE))
+            warning("ignoring PACKAGE argument in favor of internal package from Module object")
+        env <- as.environment(module) # not needed from R 2.12.0
+        PACKAGE <- get("packageName", envir = env)
+        moduleName <- get("moduleName", envir = env)
+    }
+	else if( identical( typeof( module ), "externalptr" ) ){
+            ## Should Module() ever be called with a pointer as argument?
+            ## If so, we need a safe check of the pointer's validity
 		xp <- module
-	} else {
-		name <- sprintf( "_rcpp_module_boot_%s", module )
-		symbol <- getNativeSymbolInfo( name, PACKAGE )
+                moduleName <- .Call( "Module__name", xp )
+                module <- new("Module", pointer = xp, packageName = PACKAGE,
+                              moduleName = moduleName)
+	} else if(is(module, "character")) {
+            moduleName <- module
+            xp <- .badModulePointer
+            module <- new("Module", pointer = xp, packageName = PACKAGE,
+                              moduleName = moduleName)
+        }
+        if(identical(xp, .badModulePointer)) {
+            if(mustStart) {
+		name <- sprintf( "_rcpp_module_boot_%s", moduleName )
+		symbol <- tryCatch(getNativeSymbolInfo( name, PACKAGE ),
+                                   error = function(e)e)
+                if(is(symbol, "error"))
+                    stop(gettextf("Failed to initialize module pointer: %s",
+                                  symbol), domain = NA)
 		xp  <- .Call( symbol )
-	}
+                .setModulePointer(module, xp)
+            }
+            else
+                return(module)
+        }
 	classes <- .Call( "Module__classes_info", xp, PACKAGE = "Rcpp" )
 	if( length( classes ) ){
 		for( i in seq_along(classes) ){
+                    ## We need a general strategy for assigning class defintions
+                    ## since delaying the initialization of the module causes
+                    ## where to be the Rcpp namespace:
+                        if(environmentIsLocked(where))
+                            where <- .GlobalEnv # or???
 			CLASS <- classes[[i]]
 			clname <- as.character(CLASS)
 			setClass( clname, contains = "C++Object", where = where )
@@ -168,7 +254,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 			
 		}
 	}
-	new( "Module", pointer = xp ) 
+	module
 }
 
 setGeneric( "complete", function(x) standardGeneric("complete") )
@@ -183,7 +269,12 @@ setMethod( "complete", "C++Object", function(x){
 
 setGeneric( "functions", function(object, ...) standardGeneric( "functions" ) )
 setMethod( "functions", "Module", function(object, ...){
-	.Call( "Module__funtions_arity", object@pointer, PACKAGE = "Rcpp" )
+    pointer <- .getModulePointer(object)
+    if(identical(pointer, .badModulePointer))
+        stop(gettextf("Module \"%s\" has not been intialized:  try Module(object)",
+                      get("moduleName", envir = as.environment(object))), domain = NA)
+    else
+	.Call( "Module__funtions_arity", pointer, PACKAGE = "Rcpp" )
 } )
 
 setGeneric( "prompt" )
@@ -202,8 +293,12 @@ setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ..
 		"" 
 	}
 	lines <- sub( "FUNCTIONS", f.txt, lines )
+
+        ## at this point functions() would have failed if the
+        ## pointer in object was not valid
+        pointer <- .getModulePointer(object)
 	
-	classes <- .Call( "Module__classes_info", object@pointer, PACKAGE = "Rcpp" )
+	classes <- .Call( "Module__classes_info", pointer, PACKAGE = "Rcpp" )
 	c.txt <- if( length( classes ) ){
 		sprintf( "classes: \\\\describe{
 %s
