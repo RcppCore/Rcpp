@@ -56,3 +56,4 @@ r-cran-rcpp: executable-not-elf-or-script ./usr/lib/R/site-library/Rcpp/examples
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.RcppMisc.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Vector.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.misc.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.stats.R
