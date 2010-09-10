@@ -1,0 +1,3 @@
+useDynLib(testRcppModule)
+exportPattern("^[[:alpha:]]+")
+importClassesFrom( Rcpp, "C++Object", "C++Class", "Module" )

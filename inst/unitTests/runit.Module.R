@@ -251,6 +251,5 @@ test.Module.member <- function(){
     
     checkException( { w$y <- 3 } )
 }
-
-
+  
 }

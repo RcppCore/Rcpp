@@ -1,0 +1,14 @@
+Package: testRcppModule
+Type: Package
+Title: Some test examples using Rcpp with the Module feature
+Version: 0.1
+Date: 2010-09-06
+Author: JMC
+Maintainer:  <jmc@stat.stanford.edu>
+Description: Some examples taken (and perhaps modified) from the Rcpp	Modules documentation.
+License: GPL(>=2)
+LazyLoad: yes
+Depends: methods, Rcpp (>= 0.8.5)
+LinkingTo: Rcpp
+SystemRequirements: GNU make
+Packaged: 2010-09-09 18:42:28 UTC; jmc
