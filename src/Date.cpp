@@ -176,11 +176,13 @@ namespace Rcpp {
 #endif
 
 #include "stdlib.h"
-
 #include "stdint.h"
 #include "stdio.h"
 #include "fcntl.h"
 #include "float.h"	/* for FLT_MAX and DBL_MAX */
+
+#include <unistd.h>		// solaris needs this for read() and close()
+
 
 /* merged from private.h */
 #define TYPE_BIT(type)	(sizeof (type) * CHAR_BIT)
