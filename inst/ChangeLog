@@ -1,3 +1,7 @@
+2010-09-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Date.cpp: Add include of unistd.h to make Solaris happy
+
 2010-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.6
