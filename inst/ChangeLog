@@ -7,6 +7,12 @@
     requirement and print a message if necessary (this will only stay for the 
     interim period while we develop 0.8.7 so that we all are on the same page.
 
+    * inst/include/Rcpp/Module.h: added methods to class_Base : methods_arity 
+    and methods_voidness to query the number of arguments of methods of a class
+    and if the method is void
+    
+    * R/Module.R: implement referenceMethods (from methods) for 'C++Class'
+    
 2010-09-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Date.cpp: Add include of unistd.h to make Solaris happy
