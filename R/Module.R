@@ -386,6 +386,7 @@ setMethod( "show", "C++Class", function(object){
 	    
 	    setter <- function(value){
 	        .Call( "CppClass__set", xp, .self@pointer, p, value, PACKAGE = "Rcpp" )
+	        invisible( NULL )
 	    }
 	    
 	    res <- list( get = getter, set = setter )
