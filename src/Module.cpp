@@ -56,6 +56,10 @@ RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__methods, XP_Class cl){
 RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__properties, XP_Class cl){
 	return cl->property_names() ;
 }
+RCPP_FUNCTION_1( Rcpp::List, CppClass__property_classes, XP_Class cl){
+	return cl->property_classes() ;
+}
+
 RCPP_FUNCTION_1( Rcpp::IntegerVector, CppClass__methods_arity, XP_Class cl){
 	return cl->methods_arity() ;
 }
