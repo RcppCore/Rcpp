@@ -8,9 +8,12 @@ importFrom( utils, capture.output, assignInNamespace )
 exportClasses( Module, "C++Class", "C++Object", "C++Function" )
 export( Module )
 
-importFrom( utils, .DollarNames, prompt )
+importFrom( utils, .DollarNames, prompt, packageDescription )
 S3method( .DollarNames, "C++Object" )
 S3method( .DollarNames, "Module" )
 exportMethods( prompt, show )
 exportMethods( new, .DollarNames )
+
+exportMethods( referenceMethods )
+
 

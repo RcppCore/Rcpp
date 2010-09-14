@@ -191,8 +191,12 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         moduleName <- get("moduleName", envir = env)
     }
 	else if( identical( typeof( module ), "externalptr" ) ){
-            ## Should Module() ever be called with a pointer as argument?
+            ## [john] Should Module() ever be called with a pointer as argument?
             ## If so, we need a safe check of the pointer's validity
+            
+            ## [romain] I don't think we actually can, external pointers 
+            ## are stored as void*, they don't know what they are. Or we could 
+            ## perhaps keep a vector of all known module pointers
 		xp <- module
                 moduleName <- .Call( "Module__name", xp )
                 module <- new("Module", pointer = xp, packageName = PACKAGE,
@@ -335,4 +339,64 @@ setMethod( "show", "C++Class", function(object){
 		writeLines( txt )
 	}
 } )
+
+.referenceMethods__cppclass <- function( classDef, where ){
+    xp <- classDef@pointer
+    
+    met <- .Call( "CppClass__methods", xp, PACKAGE = "Rcpp" )
+    arity <- .Call( "CppClass__methods_arity", xp, PACKAGE = "Rcpp" )
+	voidness <- .Call( "CppClass__methods_voidness", xp, PACKAGE = "Rcpp" )
+	
+	mets <- sapply( met, function( m ){
+	    # skeleton
+	    f <- function( ){
+	        res <- .External( "Class__invoke_method", xp , m, .self@pointer, PACKAGE = "Rcpp" )
+	        res
+	    }
+	    
+	    if( ar <- arity[[ m ]] ){
+	        # change the formal arguments
+	        formals( f ) <- structure( rep( alist( . = ), ar ), names = sprintf( "x%d", seq_len(ar) ) )
+	    
+	        # change the body
+	        b <- body( f )
+	        ext.call <- quote( .External( "Class__invoke_method", PACKAGE="Rcpp", xp, m, .self@pointer, ARG) )[ c(1:6, rep(7L, ar )) ]
+	        for( i in seq_len(ar) ){
+	            ext.call[[ 6 + i ]] <- as.name( paste( "x", i, sep = "" ) )
+	        }
+	        b[[2]] <- ext.call
+	        body( f ) <- b
+	    }
+	    
+	    if( voidness[[m]] ){
+	        b <- body( f )
+	        b[[3]] <- quote( invisible( NULL ) )
+	        body( f ) <- b
+	    }
+	    
+	    f
+	} )
+	
+	props <- .Call( "CppClass__properties", xp, PACKAGE = "Rcpp" )
+	accesors <- lapply( props, function(p){
+	    
+	    getter <- function(){
+	        .Call( "CppClass__get", xp, .self@pointer, p, PACKAGE = "Rcpp" )
+	    }
+	    
+	    setter <- function(value){
+	        .Call( "CppClass__set", xp, .self@pointer, p, value, PACKAGE = "Rcpp" )
+	    }
+	    
+	    res <- list( get = getter, set = setter )
+	    names( res ) <- methods:::firstCap( p )
+	    res
+	} )
+	
+	c( mets, accesors, recursive = TRUE )
+    
+}
+setMethod( "referenceMethods", "C++Class", .referenceMethods__cppclass )
+
+
 

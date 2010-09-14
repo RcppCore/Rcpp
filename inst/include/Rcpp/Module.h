@@ -69,6 +69,8 @@ public:
 	virtual Rcpp::CharacterVector property_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual bool property_is_readonly(const std::string& ) throw(std::range_error) { return false ; }
 	virtual std::string property_class(const std::string& ) throw(std::range_error){ return "" ; }
+	virtual Rcpp::IntegerVector methods_arity(){ return Rcpp::IntegerVector(0) ; }
+	virtual Rcpp::LogicalVector methods_voidness(){ return Rcpp::LogicalVector(0); }
 	
 	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
@@ -245,6 +247,32 @@ public:
 		} 
 		return out ;
 	}
+	
+	Rcpp::IntegerVector methods_arity(){
+		int n = methods.size() ;
+		Rcpp::CharacterVector mnames(n) ;
+		Rcpp::IntegerVector res( n );
+		typename METHOD_MAP::iterator it = methods.begin( ) ;
+		for( int i=0; i<n; i++, ++it){
+			mnames[i] = it->first ;
+			res[i] = it->second->nargs() ;
+		}
+		res.names( ) = mnames ;
+		return res ;
+	}
+	Rcpp::LogicalVector methods_voidness(){
+		int n = methods.size() ;
+		Rcpp::CharacterVector mnames(n) ;
+		Rcpp::LogicalVector res( n );
+		typename METHOD_MAP::iterator it = methods.begin( ) ;
+		for( int i=0; i<n; i++, ++it){
+			mnames[i] = it->first ;
+			res[i] = it->second->is_void() ;
+		}
+		res.names( ) = mnames ;
+		return res ;
+	}
+	
 	
 	Rcpp::CharacterVector property_names(){
 		int n = properties.size() ;
