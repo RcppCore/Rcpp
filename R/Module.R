@@ -364,7 +364,7 @@ setMethod( "show", "C++Class", function(object){
 	        for( i in seq_len(ar) ){
 	            ext.call[[ 6 + i ]] <- as.name( paste( "x", i, sep = "" ) )
 	        }
-	        b[[2]] <- ext.call
+	        b[[2]][[3]] <- ext.call
 	        body( f ) <- b
 	    }
 	    
