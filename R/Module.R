@@ -351,7 +351,9 @@ setMethod( "show", "C++Class", function(object){
 	    # skeleton
 	    f <- function( ){
 	        res <- .External( "Class__invoke_method", xp , m, .self@pointer, PACKAGE = "Rcpp" )
-	        res
+	        # TODO: update Class__invoke_method so that it does not create a list
+	        #       list( void, result ) since we already know that information
+	        res$result
 	    }
 	    
 	    if( ar <- arity[[ m ]] ){
