@@ -71,6 +71,7 @@ public:
 	virtual std::string property_class(const std::string& ) throw(std::range_error){ return "" ; }
 	virtual Rcpp::IntegerVector methods_arity(){ return Rcpp::IntegerVector(0) ; }
 	virtual Rcpp::LogicalVector methods_voidness(){ return Rcpp::LogicalVector(0); }
+	virtual Rcpp::List property_classes(){ return Rcpp::List(0); }
 	
 	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
@@ -281,6 +282,19 @@ public:
 		for( int i=0; i<n; i++, ++it){
 			out[i] = it->first ;
 		} 
+		return out ;
+	}
+	
+	Rcpp::List property_classes(){
+		int n = properties.size() ;
+		Rcpp::CharacterVector pnames(n) ;
+		Rcpp::List out(n) ;
+		typename PROPERTY_MAP::iterator it = properties.begin( ) ;
+		for( int i=0; i<n; i++, ++it){
+			pnames[i] = it->first ;
+			out[i] = it->second->get_class() ; 
+		} 
+		out.names() = pnames ;
 		return out ;
 	}
 	
