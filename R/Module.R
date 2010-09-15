@@ -24,6 +24,10 @@ setClass( "C++Class",
 	representation( pointer = "externalptr", module = "externalptr" ), 
 	contains = "character"
 	)
+setClass( "C++ClassRepresentation", 
+    representation( pointer = "externalptr" ), 
+    contains = "classRepresentation" )
+setClass( "C++Property" )	
 setClass( "C++Object", 
 	representation( 
 		module = "externalptr", 
@@ -160,26 +164,26 @@ MethodInvoker <- function( x, name ){
 	}
 }
 
-dollar_cppobject <- function(x, name){
-	if( .Call( "Class__has_method", x@cppclass, name, PACKAGE = "Rcpp" ) ){
-		MethodInvoker( x, name )
-	} else if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ) {
-		.Call( "CppClass__get", x@cppclass, x@pointer, name, PACKAGE = "Rcpp" )
-	} else {
-		stop( "no such method or property" )
-	}
-}
-
-setMethod( "$", "C++Object", dollar_cppobject )
-
-dollargets_cppobject <- function(x, name, value){
-	if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ){
-		.Call( "CppClass__set", x@cppclass, x@pointer, name, value, PACKAGE = "Rcpp" )
-	}
-	x
-}
-
-setReplaceMethod( "$", "C++Object", dollargets_cppobject )
+# dollar_cppobject <- function(x, name){
+# 	if( .Call( "Class__has_method", x@cppclass, name, PACKAGE = "Rcpp" ) ){
+# 		MethodInvoker( x, name )
+# 	} else if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ) {
+# 		.Call( "CppClass__get", x@cppclass, x@pointer, name, PACKAGE = "Rcpp" )
+# 	} else {
+# 		stop( "no such method or property" )
+# 	}
+# }
+# 
+# setMethod( "$", "C++Object", dollar_cppobject )
+# 
+# dollargets_cppobject <- function(x, name, value){
+# 	if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ){
+# 		.Call( "CppClass__set", x@cppclass, x@pointer, name, value, PACKAGE = "Rcpp" )
+# 	}
+# 	x
+# }
+# 
+# setReplaceMethod( "$", "C++Object", dollargets_cppobject )
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ){
     if(is(module, "Module")) {
@@ -231,31 +235,90 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                             where <- .GlobalEnv # or???
 			CLASS <- classes[[i]]
 			clname <- as.character(CLASS)
-			setClass( clname, contains = "C++Object", where = where )
-			setMethod( "initialize",clname, function(.Object, ...){
+			
+			interface <- sprintf( "interface_%s", clname )
+			setClass( interface, where = where )
+			cdef <- getClassDef( interface, where = where )
+			classRep <- new( "C++ClassRepresentation", 
+			    pointer = CLASS@pointer, className = cdef@className, 
+			    virtual = TRUE, versionKey = cdef@versionKey, 
+			    package = cdef@package, 
+			    sealed  = cdef@sealed 
+			    # anything else
+			)
+			assignClassDef( interface, classRep, where)
+    
+			fc <- .Call( "CppClass__property_classes", CLASS@pointer, PACKAGE = "Rcpp" )
+			class_names <- names( fc )
+			fieldClasses <- fieldPrototypes <- fc
+			for( f in class_names ){
+			    fieldClasses[[ f ]] <- sprintf( "C++Property__%s__%s", clname, fc[[f]] )
+			    if( is.null( getClassDef( fieldClasses[[ f ]] ) ) ){
+			        setClass( fieldClasses[[ f ]], contains = "C++Property", where = where )
+			    }
+			    fieldPrototypes[[ f ]] <- new( fieldClasses[[ f ]] )
+			}
+			setRefClass( clname, 
+			    fieldClasses = fieldClasses,
+			    fieldPrototypes = fieldPrototypes , 
+			    contains = "C++Object", 
+			    interfaceClasses = classRep, 
+			    where = where
+			)
+			
+			imethods <- referenceMethods( classRep )
+				
+			initializer <- function(.Object, ...){
 				.Object <- callNextMethod()
+				
+				# why is this not already done ?
+				selfEnv <- .Object@.xData
+				assign( ".self", .Object, envir = selfEnv )
+				
+				# <hack>
+				rm( list = names(fieldClasses), envir = selfEnv )
+				for( prop in names(fieldClasses) ){
+				    caps <- methods:::firstCap( prop )
+				    binding_fun <- function(x){
+				        if( missing(x) ){
+				            GET( )
+				        } else {
+				            SET( x )
+				        }
+				    }
+				    e <- new.env()
+				    e[[ "GET" ]] <- imethods[[ caps$get ]]
+				    e[[ "SET" ]] <- imethods[[ caps$set ]]
+				    environment( e[["GET"]] ) <- selfEnv
+				    environment( e[["SET"]] ) <- selfEnv
+				    environment( binding_fun ) <- e
+				    
+				    makeActiveBinding( prop, binding_fun , selfEnv )
+				}
+				# </hack>
 				if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){
 					out <- new_CppObject_xp( CLASS, ... )
-					.Object@pointer <- out$xp
-					.Object@cppclass <- CLASS@pointer
-					.Object@module <- CLASS@module
+					.Object@pointer   <- out$xp
+					.Object@cppclass  <- CLASS@pointer
+					.Object@module    <- CLASS@module
 				}
 				.Object
-			} , where = where )
-			
-			METHODS <- .Call( "CppClass__methods" , CLASS@pointer , PACKAGE = "Rcpp" )
-			if( "[[" %in% METHODS ){
-				setMethod( "[[", clname, function(x, i, j, ...){
-					MethodInvoker( x, "[[" )( i )
-				}, where = where )
 			}
+			setMethod( "initialize",clname, initializer, where = where )
 			
-			if( "[[<-" %in% METHODS ){
-				setReplaceMethod( "[[", clname, function(x, i, j, ..., exact = TRUE, value ){
-					MethodInvoker( x, "[[<-" )( i, value )
-					x
-				}, where = where )
-			}
+			# METHODS <- .Call( "CppClass__methods" , CLASS@pointer , PACKAGE = "Rcpp" )
+			# if( "[[" %in% METHODS ){
+			# 	setMethod( "[[", clname, function(x, i, j, ...){
+			# 		MethodInvoker( x, "[[" )( i )
+			# 	}, where = where )
+			# }
+			#            
+			# if( "[[<-" %in% METHODS ){
+			# 	setReplaceMethod( "[[", clname, function(x, i, j, ..., exact = TRUE, value ){
+			# 		MethodInvoker( x, "[[<-" )( i, value )
+			# 		x
+			# 	}, where = where )
+			# }
 			
 		}
 	}
@@ -350,11 +413,13 @@ setMethod( "show", "C++Class", function(object){
 	mets <- sapply( met, function( m ){
 	    # skeleton
 	    f <- function( ){
-	        res <- .External( "Class__invoke_method", xp , m, .self@pointer, PACKAGE = "Rcpp" )
+	        res <- .External( "Class__invoke_method", .self@cppclass , m, .self@pointer, PACKAGE = "Rcpp" )
 	        # TODO: update Class__invoke_method so that it does not create a list
 	        #       list( void, result ) since we already know that information
 	        res$result
 	    }
+	    body( f )[[2]][[3]][[4]] <- m 
+	    
 	    
 	    if( ar <- arity[[ m ]] ){
 	        # change the formal arguments
@@ -362,7 +427,8 @@ setMethod( "show", "C++Class", function(object){
 	    
 	        # change the body
 	        b <- body( f )
-	        ext.call <- quote( .External( "Class__invoke_method", PACKAGE="Rcpp", xp, m, .self@pointer, ARG) )[ c(1:6, rep(7L, ar )) ]
+	        ext.call <- quote( .External( "Class__invoke_method", PACKAGE="Rcpp", .self@cppclass, m, .self@pointer, ARG) )[ c(1:6, rep(7L, ar )) ]
+	        ext.call[[5]] <- m
 	        for( i in seq_len(ar) ){
 	            ext.call[[ 6 + i ]] <- as.name( paste( "x", i, sep = "" ) )
 	        }
@@ -383,13 +449,15 @@ setMethod( "show", "C++Class", function(object){
 	accesors <- lapply( props, function(p){
 	    
 	    getter <- function(){
-	        .Call( "CppClass__get", xp, .self@pointer, p, PACKAGE = "Rcpp" )
+	        .Call( "CppClass__get", .self@cppclass, .self@pointer, p, PACKAGE = "Rcpp" )
 	    }
+	    body( getter )[[2]][[5]] <- p
 	    
 	    setter <- function(value){
-	        .Call( "CppClass__set", xp, .self@pointer, p, value, PACKAGE = "Rcpp" )
+	        .Call( "CppClass__set", .self@cppclass, .self@pointer, p, value, PACKAGE = "Rcpp" )
 	        invisible( NULL )
 	    }
+	    body( setter )[[2]][[5]] <- p
 	    
 	    res <- list( get = getter, set = setter )
 	    names( res ) <- methods:::firstCap( p )
@@ -399,7 +467,5 @@ setMethod( "show", "C++Class", function(object){
 	c( mets, accesors, recursive = TRUE )
     
 }
-setMethod( "referenceMethods", "C++Class", .referenceMethods__cppclass )
-
-
+setMethod( "referenceMethods", "C++ClassRepresentation", .referenceMethods__cppclass )
 
