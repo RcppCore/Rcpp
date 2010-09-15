@@ -258,16 +258,17 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 			    }
 			    fieldPrototypes[[ f ]] <- new( fieldClasses[[ f ]] )
 			}
+			dummy <- list() ; names(dummy) <- character(0)
 			setRefClass( clname, 
-			    fieldClasses = fieldClasses,
-			    fieldPrototypes = fieldPrototypes , 
+			    # fieldClasses = fieldClasses,
+			    fieldPrototypes = dummy , 
 			    contains = "C++Object", 
 			    interfaceClasses = classRep, 
 			    where = where
 			)
 			
 			imethods <- referenceMethods( classRep )
-				
+				  
 			initializer <- function(.Object, ...){
 				.Object <- callNextMethod()
 				
@@ -276,7 +277,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 				assign( ".self", .Object, envir = selfEnv )
 				
 				# <hack>
-				rm( list = names(fieldClasses), envir = selfEnv )
+				try( rm( list = names(fieldClasses), envir = selfEnv ), silent = TRUE )
 				for( prop in names(fieldClasses) ){
 				    caps <- methods:::firstCap( prop )
 				    binding_fun <- function(x){
