@@ -252,16 +252,17 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 			class_names <- names( fc )
 			fieldClasses <- fieldPrototypes <- fc
 			for( f in class_names ){
-			    fieldClasses[[ f ]] <- sprintf( "C++Property__%s__%s", clname, fc[[f]] )
-			    if( is.null( getClassDef( fieldClasses[[ f ]] ) ) ){
-			        setClass( fieldClasses[[ f ]], contains = "C++Property", where = where )
-			    }
-			    fieldPrototypes[[ f ]] <- new( fieldClasses[[ f ]] )
+			    # fieldClasses[[ f ]] <- sprintf( "C++Property__%s__%s", clname, fc[[f]] )
+			    # if( is.null( getClassDef( fieldClasses[[ f ]] ) ) ){
+			    #     setClass( fieldClasses[[ f ]], contains = "C++Property", where = where )
+			    # }
+			    # fieldPrototypes[[ f ]] <- new( fieldClasses[[ f ]] )
+			    fieldPrototypes[[ f ]] <- NA
+			    fieldClasses[[ f ]] <- "ANY"
 			}
-			dummy <- list() ; names(dummy) <- character(0)
 			setRefClass( clname, 
-			    # fieldClasses = fieldClasses,
-			    fieldPrototypes = dummy , 
+			    fieldClasses = fieldClasses,
+			    fieldPrototypes = fieldPrototypes , 
 			    contains = "C++Object", 
 			    interfaceClasses = classRep, 
 			    where = where
@@ -277,6 +278,8 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 				assign( ".self", .Object, envir = selfEnv )
 				
 				# <hack>
+				# we replace the prototypes by active bindings that 
+				# call the internal accessors
 				try( rm( list = names(fieldClasses), envir = selfEnv ), silent = TRUE )
 				for( prop in names(fieldClasses) ){
 				    caps <- methods:::firstCap( prop )
