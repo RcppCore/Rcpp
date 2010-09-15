@@ -158,7 +158,7 @@ class CppProperty {
 		
 		CppProperty(){} ;
 		virtual SEXP get(Class* ) throw(std::range_error){ throw std::range_error("cannot retrieve property"); }
-		virtual void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("cannot set property"); }
+		virtual void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("cannot set property"); }
 		virtual bool is_readonly(){ return false; }
 		virtual std::string get_class(){ return ""; }
 } ;

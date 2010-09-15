@@ -32,7 +32,7 @@ class CppProperty_GetMethod : public CppProperty<Class> {
 		CppProperty_GetMethod( GetMethod getter_ ) : getter(getter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
-		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
+		void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("property is read only") ; }		
 		bool is_readonly(){ return true ; }
 		
 	private:
@@ -51,7 +51,7 @@ class CppProperty_GetConstMethod : public CppProperty<Class> {
 		CppProperty_GetConstMethod( GetMethod getter_ ) : getter(getter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
-		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
+		void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("property is read only") ; }		
 		bool is_readonly(){ return true ; }
 
 	private:
@@ -71,7 +71,7 @@ class CppProperty_GetPointerMethod : public CppProperty<Class> {
 		CppProperty_GetPointerMethod( GetMethod getter_ ) : getter(getter_), class_name(DEMANGLE(PROP)){}
 		
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( getter(object) ) ; }
-		void set(Class*, SEXP) throw(std::range_error){ throw std::range_error("property is read only") ; }		
+		void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("property is read only") ; }		
 		bool is_readonly(){ return true ; }
 
 	private:
@@ -93,7 +93,7 @@ class CppProperty_GetMethod_SetMethod : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ; 
 		}
-		void set(Class* object, SEXP value) throw(std::range_error){ 
+		void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ 
 			(object->*setter)( 
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
@@ -117,7 +117,7 @@ class CppProperty_GetConstMethod_SetMethod : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ; 
 		}
-		void set(Class* object, SEXP value) throw(std::range_error){ 
+		void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ 
 			(object->*setter)( 
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
@@ -147,7 +147,7 @@ class CppProperty_GetMethod_SetPointer : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ;
 		}
-		void set(Class* object, SEXP value) throw(std::range_error){ 
+		void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ 
 			setter( object, 
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
@@ -172,7 +172,7 @@ class CppProperty_GetConstMethod_SetPointer : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( (object->*getter)() ) ;
 		}
-		void set(Class* object, SEXP value) throw(std::range_error){ 
+		void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ 
 			setter( object, 
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
@@ -199,7 +199,7 @@ class CppProperty_GetPointer_SetMethod : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( getter(object) ) ;
 		}
-		void set(Class* object, SEXP value) throw(std::range_error){ 
+		void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ 
 			(object->*setter)( 
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
@@ -227,7 +227,7 @@ class CppProperty_GetPointer_SetPointer : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ 
 			return Rcpp::wrap( getter(object) ) ;
 		}
-		void set(Class* object, SEXP value) throw(std::range_error){ 
+		void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ 
 			setter( object,
 				Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
 			) ;
