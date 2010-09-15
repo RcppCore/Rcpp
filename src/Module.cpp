@@ -272,6 +272,9 @@ namespace Rcpp{
 		mangled_name += "_" ;
 		mangled_name += cl->name ;
 		slot( ".Data" ) = mangled_name ;
+		
+		//// slot( "fields" ) = cl->fields() ;
+		
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
