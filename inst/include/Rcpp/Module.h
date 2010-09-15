@@ -53,6 +53,7 @@ public:
 	class_Base() :name(){} ;
 	class_Base(const char* name_) : name(name_){} ;
 	
+	virtual Rcpp::List fields(){ return Rcpp::List(0); }
 	virtual bool has_method( const std::string& ){ 
 		return false ; 
 	}
@@ -162,6 +163,17 @@ class CppProperty {
 		virtual bool is_readonly(){ return false; }
 		virtual std::string get_class(){ return ""; }
 } ;
+
+//// template <typename Class>
+//// class S4_field : public Rcpp::S4 {
+//// public:
+////     S4_field( CppProperty<Class>* p ) : S4( "C++Field" ){
+////         slot( "read_only" ) = p->is_readonly() ;
+////         slot( "cpp_class" ) = p->get_class();
+////         slot( "pointer" )   = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
+////     }
+//// } ;
+
 
 #include <Rcpp/module/Module_Property.h>
 
@@ -344,6 +356,19 @@ public:
 		return prop->set( XP(object), value ); 
 	VOID_END_RCPP
 	}
+	
+	//// Rcpp::List fields( ){
+	////     int n = properties.size() ;
+	//// 	Rcpp::CharacterVector pnames(n) ;
+	//// 	Rcpp::List out(n) ;
+	//// 	typename PROPERTY_MAP::iterator it = properties.begin( ) ;
+	//// 	for( int i=0; i<n; i++, ++it){
+	//// 		pnames[i] = it->first ;
+	//// 		out[i] = S4_field<Class>( it->second ) ; 
+	//// 	} 
+	//// 	out.names() = pnames ;
+	//// 	return out ;
+	//// }
 
 #include <Rcpp/module/Module_Field.h>
 
