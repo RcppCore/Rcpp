@@ -20,11 +20,20 @@
 ## Stands in for a reference class with those fields.
 setClass( "Module",  contains = "environment" )
 
-setClass( "C++Field", 
-    representation( 
-        pointer = "externalptr", 
-        cpp_class = "character", 
-        read_only = "logical"
+setRefClass( "C++Field", 
+    fieldClasses = list( 
+        pointer       = "externalptr", 
+        cpp_class     = "character", 
+        read_only     = "logical", 
+        class_pointer = "externalptr"
+    ),
+    refMethods = list( 
+        get = function(obj_xp){
+            .Call( "CppField__get", class_pointer, pointer, obj_xp, PACKAGE = "Rcpp" ) 
+        }, 
+        set = function(obj_xp, value){
+            .Call( "CppField__set", class_pointer, pointer, obj_xp, value, PACKAGE = "Rcpp" )
+        }
     )
 )
 

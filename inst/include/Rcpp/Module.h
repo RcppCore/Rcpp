@@ -53,7 +53,7 @@ public:
 	class_Base() :name(){} ;
 	class_Base(const char* name_) : name(name_){} ;
 	
-	virtual Rcpp::List fields(){ return Rcpp::List(0); }
+	virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
 	virtual bool has_method( const std::string& ){ 
 		return false ; 
 	}
@@ -174,12 +174,13 @@ class CppProperty {
 } ;
 
 template <typename Class>
-class S4_field : public Rcpp::S4 {
+class S4_field : public Rcpp::Reference {
 public:             
-    S4_field( CppProperty<Class>* p ) : S4( "C++Field" ){
-        slot( "read_only" ) = p->is_readonly() ;
-        slot( "cpp_class" ) = p->get_class();
-        slot( "pointer" )   = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
+    S4_field( CppProperty<Class>* p, SEXP class_xp ) : Reference( "C++Field" ){
+        field( "read_only" )     = p->is_readonly() ;
+        field( "cpp_class" )     = p->get_class();
+        field( "pointer" )       = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
+        field( "class_pointer" ) = class_xp ;
     }
 } ;
 
@@ -382,14 +383,14 @@ public:
 	}
 	
 	
-	Rcpp::List fields( ){
+	Rcpp::List fields( SEXP class_xp ){
 	    int n = properties.size() ;
 		Rcpp::CharacterVector pnames(n) ;
 		Rcpp::List out(n) ;
 		typename PROPERTY_MAP::iterator it = properties.begin( ) ;
 		for( int i=0; i<n; i++, ++it){
 			pnames[i] = it->first ;
-			out[i] = S4_field<Class>( it->second ) ; 
+			out[i] = S4_field<Class>( it->second, class_xp ) ; 
 		} 
 		out.names() = pnames ;
 		return out ;
