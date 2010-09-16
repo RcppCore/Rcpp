@@ -84,6 +84,15 @@ public:
 		throw std::range_error( "cannot set property" ) ;
 	}
 	
+	
+	virtual SEXP getProperty__( SEXP, SEXP ) {
+		throw std::range_error( "cannot retrieve property" ) ;
+	}
+	virtual void setProperty__( SEXP, SEXP, SEXP) {
+		throw std::range_error( "cannot set property" ) ;
+	}
+	
+	
 	std::string name ;
 } ;
 
@@ -166,7 +175,7 @@ class CppProperty {
 
 template <typename Class>
 class S4_field : public Rcpp::S4 {
-public:
+public:             
     S4_field( CppProperty<Class>* p ) : S4( "C++Field" ){
         slot( "read_only" ) = p->is_readonly() ;
         slot( "cpp_class" ) = p->get_class();
@@ -356,6 +365,22 @@ public:
 		return prop->set( XP(object), value ); 
 	VOID_END_RCPP
 	}
+	
+	
+	SEXP getProperty__( SEXP field_xp , SEXP object) {
+	BEGIN_RCPP
+		prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
+	    return prop->get( XP(object) ); 
+	END_RCPP
+	}
+	
+	void setProperty__( SEXP field_xp, SEXP object, SEXP value)  {
+	BEGIN_RCPP
+		prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
+	    return prop->set( XP(object), value ); 
+	VOID_END_RCPP
+	}
+	
 	
 	Rcpp::List fields( ){
 	    int n = properties.size() ;

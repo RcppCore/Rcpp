@@ -15,6 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.getField <- function( class_xp, field_xp, obj_xp ){
+    .Call( "CppField__get", class_xp, field_xp, obj_xp, PACKAGE = "Rcpp" )
+}
+.setField <- function( class_xp, field_xp, obj_xp, value ){
+    .Call( "CppField__set", class_xp, field_xp, obj_xp, value, PACKAGE = "Rcpp" )
+}
+
 setGeneric( "new" )
 
 internal_function <- function(pointer){
