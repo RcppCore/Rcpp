@@ -22,8 +22,31 @@
     .Call( "CppField__set", class_xp, field_xp, obj_xp, value, PACKAGE = "Rcpp" )
 }
 
-setGeneric( "new" )
+## setGeneric( "new" )
 
+## "Module" class as an environment with "pointer", "moduleName", and "packageName"
+## Stands in for a reference class with those fields.
+setClass( "Module",  contains = "environment" )
+setClass( "C++Class", 
+	representation( pointer = "externalptr", module = "externalptr" ), 
+	contains = "character"
+	)
+setClass( "C++ClassRepresentation", 
+    representation( pointer = "externalptr", generator = "refObjectGenerator" ), 
+    contains = "classRepresentation" )
+setClass( "C++Property" )	
+setClass( "C++Object", 
+	representation( 
+		module = "externalptr", 
+		cppclass = "externalptr", 
+		pointer = "externalptr"
+		)
+	)
+setClass( "C++Function", 
+	representation( pointer = "externalptr" ), 
+	contains = "function"
+)
+     
 internal_function <- function(pointer){
 	f <- function(xp){
 		force(xp)
@@ -38,6 +61,11 @@ internal_function <- function(pointer){
 setMethod( "show", "C++Function", function(object){
 	writeLines( sprintf( "internal C++ function <%s>", externalptr_address(object@pointer) ) )
 } )
+
+setMethod("$", "C++Class", function(x, name) {
+    x <- .getCppGenerator(x)
+    eval.parent(substitute(x$name))
+})
 
 ## FIXME:  should be set to something that will not segfault if accidentally
 ## called as a module pointer (but one hopes to intercept any such call)
@@ -87,7 +115,7 @@ setMethod( "$", "Module", function(x, name){
 			if( isTRUE( res$void ) ) invisible(NULL) else res$result	
 		}
 	} else if( .Call("Module__has_class", pointer, name, PACKAGE = "Rcpp" ) ){
-		.Call( "Module__get_class", pointer, name, PACKAGE = "Rcpp" )  
+		.Call( "Module__get_class", pointer, name, PACKAGE = "Rcpp" ) 
 	} else{
 		stop( "no such method or class in module" )
 	}
@@ -124,9 +152,12 @@ setGeneric( ".DollarNames" )
 }
 setMethod( ".DollarNames", "Module", .DollarNames.Module )
 
-new_CppObject_xp <- function(Class, ...){
-	xp <- .External( "class__newInstance", Class@module, Class@pointer, ..., PACKAGE = "Rcpp" )
-	cl <- .Call( "Class__name", Class@pointer, PACKAGE = "Rcpp" )
+## new_CppObject_temp <- function(Class, ...)
+##     .new_CppObject_xp(Class@pointer, Class@module, ...)
+
+new_CppObject_xp <- function(module, pointer, ...) {
+	xp <- .External( "class__newInstance", module, pointer, ..., PACKAGE = "Rcpp" )
+	cl <- .Call( "Class__name", pointer, PACKAGE = "Rcpp" )
 	
 	cpp <- getClass( "C++Object" )
 	known_cpp_classes <- cpp@subclasses
@@ -136,10 +167,14 @@ new_CppObject_xp <- function(Class, ...){
 	list( cl = cl, xp = xp )
 }
 
-setMethod( "new", "C++Class", function(Class,...){
-	out <- new_CppObject_xp( Class, ... )
-	new( as.character(Class), pointer = out$xp, cppclass = Class@pointer, module = Class@module )
-} )
+## [John] making new() a generic is bad:  a commonly used pardigm assumes that all relevant methods come from initialize()
+## Breaks the reference class new() method, & plausibly could fail if a C++ object was a slot of another class
+## changes to initializer below should achieve the desired effect.  At some point, we should clean up the 3(!) different class objects
+## associated with each C++ class object.  But no rush.
+## setMethod( "new", "C++Class", function(Class,...){
+## 	out <- new_CppObject_temp( Class, ... )
+## 	new( as.character(Class), pointer = out$xp, cppclass = Class@pointer, module = Class@module )
+## } )
 
 # MethodInvoker <- function( x, name ){
 # 	function(...){
@@ -147,6 +182,8 @@ setMethod( "new", "C++Class", function(Class,...){
 # 		if( isTRUE( res$void ) ) invisible(NULL) else res$result
 # 	}
 # }
+
+.emptyPointer <- new("externalptr") # used in initializer method for C++ objects
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ){
     if(is(module, "Module")) {
@@ -164,6 +201,8 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
             ## [romain] I don't think we actually can, external pointers 
             ## are stored as void*, they don't know what they are. Or we could 
             ## perhaps keep a vector of all known module pointers
+            ## [John]  One technique is to initialize the pointer to a known value
+            ## and just check whether it's been reset from that (bad) value
 		xp <- module
                 moduleName <- .Call( "Module__name", xp )
                 module <- new("Module", pointer = xp, packageName = PACKAGE,
@@ -209,7 +248,6 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 			    sealed  = cdef@sealed 
 			    # anything else
 			)
-			assignClassDef( interface, classRep, where)
     
 			fc <- .Call( "CppClass__property_classes", CLASS@pointer, PACKAGE = "Rcpp" )
 			class_names <- names( fc )
@@ -223,27 +261,43 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 			    fieldPrototypes[[ f ]] <- NA
 			    fieldClasses[[ f ]] <- "ANY"
 			}
-			setRefClass( clname, 
+			generator <- setRefClass( clname, 
 			    fieldClasses = fieldClasses,
 			    fieldPrototypes = fieldPrototypes , 
 			    contains = "C++Object", 
 			    interfaceClasses = classRep, 
 			    where = where
 			)
+                        classRep@generator <- generator
+                        classDef <- getClass(clname)
+                        ## non-public (static) fields in class representation
+                        fields <- classDef@fieldPrototypes
+                        assign(".pointer", CLASS@pointer, envir = fields)
+                        assign(".module", xp, envir = fields)
+                        assign(".CppClassName", clname, envir = fields)
+			assignClassDef( interface, classRep, where)
 			
 			imethods <- referenceMethods( classRep )
-				  
+
 			initializer <- function(.Object, ...){
-				.Object <- callNextMethod()
+                            if(identical(.Object@pointer, .emptyPointer)) {
+                                ## [John] is this different:  .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" )
+                                fields <- getClass(class(.Object))@fieldPrototypes
+                                xp <- new_CppObject_xp(fields$.module, fields$.pointer, ...)
+                                .Object@module <- fields$.module
+                                .Object@cppclass <- fields$.pointer
+                                .Object@pointer <- xp$xp # this doesn't need to be a list; only the xp component is used ? [John]
+                            }
+				## why was this here? [John] .Object <- callNextMethod()
 				
-				# why is this not already done ?
+				# why is this not already done? [Because the commented line above just picked up the class prototype - John]
 				selfEnv <- .Object@.xData
 				assign( ".self", .Object, envir = selfEnv )
 				
 				# <hack>
 				# we replace the prototypes by active bindings that 
 				# call the internal accessors
-				try( rm( list = names(fieldClasses), envir = selfEnv ), silent = TRUE )
+				tryCatch( rm( list = names(fieldClasses), envir = selfEnv ), warning = function(e)e, error = function(e) e)
 				for( prop in names(fieldClasses) ){
 				    caps <- methods:::firstCap( prop )
 				    binding_fun <- function(x){
@@ -263,12 +317,19 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 				    makeActiveBinding( prop, binding_fun , selfEnv )
 				}
 				# </hack>
-				if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){
-					out <- new_CppObject_xp( CLASS, ... )
-					.Object@pointer   <- out$xp
-					.Object@cppclass  <- CLASS@pointer
-					.Object@module    <- CLASS@module
-				}
+                        ## [John] ?? was the call below supposed to work by picking up the environment
+                        ## from the call to Module() and preserving it as the environment of the method so CLASS is defined?
+                        ## But the environment will be modified during the call, so CLASS will end up corresponding
+                        ## to the last class in the module.  Even if that worked, having the test this late means that the version of .Object
+                        ## assigned to selfEnv above will not be initialized.  (And wasn't)  I put a different test at the top
+                        ## of Module(), which seems to work.  If so, it's
+                        ## probablly cleaner to define initializer outside, so its environment is the namespace of Rcpp [John]
+				## if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){ 
+				## 	out <- new_CppObject_temp( CLASS, ... )
+				## 	.Object@pointer   <- out$xp
+				## 	.Object@cppclass  <- CLASS@pointer
+				## 	.Object@module    <- CLASS@module
+				## }
 				.Object
 			}
 			setMethod( "initialize",clname, initializer, where = where )
@@ -436,3 +497,29 @@ setMethod( "show", "C++Class", function(object){
 }
 setMethod( "referenceMethods", "C++ClassRepresentation", .referenceMethods__cppclass )
 
+
+#### alternative generator
+setRCppClass <- function(cppClass, className, ...,
+                         where = topenv(parent.frame())) {
+    pointer <- cppClass@pointer
+    setRefClass(className,
+                fieldClasses = list(pointer = "externalptr",
+                      cppClass = "C++Class"),
+                fieldPrototypes = list(pointer = pointer,
+                    cppClass = cppClass),
+                fieldReadOnly = c("pointer", "cppClass"),
+                interfaceClasses = cppClass,
+                where = where
+                )
+}
+
+cppInterfaceClass <- function(cppClass)
+    paste("interface", as.character(cppClass), sep = "_")
+
+.getCppGenerator <- function(cppClass) {
+    ## Requires the interface class to exist
+    ## We should guarantee that constructing the C++Class object
+    ## creates the interface class as well.
+    cc = getClass(cppInterfaceClass(cppClass))
+    cc@generator
+}

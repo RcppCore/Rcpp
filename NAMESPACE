@@ -13,7 +13,9 @@ importFrom( utils, .DollarNames, prompt, packageDescription )
 S3method( .DollarNames, "C++Object" )
 S3method( .DollarNames, "Module" )
 exportMethods( prompt, show )
-exportMethods( new, .DollarNames )
+## exportMethods( new, .DollarNames )
+exportMethods(.DollarNames)
 exportMethods( referenceMethods )
 
+export(setRCppClass)
 
