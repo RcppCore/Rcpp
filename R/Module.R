@@ -15,13 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.getField <- function( class_xp, field_xp, obj_xp ){
-    .Call( "CppField__get", class_xp, field_xp, obj_xp, PACKAGE = "Rcpp" )
-}
-.setField <- function( class_xp, field_xp, obj_xp, value ){
-    .Call( "CppField__set", class_xp, field_xp, obj_xp, value, PACKAGE = "Rcpp" )
-}
-
 ## setGeneric( "new" )
      
 internal_function <- function(pointer){
@@ -259,6 +252,15 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 			initializer <- function(.Object, ...){
                             if(identical(.Object@pointer, .emptyPointer)) {
                                 ## [John] is this different:  .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" )
+                                ## [Romain] internally it checks against 0
+                                ## RCPP_FUNCTION_1( bool, CppObject__needs_init, SEXP xp ){
+                                ## 	return EXTPTR_PTR(xp) == 0 ;
+                                ## }
+                                ## and since 
+                                ## > new( "externalptr" )
+                                ## <pointer: 0x0>
+                                ## I guess this is the same
+
                                 fields <- getClass(class(.Object))@fieldPrototypes
                                 xp <- new_CppObject_xp(fields$.module, fields$.pointer, ...)
                                 .Object@module <- fields$.module
@@ -266,8 +268,10 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                                 .Object@pointer <- xp$xp # this doesn't need to be a list; only the xp component is used ? [John]
                             }
 				## why was this here? [John] .Object <- callNextMethod()
+				## [Romain] not sure
 				
 				# why is this not already done? [Because the commented line above just picked up the class prototype - John]
+				# [romain] ouch !
 				selfEnv <- .Object@.xData
 				assign( ".self", .Object, envir = selfEnv )
 				
@@ -301,7 +305,9 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                         ## assigned to selfEnv above will not be initialized.  (And wasn't)  I put a different test at the top
                         ## of Module(), which seems to work.  If so, it's
                         ## probablly cleaner to define initializer outside, so its environment is the namespace of Rcpp [John]
-				## if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){ 
+                        ## [Romain] Ooops. That exposes a problem in how I test this : with only one class ...
+                        ##          I guess we can move initializer out
+				## if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){                                      
 				## 	out <- new_CppObject_temp( CLASS, ... )
 				## 	.Object@pointer   <- out$xp
 				## 	.Object@cppclass  <- CLASS@pointer
