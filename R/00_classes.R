@@ -47,7 +47,7 @@ setClass( "C++Class",
 	contains = "character"
 	)
 setClass( "C++ClassRepresentation", 
-    representation( pointer = "externalptr" ), 
+    representation( pointer = "externalptr", generator = "refObjectGenerator" ), 
     contains = "classRepresentation" )
 
 # might not actually use this
