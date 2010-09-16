@@ -91,6 +91,8 @@ extern "C" SEXP CppClass__complete( SEXP xp){
 	XP_Class cl(xp) ;
 	return cl->complete(); 
 }
+
+// that needs to eventually disappear as we will use the ones below
 RCPP_FUNCTION_3(SEXP, CppClass__get, XP_Class cl, SEXP obj, std::string name){
 	return cl->getProperty( name, obj ) ;
 }

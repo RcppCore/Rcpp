@@ -141,33 +141,12 @@ setMethod( "new", "C++Class", function(Class,...){
 	new( as.character(Class), pointer = out$xp, cppclass = Class@pointer, module = Class@module )
 } )
 
-MethodInvoker <- function( x, name ){
-	function(...){
-		res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ... , PACKAGE = "Rcpp" )
-		if( isTRUE( res$void ) ) invisible(NULL) else res$result
-	}
-}
-
-# dollar_cppobject <- function(x, name){
-# 	if( .Call( "Class__has_method", x@cppclass, name, PACKAGE = "Rcpp" ) ){
-# 		MethodInvoker( x, name )
-# 	} else if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ) {
-# 		.Call( "CppClass__get", x@cppclass, x@pointer, name, PACKAGE = "Rcpp" )
-# 	} else {
-# 		stop( "no such method or property" )
+# MethodInvoker <- function( x, name ){
+# 	function(...){
+# 		res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ... , PACKAGE = "Rcpp" )
+# 		if( isTRUE( res$void ) ) invisible(NULL) else res$result
 # 	}
 # }
-# 
-# setMethod( "$", "C++Object", dollar_cppobject )
-# 
-# dollargets_cppobject <- function(x, name, value){
-# 	if( .Call("Class__has_property", x@cppclass, name, PACKAGE = "Rcpp" ) ){
-# 		.Call( "CppClass__set", x@cppclass, x@pointer, name, value, PACKAGE = "Rcpp" )
-# 	}
-# 	x
-# }
-# 
-# setReplaceMethod( "$", "C++Object", dollargets_cppobject )
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ){
     if(is(module, "Module")) {
