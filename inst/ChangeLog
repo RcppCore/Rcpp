@@ -5,6 +5,13 @@
     * inst/Rcpp/Module.h: added C++ class S4_field that builds S4 objects of 
     class C++Field. Build the list of fields as part of the creation of the 
     C++Class objects
+    
+    * src/Module.cpp: .Call functions CppField__get and CppField__set to get/set
+    values of an object's field using external pointers directly (no std::map
+    lookup internally)
+    
+    * R/Module.R: (unexported) functions .getField and .setField that 
+    call CppField__get and CppField__set
 
 2010-09-15  Romain Francois <romain@r-enthusiasts.com>
 

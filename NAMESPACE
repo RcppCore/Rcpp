@@ -14,7 +14,6 @@ S3method( .DollarNames, "C++Object" )
 S3method( .DollarNames, "Module" )
 exportMethods( prompt, show )
 exportMethods( new, .DollarNames )
-
 exportMethods( referenceMethods )
 
 
