@@ -33,6 +33,7 @@ setRefClass( "C++Field",
         }, 
         set = function(obj_xp, value){
             .Call( "CppField__set", class_pointer, pointer, obj_xp, value, PACKAGE = "Rcpp" )
+            invisible( NULL )
         }
     )
 )
