@@ -85,7 +85,7 @@ namespace Rcpp {
     	
     	SEXP call = ::Rf_lcons( 
     	    R_DollarSymbol, 
-    	    Rf_cons( asSexp(), 
+    	    Rf_cons( const_cast<Reference&>(parent).asSexp() , 
     	        Rf_cons( 
     	            Rf_mkString( field_name.c_str() ),
     	            R_NilValue 
@@ -96,15 +96,16 @@ namespace Rcpp {
     
     void Reference::FieldProxy::set( SEXP x) const {
     	// TODO: set the field
-        
-        // // the SEXP might change (.Data)
-    	// SEXP new_obj = PROTECT( R_do_slot_assign( 
-    	// 	parent, 
-    	// 	Rf_install( slot_name.c_str() ), 
-    	// 	x
-    	// 	) ) ;
-    	// const_cast<RObject&>(parent).setSEXP( new_obj ) ;
-    	// UNPROTECT(1) ;  
+        SEXP call = ::Rf_lcons( 
+    	    Rf_install( "$<-") , 
+    	    Rf_cons( const_cast<Reference&>(parent).asSexp() , 
+    	        Rf_cons( 
+    	            Rf_mkString( field_name.c_str() ),
+    	            Rf_cons( 
+    	               x,
+    	               R_NilValue 
+    	            ) ) ) ) ;
+    	const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) );	            
     }
 
 	
