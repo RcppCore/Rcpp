@@ -286,7 +286,7 @@ namespace Rcpp{
 		mangled_name += cl->name ;
 		slot( ".Data" ) = mangled_name ;
 		
-		slot( "fields" ) = cl->fields() ;
+		slot( "fields" ) = cl->fields( clxp.asSexp() ) ;
 		
 	}
 

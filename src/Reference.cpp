@@ -65,14 +65,8 @@ namespace Rcpp {
 		}
 	}
 	
-	                  
-	
 	Reference::FieldProxy::FieldProxy( const Reference& v, const std::string& name) throw(no_such_field) : 
-	    parent(v), field_name(name) {
-    	if( !R_has_slot( v, Rf_install(name.c_str())) ){
-    		throw no_such_slot() ; 
-    	}
-    }
+	    parent(v), field_name(name) {}
 
     Reference::FieldProxy& Reference::FieldProxy::operator=(const FieldProxy& rhs){
     	set( rhs.get() ) ;
@@ -108,5 +102,8 @@ namespace Rcpp {
     	const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) );	            
     }
 
+    Reference::FieldProxy Reference::field( const std::string& name) const {
+        return FieldProxy( *this, name );
+    }
 	
 } // namespace Rcpp
