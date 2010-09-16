@@ -17,29 +17,6 @@
 
 setGeneric( "new" )
 
-## "Module" class as an environment with "pointer", "moduleName", and "packageName"
-## Stands in for a reference class with those fields.
-setClass( "Module",  contains = "environment" )
-setClass( "C++Class", 
-	representation( pointer = "externalptr", module = "externalptr" ), 
-	contains = "character"
-	)
-setClass( "C++ClassRepresentation", 
-    representation( pointer = "externalptr" ), 
-    contains = "classRepresentation" )
-setClass( "C++Property" )	
-setClass( "C++Object", 
-	representation( 
-		module = "externalptr", 
-		cppclass = "externalptr", 
-		pointer = "externalptr"
-		)
-	)
-setClass( "C++Function", 
-	representation( pointer = "externalptr" ), 
-	contains = "function"
-)
-     
 internal_function <- function(pointer){
 	f <- function(xp){
 		force(xp)

@@ -5,7 +5,7 @@ export(Rcpp.package.skeleton)
 
 importFrom( utils, capture.output, assignInNamespace )
 
-exportClasses( Module, "C++Class", "C++Object", "C++Function", 
+exportClasses( Module, "C++Field", "C++Class", "C++Object", "C++Function", 
     "C++Property", "C++ClassRepresentation" )
 export( Module )
 

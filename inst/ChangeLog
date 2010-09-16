@@ -1,3 +1,11 @@
+2010-09-16  Romain Francois <romain@r-enthusiasts.com>
+
+    * R/00_classes.R: moving classes definition here
+    
+    * inst/Rcpp/Module.h: added C++ class S4_field that builds S4 objects of 
+    class C++Field. Build the list of fields as part of the creation of the 
+    C++Class objects
+
 2010-09-15  Romain Francois <romain@r-enthusiasts.com>
 
     * DESCRIPTION: added the declaration MinimumSvnRev to control which version
