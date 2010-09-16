@@ -81,9 +81,17 @@ namespace Rcpp {
     
     
     SEXP Reference::FieldProxy::get() const {
-    	// TODO: get the field
-        return R_NilValue ;
-        // return R_do_slot( parent, Rf_install( slot_name.c_str() ) ) ;	
+    	// TODO: get the field  
+    	
+    	SEXP call = ::Rf_lcons( 
+    	    R_DollarSymbol, 
+    	    Rf_cons( asSexp(), 
+    	        Rf_cons( 
+    	            Rf_mkString( field_name.c_str() ),
+    	            R_NilValue 
+    	            ) ) ) ;
+    	
+    	return Rcpp::internal::try_catch( call ) ;
     }
     
     void Reference::FieldProxy::set( SEXP x) const {
