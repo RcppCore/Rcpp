@@ -12,6 +12,11 @@
     
     * R/Module.R: (unexported) functions .getField and .setField that 
     call CppField__get and CppField__set
+    
+    * inst/include/Rcpp/Reference.h: skeleton for a Rcpp::Reference class that 
+    will help dealing with reference classes on the C++ side
+    
+    * src/Reference.cpp: implementation (needs update)
 
 2010-09-15  Romain Francois <romain@r-enthusiasts.com>
 

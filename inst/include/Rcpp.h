@@ -37,6 +37,7 @@
 #include <Rcpp/Named.h>
 
 #include <Rcpp/S4.h>
+#include <Rcpp/Reference.h>
 #include <Rcpp/clone.h>
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>
