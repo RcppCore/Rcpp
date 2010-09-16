@@ -18,6 +18,7 @@ Information about an internal c++ class.
   	\item{\code{.Data}:}{mangled name of the class}
     \item{\code{pointer}:}{external pointer to the internal infomation}
     \item{\code{module}:}{external pointer to the module}
+    \item{\code{fields}:}{list of \linkS4class{C++Field} objects}
   }
 }
 \section{Methods}{
