@@ -1,3 +1,11 @@
+0.8.7   (future)
+
+    o   new Rcpp::Reference class, that allows internal manipulation of R 2.12.0
+        reference classes. The class exposes a constructor that takes the name
+        of the target reference class and a field(string) method that implements
+        the proxy pattern to get/set reference fields using callbacks to the 
+        R operators "$" and "$<-" in order to preserve the R-level encapsulation
+
 0.8.6   2010-09-09
 
     o	new macro RCPP_VERSION and Rcpp_Version to allow conditional compiling
