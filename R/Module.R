@@ -102,45 +102,39 @@ new_CppObject_xp <- function(module, pointer, ...) {
 #          field
 cpp_object_initializer <- function(CLASS){
     function(.Object, ...){
+    	selfEnv <- as.environment(.Object)
+        ## generate the C++-side object and store its pointer, etc.
         if(identical(.Object@pointer, .emptyPointer)) {
-            ## [John] is this different:  .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" )
-            ## [Romain] internally it checks against 0
-            ## RCPP_FUNCTION_1( bool, CppObject__needs_init, SEXP xp ){
-            ## 	return EXTPTR_PTR(xp) == 0 ;
-            ## }
-            ## and since 
-            ## > new( "externalptr" )
-            ## <pointer: 0x0>
-            ## I guess this is the same
-        
             fields <- getClass(class(.Object))@fieldPrototypes
+            pointer <- new_CppObject_xp(fields$.module, fields$.pointer, ...)
+            assign(".module", fields$.module, envir = selfEnv)
+            assign(".pointer", pointer, envir = selfEnv)
+            assign(".cppclass", fields$.pointer, envir = selfEnv)
+            ## <fixme> these should not be needed
             .Object@module <- fields$.module
             .Object@cppclass <- fields$.pointer
-            .Object@pointer <- new_CppObject_xp(fields$.module, fields$.pointer, ...)
+            .Object@pointer <- pointer
+            ##</fixme>
         }
-    	selfEnv <- .Object@.xData
-    	assign( ".self", .Object, envir = selfEnv )
-    	
-    	# <hack>
-    	# we replace the prototypes by active bindings that 
-    	# call the internal accessors
+        ## for the C++ fields (only), create active bindings
     	fields <- CLASS@fields
     	fields_names <- names( fields )
-    	tryCatch( rm( list = fields_names, envir = selfEnv ), warning = function(e)e, error = function(e) e)
     	binding_maker <- function( FIELD ){
-    	    function( x ){
-    	        .self <- get( ".self", get("envir", sys.frame(-1L) ) )
+    	    f <- function( x ) NULL
+            body(f) <- substitute({
+                fieldPtr <- FIELD
     	        if( missing( x ) ){
-    	            FIELD$get( .self@pointer )
+    	            fieldPtr$get( .pointer )
     	        } else {
-    	            FIELD$set( .self@pointer, x )
+    	            fieldPtr$set( .pointer, x )
     	        }
-    	    }
+    	    }, list(FIELD = FIELD))
+            environment(f) <- selfEnv
+            f
     	}
     	for( i in seq_along(fields) ){
     	    makeActiveBinding( fields_names[i], binding_maker( fields[[i]] ) , selfEnv )
     	}
-    	# </hack>
     	.Object
     }
 }
@@ -189,53 +183,53 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         }
 	classes <- .Call( "Module__classes_info", xp, PACKAGE = "Rcpp" )
 	
-	for( i in seq_along(classes) ){
+    for( i in seq_along(classes) ){
         ## We need a general strategy for assigning class defintions
         ## since delaying the initialization of the module causes
         ## where to be the Rcpp namespace:
         if(environmentIsLocked(where))
             where <- .GlobalEnv # or???
-		CLASS <- classes[[i]]
-		clname <- as.character(CLASS)
-		
-		interface <- cppInterfaceClass( clname )
-		setClass( interface, where = where )
-		cdef <- getClassDef( interface, where = where )
-		classRep <- new( "C++ClassRepresentation", 
-		    # grab the data from the generated classRepresentation
-		    className = cdef@className, 
-		    virtual = TRUE, 
-		    versionKey = cdef@versionKey, 
-		    package = cdef@package, 
-		    sealed  = cdef@sealed, 
-		    
-		    # Rcpp specific information
-		    pointer = CLASS@pointer, 
-		    cpp_fields = CLASS@fields, 
-		    cpp_methods = CLASS@methods
-		    # anything else ?
-		)
-		
-		# [romain] perhaps we should have something like "C++Property" 
-		#          instead of "ANY" with appropriate setAs/setIs methods
-		#          or maybe change setRefClass so that it takes a "refFields"
-		#          argument instead of the trio fieldClasses, fieldPrototypes, fieldReadOnly
-		fc <- .Call( "CppClass__property_classes", CLASS@pointer, PACKAGE = "Rcpp" )
-		class_names <- names( fc )
-		                  
-		fieldClasses <- rep( list( "ANY" ), length( class_names ) )
-		names( fieldClasses ) <- class_names
-		
-		fieldPrototypes <- rep( list( NA ), length( class_names ) )
-		names( fieldPrototypes ) <- class_names
-		
+        CLASS <- classes[[i]]
+        clname <- as.character(CLASS)
+        
+        interface <- cppInterfaceClass( clname )
+        setClass( interface, where = where )
+        cdef <- getClassDef( interface, where = where )
+        classRep <- new( "C++ClassRepresentation", 
+                                        # grab the data from the generated classRepresentation
+                        className = cdef@className, 
+                        virtual = TRUE, 
+                        versionKey = cdef@versionKey, 
+                        package = cdef@package, 
+                        sealed  = cdef@sealed, 
+                        
+                                        # Rcpp specific information
+                        pointer = CLASS@pointer, 
+                        cpp_fields = CLASS@fields, 
+                        cpp_methods = CLASS@methods
+                                        # anything else ?
+                        )
+        
+        ## [romain] perhaps we should have something like "C++Property" 
+        ##          instead of "ANY" with appropriate setAs/setIs methods
+        ##          or maybe change setRefClass so that it takes a "refFields"
+        ##          argument instead of the trio fieldClasses, fieldPrototypes, fieldReadOnly
+        fc <- .Call( "CppClass__property_classes", CLASS@pointer, PACKAGE = "Rcpp" )
+        class_names <- names( fc )
+        
+        fieldClasses <- rep( list( "ANY" ), length( class_names ) )
+        names( fieldClasses ) <- class_names
+        
+        fieldPrototypes <- rep( list( NA ), length( class_names ) )
+        names( fieldPrototypes ) <- class_names
+        
         generator <- setRefClass( clname, 
-            fieldClasses = fieldClasses,
-            fieldPrototypes = fieldPrototypes , 
-            contains = "C++Object", 
-            interfaceClasses = classRep, 
-            where = where
-        )
+                                 fieldClasses = fieldClasses,
+                                 fieldPrototypes = fieldPrototypes , 
+                                 contains = "C++Object", 
+                                 interfaceClasses = classRep, 
+                                 where = where
+                                 )
         classRep@generator <- generator
         classDef <- getClass(clname)
         ## non-public (static) fields in class representation
@@ -246,9 +240,9 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         assignClassDef( interface, classRep, where)
         
         setMethod( "initialize", clname, cpp_object_initializer(CLASS) , where = where )
-		
-	}
-	module
+        
+    }
+    module
 }
 
 .referenceMethods__cppclass <- function( classDef, where ){
@@ -259,7 +253,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	    here <- environment()
 	    eval( substitute(
             function(...) {
-                res <- MET$invoke( .self@pointer, ... )
+                res <- MET$invoke( .pointer, ... )
                 RES
             }, 
             list( 
