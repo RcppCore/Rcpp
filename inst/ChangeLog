@@ -1,4 +1,4 @@
-2010-09-16  Romain Francois <romain@r-enthusiasts.com>
+2010-09-17  Romain Francois <romain@r-enthusiasts.com>
 
     * src/Reference.cpp: new objects are created via a callback to R's new
     function, as R_do_new_object did always return the same environment
