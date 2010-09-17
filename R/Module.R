@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-## setGeneric( "new" )
-     
 internal_function <- function(pointer){
 	f <- function(xp){
 		force(xp)
@@ -88,9 +86,6 @@ setMethod( "$", "Module", function(x, name){
 	}
 } )
 
-## new_CppObject_temp <- function(Class, ...)
-##     .new_CppObject_xp(Class@pointer, Class@module, ...)
-
 new_CppObject_xp <- function(module, pointer, ...) {
 	.External( "class__newInstance", module, pointer, ..., PACKAGE = "Rcpp" )
 }
@@ -99,17 +94,6 @@ new_CppObject_xp <- function(module, pointer, ...) {
 ## Breaks the reference class new() method, & plausibly could fail if a C++ object was a slot of another class
 ## changes to initializer below should achieve the desired effect.  At some point, we should clean up the 3(!) different class objects
 ## associated with each C++ class object.  But no rush.
-## setMethod( "new", "C++Class", function(Class,...){
-## 	out <- new_CppObject_temp( Class, ... )
-## 	new( as.character(Class), pointer = out$xp, cppclass = Class@pointer, module = Class@module )
-## } )
-
-# MethodInvoker <- function( x, name ){
-# 	function(...){
-# 		res <- .External( "Class__invoke_method", x@cppclass, name, x@pointer, ... , PACKAGE = "Rcpp" )
-# 		if( isTRUE( res$void ) ) invisible(NULL) else res$result
-# 	}
-# }
 
 .emptyPointer <- new("externalptr") # used in initializer method for C++ objects
 
@@ -131,11 +115,6 @@ cpp_object_initializer <- function(CLASS){
             .Object@cppclass <- fields$.pointer
             .Object@pointer <- new_CppObject_xp(fields$.module, fields$.pointer, ...)
         }
-    	## why was this here? [John] .Object <- callNextMethod()
-    	## [Romain] not sure
-    	
-    	# why is this not already done? [Because the commented line above just picked up the class prototype - John]
-    	# [romain] ouch !
     	selfEnv <- .Object@.xData
     	assign( ".self", .Object, envir = selfEnv )
     	
@@ -159,22 +138,6 @@ cpp_object_initializer <- function(CLASS){
     	    makeActiveBinding( fields_names[i], binding_maker( fields[[i]] ) , selfEnv )
     	}
     	# </hack>
-                ## [John] ?? was the call below supposed to work by picking up the environment
-                ## from the call to Module() and preserving it as the environment of the method so CLASS is defined?
-                ## But the environment will be modified during the call, so CLASS will end up corresponding
-                ## to the last class in the module.  Even if that worked, having the test this late means that the version of .Object
-                ## assigned to selfEnv above will not be initialized.  (And wasn't)  I put a different test at the top
-                ## of Module(), which seems to work.  If so, it's
-                ## probablly cleaner to define initializer outside, so its environment is the namespace of Rcpp [John]
-                ## [Romain] Ooops. That exposes a problem in how I test this : with only one class ...
-                ##          I guess we can move initializer out
-                ##          Done !
-    	## if( .Call( "CppObject__needs_init", .Object@pointer, PACKAGE = "Rcpp" ) ){                                      
-    	## 	out <- new_CppObject_temp( CLASS, ... )
-    	## 	.Object@pointer   <- out$xp
-    	## 	.Object@cppclass  <- CLASS@pointer
-    	## 	.Object@module    <- CLASS@module
-    	## }
     	.Object
     }
 }
