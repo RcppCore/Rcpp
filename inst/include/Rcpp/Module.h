@@ -77,18 +77,10 @@ public:
 	virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
 	virtual ~class_Base(){}
 	
-	virtual SEXP getProperty( const std::string&, SEXP ) {
+	virtual SEXP getProperty( SEXP, SEXP ) {
 		throw std::range_error( "cannot retrieve property" ) ;
 	}
-	virtual void setProperty( const std::string&, SEXP, SEXP) {
-		throw std::range_error( "cannot set property" ) ;
-	}
-	
-	
-	virtual SEXP getProperty__( SEXP, SEXP ) {
-		throw std::range_error( "cannot retrieve property" ) ;
-	}
-	virtual void setProperty__( SEXP, SEXP, SEXP) {
+	virtual void setProperty( SEXP, SEXP, SEXP) {
 		throw std::range_error( "cannot set property" ) ;
 	}
 	
@@ -345,37 +337,14 @@ public:
 		return out ;
 	}
 	
-	SEXP getProperty( const std::string& name_, SEXP object) {
-	BEGIN_RCPP
-		typename PROPERTY_MAP::iterator it = properties.find( name_ ) ;
-		if( it == properties.end() ){
-			throw std::range_error( "no such property" ) ; 
-		}
-		prop_class* prop =  it->second ;
-		return prop->get( XP(object) ); 
-	END_RCPP
-	}
-	
-	void setProperty( const std::string& name_, SEXP object, SEXP value)  {
-	BEGIN_RCPP
-		typename PROPERTY_MAP::iterator it = properties.find( name_ ) ;
-		if( it == properties.end() ){
-			throw std::range_error( "no such property" ) ; 
-		}
-		prop_class* prop =  it->second ;
-		return prop->set( XP(object), value ); 
-	VOID_END_RCPP
-	}
-	
-	
-	SEXP getProperty__( SEXP field_xp , SEXP object) {
+	SEXP getProperty( SEXP field_xp , SEXP object) {
 	BEGIN_RCPP
 		prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
 	    return prop->get( XP(object) ); 
 	END_RCPP
 	}
 	
-	void setProperty__( SEXP field_xp, SEXP object, SEXP value)  {
+	void setProperty( SEXP field_xp, SEXP object, SEXP value)  {
 	BEGIN_RCPP
 		prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
 	    return prop->set( XP(object), value ); 
