@@ -92,22 +92,13 @@ extern "C" SEXP CppClass__complete( SEXP xp){
 	return cl->complete(); 
 }
 
-// that needs to eventually disappear as we will use the ones below
-RCPP_FUNCTION_3(SEXP, CppClass__get, XP_Class cl, SEXP obj, std::string name){
-	return cl->getProperty( name, obj ) ;
-}
-RCPP_FUNCTION_4(SEXP, CppClass__set, XP_Class cl, SEXP obj, std::string name, SEXP value){
-	cl->setProperty( name, obj, value ) ;
-	return R_NilValue ;
-}
-
 // these operate directly on the external pointers, rather than 
 // looking up the property in the map
 RCPP_FUNCTION_3(SEXP, CppField__get, XP_Class cl, SEXP field_xp, SEXP obj){
-	return cl->getProperty__( field_xp, obj ) ;
+	return cl->getProperty( field_xp, obj ) ;
 }
 RCPP_FUNCTION_4(SEXP, CppField__set, XP_Class cl, SEXP field_xp, SEXP obj, SEXP value){
-	cl->setProperty__( field_xp, obj, value ) ;
+	cl->setProperty( field_xp, obj, value ) ;
 	return R_NilValue ;
 }
 
