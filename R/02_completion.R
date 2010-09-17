@@ -1,0 +1,36 @@
+# Copyright (C)        2010 John Chambers, Dirk Eddelbuettel and Romain Francois
+#
+# This file is part of Rcpp.
+#
+# Rcpp is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# Rcpp is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+setGeneric( ".DollarNames" )
+.DollarNames.Module <- function(x, pattern){
+	grep( pattern , .Call( "Module__complete", x@pointer, PACKAGE = "Rcpp"), value = TRUE )	
+}
+setMethod( ".DollarNames", "Module", .DollarNames.Module )
+
+# completion for C++ objects
+# do we actually need this or do we get it for free via setRefClass, etc ...
+setGeneric( "complete", function(x) standardGeneric("complete") )
+setMethod( "complete", "C++Object", function(x){
+	xp <- x@cppclass
+	.Call( "CppClass__complete" , xp , PACKAGE = "Rcpp" )
+} )
+
+".DollarNames.C++Object" <- function( x, pattern ){
+	grep( pattern, complete(x), value = TRUE )
+}
+setMethod( ".DollarNames", "C++Object", `.DollarNames.C++Object` )
+

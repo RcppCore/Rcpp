@@ -28,9 +28,6 @@ internal_function <- function(pointer){
 	o@pointer <- pointer
 	o
 }
-setMethod( "show", "C++Function", function(object){
-	writeLines( sprintf( "internal C++ function <%s>", externalptr_address(object@pointer) ) )
-} )
 
 setMethod("$", "C++Class", function(x, name) {
     x <- .getCppGenerator(x)
@@ -90,37 +87,6 @@ setMethod( "$", "Module", function(x, name){
 		stop( "no such method or class in module" )
 	}
 } )
-
-setMethod( "show", "Module", function( object ){
-    pointer <- .getModulePointer(object, FALSE)
-    if(identical(pointer, .badModulePointer)) {
-        object <- as.environment(object) ## not needed when 2.12.0 arrives
-        txt <- sprintf("Uninitialized module named \"%s\" from package \"%s\"",
-                       get("moduleName", envir = object),
-                       get("packageName", envir = object))
-        writeLines(txt)
-    }
-    else {
-	info <- .Call( "Module__funtions_arity", pointer, PACKAGE = "Rcpp" )
-	name <- .Call( "Module__name", pointer )
-	txt <- sprintf( "Rcpp module '%s' \n\t%d functions: ", name, length(info) )
-	writeLines( txt )                       
-	txt <- sprintf( "%15s : %d arguments", names(info), info )
-	writeLines( txt )
-	                                                     
-	info <- .Call( "Module__classes_info", pointer, PACKAGE = "Rcpp" )
-	txt <- sprintf( "\n\t%d classes : ", length(info) )
-	writeLines( txt )
-	txt <- sprintf( "%15s ", names(info) )
-	writeLines( txt )
-    }
-} )
-
-setGeneric( ".DollarNames" )
-.DollarNames.Module <- function(x, pattern){
-	grep( pattern , .Call( "Module__complete", x@pointer, PACKAGE = "Rcpp"), value = TRUE )	
-}
-setMethod( ".DollarNames", "Module", .DollarNames.Module )
 
 ## new_CppObject_temp <- function(Class, ...)
 ##     .new_CppObject_xp(Class@pointer, Class@module, ...)
@@ -279,7 +245,11 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
     
 			fc <- .Call( "CppClass__property_classes", CLASS@pointer, PACKAGE = "Rcpp" )
 			class_names <- names( fc )
-			
+			                  
+			# [romain] perhaps we should have something like "C++Property" 
+			#          instead of "ANY" with appropriate setAs/setIs methods
+			#          or maybe change setRefClass so that it takes a "refFields"
+			#          argument instead of the trio fieldClasses, fieldPrototypes, fieldReadOnly
 			fieldClasses <- rep( list( "ANY" ), length( class_names ) )
 			names( fieldClasses ) <- class_names
 			
@@ -324,84 +294,6 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	}
 	module
 }
-
-setGeneric( "complete", function(x) standardGeneric("complete") )
-setMethod( "complete", "C++Object", function(x){
-	xp <- x@cppclass
-	.Call( "CppClass__complete" , xp , PACKAGE = "Rcpp" )
-} )
-
-".DollarNames.C++Object" <- function( x, pattern ){
-	grep( pattern, complete(x), value = TRUE )
-}
-setMethod( ".DollarNames", "C++Object", `.DollarNames.C++Object` )
-
-setGeneric( "functions", function(object, ...) standardGeneric( "functions" ) )
-setMethod( "functions", "Module", function(object, ...){
-    pointer <- .getModulePointer(object)
-    if(identical(pointer, .badModulePointer))
-        stop(gettextf("Module \"%s\" has not been intialized:  try Module(object)",
-                      get("moduleName", envir = as.environment(object))), domain = NA)
-    else
-	.Call( "Module__funtions_arity", pointer, PACKAGE = "Rcpp" )
-} )
-
-setGeneric( "prompt" )
-setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ...){
-	lines <- readLines( system.file( "prompt", "module.Rd", package = "Rcpp" ) )
-	if( is.null(name) ) name <- .Call( "Module__name", object@pointer, PACKAGE = "Rcpp" )
-	if( is.null(filename) ) filename <- sprintf( "%s-module.Rd", name )
-	lines <- gsub( "NAME", name, lines )
-	
-	info <- functions( object )
-	f.txt <- if( length( info ) ){
-		sprintf( "functions: \\\\describe{
-%s
-		}", paste( sprintf( "        \\\\item{%s}{ ~~ description of function %s ~~ }", names(info), names(info) ), collapse = "\n" ) )
-	} else {
-		"" 
-	}
-	lines <- sub( "FUNCTIONS", f.txt, lines )
-
-        ## at this point functions() would have failed if the
-        ## pointer in object was not valid
-        pointer <- .getModulePointer(object)
-	
-	classes <- .Call( "Module__classes_info", pointer, PACKAGE = "Rcpp" )
-	c.txt <- if( length( classes ) ){
-		sprintf( "classes: \\\\describe{
-%s
-		}", paste( sprintf( "        \\\\item{%s}{ ~~ description of class %s ~~ }", names(classes), names(classes) ), collapse = "\n" ) )
-	} else {
-		"" 
-	}
-	lines <- sub( "CLASSES", c.txt, lines )
-	
-	writeLines( lines, filename )
-	invisible(NULL)
-} )
-
-setMethod( "show", "C++Object", function(object){
-	txt <- sprintf( "C++ object <%s> of class '%s' <%s>", 
-		externalptr_address(object@pointer), 
-		.Call( "Class__name", object@cppclass, PACKAGE = "Rcpp" ), 
-		externalptr_address(object@cppclass)
-	)
-	writeLines( txt )
-} )
-
-setMethod( "show", "C++Class", function(object){
-	txt <- sprintf( "C++ class '%s' <%s>", 
-		.Call( "Class__name", object@pointer, PACKAGE = "Rcpp" ), 
-		externalptr_address(object@pointer) )
-	writeLines( txt )
-	
-	met <- .Call( "CppClass__methods", object@pointer, PACKAGE = "Rcpp" )
-	if( length( met ) ){
-		txt <- sprintf( "\n%d methods : \n%s", length(met), paste( sprintf("    %s", met), collapse = "\n") )
-		writeLines( txt )
-	}
-} )
 
 .referenceMethods__cppclass <- function( classDef, where ){
     xp <- classDef@pointer
