@@ -266,15 +266,12 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	voidness <- .Call( "CppClass__methods_voidness", xp, PACKAGE = "Rcpp" )
 	
 	mets <- sapply( met, function( m ){
-	    # skeleton
+	    # skeleton that gets modified below
 	    f <- function( ){
 	        res <- .External( "Class__invoke_method", .self@cppclass , m, .self@pointer, PACKAGE = "Rcpp" )
-	        # TODO: update Class__invoke_method so that it does not create a list
-	        #       list( void, result ) since we already know that information
-	        res$result
+	        res
 	    }
 	    body( f )[[2]][[3]][[4]] <- m 
-	    
 	    
 	    if( ar <- arity[[ m ]] ){
 	        # change the formal arguments
