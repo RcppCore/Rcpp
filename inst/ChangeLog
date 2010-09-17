@@ -1,5 +1,16 @@
 2010-09-16  Romain Francois <romain@r-enthusiasts.com>
 
+    * src/Reference.cpp: new objects are created via a callback to R's new
+    function, as R_do_new_object did always return the same environment
+    
+    * R/00_classes.R: new ref class C++Method to represent C++ methods and holding
+    their external pointers directly (same idea as C++Field)
+    
+    * inst/include/Rcpp/Module.h: internal support for C++Method (template class
+    S4_CppMethod)
+
+2010-09-16  Romain Francois <romain@r-enthusiasts.com>
+
     * R/00_classes.R: moving classes definition here
     
     * inst/Rcpp/Module.h: added C++ class S4_field that builds S4 objects of 

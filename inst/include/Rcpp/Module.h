@@ -54,6 +54,8 @@ public:
 	class_Base(const char* name_) : name(name_){} ;
 	
 	virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
+	virtual Rcpp::List getMethods(SEXP){ return Rcpp::List(0); }
+	
 	virtual bool has_method( const std::string& ){ 
 		return false ; 
 	}
@@ -66,6 +68,10 @@ public:
 	virtual SEXP invoke( const std::string&, SEXP, SEXP *, int ){ 
 		return R_NilValue ;
 	}
+	virtual SEXP invoke__( SEXP, SEXP, SEXP *, int ){ 
+		return R_NilValue ;
+	}
+	
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual Rcpp::CharacterVector property_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual bool property_is_readonly(const std::string& ) throw(std::range_error) { return false ; }
@@ -150,6 +156,18 @@ class CppMethod {
 		virtual bool is_void(){ return false ; }
 } ;
 
+template <typename Class>
+class S4_CppMethod : public Rcpp::Reference {
+public:             
+    S4_CppMethod( CppMethod<Class>* m, SEXP class_xp ) : Reference( "C++Method" ){
+        field( "void" )          = m->is_void() ;
+        field( "pointer" )       = Rcpp::XPtr< CppMethod<Class> >( m, false ) ;
+        field( "class_pointer" ) = class_xp ;
+        
+    }
+} ;
+
+
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
 
@@ -173,6 +191,8 @@ public:
         field( "cpp_class" )     = p->get_class();
         field( "pointer" )       = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
         field( "class_pointer" ) = class_xp ;
+        
+    
     }
 } ;
 
@@ -218,6 +238,19 @@ public:
 		return met->operator()( XP(object), args ) ;
 		END_RCPP	
 	}
+	
+	SEXP invoke__( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
+		BEGIN_RCPP
+		method_class* met = reinterpret_cast< method_class* >( EXTPTR_PTR( method_xp ) ) ;
+	    // maybe this is not needed as the R side handles it
+		if( met->nargs() > nargs ){
+		    Rprintf( "met->nargs() = %d\nnargs=%d\n", met->nargs(), nargs ) ;
+			throw std::range_error( "incorrect number of arguments" ) ; 	
+		}
+		return met->operator()( XP(object), args ); 
+		END_RCPP	
+	}
+	
 	
 	self& AddMethod( const char* name_, method_class* m){
 		singleton->methods.insert( PAIR( name_,m ) ) ;  
@@ -357,6 +390,19 @@ public:
 		for( int i=0; i<n; i++, ++it){
 			pnames[i] = it->first ;
 			out[i] = S4_field<Class>( it->second, class_xp ) ; 
+		} 
+		out.names() = pnames ;
+		return out ;
+	}
+
+	Rcpp::List getMethods( SEXP class_xp ){
+	    int n = methods.size() ;
+		Rcpp::CharacterVector pnames(n) ;
+		Rcpp::List out(n) ;
+		typename METHOD_MAP::iterator it = methods.begin( ) ;
+		for( int i=0; i<n; i++, ++it){
+			pnames[i] = it->first ;
+			out[i] = S4_CppMethod<Class>( it->second, class_xp ) ; 
 		} 
 		out.names() = pnames ;
 		return out ;
