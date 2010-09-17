@@ -72,8 +72,8 @@ setClass( "C++ClassRepresentation",
     ), 
     contains = "classRepresentation" )
 
-# might not actually use this
-setClass( "C++Property" )	
+# # might not actually use this
+# setClass( "C++Property" )	
 
 setClass( "C++Object", 
 	representation( 
