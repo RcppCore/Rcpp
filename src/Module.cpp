@@ -149,6 +149,7 @@ extern "C" SEXP class__newInstance(SEXP args){
    	return clazz->newInstance(cargs, nargs ) ;
 }
 
+// Deprecated in favour of the CppMethod__invoke
 extern "C" SEXP Class__invoke_method(SEXP args){
 	SEXP p = CDR(args) ;
 	
@@ -166,6 +167,32 @@ extern "C" SEXP Class__invoke_method(SEXP args){
    	
    	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
+
+extern "C" SEXP CppMethod__invoke(SEXP args){
+	SEXP p = CDR(args) ;
+	
+	// the external pointer to the class
+	XP_Class clazz( CAR(p) ) ; p = CDR(p);
+	
+	// the external pointer to the method
+	SEXP met = CAR(p) ; p = CDR(p) ;
+	
+	// the external pointer to the object
+	SEXP obj = CAR(p); p = CDR(p) ;
+	
+	// additional arguments, processed the same way as .Call does
+	SEXP cargs[MAX_ARGS] ;
+    int nargs = 0 ;
+   	for(; nargs<MAX_ARGS; nargs++){
+   		if( p == R_NilValue ) break ;
+   		cargs[nargs] = CAR(p) ;
+   		p = CDR(p) ;
+   	}
+   	
+   	return clazz->invoke__( met, obj, cargs, nargs ) ;
+}
+
+
 
 namespace Rcpp{
 	static Module* current_scope  ;
@@ -278,7 +305,7 @@ namespace Rcpp{
 		slot( ".Data" ) = mangled_name ;
 		
 		slot( "fields" ) = cl->fields( clxp.asSexp() ) ;
-		
+		slot( "methods" ) = cl->getMethods( clxp.asSexp() ) ; 
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {

@@ -1,21 +1,14 @@
 useDynLib(Rcpp)
 
 import( methods )
-export(Rcpp.package.skeleton)
+importFrom( utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription )
 
-importFrom( utils, capture.output, assignInNamespace )
-
-exportClasses( Module, "C++Field", "C++Class", "C++Object", "C++Function", 
+exportClasses( Module, "C++Field", "C++Method", "C++Class", "C++Object", "C++Function", 
     "C++Property", "C++ClassRepresentation" )
-export( Module )
 
-importFrom( utils, .DollarNames, prompt, packageDescription )
 S3method( .DollarNames, "C++Object" )
 S3method( .DollarNames, "Module" )
-exportMethods( prompt, show )
-## exportMethods( new, .DollarNames )
-exportMethods(.DollarNames)
-exportMethods( referenceMethods )
+exportMethods( prompt, show, .DollarNames, referenceMethods )
 
-export(setRCppClass)
+export( Module, setRCppClass, Rcpp.package.skeleton )
 

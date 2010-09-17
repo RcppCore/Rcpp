@@ -38,16 +38,38 @@ setRefClass( "C++Field",
     )
 )
 
+setRefClass( "C++Method", 
+    fieldClasses = list( 
+        pointer       = "externalptr", 
+        class_pointer = "externalptr", 
+        void          = "logical"
+        # perhaps something to deal with classes of input and output
+        # but this needs some work internally before
+    ), 
+    refMethods = list( 
+        invoke = function(obj_xp, ...){
+            .External( "CppMethod__invoke", class_pointer, pointer, obj_xp, ..., PACKAGE = "Rcpp" )    
+        }
+    )
+)
+
+
 setClass( "C++Class", 
 	representation( 
 	    pointer = "externalptr", 
 	    module  = "externalptr", 
-	    fields  = "list" 
+	    fields  = "list", 
+	    methods = "list"
 	), 
 	contains = "character"
 	)
 setClass( "C++ClassRepresentation", 
-    representation( pointer = "externalptr", generator = "refObjectGenerator" ), 
+    representation( 
+        pointer     = "externalptr", 
+        generator   = "refObjectGenerator", 
+        cpp_fields  = "list", 
+        cpp_methods = "list"
+    ), 
     contains = "classRepresentation" )
 
 # might not actually use this
