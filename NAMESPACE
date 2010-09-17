@@ -4,11 +4,14 @@ import( methods )
 importFrom( utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription )
 
 exportClasses( Module, "C++Field", "C++Method", "C++Class", "C++Object", "C++Function", 
-    "C++Property", "C++ClassRepresentation" )
+    "C++ClassRepresentation" # , "C++Property"
+    )
 
 S3method( .DollarNames, "C++Object" )
 S3method( .DollarNames, "Module" )
 exportMethods( prompt, show, .DollarNames, referenceMethods )
 
-export( Module, setRCppClass, Rcpp.package.skeleton )
+export( 
+    Module, Rcpp.package.skeleton # , setRCppClass
+)
 

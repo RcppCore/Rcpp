@@ -7,11 +7,12 @@
 \description{
 Metadata associated with a field of a class exposed through Rcpp modules
 }
-\section{Slots}{
+\section{Fields}{
   \describe{
     \item{\code{pointer}:}{external pointer to the internal (C++) object that represents fields}
     \item{\code{cpp_class}:}{(demangled) name of the C++ class of the field}
     \item{\code{read_only}:}{Is this field read only}
+    \item{\code{class_pointer}:}{external pointer to the class this field is from. }
   }
 }
 \section{Methods}{
