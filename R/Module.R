@@ -254,11 +254,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 .referenceMethods__cppclass <- function( classDef, where ){
     xp <- classDef@pointer
     cpp_methods <- classDef@cpp_methods
-    
-    # met <- .Call( "CppClass__methods", xp, PACKAGE = "Rcpp" )
-    # arity <- .Call( "CppClass__methods_arity", xp, PACKAGE = "Rcpp" )
-	# voidness <- .Call( "CppClass__methods_voidness", xp, PACKAGE = "Rcpp" )
-	
+
 	method_wrapper <- function( METHOD ){
 	    here <- environment()
 	    eval( substitute(
@@ -273,39 +269,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 	    ), here )
 	}
 	mets <- sapply( cpp_methods, method_wrapper )
-	
-	# mets <- sapply( cpp_methods, function( m ){
-	#     # skeleton that gets modified below
-	#     f <- function( ){
-	#         res <- .External( "Class__invoke_method", .self@cppclass , m, .self@pointer, PACKAGE = "Rcpp" )
-	#         res
-	#     }
-	#     body( f )[[2]][[3]][[4]] <- m 
-	#     
-	#     if( ar <- arity[[ m ]] ){
-	#         # change the formal arguments
-	#         formals( f ) <- structure( rep( alist( . = ), ar ), names = sprintf( "x%d", seq_len(ar) ) )
-	#     
-	#         # change the body
-	#         b <- body( f )
-	#         ext.call <- quote( .External( "Class__invoke_method", PACKAGE="Rcpp", .self@cppclass, m, .self@pointer, ARG) )[ c(1:6, rep(7L, ar )) ]
-	#         ext.call[[5]] <- m
-	#         for( i in seq_len(ar) ){
-	#             ext.call[[ 6 + i ]] <- as.name( paste( "x", i, sep = "" ) )
-	#         }
-	#         b[[2]][[3]] <- ext.call
-	#         body( f ) <- b
-	#     }
-	#     
-	#     if( voidness[[m]] ){
-	#         b <- body( f )
-	#         b[[3]] <- quote( invisible( NULL ) )
-	#         body( f ) <- b
-	#     }
-	#     
-	#     f
-	# } )
-	     
+		     
 	# [romain] commenting out fields get/set 
 	#          because they are not used anyway, they lose over the default 
 	#          getters and setters installed by setRefClass

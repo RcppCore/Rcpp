@@ -149,25 +149,6 @@ extern "C" SEXP class__newInstance(SEXP args){
    	return clazz->newInstance(cargs, nargs ) ;
 }
 
-// Deprecated in favour of the CppMethod__invoke
-extern "C" SEXP Class__invoke_method(SEXP args){
-	SEXP p = CDR(args) ;
-	
-	XP_Class clazz( CAR(p) ) ; p = CDR(p);
-	std::string met = Rcpp::as<std::string>( CAR(p) ) ; p = CDR(p) ;
-	SEXP obj = CAR(p); p = CDR(p) ;
-	
-	SEXP cargs[MAX_ARGS] ;
-    int nargs = 0 ;
-   	for(; nargs<MAX_ARGS; nargs++){
-   		if( p == R_NilValue ) break ;
-   		cargs[nargs] = CAR(p) ;
-   		p = CDR(p) ;
-   	}
-   	
-   	return clazz->invoke( met, obj, cargs, nargs ) ;
-}
-
 extern "C" SEXP CppMethod__invoke(SEXP args){
 	SEXP p = CDR(args) ;
 	
@@ -189,7 +170,7 @@ extern "C" SEXP CppMethod__invoke(SEXP args){
    		p = CDR(p) ;
    	}
    	
-   	return clazz->invoke__( met, obj, cargs, nargs ) ;
+   	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
 
 

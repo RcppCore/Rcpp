@@ -65,10 +65,7 @@ public:
 	virtual SEXP newInstance(SEXP *, int){ 
 		return R_NilValue;
 	}
-	virtual SEXP invoke( const std::string&, SEXP, SEXP *, int ){ 
-		return R_NilValue ;
-	}
-	virtual SEXP invoke__( SEXP, SEXP, SEXP *, int ){ 
+	virtual SEXP invoke( SEXP, SEXP, SEXP *, int ){ 
 		return R_NilValue ;
 	}
 	
@@ -225,21 +222,7 @@ public:
 		return out ;
 	}
 	
-	SEXP invoke( const std::string& method_name, SEXP object, SEXP *args, int nargs ){ 
-		BEGIN_RCPP
-		typename METHOD_MAP::iterator it = methods.find( method_name ) ;
-		if( it == methods.end() ){
-			throw std::range_error( "no such method" ) ; 
-		}
-		method_class* met =  it->second ;
-		if( met->nargs() > nargs ){
-			throw std::range_error( "incorrect number of arguments" ) ; 	
-		}
-		return met->operator()( XP(object), args ) ;
-		END_RCPP	
-	}
-	
-	SEXP invoke__( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
+	SEXP invoke( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
 		BEGIN_RCPP
 		method_class* met = reinterpret_cast< method_class* >( EXTPTR_PTR( method_xp ) ) ;
 	    // maybe this is not needed as the R side handles it
