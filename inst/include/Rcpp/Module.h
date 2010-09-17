@@ -215,10 +215,7 @@ public:
 		if( met->nargs() > nargs ){
 			throw std::range_error( "incorrect number of arguments" ) ; 	
 		}
-		return Rcpp::List::create( 
-				Rcpp::Named("result") = met->operator()( XP(object), args ), 
-				Rcpp::Named("void")   = met->is_void() 
-			) ;
+		return met->operator()( XP(object), args ) ;
 		END_RCPP	
 	}
 	
