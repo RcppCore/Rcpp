@@ -97,6 +97,9 @@ new_CppObject_xp <- function(module, pointer, ...) {
 
 .emptyPointer <- new("externalptr") # used in initializer method for C++ objects
 
+# [romain] this uses scoping to get access to the fields, but it might not be
+#          necessary, we can get them from the C++ClassRepresentation $ cpp_fields 
+#          field
 cpp_object_initializer <- function(CLASS){
     function(.Object, ...){
         if(identical(.Object@pointer, .emptyPointer)) {
@@ -185,117 +188,123 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                 return(module)
         }
 	classes <- .Call( "Module__classes_info", xp, PACKAGE = "Rcpp" )
-	if( length( classes ) ){
-		for( i in seq_along(classes) ){
-                    ## We need a general strategy for assigning class defintions
-                    ## since delaying the initialization of the module causes
-                    ## where to be the Rcpp namespace:
-                        if(environmentIsLocked(where))
-                            where <- .GlobalEnv # or???
-			CLASS <- classes[[i]]
-			clname <- as.character(CLASS)
-			
-			interface <- sprintf( "interface_%s", clname )
-			setClass( interface, where = where )
-			cdef <- getClassDef( interface, where = where )
-			classRep <- new( "C++ClassRepresentation", 
-			    pointer = CLASS@pointer, className = cdef@className, 
-			    virtual = TRUE, versionKey = cdef@versionKey, 
-			    package = cdef@package, 
-			    sealed  = cdef@sealed 
-			    # anything else ?
-			)
-    
-			fc <- .Call( "CppClass__property_classes", CLASS@pointer, PACKAGE = "Rcpp" )
-			class_names <- names( fc )
-			                  
-			# [romain] perhaps we should have something like "C++Property" 
-			#          instead of "ANY" with appropriate setAs/setIs methods
-			#          or maybe change setRefClass so that it takes a "refFields"
-			#          argument instead of the trio fieldClasses, fieldPrototypes, fieldReadOnly
-			fieldClasses <- rep( list( "ANY" ), length( class_names ) )
-			names( fieldClasses ) <- class_names
-			
-			fieldPrototypes <- rep( list( NA ), length( class_names ) )
-			names( fieldPrototypes ) <- class_names
-			
-			generator <- setRefClass( clname, 
-			    fieldClasses = fieldClasses,
-			    fieldPrototypes = fieldPrototypes , 
-			    contains = "C++Object", 
-			    interfaceClasses = classRep, 
-			    where = where
-			)
-                        classRep@generator <- generator
-                        classDef <- getClass(clname)
-                        ## non-public (static) fields in class representation
-                        fields <- classDef@fieldPrototypes
-                        assign(".pointer", CLASS@pointer, envir = fields)
-                        assign(".module", xp, envir = fields)
-                        assign(".CppClassName", clname, envir = fields)
-			assignClassDef( interface, classRep, where)
-			
-			imethods <- referenceMethods( classRep )
-
-			setMethod( "initialize",clname, cpp_object_initializer(CLASS) , where = where )
-			
-			# METHODS <- .Call( "CppClass__methods" , CLASS@pointer , PACKAGE = "Rcpp" )
-			# if( "[[" %in% METHODS ){
-			# 	setMethod( "[[", clname, function(x, i, j, ...){
-			# 		MethodInvoker( x, "[[" )( i )
-			# 	}, where = where )
-			# }
-			#            
-			# if( "[[<-" %in% METHODS ){
-			# 	setReplaceMethod( "[[", clname, function(x, i, j, ..., exact = TRUE, value ){
-			# 		MethodInvoker( x, "[[<-" )( i, value )
-			# 		x
-			# 	}, where = where )
-			# }
-			
-		}
+	
+	for( i in seq_along(classes) ){
+        ## We need a general strategy for assigning class defintions
+        ## since delaying the initialization of the module causes
+        ## where to be the Rcpp namespace:
+        if(environmentIsLocked(where))
+            where <- .GlobalEnv # or???
+		CLASS <- classes[[i]]
+		clname <- as.character(CLASS)
+		
+		interface <- cppInterfaceClass( clname )
+		setClass( interface, where = where )
+		cdef <- getClassDef( interface, where = where )
+		classRep <- new( "C++ClassRepresentation", 
+		    # grab the data from the generated classRepresentation
+		    className = cdef@className, 
+		    virtual = TRUE, 
+		    versionKey = cdef@versionKey, 
+		    package = cdef@package, 
+		    sealed  = cdef@sealed, 
+		    
+		    # Rcpp specific information
+		    pointer = CLASS@pointer, 
+		    cpp_fields = CLASS@fields, 
+		    cpp_methods = CLASS@methods
+		    # anything else ?
+		)
+		
+		# [romain] perhaps we should have something like "C++Property" 
+		#          instead of "ANY" with appropriate setAs/setIs methods
+		#          or maybe change setRefClass so that it takes a "refFields"
+		#          argument instead of the trio fieldClasses, fieldPrototypes, fieldReadOnly
+		fc <- .Call( "CppClass__property_classes", CLASS@pointer, PACKAGE = "Rcpp" )
+		class_names <- names( fc )
+		                  
+		fieldClasses <- rep( list( "ANY" ), length( class_names ) )
+		names( fieldClasses ) <- class_names
+		
+		fieldPrototypes <- rep( list( NA ), length( class_names ) )
+		names( fieldPrototypes ) <- class_names
+		
+        generator <- setRefClass( clname, 
+            fieldClasses = fieldClasses,
+            fieldPrototypes = fieldPrototypes , 
+            contains = "C++Object", 
+            interfaceClasses = classRep, 
+            where = where
+        )
+        classRep@generator <- generator
+        classDef <- getClass(clname)
+        ## non-public (static) fields in class representation
+        fields <- classDef@fieldPrototypes
+        assign(".pointer", CLASS@pointer, envir = fields)
+        assign(".module", xp, envir = fields)
+        assign(".CppClassName", clname, envir = fields)
+        assignClassDef( interface, classRep, where)
+        
+        setMethod( "initialize", clname, cpp_object_initializer(CLASS) , where = where )
+		
 	}
 	module
 }
 
 .referenceMethods__cppclass <- function( classDef, where ){
     xp <- classDef@pointer
+    cpp_methods <- classDef@cpp_methods
     
-    met <- .Call( "CppClass__methods", xp, PACKAGE = "Rcpp" )
-    arity <- .Call( "CppClass__methods_arity", xp, PACKAGE = "Rcpp" )
-	voidness <- .Call( "CppClass__methods_voidness", xp, PACKAGE = "Rcpp" )
+    # met <- .Call( "CppClass__methods", xp, PACKAGE = "Rcpp" )
+    # arity <- .Call( "CppClass__methods_arity", xp, PACKAGE = "Rcpp" )
+	# voidness <- .Call( "CppClass__methods_voidness", xp, PACKAGE = "Rcpp" )
 	
-	mets <- sapply( met, function( m ){
-	    # skeleton that gets modified below
-	    f <- function( ){
-	        res <- .External( "Class__invoke_method", .self@cppclass , m, .self@pointer, PACKAGE = "Rcpp" )
-	        res
-	    }
-	    body( f )[[2]][[3]][[4]] <- m 
-	    
-	    if( ar <- arity[[ m ]] ){
-	        # change the formal arguments
-	        formals( f ) <- structure( rep( alist( . = ), ar ), names = sprintf( "x%d", seq_len(ar) ) )
-	    
-	        # change the body
-	        b <- body( f )
-	        ext.call <- quote( .External( "Class__invoke_method", PACKAGE="Rcpp", .self@cppclass, m, .self@pointer, ARG) )[ c(1:6, rep(7L, ar )) ]
-	        ext.call[[5]] <- m
-	        for( i in seq_len(ar) ){
-	            ext.call[[ 6 + i ]] <- as.name( paste( "x", i, sep = "" ) )
-	        }
-	        b[[2]][[3]] <- ext.call
-	        body( f ) <- b
-	    }
-	    
-	    if( voidness[[m]] ){
-	        b <- body( f )
-	        b[[3]] <- quote( invisible( NULL ) )
-	        body( f ) <- b
-	    }
-	    
-	    f
-	} )
+	method_wrapper <- function( METHOD ){
+	    here <- environment()
+	    eval( substitute(
+            function(...) {
+                res <- MET$invoke( .self@pointer, ... )
+                RES
+            }, 
+            list( 
+                MET = METHOD, 
+                RES = if( METHOD$void ) quote(invisible(NULL)) else as.name("res")
+            )
+	    ), here )
+	}
+	mets <- sapply( cpp_methods, method_wrapper )
+	
+	# mets <- sapply( cpp_methods, function( m ){
+	#     # skeleton that gets modified below
+	#     f <- function( ){
+	#         res <- .External( "Class__invoke_method", .self@cppclass , m, .self@pointer, PACKAGE = "Rcpp" )
+	#         res
+	#     }
+	#     body( f )[[2]][[3]][[4]] <- m 
+	#     
+	#     if( ar <- arity[[ m ]] ){
+	#         # change the formal arguments
+	#         formals( f ) <- structure( rep( alist( . = ), ar ), names = sprintf( "x%d", seq_len(ar) ) )
+	#     
+	#         # change the body
+	#         b <- body( f )
+	#         ext.call <- quote( .External( "Class__invoke_method", PACKAGE="Rcpp", .self@cppclass, m, .self@pointer, ARG) )[ c(1:6, rep(7L, ar )) ]
+	#         ext.call[[5]] <- m
+	#         for( i in seq_len(ar) ){
+	#             ext.call[[ 6 + i ]] <- as.name( paste( "x", i, sep = "" ) )
+	#         }
+	#         b[[2]][[3]] <- ext.call
+	#         body( f ) <- b
+	#     }
+	#     
+	#     if( voidness[[m]] ){
+	#         b <- body( f )
+	#         b[[3]] <- quote( invisible( NULL ) )
+	#         body( f ) <- b
+	#     }
+	#     
+	#     f
+	# } )
 	     
 	# [romain] commenting out fields get/set 
 	#          because they are not used anyway, they lose over the default 

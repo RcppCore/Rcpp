@@ -52,8 +52,16 @@ namespace Rcpp {
 		return *this ;
 	}
 	
-	Reference::Reference( const std::string& klass ) throw(S4_creation_error,reference_creation_error) : S4(klass){
-		// TODO: check that klass is indeed a reference class
+	Reference::Reference( const std::string& klass ) throw(S4_creation_error,reference_creation_error) : S4(){
+		// using callback to R as apparently R_do_new_object always makes the same environment
+	    SEXP call = Rf_lcons( 
+		    Rf_install( "new" ), 
+		        Rf_cons( 
+		            Rf_mkString( klass.c_str() ), 
+		            R_NilValue
+		        )
+		    ) ;
+		setSEXP( Rcpp::internal::try_catch( call ) ) ;
 	}
 	
 	void Reference::set( SEXP x) throw(not_reference) {
