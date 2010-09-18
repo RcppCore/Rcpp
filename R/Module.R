@@ -104,17 +104,19 @@ cpp_object_initializer <- function(CLASS){
     function(.Object, ...){
     	selfEnv <- as.environment(.Object)
         ## generate the C++-side object and store its pointer, etc.
-        if(identical(.Object@pointer, .emptyPointer)) {
+        pointer <- selfEnv$.pointer
+        if(is.null(pointer) || identical(pointer, .emptyPointer)) {
             fields <- getClass(class(.Object))@fieldPrototypes
             pointer <- new_CppObject_xp(fields$.module, fields$.pointer, ...)
             assign(".module", fields$.module, envir = selfEnv)
             assign(".pointer", pointer, envir = selfEnv)
             assign(".cppclass", fields$.pointer, envir = selfEnv)
-            ## <fixme> these should not be needed
-            .Object@module <- fields$.module
-            .Object@cppclass <- fields$.pointer
-            .Object@pointer <- pointer
-            ##</fixme>
+            ## </note> these should not be needed and are being
+            ## dropped from the object class
+            ## .Object@module <- fields$.module
+            ## .Object@cppclass <- fields$.pointer
+            ## .Object@pointer <- pointer
+            ##</note>
         }
         ## for the C++ fields (only), create active bindings
     	fields <- CLASS@fields

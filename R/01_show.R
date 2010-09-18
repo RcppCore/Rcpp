@@ -16,10 +16,17 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 setMethod( "show", "C++Object", function(object){
+    env <- as.environment(object)
+    pointer <- get(".pointer", envir = env)
+    if(identical(pointer, .emptyPointer))
+        stop("Uninitialized C++ object")
+    cppclass <- get(".cppclass", envir = env)
+    if(identical(cppclass, .emptyPointer))
+        stop("C++ object with unset C++ class pointer")
 	txt <- sprintf( "C++ object <%s> of class '%s' <%s>", 
-		externalptr_address(object@pointer), 
-		.Call( "Class__name", object@cppclass, PACKAGE = "Rcpp" ), 
-		externalptr_address(object@cppclass)
+		externalptr_address(pointer), 
+		.Call( "Class__name", cppclass, PACKAGE = "Rcpp" ), 
+		externalptr_address(cppclass)
 	)
 	writeLines( txt )
 } )
