@@ -39,14 +39,14 @@ Modules
 Syntactic sugar
 
     o	recycling : binary operators and math functions of 2 or more arguments
-    need to recycle their arguments. 
+        need to recycle their arguments. 
     
     o	not sure rep should be lazy, i.e. rep( x, 4 ) fetches x[i] 4 times, 
 	maybe we should use LazyVector like in outer to somehow cache the 
 	result when it is judged expensive to calculate
 	
     o	The current impl of "diff" might cause problems (e.g. with ifelse) due to 
-    laziness, it is probably best to not make it lazy
+        laziness, it is probably best to not make it lazy
 
     o 	crossprod
 	
