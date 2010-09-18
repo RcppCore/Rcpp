@@ -1,5 +1,6 @@
     require( Rcpp )
-    if(require( inline )) {
+    if(!require( inline ))
+     q("no")
 
 	inc  <- '
 
@@ -43,4 +44,15 @@
 ww = new(World)
 wg = World$new()
 
-    }
+stopifnot(all.equal(ww$greet(), wg$greet()))
+wgg <- wg$greet()
+
+ww$set("Other")
+
+stopifnot(all.equal(ww$greet(), "Other"),
+          all.equal(wg$greet(), "Other"))
+
+World$methods(
+     twice = function() paste(greet(), greet()))
+
+stopifnot(all.equal(ww$twice(), paste(ww$greet(), ww$greet())))

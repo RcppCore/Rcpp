@@ -75,13 +75,8 @@ setClass( "C++ClassRepresentation",
 # # might not actually use this
 # setClass( "C++Property" )	
 
-setClass( "C++Object", 
-	representation( 
-		module = "externalptr", 
-		cppclass = "externalptr", 
-		pointer = "externalptr"
-		)
-	)
+setClass( "C++Object")
+
 setClass( "C++Function", 
 	representation( pointer = "externalptr" ), 
 	contains = "function"
