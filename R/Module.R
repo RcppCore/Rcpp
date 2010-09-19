@@ -102,6 +102,7 @@ new_CppObject_xp <- function(module, pointer, ...) {
 #          field
 cpp_object_initializer <- function(CLASS){
     function(.Object, ...){
+        .Object <- callNextMethod(.Object)
     	selfEnv <- as.environment(.Object)
         ## generate the C++-side object and store its pointer, etc.
         pointer <- selfEnv$.pointer
