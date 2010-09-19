@@ -30,25 +30,25 @@
 
 class Timer {
 public:
-	Timer() : sys_time("Sys.time") { Reset(); }
-	void Start()  { start_t = getFractionalSeconds() ; }
-	void Stop() { 
-		end_t = getFractionalSeconds(); 
-		elapsed = end_t - start_t;			// Calculate elapsed time in seconds
-		cumul += elapsed;
-	}
-	void Reset() { end_t = start_t = elapsed = cumul = 0.0; }
-	double ElapsedTime() { return elapsed; }
-	double CumulativeTime() { return cumul; }
+    Timer() : sys_time("Sys.time") { Reset(); }
+    void Start()  { start_t = getFractionalSeconds() ; }
+    void Stop() { 
+	end_t = getFractionalSeconds(); 
+	elapsed = end_t - start_t;		// Calculate elapsed time in seconds
+	cumul += elapsed;
+    }
+    void Reset() { end_t = start_t = elapsed = cumul = 0.0; }
+    double ElapsedTime() { return elapsed; }
+    double CumulativeTime() { return cumul; }
 
 
 private:
-	Function sys_time ;
-	double start_t, end_t, elapsed, cumul;
+    Function sys_time ;
+    double start_t, end_t, elapsed, cumul;
 
-	double getFractionalSeconds(void) {
+    double getFractionalSeconds(void) {
         return as<double>( sys_time() ) ;
-	}
+    }
 };
 
 #endif
