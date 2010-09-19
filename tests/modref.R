@@ -49,8 +49,9 @@ wgg <- wg$greet()
 
 ww$set("Other")
 
+## test independence of ww, wg
 stopifnot(all.equal(ww$greet(), "Other"),
-          all.equal(wg$greet(), "Other"))
+          all.equal(wg$greet(), wgg))
 
 World$methods(
      twice = function() paste(greet(), greet()))
