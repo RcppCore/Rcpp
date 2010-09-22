@@ -16,8 +16,12 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 setGeneric( ".DollarNames" )
-.DollarNames.Module <- function(x, pattern){
-	grep( pattern , .Call( "Module__complete", x@pointer, PACKAGE = "Rcpp"), value = TRUE )	
+.DollarNames.Module <- function(x, pattern){    
+    pointer <- .getModulePointer( x )
+    if(identical(pointer, .badModulePointer)) {
+        stop( "unitialized module" )
+    }
+	grep( pattern , .Call( "Module__complete", pointer, PACKAGE = "Rcpp"), value = TRUE )	
 }
 setMethod( ".DollarNames", "Module", .DollarNames.Module )
 
