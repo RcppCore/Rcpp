@@ -25,10 +25,11 @@ setMethod( ".DollarNames", "Module", .DollarNames.Module )
 # do we actually need this or do we get it for free via setRefClass, etc ...
 setGeneric( "complete", function(x) standardGeneric("complete") )
 setMethod( "complete", "C++Object", function(x){
-	xp <- get(".cppclass", envir = as.environment(x))
-        if(identical(xp, .emptyPointer))
-            stop("C++ object with unset pointer to C++ class")
-	.Call( "CppClass__complete" , xp , PACKAGE = "Rcpp" )
+    xp <- get(".cppclass", envir = as.environment(x))
+    # FIXME: implement another test  
+    #    if(identical(xp, .emptyPointer))
+    #        stop("C++ object with unset pointer to C++ class")
+    .Call( "CppClass__complete" , xp , PACKAGE = "Rcpp" )
 } )
 
 ".DollarNames.C++Object" <- function( x, pattern ){
