@@ -9,7 +9,7 @@ exportClasses( Module, "C++Field", "C++Method", "C++Class", "C++Object", "C++Fun
 
 S3method( .DollarNames, "C++Object" )
 S3method( .DollarNames, "Module" )
-exportMethods( prompt, show, .DollarNames, referenceMethods )
+exportMethods( prompt, show, .DollarNames )
 
 export( 
     Module, Rcpp.package.skeleton # , setRCppClass
