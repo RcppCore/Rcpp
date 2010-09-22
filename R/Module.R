@@ -173,6 +173,24 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         assign(".module", xp, envir = fields)
         assign(".CppClassName", clname, envir = fields)
         generators[[clname]] <- generator
+        
+        # [romain] : should this be promoted to reference classes
+        #            perhaps with better handling of j and ... arguments
+        if( any( grepl( "^[[]", names(CLASS@methods) ) ) ){
+            if( "[[" %in% names( CLASS@methods ) ){
+                setMethod( "[[", clname, function(x, i, j, ..., exact = TRUE){
+                    x$`[[`( i )
+                }, where = where )
+            }
+            
+            if( "[[<-" %in% names( CLASS@methods ) ){
+                setReplaceMethod( "[[", clname, function(x, i, j, ..., exact = TRUE, value){
+                    x$`[[<-`( i, value )
+                    x
+                } , where = where )
+            }
+            
+        }
     }
     module$refClassGenerators <- generators
     module
