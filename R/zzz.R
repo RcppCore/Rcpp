@@ -19,7 +19,7 @@
 	install_help_workaround()
 	
 	minimum_svn_rev <- as.integer( packageDescription( pkgname )[["MinimumSvnRev"]] )
-	if( minimum_svn_rev < R.version[["svn rev"]] ){
+	if( R.version[["svn rev"]] < minimum_svn_rev ){
 		packageStartupMessage("R version too old for full use of reference methods" )
 	}
 }

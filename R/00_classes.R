@@ -16,18 +16,19 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 
-## "Module" class as an environment with "pointer", "moduleName", and "packageName"
+## "Module" class as an environment with "pointer", "moduleName",
+##  "packageName" and "refClassGenerators"
 ## Stands in for a reference class with those fields.
 setClass( "Module",  contains = "environment" )
 
 setRefClass( "C++Field", 
-    fieldClasses = list( 
+    fields = list( 
         pointer       = "externalptr", 
         cpp_class     = "character", 
         read_only     = "logical", 
         class_pointer = "externalptr"
     ),
-    refMethods = list( 
+    methods = list( 
         get = function(obj_xp){
             .Call( "CppField__get", class_pointer, pointer, obj_xp, PACKAGE = "Rcpp" ) 
         }, 
@@ -39,14 +40,14 @@ setRefClass( "C++Field",
 )
 
 setRefClass( "C++Method", 
-    fieldClasses = list( 
+    fields = list( 
         pointer       = "externalptr", 
         class_pointer = "externalptr", 
         void          = "logical"
         # perhaps something to deal with classes of input and output
         # but this needs some work internally before
     ), 
-    refMethods = list( 
+    methods = list( 
         invoke = function(obj_xp, ...){
             .External( "CppMethod__invoke", class_pointer, pointer, obj_xp, ..., PACKAGE = "Rcpp" )    
         }
@@ -59,7 +60,8 @@ setClass( "C++Class",
 	    pointer = "externalptr", 
 	    module  = "externalptr", 
 	    fields  = "list", 
-	    methods = "list"
+	    methods = "list",
+            generator = "refObjectGenerator"
 	), 
 	contains = "character"
 	)
