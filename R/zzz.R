@@ -18,9 +18,10 @@
 .onLoad <- function(libname, pkgname){
 	install_help_workaround()
 	
-	minimum_svn_rev <- as.integer( packageDescription( pkgname )[["MinimumSvnRev"]] )
-	if( R.version[["svn rev"]] < minimum_svn_rev ){
-		packageStartupMessage("R version too old for full use of reference methods" )
+	minimum_svn_rev <- packageDescription( pkgname )[["MinimumSvnRev"]]
+	if( as.integer(R.version[["svn rev"]]) < as.integer(minimum_svn_rev)){
+		packageStartupMessage(gettextf("R version (%s) too old for required (%s) for full use of reference methods",
+                                               R.version[["svn rev"]], minimum_svn_rev))
 	}
 }
 
