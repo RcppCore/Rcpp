@@ -5,6 +5,7 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
+
 RcppExport SEXP convolve5cpp(SEXP a, SEXP b) {
     NumericVector xa(a); int n_xa = xa.size() ;
     NumericVector xb(b); int n_xb = xb.size() ;
@@ -15,3 +16,7 @@ RcppExport SEXP convolve5cpp(SEXP a, SEXP b) {
     }
     return xab ;
 }
+
+#include "loopmacro.h"
+LOOPMACRO_CPP(convolve5cpp)
+

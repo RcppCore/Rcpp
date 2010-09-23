@@ -19,3 +19,7 @@ SEXP convolve7(SEXP a, SEXP b)
     UNPROTECT(3);
     return(ab);
 }
+
+#include "loopmacro.h"
+LOOPMACRO_C(convolve7)
+

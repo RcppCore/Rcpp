@@ -22,3 +22,7 @@ RcppExport SEXP convolve2cpp(SEXP a, SEXP b)
     rs.add("ab", xab);
     return rs.getReturnList();
 }
+
+#include "loopmacro.h"
+LOOPMACRO_CPP(convolve2cpp)
+

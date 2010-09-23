@@ -15,39 +15,38 @@ dyn.load("convolve7_c.so")
 ## now run each one once for comparison of results,
 ## and define test functions
 
-v1 <- .Call("convolve2", a, b)
-R_API_optimised <- function(a,b) .Call("convolve2", a, b)
+R_API_optimised <- function(n,a,b) .Call("convolve2__loop", n, a, b)
+Rcpp_Classic <- function(n,a,b) .Call("convolve2cpp__loop", n, a, b)
+Rcpp_New_std <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b)
+Rcpp_New_ptr <- function(n,a,b) .Call("convolve4cpp__loop", n, a, b)
+Rcpp_New_sugar <- function(n,a,b) .Call("convolve5cpp__loop", n, a, b)
+R_API_naive <- function(n,a,b) .Call("convolve7__loop", n, a, b)
 
-v2 <- .Call("convolve2cpp", a, b)[[1]]
+v1 <- R_API_optimised(1L, a, b )
+v2 <- Rcpp_Classic(1L,a,b)[[1]]
+v3 <- Rcpp_New_std(1L, a, b)
+v4 <- Rcpp_New_ptr(1L, a, b)
+v5 <- Rcpp_New_sugar(1L, a, b )
+v7 <- R_API_naive(1L, a, b)
+
 stopifnot(all.equal(v1, v2))
-Rcpp_Classic <- function(a,b) .Call("convolve2cpp", a, b)
-
-v3 <- .Call("convolve3cpp", a, b)
 stopifnot(all.equal(v1, v3))
-Rcpp_New_std <- function(a,b) .Call("convolve3cpp", a, b)
-
-v4 <- .Call("convolve4cpp", a, b)
 stopifnot(all.equal(v1, v4))
-Rcpp_New_ptr <- function(a,b) .Call("convolve4cpp", a, b)
-
-v5 <- .Call( "convolve5cpp", a, b )
 stopifnot(all.equal(v1, v5))
-Rcpp_New_sugar <- function(a,b) .Call("convolve5cpp", a, b)
-
-v7 <- .Call("convolve7", a, b)
-R_API_naive <- function(a,b) .Call("convolve7", a, b)
+stopifnot(all.equal(v1, v7))
 
 ## load benchmarkin helper function
 suppressMessages(library(rbenchmark))
-bm <- benchmark(R_API_optimised(a,b),
-                R_API_naive(a,b),
-                Rcpp_Classic(a,b),
-                Rcpp_New_std(a,b),
-                Rcpp_New_ptr(a,b),
-                Rcpp_New_sugar(a,b),
+REPS <- 10000L
+bm <- benchmark(R_API_optimised(REPS,a,b),
+                R_API_naive(REPS,a,b),
+                Rcpp_Classic(REPS,a,b),
+                Rcpp_New_std(REPS,a,b),
+                Rcpp_New_ptr(REPS,a,b),
+                Rcpp_New_sugar(REPS,a,b),
                 columns=c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
                 order="relative",
-                replications=10000)
+                replications=1)
 print(bm)
 
 cat("All results are equal\n") # as we didn't get stopped

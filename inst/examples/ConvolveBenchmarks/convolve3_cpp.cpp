@@ -18,3 +18,7 @@ RcppExport SEXP convolve3cpp(SEXP a, SEXP b){
 
     return xab ;
 }
+
+#include "loopmacro.h"
+LOOPMACRO_CPP(convolve3cpp)
+
