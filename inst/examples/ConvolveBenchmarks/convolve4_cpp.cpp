@@ -22,3 +22,8 @@ RcppExport SEXP convolve4cpp(SEXP a, SEXP b) {
 
     return xab ;
 }
+
+#include "loopmacro.h"
+LOOPMACRO_CPP(convolve4cpp)
+
+
