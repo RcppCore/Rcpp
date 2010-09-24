@@ -1,5 +1,6 @@
 #!/usr/bin/r
 
+require( Rcpp )
 set.seed(42)
 a <- rnorm(100)
 b <- rnorm(100)
@@ -21,6 +22,7 @@ dyn.load("convolve9_cpp.so")
 R_API_optimised <- function(n,a,b) .Call("convolve2__loop", n, a, b)
 Rcpp_Classic <- function(n,a,b) .Call("convolve2cpp__loop", n, a, b)
 Rcpp_New_std <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b)
+Rcpp_New_std_inside <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b, PACKAGE = "Rcpp" )
 Rcpp_New_ptr <- function(n,a,b) .Call("convolve4cpp__loop", n, a, b)
 Rcpp_New_sugar <- function(n,a,b) .Call("convolve5cpp__loop", n, a, b)
 R_API_naive <- function(n,a,b) .Call("convolve7__loop", n, a, b)
@@ -48,6 +50,7 @@ bm <- benchmark(R_API_optimised(REPS,a,b),
                 R_API_naive(REPS,a,b),
                 Rcpp_Classic(REPS,a,b),
                 Rcpp_New_std(REPS,a,b),
+                Rcpp_New_std_inside(REPS,a,b),
                 Rcpp_New_ptr(REPS,a,b),
                 Rcpp_New_sugar(REPS,a,b),
                 Rcpp_New_std_2(REPS,a,b),
