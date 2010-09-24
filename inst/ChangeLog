@@ -2,8 +2,11 @@
 
     * inst/include/Rcpp/sugar/Range.h : Range gains some operators (++,--,n etc ...)
     
-    * inst/examples/ConvolveBenchmarks/convolve3_cpp.cpp: uisng the new Range
+    * inst/examples/ConvolveBenchmarks/convolve3_cpp.cpp: using the new Range
     operators
+    
+    * inst/include/Rcpp/sugar/operators/times.h: speed improvements. Not using 
+    pointer to member functions seems to be beneficial.
 
 2010-09-22  Romain Francois <romain@r-enthusiasts.com>
 

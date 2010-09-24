@@ -33,7 +33,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_){}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE lhs_ = lhs[i] ;
@@ -45,8 +45,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;	
 	
 	// specialization LHS_NA = false
@@ -58,7 +58,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_){}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE rhs_ = rhs[i] ;
@@ -69,8 +69,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;	
 
 	// specialization for RHS_NA = false 
@@ -82,7 +82,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_){}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE lhs_ = lhs[i] ;
@@ -93,8 +93,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;	
 
 
@@ -107,7 +107,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_){}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
 			return lhs[i] * rhs[i]  ;
@@ -116,8 +116,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;	
 	
 	
@@ -127,32 +127,23 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		typedef STORAGE (Times_Vector_Primitive::*METHOD)(int) const ;
 		
 		Times_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), m() {
-			
-			m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
-				&Times_Vector_Primitive::rhs_is_na :
-				&Times_Vector_Primitive::rhs_is_not_na ;
-		}
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) )
+			{}
 		
 		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i) ;
+			if( rhs_na ) return rhs ;
+			STORAGE x = lhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x * rhs) ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const VEC_TYPE& lhs ;
+		const T& lhs ;
 		STORAGE rhs ;
-		METHOD m ;
-		
-		inline STORAGE rhs_is_na(int i) const { return rhs ; }
-		inline STORAGE rhs_is_not_na(int i) const { 
-			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x * rhs) ;
-		}
+		bool rhs_na ;
 		
 	} ;
 	
@@ -162,30 +153,20 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		typedef STORAGE (Times_Vector_Primitive::*METHOD)(int) const ;
 		
 		Times_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), m() {
-				m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
-				&Times_Vector_Primitive::rhs_is_na :
-				&Times_Vector_Primitive::rhs_is_not_na ;
-		}
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 		
 		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i) ;
+			return rhs_na ? rhs : (rhs * lhs[i] ) ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const VEC_TYPE& lhs ;
+		const T& lhs ;
 		STORAGE rhs ;
-		METHOD m ;
-		
-		inline STORAGE rhs_is_na(int i) const { return rhs ; }
-		inline STORAGE rhs_is_not_na(int i) const { 
-			return rhs * lhs[i] ;
-		}
+		bool rhs_na ;
 		
 	} ;
 	

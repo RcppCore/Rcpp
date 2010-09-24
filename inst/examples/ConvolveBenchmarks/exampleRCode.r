@@ -47,7 +47,7 @@ stopifnot(all.equal(v1, v7))
 
 ## load benchmarkin helper function
 suppressMessages(library(rbenchmark))
-REPS <- 20000L
+REPS <- 10000L
 bm <- benchmark(R_API_optimised(REPS,a,b),
                 R_API_naive(REPS,a,b),
                 Rcpp_Classic(REPS,a,b),
