@@ -39,4 +39,4 @@ URL: http://dirk.eddelbuettel.com/code/rcpp.html, http://romainfrancois.blog.fre
 License: GPL (>= 2)
 BugReports: http://r-forge.r-project.org/tracker/?atid=637&group_id=155&func=browse
 MailingList: Please send questions and comments regarding Rcpp to rcpp-devel@lists.r-forge.r-project.org
-MinimumSvnRev: 52961
+MinimumSvnRev: 52986

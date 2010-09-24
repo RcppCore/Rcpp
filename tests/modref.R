@@ -39,6 +39,7 @@
 	fx <- inline::cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
 
 	mod <- Module( "yada", getDynLib(fx) )
+
     World <- mod$World
 
 ww = new(World)

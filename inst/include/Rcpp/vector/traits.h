@@ -38,8 +38,12 @@ namespace traits{
 		}
 		inline iterator get() const { return start; }
 		inline iterator get(int i) const { return start + i ; }
+		
+		inline proxy ref() { return *start ;}
+		inline proxy ref(int i) { return start[i] ; }
+		
 		inline proxy ref() const { return *start ;}
-		inline proxy ref(int i) const { return *(start+i) ; }
+		inline proxy ref(int i) const { return start[i] ; }
 		
 		private:
 			iterator start ;

@@ -164,7 +164,11 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                                  methods = methods,
                                  where = where
                                  )
+        # just to make codetools happy
+        .self <- .refClassDef <- NULL
         generator$methods(initialize = function(...) Rcpp:::cpp_object_initializer(.self,.refClassDef, ...))
+        rm( .self, .refClassDef )
+        
         classDef <- getClass(clname)
         ## non-public (static) fields in class representation
         ## <fixme>  Should these become real fields? </fixme>
