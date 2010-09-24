@@ -224,13 +224,13 @@ cpp_refMethods <- function(xp, cpp_methods, where) {
 binding_maker <- function( FIELD, where ){
     f <- function( x ) NULL
     body(f) <- substitute({
-        fieldPtr <- FIELD
-        if( missing( x ) ){
-            fieldPtr$get( .pointer )
-        } else {
-            fieldPtr$set( .pointer, x )
-        }
-    }, list(FIELD = FIELD))
+        if( missing( x ) )
+            .Call("CppField__get", class_pointer, pointer, .pointer, PACKAGE = "Rcpp")
+        else
+            .Call("CppField__set", class_pointer, pointer, .pointer, x, 
+        PACKAGE = "Rcpp")
+    }, list(class_pointer = FIELD$class_pointer,
+            pointer = FIELD$pointer))
     environment(f) <- where
     f
 }
