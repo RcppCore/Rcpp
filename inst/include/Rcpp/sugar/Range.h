@@ -40,6 +40,42 @@ namespace Rcpp{
 			return start + i ;
 		}
 		
+		Range& operator++() {
+		    start++ ; end_++ ;
+		    return *this ;
+		}
+		Range& operator++(int) {
+		    start++ ; end_++ ;
+		    return *this ;
+		}
+		
+		Range& operator--() {
+		    start-- ; end_-- ;
+		    return *this ;
+		}
+		Range& operator--(int) {
+		    start-- ; end_-- ;
+		    return *this ;
+		}
+		
+		Range& operator+=(int n) {
+		    start += n ; end_ += n ;
+		    return *this ;
+		}
+		
+		Range& operator-=(int n) {
+		    start -= n ; end_ -= n ;
+		    return *this ;
+		}
+		
+		Range operator+( int n ){
+		    return Range( start + n, end_ + n ) ;
+		}
+		Range operator-( int n ){
+		    return Range( start - n, end_ - n ) ;
+		}
+		
+		
 	private:
 		int start ;
 		int end_ ;
