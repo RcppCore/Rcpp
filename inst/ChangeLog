@@ -7,6 +7,11 @@
     
     * inst/include/Rcpp/sugar/operators/times.h: speed improvements. Not using 
     pointer to member functions seems to be beneficial.
+    
+    * inst/include/Rcpp/sugar/nona/nona.h: sugar function that wraps a sugar 
+    expression in an object that pretends it does not contain any missing 
+    values. This allows many sugar functions and operators to use their 
+    fast versions when we know that the object does not contain missing values.
 
 2010-09-22  Romain Francois <romain@r-enthusiasts.com>
 
