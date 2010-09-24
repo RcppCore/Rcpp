@@ -21,7 +21,7 @@ setGeneric( ".DollarNames" )
     if(identical(pointer, .badModulePointer)) {
         stop( "unitialized module" )
     }
-	grep( pattern , .Call( "Module__complete", pointer, PACKAGE = "Rcpp"), value = TRUE )	
+    grep( pattern , .Call( "Module__complete", pointer, PACKAGE = "Rcpp"), value = TRUE )	
 }
 setMethod( ".DollarNames", "Module", .DollarNames.Module )
 
