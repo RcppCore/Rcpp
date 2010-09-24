@@ -32,66 +32,62 @@ public:
 	
 	// TODO: check if the indexer is valid
 	RangeIndexer( VECTOR& vec_, const Rcpp::Range& range_) : 
-		vec(vec_), range(range_), start(vec_.begin()) {}
+		start(vec_.begin() + range_.get_start() ), size_( range_.size() ) {}
 	
 		// TODO: size exceptions
 	template <bool NA, typename T>	
 	RangeIndexer& operator=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		int n = size() ;
-		for( int i=0; i<n; i++){
-			start[ range[i] ] = x[i] ;
+	    const T& input = x.get_ref() ;
+	    for( int i=0; i<size_; i++){
+			start[i] = input[i] ;
 		}
 		return *this ;
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator+=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		int n = size() ;
-		for( int i=0; i<n; i++){
-			start[ range[i] ] += x[i] ;
+		const T& input = x.get_ref() ;
+	    for( int i=0; i<size_; i++){
+			start[i] += input[i] ;
 		}
 		return *this ;
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator*=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		int n = size() ;
-		for( int i=0; i<n; i++){
-			start[ range[i] ] *= x[i] ;
+		for( int i=0; i<size_; i++){
+			start[i] *= x[i] ;
 		}
 		return *this ;
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator-=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		int n = size() ;
-		for( int i=0; i<n; i++){
-			start[ range[i] ] -= x[i] ;
+		for( int i=0; i<size_; i++){
+			start[i] -= x[i] ;
 		}
 		return *this ;
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator/=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		int n = size() ;
-		for( int i=0; i<n; i++){
-			start[ range[i] ] /= x[i] ;
+		for( int i=0; i<size_; i++){
+			start[i] /= x[i] ;
 		}
 		return *this ;
 	}
 	
 	inline Proxy operator[]( int i ){
-		return start[ range[i] ] ;
+	    return start[i] ;
 	}
 	
 	inline int size(){
-		return range.size() ;
+		return size_ ;
 	}
 	
 private:
-	VECTOR& vec ;
-	const Rcpp::Range& range ;
 	iterator start ;
+	int size_ ;
 } ;
 	
 }

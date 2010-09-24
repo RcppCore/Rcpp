@@ -75,6 +75,8 @@ namespace Rcpp{
 		    return Range( start - n, end_ - n ) ;
 		}
 		
+		inline int get_start() const { return start ; }
+		inline int get_end() const { return end_ ; }
 		
 	private:
 		int start ;

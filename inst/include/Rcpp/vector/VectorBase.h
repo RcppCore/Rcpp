@@ -41,8 +41,8 @@ public:
 		return static_cast<const VECTOR&>(*this) ;
 	}
 
-	inline stored_type operator[]( int i) const { 
-		return static_cast<const VECTOR*>(this)->operator[](i) ;
+	inline stored_type operator[]( int i) const {
+	    return static_cast<const VECTOR*>(this)->operator[](i) ;
 	}
 	
 	inline int size() const { return static_cast<const VECTOR*>(this)->size() ; }
@@ -55,7 +55,7 @@ public:
 		typedef stored_type value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
 
-		iterator( const VectorBase& object_, int index_ ) : object(object_), index(index_){} 
+		iterator( const VectorBase& object_, int index_ ) : object(object_.get_ref()), index(index_){} 
 		iterator( const iterator& other) : object(other.object), index(other.index){};
 		
 		inline iterator& operator++(){
@@ -124,7 +124,7 @@ public:
 	
 			
 	private:
-		const VectorBase& object ;
+		const VECTOR& object ;
 		int index; 
 	} ;
 	
