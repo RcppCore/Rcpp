@@ -1,5 +1,12 @@
 2010-09-22  Romain Francois <romain@r-enthusiasts.com>
 
+    * inst/include/Rcpp/sugar/Range.h : Range gains some operators (++,--,n etc ...)
+    
+    * inst/examples/ConvolveBenchmarks/convolve3_cpp.cpp: uisng the new Range
+    operators
+
+2010-09-22  Romain Francois <romain@r-enthusiasts.com>
+
     * R/Module.R: set [[ and [[<- as regular methods too, which restores previous
     behavior
 
