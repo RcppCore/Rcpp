@@ -16,12 +16,13 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .onLoad <- function(libname, pkgname){
-	install_help_workaround()
-	
-	minimum_svn_rev <- packageDescription( pkgname )[["MinimumSvnRev"]]
-	if( as.integer(R.version[["svn rev"]]) < as.integer(minimum_svn_rev)){
-		packageStartupMessage(gettextf("R version (%s) too old for required (%s) for full use of reference methods",
-                                               R.version[["svn rev"]], minimum_svn_rev))
-	}
+    install_help_workaround()
+
+    minimum_svn_rev <- packageDescription( pkgname )[["MinimumSvnRev"]]
+    if( as.integer(R.version[["svn rev"]]) < as.integer(minimum_svn_rev)){
+        packageStartupMessage(gettextf(paste("R version (%s) older than minimum required (%s)",
+                                             "for full use of reference methods"),
+                                       R.version[["svn rev"]], minimum_svn_rev))
+    }
 }
 
