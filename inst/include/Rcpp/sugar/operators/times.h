@@ -147,7 +147,44 @@ namespace sugar{
 		
 	} ;
 	
-
+	
+	// very special version that is used when the vector expression is 
+	// actually a vector. In that case we use its iterator (usually pointer)
+	// directly instead of adding the overhead of operator[]
+	template <int RTYPE>
+	class Times_Vector_Primitive<RTYPE,true,Rcpp::Vector<RTYPE> > : 
+	    public Rcpp::VectorBase<RTYPE,true, Times_Vector_Primitive<RTYPE,true,Rcpp::Vector<RTYPE> > > {
+	public:
+	    
+	    typedef typename Rcpp::Vector<RTYPE>::iterator iterator ;
+		typedef typename Rcpp::VectorBase<RTYPE,true,Rcpp::Vector<RTYPE> > VEC_TYPE ;
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		Times_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
+			lhs(lhs_.get_ref().begin())
+			, rhs(rhs_)
+			, rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) )
+			, n( lhs_.size() )
+			{}
+		
+		inline STORAGE operator[]( int i ) const {
+			if( rhs_na ) return rhs ;
+			STORAGE x = lhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x * rhs) ;
+		}
+		
+		inline int size() const { return n ; }
+		
+	private:
+		iterator lhs ;
+	    STORAGE rhs ;
+		bool rhs_na ;
+		int n ;
+		
+	} ;
+	
+	
+	
 	template <int RTYPE, typename T>
 	class Times_Vector_Primitive<RTYPE,false,T> : public Rcpp::VectorBase<RTYPE,false, Times_Vector_Primitive<RTYPE,false,T> > {
 	public:
