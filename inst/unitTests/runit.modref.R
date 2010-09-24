@@ -1,8 +1,25 @@
-    require( Rcpp )
-    if(!require( inline ))
-     q("no")
+#!/usr/bin/r -t
+#
+# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+#
+# This file is part of Rcpp.
+#
+# Rcpp is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# Rcpp is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-	inc  <- '
+
+test.modRef <- function() {
+    inc  <- '
 
 	class World {
 	public:
@@ -36,25 +53,27 @@
 	}
 
 	'
-	fx <- inline::cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
+    fx <- inline::cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
 
-	mod <- Module( "yada", getDynLib(fx) )
+    mod <- Module( "yada", getDynLib(fx) )
 
     World <- mod$World
 
-ww = new(World)
-wg = World$new()
+    ww = new(World)
+    wg = World$new()
 
-stopifnot(all.equal(ww$greet(), wg$greet()))
-wgg <- wg$greet()
+    checkEquals(ww$greet(), wg$greet())
+    wgg <- wg$greet()
 
-ww$set("Other")
+    ww$set("Other")
 
-## test independence of ww, wg
-stopifnot(all.equal(ww$greet(), "Other"),
-          all.equal(wg$greet(), wgg))
+    ## test independence of ww, wg
+    checkEquals(ww$greet(), "Other")
+    checkEquals(wg$greet(), wgg)
 
-World$methods(
-     twice = function() paste(greet(), greet()))
+    World$methods(
+                  twice = function() paste(greet(), greet()))
 
-stopifnot(all.equal(ww$twice(), paste(ww$greet(), ww$greet())))
+    checkEquals(ww$twice(), paste(ww$greet(), ww$greet()))
+
+}
