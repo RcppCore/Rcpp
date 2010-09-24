@@ -16,6 +16,7 @@ dyn.load("convolve7_c.so")
 dyn.load("convolve8_cpp.so")
 dyn.load("convolve9_cpp.so")
 dyn.load("convolve10_cpp.so")
+dyn.load("convolve11_cpp.so")
 
 ## now run each one once for comparison of results,
 ## and define test functions
@@ -26,6 +27,7 @@ Rcpp_New_std <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b)
 Rcpp_New_std_inside <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b, PACKAGE = "Rcpp" )
 Rcpp_New_ptr <- function(n,a,b) .Call("convolve4cpp__loop", n, a, b)
 Rcpp_New_sugar <- function(n,a,b) .Call("convolve5cpp__loop", n, a, b)
+Rcpp_New_sugar_nona <- function(n,a,b) .Call("convolve11cpp__loop", n, a, b)
 R_API_naive <- function(n,a,b) .Call("convolve7__loop", n, a, b)
 Rcpp_New_std_2 <- function(n,a,b) .Call("convolve8cpp__loop", n, a, b)
 Rcpp_New_std_3 <- function(n,a,b) .Call("convolve9cpp__loop", n, a, b)
@@ -55,6 +57,7 @@ bm <- benchmark(R_API_optimised(REPS,a,b),
                 Rcpp_New_std_inside(REPS,a,b),
                 Rcpp_New_ptr(REPS,a,b),
                 Rcpp_New_sugar(REPS,a,b),
+                Rcpp_New_sugar_nona(REPS,a,b),
                 Rcpp_New_std_2(REPS,a,b),
                 Rcpp_New_std_3(REPS,a,b),
                 Rcpp_New_std_4(REPS,a,b),

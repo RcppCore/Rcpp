@@ -55,24 +55,27 @@ public:
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator*=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		for( int i=0; i<size_; i++){
-			start[i] *= x[i] ;
+		const T& input = x.get_ref() ;
+	    for( int i=0; i<size_; i++){
+			start[i] *= input[i] ;
 		}
 		return *this ;
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator-=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		for( int i=0; i<size_; i++){
-			start[i] -= x[i] ;
+		const T& input = x.get_ref() ;
+	    for( int i=0; i<size_; i++){
+			start[i] -= input[i] ;
 		}
 		return *this ;
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator/=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		for( int i=0; i<size_; i++){
-			start[i] /= x[i] ;
+		const T& input = x.get_ref() ;
+	    for( int i=0; i<size_; i++){
+			start[i] /= input[i] ;
 		}
 		return *this ;
 	}
