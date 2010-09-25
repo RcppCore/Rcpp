@@ -22,6 +22,30 @@
 #ifndef Rcpp__vector__RangeIndexer_h
 #define Rcpp__vector__RangeIndexer_h
 
+#define UNROLL_LOOP(OP)                              \
+    const T& input = x.get_ref() ;                   \
+    int __trip_count = (size_) >> 2;                 \
+    int i=0 ;                                        \
+    for ( ; __trip_count > 0 ; --__trip_count) {     \
+        start[i] OP input[i] ; i++ ;                 \
+        start[i] OP input[i] ; i++ ;                 \
+        start[i] OP input[i] ; i++ ;                 \
+        start[i] OP input[i] ; i++ ;                 \
+    }                                                \
+    switch (size_ - i){                              \
+      case 3:                                        \
+          start[i] OP input[i] ; i++ ;               \
+      case 2:                                        \
+          start[i] OP input[i] ; i++ ;               \
+      case 1:                                        \
+          start[i] OP input[i] ; i++ ;               \
+      case 0:                                        \
+      default:                                       \
+          return *this ;                             \
+    }
+
+
+
 namespace internal{
 
 template <int RTYPE, typename VECTOR>
@@ -37,47 +61,27 @@ public:
 		// TODO: size exceptions
 	template <bool NA, typename T>	
 	RangeIndexer& operator=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-	    const T& input = x.get_ref() ;
-	    for( int i=0; i<size_; i++){
-			start[i] = input[i] ;
-		}
-		return *this ;
+	    UNROLL_LOOP(=)
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator+=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		const T& input = x.get_ref() ;
-	    for( int i=0; i<size_; i++){
-			start[i] += input[i] ;
-		}
-		return *this ;
+		 UNROLL_LOOP(+=)
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator*=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		const T& input = x.get_ref() ;
-	    for( int i=0; i<size_; i++){
-			start[i] *= input[i] ;
-		}
-		return *this ;
+		UNROLL_LOOP(*=)
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator-=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		const T& input = x.get_ref() ;
-	    for( int i=0; i<size_; i++){
-			start[i] -= input[i] ;
-		}
-		return *this ;
+		UNROLL_LOOP(-=)
 	}
 	
 	template <bool NA, typename T>	
 	RangeIndexer& operator/=( const Rcpp::VectorBase<RTYPE,NA,T>& x){
-		const T& input = x.get_ref() ;
-	    for( int i=0; i<size_; i++){
-			start[i] /= input[i] ;
-		}
-		return *this ;
+		UNROLL_LOOP(/=)
 	}
 	
 	inline Proxy operator[]( int i ){
@@ -94,5 +98,7 @@ private:
 } ;
 	
 }
+
+#undef UNROLL_LOOP
 
 #endif
