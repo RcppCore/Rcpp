@@ -136,10 +136,6 @@ const char * sexp_to_name(int sexp_type) {
     }
 }
 
-extern "C" void R_init_Rcpp(DllInfo* info){
-	// initUncaughtExceptionHandler() ;
-}
-   
 namespace Rcpp{
 namespace internal{
 

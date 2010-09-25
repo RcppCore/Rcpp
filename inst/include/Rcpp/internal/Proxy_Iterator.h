@@ -109,6 +109,8 @@ public:
 		}
 
 		inline int index() const { return proxy.index ; }
+
+		inline PROXY operator[](int i){ return PROXY(*proxy.parent, proxy.index + i) ; } 
 		
 private:
 	PROXY proxy ;

@@ -57,6 +57,15 @@ namespace sugar {
         iterator data ;    
     } ;
     
+    template <typename T>
+    class NonaPrimitive {
+    public:
+        NonaPrimitive( T t) : x(t){}
+        operator T(){ return x ; }
+        
+    private:
+        T x ;
+    } ;
     
 }
 
@@ -64,6 +73,11 @@ template <int RTYPE, bool NA, typename VECTOR>
 inline sugar::Nona<RTYPE,NA,VECTOR> nona( const Rcpp::VectorBase<RTYPE,NA,VECTOR>& vec ){
     return sugar::Nona<RTYPE,NA,VECTOR>( vec ) ;
 }
+
+inline sugar::NonaPrimitive<double> nona( double x ){
+    return sugar::NonaPrimitive<double>( x ) ; 
+}
+
 
 }
 
