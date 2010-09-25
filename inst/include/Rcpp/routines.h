@@ -28,6 +28,7 @@
 #define CALLFUN_3(name) SEXP name(SEXP,SEXP,SEXP)
 #define CALLFUN_4(name) SEXP name(SEXP,SEXP,SEXP,SEXP)
 #define CALLFUN_5(name) SEXP name(SEXP,SEXP,SEXP,SEXP,SEXP)
+#define EXTFUN(name) SEXP name(SEXP)
 
 // we have to do the ifdef __cplusplus dance because this file
 // is included both in C and C++ files
@@ -50,6 +51,12 @@ CALLFUN_2(Module__get_class);
 CALLFUN_2(Module__has_class);
 CALLFUN_2(Module__has_function);
 CALLFUN_1(Module__name);
+
+/* .External functions */
+EXTFUN(CppMethod__invoke) ;
+EXTFUN(InternalFunction_invoke) ;
+EXTFUN(Module__invoke) ;
+EXTFUN(class__newInstance) ;
 
 #ifdef __cplusplus
 }

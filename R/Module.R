@@ -19,7 +19,7 @@ internal_function <- function(pointer){
 	f <- function(xp){
 		force(xp)
 		function(...){
-			.External( "InternalFunction_invoke" , PACKAGE = "Rcpp", xp, ... )
+			.External( InternalFunction_invoke, xp, ... )
 		}
 	}
 	o <- new( "C++Function", f(pointer) )
@@ -72,7 +72,7 @@ setMethod( "$", "Module", function(x, name){
     pointer <- .getModulePointer(x)
 	if( .Call( Module__has_function, pointer, name ) ){
 		function( ... ) {
-			res <- .External(  "Module__invoke" , pointer, name, ..., PACKAGE = "Rcpp"  )
+			res <- .External( Module__invoke , pointer, name, ... )
 			if( isTRUE( res$void ) ) invisible(NULL) else res$result
 		}
 	} else if( .Call( Module__has_class, pointer, name ) ){
@@ -85,7 +85,7 @@ setMethod( "$", "Module", function(x, name){
 } )
 
 new_CppObject_xp <- function(module, pointer, ...) {
-	.External( "class__newInstance", module, pointer, ..., PACKAGE = "Rcpp" )
+	.External( class__newInstance, module, pointer, ... )
 }
 
 

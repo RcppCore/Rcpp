@@ -4,7 +4,8 @@
     
     * src/Rcpp_init.c: register routines
     
-    * R/*.R: use registration information in many .Call to speed things up
+    * R/*.R: use registration information in many .Call and .External functions
+    to speed things up
 
 2010-09-24  Romain Francois <romain@r-enthusiasts.com>
 
