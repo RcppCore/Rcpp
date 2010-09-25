@@ -2,8 +2,8 @@
 
 suppressMessages(require(Rcpp))
 set.seed(42)
-a <- rnorm(100)
-b <- rnorm(100)
+a <- rnorm(500)
+b <- rnorm(500)
 
 ## load shared libraries with wrapper code
 dyn.load("convolve2_c.so")
@@ -50,7 +50,7 @@ stopifnot(all.equal(v1, v7))
 
 ## load benchmarkin helper function
 suppressMessages(library(rbenchmark))
-REPS <- 10000L
+REPS <- 2000L
 bm <- benchmark(R_API_optimised(REPS,a,b),
                 R_API_naive(REPS,a,b),
                 Rcpp_Classic(REPS,a,b),
