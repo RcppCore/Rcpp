@@ -26,7 +26,7 @@ template <int RTYPE>
 class Vector :
 	public RObject,       
 	public VectorBase< RTYPE, true, Vector<RTYPE> >, 
-	public internal::eval_methods<RTYPE>
+	public internal::eval_methods<RTYPE> 
 	{
 public:
 	typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
@@ -318,8 +318,11 @@ public:
 	inline iterator begin() const{ return cache.get() ; }
 	inline iterator end() const{ return cache.get(size()) ; }
 	
-	inline Proxy operator[]( int i ){ return cache.ref(i) ; }
-	inline Proxy operator[]( int i ) const { return cache.ref(i) ; }
+	// inline Proxy operator[]( int i ){ return cache.ref(i) ; }
+	// inline Proxy operator[]( int i ) const { return cache.ref(i) ; }
+	
+	inline Proxy operator[]( int i ){ return iter_first[i] ; }
+	inline Proxy operator[]( int i ) const { return iter_first[i] ; }
 	inline Proxy operator()( const size_t& i) throw(index_out_of_bounds){
 		return cache.ref( offset(i) ) ;
 	}
@@ -417,6 +420,7 @@ public:
 	void update_vector(){
 		RCPP_DEBUG_1(  "update_vector, VECTOR = %s", DEMANGLE(Vector) ) ;
 		cache.update(*this) ;
+		iter_first = cache.get() ;
 	}
 		
 	static Vector create(){
@@ -699,6 +703,7 @@ public:
 	}
 	
 	traits::r_vector_cache<RTYPE> cache ;
+	iterator iter_first ;
 
 public:
 	
@@ -713,7 +718,6 @@ protected:
 		if( !::Rf_isMatrix(RObject::m_sexp) ) throw not_a_matrix() ;
 		return INTEGER( ::Rf_getAttrib( RObject::m_sexp, ::Rf_install( "dim") ) ) ;
 	}
-
 	
 } ; /* Vector */
 

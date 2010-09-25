@@ -17,6 +17,7 @@ dyn.load("convolve8_cpp.so")
 dyn.load("convolve9_cpp.so")
 dyn.load("convolve10_cpp.so")
 dyn.load("convolve11_cpp.so")
+dyn.load("convolve12_cpp.so" )
 
 ## now run each one once for comparison of results,
 ## and define test functions
@@ -32,7 +33,7 @@ R_API_naive <- function(n,a,b) .Call("convolve7__loop", n, a, b)
 #Rcpp_New_std_2 <- function(n,a,b) .Call("convolve8cpp__loop", n, a, b)
 #Rcpp_New_std_3 <- function(n,a,b) .Call("convolve9cpp__loop", n, a, b)
 #Rcpp_New_std_4 <- function(n,a,b) .Call("convolve10cpp__loop", n, a, b)
-
+Rcpp_New_std_5 <- function(n,a,b) .Call("convolve12cpp__loop", n, a, b )
 
 v1 <- R_API_optimised(1L, a, b )
 v2 <- Rcpp_Classic(1L,a,b)[[1]]
@@ -61,6 +62,7 @@ bm <- benchmark(R_API_optimised(REPS,a,b),
 #                Rcpp_New_std_2(REPS,a,b),
 #                Rcpp_New_std_3(REPS,a,b),
 #                Rcpp_New_std_4(REPS,a,b),
+#                Rcpp_New_std_5(REPS,a,b),
                 columns=c("test", "elapsed", "relative", "user.self", "sys.self"),
                 order="relative",
                 replications=1)

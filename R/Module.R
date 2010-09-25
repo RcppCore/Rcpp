@@ -225,9 +225,9 @@ binding_maker <- function( FIELD, where ){
     f <- function( x ) NULL
     body(f) <- substitute({
         if( missing( x ) )
-            .Call("CppField__get", class_pointer, pointer, .pointer)
+            .Call( CppField__get, class_pointer, pointer, .pointer)
         else
-            .Call("CppField__set", class_pointer, pointer, .pointer, x)
+            .Call( CppField__set, class_pointer, pointer, .pointer, x)
     }, list(class_pointer = FIELD$class_pointer,
             pointer = FIELD$pointer))
     environment(f) <- where

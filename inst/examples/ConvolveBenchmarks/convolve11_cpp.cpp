@@ -1,6 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 
-// This is a rewrite of the 'Writing R Extensions' section 5.10.1 example
+// This version uses nona to indicate that xb does not contain any missing
+// value. This is the assumption that all other versions do.
 
 #include <Rcpp.h>
 using namespace Rcpp ;

@@ -183,6 +183,7 @@ Rcpp::Module* getCurrentScope(){ return Rcpp::current_scope ; }
 void setCurrentScope( Rcpp::Module* scope ){ Rcpp::current_scope = scope ; }
 void R_init_Rcpp( DllInfo* info){
 	Rcpp::current_scope = 0 ;
+	init_Rcpp_routines(info) ;
 }
 
 namespace Rcpp{

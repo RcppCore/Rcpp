@@ -1,4 +1,6 @@
-useDynLib(Rcpp)
+useDynLib(Rcpp, 
+    CppField__get, CppField__set
+)
 
 import( methods )
 importFrom( utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription )

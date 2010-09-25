@@ -23,26 +23,27 @@
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
-SEXP CppField__get(SEXP, SEXP, SEXP);
-SEXP CppField__set(SEXP, SEXP, SEXP, SEXP);
+#include <Rcpp/routines.h>
 
-
+// TODO: check that having this static does not mess up with 
+//       RInside, and move it within init_Rcpp_routines otherwise
 static R_CallMethodDef callEntries[]  = {
     {"CppField__get", (DL_FUNC) &CppField__get, 3},
-       {"CppField__set", (DL_FUNC) &CppField__set, 4},
-       {NULL, NULL, 0}
-     }; 
- 
-void
-R_init_SoDA(DllInfo *info)
-{
+    {"CppField__set", (DL_FUNC) &CppField__set, 4},
+    {NULL, NULL, 0}
+}; 
+
+// this is called by R_init_Rcpp that is in Module.cpp
+void init_Rcpp_routines(DllInfo *info){
   /* Register routines, allocate resources. */
-  R_registerRoutines(info, NULL /* .C*/, callEntries /*.Call*/,
-		     NULL /* .Fortran */, NULL /*.Extern*/);
+  R_registerRoutines(info, 
+      NULL /* .C*/, 
+      callEntries /*.Call*/,
+      NULL /* .Fortran */,
+      NULL /*.Extern*/
+  );
 }
           
-void
-R_unload_SoDA(DllInfo *info)
-{
+void R_unload_Rcpp(DllInfo *info) {
   /* Release resources. */
 }
