@@ -49,7 +49,7 @@ setRefClass( "C++Method",
     ), 
     methods = list( 
         invoke = function(obj_xp, ...){
-            .External( "CppMethod__invoke", class_pointer, pointer, obj_xp, ..., PACKAGE = "Rcpp" )    
+            .External( CppMethod__invoke, class_pointer, pointer, obj_xp, ... )    
         }
     )
 )
