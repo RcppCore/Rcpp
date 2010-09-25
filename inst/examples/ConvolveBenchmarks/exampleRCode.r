@@ -2,8 +2,9 @@
 
 suppressMessages(require(Rcpp))
 set.seed(42)
-a <- rnorm(500)
-b <- rnorm(500)
+n <- 200
+a <- rnorm(n)
+b <- rnorm(n)
 
 ## load shared libraries with wrapper code
 dyn.load("convolve2_c.so")
@@ -33,7 +34,7 @@ R_API_naive <- function(n,a,b) .Call("convolve7__loop", n, a, b)
 #Rcpp_New_std_2 <- function(n,a,b) .Call("convolve8cpp__loop", n, a, b)
 #Rcpp_New_std_3 <- function(n,a,b) .Call("convolve9cpp__loop", n, a, b)
 #Rcpp_New_std_4 <- function(n,a,b) .Call("convolve10cpp__loop", n, a, b)
-Rcpp_New_std_5 <- function(n,a,b) .Call("convolve12cpp__loop", n, a, b )
+Rcpp_New_std_it <- function(n,a,b) .Call("convolve12cpp__loop", n, a, b )
 
 v1 <- R_API_optimised(1L, a, b )
 v2 <- Rcpp_Classic(1L,a,b)[[1]]
@@ -62,14 +63,16 @@ bm <- benchmark(R_API_optimised(REPS,a,b),
 #                Rcpp_New_std_2(REPS,a,b),
 #                Rcpp_New_std_3(REPS,a,b),
 #                Rcpp_New_std_4(REPS,a,b),
-                Rcpp_New_std_5(REPS,a,b),
+		Rcpp_New_std_it(REPS,a,b),
                 columns=c("test", "elapsed", "relative", "user.self", "sys.self"),
                 order="relative",
                 replications=1)
 print(bm)
 
 cat("All results are equal\n") # as we didn't get stopped
-stop( "ok" )            
+q("no")
+
+
 sizes <- 1:10*100
 REPS <- 5000L
 timings <- lapply( sizes, function(size){
