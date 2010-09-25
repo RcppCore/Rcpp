@@ -6,6 +6,8 @@
     
     * R/*.R: use registration information in many .Call and .External functions
     to speed things up
+    
+    * inst/include/Rcpp/RangeIndexer.h: experimenting with loop unrolling
 
 2010-09-24  Romain Francois <romain@r-enthusiasts.com>
 
