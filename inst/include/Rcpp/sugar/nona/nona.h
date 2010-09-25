@@ -77,6 +77,9 @@ inline sugar::Nona<RTYPE,NA,VECTOR> nona( const Rcpp::VectorBase<RTYPE,NA,VECTOR
 inline sugar::NonaPrimitive<double> nona( double x ){
     return sugar::NonaPrimitive<double>( x ) ; 
 }
+inline sugar::NonaPrimitive<int> nona( int x ){
+    return sugar::NonaPrimitive<int>( x ) ; 
+}
 
 
 }
