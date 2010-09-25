@@ -16,6 +16,6 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 externalptr_address <- function(xp){
-	.Call( "as_character_externalptr", xp, PACKAGE = "Rcpp" )	
+	.Call( as_character_externalptr, xp )	
 }
 

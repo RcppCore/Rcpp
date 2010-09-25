@@ -21,7 +21,7 @@ setGeneric( ".DollarNames" )
     if(identical(pointer, .badModulePointer)) {
         stop( "unitialized module" )
     }
-    grep( pattern , .Call( "Module__complete", pointer, PACKAGE = "Rcpp"), value = TRUE )	
+    grep( pattern , .Call( Module__complete, pointer), value = TRUE )	
 }
 setMethod( ".DollarNames", "Module", .DollarNames.Module )
 
@@ -33,7 +33,7 @@ setMethod( "complete", "C++Object", function(x){
     # FIXME: implement another test  
     #    if(identical(xp, .emptyPointer))
     #        stop("C++ object with unset pointer to C++ class")
-    .Call( "CppClass__complete" , xp , PACKAGE = "Rcpp" )
+    .Call( CppClass__complete , xp )
 } )
 
 ".DollarNames.C++Object" <- function( x, pattern ){

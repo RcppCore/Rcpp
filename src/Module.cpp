@@ -75,7 +75,7 @@ RCPP_FUNCTION_2( std::string, CppClass__property_class, XP_Class cl, std::string
 	return cl->property_class(p) ;
 }
 
-RCPP_FUNCTION_1( Rcpp::IntegerVector, Module__funtions_arity, XP_Module module ){
+RCPP_FUNCTION_1( Rcpp::IntegerVector, Module__functions_arity, XP_Module module ){
 	return module->	functions_arity() ;
 }
 RCPP_FUNCTION_1( std::string, Module__name, XP_Module module ){
@@ -87,8 +87,7 @@ RCPP_FUNCTION_1( Rcpp::List, Module__classes_info, XP_Module module ){
 RCPP_FUNCTION_1( Rcpp::CharacterVector, Module__complete, XP_Module module ){
 	return module->complete() ;
 }
-extern "C" SEXP CppClass__complete( SEXP xp){
-	XP_Class cl(xp) ;
+RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__complete, XP_Class cl){
 	return cl->complete(); 
 }
 

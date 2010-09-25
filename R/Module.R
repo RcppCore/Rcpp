@@ -70,13 +70,13 @@ setMethod("initialize", "Module",
 
 setMethod( "$", "Module", function(x, name){
     pointer <- .getModulePointer(x)
-	if( .Call( "Module__has_function", pointer, name, PACKAGE = "Rcpp" ) ){
+	if( .Call( Module__has_function, pointer, name ) ){
 		function( ... ) {
 			res <- .External(  "Module__invoke" , pointer, name, ..., PACKAGE = "Rcpp"  )
 			if( isTRUE( res$void ) ) invisible(NULL) else res$result
 		}
-	} else if( .Call("Module__has_class", pointer, name, PACKAGE = "Rcpp" ) ){
-		value <- .Call( "Module__get_class", pointer, name, PACKAGE = "Rcpp" )
+	} else if( .Call( Module__has_class, pointer, name ) ){
+		value <- .Call( Module__get_class, pointer, name )
                 value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
                 value
 	} else{
@@ -121,7 +121,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         ## [John]  One technique is to initialize the pointer to a known value
         ## and just check whether it's been reset from that (bad) value
         xp <- module
-        moduleName <- .Call( "Module__name", xp )
+        moduleName <- .Call( Module__name, xp )
         module <- new("Module", pointer = xp, packageName = PACKAGE,
                       moduleName = moduleName)
     } else if(is(module, "character")) {
@@ -144,7 +144,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         else
             return(module)
     }
-    classes <- .Call( "Module__classes_info", xp, PACKAGE = "Rcpp" )
+    classes <- .Call( Module__classes_info, xp )
 
     ## We need a general strategy for assigning class defintions
     ## since delaying the initialization of the module causes
@@ -229,7 +229,9 @@ binding_maker <- function( FIELD, where ){
         else
             .Call( CppField__set, class_pointer, pointer, .pointer, x)
     }, list(class_pointer = FIELD$class_pointer,
-            pointer = FIELD$pointer))
+            pointer = FIELD$pointer, 
+            CppField__get = CppField__get, 
+            CppField__set = CppField__set ))
     environment(f) <- where
     f
 }
