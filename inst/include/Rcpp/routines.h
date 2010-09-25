@@ -22,18 +22,44 @@
 #ifndef Rcpp__routines_h
 #define Rcpp__routines_h
 
+#define CALLFUN_0(name) SEXP name()
+#define CALLFUN_1(name) SEXP name(SEXP)
+#define CALLFUN_2(name) SEXP name(SEXP,SEXP)
+#define CALLFUN_3(name) SEXP name(SEXP,SEXP,SEXP)
+#define CALLFUN_4(name) SEXP name(SEXP,SEXP,SEXP,SEXP)
+#define CALLFUN_5(name) SEXP name(SEXP,SEXP,SEXP,SEXP,SEXP)
+
 // we have to do the ifdef __cplusplus dance because this file
 // is included both in C and C++ files
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-SEXP CppField__get(SEXP, SEXP, SEXP);
-SEXP CppField__set(SEXP, SEXP, SEXP, SEXP);
+CALLFUN_1(as_character_externalptr) ;
+
+CALLFUN_3(CppField__get);
+CALLFUN_4(CppField__set);
+CALLFUN_1(Class__name);
+CALLFUN_1(CppClass__complete);
+CALLFUN_1(CppClass__methods);
+
+CALLFUN_1(Module__classes_info) ;
+CALLFUN_1(Module__complete) ;
+CALLFUN_1(Module__functions_arity);
+CALLFUN_2(Module__get_class);
+CALLFUN_2(Module__has_class);
+CALLFUN_2(Module__has_function);
+CALLFUN_1(Module__name);
 
 #ifdef __cplusplus
 }
 #endif
 
+#undef CALLFUN_0
+#undef CALLFUN_1
+#undef CALLFUN_2
+#undef CALLFUN_3
+#undef CALLFUN_4
+#undef CALLFUN_5
 
 #endif

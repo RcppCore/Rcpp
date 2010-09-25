@@ -25,11 +25,30 @@
 
 #include <Rcpp/routines.h>
 
+// borrowed from Matrix
+#define CALLDEF(name, n)  {#name, (DL_FUNC) &name, n}
+
 // TODO: check that having this static does not mess up with 
 //       RInside, and move it within init_Rcpp_routines otherwise
 static R_CallMethodDef callEntries[]  = {
-    {"CppField__get", (DL_FUNC) &CppField__get, 3},
-    {"CppField__set", (DL_FUNC) &CppField__set, 4},
+    CALLDEF(as_character_externalptr,1),
+    
+    CALLDEF(CppField__get,3),
+    CALLDEF(CppField__set,4),
+    
+    CALLDEF(Class__name,1),
+    
+    CALLDEF(CppClass__complete,1),
+    CALLDEF(CppClass__methods,1),
+    
+    CALLDEF(Module__classes_info,1),
+    CALLDEF(Module__complete,1),
+    CALLDEF(Module__get_class,2),
+    CALLDEF(Module__has_class,2),
+    CALLDEF(Module__has_function,2),
+    CALLDEF(Module__functions_arity,1),
+    CALLDEF(Module__name,1),
+    
     {NULL, NULL, 0}
 }; 
 

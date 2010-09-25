@@ -1,4 +1,12 @@
-2010-09-22  Romain Francois <romain@r-enthusiasts.com>
+2010-09-25  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/routines.h: declare routines that are registered
+    
+    * src/Rcpp_init.c: register routines
+    
+    * R/*.R: use registration information in many .Call to speed things up
+
+2010-09-24  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/sugar/Range.h : Range gains some operators (++,--,n etc ...)
     
