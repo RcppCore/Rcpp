@@ -50,7 +50,7 @@ stopifnot(all.equal(v1, v7))
 
 ## load benchmarkin helper function
 suppressMessages(library(rbenchmark))
-REPS <- 2000L
+REPS <- 5000L
 bm <- benchmark(R_API_optimised(REPS,a,b),
                 R_API_naive(REPS,a,b),
                 Rcpp_Classic(REPS,a,b),
@@ -62,11 +62,43 @@ bm <- benchmark(R_API_optimised(REPS,a,b),
 #                Rcpp_New_std_2(REPS,a,b),
 #                Rcpp_New_std_3(REPS,a,b),
 #                Rcpp_New_std_4(REPS,a,b),
-#                Rcpp_New_std_5(REPS,a,b),
+                Rcpp_New_std_5(REPS,a,b),
                 columns=c("test", "elapsed", "relative", "user.self", "sys.self"),
                 order="relative",
                 replications=1)
 print(bm)
 
 cat("All results are equal\n") # as we didn't get stopped
-
+stop( "ok" )            
+sizes <- 1:10*100
+REPS <- 5000L
+timings <- lapply( sizes, function(size){
+    cat( "size = ", size, "..." )
+    a <- rnorm(size); b <- rnorm(size)
+    bm <- benchmark(R_API_optimised(REPS,a,b),
+                R_API_naive(REPS,a,b),
+                Rcpp_Classic(REPS,a,b),
+                Rcpp_New_std(REPS,a,b),
+                Rcpp_New_ptr(REPS,a,b),
+                Rcpp_New_sugar(REPS,a,b),
+                Rcpp_New_sugar_nona(REPS,a,b),
+                columns=c("test", "elapsed", "relative", "user.self", "sys.self"),
+                order="relative",
+                replications=1)
+     
+     cat( "  done\n" )
+     bm
+} )
+for( i in seq_along(sizes)){
+    timings[[i]]$size <- sizes[i]
+}
+timings <- do.call( rbind, timings )
+ 
+require( lattice )
+png( "elapsed.png", width = 800, height = 600 )
+xyplot( elapsed ~ size, groups = test, data = timings, auto.key = TRUE, type = "l", lwd = 2 )
+dev.off()
+png( "relative.png", width = 800, height = 600 )
+xyplot( relative ~ size, groups = test, data = timings, auto.key = TRUE, type = "l", lwd = 2 )
+dev.off()
+   

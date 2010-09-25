@@ -4,22 +4,19 @@
 
 #include <Rcpp.h>
 
-template <typename T>
-T convolve( const T& a, const T& b ){
-    int na = a.size() ; int nb = b.size() ;
-    T out(na + nb - 1);
-    typename T::iterator iter_a(a.begin()), iter_b(b.begin()), iter_ab( out.begin() ) ;
-    
-    for (int i = 0; i < na; i++)
-        for (int j = 0; j < nb; j++) 
-            iter_ab[i + j] += iter_a[i] * iter_b[j];
-
-    return out ;
-}
-
-
 RcppExport SEXP convolve12cpp(SEXP a, SEXP b){
-    return convolve( Rcpp::NumericVector(a), Rcpp::NumericVector(b) ) ;
+    Rcpp::NumericVector xa(a), xb(b);
+    int n_xa = xa.size(), n_xb = xb.size();
+    Rcpp::NumericVector xab(n_xa + n_xb - 1);
+    
+    typedef Rcpp::NumericVector::iterator vec_iterator ;
+    vec_iterator ia = xa.begin(), ib = xb.begin();
+    vec_iterator iab = xab.begin();
+    for (int i = 0; i < n_xa; i++)
+        for (int j = 0; j < n_xb; j++) 
+            iab[i + j] += ia[i] * ib[j];
+
+    return xab;
 }
 
 #include "loopmacro.h"

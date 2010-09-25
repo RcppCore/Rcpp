@@ -329,9 +329,6 @@ public:
 	inline iterator begin() const{ return cache.get() ; }
 	inline iterator end() const{ return cache.get(size()) ; }
 	
-	// inline Proxy operator[]( int i ){ return cache.ref(i) ; }
-	// inline Proxy operator[]( int i ) const { return cache.ref(i) ; }
-	
 	inline Proxy operator[]( int i ){ return iter_first[i] ; }
 	inline Proxy operator[]( int i ) const { return iter_first[i] ; }
 	inline Proxy operator()( const size_t& i) throw(index_out_of_bounds){
