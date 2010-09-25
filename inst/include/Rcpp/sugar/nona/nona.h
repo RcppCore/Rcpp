@@ -61,7 +61,7 @@ namespace sugar {
     class NonaPrimitive {
     public:
         NonaPrimitive( T t) : x(t){}
-        operator T(){ return x ; }
+        inline operator T(){ return x ; }
         
     private:
         T x ;
