@@ -94,13 +94,24 @@ public:
     
 private:
 	
-	template <bool NA, typename VEC>
-    void import_expression( const VectorBase<RTYPE,NA,VEC>& other, int n ){
-    	iterator start = begin() ; 
+    template <bool NA, typename VEC>
+    inline void import_expression__iterator( const VectorBase<RTYPE,NA,VEC>& other, int n, Rcpp::traits::true_type ){
+        const VEC& ref = other.get_ref() ;
+		std::copy( ref.begin(), ref.end(), begin() ) ;
+	}
+    
+    template <bool NA, typename VEC>
+    inline void import_expression__iterator( const VectorBase<RTYPE,NA,VEC>& other, int n, Rcpp::traits::false_type ){
+        iterator start = begin() ; 
 		const VEC& ref = other.get_ref() ;
     	for( int i=0; i<n; i++, ++start){
 			*start = ref[i] ;
 		}
+    }
+    
+    template <bool NA, typename VEC>
+    inline void import_expression( const VectorBase<RTYPE,NA,VEC>& other, int n ){
+    	import_expression__iterator<NA,VEC>( other, n, typename Rcpp::traits::has_iterator<VEC>::type( ) ) ;
     }
 
     template <typename T>
