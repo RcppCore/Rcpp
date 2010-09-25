@@ -27,7 +27,7 @@ setMethod( "show", "C++Object", function(object){
     #     stop("C++ object with unset C++ class pointer")
 	txt <- sprintf( "C++ object <%s> of class '%s' <%s>", 
 		externalptr_address(pointer), 
-		.Call( "Class__name", cppclass, PACKAGE = "Rcpp" ), 
+		.Call( Class__name, cppclass ), 
 		externalptr_address(cppclass)
 	)
 	writeLines( txt )
@@ -35,11 +35,11 @@ setMethod( "show", "C++Object", function(object){
 
 setMethod( "show", "C++Class", function(object){
 	txt <- sprintf( "C++ class '%s' <%s>", 
-		.Call( "Class__name", object@pointer, PACKAGE = "Rcpp" ), 
+		.Call( Class__name, object@pointer ), 
 		externalptr_address(object@pointer) )
 	writeLines( txt )
 	
-	met <- .Call( "CppClass__methods", object@pointer, PACKAGE = "Rcpp" )
+	met <- .Call( CppClass__methods, object@pointer )
 	if( length( met ) ){
 		txt <- sprintf( "\n%d methods : \n%s", length(met), paste( sprintf("    %s", met), collapse = "\n") )
 		writeLines( txt )
@@ -60,14 +60,14 @@ setMethod( "show", "Module", function( object ){
         writeLines(txt)
     }
     else {
-	info <- .Call( "Module__funtions_arity", pointer, PACKAGE = "Rcpp" )
-	name <- .Call( "Module__name", pointer )
+	info <- .Call( Module__functions_arity, pointer )
+	name <- .Call( Module__name, pointer )
 	txt <- sprintf( "Rcpp module '%s' \n\t%d functions: ", name, length(info) )
 	writeLines( txt )                       
 	txt <- sprintf( "%15s : %d arguments", names(info), info )
 	writeLines( txt )
 	                                                     
-	info <- .Call( "Module__classes_info", pointer, PACKAGE = "Rcpp" )
+	info <- .Call( Module__classes_info, pointer )
 	txt <- sprintf( "\n\t%d classes : ", length(info) )
 	writeLines( txt )
 	txt <- sprintf( "%15s ", names(info) )

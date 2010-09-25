@@ -30,10 +30,10 @@ setRefClass( "C++Field",
     ),
     methods = list( 
         get = function(obj_xp){
-            .Call( "CppField__get", class_pointer, pointer, obj_xp, PACKAGE = "Rcpp" ) 
+            .Call( CppField__get, class_pointer, pointer, obj_xp ) 
         }, 
         set = function(obj_xp, value){
-            .Call( "CppField__set", class_pointer, pointer, obj_xp, value, PACKAGE = "Rcpp" )
+            .Call( CppField__set, class_pointer, pointer, obj_xp, value )
             invisible( NULL )
         }
     )

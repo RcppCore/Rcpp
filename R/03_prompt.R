@@ -22,13 +22,13 @@ setMethod( "functions", "Module", function(object, ...){
         stop(gettextf("Module \"%s\" has not been intialized:  try Module(object)",
                       get("moduleName", envir = as.environment(object))), domain = NA)
     else
-	.Call( "Module__funtions_arity", pointer, PACKAGE = "Rcpp" )
+	.Call( Module__functions_arity, pointer )
 } )
 
 setGeneric( "prompt" )
 setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ...){
 	lines <- readLines( system.file( "prompt", "module.Rd", package = "Rcpp" ) )
-	if( is.null(name) ) name <- .Call( "Module__name", object@pointer, PACKAGE = "Rcpp" )
+	if( is.null(name) ) name <- .Call( Module__name, object@pointer )
 	if( is.null(filename) ) filename <- sprintf( "%s-module.Rd", name )
 	lines <- gsub( "NAME", name, lines )
 	
@@ -46,7 +46,7 @@ setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ..
         ## pointer in object was not valid
         pointer <- .getModulePointer(object)
 	
-	classes <- .Call( "Module__classes_info", pointer, PACKAGE = "Rcpp" )
+	classes <- .Call( Module__classes_info, pointer )
 	c.txt <- if( length( classes ) ){
 		sprintf( "classes: \\\\describe{
 %s
