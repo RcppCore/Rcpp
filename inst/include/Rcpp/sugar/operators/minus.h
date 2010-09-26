@@ -33,7 +33,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE x = lhs[i] ; 
@@ -45,8 +45,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;
 	
 	
@@ -58,7 +58,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE y = rhs[i] ; 
@@ -69,8 +69,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;
 
 	
@@ -82,7 +82,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE x = lhs[i] ; 
@@ -93,8 +93,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;
 	
 	
@@ -106,7 +106,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			return lhs[i] - rhs[i] ;
@@ -115,10 +115,11 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
 	} ;
-
+	
+	
 	
 	
 	
@@ -129,7 +130,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			if( rhs_na ) return rhs ;
@@ -140,7 +141,7 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const VEC_TYPE& lhs ;
+		const T& lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 		
@@ -154,7 +155,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			if( rhs_na ) return rhs ;
@@ -165,7 +166,7 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const VEC_TYPE& lhs ;
+		const T& lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 		
@@ -181,10 +182,9 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ; 
-		typedef STORAGE (Minus_Primitive_Vector::*METHOD)(int) const ;
 		
 		Minus_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
+			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			if( lhs_na ) return lhs ;
@@ -196,7 +196,7 @@ namespace sugar{
 		
 	private:
 		STORAGE lhs ;
-		const VEC_TYPE& rhs ;
+		const T& rhs ;
 		bool lhs_na ;
 		
 	} ;
@@ -207,10 +207,9 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ; 
-		typedef STORAGE (Minus_Primitive_Vector::*METHOD)(int) const ;
 		
 		Minus_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
+			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			if( lhs_na ) return lhs ;
@@ -221,7 +220,7 @@ namespace sugar{
 		
 	private:
 		STORAGE lhs ;
-		const VEC_TYPE& rhs ;
+		const T& rhs ;
 		bool rhs_na ;
 		
 	} ;
