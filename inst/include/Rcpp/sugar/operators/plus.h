@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
 // plus.h: Rcpp R/C++ interface class library -- operator+
 //                                                                      
@@ -26,15 +26,14 @@ namespace Rcpp{
 namespace sugar{
 
 	template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
-	class Plus_Vector_Vector : public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Vector<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T> > {
+	class Plus_Vector_Vector : public Rcpp::VectorBase<RTYPE, true , Plus_Vector_Vector<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T> > {
 	public:
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		
-		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE lhs_ = lhs[i] ;
@@ -46,84 +45,80 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
-	} ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
+	} ;	
 	
-	
+	// specialization LHS_NA = false
 	template <int RTYPE, typename LHS_T, bool RHS_NA, typename RHS_T >
 	class Plus_Vector_Vector<RTYPE,false,LHS_T,RHS_NA,RHS_T> : public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Vector<RTYPE,false,LHS_T,RHS_NA,RHS_T> > {
 	public:
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		
-		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE rhs_ = rhs[i] ;
 			if( traits::is_na<RTYPE>(rhs_) ) return rhs_ ;
-			return lhs[i] + rhs_ ;
+			return lhs[i] + rhs_  ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
-	} ;
-	
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
+	} ;	
 
+	// specialization for RHS_NA = false 
 	template <int RTYPE, bool LHS_NA, typename LHS_T, typename RHS_T >
-	class Plus_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> : public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> > {
+	class Plus_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> : public Rcpp::VectorBase<RTYPE, true , Plus_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> > {
 	public:
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		
-		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE lhs_ = lhs[i] ;
 			if( traits::is_na<RTYPE>(lhs_) ) return lhs_ ;
-			return lhs_ + rhs[i] ;
+			return lhs_ + rhs[i]  ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
-	} ;
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
+	} ;	
 
-	
+
+	// specialization for RHS_NA = false  and LHS_NA = false 
 	template <int RTYPE, typename LHS_T, typename RHS_T >
-	class Plus_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> : public Rcpp::VectorBase<RTYPE,false, Plus_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> > {
+	class Plus_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> : public Rcpp::VectorBase<RTYPE, false , Plus_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> > {
 	public:
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		
-		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
 		inline STORAGE operator[]( int i ) const {
-			return lhs[i] + rhs[i] ;
+			return lhs[i] + rhs[i]  ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
-	} ;
-	
-
+		const LHS_T& lhs ;
+		const RHS_T& rhs ;
+	} ;	
 	
 	
 	
@@ -132,74 +127,170 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		typedef STORAGE (Plus_Vector_Primitive::*METHOD)(int) const ;
 		
 		Plus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), m() {
-				
-			m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
-				&Plus_Vector_Primitive::rhs_is_na :
-				&Plus_Vector_Primitive::rhs_is_not_na ;	
-				
-		}
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) )
+			{}
 		
 		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i);
-		}
-		
-		inline int size() const { return lhs.size() ; }
-	
-		
-	private:
-		const VEC_TYPE& lhs ;
-		STORAGE rhs ;
-		METHOD m;
-		
-		inline STORAGE rhs_is_na(int i) const { return rhs ; }
-		inline STORAGE rhs_is_not_na(int i) const { 
+			if( rhs_na ) return rhs ;
 			STORAGE x = lhs[i] ;
 			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
 		}
-
+		
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const T& lhs ;
+		STORAGE rhs ;
+		bool rhs_na ;
+		
 	} ;
 	
 	
-
+	// very special version that is used when the vector expression is 
+	// actually a vector. In that case we use its iterator (usually pointer)
+	// directly instead of adding the overhead of operator[]
+	template <int RTYPE>
+	class Plus_Vector_Primitive<RTYPE,true,Rcpp::Vector<RTYPE> > : 
+	    public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Primitive<RTYPE,true,Rcpp::Vector<RTYPE> > > {
+	public:
+	    
+	    typedef typename Rcpp::Vector<RTYPE>::iterator iterator ;
+		typedef typename Rcpp::VectorBase<RTYPE,true,Rcpp::Vector<RTYPE> > VEC_TYPE ;
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		Plus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
+			lhs(lhs_.get_ref().begin())
+			, rhs(rhs_)
+			, rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) )
+			, n( lhs_.size() )
+			{}
+		
+		inline STORAGE operator[]( int i ) const {
+			if( rhs_na ) return rhs ;
+			STORAGE x = lhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
+		}
+		
+		inline int size() const { return n ; }
+		
+	private:
+		iterator lhs ;
+	    STORAGE rhs ;
+		bool rhs_na ;
+		int n ;
+		
+	} ;
+	
+	
+	
 	template <int RTYPE, typename T>
-	class Plus_Vector_Primitive<RTYPE,false,T> : public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Primitive<RTYPE,false,T> > {
+	class Plus_Vector_Primitive<RTYPE,false,T> : public Rcpp::VectorBase<RTYPE,false, Plus_Vector_Primitive<RTYPE,false,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		typedef STORAGE (Plus_Vector_Primitive::*METHOD)(int) const ;
 		
 		Plus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_), m() {
-				
-			m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
-				&Plus_Vector_Primitive::rhs_is_na :
-				&Plus_Vector_Primitive::rhs_is_not_na ;	
-				
-		}
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 		
 		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i) ;
+			return rhs_na ? rhs : (rhs + lhs[i] ) ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
-	
 		
 	private:
-		const VEC_TYPE& lhs ;
+		const T& lhs ;
 		STORAGE rhs ;
-		METHOD m;
+		bool rhs_na ;
 		
-		inline STORAGE rhs_is_na(int i) const { return rhs ; }
-		inline STORAGE rhs_is_not_na(int i) const { 
-			return lhs[i] + rhs ;
-		}
-
 	} ;
 	
+
+
+	
+	
+	
+	// Vector * nona(primitive)
+	
+	template <int RTYPE, bool NA, typename T>
+	class Plus_Vector_Primitive_nona : public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Primitive_nona<RTYPE,NA,T> > {
+	public:
+		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		Plus_Vector_Primitive_nona( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
+			lhs(lhs_.get_ref()), rhs(rhs_)
+			{}
+		
+		inline STORAGE operator[]( int i ) const {
+			STORAGE x = lhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
+		}
+		
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const T& lhs ;
+		STORAGE rhs ;
+		
+	} ;
+
+	
+	// very special version that is used when the vector expression is 
+	// actually a vector. In that case we use its iterator (usually pointer)
+	// directly instead of adding the overhead of operator[]
+	template <int RTYPE>
+	class Plus_Vector_Primitive_nona<RTYPE,true,Rcpp::Vector<RTYPE> > : 
+	    public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Primitive_nona<RTYPE,true,Rcpp::Vector<RTYPE> > > {
+	public:
+	    
+	    typedef typename Rcpp::Vector<RTYPE>::iterator iterator ;
+		typedef typename Rcpp::VectorBase<RTYPE,true,Rcpp::Vector<RTYPE> > VEC_TYPE ;
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		Plus_Vector_Primitive_nona( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
+			lhs(lhs_.get_ref().begin())
+			, rhs(rhs_)
+			, n( lhs_.size() )
+			{}
+		
+		inline STORAGE operator[]( int i ) const {
+			STORAGE x = lhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
+		}
+		
+		inline int size() const { return n ; }
+		
+	private:
+		iterator lhs ;
+	    STORAGE rhs ;
+		int n ;
+		
+	} ;
+	
+	
+	template <int RTYPE, typename T>
+	class Plus_Vector_Primitive_nona<RTYPE,false,T> : public Rcpp::VectorBase<RTYPE,false, Plus_Vector_Primitive_nona<RTYPE,false,T> > {
+	public:
+		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		Plus_Vector_Primitive_nona( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
+			lhs(lhs_.get_ref()), rhs(rhs_) {}
+		
+		inline STORAGE operator[]( int i ) const {
+			return rhs + lhs[i] ;
+		}
+		
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const T& lhs ;
+		STORAGE rhs ;
+		
+	} ;
 	
 }
 }
@@ -210,24 +301,45 @@ operator+(
 	const Rcpp::VectorBase<RTYPE,NA,T>& lhs, 
 	typename Rcpp::traits::storage_type<RTYPE>::type rhs 
 ) {
-	return Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA, T  >( lhs, rhs ) ;
+	return Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 
 template <int RTYPE,bool NA, typename T>
-inline Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA,T>
+inline Rcpp::sugar::Plus_Vector_Primitive< RTYPE , NA , T >
 operator+( 
 	typename Rcpp::traits::storage_type<RTYPE>::type rhs, 
 	const Rcpp::VectorBase<RTYPE,NA,T>& lhs
 ) {
-	return Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA, T  >( lhs, rhs ) ;
+	return Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA, T >( lhs, rhs ) ;
 }
+
+
+
+template <int RTYPE,bool NA, typename T>
+inline Rcpp::sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>
+operator+( 
+	const Rcpp::VectorBase<RTYPE,NA,T>& lhs, 
+	typename Rcpp::sugar::NonaPrimitive< typename Rcpp::traits::storage_type<RTYPE>::type > rhs 
+) {
+	return Rcpp::sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>( lhs, rhs ) ;
+}
+
+template <int RTYPE,bool NA, typename T>
+inline Rcpp::sugar::Plus_Vector_Primitive_nona< RTYPE , NA , T >
+operator+( 
+	typename Rcpp::sugar::NonaPrimitive< typename Rcpp::traits::storage_type<RTYPE>::type > rhs, 
+	const Rcpp::VectorBase<RTYPE,NA,T>& lhs
+) {
+	return Rcpp::sugar::Plus_Vector_Primitive_nona<RTYPE,NA, T >( lhs, rhs ) ;
+}
+
 
 template <int RTYPE,bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Plus_Vector_Vector< 
 	RTYPE , 
-	LHS_NA, LHS_T , 
-	RHS_NA, RHS_T 
+	LHS_NA, LHS_T, 
+	RHS_NA, RHS_T
 	>
 operator+( 
 	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
