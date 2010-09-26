@@ -58,6 +58,7 @@
 #include <Rcpp/DateVector.h>
 #include <Rcpp/Datetime.h>
 #include <Rcpp/DatetimeVector.h>
+#include <Rcpp/Fast.h>
 
 #ifdef RCPP_ENABLE_MODULES
 #include <Rcpp/Module.h>

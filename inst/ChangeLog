@@ -1,5 +1,9 @@
 2010-09-25  Romain Francois <romain@r-enthusiasts.com>
 
+        * inst/include/Rpp/Fast.h: new helper class Rcpp::Fast that 
+
+2010-09-25  Romain Francois <romain@r-enthusiasts.com>
+
         * inst/include/Rcpp/routines.h: declare routines that are registered
 
         * src/Rcpp_init.c: register routines
