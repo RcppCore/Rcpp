@@ -221,7 +221,7 @@ namespace sugar{
 	private:
 		STORAGE lhs ;
 		const T& rhs ;
-		bool rhs_na ;
+		bool lhs_na ;
 		
 	} ;
 

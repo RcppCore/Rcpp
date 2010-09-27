@@ -48,13 +48,14 @@ namespace sugar {
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
         typedef typename Rcpp::Vector<RTYPE>::iterator iterator ;
 	
-        Nona( const SUGAR_TYPE& expr) : data(expr.get_ref().begin()){} 
+        Nona( const SUGAR_TYPE& expr) : data(expr.get_ref().begin()), n(expr.size()){} 
         
-        inline int size() const { return data.size() ; }
+        inline int size() const { return n ; }
         inline STORAGE operator[](int i) const { return data[i] ; }
         
     private:
-        iterator data ;    
+        iterator data ;
+        int n ;
     } ;
     
     template <typename T>
