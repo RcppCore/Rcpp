@@ -59,12 +59,12 @@ private:
 
 
 template <int RTYPE, bool NA, typename T, typename Function>
-class Sapply<RTYPE,NA,T,Function,false> : public VectorBase< 
+class Sapply<RTYPE,NA,T,Function,true> : public VectorBase< 
 	Rcpp::traits::r_sexptype_traits<
 		typename ::Rcpp::traits::result_of<Function>::type
 	>::rtype , 
 	true ,
-	Sapply<RTYPE,NA,T,Function,false>
+	Sapply<RTYPE,NA,T,Function,true>
 > {
 public:
 	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
