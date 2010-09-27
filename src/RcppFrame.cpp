@@ -409,7 +409,7 @@ namespace Rcpp{
 #undef RCPP_HANDLE_DF
 			
 		}
-		Rf_setAttrib( rl, Rf_install("names"), nm ) ;
+		Rf_setAttrib( rl, R_NamesSymbol, nm ) ;
 		
 		UNPROTECT(2) ;
 	    return rl ;			
