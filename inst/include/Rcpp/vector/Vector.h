@@ -95,27 +95,40 @@ public:
 	}
     
 private:
-	
-    template <bool NA, typename VEC>
-    inline void import_expression__iterator( const VectorBase<RTYPE,NA,VEC>& other, int n, Rcpp::traits::true_type ){
-        const VEC& ref = other.get_ref() ;
-		std::copy( ref.begin(), ref.end(), begin() ) ;
-	}
-    
-    template <bool NA, typename VEC>
-    inline void import_expression__iterator( const VectorBase<RTYPE,NA,VEC>& other, int n, Rcpp::traits::false_type ){
-        iterator start = begin() ; 
-		const VEC& ref = other.get_ref() ;
-    	for( int i=0; i<n; i++, ++start){
-			*start = ref[i] ;
-		}
-    }
-    
+	  
+    // TODO: do some dispatch when VEC == Vector so that we use std::copy
     template <bool NA, typename VEC>
     inline void import_expression( const VectorBase<RTYPE,NA,VEC>& other, int n ){
-    	import_expression__iterator<NA,VEC>( other, n, typename Rcpp::traits::has_iterator<VEC>::type( ) ) ;
+        iterator start = begin() ; 
+        const VEC& ref = other.get_ref() ;
+        
+        int __trip_count = n >> 2 ;
+        int i = 0 ;
+    	for ( ; __trip_count > 0 ; --__trip_count) { 
+        	start[i] = ref[i] ; i++ ;            
+        	start[i] = ref[i] ; i++ ;            
+        	start[i] = ref[i] ; i++ ;            
+        	start[i] = ref[i] ; i++ ;            
+    	}                                            
+    	switch (n - i){                          
+    	  case 3:                                    
+    	      start[i] = ref[i] ; i++ ;             
+          case 2:                                    
+    	      start[i] = ref[i] ; i++ ;             
+    	  case 1:                                    
+    	      start[i] = ref[i] ; i++ ;             
+    	  case 0:                                    
+    	  default:                                   
+    	      {}                         
+    	}
     }
-
+    
+    // template <>
+    // inline void import_expression<true,Vector>( const VectorBase<RTYPE,NA,VEC>& other, int n ){
+    //     const VEC& ref = other.get_ref() ;
+    //     std::copy( ref.begin(), ref.end(), begin() ) ;
+	// }
+    
     template <typename T>
     inline void fill_or_generate( const T& t){
     	fill_or_generate__impl( t, typename traits::is_generator<T>::type() ) ;
