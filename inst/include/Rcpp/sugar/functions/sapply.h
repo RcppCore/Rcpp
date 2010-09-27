@@ -25,13 +25,13 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, bool NA, typename T, typename Function, bool NEED_CONVERSION>
+template <int RTYPE, bool NA, typename T, typename Function, bool NO_CONVERSION>
 class Sapply : public VectorBase< 
 	Rcpp::traits::r_sexptype_traits<
 		typename ::Rcpp::traits::result_of<Function>::type
 	>::rtype , 
 	true ,
-	Sapply<RTYPE,NA,T,Function,NEED_CONVERSION>
+	Sapply<RTYPE,NA,T,Function,NO_CONVERSION>
 > {
 public:
 	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
