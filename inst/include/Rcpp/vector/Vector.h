@@ -22,6 +22,8 @@
 #ifndef Rcpp__vector__Vector_h
 #define Rcpp__vector__Vector_h
 
+// template <int RTYPE, typename VEC, typename T> class Assigner ; 
+
 template <int RTYPE>
 class Vector :
 	public RObject,       
@@ -51,7 +53,7 @@ public:
 	}
 	
 	Vector& operator=( const Vector& other ){
-		RObject::setSEXP( other.asSexp() ) ;
+		set_sexp( other.asSexp() ) ;
 		return *this ;
 	}
 	
@@ -62,14 +64,57 @@ public:
 	Vector( const RObject::AttributeProxy& proxy ) throw(not_compatible) {
 		RObject::setSEXP( r_cast<RTYPE>( proxy ) ) ;
 	}
-	
+		
 	template <typename T>
 	Vector& operator=( const T& x){
-	    // TODO: wrap will reallocate the memory. we can definitely avoid that
-	    //       if this is of the same size as the target
-		RObject::setSEXP( r_cast<RTYPE>( wrap(x) ) ) ;
-		return *this ;
+	    assign_object( x, typename traits::is_sugar_expression<T>::type() ) ;
+	    return *this ;
 	}
+	
+private:
+    
+    // sugar
+    template <typename T>
+	inline void assign_object( const T& x, traits::true_type ){
+	    int n = size() ;
+	    if( n == x.size() ){
+           
+            // just copy the data 
+            iterator start = begin() ;
+            
+            int __trip_count = n >> 2 ;
+            int i = 0 ;
+            for ( ; __trip_count > 0 ; --__trip_count) { 
+            	start[i] = x[i] ; i++ ;            
+            	start[i] = x[i] ; i++ ;            
+            	start[i] = x[i] ; i++ ;            
+            	start[i] = x[i] ; i++ ;            
+            }                                            
+            switch (n - i){                          
+              case 3:                                    
+                  start[i] = x[i] ; i++ ;             
+              case 2:                                    
+                  start[i] = x[i] ; i++ ;             
+              case 1:                                    
+                  start[i] = x[i] ; i++ ;             
+              case 0:                                    
+              default:                                   
+                  {}                         
+            }
+        } else{
+            // different size, so we change the memory
+            set_sexp( r_cast<RTYPE>( wrap(x) ) ); 
+        }
+    }
+    
+	// anything else
+	template <typename T>
+	inline void assign_object( const T& x, traits::false_type ){
+	    // TODO: maybe we already have the memory to host the results
+	    set_sexp( r_cast<RTYPE>( wrap(x) ) ) ;
+	}
+    
+public:
 	
 	internal::ListInitialization<iterator,init_type> operator=( init_type x){
 		iterator start = begin() ; *start = x; 
@@ -470,10 +515,12 @@ public:
 	}
 	
 	
+public:
 	void set_sexp(SEXP x){
 		RObject::setSEXP( x) ;
 		update_vector() ;
 	}
+private:
 	
 	void push_back__impl(const stored_type& object){
 		int n = size() ;
@@ -743,5 +790,70 @@ protected:
 	}
 	
 } ; /* Vector */
+
+// template <int RTYPE, typename VEC, typename T>
+// class Assigner{
+// public:
+//     
+//     Assigner( VEC& target_, const T& source_ ) : target(target_), source(source_){
+//         Rprintf( "Assigner wrap ( %s )\n", DEMANGLE(Assigner) ) ;
+//     }
+// 
+//     inline void assign(){ 
+//         target.set_sexp( r_cast<RTYPE>( wrap(source) ) ); 
+//     }
+//     
+// private:
+//     VEC& target ;
+//     const T& source ;
+// } ;
+// 
+// template <int RTYPE,  typename VEC, bool SOURCE_NA, typename SOURCE_T>
+// class Assigner<RTYPE,VEC, VectorBase<RTYPE,SOURCE_NA,SOURCE_T> >{
+// public:
+//     
+//     typedef VectorBase<RTYPE,SOURCE_NA,SOURCE_T> T ;
+//     
+//     Assigner( VEC& target_, const T& source_ ) : target(target_), source(source_){
+//         Rprintf( "Assigner sugar ( %s )\n", DEMANGLE(Assigner) ) ;
+//     }
+// 
+//     inline void assign(){ 
+//         int n = target.size() ;
+//         if( n == source.size() ){
+//            
+//             const SOURCE_T& ref = source.get_ref() ;
+//             // just copy the data 
+//             typename VEC::iterator start = target.begin() ;
+//             
+//             int __trip_count = n >> 2 ;
+//             int i = 0 ;
+//             for ( ; __trip_count > 0 ; --__trip_count) { 
+//             	start[i] = ref[i] ; i++ ;            
+//             	start[i] = ref[i] ; i++ ;            
+//             	start[i] = ref[i] ; i++ ;            
+//             	start[i] = ref[i] ; i++ ;            
+//             }                                            
+//             switch (n - i){                          
+//               case 3:                                    
+//                   start[i] = ref[i] ; i++ ;             
+//               case 2:                                    
+//                   start[i] = ref[i] ; i++ ;             
+//               case 1:                                    
+//                   start[i] = ref[i] ; i++ ;             
+//               case 0:                                    
+//               default:                                   
+//                   {}                         
+//             }
+//         } else{
+//             target.set_sexp( r_cast<RTYPE>( wrap(source) ) ); 
+//         }
+//     }
+//     
+// private:
+//     VEC& target ;
+//     const T& source ;
+//     
+// } ;
 
 #endif

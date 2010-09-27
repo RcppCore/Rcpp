@@ -224,6 +224,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/has_iterator.h>
 #include <Rcpp/traits/expands_to_logical.h>
 #include <Rcpp/traits/matrix_interface.h>
+#include <Rcpp/traits/is_sugar_expression.h>
 #include <Rcpp/traits/has_na.h>
 #include <Rcpp/traits/storage_type.h>
 #include <Rcpp/traits/r_sexptype_traits.h>
