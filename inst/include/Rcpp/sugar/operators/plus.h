@@ -32,8 +32,11 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		
+		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
+		
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE lhs_ = lhs[i] ;
@@ -45,8 +48,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 	
 	// specialization LHS_NA = false
@@ -56,6 +59,9 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
+		
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
 		
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
@@ -69,8 +75,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 
 	// specialization for RHS_NA = false 
@@ -80,6 +86,9 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
+		
+		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, RHS_T>::type RHS_EXT ;
 		
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
@@ -93,8 +102,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 
 
@@ -106,6 +115,9 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, RHS_T>::type RHS_EXT ;
+		                                                     
 		Plus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
@@ -116,8 +128,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 	
 	
@@ -127,6 +139,8 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		typedef typename Rcpp::traits::Extractor< RTYPE, NA, T>::type EXT ;
 		
 		Plus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) )
@@ -141,48 +155,11 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const T& lhs ;
+		const EXT& lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 		
 	} ;
-	
-	
-	// very special version that is used when the vector expression is 
-	// actually a vector. In that case we use its iterator (usually pointer)
-	// directly instead of adding the overhead of operator[]
-	template <int RTYPE>
-	class Plus_Vector_Primitive<RTYPE,true,Rcpp::Vector<RTYPE> > : 
-	    public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Primitive<RTYPE,true,Rcpp::Vector<RTYPE> > > {
-	public:
-	    
-	    typedef typename Rcpp::Vector<RTYPE>::iterator iterator ;
-		typedef typename Rcpp::VectorBase<RTYPE,true,Rcpp::Vector<RTYPE> > VEC_TYPE ;
-		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		
-		Plus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_.get_ref().begin())
-			, rhs(rhs_)
-			, rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) )
-			, n( lhs_.size() )
-			{}
-		
-		inline STORAGE operator[]( int i ) const {
-			if( rhs_na ) return rhs ;
-			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
-		}
-		
-		inline int size() const { return n ; }
-		
-	private:
-		iterator lhs ;
-	    STORAGE rhs ;
-		bool rhs_na ;
-		int n ;
-		
-	} ;
-	
 	
 	
 	template <int RTYPE, typename T>
@@ -190,6 +167,8 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, T>::type EXT ;
 		
 		Plus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
@@ -201,7 +180,7 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const T& lhs ;
+		const EXT& lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 		
@@ -219,7 +198,8 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		
+		typedef typename Rcpp::traits::Extractor< RTYPE, NA, T>::type EXT ;
+		   
 		Plus_Vector_Primitive_nona( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_)
 			{}
@@ -232,50 +212,19 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const T& lhs ;
+		const EXT& lhs ;
 		STORAGE rhs ;
 		
 	} ;
 
-	
-	// very special version that is used when the vector expression is 
-	// actually a vector. In that case we use its iterator (usually pointer)
-	// directly instead of adding the overhead of operator[]
-	template <int RTYPE>
-	class Plus_Vector_Primitive_nona<RTYPE,true,Rcpp::Vector<RTYPE> > : 
-	    public Rcpp::VectorBase<RTYPE,true, Plus_Vector_Primitive_nona<RTYPE,true,Rcpp::Vector<RTYPE> > > {
-	public:
-	    
-	    typedef typename Rcpp::Vector<RTYPE>::iterator iterator ;
-		typedef typename Rcpp::VectorBase<RTYPE,true,Rcpp::Vector<RTYPE> > VEC_TYPE ;
-		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		
-		Plus_Vector_Primitive_nona( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_.get_ref().begin())
-			, rhs(rhs_)
-			, n( lhs_.size() )
-			{}
-		
-		inline STORAGE operator[]( int i ) const {
-			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
-		}
-		
-		inline int size() const { return n ; }
-		
-	private:
-		iterator lhs ;
-	    STORAGE rhs ;
-		int n ;
-		
-	} ;
-	
 	
 	template <int RTYPE, typename T>
 	class Plus_Vector_Primitive_nona<RTYPE,false,T> : public Rcpp::VectorBase<RTYPE,false, Plus_Vector_Primitive_nona<RTYPE,false,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, T>::type EXT ;
 		
 		Plus_Vector_Primitive_nona( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_) {}
@@ -287,7 +236,7 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const T& lhs ;
+		const EXT& lhs ;
 		STORAGE rhs ;
 		
 	} ;
