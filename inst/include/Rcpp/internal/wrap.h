@@ -461,7 +461,7 @@ inline SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, :
 	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
 	INTEGER(dim)[0] = object.nrow() ;
 	INTEGER(dim)[1] = object.ncol() ;
-	Rf_setAttrib( res, Rf_install( "dim" ), dim ) ;
+	Rf_setAttrib( res, R_DimSymbol , dim ) ;
 	UNPROTECT(2) ;
 	return res ;
 }

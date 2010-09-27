@@ -79,7 +79,7 @@ public:
     	SEXP d = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
     	INTEGER(d)[0] = nr ;
     	INTEGER(d)[1] = nc ;
-    	Rf_setAttrib( x, Rf_install("dim"), d ) ;
+    	Rf_setAttrib( x, R_DimSymbol, d ) ;
     	RObject::setSEXP( x ) ;
     	UNPROTECT( 2 ) ;
     	import_matrix_expression<NA,MAT>( other, nr, nc ) ;
