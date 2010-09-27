@@ -1,7 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// matrix_interface.h: Rcpp R/C++ interface class library -- 
+// is_sugar_expression.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 //
@@ -20,21 +19,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits__matrix_interface_h
-#define Rcpp__traits__matrix_interface_h
-
-// helper trait to disambiguate things that want to be logical vectors
-// from containers of int
+#ifndef Rcpp__traits__is_sugar_expression_h
+#define Rcpp__traits__is_sugar_expression_h
 
 namespace Rcpp{
 namespace traits{
 
 	template<typename T>
-	class _has_matrix_interface_helper : __sfinae_types {
+	class _is_sugar_expression_helper : __sfinae_types {
       template<typename U> struct _Wrap_type { };
 
       template<typename U>
-        static __one __test(_Wrap_type<typename U::r_matrix_interface>*);
+        static __one __test(_Wrap_type<typename U::rcpp_sugar_expression>*);
 
       template<typename U>
         static __two __test(...);
@@ -43,8 +39,8 @@ namespace traits{
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
   
-  template<typename T> struct matrix_interface : 
-  	integral_constant<bool, _has_matrix_interface_helper<T>::value >{ };
+  template<typename T> struct is_sugar_expression : 
+  	integral_constant<bool, _is_sugar_expression_helper<T>::value >{ };
     
     
 } 
