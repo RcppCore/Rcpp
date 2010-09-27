@@ -42,7 +42,9 @@ public:
 	typedef typename Rcpp::traits::r_vector_element_converter<RESULT_R_TYPE>::type converter_type ;
 	typedef typename Rcpp::traits::storage_type<RESULT_R_TYPE>::type STORAGE ;
 	
-	Sapply( const VEC& vec_, Function fun_ ) : vec(vec_), fun(fun_){}
+	typedef typename Rcpp::traits::Extractor< RTYPE, NA, T>::type EXT ;
+	
+	Sapply( const VEC& vec_, Function fun_ ) : vec(vec_.get_ref()), fun(fun_){}
 	
 	inline STORAGE operator[]( int i ) const {
 		return converter_type::get( fun( vec[i] ) );
@@ -50,7 +52,7 @@ public:
 	inline int size() const { return vec.size() ; }
 	         
 private:
-	const VEC& vec ;
+	const EXT& vec ;
 	Function fun ;
 } ;
 	
