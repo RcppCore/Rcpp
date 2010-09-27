@@ -75,7 +75,7 @@ namespace Rcpp {
 			// 
 			CharacterVector res = internal::try_catch( 
 				Rf_lang2(
-					Rf_install( "names" ),
+					R_NamesSymbol,
 					Rf_lang3( 
 						Rf_install( "slot" ),
 						Rf_lang2( Rf_install( "getClassDef"), cl ), 

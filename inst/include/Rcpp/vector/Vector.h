@@ -784,7 +784,7 @@ public:
 protected:
 	inline int* dims() const throw(not_a_matrix) {
 		if( !::Rf_isMatrix(RObject::m_sexp) ) throw not_a_matrix() ;
-		return INTEGER( ::Rf_getAttrib( RObject::m_sexp, ::Rf_install( "dim") ) ) ;
+		return INTEGER( ::Rf_getAttrib( RObject::m_sexp, R_DimSymbol ) ) ;
 	}
 	
 } ; /* Vector */
