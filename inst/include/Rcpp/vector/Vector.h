@@ -65,6 +65,8 @@ public:
 	
 	template <typename T>
 	Vector& operator=( const T& x){
+	    // TODO: wrap will reallocate the memory. we can definitely avoid that
+	    //       if this is of the same size as the target
 		RObject::setSEXP( r_cast<RTYPE>( wrap(x) ) ) ;
 		return *this ;
 	}
