@@ -32,8 +32,11 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		
+		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
+		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE lhs_ = lhs[i] ;
@@ -45,8 +48,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 	
 	// specialization LHS_NA = false
@@ -56,6 +59,9 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
+		
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
 		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
@@ -69,8 +75,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 
 	// specialization for RHS_NA = false 
@@ -80,6 +86,9 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
+		
+		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, RHS_T>::type RHS_EXT ;
 		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
@@ -93,8 +102,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 
 
@@ -106,6 +115,9 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, RHS_T>::type RHS_EXT ;
+		                                                     
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 		
@@ -116,8 +128,8 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_T& lhs ;
-		const RHS_T& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;	
 	
 	

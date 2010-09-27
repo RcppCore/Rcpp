@@ -3,11 +3,12 @@ require( inline )
 require( Rcpp )
 
 expressions <- list( 
-    times = "nona(x) * y", 
-    plus = "x + y", 
-    minus = "x - y", 
-    divides = "x / y", 
-    exp_ = "exp( x )"
+    times = "x * y" , 
+    plus = "x + y"
+#    , 
+#    minus = "x - y", 
+#    divides = "x / y", 
+#    exp_ = "exp( x )"
 )
 
 signatures <- lapply( expressions, function(.) signature( x_ = "numeric", y_ = "numeric", n_ = "integer" ) )
@@ -30,7 +31,8 @@ y <- runif( 100000, min = 1, max = 100)
 # resolving the dyn lib once
 invisible( lapply( fx, function(f){ f( x, y, 1L) } ) )
 
-sapply( fx, function(f){
-    system.time( f( x, y, 1000 ) )
-} )
+# t( sapply( fx, function(f){
+#     system.time( f( x, y, 10000 ) )
+# } ) )[, 1:3]
+# 
 
