@@ -1,3 +1,4 @@
+#!/usr/bin/r -t
 
 suppressMessages(library(inline))
 suppressMessages(library(Rcpp))
