@@ -27,12 +27,16 @@ template <typename VECTOR>
 class Fast {
 public:
     typedef typename VECTOR::stored_type value_type ;
-    Fast( VECTOR& v) : data( v.begin() ){} 
+    Fast( VECTOR& v) : data( v.begin() ), n(v.size()) {} 
+    Fast( const VECTOR& v) : data( v.begin() ), n(v.size()) {} 
     
     inline value_type& operator[]( int i){ return data[i] ; }
-        
+    inline value_type& operator[]( int i) const { return data[i] ; }
+    inline int size() const { return n ; }
+    
 private:
     value_type* data ;
+    int n ;
     
 } ;
 }
