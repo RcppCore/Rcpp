@@ -22,8 +22,6 @@
 #ifndef Rcpp__vector__Vector_h
 #define Rcpp__vector__Vector_h
 
-// template <int RTYPE, typename VEC, typename T> class Assigner ; 
-
 template <int RTYPE>
 class Vector :
 	public RObject,       
@@ -790,70 +788,5 @@ protected:
 	}
 	
 } ; /* Vector */
-
-// template <int RTYPE, typename VEC, typename T>
-// class Assigner{
-// public:
-//     
-//     Assigner( VEC& target_, const T& source_ ) : target(target_), source(source_){
-//         Rprintf( "Assigner wrap ( %s )\n", DEMANGLE(Assigner) ) ;
-//     }
-// 
-//     inline void assign(){ 
-//         target.set_sexp( r_cast<RTYPE>( wrap(source) ) ); 
-//     }
-//     
-// private:
-//     VEC& target ;
-//     const T& source ;
-// } ;
-// 
-// template <int RTYPE,  typename VEC, bool SOURCE_NA, typename SOURCE_T>
-// class Assigner<RTYPE,VEC, VectorBase<RTYPE,SOURCE_NA,SOURCE_T> >{
-// public:
-//     
-//     typedef VectorBase<RTYPE,SOURCE_NA,SOURCE_T> T ;
-//     
-//     Assigner( VEC& target_, const T& source_ ) : target(target_), source(source_){
-//         Rprintf( "Assigner sugar ( %s )\n", DEMANGLE(Assigner) ) ;
-//     }
-// 
-//     inline void assign(){ 
-//         int n = target.size() ;
-//         if( n == source.size() ){
-//            
-//             const SOURCE_T& ref = source.get_ref() ;
-//             // just copy the data 
-//             typename VEC::iterator start = target.begin() ;
-//             
-//             int __trip_count = n >> 2 ;
-//             int i = 0 ;
-//             for ( ; __trip_count > 0 ; --__trip_count) { 
-//             	start[i] = ref[i] ; i++ ;            
-//             	start[i] = ref[i] ; i++ ;            
-//             	start[i] = ref[i] ; i++ ;            
-//             	start[i] = ref[i] ; i++ ;            
-//             }                                            
-//             switch (n - i){                          
-//               case 3:                                    
-//                   start[i] = ref[i] ; i++ ;             
-//               case 2:                                    
-//                   start[i] = ref[i] ; i++ ;             
-//               case 1:                                    
-//                   start[i] = ref[i] ; i++ ;             
-//               case 0:                                    
-//               default:                                   
-//                   {}                         
-//             }
-//         } else{
-//             target.set_sexp( r_cast<RTYPE>( wrap(source) ) ); 
-//         }
-//     }
-//     
-// private:
-//     VEC& target ;
-//     const T& source ;
-//     
-// } ;
 
 #endif
