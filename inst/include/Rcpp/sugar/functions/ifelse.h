@@ -278,13 +278,13 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) : 
-		cond(cond_), lhs(lhs_), rhs(rhs_), na( Rcpp::traits::get_na<RTYPE>() )  {
+		cond(cond_), lhs(lhs_), rhs(rhs_)  {
 			/* FIXME : cond, lhs and rhs must all have the same size */	
 	}
 	
 	inline STORAGE operator[]( int i ) const {
 		int x = cond[i] ;
-		if( Rcpp::traits::is_na<LGLSXP>(x) ) return na ;
+		if( Rcpp::traits::is_na<LGLSXP>(x) ) return Rcpp::traits::get_na<RTYPE>() ;
 		return x ? lhs : rhs ;
 	}
 	

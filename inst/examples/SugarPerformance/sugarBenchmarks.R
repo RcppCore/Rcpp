@@ -78,7 +78,7 @@ src <- sprintf( '
 	}
 
 	settings <- getPlugin("Rcpp")
-	settings$env$PKG_CXXFLAGS <- paste("-I", getwd(), " -O0", sep="")
+	settings$env$PKG_CXXFLAGS <- paste("-I", getwd(), sep="")
 
 	fun <- cxxfunction(signature(runss="integer", expr = "language", env = "environment" ),
 	                   src,

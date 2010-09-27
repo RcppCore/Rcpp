@@ -372,7 +372,7 @@ public:
 						Rf_cons( parent, Rf_cons( x , R_NilValue) )))) ;
 				/* names<- makes a new vector, so we have to change 
 				   the SEXP of the parent of this proxy */
-				const_cast<Vector&>(parent).setSEXP( new_vec ) ;
+				const_cast<Vector&>(parent).set_sexp( new_vec ) ;
 				UNPROTECT(1) ; /* new_vec */
     			}
     		
@@ -387,8 +387,8 @@ public:
 	inline iterator begin() const{ return cache.get() ; }
 	inline iterator end() const{ return cache.get(size()) ; }
 	
-	inline Proxy operator[]( int i ){ return iter_first[i] ; }
-	inline Proxy operator[]( int i ) const { return iter_first[i] ; }
+	inline Proxy operator[]( int i ){ return cache.ref(i) ; }
+	inline Proxy operator[]( int i ) const { return cache.ref(i) ; }
 	inline Proxy operator()( const size_t& i) throw(index_out_of_bounds){
 		return cache.ref( offset(i) ) ;
 	}
@@ -486,7 +486,6 @@ public:
 	void update_vector(){
 		RCPP_DEBUG_1(  "update_vector, VECTOR = %s", DEMANGLE(Vector) ) ;
 		cache.update(*this) ;
-		iter_first = cache.get() ;
 	}
 		
 	static Vector create(){
@@ -771,7 +770,6 @@ private:
 	}
 	
 	traits::r_vector_cache<RTYPE> cache ;
-	iterator iter_first ;
 
 public:
 	
