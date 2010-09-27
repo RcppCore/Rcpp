@@ -24,8 +24,6 @@
 
 #include <Rcpp/sugar/block/block.h>
 
-#include <Rcpp/sugar/nona/nona.h>
-
 #include <Rcpp/sugar/operators/operators.h>
 #include <Rcpp/sugar/functions/functions.h>
 #include <Rcpp/sugar/matrix/matrix_functions.h>

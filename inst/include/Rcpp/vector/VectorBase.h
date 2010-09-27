@@ -92,6 +92,10 @@ public:
 			return *this ;
 		}
 
+		inline reference operator[](int i){
+		    return object[index+i] ;
+		}
+		
 		inline reference operator*() {
 			return object[index] ;
 		}

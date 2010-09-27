@@ -43,7 +43,12 @@
 #include <Rcpp/Dimension.h>
 #include <Rcpp/Environment.h>
 #include <Rcpp/Evaluator.h>
+
 #include <Rcpp/Vector.h>
+#include <Rcpp/sugar/nona/nona.h>
+#include <Rcpp/Fast.h>
+#include <Rcpp/Extractor.h>
+
 #include <Rcpp/XPtr.h>
 #include <Rcpp/Symbol.h>
 #include <Rcpp/Language.h>
@@ -58,7 +63,6 @@
 #include <Rcpp/DateVector.h>
 #include <Rcpp/Datetime.h>
 #include <Rcpp/DatetimeVector.h>
-#include <Rcpp/Fast.h>
 
 #ifdef RCPP_ENABLE_MODULES
 #include <Rcpp/Module.h>
