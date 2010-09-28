@@ -235,7 +235,7 @@
 				'
 					NumericVector xx(x) ;
 					NumericVector yy(y) ;
-					
+					       
 					return List::create( 
 						 _["vec_vec" ]  = ifelse( xx < yy, xx*xx, -(yy*yy) ),  
 						 _["vec_prim"]  = ifelse( xx < yy, 1.0  , -(yy*yy) ), 
@@ -913,7 +913,7 @@ test.sugar.isna <- function( ){
 	checkEquals( fx( 1:10) , rep(FALSE,10) )
 }
 
-test.sugar.isna.isna <- function( ){
+test.sugar.isna.isna <- function( ){                                                                                                  
 	fx <- .rcpp.sugar$runit_isna_isna
 	checkEquals( fx( c(1:5,NA,7:10) ) , rep(FALSE,10) )
 }

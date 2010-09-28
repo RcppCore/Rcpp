@@ -126,6 +126,7 @@ public:
     }
     
     Vector( const int& size ) : RObject()  {
+    	RCPP_DEBUG_2( "Vector<%d>( int = %d )", RTYPE, size ) ;
     	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
 		init() ;
     }
@@ -484,7 +485,7 @@ public:
 	}
 	
 	void update_vector(){
-		RCPP_DEBUG_1(  "update_vector, VECTOR = %s", DEMANGLE(Vector) ) ;
+		RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector), reinterpret_cast<void*>( RObject::asSexp() ) ) ;
 		cache.update(*this) ;
 	}
 		
@@ -507,7 +508,9 @@ public:
 	
 	template <typename U>
 	static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, int index, const U& u){
-		*it = converter_type::get(u.object ) ;
+		RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
+		
+	    *it = converter_type::get(u.object ) ;
 		SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
 	}
 	
@@ -765,7 +768,7 @@ private:
 	}
 
 	virtual void update(){
-		RCPP_DEBUG_1( "%s::update", DEMANGLE(Vector) ) ;
+		RCPP_DEBUG_2( "Vector<%d>::update( SEXP = <%p> )", RTYPE, RObject::asSexp() ) ;
 		update_vector() ;
 	}
 	

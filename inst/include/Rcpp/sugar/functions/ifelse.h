@@ -42,12 +42,14 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,RHS_NA ,RHS_T>  RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	
-	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
-	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
+	// typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
+	// typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
 	
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
 		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the same size */	
+			/* FIXME : cond, lhs and rhs must all have the same size */
+			
+		RCPP_DEBUG( DEMANGLE(IfElse) ) ;	
 	}
 	
 	inline STORAGE operator[]( int i ) const {
@@ -61,8 +63,8 @@ public:
 	         
 private:
 	const COND_TYPE& cond ;
-	const LHS_EXT& lhs ;
-	const RHS_EXT& rhs ;
+	const LHS_T& lhs ;
+	const RHS_T& rhs ;
 	
 } ;
   
