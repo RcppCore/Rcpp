@@ -25,6 +25,8 @@
 namespace Rcpp {
 
 void RObject::setSEXP(SEXP x){
+    RCPP_DEBUG_1( "RObject::setSEXP(SEXP = <%p> )", x ) ; 
+    
 	/* if we are setting to the same SEXP as we already have, do nothing */
 	if( x != m_sexp ){
 		
