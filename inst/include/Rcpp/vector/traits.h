@@ -35,6 +35,7 @@ namespace traits{
 		r_vector_cache() : start(0){} ;
 		void update( const VECTOR& v ) {
 			start = ::Rcpp::internal::r_vector_start<RTYPE,storage_type>(v.asSexp()) ;
+			RCPP_DEBUG_3( " cache<%d>::update( <%p> ), start = <%p>", RTYPE, reinterpret_cast<void*>(v.asSexp()),  reinterpret_cast<void*>(start) ) ;
 		}
 		inline iterator get() const { return start; }
 		inline iterator get(int i) const { return start + i ; }
@@ -58,6 +59,7 @@ namespace traits{
 		~proxy_cache(){}
 		void update( const VECTOR& v ){
 			p = const_cast<VECTOR*>(&v) ;
+			RCPP_DEBUG_3( " cache<%d>::update( <%p> ), p = <%p>", RTYPE, reinterpret_cast<void*>(v.asSexp()),  reinterpret_cast<void*>(p) ) ;
 		}
 		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
 		inline iterator get(int i) const { return iterator( proxy(*p, i ) ) ;}

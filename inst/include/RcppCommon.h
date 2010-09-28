@@ -191,13 +191,15 @@ namespace Rcpp{
 #endif
 
 #if RCPP_DEBUG_LEVEL > 0
-	#define RCPP_DEBUG( MSG ) Rprintf( "%s:%d %s" , __FILE__, __LINE__, MSG ) ;
-	#define RCPP_DEBUG_1( fmt, MSG ) Rprintf( "%s:%d " fmt "%s" , __FILE__, __LINE__, MSG ) ;
-	#define RCPP_DEBUG_2( fmt, M1, M2 ) Rprintf( "%s:%d " fmt "%s" , __FILE__, __LINE__, M1, M2 ) ;
+	#define RCPP_DEBUG( MSG ) Rprintf( "%s:%d %s\n" , __FILE__, __LINE__, MSG ) ;
+	#define RCPP_DEBUG_1( fmt, MSG ) Rprintf( "%s:%d " fmt "\n" , __FILE__, __LINE__, MSG ) ;
+	#define RCPP_DEBUG_2( fmt, M1, M2 ) Rprintf( "%s:%d" fmt "\n" , __FILE__, __LINE__, M1, M2 ) ;
+	#define RCPP_DEBUG_3( fmt, M1, M2, M3 ) Rprintf( "%s:%d" fmt "\n" , __FILE__, __LINE__, M1, M2, M3) ;
 #else
 	#define RCPP_DEBUG( MSG )
 	#define RCPP_DEBUG_1( fmt, MSG )
 	#define RCPP_DEBUG_2( fmt, M1, M2 )
+	#define RCPP_DEBUG_3( fmt, M1, M2, M3 )
 #endif
 
 SEXP stack_trace( const char *file, int line) ;
