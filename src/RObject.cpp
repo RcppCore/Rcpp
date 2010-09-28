@@ -122,7 +122,13 @@ SEXP RObject::AttributeProxy::get() const {
 }
 
 void RObject::AttributeProxy::set(SEXP x) const{
-	Rf_setAttrib( parent, Rf_install(attr_name.c_str()), x ) ;
+#if RCPP_DEBUG_LEVEL > 0
+RCPP_DEBUG_1( "RObject::AttributeProxy::set() before = <%p>", parent.asSexp() ) ;
+SEXP res = Rf_setAttrib( parent, Rf_install(attr_name.c_str()), x ) ;
+RCPP_DEBUG_1( "RObject::AttributeProxy::set() after  = <%p>", res ) ;
+#else
+Rf_setAttrib( parent, Rf_install(attr_name.c_str()), x ) ;
+#endif
 }
 
 RObject::AttributeProxy::AttributeProxy( const RObject& v, const std::string& name) :

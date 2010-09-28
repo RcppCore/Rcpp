@@ -36,7 +36,8 @@ namespace sugar{
 		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
 		
 		Times_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+		}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE lhs_ = lhs[i] ;

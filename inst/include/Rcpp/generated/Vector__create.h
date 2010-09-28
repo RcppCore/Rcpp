@@ -191,7 +191,6 @@ public:
 	
 	template <typename T1, typename T2, typename T3, typename T4>
 	static Vector create(const T1& t1, const T2& t2, const T3& t3, const T4& t4){
-		RCPP_DEBUG( "  Vector::create[4]( ) " ) ; 
 		return create__dispatch( typename traits::integral_constant<bool, 
   traits::is_named<T1>::value  ||  traits::is_named<T2>::value  ||  traits::is_named<T3>::value  ||  traits::is_named<T4>::value  
 		>::type(), t1, t2, t3, t4 ) ;  		
@@ -217,7 +216,6 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4){
 		Vector res( 4 ) ;
-		RCPP_DEBUG( "  Vector::create_dispatch[4]( true ) " ) ; 
 		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 4 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
