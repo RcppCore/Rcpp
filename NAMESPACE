@@ -19,7 +19,8 @@ useDynLib(Rcpp,
 import( methods )
 importFrom( utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription )
 
-exportClasses( Module, "C++Field", "C++Method", "C++Class", "C++Object", "C++Function", 
+exportClasses( Module, "C++ObjectS3", "C++Field", "C++Method", 
+    "C++Class", "C++Object", "C++Function", 
     "C++ClassRepresentation" # , "C++Property"
     )
 

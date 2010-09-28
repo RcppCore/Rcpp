@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+# not used, but this keeps packages that import the class happy
+# e.g. highlight 
+setClass( "C++ObjectS3" ) 
 
 ## "Module" class as an environment with "pointer", "moduleName",
 ##  "packageName" and "refClassGenerators"
