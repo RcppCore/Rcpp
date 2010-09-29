@@ -14,7 +14,7 @@ RcppExport SEXP convolve11cpp(SEXP a, SEXP b) {
     
     Range r( 0, n_xb-1 );
     for(int i=0; i<n_xa; i++, r++){
-    	xab[ r ] += nona(xa[i]) * nona(xb) ;
+    	xab[ r ] += noNA(xa[i]) * noNA(xb) ;
     }
     return xab ;
 }
