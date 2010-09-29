@@ -52,8 +52,9 @@ Rcpp-api.pdf: Rcpp-api.Rnw
 
 Rcpp-introduction.pdf: Rcpp-introduction.Rnw
 	R CMD Sweave Rcpp-introduction.Rnw
-	bibtex Rcpp-introduction
 ifeq ($(whoami),edd)
+	pdflatex Rcpp-introduction.tex
+	bibtex Rcpp-introduction
 	pdflatex Rcpp-introduction.tex
 	pdflatex Rcpp-introduction.tex
 else
