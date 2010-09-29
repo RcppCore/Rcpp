@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// nona.h: Rcpp R/C++ interface class library -- 
+// nona.h: Rcpp R/C++ interface class library -- noNA handling
 //
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
@@ -71,14 +71,14 @@ namespace sugar {
 }
 
 template <int RTYPE, bool NA, typename VECTOR>
-inline sugar::Nona<RTYPE,NA,VECTOR> nona( const Rcpp::VectorBase<RTYPE,NA,VECTOR>& vec ){
+inline sugar::Nona<RTYPE,NA,VECTOR> noNA( const Rcpp::VectorBase<RTYPE,NA,VECTOR>& vec ){
     return sugar::Nona<RTYPE,NA,VECTOR>( vec ) ;
 }
 
-inline sugar::NonaPrimitive<double> nona( double x ){
+inline sugar::NonaPrimitive<double> noNA( double x ){
     return sugar::NonaPrimitive<double>( x ) ; 
 }
-inline sugar::NonaPrimitive<int> nona( int x ){
+inline sugar::NonaPrimitive<int> noNA( int x ){
     return sugar::NonaPrimitive<int>( x ) ; 
 }
 
