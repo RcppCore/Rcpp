@@ -90,7 +90,7 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
   \pkg{Rcpp}. All components of the directory tree created by
   \Sexpr{link("Rcpp.package.skeleton")} are discussed in detail.  This
   document thereby complements the \textsl{Writing R Extensions}
-  manual~\citep{R:exts} which is the authoritative source on how to extend
+  manual~\citep{R:Extensions} which is the authoritative source on how to extend
   \proglang{R} in general.
 }
 
@@ -104,7 +104,7 @@ client package that wants to make use of the \pkg{Rcpp} features must link
 against the library provided by \pkg{Rcpp}.
 
 It should be noted that \proglang{R} has only limited support for
-\proglang{C(++)}-level dependencies between packages~\citep{R:exts}. The
+\proglang{C(++)}-level dependencies between packages~\citep{R:Extensions}. The
 \texttt{LinkingTo} declaration in the package \texttt{DESCRIPTION} file
 allows the client package to retrieve the headers of the target package (here
 \pkg{Rcpp}), but support for linking against a library is not provided by
@@ -116,8 +116,8 @@ package. We illustrate this using a simple \proglang{C++} function
 which will be called by an \proglang{R} function.
 
 We strongly encourage the reader to become familiar with the material in the
-\textsl{Writing R Extensions} manual~\citep{R:exts}, as well as with other
-documents on \proglang{R} package creation such as \cite{Leisch:2008}. Given
+\textsl{Writing R Extensions} manual~\citep{R:Extensions}, as well as with other
+documents on \proglang{R} package creation such as \cite{Leisch:2008:Tutorial}. Given
 a basic understanding of how to create \proglang{R} package, the present
 document aims to provide the additional information on how to use \pkg{Rcpp}
 in such add-on packages.
@@ -327,7 +327,7 @@ Also created is a directory \texttt{man} containing two help files. One is
 for the package itself, the other for the (single) \proglang{R} function
 being provided and exported.
 
-The \textsl{Writing R Extensions} manual~\citep{R:exts} provides the complete
+The \textsl{Writing R Extensions} manual~\citep{R:Extensions} provides the complete
 documentation on how to create suitable content for help files.
 
 \subsubsection{\texttt{mypackage-package.Rd}}
@@ -391,7 +391,7 @@ attempt at claiming otherwise.
 
 \pkg{Rcpp} is fully usable on Windows provided the standard Windows
 toolchain for \proglang{R} is used. See the \textsl{Writing R Extensions}
-manual~\citep{R:exts} for details.
+manual~\citep{R:Extensions} for details.
 
 \section{Summary}
 

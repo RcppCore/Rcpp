@@ -106,7 +106,7 @@ vignette( "Rcpp-introduction" )
 \pkg{Rcpp} has been specifically designed to be used by other packages.
 Making a package that uses \pkg{Rcpp} depends on the same mechanics that are
 involved in making any \proglang{R} package that use compiled code --- so
-reading the \textsl{Writing R Extensions} manual \citep{R:exts} is a required
+reading the \textsl{Writing R Extensions} manual \citep{R:Extensions} is a required
 first step.
 
 Further steps, specific to \pkg{Rcpp}, are described in a separate vignette.
@@ -254,8 +254,8 @@ project (if done right) involving advanced techniques such as expression
 templates. We currently do not plan to go in this direction, but we would
 welcome external help. Please send us a design document.
 
-However, we have developed the \pkg{RcppArmadillo} package that provides a
-bridge between \pkg{Rcpp} and \pkg{Armadillo} \citep{Armadillo}.  \pkg{Armadillo}
+However, we have developed the \pkg{RcppArmadillo} package \citep{CRAN:RcppArmadillo} that provides a
+bridge between \pkg{Rcpp} and \pkg{Armadillo} \citep{Sanderson:2010:Armadillo}.  \pkg{Armadillo}
 supports binary operators on its types in a way that takes full advantage of
 expression templates to remove temporaries and allow chaining of
 operations. That is a mouthful of words meaning that it makes the code go
