@@ -30,7 +30,7 @@ Rcpp_New_std <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b)
 #Rcpp_New_std_inside <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b, PACKAGE = "Rcpp" )
 Rcpp_New_ptr <- function(n,a,b) .Call("convolve4cpp__loop", n, a, b)
 Rcpp_New_sugar <- function(n,a,b) .Call("convolve5cpp__loop", n, a, b)
-Rcpp_New_sugar_nona <- function(n,a,b) .Call("convolve11cpp__loop", n, a, b)
+Rcpp_New_sugar_noNA <- function(n,a,b) .Call("convolve11cpp__loop", n, a, b)
 R_API_naive <- function(n,a,b) .Call("convolve7__loop", n, a, b)
 Rcpp_New_std_2 <- function(n,a,b) .Call("convolve8cpp__loop", n, a, b)
 #Rcpp_New_std_3 <- function(n,a,b) .Call("convolve9cpp__loop", n, a, b)
@@ -45,7 +45,7 @@ v3 <- Rcpp_New_std(1L, a, b)
 v4 <- Rcpp_New_ptr(1L, a, b)
 v5 <- Rcpp_New_sugar(1L, a, b )
 v7 <- R_API_naive(1L, a, b)
-v11 <- Rcpp_New_sugar_nona(1L, a, b)
+v11 <- Rcpp_New_sugar_noNA(1L, a, b)
 
 stopifnot(all.equal(v1, v2))
 stopifnot(all.equal(v1, v3))
@@ -64,7 +64,7 @@ bm <- benchmark(R_API_optimised(REPS,a,b),
 #                Rcpp_New_std_inside(REPS,a,b),
                 Rcpp_New_ptr(REPS,a,b),
                 Rcpp_New_sugar(REPS,a,b),
-                Rcpp_New_sugar_nona(REPS,a,b),
+                Rcpp_New_sugar_noNA(REPS,a,b),
                 Rcpp_New_std_2(REPS,a,b),
 #                Rcpp_New_std_3(REPS,a,b),
 #                Rcpp_New_std_4(REPS,a,b),
@@ -90,11 +90,11 @@ timings <- lapply( sizes, function(size){
                 Rcpp_New_std(REPS,a,b),
                 Rcpp_New_ptr(REPS,a,b),
                 Rcpp_New_sugar(REPS,a,b),
-                Rcpp_New_sugar_nona(REPS,a,b),
+                Rcpp_New_sugar_noNA(REPS,a,b),
                 columns=c("test", "elapsed", "relative", "user.self", "sys.self"),
                 order="relative",
                 replications=1)
-     
+
      cat( "  done\n" )
      bm
 } )
@@ -102,7 +102,7 @@ for( i in seq_along(sizes)){
     timings[[i]]$size <- sizes[i]
 }
 timings <- do.call( rbind, timings )
- 
+
 require( lattice )
 png( "elapsed.png", width = 800, height = 600 )
 xyplot( elapsed ~ size, groups = test, data = timings, auto.key = TRUE, type = "l", lwd = 2 )
@@ -110,4 +110,4 @@ dev.off()
 png( "relative.png", width = 800, height = 600 )
 xyplot( relative ~ size, groups = test, data = timings, auto.key = TRUE, type = "l", lwd = 2 )
 dev.off()
-   
+
