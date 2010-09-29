@@ -55,18 +55,18 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
   written using the \pkg{Rcpp} API.
 
   \sugar~is based on expression templates
-  \citep{Abrahams+Gurtovoy:2004,Vandevoorde+Josuttis:2003} and provides
+  \citep{Abrahams+Gurtovoy:2004:TemplateMetaprogramming,Vandevoorde+Josuttis:2003:Templates} and provides
   some 'syntactic sugar' facilities directly in \pkg{Rcpp}. This is similar
   to how \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo} offers
   linear algebra \proglang{C++} classes based on \pkg{Armadillo}
-  \citep{Armadillo}.
+  \citep{Sanderson:2010:Armadillo}.
   % TODO: reference to armadillo, blitz, etc ...
 }
 
 \section{Motivation}
 
 \pkg{Rcpp} facilitates development of internal compiled code in an \proglang{R}
-package by abstracting low-level details of the \proglang{R} API \citep{R:exts}
+package by abstracting low-level details of the \proglang{R} API \citep{R:Extensions}
 into a consistent set of \proglang{C++} classes.
 
 Code written using \pkg{Rcpp} classes is easier to read, write and maintain,
@@ -122,7 +122,7 @@ Apart from the fact that we need to assign the two objects we obtain from
 is now identical between highly-vectorised \proglang{R} and \proglang{C++}.
 
 \sugar~is written using expression templates and lazy evaluation techniques
-\citep{Abrahams+Gurtovoy:2004,Vandevoorde+Josuttis:2003}.
+\citep{Abrahams+Gurtovoy:2004:TemplateMetaprogramming,Vandevoorde+Josuttis:2003:Templates}.
 This not only allows a much nicer high-level syntax, but also makes it
 rather efficient (as we detail in section~\ref{sec:performance} below).
 

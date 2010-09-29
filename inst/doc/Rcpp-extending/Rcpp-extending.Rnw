@@ -89,10 +89,10 @@ require( Rcpp )
   This note provides an overview of the steps programmers should follow to
   extend \pkg{Rcpp} \citep{CRAN:Rcpp} for use with their own classes. This document
   is based on our experience in extending \pkg{Rcpp} to work with the
-  \pkg{Armadillo} \citep{Armadillo} classes, available in the separate package
+  \pkg{Armadillo} \citep{Sanderson:2010:Armadillo} classes, available in the separate package
   \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}. This document assumes
   knowledge of \pkg{Rcpp} as well as some knowledge of \proglang{C++}
-  templates \citep{Abrahams+Gurtovoy:2004}.
+  templates \citep{Abrahams+Gurtovoy:2004:TemplateMetaprogramming}.
 }
 
 
