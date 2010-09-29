@@ -34,7 +34,6 @@ clean:
 	rm Rcpp-package.Rnw ; cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
 	rm Rcpp-quickref.Rnw ; cp Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
 	rm Rcpp-sugar.Rnw ; cp Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
-	
 
 index.html: rcpp.index.html
 	cp rcpp.index.html index.html
@@ -53,6 +52,7 @@ Rcpp-api.pdf: Rcpp-api.Rnw
 
 Rcpp-introduction.pdf: Rcpp-introduction.Rnw
 	R CMD Sweave Rcpp-introduction.Rnw
+	bibtex Rcpp-introduction
 ifeq ($(whoami),edd)
 	pdflatex Rcpp-introduction.tex
 	pdflatex Rcpp-introduction.tex
