@@ -895,17 +895,17 @@ test.sugar.pow <- function( ){
 }
 
 
-# test.sugar.ifelse <- function( ){
-# 	fx <- .rcpp.sugar$runit_ifelse
-# 	x <- 1:10
-# 	y <- 10:1
-# 	checkEquals( fx( x, y), list( 
-# 		"vec_vec"   = ifelse( x<y, x*x, -(y*y) ) ,
-# 		"vec_prim"  = ifelse( x<y, 1.0, -(y*y) ), 
-# 		"prim_vec"  = ifelse( x<y, x*x, 1.0    ), 
-# 		"prim_prim" = ifelse( x<y, 1.0, 2.0    )
-# 	) )
-# }
+test.sugar.ifelse <- function( ){
+	fx <- .rcpp.sugar$runit_ifelse
+	x <- 1:10
+	y <- 10:1
+	checkEquals( fx( x, y), list( 
+		"vec_vec"   = ifelse( x<y, x*x, -(y*y) ) ,
+		"vec_prim"  = ifelse( x<y, 1.0, -(y*y) ), 
+		"prim_vec"  = ifelse( x<y, x*x, 1.0    ), 
+		"prim_prim" = ifelse( x<y, 1.0, 2.0    )
+	) )
+}
 
 
 test.sugar.isna <- function( ){
@@ -943,26 +943,26 @@ test.sugar.any.equal.not <- function( ){
 }
 
 
-# test.sugar.plus <- function( ){
-# 	fx <- .rcpp.sugar$runit_plus
-# 	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
-# }
+test.sugar.plus <- function( ){
+	fx <- .rcpp.sugar$runit_plus
+	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
+}
 
 test.sugar.plus.seqlen <- function( ){
 	fx <- .rcpp.sugar$runit_plus_seqlen
 	checkEquals( fx() , list( 11:20,11:20, 1:10+1:10)  )
-}
+}         
 
-# test.sugar.plus.all <- function( ){
-# 	fx <- .rcpp.sugar$runit_plus_all
-# 	checkEquals( fx(1:10) , FALSE )
-# }
+test.sugar.plus.all <- function( ){
+	fx <- .rcpp.sugar$runit_plus_all
+	checkEquals( fx(1:10) , FALSE )
+} 
 
 test.sugar.pmin <- function( ){
 	fx <- .rcpp.sugar$runit_pmin
 	checkEquals( fx(1:10, 10:1) , c(1:5,5:1) )
 }
-
+                               
 test.sugar.pmin.one <- function( ){
 	fx <- .rcpp.sugar$runit_pmin_one
 	checkEquals( fx(1:10) , 
