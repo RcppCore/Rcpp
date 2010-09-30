@@ -1,8 +1,9 @@
 #include <Rcpp.h>
 
-std::string hello() throw(std::range_error) {
-	throw std::range_error( "boom" ) ;
-}
+/* removed as it upsets windows */
+// std::string hello() {
+// 	throw std::range_error( "boom" ) ;
+// }
 
 int bar( int x){
 	return x*2 ;
