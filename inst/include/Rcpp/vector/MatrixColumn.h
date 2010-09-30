@@ -22,9 +22,8 @@
 #ifndef Rcpp__vector__MatrixColumn_h
 #define Rcpp__vector__MatrixColumn_h
    
-
 template <int RTYPE>
-class MatrixColumn {
+class MatrixColumn : public VectorBase<RTYPE,true,MatrixColumn<RTYPE> > {
 public:
 	typedef Matrix<RTYPE> MATRIX ;
 	typedef typename MATRIX::Proxy Proxy ;
@@ -42,17 +41,30 @@ public:
 		index  = other.index ;
 	}
 	
-	Proxy operator[]( const int& i ){
+	Proxy operator[]( int i ){
 		/* TODO: should we cache nrow and ncol */
-		return parent[ index * parent.ncol() + i ] ;
+		return parent[ get_parent_index(i) ] ;
 	}
 	
-	iterator begin(){
+	Proxy operator[]( int i ) const {
+		/* TODO: should we cache nrow and ncol */
+		return parent[ get_parent_index(i) ] ;
+	}
+	
+	inline iterator begin(){
 		return parent.begin() + index * parent.ncol() ;
 	}
 	
-	iterator end(){
-		return parent.begin() + index * parent.ncol() + parent.nrow() ;
+	inline iterator begin() const {
+		return parent.begin() + index * parent.ncol() ;
+	}
+	
+	inline iterator end(){
+		return begin() + parent.nrow() ;
+	}
+	
+	inline iterator end() const {
+		return begin() + parent.nrow() ;
 	}
 	
 	inline int size() const {
@@ -62,6 +74,8 @@ public:
 private:
 	MATRIX& parent; 
 	int index ;
+	
+	inline int get_parent_index(int i) const { return index * parent.ncol() + i ; }
 } ;
 
 #endif
