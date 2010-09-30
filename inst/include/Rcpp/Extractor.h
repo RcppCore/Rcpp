@@ -29,7 +29,10 @@ namespace traits {
     struct Extractor {
         typedef VECTOR type ;  
     } ;  
-    
+
+    // apparently Rcpp::Fast upsets windows, so we stick with 
+    // the identity class above, meaning no fast indexing
+#ifndef WIN32
     template <> 
     struct Extractor<INTSXP, true, Rcpp::Vector<INTSXP> >{
         typedef Rcpp::Fast< Rcpp::Vector<INTSXP> > type ;
@@ -50,7 +53,7 @@ namespace traits {
     struct Extractor<RAWSXP, true, Rcpp::Vector<RAWSXP> >{
         typedef Rcpp::Fast< Rcpp::Vector<RAWSXP> > type ;
     } ;
-    
+#endif    
     
 } // traits
 } // Rcpp 
