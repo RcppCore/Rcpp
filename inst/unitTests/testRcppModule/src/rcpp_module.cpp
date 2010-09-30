@@ -40,7 +40,7 @@ private:
 RCPP_MODULE(yada){
 	using namespace Rcpp ;
 	                  
-	function( "hello" , &hello ) ;
+	// function( "hello" , &hello ) ;
 	function( "bar"   , &bar   ) ;
 	function( "foo"   , &foo   ) ;
 	function( "bla"   , &bla   ) ;

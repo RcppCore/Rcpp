@@ -895,17 +895,17 @@ test.sugar.pow <- function( ){
 }
 
 
-test.sugar.ifelse <- function( ){
-	fx <- .rcpp.sugar$runit_ifelse
-	x <- 1:10
-	y <- 10:1
-	checkEquals( fx( x, y), list( 
-		"vec_vec"   = ifelse( x<y, x*x, -(y*y) ) ,
-		"vec_prim"  = ifelse( x<y, 1.0, -(y*y) ), 
-		"prim_vec"  = ifelse( x<y, x*x, 1.0    ), 
-		"prim_prim" = ifelse( x<y, 1.0, 2.0    )
-	) )
-}
+# test.sugar.ifelse <- function( ){
+# 	fx <- .rcpp.sugar$runit_ifelse
+# 	x <- 1:10
+# 	y <- 10:1
+# 	checkEquals( fx( x, y), list( 
+# 		"vec_vec"   = ifelse( x<y, x*x, -(y*y) ) ,
+# 		"vec_prim"  = ifelse( x<y, 1.0, -(y*y) ), 
+# 		"prim_vec"  = ifelse( x<y, x*x, 1.0    ), 
+# 		"prim_prim" = ifelse( x<y, 1.0, 2.0    )
+# 	) )
+# }
 
 
 test.sugar.isna <- function( ){
