@@ -23,11 +23,12 @@
 #define Rcpp__vector__MatrixRow_h
    
 template <int RTYPE>
-class MatrixRow {
+class MatrixRow : public VectorBase< RTYPE, true, MatrixRow<RTYPE> > {
 public:
 	typedef Matrix<RTYPE> MATRIX ;
 	typedef typename MATRIX::Proxy Proxy ;
 	typedef typename MATRIX::Proxy reference ;
+	typedef typename MATRIX::value_type value_type ;
 	
 	class iterator {
 	public:
@@ -80,6 +81,10 @@ public:
 		bool operator<=( const iterator& other ) { return index <= other.index ; }
 		bool operator>=( const iterator& other ) { return index >= other.index ; }
 		
+		inline reference operator[]( int i){
+		    return row[ index + i ] ;
+		}
+		
 		difference_type operator-(const iterator& other) {
 			return index - other.index ;
 		}
@@ -101,9 +106,14 @@ public:
 		return *this ;
 	}
 	
-	reference operator[]( const int& i ){
+	reference operator[]( int i ){
 		/* TODO: should we cache nrow and ncol */
-		return parent[ index + i * parent.nrow() ] ;
+		return parent[ get_parent_index(i) ] ;
+	}
+	
+	reference operator[]( int i ) const {
+		/* TODO: should we cache nrow and ncol */
+		return parent[ get_parent_index(i) ] ;
 	}
 	
 	inline iterator begin(){
@@ -114,6 +124,14 @@ public:
 		return iterator( *this, size() ) ;
 	}
 	
+	inline iterator begin() const {
+		return iterator( const_cast<MatrixRow&>(*this), 0 ) ;
+	}
+	
+	inline iterator end() const {
+		return iterator( const_cast<MatrixRow&>(*this), size() ) ;
+	}
+	
 	inline int size() const {
 		return parent.ncol() ;
 	}
@@ -121,6 +139,8 @@ public:
 private:
 	MATRIX& parent; 
 	int index ;
+	
+	inline int get_parent_index(int i) const { return index + i * parent.nrow() ; }
 } ;
 
 #endif

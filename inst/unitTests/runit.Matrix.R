@@ -154,6 +154,21 @@
 						unary_call<SEXP,int>( Function("length" ) ) ) ;
 					return wrap(out) ;
 				' 			
+			), 
+			"runit_Row_Column_sugar" = list( 
+			    signature( x_ = "matrix" ), 
+			    '
+			    NumericMatrix x( x_) ;
+			    NumericVector r0 = x.row(0) ;
+			    NumericVector c0 = x.column(0) ;
+			    return List::create( 
+			        r0, 
+			        c0, 
+			        x.row(1), 
+			        x.column(1), 
+			        x.row(1) + x.column(1)
+			        ) ;
+			    '
 			)
 
         )
@@ -270,4 +285,20 @@ test.List.column <- function(){
 	checkEquals( funx( m ), 1:4, msg = "List::Column" )
 	
 }
+
+test.List.column <- function(){
+	funx <- .rcpp.Matrix$runit_Row_Column_sugar
+	x <- matrix( 1:16+.5, nc = 4 )
+	res <- funx( x )
+	target <- list( 
+	    x[1,], 
+	    x[,1], 
+	    x[2,],
+	    x[,2], 
+	    x[2,] + x[,2]
+	    )
+	checkEquals( res, target, msg = "colum and row as sugar" )
+	
+}
+
 
