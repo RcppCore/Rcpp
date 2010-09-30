@@ -7,6 +7,9 @@
         NumericVector x0 = x.row(0) ;
         
         * inst/include/Rcpp/vector/MatrixColumn.h: idem for columns
+        
+        * cleanup: run make clean in the inst/doc directory to install 
+        the fake vignettes
 
 2010-09-27  Romain Francois <romain@r-enthusiasts.com>
 
