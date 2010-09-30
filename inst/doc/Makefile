@@ -11,29 +11,16 @@ whoami=$(shell whoami)
 all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
 
 clean:
-	touch Rcpp-unitTests.pdf
-	touch Rcpp-quickref.pdf
-	touch Rcpp-sugar.pdf
-	touch Rcpp-introduction.pdf
-	touch Rcpp-modules.pdf
-	touch Rcpp-FAQ.pdf
-	touch Rcpp-extending.pdf
-	rm Rcpp-introduction.pdf
-	rm Rcpp-quickref.pdf
-	rm Rcpp-sugar.pdf
-	rm Rcpp-unitTests.pdf
-	rm Rcpp-modules.pdf
-	rm Rcpp-FAQ.pdf
-	rm Rcpp-extending.pdf
-	touch index.html
-	rm index.html
+	rm -f Rcpp-introduction.pdf Rcpp-quickref.pdf Rcpp-sugar.pdf \
+		Rcpp-unitTests.pdf Rcpp-modules.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf
+	rm -f index.html
 	rm -f *.tex
-	touch Rcpp-extending.Rnw; rm Rcpp-extending.Rnw ; cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
-	touch Rcpp-FAQ.Rnw ; rm Rcpp-FAQ.Rnw ; cp Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
-	touch Rcpp-modules.Rnw ;rm Rcpp-modules.Rnw ; cp Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
-	touch Rcpp-package.Rnw ; rm Rcpp-package.Rnw ; cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
-	touch Rcpp-quickref.Rnw ; rm Rcpp-quickref.Rnw ; cp Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
-	touch Rcpp-sugar.Rnw ; rm Rcpp-sugar.Rnw ; cp Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
+	cp -f Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
+	cp -f Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
+	cp -f Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
+	cp -f Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
+	cp -f Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
+	cp -f Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
 
 index.html: rcpp.index.html
 	cp rcpp.index.html index.html
