@@ -317,6 +317,7 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
  */
 template<typename InputIterator, typename T>
 inline SEXP range_wrap_dispatch( InputIterator first, InputIterator last ){
+	RCPP_DEBUG_2( "range_wrap_dispatch< InputIterator = \n%s , T = %s>\n", DEMANGLE(InputIterator), DEMANGLE(T) ) ;
 	return range_wrap_dispatch___impl<InputIterator,T>( first, last, typename ::Rcpp::traits::r_type_traits<T>::r_category() ) ;
 }
 
@@ -327,7 +328,7 @@ inline SEXP range_wrap_dispatch( InputIterator first, InputIterator last ){
  */
 template <typename InputIterator>
 inline SEXP range_wrap(InputIterator first, InputIterator last){
-	return range_wrap_dispatch<InputIterator,typename std::iterator_traits<InputIterator>::value_type>( first, last ) ;
+	return range_wrap_dispatch<InputIterator,typename traits::remove_reference<typename std::iterator_traits<InputIterator>::value_type>::type >( first, last ) ;
 }
 // }}}
 
