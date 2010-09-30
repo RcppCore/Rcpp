@@ -953,10 +953,10 @@ test.sugar.plus.seqlen <- function( ){
 	checkEquals( fx() , list( 11:20,11:20, 1:10+1:10)  )
 }
 
-test.sugar.plus.all <- function( ){
-	fx <- .rcpp.sugar$runit_plus_all
-	checkEquals( fx(1:10) , FALSE )
-}
+# test.sugar.plus.all <- function( ){
+# 	fx <- .rcpp.sugar$runit_plus_all
+# 	checkEquals( fx(1:10) , FALSE )
+# }
 
 test.sugar.pmin <- function( ){
 	fx <- .rcpp.sugar$runit_pmin
