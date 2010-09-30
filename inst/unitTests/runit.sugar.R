@@ -943,10 +943,10 @@ test.sugar.any.equal.not <- function( ){
 }
 
 
-test.sugar.plus <- function( ){
-	fx <- .rcpp.sugar$runit_plus
-	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
-}
+# test.sugar.plus <- function( ){
+# 	fx <- .rcpp.sugar$runit_plus
+# 	checkEquals( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
+# }
 
 test.sugar.plus.seqlen <- function( ){
 	fx <- .rcpp.sugar$runit_plus_seqlen
