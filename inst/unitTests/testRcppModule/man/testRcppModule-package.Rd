@@ -18,11 +18,5 @@ License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }
 }
-\author{
-Who wrote it
-
-Maintainer: Who to complain to <yourfault@somewhere.net>
-}
 \keyword{ package }
-\seealso{
 
