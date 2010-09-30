@@ -14,7 +14,7 @@ clean:
 	rm -f Rcpp-introduction.pdf Rcpp-quickref.pdf Rcpp-sugar.pdf \
 		Rcpp-unitTests.pdf Rcpp-modules.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf
 	rm -f index.html
-	rm -f *.tex
+	rm -f *.tex *.bbl *.blg *.aux *.out *.log
 	cp -f Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
 	cp -f Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
 	cp -f Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
