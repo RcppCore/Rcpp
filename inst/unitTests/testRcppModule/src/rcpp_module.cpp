@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-std::string hello() {
+std::string hello() throw(std::range_error) {
 	throw std::range_error( "boom" ) ;
 }
 
