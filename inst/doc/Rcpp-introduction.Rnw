@@ -388,21 +388,23 @@ modern techniques of template meta programming and class traits. The
 \code{Rcpp-extending} vignette discusses in depth how to extend \code{wrap}
 to third-party types. The \pkg{RcppArmadillo} package
 \citep*{CRAN:RcppArmadillo} features several examples.
-
-The following code snippet illustrates that the design allows
+%
+The following example shows that the design allows
 composition:
 
 \begin{example}
-std::vector< std::map<std::string,int> > v;
-std::map< std::string, int > m1;
-std::map< std::string, int > m2;
+RcppExport SEXP someFunction() \{
+  std::vector<std::map<std::string,int> > v;
+  std::map<std::string, int> m1;
+  std::map<std::string, int> m2;
 
-m1["foo"] = 1; m1["bar"] = 2;
-m2["foo"] = 1; m2["bar"] = 2; m2["baz"] = 3;
+  m1["foo"]=1; m1["bar"]=2;
+  m2["foo"]=1; m2["bar"]=2; m2["baz"]=3;
 
-v.push_back( m1);
-v.push_back( m2);
-Rcpp::wrap( v );
+  v.push_back( m1 );
+  v.push_back( m2 );
+  Rcpp::wrap( v );
+\}
 \end{example}
 
 The code creates a list of two named vectors, equal to the 
@@ -445,18 +447,14 @@ Consider the following code that uses the \code{Rcpp::Environment} class to
 interchange data between C++ and R.
 
 \begin{example}
-// assuming the global environment contains 
-// a variable 'x' that is a numeric vector
+// access vector 'x' from global env.
 Rcpp::Environment global = 
 \ \ \ \ Rcpp::Environment::global_env();
-
-// extract a std::vector<double> from 
-// the global environment
 std::vector<double> vx = global["x"];
 
 // create a map<string,string>
 std::map<std::string,std::string> map;
-map["foo"] = "oof";
+map["foo"] = "oof"; 
 map["bar"] = "rab";
 
 // push the STL map to R
