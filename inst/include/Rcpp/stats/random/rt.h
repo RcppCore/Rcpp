@@ -23,41 +23,44 @@
 #define Rcpp__stats__random_rt_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
-class TGenerator : public ::Rcpp::Generator<false,double> {
-public:
+		class TGenerator : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	TGenerator( double df_ ) : df(df_), df_2(df_/2.0) {}
+			TGenerator( double df_ ) : df(df_), df_2(df_/2.0) {}
 	
-	inline double operator()() const {
-		/* Some compilers (including MW6) evaluated this from right to left
-		return norm_rand() / sqrt(rchisq(df) / df); */
-		double num = norm_rand();
+			inline double operator()() const {
+				/* Some compilers (including MW6) evaluated this from right to left
+				   return norm_rand() / sqrt(rchisq(df) / df); */
+				double num = norm_rand();
 		
-		// return num / sqrt(rchisq(df) / df);
-		// replaced by the followoing line to skip the test in 
-		// rchisq because we already know
-		return num / ::sqrt( ::Rf_rgamma(df_2, 2.0) / df);
-	}
+				// return num / sqrt(rchisq(df) / df);
+				// replaced by the followoing line to skip the test in 
+				// rchisq because we already know
+				return num / ::sqrt( ::Rf_rgamma(df_2, 2.0) / df);
+			}
 	
-private:
-	double df, df_2 ;
-} ;
-} // stats
+		private:
+			double df, df_2 ;
+		} ;
+	} // stats
 
-inline NumericVector rt( int n, double df ){
-	// special case
-	if (ISNAN(df) || df <= 0.0)
-		return NumericVector( n, R_NaN ) ;
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rt( int n, double df ){
+		// special case
+		if (ISNAN(df) || df <= 0.0)
+			return NumericVector( n, R_NaN ) ;
 	
-	// just generating a N(0,1)
-	if(!R_FINITE(df))
-		return NumericVector( n, norm_rand ) ;
+		// just generating a N(0,1)
+		if(!R_FINITE(df))
+			return NumericVector( n, norm_rand ) ;
 	
-	// general case
-	return NumericVector( n, stats::TGenerator( df ) ) ;
-}
+		// general case
+		return NumericVector( n, stats::TGenerator( df ) ) ;
+	}
 
 } // Rcpp
 

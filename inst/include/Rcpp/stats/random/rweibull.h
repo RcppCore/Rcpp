@@ -23,32 +23,35 @@
 #define Rcpp__stats__random_rweibull_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
-class WeibullGenerator : public ::Rcpp::Generator<false,double> {
-public:
+		class WeibullGenerator : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	WeibullGenerator( double shape_, double scale_ ) : 
-		shape_inv( 1/shape_), scale(scale_) {}
+			WeibullGenerator( double shape_, double scale_ ) : 
+				shape_inv( 1/shape_), scale(scale_) {}
 	
-	inline double operator()() const {
-		return scale * ::R_pow(-::log(unif_rand()), shape_inv );
+			inline double operator()() const {
+				return scale * ::R_pow(-::log(unif_rand()), shape_inv );
+			}
+	
+		private:
+			double shape_inv ;
+			double scale ;
+		} ;
+	} // stats
+
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rweibull( int n, double shape, double scale ){
+		if (!R_FINITE(shape) || !R_FINITE(scale) || shape <= 0. || scale <= 0.) {
+			if(scale == 0.) return NumericVector(n, 0.);
+			/* else */
+			return NumericVector(n, R_NaN);
+		}
+		return NumericVector( n, stats::WeibullGenerator( shape, scale ) ) ;
 	}
-	
-private:
-	double shape_inv ;
-	double scale ;
-} ;
-} // stats
-
-inline NumericVector rweibull( int n, double shape, double scale ){
-	if (!R_FINITE(shape) || !R_FINITE(scale) || shape <= 0. || scale <= 0.) {
-		if(scale == 0.) return NumericVector(n, 0.);
-		/* else */
-		return NumericVector(n, R_NaN);
-    }
-	return NumericVector( n, stats::WeibullGenerator( shape, scale ) ) ;
-}
 
 } // Rcpp
 
