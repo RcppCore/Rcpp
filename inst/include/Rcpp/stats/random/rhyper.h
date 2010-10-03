@@ -24,9 +24,12 @@
 
 namespace Rcpp {
 
-inline NumericVector rhyper( int n, double nn1, double nn2, double kk ){
-	return NumericVector( n, ::Rf_rhyper, nn1, nn2, kk ) ;
-}
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rhyper( int n, double nn1, double nn2, double kk ){
+		return NumericVector( n, ::Rf_rhyper, nn1, nn2, kk ) ;
+	}
 
 } // Rcpp
 

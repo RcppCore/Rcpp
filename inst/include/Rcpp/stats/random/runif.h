@@ -23,43 +23,52 @@
 #define Rcpp__stats__random_runif_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
-class UnifGenerator : public ::Rcpp::Generator<false,double> {
-public:
+		class UnifGenerator : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
-		min(min_), max(max_), diff(max_ - min_) {}
+			UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
+				min(min_), max(max_), diff(max_ - min_) {}
 	
-	inline double operator()() const {
-		double u;
-		do {u = unif_rand();} while (u <= 0 || u >= 1);
-		return min + diff * u;
+			inline double operator()() const {
+				double u;
+				do {u = unif_rand();} while (u <= 0 || u >= 1);
+				return min + diff * u;
+			}
+	
+		private:
+			double min; 
+			double max ;
+			double diff ;
+		} ;
+
+	} // stats
+
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector runif( int n, double min, double max ){
+		if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
+		if( min == max ) return NumericVector( n, min ) ;
+		return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
 	}
-	
-private:
-	double min; 
-	double max ;
-	double diff ;
-} ;
 
-} // stats
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector runif( int n, double min /*, double max = 1.0 */ ){
+		if (!R_FINITE(min) || 1.0 < min) return NumericVector( n, R_NaN ) ;
+		if( min == 1.0 ) return NumericVector( n, 1.0 ) ;
+		return NumericVector( n, stats::UnifGenerator( min, 1.0 ) ) ;
+	}
 
-inline NumericVector runif( int n, double min, double max ){
-	if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
-	if( min == max ) return NumericVector( n, min ) ;
-	return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
-}
-
-inline NumericVector runif( int n, double min /*, double max = 1.0 */ ){
-	if (!R_FINITE(min) || 1.0 < min) return NumericVector( n, R_NaN ) ;
-	if( min == 1.0 ) return NumericVector( n, 1.0 ) ;
-	return NumericVector( n, stats::UnifGenerator( min, 1.0 ) ) ;
-}
-
-inline NumericVector runif( int n /*, double min = 0.0, double max = 1.0 */ ){
-	return NumericVector( n, unif_rand ) ;
-}
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector runif( int n /*, double min = 0.0, double max = 1.0 */ ){
+		return NumericVector( n, unif_rand ) ;
+	}
 
 } // Rcpp
 

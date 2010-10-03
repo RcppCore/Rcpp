@@ -443,6 +443,31 @@ pow(x, z)     # x to the power of z
 
 % log() and log10() maybe?  Or ln() ?
 
+\subsection{The d/q/p/q statistical functions}
+
+The framework provided by \sugar also permits easy and efficient access the
+density, distribution function, quantile and random number generation
+functions function by \proglang{R} in the \code{Rmath} library.
+
+Currently, most of these functions are vectorised for the first element which
+denote size. Consequently, these calls works in \proglang{C++} just as they
+would in \proglang{R}:
+
+<<lang=cpp>>=
+x1 = dnorm(y1, 0, 1);  // density of y1 at m=0, sd=1
+x2 = pnorm(y2, 0, 1);  // distribution function of y2
+x3 = qnorm(y3, 0, 1);  // quantiles of y3
+x4 = rnorm(n, 0, 1);   // 'n' RNG draws of N(0, 1)
+@
+
+Similar d/q/p/r functions are provided for the most common distributions:
+beta, binom, cauchy, chisq, exp, f, gamma, geom, hyper, lnorm, logis, nbeta,
+nbinom, nbinom_mu, nchisq, nf, norm, nt, pois, t, unif, and weibull.
+
+One point to note is that the programmer using these functions needs to
+initialize the state of the random number generator as detailed in Section
+6.3 of the `Writing R Extensions' manual \citep{R:Extensions}.
+
 \section{Performance}
 \label{sec:performance}
 

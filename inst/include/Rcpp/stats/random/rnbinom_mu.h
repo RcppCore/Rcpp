@@ -23,30 +23,33 @@
 #define Rcpp__stats__random_rnbinom_mu_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
-class NBinomGenerator_Mu : public ::Rcpp::Generator<false,double> {
-public:
+		class NBinomGenerator_Mu : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	NBinomGenerator_Mu( double siz_, double mu_ ) : 
-		siz(siz_), lambda( mu_ / siz_ ) {}
+			NBinomGenerator_Mu( double siz_, double mu_ ) : 
+				siz(siz_), lambda( mu_ / siz_ ) {}
 	
-	inline double operator()() const {
-		return ::Rf_rpois( ::Rf_rgamma( siz, lambda ) ) ; 
-	}
+			inline double operator()() const {
+				return ::Rf_rpois( ::Rf_rgamma( siz, lambda ) ) ; 
+			}
 	
-private:
-	double siz ;
-	double lambda ;
-} ;
-} // stats
+		private:
+			double siz ;
+			double lambda ;
+		} ;
+	} // stats
 
-inline NumericVector rnbinom_mu( int n, double siz, double mu ){
-	if(!R_FINITE(siz) || !R_FINITE(mu) || siz <= 0 || mu < 0)
-		return NumericVector( n, R_NaN ) ;
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rnbinom_mu( int n, double siz, double mu ){
+		if(!R_FINITE(siz) || !R_FINITE(mu) || siz <= 0 || mu < 0)
+			return NumericVector( n, R_NaN ) ;
     
-	return NumericVector( n, stats::NBinomGenerator_Mu( siz, mu ) ) ;
-}
+		return NumericVector( n, stats::NBinomGenerator_Mu( siz, mu ) ) ;
+	}
 
 } // Rcpp
 

@@ -1,30 +1,36 @@
+2010-10-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/stats/random/r*: Added comment reminding users
+	read up on Section 6.3 of "Writing R Extensions" and the need to
+	call GetRNGstate() and PutRNGstate() when using R's RNGs
+
 2010-09-30  Romain Francois <romain@r-enthusiasts.com>
 
-        * inst/include/Rcpp/vector/MatrixRow.h: Matrix row inherits 
-        VectorBase so that it becomes a sugar expression, so that we can do 
-        something like this: 
-        NumericMatrix x( ... ) ; 
-        NumericVector x0 = x.row(0) ;
-        
+        * inst/include/Rcpp/vector/MatrixRow.h: Matrix row inherits
+	VectorBase so that it becomes a sugar expression, so that we can do
+	something like this:
+          NumericMatrix x( ... ) ;
+          NumericVector x0 = x.row(0) ;
+
         * inst/include/Rcpp/vector/MatrixColumn.h: idem for columns
-        
-        * cleanup: run make clean in the inst/doc directory to install 
+
+        * cleanup: run make clean in the inst/doc directory to install
         the fake vignettes
 
 2010-09-27  Romain Francois <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/traits/is_sugar_expression.h: new trait class
         to recognize sugar expressions
-        
-        * inst/include/Rcpp/vector/Vector.h: operator=( sugar expression) 
-        no longer allocate unnecessary memory. 
+
+        * inst/include/Rcpp/vector/Vector.h: operator=( sugar expression)
+        no longer allocate unnecessary memory.
 
 2010-09-26  Romain Francois <romain@r-enthusiasts.com>
 
         * inst/include/Rpp/Fast.h: new helper class Rcpp::Fast that allows
         faster indexing of Vector
-        
-        * inst/include/Rcpp/sugar/operators/plus.h: port to operator+ the same 
+
+        * inst/include/Rcpp/sugar/operators/plus.h: port to operator+ the same
         improvements than in operator*
 
 2010-09-25  Romain Francois <romain@r-enthusiasts.com>
@@ -33,74 +39,79 @@
 
         * src/Rcpp_init.c: register routines
 
-        * R/*.R: use registration information in many .Call and .External functions
-        to speed things up
+        * R/*.R: use registration information in many .Call and .External
+	functions to speed things up
 
         * inst/include/Rcpp/RangeIndexer.h: experimenting with loop unrolling
 
 2010-09-24  Romain Francois <romain@r-enthusiasts.com>
 
-        * inst/include/Rcpp/sugar/Range.h : Range gains some operators (++,--,n etc ...)
+        * inst/include/Rcpp/sugar/Range.h : Range gains some
+	operators (++,--,n etc ...)
 
-        * inst/examples/ConvolveBenchmarks/convolve3_cpp.cpp: using the new Range
-        operators
+        * inst/examples/ConvolveBenchmarks/convolve3_cpp.cpp: using the new
+	Range operators
 
-        * inst/include/Rcpp/sugar/operators/times.h: speed improvements. Not using
-        pointer to member functions seems to be beneficial.
+        * inst/include/Rcpp/sugar/operators/times.h: speed improvements. Not
+	using pointer to member functions seems to be beneficial.
 
-        * inst/include/Rcpp/sugar/nona/nona.h: sugar function that wraps a sugar
-        expression in an object that pretends it does not contain any missing
-        values. This allows many sugar functions and operators to use their
-        fast versions when we know that the object does not contain missing values.
+        * inst/include/Rcpp/sugar/nona/nona.h: sugar function that wraps a
+	sugar expression in an object that pretends it does not contain any
+	missing values. This allows many sugar functions and operators to use
+	their fast versions when we know that the object does not contain
+	missing values.
 
 2010-09-22  Romain Francois <romain@r-enthusiasts.com>
 
-        * R/Module.R: set [[ and [[<- as regular methods too, which restores previous
-        behavior
+        * R/Module.R: set [[ and [[<- as regular methods too, which restores
+	previous behavior
 
 2010-09-17  Romain Francois <romain@r-enthusiasts.com>
 
-        * src/Reference.cpp: new objects are created via a callback to R's new
-        function, as R_do_new_object did always return the same environment
+        * src/Reference.cpp: new objects are created via a callback to R's
+	new function, as R_do_new_object did always return the same
+	environment
 
-        * R/00_classes.R: new ref class C++Method to represent C++ methods and holding
-        their external pointers directly (same idea as C++Field)
+        * R/00_classes.R: new ref class C++Method to represent C++ methods
+	and holding their external pointers directly (same idea as C++Field)
 
-        * inst/include/Rcpp/Module.h: internal support for C++Method (template class
-        S4_CppMethod)
+        * inst/include/Rcpp/Module.h: internal support for
+	C++Method (template class S4_CppMethod)
 
 2010-09-16  Romain Francois <romain@r-enthusiasts.com>
 
         * R/00_classes.R: moving classes definition here
 
-        * inst/Rcpp/Module.h: added C++ class S4_field that builds S4 objects of
-        class C++Field. Build the list of fields as part of the creation of the
-        C++Class objects
+        * inst/Rcpp/Module.h: added C++ class S4_field that builds S4 objects
+	of class C++Field. Build the list of fields as part of the creation
+	of the C++Class objects
 
-        * src/Module.cpp: .Call functions CppField__get and CppField__set to get/set
-        values of an object's field using external pointers directly (no std::map
-        lookup internally)
+        * src/Module.cpp: .Call functions CppField__get and CppField__set to
+	get/set values of an object's field using external pointers
+	directly (no std::map lookup internally)
 
         * R/Module.R: (unexported) functions .getField and .setField that
         call CppField__get and CppField__set
 
-        * inst/include/Rcpp/Reference.h: skeleton for a Rcpp::Reference class that
-        will help dealing with reference classes on the C++ side
+        * inst/include/Rcpp/Reference.h: skeleton for a Rcpp::Reference class
+	that will help dealing with reference classes on the C++ side
 
         * src/Reference.cpp: implementation (needs update)
 
 2010-09-15  Romain Francois <romain@r-enthusiasts.com>
 
-        * DESCRIPTION: added the declaration MinimumSvnRev to control which version
-        of R-devel we need so that Rcpp fully works, currently set to 52905
+        * DESCRIPTION: added the declaration MinimumSvnRev to control which
+	version of R-devel we need so that Rcpp fully works, currently set to
+	52905
 
-        * R/zzz.R: check the svn revision of R against the declared MinimumSvnRev
-        requirement and print a message if necessary (this will only stay for the
-        interim period while we develop 0.8.7 so that we all are on the same page.
+        * R/zzz.R: check the svn revision of R against the declared
+	MinimumSvnRev requirement and print a message if necessary (this will
+	only stay for the interim period while we develop 0.8.7 so that we
+	all are on the same page.
 
-        * inst/include/Rcpp/Module.h: added methods to class_Base : methods_arity
-        and methods_voidness to query the number of arguments of methods of a class
-        and if the method is void
+        * inst/include/Rcpp/Module.h: added methods to class_Base :
+	methods_arity and methods_voidness to query the number of arguments
+	of methods of a class and if the method is void
 
         * R/Module.R: implement referenceMethods (from methods) for 'C++Class'
 
@@ -120,23 +131,25 @@
 
 2010-09-08  Romain Francois <romain@r-enthusiasts.com>
 
-        * inst/include/Rcpp/Module.h : added class_Base::property_names method
-        to grab the names of all fields (properties)
+        * inst/include/Rcpp/Module.h : added class_Base::property_names
+	method to grab the names of all fields (properties)
 
-        * src/Module.cpp : added R access (.Call) function CppClass__properties
-        to grab the names of the fields (property) from the XP of a class
+        * src/Module.cpp : added R access (.Call) function
+	CppClass__properties to grab the names of the fields (property) from
+	the XP of a class
 
-        * inst/include/Rcpp/Module.h : added class_Base::property_is_readonly method
-        to query if a property is read only
+        * inst/include/Rcpp/Module.h : added class_Base::property_is_readonly
+	method to query if a property is read only
 
-        * src/Module.cpp : added R access (.Call) function CppClass__property_is_readonly
-        to query if a class property is read only
+        * src/Module.cpp : added R access (.Call) function
+	CppClass__property_is_readonly to query if a class property is read
+	only
 
-        * inst/include/Rcpp/Module.h : added class_Base::property_class method
-        to grab the C++ class of a property
+        * inst/include/Rcpp/Module.h : added class_Base::property_class
+	method to grab the C++ class of a property
 
-        * src/Module.cpp : added R access (.Call) function CppClass__property_class
-        to grab the C++ class of a property
+        * src/Module.cpp : added R access (.Call) function
+	CppClass__property_class to grab the C++ class of a property
 
 2010-09-06  Dirk Eddelbuettel  <edd@debian.org>
 

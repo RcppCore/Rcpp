@@ -24,9 +24,12 @@
 
 namespace Rcpp {
 
-inline NumericVector rsignrank( int n, double nn ){
-	return NumericVector( n, ::Rf_rsignrank, nn ) ;
-}
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rsignrank( int n, double nn ){
+		return NumericVector( n, ::Rf_rsignrank, nn ) ;
+	}
 
 } // Rcpp
 

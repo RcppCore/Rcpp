@@ -24,9 +24,12 @@
 
 namespace Rcpp {
 
-inline NumericVector rbinom( int n, double nin, double pp ){
-	return NumericVector( n, ::Rf_rbinom, nin, pp) ;
-}
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rbinom( int n, double nin, double pp ){
+		return NumericVector( n, ::Rf_rbinom, nin, pp) ;
+	}
 
 } // Rcpp
 
