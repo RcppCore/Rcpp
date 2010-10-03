@@ -24,14 +24,17 @@
 
 namespace Rcpp {
 
-inline NumericVector rgamma( int n, double a, double scale ){
-	if (!R_FINITE(a) || !R_FINITE(scale) || a < 0.0 || scale <= 0.0) {
-		if(scale == 0.) return NumericVector( n, 0.) ;
-		return NumericVector( n, R_NaN ) ;
-    }
-    if( a == 0. ) return NumericVector(n, 0. ) ;
-	return NumericVector( n, ::Rf_rgamma, a, scale ) ;
-}
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rgamma( int n, double a, double scale ){
+		if (!R_FINITE(a) || !R_FINITE(scale) || a < 0.0 || scale <= 0.0) {
+			if(scale == 0.) return NumericVector( n, 0.) ;
+			return NumericVector( n, R_NaN ) ;
+		}
+		if( a == 0. ) return NumericVector(n, 0. ) ;
+		return NumericVector( n, ::Rf_rgamma, a, scale ) ;
+	}
 
 } // Rcpp
 

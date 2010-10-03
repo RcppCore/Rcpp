@@ -24,9 +24,12 @@
 
 namespace Rcpp {
 
-inline NumericVector rwilcox( int n, double mm, double nn ){
-	return NumericVector( n, ::Rf_rwilcox, mm, nn ) ;
-}
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rwilcox( int n, double mm, double nn ){
+		return NumericVector( n, ::Rf_rwilcox, mm, nn ) ;
+	}
 
 } // Rcpp
 

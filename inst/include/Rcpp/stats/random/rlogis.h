@@ -23,76 +23,85 @@
 #define Rcpp__stats__random_rlogis_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
-class LogisGenerator : public ::Rcpp::Generator<false,double> {
-public:
+		class LogisGenerator : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	LogisGenerator( double location_, double scale_ ) : 
-		location(location_), scale(scale_) {}
+			LogisGenerator( double location_, double scale_ ) : 
+				location(location_), scale(scale_) {}
 	
-	inline double operator()() const {
-		double u = unif_rand() ;
-		return location + scale * ::log(u / (1. - u));
-	}
+			inline double operator()() const {
+				double u = unif_rand() ;
+				return location + scale * ::log(u / (1. - u));
+			}
 	
-private:
-	double location ;
-	double scale ;
-} ;
+		private:
+			double location ;
+			double scale ;
+		} ;
 
-class LogisGenerator_1 : public ::Rcpp::Generator<false,double> {
-public:
+		class LogisGenerator_1 : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	LogisGenerator_1( double location_) : 
-		location(location_) {}
+			LogisGenerator_1( double location_) : 
+				location(location_) {}
 	
-	inline double operator()() const {
-		double u = unif_rand() ;
-		return location + ::log(u / (1. - u));
-	}
+			inline double operator()() const {
+				double u = unif_rand() ;
+				return location + ::log(u / (1. - u));
+			}
 	
-private:
-	double location ;
-} ;
+		private:
+			double location ;
+		} ;
 
-class LogisGenerator_0 : public ::Rcpp::Generator<false,double> {
-public:
+		class LogisGenerator_0 : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	LogisGenerator_0() {}
+			LogisGenerator_0() {}
 	
-	inline double operator()() const {
-		double u = unif_rand() ;
-		return ::log(u / (1. - u));
-	}
+			inline double operator()() const {
+				double u = unif_rand() ;
+				return ::log(u / (1. - u));
+			}
 
-} ;
+		} ;
 
-} // stats
+	} // stats
 
-inline NumericVector rlogis( int n, double location, double scale ){
-	if (ISNAN(location) || !R_FINITE(scale))
-	return NumericVector( n, R_NaN ) ;
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rlogis( int n, double location, double scale ){
+		if (ISNAN(location) || !R_FINITE(scale))
+			return NumericVector( n, R_NaN ) ;
 
-    if (scale == 0. || !R_FINITE(location))
-	return NumericVector( n, location );
+		if (scale == 0. || !R_FINITE(location))
+			return NumericVector( n, location );
     
-	return NumericVector( n, stats::LogisGenerator( location, scale ) ) ;
-}
+		return NumericVector( n, stats::LogisGenerator( location, scale ) ) ;
+	}
 
-inline NumericVector rlogis( int n, double location /*, double scale =1.0 */ ){
-	if (ISNAN(location) )
-	return NumericVector( n, R_NaN ) ;
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rlogis( int n, double location /*, double scale =1.0 */ ){
+		if (ISNAN(location) )
+			return NumericVector( n, R_NaN ) ;
 
-    if (!R_FINITE(location))
-	return NumericVector( n, location );
+		if (!R_FINITE(location))
+			return NumericVector( n, location );
     
-	return NumericVector( n, stats::LogisGenerator_1( location ) ) ;
-}
+		return NumericVector( n, stats::LogisGenerator_1( location ) ) ;
+	}
 
-inline NumericVector rlogis( int n /*, double location [=0.0], double scale =1.0 */ ){
-	return NumericVector( n, stats::LogisGenerator_0() ) ;
-}
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rlogis( int n /*, double location [=0.0], double scale =1.0 */ ){
+		return NumericVector( n, stats::LogisGenerator_0() ) ;
+	}
 
 } // Rcpp
 

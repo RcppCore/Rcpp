@@ -23,75 +23,84 @@
 #define Rcpp__stats__random_norm_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
-class LNormGenerator : public Generator<false,double> {
-public:
+		class LNormGenerator : public Generator<false,double> {
+		public:
 	
-	LNormGenerator( double meanlog_ = 0.0 , double sdlog_ = 1.0 ) : 
-		meanlog(meanlog_), sdlog(sdlog_) {}
+			LNormGenerator( double meanlog_ = 0.0 , double sdlog_ = 1.0 ) : 
+				meanlog(meanlog_), sdlog(sdlog_) {}
 	
-	inline double operator()() const {
-		return exp( meanlog + sdlog * ::norm_rand() ) ;
+			inline double operator()() const {
+				return exp( meanlog + sdlog * ::norm_rand() ) ;
+			}
+	
+		private:
+			double meanlog ;
+			double sdlog ;
+		} ;
+
+		class LNormGenerator_1 : public Generator<false,double> {
+		public:
+	
+			LNormGenerator_1( double meanlog_ = 0.0 ) : 
+				meanlog(meanlog_) {}
+	
+			inline double operator()() const {
+				return exp( meanlog + ::norm_rand() ) ;
+			}
+	
+		private:
+			double meanlog ;
+		} ;
+
+		class LNormGenerator_0 : public Generator<false,double> {
+		public:
+	
+			LNormGenerator_1( ) {}
+	
+			inline double operator()() const {
+				return exp(::norm_rand() ) ;
+			}
+	
+		} ;
+
+	} // stats
+
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rlnorm( int n, double meanlog, double sdlog ){
+		if (ISNAN(meanlog) || !R_FINITE(sdlog) || sdlog < 0.){
+			// TODO: R also throws a warning in that case, should we ?
+			return NumericVector( n, R_NaN ) ;
+		}  else if (sdlog == 0. || !R_FINITE(meanlog)){
+			return NumericVector( n, exp( meanlog ) ) ;
+		} else {
+			return NumericVector( n, stats::LNormGenerator( meanlog, sdlog ) ); 
+		}
 	}
-	
-private:
-	double meanlog ;
-	double sdlog ;
-} ;
 
-class LNormGenerator_1 : public Generator<false,double> {
-public:
-	
-	LNormGenerator_1( double meanlog_ = 0.0 ) : 
-		meanlog(meanlog_) {}
-	
-	inline double operator()() const {
-		return exp( meanlog + ::norm_rand() ) ;
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rlnorm( int n, double meanlog /*, double sdlog = 1.0 */){
+		if (ISNAN(meanlog) ){
+			// TODO: R also throws a warning in that case, should we ?
+			return NumericVector( n, R_NaN ) ;
+		}  else if ( !R_FINITE(meanlog)){
+			return NumericVector( n, ::exp( meanlog ) ) ;
+		} else {
+			return NumericVector( n, stats::LNormGenerator_1( meanlog ) ); 
+		}
 	}
-	
-private:
-	double meanlog ;
-} ;
 
-class LNormGenerator_0 : public Generator<false,double> {
-public:
-	
-	LNormGenerator_1( ) {}
-	
-	inline double operator()() const {
-		return exp(::norm_rand() ) ;
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rlnorm( int n /*, double meanlog [=0.], double sdlog = 1.0 */){
+		return NumericVector( n, stats::LNormGenerator_0( ) ); 
 	}
-	
-} ;
-
-} // stats
-
-inline NumericVector rlnorm( int n, double meanlog, double sdlog ){
-	if (ISNAN(meanlog) || !R_FINITE(sdlog) || sdlog < 0.){
-		// TODO: R also throws a warning in that case, should we ?
-		return NumericVector( n, R_NaN ) ;
-	}  else if (sdlog == 0. || !R_FINITE(meanlog)){
-		return NumericVector( n, exp( meanlog ) ) ;
-	} else {
-		return NumericVector( n, stats::LNormGenerator( meanlog, sdlog ) ); 
-	}
-}
-
-inline NumericVector rlnorm( int n, double meanlog /*, double sdlog = 1.0 */){
-	if (ISNAN(meanlog) ){
-		// TODO: R also throws a warning in that case, should we ?
-		return NumericVector( n, R_NaN ) ;
-	}  else if ( !R_FINITE(meanlog)){
-		return NumericVector( n, ::exp( meanlog ) ) ;
-	} else {
-		return NumericVector( n, stats::LNormGenerator_1( meanlog ) ); 
-	}
-}
-
-inline NumericVector rlnorm( int n /*, double meanlog [=0.], double sdlog = 1.0 */){
-	return NumericVector( n, stats::LNormGenerator_0( ) ); 
-}
 
 
 } // Rcpp

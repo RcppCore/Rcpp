@@ -23,27 +23,30 @@
 #define Rcpp__stats__random_rgeom_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
-class GeomGenerator : public ::Rcpp::Generator<false,double> {
-public:
+		class GeomGenerator : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	GeomGenerator( double p ) : lambda( (1-p)/p  ) {}
+			GeomGenerator( double p ) : lambda( (1-p)/p  ) {}
 	
-	inline double operator()() const {
-		return ::Rf_rpois(exp_rand() * lambda); 
+			inline double operator()() const {
+				return ::Rf_rpois(exp_rand() * lambda); 
+			}
+	
+		private:
+			double lambda ;
+		} ;
+	} // stats
+
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rgeom( int n, double p ){
+		if (!R_FINITE(p) || p <= 0 || p > 1) 
+			return NumericVector( n, R_NaN );
+		return NumericVector( n, stats::GeomGenerator( p ) ) ;
 	}
-	
-private:
-	double lambda ;
-} ;
-} // stats
-
-inline NumericVector rgeom( int n, double p ){
-	if (!R_FINITE(p) || p <= 0 || p > 1) 
-		return NumericVector( n, R_NaN );
-	return NumericVector( n, stats::GeomGenerator( p ) ) ;
-}
 
 } // Rcpp
 

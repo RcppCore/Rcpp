@@ -23,70 +23,73 @@
 #define Rcpp__stats__random_rf_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
 
 
-class FGenerator_Finite_Finite : public ::Rcpp::Generator<false,double> {
-public:
+		class FGenerator_Finite_Finite : public ::Rcpp::Generator<false,double> {
+		public:
 	
-	FGenerator_Finite_Finite( double n1_, double n2_ ) : 
-		n1(n1_), n2(n2_), n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ), ratio(n2_/n1_) {}
+			FGenerator_Finite_Finite( double n1_, double n2_ ) : 
+				n1(n1_), n2(n2_), n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ), ratio(n2_/n1_) {}
 	
-	inline double operator()() const {
-		// here we know that both n1 and n2 are finite
-		// return ( ::rchisq( n1 ) / n1 ) / ( ::rchisq( n2 ) / n2 );
-		return ratio * ::Rf_rgamma( n1__2, 2.0 ) / ::Rf_rgamma( n2__2, 2.0 ) ;
+			inline double operator()() const {
+				// here we know that both n1 and n2 are finite
+				// return ( ::rchisq( n1 ) / n1 ) / ( ::rchisq( n2 ) / n2 );
+				return ratio * ::Rf_rgamma( n1__2, 2.0 ) / ::Rf_rgamma( n2__2, 2.0 ) ;
+			}
+	
+		private:
+			double n1, n2, n1__2, n2__2, ratio ;
+		} ;
+
+
+		class FGenerator_NotFinite_Finite : public ::Rcpp::Generator<false,double> {
+		public:
+	
+			FGenerator_NotFinite_Finite( double n2_ ) : n2( n2_), n2__2(n2_ / 2.0 ) {}
+	
+			inline double operator()() const {
+				// return n2  / ::rchisq( n2 ) ;
+				return n2 / ::Rf_rgamma( n2__2, 2.0 ) ;
+			}
+	
+		private:
+			double n2, n2__2 ;
+		} ;
+
+
+		class FGenerator_Finite_NotFinite : public ::Rcpp::Generator<false,double> {
+		public:
+	
+			FGenerator_Finite_NotFinite( double n1_ ) : n1(n1_), n1__2(n1_ / 2.0 ) {}
+	
+			inline double operator()() const {
+				// return ::rchisq( n1 ) / n1 ;
+				return ::Rf_rgamma( n1__2, 2.0 ) / n1 ;
+			}
+	
+		private:
+			double n1, n1__2 ;
+		} ;
+
+	} // stats 
+
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rf( int n, double n1, double n2 ){
+		if (ISNAN(n1) || ISNAN(n2) || n1 <= 0. || n2 <= 0.)
+			return NumericVector( n, R_NaN ) ;
+		if( R_FINITE( n1 ) && R_FINITE( n2 ) ){
+			return NumericVector( n, stats::FGenerator_Finite_Finite( n1, n2 ) ) ;
+		} else if( ! R_FINITE( n1 ) && ! R_FINITE( n2 ) ){
+			return NumericVector( n, 1.0 ) ;
+		} else if( ! R_FINITE( n1 ) ) {
+			return NumericVector( n, stats::FGenerator_NotFinite_Finite( n2 ) ) ;
+		} else {
+			return NumericVector( n, stats::FGenerator_Finite_NotFinite( n1 ) ) ;	
+		}
 	}
-	
-private:
-	double n1, n2, n1__2, n2__2, ratio ;
-} ;
-
-
-class FGenerator_NotFinite_Finite : public ::Rcpp::Generator<false,double> {
-public:
-	
-	FGenerator_NotFinite_Finite( double n2_ ) : n2( n2_), n2__2(n2_ / 2.0 ) {}
-	
-	inline double operator()() const {
-		// return n2  / ::rchisq( n2 ) ;
-		return n2 / ::Rf_rgamma( n2__2, 2.0 ) ;
-	}
-	
-private:
-	double n2, n2__2 ;
-} ;
-
-
-class FGenerator_Finite_NotFinite : public ::Rcpp::Generator<false,double> {
-public:
-	
-	FGenerator_Finite_NotFinite( double n1_ ) : n1(n1_), n1__2(n1_ / 2.0 ) {}
-	
-	inline double operator()() const {
-		// return ::rchisq( n1 ) / n1 ;
-		return ::Rf_rgamma( n1__2, 2.0 ) / n1 ;
-	}
-	
-private:
-	double n1, n1__2 ;
-} ;
-
-} // stats 
-
-inline NumericVector rf( int n, double n1, double n2 ){
-	if (ISNAN(n1) || ISNAN(n2) || n1 <= 0. || n2 <= 0.)
-		return NumericVector( n, R_NaN ) ;
-	if( R_FINITE( n1 ) && R_FINITE( n2 ) ){
-		return NumericVector( n, stats::FGenerator_Finite_Finite( n1, n2 ) ) ;
-	} else if( ! R_FINITE( n1 ) && ! R_FINITE( n2 ) ){
-		return NumericVector( n, 1.0 ) ;
-	} else if( ! R_FINITE( n1 ) ) {
-		return NumericVector( n, stats::FGenerator_NotFinite_Finite( n2 ) ) ;
-	} else {
-		return NumericVector( n, stats::FGenerator_Finite_NotFinite( n1 ) ) ;	
-	}
-}
 
 } // Rcpp
 

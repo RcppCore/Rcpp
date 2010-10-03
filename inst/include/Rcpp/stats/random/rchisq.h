@@ -23,26 +23,29 @@
 #define Rcpp__stats__random_rchisq_h
 
 namespace Rcpp {
-namespace stats {
+	namespace stats {
+		
+		class ChisqGenerator : public ::Rcpp::Generator<false,double> {
+		public:
+			
+			ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
+			
+			inline double operator()() const {
+				return ::Rf_rgamma( df_2, 2.0 ) ; 
+			}
+			
+		private:
+			double df_2 ;
+		} ;
+	} // stats
 
-class ChisqGenerator : public ::Rcpp::Generator<false,double> {
-public:
-	
-	ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
-	
-	inline double operator()() const {
-		return ::Rf_rgamma( df_2, 2.0 ) ; 
+	// Please make sure you to read Section 6.3 of "Writing R Extensions"
+	// about the need to call GetRNGstate() and PutRNGstate() when using 
+	// the random number generators provided by R.
+	inline NumericVector rchisq( int n, double df ){
+		if (!R_FINITE(df) || df < 0.0) return NumericVector(n, R_NaN) ;
+		return NumericVector( n, stats::ChisqGenerator( df ) ) ;
 	}
-	
-private:
-	double df_2 ;
-} ;
-} // stats
-
-inline NumericVector rchisq( int n, double df ){
-	if (!R_FINITE(df) || df < 0.0) return NumericVector(n, R_NaN) ;
-	return NumericVector( n, stats::ChisqGenerator( df ) ) ;
-}
 
 } // Rcpp
 

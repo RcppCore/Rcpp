@@ -67,6 +67,10 @@ public:
 } // stats
 
 // perhaps this should go to a cpp file
+
+// Please make sure you to read Section 6.3 of "Writing R Extensions"
+// about the need to call GetRNGstate() and PutRNGstate() when using 
+// the random number generators provided by R.
 inline NumericVector rcauchy( int n, double location, double scale ){
 	if (ISNAN(location) || !R_FINITE(scale) || scale < 0)
 		return NumericVector( n, R_NaN ) ;
@@ -77,6 +81,9 @@ inline NumericVector rcauchy( int n, double location, double scale ){
 	return NumericVector( n, stats::CauchyGenerator( location, scale ) ) ;
 }
 
+// Please make sure you to read Section 6.3 of "Writing R Extensions"
+// about the need to call GetRNGstate() and PutRNGstate() when using 
+// the random number generators provided by R.
 inline NumericVector rcauchy( int n, double location /* , double scale [=1.0] */ ){
 	if (ISNAN(location))
 		return NumericVector( n, R_NaN ) ;
@@ -87,6 +94,9 @@ inline NumericVector rcauchy( int n, double location /* , double scale [=1.0] */
 	return NumericVector( n, stats::CauchyGenerator_1( location ) ) ;
 }
 
+// Please make sure you to read Section 6.3 of "Writing R Extensions"
+// about the need to call GetRNGstate() and PutRNGstate() when using 
+// the random number generators provided by R.
 inline NumericVector rcauchy( int n /*, double location [=0.0] , double scale [=1.0] */ ){
 	return NumericVector( n, stats::CauchyGenerator_0() ) ;
 }
