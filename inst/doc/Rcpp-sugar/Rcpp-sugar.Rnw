@@ -466,7 +466,24 @@ nbinom, nbinom_mu, nchisq, nf, norm, nt, pois, t, unif, and weibull.
 
 One point to note is that the programmer using these functions needs to
 initialize the state of the random number generator as detailed in Section
-6.3 of the `Writing R Extensions' manual \citep{R:Extensions}.
+6.3 of the `Writing R Extensions' manual \citep{R:Extensions}.  A nice
+\proglang{C++} solution for this is to use a \textsl{scoped} class that sets
+the random number generatator on entry to a block and resets it on exit. We
+offer the \code{RNGScope} class which allows code such as
+
+<<lang=cpp>>=
+RcppExport SEXP getRGamma() {
+    RNGScope scope;
+    NumericVector x = rgamma( 10, 1, 1 );
+    return x;
+}
+@
+
+As there is some computational overhead involved in using \code{RNGScope}, we
+are not wrapping it around each inner function.  Rather, the user of these
+functions (\textsl{i.e.} you) should place an \code{RNGScope} at the
+appropriate level of your code.
+
 
 \section{Performance}
 \label{sec:performance}
