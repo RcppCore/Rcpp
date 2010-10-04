@@ -55,6 +55,7 @@ public:
 	
 	virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
 	virtual Rcpp::List getMethods(SEXP){ return Rcpp::List(0); }
+	virtual void run_finalizer(SEXP){ }
 	
 	virtual bool has_method( const std::string& ){ 
 		return false ; 
@@ -181,6 +182,27 @@ class CppProperty {
 } ;
 
 template <typename Class>
+class CppFinalizer{ 
+public:
+    CppFinalizer(){} ;
+    virtual void run(Class* ){} ;
+} ;
+
+template <typename Class>
+class FunctionFinalizer : public CppFinalizer<Class> {
+public:
+    typedef void (*Pointer)(Class*) ;
+    FunctionFinalizer( Pointer p ) : finalizer(p){} ;
+    
+    virtual void run(Class* object){ 
+        finalizer( object ) ;
+    }
+    
+private:
+    Pointer finalizer ;    
+} ;
+
+template <typename Class>
 class S4_field : public Rcpp::Reference {
 public:             
     S4_field( CppProperty<Class>* p, SEXP class_xp ) : Reference( "C++Field" ){
@@ -188,11 +210,8 @@ public:
         field( "cpp_class" )     = p->get_class();
         field( "pointer" )       = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
         field( "class_pointer" ) = class_xp ;
-        
-    
     }
 } ;
-
 
 #include <Rcpp/module/Module_Property.h>
 
@@ -204,15 +223,17 @@ public:
 	typedef std::map<std::string,method_class*> METHOD_MAP ;
 	typedef std::pair<const std::string,method_class*> PAIR ;
 	typedef Rcpp::XPtr<Class> XP ;
+	typedef CppFinalizer<Class> finalizer_class ;
 	
 	typedef CppProperty<Class> prop_class ;
 	typedef std::map<std::string,prop_class*> PROPERTY_MAP ;
 	typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
 	
-	class_( const char* name_ ) : class_Base(name_), methods(), properties(), specials(0) {
+	class_( const char* name_ ) : class_Base(name_), methods(), properties(), specials(0), finalizer_pointer(0) {
 		if( !singleton ){
 			singleton = new self ;
 			singleton->name = name_ ;
+			singleton->finalizer_pointer = new finalizer_class ;
 			getCurrentScope()->AddClass( name_, singleton ) ;
 		}
 	}
@@ -395,11 +416,26 @@ public:
 
 #include <Rcpp/module/Module_Add_Property.h>
 
+    self& finalizer( void (*f)(Class*) ){
+        SetFinalizer( new FunctionFinalizer<Class>( f ) ) ;
+        return *this ;
+    }    
 
+    virtual void run_finalizer( SEXP object ){
+        finalizer_pointer->run( XP(object) ) ;
+    }
+    
 private:
+    
+    void SetFinalizer( finalizer_class* f ){
+        if( singleton->finalizer_pointer ) delete singleton->finalizer ;
+        singleton->finalizer_pointer = f ; 
+    }
+    
 	METHOD_MAP methods ;
 	PROPERTY_MAP properties ;
 	static self* singleton ;
+	finalizer_class* finalizer_pointer ;
 	int specials ;
 	
 	class_( ) : class_Base(), methods(), properties(), specials(0) {}; 
