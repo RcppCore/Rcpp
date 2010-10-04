@@ -100,6 +100,10 @@ RCPP_FUNCTION_4(SEXP, CppField__set, XP_Class cl, SEXP field_xp, SEXP obj, SEXP 
 	cl->setProperty( field_xp, obj, value ) ;
 	return R_NilValue ;
 }
+RCPP_FUNCTION_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj){
+	cl->run_finalizer( obj ) ;
+	return R_NilValue ;
+}
 
 
 
@@ -286,7 +290,7 @@ namespace Rcpp{
 		slot( ".Data" ) = mangled_name ;
 		
 		slot( "fields" ) = cl->fields( clxp.asSexp() ) ;
-		slot( "methods" ) = cl->getMethods( clxp.asSexp() ) ; 
+		slot( "methods" ) = cl->getMethods( clxp.asSexp() ) ;
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {

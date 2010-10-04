@@ -10,7 +10,7 @@ useDynLib(Rcpp,
     
     Module__classes_info,Module__complete,Module__get_class,
     Module__has_class,Module__has_function,Module__functions_arity,
-    Module__name, 
+    Module__name, CppObject__finalize, 
     
     # .External functions
     CppMethod__invoke, InternalFunction_invoke, Module__invoke, class__newInstance
