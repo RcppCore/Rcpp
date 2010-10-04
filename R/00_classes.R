@@ -62,7 +62,7 @@ setClass( "C++Class",
 	representation( 
 	    pointer = "externalptr", 
 	    module  = "externalptr", 
-	    fields  = "list", 
+	    fields  = "list",
 	    methods = "list",
             generator = "refObjectGenerator"
 	), 
@@ -70,10 +70,10 @@ setClass( "C++Class",
 	)
 setClass( "C++ClassRepresentation", 
     representation( 
-        pointer     = "externalptr", 
-        generator   = "refObjectGenerator", 
-        cpp_fields  = "list", 
-        cpp_methods = "list"
+        pointer       = "externalptr", 
+        generator     = "refObjectGenerator", 
+        cpp_fields    = "list", 
+        cpp_methods   = "list"
     ), 
     contains = "classRepresentation" )
 
