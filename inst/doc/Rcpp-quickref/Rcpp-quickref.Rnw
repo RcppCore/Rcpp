@@ -19,12 +19,13 @@
 <<echo=FALSE,print=FALSE>>=
 options( width= 50)
 library( "Rcpp" )
-rcpp.version <- packageDescription( "Rcpp" )$Version
+prettyVersion <- packageDescription("Rcpp")$Version
+prettyDate <- format(Sys.Date(), "%B %e, %Y")
 @
-% closing $ needed here
 
 \author{Romain Fran\c{c}ois \and Dirk Eddelbuettel}
-\title{Rcpp \Sexpr{rcpp.version}: Quick Reference Guide}
+\title{\pkg{Rcpp} Quick Reference Guide}
+\date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
 \begin{document}
 \maketitle

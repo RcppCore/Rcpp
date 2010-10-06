@@ -26,8 +26,14 @@
 \newcommand{\hlboxbacktick}{   \hlnormalsizeboxbacktick}
 \newcommand{\hlboxunderscore}{ \hlnormalsizeboxunderscore}
 
+<<echo=FALSE,print=FALSE>>=
+prettyVersion <- packageDescription("Rcpp")$Version
+prettyDate <- format(Sys.Date(), "%B %e, %Y")
+@
+
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{Writing a package that uses \pkg{Rcpp} }
+\date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
 <<echo=FALSE>>=
 require( Rcpp )
