@@ -362,7 +362,7 @@ to either user-defined or third-party classes via the \texttt{Rcpp::as} and
 \texttt{Rcpp::wrap} template functions. Both intrusive and non-intrusive
 approaches were discussed.
 
-\bibliographystyle{abbrvnat}
+\bibliographystyle{plainnat}
 \bibliography{Rcpp}
 
 \end{document}

@@ -361,8 +361,7 @@ request..
 
 Yes. Just send us an email.
 
-
-\bibliographystyle{abbrvnat}
+\bibliographystyle{plainnat}
 \bibliography{Rcpp}
 
 \end{document}
