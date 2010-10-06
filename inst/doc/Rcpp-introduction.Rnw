@@ -403,7 +403,7 @@ RcppExport SEXP someFunction() \{
 
   v.push_back( m1 );
   v.push_back( m2 );
-  Rcpp::wrap( v );
+  return Rcpp::wrap( v );
 \}
 \end{example}
 
