@@ -16,6 +16,8 @@
 
 \usepackage[colorlinks]{hyperref}
 
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+
 <<echo=FALSE,print=FALSE>>=
 options( width= 50)
 library( "Rcpp" )
