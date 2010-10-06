@@ -39,7 +39,7 @@ Rcpp-api.pdf: Rcpp-api.Rnw
 
 Rcpp-introduction.pdf: Rcpp-introduction.Rnw
 	R CMD Sweave Rcpp-introduction.Rnw
-ifeq ($(whoami),edd)
+ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-introduction.tex
 	bibtex Rcpp-introduction
 	pdflatex Rcpp-introduction.tex
@@ -50,119 +50,87 @@ endif
 	rm -fr Rcpp-introduction.tex
 
 Rcpp-modules.pdf: Rcpp-modules/Rcpp-modules.Rnw
-	rm Rcpp-modules.Rnw 
 	cp -f Rcpp-modules/Rcpp-modules.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-modules.Rnw', driver = driver ); "
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = FALSE )"
 	bibtex Rcpp-modules
-ifeq ($(whoami),edd)
+ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-modules.tex
 	pdflatex Rcpp-modules.tex
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-modules.tex
-	rm -fr Rcpp-modules.bbl
-	rm -fr Rcpp-modules.blg
-	rm -fr Rcpp-modules.aux
-	rm -fr Rcpp-modules.out
-	rm -fr Rcpp-modules.log
+	rm -fr Rcpp-modules.tex Rcpp-modules.bbl Rcpp-modules.blg Rcpp-modules.aux Rcpp-modules.out Rcpp-modules.log
 	rm Rcpp-modules.Rnw
 	cp Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
 
 Rcpp-package.pdf : Rcpp-package/Rcpp-package.Rnw
-	rm Rcpp-package.Rnw
 	cp -f Rcpp-package/Rcpp-package.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-package.Rnw', driver = driver ); "
 	Rscript -e "tools::texi2dvi( 'Rcpp-package.tex', pdf = TRUE, clean = FALSE )"
 	bibtex Rcpp-package
-ifeq ($(whoami),edd)
+ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-package
 	pdflatex Rcpp-package
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-package.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-package.tex
-	rm -fr Rcpp-package.bbl
-	rm -fr Rcpp-package.blg
-	rm -fr Rcpp-package.aux
-	rm -fr Rcpp-package.out
-	rm -fr Rcpp-package.log
+	rm -fr Rcpp-package.tex Rcpp-package.bbl Rcpp-package.blg Rcpp-package.aux Rcpp-package.out Rcpp-package.log
 	rm Rcpp-package.Rnw
 	cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
 
 Rcpp-FAQ.pdf : Rcpp-FAQ/Rcpp-FAQ.Rnw
-	rm Rcpp-FAQ.Rnw
 	cp -f Rcpp-FAQ/Rcpp-FAQ.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-FAQ.Rnw', driver = driver ); "
 	Rscript -e "tools::texi2dvi( 'Rcpp-FAQ.tex', pdf = TRUE, clean = FALSE )"
 	bibtex Rcpp-FAQ
-ifeq ($(whoami),edd)
+ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-FAQ
 	pdflatex Rcpp-FAQ
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-FAQ.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-FAQ.tex
-	rm -fr Rcpp-FAQ.bbl
-	rm -fr Rcpp-FAQ.blg
-	rm -fr Rcpp-FAQ.aux
-	rm -fr Rcpp-FAQ.out
-	rm -fr Rcpp-FAQ.log
+	rm -fr Rcpp-FAQ.tex Rcpp-FAQ.bbl Rcpp-FAQ.blg Rcpp-FAQ.aux Rcpp-FAQ.out Rcpp-FAQ.log
 	rm Rcpp-FAQ.Rnw
 	cp Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
 
 Rcpp-extending.pdf : Rcpp-extending/Rcpp-extending.Rnw
-	rm Rcpp-extending.Rnw
 	cp -f Rcpp-extending/Rcpp-extending.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-extending.Rnw', driver = driver ); "
 	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = FALSE )"
 	bibtex Rcpp-extending
-ifeq ($(whoami),edd)
+ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-extending
 	pdflatex Rcpp-extending
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-extending.tex
-	rm -fr Rcpp-extending.bbl
-	rm -fr Rcpp-extending.blg
-	rm -fr Rcpp-extending.aux
-	rm -fr Rcpp-extending.out
-	rm -fr Rcpp-extending.log
+	rm -fr Rcpp-extending.tex Rcpp-extending.bbl Rcpp-extending.blg Rcpp-extending.aux Rcpp-extending.out Rcpp-extending.log
 	rm Rcpp-extending.Rnw
 	cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
 
 Rcpp-sugar.pdf : Rcpp-sugar/Rcpp-sugar.Rnw
-	rm Rcpp-sugar.Rnw
 	cp -f Rcpp-sugar/Rcpp-sugar.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-sugar.Rnw', driver = driver ); "
 	Rscript -e "tools::texi2dvi( 'Rcpp-sugar.tex', pdf = TRUE, clean = FALSE )"
 	bibtex Rcpp-sugar
-ifeq ($(whoami),edd)
+ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-sugar
 	pdflatex Rcpp-sugar
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-sugar.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-sugar.tex
-	rm -fr Rcpp-sugar.bbl
-	rm -fr Rcpp-sugar.blg
-	rm -fr Rcpp-sugar.aux
-	rm -fr Rcpp-sugar.out
-	rm -fr Rcpp-sugar.log
+	rm -fr Rcpp-sugar.tex Rcpp-sugar.bbl Rcpp-sugar.blg Rcpp-sugar.aux Rcpp-sugar.out Rcpp-sugar.log
 	rm Rcpp-sugar.Rnw
 	cp Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
 
 Rcpp-quickref.pdf : Rcpp-quickref/Rcpp-quickref.Rnw
-	touch Rcpp-quickref.Rnw
-	rm Rcpp-quickref.Rnw
 	cp -f Rcpp-quickref/Rcpp-quickref.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-quickref.Rnw', driver = driver ); "
 	Rscript -e "tex <- readLines('Rcpp-quickref.tex'); tex <- gsub( 'begin{minipage}{0.9', 'begin{minipage}{0.42', tex, fixed = TRUE ) ; writeLines( tex, 'Rcpp-quickref.tex' )  "
 	Rscript -e "tools::texi2dvi( 'Rcpp-quickref.tex', pdf = TRUE, clean = FALSE )"
-	# bibtex Rcpp-quickref
-ifeq ($(whoami),edd)
+	bibtex Rcpp-quickref
+ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-quickref
 	pdflatex Rcpp-quickref
 else
