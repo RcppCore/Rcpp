@@ -18,8 +18,14 @@
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 
+<<echo=FALSE,print=FALSE>>=
+prettyVersion <- packageDescription("Rcpp")$Version
+prettyDate <- format(Sys.Date(), "%B %e, %Y")
+@
+
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{Exposing \proglang{C++} functions and classes with \pkg{Rcpp} modules}
+\date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
 <<echo=FALSE>>=
 link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){

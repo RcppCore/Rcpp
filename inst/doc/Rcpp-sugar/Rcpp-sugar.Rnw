@@ -20,8 +20,14 @@
 \newcommand{\sugar}{\textsl{Rcpp sugar}}
 \newcommand{\ith}{\textsl{i}-\textsuperscript{th}}
 
+<<echo=FALSE,print=FALSE>>=
+prettyVersion <- packageDescription("Rcpp")$Version
+prettyDate <- format(Sys.Date(), "%B %e, %Y")
+@
+
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{\pkg{Rcpp} syntactic sugar}
+\date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
 <<echo=FALSE>>=
 link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
