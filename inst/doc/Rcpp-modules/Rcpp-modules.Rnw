@@ -655,7 +655,7 @@ This note introduced \textsl{Rcpp modules} and illustrated how to expose
 and will probably undergo a few more changes. We hope that \proglang{R} and
 \proglang{C++} programmers find \textsl{Rcpp modules} useful.
 
-\bibliographystyle{abbrvnat}
+\bibliographystyle{plainnat}
 \bibliography{Rcpp}
 
 \end{document}
