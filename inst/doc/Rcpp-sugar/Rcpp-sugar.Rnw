@@ -19,6 +19,7 @@
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 \newcommand{\sugar}{\textsl{Rcpp sugar}}
 \newcommand{\ith}{\textsl{i}-\textsuperscript{th}}
+\newcommand{\code}[1]{\texttt{#1}}
 
 <<echo=FALSE,print=FALSE>>=
 prettyVersion <- packageDescription("Rcpp")$Version
@@ -468,7 +469,7 @@ x4 = rnorm(n, 0, 1);   // 'n' RNG draws of N(0, 1)
 
 Similar d/q/p/r functions are provided for the most common distributions:
 beta, binom, cauchy, chisq, exp, f, gamma, geom, hyper, lnorm, logis, nbeta,
-nbinom, nbinom_mu, nchisq, nf, norm, nt, pois, t, unif, and weibull.
+nbinom, nbinom\_mu, nchisq, nf, norm, nt, pois, t, unif, and weibull.
 
 One point to note is that the programmer using these functions needs to
 initialize the state of the random number generator as detailed in Section
