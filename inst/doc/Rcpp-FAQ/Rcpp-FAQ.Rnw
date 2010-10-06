@@ -211,6 +211,46 @@ function \texttt{Rcpp:::LdFlags()}.
 If and when \texttt{LinkingTo} changes and lives up to its name, we will be
 sure to adapt \pkg{Rcpp} as well.
 
+
+\subsection{Can I use templates with \pkg{Rcpp} and \pkg{inline} ? }
+
+\begin{quote}
+  \emph{I'm curious whether one can provide a class definition inline in an R
+    script and then initialize an instance of the class and call a method on
+    the class, all inline in R.}
+\end{quote}
+
+\noindent Most certainly, consider this simple example of a templated class
+which squares its argument:
+
+<<echo=FALSE>>=
+writeLines( '
+inc <- \'template <typename T>
+        class square : public std::unary_function<T,T> {
+        public:
+            T operator()( T t) const { return t*t ;}
+        };
+       \'
+
+src <- \'
+       double x = Rcpp::as<double>(xs);
+       int i = Rcpp::as<int>(is);
+       square<double> sqdbl;
+       square<int> sqint;
+       return Rcpp::DataFrame::create(Rcpp::Named("x", sqdbl(x)),
+                                      Rcpp::Named("i", sqint(i)));
+       \'
+fun <- cxxfunction(signature(xs="numeric", is="integer"),
+                   body=src, include=inc, plugin="Rcpp")
+
+fun(2.2, 3L)
+', "templateUse.R")
+@
+<<echo=FALSE,results=tex>>=
+ex_highlight( "templateUse.R" )
+@
+
+
 \subsection{Does \pkg{Rcpp} work on windows}
 
 Yes of course. See the Windows binaries provided by CRAN.
@@ -310,6 +350,7 @@ are provided on \href{http://arma.sourceforge.net/speed.html}{the Armadillo webs
 
 It should be noted that code below depends on the version \texttt{0.3.5} of
 \pkg{inline} and the version \texttt{0.2.2} of \pkg{RcppArmadillo}
+
 
 \subsection{Is the API documented ? }
 
