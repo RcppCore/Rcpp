@@ -400,7 +400,7 @@ and \proglang{C++} integration when writing an \proglang{R} extension
 package. The use of the \Sexpr{link("Rcpp.package.skeleton")} was shown in
 detail, and references to further examples were provided.
 
-\bibliographystyle{abbrvnat}
+\bibliographystyle{plainnat}
 \bibliography{Rcpp}
 
 \end{document}

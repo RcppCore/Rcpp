@@ -762,7 +762,7 @@ inline int size() const { return vec.size() ; }
 
 TBD
 
-\bibliographystyle{abbrvnat}
+\bibliographystyle{plainnat}
 \bibliography{Rcpp}
 
 \end{document}
