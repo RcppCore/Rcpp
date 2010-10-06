@@ -249,6 +249,9 @@ fun(2.2, 3L)
 <<echo=FALSE,results=tex>>=
 ex_highlight( "templateUse.R" )
 @
+<<echo=FALSE>>=
+unlink("templateUse.R")
+@
 
 
 \subsection{Does \pkg{Rcpp} work on windows}
