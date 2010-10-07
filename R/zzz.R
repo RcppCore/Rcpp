@@ -17,6 +17,7 @@
 
 .onLoad <- function(libname, pkgname){
     install_help_workaround()
+    .Call("reset_current_error", PACKAGE = "Rcpp" )
 
     minimum_svn_rev <- packageDescription( pkgname )[["MinimumSvnRev"]]
     if( as.integer(R.version[["svn rev"]]) < as.integer(minimum_svn_rev)){
