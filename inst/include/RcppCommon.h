@@ -123,7 +123,7 @@ std::string demangle( const std::string& name) ;
 RcppExport void init_Rcpp_routines(DllInfo*) ;
 
 namespace Rcpp{
-	namespace internal{
+    namespace internal{
 		template <typename T> int rcpp_call_test(T t){
 			return T::r_type::value ;
 		}
@@ -279,5 +279,6 @@ RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP );
 #include <Rcpp/sugar/sugar_forward.h>
 
 #include <Rcpp/routines.h>
+#include <Rcpp/cache.h>
 
 #endif
