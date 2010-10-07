@@ -27,6 +27,11 @@ cpp_exception <- function( message = "C++ exception", class = NULL, cppstack = r
 	stop( condition )
 }
 
+## Dummy versions
+rcpp_get_current_stack_trace <- function() "DUMMY STACK TRACE"
+rcpp_set_current_stack_trace <- function(s) NULL
+
+
 # used by Rcpp::Evaluator
 setCurrentError <- function( condition = NULL) .Call( rcpp_set_current_error, condition )
 getCurrentError <- function() .Call( rcpp_get_current_error )
