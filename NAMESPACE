@@ -12,6 +12,11 @@ useDynLib(Rcpp,
     Module__has_class,Module__has_function,Module__functions_arity,
     Module__name, CppObject__finalize, 
     
+    get_rcpp_cache, init_Rcpp_cache, reset_current_error, 
+    rcpp_error_recorder, rcpp_set_current_error, rcpp_get_current_error, 
+    rcpp_set_error_occured, rcpp_get_error_occured, 
+    rcpp_set_stack_trace, rcpp_get_stack_trace,
+    
     # .External functions
     CppMethod__invoke, InternalFunction_invoke, Module__invoke, class__newInstance
 )

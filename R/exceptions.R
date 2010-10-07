@@ -28,14 +28,14 @@ cpp_exception <- function( message = "C++ exception", class = NULL, cppstack = r
 }
 
 # used by Rcpp::Evaluator
-setCurrentError <- function( condition = NULL) .Call( "rcpp_set_current_error", condition, PACKAGE = "Rcpp" )
-getCurrentError <- function() .Call( "rcpp_get_current_error", PACKAGE = "Rcpp" )
+setCurrentError <- function( condition = NULL) .Call( rcpp_set_current_error, condition )
+getCurrentError <- function() .Call( rcpp_get_current_error )
 
-setErrorOccured <- function(error_occured = TRUE) .Call( "rcpp_set_error_occured", error_occured, PACKAGE = "Rcpp" )
-getErrorOccured <- function() .Call( "rcpp_get_error_occured", PACKAGE = "Rcpp" )
+setErrorOccured <- function(error_occured = TRUE) .Call( rcpp_set_error_occured, error_occured )
+getErrorOccured <- function() .Call( rcpp_get_error_occured )
 
-setStackTrace <- function(trace = TRUE) .Call( "rcpp_set_stack_trace", trace, PACKAGE = "Rcpp" )
-getStackTrace <- function() .Call( "rcpp_get_stack_trace", PACKAGE = "Rcpp" )
+setStackTrace <- function(trace = TRUE) .Call( rcpp_set_stack_trace, trace )
+getStackTrace <- function() .Call( rcpp_get_stack_trace)
 
 # all below are called from Evaluator::run 
 # on the C++ side, don't change them unless you also change
@@ -44,12 +44,12 @@ getStackTrace <- function() .Call( "rcpp_get_stack_trace", PACKAGE = "Rcpp" )
 getCurrentErrorMessage <- function() conditionMessage( getCurrentError() )
 errorOccured <- function() getErrorOccured()
 .rcpp_error_recorder <- function(e){
-	invisible( .Call( "rcpp_error_recorder", e, PACKAGE = "Rcpp" ) )
+	invisible( .Call( rcpp_error_recorder, e ) )
 }
 
 # simplified version of utils::tryCatch
 rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, but is indeed not used
-	.Call("reset_current_error", PACKAGE = "Rcpp")
+	.Call(reset_current_error)
 	rcpp_doTryCatch <- function(expr, env) {
 	    .Internal(.addCondHands("error", list(.rcpp_error_recorder), 
 	    	env, environment(), FALSE))
