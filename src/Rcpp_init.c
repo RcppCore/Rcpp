@@ -53,6 +53,17 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(Module__functions_arity,1),
     CALLDEF(Module__name,1),
     
+    CALLDEF(get_rcpp_cache,0),
+    CALLDEF(init_Rcpp_cache,0),
+    CALLDEF(reset_current_error,0),
+    CALLDEF(rcpp_error_recorder,1),
+    CALLDEF(rcpp_set_current_error,1),
+    CALLDEF(rcpp_get_current_error,0),
+    CALLDEF(rcpp_set_error_occured,1), 
+    CALLDEF(rcpp_get_error_occured,0),
+    CALLDEF(rcpp_set_stack_trace,1), 
+    CALLDEF(rcpp_get_stack_trace,0),
+    
     {NULL, NULL, 0}
 }; 
 

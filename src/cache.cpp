@@ -23,7 +23,11 @@
 
 static SEXP Rcpp_cache = R_NilValue ;
 static bool Rcpp_cache_ready = false ;
-                
+  
+void maybe_init() { 
+    if( ! Rcpp_cache_ready ) init_Rcpp_cache() ;
+}
+
 namespace Rcpp{
     namespace internal{   
     SEXP get_Rcpp_namespace(){ 
@@ -36,9 +40,6 @@ namespace Rcpp{
 // only used for debugging
 SEXP get_rcpp_cache() { return Rcpp_cache ; }
 
-void maybe_init() { 
-    if( ! Rcpp_cache_ready ) init_Rcpp_cache() ;
-}
 
 SEXP init_Rcpp_cache(){   
     Rcpp_cache = PROTECT( Rf_allocVector( VECSXP, 10 ) );
