@@ -53,6 +53,18 @@ CALLFUN_2(Module__has_function);
 CALLFUN_1(Module__name);
 CALLFUN_2(CppObject__finalize);
 
+CALLFUN_0(get_rcpp_cache);
+CALLFUN_0(init_Rcpp_cache);
+CALLFUN_0(reset_current_error);
+CALLFUN_1(rcpp_error_recorder);
+CALLFUN_1(rcpp_set_current_error);
+CALLFUN_0(rcpp_get_current_error);
+CALLFUN_1(rcpp_set_error_occured);
+CALLFUN_0(rcpp_get_error_occured);
+CALLFUN_1(rcpp_set_stack_trace);
+CALLFUN_0(rcpp_get_stack_trace);
+
+
 /* .External functions */
 EXTFUN(CppMethod__invoke) ;
 EXTFUN(InternalFunction_invoke) ;
