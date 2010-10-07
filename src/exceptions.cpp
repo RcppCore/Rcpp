@@ -23,9 +23,7 @@
 
 namespace Rcpp{
 	exception::exception( const char* message_, const char* file, int line) : message(message_){
-		SEXP call = PROTECT( Rf_lang2( Rf_install("rcpp_set_current_stack_trace") , stack_trace(file,line) ) ) ;
-		Rf_eval( call, R_FindNamespace( Rf_mkString( "Rcpp") ) ) ;
-		UNPROTECT(1) ;
+		rcpp_set_stack_trace( stack_trace(file,line) ) ;
 	}
 	exception::~exception() throw(){}
 

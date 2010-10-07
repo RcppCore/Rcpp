@@ -259,7 +259,6 @@ namespace Rcpp {
     }
     
     Environment Environment::Rcpp_namespace() throw() {
-    	    // return Environment( Rf_eval( Rf_lcons( Rf_install("getNamespace"), Rf_cons( Rf_mkString("Rcpp") , R_NilValue) ), R_GlobalEnv ) ) ;
     	    return Rcpp::internal::get_Rcpp_namespace() ;
     }
     

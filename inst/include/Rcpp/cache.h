@@ -32,6 +32,14 @@ namespace internal{
 
 extern "C" SEXP get_rcpp_cache() ;
 extern "C" SEXP init_Rcpp_cache() ; 
-extern "C" SEXP maybe_init() ;
+extern "C" void maybe_init() ;
+extern "C" SEXP reset_current_error() ;
+extern "C" SEXP rcpp_error_recorder(SEXP) ;
+extern "C" SEXP rcpp_set_current_error(SEXP) ;
+extern "C" SEXP rcpp_get_current_error() ;
+extern "C" SEXP rcpp_set_error_occured(SEXP) ;
+extern "C" SEXP rcpp_get_error_occured() ;
+extern "C" SEXP rcpp_set_stack_trace(SEXP) ;
+extern "C" SEXP rcpp_get_stack_trace() ;
 
 #endif
