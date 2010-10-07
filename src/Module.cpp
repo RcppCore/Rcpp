@@ -176,16 +176,19 @@ extern "C" SEXP CppMethod__invoke(SEXP args){
    	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
 
-
-
 namespace Rcpp{
 	static Module* current_scope  ;
 }
 
 Rcpp::Module* getCurrentScope(){ return Rcpp::current_scope ; }
 void setCurrentScope( Rcpp::Module* scope ){ Rcpp::current_scope = scope ; }
-void R_init_Rcpp( DllInfo* info){
+extern "C" void R_init_Rcpp( DllInfo* info){
 	Rcpp::current_scope = 0 ;
+	
+	// init the cache
+	init_Rcpp_cache() ;
+	
+	// init routines
 	init_Rcpp_routines(info) ;
 }
 
