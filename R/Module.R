@@ -157,7 +157,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         clname <- as.character(CLASS)
 
         fields <- cpp_fields( CLASS, where )
-        methods <- cpp_refMethods(CLASS@pointer, CLASS@methods, where)
+        methods <- cpp_refMethods(CLASS, where)
         generator <- setRefClass( clname,
                                  fields = fields,
                                  contains = "C++Object",
@@ -200,25 +200,29 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
     module
 }
 
+method_wrapper <- function( METHOD, where ){
+            f <- function(...) NULL
+	    extCall <- substitute(
+                .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...)
+           ,
+            list(
+                class_pointer = METHOD$class_pointer,
+                pointer = METHOD$pointer,
+                CppMethod__invoke = CppMethod__invoke
+                 )
+            )
+            if( METHOD$void )
+                extCall <- substitute({
+                    CALL
+                    invisible(NULL)
+                }, list(CALL = extCall))
+            body(f, where) <- extCall
+            f
+	}
 ## create a named list of the R methods to invoke C++ methods
 ## from the C++ class with pointer xp
-cpp_refMethods <- function(xp, cpp_methods, where) {
-
-	method_wrapper <- function( METHOD ){
-	    here <- environment()
-	    eval( substitute(
-            function(...) {
-                res <- MET$invoke( .pointer, ... )
-                RES
-            },
-            list(
-                MET = METHOD,
-                RES = if( METHOD$void ) quote(invisible(NULL)) else as.name("res")
-            )
-	    ), here )
-	}
-	mets <- sapply( cpp_methods, method_wrapper )
-    mets
+cpp_refMethods <- function(CLASS, where) {
+    sapply( CLASS@methods, method_wrapper, where = where )
 }
 
 binding_maker <- function( FIELD, where ){
