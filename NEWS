@@ -6,6 +6,13 @@
         the proxy pattern to get/set reference fields using callbacks to the 
         R operators "$" and "$<-" in order to preserve the R-level encapsulation
 
+    o   the R side of the preceding item allows methods to be written
+        in R as per ?ReferenceClasses, accessing fields by name and
+        assigning them using "<<-".  Classes extracted from modules
+        are R reference classes.  They can be subclassed in R, and/or R methods
+        can be defined using the $methods(...) mechanism.
+
+
 0.8.6   2010-09-09
 
     o	new macro RCPP_VERSION and Rcpp_Version to allow conditional compiling
