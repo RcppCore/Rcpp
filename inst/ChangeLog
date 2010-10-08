@@ -1,3 +1,8 @@
+2010-10-07  John M Chambers  <jmc@r-project.org>
+
+	* R/Module.R: modify cpp_refMethods to substitute the .External
+	directly with the method and class pointers.
+
 2010-10-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/stats/random/r*: Added comment reminding users
@@ -13,7 +18,7 @@
           NumericVector x0 = x.row(0) ;
 
         * inst/include/Rcpp/vector/MatrixColumn.h: idem for columns
-
+ 
         * cleanup: run make clean in the inst/doc directory to install
         the fake vignettes
 
@@ -43,6 +48,14 @@
 	functions to speed things up
 
         * inst/include/Rcpp/RangeIndexer.h: experimenting with loop unrolling
+
+2010-09-24  John M Chambers  <jmc@r-project.org>
+
+	* R/Module.R: modify cpp_fields to substitute the .Call
+	directly with the field and class pointers; supplements the
+	changes entered by Romain on 9-22. (svn rev 2165, 2141)
+
+	* src/Rcpp_init.c: set up registration of .Call's (rev 2167)
 
 2010-09-24  Romain Francois <romain@r-enthusiasts.com>
 
@@ -78,6 +91,13 @@
         * inst/include/Rcpp/Module.h: internal support for
 	C++Method (template class S4_CppMethod)
 
+2010-09-17  John M Chambers  <jmc@r-project.org>
+
+	* R/00_classes.R, R/02_completion.R, et al.: use of environment
+	underlying the reference classes removes need for slots in
+	C++Object class	(svn rev's 2133, 2134)
+
+
 2010-09-16  Romain Francois <romain@r-enthusiasts.com>
 
         * R/00_classes.R: moving classes definition here
@@ -97,6 +117,12 @@
 	that will help dealing with reference classes on the C++ side
 
         * src/Reference.cpp: implementation (needs update)
+
+2010-09-16  John M Chambers  <jmc@r-project.org>
+
+	* R/Module.R, tests/modRef.R: un-generic of new(); return a
+	generator object for C++ classes. Use environment as superclass.
+
 
 2010-09-15  Romain Francois <romain@r-enthusiasts.com>
 
