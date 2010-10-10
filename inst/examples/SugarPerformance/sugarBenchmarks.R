@@ -116,6 +116,30 @@ settings.ifelse <- list( start = '
    data = list( x = runif(1e5),  y = runif(1e5) )
 )
 
+settings.ifelse.nona <- list( start = '
+	NumericVector x = e["x"] ;
+	NumericVector y = e["y"] ;
+', hand.written = '
+	int n = x.size() ;
+	NumericVector res1( n ) ;
+	double x_ = 0.0 ;
+	double y_ = 0.0 ;
+	for( int i=0; i<n; i++){
+        x_ = x[i] ;
+        y_ = y[i] ;
+        if( x_ < y_ ){
+            res1[i] = x_ * x_ ;
+        } else {
+            res1[i] = -( y_ * y_)  ;
+        }
+    }
+
+', sugar = '
+    NumericVector res2 = ifelse( x < y, noNA(x)*noNA(x), -(noNA(y)*noNA(y)) ) ;
+', expr = quote(ifelse(x<y, x*x, -(y*y) )), 
+   data = list( x = runif(1e5),  y = runif(1e5) )
+)
+
 settings.sapply <- list( start =  '
 	NumericVector x = e["x"] ;
 	int n = x.size() ;
@@ -181,6 +205,7 @@ settings.any <- list( start = '
 raw.results <- list( 
  	benchmark( settings = settings.any   , runs = 5000 ), 
  	benchmark( settings = settings.ifelse, runs = 500 ), 
+ 	benchmark( settings = settings.ifelse.nona, runs = 500 ), 
  	benchmark( settings = settings.sapply, runs = 500 )
 )
 cat("\n")

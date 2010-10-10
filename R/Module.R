@@ -222,7 +222,21 @@ method_wrapper <- function( METHOD, where ){
 ## create a named list of the R methods to invoke C++ methods
 ## from the C++ class with pointer xp
 cpp_refMethods <- function(CLASS, where) {
-    sapply( CLASS@methods, method_wrapper, where = where )
+    finalizer <- eval( substitute( 
+	    function(){
+	        .Call( CppObject__finalize, class_pointer , .pointer )
+	    }, 
+	    list( 
+	        CLASS = CLASS@pointer, 
+	        CppObject__finalize = CppObject__finalize, 
+	        class_pointer = CLASS@pointer
+	    )
+	) )
+	mets <- c( 
+	    sapply( CLASS@methods, method_wrapper, where = where ),
+	    "finalize" = finalizer
+	)
+    mets
 }
 
 binding_maker <- function( FIELD, where ){
