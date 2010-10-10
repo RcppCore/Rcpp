@@ -1,3 +1,10 @@
+2010-10-10  Romain Francois <romain@r-enthusiasts.com>
+
+    * tests/doRUnit.R: workaround to disable tests on windows 64 until we can 
+    figure out what upsets R CMD check. 
+    
+    * R/Module.R: expose the finalizer
+
 2010-10-07  John M Chambers  <jmc@r-project.org>
 
 	* R/Module.R: modify cpp_refMethods to substitute the .External
