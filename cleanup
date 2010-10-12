@@ -17,9 +17,11 @@ rm -f confdefs.h config.log config.status \
 	inst/examples/functionCallback/*.so \
 	inst/examples/functionCallback/*.o \
         inst/discovery/cxx0x.Rout \
-	src/Makedeps libRcpp.a
-rm -rf	autom4te.cache
-rm -rf  inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
+	src/Makedeps libRcpp.a \
+	build/Rcpp.pdf
+
+rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
    	inst/doc/auto inst/doc/Rcpp-*/auto/ 
+
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;
