@@ -57,3 +57,8 @@ r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Vector.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.misc.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.stats.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/examples/ConvolveBenchmarks/buildAndRun.sh
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/examples/ConvolveBenchmarks/overhead.r
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/examples/functionCallback/buildAndRun.sh
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Module.client.package.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.modref.R

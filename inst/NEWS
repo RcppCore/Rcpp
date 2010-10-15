@@ -1,7 +1,7 @@
-0.8.7   (future)
+0.8.7   2010-10-15
 
-    o   this Rcpp version now depends on R 2.12 or greater as it interfaces the
-        new reference classes (see below) and also reflects the POSIXt class
+    o   As of this version, Rcpp depends on R 2.12 or greater as it interfaces 
+        the new reference classes (see below) and also reflects the POSIXt class
         reordering both of which appeared with R version 2.12.0
 
     o   new Rcpp::Reference class, that allows internal manipulation of R 2.12.0
