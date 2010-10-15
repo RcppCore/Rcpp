@@ -2,13 +2,13 @@ Source: rcpp
 Section: gnu-r
 Priority: optional
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
-Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 2.11.1), cdbs
+Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 2.12), cdbs
 Standards-Version: 3.9.1
 Homepage: http://dirk.eddelbuettel.com/code/rcpp.html
 
 Package: r-cran-rcpp
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, r-base-core (>= 2.11.1), littler
+Depends: ${shlibs:Depends}, ${misc:Depends}, r-base-core (>= 2.12), littler
 Suggests: r-cran-inline
 Description: GNU R / C++ interface classes and examples
  The Rcpp package contains a C++ library that facilitates the integration of
@@ -48,6 +48,6 @@ Description: GNU R / C++ interface classes and examples
  C++ function and compile, link and load it given the 'inlined' character
  argument which makes C++ integration very easy.
  .
- Several examples are included, and 735 unit tests in 329 functions
+ Several examples are included, and 784 unit tests in 364 functions
  provide addtional usage examples.
 
