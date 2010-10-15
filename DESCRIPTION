@@ -31,7 +31,7 @@ Description: The Rcpp package provides a C++ library which facilitates the
  to use than the equivalent low-level loop code. The "Rcpp-sugar" vignette
  gives an overview of the feature.
  .
- Several examples are included, and 773 unit tests in 366 unit test functions
+ Several examples are included, and 784 unit tests in 369 unit test functions
  provide additional usage examples.
 Depends: R (>= 2.12.0), methods
 Suggests: RUnit, inline, rbenchmark
