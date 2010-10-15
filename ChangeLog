@@ -1,9 +1,15 @@
+2010-10-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Release 0.8.7
+
+        * debian/*: Similarly updated for new release to Debian
+
 2010-10-10  Romain Francois <romain@r-enthusiasts.com>
 
-    * tests/doRUnit.R: workaround to disable tests on windows 64 until we can 
-    figure out what upsets R CMD check. 
-    
-    * R/Module.R: expose the finalizer
+	* tests/doRUnit.R: workaround to disable tests on windows 64 until we can
+	  figure out what upsets R CMD check.
+
+	* R/Module.R: expose the finalizer
 
 2010-10-07  John M Chambers  <jmc@r-project.org>
 
