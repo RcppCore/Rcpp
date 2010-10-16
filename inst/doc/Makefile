@@ -11,8 +11,6 @@ whoami=$(shell whoami)
 all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
 
 clean:
-	rm -f Rcpp-introduction.pdf Rcpp-quickref.pdf Rcpp-sugar.pdf \
-		Rcpp-unitTests.pdf Rcpp-modules.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf
 	rm -f index.html
 	rm -f *.tex *.bbl *.blg *.aux *.out *.log
 	cp -f Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
