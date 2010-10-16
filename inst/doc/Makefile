@@ -59,8 +59,7 @@ else
 	Rscript -e "tools::texi2dvi( 'Rcpp-modules.tex', pdf = TRUE, clean = TRUE )"
 endif
 	rm -fr Rcpp-modules.tex Rcpp-modules.bbl Rcpp-modules.blg Rcpp-modules.aux Rcpp-modules.out Rcpp-modules.log
-	rm Rcpp-modules.Rnw
-	cp Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
+	cp -f Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
 
 Rcpp-package.pdf : Rcpp-package/Rcpp-package.Rnw
 	cp -f Rcpp-package/Rcpp-package.Rnw .
@@ -74,8 +73,7 @@ else
 	Rscript -e "tools::texi2dvi( 'Rcpp-package.tex', pdf = TRUE, clean = TRUE )"
 endif
 	rm -fr Rcpp-package.tex Rcpp-package.bbl Rcpp-package.blg Rcpp-package.aux Rcpp-package.out Rcpp-package.log
-	rm Rcpp-package.Rnw
-	cp Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
+	cp -f Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
 
 Rcpp-FAQ.pdf : Rcpp-FAQ/Rcpp-FAQ.Rnw
 	cp -f Rcpp-FAQ/Rcpp-FAQ.Rnw .
@@ -89,8 +87,7 @@ else
 	Rscript -e "tools::texi2dvi( 'Rcpp-FAQ.tex', pdf = TRUE, clean = TRUE )"
 endif
 	rm -fr Rcpp-FAQ.tex Rcpp-FAQ.bbl Rcpp-FAQ.blg Rcpp-FAQ.aux Rcpp-FAQ.out Rcpp-FAQ.log
-	rm Rcpp-FAQ.Rnw
-	cp Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
+	cp -f Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
 
 Rcpp-extending.pdf : Rcpp-extending/Rcpp-extending.Rnw
 	cp -f Rcpp-extending/Rcpp-extending.Rnw .
@@ -104,8 +101,7 @@ else
 	Rscript -e "tools::texi2dvi( 'Rcpp-extending.tex', pdf = TRUE, clean = TRUE )"
 endif
 	rm -fr Rcpp-extending.tex Rcpp-extending.bbl Rcpp-extending.blg Rcpp-extending.aux Rcpp-extending.out Rcpp-extending.log
-	rm Rcpp-extending.Rnw
-	cp Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
+	cp -f Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
 
 Rcpp-sugar.pdf : Rcpp-sugar/Rcpp-sugar.Rnw
 	cp -f Rcpp-sugar/Rcpp-sugar.Rnw .
@@ -133,12 +129,6 @@ ifneq (,$(findstring edd,$(whoami)))
 else
 	Rscript -e "tools::texi2dvi( 'Rcpp-quickref.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-quickref.tex
-	rm -fr Rcpp-quickref.bbl
-	rm -fr Rcpp-quickref.blg
-	rm -fr Rcpp-quickref.aux
-	rm -fr Rcpp-quickref.out
-	rm -fr Rcpp-quickref.log
-	rm -fr Rcpp-quickref.Rnw
-	cp Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
+	rm -fr Rcpp-quickref.tex Rcpp-quickref.bbl Rcpp-quickref.blg Rcpp-quickref.aux Rcpp-quickref.out Rcpp-quickref.log Rcpp-quickref.Rnw
+	cp -f Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
 
