@@ -311,7 +311,7 @@ public:
 		// when this is not trivial, this is SEXP
 		SEXP elem = PROTECT( converter_type::get( u ) ); 
 		iterator it(begin());
-		for( int i=0; i<size ; i++, ++it){
+		for( int i=0; i<size() ; i++, ++it){
 			*it = ::Rf_duplicate( elem ) ;
 		}
 		UNPROTECT(1) ; /* elem */

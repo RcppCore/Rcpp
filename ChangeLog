@@ -1,3 +1,8 @@
+2010-10-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* include/Rcpp/XPtr.h: Applied patch by Karl Millar
+	* include/Rcpp/vector/Vector.h): Idem
+
 2010-10-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/posixt.cpp: Correct POSIXct, POSIXt ordering for R 2.12.0
@@ -35,7 +40,7 @@
           NumericVector x0 = x.row(0) ;
 
         * inst/include/Rcpp/vector/MatrixColumn.h: idem for columns
- 
+
         * cleanup: run make clean in the inst/doc directory to install
         the fake vignettes
 
