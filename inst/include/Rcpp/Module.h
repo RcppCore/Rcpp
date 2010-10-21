@@ -229,7 +229,7 @@ public:
 	typedef std::map<std::string,prop_class*> PROPERTY_MAP ;
 	typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
 	
-	class_( const char* name_ ) : class_Base(name_), methods(), properties(), specials(0), finalizer_pointer(0) {
+	class_( const char* name_ ) : class_Base(name_), methods(), properties(), finalizer_pointer(0), specials(0) {
 		if( !singleton ){
 			singleton = new self ;
 			singleton->name = name_ ;

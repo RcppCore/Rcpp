@@ -1,3 +1,7 @@
+2010-10-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Module.h: Reorder instantiation for class_ 
+
 2010-10-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* include/Rcpp/XPtr.h: Applied patch by Karl Millar
