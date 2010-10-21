@@ -199,6 +199,26 @@
     }
 }
 
+
+test.List.column <- function(){
+	funx <- .rcpp.Matrix$runit_Row_Column_sugar
+	x <- matrix( 1:16+.5, nc = 4 )
+	res <- funx( x )
+	target <- list( 
+	    x[1,], 
+	    x[,1], 
+	    x[2,],
+	    x[,2], 
+	    x[2,] + x[,2]
+	    )
+	cat( "\n" )
+	print( x )
+	print( target[[4]] )
+	print( res[[4]] )       
+	checkEquals( res, target, msg = "column and row as sugar" )
+	
+}
+
 test.NumericMatrix <- function(){
 	funx <- .rcpp.Matrix$matrix_numeric
 	x <- matrix( 1:16 + .5, ncol = 4 )
@@ -307,20 +327,4 @@ test.List.column <- function(){
 	checkEquals( funx( m ), 1:4, msg = "List::Column" )
 	
 }
-
-test.List.column <- function(){
-	funx <- .rcpp.Matrix$runit_Row_Column_sugar
-	x <- matrix( 1:16+.5, nc = 4 )
-	res <- funx( x )
-	target <- list( 
-	    x[1,], 
-	    x[,1], 
-	    x[2,],
-	    x[,2], 
-	    x[2,] + x[,2]
-	    )
-	checkEquals( res, target, msg = "colum and row as sugar" )
-	
-}
-
 
