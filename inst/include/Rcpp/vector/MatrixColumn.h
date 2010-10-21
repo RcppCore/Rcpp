@@ -41,10 +41,32 @@ public:
 		index  = other.index ;
 	}
 
-//	template <int RT, bool NA, typename T>
-//	MatrixColumn& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
-//	    std::copy( rhs.begin(), rhs.end(), begin() )  ;
-//	}
+	template <int RT, bool NA, typename T>
+	MatrixColumn& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+	    iterator start = begin() ;
+	    int n = size() ;
+	    const T& ref = rhs.get_ref() ;
+	    
+	        int __trip_count = n >> 2 ;
+            int i = 0 ;
+            for ( ; __trip_count > 0 ; --__trip_count) { 
+            	start[i] = ref[i] ; i++ ;            
+            	start[i] = ref[i] ; i++ ;            
+            	start[i] = ref[i] ; i++ ;            
+            	start[i] = ref[i] ; i++ ;            
+            }                                            
+            switch (n - i){                          
+              case 3:                                    
+                  start[i] = ref[i] ; i++ ;             
+              case 2:                                    
+                  start[i] = ref[i] ; i++ ;             
+              case 1:                                    
+                  start[i] = ref[i] ; i++ ;             
+              case 0:                                    
+              default:                                   
+                  {}                         
+            }
+	}
 
 	Proxy operator[]( int i ){
 		/* TODO: should we cache nrow and ncol */
