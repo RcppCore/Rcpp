@@ -10,6 +10,9 @@
     sugar expression. Faster indexing (caching the pointer instead of calling
     nrow many times)
     
+    * inst/include/Rcpp/vector/Matrix.h: first pass at making matrix indexing 
+    faster
+    
 2010-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Module.h: Reorder instantiation for class_ 

@@ -31,7 +31,7 @@ public:
 	typedef typename MATRIX::iterator iterator ;
 	
 	MatrixColumn( MATRIX& object, int i ) : 
-	    parent(object), index(i), start(parent.begin())
+	    parent(object), index(i), start(parent.begin() + i * parent.nrow() )
 	{
 		if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
 	}
