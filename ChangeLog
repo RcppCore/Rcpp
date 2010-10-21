@@ -7,7 +7,8 @@
     R-help/Rcpp-devel thread: http://article.gmane.org/gmane.comp.lang.r.rcpp/851
     
     * inst/include/Rcpp/vector/MatrixColumn.h: Column gains a operator= taking a 
-    sugar expression
+    sugar expression. Faster indexing (caching the pointer instead of calling
+    nrow many times)
     
 2010-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
