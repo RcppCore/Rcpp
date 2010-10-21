@@ -6,6 +6,9 @@
     * inst/unitTests/runit.Matrix.R: test the fix above based on the 
     R-help/Rcpp-devel thread: http://article.gmane.org/gmane.comp.lang.r.rcpp/851
     
+    * inst/include/Rcpp/vector/MatrixColumn.h: Column gains a operator= taking a 
+    sugar expression
+    
 2010-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Module.h: Reorder instantiation for class_ 
