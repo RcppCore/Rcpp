@@ -40,7 +40,12 @@ public:
 		parent = other.parent ;
 		index  = other.index ;
 	}
-	
+
+//	template <int RT, bool NA, typename T>
+//	MatrixColumn& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+//	    std::copy( rhs.begin(), rhs.end(), begin() )  ;
+//	}
+
 	Proxy operator[]( int i ){
 		/* TODO: should we cache nrow and ncol */
 		return parent[ get_parent_index(i) ] ;
@@ -52,11 +57,11 @@ public:
 	}
 	
 	inline iterator begin(){
-		return parent.begin() + index * parent.ncol() ;
+		return parent.begin() + index * parent.nrow() ;
 	}
 	
 	inline iterator begin() const {
-		return parent.begin() + index * parent.ncol() ;
+		return parent.begin() + index * parent.nrow() ;
 	}
 	
 	inline iterator end(){
@@ -75,7 +80,7 @@ private:
 	MATRIX& parent; 
 	int index ;
 	
-	inline int get_parent_index(int i) const { return index * parent.ncol() + i ; }
+	inline int get_parent_index(int i) const { return index * parent.nrow() + i ; }
 } ;
 
 #endif

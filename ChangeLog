@@ -1,3 +1,11 @@
+2010-10-21  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/vector/MatrixColumn.h: Fixed indexing bug (mismatch 
+    between number of rows and number of columns
+    
+    * inst/unitTests/runit.Matrix.R: test the fix above based on the 
+    R-help/Rcpp-devel thread: http://article.gmane.org/gmane.comp.lang.r.rcpp/851
+    
 2010-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Module.h: Reorder instantiation for class_ 
