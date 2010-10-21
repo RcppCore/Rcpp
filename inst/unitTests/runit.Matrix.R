@@ -131,6 +131,22 @@
 					return wrap( std::accumulate( col.begin(), col.end(), 0.0 ) ) ;
 				'	
 			), 
+			"runit_NumericMatrix_cumsum" = list( 
+			    signature(x = "matrix" ), 
+				'
+				NumericMatrix input( x ) ;
+                int nr = input.nrow(), nc = input.ncol() ;
+                NumericMatrix output(nr, nc) ;
+                
+                NumericVector tmp( nr );
+                for( int i=0; i<nc; i++){
+                    tmp = tmp + input.column(i) ;
+                    NumericMatrix::Column target( output, i ) ;
+                    std::copy( tmp.begin(), tmp.end(), target.begin() ) ;
+                }
+                return output ;
+                '
+			), 
 			"runit_CharacterMatrix_column" = list( 
 				signature(x = "matrix" ),
 					'
@@ -270,6 +286,12 @@ test.NumericMatrix.column <- function(){
 	funx <- .rcpp.Matrix$runit_NumericMatrix_column
 	x <- matrix( 1:16 + .5, ncol = 4 )
 	checkEquals( funx( x ), sum( x[,1] ) , msg = "iterating over a column" )
+}
+
+test.NumericMatrix.cumsum <- function(){
+	funx <- .rcpp.Matrix$runit_NumericMatrix_cumsum
+	x <- matrix( 1:8 + .5, ncol = 2 )
+	checkEquals( funx( x ), t(apply(x, 1, cumsum)) , msg = "cumsum" )
 }
 
 test.CharacterMatrix.column <- function(){
