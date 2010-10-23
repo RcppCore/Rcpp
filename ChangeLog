@@ -1,3 +1,7 @@
+2010-10-23  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/vector/MatrixRow.h: Faster row indexing
+    
 2010-10-21  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/vector/MatrixColumn.h: Fixed indexing bug (mismatch 
