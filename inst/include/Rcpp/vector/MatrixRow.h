@@ -94,26 +94,52 @@ public:
 		int index ;
 	} ;
 	
-	MatrixRow( MATRIX& object, int i ) : parent(object), index(i){
+	MatrixRow( MATRIX& object, int i ) : 
+	    parent(object), 
+	    start(parent.begin() + i), 
+	    parent_nrow(parent.nrow()) 
+	{
 		if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds() ;
 	}
 	
-	MatrixRow( const MatrixRow& other ) : parent(other.parent), index(other.index){} ;
-	                          
-	MatrixRow& operator=( MatrixRow& other ){
-		parent = other.parent ;
-		index = other.index ;
-		return *this ;
-	}
+	MatrixRow( const MatrixRow& other ) : 
+	    parent(other.parent), 
+	    start(other.start), 
+	    parent_nrow(other.parent_nrow)
+	{} ;
 	
+	template <int RT, bool NA, typename T>
+	MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+	    int n = size() ;
+	    const T& ref = rhs.get_ref() ;
+	    
+	    int __trip_count = n >> 2 ;
+        int i = 0 ;
+        for ( ; __trip_count > 0 ; --__trip_count) { 
+        	start[get_parent_index(i)] = ref[i] ; i++ ;            
+        	start[get_parent_index(i)] = ref[i] ; i++ ;            
+        	start[get_parent_index(i)] = ref[i] ; i++ ;            
+        	start[get_parent_index(i)] = ref[i] ; i++ ;            
+        }                                            
+        switch (n - i){                          
+          case 3:                                    
+              start[get_parent_index(i)] = ref[i] ; i++ ;             
+          case 2:                                    
+              start[get_parent_index(i)] = ref[i] ; i++ ;             
+          case 1:                                    
+              start[get_parent_index(i)] = ref[i] ; i++ ;             
+          case 0:                                    
+          default:                                   
+              {}                         
+        }
+	}
+
 	reference operator[]( int i ){
-		/* TODO: should we cache nrow and ncol */
-		return parent[ get_parent_index(i) ] ;
+		return start[ get_parent_index(i) ] ;
 	}
 	
 	reference operator[]( int i ) const {
-		/* TODO: should we cache nrow and ncol */
-		return parent[ get_parent_index(i) ] ;
+		return start[ get_parent_index(i) ] ;
 	}
 	
 	inline iterator begin(){
@@ -138,9 +164,10 @@ public:
 	
 private:
 	MATRIX& parent; 
-	int index ;
+	typename MATRIX::iterator start ;
+	int parent_nrow ;
 	
-	inline int get_parent_index(int i) const { return index + i * parent.nrow() ; }
+	inline int get_parent_index(int i) const { return i * parent_nrow ; } 
 } ;
 
 #endif
