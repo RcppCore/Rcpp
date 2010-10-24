@@ -84,8 +84,6 @@ Syntactic sugar
     	
     	tukey : only has p and q, no r or d
     
-    o	sum : deal with missing values
-
     o	other random generators: 
     
     	rmultinom : tricky because it generates a matrix

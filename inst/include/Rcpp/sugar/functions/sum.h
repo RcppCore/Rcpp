@@ -40,13 +40,42 @@ public:
 	
 	Sum( const VEC_TYPE& object_ ) : object(object_){}
 	
-	inline STORAGE get() const {
-		return std::accumulate( object.begin(), object.end(), STORAGE() , std::plus<STORAGE>() ) ;
+	STORAGE get() const {
+		STORAGE result = 0 ;
+		int n = object.size() ;
+		STORAGE current ;
+		for( int i=0; i<n; i++){
+		    current = object[i] ;
+		    if( Rcpp::traits::is_na<RTYPE>(current) ) 
+		        return Rcpp::traits::get_na<RTYPE>() ;
+		    result += current ;
+		}
+		return result ;
 	}         
 private:
 	const VEC_TYPE& object ;
 } ;
+
+template <int RTYPE, typename T>
+class Sum<RTYPE,false,T> : public Lazy< typename Rcpp::traits::storage_type<RTYPE>::type , Sum<RTYPE,false,T> > {
+public:
+	typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
+	Sum( const VEC_TYPE& object_ ) : object(object_){}
+	
+	STORAGE get() const {
+		STORAGE result = 0 ;
+		int n = object.size() ;
+		for( int i=0; i<n; i++){
+		    result += object[i] ;
+		}
+		return result ;
+	}         
+private:
+	const VEC_TYPE& object ;
+} ;
+
 } // sugar
 
 template <bool NA, typename T>

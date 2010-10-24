@@ -8,6 +8,9 @@
     
     * inst/unitTests/runit.Matrix.R: unit tests for the above<
     
+    * inst/include/Rcpp/sugar/functions/sum.h: the sugar version of sum 
+    now takes care of missing values correctly
+    
 2010-10-21  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/vector/MatrixColumn.h: Fixed indexing bug (mismatch 
