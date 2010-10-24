@@ -185,9 +185,32 @@
 			        x.row(1) + x.column(1)
 			        ) ;
 			    '
+			), 
+			"runit_NumericMatrix_colsum" = list( 
+			    signature( x = "matrix" ), 
+			    '
+                 NumericMatrix input( x ) ;
+                 int nr = input.nrow(), nc = input.ncol() ;
+                 NumericMatrix output = clone<NumericMatrix>( input ) ;
+                 for( int i=1; i<nc; i++){
+                    output(_,i) = output(_,i-1) + input(_,i) ; 
+                 }
+                 return output ;
+			    '
+			), 
+			"runit_NumericMatrix_rowsum" = list( 
+			    signature( x = "matrix" ), 
+			    '
+                 NumericMatrix input( x ) ;
+                 int nr = input.nrow(), nc = input.ncol() ;
+                 NumericMatrix output = clone<NumericMatrix>( input ) ;
+                 for( int i=1; i<nr; i++){
+                    output(i,_) = output(i-1,_) + input(i,_) ; 
+                 }
+                 return output ;
+			    '
 			)
-
-        )
+		)
         
         signatures <- lapply(f, "[[", 1L)
         bodies <- lapply(f, "[[", 2L)
@@ -211,10 +234,6 @@ test.List.column <- function(){
 	    x[,2], 
 	    x[2,] + x[,2]
 	    )
-	cat( "\n" )
-	print( x )
-	print( target[[4]] )
-	print( res[[4]] )       
 	checkEquals( res, target, msg = "column and row as sugar" )
 	
 }
@@ -325,6 +344,17 @@ test.List.column <- function(){
 	m <- lapply( 1:16, function(i) seq(from=1, to = i ) )
 	dim( m ) <- c( 4, 4 )
 	checkEquals( funx( m ), 1:4, msg = "List::Column" )
-	
+}
+
+test.NumericMatrix.colsum <- function( ){
+    funx <- .rcpp.Matrix$runit_NumericMatrix_colsum
+    probs <- matrix(1:12,nrow=3)
+    checkEquals( funx( probs ), t(apply(probs,1,cumsum)) )
+}
+
+test.NumericMatrix.rowsum <- function( ){
+    funx <- .rcpp.Matrix$runit_NumericMatrix_rowsum
+    probs <- matrix(1:12,nrow=3)
+    checkEquals( funx( probs ), apply(probs,2,cumsum) )
 }
 

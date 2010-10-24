@@ -2,6 +2,12 @@
 
     * inst/include/Rcpp/vector/MatrixRow.h: Faster row indexing
     
+    * inst/include/Rcpp/vector/Matrix.h: added use of _ to get columns and rows
+    of a matrix. For example if x is a NumericMatrix, x(_,i) returns the same
+    as x.column(i) and x(i,_) returns the same as x.row(i)
+    
+    * inst/unitTests/runit.Matrix.R: unit tests for the above<
+    
 2010-10-21  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/vector/MatrixColumn.h: Fixed indexing bug (mismatch 

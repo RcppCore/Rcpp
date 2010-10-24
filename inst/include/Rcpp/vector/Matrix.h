@@ -138,6 +138,17 @@ public:
 		    ) ;
 	}
 	
+	typedef MatrixRow<RTYPE> Row ;
+	typedef MatrixColumn<RTYPE> Column ;
+
+	inline Row operator()( int i, internal::NamedPlaceHolder ){
+	    return Row( *this, i ) ;
+	}
+	
+	inline Column operator()( internal::NamedPlaceHolder, int i ){
+	    return Column( *this, i ) ;
+	}
+	
 private:
     
     inline int offset( int i, int j) const {
@@ -187,10 +198,7 @@ public:
     inline int rows() const throw(not_a_matrix){ 
     	return nrows ; 
     }
-	    
-	typedef MatrixRow<RTYPE> Row ;
-	typedef MatrixColumn<RTYPE> Column ;
-
+	
 	inline Row row( int i ){ return Row( *this, i ) ; }
 	inline Column column( int i ){ return Column(*this, i ) ; }
 	
