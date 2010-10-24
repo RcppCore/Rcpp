@@ -652,6 +652,14 @@
 			   double res = sum( xx ) ;
 			   return wrap( res ) ;
 			   '
+			), 
+			"runit_cumsum" = list( 
+			   signature( x = "numeric" ), 
+			   '
+			   NumericVector xx(x) ;
+			   NumericVector res = cumsum( xx ) ;
+			   return res ;
+			   '
 			)
 		)
 		
@@ -1271,5 +1279,13 @@ test.sugar.sum <- function(){
     checkEquals( fx(x), sum(x) )
     x[4] <- NA
     checkEquals( fx(x), sum(x) )
+}
+
+test.sugar.cumsum <- function(){
+    fx <- .rcpp.sugar$runit_cumsum
+    x <- rnorm( 10 )
+    checkEquals( fx(x), cumsum(x) )
+    x[4] <- NA
+    checkEquals( fx(x), cumsum(x) )
 }
 
