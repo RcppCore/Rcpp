@@ -644,7 +644,15 @@
 					_["expm1"] = expm1(xx)
 					) ;
 			'
-			) 
+			), 
+			"runit_sum" = list( 
+			   signature( x = "numeric" ), 
+			   '
+			   NumericVector xx(x) ;
+			   double res = sum( xx ) ;
+			   return wrap( res ) ;
+			   '
+			)
 		)
 		
 		signatures <- lapply( sugar.functions, "[[", 1L )
@@ -1255,5 +1263,13 @@ test.sugar.psigamma <- function(){
 			PV = psigamma( 10, 5:1 ), 
 			VP = psigamma( 10:6, 5 )
 		) )
+}
+
+test.sugar.sum <- function(){
+    fx <- .rcpp.sugar$runit_sum
+    x <- rnorm( 10 )
+    checkEquals( fx(x), sum(x) )
+    x[4] <- NA
+    checkEquals( fx(x), sum(x) )
 }
 
