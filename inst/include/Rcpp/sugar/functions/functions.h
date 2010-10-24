@@ -25,6 +25,8 @@
 /* for exp( double ) */
 #include <cmath>
 
+#include <Rcpp/sugar/functions/Lazy.h>
+
 #include <Rcpp/sugar/functions/math.h>
 
 #include <Rcpp/sugar/functions/complex.h>
@@ -49,6 +51,6 @@
 #include <Rcpp/sugar/functions/tail.h>
 
 #include <Rcpp/sugar/functions/sum.h>
-
+#include <Rcpp/sugar/functions/cumsum.h>
 
 #endif

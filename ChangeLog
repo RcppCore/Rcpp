@@ -11,6 +11,8 @@
     * inst/include/Rcpp/sugar/functions/sum.h: the sugar version of sum 
     now takes care of missing values correctly
     
+    * inst/include/Rcpp/sugar/functions/cumsum.h: sugar version of cumsum
+    
 2010-10-21  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/vector/MatrixColumn.h: Fixed indexing bug (mismatch 
