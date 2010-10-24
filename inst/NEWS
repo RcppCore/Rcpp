@@ -1,3 +1,10 @@
+0.8.8   (future)
+
+    o   New syntactic shortcut to extract rows and columns of a Matrix. 
+        x(i,_) extracts the i-th row and x(_,i) extracts the i-th column. 
+    
+    o   Matrix indexing is more efficient
+
 0.8.7   2010-10-15
 
     o   As of this version, Rcpp depends on R 2.12 or greater as it interfaces 
