@@ -386,12 +386,14 @@ to look at the list archives to see if your question has been asked before.
 \subsection{Where can I read old questions and answers ?}
 
 The normal \href{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel}{Rcpp-devel}
-mailing list hosting at R-forge contains an archive.  You can also use
-\href{http://thread.gmane.org/gmane.comp.lang.r.rcpp/}{Gmane on Rcpp-devel}
-as well as
+mailing list hosting at R-forge contains an archive, which can be
+\href{http://lists.r-forge.r-project.org/mailman/swish.cgi?query=listname=rcpp-devel}{searched via swish}.
+
+Alternatively, one can also use
+\href{http://thread.gmane.org/gmane.comp.lang.r.rcpp/}{Gmane on Rcpp-devel} as well as
 \href{http://www.mail-archive.com/rcpp-devel@lists.r-forge.r-project.org/info.html}{Mail-Archive
-  on Rcpp-devel}
-both of which offer web-based interfaces, including searching.
+  on Rcpp-devel} both of which offer web-based interfaces, including
+searching.
 
 \subsection{I like it. How can I help ?}
 \label{helping}
