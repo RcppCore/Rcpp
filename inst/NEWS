@@ -5,6 +5,18 @@
     
     o   Matrix indexing is more efficient
 
+    o   A few new Rcpp operators such as cumsum, operator=(sugar)
+
+    o   Variety of bug fixes:
+
+        - column indexing was incorrect in some cases
+
+        - patch needed for clang/llvm compiler (with thanks to Karl Millar)
+
+	- instantation order of Module corrected
+
+        - POSIXct, POSIXt now correctly ordered for R 2.12.0 
+
 0.8.7   2010-10-15
 
     o   As of this version, Rcpp depends on R 2.12 or greater as it interfaces 
