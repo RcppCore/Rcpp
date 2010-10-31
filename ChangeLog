@@ -1,3 +1,9 @@
+2010-10-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/RcppCommon.h: New define IS_GCC_450_OR_LATER
+	* inst/include/Rcpp/Extractor.h: Do not enable Rcpp::Fast if g++
+	4.5.0 or later is used -- we need to figure out what upsets it
+
 2010-10-23  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/vector/MatrixRow.h: Faster row indexing
