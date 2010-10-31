@@ -32,7 +32,10 @@ namespace traits {
 
     // apparently Rcpp::Fast upsets windows, so we stick with 
     // the identity class above, meaning no fast indexing
-#ifndef WIN32
+    // update 30 Oct 2010: that may have been g++ 4.5 rather than Windows
+    //                     so rephrasing text in terms of macro from RcppCommon.h
+//#ifndef WIN32
+#ifndef IS_GCC_450_OR_LATER
     template <> 
     struct Extractor<INTSXP, true, Rcpp::Vector<INTSXP> >{
         typedef Rcpp::Fast< Rcpp::Vector<INTSXP> > type ;

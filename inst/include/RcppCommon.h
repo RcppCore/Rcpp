@@ -64,6 +64,10 @@ namespace Rcpp{
 		#define HAS_TR1_UNORDERED_MAP
 		#define HAS_TR1_UNORDERED_SET
 	#endif
+    // g++ 4.5 does not seem to like some of the fast indexing
+    #if GCC_VERSION >= 40500
+        #define IS_GCC_450_OR_LATER
+    #endif
 #endif
 
 #include <iterator>
