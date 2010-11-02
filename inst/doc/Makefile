@@ -10,6 +10,8 @@ whoami=$(shell whoami)
 
 all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
 
+pdfclean:
+	rm -f Rcpp-extending.pdf  Rcpp-FAQ.pdf  Rcpp-introduction.pdf  Rcpp-modules.pdf  Rcpp-package.pdf  Rcpp-quickref.pdf  Rcpp-sugar.pdf  Rcpp-unitTests.pdf
 clean:
 	rm -f index.html
 	rm -f *.tex *.bbl *.blg *.aux *.out *.log
@@ -64,7 +66,11 @@ endif
 Rcpp-package.pdf : Rcpp-package/Rcpp-package.Rnw
 	cp -f Rcpp-package/Rcpp-package.Rnw .
 	Rscript -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-package.Rnw', driver = driver ); "
+ifneq (,$(findstring edd,$(whoami)))
+	pdflatex Rcpp-package
+else
 	Rscript -e "tools::texi2dvi( 'Rcpp-package.tex', pdf = TRUE, clean = FALSE )"
+endif
 	bibtex Rcpp-package
 ifneq (,$(findstring edd,$(whoami)))
 	pdflatex Rcpp-package
