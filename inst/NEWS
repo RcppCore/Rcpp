@@ -1,9 +1,10 @@
-0.8.8   (future)
+0.8.8   2010-11-01
 
     o   New syntactic shortcut to extract rows and columns of a Matrix. 
         x(i,_) extracts the i-th row and x(_,i) extracts the i-th column. 
     
-    o   Matrix indexing is more efficient
+    o   Matrix indexing is more efficient. However, faster indexing is
+        disabled if g++ 4.5.0 or later is used.
 
     o   A few new Rcpp operators such as cumsum, operator=(sugar)
 
@@ -11,31 +12,30 @@
 
         - column indexing was incorrect in some cases
 
-        - patch needed for clang/llvm compiler (with thanks to Karl Millar)
+        - compilation using clang/llvm (thanks to Karl Millar for the patch)
 
 	- instantation order of Module corrected
 
         - POSIXct, POSIXt now correctly ordered for R 2.12.0 
 
-    o   Disable fast indexing if g++ 4.5.0 or later is used 
-
 0.8.7   2010-10-15
 
-    o   As of this version, Rcpp depends on R 2.12 or greater as it interfaces 
-        the new reference classes (see below) and also reflects the POSIXt class
-        reordering both of which appeared with R version 2.12.0
+    o   As of this version, Rcpp depends on R 2.12 or greater as it interfaces
+        the new reference classes (see below) and also reflects the POSIXt
+        class reordering both of which appeared with R version 2.12.0
 
-    o   new Rcpp::Reference class, that allows internal manipulation of R 2.12.0
-        reference classes. The class exposes a constructor that takes the name
-        of the target reference class and a field(string) method that implements
-        the proxy pattern to get/set reference fields using callbacks to the 
-        R operators "$" and "$<-" in order to preserve the R-level encapsulation
+    o   new Rcpp::Reference class, that allows internal manipulation of R
+        2.12.0 reference classes. The class exposes a constructor that takes
+        the name of the target reference class and a field(string) method
+        that implements the proxy pattern to get/set reference fields using
+        callbacks to the R operators "$" and "$<-" in order to preserve the
+        R-level encapsulation
 
-    o   the R side of the preceding item allows methods to be written
-        in R as per ?ReferenceClasses, accessing fields by name and
-        assigning them using "<<-".  Classes extracted from modules
-        are R reference classes.  They can be subclassed in R, and/or R methods
-        can be defined using the $methods(...) mechanism.
+    o   the R side of the preceding item allows methods to be written in R as
+        per ?ReferenceClasses, accessing fields by name and assigning them
+        using "<<-".  Classes extracted from modules are R reference classes.
+        They can be subclassed in R, and/or R methods can be defined using
+        the $methods(...) mechanism.
 
     o   internal performance improvements for Rcpp sugar as well as an added
         'noNA()' wrapper to omit tests for NA values -- see the included
