@@ -1,3 +1,9 @@
+2010-11-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Release 0.8.8
+
+        * debian/*: Similarly updated for new release to Debian
+
 2010-10-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: New define IS_GCC_450_OR_LATER
