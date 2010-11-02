@@ -71,7 +71,7 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
 				keep <- seq( which( tex == "\\noindent" ), which( tex == "\\normalfont" ) )
 				tex <- c(
 					"\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}" ,
-					tex[ keep ],
+                                         gsub("^$", "%", tex[keep]),
 					"\\end{minipage}}\\vspace{1em}" )
 				writeLines( tex )
 			})
