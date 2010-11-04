@@ -1,3 +1,8 @@
+2010-11-04  Douglas Bates  <bates@stat.wisc.edu>
+
+	* inst/include/Rcpp/module/Module_generated_Constructor.h: remove
+	redundant return's.
+
 2010-11-04  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/Rcpp/Module.h: experimental way to specify which constructor
