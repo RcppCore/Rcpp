@@ -5,9 +5,12 @@
 
 2010-11-04  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/Rcpp/Module.h: experimental way to specify which constructor
+	* inst/include/Rcpp/Module.h: experimental way to specify which constructor
 	to use in classes exposed by modules. This is still too restrictive
 	as it only allows one constructor.
+	
+	* inst/include/Rcpp/sugar/block/SugarMath.h: extend the SUGAR_MATH_1 macro
+	so that we can apply functions (e.g. sqrt) directly on SEXP
 
 2010-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -60,7 +63,7 @@
 2010-10-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* include/Rcpp/XPtr.h: Applied patch by Karl Millar
-	* include/Rcpp/vector/Vector.h): Idem
+	* include/Rcpp/vector/Vector.h: Idem
 
 2010-10-19  Dirk Eddelbuettel  <edd@debian.org>
 
