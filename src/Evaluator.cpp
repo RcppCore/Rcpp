@@ -24,14 +24,13 @@
 namespace Rcpp {
 
    SEXP Evaluator::run(SEXP expr, SEXP env) throw(eval_error) {
-	SEXP call = PROTECT( 
+       SEXP call = PROTECT( 
 		Rf_lang2( 
-			Rf_install("rcpp_tryCatch") , 
-			Rf_lang3( Rf_install( "evalq") , expr, env )
+		    internal::get_rcpptrycatch() , 
+			Rf_lang3( internal::get_evalq() , expr, env )
 			)
 		) ;
-	
-   	Environment RCPP = Environment::Rcpp_namespace(); 
+	Environment RCPP = Environment::Rcpp_namespace(); 
    	
 	/* call the tryCatch call */
 	SEXP res = PROTECT( Rf_eval( call, RCPP ) );
