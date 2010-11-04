@@ -108,6 +108,8 @@ private:
 			&__SYMBOL__ , t                                                   \
 		) ;                                                                  \
 	}                                                                        \
+	inline sugar::SugarMath_1<true,double,double,NumericVector,double(*)(double)>   \
+	__NAME__( SEXP x){ return __NAME__( NumericVector( x ) ) ; }             \
 	template <bool NA, typename T>                                           \
 	inline sugar::SugarMath_1<NA,double,int,T, double (*)(double) >          \
 	__NAME__(                                                                \
