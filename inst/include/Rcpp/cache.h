@@ -26,8 +26,12 @@ namespace Rcpp {
 namespace internal{
         
     SEXP get_Rcpp_namespace() ;
+    SEXP get_rcpptrycatch() ;
+    SEXP get_evalq() ;
     
 }    
 }
+
+extern "C" SEXP rcpp_init_cached_functions(SEXP) ;
 
 #endif
