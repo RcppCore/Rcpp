@@ -1,8 +1,8 @@
 2010-11-04  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/Rcpp/Module.h: experimental way to specify which constructor to use
-    in classes exposed by modules. This is still too restrictive as it only allows
-    one constructor only. 
+	* inst/Rcpp/Module.h: experimental way to specify which constructor
+	to use in classes exposed by modules. This is still too restrictive
+	as it only allows one constructor.
 
 2010-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -61,7 +61,7 @@
 
 	* src/posixt.cpp: Correct POSIXct, POSIXt ordering for R 2.12.0
 
-2010-10-14  Dirk Eddelbuettel  <edd@debian.org>
+ 2010-10-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version): Release 0.8.7
 
