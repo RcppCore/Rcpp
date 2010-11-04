@@ -32,8 +32,15 @@ namespace Rcpp{
     namespace internal{   
     SEXP get_Rcpp_namespace(){ 
         maybe_init() ; return VECTOR_ELT( Rcpp_cache , 0 ) ;
-    }                         
-    
+    }
+    SEXP get_rcpptrycatch(){
+       // maybe_init() ; return VECTOR_ELT( Rcpp_cache, 4 ) ; 
+       return Rf_install("rcpp_tryCatch") ;
+    }                              
+    SEXP get_evalq(){
+        // maybe_init() ; return VECTOR_ELT( Rcpp_cache, 5 ) ;
+        return Rf_install("evalq");
+    }
 }
 }
 
@@ -48,6 +55,8 @@ SEXP init_Rcpp_cache(){
     SEXP RCPP = PROTECT( Rf_eval( Rf_lcons( Rf_install("getNamespace"), Rf_cons( Rf_mkString("Rcpp") , R_NilValue) ), R_GlobalEnv ) ) ;
     SET_VECTOR_ELT( Rcpp_cache, 0, RCPP ) ;
 	reset_current_error() ;
+	// SET_VECTOR_ELT( Rcpp_cache, 4, Rf_install("rcpp_tryCatch") ) ;
+	// SET_VECTOR_ELT( Rcpp_cache, 5, Rf_install("evalq") ) ;
 	
     R_PreserveObject( Rcpp_cache ) ;
 	UNPROTECT(2) ;  

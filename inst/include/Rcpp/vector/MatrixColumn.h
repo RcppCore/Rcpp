@@ -63,6 +63,7 @@ public:
               default:                                   
                   {}                         
             }
+       return *this ;
 	}
 
 	Proxy operator[]( int i ){

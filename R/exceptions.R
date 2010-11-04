@@ -23,7 +23,7 @@ cpp_exception <- function( message = "C++ exception", class = NULL, cppstack = r
 	condition <- structure( 
 		list( message = message, call = call, cppstack = cppstack ), 
 		class = classes )
-	rcpp_set_current_stack_trace( NULL )
+	setStackTrace( NULL )
 	stop( condition )
 }
 
