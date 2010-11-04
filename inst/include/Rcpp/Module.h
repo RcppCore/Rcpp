@@ -216,30 +216,82 @@ public:
 #include <Rcpp/module/Module_Property.h>
 
 template <typename Class>
+class Constructor_Base {
+public:
+    virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
+} ;
+
+template <typename Class>
+class Constructor_0 : public Constructor_Base<Class>{
+public:
+    Class* newInstance(){ return new Class ; }
+    virtual Class* get_new( SEXP* args, int nargs ){
+        return newInstance() ;
+    }
+} ;
+template <typename Class, typename U0>
+class Constructor_1 : public Constructor_Base<Class>{
+    Class* newInstance(U0 u0){ return new Class( u0) ; }
+    virtual Class* get_new( SEXP* args, int nargs ){
+        return newInstance( as<U0>(args[0]) ) ;
+    }
+} ;
+template <typename Class, typename U0, typename U1>
+class Constructor_2 : public Constructor_Base<Class>{
+    Class* newInstance(U0 u0, U1 u1){ return new Class( u0, u1 ) ; }
+    virtual Class* get_new( SEXP* args, int nargs ){
+        return newInstance( as<U0>(args[0]), as<U1>(args[1]) ) ;
+    }
+} ;
+
+struct init_0 {};
+template <typename U0> struct init_1{} ;
+template <typename U0, typename U1> struct init_2{} ;
+
+template <typename Class, typename INIT = init_0>
 class class_ : public class_Base {
 public:
-	typedef class_<Class> self ;
+	typedef class_<Class,INIT> self ;
 	typedef CppMethod<Class> method_class ;
 	typedef std::map<std::string,method_class*> METHOD_MAP ;
 	typedef std::pair<const std::string,method_class*> PAIR ;
 	typedef Rcpp::XPtr<Class> XP ;
 	typedef CppFinalizer<Class> finalizer_class ;
+	typedef Constructor_Base<Class> constructor_class ;
 	
 	typedef CppProperty<Class> prop_class ;
 	typedef std::map<std::string,prop_class*> PROPERTY_MAP ;
 	typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
 	
-	class_( const char* name_ ) : class_Base(name_), methods(), properties(), finalizer_pointer(0), specials(0) {
+	class_( const char* name_ ) : 
+	    class_Base(name_), methods(), properties(), finalizer_pointer(0), specials(0), ctor(0) 
+	{
 		if( !singleton ){
 			singleton = new self ;
 			singleton->name = name_ ;
 			singleton->finalizer_pointer = new finalizer_class ;
+			singleton->ctor = get_constructor(INIT()) ;
 			getCurrentScope()->AddClass( name_, singleton ) ;
 		}
 	}
 	
+private:
+    constructor_class* get_constructor( init_0 ){
+        return new Constructor_0<Class> ;
+    }
+    template <typename U0>
+    constructor_class* get_constructor( init_1<U0> ){
+        return new Constructor_1<Class,U0>() ;
+    }
+    template <typename U0, typename U1>
+    constructor_class* get_constructor( init_2<U0,U1> ){
+        return new Constructor_2<Class,U0,U1>() ;
+    }
+    
+public:
+	
 	SEXP newInstance( SEXP* args, int nargs ){
-		SEXP out = XP( new Class, true ) ;
+		SEXP out = XP( ctor->get_new(args,nargs), true ) ;
 		return out ;
 	}
 	
@@ -437,13 +489,14 @@ private:
 	static self* singleton ;
 	finalizer_class* finalizer_pointer ;
 	int specials ;
-	
+	constructor_class* ctor ;
+   
 	class_( ) : class_Base(), methods(), properties(), specials(0) {}; 
 	
 } ;   
 
-template <typename Class> 
-class_<Class>* class_<Class>::singleton ;
+template <typename Class,typename INIT> 
+class_<Class,INIT>* class_<Class,INIT>::singleton ;
 
 // function factories
 #include <Rcpp/module/Module_generated_function.h>
