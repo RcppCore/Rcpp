@@ -32,13 +32,13 @@ template <typename Class>
 class Constructor_0 : public Constructor_Base<Class>{
 public:
     virtual Class* get_new( SEXP* args, int nargs ){
-        return return new Class ;
+	return new Class ;
     }
 } ;
 template <typename Class, typename U0>
 class Constructor_1 : public Constructor_Base<Class>{
     virtual Class* get_new( SEXP* args, int nargs ){
-        return return new Class( as<U0>(args[0]) ) ;
+        return new Class( as<U0>(args[0]) ) ;
     }
 } ;
 template <typename Class, typename U0, typename U1>
