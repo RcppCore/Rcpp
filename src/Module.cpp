@@ -283,12 +283,7 @@ namespace Rcpp{
 		slot( "module"  ) = XP( p, false ) ;
 		slot( "pointer" ) = clxp ;
 		
-		std::string mangled_name( "rcpp_" ) ;
-		char buffer[20] ;
-		sprintf( buffer, "%p", (void*)EXTPTR_PTR(clxp) ) ;
-	
-		mangled_name += (const char*) buffer ;
-		mangled_name += "_" ;
+		std::string mangled_name( "Rcpp_" ) ;
 		mangled_name += cl->name ;
 		slot( ".Data" ) = mangled_name ;
 		
