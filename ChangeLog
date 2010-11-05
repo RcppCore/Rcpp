@@ -1,3 +1,11 @@
+2010-11-05  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/Module.h: exposing multiple constructors in modules
+	
+	* src/Module.cpp: The mangled class name is now "Rcpp_" plus the class
+	name. The previous version used the address of the external pointer to the 
+	module, which was not constant. 
+
 2010-11-04  Douglas Bates  <bates@stat.wisc.edu>
 
 	* inst/include/Rcpp/module/Module_generated_Constructor.h: remove
