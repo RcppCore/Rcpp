@@ -169,6 +169,8 @@ public:
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
 
+typedef bool (*ValidConstructor)(SEXP*,int) ;
+
 template <typename Class>
 class CppProperty {
 	public:
@@ -216,40 +218,67 @@ public:
 #include <Rcpp/module/Module_Property.h>
 
 #include <Rcpp/module/Module_generated_Constructor.h>
+#include <Rcpp/module/Module_generated_class_signature.h>
 
-template <typename Class, typename INIT = init_0>
+template <typename Class>
+class SignedConstructor {
+public:
+    
+    SignedConstructor( 
+        Constructor_Base<Class>* ctor_, 
+        ValidConstructor valid_
+    ) : ctor(ctor_), valid(valid_){}
+    
+    Constructor_Base<Class>* ctor ;
+    ValidConstructor valid ;
+} ;
+
+template <typename Class>
 class class_ : public class_Base {
 public:
-	typedef class_<Class,INIT> self ;
+	typedef class_<Class> self ;
 	typedef CppMethod<Class> method_class ;
 	typedef std::map<std::string,method_class*> METHOD_MAP ;
 	typedef std::pair<const std::string,method_class*> PAIR ;
 	typedef Rcpp::XPtr<Class> XP ;
 	typedef CppFinalizer<Class> finalizer_class ;
 	typedef Constructor_Base<Class> constructor_class ;
+	typedef SignedConstructor<Class> signed_constructor_class ;
+	typedef std::vector<signed_constructor_class*> vec_signed_constructor ;
 	
 	typedef CppProperty<Class> prop_class ;
 	typedef std::map<std::string,prop_class*> PROPERTY_MAP ;
 	typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
 	
 	class_( const char* name_ ) : 
-	    class_Base(name_), methods(), properties(), finalizer_pointer(0), specials(0), ctor(0) 
+	    class_Base(name_), methods(), properties(), finalizer_pointer(0), specials(0), constructors()
 	{
 		if( !singleton ){
 			singleton = new self ;
 			singleton->name = name_ ;
 			singleton->finalizer_pointer = new finalizer_class ;
-			singleton->ctor = get_constructor(INIT()) ;
 			getCurrentScope()->AddClass( name_, singleton ) ;
 		}
 	}
-
-#include <Rcpp/module/Module_generated_class_get_constructor.h>
-
+         
+	~class_(){}
+	
+	
+	self& AddConstructor( constructor_class* ctor, ValidConstructor valid = &yes ){
+		singleton->constructors.push_back( new signed_constructor_class( ctor, valid ) );  
+		return *this ;
+	}
+	
+	self& default_constructor( ValidConstructor valid = &yes ){
+	    return constructor( init_0(), valid ) ;  
+	}
+		
+#include <Rcpp/module/Module_generated_class_constructor.h>
+	
 public:
 	
 	SEXP newInstance( SEXP* args, int nargs ){
-		SEXP out = XP( ctor->get_new(args,nargs), true ) ;
+		SEXP out = XP( constructors[0]->ctor->get_new(args,nargs), true ) ;
 		return out ;
 	}
 	
@@ -447,14 +476,14 @@ private:
 	static self* singleton ;
 	finalizer_class* finalizer_pointer ;
 	int specials ;
-	constructor_class* ctor ;
+	vec_signed_constructor constructors ;
    
 	class_( ) : class_Base(), methods(), properties(), specials(0) {}; 
 	
 } ;   
 
-template <typename Class,typename INIT> 
-class_<Class,INIT>* class_<Class,INIT>::singleton ;
+template <typename Class> 
+class_<Class>* class_<Class>::singleton ;
 
 // function factories
 #include <Rcpp/module/Module_generated_function.h>
