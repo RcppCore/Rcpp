@@ -169,8 +169,6 @@ public:
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
 
-typedef bool (*ValidConstructor)(SEXP*,int) ;
-
 template <typename Class>
 class CppProperty {
 	public:
@@ -220,6 +218,8 @@ public:
 #include <Rcpp/module/Module_generated_Constructor.h>
 #include <Rcpp/module/Module_generated_class_signature.h>
 
+typedef bool (*ValidConstructor)(SEXP*,int) ;
+
 template <typename Class>
 class SignedConstructor {
 public:
@@ -264,12 +264,12 @@ public:
 	~class_(){}
 	
 	
-	self& AddConstructor( constructor_class* ctor, ValidConstructor valid = &yes ){
+	self& AddConstructor( constructor_class* ctor, ValidConstructor valid ){
 		singleton->constructors.push_back( new signed_constructor_class( ctor, valid ) );  
 		return *this ;
 	}
 	
-	self& default_constructor( ValidConstructor valid = &yes ){
+	self& default_constructor( ValidConstructor valid = &yes_arity<0> ){
 	    return constructor( init_0(), valid ) ;  
 	}
 		
@@ -278,8 +278,18 @@ public:
 public:
 	
 	SEXP newInstance( SEXP* args, int nargs ){
-		SEXP out = XP( constructors[0]->ctor->get_new(args,nargs), true ) ;
-		return out ;
+		BEGIN_RCPP
+		signed_constructor_class* p ;
+	    int n = constructors.size() ;
+	    for( int i=0; i<n; i++ ){
+	        p = constructors[i];
+	        bool ok = (p->valid)(args, nargs) ;
+	        if( ok ){
+	            return XP( p->ctor->get_new( args, nargs ), true ) ;
+	        }
+	    }
+	    throw std::range_error( "no valid constructor available for the argument list" ) ;
+	    END_RCPP
 	}
 	
 	SEXP invoke( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
@@ -287,7 +297,7 @@ public:
 		method_class* met = reinterpret_cast< method_class* >( EXTPTR_PTR( method_xp ) ) ;
 	    // maybe this is not needed as the R side handles it
 		if( met->nargs() > nargs ){
-		    Rprintf( "met->nargs() = %d\nnargs=%d\n", met->nargs(), nargs ) ;
+		    // Rprintf( "met->nargs() = %d\nnargs=%d\n", met->nargs(), nargs ) ;
 			throw std::range_error( "incorrect number of arguments" ) ; 	
 		}
 		return met->operator()( XP(object), args ); 
