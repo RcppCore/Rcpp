@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// Module_generated_class_get_constructor.h: Rcpp R/C++ interface class library -- Rcpp modules
+// Module_generated_class_constructor.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
 // Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 //
@@ -15,24 +15,28 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//
+//                                                       
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_Module_generated_class_get_Constructor_h
-#define Rcpp_Module_generated_class_get_Constructor_h
-
-private:
-    constructor_class* get_constructor( init_0 ){
-        return new Constructor_0<Class> ;
-    }
-    template <typename U0>
-    constructor_class* get_constructor( init_1<U0> ){
-        return new Constructor_1<Class,U0>() ;
-    }
-    template <typename U0, typename U1>
-    constructor_class* get_constructor( init_2<U0,U1> ){
-        return new Constructor_2<Class,U0,U1>() ;
-    }
+#ifndef Rcpp_Module_generated_class_constructor_h
+#define Rcpp_Module_generated_class_constructor_h
     
+    self& constructor( init_0, ValidConstructor valid = &yes ){
+        AddConstructor( new Constructor_0<Class>, valid ) ;
+        return *this ;
+    }
+
+    template <typename U0>
+    self& constructor( init_1<U0>, ValidConstructor valid = &yes_arity<1> ){
+        AddConstructor( new Constructor_1<Class,U0>, valid) ;
+        return *this ;
+    }
+
+    template <typename U0, typename U1>
+    self& constructor( init_2<U0,U1>, ValidConstructor valid = &yes_arity<2> ){
+        AddConstructor( new Constructor_2<Class,U0,U1>, valid ) ;
+        return *this ;
+    }
+
 #endif
