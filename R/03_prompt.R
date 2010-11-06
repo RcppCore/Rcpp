@@ -28,7 +28,9 @@ setMethod( "functions", "Module", function(object, ...){
 setGeneric( "prompt" )
 setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ...){
 	lines <- readLines( system.file( "prompt", "module.Rd", package = "Rcpp" ) )
-	if( is.null(name) ) name <- .Call( Module__name, object@pointer )
+        pointer <- .getModulePointer(object)
+	if( is.null(name) )
+            name <- .Call( Module__name, pointer )
 	if( is.null(filename) ) filename <- sprintf( "%s-module.Rd", name )
 	lines <- gsub( "NAME", name, lines )
 	
@@ -44,7 +46,6 @@ setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ..
 
         ## at this point functions() would have failed if the
         ## pointer in object was not valid
-        pointer <- .getModulePointer(object)
 	
 	classes <- .Call( Module__classes_info, pointer )
 	c.txt <- if( length( classes ) ){
