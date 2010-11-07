@@ -26,7 +26,10 @@ RCPP_MODULE(stdVector){
 
     // we expose the class std::vector<double> as "vec" on the R side
     class_<vec>( "vec")
-
+    
+    // exposing the default constructor
+    .default_constructor() 
+	
     // exposing member functions
     .method( "size", &vec::size)
     .method( "max_size", &vec::max_size)
