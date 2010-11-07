@@ -42,6 +42,9 @@ test.modRef <- function() {
 		using namespace Rcpp ;
 
 		class_<World>( "World" )
+		
+		    .default_constructor()
+		    
 			.method( "greet", &World::greet )
 			.method( "set", &World::set )
 			.method( "clear", &clearWorld )

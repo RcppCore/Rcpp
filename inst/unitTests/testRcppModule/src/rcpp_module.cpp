@@ -48,6 +48,9 @@ RCPP_MODULE(yada){
 	function( "bla2"  , &bla2   ) ;
 	
 	class_<World>( "World" )
+	
+	    .default_constructor()
+	    
 		.method( "greet", &World::greet )
 		.method( "set", &World::set )
 	;
