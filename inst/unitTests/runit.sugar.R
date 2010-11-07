@@ -280,7 +280,9 @@
 					return List::create(
 						xx - 10, 
 						10 - xx, 
-						xx - xx
+						xx - xx, 
+						noNA( xx ) - 10, 
+						10 - noNA( xx )
 						) ;
 				'			
 			), 
@@ -946,7 +948,10 @@ test.sugar.lapply <- function( ){
 
 test.sugar.minus <- function( ){
 	fx <- .rcpp.sugar$runit_minus
-	checkEquals( fx(1:10) , list( (1:10)-10L, 10L-(1:10), rep(0L,10) )  )
+	checkEquals( 
+	    fx(1:10) , 
+	    list( (1:10)-10L, 10L-(1:10), rep(0L,10), (1:10)-10L, 10L-(1:10)  )
+	    )
 }
 
 test.sugar.any.equal.not <- function( ){
