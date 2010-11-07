@@ -1,3 +1,9 @@
+2010-11-07  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/sugar/operators/minus.h: fixed Minus_Vector_Primitive<RTYPE,false,T>
+
+    * inst/unitTests/runit.sugar.R: new test for the above
+    
 2010-11-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Module.h: exposing multiple constructors in modules
