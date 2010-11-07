@@ -159,8 +159,8 @@ namespace sugar{
 		
 		inline STORAGE operator[]( int i ) const {
 			if( rhs_na ) return rhs ;
-			STORAGE x = rhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : (lhs - x) ;
+			STORAGE x = lhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x - rhs) ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
