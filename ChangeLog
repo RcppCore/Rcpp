@@ -1,28 +1,28 @@
 2010-11-07  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/sugar/operators/minus.h: fixed Minus_Vector_Primitive<RTYPE,false,T>
+	* inst/include/Rcpp/sugar/operators/minus.h: fixed Minus_Vector_Primitive<RTYPE,false,T>
 
-    * inst/unitTests/runit.sugar.R: new test for the above
-    
+	* inst/unitTests/runit.sugar.R: new test for the above
+
 2010-11-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Module.h: exposing multiple constructors in modules
-	
+
 	* src/Module.cpp: The mangled class name is now "Rcpp_" plus the class
-	name. The previous version used the address of the external pointer to the 
-	module, which was not constant. 
+	name. The previous version used the address of the external pointer to the
+	module, which was not constant.
 
 2010-11-04  Douglas Bates  <bates@stat.wisc.edu>
 
 	* inst/include/Rcpp/module/Module_generated_Constructor.h: remove
-	redundant return's.
+	redundant 'return's.
 
 2010-11-04  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/Module.h: experimental way to specify which constructor
 	to use in classes exposed by modules. This is still too restrictive
 	as it only allows one constructor.
-	
+
 	* inst/include/Rcpp/sugar/block/SugarMath.h: extend the SUGAR_MATH_1 macro
 	so that we can apply functions (e.g. sqrt) directly on SEXP
 
