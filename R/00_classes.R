@@ -57,28 +57,34 @@ setRefClass( "C++Method",
     )
 )
 
+setRefClass( "C++Constructor", 
+    fields = list( 
+        pointer       = "externalptr", 
+        class_pointer = "externalptr", 
+        nargs         = "integer"
+    )
+)
 
 setClass( "C++Class", 
 	representation( 
-	    pointer = "externalptr", 
-	    module  = "externalptr", 
-	    fields  = "list",
-	    methods = "list",
-            generator = "refObjectGenerator"
+	    pointer      = "externalptr", 
+	    module       = "externalptr", 
+	    fields       = "list",
+	    methods      = "list",
+	    constructors = "list", 
+	    generator    = "refObjectGenerator"
 	), 
 	contains = "character"
 	)
 setClass( "C++ClassRepresentation", 
     representation( 
-        pointer       = "externalptr", 
-        generator     = "refObjectGenerator", 
-        cpp_fields    = "list", 
-        cpp_methods   = "list"
+        pointer         = "externalptr", 
+        generator       = "refObjectGenerator", 
+        cpp_fields      = "list", 
+        cpp_methods     = "list", 
+        cpp_constructor = "list"
     ), 
     contains = "classRepresentation" )
-
-# # might not actually use this
-# setClass( "C++Property" )	
 
 setClass( "C++Object")
 
