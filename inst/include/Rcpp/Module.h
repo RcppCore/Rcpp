@@ -55,6 +55,8 @@ public:
 	
 	virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
 	virtual Rcpp::List getMethods(SEXP){ return Rcpp::List(0); }
+	virtual Rcpp::List getConstructors(SEXP){ return Rcpp::List(0); }
+	
 	virtual void run_finalizer(SEXP){ }
 	
 	virtual bool has_method( const std::string& ){ 
@@ -165,6 +167,36 @@ public:
     }
 } ;
 
+#include <Rcpp/module/Module_generated_Constructor.h>
+#include <Rcpp/module/Module_generated_class_signature.h>
+
+typedef bool (*ValidConstructor)(SEXP*,int) ;
+
+template <typename Class>
+class SignedConstructor {
+public:
+    
+    SignedConstructor( 
+        Constructor_Base<Class>* ctor_, 
+        ValidConstructor valid_
+    ) : ctor(ctor_), valid(valid_){}
+    
+    Constructor_Base<Class>* ctor ;
+    ValidConstructor valid ;
+    
+    inline int nargs(){ return ctor->nargs() ; }
+} ;
+
+template <typename Class>
+class S4_CppConstructor : public Rcpp::Reference {
+public:             
+    S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp ) : Reference( "C++Constructor" ){
+        field( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
+        field( "class_pointer" ) = class_xp ;
+        field( "nargs" )         = m->nargs() ;
+    }
+} ;
+
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
@@ -214,24 +246,6 @@ public:
 } ;
 
 #include <Rcpp/module/Module_Property.h>
-
-#include <Rcpp/module/Module_generated_Constructor.h>
-#include <Rcpp/module/Module_generated_class_signature.h>
-
-typedef bool (*ValidConstructor)(SEXP*,int) ;
-
-template <typename Class>
-class SignedConstructor {
-public:
-    
-    SignedConstructor( 
-        Constructor_Base<Class>* ctor_, 
-        ValidConstructor valid_
-    ) : ctor(ctor_), valid(valid_){}
-    
-    Constructor_Base<Class>* ctor ;
-    ValidConstructor valid ;
-} ;
 
 template <typename Class>
 class class_ : public class_Base {
@@ -458,6 +472,17 @@ public:
 			out[i] = S4_CppMethod<Class>( it->second, class_xp ) ; 
 		} 
 		out.names() = pnames ;
+		return out ;
+	}
+
+	
+	Rcpp::List getConstructors( SEXP class_xp ){
+	    int n = constructors.size() ;
+		Rcpp::List out(n) ;
+		typename vec_signed_constructor::iterator it = constructors.begin( ) ;
+		for( int i=0; i<n; i++, ++it){
+			out[i] = S4_CppConstructor<Class>( *it , class_xp ) ; 
+		} 
 		return out ;
 	}
 

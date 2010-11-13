@@ -1,3 +1,9 @@
+2010-11-13  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/Module.h: expose constructors as the "cpp_constructor"
+    field of "C++ClassRepresentation" and the "constructors" slot of 
+    "C++Class"
+
 2010-11-07  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/operators/minus.h: fixed Minus_Vector_Primitive<RTYPE,false,T>
