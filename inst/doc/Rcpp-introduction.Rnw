@@ -428,8 +428,8 @@ It offers less flexibility and currently
 handles conversion of R objects into primitive types (bool, int, std::string, ...), 
 STL vectors of primitive types  (\code{std::vector<bool>}, 
 \code{std::vector<double>}, etc ...) and arbitrary types that offer 
-a constructor that takes a \code{SEXP}. In addition \code{as} can 
-be fully or partially specialized to manage conversion of R data 
+a constructor that takes a \code{SEXP}. In addition, \code{as} can 
+be fully or partially specialized to manage conversion of \R data 
 structures to third-party types as can be seen for example in the
 \pkg{RcppArmadillo} package which eases transfer of R matrices and vectors to
 the optimised data structures in the Armadillo linear algebra library \citep{Sanderson:2010:Armadillo}.
