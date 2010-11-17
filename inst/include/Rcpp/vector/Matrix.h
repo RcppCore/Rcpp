@@ -155,6 +155,14 @@ public:
 	    return SubMatrix<RTYPE>( const_cast<Matrix&>(*this), row_range, col_range ) ;
 	}
 	
+	inline SubMatrix<RTYPE> operator()( internal::NamedPlaceHolder, const Range& col_range){
+	    return SubMatrix<RTYPE>( const_cast<Matrix&>(*this), Range(0,nrow()-1) , col_range ) ;
+	}
+	
+	inline SubMatrix<RTYPE> operator()( const Range& row_range, internal::NamedPlaceHolder ){
+	    return SubMatrix<RTYPE>( const_cast<Matrix&>(*this), row_range, Range(0,ncol()-1) ) ;
+	}
+	
 	
 private:
     
