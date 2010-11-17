@@ -152,7 +152,7 @@ public:
 	}
 	
 	inline SubMatrix<RTYPE> operator()( const Range& row_range, const Range& col_range){
-	    return SubMatrix<RTYPE>( *this, row_range, col_range ) ;
+	    return SubMatrix<RTYPE>( const_cast<Matrix&>(*this), row_range, col_range ) ;
 	}
 	
 	
@@ -223,7 +223,7 @@ public:
     typedef Matrix<RTYPE> MATRIX ;
     typedef typename MATRIX::Proxy Proxy ;
     
-    SubMatrix( const MATRIX& m_, const Range& row_range_, const Range& col_range_ ) :
+    SubMatrix( MATRIX& m_, const Range& row_range_, const Range& col_range_ ) :
         m(m_), row_range(row_range_), col_range(col_range_) {}
     
     
@@ -236,7 +236,7 @@ public:
     }
     
 private:
-    const MATRIX& m ;
+    MATRIX& m ;
     const Range& row_range ;
     const Range& col_range ;
 } ;
