@@ -1,3 +1,8 @@
+2010-11-17  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/sugar/as_vector.h: added the as_vector function that turns
+    a sugar matrix expression into a vector of the appropriate type
+
 2010-11-13  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/Module.h: expose constructors as the "cpp_constructor"
