@@ -1,10 +1,10 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.8.8.1
+Version: 0.8.8.2
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Douglas Bates, John Chambers, Simon Urbanek, and David Reiss; 
- based on code written during 2005 and 2006 by Dominick Samperi 
+ A small portion of the code is based on code written during 2005 and 2006 by Dominick Samperi 
 Maintainer: Dirk Eddelbuettel and Romain Francois <RomainAndDirk@r-enthusiasts.com>
 Description: The Rcpp package provides a C++ library which facilitates the 
  integration of R and C++.
