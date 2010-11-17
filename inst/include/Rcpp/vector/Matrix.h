@@ -221,24 +221,29 @@ template <int RTYPE>
 class SubMatrix : public Rcpp::MatrixBase< RTYPE, true, SubMatrix<RTYPE> > {
 public:
     typedef Matrix<RTYPE> MATRIX ;
+    typedef typename Vector<RTYPE>::iterator vec_iterator ;
     typedef typename MATRIX::Proxy Proxy ;
     
     SubMatrix( MATRIX& m_, const Range& row_range_, const Range& col_range_ ) :
-        m(m_), row_range(row_range_), col_range(col_range_) {}
-    
+        m(m_),
+        iter( static_cast< Vector<RTYPE>& >(m_).begin() + row_range_.get_start() + col_range_.get_start() * m_.ncol() ), 
+        m_nc( m.ncol() ), 
+        nc( col_range_.size() ), 
+        nr( row_range_.size() )
+    {}
     
     inline int size() const { return ncol() * nrow() ; }
-    inline int ncol() const { return col_range.size() ; }
-    inline int nrow() const { return row_range.size() ; }
+    inline int ncol() const { return nc ; }
+    inline int nrow() const { return nr ; }
     
     inline Proxy operator()(int i, int j) const {
-        return m( row_range[i], col_range[j] ) ;
+        return iter[ i + j*m_nc ] ;
     }
     
 private:
     MATRIX& m ;
-    const Range& row_range ;
-    const Range& col_range ;
+    vec_iterator iter ;
+    int m_nc, nc, nr ;
 } ;
 
 #endif
