@@ -662,6 +662,15 @@
 			   NumericVector res = cumsum( xx ) ;
 			   return res ;
 			   '
+			), 
+			"runit_asvector" = list( 
+			    signature( x = "numeric", y = "numeric", z = "matrix" ), 
+			    '
+			    return List::create( 
+			        as_vector( NumericMatrix(z) ), 
+			        as_vector( outer( NumericVector(x) , NumericVector(y) , std::plus<double>() ) )
+			    ) ;
+			    '
 			)
 		)
 		
@@ -1292,5 +1301,12 @@ test.sugar.cumsum <- function(){
     checkEquals( fx(x), cumsum(x) )
     x[4] <- NA
     checkEquals( fx(x), cumsum(x) )
+}
+
+test.sugar.asvector <- function(){
+    fx <- .rcpp.sugar$runit_asvector
+    res <- fx( 1:4, 1:5, diag( 1:5 ) )
+    checkEquals( res[[1]], as.vector( diag(1:5) ) )
+    checkEquals( res[[2]], as.vector( outer( 1:4, 1:5, "+" ) ) )
 }
 
