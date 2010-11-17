@@ -22,6 +22,8 @@
 #ifndef Rcpp__vector__Matrix_h
 #define Rcpp__vector__Matrix_h
    
+template <int RTYPE> class SubMatrix ;
+
 template <int RTYPE> 
 class Matrix : public Vector<RTYPE>, public MatrixBase<RTYPE,true, Matrix<RTYPE> > {
 public:
@@ -149,6 +151,11 @@ public:
 	    return Column( *this, i ) ;
 	}
 	
+	inline SubMatrix<RTYPE> operator()( const Range& row_range, const Range& col_range){
+	    return SubMatrix<RTYPE>( *this, row_range, col_range ) ;
+	}
+	
+	
 private:
     
     inline int offset( int i, int j) const {
@@ -208,6 +215,30 @@ public:
 private:
     int nrows ;	
 	
+} ;
+
+template <int RTYPE>
+class SubMatrix : public Rcpp::MatrixBase< RTYPE, true, SubMatrix<RTYPE> > {
+public:
+    typedef Matrix<RTYPE> MATRIX ;
+    typedef typename MATRIX::Proxy Proxy ;
+    
+    SubMatrix( const MATRIX& m_, const Range& row_range_, const Range& col_range_ ) :
+        m(m_), row_range(row_range_), col_range(col_range_) {}
+    
+    
+    inline int size() const { return ncol() * nrow() ; }
+    inline int ncol() const { return col_range.size() ; }
+    inline int nrow() const { return row_range.size() ; }
+    
+    inline Proxy operator()(int i, int j) const {
+        return m( row_range[i], col_range[j] ) ;
+    }
+    
+private:
+    const MATRIX& m ;
+    const Range& row_range ;
+    const Range& col_range ;
 } ;
 
 #endif
