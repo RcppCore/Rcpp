@@ -2,6 +2,8 @@
 
     * inst/include/Rcpp/sugar/as_vector.h: added the as_vector function that turns
     a sugar matrix expression into a vector of the appropriate type
+    
+    * inst/include/Rcpp/vector/Matrix.h: new SubMatrix class
 
 2010-11-13  Romain Francois <romain@r-enthusiasts.com>
 
