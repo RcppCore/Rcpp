@@ -1,3 +1,8 @@
+2010-11-18  Douglas Bates  <bates@stat.wisc.edu>
+
+	* inst/include/Rcpp/module/Module_generated_[class_]Constructor.h:
+	allow up to 6 arguments to .constructor
+
 2010-11-17  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/sugar/as_vector.h: added the as_vector function that turns
