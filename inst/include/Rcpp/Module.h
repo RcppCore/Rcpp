@@ -90,7 +90,6 @@ public:
 		throw std::range_error( "cannot set property" ) ;
 	}
 	
-	
 	std::string name ;
 } ;
 
@@ -156,21 +155,11 @@ class CppMethod {
 		virtual bool is_void(){ return false ; }
 } ;
 
-template <typename Class>
-class S4_CppMethod : public Rcpp::Reference {
-public:             
-    S4_CppMethod( CppMethod<Class>* m, SEXP class_xp ) : Reference( "C++Method" ){
-        field( "void" )          = m->is_void() ;
-        field( "pointer" )       = Rcpp::XPtr< CppMethod<Class> >( m, false ) ;
-        field( "class_pointer" ) = class_xp ;
-        
-    }
-} ;
-
 #include <Rcpp/module/Module_generated_Constructor.h>
 #include <Rcpp/module/Module_generated_class_signature.h>
 
 typedef bool (*ValidConstructor)(SEXP*,int) ;
+typedef bool (*ValidMethod)(SEXP*,int) ;
 
 template <typename Class>
 class SignedConstructor {
@@ -188,6 +177,19 @@ public:
 } ;
 
 template <typename Class>
+class SignedMethod {
+public:
+    typedef CppMethod<Class> METHOD ;
+    SignedMethod( METHOD* m, ValidMethod valid_ ) : method(m), valid(valid_){}
+    
+    METHOD* method ;
+    ValidMethod valid ;
+    
+    inline int nargs(){ return method->nargs() ; }
+    inline bool is_void(){ return method->is_void() ; }
+} ;
+
+template <typename Class>
 class S4_CppConstructor : public Rcpp::Reference {
 public:             
     S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp ) : Reference( "C++Constructor" ){
@@ -197,6 +199,27 @@ public:
     }
 } ;
 
+// template <typename Class>
+// class S4_CppMethod : public Rcpp::Reference {
+// public:             
+//     S4_CppMethod( CppMethod<Class>* m, SEXP class_xp ) : Reference( "C++Method" ){
+//         field( "void" )          = m->is_void() ;
+//         field( "pointer" )       = Rcpp::XPtr< CppMethod<Class> >( m, false ) ;
+//         field( "class_pointer" ) = class_xp ;
+//     }
+// } ;
+
+template <typename Class>
+class S4_CppOverloadedMethods : public Rcpp::Reference {
+public:    
+    typedef SignedMethod<Class> signed_method_class ;
+	typedef std::vector<signed_method_class*> vec_signed_method ;
+	
+	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp ) : Reference( "C++OverloadedMethods" ){
+        field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
+        field( "class_pointer" ) = class_xp ;
+    }
+} ;
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
@@ -252,10 +275,18 @@ class class_ : public class_Base {
 public:
 	typedef class_<Class> self ;
 	typedef CppMethod<Class> method_class ;
+	
+	typedef SignedMethod<Class> signed_method_class ;
+	typedef std::vector<signed_method_class*> vec_signed_method ;
+	typedef std::map<std::string,vec_signed_method*> map_vec_signed_method ;
+	typedef std::pair<std::string,vec_signed_method*> vec_signed_method_pair ;
+	
 	typedef std::map<std::string,method_class*> METHOD_MAP ;
 	typedef std::pair<const std::string,method_class*> PAIR ;
+	
 	typedef Rcpp::XPtr<Class> XP ;
 	typedef CppFinalizer<Class> finalizer_class ;
+	
 	typedef Constructor_Base<Class> constructor_class ;
 	typedef SignedConstructor<Class> signed_constructor_class ;
 	typedef std::vector<signed_constructor_class*> vec_signed_constructor ;
@@ -265,7 +296,7 @@ public:
 	typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
 	
 	class_( const char* name_ ) : 
-	    class_Base(name_), methods(), properties(), finalizer_pointer(0), specials(0), constructors()
+	    class_Base(name_), vec_methods(), properties(), finalizer_pointer(0), specials(0), constructors()
 	{
 		if( !singleton ){
 			singleton = new self ;
@@ -308,19 +339,36 @@ public:
 	
 	SEXP invoke( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
 		BEGIN_RCPP
-		method_class* met = reinterpret_cast< method_class* >( EXTPTR_PTR( method_xp ) ) ;
-	    // maybe this is not needed as the R side handles it
-		if( met->nargs() > nargs ){
-		    // Rprintf( "met->nargs() = %d\nnargs=%d\n", met->nargs(), nargs ) ;
-			throw std::range_error( "incorrect number of arguments" ) ; 	
+		
+		vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+		typename vec_signed_method::iterator it = mets->begin() ;
+		int n = mets->size() ;
+		method_class* m = 0 ;
+		for( int i=0; i<n; i++, ++it ){
+		    if( ( (*it)->valid )( args, nargs) ){
+		        m = (*it)->method ;
+		    }
 		}
-		return met->operator()( XP(object), args ); 
+		
+		// maybe this is not needed as the R side handles it
+		if( m == 0 ){
+		    throw std::range_error( "could not find valid method" ) ; 	
+		}
+		if( m->is_void() ){
+		    m->operator()( XP(object), args ); 
+		    return Rcpp::List::create( true ) ;
+		} else {
+		    return Rcpp::List::create( false, m->operator()( XP(object), args ) ) ;
+		}
 		END_RCPP	
 	}
 	
-	
 	self& AddMethod( const char* name_, method_class* m){
-		singleton->methods.insert( PAIR( name_,m ) ) ;  
+		typename map_vec_signed_method::iterator it = singleton->vec_methods.find( name_ ) ; 
+	    if( it == singleton->vec_methods.end() ){
+	        it = singleton->vec_methods.insert( vec_signed_method_pair( name_, new vec_signed_method() ) ).first ;
+	    } 
+		(it->second)->push_back( new signed_method_class(m, &yes ) ) ;
 		if( *name_ == '[' ) singleton->specials++ ;
 		return *this ;
 	}
@@ -334,7 +382,7 @@ public:
 #include <Rcpp/module/Module_generated_Pointer_method.h>
 	
 	bool has_method( const std::string& m){
-		return methods.find(m) != methods.end() ;
+		return vec_methods.find(m) != vec_methods.end() ;
 	}
 	bool has_property( const std::string& m){
 		return properties.find(m) != properties.end() ;
@@ -351,35 +399,68 @@ public:
 	}
 	
 	Rcpp::CharacterVector method_names(){
-		int n = methods.size() ;
-		Rcpp::CharacterVector out(n) ;
-		typename METHOD_MAP::iterator it = methods.begin( ) ;
-		for( int i=0; i<n; i++, ++it){
-			out[i] = it->first ;
+		int n = 0 ; 
+		int s = vec_methods.size() ;
+		typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
+		for( int i=0; i<s; i++, ++it){
+		    n += (it->second)->size() ;
+		}
+	    Rcpp::CharacterVector out(n) ;
+	    it = vec_methods.begin() ;
+	    int k = 0 ;
+		for( int i=0; i<s; i++, ++it){
+			n = (it->second)->size() ;
+			std::string name = it->first ;
+			for( int j=0; j<n; j++, k++){
+			    out[k] = name ;
+			}
 		} 
 		return out ;
 	}
 	
 	Rcpp::IntegerVector methods_arity(){
-		int n = methods.size() ;
-		Rcpp::CharacterVector mnames(n) ;
-		Rcpp::IntegerVector res( n );
-		typename METHOD_MAP::iterator it = methods.begin( ) ;
-		for( int i=0; i<n; i++, ++it){
-			mnames[i] = it->first ;
-			res[i] = it->second->nargs() ;
+	    int n = 0 ; 
+		int s = vec_methods.size() ;
+		typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
+		for( int i=0; i<s; i++, ++it){
+		    n += (it->second)->size() ;
+		}
+	    Rcpp::CharacterVector mnames(n) ;
+	    Rcpp::IntegerVector res(n) ;
+	    it = vec_methods.begin() ;
+	    int k = 0 ;
+		for( int i=0; i<s; i++, ++it){
+			n = (it->second)->size() ;
+			std::string name = it->first ;
+			typename vec_signed_method::iterator m_it = (it->second)->begin() ;
+			for( int j=0; j<n; j++, k++, ++m_it){
+			    mnames[k] = name ;
+			    res[k] = (*m_it)->nargs() ;
+			}
 		}
 		res.names( ) = mnames ;
 		return res ;
 	}
+	
 	Rcpp::LogicalVector methods_voidness(){
-		int n = methods.size() ;
-		Rcpp::CharacterVector mnames(n) ;
-		Rcpp::LogicalVector res( n );
-		typename METHOD_MAP::iterator it = methods.begin( ) ;
-		for( int i=0; i<n; i++, ++it){
-			mnames[i] = it->first ;
-			res[i] = it->second->is_void() ;
+		int n = 0 ; 
+		int s = vec_methods.size() ;
+		typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
+		for( int i=0; i<s; i++, ++it){
+		    n += (it->second)->size() ;
+		}
+	    Rcpp::CharacterVector mnames(n) ;
+	    Rcpp::LogicalVector res(n) ;
+	    it = vec_methods.begin() ;
+	    int k = 0 ;
+		for( int i=0; i<s; i++, ++it){
+			n = (it->second)->size() ;
+			std::string name = it->first ;
+			typename vec_signed_method::iterator m_it = (it->second)->begin() ;
+			for( int j=0; j<n; j++, k++, ++m_it){
+			    mnames[k] = name ;
+			    res[k] = (*m_it)->is_void() ;
+			}
 		}
 		res.names( ) = mnames ;
 		return res ;
@@ -410,20 +491,21 @@ public:
 	}
 	
 	Rcpp::CharacterVector complete(){
-		int n = methods.size() - specials ;
+		int n = vec_methods.size() - specials ;
 		int ntotal = n + properties.size() ;
 		Rcpp::CharacterVector out(ntotal) ;
-		typename METHOD_MAP::iterator it = methods.begin( ) ;
+		typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
 		std::string buffer ;
 		int i=0 ;
 		for( ; i<n; ++it){  
 			buffer = it->first ;
 			if( buffer[0] == '[' ) continue ;
-			if( (it->second)->nargs() == 0){
-				buffer += "() " ;
-			} else {
-				buffer += "( " ;
-			}
+			// if( (it->second)->nargs() == 0){
+			// 	buffer += "() " ;
+			// } else {
+			// 	buffer += "( " ;
+			// } 
+			buffer += "( " ;
 			out[i] = buffer ;
 			i++ ;
 		}
@@ -463,18 +545,19 @@ public:
 	}
 
 	Rcpp::List getMethods( SEXP class_xp ){
-	    int n = methods.size() ;
-		Rcpp::CharacterVector pnames(n) ;
-		Rcpp::List out(n) ;
-		typename METHOD_MAP::iterator it = methods.begin( ) ;
-		for( int i=0; i<n; i++, ++it){
-			pnames[i] = it->first ;
-			out[i] = S4_CppMethod<Class>( it->second, class_xp ) ; 
-		} 
-		out.names() = pnames ;
-		return out ;
+	    int n = vec_methods.size() ;
+		Rcpp::CharacterVector mnames(n) ;
+		Rcpp::List res(n) ;
+	    typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
+		vec_signed_method* v; 
+	    for( int i=0; i<n; i++, ++it){
+		    mnames[i] = it->first ;
+		    v = it->second ;
+		    res[i] = S4_CppOverloadedMethods<Class>( v , class_xp ) ;
+		}
+		res.names() = mnames ;
+	    return res ;
 	}
-
 	
 	Rcpp::List getConstructors( SEXP class_xp ){
 	    int n = constructors.size() ;
@@ -506,14 +589,14 @@ private:
         singleton->finalizer_pointer = f ; 
     }
     
-	METHOD_MAP methods ;
+	map_vec_signed_method vec_methods ;
 	PROPERTY_MAP properties ;
 	static self* singleton ;
 	finalizer_class* finalizer_pointer ;
 	int specials ;
 	vec_signed_constructor constructors ;
    
-	class_( ) : class_Base(), methods(), properties(), specials(0) {}; 
+	class_( ) : class_Base(), vec_methods(), properties(), specials(0) {}; 
 	
 } ;   
 
