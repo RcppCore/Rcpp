@@ -337,6 +337,7 @@ public:
 		for( int i=0; i<n; i++, ++it ){
 		    if( ( (*it)->valid )( args, nargs) ){
 		        m = (*it)->method ;
+		        break ;
 		    }
 		}
 		

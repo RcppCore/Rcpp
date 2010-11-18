@@ -24,19 +24,10 @@ API
         gets upset when the previous version(s) coped just fine
 
 Modules 
-
-    o   Exposing constructors. For now we can only construct internal objects 
-        with the default constructor of the target class. Maybe we can provide
-        some R level dispatch. Maybe look at ?selectMethod
         
     o   Class inheritance. If we have Foo and Bar : public Foo, and we expose
         both Foo and Bar to R, R level class Bar should enjoy methods of Foo
         and the S4 inheritance should reflect the C++ level inheritance
-                
-    o   Method overloading: methods are currently stored in a map<string,.>
-        so there can only be one method for a given name, which defeats C++
-        overloading. Maybe we can do better than that. This might also need 
-        R level dispatch (?selectMethod)
         
 Syntactic sugar
 
