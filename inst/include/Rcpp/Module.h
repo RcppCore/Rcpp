@@ -199,16 +199,6 @@ public:
     }
 } ;
 
-// template <typename Class>
-// class S4_CppMethod : public Rcpp::Reference {
-// public:             
-//     S4_CppMethod( CppMethod<Class>* m, SEXP class_xp ) : Reference( "C++Method" ){
-//         field( "void" )          = m->is_void() ;
-//         field( "pointer" )       = Rcpp::XPtr< CppMethod<Class> >( m, false ) ;
-//         field( "class_pointer" ) = class_xp ;
-//     }
-// } ;
-
 template <typename Class>
 class S4_CppOverloadedMethods : public Rcpp::Reference {
 public:    
@@ -350,7 +340,6 @@ public:
 		    }
 		}
 		
-		// maybe this is not needed as the R side handles it
 		if( m == 0 ){
 		    throw std::range_error( "could not find valid method" ) ; 	
 		}
@@ -363,12 +352,12 @@ public:
 		END_RCPP	
 	}
 	
-	self& AddMethod( const char* name_, method_class* m){
+	self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes ){
 		typename map_vec_signed_method::iterator it = singleton->vec_methods.find( name_ ) ; 
 	    if( it == singleton->vec_methods.end() ){
 	        it = singleton->vec_methods.insert( vec_signed_method_pair( name_, new vec_signed_method() ) ).first ;
 	    } 
-		(it->second)->push_back( new signed_method_class(m, &yes ) ) ;
+		(it->second)->push_back( new signed_method_class(m, valid ) ) ;
 		if( *name_ == '[' ) singleton->specials++ ;
 		return *this ;
 	}
