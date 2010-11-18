@@ -39,4 +39,29 @@
         return *this ;
     }
 
+template <typename U0, typename U1, typename U2>
+self& constructor( init_3<U0,U1,U2>, ValidConstructor valid = &yes_arity<3> ){
+    AddConstructor( new Constructor_3<Class,U0,U1,U2>, valid ) ;
+    return *this ;
+}
+
+template <typename U0, typename U1, typename U2, typename U3>
+self& constructor( init_4<U0,U1,U2,U3>, ValidConstructor valid = &yes_arity<4> ){
+    AddConstructor( new Constructor_4<Class,U0,U1,U2,U3>, valid ) ;
+    return *this ;
+}
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4>
+self& constructor( init_5<U0,U1,U2,U3,U4>, ValidConstructor valid = &yes_arity<5> ){
+    AddConstructor( new Constructor_5<Class,U0,U1,U2,U3,U4>, valid ) ;
+    return *this ;
+}
+
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
+self& constructor( init_6<U0,U1,U2,U3,U4,U5>, ValidConstructor valid = &yes_arity<6> ){
+    AddConstructor( new Constructor_6<Class,U0,U1,U2,U3,U4,U5>, valid ) ;
+    return *this ;
+}
+
 #endif
