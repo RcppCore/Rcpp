@@ -5,6 +5,17 @@
 
 2010-11-17  Romain Francois <romain@r-enthusiasts.com>
 
+    * inst/include/Rcpp/Module.h: rework the class_ template to allow overloaded
+    methods
+    
+    * R/00_classes.R: The C++Method class disappears and the C++OverloadedMethods
+    enters. a "C++OverloadedMethods" object points to a set of overloaded C++
+    methods that all share the same name. 
+    
+    * R/Module.R: adapt some of the code to cope with changes above
+
+2010-11-17  Romain Francois <romain@r-enthusiasts.com>
+
     * inst/include/Rcpp/sugar/as_vector.h: added the as_vector function that turns
     a sugar matrix expression into a vector of the appropriate type
     
