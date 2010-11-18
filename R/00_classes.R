@@ -30,30 +30,13 @@ setRefClass( "C++Field",
         cpp_class     = "character", 
         read_only     = "logical", 
         class_pointer = "externalptr"
-    ),
-    methods = list( 
-        get = function(obj_xp){
-            .Call( CppField__get, class_pointer, pointer, obj_xp ) 
-        }, 
-        set = function(obj_xp, value){
-            .Call( CppField__set, class_pointer, pointer, obj_xp, value )
-            invisible( NULL )
-        }
     )
 )
 
-setRefClass( "C++Method", 
+setRefClass( "C++OverloadedMethods", 
     fields = list( 
         pointer       = "externalptr", 
-        class_pointer = "externalptr", 
-        void          = "logical"
-        # perhaps something to deal with classes of input and output
-        # but this needs some work internally before
-    ), 
-    methods = list( 
-        invoke = function(obj_xp, ...){
-            .External( CppMethod__invoke, class_pointer, pointer, obj_xp, ... )    
-        }
+        class_pointer = "externalptr"
     )
 )
 

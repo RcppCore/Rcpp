@@ -203,7 +203,10 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 method_wrapper <- function( METHOD, where ){
             f <- function(...) NULL
 	    extCall <- substitute(
-                .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...)
+	    {
+           res <- .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...)
+           if(res[[1]]) invisible(NULL) else res[[2]]
+        }
            ,
             list(
                 class_pointer = METHOD$class_pointer,
@@ -211,11 +214,6 @@ method_wrapper <- function( METHOD, where ){
                 CppMethod__invoke = CppMethod__invoke
                  )
             )
-            if( METHOD$void )
-                extCall <- substitute({
-                    CALL
-                    invisible(NULL)
-                }, list(CALL = extCall))
             body(f, where) <- extCall
             f
 	}
