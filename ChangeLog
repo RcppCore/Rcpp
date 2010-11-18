@@ -3,7 +3,7 @@
 	* inst/include/Rcpp/module/Module_generated_[class_]Constructor.h:
 	allow up to 6 arguments to .constructor
 
-2010-11-17  Romain Francois <romain@r-enthusiasts.com>
+2010-11-18  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/Module.h: rework the class_ template to allow overloaded
     methods
