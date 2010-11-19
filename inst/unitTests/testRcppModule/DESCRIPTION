@@ -10,5 +10,4 @@ License: GPL(>=2)
 LazyLoad: yes
 Depends: methods, Rcpp (>= 0.8.5)
 LinkingTo: Rcpp
-SystemRequirements: GNU make
 Packaged: 2010-09-09 18:42:28 UTC; jmc
