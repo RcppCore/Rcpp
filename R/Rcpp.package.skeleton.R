@@ -75,12 +75,11 @@ Rcpp.package.skeleton <- function(
 		) 
 		x <- cbind( read.dcf( DESCRIPTION ), 
 			"Depends" = paste( depends, collapse = ", ") , 
-			"LinkingTo" = "Rcpp", 
-			"SystemRequirements" = "GNU make" )
+			"LinkingTo" = "Rcpp"
+		)
 		write.dcf( x, file = DESCRIPTION )
 		message( " >> added Depends: Rcpp" )
 		message( " >> added LinkingTo: Rcpp" )
-		message( " >> added SystemRequirements: GNU make" )
 	}
 	
 	# if there is a NAMESPACE, add a useDynLib
