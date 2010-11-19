@@ -269,10 +269,6 @@ between the client package and \pkg{Rcpp}. The \texttt{LinkingTo} declaration
 indicates that the client package needs to use header files exposed by
 \pkg{Rcpp}.
 
-The \texttt{SystemRequirements} declaration indicates that the package depends
-on \proglang{GNU Make} which is needed when compiling the client package
-on platforms such as Solaris.
-
 \subsection{\texttt{Makevars} and \texttt{Makevars.win}}
 
 Unfortunately, the \texttt{LinkingTo} declaration in itself is not
@@ -301,10 +297,6 @@ local({
 	unlink( tf )
 })
 @
-
-The use of \verb|$(shell)| to execute a sub-command is a \proglang{GNU Make}
-extension to the standard \proglang{Make} language which we have found to be
-more reliable than using backticks.
 
 \subsection{\texttt{NAMESPACE}}
 
