@@ -334,14 +334,15 @@ public:
 		typename vec_signed_method::iterator it = mets->begin() ;
 		int n = mets->size() ;
 		method_class* m = 0 ;
+		bool ok = false ; 
 		for( int i=0; i<n; i++, ++it ){
 		    if( ( (*it)->valid )( args, nargs) ){
 		        m = (*it)->method ;
+		        ok = true ; 
 		        break ;
 		    }
 		}
-		
-		if( m == 0 ){
+		if( !ok ){
 		    throw std::range_error( "could not find valid method" ) ; 	
 		}
 		if( m->is_void() ){
