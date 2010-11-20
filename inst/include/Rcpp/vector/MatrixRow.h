@@ -132,6 +132,7 @@ public:
           default:                                   
               {}                         
         }
+        return *this ;
 	}
 
 	reference operator[]( int i ){

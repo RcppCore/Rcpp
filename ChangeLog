@@ -1,3 +1,19 @@
+2010-11-20  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/vector/MatrixRow.h: added missing return *this ;
+
+    * R/Module.R: dispatch based on void-ness of the methods. For example if all
+    methods are known to be void, etc ...
+    
+    * R/00_classes.R: more information in the C++OverloadedMethods ref class
+    
+    * src/Module.cpp: new .External CppMethod__invoke_void and 
+    CppMethod__invoke_notvoid that are used when we know for sure that all 
+    overloaded methods are void, or not void
+    
+    * inst/include/Rcpp/Module.h: class_ gains invoke_void and invoke_notvoid 
+    to support the changes above
+    
 2010-11-18  Douglas Bates  <bates@stat.wisc.edu>
 
 	* inst/include/Rcpp/module/Module_generated_[class_]Constructor.h:

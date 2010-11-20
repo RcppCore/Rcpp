@@ -18,7 +18,8 @@ useDynLib(Rcpp,
     rcpp_set_stack_trace, rcpp_get_stack_trace,
     
     # .External functions
-    CppMethod__invoke, InternalFunction_invoke, Module__invoke, class__newInstance
+    CppMethod__invoke, CppMethod__invoke_void, CppMethod__invoke_notvoid, 
+    InternalFunction_invoke, Module__invoke, class__newInstance
 )
 
 import( methods )

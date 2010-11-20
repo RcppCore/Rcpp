@@ -176,6 +176,55 @@ extern "C" SEXP CppMethod__invoke(SEXP args){
    	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
 
+extern "C" SEXP CppMethod__invoke_void(SEXP args){
+	SEXP p = CDR(args) ;
+	
+	// the external pointer to the class
+	XP_Class clazz( CAR(p) ) ; p = CDR(p);
+	
+	// the external pointer to the method
+	SEXP met = CAR(p) ; p = CDR(p) ;
+	
+	// the external pointer to the object
+	SEXP obj = CAR(p); p = CDR(p) ;
+	
+	// additional arguments, processed the same way as .Call does
+	SEXP cargs[MAX_ARGS] ;
+    int nargs = 0 ;
+   	for(; nargs<MAX_ARGS; nargs++){
+   		if( p == R_NilValue ) break ;
+   		cargs[nargs] = CAR(p) ;
+   		p = CDR(p) ;
+   	}
+   	clazz->invoke_void( met, obj, cargs, nargs ) ;
+   	return R_NilValue ;
+}
+
+extern "C" SEXP CppMethod__invoke_notvoid(SEXP args){
+	SEXP p = CDR(args) ;
+	
+	// the external pointer to the class
+	XP_Class clazz( CAR(p) ) ; p = CDR(p);
+	
+	// the external pointer to the method
+	SEXP met = CAR(p) ; p = CDR(p) ;
+	
+	// the external pointer to the object
+	SEXP obj = CAR(p); p = CDR(p) ;
+	
+	// additional arguments, processed the same way as .Call does
+	SEXP cargs[MAX_ARGS] ;
+    int nargs = 0 ;
+   	for(; nargs<MAX_ARGS; nargs++){
+   		if( p == R_NilValue ) break ;
+   		cargs[nargs] = CAR(p) ;
+   		p = CDR(p) ;
+   	}
+   	
+   	return clazz->invoke_notvoid( met, obj, cargs, nargs ) ;
+}
+
+
 namespace Rcpp{
 	static Module* current_scope  ;
 }

@@ -71,6 +71,14 @@ public:
 	virtual SEXP invoke( SEXP, SEXP, SEXP *, int ){ 
 		return R_NilValue ;
 	}
+	virtual SEXP invoke_void( SEXP, SEXP, SEXP *, int ){ 
+		return R_NilValue ;
+	}
+	virtual SEXP invoke_notvoid( SEXP, SEXP, SEXP *, int ){ 
+		return R_NilValue ;
+	}
+	
+	
 	
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual Rcpp::CharacterVector property_names(){ return Rcpp::CharacterVector(0) ; }
@@ -206,8 +214,16 @@ public:
 	typedef std::vector<signed_method_class*> vec_signed_method ;
 	
 	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp ) : Reference( "C++OverloadedMethods" ){
-        field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
+        
+	    int n = m->size() ;
+        Rcpp::LogicalVector voidness( n) ;
+        for( int i=0; i<n; i++){ voidness[i] = m->at(i)->is_void() ; }
+        
+	    field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
         field( "class_pointer" ) = class_xp ;
+        field( "size" )          = n ;
+        field( "void" )          = voidness ;
+        
     }
 } ;
 
@@ -353,6 +369,51 @@ public:
 		}
 		END_RCPP	
 	}
+	
+	SEXP invoke_void( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
+		BEGIN_RCPP
+		
+		vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+		typename vec_signed_method::iterator it = mets->begin() ;
+		int n = mets->size() ;
+		method_class* m = 0 ;
+		bool ok = false ; 
+		for( int i=0; i<n; i++, ++it ){
+		    if( ( (*it)->valid )( args, nargs) ){
+		        m = (*it)->method ;
+		        ok = true ; 
+		        break ;
+		    }
+		}
+		if( !ok ){
+		    throw std::range_error( "could not find valid method" ) ; 	
+		}
+		m->operator()( XP(object), args ); 
+		END_RCPP	
+	}
+	
+	SEXP invoke_notvoid( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
+		BEGIN_RCPP
+		
+		vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+		typename vec_signed_method::iterator it = mets->begin() ;
+		int n = mets->size() ;
+		method_class* m = 0 ;
+		bool ok = false ; 
+		for( int i=0; i<n; i++, ++it ){
+		    if( ( (*it)->valid )( args, nargs) ){
+		        m = (*it)->method ;
+		        ok = true ; 
+		        break ;
+		    }
+		}
+		if( !ok ){
+		    throw std::range_error( "could not find valid method" ) ; 	
+		}
+		return m->operator()( XP(object), args ) ;
+		END_RCPP	
+	}
+	
 	
 	self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes ){
 		typename map_vec_signed_method::iterator it = singleton->vec_methods.find( name_ ) ; 
