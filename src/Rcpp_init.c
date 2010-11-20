@@ -69,6 +69,8 @@ static R_CallMethodDef callEntries[]  = {
 
 static R_ExternalMethodDef extEntries[]  = {
     EXTDEF(CppMethod__invoke),
+    EXTDEF(CppMethod__invoke_void),
+    EXTDEF(CppMethod__invoke_notvoid),
     EXTDEF(InternalFunction_invoke),
     EXTDEF(Module__invoke), 
     EXTDEF(class__newInstance), 
