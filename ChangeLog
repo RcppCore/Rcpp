@@ -1,19 +1,20 @@
 2010-11-20  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/vector/MatrixRow.h: added missing return *this ;
+	* inst/include/Rcpp/vector/MatrixRow.h: added missing return *this ;
 
-    * R/Module.R: dispatch based on void-ness of the methods. For example if all
-    methods are known to be void, etc ...
-    
-    * R/00_classes.R: more information in the C++OverloadedMethods ref class
-    
-    * src/Module.cpp: new .External CppMethod__invoke_void and 
-    CppMethod__invoke_notvoid that are used when we know for sure that all 
-    overloaded methods are void, or not void
-    
-    * inst/include/Rcpp/Module.h: class_ gains invoke_void and invoke_notvoid 
-    to support the changes above
-    
+	* R/Module.R: dispatch based on void-ness of the methods. For example
+	if all methods are known to be void, etc ...
+
+	* R/00_classes.R: more information in the C++OverloadedMethods ref
+	class
+
+	* src/Module.cpp: new .External CppMethod__invoke_void and
+	CppMethod__invoke_notvoid that are used when we know for sure that
+	all overloaded methods are void, or not void
+
+	* inst/include/Rcpp/Module.h: class_ gains invoke_void and
+	invoke_notvoid to support the changes above
+
 2010-11-18  Douglas Bates  <bates@stat.wisc.edu>
 
 	* inst/include/Rcpp/module/Module_generated_[class_]Constructor.h:
@@ -21,31 +22,33 @@
 
 2010-11-18  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/Module.h: rework the class_ template to allow overloaded
-    methods
-    
-    * R/00_classes.R: The C++Method class disappears and the C++OverloadedMethods
-    enters. a "C++OverloadedMethods" object points to a set of overloaded C++
-    methods that all share the same name. 
-    
-    * R/Module.R: adapt some of the code to cope with changes above
+	* inst/include/Rcpp/Module.h: rework the class_ template to allow
+	overloaded methods
+
+	* R/00_classes.R: The C++Method class disappears and the
+	C++OverloadedMethods enters. a "C++OverloadedMethods" object points
+	to a set of overloaded C++ methods that all share the same name.
+
+	* R/Module.R: adapt some of the code to cope with changes above
 
 2010-11-17  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/sugar/as_vector.h: added the as_vector function that turns
-    a sugar matrix expression into a vector of the appropriate type
-    
-    * inst/include/Rcpp/vector/Matrix.h: new SubMatrix class
+	* inst/include/Rcpp/sugar/as_vector.h: added the as_vector function
+	that turns a sugar matrix expression into a vector of the appropriate
+	type
+
+	* inst/include/Rcpp/vector/Matrix.h: new SubMatrix class
 
 2010-11-13  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/Module.h: expose constructors as the "cpp_constructor"
-    field of "C++ClassRepresentation" and the "constructors" slot of 
-    "C++Class"
+	* inst/include/Rcpp/Module.h: expose constructors as the
+	"cpp_constructor" field of "C++ClassRepresentation" and the
+	"constructors" slot of "C++Class"
 
 2010-11-07  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/operators/minus.h: fixed Minus_Vector_Primitive<RTYPE,false,T>
+	* inst/include/Rcpp/sugar/operators/minus.h: fixed
+	Minus_Vector_Primitive<RTYPE,false,T>
 
 	* inst/unitTests/runit.sugar.R: new test for the above
 
@@ -53,9 +56,9 @@
 
 	* inst/include/Rcpp/Module.h: exposing multiple constructors in modules
 
-	* src/Module.cpp: The mangled class name is now "Rcpp_" plus the class
-	name. The previous version used the address of the external pointer to the
-	module, which was not constant.
+	* src/Module.cpp: The mangled class name is now "Rcpp_" plus the
+	class name. The previous version used the address of the external
+	pointer to the module, which was not constant.
 
 2010-11-04  Douglas Bates  <bates@stat.wisc.edu>
 
@@ -64,12 +67,12 @@
 
 2010-11-04  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h: experimental way to specify which constructor
-	to use in classes exposed by modules. This is still too restrictive
-	as it only allows one constructor.
+	* inst/include/Rcpp/Module.h: experimental way to specify which
+	constructor to use in classes exposed by modules. This is still too
+	restrictive as it only allows one constructor.
 
-	* inst/include/Rcpp/sugar/block/SugarMath.h: extend the SUGAR_MATH_1 macro
-	so that we can apply functions (e.g. sqrt) directly on SEXP
+	* inst/include/Rcpp/sugar/block/SugarMath.h: extend the SUGAR_MATH_1
+	macro so that we can apply functions (e.g. sqrt) directly on SEXP
 
 2010-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
