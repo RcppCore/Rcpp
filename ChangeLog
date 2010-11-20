@@ -1,6 +1,6 @@
 2010-11-20  John M Chambers  <jmc@r-project.org>
 
-	* Module.R now checks for the existence of a default constructor
+	* R/Module.R now checks for the existence of a default constructor
 	for a C++ class and generates a suitable $initialize() method accordingly.
 
 2010-11-20  Romain Francois <romain@r-enthusiasts.com>
