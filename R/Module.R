@@ -166,7 +166,16 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                                  )
         # just to make codetools happy
         .self <- .refClassDef <- NULL
-        generator$methods(initialize = function(...) Rcpp:::cpp_object_initializer(.self,.refClassDef, ...))
+        generator$methods(initialize =
+              if(cpp_hasDefaultConstructor(CLASS))
+                 function(...) Rcpp:::cpp_object_initializer(.self,.refClassDef, ...)
+              else
+                 function(...) {
+                     if(nargs())  Rcpp:::cpp_object_initializer(.self,.refClassDef, ...)
+                     else .self
+                 }
+                          )
+               
         rm( .self, .refClassDef )
         
         classDef <- getClass(clname)
@@ -257,6 +266,14 @@ cpp_refMethods <- function(CLASS, where) {
 	    "finalize" = finalizer
 	)
     mets
+}
+
+cpp_hasDefaultConstructor <- function(CLASS) {
+    constrs <- CLASS@constructors
+    for(cc in constrs)
+        if(cc$nargs == 0)
+            return(TRUE)
+    FALSE
 }
 
 binding_maker <- function( FIELD, where ){
