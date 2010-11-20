@@ -67,6 +67,8 @@ CALLFUN_0(rcpp_get_stack_trace);
 
 /* .External functions */
 EXTFUN(CppMethod__invoke) ;
+EXTFUN(CppMethod__invoke_void) ;
+EXTFUN(CppMethod__invoke_notvoid) ;
 EXTFUN(InternalFunction_invoke) ;
 EXTFUN(Module__invoke) ;
 EXTFUN(class__newInstance) ;

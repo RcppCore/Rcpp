@@ -36,7 +36,9 @@ setRefClass( "C++Field",
 setRefClass( "C++OverloadedMethods", 
     fields = list( 
         pointer       = "externalptr", 
-        class_pointer = "externalptr"
+        class_pointer = "externalptr", 
+        size          = "integer", 
+        void          = "logical"
     )
 )
 

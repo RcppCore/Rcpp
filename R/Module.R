@@ -203,21 +203,41 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]
 
 method_wrapper <- function( METHOD, where ){
-            f <- function(...) NULL
-	    extCall <- substitute(
-	    {
-           dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
+        f <- function(...) NULL
+        
+        stuff <- list(
+            class_pointer = METHOD$class_pointer,
+            pointer = METHOD$pointer,
+            CppMethod__invoke = CppMethod__invoke,
+            CppMethod__invoke_void = CppMethod__invoke_void,
+            CppMethod__invoke_notvoid = CppMethod__invoke_notvoid,
+            dealWith = dealWith
+        )
+        
+        extCall <- if( all( METHOD$void ) ){
+            # all methods are void, so we know we want to return invisible(NULL)
+            substitute( 
+            {
+                .External(CppMethod__invoke_void, class_pointer, pointer, .pointer, ...)
+                invisible(NULL)
+            } , stuff )
+        } else if( all( ! METHOD$void ) ){
+            # none of the methods are void so we always return the result of 
+            # .External
+            substitute( 
+            {
+               .External(CppMethod__invoke_notvoid, class_pointer, pointer, .pointer, ...)
+            } , stuff )
+        } else {
+            # some are void, some are not, so the voidness is part of the result 
+            # we get from internally and we need to deal with it
+            substitute( 
+	        {
+               dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
+            } , stuff )
         }
-           ,
-            list(
-                class_pointer = METHOD$class_pointer,
-                pointer = METHOD$pointer,
-                CppMethod__invoke = CppMethod__invoke, 
-                dealWith = dealWith
-                 )
-            )
-            body(f, where) <- extCall
-            f
+        body(f, where) <- extCall
+        f
 	}
 ## create a named list of the R methods to invoke C++ methods
 ## from the C++ class with pointer xp
