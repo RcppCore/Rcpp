@@ -220,13 +220,15 @@ method_wrapper <- function( METHOD, where ){
             CppMethod__invoke = CppMethod__invoke,
             CppMethod__invoke_void = CppMethod__invoke_void,
             CppMethod__invoke_notvoid = CppMethod__invoke_notvoid,
-            dealWith = dealWith
+            dealWith = dealWith, 
+            docstring = paste( METHOD$docstrings, collapse = "\n" )
         )
         
         extCall <- if( all( METHOD$void ) ){
             # all methods are void, so we know we want to return invisible(NULL)
             substitute( 
             {
+                docstring
                 .External(CppMethod__invoke_void, class_pointer, pointer, .pointer, ...)
                 invisible(NULL)
             } , stuff )
@@ -235,6 +237,7 @@ method_wrapper <- function( METHOD, where ){
             # .External
             substitute( 
             {
+                docstring
                .External(CppMethod__invoke_notvoid, class_pointer, pointer, .pointer, ...)
             } , stuff )
         } else {
@@ -242,7 +245,8 @@ method_wrapper <- function( METHOD, where ){
             # we get from internally and we need to deal with it
             substitute( 
 	        {
-               dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
+	            docstring
+	            dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
             } , stuff )
         }
         body(f, where) <- extCall
