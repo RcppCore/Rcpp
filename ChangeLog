@@ -1,6 +1,14 @@
+2010-11-21  Romain Francois <romain@r-enthusiasts.com>
+
+	* R/Module.R: internal version of cpp_hasDefaultConstructor
+	
+	* src/Module.cpp: implementation (Class__has_default_constructor)
+	
+	* inst/include/Rcpp/Module.h: support (class_.has_default_constructor)
+
 2010-11-20  John M Chambers  <jmc@r-project.org>
 
-	* R/Module.R now checks for the existence of a default constructor
+	* R/Module.R: now checks for the existence of a default constructor
 	for a C++ class and generates a suitable $initialize() method accordingly.
 
 2010-11-20  Romain Francois <romain@r-enthusiasts.com>

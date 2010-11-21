@@ -29,6 +29,10 @@ typedef Rcpp::XPtr<Rcpp::Module> XP_Module ;
 typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ; 
 typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ; 
 
+RCPP_FUNCTION_1( bool, Class__has_default_constructor, XP_Class cl ){
+    return cl->has_default_constructor() ;
+}
+
 RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
 	return cl->has_method(m) ;
 }
@@ -356,6 +360,7 @@ namespace Rcpp{
 	}
 	
 }
+
 
 #else
 /* quiet ranlib */ 
