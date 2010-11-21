@@ -59,6 +59,7 @@ public:
 	
 	virtual void run_finalizer(SEXP){ }
 	
+	virtual bool has_default_constructor(){ return false ; }
 	virtual bool has_method( const std::string& ){ 
 		return false ; 
 	}
@@ -343,6 +344,16 @@ public:
 	    END_RCPP
 	}
 	
+	bool has_default_constructor(){ 
+	    int n = constructors.size() ;
+	    signed_constructor_class* p ;
+	    for( int i=0; i<n; i++ ){
+	        p = constructors[i];
+	        if( p->nargs() == 0 ) return true ;
+	    }
+	    return false ;
+    }
+	
 	SEXP invoke( SEXP method_xp, SEXP object, SEXP *args, int nargs ){ 
 		BEGIN_RCPP
 		
@@ -433,7 +444,7 @@ public:
 #include <Rcpp/module/Module_generated_method.h>
 #include <Rcpp/module/Module_generated_Pointer_method.h>
 	
-	bool has_method( const std::string& m){
+    bool has_method( const std::string& m){
 		return vec_methods.find(m) != vec_methods.end() ;
 	}
 	bool has_property( const std::string& m){

@@ -4,7 +4,7 @@ useDynLib(Rcpp,
     
     CppField__get, CppField__set,
     
-    Class__name,
+    Class__name, Class__has_default_constructor,
     
     CppClass__complete, CppClass__methods,
     

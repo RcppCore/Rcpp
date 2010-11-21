@@ -39,6 +39,7 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(CppField__set,4),
     
     CALLDEF(Class__name,1),
+    CALLDEF(Class__has_default_constructor,1),
     
     CALLDEF(CppClass__complete,1),
     CALLDEF(CppClass__methods,1),
