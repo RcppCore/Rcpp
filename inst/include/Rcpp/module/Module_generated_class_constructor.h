@@ -64,4 +64,73 @@ self& constructor( init_6<U0,U1,U2,U3,U4,U5>, ValidConstructor valid = &yes_arit
     return *this ;
 }
 
+    template <
+        typename U0, 
+        typename U1, 
+        typename U2, 
+        typename U3, 
+        typename U4, 
+        typename U5
+    > 
+    self& ctor( ValidConstructor valid = &yes_arity<6> ){
+        AddConstructor( new Constructor_6<Class,U0,U1,U2,U3,U4,U5> , valid ) ;
+        return *this ;   
+    }
+
+    template <
+        typename U0, 
+        typename U1, 
+        typename U2, 
+        typename U3, 
+        typename U4
+    > 
+    self& ctor( ValidConstructor valid = &yes_arity<5>){
+        AddConstructor( new Constructor_5<Class,U0,U1,U2,U3,U4> , valid ) ;
+        return *this ;   
+    }
+
+    template <
+        typename U0, 
+        typename U1, 
+        typename U2, 
+        typename U3
+    > 
+    self& ctor( ValidConstructor valid = &yes_arity<4>){
+        AddConstructor( new Constructor_4<Class,U0,U1,U2,U3> , valid ) ;
+        return *this ;   
+    }
+
+
+    template <
+        typename U0, 
+        typename U1, 
+        typename U2
+    > 
+    self& ctor( ValidConstructor valid = &yes_arity<3>){
+        AddConstructor( new Constructor_3<Class,U0,U1,U2> , valid ) ;
+        return *this ;   
+    }
+
+    template <
+        typename U0, 
+        typename U1
+    > 
+    self& ctor( ValidConstructor valid = &yes_arity<2>){
+        AddConstructor( new Constructor_2<Class,U0,U1> , valid ) ;
+        return *this ;   
+    }
+ 
+    template <
+        typename U0
+    > 
+    self& ctor( ValidConstructor valid = &yes_arity<1>){
+        AddConstructor( new Constructor_1<Class,U0> , valid ) ;
+        return *this ;   
+    }
+    
+    self& ctor( ValidConstructor valid = &yes ){
+        AddConstructor( new Constructor_0<Class>, valid ) ;
+        return *this ;
+    }
+    
 #endif
