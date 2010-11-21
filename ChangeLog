@@ -11,6 +11,12 @@
 	are directly applied to the .constructor function
 	
 	* inst/include/Rcpp/module/Module_generated_Constructor.h: removed init_*
+	
+	* inst/include/Rcpp/module/Module_generated_method.h: .method gains a docstring
+	argument to allow self documentation of exposed methods
+	
+	* inst/include/Rcpp/module/Module_generated_PointerMethod.h: idem
+	
 
 2010-11-20  John M Chambers  <jmc@r-project.org>
 
