@@ -322,7 +322,7 @@ public:
 	}
 	
 	self& default_constructor( ValidConstructor valid = &yes_arity<0> ){
-	    return constructor( init_0(), valid ) ;  
+	    return constructor( valid ) ;  
 	}
 		
 #include <Rcpp/module/Module_generated_class_constructor.h>
