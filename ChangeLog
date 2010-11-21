@@ -5,6 +5,12 @@
 	* src/Module.cpp: implementation (Class__has_default_constructor)
 	
 	* inst/include/Rcpp/Module.h: support (class_.has_default_constructor)
+	
+	* inst/include/Rcpp/module/Module_generated_class_constructor.h: new interface
+	for exposing constructors, the init_ disappears and the template arguments
+	are directly applied to the .constructor function
+	
+	* inst/include/Rcpp/module/Module_generated_Constructor.h: removed init_*
 
 2010-11-20  John M Chambers  <jmc@r-project.org>
 
