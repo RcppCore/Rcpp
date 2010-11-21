@@ -269,11 +269,7 @@ cpp_refMethods <- function(CLASS, where) {
 }
 
 cpp_hasDefaultConstructor <- function(CLASS) {
-    constrs <- CLASS@constructors
-    for(cc in constrs)
-        if(cc$nargs == 0)
-            return(TRUE)
-    FALSE
+    .Call( Class__has_default_constructor, CLASS@pointer )
 }
 
 binding_maker <- function( FIELD, where ){
