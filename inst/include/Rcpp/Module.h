@@ -189,13 +189,15 @@ template <typename Class>
 class SignedMethod {
 public:
     typedef CppMethod<Class> METHOD ;
-    SignedMethod( METHOD* m, ValidMethod valid_ ) : method(m), valid(valid_){}
+    SignedMethod( METHOD* m, ValidMethod valid_, const char* doc ) : method(m), valid(valid_), docstring(doc) {}
     
     METHOD* method ;
     ValidMethod valid ;
+    std::string docstring ;
     
     inline int nargs(){ return method->nargs() ; }
     inline bool is_void(){ return method->is_void() ; }
+
 } ;
 
 template <typename Class>
@@ -218,12 +220,19 @@ public:
         
 	    int n = m->size() ;
         Rcpp::LogicalVector voidness( n) ;
-        for( int i=0; i<n; i++){ voidness[i] = m->at(i)->is_void() ; }
+        Rcpp::CharacterVector docstrings( n ) ;
+        signed_method_class* met ;
+        for( int i=0; i<n; i++){ 
+            met = m->at(i) ;
+            voidness[i] = met->is_void() ;
+            docstrings[i] = met->docstring ;
+        }
         
 	    field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
         field( "class_pointer" ) = class_xp ;
         field( "size" )          = n ;
         field( "void" )          = voidness ;
+        field( "docstrings" )    = docstrings ;
         
     }
 } ;
@@ -426,12 +435,12 @@ public:
 	}
 	
 	
-	self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes ){
+	self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes, const char* docstring = 0){
 		typename map_vec_signed_method::iterator it = singleton->vec_methods.find( name_ ) ; 
 	    if( it == singleton->vec_methods.end() ){
 	        it = singleton->vec_methods.insert( vec_signed_method_pair( name_, new vec_signed_method() ) ).first ;
 	    } 
-		(it->second)->push_back( new signed_method_class(m, valid ) ) ;
+		(it->second)->push_back( new signed_method_class(m, valid, docstring ) ) ;
 		if( *name_ == '[' ) singleton->specials++ ;
 		return *this ;
 	}
