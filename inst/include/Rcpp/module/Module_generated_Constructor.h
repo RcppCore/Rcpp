@@ -105,12 +105,4 @@ class Constructor_6 : public Constructor_Base<Class>{
     virtual int nargs(){ return 6 ; }
 } ;
 
-struct init_0 {};
-template <typename U0> struct init_1{} ;
-template <typename U0, typename U1> struct init_2{} ;
-template <typename U0, typename U1, typename U2> struct init_3{} ;
-template <typename U0, typename U1, typename U2, typename U3> struct init_4{} ;
-template <typename U0, typename U1, typename U2, typename U3, typename U4> struct init_5{} ;
-template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5> struct init_6{} ;
-
 #endif
