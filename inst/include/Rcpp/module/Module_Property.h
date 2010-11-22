@@ -34,7 +34,8 @@ class CppProperty_GetMethod : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
 		void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("property is read only") ; }		
 		bool is_readonly(){ return true ; }
-		
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		std::string class_name ;
@@ -53,7 +54,8 @@ class CppProperty_GetConstMethod : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( (object->*getter)() ) ; }
 		void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("property is read only") ; }		
 		bool is_readonly(){ return true ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		std::string class_name ;
@@ -73,7 +75,8 @@ class CppProperty_GetPointerMethod : public CppProperty<Class> {
 		SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( getter(object) ) ; }
 		void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("property is read only") ; }		
 		bool is_readonly(){ return true ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		std::string class_name ;				
@@ -99,7 +102,8 @@ class CppProperty_GetMethod_SetMethod : public CppProperty<Class> {
 			) ;
 		}		
 		bool is_readonly(){ return false ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
@@ -123,7 +127,8 @@ class CppProperty_GetConstMethod_SetMethod : public CppProperty<Class> {
 			) ;
 		}		
 		bool is_readonly(){ return false ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
@@ -153,7 +158,8 @@ class CppProperty_GetMethod_SetPointer : public CppProperty<Class> {
 			) ;
 		}		
 		bool is_readonly(){ return false ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
@@ -178,7 +184,8 @@ class CppProperty_GetConstMethod_SetPointer : public CppProperty<Class> {
 			) ;
 		}		
 		bool is_readonly(){ return false ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
@@ -205,7 +212,8 @@ class CppProperty_GetPointer_SetMethod : public CppProperty<Class> {
 			) ;
 		}		
 		bool is_readonly(){ return false ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		SetMethod setter ;
@@ -233,7 +241,8 @@ class CppProperty_GetPointer_SetPointer : public CppProperty<Class> {
 			) ;
 		}		
 		bool is_readonly(){ return false ; }
-
+		std::string get_class(){ return class_name; }
+			
 	private:
 		GetMethod getter ;
 		SetMethod setter ;

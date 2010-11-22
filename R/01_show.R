@@ -39,11 +39,30 @@ setMethod( "show", "C++Class", function(object){
 		externalptr_address(object@pointer) )
 	writeLines( txt )
 	
-	met <- .Call( CppClass__methods, object@pointer )
-	if( length( met ) ){
-		txt <- sprintf( "\n%d methods : \n%s", length(met), paste( sprintf("    %s", met), collapse = "\n") )
-		writeLines( txt )
+	fields <- object@fields
+	nfields <- length(fields)
+	names <- names(fields)
+	txt <- character(nfields)
+	for( i in seq_len(nfields) ){
+	    f <- fields[[i]]
+	    txt[i] <- sprintf( "    %s %s%s",
+	        f$cpp_class, 
+	        names[i], 
+	        if( f$read_only ) " [readonly]" else "" 
+	    )    
 	}
+	# TODO: pull out reflection info about constructors
+	writeLines( "Fields: " )
+	writeLines( paste( txt, collapse = "\n" ) )
+	
+	writeLines( "\nMethods: " )
+	mets <- object@methods
+	nmethods <- length(mets)
+	txt <- character( nmethods )
+	for( i in seq_len(nmethods) ){
+	    txt[i] <- mets[[i]]$info("    ")
+	}
+	writeLines( paste( txt, collapse = "\n" ) )
 } )
 
 setMethod( "show", "C++Function", function(object){

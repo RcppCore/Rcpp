@@ -1,5 +1,10 @@
 2010-11-22  Romain Francois <romain@r-enthusiasts.com>
 
+    * R/00_classes.R: C++OverloadedMethods gains an "info" class methods, factored
+    out from Module.R
+    
+    * R/01_show.R: more information printed in show( C++Class )
+
     * inst/include/Rcpp/Module/Module_generated_get_signature.h: templates to
     grab method signatures
     

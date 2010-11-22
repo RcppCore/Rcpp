@@ -41,6 +41,11 @@ setRefClass( "C++OverloadedMethods",
         void          = "logical", 
         docstrings    = "character", 
         signatures    = "character"
+    ), 
+    methods = list( 
+        info = function(prefix = "    " ){
+             paste( paste( prefix, signatures, "\n", prefix, prefix, "docstring :", docstrings) , collapse = "\n" )   
+        }
     )
 )
 
