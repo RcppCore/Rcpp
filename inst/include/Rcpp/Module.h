@@ -260,11 +260,13 @@ class CppProperty {
 	public:
 		typedef Rcpp::XPtr<Class> XP ;
 		
-		CppProperty(){} ;
+		CppProperty(const char* doc = 0) : docstring( doc == 0 ? "" : doc ) {} ;
 		virtual SEXP get(Class* ) throw(std::range_error){ throw std::range_error("cannot retrieve property"); }
 		virtual void set(Class*, SEXP) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("cannot set property"); }
 		virtual bool is_readonly(){ return false; }
 		virtual std::string get_class(){ return ""; }
+		
+		std::string docstring ;
 } ;
 
 template <typename Class>
@@ -296,6 +298,7 @@ public:
         field( "cpp_class" )     = p->get_class();
         field( "pointer" )       = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
         field( "class_pointer" ) = class_xp ;
+        field( "docstring" )     = p->docstring ;
     }
 } ;
 

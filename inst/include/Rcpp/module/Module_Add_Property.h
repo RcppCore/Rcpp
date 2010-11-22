@@ -23,73 +23,73 @@
 #define Rcpp_Module_Add_Property_h
 
 	template <typename PROP>
-	self& property( const char* name_, PROP (Class::*GetMethod)(void) ){
-		AddProperty( name_, new CppProperty_GetMethod<Class,PROP>(GetMethod) ) ;
+	self& property( const char* name_, PROP (Class::*GetMethod)(void), const char* docstring = 0){
+		AddProperty( name_, new CppProperty_GetMethod<Class,PROP>(GetMethod, docstring) ) ;
 		return *this ;
 	}
 
 	template <typename PROP>
-	self& property( const char* name_, PROP (Class::*GetMethod)(void) const ){
-		AddProperty( name_, new CppProperty_GetConstMethod<Class,PROP>(GetMethod) ) ;
+	self& property( const char* name_, PROP (Class::*GetMethod)(void) const, const char* docstring = 0){
+		AddProperty( name_, new CppProperty_GetConstMethod<Class,PROP>(GetMethod, docstring) ) ;
 		return *this ;
 	}
 	
 	template <typename PROP>
-	self& property( const char* name_, PROP (*GetMethod)(Class*) ){
-		AddProperty( name_, new CppProperty_GetPointerMethod<Class,PROP>(GetMethod) ) ;
+	self& property( const char* name_, PROP (*GetMethod)(Class*), const char* docstring ){
+		AddProperty( name_, new CppProperty_GetPointerMethod<Class,PROP>(GetMethod,docstring) ) ;
 		return *this ;
 	}
 	
 	
 	template <typename PROP>
-	self& property( const char* name_, PROP (Class::*GetMethod)(void), void (Class::*SetMethod)(PROP) ){
+	self& property( const char* name_, PROP (Class::*GetMethod)(void), void (Class::*SetMethod)(PROP), const char* docstring = 0){
 		AddProperty( 
 			name_, 
-			new CppProperty_GetMethod_SetMethod<Class,PROP>(GetMethod, SetMethod)
+			new CppProperty_GetMethod_SetMethod<Class,PROP>(GetMethod, SetMethod, docstring)
 		) ;
 		return *this ;
 	}
 	template <typename PROP>
-	self& property( const char* name_, PROP (Class::*GetMethod)(void) const, void (Class::*SetMethod)(PROP) ){
+	self& property( const char* name_, PROP (Class::*GetMethod)(void) const, void (Class::*SetMethod)(PROP), const char* docstring = 0){
 		AddProperty( 
 			name_, 
-			new CppProperty_GetConstMethod_SetMethod<Class,PROP>(GetMethod, SetMethod)
-		) ;
-		return *this ;
-	}
-	
-	
-	template <typename PROP>
-	self& property( const char* name_, PROP (Class::*GetMethod)(void), void (*SetMethod)(Class*,PROP) ){
-		AddProperty( 
-			name_, 
-			new CppProperty_GetMethod_SetPointer<Class,PROP>(GetMethod, SetMethod)
-		) ;
-		return *this ;
-	}
-	template <typename PROP>
-	self& property( const char* name_, PROP (Class::*GetMethod)(void) const , void (*SetMethod)(Class*,PROP) ){
-		AddProperty( 
-			name_, 
-			new CppProperty_GetConstMethod_SetPointer<Class,PROP>(GetMethod, SetMethod)
+			new CppProperty_GetConstMethod_SetMethod<Class,PROP>(GetMethod, SetMethod, docstring)
 		) ;
 		return *this ;
 	}
 	
 	
 	template <typename PROP>
-	self& property( const char* name_, PROP (*GetMethod)(Class*), void (Class::*SetMethod)(PROP) ){
+	self& property( const char* name_, PROP (Class::*GetMethod)(void), void (*SetMethod)(Class*,PROP), const char* docstring = 0 ){
 		AddProperty( 
 			name_, 
-			new CppProperty_GetPointer_SetMethod<Class,PROP>(GetMethod, SetMethod)
+			new CppProperty_GetMethod_SetPointer<Class,PROP>(GetMethod, SetMethod, docstring )
+		) ;
+		return *this ;
+	}
+	template <typename PROP>
+	self& property( const char* name_, PROP (Class::*GetMethod)(void) const , void (*SetMethod)(Class*,PROP), const char* docstring = 0 ){
+		AddProperty( 
+			name_, 
+			new CppProperty_GetConstMethod_SetPointer<Class,PROP>(GetMethod, SetMethod, docstring)
+		) ;
+		return *this ;
+	}
+	
+	
+	template <typename PROP>
+	self& property( const char* name_, PROP (*GetMethod)(Class*), void (Class::*SetMethod)(PROP), const char* docstring = 0 ){
+		AddProperty( 
+			name_, 
+			new CppProperty_GetPointer_SetMethod<Class,PROP>(GetMethod, SetMethod, docstring)
 		) ;
 	}
 
 	template <typename PROP>
-	self& property( const char* name_, PROP (*GetMethod)(Class*), void (*SetMethod)(Class*,PROP) ){
+	self& property( const char* name_, PROP (*GetMethod)(Class*), void (*SetMethod)(Class*,PROP), const char* docstring = 0 ){
 		AddProperty( 
 			name_, 
-			new CppProperty_GetPointer_SetPointer<Class,PROP>(GetMethod, SetMethod)
+			new CppProperty_GetPointer_SetPointer<Class,PROP>(GetMethod, SetMethod, docstring)
 		) ;
 		return *this ;
 	}
