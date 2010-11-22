@@ -162,6 +162,7 @@ class CppMethod {
 		virtual ~CppMethod(){}
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
+		virtual bool is_const(){ return false ; }
 		virtual const char* signature(const char* name ){ return name ; }
 } ;
 
@@ -205,6 +206,7 @@ public:
     
     inline int nargs(){ return method->nargs() ; }
     inline bool is_void(){ return method->is_void() ; }
+    inline bool is_const(){ return method->is_const() ; }
     inline const char* signature(const char* name){ return method->signature(name); }
 
 } ;
@@ -231,12 +233,13 @@ public:
 	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp, const char* name ) : Reference( "C++OverloadedMethods" ){
         
 	    int n = m->size() ;
-        Rcpp::LogicalVector voidness( n) ;
+        Rcpp::LogicalVector voidness( n), constness(n) ;
         Rcpp::CharacterVector docstrings( n ), signatures(n) ;
         signed_method_class* met ;
         for( int i=0; i<n; i++){ 
             met = m->at(i) ;
             voidness[i] = met->is_void() ;
+            constness[i] = met->is_const() ;
             docstrings[i] = met->docstring ;
             signatures[i] = met->signature(name) ;
         }
@@ -245,6 +248,7 @@ public:
         field( "class_pointer" ) = class_xp ;
         field( "size" )          = n ;
         field( "void" )          = voidness ;
+        field( "const" )         = constness ;
         field( "docstrings" )    = docstrings ;
         field( "signatures" )    = signatures ;
     }
