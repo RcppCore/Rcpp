@@ -29,7 +29,8 @@ setRefClass( "C++Field",
         pointer       = "externalptr", 
         cpp_class     = "character", 
         read_only     = "logical", 
-        class_pointer = "externalptr"
+        class_pointer = "externalptr", 
+        docstring     = "character"
     )
 )
 

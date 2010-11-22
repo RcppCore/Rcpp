@@ -57,10 +57,12 @@ setMethod( "show", "C++Class", function(object){
 	txt <- character(nfields)
 	for( i in seq_len(nfields) ){
 	    f <- fields[[i]]
-	    txt[i] <- sprintf( "    %s %s%s",
+	    doc <- f$docstring
+	    txt[i] <- sprintf( "    %s %s%s%s",
 	        f$cpp_class, 
 	        names[i], 
-	        if( f$read_only ) " [readonly]" else "" 
+	        if( f$read_only ) " [readonly]" else "", 
+	        if( nchar(doc) ) sprintf( "\n        docstring : %s", doc ) else ""
 	    )    
 	}
 	writeLines( paste( txt, collapse = "\n" ) )
