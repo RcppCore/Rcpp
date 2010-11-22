@@ -54,7 +54,8 @@ setRefClass( "C++Constructor",
         pointer       = "externalptr", 
         class_pointer = "externalptr", 
         nargs         = "integer", 
-        signature     = "character"
+        signature     = "character", 
+        docstring     = "character"
     )
 )
 

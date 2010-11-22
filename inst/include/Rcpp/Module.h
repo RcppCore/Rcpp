@@ -179,11 +179,13 @@ public:
     
     SignedConstructor( 
         Constructor_Base<Class>* ctor_, 
-        ValidConstructor valid_
-    ) : ctor(ctor_), valid(valid_){}
+        ValidConstructor valid_, 
+        const char* doc
+        ) : ctor(ctor_), valid(valid_), docstring(doc == 0 ? "" : doc){}
     
     Constructor_Base<Class>* ctor ;
     ValidConstructor valid ;
+    std::string docstring ;
     
     inline int nargs(){ return ctor->nargs() ; }
     inline const char* signature(const std::string& class_name){ 
@@ -195,7 +197,7 @@ template <typename Class>
 class SignedMethod {
 public:
     typedef CppMethod<Class> METHOD ;
-    SignedMethod( METHOD* m, ValidMethod valid_, const char* doc ) : method(m), valid(valid_), docstring(doc) {}
+    SignedMethod( METHOD* m, ValidMethod valid_, const char* doc ) : method(m), valid(valid_), docstring(doc == 0 ? "" : doc) {}
     
     METHOD* method ;
     ValidMethod valid ;
@@ -216,6 +218,7 @@ public:
         field( "nargs" )         = m->nargs() ;
         std::string sign(  m->signature(class_name) ) ;
         field( "signature" )     = sign ;
+        field( "docstring" )     = m->docstring ;
     }
 } ;
 
@@ -337,13 +340,13 @@ public:
 	~class_(){}
 	
 	
-	self& AddConstructor( constructor_class* ctor, ValidConstructor valid ){
-		singleton->constructors.push_back( new signed_constructor_class( ctor, valid ) );  
+	self& AddConstructor( constructor_class* ctor, ValidConstructor valid, const char* docstring = 0 ){
+		singleton->constructors.push_back( new signed_constructor_class( ctor, valid, docstring ) );  
 		return *this ;
 	}
 	
-	self& default_constructor( ValidConstructor valid = &yes_arity<0> ){
-	    return constructor( valid ) ;  
+	self& default_constructor( const char* docstring= 0, ValidConstructor valid = &yes_arity<0> ){
+	    return constructor( docstring, valid ) ;  
 	}
 		
 #include <Rcpp/module/Module_generated_class_constructor.h>

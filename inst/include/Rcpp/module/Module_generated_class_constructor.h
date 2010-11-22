@@ -30,8 +30,8 @@
         typename U4, 
         typename U5
     > 
-    self& constructor( ValidConstructor valid = &yes_arity<6> ){
-        AddConstructor( new Constructor_6<Class,U0,U1,U2,U3,U4,U5> , valid ) ;
+    self& constructor( const char* docstring = 0, ValidConstructor valid = &yes_arity<6> ){
+        AddConstructor( new Constructor_6<Class,U0,U1,U2,U3,U4,U5> , valid, docstring ) ;
         return *this ;   
     }
 
@@ -42,8 +42,8 @@
         typename U3, 
         typename U4
     > 
-    self& constructor( ValidConstructor valid = &yes_arity<5>){
-        AddConstructor( new Constructor_5<Class,U0,U1,U2,U3,U4> , valid ) ;
+    self& constructor( const char* docstring = 0, ValidConstructor valid = &yes_arity<5>){
+        AddConstructor( new Constructor_5<Class,U0,U1,U2,U3,U4> , valid, docstring ) ;
         return *this ;   
     }
 
@@ -53,8 +53,8 @@
         typename U2, 
         typename U3
     > 
-    self& constructor( ValidConstructor valid = &yes_arity<4>){
-        AddConstructor( new Constructor_4<Class,U0,U1,U2,U3> , valid ) ;
+    self& constructor( const char* docstring="", ValidConstructor valid = &yes_arity<4>){
+        AddConstructor( new Constructor_4<Class,U0,U1,U2,U3> , valid, docstring ) ;
         return *this ;   
     }
 
@@ -64,8 +64,8 @@
         typename U1, 
         typename U2
     > 
-    self& constructor( ValidConstructor valid = &yes_arity<3>){
-        AddConstructor( new Constructor_3<Class,U0,U1,U2> , valid ) ;
+    self& constructor( const char* docstring="",  ValidConstructor valid = &yes_arity<3>){
+        AddConstructor( new Constructor_3<Class,U0,U1,U2> , valid, docstring ) ;
         return *this ;   
     }
 
@@ -73,21 +73,21 @@
         typename U0, 
         typename U1
     > 
-    self& constructor( ValidConstructor valid = &yes_arity<2>){
-        AddConstructor( new Constructor_2<Class,U0,U1> , valid ) ;
+    self& constructor( const char* docstring="", ValidConstructor valid = &yes_arity<2>){
+        AddConstructor( new Constructor_2<Class,U0,U1> , valid, docstring ) ;
         return *this ;   
     }
  
     template <
         typename U0
     > 
-    self& constructor( ValidConstructor valid = &yes_arity<1>){
-        AddConstructor( new Constructor_1<Class,U0> , valid ) ;
+    self& constructor( const char* docstring="", ValidConstructor valid = &yes_arity<1>){
+        AddConstructor( new Constructor_1<Class,U0> , valid, docstring ) ;
         return *this ;   
     }
     
-    self& constructor( ValidConstructor valid = &yes ){
-        AddConstructor( new Constructor_0<Class>, valid ) ;
+    self& constructor( const char* docstring="", ValidConstructor valid = &yes ){
+        AddConstructor( new Constructor_0<Class>, valid , docstring) ;
         return *this ;
     }
     
