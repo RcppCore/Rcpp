@@ -43,7 +43,9 @@ setMethod( "show", "C++Class", function(object){
 	nctors <- length( ctors )
 	txt <- character( nctors )
 	for( i in seq_len(nctors) ){
-	    txt[i] <- sprintf( "    %s", ctors[[i]]$signature )
+	    ctor <- ctors[[i]]
+	    doc  <- ctor$docstring
+	    txt[i] <- sprintf( "    %s%s", ctor$signature, if( nchar(doc) ) sprintf( "\n        docstring : %s", doc) else "" )
 	}
 	writeLines( "Constructors:" )
 	writeLines( paste( txt, collapse = "\n" ) )
