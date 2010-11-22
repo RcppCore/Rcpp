@@ -221,7 +221,7 @@ method_wrapper <- function( METHOD, where ){
             CppMethod__invoke_void = CppMethod__invoke_void,
             CppMethod__invoke_notvoid = CppMethod__invoke_notvoid,
             dealWith = dealWith, 
-            docstring = paste( paste( METHOD$signatures, "\n\tdocstring :", METHOD$docstrings) , collapse = "\n" )
+            docstring = METHOD$info("")
         )
         
         extCall <- if( all( METHOD$void ) ){
