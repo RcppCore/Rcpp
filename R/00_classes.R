@@ -39,7 +39,8 @@ setRefClass( "C++OverloadedMethods",
         class_pointer = "externalptr", 
         size          = "integer", 
         void          = "logical", 
-        docstrings    = "character"
+        docstrings    = "character", 
+        signatures    = "character"
     )
 )
 

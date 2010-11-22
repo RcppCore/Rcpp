@@ -162,6 +162,7 @@ class CppMethod {
 		virtual ~CppMethod(){}
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
+		virtual const char* signature(const char* name ){ return name ; }
 } ;
 
 #include <Rcpp/module/Module_generated_Constructor.h>
@@ -197,6 +198,7 @@ public:
     
     inline int nargs(){ return method->nargs() ; }
     inline bool is_void(){ return method->is_void() ; }
+    inline const char* signature(const char* name){ return method->signature(name); }
 
 } ;
 
@@ -216,16 +218,17 @@ public:
     typedef SignedMethod<Class> signed_method_class ;
 	typedef std::vector<signed_method_class*> vec_signed_method ;
 	
-	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp ) : Reference( "C++OverloadedMethods" ){
+	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp, const char* name ) : Reference( "C++OverloadedMethods" ){
         
 	    int n = m->size() ;
         Rcpp::LogicalVector voidness( n) ;
-        Rcpp::CharacterVector docstrings( n ) ;
+        Rcpp::CharacterVector docstrings( n ), signatures(n) ;
         signed_method_class* met ;
         for( int i=0; i<n; i++){ 
             met = m->at(i) ;
             voidness[i] = met->is_void() ;
             docstrings[i] = met->docstring ;
+            signatures[i] = met->signature(name) ;
         }
         
 	    field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
@@ -233,9 +236,11 @@ public:
         field( "size" )          = n ;
         field( "void" )          = voidness ;
         field( "docstrings" )    = docstrings ;
-        
+        field( "signatures" )    = signatures ;
     }
 } ;
+
+#include <Rcpp/module/Module_generated_get_signature.h>
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
@@ -625,7 +630,7 @@ public:
 	    for( int i=0; i<n; i++, ++it){
 		    mnames[i] = it->first ;
 		    v = it->second ;
-		    res[i] = S4_CppOverloadedMethods<Class>( v , class_xp ) ;
+		    res[i] = S4_CppOverloadedMethods<Class>( v , class_xp, it->first.c_str() ) ;
 		}
 		res.names() = mnames ;
 	    return res ;

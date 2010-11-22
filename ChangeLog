@@ -1,3 +1,22 @@
+2010-11-22  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/Module/Module_generated_get_signature.h: templates to
+    grab method signatures
+    
+    * inst/include/Rcpp/Module.h: CppMethod gains a signature method that returns
+    the signature of the method.
+    
+    * R/00_classes.R: C++OverloadedMethods gains a "signatures" field that 
+    contains the signature of each overload
+    
+    * R/Module.R: registered method gain an automatically generated self description
+    that contains the method(s) signature(s) and the docstring that is declared
+    in .method
+    
+    * inst/include/Rcpp/Module/Module_generated_CppMethod.h: implement signature
+
+    * inst/include/Rcpp/Module/Module_generated_Pointer_CppMethod.h: idem
+
 2010-11-21  Romain Francois <romain@r-enthusiasts.com>
 
 	* R/Module.R: internal version of cpp_hasDefaultConstructor
