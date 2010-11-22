@@ -27,8 +27,10 @@
 	class CppProperty_Getter_Setter : public CppProperty<Class> {
 		public: 	
 			typedef PROP Class::*pointer ;
+			typedef CppProperty<Class> prop_class ;
 			
-			CppProperty_Getter_Setter( pointer ptr_ ) : ptr(ptr_), class_name(DEMANGLE(PROP)) {}
+			CppProperty_Getter_Setter( pointer ptr_ , const char* doc) : 
+			    prop_class(doc), ptr(ptr_), class_name(DEMANGLE(PROP)) {}
 			
 			SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( object->*ptr ) ; }
 			void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ object->*ptr = Rcpp::as<PROP>( value ) ; }		
@@ -46,8 +48,10 @@
 	class CppProperty_Getter : public CppProperty<Class> {
 		public: 	
 			typedef PROP Class::*pointer ;
+			typedef CppProperty<Class> prop_class ;
 			
-			CppProperty_Getter( pointer ptr_ ) : ptr(ptr_), class_name(DEMANGLE(PROP)) {}
+			CppProperty_Getter( pointer ptr_, const char* doc = 0 ) : 
+			    prop_class(doc), ptr(ptr_), class_name(DEMANGLE(PROP)) {}
 			
 			SEXP get(Class* object) throw(std::range_error){ return Rcpp::wrap( object->*ptr ) ; }
 			void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){ throw std::range_error("read only data member") ; }		
@@ -61,17 +65,17 @@
 
 	
 	template <typename T>
-	self& field( const char* name_, T Class::*ptr ){
+	self& field( const char* name_, T Class::*ptr, const char* docstring = 0){
 		AddProperty( name_, 
-			new CppProperty_Getter_Setter<T>( ptr )
+			new CppProperty_Getter_Setter<T>( ptr, docstring )
 		) ;
 		return *this ;
 	}
 	
 	template <typename T>
-	self& field_readonly( const char* name_, T Class::*ptr ){
+	self& field_readonly( const char* name_, T Class::*ptr, const char* docstring = 0 ){
 		AddProperty( name_, 
-			new CppProperty_Getter<T>( ptr )
+			new CppProperty_Getter<T>( ptr, docstring )
 		) ;
 		return *this ;
 	}
