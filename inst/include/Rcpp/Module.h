@@ -165,6 +165,8 @@ class CppMethod {
 		virtual const char* signature(const char* name ){ return name ; }
 } ;
 
+#include <Rcpp/module/Module_generated_get_return_type.h>
+#include <Rcpp/module/Module_generated_ctor_signature.h>
 #include <Rcpp/module/Module_generated_Constructor.h>
 #include <Rcpp/module/Module_generated_class_signature.h>
 
@@ -184,6 +186,9 @@ public:
     ValidConstructor valid ;
     
     inline int nargs(){ return ctor->nargs() ; }
+    inline const char* signature(const std::string& class_name){ 
+        return ctor->signature(class_name) ;
+    }
 } ;
 
 template <typename Class>
@@ -205,10 +210,12 @@ public:
 template <typename Class>
 class S4_CppConstructor : public Rcpp::Reference {
 public:             
-    S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp ) : Reference( "C++Constructor" ){
+    S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name ) : Reference( "C++Constructor" ){
         field( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
         field( "class_pointer" ) = class_xp ;
         field( "nargs" )         = m->nargs() ;
+        std::string sign(  m->signature(class_name) ) ;
+        field( "signature" )     = sign ;
     }
 } ;
 
@@ -636,12 +643,12 @@ public:
 	    return res ;
 	}
 	
-	Rcpp::List getConstructors( SEXP class_xp ){
+	Rcpp::List getConstructors( SEXP class_xp){
 	    int n = constructors.size() ;
 		Rcpp::List out(n) ;
 		typename vec_signed_constructor::iterator it = constructors.begin( ) ;
 		for( int i=0; i<n; i++, ++it){
-			out[i] = S4_CppConstructor<Class>( *it , class_xp ) ; 
+			out[i] = S4_CppConstructor<Class>( *it , class_xp, name ) ; 
 		} 
 		return out ;
 	}

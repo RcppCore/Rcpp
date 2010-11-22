@@ -39,6 +39,16 @@ setMethod( "show", "C++Class", function(object){
 		externalptr_address(object@pointer) )
 	writeLines( txt )
 	
+	ctors <- object@constructors
+	nctors <- length( ctors )
+	txt <- character( nctors )
+	for( i in seq_len(nctors) ){
+	    txt[i] <- sprintf( "    %s", ctors[[i]]$signature )
+	}
+	writeLines( "Constructors:" )
+	writeLines( paste( txt, collapse = "\n" ) )
+	
+	writeLines( "\nFields: " )
 	fields <- object@fields
 	nfields <- length(fields)
 	names <- names(fields)
@@ -51,8 +61,6 @@ setMethod( "show", "C++Class", function(object){
 	        if( f$read_only ) " [readonly]" else "" 
 	    )    
 	}
-	# TODO: pull out reflection info about constructors
-	writeLines( "Fields: " )
 	writeLines( paste( txt, collapse = "\n" ) )
 	
 	writeLines( "\nMethods: " )

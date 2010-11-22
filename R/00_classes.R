@@ -53,7 +53,8 @@ setRefClass( "C++Constructor",
     fields = list( 
         pointer       = "externalptr", 
         class_pointer = "externalptr", 
-        nargs         = "integer"
+        nargs         = "integer", 
+        signature     = "character"
     )
 )
 

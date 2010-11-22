@@ -22,42 +22,6 @@
 #ifndef Rcpp_Module_generated_get_signature_h
 #define Rcpp_Module_generated_get_signature_h
 
-struct void_type{} ;
-
-template <typename OUT>
-inline std::string get_return_type(){
-    return demangle( typeid(OUT).name() ).data() ;
-}
-template <>
-inline std::string get_return_type<void_type>(){
-    return "void" ;
-}
-template <>
-inline std::string get_return_type<Rcpp::IntegerVector>(){
-    return "Rcpp::IntegerVector" ;
-}
-template <>
-inline std::string get_return_type<Rcpp::NumericVector>(){
-    return "Rcpp::NumericVector" ;
-}
-template <>
-inline std::string get_return_type<Rcpp::RawVector>(){
-    return "Rcpp::RawVector" ;
-}
-template <>
-inline std::string get_return_type<Rcpp::ExpressionVector>(){
-    return "Rcpp::ExpressionVector" ;
-}
-template <>
-inline std::string get_return_type<Rcpp::List>(){
-    return "Rcpp::List" ;
-}
-template <>
-inline std::string get_return_type<Rcpp::CharacterVector>(){
-    return "Rcpp::CharacterVector" ;
-}
-
-
 template <typename OUT>
 inline const char* signature(const std::string& name){
     std::string s ;
