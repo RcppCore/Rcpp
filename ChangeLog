@@ -2,6 +2,16 @@
 
     * R/Module.R: calling an exposed C++ more efficiently by using the xp directly 
     rather than traversing the map internally
+    
+    * R/00_classes.R: C++Function gains a docstring slot to host self documentation
+    of the internal function
+    
+    * R/01_show.R: updated show( C++Function )
+    
+    * inst/include/Rcpp/module/Module_generated_CppFunction.h: self documentation
+    for exposed C++ functions
+    
+    * inst/include/Rcpp/module/Module_generated_function.h: idem
 
 2010-11-22  Romain Francois <romain@r-enthusiasts.com>
 
