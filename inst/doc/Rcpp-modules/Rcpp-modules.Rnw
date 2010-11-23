@@ -19,6 +19,8 @@
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 
 <<echo=FALSE,print=FALSE>>=
+require( inline )
+require( Rcpp )
 prettyVersion <- packageDescription("Rcpp")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
 @
@@ -181,7 +183,55 @@ RcppExport SEXP Uniform__draw( SEXP xp, SEXP n_ ) {
 As it is generally a bad idea to expose external pointers as is, 
 they usually get wrapped as a slot of an S4 class. 
 
-<<eval=FALSE>>=
+<<echo=FALSE,results=hide>>=
+f1 <- cxxfunction( , "", includes = '
+using namespace Rcpp ;
+
+class Uniform {
+public:
+    Uniform(double min_, double max_) : min(min_), max(max_){}
+    
+    NumericVector draw(int n){
+        RNGScope scope ; 
+        return runif( n, min, max ) ;    
+    }
+    
+private:
+    double min, max ;
+};
+
+/** create an external pointer to a Uniform object */
+RcppExport SEXP Uniform__new(SEXP min_, SEXP max_){
+    // convert inputs to appropriate C++ types
+    double min = as<double>(min_), max = as<double>(max_) ;
+	
+    // create a pointer to an Uniform object and wrap it
+    // as an external pointer
+    Rcpp::XPtr<Uniform> ptr( new Uniform( min, max ), true ) ;
+    
+    // return the external pointer to the R side
+    return ptr ;
+}
+
+/** invoke the draw method */
+RcppExport SEXP Uniform__draw( SEXP xp, SEXP n_ ) {
+	// grab the object as a XPtr (smart pointer) to Uniform
+    Rcpp::XPtr<Uniform> ptr(xp) ;
+    
+    // convert the parameter to int
+    int n = as<int>(n_) ;
+	
+    // invoke the function
+    NumericVector res = ptr->draw( n ) ;
+    
+    // return the result to R
+    return res ;
+}
+', plugin = "Rcpp" )
+getDynLib( f1 )
+@
+
+<<>>=
 setClass( "Uniform", representation( pointer = "externalptr" ) )
 
 # helper
@@ -321,52 +371,347 @@ The requirements on the functions to be exposed are:
 template.
 \item The output type must be either \texttt{void} or any type that
 can be managed by the \texttt{Rcpp::wrap} template.
-\item The function name itself has to be unique, in other words no two functions with
-  the same name but different signatures itself are allowed (whereas this is
-  possible in \proglang{C++} itself).
+\item The function name itself has to be unique in the module, 
+  in other words no two functions with
+  the same name but different signatures are allowed. C++ allows overloading 
+  functions. This might be added in future versions of modules. 
 \end{itemize}
+
+In addition to the name of the function and the function pointer, it is possible
+to pass a short description of the function as the third parameter of \texttt{function}. 
+
+<<lang=cpp>>=
+using namespace Rcpp ;
+	
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod){
+	function( "norm", &norm, "Documentation for norm" ) ;
+}
+@
+
+The description is used when displaying the function to the R prompt: 
+
+<<echo=FALSE>>=
+fx <- cxxfunction( , "", includes = '
+
+using namespace Rcpp ;
+	
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod){
+	function( "norm", &norm, "Documentation for norm" ) ;
+}
+', plugin = "Rcpp" )
+mod <- Module( "mod", getDynLib( fx ) )
+@
+<<>>=
+show( mod$norm )
+@
 
 \subsection{Exposing \proglang{C++} classes}
 
-Rcpp modules also provide a mechanism for exposing \proglang{C++} classes. The mechanism
-internally uses external pointers, but the user should consider this as
-hidden implementation details as this is properly encapsulated.
+Rcpp modules also provide a mechanism for exposing \proglang{C++} classes, based
+on the reference classes introduced in R 2.12.0. 
+
+\subsubsection{Initial example}
 
 A class is exposed using the \texttt{class\_} class. The \texttt{World}
 class may be exposed to \proglang{R} :
 
 <<lang=cpp>>=
-class World {
+using namespace Rcpp ;
+class Uniform {
 public:
-    World() : msg("hello"){}
-    void set(std::string msg) { this->msg = msg; }
-    std::string greet() { return msg; }
-
-private:
-    std::string msg;
+    Uniform(double min_, double max_) : min(min_), max(max_){}
+    
+    NumericVector draw(int n) const {
+        RNGScope scope ; 
+        return runif( n, min, max ) ;    
+    }
+    
+    double min, max ;
 };
 
-void clearWorld( World* w){
-	w->set( "" ) ;
+double width( Uniform* w){
+	return w->max - w->min ;
 }
 
-RCPP_MODULE(yada){
-	using namespace Rcpp ;
+RCPP_MODULE(unif_module){
 
-	class_<World>( "World" )
-		.method( "greet", &World::greet )
-		.method( "set", &World::set )
-		.method( "clear", &clearWorld )
+	class_<Uniform>( "Uniform" )
+	
+        .constructor<double,double>()
+        
+        .field( "min", &Uniform::min )
+        .field( "max", &Uniform::max )
+        
+        .method( "draw", &World::draw )
+        .method( "width", &width )
 	;
 
 }
 @
 
-\texttt{class\_} is templated by the \proglang{C++} class or struct that is to be exposed
-to \proglang{R}. The parameter of the \texttt{class\_<World>} constructor is the name we will
+<<results=hide,echo=FALSE>>=
+fx_unif <- cxxfunction( , "", includes = '
+using namespace Rcpp ;
+class Uniform {
+public:
+    Uniform(double min_, double max_) : min(min_), max(max_){}
+    
+    NumericVector draw(int n) const {
+        RNGScope scope ; 
+        return runif( n, min, max ) ;    
+    }
+    
+    double min, max ;
+};
+
+double width( Uniform* w){
+	return w->max - w->min ;
+}
+
+RCPP_MODULE(unif_module){
+
+	class_<Uniform>( "Uniform" )
+	
+	    .constructor<double,double>()
+	
+	    .field( "min", &Uniform::min )
+	    .field( "max", &Uniform::max )
+	    
+		.method( "draw", &Uniform::draw )
+		.method( "width", &width )
+	;
+
+}
+', plugin = "Rcpp" )
+unif_module <- Module( "unif_module", getDynLib(fx_unif ) )
+@
+<<>>=
+Uniform <- unif_module$Uniform
+u <- new( Uniform, 0, 10 )
+u$draw( 10L )
+u$width()
+u$max <- 1
+u$width()
+u$draw( 10 )
+@
+
+\texttt{class\_} is templated by the \proglang{C++} class or struct 
+that is to be exposed to \proglang{R}. 
+The parameter of the \texttt{class\_<Uniform>} constructor is the name we will
 use on the \proglang{R} side. It usually makes sense to use the same name as the class
 name, but this is not forced, which might be useful when exposing a class
 generated from a template.
+
+Then constructors, fields and methods are exposed. 
+
+\subsubsection{Exposing constructors}
+
+Public constructors that take from 0 and 6 parameters can be exposed
+to the R level using the \texttt{.constuctor} template method of \texttt{.class\_}. 
+
+Optionally, \texttt{.constructor} can take a description as the first argument. 
+
+<<lang=cpp>>=
+    .constructor<double,double>("sets the min and max of the distribution")
+@
+
+Also, the second argument can be a function pointer (called validator)
+matching the following type : 
+
+<<lang=cpp>>=
+typedef bool (*ValidConstructor)(SEXP*,int) ;
+@
+
+The validator can be used to implement dispatch to the appropriate constructor, 
+when multiple constructors taking the same number of arguments are exposed. 
+
+TODO: include example here
+
+\subsubsection{Exposing fields and properties}
+
+\texttt{class\_} has three ways to expose fields and properties, as 
+illustrated in the example below :
+
+<<lang=cpp>>=
+using namespace Rcpp ;
+class Foo {
+    public:
+        Foo( double x_, double y_, double z_ ): 
+            x(x_), y(y_), z(z_){}
+        
+        double x ;
+        double y ;
+        
+        double get_z(){ return z ; }
+        void set_z( double z_ ){ z = z_ ; }
+        
+    private:
+        double z ;
+} ;
+
+RCPP_MODULE(mod_foo){
+    class_<Foo>( "Foo" )
+    
+        .constructor<double,double,double>()
+        
+        .field( "x", &Foo::x )
+        .field_readonly( "y", &Foo::y )
+        
+        .property( "z", &Foo::get_z, &Foo::set_z ) 
+    ; 
+}
+@
+
+The \texttt{.field} method exposes a public field with read/write access from R. 
+\texttt{field} accepts an extra parameter to give a short description of the
+field: 
+
+<<lang=cpp>>=
+    .field( "x", &Foo::x, "documentation for x" )
+@
+
+The \texttt{.field\_readonly} exposes a public field with read-only access from R. 
+It also accepts the description of the field. 
+
+<<lang=cpp>>=
+    .field_readonly( "y", &Foo::y, "documentation for y" )
+@
+
+The \texttt{.property} method allows indirect access to fields through 
+a getter and a setter. The setter is optional, and the property is considered 
+read-only if the setter is not supplied. Description of the property is also 
+allowed: 
+
+<<lang=cpp>>=
+    // with getter and setter
+    .property( "z", &Foo::get_z, &Foo::set_z, "Documentation for z" )
+    
+    // with only getter
+    .property( "z", &Foo::get_z, "Documentation for z" )
+@
+
+The type of the field (\textbf{T}) is deduced from the return type of the getter, and if a 
+setter is given its unique parameter should be of the same type. 
+
+Getters can be member functions taking no parameter and returning a \textbf{T} 
+(for example \texttt{get\_z} above), or
+a free function taking a pointer to the exposed 
+class and returning a \textbf{T}, for example: 
+
+<<lang=cpp>>=
+double z_get( Foo* foo ){ return foo->get_z() ; }
+@
+
+Setters can be either a member function taking a \texttt{T} and returning void, such 
+as \texttt{set\_z} above, or a free function taking a pointer to the target 
+class and a \textbf{T} : 
+
+<<lang=cpp>>=
+void z_set( Foo* foo, double z ){ foo->set_z(z) ; }
+@
+
+Using properties give more flexibility in case field access has to be tracked
+or has impact on other fields. For example, this class keeps track of how many times
+the \texttt{x} field is read and written. 
+
+<<lang=cpp>>=
+class Bar {
+    public:
+    
+        Bar(double x_) : x(x_), nread(0), nwrite(0){}
+        
+        double get_x( ){
+            nread++ ;
+            return x ;
+        }
+        
+        void set_x( double x_){
+            nwrite++ ;
+            x = x_ ;
+        }
+        
+        IntegerVector stats() const {
+            return IntegerVector::create( 
+                _["read"] = nread, 
+                _["write"] = nwrite
+            ) ;
+        }
+        
+    private:
+        double x; 
+        int nread, nwrite ;
+}
+RCPP_MODULE(mod_bar){
+    class_<Bar>( "Bar" )
+    
+        .constructor<double>() 
+        
+        .property( "x", &Bar::get_x, &Bar::set_x )
+        .method( "stats", &Bar::stats )
+    ; 
+}
+@
+<<echo=FALSE,results=hide>>=
+fx_bar <- cxxfunction( , "", includes = '
+class Bar {
+    public:
+    
+        Bar(double x_) : x(x_), nread(0), nwrite(0){}
+        
+        double get_x( ){
+            nread++ ;
+            return x ;
+        }
+        
+        void set_x( double x_){
+            nwrite++ ;
+            x = x_ ;
+        }
+        
+        IntegerVector stats() const {
+            return IntegerVector::create( 
+                _["read"] = nread, 
+                _["write"] = nwrite
+            ) ;
+        }
+        
+    private:
+        double x; 
+        int nread, nwrite ;
+} ;
+
+RCPP_MODULE(mod_bar){
+    class_<Bar>( "Bar" )
+    
+        .constructor<double>() 
+        
+        .property( "x", &Bar::get_x, &Bar::set_x )
+        .method( "stats", &Bar::stats )
+    ; 
+}
+', plugin = "Rcpp" )
+mod_bar <- Module( "mod_bar", getDynLib( fx_bar ) )
+@
+<<>>=
+Bar <- mod_bar$Bar
+b <- new( Bar, 10 )
+b$x + b$x
+b$stats()
+b$x <- 10
+b$stats()
+@
+
+
+\subsubsection{Exposing methods}
+
 
 The construction of the object is then followed by two calls to the
 \texttt{method} member function of \texttt{class\_<World>}. The
