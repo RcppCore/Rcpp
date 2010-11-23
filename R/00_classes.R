@@ -89,10 +89,3 @@ setClass( "C++Function",
 	contains = "function"
 )
 
-setClass( "C++ModuleFunction", 
-    representation( 
-        pointer = "externalptr"
-    )
-    , contains = "function"
-)
-
