@@ -281,7 +281,8 @@ namespace Rcpp{
 	    return Rcpp::List::create( 
 	        Rcpp::XPtr<CppFunction>( fun, false ), 
 	        fun->is_void(), 
-	        fun->docstring 
+	        fun->docstring, 
+	        fun->signature( name.data() )
 	        ) ;
 	}
 	

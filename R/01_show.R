@@ -85,6 +85,11 @@ setMethod( "show", "C++Function", function(object){
     if( length(doc) && nchar( doc ) ){
         writeLines( sprintf( "    docstring : %s", doc ) )
     }
+    
+    sign <- object@signature
+    if( length(sign) && nchar( sign ) ){
+        writeLines( sprintf( "    signature : %s", sign ) )
+    }
 } )
 
 setMethod( "show", "Module", function( object ){

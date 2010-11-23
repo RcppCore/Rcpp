@@ -39,10 +39,13 @@ class CppFunction {
 		virtual ~CppFunction(){} ;
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
-		
+		virtual const char* signature(const char* name ){ return "" ; }
+
 		std::string docstring ;
 };
 
+#include <Rcpp/module/Module_generated_get_return_type.h>
+#include <Rcpp/module/Module_generated_get_signature.h>
 
 // templates CppFunction0, ..., CppFunction65
 #include <Rcpp/module/Module_generated_CppFunction.h>
@@ -169,7 +172,6 @@ class CppMethod {
 		virtual const char* signature(const char* name ){ return name ; }
 } ;
 
-#include <Rcpp/module/Module_generated_get_return_type.h>
 #include <Rcpp/module/Module_generated_ctor_signature.h>
 #include <Rcpp/module/Module_generated_Constructor.h>
 #include <Rcpp/module/Module_generated_class_signature.h>
@@ -256,8 +258,6 @@ public:
         field( "signatures" )    = signatures ;
     }
 } ;
-
-#include <Rcpp/module/Module_generated_get_signature.h>
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
