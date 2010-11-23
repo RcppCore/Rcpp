@@ -53,12 +53,11 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 
 \abstract{
   \noindent
-  This note discusses \textsl{Rcpp modules} which have been introduced in
-  version 0.8.1 of the \pkg{Rcpp} package.  \textsl{Rcpp modules} allow programmers to
+  This note discusses \textsl{Rcpp modules}. \textsl{Rcpp modules} allow programmers to
   expose \proglang{C++} functions and classes to \proglang{R} with relative
   ease.  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
-  \proglang{C++} library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python} which provides the same
-  features (and much more) for Python.
+  \proglang{C++} library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python} 
+  which provides similar features for Python.
 }
 
 \section{Motivation}
@@ -68,7 +67,7 @@ by the \pkg{Rcpp} package and underlying \proglang{C++} library
 \citep{CRAN:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
 \proglang{R} and \proglang{C++} integration by replacing the traditional
 \proglang{R} API \citep{R:Extensions} with a consistent set of \proglang{C++}
-classes.
+classes. The \textsl{Rcpp-introduction} vignette describes the API. 
 
 However, these facilities are limited to a function by function basis. The
 programmer has to implement a \Sexpr{link(".Call")} compatible function
@@ -80,30 +79,31 @@ Exposing existing \proglang{C++} functions to \proglang{R} through \pkg{Rcpp}
 usually involves several steps. One often writes either an additional wrapper
 function that is responsible for converting input objects to the appropriate
 types, calling the actual worker function and converting the results back to
-a suitable type that can be returned to R. Alternatively, one can alter the
-worker function by changes to its signature and return value of the interface
-prescribed by the \texttt{.Call()} function of the \proglang{R} API. The
-return type has to the traditional \texttt{SEXP} from the \proglang{R}
-API. But with \pkg{Rcpp} we can also use one of the many types from the
-\pkg{Rcpp} API that offers implicit conversion to \texttt{SEXP}.
-
-Consider the \texttt{hello} function below:
+a suitable type that can be returned to R (\texttt{SEXP}). 
+Consider the \texttt{norm} function below:
 
 <<lang=cpp>>=
-const char* hello( std::string who ){
-	std::string result( "hello " ) ;
-	result += who ;
-	return result.c_str() ;
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
 }
 @
 
-One can expose a such a function using \pkg{Rcpp} converters
+This simple function does not meet the requirements set by the \texttt{.Call}
+convention, so it cannot be called directly by R. Exposing the
+function involves writing a simple wrapper function 
+that does match the \texttt{.Call} requirements. \pkg{Rcpp} makes it easy.
 
 <<lang=cpp>>=
-RcppExport SEXP hello_wrapper( SEXP who){
-    std::string input = Rcpp::as<std::string>( who )
-    const char* result = hello( input ) ;
-    return Rcpp::wrap( result );
+using namespace Rcpp ;
+RcppExport SEXP norm_wrapper(SEXP x_, SEXP y_){
+    // step 0: convert input to C++ types
+    double x = as<double>(x_), y = as<double>(y_) ;
+    
+    // step 1: call the underlying C++ function
+    double res = norm( x, y ) ;
+    
+    // step 2: return the result as a SEXP
+    return Rcpp::wrap( res );
 }
 @
 
@@ -112,89 +112,105 @@ transform from a \texttt{SEXP} to a number of different \proglang{C++} and
 \pkg{Rcpp} types. The \pkg{Rcpp} function \texttt{wrap()} offers the opposite
 functionality and converts many known types to a \texttt{SEXP}.
 
-For comparison, the traditionally approach using the \proglang{R} API looks similar
-
-<<lang=cpp>>=
-extern "C" SEXP hello_wrapper( SEXP who){
-    std::string input = CHAR(STRING_ELT(input,0)) ;
-    const char* result = hello( input ) ;
-    return mkString( result );
-}
-@
-
-Either way requires direct involvement from the programmer. This quickly
+This process is simple enough, and is used by a number of CRAN package. 
+It however requires direct involvement from the programmer, which quickly
 becomes a time sink when many functions are involved. \textsl{Rcpp modules}
-provides a much more efficient way to expose the \texttt{hello} function to \proglang{R}.
+provides a much more elegant and unintrusive way to expose the \texttt{norm}
+function to \proglang{R}.
 
 \subsection{Exposing classes}
 
 Exposing \proglang{C++} classes or structs is even more of a challenge because it
-requires writing glue code for each member function that is to be exposed. Consider the
-simple \texttt{World} class below:
+requires writing glue code for each member function that is to be exposed. 
+
+Consider the simple \texttt{Uniform} class below:
 
 <<lang=cpp>>=
-class World {
+class Uniform {
 public:
-    World() : msg("hello"){}
-    void set(std::string msg) { this->msg = msg; }
-    std::string greet() { return msg; }
-
+    Uniform(double min_, double max_) : min(min_), max(max_){}
+    
+    NumericVector draw(int n){
+        RNGScope scope ; 
+        return runif( n, min, max ) ;    
+    }
+    
 private:
-    std::string msg;
+    double min, max ;
 };
 @
 
-We might want a way to create objects of this class, and use the member
-functions \texttt{greet} and \texttt{set} to alter the object. External pointers
+To use this class from R, we at least need to expose the constructor and
+the \texttt{draw} method. External pointers
 \citep{R:Extensions} are the perfect vessel for this, and using the
 \texttt{Rcpp:::XPtr} template from \pkg{Rcpp} we can expose the class
-by exposing three functions :
+with these two functions: 
 
 <<lang=cpp>>=
 using namespace Rcpp ;
 
-/** create an external pointer to a World object */
-RcppExport SEXP World__new(){
-	return Rcpp::XPtr<World>( new World, true ) ;
+/** create an external pointer to a Uniform object */
+RcppExport SEXP Uniform__new(SEXP min_, SEXP max_){
+    // convert inputs to appropriate C++ types
+    double min = as<double>(min_), max = as<double>(max_) ;
+	
+    // create a pointer to an Uniform object and wrap it
+    // as an external pointer
+    Rcpp::XPtr<Uniform> ptr( new Uniform( min, max ), true ) ;
+    
+    // return the external pointer to the R side
+    return ptr ;
 }
 
-/** invoke the greet method */
-RcppExport SEXP World__greet( SEXP xp ) {
-	Rcpp::XPtr<World> w(xp) ;
-	return Rcpp::wrap( w->greet() ) ;
-}
-
-/** invoke the set method */
-RcppExport SEXP World__set( SEXP xp, SEXP msg ){
-	Rcpp::XPtr<World> w(xp) ;
-	w->set( Rcpp::as<std::string>( msg ) ) ;
-	return R_NilValue ;
+/** invoke the draw method */
+RcppExport SEXP Uniform__draw( SEXP xp, SEXP n_ ) {
+	// grab the object as a XPtr (smart pointer) to Uniform
+    Rcpp::XPtr<Uniform> ptr(xp) ;
+    
+    // convert the parameter to int
+    int n = as<int>(n_) ;
+	
+    // invoke the function
+    NumericVector res = ptr->draw( n ) ;
+    
+    // return the result to R
+    return res ;
 }
 @
 
-which can be used from \proglang{R} with some S4 glue code:
+As it is generally a bad idea to expose external pointers as is, 
+they usually get wrapped as a slot of an S4 class. 
 
 <<eval=FALSE>>=
-setClass( "World", representation( pointer = "externalptr" ) )
+setClass( "Uniform", representation( pointer = "externalptr" ) )
 
-World_method <- function(name){
-	paste( "World", name, sep = "__" )
+# helper
+Uniform_method <- function(name){
+	paste( "Uniform", name, sep = "__" )
 }
 
-setMethod( "$", "World", function(x, name ){
-	function(...) .Call( World_method(name) , x@pointer, ... )
+# syntactic sugar to allow object$method( ... )
+setMethod( "$", "Uniform", function(x, name ){
+	function(...) .Call( Uniform_method(name) , x@pointer, ... )
+} )
+# syntactic sugar to allow new( "Uniform", ... )
+setMethod( "initialize", "Uniform", function(.Object, ...){
+    .Object@pointer <- .Call( Uniform_method("new"), ... )
+    .Object
 } )
 
-w <- new( "World", .Call( World_method( "new" ) ) )
-w$set( "hello world" )
-w$greet()
+u <- new( "Uniform", 0, 10 )
+u$draw( 10L )
 @
 
-\pkg{Rcpp} considerably simplifies the code that would be involved for using
-external pointers with the traditional \proglang{R} API. This still involves
-a lot of pattern code that quickly becomes hard to maintain and error prone.
-\textsl{Rcpp modules} offer a much nicer way to expose the \texttt{World}
-class in a way that makes both the internal \proglang{C++} code and the \proglang{R} code easier.
+\pkg{Rcpp} considerably simplifies the code that would 
+be involved for using external pointers with the traditional \proglang{R} API. 
+This still involves a lot of mechanical code that quickly 
+becomes hard to maintain and error prone.
+\textsl{Rcpp modules} offer an elegant way to expose the \texttt{Uniform}
+class in a way that makes both the internal
+\proglang{C++} code and the \proglang{R} code easier.
+
 
 \section{Rcpp modules}
 
