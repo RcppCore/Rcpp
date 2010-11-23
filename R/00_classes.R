@@ -85,7 +85,10 @@ setClass( "C++ClassRepresentation",
 setClass( "C++Object")
 
 setClass( "C++Function", 
-	representation( pointer = "externalptr" ), 
+	representation( 
+	    pointer = "externalptr", 
+	    docstring = "character"
+	), 
 	contains = "function"
 )
 

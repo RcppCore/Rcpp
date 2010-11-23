@@ -78,7 +78,13 @@ setMethod( "show", "C++Class", function(object){
 } )
 
 setMethod( "show", "C++Function", function(object){
-	writeLines( sprintf( "internal C++ function <%s>", externalptr_address(object@pointer) ) )
+	txt <- sprintf( "internal C++ function <%s>", externalptr_address(object@pointer) )
+    writeLines( txt )
+    
+    doc <- object@docstring
+    if( length(doc) && nchar( doc ) ){
+        writeLines( sprintf( "    docstring : %s", doc ) )
+    }
 } )
 
 setMethod( "show", "Module", function( object ){
