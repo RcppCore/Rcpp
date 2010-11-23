@@ -74,6 +74,7 @@ setMethod( "$", "Module", function(x, name){
 		info <- .Call( Module__get_function, pointer, name )
 		fun_ptr <- info[[1L]]
 		doc     <- info[[3L]]
+		sign    <- info[[4L]]
 		f <- function(...) NULL
 		stuff <- list( fun_pointer = fun_ptr, InternalFunction_invoke = InternalFunction_invoke )
 		body(f) <- if( info[[2]] ) {
@@ -86,7 +87,7 @@ setMethod( "$", "Module", function(x, name){
 		        .External( InternalFunction_invoke, fun_pointer, ... )
 		    }, stuff ) 
 		}
-		new( "C++Function", f, pointer = fun_ptr, docstring = doc )
+		new( "C++Function", f, pointer = fun_ptr, docstring = doc, signature = sign )
 	} else if( .Call( Module__has_class, pointer, name ) ){
         value <- .Call( Module__get_class, pointer, name )
         value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
