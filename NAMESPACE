@@ -10,7 +10,8 @@ useDynLib(Rcpp,
     
     Module__classes_info,Module__complete,Module__get_class,
     Module__has_class,Module__has_function,Module__functions_arity,
-    Module__name, CppObject__finalize, 
+    Module__name, Module__get_function, 
+    CppObject__finalize, 
     
     get_rcpp_cache, init_Rcpp_cache, reset_current_error, 
     rcpp_error_recorder, rcpp_set_current_error, rcpp_get_current_error, 

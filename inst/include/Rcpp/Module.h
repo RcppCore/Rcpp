@@ -119,6 +119,7 @@ class Module {
 		Rcpp::CharacterVector class_names() ;
 		Rcpp::List classes_info() ;
 		Rcpp::CharacterVector complete() ;
+		SEXP get_function_ptr( const std::string& ) ;
 		
 		inline void Add( const char* name_ , CppFunction* ptr){
 			functions.insert( FUNCTION_PAIR( name_ , ptr ) ) ;
