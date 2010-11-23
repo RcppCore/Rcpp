@@ -1,3 +1,8 @@
+2010-11-23  Romain Francois <romain@r-enthusiasts.com>
+
+    * R/Module.R: calling an exposed C++ more efficiently by using the xp directly 
+    rather than traversing the map internally
+
 2010-11-22  Romain Francois <romain@r-enthusiasts.com>
 
     * R/00_classes.R: C++OverloadedMethods gains an "info" class methods, factored

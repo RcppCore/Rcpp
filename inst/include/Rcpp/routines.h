@@ -51,6 +51,7 @@ CALLFUN_1(Module__functions_arity);
 CALLFUN_2(Module__get_class);
 CALLFUN_2(Module__has_class);
 CALLFUN_2(Module__has_function);
+CALLFUN_2(Module__get_function);
 CALLFUN_1(Module__name);
 CALLFUN_2(CppObject__finalize);
 

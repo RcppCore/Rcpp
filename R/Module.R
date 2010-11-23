@@ -56,7 +56,7 @@ setMethod("initialize", "Module",
                    moduleName = "UNKNOWN",
                    packageName = "",
                    pointer = .badModulePointer, ...) {
-              env <- new.env(TRUE, emptyenv())
+              env <- new.env(TRUE, emptyenv())           
               as(.Object, "environment") <- env
               assign("pointer", pointer, envir = env)
               assign("packageName", packageName, envir = env)
@@ -71,14 +71,25 @@ setMethod("initialize", "Module",
 setMethod( "$", "Module", function(x, name){
     pointer <- .getModulePointer(x)
 	if( .Call( Module__has_function, pointer, name ) ){
-		function( ... ) {
-			res <- .External( Module__invoke , pointer, name, ... )
-			if( isTRUE( res$void ) ) invisible(NULL) else res$result
+		info <- .Call( Module__get_function, pointer, name )
+		fun_ptr <- info[[1L]]
+		f <- function(...) NULL
+		stuff <- list( fun_pointer = fun_ptr, InternalFunction_invoke = InternalFunction_invoke )
+		body(f) <- if( info[[2]] ) {
+		    substitute( {
+		        .External( InternalFunction_invoke, fun_pointer, ... )
+		        invisible(NULL)         
+		    }, stuff ) 
+		} else {
+		    substitute( {
+		        .External( InternalFunction_invoke, fun_pointer, ... )
+		    }, stuff ) 
 		}
+		new( "C++Function", f, pointer = fun_ptr )
 	} else if( .Call( Module__has_class, pointer, name ) ){
-		value <- .Call( Module__get_class, pointer, name )
-                value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
-                value
+        value <- .Call( Module__get_class, pointer, name )
+        value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
+        value
 	} else{
 		stop( "no such method or class in module" )
 	}
