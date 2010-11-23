@@ -361,6 +361,7 @@ namespace Rcpp{
 		slot( "fields" )      = cl->fields( clxp.asSexp() ) ;
 		slot( "methods" )     = cl->getMethods( clxp.asSexp() ) ;
 		slot( "constructors") = cl->getConstructors( clxp.asSexp() ) ;
+		slot( "docstring"   ) = cl->docstring ;
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {

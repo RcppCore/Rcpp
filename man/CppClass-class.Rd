@@ -22,6 +22,7 @@ Information about an internal c++ class.
     \item{\code{constructors}:}{list of \linkS4class{C++Constructor} objects}
     \item{\code{methods}:}{list of \linkS4class{C++OverloadedMethods} objects}
     \item{generator}{the generator object for the class}
+    \item{docstring}{description of the class}
   }
 }
 \section{Methods}{
