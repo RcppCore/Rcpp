@@ -34,9 +34,12 @@ setMethod( "show", "C++Object", function(object){
 } )
 
 setMethod( "show", "C++Class", function(object){
-	txt <- sprintf( "C++ class '%s' <%s>", 
+	doc <- object@docstring
+    txt <- sprintf( "C++ class '%s' <%s>%s", 
 		.Call( Class__name, object@pointer ), 
-		externalptr_address(object@pointer) )
+		externalptr_address(object@pointer), 
+		if( length(doc) && nchar(doc) ) sprintf( "\n    docstring : %s", doc ) else ""
+	)
 	writeLines( txt )
 	
 	ctors <- object@constructors

@@ -709,9 +709,8 @@ b$x <- 10
 b$stats()
 @
 
-
 \subsubsection{Exposing methods}
-
+\subsubsection{Object finalizers}
 
 The construction of the object is then followed by two calls to the
 \texttt{method} member function of \texttt{class\_<World>}. The

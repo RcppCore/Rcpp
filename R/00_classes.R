@@ -67,8 +67,9 @@ setClass( "C++Class",
 	    module       = "externalptr", 
 	    fields       = "list",
 	    methods      = "list",
-	    constructors = "list", 
-	    generator    = "refObjectGenerator"
+	    constructors = "list",
+	    generator    = "refObjectGenerator", 
+	    docstring    = "character"
 	), 
 	contains = "character"
 	)

@@ -55,8 +55,9 @@ class CppFunction {
 
 class class_Base {
 public:
-	class_Base() :name(){} ;
-	class_Base(const char* name_) : name(name_){} ;
+	class_Base() : name(), docstring() {} ;
+	class_Base(const char* name_, const char* doc) : 
+	    name(name_), docstring( doc == 0 ? "" : doc ){} ;
 	
 	virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
 	virtual Rcpp::List getMethods(SEXP){ return Rcpp::List(0); }
@@ -84,8 +85,6 @@ public:
 		return R_NilValue ;
 	}
 	
-	
-	
 	virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual Rcpp::CharacterVector property_names(){ return Rcpp::CharacterVector(0) ; }
 	virtual bool property_is_readonly(const std::string& ) throw(std::range_error) { return false ; }
@@ -105,6 +104,7 @@ public:
 	}
 	
 	std::string name ;
+	std::string docstring ;
 } ;
 
 class Module {
@@ -336,12 +336,18 @@ public:
 	typedef std::map<std::string,prop_class*> PROPERTY_MAP ;
 	typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
 	
-	class_( const char* name_ ) : 
-	    class_Base(name_), vec_methods(), properties(), finalizer_pointer(0), specials(0), constructors()
+	class_( const char* name_, const char* doc = 0) : 
+	    class_Base(name_, 0), 
+	    vec_methods(), 
+	    properties(), 
+	    finalizer_pointer(0), 
+	    specials(0), 
+	    constructors()
 	{
 		if( !singleton ){
 			singleton = new self ;
 			singleton->name = name_ ;
+			singleton->docstring = std::string( doc == 0 ? "" : doc );
 			singleton->finalizer_pointer = new finalizer_class ;
 			getCurrentScope()->AddClass( name_, singleton ) ;
 		}
