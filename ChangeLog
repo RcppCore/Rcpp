@@ -1,5 +1,7 @@
 2010-11-23  Romain Francois <romain@r-enthusiasts.com>
 
+    * R/00_classes.R: C++Class gains a docstring slot to host self documentation
+    
     * R/Module.R: calling an exposed C++ more efficiently by using the xp directly 
     rather than traversing the map internally
     
@@ -8,7 +10,7 @@
     the function
     
     * R/01_show.R: updated show( C++Function ) to display the docstring and
-    the signature
+    the signature. updated show( C++Class ) to display the docstring.
     
     * inst/include/Rcpp/module/Module_generated_CppFunction.h: self documentation
     for exposed C++ functions and extraction of the signature
