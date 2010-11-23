@@ -16,6 +16,8 @@ Internal C++ function
   \describe{
     \item{\code{.Data}:}{R function that calls back to the internal function}
     \item{\code{pointer}:}{External pointer to a C++ object poiting to the function}
+    \item{\code{docstring}:}{Short documentation for the function}
+    \item{\code{signature}:}{C++ signature}
   }
 }
 \section{Extends}{

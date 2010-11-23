@@ -12,6 +12,7 @@
     \item{\code{generator}:}{Object of class \code{"refObjectGenerator"} ~~ }
     \item{\code{cpp_fields}:}{Object of class \code{"list"} ~~ }
     \item{\code{cpp_methods}:}{Object of class \code{"list"} ~~ }
+    \item{\code{cpp_constructor}:}{Object of class \code{"list"} ~~ }
     \item{\code{slots}:}{Object of class \code{"list"} ~~ }
     \item{\code{contains}:}{Object of class \code{"list"} ~~ }
     \item{\code{virtual}:}{Object of class \code{"logical"} ~~ }
