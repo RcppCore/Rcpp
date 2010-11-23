@@ -32,13 +32,15 @@ class CppObject ;
 
 class CppFunction {
 	public:
-		CppFunction() {}
+		CppFunction(const char* doc = 0) : docstring( doc == 0 ? "" : doc) {}
 		virtual SEXP operator()(SEXP*) { 
 			return R_NilValue ;
 		}
 		virtual ~CppFunction(){} ;
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
+		
+		std::string docstring ;
 };
 
 

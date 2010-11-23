@@ -280,7 +280,8 @@ namespace Rcpp{
 	    }
 	    return Rcpp::List::create( 
 	        Rcpp::XPtr<CppFunction>( fun, false ), 
-	        fun->is_void()
+	        fun->is_void(), 
+	        fun->docstring 
 	        ) ;
 	}
 	
