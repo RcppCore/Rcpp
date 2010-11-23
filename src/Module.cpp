@@ -32,7 +32,9 @@ typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ;
 RCPP_FUNCTION_1( bool, Class__has_default_constructor, XP_Class cl ){
     return cl->has_default_constructor() ;
 }
-
+RCPP_FUNCTION_2( SEXP, Module__get_function, XP_Module module, std::string fun ){
+    return module->get_function_ptr( fun ) ;
+}
 RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
 	return cl->has_method(m) ;
 }
@@ -108,8 +110,6 @@ RCPP_FUNCTION_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj){
 	cl->run_finalizer( obj ) ;
 	return R_NilValue ;
 }
-
-
 
 // .External functions
 extern "C" SEXP InternalFunction_invoke( SEXP args ){
@@ -267,6 +267,22 @@ namespace Rcpp{
 			) ;
 		END_RCPP
 	}                                                                                  
+	
+	SEXP Module::get_function_ptr( const std::string& name ){
+	    MAP::iterator it = functions.begin() ;
+	    int n = functions.size() ;
+	    CppFunction* fun = 0 ;
+	    for( int i=0; i<n; i++, ++it){
+	        if( name.compare( it->first ) == 0){
+	            fun = it->second ;
+	            break ;
+	        }
+	    }
+	    return Rcpp::List::create( 
+	        Rcpp::XPtr<CppFunction>( fun, false ), 
+	        fun->is_void()
+	        ) ;
+	}
 	
 	Rcpp::List Module::classes_info(){
 		int n = classes.size() ;
