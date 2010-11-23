@@ -87,7 +87,8 @@ setClass( "C++Object")
 setClass( "C++Function", 
 	representation( 
 	    pointer = "externalptr", 
-	    docstring = "character"
+	    docstring = "character", 
+	    signature = "character"
 	), 
 	contains = "function"
 )
