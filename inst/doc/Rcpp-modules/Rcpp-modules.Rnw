@@ -710,47 +710,27 @@ b$stats()
 @
 
 \subsubsection{Exposing methods}
-\subsubsection{Object finalizers}
 
-The construction of the object is then followed by two calls to the
-\texttt{method} member function of \texttt{class\_<World>}. The
-\texttt{method} methods can expose :
+\texttt{class\_} has several overloaded and templated \texttt{.method}
+functions allowing the programmer to expose a method associated with the class.
+
+A legitimate method to be exposed by \texttt{.method} can be: 
 \begin{itemize}
-\item member functions of the target class, such as \texttt{greet} or \texttt{set}, by
-providing the name that will be used on the \proglang{R} side (e.g. \texttt{greet}) and
-a pointer to the actual member function (e.g. \texttt{\&World::greet} )
-\item free functions that take a pointer to the target class as their
-first parameter such as the \proglang{C++} function \texttt{clearWorld} in the previous
-example. Again, we provide the \proglang{R} name for the method (\texttt{clear}) and
-a pointer to the \proglang{C++} function.
+\item A public member function of the class, either const or non const, that 
+returns void or any type that can be handled by \texttt{Rcpp::wrap}, and that 
+takes between 0 and 65 parameters whose types can be handled by \texttt{Rcpp::as}
+\item A free function that takes a pointer to the target class as its first 
+parameter, followed by 0 or more (up to 65) parameters that can be handled by 
+\texttt{Rcpp::as} and returning a type that can be handled by \texttt{Rcpp::wrap} 
+or void. 
 \end{itemize}
 
-The module exposes the default constructor of the \texttt{World} class as
-well to support creation of \texttt{World} objects from \proglang{R}. The
-\pkg{Rcpp} module assumes responsibilities for type conversion for input and
-output types.
+TODO: mention docstring
 
-<<eval=FALSE>>=
-require( Rcpp )
+TODO: mention overloading, need good example
 
-# load the module
-yada <- Module( "yada" )
 
-# grab the World class
-World <- yada$World
-
-# create a new World object
-w <- new( World )
-
-# use methods of the class
-w$greet()
-w$set( "hello world" )
-w$greet()
-w$clear()
-w$greet()
-@
-
-\subsubsection{Const and non-const member functions}
+\paragraph{Const and non-const member functions}
 
 \texttt{method} is able to expose both \texttt{const} and \texttt{non const}
 member functions of a class. There are however situations where
@@ -767,6 +747,18 @@ const_reference back ( ) const;
 To resolve the ambiguity, it is possible to use \texttt{const\_method}
 or \texttt{nonconst\_method} instead of \texttt{method} in order
 to restrict the candidate methods.
+
+\paragraph{Special methods}
+
+\pkg{Rcpp} considers the methods \texttt{[[} and \texttt{[[<-} special,
+and promotes them to indexing methods on the \proglang{R} side.
+
+
+
+\subsubsection{Object finalizers}
+
+TODO: described the .finalize
+
 
 \subsubsection{S4 dispatch}
 
@@ -786,107 +778,7 @@ setMethod( "show", yada$World , function(object){
 } )
 @
 
-\subsubsection{Special methods}
-
-\pkg{Rcpp} considers the methods \texttt{[[} and \texttt{[[<-} special,
-and promotes them to indexing methods on the \proglang{R} side.
-
-\subsubsection{Exposing public data members}
-
-Public data members of a \proglang{C++} class can be exposed by
-\texttt{field} or \texttt{field\_readonly}.
-
-<<lang=cpp>>=
-	class Num{
-	public:
-	    Num() : x(0.0), y(0){} ;
-
-	    double x ;
-	    int y ;
-	};
-
-	RCPP_MODULE(yada){
-		using namespace Rcpp ;
-
-		class_<Num>( "Num" )
-
-			// read and write data member
-			.field( "x", &Num::x )
-
-			// read only data member
-			.field_readonly( "y", &Num::y )
-		;
-	}
-@
-
-Here, the class \texttt{Num} exposes the data member \texttt{x}
-with read/write access, and the data member \texttt{y} with only
-read access.
-
-\subsubsection{Properties}
-
-Properties provides a more general way to expose data members,
-through the explicit registration of getter and setter. Properties
-are declared by the \texttt{property} method of \texttt{class\_}.
-
-<<lang=cpp>>=
-class Num{
-public:
-    Num() : x(0.0), y(0){} ;
-
-    double getX() { return x ; }
-    void setX(double value){ x = value ; }
-
-    int getY() { return y ; }
-
-private:
-    double x ;
-    int y ;
-};
-
-RCPP_MODULE(yada){
-	using namespace Rcpp ;
-
-	class_<Num>( "Num" )
-
-		// read and write property
-		.property( "x", &Num::getX, &Num::setX )
-
-		// read-only property
-		.property( "y", &Num::getY )
-	;
-}
-@
-
-The \texttt{x} property is declared with both getter (\texttt{getX}) and
-setter (\texttt{setX}) so that we can read and write the property at the R level
-with the dollar operator.
-
-The \texttt{y} property only exposes a getter (\texttt{getY}) so attempting to
-set the property from R will generate an error.
-
-<<eval=FALSE>>=
-mod <- Module( "yada" )
-Num <- mod$Num
-w <- new( Num )
-w$x
-# [1] 0
-w$x <- 2.0
-w$x
-# [1] 2
-w$y
-# [1] 0
-# y is read-only, this generates an error
-w$y <- 10L
-@
-
-Getters may be const or non-const member functions of the target class taking
-no parameters. Free functions taking a pointer to the target class are also
-allowed as getters.
-
-Setters can be non-const member function taking one parameter or a free
-function taking a pointer to target class as the first parameter, and the new
-value as the second parameter.
+TODO: mention R inheritance (John ?)
 
 \subsubsection{Full example}
 
@@ -951,6 +843,7 @@ RCPP_MODULE(yada){
 }
 @
 
+
 \section{Using modules in other packages}
 
 \subsection{Namespace import/export}
@@ -1011,7 +904,7 @@ prompt( yada, "yada-module.Rd" )
 \section{Future extensions}
 
 \texttt{Boost.Python} has many more features that we would like to port
-to Rcpp modules : class inheritance, overloading, default arguments, enum
+to Rcpp modules : class inheritance, default arguments, enum
 types, ...
 
 \section{Summary}
