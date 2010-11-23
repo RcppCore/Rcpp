@@ -105,7 +105,7 @@ RcppExport SEXP norm_wrapper(SEXP x_, SEXP y_){
     double res = norm( x, y ) ;
     
     // step 2: return the result as a SEXP
-    return Rcpp::wrap( res );
+    return wrap( res );
 }
 @
 
