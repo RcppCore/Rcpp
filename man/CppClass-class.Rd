@@ -19,7 +19,8 @@ Information about an internal c++ class.
     \item{\code{pointer}:}{external pointer to the internal infomation}
     \item{\code{module}:}{external pointer to the module}
     \item{\code{fields}:}{list of \linkS4class{C++Field} objects}
-    \item{\code{methods}:}{list of \linkS4class{C++Method} objects}
+    \item{\code{constructors}:}{list of \linkS4class{C++Constructor} objects}
+    \item{\code{methods}:}{list of \linkS4class{C++OverloadedMethods} objects}
     \item{generator}{the generator object for the class}
   }
 }
