@@ -94,3 +94,18 @@ setClass( "C++Function",
 	contains = "function"
 )
 
+.cppfunction_formals_gets <- function (fun, envir = environment(fun), value) {
+    bd <- body(fun)
+    b2 <- bd[[2L]]
+    for( i in seq_along(value) ){
+        b2[[3L+i]] <- as.name( names(value)[i] )
+    }
+    bd[[2]] <- b2
+    f <- fun@.Data
+    formals(f) <- value
+    body(f) <- bd
+    fun@.Data <- f
+    fun
+}
+setGeneric( "formals<-" )
+setMethod( "formals<-", "C++Function", .cppfunction_formals_gets )
