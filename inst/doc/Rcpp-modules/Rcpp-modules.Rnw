@@ -57,31 +57,34 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
   \noindent
   This note discusses \textsl{Rcpp modules}. \textsl{Rcpp modules} allow programmers to
   expose \proglang{C++} functions and classes to \proglang{R} with relative
-  ease.  \textsl{Rcpp modules} are inspired from the \texttt{Boost.Python}
-  \proglang{C++} library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python} 
-  which provides similar features for Python.
+  ease.  \textsl{Rcpp modules} are inspired from the \pkg{Boost.Python}
+  \proglang{C++} library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python}
+  which provides similar features for \proglang{Python}.
 }
 
 \section{Motivation}
 
 Exposing \proglang{C++} functionality to \proglang{R} is greatly facilitated
-by the \pkg{Rcpp} package and underlying \proglang{C++} library
+by the \pkg{Rcpp} package and its underlying \proglang{C++} library
 \citep{CRAN:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
 \proglang{R} and \proglang{C++} integration by replacing the traditional
-\proglang{R} API \citep{R:Extensions} with a consistent set of \proglang{C++}
-classes. The \textsl{Rcpp-introduction} vignette describes the API. 
+\proglang{R} Application Programming Interface (API) described in
+`\textsl{Writing R Extensions}' \citep{R:Extensions} with a consistent set of \proglang{C++}
+classes. The `\textsl{Rcpp-introduction}' vignette \citep{CRAN:Rcpp} describes the API and
+provides an introduction to using \pkg{Rcpp}.
 
-However, these facilities are limited to a function by function basis. The
-programmer has to implement a \Sexpr{link(".Call")} compatible function
-using classes of the \pkg{Rcpp} API.
+However, these facilities are limited to a function-by-function basis. The
+programmer has to implement a \Sexpr{link(".Call")} compatible function (to
+conform to the \proglang{R} API) using classes of the \pkg{Rcpp} API as
+described in the next section.
 
 \subsection{Exposing functions}
 
 Exposing existing \proglang{C++} functions to \proglang{R} through \pkg{Rcpp}
-usually involves several steps. One often writes either an additional wrapper
+usually involves several steps. One approach is to write an additional wrapper
 function that is responsible for converting input objects to the appropriate
 types, calling the actual worker function and converting the results back to
-a suitable type that can be returned to R (\texttt{SEXP}). 
+a suitable type that can be returned to \proglang{R} (\texttt{SEXP}).
 Consider the \texttt{norm} function below:
 
 <<lang=cpp>>=
@@ -91,19 +94,19 @@ double norm( double x, double y ){
 @
 
 This simple function does not meet the requirements set by the \texttt{.Call}
-convention, so it cannot be called directly by R. Exposing the
-function involves writing a simple wrapper function 
-that does match the \texttt{.Call} requirements. \pkg{Rcpp} makes it easy.
+convention, so it cannot be called directly by \proglang{R}. Exposing the
+function involves writing a simple wrapper function
+that does match the \texttt{.Call} requirements. \pkg{Rcpp} makes this easy.
 
 <<lang=cpp>>=
 using namespace Rcpp ;
 RcppExport SEXP norm_wrapper(SEXP x_, SEXP y_){
     // step 0: convert input to C++ types
     double x = as<double>(x_), y = as<double>(y_) ;
-    
+
     // step 1: call the underlying C++ function
     double res = norm( x, y ) ;
-    
+
     // step 2: return the result as a SEXP
     return wrap( res );
 }
@@ -114,8 +117,8 @@ transform from a \texttt{SEXP} to a number of different \proglang{C++} and
 \pkg{Rcpp} types. The \pkg{Rcpp} function \texttt{wrap()} offers the opposite
 functionality and converts many known types to a \texttt{SEXP}.
 
-This process is simple enough, and is used by a number of CRAN package. 
-It however requires direct involvement from the programmer, which quickly
+This process is simple enough, and is used by a number of CRAN package.
+However, it requires direct involvement from the programmer, which quickly
 becomes a time sink when many functions are involved. \textsl{Rcpp modules}
 provides a much more elegant and unintrusive way to expose the \texttt{norm}
 function to \proglang{R}.
@@ -123,7 +126,7 @@ function to \proglang{R}.
 \subsection{Exposing classes}
 
 Exposing \proglang{C++} classes or structs is even more of a challenge because it
-requires writing glue code for each member function that is to be exposed. 
+requires writing glue code for each member function that is to be exposed.
 
 Consider the simple \texttt{Uniform} class below:
 
@@ -131,12 +134,12 @@ Consider the simple \texttt{Uniform} class below:
 class Uniform {
 public:
     Uniform(double min_, double max_) : min(min_), max(max_){}
-    
+
     NumericVector draw(int n){
-        RNGScope scope ; 
-        return runif( n, min, max ) ;    
+        RNGScope scope ;
+        return runif( n, min, max ) ;
     }
-    
+
 private:
     double min, max ;
 };
@@ -146,7 +149,7 @@ To use this class from R, we at least need to expose the constructor and
 the \texttt{draw} method. External pointers
 \citep{R:Extensions} are the perfect vessel for this, and using the
 \texttt{Rcpp:::XPtr} template from \pkg{Rcpp} we can expose the class
-with these two functions: 
+with these two functions:
 
 <<lang=cpp>>=
 using namespace Rcpp ;
@@ -155,11 +158,11 @@ using namespace Rcpp ;
 RcppExport SEXP Uniform__new(SEXP min_, SEXP max_){
     // convert inputs to appropriate C++ types
     double min = as<double>(min_), max = as<double>(max_) ;
-	
+
     // create a pointer to an Uniform object and wrap it
     // as an external pointer
     Rcpp::XPtr<Uniform> ptr( new Uniform( min, max ), true ) ;
-    
+
     // return the external pointer to the R side
     return ptr ;
 }
@@ -168,20 +171,20 @@ RcppExport SEXP Uniform__new(SEXP min_, SEXP max_){
 RcppExport SEXP Uniform__draw( SEXP xp, SEXP n_ ) {
 	// grab the object as a XPtr (smart pointer) to Uniform
     Rcpp::XPtr<Uniform> ptr(xp) ;
-    
+
     // convert the parameter to int
     int n = as<int>(n_) ;
-	
+
     // invoke the function
     NumericVector res = ptr->draw( n ) ;
-    
+
     // return the result to R
     return res ;
 }
 @
 
-As it is generally a bad idea to expose external pointers as is, 
-they usually get wrapped as a slot of an S4 class. 
+As it is generally a bad idea to expose external pointers `as is',
+they usually get wrapped as a slot of an S4 class.
 
 <<echo=FALSE,results=hide>>=
 f1 <- cxxfunction( , "", includes = '
@@ -190,12 +193,12 @@ using namespace Rcpp ;
 class Uniform {
 public:
     Uniform(double min_, double max_) : min(min_), max(max_){}
-    
+
     NumericVector draw(int n){
-        RNGScope scope ; 
-        return runif( n, min, max ) ;    
+        RNGScope scope ;
+        return runif( n, min, max ) ;
     }
-    
+
 private:
     double min, max ;
 };
@@ -204,11 +207,11 @@ private:
 RcppExport SEXP Uniform__new(SEXP min_, SEXP max_){
     // convert inputs to appropriate C++ types
     double min = as<double>(min_), max = as<double>(max_) ;
-	
+
     // create a pointer to an Uniform object and wrap it
     // as an external pointer
     Rcpp::XPtr<Uniform> ptr( new Uniform( min, max ), true ) ;
-    
+
     // return the external pointer to the R side
     return ptr ;
 }
@@ -217,13 +220,13 @@ RcppExport SEXP Uniform__new(SEXP min_, SEXP max_){
 RcppExport SEXP Uniform__draw( SEXP xp, SEXP n_ ) {
 	// grab the object as a XPtr (smart pointer) to Uniform
     Rcpp::XPtr<Uniform> ptr(xp) ;
-    
+
     // convert the parameter to int
     int n = as<int>(n_) ;
-	
+
     // invoke the function
     NumericVector res = ptr->draw( n ) ;
-    
+
     // return the result to R
     return res ;
 }
@@ -253,9 +256,9 @@ u <- new( "Uniform", 0, 10 )
 u$draw( 10L )
 @
 
-\pkg{Rcpp} considerably simplifies the code that would 
-be involved for using external pointers with the traditional \proglang{R} API. 
-This still involves a lot of mechanical code that quickly 
+\pkg{Rcpp} considerably simplifies the code that would
+be involved for using external pointers with the traditional \proglang{R} API.
+This still involves a lot of mechanical code that quickly
 becomes hard to maintain and error prone.
 \textsl{Rcpp modules} offer an elegant way to expose the \texttt{Uniform}
 class in a way that makes both the internal
@@ -265,13 +268,13 @@ class in a way that makes both the internal
 
 \section{Rcpp modules}
 
-Rcpp modules are inspired from Python modules that are generated by the
-\texttt{Boost.Python} library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python}. 
-They provide an easy way
+The design of Rcpp modules has been influenced by \proglang{Python} modules which are generated by the
+\texttt{Boost.Python} library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python}.
+Rcpp modules provide a convenient and easy-to-use way
 to expose \proglang{C++} functions and classes to \proglang{R}, grouped
 together in a single entity.
 
-The module is created in a \texttt{cpp} file using the \texttt{RCPP\_MODULE}
+A Rcpp module is created in a \texttt{cpp} file using the \texttt{RCPP\_MODULE}
 macro, which then contains declarative code of what the module
 exposes to \proglang{R}.
 
@@ -282,7 +285,7 @@ We can expose it to \proglang{R} :
 
 <<lang=cpp>>=
 using namespace Rcpp ;
-	
+
 double norm( double x, double y ){
 	return sqrt( x*x + y*y ) ;
 }
@@ -292,12 +295,12 @@ RCPP_MODULE(mod){
 }
 @
 
-The code creates an Rcpp module called \texttt{yada}
+The code creates an Rcpp module called \texttt{mod}
 that exposes the \texttt{norm} function. \pkg{Rcpp} automatically
 deduces the conversions that are needed for input and output. This alleviates
 the need for a wrapper function using either \pkg{Rcpp} or the \proglang{R} API.
 
-On the \proglang{R} side, the module is simply retrieved by using the
+On the \proglang{R} side, the module is retrieved by using the
 \Sexpr{link("Module")} function from \pkg{Rcpp}:
 
 <<eval=FALSE>>=
@@ -350,7 +353,7 @@ RCPP_MODULE(yada){
 }
 @
 
-and used from \proglang{R}:
+and can then be used from \proglang{R}:
 
 <<eval=FALSE>>=
 require( Rcpp )
@@ -364,25 +367,26 @@ yada$bla1( 2L)
 yada$bla2( 2L, 5.0 )
 @
 
-The requirements on the functions to be exposed are:
+The requirements on a function to be exposed to \proglang{R} via Rcpp modules
+are:
 \begin{itemize}
-\item It takes between 0 and 65 parameters.
+\item The function takes between 0 and 65 parameters.
 \item The type of each input parameter must be manageable by the \texttt{Rcpp::as}
 template.
-\item The output type must be either \texttt{void} or any type that
+\item The return type of the function must be either \texttt{void} or any type that
 can be managed by the \texttt{Rcpp::wrap} template.
-\item The function name itself has to be unique in the module, 
-  in other words no two functions with
-  the same name but different signatures are allowed. C++ allows overloading 
-  functions. This might be added in future versions of modules. 
+\item The function name itself has to be unique in the module.
+  In other words, no two functions with
+  the same name but different signatures are allowed. C++ allows overloading
+  functions. This might be added in future versions of modules.
 \end{itemize}
 
 In addition to the name of the function and the function pointer, it is possible
-to pass a short description of the function as the third parameter of \texttt{function}. 
+to pass a short description of the function as the third parameter of \texttt{function}.
 
 <<lang=cpp>>=
 using namespace Rcpp ;
-	
+
 double norm( double x, double y ){
 	return sqrt( x*x + y*y ) ;
 }
@@ -392,13 +396,13 @@ RCPP_MODULE(mod){
 }
 @
 
-The description is used when displaying the function to the R prompt: 
+The description is used when displaying the function to the R prompt:
 
 <<echo=FALSE>>=
 fx <- cxxfunction( , "", includes = '
 
 using namespace Rcpp ;
-	
+
 double norm( double x, double y ){
 	return sqrt( x*x + y*y ) ;
 }
@@ -416,24 +420,26 @@ show( mod$norm )
 \subsection{Exposing \proglang{C++} classes}
 
 Rcpp modules also provide a mechanism for exposing \proglang{C++} classes, based
-on the reference classes introduced in R 2.12.0. 
+on the reference classes introduced in R 2.12.0.
 
 \subsubsection{Initial example}
 
 A class is exposed using the \texttt{class\_} class. The \texttt{World}
 class may be exposed to \proglang{R} :
 
+%% [Dirk:] should 'width' be 'range' ?
+
 <<lang=cpp>>=
 using namespace Rcpp ;
 class Uniform {
 public:
     Uniform(double min_, double max_) : min(min_), max(max_){}
-    
+
     NumericVector draw(int n) const {
-        RNGScope scope ; 
-        return runif( n, min, max ) ;    
+        RNGScope scope ;
+        return runif( n, min, max ) ;
     }
-    
+
     double min, max ;
 };
 
@@ -444,12 +450,12 @@ double width( Uniform* w){
 RCPP_MODULE(unif_module){
 
 	class_<Uniform>( "Uniform" )
-	
+
         .constructor<double,double>()
-        
+
         .field( "min", &Uniform::min )
         .field( "max", &Uniform::max )
-        
+
         .method( "draw", &World::draw )
         .method( "width", &width )
 	;
@@ -463,12 +469,12 @@ using namespace Rcpp ;
 class Uniform {
 public:
     Uniform(double min_, double max_) : min(min_), max(max_){}
-    
+
     NumericVector draw(int n) const {
-        RNGScope scope ; 
-        return runif( n, min, max ) ;    
+        RNGScope scope ;
+        return runif( n, min, max ) ;
     }
-    
+
     double min, max ;
 };
 
@@ -479,12 +485,12 @@ double width( Uniform* w){
 RCPP_MODULE(unif_module){
 
 	class_<Uniform>( "Uniform" )
-	
+
 	    .constructor<double,double>()
-	
+
 	    .field( "min", &Uniform::min )
 	    .field( "max", &Uniform::max )
-	    
+
 		.method( "draw", &Uniform::draw )
 		.method( "width", &width )
 	;
@@ -503,116 +509,116 @@ u$width()
 u$draw( 10 )
 @
 
-\texttt{class\_} is templated by the \proglang{C++} class or struct 
-that is to be exposed to \proglang{R}. 
+\texttt{class\_} is templated by the \proglang{C++} class or struct
+that is to be exposed to \proglang{R}.
 The parameter of the \texttt{class\_<Uniform>} constructor is the name we will
 use on the \proglang{R} side. It usually makes sense to use the same name as the class
 name, but this is not forced, which might be useful when exposing a class
 generated from a template.
 
-Then constructors, fields and methods are exposed. 
+Then constructors, fields and methods are exposed.
 
 \subsubsection{Exposing constructors}
 
 Public constructors that take from 0 and 6 parameters can be exposed
-to the R level using the \texttt{.constuctor} template method of \texttt{.class\_}. 
+to the R level using the \texttt{.constuctor} template method of \texttt{.class\_}.
 
-Optionally, \texttt{.constructor} can take a description as the first argument. 
+Optionally, \texttt{.constructor} can take a description as the first argument.
 
 <<lang=cpp>>=
-    .constructor<double,double>("sets the min and max of the distribution")
+    .constructor<double,double>("sets the min and max value of the distribution")
 @
 
 Also, the second argument can be a function pointer (called validator)
-matching the following type : 
+matching the following type :
 
 <<lang=cpp>>=
 typedef bool (*ValidConstructor)(SEXP*,int) ;
 @
 
-The validator can be used to implement dispatch to the appropriate constructor, 
-when multiple constructors taking the same number of arguments are exposed. 
+The validator can be used to implement dispatch to the appropriate constructor,
+when multiple constructors taking the same number of arguments are exposed.
 
 TODO: include example here
 
 \subsubsection{Exposing fields and properties}
 
-\texttt{class\_} has three ways to expose fields and properties, as 
+\texttt{class\_} has three ways to expose fields and properties, as
 illustrated in the example below :
 
 <<lang=cpp>>=
 using namespace Rcpp ;
 class Foo {
     public:
-        Foo( double x_, double y_, double z_ ): 
+        Foo( double x_, double y_, double z_ ):
             x(x_), y(y_), z(z_){}
-        
+
         double x ;
         double y ;
-        
+
         double get_z(){ return z ; }
         void set_z( double z_ ){ z = z_ ; }
-        
+
     private:
         double z ;
 } ;
 
 RCPP_MODULE(mod_foo){
     class_<Foo>( "Foo" )
-    
+
         .constructor<double,double,double>()
-        
+
         .field( "x", &Foo::x )
         .field_readonly( "y", &Foo::y )
-        
-        .property( "z", &Foo::get_z, &Foo::set_z ) 
-    ; 
+
+        .property( "z", &Foo::get_z, &Foo::set_z )
+    ;
 }
 @
 
-The \texttt{.field} method exposes a public field with read/write access from R. 
+The \texttt{.field} method exposes a public field with read/write access from R.
 \texttt{field} accepts an extra parameter to give a short description of the
-field: 
+field:
 
 <<lang=cpp>>=
     .field( "x", &Foo::x, "documentation for x" )
 @
 
-The \texttt{.field\_readonly} exposes a public field with read-only access from R. 
-It also accepts the description of the field. 
+The \texttt{.field\_readonly} exposes a public field with read-only access from R.
+It also accepts the description of the field.
 
 <<lang=cpp>>=
     .field_readonly( "y", &Foo::y, "documentation for y" )
 @
 
-The \texttt{.property} method allows indirect access to fields through 
-a getter and a setter. The setter is optional, and the property is considered 
-read-only if the setter is not supplied. Description of the property is also 
-allowed: 
+The \texttt{.property} method allows indirect access to fields through
+a getter and a setter. The setter is optional, and the property is considered
+read-only if the setter is not supplied. Description of the property is also
+allowed:
 
 <<lang=cpp>>=
     // with getter and setter
     .property( "z", &Foo::get_z, &Foo::set_z, "Documentation for z" )
-    
+
     // with only getter
     .property( "z", &Foo::get_z, "Documentation for z" )
 @
 
-The type of the field (\textbf{T}) is deduced from the return type of the getter, and if a 
-setter is given its unique parameter should be of the same type. 
+The type of the field (\textbf{T}) is deduced from the return type of the getter, and if a
+setter is given its unique parameter should be of the same type.
 
-Getters can be member functions taking no parameter and returning a \textbf{T} 
+Getters can be member functions taking no parameter and returning a \textbf{T}
 (for example \texttt{get\_z} above), or
-a free function taking a pointer to the exposed 
-class and returning a \textbf{T}, for example: 
+a free function taking a pointer to the exposed
+class and returning a \textbf{T}, for example:
 
 <<lang=cpp>>=
 double z_get( Foo* foo ){ return foo->get_z() ; }
 @
 
-Setters can be either a member function taking a \texttt{T} and returning void, such 
-as \texttt{set\_z} above, or a free function taking a pointer to the target 
-class and a \textbf{T} : 
+Setters can be either a member function taking a \texttt{T} and returning void, such
+as \texttt{set\_z} above, or a free function taking a pointer to the target
+class and a \textbf{T} :
 
 <<lang=cpp>>=
 void z_set( Foo* foo, double z ){ foo->set_z(z) ; }
@@ -620,82 +626,82 @@ void z_set( Foo* foo, double z ){ foo->set_z(z) ; }
 
 Using properties give more flexibility in case field access has to be tracked
 or has impact on other fields. For example, this class keeps track of how many times
-the \texttt{x} field is read and written. 
+the \texttt{x} field is read and written.
 
 <<lang=cpp>>=
 class Bar {
     public:
-    
+
         Bar(double x_) : x(x_), nread(0), nwrite(0){}
-        
+
         double get_x( ){
             nread++ ;
             return x ;
         }
-        
+
         void set_x( double x_){
             nwrite++ ;
             x = x_ ;
         }
-        
+
         IntegerVector stats() const {
-            return IntegerVector::create( 
-                _["read"] = nread, 
+            return IntegerVector::create(
+                _["read"] = nread,
                 _["write"] = nwrite
             ) ;
         }
-        
+
     private:
-        double x; 
+        double x;
         int nread, nwrite ;
 }
 RCPP_MODULE(mod_bar){
     class_<Bar>( "Bar" )
-    
-        .constructor<double>() 
-        
+
+        .constructor<double>()
+
         .property( "x", &Bar::get_x, &Bar::set_x )
         .method( "stats", &Bar::stats )
-    ; 
+    ;
 }
 @
 <<echo=FALSE,results=hide>>=
 fx_bar <- cxxfunction( , "", includes = '
 class Bar {
     public:
-    
+
         Bar(double x_) : x(x_), nread(0), nwrite(0){}
-        
+
         double get_x( ){
             nread++ ;
             return x ;
         }
-        
+
         void set_x( double x_){
             nwrite++ ;
             x = x_ ;
         }
-        
+
         IntegerVector stats() const {
-            return IntegerVector::create( 
-                _["read"] = nread, 
+            return IntegerVector::create(
+                _["read"] = nread,
                 _["write"] = nwrite
             ) ;
         }
-        
+
     private:
-        double x; 
+        double x;
         int nread, nwrite ;
 } ;
 
 RCPP_MODULE(mod_bar){
     class_<Bar>( "Bar" )
-    
-        .constructor<double>() 
-        
+
+        .constructor<double>()
+
         .property( "x", &Bar::get_x, &Bar::set_x )
         .method( "stats", &Bar::stats )
-    ; 
+    ;
 }
 ', plugin = "Rcpp" )
 mod_bar <- Module( "mod_bar", getDynLib( fx_bar ) )
@@ -714,15 +720,15 @@ b$stats()
 \texttt{class\_} has several overloaded and templated \texttt{.method}
 functions allowing the programmer to expose a method associated with the class.
 
-A legitimate method to be exposed by \texttt{.method} can be: 
+A legitimate method to be exposed by \texttt{.method} can be:
 \begin{itemize}
-\item A public member function of the class, either const or non const, that 
-returns void or any type that can be handled by \texttt{Rcpp::wrap}, and that 
+\item A public member function of the class, either const or non const, that
+returns void or any type that can be handled by \texttt{Rcpp::wrap}, and that
 takes between 0 and 65 parameters whose types can be handled by \texttt{Rcpp::as}
-\item A free function that takes a pointer to the target class as its first 
-parameter, followed by 0 or more (up to 65) parameters that can be handled by 
-\texttt{Rcpp::as} and returning a type that can be handled by \texttt{Rcpp::wrap} 
-or void. 
+\item A free function that takes a pointer to the target class as its first
+parameter, followed by 0 or more (up to 65) parameters that can be handled by
+\texttt{Rcpp::as} and returning a type that can be handled by \texttt{Rcpp::wrap}
+or void.
 \end{itemize}
 
 TODO: mention docstring
