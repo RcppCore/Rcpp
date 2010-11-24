@@ -1,3 +1,8 @@
+2010-11-24  Romain Francois <romain@r-enthusiasts.com>
+
+    * R/00_classes.R: formals<- method for C++Function that allows to set default 
+    arguments, etc .. to a C++ function
+
 2010-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Makefile: Call Rscript with --vanilla to skip user settings
