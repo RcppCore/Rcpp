@@ -1,67 +1,74 @@
+2010-11-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Makefile: Call Rscript with --vanilla to skip user settings
+
 2010-11-23  Romain Francois <romain@r-enthusiasts.com>
 
-    * R/00_classes.R: C++Class gains a docstring slot to host self documentation
-    
-    * R/Module.R: calling an exposed C++ more efficiently by using the xp directly 
-    rather than traversing the map internally
-    
-    * R/00_classes.R: C++Function gains a docstring slot to host self documentation
-    of the internal function. And a "signature" slot to host the C++ signature of
-    the function
-    
-    * R/01_show.R: updated show( C++Function ) to display the docstring and
-    the signature. updated show( C++Class ) to display the docstring.
-    
-    * inst/include/Rcpp/module/Module_generated_CppFunction.h: self documentation
-    for exposed C++ functions and extraction of the signature
-    
-    * inst/include/Rcpp/module/Module_generated_function.h: idem
+	* R/00_classes.R: C++Class gains a docstring slot to host self
+	documentation
+
+	* R/Module.R: calling an exposed C++ more efficiently by using the xp
+	directly rather than traversing the map internally
+
+	* R/00_classes.R: C++Function gains a docstring slot to host self
+	documentation of the internal function. And a "signature" slot to
+	host the C++ signature of the function
+
+	* R/01_show.R: updated show( C++Function ) to display the docstring
+	and the signature. updated show( C++Class ) to display the docstring.
+
+	* inst/include/Rcpp/module/Module_generated_CppFunction.h: self
+	documentation for exposed C++ functions and extraction of the
+	signature
+
+	* inst/include/Rcpp/module/Module_generated_function.h: idem
 
 2010-11-22  Romain Francois <romain@r-enthusiasts.com>
 
-    * R/00_classes.R: C++OverloadedMethods gains an "info" class methods, factored
-    out from Module.R
-    
-    * R/01_show.R: more information printed in show( C++Class )
+	* R/00_classes.R: C++OverloadedMethods gains an "info" class methods,
+	factored out from Module.R
 
-    * inst/include/Rcpp/Module/Module_generated_get_signature.h: templates to
-    grab method signatures
-    
-    * inst/include/Rcpp/Module.h: CppMethod gains a signature method that returns
-    the signature of the method.
-    
-    * R/00_classes.R: C++OverloadedMethods gains a "signatures" field that 
-    contains the signature of each overload
-    
-    * R/Module.R: registered method gain an automatically generated self description
-    that contains the method(s) signature(s) and the docstring that is declared
-    in .method
-    
-    * inst/include/Rcpp/Module/Module_generated_CppMethod.h: implement signature
+	* R/01_show.R: more information printed in show( C++Class )
 
-    * inst/include/Rcpp/Module/Module_generated_Pointer_CppMethod.h: idem
+	* inst/include/Rcpp/Module/Module_generated_get_signature.h:
+	templates to grab method signatures
+
+	* inst/include/Rcpp/Module.h: CppMethod gains a signature method that
+	returns the signature of the method.
+
+	* R/00_classes.R: C++OverloadedMethods gains a "signatures" field
+	that contains the signature of each overload
+
+	* R/Module.R: registered method gain an automatically generated self
+	description that contains the method(s) signature(s) and the
+	docstring that is declared in .method
+
+	* inst/include/Rcpp/Module/Module_generated_CppMethod.h: implement
+	signature
+
+	* inst/include/Rcpp/Module/Module_generated_Pointer_CppMethod.h: idem
 
 2010-11-21  Romain Francois <romain@r-enthusiasts.com>
 
 	* R/Module.R: internal version of cpp_hasDefaultConstructor
-	
+
 	* src/Module.cpp: implementation (Class__has_default_constructor)
-	
+
 	* inst/include/Rcpp/Module.h: support (class_.has_default_constructor)
-	
+
 	* inst/include/Rcpp/module/Module_generated_class_constructor.h: new interface
 	for exposing constructors, the init_ disappears and the template arguments
 	are directly applied to the .constructor function
-	
+
 	* inst/include/Rcpp/module/Module_generated_Constructor.h: removed init_*
-	
+
 	* inst/include/Rcpp/module/Module_generated_method.h: .method gains a docstring
 	argument to allow self documentation of exposed methods
-	
+
 	* inst/include/Rcpp/module/Module_generated_PointerMethod.h: idem
-	
+
 	* R/Module.R: grab method docstrings
-	
+
 2010-11-20  John M Chambers  <jmc@r-project.org>
 
 	* R/Module.R: now checks for the existence of a default constructor
