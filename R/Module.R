@@ -236,7 +236,6 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         demangled_name <- sub( "^Rcpp_", "", clname )
         storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
     }
-    module$refClassGenerators <- generators
     
     # functions
     functions <- .Call( Module__functions_names, xp )
