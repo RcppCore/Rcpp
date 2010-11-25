@@ -39,6 +39,6 @@ S3method( .DollarNames, "Module" )
 exportMethods( prompt, show, .DollarNames, "formals<-" )
 
 export( 
-    Module, Rcpp.package.skeleton
+    Module, Rcpp.package.skeleton, populate
 )
 
