@@ -9,7 +9,8 @@ useDynLib(Rcpp,
     CppClass__complete, CppClass__methods,
     
     Module__classes_info,Module__complete,Module__get_class,
-    Module__has_class,Module__has_function,Module__functions_arity,
+    Module__has_class,Module__has_function, Module__functions_arity,
+    Module__functions_names,
     Module__name, Module__get_function, 
     CppObject__finalize, 
     

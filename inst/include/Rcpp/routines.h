@@ -48,6 +48,7 @@ CALLFUN_1(CppClass__methods);
 CALLFUN_1(Module__classes_info) ;
 CALLFUN_1(Module__complete) ;
 CALLFUN_1(Module__functions_arity);
+CALLFUN_1(Module__functions_names);
 CALLFUN_2(Module__get_class);
 CALLFUN_2(Module__has_class);
 CALLFUN_2(Module__has_function);

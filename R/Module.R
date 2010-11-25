@@ -67,36 +67,44 @@ setMethod("initialize", "Module",
               .Object
           })
 
+.get_Module_function <- function(x, name, pointer = .getModulePointer(x) ){
+    pointer <- .getModulePointer(x)
+	info <- .Call( Module__get_function, pointer, name )
+	fun_ptr <- info[[1L]]
+	doc     <- info[[3L]]
+	sign    <- info[[4L]]
+	formal_args <- info[[5L]]
+	f <- function(...) NULL
+	stuff <- list( fun_pointer = fun_ptr, InternalFunction_invoke = InternalFunction_invoke )
+	body(f) <- if( info[[2]] ) {
+	    substitute( {
+	        .External( InternalFunction_invoke, fun_pointer, ... )
+	        invisible(NULL)         
+	    }, stuff ) 
+	} else {
+	    substitute( {
+	        .External( InternalFunction_invoke, fun_pointer, ... )
+	    }, stuff ) 
+	}
+	out <- new( "C++Function", f, pointer = fun_ptr, docstring = doc, signature = sign )
+	if( ! is.null( formal_args ) ){
+	    formals( out ) <- formal_args
+	}
+	out
+}
 
+.get_Module_Class <- function( x, name, pointer =  .getModulePointer(x) ){
+    value <- .Call( Module__get_class, pointer, name )
+    value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
+    value
+}
+          
 setMethod( "$", "Module", function(x, name){
     pointer <- .getModulePointer(x)
 	if( .Call( Module__has_function, pointer, name ) ){
-		info <- .Call( Module__get_function, pointer, name )
-		fun_ptr <- info[[1L]]
-		doc     <- info[[3L]]
-		sign    <- info[[4L]]
-		formal_args <- info[[5L]]
-		f <- function(...) NULL
-		stuff <- list( fun_pointer = fun_ptr, InternalFunction_invoke = InternalFunction_invoke )
-		body(f) <- if( info[[2]] ) {
-		    substitute( {
-		        .External( InternalFunction_invoke, fun_pointer, ... )
-		        invisible(NULL)         
-		    }, stuff ) 
-		} else {
-		    substitute( {
-		        .External( InternalFunction_invoke, fun_pointer, ... )
-		    }, stuff ) 
-		}
-		out <- new( "C++Function", f, pointer = fun_ptr, docstring = doc, signature = sign )
-		if( ! is.null( formal_args ) ){
-		    formals( out ) <- formal_args
-		}
-		out
+		.get_Module_function( x, name, pointer )
 	} else if( .Call( Module__has_class, pointer, name ) ){
-        value <- .Call( Module__get_class, pointer, name )
-        value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
-        value
+	    .get_Module_Class( x, name, pointer )
 	} else{
 		stop( "no such method or class in module" )
 	}
@@ -170,6 +178,9 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
     if(environmentIsLocked(where))
         where <- .GlobalEnv # or???
     generators <- list()
+    
+    storage <- new.env()
+    
     for( i in seq_along(classes) ){
         CLASS <- classes[[i]]
         clname <- as.character(CLASS)
@@ -222,8 +233,17 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
             }
             
         }
+        storage[[ clname ]] <- .get_Module_Class( module, clname, xp )
     }
     module$refClassGenerators <- generators
+    
+    # functions
+    functions <- .Call( Module__functions_names, xp )
+    for( fun in functions ){
+        storage[[ fun ]] <- .get_Module_function( module, fun, xp )
+    }
+    
+    assign( "storage", storage, envir = as.environment(module) )
     module
 }
 
