@@ -50,9 +50,6 @@ class CppFunction {
 // templates CppFunction0, ..., CppFunction65
 #include <Rcpp/module/Module_generated_CppFunction.h>
 
-// make_function factories
-#include <Rcpp/module/Module_generated_make_function.h>
-
 class class_Base {
 public:
 	class_Base() : name(), docstring() {} ;
