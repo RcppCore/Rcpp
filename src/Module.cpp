@@ -84,6 +84,9 @@ RCPP_FUNCTION_2( std::string, CppClass__property_class, XP_Class cl, std::string
 RCPP_FUNCTION_1( Rcpp::IntegerVector, Module__functions_arity, XP_Module module ){
 	return module->	functions_arity() ;
 }
+RCPP_FUNCTION_1( Rcpp::CharacterVector, Module__functions_names, XP_Module module ){
+	return module->	functions_names() ;
+}
 RCPP_FUNCTION_1( std::string, Module__name, XP_Module module ){
 	return module->name;
 }
@@ -321,6 +324,16 @@ namespace Rcpp{
 		}
 		x.names() = names ;
 		return x ;
+	}
+	
+	Rcpp::CharacterVector Module::functions_names(){
+		int n = functions.size() ;
+		Rcpp::CharacterVector names( n );
+		MAP::iterator it = functions.begin() ;
+		for( int i=0; i<n; i++, ++it){
+			names[i] = it->first ;
+		}
+		return names ;
 	}
 	
 	Rcpp::CharacterVector Module::complete(){
