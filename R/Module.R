@@ -228,7 +228,13 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
             }
             
         }
-        storage[[ clname ]] <- .get_Module_Class( module, clname, xp )
+    }
+    module$refClassGenerators <- generators
+    
+    for( i in seq_along(classes) ){
+        clname <- as.character(classes[[i]])
+        demangled_name <- sub( "^Rcpp_", "", clname )
+        storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
     }
     module$refClassGenerators <- generators
     
