@@ -1,3 +1,13 @@
+2010-11-25  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/module/Module_generated_function.h: new .function with
+    formal argument specification
+    
+    * inst/include/Rcpp/module/Module_generated_CppFunction.h: helper classes
+    for the above
+    
+    * R/Module.R: using the formal argument specification if available
+    
 2010-11-24  Romain Francois <romain@r-enthusiasts.com>
 
     * R/00_classes.R: formals<- method for C++Function that allows to set default 

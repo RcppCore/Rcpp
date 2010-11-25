@@ -57,6 +57,41 @@ class CppFunction0<void> : public CppFunction {
 } ;
 
 
+template <typename OUT>
+class CppFunction_WithFormals0 : public CppFunction {
+	public:
+		CppFunction_WithFormals0(OUT (*fun)(void), Rcpp::List,  const char* docstring = 0 ) : CppFunction(docstring), ptr_fun(fun){}
+		SEXP operator()(SEXP*) throw(std::range_error) {
+			return Rcpp::wrap( ptr_fun() ) ;
+		}
+		
+		inline int nargs(){ return 0; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT>(name) ; }
+		
+	private:
+		OUT (*ptr_fun)(void) ;	                    
+} ;
+
+
+template <>
+class CppFunction_WithFormals0<void> : public CppFunction {
+	public:
+		CppFunction_WithFormals0(void (*fun)(void), Rcpp::List, const char* docstring = 0 ) : CppFunction(docstring), ptr_fun(fun){} ;
+		
+		SEXP operator()(SEXP*) throw(std::exception) {
+			ptr_fun() ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 0; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type>(name) ; }
+		
+	private:
+		void (*ptr_fun)(void) ;	
+} ;
+
+
 template <typename OUT, typename U0>
 class CppFunction1 : public CppFunction {
 	public:
@@ -89,6 +124,49 @@ class CppFunction1<void,U0> : public CppFunction {
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0) ;	
+} ;
+
+
+
+template <typename OUT, typename U0>
+class CppFunction_WithFormals1 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals1(OUT (*fun)(U0) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 1; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0) ;
+} ;
+
+template <typename U0>
+class CppFunction_WithFormals1<void,U0> : public CppFunction {
+	public:
+		CppFunction_WithFormals1(void (*fun)(U0), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 1; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0) ;	
 } ;
 
@@ -131,6 +209,49 @@ class CppFunction2<void,U0, U1> : public CppFunction {
 
 
 
+template <typename OUT, typename U0, typename U1>
+class CppFunction_WithFormals2 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals2(OUT (*fun)(U0, U1) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 2; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1) ;
+} ;
+
+template <typename U0, typename U1>
+class CppFunction_WithFormals2<void,U0, U1> : public CppFunction {
+	public:
+		CppFunction_WithFormals2(void (*fun)(U0, U1), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 2; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2>
 class CppFunction3 : public CppFunction {
 	public:
@@ -163,6 +284,49 @@ class CppFunction3<void,U0, U1, U2> : public CppFunction {
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2>
+class CppFunction_WithFormals3 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals3(OUT (*fun)(U0, U1, U2) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 3; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2) ;
+} ;
+
+template <typename U0, typename U1, typename U2>
+class CppFunction_WithFormals3<void,U0, U1, U2> : public CppFunction {
+	public:
+		CppFunction_WithFormals3(void (*fun)(U0, U1, U2), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 3; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2) ;	
 } ;
 
@@ -205,6 +369,49 @@ class CppFunction4<void,U0, U1, U2, U3> : public CppFunction {
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3>
+class CppFunction_WithFormals4 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals4(OUT (*fun)(U0, U1, U2, U3) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 4; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3>
+class CppFunction_WithFormals4<void,U0, U1, U2, U3> : public CppFunction {
+	public:
+		CppFunction_WithFormals4(void (*fun)(U0, U1, U2, U3), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 4; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4>
 class CppFunction5 : public CppFunction {
 	public:
@@ -237,6 +444,49 @@ class CppFunction5<void,U0, U1, U2, U3, U4> : public CppFunction {
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4>
+class CppFunction_WithFormals5 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals5(OUT (*fun)(U0, U1, U2, U3, U4) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 5; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4>
+class CppFunction_WithFormals5<void,U0, U1, U2, U3, U4> : public CppFunction {
+	public:
+		CppFunction_WithFormals5(void (*fun)(U0, U1, U2, U3, U4), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 5; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4) ;	
 } ;
 
@@ -279,6 +529,49 @@ class CppFunction6<void,U0, U1, U2, U3, U4, U5> : public CppFunction {
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
+class CppFunction_WithFormals6 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals6(OUT (*fun)(U0, U1, U2, U3, U4, U5) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 6; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
+class CppFunction_WithFormals6<void,U0, U1, U2, U3, U4, U5> : public CppFunction {
+	public:
+		CppFunction_WithFormals6(void (*fun)(U0, U1, U2, U3, U4, U5), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 6; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
 class CppFunction7 : public CppFunction {
 	public:
@@ -311,6 +604,49 @@ class CppFunction7<void,U0, U1, U2, U3, U4, U5, U6> : public CppFunction {
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
+class CppFunction_WithFormals7 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals7(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 7; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
+class CppFunction_WithFormals7<void,U0, U1, U2, U3, U4, U5, U6> : public CppFunction {
+	public:
+		CppFunction_WithFormals7(void (*fun)(U0, U1, U2, U3, U4, U5, U6), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 7; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6) ;	
 } ;
 
@@ -353,6 +689,49 @@ class CppFunction8<void,U0, U1, U2, U3, U4, U5, U6, U7> : public CppFunction {
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7>
+class CppFunction_WithFormals8 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals8(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 8; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7>
+class CppFunction_WithFormals8<void,U0, U1, U2, U3, U4, U5, U6, U7> : public CppFunction {
+	public:
+		CppFunction_WithFormals8(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 8; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8>
 class CppFunction9 : public CppFunction {
 	public:
@@ -385,6 +764,49 @@ class CppFunction9<void,U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppFunction
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8>
+class CppFunction_WithFormals9 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals9(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 9; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8>
+class CppFunction_WithFormals9<void,U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppFunction {
+	public:
+		CppFunction_WithFormals9(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 9; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ;	
 } ;
 
@@ -427,6 +849,49 @@ class CppFunction10<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppFun
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9>
+class CppFunction_WithFormals10 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals10(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 10; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9>
+class CppFunction_WithFormals10<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppFunction {
+	public:
+		CppFunction_WithFormals10(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 10; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10>
 class CppFunction11 : public CppFunction {
 	public:
@@ -459,6 +924,49 @@ class CppFunction11<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public C
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10>
+class CppFunction_WithFormals11 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals11(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 11; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10>
+class CppFunction_WithFormals11<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public CppFunction {
+	public:
+		CppFunction_WithFormals11(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 11; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ;	
 } ;
 
@@ -501,6 +1009,49 @@ class CppFunction12<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : pub
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11>
+class CppFunction_WithFormals12 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals12(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 12; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11>
+class CppFunction_WithFormals12<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : public CppFunction {
+	public:
+		CppFunction_WithFormals12(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 12; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12>
 class CppFunction13 : public CppFunction {
 	public:
@@ -533,6 +1084,49 @@ class CppFunction13<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12>
+class CppFunction_WithFormals13 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals13(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 13; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12>
+class CppFunction_WithFormals13<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> : public CppFunction {
+	public:
+		CppFunction_WithFormals13(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 13; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ;	
 } ;
 
@@ -575,6 +1169,49 @@ class CppFunction14<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13>
+class CppFunction_WithFormals14 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals14(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 14; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13>
+class CppFunction_WithFormals14<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13> : public CppFunction {
+	public:
+		CppFunction_WithFormals14(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 14; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14>
 class CppFunction15 : public CppFunction {
 	public:
@@ -607,6 +1244,49 @@ class CppFunction15<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14>
+class CppFunction_WithFormals15 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals15(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 15; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14>
+class CppFunction_WithFormals15<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14> : public CppFunction {
+	public:
+		CppFunction_WithFormals15(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 15; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ;	
 } ;
 
@@ -649,6 +1329,49 @@ class CppFunction16<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15>
+class CppFunction_WithFormals16 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals16(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 16; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15>
+class CppFunction_WithFormals16<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15> : public CppFunction {
+	public:
+		CppFunction_WithFormals16(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 16; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16>
 class CppFunction17 : public CppFunction {
 	public:
@@ -681,6 +1404,49 @@ class CppFunction17<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16>
+class CppFunction_WithFormals17 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals17(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 17; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16>
+class CppFunction_WithFormals17<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16> : public CppFunction {
+	public:
+		CppFunction_WithFormals17(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 17; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ;	
 } ;
 
@@ -723,6 +1489,49 @@ class CppFunction18<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17>
+class CppFunction_WithFormals18 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals18(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 18; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17>
+class CppFunction_WithFormals18<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17> : public CppFunction {
+	public:
+		CppFunction_WithFormals18(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 18; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18>
 class CppFunction19 : public CppFunction {
 	public:
@@ -755,6 +1564,49 @@ class CppFunction19<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18>
+class CppFunction_WithFormals19 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals19(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 19; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18>
+class CppFunction_WithFormals19<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18> : public CppFunction {
+	public:
+		CppFunction_WithFormals19(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 19; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ;	
 } ;
 
@@ -797,6 +1649,49 @@ class CppFunction20<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19>
+class CppFunction_WithFormals20 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals20(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 20; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19>
+class CppFunction_WithFormals20<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19> : public CppFunction {
+	public:
+		CppFunction_WithFormals20(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 20; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20>
 class CppFunction21 : public CppFunction {
 	public:
@@ -829,6 +1724,49 @@ class CppFunction21<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20>
+class CppFunction_WithFormals21 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals21(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 21; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20>
+class CppFunction_WithFormals21<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20> : public CppFunction {
+	public:
+		CppFunction_WithFormals21(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 21; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ;	
 } ;
 
@@ -871,6 +1809,49 @@ class CppFunction22<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21>
+class CppFunction_WithFormals22 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals22(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 22; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21>
+class CppFunction_WithFormals22<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21> : public CppFunction {
+	public:
+		CppFunction_WithFormals22(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 22; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22>
 class CppFunction23 : public CppFunction {
 	public:
@@ -903,6 +1884,49 @@ class CppFunction23<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22>
+class CppFunction_WithFormals23 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals23(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 23; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22>
+class CppFunction_WithFormals23<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22> : public CppFunction {
+	public:
+		CppFunction_WithFormals23(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 23; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ;	
 } ;
 
@@ -945,6 +1969,49 @@ class CppFunction24<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23>
+class CppFunction_WithFormals24 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals24(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 24; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23>
+class CppFunction_WithFormals24<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23> : public CppFunction {
+	public:
+		CppFunction_WithFormals24(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 24; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24>
 class CppFunction25 : public CppFunction {
 	public:
@@ -977,6 +2044,49 @@ class CppFunction25<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24>
+class CppFunction_WithFormals25 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals25(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 25; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24>
+class CppFunction_WithFormals25<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24> : public CppFunction {
+	public:
+		CppFunction_WithFormals25(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 25; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ;	
 } ;
 
@@ -1019,6 +2129,49 @@ class CppFunction26<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25>
+class CppFunction_WithFormals26 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals26(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 26; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25>
+class CppFunction_WithFormals26<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25> : public CppFunction {
+	public:
+		CppFunction_WithFormals26(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 26; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26>
 class CppFunction27 : public CppFunction {
 	public:
@@ -1051,6 +2204,49 @@ class CppFunction27<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26>
+class CppFunction_WithFormals27 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals27(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 27; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26>
+class CppFunction_WithFormals27<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26> : public CppFunction {
+	public:
+		CppFunction_WithFormals27(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 27; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ;	
 } ;
 
@@ -1093,6 +2289,49 @@ class CppFunction28<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27>
+class CppFunction_WithFormals28 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals28(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 28; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27>
+class CppFunction_WithFormals28<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27> : public CppFunction {
+	public:
+		CppFunction_WithFormals28(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 28; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28>
 class CppFunction29 : public CppFunction {
 	public:
@@ -1125,6 +2364,49 @@ class CppFunction29<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28>
+class CppFunction_WithFormals29 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals29(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 29; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28>
+class CppFunction_WithFormals29<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28> : public CppFunction {
+	public:
+		CppFunction_WithFormals29(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 29; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ;	
 } ;
 
@@ -1167,6 +2449,49 @@ class CppFunction30<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29>
+class CppFunction_WithFormals30 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals30(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 30; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29>
+class CppFunction_WithFormals30<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29> : public CppFunction {
+	public:
+		CppFunction_WithFormals30(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 30; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30>
 class CppFunction31 : public CppFunction {
 	public:
@@ -1199,6 +2524,49 @@ class CppFunction31<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30>
+class CppFunction_WithFormals31 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals31(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 31; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30>
+class CppFunction_WithFormals31<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30> : public CppFunction {
+	public:
+		CppFunction_WithFormals31(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 31; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ;	
 } ;
 
@@ -1241,6 +2609,49 @@ class CppFunction32<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31>
+class CppFunction_WithFormals32 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals32(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 32; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31>
+class CppFunction_WithFormals32<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31> : public CppFunction {
+	public:
+		CppFunction_WithFormals32(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 32; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32>
 class CppFunction33 : public CppFunction {
 	public:
@@ -1273,6 +2684,49 @@ class CppFunction33<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32>
+class CppFunction_WithFormals33 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals33(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 33; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32>
+class CppFunction_WithFormals33<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32> : public CppFunction {
+	public:
+		CppFunction_WithFormals33(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 33; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ;	
 } ;
 
@@ -1315,6 +2769,49 @@ class CppFunction34<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33>
+class CppFunction_WithFormals34 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals34(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 34; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33>
+class CppFunction_WithFormals34<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33> : public CppFunction {
+	public:
+		CppFunction_WithFormals34(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 34; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34>
 class CppFunction35 : public CppFunction {
 	public:
@@ -1347,6 +2844,49 @@ class CppFunction35<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34>
+class CppFunction_WithFormals35 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals35(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 35; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34>
+class CppFunction_WithFormals35<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34> : public CppFunction {
+	public:
+		CppFunction_WithFormals35(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 35; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ;	
 } ;
 
@@ -1389,6 +2929,49 @@ class CppFunction36<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35>
+class CppFunction_WithFormals36 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals36(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 36; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35>
+class CppFunction_WithFormals36<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35> : public CppFunction {
+	public:
+		CppFunction_WithFormals36(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 36; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36>
 class CppFunction37 : public CppFunction {
 	public:
@@ -1421,6 +3004,49 @@ class CppFunction37<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36>
+class CppFunction_WithFormals37 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals37(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 37; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36>
+class CppFunction_WithFormals37<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36> : public CppFunction {
+	public:
+		CppFunction_WithFormals37(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 37; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ;	
 } ;
 
@@ -1463,6 +3089,49 @@ class CppFunction38<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37>
+class CppFunction_WithFormals38 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals38(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 38; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37>
+class CppFunction_WithFormals38<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37> : public CppFunction {
+	public:
+		CppFunction_WithFormals38(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 38; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38>
 class CppFunction39 : public CppFunction {
 	public:
@@ -1495,6 +3164,49 @@ class CppFunction39<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38>
+class CppFunction_WithFormals39 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals39(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 39; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38>
+class CppFunction_WithFormals39<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38> : public CppFunction {
+	public:
+		CppFunction_WithFormals39(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 39; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ;	
 } ;
 
@@ -1537,6 +3249,49 @@ class CppFunction40<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39>
+class CppFunction_WithFormals40 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals40(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 40; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39>
+class CppFunction_WithFormals40<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39> : public CppFunction {
+	public:
+		CppFunction_WithFormals40(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 40; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40>
 class CppFunction41 : public CppFunction {
 	public:
@@ -1569,6 +3324,49 @@ class CppFunction41<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40>
+class CppFunction_WithFormals41 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals41(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 41; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40>
+class CppFunction_WithFormals41<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40> : public CppFunction {
+	public:
+		CppFunction_WithFormals41(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 41; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ;	
 } ;
 
@@ -1611,6 +3409,49 @@ class CppFunction42<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41>
+class CppFunction_WithFormals42 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals42(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 42; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41>
+class CppFunction_WithFormals42<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41> : public CppFunction {
+	public:
+		CppFunction_WithFormals42(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 42; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42>
 class CppFunction43 : public CppFunction {
 	public:
@@ -1643,6 +3484,49 @@ class CppFunction43<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42>
+class CppFunction_WithFormals43 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals43(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 43; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42>
+class CppFunction_WithFormals43<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42> : public CppFunction {
+	public:
+		CppFunction_WithFormals43(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 43; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ;	
 } ;
 
@@ -1685,6 +3569,49 @@ class CppFunction44<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43>
+class CppFunction_WithFormals44 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals44(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 44; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43>
+class CppFunction_WithFormals44<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43> : public CppFunction {
+	public:
+		CppFunction_WithFormals44(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 44; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44>
 class CppFunction45 : public CppFunction {
 	public:
@@ -1717,6 +3644,49 @@ class CppFunction45<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44>
+class CppFunction_WithFormals45 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals45(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 45; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44>
+class CppFunction_WithFormals45<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44> : public CppFunction {
+	public:
+		CppFunction_WithFormals45(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 45; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ;	
 } ;
 
@@ -1759,6 +3729,49 @@ class CppFunction46<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45>
+class CppFunction_WithFormals46 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals46(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 46; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45>
+class CppFunction_WithFormals46<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45> : public CppFunction {
+	public:
+		CppFunction_WithFormals46(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 46; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46>
 class CppFunction47 : public CppFunction {
 	public:
@@ -1791,6 +3804,49 @@ class CppFunction47<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46>
+class CppFunction_WithFormals47 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals47(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 47; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46>
+class CppFunction_WithFormals47<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46> : public CppFunction {
+	public:
+		CppFunction_WithFormals47(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 47; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ;	
 } ;
 
@@ -1833,6 +3889,49 @@ class CppFunction48<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47>
+class CppFunction_WithFormals48 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals48(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 48; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47>
+class CppFunction_WithFormals48<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47> : public CppFunction {
+	public:
+		CppFunction_WithFormals48(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 48; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48>
 class CppFunction49 : public CppFunction {
 	public:
@@ -1865,6 +3964,49 @@ class CppFunction49<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48>
+class CppFunction_WithFormals49 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals49(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 49; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48>
+class CppFunction_WithFormals49<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48> : public CppFunction {
+	public:
+		CppFunction_WithFormals49(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 49; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ;	
 } ;
 
@@ -1907,6 +4049,49 @@ class CppFunction50<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49>
+class CppFunction_WithFormals50 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals50(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 50; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49>
+class CppFunction_WithFormals50<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49> : public CppFunction {
+	public:
+		CppFunction_WithFormals50(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 50; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50>
 class CppFunction51 : public CppFunction {
 	public:
@@ -1939,6 +4124,49 @@ class CppFunction51<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50>
+class CppFunction_WithFormals51 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals51(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 51; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50>
+class CppFunction_WithFormals51<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50> : public CppFunction {
+	public:
+		CppFunction_WithFormals51(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 51; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ;	
 } ;
 
@@ -1981,6 +4209,49 @@ class CppFunction52<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51>
+class CppFunction_WithFormals52 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals52(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 52; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51>
+class CppFunction_WithFormals52<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51> : public CppFunction {
+	public:
+		CppFunction_WithFormals52(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 52; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52>
 class CppFunction53 : public CppFunction {
 	public:
@@ -2013,6 +4284,49 @@ class CppFunction53<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52>
+class CppFunction_WithFormals53 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals53(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 53; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52>
+class CppFunction_WithFormals53<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52> : public CppFunction {
+	public:
+		CppFunction_WithFormals53(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 53; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ;	
 } ;
 
@@ -2055,6 +4369,49 @@ class CppFunction54<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53>
+class CppFunction_WithFormals54 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals54(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 54; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53>
+class CppFunction_WithFormals54<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53> : public CppFunction {
+	public:
+		CppFunction_WithFormals54(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 54; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54>
 class CppFunction55 : public CppFunction {
 	public:
@@ -2087,6 +4444,49 @@ class CppFunction55<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54>
+class CppFunction_WithFormals55 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals55(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 55; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54>
+class CppFunction_WithFormals55<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54> : public CppFunction {
+	public:
+		CppFunction_WithFormals55(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 55; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ;	
 } ;
 
@@ -2129,6 +4529,49 @@ class CppFunction56<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55>
+class CppFunction_WithFormals56 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals56(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 56; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55>
+class CppFunction_WithFormals56<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55> : public CppFunction {
+	public:
+		CppFunction_WithFormals56(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 56; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56>
 class CppFunction57 : public CppFunction {
 	public:
@@ -2161,6 +4604,49 @@ class CppFunction57<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56>
+class CppFunction_WithFormals57 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals57(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 57; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56>
+class CppFunction_WithFormals57<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56> : public CppFunction {
+	public:
+		CppFunction_WithFormals57(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 57; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ;	
 } ;
 
@@ -2203,6 +4689,49 @@ class CppFunction58<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57>
+class CppFunction_WithFormals58 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals58(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 58; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57>
+class CppFunction_WithFormals58<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57> : public CppFunction {
+	public:
+		CppFunction_WithFormals58(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 58; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58>
 class CppFunction59 : public CppFunction {
 	public:
@@ -2235,6 +4764,49 @@ class CppFunction59<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58>
+class CppFunction_WithFormals59 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals59(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 59; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58>
+class CppFunction_WithFormals59<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58> : public CppFunction {
+	public:
+		CppFunction_WithFormals59(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58>::type >( args[58] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 59; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ;	
 } ;
 
@@ -2277,6 +4849,49 @@ class CppFunction60<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59>
+class CppFunction_WithFormals60 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals60(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 60; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59>
+class CppFunction_WithFormals60<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59> : public CppFunction {
+	public:
+		CppFunction_WithFormals60(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58>::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59>::type >( args[59] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 60; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60>
 class CppFunction61 : public CppFunction {
 	public:
@@ -2309,6 +4924,49 @@ class CppFunction61<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60>
+class CppFunction_WithFormals61 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals61(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 61; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60>
+class CppFunction_WithFormals61<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60> : public CppFunction {
+	public:
+		CppFunction_WithFormals61(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58>::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59>::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60>::type >( args[60] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 61; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ;	
 } ;
 
@@ -2351,6 +5009,49 @@ class CppFunction62<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61>
+class CppFunction_WithFormals62 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals62(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 62; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61>
+class CppFunction_WithFormals62<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61> : public CppFunction {
+	public:
+		CppFunction_WithFormals62(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58>::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59>::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60>::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61>::type >( args[61] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 62; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62>
 class CppFunction63 : public CppFunction {
 	public:
@@ -2383,6 +5084,49 @@ class CppFunction63<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62>
+class CppFunction_WithFormals63 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals63(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 63; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62>
+class CppFunction_WithFormals63<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62> : public CppFunction {
+	public:
+		CppFunction_WithFormals63(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58>::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59>::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60>::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61>::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62>::type >( args[62] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 63; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ;	
 } ;
 
@@ -2425,6 +5169,49 @@ class CppFunction64<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 
 
 
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63>
+class CppFunction_WithFormals64 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals64(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63 >::type >( args[63] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 64; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63>
+class CppFunction_WithFormals64<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63> : public CppFunction {
+	public:
+		CppFunction_WithFormals64(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58>::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59>::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60>::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61>::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62>::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63>::type >( args[63] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 64; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ;	
+} ;
+
+
+
 template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64>
 class CppFunction65 : public CppFunction {
 	public:
@@ -2457,6 +5244,49 @@ class CppFunction65<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
 		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(name) ; }
 		
 	private:
+		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ;	
+} ;
+
+
+
+template <typename OUT, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64>
+class CppFunction_WithFormals65 : public CppFunction {
+	public:
+
+		CppFunction_WithFormals65(OUT (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) , Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception){
+			return Rcpp::wrap( ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63 >::type >( args[63] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U64 >::type >( args[64] ) ) ) ;
+		}
+		
+		inline int nargs(){ return 65; }
+		const char* signature(const char* name){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
+		OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ;
+} ;
+
+template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64>
+class CppFunction_WithFormals65<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64> : public CppFunction {
+	public:
+		CppFunction_WithFormals65(void (*fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64), Rcpp::List formals_, const char* docstring = 0) : 
+		    CppFunction(docstring), formals(formals_), ptr_fun(fun){}
+		
+		SEXP operator()(SEXP* args) throw(std::exception) {
+			ptr_fun( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0>::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1>::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2>::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3>::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4>::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5>::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6>::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7>::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8>::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9>::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10>::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11>::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12>::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13>::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14>::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15>::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16>::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17>::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18>::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19>::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20>::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21>::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22>::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23>::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24>::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25>::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26>::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27>::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28>::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29>::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30>::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31>::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32>::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33>::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34>::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35>::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36>::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37>::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38>::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39>::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40>::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41>::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42>::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43>::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44>::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45>::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46>::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47>::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48>::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49>::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50>::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51>::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52>::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53>::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54>::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55>::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56>::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57>::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58>::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59>::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60>::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61>::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62>::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63>::type >( args[63] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U64>::type >( args[64] ) ) ;
+			return R_NilValue ;
+		}
+		
+		inline int nargs(){ return 65; }
+		inline bool is_void(){ return true; }
+		const char* signature(const char* name){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(name) ; }
+		SEXP get_formals(){ return formals; }
+		
+	private:
+		Rcpp::List formals ;
 		void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ;	
 } ;
 

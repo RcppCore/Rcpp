@@ -282,7 +282,8 @@ namespace Rcpp{
 	        Rcpp::XPtr<CppFunction>( fun, false ), 
 	        fun->is_void(), 
 	        fun->docstring, 
-	        fun->signature( name.data() )
+	        fun->signature( name.data() ), 
+	        fun->get_formals()
 	        ) ;
 	}
 	

@@ -40,7 +40,8 @@ class CppFunction {
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
 		virtual const char* signature(const char* name ){ return "" ; }
-
+		virtual SEXP get_formals(){ return R_NilValue; }
+		
 		std::string docstring ;
 };
 
