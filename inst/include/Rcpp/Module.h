@@ -119,6 +119,8 @@ class Module {
 		SEXP invoke( const std::string& /* name */,  SEXP* /* args */, int /* nargs */ ) ;                        
 		
 		Rcpp::IntegerVector functions_arity() ;
+		Rcpp::CharacterVector functions_names() ;
+		
 		Rcpp::CharacterVector class_names() ;
 		Rcpp::List classes_info() ;
 		Rcpp::CharacterVector complete() ;
