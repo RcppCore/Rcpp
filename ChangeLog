@@ -8,6 +8,11 @@
     
     * R/Module.R: using the formal argument specification if available
     
+    * R/populate.R: new R function populate to dump the contents of a module
+    into an environment or a namespace
+    
+    * man/populate.Rd: documentation for populate
+    
 2010-11-24  Romain Francois <romain@r-enthusiasts.com>
 
     * R/00_classes.R: formals<- method for C++Function that allows to set default 
