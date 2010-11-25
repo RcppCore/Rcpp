@@ -101,13 +101,8 @@ setMethod("initialize", "Module",
           
 setMethod( "$", "Module", function(x, name){
     pointer <- .getModulePointer(x)
-	if( .Call( Module__has_function, pointer, name ) ){
-		.get_Module_function( x, name, pointer )
-	} else if( .Call( Module__has_class, pointer, name ) ){
-	    .get_Module_Class( x, name, pointer )
-	} else{
-		stop( "no such method or class in module" )
-	}
+    storage <- get( "storage", envir = as.environment(x) )
+    storage[[ name ]] 
 } )
 
 new_CppObject_xp <- function(module, pointer, ...) {
