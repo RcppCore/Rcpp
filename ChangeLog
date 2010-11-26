@@ -11,6 +11,9 @@
     
     * inst/include/Rcpp/vector/MatrixRow.h: same for MatrixRow
     
+    * inst/include/Rcpp/vector/Matrix.h: added Matrix( SubMatrix ) and
+    Matrix::operator=( SubMatrix )
+    
 2010-11-25  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/module/Module_generated_function.h: new .function with
