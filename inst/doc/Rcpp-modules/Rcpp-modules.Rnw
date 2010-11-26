@@ -381,6 +381,8 @@ can be managed by the \texttt{Rcpp::wrap} template.
   functions. This might be added in future versions of modules.
 \end{itemize}
 
+\subsubsection{Documentation for exposed functions}
+
 In addition to the name of the function and the function pointer, it is possible
 to pass a short description of the function as the third parameter of \texttt{function}.
 
@@ -416,6 +418,130 @@ mod <- Module( "mod", getDynLib( fx ) )
 <<>>=
 show( mod$norm )
 @
+
+\subsubsection{Formal arguments specification}
+
+\texttt{function} also gives the possibility to specify the formal arguments
+of the R function that encapsulates the C++ function, by passing 
+a \texttt{Rcpp::List} after the function pointer. 
+
+<<lang=cpp>>=
+using namespace Rcpp ;
+
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod_formals){
+	function( "norm", &norm, 
+	    List::create( _["x"] = 0.0, _["y"] = 0.0 ), 
+	    "documentation for norm"
+	) ;
+}
+@
+<<echo=FALSE,results=hide>>=
+fx_form <- cxxfunction( , '', includes = '
+using namespace Rcpp ;
+
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod_formals){
+	function( "norm", &norm, 
+	    List::create( _["x"] = 0.0, _["y"] = 0.0 ), 
+	    "documentation for norm"
+	) ;
+}
+', plugin = "Rcpp" )
+mod <- Module( "mod_formals", getDynLib( fx_form ), mustStart = TRUE )
+@
+<<>>=
+norm <- mod$norm
+norm()
+norm( y = 2 )
+norm( x = 2, y = 3 )
+args( norm )
+@
+
+To set formal arguments without default values, 
+the R variable \texttt{R\_MissingArg} must be used. 
+
+<<lang=cpp>>=
+using namespace Rcpp ;
+
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod_formals2){
+	function( "norm", &norm, 
+	    List::create( _["x"] = R_MissingArg, _["y"] = 0.0 ), 
+	    "documentation for norm"
+	) ;
+}
+@
+<<echo=FALSE,results=hide>>=
+fx_form2 <- cxxfunction( , '', includes = '
+using namespace Rcpp ;
+
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod_formals2){
+	function( "norm", &norm, 
+	    List::create( _["x"] = R_MissingArg, _["y"] = 0.0 ), 
+	    "documentation for norm"
+	) ;
+}
+', plugin = "Rcpp" )
+mod <- Module( "mod_formals2", getDynLib( fx_form2 ), mustStart = TRUE )
+@
+<<>>=
+norm <- mod$norm
+args( norm )
+@
+
+The ellipsis (\texttt{...}) can be used, although it must be 
+set to \texttt{R\_MissingArg}. 
+
+<<lang=cpp>>=
+using namespace Rcpp ;
+
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod_formals3){
+	function( "norm", &norm, 
+	    List::create( _["x"] = R_MissingArg, _["..."] = R_MissingArg ), 
+	    "documentation for norm"
+	) ;
+}
+@
+<<echo=FALSE,results=hide>>=
+fx_form3 <- cxxfunction( , '', includes = '
+using namespace Rcpp ;
+
+double norm( double x, double y ){
+	return sqrt( x*x + y*y ) ;
+}
+
+RCPP_MODULE(mod_formals3){
+	function( "norm", &norm, 
+	    List::create( _["x"] = R_MissingArg, _["..."] = R_MissingArg ), 
+	    "documentation for norm"
+	) ;
+}
+', plugin = "Rcpp" )
+mod <- Module( "mod_formals3", getDynLib( fx_form3 ), mustStart = TRUE )
+@
+<<>>=
+norm <- mod$norm
+args( norm )
+@
+
 
 \subsection{Exposing \proglang{C++} classes}
 
