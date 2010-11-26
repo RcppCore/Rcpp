@@ -659,9 +659,12 @@ typedef bool (*ValidConstructor)(SEXP*,int) ;
 @
 
 The validator can be used to implement dispatch to the appropriate constructor,
-when multiple constructors taking the same number of arguments are exposed.
+when multiple constructors taking the same number of arguments are exposed. 
+The default validator always accepts the constructor as valid if is passed 
+the appropriate number of arguments. For example, with the call above, the default
+validator accepts any call from R with two arguments. 
 
-TODO: include example here
+TODO: include validator example here
 
 \subsubsection{Exposing fields and properties}
 
@@ -853,9 +856,16 @@ parameter, followed by 0 or more (up to 65) parameters that can be handled by
 or void.
 \end{itemize}
 
-TODO: mention docstring
+\paragraph{Documenting methods}. \texttt{.method} can also include 
+a short documentation of the method, after the 
+method (or free function) pointer. 
 
-TODO: mention overloading, need good example
+<<lang=cpp>>=
+    .method( "stats", &Bar::stats, 
+        "vector indicating the number of times x is read and write" )
+@
+
+TODO: mention overloading, need good example. 
 
 
 \paragraph{Const and non-const member functions}
@@ -874,19 +884,24 @@ const_reference back ( ) const;
 
 To resolve the ambiguity, it is possible to use \texttt{const\_method}
 or \texttt{nonconst\_method} instead of \texttt{method} in order
-to restrict the candidate methods.
+to restrict the candidate methods. 
 
 \paragraph{Special methods}
 
 \pkg{Rcpp} considers the methods \texttt{[[} and \texttt{[[<-} special,
 and promotes them to indexing methods on the \proglang{R} side.
 
-
-
 \subsubsection{Object finalizers}
 
-TODO: described the .finalize
+The \texttt{.finalizer} member function of \texttt{class\_} can be used to 
+register a finalizer. A finalizer is a free function that takes a pointer
+to the target class and return \texttt{void}. The finalizer is called
+before the destructor and so operates on a valid object of the target class. 
 
+It can be used to perform operations, releasing resources, etc ...
+
+The finalizer is called automatically when the \proglang{R} object that encapsulates
+the \proglang{C++} object is garbage collected.
 
 \subsubsection{S4 dispatch}
 
@@ -909,6 +924,8 @@ setMethod( "show", yada$World , function(object){
 TODO: mention R inheritance (John ?)
 
 \subsubsection{Full example}
+
+% TODO: maybe replace this by something from wls or RcppModels ?
 
 The following example illustrates how to use Rcpp modules to expose
 the class \texttt{std::vector<double>} from the STL.
