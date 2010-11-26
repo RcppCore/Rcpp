@@ -47,9 +47,8 @@ public:
 	
 	Matrix( const Dimension& dims) throw(not_compatible) : VECTOR(), nrows(dims[0]) {
 		if( dims.size() != 2 ) throw not_compatible("not a matrix") ;
-		VECTOR::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
+		VECTOR::setSEXP( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ) ;
 		VECTOR::init() ;
-		VECTOR::attr( "dim" ) = dims ;
 	}
 	
 	Matrix( const int& nrows_, const int& ncols) : 
@@ -84,13 +83,7 @@ public:
 	template <bool NA, typename MAT>
     Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR(), nrows(other.nrow()) {
     	int nc = other.ncol() ;
-    	SEXP x = PROTECT( Rf_allocVector( RTYPE, nrows * nc ) ) ;
-    	SEXP d = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
-    	INTEGER(d)[0] = nrows ;
-    	INTEGER(d)[1] = nc ;
-    	Rf_setAttrib( x, R_DimSymbol, d ) ;
-    	RObject::setSEXP( x ) ;
-    	UNPROTECT( 2 ) ;
+    	RObject::setSEXP( Rf_allocMatrix( RTYPE, nrows, nc ) ) ;
     	import_matrix_expression<NA,MAT>( other, nrows, nc ) ;
 	}
 	
