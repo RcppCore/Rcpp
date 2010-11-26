@@ -190,7 +190,7 @@
 			    signature( x = "matrix" ), 
 			    '
                  NumericMatrix input( x ) ;
-                 int nr = input.nrow(), nc = input.ncol() ;
+                 int nc = input.ncol() ;
                  NumericMatrix output = clone<NumericMatrix>( input ) ;
                  for( int i=1; i<nc; i++){
                     output(_,i) = output(_,i-1) + input(_,i) ; 
@@ -202,7 +202,7 @@
 			    signature( x = "matrix" ), 
 			    '
                  NumericMatrix input( x ) ;
-                 int nr = input.nrow(), nc = input.ncol() ;
+                 int nr = input.nrow();
                  NumericMatrix output = clone<NumericMatrix>( input ) ;
                  for( int i=1; i<nr; i++){
                     output(i,_) = output(i-1,_) + input(i,_) ; 
