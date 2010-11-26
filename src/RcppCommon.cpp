@@ -70,11 +70,7 @@ SEXP capabilities(){
 	LOGICAL(cap)[4] = FALSE ;
 #endif
 
-#ifdef RCPP_ENABLE_MODULES
 	LOGICAL(cap)[5] = TRUE ;
-#else
-	LOGICAL(cap)[5] = FALSE ;
-#endif
 
 #ifdef RCPP_HAS_DEMANGLING
 	LOGICAL(cap)[6] = TRUE ;

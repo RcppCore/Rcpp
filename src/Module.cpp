@@ -21,8 +21,6 @@
 
 #include <Rcpp.h>
 
-#ifdef RCPP_ENABLE_MODULES
-
 #define MAX_ARGS 65
 
 typedef Rcpp::XPtr<Rcpp::Module> XP_Module ; 
@@ -393,10 +391,4 @@ namespace Rcpp{
 	}
 	
 }
-
-
-#else
-/* quiet ranlib */ 
-void dummy(){}
-#endif
 
