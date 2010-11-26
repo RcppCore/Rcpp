@@ -112,13 +112,13 @@ public:
 	MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
 	    int n = size() ;
 	    const T& ref = rhs.get_ref() ;
-	    RCPP_LOOP_UNROLL(start,ref)
+	    RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,ref)
 	    return *this ;
 	}
 	
 	MatrixRow& operator=( const MatrixRow& rhs ){
 	    int n = size() ;
-	    RCPP_LOOP_UNROLL(start,rhs)
+	    RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,rhs)
 	    return *this ;
 	}
 
