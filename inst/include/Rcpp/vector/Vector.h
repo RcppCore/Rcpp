@@ -799,7 +799,44 @@ protected:
 		if( !::Rf_isMatrix(RObject::m_sexp) ) throw not_a_matrix() ;
 		return INTEGER( ::Rf_getAttrib( RObject::m_sexp, R_DimSymbol ) ) ;
 	}
+
 	
+public:
+    
+    template <bool EXPR_NA, typename EXPR_VEC>
+    Vector& operator+=( const VectorBase<RTYPE,EXPR_NA,EXPR_VEC>& rhs ){
+        const EXPR_VEC& ref = rhs.get_ref() ;
+        iterator start = begin() ;
+        int n = size() ;
+        // TODO: maybe unroll this
+        stored_type tmp ;
+        for( int i=0; i<n; i++){
+            Proxy left = start[i] ;
+            if( ! traits::is_na<RTYPE>( left ) ){
+                tmp = ref[i] ;
+                left = traits::is_na<RTYPE>( tmp ) ? tmp : ( left + tmp ) ;
+            }
+        }
+        return *this ;
+    }
+    
+    template <typename EXPR_VEC>
+    Vector& operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ){
+        const EXPR_VEC& ref = rhs.get_ref() ;
+        iterator start = begin() ;
+        int n = size() ;
+        // TODO: maybe unroll this
+        stored_type tmp ;
+        for( int i=0; i<n; i++){
+            Proxy left = start[i] ;
+            if( ! traits::is_na<RTYPE>( left ) ){
+                left = left + ref[i] ;
+            }
+        }
+        return *this ;
+    }
+    
 } ; /* Vector */
+
 
 #endif
