@@ -1158,10 +1158,9 @@ types, ...
 \section{Summary}
 
 This note introduced \textsl{Rcpp modules} and illustrated how to expose
-\proglang{C++} function and classes more easily to \proglang{R}.
-\textsl{Rcpp modules} is a relatively new addition to the \pkg{Rcpp} package
-and will probably undergo a few more changes. We hope that \proglang{R} and
-\proglang{C++} programmers find \textsl{Rcpp modules} useful.
+\proglang{C++} function and classes more easily to \proglang{R}. 
+We hope that \proglang{R} and \proglang{C++} programmers 
+find \textsl{Rcpp modules} useful.
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}
