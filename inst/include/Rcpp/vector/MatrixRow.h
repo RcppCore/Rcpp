@@ -112,34 +112,21 @@ public:
 	MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
 	    int n = size() ;
 	    const T& ref = rhs.get_ref() ;
-	    
-	    int __trip_count = n >> 2 ;
-        int i = 0 ;
-        for ( ; __trip_count > 0 ; --__trip_count) { 
-        	start[get_parent_index(i)] = ref[i] ; i++ ;            
-        	start[get_parent_index(i)] = ref[i] ; i++ ;            
-        	start[get_parent_index(i)] = ref[i] ; i++ ;            
-        	start[get_parent_index(i)] = ref[i] ; i++ ;            
-        }                                            
-        switch (n - i){                          
-          case 3:                                    
-              start[get_parent_index(i)] = ref[i] ; i++ ;             
-          case 2:                                    
-              start[get_parent_index(i)] = ref[i] ; i++ ;             
-          case 1:                                    
-              start[get_parent_index(i)] = ref[i] ; i++ ;             
-          case 0:                                    
-          default:                                   
-              {}                         
-        }
-        return *this ;
+	    RCPP_LOOP_UNROLL(start,ref)
+	    return *this ;
+	}
+	
+	MatrixRow& operator=( const MatrixRow& rhs ){
+	    int n = size() ;
+	    RCPP_LOOP_UNROLL(start,rhs)
+	    return *this ;
 	}
 
-	reference operator[]( int i ){
+	inline reference operator[]( int i ){
 		return start[ get_parent_index(i) ] ;
 	}
 	
-	reference operator[]( int i ) const {
+	inline reference operator[]( int i ) const {
 		return start[ get_parent_index(i) ] ;
 	}
 	

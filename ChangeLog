@@ -9,6 +9,8 @@
     * inst/include/Rcpp/vector/MatrixColumn.h: added MatrixColumn::operator=( MatrixColumn& )
     otherwise it gets synthetized by the compiler
     
+    * inst/include/Rcpp/vector/MatrixRow.h: same for MatrixRow
+    
 2010-11-25  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/module/Module_generated_function.h: new .function with
