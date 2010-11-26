@@ -508,12 +508,24 @@ public:
 	
 	template <typename U>
 	static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, int index, const U& u){
-		RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
+		replace_element__dispatch__isArgument( typename traits::same_type<U,Argument>(), it, names, index, u ) ;
+	}
+
+    template <typename U>
+	static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, int index, const U& u){
+	    RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
 		
 	    *it = converter_type::get(u.object ) ;
 		SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
 	}
 	
+	template <typename U>
+	static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, int index, const U& u){
+	    RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
+		
+	    *it = R_MissingArg ;
+		SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
+	}
 	
 public:
 	void set_sexp(SEXP x){

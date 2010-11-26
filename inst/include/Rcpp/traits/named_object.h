@@ -24,6 +24,8 @@
 #define Rcpp__traits__named_object__h
 
 namespace Rcpp{
+class Argument ;
+
 namespace traits{
 
 template <typename T> class named_object {
@@ -35,6 +37,7 @@ template <typename T> class named_object {
 } ;
 template <typename T> struct is_named : public false_type{} ;
 template <typename T> struct is_named< named_object<T> >   : public true_type {} ;
+template <> struct is_named< Rcpp::Argument >   : public true_type {} ;
 
 } // namespace traits
 } // namespace Rcpp

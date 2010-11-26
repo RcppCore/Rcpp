@@ -1,3 +1,9 @@
+2010-11-26  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/vector/Vector.h: List::create( _["foo"] ) sets the SEXP 
+    to R_MissingArg, usueful for formal arguments specifications, simpler form
+    than List::create( _["foo"] = R_MissingArg )
+    
 2010-11-25  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/module/Module_generated_function.h: new .function with
