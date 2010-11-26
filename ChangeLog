@@ -4,6 +4,11 @@
     to R_MissingArg, usueful for formal arguments specifications, simpler form
     than List::create( _["foo"] = R_MissingArg )
     
+    * inst/include/Rcpp/macros/unroll.h: helper macro RCPP_UNROLL_LOOP
+    
+    * inst/include/Rcpp/vector/MatrixColumn.h: added MatrixColumn::operator=( MatrixColumn& )
+    otherwise it gets synthetized by the compiler
+    
 2010-11-25  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/module/Module_generated_function.h: new .function with
