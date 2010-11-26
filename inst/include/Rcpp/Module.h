@@ -23,7 +23,6 @@
 #define Rcpp_Module_h
    
 #include <Rcpp/config.h>
-#ifdef RCPP_ENABLE_MODULES
 
 namespace Rcpp{
 
@@ -738,8 +737,6 @@ extern "C" SEXP _rcpp_module_boot_##name(){                          \
 void _rcpp_module_##name##_init()
 
 #define LOAD_RCPP_MODULE(NAME) Rf_eval( Rf_lang2( Rf_install("Module"), _rcpp_module_boot_##NAME() ), R_GlobalEnv )
-
-#endif  
 
 #endif
 
