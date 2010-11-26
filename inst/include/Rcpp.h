@@ -34,7 +34,6 @@
 #include <Rcpp/exceptions.h>
 
 #include <Rcpp/RObject.h>
-#include <Rcpp/Named.h>
 
 #include <Rcpp/S4.h>
 #include <Rcpp/Reference.h>
