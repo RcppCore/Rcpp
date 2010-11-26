@@ -464,8 +464,7 @@ norm( x = 2, y = 3 )
 args( norm )
 @
 
-To set formal arguments without default values, 
-the R variable \texttt{R\_MissingArg} must be used. 
+To set formal arguments without default values, simply omit the rhs. 
 
 <<lang=cpp>>=
 using namespace Rcpp ;
@@ -476,7 +475,7 @@ double norm( double x, double y ){
 
 RCPP_MODULE(mod_formals2){
 	function( "norm", &norm, 
-	    List::create( _["x"] = R_MissingArg, _["y"] = 0.0 ), 
+	    List::create( _["x"], _["y"] = 0.0 ), 
 	    "documentation for norm"
 	) ;
 }
@@ -491,7 +490,7 @@ double norm( double x, double y ){
 
 RCPP_MODULE(mod_formals2){
 	function( "norm", &norm, 
-	    List::create( _["x"] = R_MissingArg, _["y"] = 0.0 ), 
+	    List::create( _["x"], _["y"] = 0.0 ), 
 	    "documentation for norm"
 	) ;
 }
@@ -503,8 +502,7 @@ norm <- mod$norm
 args( norm )
 @
 
-The ellipsis (\texttt{...}) can be used, although it must be 
-set to \texttt{R\_MissingArg}. 
+The ellipsis (\texttt{...}) can be used, without default value. 
 
 <<lang=cpp>>=
 using namespace Rcpp ;
@@ -515,7 +513,7 @@ double norm( double x, double y ){
 
 RCPP_MODULE(mod_formals3){
 	function( "norm", &norm, 
-	    List::create( _["x"] = R_MissingArg, _["..."] = R_MissingArg ), 
+	    List::create( _["x"], _["..."] ), 
 	    "documentation for norm"
 	) ;
 }
@@ -530,7 +528,7 @@ double norm( double x, double y ){
 
 RCPP_MODULE(mod_formals3){
 	function( "norm", &norm, 
-	    List::create( _["x"] = R_MissingArg, _["..."] = R_MissingArg ), 
+	    List::create( _["x"] , _["..."]  ), 
 	    "documentation for norm"
 	) ;
 }
