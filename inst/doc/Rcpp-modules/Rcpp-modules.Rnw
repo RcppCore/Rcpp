@@ -952,12 +952,16 @@ void vec_set( vec* obj, int i, double value ){
 	obj->at( i ) = value ;
 }
 
-RCPP_MODULE(yada){
+RCPP_MODULE(mod_vec){
     using namespace Rcpp ;
 
     // we expose the class std::vector<double> as "vec" on the R side
     class_<vec>( "vec")
 
+    // exposing constructors
+    .constructor()
+    .constructor<int>()
+    
     // exposing member functions
     .method( "size", &vec::size)
     .method( "max_size", &vec::max_size)
@@ -988,13 +992,91 @@ RCPP_MODULE(yada){
 }
 @
 
+<<echo=FALSE,results=hide>>=
+fx_vec <- cxxfunction(, '', includes = '
+// convenience typedef
+typedef std::vector<double> vec ;
+
+// helpers
+void vec_assign( vec* obj, Rcpp::NumericVector data ){
+	obj->assign( data.begin(), data.end() ) ;
+}
+
+void vec_insert( vec* obj, int position, Rcpp::NumericVector data){
+	vec::iterator it = obj->begin() + position ;
+	obj->insert( it, data.begin(), data.end() ) ;
+}
+
+Rcpp::NumericVector vec_asR( vec* obj ){
+	return Rcpp::wrap( *obj ) ;
+}
+
+void vec_set( vec* obj, int i, double value ){
+	obj->at( i ) = value ;
+}
+
+RCPP_MODULE(mod_vec){
+    using namespace Rcpp ;
+
+    // we expose the class std::vector<double> as "vec" on the R side
+    class_<vec>( "vec")
+
+    // exposing constructors
+    .constructor()
+    .constructor<int>()
+    
+    // exposing member functions
+    .method( "size", &vec::size)
+    .method( "max_size", &vec::max_size)
+    .method( "resize", &vec::resize)
+    .method( "capacity", &vec::capacity)
+    .method( "empty", &vec::empty)
+    .method( "reserve", &vec::reserve)
+    .method( "push_back", &vec::push_back )
+    .method( "pop_back", &vec::pop_back )
+    .method( "clear", &vec::clear )
+
+    // specifically exposing const member functions
+    .const_method( "back", &vec::back )
+    .const_method( "front", &vec::front )
+    .const_method( "at", &vec::at )
+
+    // exposing free functions taking a std::vector<double>*
+    // as their first argument
+    .method( "assign", &vec_assign )
+    .method( "insert", &vec_insert )
+    .method( "as.vector", &vec_asR )
+
+    // special methods for indexing
+    .const_method( "[[", &vec::at )
+    .method( "[[<-", &vec_set )
+
+	;
+}
+', plugin = "Rcpp" )
+mod_vec <- Module( "mod_vec", getDynLib(fx_vec), mustStart = TRUE )
+@
+
+<<>>=
+vec <- mod_vec$vec
+v <- new( vec )
+v$reserve( 50L )
+v$assign( 1:10 )
+v$push_back( 10 )
+v$size()
+v$capacity()
+v[[ 0L ]]
+v$as.vector()
+@
 
 \section{Using modules in other packages}
 
 \subsection{Namespace import/export}
 
+\subsubsection{Import all functions and classes}
+
 When using \pkg{Rcpp} modules in a packages, the client package needs to
-import a set of classes from \pkg{Rcpp}. This is achieved by adding the
+import \pkg{Rcpp}'s namespace. This is achieved by adding the
 following line to the \texttt{NAMESPACE} file.
 
 <<echo=FALSE,eval=TRUE>>=
@@ -1002,28 +1084,49 @@ options( prompt = " ", continue = " " )
 @
 
 <<eval=FALSE>>=
-importClassesFrom( Rcpp, "C++Object", "C++Class", "Module" )
+import( Rcpp )
 @
 
-Loading modules that are defined in a package is best placed inside the
-\Sexpr{link(".onLoad" )} hook for the package.
+Loading the module must happen after the dynamic library of the
+package is loaded. The most appropriate place for this is 
+within the \Sexpr{link(".onLoad" )} hook. 
 
 <<eval=FALSE>>=
+# grab the namespace
 NAMESPACE <- environment()
-# this will be replaced by the real module
-yada <- new( "Module" )
 
 .onLoad <- function(libname, pkgname){
 	# load the module and store it in our namespace
-	unlockBinding( "yada" , NAMESPACE )
-	assign( "yada",  Module( "yada" ), NAMESPACE )
-	lockBinding( "yada", NAMESPACE )
+	yada <- Module( "yada" )
+	populate( yada, NAMESPACE  )
 }
 @
+
+The call to \texttt{populate} installs all functions and classes from the 
+module into the namespace of package. 
 
 <<echo=FALSE,eval=TRUE>>=
 options( prompt = "> ", continue = "+ " )
 @
+
+\subsubsection{Just expose the module}
+
+Alternatively, it is possible to just expose the module to the user of the package, 
+and let them extract the functions and classes as needed. This uses lazy loading
+so that the module is only loaded the first time the user attempts to extract 
+a function or a class with the dollar extractor. 
+
+<<eval=FALSE>>=
+# grab the namespace
+NAMESPACE <- environment()
+
+yada <- Module( "yada" )
+
+.onLoad <- function(libname, pkgname){
+    # placeholder
+}
+@
+
 
 \subsection{Support for modules in skeleton generator}
 
