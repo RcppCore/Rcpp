@@ -21,12 +21,7 @@
 
 #ifndef Rcpp_Named_h    
 #define Rcpp_Named_h
-
-#include <RcppCommon.h>
-
-// #include <Rcpp/Symbol.h>
-// #include <Rcpp/RObject.h>
-
+                     
 namespace Rcpp{ 
                     
 class Argument {
