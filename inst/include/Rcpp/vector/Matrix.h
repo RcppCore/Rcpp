@@ -93,6 +93,10 @@ public:
     	UNPROTECT( 2 ) ;
     	import_matrix_expression<NA,MAT>( other, nrows, nc ) ;
 	}
+	
+	// defined later
+	Matrix( const SubMatrix<RTYPE>& ) ;
+	Matrix& operator=( const SubMatrix<RTYPE>& ) ;
    
 private:
 	
@@ -248,10 +252,45 @@ public:
         return iter[ i + j*m_nc ] ;
     }
     
+    inline vec_iterator column_iterator( int j ) const { return iter + j*m_nc ; } 
+    
 private:
     MATRIX& m ;
     vec_iterator iter ;
     int m_nc, nc, nr ;
 } ;
+
+template <int RTYPE>
+Matrix<RTYPE>::Matrix( const SubMatrix<RTYPE>& sub ) : nrows(sub.nrow()) {
+    int nc = sub.ncol() ;
+    VECTOR::setSEXP( Rf_allocMatrix( RTYPE, nrows, nc ) ) ;
+	iterator start = VECTOR::begin() ;
+	iterator rhs_it ;
+	for( int j=0; j<nc; j++){
+	    rhs_it = sub.column_iterator(j) ;
+	    for( int i=0; i<nrows; i++, ++start){
+	        *start = rhs_it[i] ;
+	    }
+	}
+}
+
+template <int RTYPE>
+Matrix<RTYPE>& Matrix<RTYPE>::operator=( const SubMatrix<RTYPE>& sub ){
+    int nc = sub.ncol(), nr = sub.nrow() ;
+    if( nc != nrow() || nr != ncol() ){
+        nrows = nr ;
+        VECTOR::setSEXP( Rf_allocMatrix( RTYPE, nr, nc ) ) ;
+	}
+	iterator start = VECTOR::begin() ;
+	iterator rhs_it ;
+	for( int j=0; j<nc; j++){
+	    rhs_it = sub.column_iterator(j) ;
+	    for( int i=0; i<nrows; i++, ++start){
+	        *start = rhs_it[i] ;
+	    }
+	}
+	return *this ;
+}
+
 
 #endif
