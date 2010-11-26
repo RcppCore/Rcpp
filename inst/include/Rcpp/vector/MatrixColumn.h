@@ -43,35 +43,23 @@ public:
 	MatrixColumn& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
 	    int n = size() ;
 	    const T& ref = rhs.get_ref() ;
-	    
-	        int __trip_count = n >> 2 ;
-            int i = 0 ;
-            for ( ; __trip_count > 0 ; --__trip_count) { 
-            	start[i] = ref[i] ; i++ ;            
-            	start[i] = ref[i] ; i++ ;            
-            	start[i] = ref[i] ; i++ ;            
-            	start[i] = ref[i] ; i++ ;            
-            }                                            
-            switch (n - i){                          
-              case 3:                                    
-                  start[i] = ref[i] ; i++ ;             
-              case 2:                                    
-                  start[i] = ref[i] ; i++ ;             
-              case 1:                                    
-                  start[i] = ref[i] ; i++ ;             
-              case 0:                                    
-              default:                                   
-                  {}                         
-            }
-       return *this ;
+	    RCPP_LOOP_UNROLL(start,ref)
+	    return *this ;
+	}
+	
+	MatrixColumn& operator=( const MatrixColumn& rhs ){
+	    int n = size() ;
+	    iterator rhs_start = rhs.start ; 
+	    RCPP_LOOP_UNROLL(start,rhs_start)
+	    return *this ;
 	}
 
-	Proxy operator[]( int i ){
+	inline Proxy operator[]( int i ){
 		/* TODO: should we cache nrow and ncol */
 		return start[i] ;
 	}
 	
-	Proxy operator[]( int i ) const {
+	inline Proxy operator[]( int i ) const {
 		/* TODO: should we cache nrow and ncol */
 		return start[i] ;
 	}
