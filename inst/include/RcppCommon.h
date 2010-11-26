@@ -226,6 +226,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/integral_constant.h>
 #include <Rcpp/traits/same_type.h>
 #include <Rcpp/traits/named_object.h>
+#include <Rcpp/Named.h>
 #include <Rcpp/traits/is_convertible.h>
 #include <Rcpp/traits/has_iterator.h>
 #include <Rcpp/traits/expands_to_logical.h>
