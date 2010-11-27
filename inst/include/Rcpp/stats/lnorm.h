@@ -87,7 +87,7 @@ inline double plnorm_1(double x, double meanlog, int lower_tail, int log_p) {
     return R_DT_0;
 }
 
-inline double qlnorm_0(double p, double meanlog, int lower_tail, int log_p){
+inline double qlnorm_0(double p, int lower_tail, int log_p){
 #ifdef IEEE_754
     if (ISNAN(p) )
 	return p + 1.0 ;
