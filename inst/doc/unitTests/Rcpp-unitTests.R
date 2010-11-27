@@ -15,14 +15,17 @@ cppfunction <- function( ... ){
 #load RUnit
 runit <- "RUnit" ; require( runit, character.only = TRUE )
 if( file.exists( "unitTests-results" ) ){ unlink("unitTests-results", recursive = TRUE ) }
-dir.create( "unitTests-results" ) 
+dir.create( "unitTests-results" )
 
 path <- system.file("unitTests", package = pkg)
 testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
 tests <- runTestSuite(testSuite)
 err <- getErrors(tests)
-if( (err$nFail + err$nErr) > 0) {
-    stop( sprintf( "unit test problems: %d failures, %d errors", err$nFail, err$nErr) )
+if( err$nFail > 0) {
+    warning(sprintf( "unit test problems: %d failures", err$nFail))
+}
+if( err$nErr > 0) {
+    stop( sprintf( "unit test problems: %d errors", err$nErr) )
 }
 printHTMLProtocol(tests, fileName= sprintf( "unitTests-results/%s-unitTests.html" , pkg ) )
 printTextProtocol(tests, fileName= sprintf( "unitTests-results/%s-unitTests.txt"  , pkg ) )
