@@ -22,7 +22,7 @@ testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
 tests <- runTestSuite(testSuite)
 err <- getErrors(tests)
 if( err$nFail > 0) {
-    warning(sprintf( "unit test problems: %d failures", err$nFail))
+    stop(sprintf( "unit test problems: %d failures", err$nFail))
 }
 if( err$nErr > 0) {
     stop( sprintf( "unit test problems: %d errors", err$nErr) )
