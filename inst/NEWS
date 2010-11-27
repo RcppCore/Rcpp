@@ -1,7 +1,30 @@
 0.8.9   2010-11-28 
 
-    o   Lots of modules stuff to be filled in here 
-
+    o   Many improvements in modules, described in more details in the 
+        Rcpp-modules vignette: 
+        - exposing multiple constructors
+        - overloaded methods
+        - self documentation of classes, methods, constructors, fields and 
+          functions. 
+        - new R function "populate" to facilitate working with modules in 
+          packages. 
+        - formal argument specification of functions.
+        
+    o   New template class Rcpp::SubMatrix<RTYPE> and support syntax in Matrix
+        to extract a submatrix: 
+        
+        NumericMatrix x = ... ;
+        
+        // extract the first three columns
+        SubMatrix<REALSXP> y = x( _ , Range(0,2) ) ; 
+        
+        // extract the first three rows
+        SubMatrix<REALSXP> y = x( Range(0,2), _ ) ; 
+        
+        // extract the top 3x3 sub matrix
+        SubMatrix<REALSXP> y = x( Range(0,2), Range(0,2) ) ; 
+        
+    
 0.8.8   2010-11-01
 
     o   New syntactic shortcut to extract rows and columns of a Matrix. 
