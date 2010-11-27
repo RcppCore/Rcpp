@@ -22,12 +22,12 @@
 #ifndef Rcpp_Module_generated_class_signature_h
 #define Rcpp_Module_generated_class_signature_h
 
-inline bool yes( SEXP* args, int nargs){
+inline bool yes( SEXP* /*args*/, int /* nargs */ ){
     return true ;
 }
 
 template<int n>
-bool yes_arity( SEXP* args, int nargs){
+bool yes_arity( SEXP* /* args */ , int nargs){
     return nargs == n ;
 }
 
