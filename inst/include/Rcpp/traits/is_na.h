@@ -45,7 +45,7 @@ namespace traits{
 	}
 	
 	template <>
-	inline bool is_na<RAWSXP>( Rbyte x){ return false; }
+	inline bool is_na<RAWSXP>( Rbyte ){ return false; }
 	
 	template <>
 	inline bool is_na<STRSXP>( SEXP x ){ return x == NA_STRING ; }
