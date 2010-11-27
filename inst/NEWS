@@ -1,30 +1,48 @@
-0.8.9   2010-11-28 
+0.8.9   2010-11-28 (or even -27)
 
-    o   Many improvements in modules, described in more details in the 
-        Rcpp-modules vignette: 
+    o   Many improvements were made to in 'Rcpp modules':
+
         - exposing multiple constructors
+
         - overloaded methods
-        - self documentation of classes, methods, constructors, fields and 
-          functions. 
+
+        - self-documentation of classes, methods, constructors, fields and 
+          functions.
+
         - new R function "populate" to facilitate working with modules in 
           packages. 
+
         - formal argument specification of functions.
+
+        - updated support for Rcpp.package.skeleton.
+
+        - constructors can now take many more arguments.
         
+    o   The 'Rcpp-modules' vignette was updated as well and describe many
+        of the new features
+
     o   New template class Rcpp::SubMatrix<RTYPE> and support syntax in Matrix
         to extract a submatrix: 
         
-        NumericMatrix x = ... ;
+           NumericMatrix x = ... ;
         
-        // extract the first three columns
-        SubMatrix<REALSXP> y = x( _ , Range(0,2) ) ; 
+           // extract the first three columns
+           SubMatrix<REALSXP> y = x( _ , Range(0,2) ) ; 
         
-        // extract the first three rows
-        SubMatrix<REALSXP> y = x( Range(0,2), _ ) ; 
+           // extract the first three rows
+           SubMatrix<REALSXP> y = x( Range(0,2), _ ) ; 
         
-        // extract the top 3x3 sub matrix
-        SubMatrix<REALSXP> y = x( Range(0,2), Range(0,2) ) ; 
-        
-    
+           // extract the top 3x3 sub matrix
+           SubMatrix<REALSXP> y = x( Range(0,2), Range(0,2) ) ; 
+
+    o   Reference Classes no longer require a default constructor for
+        subclasses of C++ classes    
+
+    o   Consistently revert to using backticks rather than shell expansion
+        to compute library file location when building packages against Rcpp
+	on the default platforms; this has been applied to internal test
+        packages as well as CRAN/BioC packages using Rcpp
+
 0.8.8   2010-11-01
 
     o   New syntactic shortcut to extract rows and columns of a Matrix. 
