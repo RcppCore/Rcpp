@@ -52,6 +52,7 @@ public:
      */ 
     ~Symbol() ;
 
+    inline const char* c_str(){ return CHAR(PRINTNAME(m_sexp)) ; }
 };
 
 } // namespace Rcpp
