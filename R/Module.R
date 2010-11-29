@@ -229,7 +229,9 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
             
         }
     }
-    module$refClassGenerators <- generators
+    if(length(classes)) {
+        module$refClassGenerators <- generators
+    }
     
     for( i in seq_along(classes) ){
         clname <- as.character(classes[[i]])
