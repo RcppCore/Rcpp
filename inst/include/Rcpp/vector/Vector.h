@@ -56,11 +56,11 @@ public:
 	}
 	
 	Vector( const RObject::SlotProxy& proxy ) throw(not_compatible) {
-		RObject::setSEXP( r_cast<RTYPE>( proxy ) ) ;
+		RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
 	}
 	
 	Vector( const RObject::AttributeProxy& proxy ) throw(not_compatible) {
-		RObject::setSEXP( r_cast<RTYPE>( proxy ) ) ;
+		RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
 	}
 		
 	template <typename T>
