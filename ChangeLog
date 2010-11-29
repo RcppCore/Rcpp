@@ -2,6 +2,10 @@
 
     * inst/include/Rcpp/vector/Vector.h: trying to please suncc after CRAN checks
 
+    * R/Module.R: protect the module$refClassGenerators <- generators line against
+    the case where there are no classes (triggered a problem with the parser 
+    package)
+    
 2010-11-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.9
