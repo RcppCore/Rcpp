@@ -1,3 +1,7 @@
+2010-11-29  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/vector/Vector.h: trying to please suncc after CRAN checks
+
 2010-11-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Release 0.8.9
