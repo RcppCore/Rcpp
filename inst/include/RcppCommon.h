@@ -24,6 +24,20 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
+#ifdef __GNUC__
+#define GOOD_COMPILER_FOR_RCPP
+#endif
+#ifdef __SUNPRO_CC
+#define GOOD_COMPILER_FOR_RCPP
+#endif
+#ifdef __clang__
+#define GOOD_COMPILER_FOR_RCPP
+#endif
+
+#ifndef GOOD_COMPILER_FOR_RCPP
+# error "This compiler is not supported"
+#endif
+
 #include <Rcpp/config.h>
 #include <Rcpp/macros/unroll.h>
 
