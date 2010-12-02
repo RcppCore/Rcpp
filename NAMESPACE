@@ -36,7 +36,7 @@ exportClasses( Module, "C++ObjectS3", "C++Field",
 
 S3method( .DollarNames, "C++Object" )
 S3method( .DollarNames, "Module" )
-exportMethods( prompt, show, .DollarNames, "formals<-" )
+exportMethods( prompt, show, .DollarNames, initialize, "formals<-" )
 
 export( 
     Module, Rcpp.package.skeleton, populate
