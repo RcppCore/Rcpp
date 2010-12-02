@@ -1005,13 +1005,13 @@ test.List.push.front <- function(){
 
 # test.List.insert <- function(){
 #
-# 	funx <- cppfunction( signature(x = "list"),
+# 	funx <- cxxfunction( signature(x = "list"),
 # 	'
 # 	List list(x) ;
 # 	list.insert( list.begin(), 10 ) ;
 # 	list.insert( list.end(), Named("foo", "bar" ) ) ;
 # 	return list ;
-# 	' )
+# 	' , plugin = "Rcpp" )
 # 	d <- list( x = 1:10, y = letters[1:10] )
 # 	res <- funx( d )
 # 	checkEquals( res,

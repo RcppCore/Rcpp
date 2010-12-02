@@ -78,7 +78,7 @@ test.Module <- function(){
 
 		class_<World>( "World" )
 		
-		    .default_constructor()
+		    .constructor()
 		    
 			.method( "greet", &World::greet )
 			.method( "set", &World::set )
@@ -136,7 +136,7 @@ RCPP_MODULE(yada){
 
 	class_<vec>( "vec")
 	
-	    .default_constructor() 
+	    .constructor() 
 	    
 	 	.method( "size", &vec::size)
  		.method( "max_size", &vec::max_size)
@@ -198,7 +198,7 @@ test.Module.property <- function(){
 
 		class_<Num>( "Num" )
 		    
-		    .default_constructor() 
+		    .constructor() 
 	    
 			// read and write property
 			.property( "x", &Num::getX, &Num::setX )
@@ -239,7 +239,7 @@ test.Module.member <- function(){
 
 		class_<Number>( "Number" )
 
-		    .default_constructor() 
+		    .constructor() 
 	    
 			// read and write data member
 			.field( "x", &Number::x )
