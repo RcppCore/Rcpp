@@ -23,6 +23,6 @@
 #define deprecation_H
 
 // uncomment this to not include the deprecated api
-// #define RCPP_NO_CLASSIC_API
+#define RCPP_NO_CLASSIC_API
 
 #endif

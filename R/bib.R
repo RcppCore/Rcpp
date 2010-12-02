@@ -16,5 +16,5 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 bib <- function(){
-    system.file( "doc", "Rcpp.bib", package = "Rcpp" )
+    system.file( "doc", "Rcpp", package = "Rcpp" )
 }
