@@ -18,6 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+if( Rcpp::capabilities()["classic api"] ){
+
 .setUp <- function() {
 
     tests <- ".Rcpp.RcppMatrix"
@@ -260,6 +262,4 @@ test.RcppStringVector.end <- function() {
     checkEquals(fun(sv), sv[3], msg = "RcppStringVector.begin")
 }
 
-
-
-
+}

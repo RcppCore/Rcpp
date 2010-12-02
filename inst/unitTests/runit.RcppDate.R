@@ -18,6 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+if( Rcpp::capabilities()["classic api"] ){
+
 .setUp <- function() {
     if( ! exists( ".rcpp.RcppDate", globalenv() )) {
         ## definition of all the functions at once
@@ -129,4 +131,5 @@ test.RcppDatetime.wrap <- function() {
     fun <- .rcpp.RcppDate$RcppDatetime_wrap
     checkEquals(as.numeric(fun()), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
                 msg = "RcppDatetime.wrap")
+}
 }

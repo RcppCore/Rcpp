@@ -30,8 +30,8 @@ void logTxtFunction(const char* file, const int line, const char* expression) {
 }
 
 SEXP capabilities(){
-	SEXP cap = PROTECT( Rf_allocVector( LGLSXP, 7) ) ;
-	SEXP names = PROTECT( Rf_allocVector( STRSXP, 7 ) ) ;
+	SEXP cap = PROTECT( Rf_allocVector( LGLSXP, 8) ) ;
+	SEXP names = PROTECT( Rf_allocVector( STRSXP, 8 ) ) ;
 #ifdef HAS_VARIADIC_TEMPLATES
 	LOGICAL(cap)[0] = TRUE ;
 #else
@@ -65,6 +65,12 @@ SEXP capabilities(){
 	LOGICAL(cap)[6] = FALSE ;
 #endif
 
+#ifdef RCPP_NO_CLASSIC_API
+	LOGICAL(cap)[7] = FALSE ;
+#else
+	LOGICAL(cap)[8] = TRUE ;
+#endif
+
 	SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
 	SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
 	SET_STRING_ELT(names, 2, Rf_mkChar("exception handling") ) ;
@@ -72,6 +78,7 @@ SEXP capabilities(){
 	SET_STRING_ELT(names, 4, Rf_mkChar("tr1 unordered sets") ) ;
 	SET_STRING_ELT(names, 5, Rf_mkChar("Rcpp modules") ) ;
 	SET_STRING_ELT(names, 6, Rf_mkChar("demangling") ) ;
+	SET_STRING_ELT(names, 6, Rf_mkChar("classic api") ) ;
 	Rf_setAttrib( cap, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ;
 	return cap ;

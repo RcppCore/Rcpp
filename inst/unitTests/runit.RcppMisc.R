@@ -18,6 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+if( Rcpp::capabilities()["classic api"] ){
+
 .setUp <- function() {
 
     tests <- ".Rcpp.RcppMisc"
@@ -143,4 +145,5 @@ test.RcppParams.Datetime <- function() {
     attr(posixt, "tzone") <- NULL    ## because we don't set a tzone attribute in C++
     result <- fun(list(val=posixt))[[1]]
     checkTrue( (result-posixt) == 0.0 , msg = "RcppParams.getDatetimeValue")
+}
 }
