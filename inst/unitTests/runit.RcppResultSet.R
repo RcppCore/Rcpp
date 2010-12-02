@@ -351,7 +351,6 @@ test.RcppResultSet.SEXP <- function() {
 }
 
 test.RObject.asStdVectorIntResultsSet <- function(){
-	funx <- .Rcpp.RObject$asStdVectorIntResultsSet
 	foo <- '
 		std::vector<int> iv = as<std::vector<int> >( x );
 		for (size_t i=0; i<iv.size(); i++) {
