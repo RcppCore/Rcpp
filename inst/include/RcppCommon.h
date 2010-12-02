@@ -148,10 +148,6 @@ namespace Rcpp{
 
 extern "C" SEXP rcpp_call_test(SEXP x) ;
 
-#ifndef RCPP_NO_CLASSIC_API
-char *copyMessageToR(const char* const mesg);
-#endif 
-
 /* in exceptions.cpp */
 void forward_uncaught_exceptions_to_r() ;
 void forward_exception_to_r( const std::exception& ) ;
