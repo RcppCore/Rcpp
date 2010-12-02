@@ -71,11 +71,11 @@ public:
 	 */
 #ifdef HAS_VARIADIC_TEMPLATES
 template<typename... Args> 
-	SEXP operator()( const Args&... args) /* throw(Evaluator::eval_error) */ {
+	SEXP operator()( const Args&... args) /* throw(Evaluator::eval_error) */ const {
 		return internal::try_catch( Rf_lcons( m_sexp, pairlist(args...) ) ) ;
 	}
 #else
-	SEXP operator()(){
+	SEXP operator()() const {
 		return internal::try_catch( Rf_lcons( m_sexp, R_NilValue ) ) ;	
 	}
 	
