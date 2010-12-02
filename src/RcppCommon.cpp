@@ -65,11 +65,7 @@ SEXP capabilities(){
 	LOGICAL(cap)[6] = FALSE ;
 #endif
 
-#ifdef RCPP_NO_CLASSIC_API
 	LOGICAL(cap)[7] = FALSE ;
-#else
-	LOGICAL(cap)[7] = TRUE ;
-#endif
 
 	SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
 	SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
