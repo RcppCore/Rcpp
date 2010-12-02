@@ -129,8 +129,8 @@ test.S4 <- function(){
 	setClass("track",
            representation(x="numeric", y="numeric"))
 	tr <- new( "track", x = 2, y = 3 )
-	fx <- cppfunction( signature( x = "ANY" ),
-                        'S4 o(x); return o.slot( "x" ) ;')
+	fx <- cxxfunction( signature( x = "ANY" ),
+                        'S4 o(x); return o.slot( "x" ) ;', plugin = "Rcpp" )
 	checkEquals( fx( tr ), 2, msg = "S4( SEXP )" )
 	
 	checkException( fx( list( x = 2, y = 3 ) ), msg = "not S4" )
