@@ -360,7 +360,7 @@ test.RObject.asStdVectorIntResultsSet <- function(){
     	RcppResultSet rs;
     	rs.add("", iv);
     	return(rs.getSEXP());'
-    funx <- cppfunction(signature(x="numeric"), foo )
+    funx <- cxxfunction(signature(x="numeric"), foo, plugin = "Rcpp" )
 	checkEquals( funx(x=2:5), 2:5*2L, msg = "as<std::vector<int> >(integer) via RcppResultSet" )
     checkEquals( funx(x=2:5+.1), 2:5*2L, msg = "as<std::vector<int> >(numeric) via RcppResultSet" )
     checkEquals( funx(x=as.raw(2:5)), 2:5*2L, msg = "as<std::vector<int> >(raw) via RcppResultSet" )

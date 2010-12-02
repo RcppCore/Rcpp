@@ -60,13 +60,13 @@ test.macro.switch <- function(){
 
 test.RCPPFUNCTION <- function(){
 
-	fx <- cppfunction( signature(), '
+	fx <- cxxfunction( signature(), '
 		return foo() ;
 	', includes = '
 	RCPP_FUNCTION_0(int, foo){
 		return 10 ;
 	}
-	')
+	', plugin = "Rcpp" )
 	checkEquals( fx(), 10L, msg = "RCPP_FUNCTION_0" )
 
 	checkEquals( .getInfo( "foo", fx ) ,
@@ -75,13 +75,13 @@ test.RCPPFUNCTION <- function(){
 		output = "int",
 		input = character(0) ), class = "rcppfunctioninfo" ) )
 
-	fx <- cppfunction( signature(x = "numeric", y = "numeric" ), '
+	fx <- cxxfunction( signature(x = "numeric", y = "numeric" ), '
 		return foo(x, y) ;
 	', includes = '
 	RCPP_FUNCTION_2(double, foo, double x, double y){
 		return x * y ;
 	}
-	')
+	', plugin = "Rcpp" )
 	checkEquals( fx( 10, 10), 100, msg = "RCPP_FUNCTION_2" )
 
 	checkEquals( .getInfo( "foo", fx ) ,
@@ -93,13 +93,13 @@ test.RCPPFUNCTION <- function(){
 }
 
 test.RCPPFUNCTION.VOID <- function(){
-	fx <- cppfunction( signature(), '
+	fx <- cxxfunction( signature(), '
 		return foo() ;
 	', includes = '
 	RCPP_FUNCTION_VOID_0(foo){
 		Rprintf("hello\\n") ;
 	}
-	')
+	', plugin = "Rcpp" )
 	checkEquals( capture.output( x <- fx() ) , "hello", 10L, msg = "RCPP_FUNCTION_VOID_0" )
 
 	info <- .getInfo( "foo", fx )
@@ -108,13 +108,13 @@ test.RCPPFUNCTION.VOID <- function(){
 	checkEquals( info[["output"]], NULL)
 	checkEquals( class(info), "rcppfunctionvoidinfo" )
 
-	fx <- cppfunction( signature(x = "character", y = "integer" ), '
+	fx <- cxxfunction( signature(x = "character", y = "integer" ), '
 		return foo(x, y) ;
 	', includes = '
 	RCPP_FUNCTION_VOID_2(foo, std::string x, int y){
 		Rprintf("hello %s (%d)\\n", x.c_str(), y) ;
 	}
-	')
+	', plugin = "Rcpp" )
 	checkEquals( capture.output( x <- fx("world", 3L) ) , "hello world (3)", 10L, msg = "RCPP_FUNCTION_VOID_0" )
 
 	info <- .getInfo( "foo", fx )
@@ -127,18 +127,18 @@ test.RCPPFUNCTION.VOID <- function(){
 
 test.RCPPXPMETHOD <- function(){
 
-	fx <- cppfunction( signature(), '
+	fx <- cxxfunction( signature(), '
 		std::vector<int>* v = new std::vector<int>(5) ;
 		v->push_back( 5 ) ;
 		return XPtr< std::vector<int> >(v,true) ;
-	' )
+	' , plugin = "Rcpp" )
 	xp <- fx()
 
-	f_back <- cppfunction( signature( xp = "externalptr" ), '
+	f_back <- cxxfunction( signature( xp = "externalptr" ), '
 		return get_back( xp ) ;
 	', includes = '
 		RCPP_XP_METHOD_0( get_back, std::vector<int>, back )
-	' )
+	', plugin = "Rcpp" )
 	checkEquals( f_back(xp), 5L, msg = "RCPP_XP_METHOD_0" )
 
 	info <- .getInfo( "get_back", f_back )
@@ -147,12 +147,12 @@ test.RCPPXPMETHOD <- function(){
 	checkEquals( info[["method"]], "back")
 	checkEquals( class(info), "rcppxpmethodinfo" )
 	
-	f_push_back <- cppfunction( signature( xp = "externalptr", x = "integer" ), '
+	f_push_back <- cxxfunction( signature( xp = "externalptr", x = "integer" ), '
 		vec_push_back( xp, x );
 		return R_NilValue ;
 	', includes = '
 		RCPP_XP_METHOD_VOID_1( vec_push_back, std::vector<int>, push_back )
-	' )
+	' , plugin = "Rcpp" )
 	f_push_back( xp, 10L )
 	checkEquals( f_back(xp), 10L, msg = "RCPP_XP_METHOD_0" )
 	f_push_back( xp, 20L )
@@ -165,11 +165,11 @@ test.RCPPXPMETHOD <- function(){
 	checkEquals( class(info), "rcppxpmethodvoidinfo" )
 
 
-	f_front_cast <- cppfunction( signature( xp = "externalptr" ), '
+	f_front_cast <- cxxfunction( signature( xp = "externalptr" ), '
 		return front( xp ) ;
 	', includes = '
 		RCPP_XP_METHOD_CAST_0( front, std::vector<int>, front, double )
-	' )
+	' , plugin = "Rcpp" )
 	checkEquals( f_front_cast(xp), 0, msg = "RCPP_XP_METHOD_CAST value" )
 	checkEquals( typeof( f_front_cast(xp) ), "double", msg = "RCPP_XP_METHOD_CAST type" )
 
@@ -197,7 +197,7 @@ test.RCPPXPFIELD <- function(){
 	}
 	'
 
-	fx <- cppfunction( signature(xp = "externalptr"), '', include = cl )
+	fx <- cxxfunction( signature(xp = "externalptr"), '', include = cl, plugin = "Rcpp" )
 
 	get_info <- .getInfo( "Foo_x_get", fx )
 	set_info <- .getInfo( "Foo_x_set", fx )
@@ -220,14 +220,14 @@ test.RCPPXPFIELD <- function(){
 ### regression test for long long support
 test.long.long <- function(){
 	
-	fx <- cppfunction( signature(), '
+	fx <- cxxfunction( signature(), '
 		return foo() ;
 	', includes = '
 	RCPP_FUNCTION_0(size_t, foo){
 		std::vector<int> v(10) ;
 		return v.size() ;
 	}
-	')
+	', plugin = "Rcpp" )
 	checkEquals( as.integer(fx()), 10L, msg = "long long support" )
 
 }
