@@ -50,16 +50,6 @@
                    'bool b = as<bool>(x);
 					return(wrap( !b ));')
 
-                  ,"asStdVectorIntResultsSet"=list(
-                   signature(x="numeric"),
-                   'std::vector<int> iv = as<std::vector<int> >( x );
-					for (size_t i=0; i<iv.size(); i++) {
-    	    			iv[i] = 2*iv[i];
-    				}
-			    	RcppResultSet rs;
-    				rs.add("", iv);
-    				return(rs.getSEXP());')
-
                   ,"asStdVectorInt"=list(
                    signature(x="numeric"),
                    'std::vector<int> iv = as< std::vector<int> >(x);
@@ -234,23 +224,6 @@ test.RObject.asLogical <- function(){
 	checkException( funx(integer(0)), msg = "as<bool>(0 integer) -> exception" )
 	checkException( funx(numeric(0)), msg = "as<bool>(0 numeric) -> exception" )
 	checkException( funx(raw(0)), msg = "as<bool>(0 raw) -> exception" )
-}
-
-test.RObject.asStdVectorIntResultsSet <- function(){
-	funx <- .Rcpp.RObject$asStdVectorIntResultsSet
-	foo <- '
-		std::vector<int> iv = as<std::vector<int> >( x );
-		for (size_t i=0; i<iv.size(); i++) {
-    	    iv[i] = 2*iv[i];
-    	}
-    	RcppResultSet rs;
-    	rs.add("", iv);
-    	return(rs.getSEXP());'
-    funx <- cppfunction(signature(x="numeric"), foo )
-	checkEquals( funx(x=2:5), 2:5*2L, msg = "as<std::vector<int> >(integer) via RcppResultSet" )
-    checkEquals( funx(x=2:5+.1), 2:5*2L, msg = "as<std::vector<int> >(numeric) via RcppResultSet" )
-    checkEquals( funx(x=as.raw(2:5)), 2:5*2L, msg = "as<std::vector<int> >(raw) via RcppResultSet" )
-    checkException( funx("foo"), msg = "as<std::vector<int> >(character) -> exception" )
 }
 
 test.RObject.asStdVectorInt <- function(){
