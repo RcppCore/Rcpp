@@ -24,6 +24,5 @@
 
 // uncomment this to not include the deprecated api
 // #define RCPP_NO_CLASSIC_API
-#define RCPP_DUMMY(NAME) void Rcpp_dummy_##NAME(){}
 
 #endif
