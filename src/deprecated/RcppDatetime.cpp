@@ -20,8 +20,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <deprecation.h>
-#ifndef RCPP_NO_CLASSIC_API
 #include <classic/RcppDatetime.h>
 #include <time.h> // for strftime
 #include <Rmath.h> // for Rf_fround
@@ -72,6 +70,4 @@ RcppDatetime operator+(const RcppDatetime &date,   double offset) {
     tmp.m_parsed = false;
     return tmp;
 }
-#else
-RCPP_DUMMY(RcppDateTime)
-#endif
+

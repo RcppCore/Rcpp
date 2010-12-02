@@ -20,7 +20,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_NO_CLASSIC_API
 #include <classic/RcppStringVectorView.h>
 
 RcppStringVectorView::RcppStringVectorView(SEXP vec) {
@@ -47,7 +46,4 @@ const char* RcppStringVectorView::operator()(int i) const {
 int RcppStringVectorView::size() const { 
     return length; 
 }
-#else
-RCPP_DUMMY(RcppStringVectorView)
-#endif
 
