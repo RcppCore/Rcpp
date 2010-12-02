@@ -21,9 +21,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <deprecation.h>
-#ifndef RCPP_NO_CLASSIC_API
-
 #include <Rcpp.h>
 #include <cstring>
 #include <stdio.h>
@@ -41,6 +38,3 @@ char *copyMessageToR(const char* const mesg) {
     return Rmesg;
 }
 
-#else 
-RCPP_DUMMY(copyMessageToR)
-#endif
