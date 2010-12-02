@@ -24,8 +24,6 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
-#include <deprecation.h>
-
 #ifdef __GNUC__
 #define GOOD_COMPILER_FOR_RCPP
 #endif

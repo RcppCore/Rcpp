@@ -27,11 +27,6 @@
 /* it is important that this comes first */
 #include <RcppCommon.h>
 
-/* classic api */
-#ifndef RCPP_NO_CLASSIC_API
-#include <classic/classic.h>
-#endif
-
 /* new api */
 #include <Rcpp/exceptions.h>
 
@@ -73,9 +68,5 @@
 
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
-
-#ifndef RCPP_NO_CLASSIC_API
-#include <classic/classic_backward.h>
-#endif
 
 #endif
