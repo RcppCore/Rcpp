@@ -723,6 +723,7 @@ public:
 
 }
 
+#define RCPP_MODULE_BOOT(name) _rcpp_module_boot_##name
 
 #define RCPP_MODULE(name)                                            \
 void _rcpp_module_##name##_init() ;                                  \
