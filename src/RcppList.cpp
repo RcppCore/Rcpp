@@ -19,6 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <deprecation.h>
+#ifndef RCPP_NO_CLASSIC_API
 #include <classic/RcppList.h>
 
 RcppList::RcppList(void) : listArg(R_NilValue), 
@@ -50,4 +52,6 @@ SEXP RcppList::getList(void) const {
     return li; 
 }
 
-
+#else
+RCPP_DUMMY(RcppList)
+#endif

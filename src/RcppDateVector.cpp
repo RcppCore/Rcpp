@@ -21,6 +21,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <deprecation.h>
+#ifndef RCPP_NO_CLASSIC_API
 #include <classic/RcppDateVector.h>
 
 RcppDateVector::RcppDateVector(SEXP vec) {
@@ -60,4 +62,6 @@ RcppDate& RcppDateVector::operator()(int i) {
 int RcppDateVector::size() const { 
     return v.size(); 
 }
-
+#else
+RCPP_DUMMY(RcppDateVector)
+#endif

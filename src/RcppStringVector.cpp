@@ -21,6 +21,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef RCPP_NO_CLASSIC_API
 #include <classic/RcppStringVector.h>
 
 RcppStringVector::RcppStringVector(SEXP vec) {
@@ -61,3 +62,6 @@ int RcppStringVector::size() const {
 std::vector<std::string> RcppStringVector::stlVector() const {
     return v;
 }
+#else
+RCPP_DUMMY(RcppStringVector)
+#endif
