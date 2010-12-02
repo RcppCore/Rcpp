@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+if( Rcpp::capabilities()["classic api"] ){
+
 .setUp <- function() {
     if( ! exists( ".rcpp.RcppResultSet", globalenv() )) {
         ## definition of all the functions at once
@@ -346,5 +348,7 @@ test.RcppResultSet.SEXP <- function() {
     fun <- .rcpp.RcppResultSet$SEXP_
     x <- list(foo=1.23, bar=123, glim="glom")
     checkEquals( fun(x)[[1]], x, msg = "RcppResultSet.SEXP")
+}
+
 }
 
