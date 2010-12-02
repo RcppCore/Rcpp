@@ -25,19 +25,6 @@
 #include <cstring>
 #include <stdio.h>
 
-// Paul Roebuck has observed that the memory used by an exception message
-// is not reclaimed if error() is called inside of a catch block (due to
-// a setjmp() call), and he suggested the following work-around.
-char *copyMessageToR(const char* const mesg) {
-    char* Rmesg;
-    const char* prefix = "Exception: ";
-    void* Rheap = R_alloc(strlen(prefix)+strlen(mesg)+1,sizeof(char));
-    Rmesg = static_cast<char*>(Rheap);
-    strcpy(Rmesg, prefix);
-    strcat(Rmesg, mesg);
-    return Rmesg;
-}
-
 void logTxtFunction(const char* file, const int line, const char* expression) {
     Rprintf("%s:%d %s\n", file, line, expression);
 }

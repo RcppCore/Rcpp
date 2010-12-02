@@ -24,6 +24,8 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
+#include <deprecation.h>
+
 #ifdef __GNUC__
 #define GOOD_COMPILER_FOR_RCPP
 #endif
@@ -131,11 +133,7 @@ std::string demangle( const std::string& name) ;
 
 #include <Rcpp/complex.h>
 
-// #ifdef BUILDING_DLL
-// #define RcppExport extern "C" __declspec(dllexport)
-// #else
 #define RcppExport extern "C"
-// #endif
 
 #include <Rcpp/internal/posixt.h>
 
@@ -152,7 +150,9 @@ namespace Rcpp{
 
 extern "C" SEXP rcpp_call_test(SEXP x) ;
 
+#ifndef RCPP_NO_CLASSIC_API
 char *copyMessageToR(const char* const mesg);
+#endif 
 
 /* in exceptions.cpp */
 void forward_uncaught_exceptions_to_r() ;
