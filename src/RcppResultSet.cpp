@@ -21,6 +21,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <deprecation.h>
+#ifndef RCPP_NO_CLASSIC_API
 #include <Rcpp.h>
 
 RcppResultSet::RcppResultSet() : numProtected(0), values() { }
@@ -112,4 +114,7 @@ SEXP RcppResultSet::getSEXP() {
     UNPROTECT(numProtected);
     return val;
 }
+#else
+RCPP_DUMMY(RcppResultSet)
+#endif
 

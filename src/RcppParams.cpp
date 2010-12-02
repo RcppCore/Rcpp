@@ -20,6 +20,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <deprecation.h>
+#ifndef RCPP_NO_CLASSIC_API
 #include <classic/RcppParams.h>
 
 RcppParams::RcppParams(SEXP params) {
@@ -181,3 +183,7 @@ RcppDatetime RcppParams::getDatetimeValue(std::string name) {
     }
     return RcppDatetime(d);
 }
+#else
+RCPP_DUMMY(RcppParams)
+#endif
+
