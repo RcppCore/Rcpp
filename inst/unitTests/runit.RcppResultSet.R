@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-if( Rcpp::capabilities()["classic api"] ){
+if( Rcpp:::capabilities()["classic api"] ){
 
 .setUp <- function() {
     if( ! exists( ".rcpp.RcppResultSet", globalenv() )) {
@@ -348,6 +348,23 @@ test.RcppResultSet.SEXP <- function() {
     fun <- .rcpp.RcppResultSet$SEXP_
     x <- list(foo=1.23, bar=123, glim="glom")
     checkEquals( fun(x)[[1]], x, msg = "RcppResultSet.SEXP")
+}
+
+test.RObject.asStdVectorIntResultsSet <- function(){
+	funx <- .Rcpp.RObject$asStdVectorIntResultsSet
+	foo <- '
+		std::vector<int> iv = as<std::vector<int> >( x );
+		for (size_t i=0; i<iv.size(); i++) {
+    	    iv[i] = 2*iv[i];
+    	}
+    	RcppResultSet rs;
+    	rs.add("", iv);
+    	return(rs.getSEXP());'
+    funx <- cppfunction(signature(x="numeric"), foo )
+	checkEquals( funx(x=2:5), 2:5*2L, msg = "as<std::vector<int> >(integer) via RcppResultSet" )
+    checkEquals( funx(x=2:5+.1), 2:5*2L, msg = "as<std::vector<int> >(numeric) via RcppResultSet" )
+    checkEquals( funx(x=as.raw(2:5)), 2:5*2L, msg = "as<std::vector<int> >(raw) via RcppResultSet" )
+    checkException( funx("foo"), msg = "as<std::vector<int> >(character) -> exception" )
 }
 
 }
