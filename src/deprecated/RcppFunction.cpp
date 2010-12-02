@@ -20,8 +20,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <deprecation.h>
-#ifndef RCPP_NO_CLASSIC_API
 #include <Rcpp.h>
 
 RcppFunction::RcppFunction(SEXP fn_) : fn(fn_) { 
@@ -139,6 +137,4 @@ void RcppFunction::clearProtectionStack() {
     UNPROTECT(numProtected);
     numProtected = 0;
 }
-#else
-RCPP_DUMMY(RcppFunction)
-#endif
+

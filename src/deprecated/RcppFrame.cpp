@@ -20,8 +20,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <deprecation.h>
-#ifndef RCPP_NO_CLASSIC_API
 #include <Rcpp.h>
 
 ColDatum::ColDatum() : type(COLTYPE_UNKNOWN), level(0) { }
@@ -418,6 +416,3 @@ namespace Rcpp{
 	}
 }	
 
-#else
-RCPP_DUMMY(RcppFrame)
-#endif

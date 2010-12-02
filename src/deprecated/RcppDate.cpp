@@ -21,8 +21,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <deprecation.h>
-#ifndef RCPP_NO_CLASSIC_API
 #include <classic/RcppDate.h>
 
 const int RcppDate::Jan1970Offset = 2440588;    // Offset from R date representation to Julian day number.
@@ -137,6 +135,4 @@ void RcppDate::jdn2mdy() {
     day   = d;
     year  = y;
 }
-#else
-RCPP_DUMMY(RcppDate)
-#endif
+
