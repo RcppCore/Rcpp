@@ -145,7 +145,13 @@
                   ,"isNULL"=list(
                    signature(x="ANY"),
                    'bool is_null = RObject(x).isNULL() ;
-					return wrap( is_null ) ; ' )
+					return wrap( is_null ) ; '
+				   ,"inherits" = list( x = "ANY" ), 
+				   '
+				   RObject xx(x) ;
+				   return wrap( xx.inherits( "foo" ) ) ;
+				   '
+					)
 
                   )
 
@@ -326,3 +332,12 @@ test.RObject.isNULL <- function(){
 	checkTrue( !funx(.GlobalEnv), msg = "RObject.isNULL(environment) -> false" )
 }
 
+test.RObject.isNULL <- function(){
+	funx <- .Rcpp.RObject$inherits
+	x <- 1:10
+	checkTrue( !fx(x) )
+	class(x) <- "foo"
+	checkTrue( fx(x) ) )
+	class(x) <- c("foo", "bar" )
+	checkTrue( fx(x) ) )
+}

@@ -1,3 +1,10 @@
+2010-12-03  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/RObject.h : new inline method inherits that checks if 
+    an object inherits from a given class (wrapper around Rf_inherits)
+    
+    * inst/unitTests/runit.RObject.R: unit test for the above
+
 2010-12-02  Douglas Bates  <bates@stat.wisc.edu>
 
 	* inst/include/Rcpp/generated/Function__operator.h,
