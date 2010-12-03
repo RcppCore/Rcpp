@@ -60,7 +60,6 @@ public:
 RcppExport SEXP RCppFunctionCallWrapper(SEXP params, SEXP numvec, SEXP fnvec) {
 
     SEXP  rl = R_NilValue;		// Use this when there is nothing to be returned.
-    char* exceptionMesg = NULL;
 
     try {
 	RcppParams rparam(params);	// Get parameters in params.
@@ -84,13 +83,10 @@ RcppExport SEXP RCppFunctionCallWrapper(SEXP params, SEXP numvec, SEXP fnvec) {
 	rl = rs.getReturnList();		// Get the list to be returned to R.
 
     } catch(std::exception& ex) {
-	exceptionMesg = copyMessageToR(ex.what());
+        forward_exception_to_r(ex);
     } catch(...) {
-	exceptionMesg = copyMessageToR("unknown reason");
+        Rf_error( "unknown reason" );
     }
     
-    if(exceptionMesg != NULL)
-	Rf_error(exceptionMesg);
-  
     return rl;
 }
