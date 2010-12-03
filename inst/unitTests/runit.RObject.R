@@ -337,7 +337,7 @@ test.RObject.isNULL <- function(){
 	x <- 1:10
 	checkTrue( !fx(x) )
 	class(x) <- "foo"
-	checkTrue( fx(x) ) )
+	checkTrue( fx(x) )
 	class(x) <- c("foo", "bar" )
-	checkTrue( fx(x) ) )
+	checkTrue( fx(x) )
 }
