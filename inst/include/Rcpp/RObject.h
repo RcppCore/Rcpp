@@ -67,6 +67,11 @@ public:
      */
     inline operator SEXP() const { return m_sexp ; }
 
+    /**
+     * Does this object inherit from a given class
+     */
+    inline bool inherits(const char* clazz) const { return ::Rf_inherits( m_sexp, clazz) ; }
+    
     /* attributes */
 
     /**
