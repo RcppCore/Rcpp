@@ -2,7 +2,6 @@
 //
 // RcppCommon.cpp: R/C++ interface class library -- common functions
 //
-// Copyright (C) 2005 - 2006 Dominick Samperi
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
 // Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
 //
