@@ -10,7 +10,6 @@ R CMD SHLIB convolve7_c.c
 # we have to let R know where the Rcpp header and library are
 export PKG_CPPFLAGS=`Rscript -e "Rcpp:::CxxFlags()"`
 export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
-R CMD SHLIB convolve2_cpp.cpp
 R CMD SHLIB convolve3_cpp.cpp
 R CMD SHLIB convolve4_cpp.cpp
 R CMD SHLIB convolve5_cpp.cpp

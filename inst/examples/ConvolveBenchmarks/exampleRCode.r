@@ -8,7 +8,6 @@ b <- rnorm(n)
 
 ## load shared libraries with wrapper code
 dyn.load("convolve2_c.so")
-dyn.load("convolve2_cpp.so")
 dyn.load("convolve3_cpp.so")
 dyn.load("convolve4_cpp.so")
 dyn.load("convolve5_cpp.so")
@@ -25,7 +24,6 @@ dyn.load("convolve14_cpp.so" )
 ## and define test functions
 
 R_API_optimised <- function(n,a,b) .Call("convolve2__loop", n, a, b)
-Rcpp_Classic <- function(n,a,b) .Call("convolve2cpp__loop", n, a, b)
 Rcpp_New_std <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b)
 #Rcpp_New_std_inside <- function(n,a,b) .Call("convolve3cpp__loop", n, a, b, PACKAGE = "Rcpp" )
 Rcpp_New_ptr <- function(n,a,b) .Call("convolve4cpp__loop", n, a, b)
@@ -40,14 +38,12 @@ Rcpp_New_std_Fast <- function(n,a,b) .Call("convolve14cpp__loop", n, a, b )
 
 
 v1 <- R_API_optimised(1L, a, b )
-v2 <- Rcpp_Classic(1L,a,b)[[1]]
 v3 <- Rcpp_New_std(1L, a, b)
 v4 <- Rcpp_New_ptr(1L, a, b)
 v5 <- Rcpp_New_sugar(1L, a, b )
 v7 <- R_API_naive(1L, a, b)
 v11 <- Rcpp_New_sugar_noNA(1L, a, b)
 
-stopifnot(all.equal(v1, v2))
 stopifnot(all.equal(v1, v3))
 stopifnot(all.equal(v1, v4))
 stopifnot(all.equal(v1, v5))
@@ -59,7 +55,6 @@ suppressMessages(library(rbenchmark))
 REPS <- 5000L
 bm <- benchmark(R_API_optimised(REPS,a,b),
                 R_API_naive(REPS,a,b),
-                Rcpp_Classic(REPS,a,b),
                 Rcpp_New_std(REPS,a,b),
 #                Rcpp_New_std_inside(REPS,a,b),
                 Rcpp_New_ptr(REPS,a,b),
@@ -86,7 +81,6 @@ timings <- lapply( sizes, function(size){
     a <- rnorm(size); b <- rnorm(size)
     bm <- benchmark(R_API_optimised(REPS,a,b),
                 R_API_naive(REPS,a,b),
-                Rcpp_Classic(REPS,a,b),
                 Rcpp_New_std(REPS,a,b),
                 Rcpp_New_ptr(REPS,a,b),
                 Rcpp_New_sugar(REPS,a,b),
