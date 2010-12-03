@@ -28,6 +28,20 @@
         typename U2, 
         typename U3, 
         typename U4, 
+        typename U5,
+        typename U6
+    > 
+    self& constructor( const char* docstring = 0, ValidConstructor valid = &yes_arity<7> ){
+        AddConstructor( new Constructor_7<Class,U0,U1,U2,U3,U4,U5,U6> , valid, docstring ) ;
+        return *this ;   
+    }
+
+    template <
+        typename U0, 
+        typename U1, 
+        typename U2, 
+        typename U3, 
+        typename U4, 
         typename U5
     > 
     self& constructor( const char* docstring = 0, ValidConstructor valid = &yes_arity<6> ){
