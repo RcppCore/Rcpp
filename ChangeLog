@@ -1,5 +1,7 @@
 2010-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/unitTests/runit.RObject.R: fix 'inherits' test added today
+
 	* inst/include/Rcpp/module/Module_generated_Constructor.h: Applied
 	patch by Tama Ma <pingnang@phys.ethz.ch> for up to seven args in ctor
 	* inst/include/Rcpp/module/Module_generated_class_constructor.h: Idem
