@@ -2,7 +2,7 @@
 History
 =======
 
-Rcpp continues and extends earlier work by Dominik Samperi which he initially
+Rcpp continues and extends earlier work by Dominick Samperi which he initially
 contributed directly into the RQuantLib package. Then, during 2005 and 2006,
 several releases were made as CRAN packages, first under the name Rcpp and
 later under the name RcppTemplate.  However, both packages were left
@@ -15,8 +15,10 @@ are documented in the NEWS file, the ChangeLog and the included annoucements
 of the major releases.
 
 With Romain joining development in late 2009, Rcpp development accelerated. A
-richer, more powerful API has been added (while maintaining full
-compatibility with the initial API, which we now call 'classic Rcpp API').
+richer, more powerful API has been developped. 
+
+What we now call 'classic Rcpp API' has been factored out of Rcpp 
+in its own package 'RcppClassic'.
 
 
 Documentation
