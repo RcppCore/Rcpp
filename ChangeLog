@@ -3,6 +3,7 @@
 	* inst/include/Rcpp/module/Module_generated_Constructor.h: Applied
 	patch by Tama Ma <pingnang@phys.ethz.ch> for up to seven args in ctor
 	* inst/include/Rcpp/module/Module_generated_class_constructor.h: Idem
+	* inst/include/Rcpp/module/Module_generated_ctor_signature.h: Idem
 
 2010-12-03  Romain Francois <romain@r-enthusiasts.com>
 
