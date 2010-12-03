@@ -4,7 +4,9 @@ Version: 0.8.9.3
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Douglas Bates, John Chambers, Simon Urbanek, and David Reiss; 
- a small portion of the code is based on code written during 2005 and 2006 by Dominick Samperi 
+ An initial version of Rcpp, that we call 'classic Rcpp API'
+ was written during 2005 and 2006 by Dominick Samperi. The classic API
+ has been factored out of Rcpp into the package RcppClassic 
 Maintainer: Dirk Eddelbuettel and Romain Francois <RomainAndDirk@r-enthusiasts.com>
 Description: The Rcpp package provides a C++ library which facilitates the 
  integration of R and C++.
