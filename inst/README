@@ -15,10 +15,9 @@ are documented in the NEWS file, the ChangeLog and the included annoucements
 of the major releases.
 
 With Romain joining development in late 2009, Rcpp development accelerated. A
-richer, more powerful API has been developped. 
-
-What we now call 'classic Rcpp API' has been factored out of Rcpp 
-in its own package 'RcppClassic'.
+richer, more powerful API has been developped to replace the previous API that 
+we now call 'classic Rcpp API'. The 'classic Rcpp API' has been factored 
+out of Rcpp in its own package 'RcppClassic'.
 
 
 Documentation
