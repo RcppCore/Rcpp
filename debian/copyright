@@ -17,7 +17,7 @@ The package was renamed from its upstream name 'Rcpp' to
 'r-cran-rcpp' to fit the pattern of CRAN (and non-CRAN) packages for
 R.
 
-Copyright (C) 2005 - 2006 Dominick Sameri
+Copyright (C) 2005 - 2006 Dominick Samperi
 Copyright (C) 2008        Dirk Eddelbuettel
 Copyright (C) 2009 - 2010 Dirk Eddelbuettel and Romain Francois
 
