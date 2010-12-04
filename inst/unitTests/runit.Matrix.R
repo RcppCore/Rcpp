@@ -372,7 +372,7 @@ test.NumericMatrix.rowsum <- function( ){
     checkEquals( funx( probs ), apply(probs,2,cumsum) )
 }
 
-test.NumericMatrix.rowsum <- function( ){
+test.NumericMatrix.SubMatrix <- function( ){
     funx <- .rcpp.Matrix$runit_SubMatrix
     target <- rbind( c(3,4,5,5), c(3,4,5,5), 0 )
     checkEquals( funx(), target, msg = "SubMatrix" )
