@@ -23,6 +23,7 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
+#undef GOOD_COMPILER_FOR_RCPP
 #ifdef __GNUC__
 #define GOOD_COMPILER_FOR_RCPP
 #endif
