@@ -209,6 +209,20 @@
                  }
                  return output ;
 			    '
+			), 
+			"runit_SubMatrix" = list( 
+			    signature(), 
+			    '
+                 NumericMatrix xx(4, 5);
+                 xx(0,0) = 3;
+                 xx(0,1) = 4;
+                 xx(0,2) = 5;
+                 xx(1,_) = xx(0,_);
+                 xx(_,3) = xx(_,2);
+                 SubMatrix<REALSXP> yy = xx( Range(0,2), Range(0,3) ) ;
+                 NumericMatrix res = yy ;
+                 return res;
+			    '
 			)
 		)
         
@@ -357,4 +371,11 @@ test.NumericMatrix.rowsum <- function( ){
     probs <- matrix(1:12,nrow=3)
     checkEquals( funx( probs ), apply(probs,2,cumsum) )
 }
+
+test.NumericMatrix.rowsum <- function( ){
+    funx <- .rcpp.Matrix$runit_SubMatrix
+    target <- rbind( c(3,4,5,5), c(3,4,5,5), 0 )
+    checkEquals( funx(), target, msg = "SubMatrix" )
+}
+
 
