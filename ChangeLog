@@ -2,6 +2,9 @@
 
     * inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: documentation patch by 
     Christian Gunnning <xian@unm.edu>
+    
+    * inst/include/Rcpp/vector/matrix.h: fix SubMatrix. Bug reported by 
+    Christian Gunnning <xian@unm.edu> on Rcpp-devel
 
 2010-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
