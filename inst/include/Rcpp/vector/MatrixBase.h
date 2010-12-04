@@ -39,9 +39,6 @@ public:
 		return static_cast<MATRIX&>(*this) ;
 	}
 
-	// inline stored_type operator[]( int i) const { 
-	// 	return static_cast<const MATRIX*>(this)->operator[](i) ;
-	// }
 	inline stored_type operator()( int i, int j) const throw(not_a_matrix) {
 		return static_cast<const MATRIX*>(this)->operator()(i, j) ;
 	}
