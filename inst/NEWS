@@ -3,6 +3,8 @@
     o   The classic api was factored out in its own package RcppClassic, to be 
         released
 
+    o   Date::getYear() corrected (where addition of 1900 was not called for)
+
 0.8.9   2010-11-27
 
     o   Many improvements were made to in 'Rcpp modules':
