@@ -7,6 +7,8 @@
     Christian Gunnning <xian@unm.edu> on Rcpp-devel
     
     * inst/include/Rcpp/vector/SubMatrix.h: factored out of matrix.h
+    
+    * inst/include/Rcpp/sprintf.h: new sprintf template to format strings
 
 2010-12-03  Dirk Eddelbuettel  <edd@debian.org>
 

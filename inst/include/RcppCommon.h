@@ -101,6 +101,7 @@ namespace Rcpp{
 #include <complex>
 #include <limits.h>
 #include <typeinfo>
+#include <Rcpp/sprintf.h>
 
 #ifdef HAS_INIT_LISTS
 #include <initializer_list>
