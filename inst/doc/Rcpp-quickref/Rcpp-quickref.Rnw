@@ -33,9 +33,11 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \maketitle
 \thispagestyle{empty}
 
-% without the colon, latex does not want to newline
-\paragraph{Create simple vectors}: \newline
-
+% without the ~, latex does not want to newline
+% a newline between paragraph and code disconnects them and can orphan heading
+\paragraph{Create simple vectors}~ 
+  \newline
+  \newline
 <<lang=cpp>>=
 SEXP x; std::vector<double> y(10);
 
@@ -58,8 +60,9 @@ NumericVector yy = NumericVector::create(
     _["bar"]     = 2.0 );  // short for Named
 @
 
-\paragraph{Extract and set single elements}:\newline
-
+\paragraph{Extract and set single elements}~
+  \newline
+  \newline
 <<lang=cpp>>=
 // extract single values
 double x0 = xx[0];
@@ -78,23 +81,26 @@ yy["foo"] = 3.0;
 yy["foobar"] = 10.0;
 @
 
-\paragraph{STL interface}:\newline
-
+\paragraph{STL interface}~
+  \newline
+  \newline
 <<lang=cpp>>=
 std::accumulate( xx.begin(), xx.end(),
     std::plus<double>(), 0.0 );
 int n = xx.size();
 @
 
-\paragraph{Function}:\newline
-
+\paragraph{Function}~
+  \newline
+  \newline
 <<lang=cpp>>=
 Function rnorm("rnorm");
 rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
 @
 
-\paragraph{Environment}:\newline
-
+\paragraph{Environment}~
+  \newline
+  \newline
 <<lang=cpp>>=
 Environment stats("package:stats");
 Environment env( 2 ); // by position
@@ -129,8 +135,9 @@ Environment e = glob.new_child();
 
 \newpage
 
-\paragraph{Rcpp sugar}:\newline
-
+\paragraph{Rcpp sugar}~
+  \newline
+  \newline
 <<lang=cpp>>=
 NumericVector x = NumericVector::create(
   -2.0, -1.0, 0.0, 1.0, 2.0 );
@@ -164,6 +171,30 @@ NumericVector xx = rep_each( x, 3 );
 IntegerVector yy = rev( y );
 @
 
+\paragraph{Using matrices}~
+  \newline
+  \newline
+<<lang=cpp>>=
+// Initializing from SEXP, 
+// dimensions handled automatically
+SEXP x; 
+NumericMatrix xx(x);
+
+// Matrix of 4 rows & 5 columns (filled with 0)
+NumericMatrix xx(4, 5);
+
+// Fill with value
+int xsize = xx.nrow() * xx.ncol();
+for (int i = 0; i < xsize; i++) {
+    xx[i] = 7;
+}
+
+// Assign this value to single element 
+// (1st row, 2nd col)
+xx(0,1) = 4;
+
+// Extract the second column
+NumericVector zz = xx( _, 1);
+@
 
 \end{document}
-
