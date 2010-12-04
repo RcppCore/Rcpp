@@ -79,21 +79,7 @@ public:
      * on this as if it was the dumb pointer
      */
     T* operator->() const ;
-  		
-    /**
-     * Returns the 'protected' part of the external pointer, this is 
-     * the SEXP that is passed in as the third argument of the 
-     * R_MakeExternalPointer function. See Writing R extensions
-     */
-    SEXP getProtected() ;
-  		
-    /** 
-     * Returns the 'tag' part of the external pointer, this is the 
-     * SEXP that is passed in as the 2nd argument of the 
-     * R_MakeExternalPointer function. See Writing R extensions
-     */
-    SEXP getTag() ;
-        
+  		  		        
     void setDeleteFinalizer() ;
   	
     inline operator T*(){ return (T*)(EXTPTR_PTR(m_sexp)) ; }
@@ -188,18 +174,6 @@ T& XPtr<T>::operator*() const {
 template<typename T>
 T* XPtr<T>::operator->() const {
     return (T*)(EXTPTR_PTR(m_sexp));
-}
-
-template<typename T>
-SEXP XPtr<T>::getProtected(){
-    Rprintf( "getProtected is deprecated in Rcpp 0.8.1, and will be removed in version 0.8.2, use prot() instead\n" ) ;
-    return EXTPTR_PROT(m_sexp) ;
-}
-
-template<typename T>
-SEXP XPtr<T>::getTag(){
-	Rprintf( "getTag is deprecated in Rcpp 0.8.1, and will be removed in version 0.8.2, use tag() instead\n" ) ;
-    return EXTPTR_TAG(m_sexp) ;
 }
 
 } // namespace Rcpp 
