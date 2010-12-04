@@ -44,7 +44,7 @@ namespace Rcpp {
 		//int getHours()   const { return m_tm.tm_hour; }
 		int getDay()     const { return m_tm.tm_mday; }
 		int getMonth()   const { return m_tm.tm_mon + 1; } 		// makes it 1 .. 12
-		int getYear()    const { return m_tm.tm_year + 1900; }
+		int getYear()    const { return m_tm.tm_year; }	
 		int getWeekday() const { return m_tm.tm_wday + 1; } 	// makes it 1 .. 7
 		int getYearday() const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
 
