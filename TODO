@@ -1,10 +1,6 @@
 
 Documentation
 
-    o   Bring "Rcpp ? NumericVector" into life. The hook is in place, we just need
-        to come up with some way to generate useful documentation for it: general
-        description of the class, related unit test cases, etc ...
-                
     o   Add a vignette about Rcpp sugar [in progress]
     
     o	Finish the quickref vignette
