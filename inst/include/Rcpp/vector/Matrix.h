@@ -231,8 +231,8 @@ public:
     
     SubMatrix( MATRIX& m_, const Range& row_range_, const Range& col_range_ ) :
         m(m_),
-        iter( static_cast< Vector<RTYPE>& >(m_).begin() + row_range_.get_start() + col_range_.get_start() * m_.ncol() ), 
-        m_nc( m.ncol() ), 
+        iter( static_cast< Vector<RTYPE>& >(m_).begin() + row_range_.get_start() + col_range_.get_start() * m_.nrow() ), 
+        m_nr( m.nrow() ), 
         nc( col_range_.size() ), 
         nr( row_range_.size() )
     {}
@@ -242,15 +242,15 @@ public:
     inline int nrow() const { return nr ; }
     
     inline Proxy operator()(int i, int j) const {
-        return iter[ i + j*m_nc ] ;
+        return iter[ i + j*m_nr ] ;
     }
     
-    inline vec_iterator column_iterator( int j ) const { return iter + j*m_nc ; } 
+    inline vec_iterator column_iterator( int j ) const { return iter + j*m_nr ; } 
     
 private:
     MATRIX& m ;
     vec_iterator iter ;
-    int m_nc, nc, nr ;
+    int m_nr, nc, nr ;
 } ;
 
 template <int RTYPE>
