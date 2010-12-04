@@ -39,6 +39,7 @@ namespace Rcpp{
 
 template <int RTYPE> class MatrixRow ;
 template <int RTYPE> class MatrixColumn ;
+template <int RTYPE> class SubMatrix ;
 
 #include <Rcpp/vector/RangeIndexer.h>
 
@@ -49,6 +50,7 @@ template <int RTYPE> class MatrixColumn ;
 #include <Rcpp/vector/traits.h>
 
 #include <Rcpp/vector/Matrix.h>
+#include <Rcpp/vector/SubMatrix.h>
 #include <Rcpp/vector/MatrixRow.h>
 #include <Rcpp/vector/MatrixColumn.h>
 
