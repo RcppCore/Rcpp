@@ -16,10 +16,14 @@
 \section{Usage for package building}{
 	The "Rcpp-package" vignette documents how to use Rcpp in client packages.
 }
-\author{Dominick Samperi wrote the initial versions of Rcpp (and
-  RcppTemplate) during 2005 and 2006.  Dirk Eddelbuettel made some
-  additions, and became maintainer in 2008. Dirk Eddelbuettel and Romain
-  Francois have been extending Rcpp since 2009.
+\author{Dirk Eddelbuettel and Romain Francois}
+\section{History}{
+  The initial versions of Rcpp were written by Dominick Samperi during 2005 and
+  2006.
+  
+  Dirk Eddelbuettel made some additions, and became maintainer in 2008. 
+  
+  Dirk Eddelbuettel and Romain Francois have been extending Rcpp since 2009.
 }
 \examples{
 \dontrun{                  
