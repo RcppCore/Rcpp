@@ -1,3 +1,8 @@
+2010-12-04  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: documentation patch by 
+    Christian Gunnning <xian@unm.edu>
+
 2010-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.RObject.R: fix 'inherits' test added today
