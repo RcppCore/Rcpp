@@ -1,3 +1,8 @@
+2010-12-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.Date.R (test.Date.getFunctions): Added a unit
+	test for the get* functions of the Date class
+
 2010-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Date.h: Remove addition of 1900 in getYear()
