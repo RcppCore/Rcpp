@@ -5,7 +5,7 @@
     of &yes_arity<0>
     
     * R/Rcpp.package.skeleton.R: Rcpp.package.skeleton( "foo", example_code = FALSE)
-    did not work properly
+    did not work properly. Rcpp.package.skeleton gains some arguments
 
 2010-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
