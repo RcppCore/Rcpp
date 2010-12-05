@@ -72,6 +72,7 @@ namespace Rcpp {
 	    m_tm.tm_year  = year - 1900;
 	}
 	double tmp = mktime00(m_tm); 	// use mktime() replacement borrowed from R
+	m_tm.tm_year += 1900;		// we'd rather keep it as a normal year
 	m_d = tmp/(24*60*60);
     }
 

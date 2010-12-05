@@ -86,17 +86,26 @@
                     v[1] = Date(12,31,2005) ;
                     return wrap( v );')
 
+                  ,"Date_get_functions"=list(
+                   signature(x="Date"),
+                   'Date d = Date(x);
+		            return List::create(Named("year") = d.getYear(),
+    		                            Named("month") = d.getMonth(),
+    		                            Named("day") = d.getDay(),
+    		                            Named("wday") = d.getWeekday(),
+    		                            Named("yday") = d.getYearday());')
+
                   ,"Datetime_get_functions"=list(
                    signature(x="Datetime"),
                    'Datetime dt = Datetime(x);
 		            return List::create(Named("year") = dt.getYear(),
     		                            Named("month") = dt.getMonth(),
-    		                                Named("day") = dt.getDay(),
-    		                                Named("wday") = dt.getWeekday(),
-    		                                Named("hour") = dt.getHours(),
-    		                                Named("minute") = dt.getMinutes(),
-    		                                Named("second") = dt.getSeconds(),
-    		                                Named("microsec") = dt.getMicroSeconds());')
+    		                            Named("day") = dt.getDay(),
+    		                            Named("wday") = dt.getWeekday(),
+    		                            Named("hour") = dt.getHours(),
+    		                            Named("minute") = dt.getMinutes(),
+    		                            Named("second") = dt.getSeconds(),
+    		                            Named("microsec") = dt.getMicroSeconds());')
 
                   ,"Datetime_operators"=list(
                    signature(),
@@ -180,6 +189,16 @@ test.DateVector.wrap <- function(){
 test.DateVector.operator.SEXP <- function(){
     fun <- .Rcpp.Date$operator_sexp
     checkEquals(fun(), rep(as.Date("2005-12-31"),2), msg = "DateVector.SEXP")
+}
+
+test.Date.getFunctions <- function(){
+    fun <- .Rcpp.Date$Date_get_functions
+    checkEquals(fun(as.Date("2010-12-04")),
+                list(year=2010, month=12, day=4, wday=7, yday=338), msg = "Date.get.functions.1")
+    checkEquals(fun(as.Date("2010-01-01")),
+                list(year=2010, month=1, day=1, wday=6, yday=1), msg = "Date.get.functions.2")
+    checkEquals(fun(as.Date("2009-12-31")),
+                list(year=2009, month=12, day=31, wday=5, yday=365), msg = "Date.get.functions.3")
 }
 
 test.Datetime.get.functions <- function() {
