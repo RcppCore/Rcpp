@@ -1,16 +1,22 @@
 2010-12-05  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/module/Module_generated_class_constructor.h: the default 
-    constructor was always considered valid because of the use of &yes instead
-    of &yes_arity<0>
-    
-    * R/Rcpp.package.skeleton.R: Rcpp.package.skeleton( "foo", example_code = FALSE)
-    did not work properly. Rcpp.package.skeleton gains some arguments
+	* inst/include/Rcpp/module/Module_generated_class_constructor.h: the
+	default constructor was always considered valid because of the use of
+	&yes instead of &yes_arity<0>
+
+	* R/Rcpp.package.skeleton.R: Rcpp.package.skeleton( "foo",
+	example_code = FALSE) did not work properly. Rcpp.package.skeleton
+	gains some arguments
 
 2010-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.Date.R (test.Date.getFunctions): Added a unit
-	test for the get* functions of the Date class
+	* src/Date.cpp: Add 1900 to tm.year after mktime00() call as we now
+	no longer assume the field is '1900-less'
+	* src/Date.cpp: Define new static const variable baseYear as 1900
+	and use throughout
+
+	* inst/unitTests/runit.Date.R (test.Date.getFunctions): Added unit
+	tests for the get* functions of the Date class
 
 2010-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
