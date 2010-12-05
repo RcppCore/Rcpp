@@ -31,7 +31,7 @@ Rcpp.package.skeleton <- function(
 			assign( "rcpp_hello_world", function(){}, envir = env )
 			remove_hello_world <- TRUE
 		} else {
-		    remove_hello_world <- TRUE 
+		    remove_hello_world <- FALSE 
 		}
 	} else {
 		if( ! "rcpp_hello_world" %in% list ){
