@@ -100,7 +100,7 @@
         return *this ;   
     }
     
-    self& constructor( const char* docstring="", ValidConstructor valid = &yes ){
+    self& constructor( const char* docstring="", ValidConstructor valid = &yes_arity<0>){
         AddConstructor( new Constructor_0<Class>, valid , docstring) ;
         return *this ;
     }
