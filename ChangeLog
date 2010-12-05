@@ -3,6 +3,9 @@
     * inst/include/Rcpp/module/Module_generated_class_constructor.h: the default 
     constructor was always considered valid because of the use of &yes instead
     of &yes_arity<0>
+    
+    * R/Rcpp.package.skeleton.R: Rcpp.package.skeleton( "foo", example_code = FALSE)
+    did not work properly
 
 2010-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
