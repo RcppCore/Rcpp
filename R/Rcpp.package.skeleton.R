@@ -29,8 +29,10 @@ Rcpp.package.skeleton <- function(
 		assign( "Rcpp.fake.fun", function(){}, envir = env )
 		if( example_code ){
 			assign( "rcpp_hello_world", function(){}, envir = env )
+			remove_hello_world <- TRUE
+		} else {
+		    remove_hello_world <- TRUE 
 		}
-		remove_hello_world <- TRUE
 	} else {
 		if( ! "rcpp_hello_world" %in% list ){
 			call[["list"]] <- c( "rcpp_hello_world", call[["list"]] )
