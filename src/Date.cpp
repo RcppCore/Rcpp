@@ -31,10 +31,11 @@
 
 namespace Rcpp {
 
-    static struct tm * gmtime_(const time_t * const	timep); // see below
+    static struct tm * gmtime_(const time_t * const timep); 	// see below
 
 
-    const int Date::QLtoJan1970Offset = 25569;  // Offset between R / Unix epoch date and the QL base date
+    const unsigned int Date::QLtoJan1970Offset = 25569;  	// Offset between R / Unix epoch date and the QL base date
+    const unsigned int Date::baseYear = 1900;			// because we hate macros
 
     Date::Date() {
 	m_d = 0; 
@@ -62,17 +63,17 @@ namespace Rcpp {
 	m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = 0;
 
 	// allow for ISO-notation case (yyyy, mm, dd) which we prefer over (mm, dd, year)
-	if (mon >= 1900 && day <= 12 && year <= 31) {
-	    m_tm.tm_year = mon - 1900;
+	if (mon >= baseYear && day <= 12 && year <= 31) {
+	    m_tm.tm_year = mon - baseYear;
 	    m_tm.tm_mon  = day - 1;     // range 0 to 11
 	    m_tm.tm_mday = year;
 	} else {
 	    m_tm.tm_mday  = day;
 	    m_tm.tm_mon   = mon - 1;	// range 0 to 11
-	    m_tm.tm_year  = year - 1900;
+	    m_tm.tm_year  = year - baseYear;
 	}
 	double tmp = mktime00(m_tm); 	// use mktime() replacement borrowed from R
-	m_tm.tm_year += 1900;		// we'd rather keep it as a normal year
+	m_tm.tm_year += baseYear;	// we'd rather keep it as a normal year
 	m_d = tmp/(24*60*60);
     }
 
@@ -109,7 +110,7 @@ namespace Rcpp {
 	double excess = 0.0;
 
 	day = tm.tm_mday - 1;
-	year0 = 1900 + tm.tm_year;
+	year0 = baseYear + tm.tm_year;
 	/* safety check for unbounded loops */
 	if (year0 > 3000) {
 	    excess = (int)(year0/2000) - 1;
@@ -347,7 +348,7 @@ struct tzhead {
 #define TM_NOVEMBER	10
 #define TM_DECEMBER	11
 
-#define TM_YEAR_BASE	1900
+#define TM_YEAR_BASE	baseYear 	// was: 1900, baseYear defined above
 
 #define EPOCH_YEAR	1970
 #define EPOCH_WDAY	TM_THURSDAY
