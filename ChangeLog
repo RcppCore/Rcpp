@@ -1,3 +1,9 @@
+2010-12-05  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/module/Module_generated_class_constructor.h: the default 
+    constructor was always considered valid because of the use of &yes instead
+    of &yes_arity<0>
+
 2010-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.Date.R (test.Date.getFunctions): Added a unit

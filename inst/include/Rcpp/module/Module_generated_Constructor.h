@@ -34,7 +34,7 @@ template <typename Class>
 class Constructor_0 : public Constructor_Base<Class>{
 public:
     virtual Class* get_new( SEXP* args, int nargs ){
-	return new Class ;
+	return new Class() ;
     }
     virtual int nargs(){ return 0 ; }
     virtual const char* signature(const std::string& class_name ){
