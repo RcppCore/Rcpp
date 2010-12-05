@@ -14,7 +14,12 @@ Create a skeleton for a new package depending on Rcpp
 Rcpp.package.skeleton(name = "anRpackage", list = character(), 
 	environment = .GlobalEnv, path = ".", force = FALSE, 
 	namespace = TRUE, code_files = character(), 
-	example_code = TRUE, module = FALSE )
+	example_code = TRUE, module = FALSE, 
+	author = "Who wrote it", 
+	maintainer = if(missing( author)) "Who to complain to" else author, 
+	email = "yourfault@somewhere.net", 
+	license = "What Licence is it under ?"
+	)
 }
 \arguments{
 	\item{name}{See \link[utils]{package.skeleton}}
@@ -26,6 +31,10 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	\item{code_files}{See \link[utils]{package.skeleton}}
 	\item{example_code}{If TRUE, example c++ code using Rcpp is added to the package. }
 	\item{module}{If TRUE, an example \code{\link{Module}} is added to the skeleton. }
+	\item{author}{Author of the package.}
+	\item{maintainer}{Maintainer of the package.}
+	\item{email}{Email of the package maintainer.}
+	\item{license}{License of the package.}
 }
 \details{
 	In addition to \link[utils]{package.skeleton} : 

@@ -20,7 +20,12 @@ Rcpp.package.skeleton <- function(
 	path = ".", force = FALSE, namespace = TRUE, 
 	code_files = character(), 
 	example_code = TRUE, 
-	module = FALSE ){
+	module = FALSE, 
+	author = "Who wrote it", 
+	maintainer = if(missing( author)) "Who to complain to" else author, 
+	email = "yourfault@somewhere.net", 
+	license = "What Licence is it under ?"
+	){
 	
 	env <- parent.frame(1)
 	
@@ -48,19 +53,15 @@ Rcpp.package.skeleton <- function(
 	call[[1]] <- as.name("package.skeleton")
 	call[["namespace"]] <- namespace
 	# remove Rcpp specific arguments
-	if( "example_code" %in% names( call ) ){
-		call[["example_code"]] <- NULL
-	}
-	if( "module" %in% names( call ) ){
-		call[["module"]] <- NULL
-	}
+	
+	call <- call[ c( 1L, which( names(call) %in% names(formals(package.skeleton)))) ]
 	
 	if( fake ){
 		call[["list"]] <- c( if( isTRUE(example_code)) "rcpp_hello_world" , "Rcpp.fake.fun" )
 	}
-	
+		
 	tryCatch( eval( call, envir = env ), error = function(e){
-		stop( "error while calling `package.skeleton`" )
+		stop( sprintf( "error while calling `package.skeleton` : %s", conditionMessage(e) ) )
 	} )
 	
 	message( "\nAdding Rcpp settings" )
@@ -79,6 +80,9 @@ Rcpp.package.skeleton <- function(
 			"Depends" = paste( depends, collapse = ", ") , 
 			"LinkingTo" = "Rcpp"
 		)
+		x[, "Author" ] <- author
+		x[, "Maintainer" ] <- sprintf( "%s <%s>", maintainer, email )
+		x[, "License"] <- license
 		write.dcf( x, file = DESCRIPTION )
 		message( " >> added Depends: Rcpp" )
 		message( " >> added LinkingTo: Rcpp" )
@@ -162,6 +166,12 @@ Rcpp.package.skeleton <- function(
 	
 	lines <- readLines( package.doc <- file.path( root, "man", sprintf( "%s-package.Rd", name ) ) )
 	lines <- sub( "~~ simple examples", "%% ~~ simple examples", lines )
+	
+	lines <- lines[ !grepl( "~~ package title", lines) ]
+	lines <- lines[ !grepl( "~~ The author and", lines) ]
+	lines <- sub( "Who wrote it", author, lines )
+	lines <- sub( "Who to complain to.*", sprintf( "%s <%s>", maintainer, email), lines )
+	
 	writeLines( lines, package.doc )
 	
 	if( fake ){
