@@ -18,6 +18,8 @@
 	* inst/unitTests/runit.Date.R (test.Date.getFunctions): Added unit
 	tests for the get* functions of the Date class
 
+	* R/bib.R (bib): Correct expression for default Rcpp bibtex file
+
 2010-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Date.h: Remove addition of 1900 in getYear()
