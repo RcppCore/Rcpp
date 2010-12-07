@@ -1,3 +1,7 @@
+2010-12-07  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/vector/matrix.h: Matrix gains a nested ::Sub typedef
+
 2010-12-05  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/module/Module_generated_class_constructor.h: the
