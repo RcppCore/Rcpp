@@ -12,10 +12,10 @@ foo <- '
           for (int d = 0; d < 9; d++)
             vec(i++) = a*b - c*d;
 
-    return vec; 
+    return vec;
 '
 
-funx <- cxxfunction(signature(n="integer"), foo, plugin = "Rcpp" )
+funx <- cxxfunction(signature(), foo, plugin = "Rcpp" )
 
 dd.inline.rcpp <- function() {
     res <- funx()
