@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2009 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2010  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -16,6 +16,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+## NB This file is mostly historic and predates the unit tests.
+##    Yet it still provides useful examples -- but the unitTests/
+##    for vastly larger coverage
 
 suppressMessages(library(Rcpp))
 suppressMessages(library(inline))
@@ -88,16 +92,14 @@ cat( res <- funx(x=as.raw(0)), "\n") ; stopifnot( res)
 
 ### vectors
 
-cat("\n===Int Vector via RcppResultSet.getSEXP\n")
+cat("\n===Int Vector via wrap\n")
 foo <- '
         std::vector<int> iv = Rcpp::as< std::vector<int> >(x) ;
 	std::cout << "Returning twice the value of vector : ";
         for (size_t i=0; i<iv.size(); i++) {
             iv[i] = 2*iv[i];
         }
-        RcppResultSet rs;
-        rs.add("", iv);
-        return(rs.getSEXP());
+        return(Rcpp::wrap(iv));
         '
 funx <- cfunction(signature(x="numeric"), foo, Rcpp=TRUE, verbose=FALSE)
 print(funx(x=2:5))
