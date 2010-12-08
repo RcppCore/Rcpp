@@ -33,7 +33,7 @@ namespace stats {
 	class D0 : public Rcpp::VectorBase< REALSXP, NA, D0<RTYPE,NA,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
-		typedef double (*FunPtr)(int) ;
+		typedef double (*FunPtr)(double,int) ;
 		
 		D0( FunPtr ptr_, const VEC_TYPE& vec_, bool log_ ) : 
 			ptr(ptr_), vec(vec_), log(log_) {}
