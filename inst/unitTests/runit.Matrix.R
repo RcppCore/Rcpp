@@ -17,11 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function() {
-    tests <- ".rcpp.Matrix"
-    if( ! exists( tests, globalenv() )) {
-        ## definition of all the functions at once
-        f <- list(
+definitions <- function(){
+    list(
         	"matrix_numeric" = list( 
         		signature(x = "matrix" ), '
 					NumericMatrix m(x) ;
@@ -225,13 +222,19 @@
 			    '
 			)
 		)
-        
-        signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction(signatures, bodies,
-                           plugin = "Rcpp",
-                           cxxargs = ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x",""))
-        getDynLib( fun ) # just forcing loading the dll now
+}
+
+cxxargs <- function(){
+    ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x","")
+}
+
+.setUp <- function() {
+    tests <- ".rcpp.Matrix"
+    if( ! exists( tests, globalenv() )) {
+        fun <- Rcpp:::compile_unit_tests( 
+            definitions(), 
+            cxxargs = cxxargs()
+        )
         assign( tests, fun, globalenv() )
     }
 }

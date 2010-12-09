@@ -18,11 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	if( ! exists( ".rcpp.stats", globalenv() ) ){
-		# definition of all the functions at once
-
-		f <- list(
+definitions <- function(){
+    list(
 				  "runit_dbeta" = list(
 				  signature(x = "numeric",
 							a = "numeric", b = "numeric"),
@@ -238,13 +235,15 @@
 			      return wrap(qt( xx, d, lt, lg));
 				  ')
 
-                  ) ## end of list of test function sources
+         )
+}
 
-		signatures <- lapply( f, "[[", 1L )
-		bodies <- lapply( f, "[[", 2L )
-		fx <- cxxfunction( signatures, bodies, plugin = "Rcpp" )
-		getDynLib( fx ) # just forcing loading the dll now
-		assign( ".rcpp.stats", fx, globalenv() )
+.setUp <- function(){
+	if( ! exists( ".rcpp.stats", globalenv() ) ){
+		fun <- Rcpp:::compile_unit_tests( 
+		    definitions()
+		)
+	    assign( ".rcpp.stats", fun, globalenv() )
 	}
 }
 

@@ -17,11 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function() {
-    tests <- ".rcpp.misc"
-    if( ! exists( tests, globalenv() )) {
-        ## definition of all the functions at once
-        f <- list(
+definitions <- function(){
+    list(
         	"symbol_" = list( 
         		signature(), 
         		'
@@ -80,11 +77,10 @@
 				'
         	)
         )   
+}
 
-        signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction(signatures, bodies,
-                           plugin = "Rcpp", includes = "
+includes <- function(){
+    "
                            
     using namespace std;
                            
@@ -95,8 +91,21 @@
 	    int nrow() const { return dd[0]; }
 	    int ncol() const { return dd[1]; }
 	};
-	",  cxxargs = ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x",""))
-        getDynLib( fun ) # just forcing loading the dll now
+	"
+}
+
+cxxargs <- function() {
+    ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x","")
+}
+
+.setUp <- function() {
+    tests <- ".rcpp.misc"
+    if( ! exists( tests, globalenv() )) {
+        fun <- Rcpp:::compile_unit_tests( 
+            definitions(), 
+            includes = includes(),
+            cxxargs = cxxargs()
+        )
         assign( tests, fun, globalenv() )
     }
 }
