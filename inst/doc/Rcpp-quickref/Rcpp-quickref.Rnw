@@ -29,6 +29,18 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \title{\pkg{Rcpp} Quick Reference Guide}
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
+
+\renewenvironment{Hchunk}%
+{%
+\vspace{0.5em}\noindent\begin{lrbox}{\highlightbox}%
+\begin{minipage}[b]{.42\textwidth}%
+}%
+{%
+\end{minipage}%
+\end{lrbox}%
+\fcolorbox{highlightBorder}{highlightBg}{\usebox{\highlightbox}}%
+\vspace{0.5em}}%
+
 \begin{document}
 \maketitle
 \thispagestyle{empty}
@@ -90,6 +102,23 @@ std::accumulate( xx.begin(), xx.end(),
 int n = xx.size();
 @
 
+\paragraph{Inline}~
+  \newline
+  \newline
+<<lang=cpp>>=
+## Note - this is R code. inline allows rapid testing.
+require(inline)
+testfun = cxxfunction(
+            signature(x="numeric", i="integer"),
+            body = '
+                NumericVector xx(x);
+                int ii = as<int>(i);
+                xx = xx * ii;
+                return( xx );
+            ', plugin="Rcpp")
+testfun(1:5, 3)
+@
+
 \paragraph{Function}~
   \newline
   \newline
@@ -99,8 +128,7 @@ rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
 @
 
 \paragraph{Environment}~
-  \newline
-  \newline
+    \newline
 <<lang=cpp>>=
 Environment stats("package:stats");
 Environment env( 2 ); // by position
@@ -173,7 +201,6 @@ IntegerVector yy = rev( y );
 
 \paragraph{Using matrices}~
   \newline
-  \newline
 <<lang=cpp>>=
 // Initializing from SEXP, 
 // dimensions handled automatically
@@ -188,13 +215,60 @@ int xsize = xx.nrow() * xx.ncol();
 for (int i = 0; i < xsize; i++) {
     xx[i] = 7;
 }
+// Same as above, using STL fill
+std::fill(xx.begin(), xx.end(), 8);
 
 // Assign this value to single element 
 // (1st row, 2nd col)
 xx(0,1) = 4;
 
-// Extract the second column
-NumericVector zz = xx( _, 1);
+// Reference the second column
+// Changes propagate to xx (same applies for Row)
+NumericMatrix::Column zzcol = xx( _, 1);
+zzcol = zzcol * 2;
+
+// Copy the second column into new object
+NumericVector zz1 = xx( _, 1);
+// Copy the submatrix (top left 3x3) into new object
+NumericMatrix zz2 = xx( Range(0,2), Range(0,2));
 @
+
+
+\paragraph{Random functions}~
+  \newline
+<<lang=cpp>>=
+// Set seed
+RNGScope scope;
+
+// For details see Section 6.7.1--Distribution functions of the `Writing R Extensions' manual. In some cases (e.g. rnorm), distribution-specific arguments can be omitted; when in doubt, specify all dist-specific arguments. The use of doubles rather than integers for dist-specific arguments is recommended. Unless explicitly specified, log=FALSE. 
+
+// Equivalent to R calls
+NumericVector xx = runif(20);
+NumericVector xx1 = rnorm(20);
+NumericVector xx1 = rnorm(20, 0);
+NumericVector xx1 = rnorm(20, 0, 1);
+
+// Example vector of quantiles
+NumericVector quants(5);
+for (int i = 0; i < 5; i++) {
+    quants[i] = (i-2);
+}
+
+// in R, dnorm(-2:2)
+NumericVector yy = dnorm(quants) ;
+NumericVector yy = dnorm(quants, 0.0, 1.0) ;
+
+// in R, dnorm(-2:2, mean=2, log=TRUE)
+NumericVector yy = dnorm(quants, 2.0, true) ;
+
+// Note - cannot specify sd without mean
+// in R, dnorm(-2:2, mean=0, sd=2, log=TRUE)
+NumericVector yy = dnorm(quants, 0.0, 2.0, true) ;
+
+// To get original R api, use Rf_*
+double zz = Rf_rnorm(0, 2);
+@
+
+
 
 \end{document}
