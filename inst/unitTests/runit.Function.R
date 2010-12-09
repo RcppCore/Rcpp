@@ -18,12 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function() {
-	suppressMessages( require( stats ) )
-    tests <- ".rcpp.Function"
-    if( ! exists( tests, globalenv() )) {
-        ## definition of all the functions at once
-        f <- list(
+definitions <- function(){
+    list(
         	"function_" = list(
         		signature(x="ANY"), 'return Function(x) ;'
         	),
@@ -72,13 +68,22 @@
 					return output ;
 				'
         	)
+        )    
+}
+
+cxxargs <- function(){
+    ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x","")
+}
+
+.setUp <- function() {
+	suppressMessages( require( stats ) )
+    tests <- ".rcpp.Function"
+    if( ! exists( tests, globalenv() )) {
+        ## definition of all the functions at once
+        fun <- Rcpp:::compile_unit_tests( 
+            definitions(), 
+            cxxargs = cxxargs() 
         )
-  signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction(signatures, bodies,
-                           plugin = "Rcpp", includes = "using namespace std;",
-                           cxxargs = ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x",""))
-        getDynLib( fun ) # just forcing loading the dll now
         assign( tests, fun, globalenv() )
     }
 }

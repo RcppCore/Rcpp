@@ -18,13 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function() {
-
-    tests <- ".Rcpp.Date"
-    if( ! exists(tests, globalenv() )) {
-
-        ## definition of all the functions at once
-        f <- list("ctor_sexp"=list(
+definitions <- function(){
+    list("ctor_sexp"=list(
                   signature(d="Date"),
                   'Date dt = Date(d);
                    return wrap(dt);')
@@ -125,12 +120,13 @@
 				    return wrap(dt);')
 
                   )
+}
 
-        signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction( signatures, bodies, plugin = "Rcpp")
-        getDynLib( fun ) # just forcing loading the dll now
-        assign( tests, fun, globalenv() )
+.setUp <- function() {
+    tests <- ".Rcpp.Date"
+    if( ! exists(tests, globalenv() )) {
+        fun <- Rcpp:::compile_unit_tests(definitions() )
+        assign( tests, fun , globalenv() )
     }
 }
 

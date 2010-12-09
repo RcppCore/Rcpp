@@ -17,11 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	if( ! exists( ".rcpp.sugar", globalenv() ) ){
-		# definition of all the functions at once
-		
-		sugar.functions <- list( 
+definitions <- function(){
+list( 
 			"runit_abs" = list( 
 				signature( x = "numeric", y = "numeric" ), 
 				'
@@ -673,11 +670,11 @@
 			    '
 			)
 		)
-		
-		signatures <- lapply( sugar.functions, "[[", 1L )
-		bodies <- lapply( sugar.functions, "[[", 2L )
-		fx <- cxxfunction( signatures, bodies, plugin = "Rcpp", 
-			include = '
+		    
+}
+
+includes <- function(){
+'
 			template <typename T>
 			class square : public std::unary_function<T,T> {
 			public:
@@ -685,10 +682,16 @@
 			} ;
 			
 			double raw_square( double x){ return x*x; }
-	
-	')
-		getDynLib( fx ) # just forcing loading the dll now
-		assign( ".rcpp.sugar", fx, globalenv() )
+'    
+}
+
+.setUp <- function(){
+	if( ! exists( ".rcpp.sugar", globalenv() ) ){
+		fun <- Rcpp:::compile_unit_tests( 
+		    definitions(), 
+		    includes = includes()
+		)
+	    assign( ".rcpp.sugar", fun, globalenv() )
 	}
 }
 
