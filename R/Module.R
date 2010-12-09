@@ -109,6 +109,9 @@ new_CppObject_xp <- function(module, pointer, ...) {
 	.External( class__newInstance, module, pointer, ... )
 }
 
+new_dummyObject <- function(...)
+    .External( "class__dummyInstance", ...)
+
 
 # class method for $initialize
 cpp_object_initializer <- function(.self, .refClassDef, ...){
@@ -122,6 +125,18 @@ cpp_object_initializer <- function(.self, .refClassDef, ...){
     assign(".cppclass", fields$.pointer, envir = selfEnv)
     .self
 }
+
+cpp_object_dummy <- function(.self, .refClassDef) {
+    selfEnv <- as.environment(.self)
+    ## like initializer but a dummy for the case of no default
+    ## constructor.  Will throw an error if the object is used.
+    fields <- .refClassDef@fieldPrototypes
+    pointer <- new_dummyObject()
+    assign(".module", fields$.module, envir = selfEnv)
+    assign(".pointer", pointer, envir = selfEnv)
+    assign(".cppclass", fields$.pointer, envir = selfEnv)
+    .self
+}    
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ) {
     if(is(module, "Module")) {
@@ -196,7 +211,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
               else
                  function(...) {
                      if(nargs())  Rcpp:::cpp_object_initializer(.self,.refClassDef, ...)
-                     else .self
+                     else Rcpp:::cpp_object_dummy(.self, .refClassDef)
                  }
                           )
                

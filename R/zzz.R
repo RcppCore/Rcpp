@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.dummyInstancePointer <- new.env() # just something permanent
+
 .onLoad <- function(libname, pkgname){
     .Call("init_Rcpp_cache", PACKAGE = "Rcpp" )
     minimum_svn_rev <- packageDescription( pkgname )[["MinimumSvnRev"]]
@@ -23,5 +25,6 @@
     #                                          "for full use of reference methods"),
     #                                    R.version[["svn rev"]], minimum_svn_rev))
     # }
+    new_dummyObject(.dummyInstancePointer);
 }
 
