@@ -37,8 +37,7 @@ inline double dunif_0( double x /*, double a [=0.], double b [=1.]*/ , int give_
 	return x + 1.0 ;
 #endif
     
-    if (0.0 <= x && x <= 1.0)
-	return 1.0 ;
+    if (0.0 <= x && x <= 1.0) return give_log ? 0.0 : 1.0 ;
     return R_D__0;
 }
 
