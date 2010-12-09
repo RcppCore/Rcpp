@@ -1,3 +1,9 @@
+2010-12-09  John M Chambers  <jmc@r-project.org>
+
+	* Rcpp/src/Module.cpp: Rcpp/src/exceptions.cpp,
+	Rcpp/src/Rcpp_init.c, etc. add a not_initialized exception and a
+	dummy_pointer to identify such objects, throw exc. back to R
+
 2010-12-07  Romain Francois <romain@r-enthusiasts.com>
 
     * inst/include/Rcpp/vector/matrix.h: Matrix gains a nested ::Sub typedef

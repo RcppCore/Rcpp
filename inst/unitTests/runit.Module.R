@@ -196,4 +196,48 @@ test.Module.member <- function(){
     checkException( { w$y <- 3 } )
 }
 
+test.Module.Constructor <- function() {
+    inc <- '
+
+class Randomizer {
+public:
+
+    // Randomizer() : min(0), max(1){}
+    Randomizer( double min_, double max_) : min(min_), max(max_){}
+
+    NumericVector get( int n ){
+        RNGScope scope ;
+        return runif( n, min, max );
+    }
+
+private:
+    double min, max ;
+} ;
+
+RCPP_MODULE(mod){
+
+    class_<Randomizer>( "Randomizer" )
+
+        // No default: .default_constructor()
+        .constructor<double,double>()
+    
+        .method( "get" , &Randomizer::get ) ;
+
+}
+'
+    fx <- cxxfunction( , '', includes = inc, plugin = "Rcpp" )
+
+    mod <- Module( "mod", getDynLib( fx ) )
+
+    Randomizer <- mod$Randomizer
+    r <- new( Randomizer, 10.0, 20.0 )
+    set.seed(123)
+    x10 <- runif(10, 10.0, 20.0)
+    set.seed(123)
+    checkEquals(r$get(10), x10)
+
+    r <- new( Randomizer )
+    stopifnot(is(tryCatch(r$get(10), error = function(e)e), "error"))
+}
+
 }

@@ -77,6 +77,7 @@ static R_ExternalMethodDef extEntries[]  = {
     EXTDEF(InternalFunction_invoke),
     EXTDEF(Module__invoke), 
     EXTDEF(class__newInstance), 
+    EXTDEF(class__dummyInstance), 
     
     {NULL, NULL, 0}
 } ;

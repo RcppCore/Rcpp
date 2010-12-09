@@ -157,6 +157,24 @@ extern "C" SEXP class__newInstance(SEXP args){
    	return clazz->newInstance(cargs, nargs ) ;
 }
 
+SEXP rcpp_dummy_pointer = R_NilValue; // relies on being set in .onLoad()
+
+#define CHECK_DUMMY_OBJ(p) if(p == rcpp_dummy_pointer) forward_exception_to_r ( Rcpp::not_initialized())
+	
+
+
+extern "C" SEXP class__dummyInstance(SEXP args) {
+	SEXP p;
+
+	if(args == R_NilValue)
+		return rcpp_dummy_pointer;
+	p  = CDR(args);
+
+	if(p != R_NilValue)
+		rcpp_dummy_pointer = CAR(p);
+	return rcpp_dummy_pointer;
+}
+
 extern "C" SEXP CppMethod__invoke(SEXP args){
 	SEXP p = CDR(args) ;
 	
@@ -168,6 +186,7 @@ extern "C" SEXP CppMethod__invoke(SEXP args){
 	
 	// the external pointer to the object
 	SEXP obj = CAR(p); p = CDR(p) ;
+	CHECK_DUMMY_OBJ(obj);
 	
 	// additional arguments, processed the same way as .Call does
 	SEXP cargs[MAX_ARGS] ;
@@ -192,6 +211,7 @@ extern "C" SEXP CppMethod__invoke_void(SEXP args){
 	
 	// the external pointer to the object
 	SEXP obj = CAR(p); p = CDR(p) ;
+	CHECK_DUMMY_OBJ(obj);
 	
 	// additional arguments, processed the same way as .Call does
 	SEXP cargs[MAX_ARGS] ;
@@ -216,6 +236,7 @@ extern "C" SEXP CppMethod__invoke_notvoid(SEXP args){
 	
 	// the external pointer to the object
 	SEXP obj = CAR(p); p = CDR(p) ;
+	CHECK_DUMMY_OBJ(obj);
 	
 	// additional arguments, processed the same way as .Call does
 	SEXP cargs[MAX_ARGS] ;

@@ -75,6 +75,7 @@ EXTFUN(CppMethod__invoke_notvoid) ;
 EXTFUN(InternalFunction_invoke) ;
 EXTFUN(Module__invoke) ;
 EXTFUN(class__newInstance) ;
+EXTFUN(class__dummyInstance) ;
 
 #ifdef __cplusplus
 }
