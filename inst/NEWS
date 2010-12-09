@@ -5,6 +5,8 @@
 
     o   Date::getYear() corrected (where addition of 1900 was not called for)
 
+    o   An Rcpp::not_initialized exception was added and forwarded to R if such an object is used.
+
 0.8.9   2010-11-27
 
     o   Many improvements were made to in 'Rcpp modules':
