@@ -17,10 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function() {
-    if( ! exists( ".rcpp.wrap", globalenv() )) {
-        ## definition of all the functions at once
-        f <- list("map_string_int"=list(
+definitions <- function(){
+f <- list("map_string_int"=list(
                   signature(),
                   'std::map< std::string, int > m ;
    	           m["b"] = 100;
@@ -181,12 +179,13 @@
         if (Rcpp:::capabilities()[["tr1 unordered maps"]]) {
             f <- c(f,g)
         }
+        f
+}
 
-        signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction( signatures, bodies, plugin = "Rcpp")
-        getDynLib( fun ) # just forcing loading the dll now
-        assign( ".rcpp.wrap", fun, globalenv() )
+.setUp <- function() {
+    if( ! exists( ".rcpp.wrap", globalenv() )) {
+       fun <- Rcpp:::compile_unit_tests( definitions() )
+       assign( ".rcpp.wrap", fun, globalenv() )
     }
 }
 

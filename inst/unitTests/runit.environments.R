@@ -17,11 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	if( ! exists( ".rcpp.environments", globalenv() ) ){
-		# definition of all the functions at once
-		
-		sugar.functions <- list( 
+definitions <- function(){
+    list( 
 			"runit_ls" = list( 
 				signature(x="environment"), 
 				'
@@ -184,11 +181,12 @@
 				'
 			)
 		)
-		signatures <- lapply( sugar.functions, "[[", 1L )
-		bodies <- lapply( sugar.functions, "[[", 2L )
-		fx <- cxxfunction( signatures, bodies, plugin = "Rcpp" )
-		getDynLib( fx ) # just forcing loading the dll now
-		assign( ".rcpp.environments", fx, globalenv() )
+}
+
+.setUp <- function(){
+	if( ! exists( ".rcpp.environments", globalenv() ) ){
+		fun <- Rcpp:::compile_unit_tests( definitions() )
+	    assign( ".rcpp.environments", fun, globalenv() )
 	}
 }
 			

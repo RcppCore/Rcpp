@@ -18,14 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-    suppressMessages( require( datasets ) )
-    data( iris )
-
-    tests <- ".Rcpp.RObject"
-    if( ! exists(tests, globalenv() )) {
-        ## definition of all the functions at once
-        f <- list("asDouble"=list(
+definitions <- function(){
+    list("asDouble"=list(
                   signature(x="numeric"),
                   'double d = as<double>(x);
 				   return(wrap( 2*d ) );')
@@ -155,12 +149,22 @@
 
                   )
 
-        signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction(signatures, bodies,
-                           plugin = "Rcpp", includes = "using namespace std;",
-                           cxxargs = ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x",""))
-        getDynLib( fun ) # just forcing loading the dll now
+}
+
+cxxargs <- function(){
+    ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x","")
+}
+
+.setUp <- function(){
+    suppressMessages( require( datasets ) )
+    data( iris )
+
+    tests <- ".Rcpp.RObject"
+    if( ! exists(tests, globalenv() )) {
+        fun <- Rcpp:::compile_unit_tests(
+            definitions(), 
+            cxxargs = cxxargs()
+        )
         assign( tests, fun, globalenv() )
     }
 }

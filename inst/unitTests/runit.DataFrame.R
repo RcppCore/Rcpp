@@ -18,14 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.setUp <- function(){
-	suppressMessages( require( datasets ) )
-	data( iris )
-
-    tests <- ".Rcpp.DataFrame"
-    if( ! exists(tests, globalenv() )) {
-        ## definition of all the functions at once
-        f <- list("FromSEXP"=list(
+definitions <- function(){
+    list("FromSEXP"=list(
                   signature(x="ANY"),
                   'DataFrame df(x) ;
 				   return df;')
@@ -87,12 +81,15 @@
 						_["stringsAsFactors"] = false ); ')
 
                   )
+   
+}
 
-        signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction(signatures, bodies,
-                           plugin = "Rcpp", includes = "using namespace std;")
-        getDynLib( fun ) # just forcing loading the dll now
+.setUp <- function(){
+	suppressMessages( require( datasets ) )
+	data( iris )
+    tests <- ".Rcpp.DataFrame"
+    if( ! exists(tests, globalenv() )) {
+        fun <- Rcpp:::compile_unit_tests( definitions() )
         assign( tests, fun, globalenv() )
     }
 }

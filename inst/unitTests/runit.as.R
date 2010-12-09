@@ -17,76 +17,72 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+definitions <- function() {
+    list("as_int"=list(
+              signature(x="numeric"),
+              'int y = as<int>(x);
+           return wrap(y) ;')
+    
+              ,"as_double"=list(
+               signature(x="numeric"),
+               'double y = as<double>(x) ;
+        return wrap(y) ;')
+    
+              ,"as_raw"=list(
+               signature(x="numeric"),
+               'Rbyte y = as<Rbyte>(x) ;
+            return wrap(y) ;')
+    
+              ,"as_bool"=list(
+               signature(x="numeric"),
+               'bool y = as<bool>(x) ;
+            return wrap(y) ;')
+    
+              ,"as_string"=list(
+               signature(x="character"),
+               'std::string y = as<std::string>(x) ;
+            return wrap(y) ;')
+    
+              ,"as_vector_int"=list(
+               signature(x="numeric"),
+               'vector<int> y = as< vector<int> >(x) ;
+            return wrap(y) ;')
+    
+              ,"as_vector_double"=list(
+               signature(x="numeric"),
+               'vector<double> y = as< vector<double> >(x) ;
+            return wrap(y) ;')
+    
+              ,"as_vector_raw"=list(
+               signature(x="numeric"),
+               'vector<Rbyte> y = as< vector<Rbyte> >(x) ;
+            return wrap(y) ;')
+    
+              ,"as_vector_bool"=list(
+               signature(x="numeric"),
+               'vector<bool> y = as< vector<bool> >(x) ;
+            return wrap(y) ;')
+    
+              ,"as_vector_string"=list(
+               signature(x="character"),
+               'vector<string> y = as< vector<string> >(x) ;
+            return wrap(y) ;')
+    
+              ,"as_deque_int"=list(
+               signature(x="integer"),
+               'deque<int> y = as< deque<int> >(x) ;
+        return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;')
+    
+              ,"as_list_int"=list(
+               signature(x="integer"),
+               'list<int> y = as< list<int> >(x) ;
+            return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;')
+            )
+}
 .setUp <- function() {
     tests <- ".rcpp.as"
     if( ! exists( tests, globalenv() )) {
-        ## definition of all the functions at once
-        f <- list("as_int"=list(
-                  signature(x="numeric"),
-                  'int y = as<int>(x);
-	           return wrap(y) ;')
-
-                  ,"as_double"=list(
-                   signature(x="numeric"),
-                   'double y = as<double>(x) ;
-		    return wrap(y) ;')
-
-                  ,"as_raw"=list(
-                   signature(x="numeric"),
-                   'Rbyte y = as<Rbyte>(x) ;
-	            return wrap(y) ;')
-
-                  ,"as_bool"=list(
-                   signature(x="numeric"),
-                   'bool y = as<bool>(x) ;
-	            return wrap(y) ;')
-
-                  ,"as_string"=list(
-                   signature(x="character"),
-                   'std::string y = as<std::string>(x) ;
-	            return wrap(y) ;')
-
-                  ,"as_vector_int"=list(
-                   signature(x="numeric"),
-                   'vector<int> y = as< vector<int> >(x) ;
-	            return wrap(y) ;')
-
-                  ,"as_vector_double"=list(
-                   signature(x="numeric"),
-                   'vector<double> y = as< vector<double> >(x) ;
-  	            return wrap(y) ;')
-
-                  ,"as_vector_raw"=list(
-                   signature(x="numeric"),
-                   'vector<Rbyte> y = as< vector<Rbyte> >(x) ;
-	            return wrap(y) ;')
-
-                  ,"as_vector_bool"=list(
-                   signature(x="numeric"),
-                   'vector<bool> y = as< vector<bool> >(x) ;
-	            return wrap(y) ;')
-
-                  ,"as_vector_string"=list(
-                   signature(x="character"),
-                   'vector<string> y = as< vector<string> >(x) ;
-	            return wrap(y) ;')
-
-                  ,"as_deque_int"=list(
-                   signature(x="integer"),
-                   'deque<int> y = as< deque<int> >(x) ;
-		    return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;')
-
-                  ,"as_list_int"=list(
-                   signature(x="integer"),
-                   'list<int> y = as< list<int> >(x) ;
-	            return wrap( accumulate( y.begin(), y.end(), 0.0 ) ) ;')
-
-                  )
-
-        signatures <- lapply(f, "[[", 1L)
-        bodies <- lapply(f, "[[", 2L)
-        fun <- cxxfunction( signatures, bodies, plugin = "Rcpp", includes = "using namespace std;")
-        getDynLib( fun ) # just forcing loading the dll now
+        fun <- Rcpp:::compile_unit_tests(definitions())
         assign( tests, fun, globalenv() )
     }
 }
