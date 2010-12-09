@@ -47,8 +47,14 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["NoLog"] = dunif( xx, 0.0 , 1.0 ),
-									  _["Log"]	= dunif( xx, 0.0, 1.0 , true ));
+				  return List::create(
+                                      _["NoLog_noMin_noMax"] = dunif( xx ),
+                                      _["NoLog_noMax"] = dunif( xx, 0.0 ),
+                                      _["NoLog"] = dunif( xx, 0.0 , 1.0 ),
+									  _["Log"]	= dunif( xx, 0.0, 1.0 , true ),
+									  _["Log_noMax"]	= dunif( xx, 0.0, true )
+                                    //,_["Log_noMin_noMax"]	= dunif( xx, true )
+                  );
 				  ')
 
 				  ,
@@ -56,7 +62,9 @@
 				  '
 				  NumericVector xx(x) ;
 				  return List::create(_["NoLog"] = dgamma( xx, 1.0, 1.0),
-									  _["Log"]	 = dgamma( xx, 1.0, 1.0, true ));
+									  _["Log"]	 = dgamma( xx, 1.0, 1.0, true ),
+									  _["Log_noRate"]	 = dgamma( xx, 1.0, true )
+                  );
 				  ')
 
 				  ,
@@ -73,8 +81,13 @@
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["false"] = dnorm( xx, 0.0, 1.0 ),
-									  _["true"]	 = dnorm( xx, 0.0, 1.0, true ));
+				  return List::create(
+                                      _["false_noMean_noSd"] = dnorm( xx ),
+                                      _["false_noSd"] = dnorm( xx, 0.0  ),
+                                      _["false"] = dnorm( xx, 0.0, 1.0 ),
+									  _["true"]	 = dnorm( xx, 0.0, 1.0, true ),
+									  _["true_noSd"]	 = dnorm( xx, 0.0, true ),
+									  _["true_noMean_noSd"]	 = dnorm( xx, true ));
 				  ')
 
 				  ,
@@ -240,7 +253,8 @@ test.stats.dbeta <- function() {
     vv <- seq(0, 1, by = 0.1)
     a <- 0.5; b <- 2.5
     checkEquals(fx(vv, a, b),
-                list(NoLog = dbeta(vv, a, b),
+                list(
+                     NoLog = dbeta(vv, a, b),
                      Log   = dbeta(vv, a, b, log=TRUE)
                      ),
                 msg = " stats.qbeta")
@@ -248,17 +262,25 @@ test.stats.dbeta <- function() {
 
 test.stats.dbinom <- function( ){
 	fx <- .rcpp.stats$runit_dbinom
-	checkEquals(fx(1:10) ,
-                list( false = dbinom(1:10, 10, .5), true = dbinom(1:10, 10, .5, TRUE ) ),
-                msg = "stats.dbinom" )
+    v <- 1:10
+	checkEquals(fx(v) ,
+                list( 
+                    false = dbinom(v, 10, .5), 
+                    true = dbinom(v, 10, .5, TRUE ) 
+                ), msg = "stats.dbinom" )
 }
 
 test.stats.dunif <- function() {
     fx <- .rcpp.stats$runit_dunif
     vv <- seq(0, 1, by = 0.1)
     checkEquals(fx(vv),
-                list(NoLog = dunif(vv),
-                     Log   = dunif(vv, log=TRUE)
+                list(
+                    NoLog_noMin_noMax = dunif(vv),
+                    NoLog_noMax = dunif(vv, 0),
+                    NoLog = dunif(vv, 0, 1),
+                     Log   = dunif(vv, 0, 1, log=TRUE),
+                     Log_noMax   = dunif(vv, 0, log=TRUE)
+                     #,Log_noMin_noMax   = dunif(vv, log=TRUE)  ## wrong answer
                      ),
                 msg = " stats.dunif")
 }
@@ -267,32 +289,42 @@ test.stats.dgamma <- function( ) {
     fx <- .rcpp.stats$runit_dgamma
     v <- 1:4
     checkEquals(fx(v),
-                list( NoLog = dgamma(v, 1.0, 1.0), Log = dgamma(v, 1.0, 1.0, log = TRUE ) ),
-                msg = "stats.dgamma" )
+                list( NoLog = dgamma(v, 1.0, 1.0), 
+                      Log = dgamma(v, 1.0, 1.0, log = TRUE ),
+                      Log_noRate = dgamma(v, 1.0, log = TRUE ) 
+                ), msg = "stats.dgamma" )
 }
 
 
 test.stats.dpois <- function( ){
 	fx <- .rcpp.stats$runit_dpois
-	checkEquals(fx(0:5) ,
-                list( false = dpois(0:5, .5), true = dpois(0:5, .5, TRUE ) ),
-                msg = "stats.dpois" )
+    v <- 0:5
+	checkEquals(fx(v) ,
+                list( false = dpois(v, .5), 
+                      true = dpois(v, .5, TRUE ) 
+                ), msg = "stats.dpois" )
 }
 
 test.stats.dnorm <- function( ) {
     fx <- .rcpp.stats$runit_dnorm
     v <- seq(0.0, 1.0, by=0.1)
     checkEquals(fx(v),
-                list( false = dnorm(v, 0.0, 1.0), true = dnorm(v, 0.0, 1.0, TRUE ) ),
-                msg = "stats.dnorm" )
+                list( false_noMean_noSd = dnorm(v), 
+                      false_noSd = dnorm(v, 0.0), 
+                      false = dnorm(v, 0.0, 1.0), 
+                      true = dnorm(v, 0.0, 1.0, log=TRUE ),
+                      true_noSd = dnorm(v, 0.0, log=TRUE ),
+                      true_noMean_noSd = dnorm(v, log=TRUE ) 
+                ), msg = "stats.dnorm" )
 }
 
 test.stats.dt <- function( ) {
 	fx <- .rcpp.stats$runit_dt
     v <- seq(0.0, 1.0, by=0.1)
     checkEquals(fx(v),
-                list( false = dt(v, 5), true = dt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
-                msg = "stats.dt" )
+                list( false = dt(v, 5), 
+                      true = dt(v, 5, log=TRUE ) # NB: need log=TRUE here
+                ), msg = "stats.dt" )
 }
 
 test.stats.pbeta <- function( ) {
