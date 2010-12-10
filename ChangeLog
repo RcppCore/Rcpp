@@ -1,10 +1,14 @@
+2010-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/sprintf.h: Use vsnprintf() instead
+
 2010-12-10  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/barrier.h: faster versions (crossing the write barrier)
-    for string_elt, etc ...(to be used only internally)
-    
-    * src/barrier.cpp: implementation of the above
-    
+	* inst/include/Rcpp/barrier.h: faster versions (crossing the write
+	barrier) for string_elt, etc ...(to be used only internally)
+
+	* src/barrier.cpp: implementation of the above
+
 2010-12-09  John M Chambers  <jmc@r-project.org>
 
 	* src/Module.cpp: Rcpp/src/exceptions.cpp,
