@@ -132,6 +132,8 @@ std::string demangle( const std::string& name) ;
 
 #include <Rcpp/complex.h>
 
+#include <Rcpp/barrier.h>
+
 #define RcppExport extern "C"
 
 #include <Rcpp/internal/posixt.h>
