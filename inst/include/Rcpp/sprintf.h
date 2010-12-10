@@ -29,9 +29,8 @@ const char* sprintf( const char *format, ...) {
     static char buffer[MAX_SIZE]; 
     va_list(ap);
     va_start(ap, format);
-    vsprintf( buffer, format, ap);
+    vsnprintf( buffer, MAX_SIZE, format, ap);
     va_end(ap);
-    buffer[MAX_SIZE] = '\0';
     return strdup( buffer ) ;
 }
 
