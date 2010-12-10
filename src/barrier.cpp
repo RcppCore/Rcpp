@@ -43,4 +43,5 @@ SEXP get_vector_elt(SEXP x, int i){
 void set_vector_elt(SEXP x, int i, SEXP value){
     SET_VECTOR_ELT(x, i, value ) ;
 }
+SEXP* get_vector_ptr(SEXP x){ return VECTOR_PTR(x) ; }
 

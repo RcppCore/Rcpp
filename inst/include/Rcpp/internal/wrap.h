@@ -128,6 +128,40 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	return primitive_range_wrap__impl<InputIterator,T>( first, last, typename ::Rcpp::traits::r_sexptype_needscast<T>() ) ;
 }
 
+template <typename InputIterator>
+inline SEXP vecsxp_range_wrap__isSEXP( InputIterator first, InputIterator last, Rcpp::traits::true_type ){
+	size_t size = std::distance( first, last ) ;
+	SEXP x = PROTECT( Rf_allocVector( VECSXP, size ) );
+	for( size_t i =0; i < size; i++, ++first ){
+		SET_VECTOR_ELT( x, i, ::Rcpp::wrap(*first) ) ;
+	}
+	UNPROTECT(1) ;
+	return x ;
+}
+
+template <typename InputIterator>
+inline SEXP vecsxp_range_wrap__isSEXP( InputIterator first, InputIterator last, Rcpp::traits::false_type ){
+	size_t size = std::distance( first, last ) ;
+	SEXP x = PROTECT( Rf_allocVector( VECSXP, size ) );
+	SEXP *x_ptr = get_vector_ptr(x) ;
+	for( size_t i =0; i < size; i++, ++first ){
+		x_ptr[i] = ::Rcpp::wrap(*first) ;
+	}
+	UNPROTECT(1) ;
+	return x ;
+}
+
+template <typename InputIterator, typename U>
+inline SEXP vecsxp_range_wrap( InputIterator first, InputIterator last, const U& ){
+	return vecsxp_range_wrap__isSEXP<InputIterator>( 
+		first, last, 
+		typename Rcpp::traits::same_type<U,SEXP>()
+    ) ;
+}
+
+
+
+
 /** 
  * range based wrap implementation that deals with iterators over 
  * some type U. each U object is itself wrapped
@@ -136,16 +170,7 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
  */
 template <typename InputIterator, typename T>
 inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_generic_tag ){ 
-	size_t size = std::distance( first, last ) ;
-	SEXP x = PROTECT( Rf_allocVector( VECSXP, size ) );
-	size_t i =0 ;
-	while( i < size ){
-		SET_VECTOR_ELT( x, i, ::Rcpp::wrap(*first) ) ;
-		i++ ;
-		++first ;
-	}
-	UNPROTECT(1) ;
-	return x ;
+	return vecsxp_range_wrap( first, last, *first ) ;
 }
 
 /**
