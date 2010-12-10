@@ -161,7 +161,7 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	std::string buffer ;
 	while( i < size ){
 		buffer = *first ;
-		SET_STRING_ELT( x, i, Rf_mkChar( buffer.c_str()) ) ;
+		char_set_string_elt( x, i, buffer.c_str() ) ;
 		i++ ;
 		++first ;
 	}
@@ -193,7 +193,7 @@ inline SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator
 	for( ; i<size; i++, ++first){
 		start[i] = (*first).second ;
 		buf = (*first).first ;
-		SET_STRING_ELT( names, i, Rf_mkChar(buf.c_str()) ) ;
+		char_set_string_elt( names, i, buf.c_str() ) ;
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
@@ -222,7 +222,7 @@ inline SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator
 	for( ; i<size; i++, ++first){
 		start[i] = static_cast<CTYPE>( first->second );
 		buf = first->first ;
-		SET_STRING_ELT( names, i, Rf_mkChar(buf.c_str()) ) ;
+		char_set_string_elt( names, i, buf.c_str() ) ;
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
@@ -268,7 +268,7 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 		element = ::Rcpp::wrap( first->second ) ;
 		buf = first->first ;
 		SET_VECTOR_ELT( x, i, element ) ;
-		SET_STRING_ELT( names, i, Rf_mkChar(buf.c_str()) ) ; 
+		char_set_string_elt( names, i, buf.c_str()) ; 
 		i++ ;
 		++first ;
 	}
@@ -296,10 +296,10 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	std::string buffer ;
 	while( i < size ){
 		buffer = first->second ;
-		SET_STRING_ELT( x, i, Rf_mkChar( buffer.c_str()) ) ;
+		char_set_string_elt( x, i, buffer.c_str() ) ;
 		
 		buffer = first->first ;
-		SET_STRING_ELT( names, i, Rf_mkChar( buffer.c_str()) ) ;
+		char_set_string_elt( names, i, buffer.c_str() ) ;
 		
 		i++ ;
 		++first ;
@@ -318,7 +318,8 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 template<typename InputIterator, typename T>
 inline SEXP range_wrap_dispatch( InputIterator first, InputIterator last ){
 	RCPP_DEBUG_2( "range_wrap_dispatch< InputIterator = \n%s , T = %s>\n", DEMANGLE(InputIterator), DEMANGLE(T) ) ;
-	return range_wrap_dispatch___impl<InputIterator,T>( first, last, typename ::Rcpp::traits::r_type_traits<T>::r_category() ) ;
+	return range_wrap_dispatch___impl<InputIterator,T>( first, last, 
+		typename ::Rcpp::traits::r_type_traits<T>::r_category() ) ;
 }
 
 // we use the iterator trait to make the dispatch
@@ -375,11 +376,8 @@ inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_primit
  */
 template <typename T>
 inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_string_tag){
-	SEXP x = PROTECT( ::Rf_allocVector( STRSXP, 1) ) ;
 	std::string y = object ; /* give a chance to implicit conversion */
-	SET_STRING_ELT( x, 0, Rf_mkChar(y.c_str()) ) ;
-	UNPROTECT(1) ;
-	return x; 
+	return Rf_mkString( y.c_str() ) ;
 }
 
 /**
@@ -496,34 +494,25 @@ inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r
 template <typename T>
 inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r_type_string_tag ){
 	int nr = object.nrow(), nc = object.ncol() ;
-	SEXP res = PROTECT( Rf_allocVector( STRSXP, nr*nc ) ) ;
-	
+	SEXP res = PROTECT( Rf_allocMatrix( STRSXP, nr, nc ) ) ;
 	int k=0 ;
 	for( int j=0; j<nc; j++)
 		for( int i=0; i<nr; i++, k++)
-			SET_STRING_ELT( res, k, object(i,j) ) ;
-	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
-	INTEGER(dim)[0] = nr ;
-	INTEGER(dim)[1] = nc ;
-	Rf_setAttrib( res, R_DimSymbol , dim ) ;
-	UNPROTECT(2) ;
+			set_string_elt( res, k, object(i,j) ) ;
+	UNPROTECT(1) ;
 	return res ;
 }
 
 template <typename T>
 inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r_type_generic_tag ){
 	int nr = object.nrow(), nc = object.ncol() ;
-	SEXP res = PROTECT( Rf_allocVector( VECSXP, nr*nc ) );
+	SEXP res = PROTECT( Rf_allocMatrix( VECSXP, nr, nc ) );
 	
 	int k=0 ;
 	for( int j=0; j<nc; j++)
 		for( int i=0; i<nr; i++, k++)
 			SET_VECTOR_ELT( res, k, ::Rcpp::wrap( object(i,j) ) ) ;
-	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
-	INTEGER(dim)[0] = nr ;
-	INTEGER(dim)[1] = nc ;
-	Rf_setAttrib( res, R_DimSymbol , dim ) ;
-	UNPROTECT(2) ;
+	UNPROTECT(1) ;
 	return res ;
 }
 
@@ -598,7 +587,7 @@ inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_typ
 	std::string buf ;
 	for( int i=0; i<size; i++){
 		buf = object.get(i) ;
-		SET_STRING_ELT( x, i, Rf_mkChar( buf.c_str() ) ) ;
+		char_set_string_elt( x, i, buf.c_str() ) ;
 	}
 	UNPROTECT(1) ;
 	return x ;
@@ -693,20 +682,16 @@ inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::
 
 template <typename value_type, typename InputIterator> 
 inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::r_type_string_tag ){
-	SEXP out = PROTECT( ::Rf_allocVector( STRSXP, nrow * ncol) );
+	SEXP out = PROTECT( ::Rf_allocMatrix( STRSXP, nrow, ncol) );
 	int i=0, j=0 ;
 	std::string buffer ;
 	for( j=0; j<ncol; j++){
 		for( i=0; i<nrow; i++, ++first ){
 			buffer = *first ;
-			SET_STRING_ELT( out, j + ncol*i, ::Rf_mkChar(buffer.c_str()) ) ;
+			char_set_string_elt( out, j + ncol*i, buffer.c_str() ) ;
 		}
 	}
-	SEXP dims = PROTECT( ::Rf_allocVector( INTSXP, 2) ); 
-	INTEGER(dims)[0] = nrow; 
-	INTEGER(dims)[1] = ncol; 
-	::Rf_setAttrib( out, R_DimSymbol, dims) ;
-	UNPROTECT(2); /* out, dims */
+	UNPROTECT(1);
 	return out ;
 }
 
