@@ -26,6 +26,7 @@ SEXP get_string_elt(SEXP, int) ;
 const char* char_get_string_elt(SEXP, int) ;
 void set_string_elt(SEXP, int, SEXP) ;
 void char_set_string_elt(SEXP, int, const char*) ;        
+SEXP* get_string_ptr(SEXP) ;
 
 SEXP get_vector_elt(SEXP, int) ;
 void set_vector_elt(SEXP, int, SEXP ) ;

@@ -157,13 +157,14 @@ template<typename InputIterator, typename T>
 inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_string_tag ){
 	size_t size = std::distance( first, last ) ;
 	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-	size_t i = 0 ;
+	// we can pull out the pointer and work directly with it as all the data
+	// that goes in the string is newer than the string itself
+	// doing this, we skip the write barrier tests
+	SEXP* x_ptr = get_string_ptr(x) ;
 	std::string buffer ;
-	while( i < size ){
+	for( size_t i = 0; i < size; i++, ++first ){
 		buffer = *first ;
-		char_set_string_elt( x, i, buffer.c_str() ) ;
-		i++ ;
-		++first ;
+		x_ptr[i] = Rf_mkChar( buffer.c_str() ) ;
 	}
 	UNPROTECT(1) ;
 	return x ;
@@ -186,6 +187,8 @@ inline SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<typename T::second_type>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
+	// this is fine here to skip the write barrier
+	SEXP* names_ptr = get_string_ptr(names) ; 
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
 	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
 	size_t i =0;
@@ -193,7 +196,7 @@ inline SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator
 	for( ; i<size; i++, ++first){
 		start[i] = (*first).second ;
 		buf = (*first).first ;
-		char_set_string_elt( names, i, buf.c_str() ) ;
+		names_ptr[i] = Rf_mkChar( buf.c_str() );
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
@@ -215,14 +218,15 @@ inline SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<typename T::second_type>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
+	// this is fine here to skip the write barrier
+	SEXP* names_ptr = get_string_ptr(names) ;
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
 	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
-	size_t i =0;
 	std::string buf ; 
-	for( ; i<size; i++, ++first){
+	for( size_t i =0; i<size; i++, ++first){
 		start[i] = static_cast<CTYPE>( first->second );
 		buf = first->first ;
-		char_set_string_elt( names, i, buf.c_str() ) ;
+		names_ptr[i] = Rf_mkChar( buf.c_str() ) ;
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
@@ -261,16 +265,13 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	size_t size = std::distance( first, last ) ;
 	SEXP x = PROTECT( Rf_allocVector( VECSXP, size ) );
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-	size_t i =0 ;
+	// this is fine here to skip the write barrier
+	SEXP* names_ptr = get_string_ptr(names) ;
 	std::string buf ;
-	SEXP element = R_NilValue ;
-	while( i < size ){
-		element = ::Rcpp::wrap( first->second ) ;
+	for( size_t i =0; i < size; i++, ++first){
 		buf = first->first ;
-		SET_VECTOR_ELT( x, i, element ) ;
-		char_set_string_elt( names, i, buf.c_str()) ; 
-		i++ ;
-		++first ;
+		SET_VECTOR_ELT( x, i, ::Rcpp::wrap( first->second ) ) ;
+		names_ptr[i] = Rf_mkChar(buf.c_str()) ; 
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
@@ -291,18 +292,16 @@ template<typename InputIterator, typename T>
 inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_pairstring_string_tag ){
 	size_t size = std::distance( first, last ) ;
 	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
+	SEXP* x_ptr = get_string_ptr(x) ; // skip the write barrier
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-	size_t i = 0 ;
+	SEXP* names_ptr = get_string_ptr(names) ; // skip the WB
 	std::string buffer ;
-	while( i < size ){
+	for( size_t i = 0 ; i < size; i++, ++first){
 		buffer = first->second ;
-		char_set_string_elt( x, i, buffer.c_str() ) ;
+		x_ptr[i] = Rf_mkChar( buffer.c_str() ) ;
 		
 		buffer = first->first ;
-		char_set_string_elt( names, i, buffer.c_str() ) ;
-		
-		i++ ;
-		++first ;
+		names_ptr[i] = Rf_mkChar( buffer.c_str() ) ;
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
@@ -453,7 +452,7 @@ inline SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, :
 template <typename T>
 inline SEXP wrap_dispatch_matrix_logical( const T& object, ::Rcpp::traits::true_type ){
 	int nr = object.nrow(), nc = object.ncol() ;
-	SEXP res = PROTECT( Rf_allocVector( LGLSXP, nr, nc ) ) ;
+	SEXP res = PROTECT( Rf_allocMatrix( LGLSXP, nr, nc ) ) ;
 	int k=0 ;
 	int* p = LOGICAL(res) ;
 	for( int j=0; j<nc; j++)
@@ -577,10 +576,11 @@ template <typename T, typename elem_type>
 inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_string_tag ){
 	int size = object.size() ;
 	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) );
+	SEXP* x_ptr = get_string_ptr(x) ; // skip the WB
 	std::string buf ;
 	for( int i=0; i<size; i++){
 		buf = object.get(i) ;
-		char_set_string_elt( x, i, buf.c_str() ) ;
+		x_ptr[i] = Rf_mkChar( buf.c_str() ) ;
 	}
 	UNPROTECT(1) ;
 	return x ;
@@ -674,10 +674,11 @@ inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::
 	SEXP out = PROTECT( ::Rf_allocMatrix( STRSXP, nrow, ncol) );
 	int i=0, j=0 ;
 	std::string buffer ;
+	SEXP* out_ptr = get_string_ptr(out );
 	for( j=0; j<ncol; j++){
 		for( i=0; i<nrow; i++, ++first ){
 			buffer = *first ;
-			char_set_string_elt( out, j + ncol*i, buffer.c_str() ) ;
+			out_ptr[j + ncol*i] = Rf_mkChar( buffer.c_str() ) ;
 		}
 	}
 	UNPROTECT(1);
