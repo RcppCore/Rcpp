@@ -5,9 +5,6 @@
     
     * src/barrier.cpp: implementation of the above
     
-    * inst/include/Rcpp/internal/wrap.h: minor improvement in wrap thanks to 
-    the write barrier crossing
-
 2010-12-09  John M Chambers  <jmc@r-project.org>
 
 	* src/Module.cpp: Rcpp/src/exceptions.cpp,
