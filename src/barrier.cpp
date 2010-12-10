@@ -35,6 +35,7 @@ void set_string_elt(SEXP x, int i, SEXP value){
 void char_set_string_elt(SEXP x, int i, const char* value){
     STRING_ELT(x, i) = Rf_mkChar(value) ; 
 }
+SEXP* get_string_ptr(SEXP x){ return STRING_PTR(x) ; }
 
 SEXP get_vector_elt(SEXP x, int i){
     return VECTOR_ELT(x, i ) ;
