@@ -453,17 +453,13 @@ inline SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, :
 template <typename T>
 inline SEXP wrap_dispatch_matrix_logical( const T& object, ::Rcpp::traits::true_type ){
 	int nr = object.nrow(), nc = object.ncol() ;
-	SEXP res = PROTECT( Rf_allocVector( LGLSXP, nr * nc ) ) ;
+	SEXP res = PROTECT( Rf_allocVector( LGLSXP, nr, nc ) ) ;
 	int k=0 ;
 	int* p = LOGICAL(res) ;
 	for( int j=0; j<nc; j++)
 		for( int i=0; i<nr; i++, k++)
 			p[k] = object(i,j) ;
-	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
-	INTEGER(dim)[0] = nr ;
-	INTEGER(dim)[1] = nc ;
-	Rf_setAttrib( res, R_DimSymbol , dim ) ;
-	UNPROTECT(2) ;
+	UNPROTECT(1) ;
 	return res ;
 }
 
@@ -471,18 +467,14 @@ template <typename T, typename STORAGE>
 inline SEXP wrap_dispatch_matrix_primitive( const T& object ){
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<STORAGE>::rtype ;
 	int nr = object.nrow(), nc = object.ncol() ;
-	SEXP res = PROTECT( Rf_allocVector( RTYPE, nr*nc ) );
+	SEXP res = PROTECT( Rf_allocMatrix( RTYPE, nr, nc ) );
 	
 	int k=0 ;
 	STORAGE* p = r_vector_start< RTYPE, STORAGE >(res) ;
 	for( int j=0; j<nc; j++)
 		for( int i=0; i<nr; i++, k++)
 			p[k] = object(i,j) ;
-	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
-	INTEGER(dim)[0] = nr ;
-	INTEGER(dim)[1] = nc ;
-	Rf_setAttrib( res, R_DimSymbol , dim ) ;
-	UNPROTECT(2) ;
+	UNPROTECT(1) ;
 	return res ;
 }
 
@@ -496,9 +488,10 @@ inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r
 	int nr = object.nrow(), nc = object.ncol() ;
 	SEXP res = PROTECT( Rf_allocMatrix( STRSXP, nr, nc ) ) ;
 	int k=0 ;
+	// we cannot use set_string_elt because we need the write barrier check
 	for( int j=0; j<nc; j++)
 		for( int i=0; i<nr; i++, k++)
-			set_string_elt( res, k, object(i,j) ) ;
+			SET_STRING_ELT( res, k, object(i,j) ) ;
 	UNPROTECT(1) ;
 	return res ;
 }
@@ -665,18 +658,14 @@ inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_unknown_ta
 // {{{ wrap a container that is structured in row major order
 template <typename value_type, typename InputIterator> 
 inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::r_type_generic_tag ){
-	SEXP out = PROTECT( ::Rf_allocVector( VECSXP, nrow * ncol) );
+	SEXP out = PROTECT( ::Rf_allocMatrix( VECSXP, nrow, ncol) );
 	int i=0, j=0 ;
 	for( j=0; j<ncol; j++){
 		for( i=0; i<nrow; i++, ++first ){
 			SET_VECTOR_ELT( out, j + ncol*i, ::Rcpp::wrap( *first) ) ;
 		}
 	}
-	SEXP dims = PROTECT( ::Rf_allocVector( INTSXP, 2) ); 
-	INTEGER(dims)[0] = nrow; 
-	INTEGER(dims)[1] = ncol; 
-	::Rf_setAttrib( out, R_DimSymbol, dims) ;
-	UNPROTECT(2); /* out, dims */
+	UNPROTECT(1); /* out, dims */
 	return out ;
 }
 
@@ -698,7 +687,7 @@ inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::
 template <typename value_type, typename InputIterator> 
 inline SEXP primitive_rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::false_type ){
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
-	SEXP out = PROTECT( ::Rf_allocVector( RTYPE, nrow * ncol ) );
+	SEXP out = PROTECT( ::Rf_allocMatrix( RTYPE, nrow, ncol ) );
 	value_type* ptr = r_vector_start<RTYPE,value_type>( out );
 	int i=0, j=0 ;
 	for( j=0; j<ncol; j++){
@@ -706,18 +695,14 @@ inline SEXP primitive_rowmajor_wrap__dispatch( InputIterator first, int nrow, in
 			ptr[ j + ncol*i ] = *first ;
 		}
 	}
-	SEXP dims = PROTECT( ::Rf_allocVector( INTSXP, 2) ); 
-	INTEGER(dims)[0] = nrow; 
-	INTEGER(dims)[1] = ncol; 
-	::Rf_setAttrib( out, R_DimSymbol, dims) ;
-	UNPROTECT(2); /* out, dims */
+	UNPROTECT(1);
 	return out ;
 }
 template <typename value_type, typename InputIterator> 
 inline SEXP primitive_rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::true_type ){
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	SEXP out = PROTECT( ::Rf_allocVector( RTYPE, nrow * ncol ) );
+	SEXP out = PROTECT( ::Rf_allocMatrix( RTYPE, nrow, ncol ) );
 	STORAGE* ptr = r_vector_start<RTYPE,STORAGE>( out );
 	int i=0, j=0 ;
 	for( j=0; j<ncol; j++){
@@ -725,11 +710,7 @@ inline SEXP primitive_rowmajor_wrap__dispatch( InputIterator first, int nrow, in
 			ptr[ j + ncol*i ] = caster<value_type,STORAGE>( *first );
 		}
 	}
-	SEXP dims = PROTECT( ::Rf_allocVector( INTSXP, 2) ); 
-	INTEGER(dims)[0] = nrow; 
-	INTEGER(dims)[1] = ncol; 
-	::Rf_setAttrib( out, R_DimSymbol, dims) ;
-	UNPROTECT(2); /* out, dims */
+	UNPROTECT(1);
 	return out ;
 	
 }
