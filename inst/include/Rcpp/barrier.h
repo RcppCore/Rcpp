@@ -30,5 +30,6 @@ SEXP* get_string_ptr(SEXP) ;
 
 SEXP get_vector_elt(SEXP, int) ;
 void set_vector_elt(SEXP, int, SEXP ) ;
+SEXP* get_vector_ptr(SEXP) ;
 
 #endif
