@@ -30,7 +30,7 @@ const char* char_get_string_elt(SEXP x, int i){
     return CHAR(STRING_ELT(x, i )) ;
 }    
 void set_string_elt(SEXP x, int i, SEXP value){
-    SET_STRING_ELT(x, i, value ) ;
+    STRING_ELT(x, i) = value ;
 }
 void char_set_string_elt(SEXP x, int i, const char* value){
     STRING_ELT(x, i) = Rf_mkChar(value) ; 
