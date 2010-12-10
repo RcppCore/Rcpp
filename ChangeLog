@@ -1,6 +1,13 @@
+2010-12-10  Romain Francois <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/barrier.h: faster versions (crossing the write barrier)
+    for string_elt, etc ...(to be used only internally)
+    
+    * src/barrier.cpp: implementation of the above
+
 2010-12-09  John M Chambers  <jmc@r-project.org>
 
-	* Rcpp/src/Module.cpp: Rcpp/src/exceptions.cpp,
+	* src/Module.cpp: Rcpp/src/exceptions.cpp,
 	Rcpp/src/Rcpp_init.c, etc. add a not_initialized exception and a
 	dummy_pointer to identify such objects, throw exc. back to R
 
