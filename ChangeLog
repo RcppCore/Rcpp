@@ -2,6 +2,8 @@
 
     * R/SHLIB.R: new unexported R function SHLIB, small wrapper around 
     R CMD SHLIB
+    
+    * inst/include/Rcpp/sprintf.h: returning a std::string to avoid leaks
 
 2010-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
