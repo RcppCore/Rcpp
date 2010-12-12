@@ -224,7 +224,9 @@ public:
         field( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
         field( "class_pointer" ) = class_xp ;
         field( "nargs" )         = m->nargs() ;
-        field( "signature" )     = m->signature(class_name) ;
+        std::string sign ;
+        m->signature( sign, class_name ) ;
+        field( "signature" )     = sign ;
         field( "docstring" )     = m->docstring ;
     }
 } ;
