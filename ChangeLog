@@ -1,3 +1,8 @@
+2010-12-12  Romain Francois <romain@r-enthusiasts.com>
+
+    * R/SHLIB.R: new unexported R function SHLIB, small wrapper around 
+    R CMD SHLIB
+
 2010-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/sprintf.h: Use vsnprintf() instead
