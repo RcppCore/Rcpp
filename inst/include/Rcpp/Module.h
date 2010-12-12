@@ -57,8 +57,8 @@ public:
 	    name(name_), docstring( doc == 0 ? "" : doc ){} ;
 	
 	virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
-	virtual Rcpp::List getMethods(SEXP){ return Rcpp::List(0); }
-	virtual Rcpp::List getConstructors(SEXP){ return Rcpp::List(0); }
+	virtual Rcpp::List getMethods(SEXP, std::string&){ return Rcpp::List(0); }
+	virtual Rcpp::List getConstructors(SEXP, std::string&){ return Rcpp::List(0); }
 	
 	virtual void run_finalizer(SEXP){ }
 	
@@ -220,13 +220,12 @@ public:
 template <typename Class>
 class S4_CppConstructor : public Rcpp::Reference {
 public:             
-    S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name ) : Reference( "C++Constructor" ){
+    S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name, std::string& buffer ) : Reference( "C++Constructor" ){
         field( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
         field( "class_pointer" ) = class_xp ;
         field( "nargs" )         = m->nargs() ;
-        std::string sign ;
-        m->signature( sign, class_name ) ;
-        field( "signature" )     = sign ;
+        m->signature( buffer, class_name ) ;
+        field( "signature" )     = buffer ;
         field( "docstring" )     = m->docstring ;
     }
 } ;
@@ -237,20 +236,19 @@ public:
     typedef SignedMethod<Class> signed_method_class ;
 	typedef std::vector<signed_method_class*> vec_signed_method ;
 	
-	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp, const char* name ) : Reference( "C++OverloadedMethods" ){
+	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
         
 	    int n = m->size() ;
         Rcpp::LogicalVector voidness(n), constness(n) ;
         Rcpp::CharacterVector docstrings(n), signatures(n) ;
         signed_method_class* met ;
-        std::string sign ;
         for( int i=0; i<n; i++){ 
             met = m->at(i) ;
             voidness[i] = met->is_void() ;
             constness[i] = met->is_const() ;
             docstrings[i] = met->docstring ;
-            met->signature(sign, name) ;
-            signatures[i] = sign ;
+            met->signature(buffer, name) ;
+            signatures[i] = buffer ;
         }
         
 	    field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
@@ -651,7 +649,7 @@ public:
 		return out ;
 	}
 
-	Rcpp::List getMethods( SEXP class_xp ){
+	Rcpp::List getMethods( SEXP class_xp, std::string& buffer){
 	    int n = vec_methods.size() ;
 		Rcpp::CharacterVector mnames(n) ;
 		Rcpp::List res(n) ;
@@ -660,18 +658,18 @@ public:
 	    for( int i=0; i<n; i++, ++it){
 		    mnames[i] = it->first ;
 		    v = it->second ;
-		    res[i] = S4_CppOverloadedMethods<Class>( v , class_xp, it->first.c_str() ) ;
+		    res[i] = S4_CppOverloadedMethods<Class>( v , class_xp, it->first.c_str(), buffer ) ;
 		}
 		res.names() = mnames ;
 	    return res ;
 	}
 	
-	Rcpp::List getConstructors( SEXP class_xp){
+	Rcpp::List getConstructors( SEXP class_xp, std::string& buffer){
 	    int n = constructors.size() ;
 		Rcpp::List out(n) ;
 		typename vec_signed_constructor::iterator it = constructors.begin( ) ;
 		for( int i=0; i<n; i++, ++it){
-			out[i] = S4_CppConstructor<Class>( *it , class_xp, name ) ; 
+			out[i] = S4_CppConstructor<Class>( *it , class_xp, name, buffer ) ; 
 		} 
 		return out ;
 	}
@@ -716,7 +714,7 @@ class_<Class>* class_<Class>::singleton ;
 class CppClass : public S4{
 public:
 	typedef Rcpp::XPtr<Rcpp::Module> XP ;
-	CppClass( Module* p, class_Base* clazz ) ;
+	CppClass( Module* p, class_Base* clazz, std::string& ) ;
 	CppClass( SEXP x) ;
 } ;
 
