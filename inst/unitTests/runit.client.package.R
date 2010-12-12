@@ -41,7 +41,3 @@ test.client.packageA <- function(){
     .client.package( "RcppTestA" )
 }
 
-test.client.packageB <- function(){
-    .client.package( "RcppTestB" )
-}
-
