@@ -193,8 +193,8 @@ public:
     std::string docstring ;
     
     inline int nargs(){ return ctor->nargs() ; }
-    inline const SEXP signature(const std::string& class_name){ 
-        return ctor->signature(class_name) ;
+    inline void signature(std::string& buffer, const std::string& class_name){ 
+        ctor->signature(buffer, class_name) ;
     }
 } ;
 
