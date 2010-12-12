@@ -22,44 +22,44 @@
 #ifndef Rcpp_Module_generated_ctor_signature_h
 #define Rcpp_Module_generated_ctor_signature_h
 
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s+= "()" ; 
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 template <typename U0>
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s += "(" ; 
     s += get_return_type<U0>() ;
     s += ")" ;
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 template <typename U0, typename U1>
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s += "(" ; 
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ")" ;
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 template <typename U0, typename U1, typename U2>
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s += "(" ; 
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ", " ; s+= get_return_type<U2>() ;
     s += ")" ;
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 template <typename U0, typename U1, typename U2, typename U3>
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s += "(" ; 
     s += get_return_type<U0>() ;
@@ -67,11 +67,11 @@ inline const char* ctor_signature( const std::string& classname ){
     s += ", " ; s+= get_return_type<U2>() ;
     s += ", " ; s+= get_return_type<U3>() ;
     s += ")" ;
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4>
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s += "(" ; 
     s += get_return_type<U0>() ;
@@ -80,11 +80,11 @@ inline const char* ctor_signature( const std::string& classname ){
     s += ", " ; s+= get_return_type<U3>() ;
     s += ", " ; s+= get_return_type<U4>() ;
     s += ")" ;
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s += "(" ; 
     s += get_return_type<U0>() ;
@@ -94,11 +94,11 @@ inline const char* ctor_signature( const std::string& classname ){
     s += ", " ; s+= get_return_type<U4>() ;
     s += ", " ; s+= get_return_type<U5>() ;
     s += ")" ;
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
-inline const char* ctor_signature( const std::string& classname ){
+inline const SEXP ctor_signature( const std::string& classname ){
     std::string s( classname ) ;
     s += "(" ; 
     s += get_return_type<U0>() ;
@@ -109,7 +109,7 @@ inline const char* ctor_signature( const std::string& classname ){
     s += ", " ; s+= get_return_type<U5>() ;
     s += ", " ; s+= get_return_type<U6>() ;
     s += ")" ;
-    return s.c_str() ;
+    return Rf_mkString(s.c_str()) ;
 }
 
 

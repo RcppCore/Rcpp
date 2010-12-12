@@ -300,11 +300,13 @@ namespace Rcpp{
 	            break ;
 	        }
 	    }
+	    std::string sign ;
+	    fun->signature( sign, name.data() ) ;
 	    return Rcpp::List::create( 
 	        Rcpp::XPtr<CppFunction>( fun, false ), 
 	        fun->is_void(), 
 	        fun->docstring, 
-	        fun->signature( name.data() ), 
+	        sign, 
 	        fun->get_formals()
 	        ) ;
 	}
