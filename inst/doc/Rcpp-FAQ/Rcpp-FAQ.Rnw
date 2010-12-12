@@ -194,6 +194,13 @@ Dirk's older 'Intro to HPC with R' tutorial slides).  It is still not
 recommended as there are tools and automation mechanisms that can do the work
 for you.
 
+An alternative, which might work better on Windows is to use the 
+unexported function \texttt{Rcpp:::SHLIB} :
+
+<<lang=bash>>=
+$ Rscript -e "Rcpp:::SHLIB('myfile.cpp')"
+@
+
 
 \subsection{What about \texttt{LinkingTo} ?}
 
