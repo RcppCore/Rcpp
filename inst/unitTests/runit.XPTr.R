@@ -57,15 +57,3 @@ test.XPtr <- function(){
 	checkEquals( front, 1L, msg = "check usage of external pointer" )
 }
 
-# this is similar but without inline, the code is included in 
-# the dyn lib. One reason for this is to effectively instanciate one
-# template class Rcpp::XPtr at compile time, so that we know at that
-# point if something is wrong with the code
-test.XPtr.internal <- function(){
-	xp <- .Call( "RcppXPtrExample_create_external_pointer", PACKAGE = "Rcpp" )
-	checkEquals( typeof(xp), "externalptr", msg = "external pointer creation" )
-	
-	back <- .Call( "RcppXPtrExample_get_external_pointer", xp, PACKAGE = "Rcpp" )
-	checkEquals( back, 2L, msg = "external pointer usage" )
-}
-
