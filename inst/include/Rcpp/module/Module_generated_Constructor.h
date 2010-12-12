@@ -27,7 +27,7 @@ class Constructor_Base {
 public:
     virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
     virtual int nargs() = 0 ;
-    virtual const char* signature(const std::string& class_name) = 0 ;
+    virtual const SEXP signature(const std::string& class_name) = 0 ;
 } ;
 
 template <typename Class>
@@ -37,7 +37,7 @@ public:
 	return new Class() ;
     }
     virtual int nargs(){ return 0 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature(class_name) ;
     }
 } ;
@@ -47,7 +47,7 @@ class Constructor_1 : public Constructor_Base<Class>{
         return new Class( as<U0>(args[0]) ) ;
     }
     virtual int nargs(){ return 1 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature<U0>(class_name) ;
     }
 } ;
@@ -60,7 +60,7 @@ class Constructor_2 : public Constructor_Base<Class>{
             ) ;
     }
     virtual int nargs(){ return 2 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature<U0,U1>(class_name) ;
     }
 } ;
@@ -74,7 +74,7 @@ class Constructor_3 : public Constructor_Base<Class>{
             ) ;
     }
     virtual int nargs(){ return 3 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature<U0,U1,U2>(class_name) ;
     }
 } ;
@@ -89,7 +89,7 @@ class Constructor_4 : public Constructor_Base<Class>{
             ) ;
     }
     virtual int nargs(){ return 4 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature<U0,U1,U2,U3>(class_name) ;
     }
 } ;
@@ -105,7 +105,7 @@ class Constructor_5 : public Constructor_Base<Class>{
             ) ;
     }
     virtual int nargs(){ return 5 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature<U0,U1,U2,U3,U4>(class_name) ;
     }
 } ;
@@ -122,7 +122,7 @@ class Constructor_6 : public Constructor_Base<Class>{
             ) ;
     }
     virtual int nargs(){ return 6 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature<U0,U1,U2,U3,U4,U5>(class_name) ;
     }
 } ;
@@ -140,7 +140,7 @@ class Constructor_7 : public Constructor_Base<Class>{
             ) ;
     }
     virtual int nargs(){ return 7 ; }
-    virtual const char* signature(const std::string& class_name ){
+    virtual const SEXP signature(const std::string& class_name ){
         return ctor_signature<U0,U1,U2,U3,U4,U5,U6>(class_name) ;
     }
 } ;

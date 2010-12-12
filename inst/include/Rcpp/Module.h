@@ -38,7 +38,7 @@ class CppFunction {
 		virtual ~CppFunction(){} ;
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
-		virtual const char* signature(const char* ){ return "" ; }
+		virtual void signature(std::string&, const char* ){}
 		virtual SEXP get_formals(){ return R_NilValue; }
 		
 		std::string docstring ;
@@ -168,7 +168,7 @@ class CppMethod {
 		virtual int nargs(){ return 0 ; }
 		virtual bool is_void(){ return false ; }
 		virtual bool is_const(){ return false ; }
-		virtual const char* signature(const char* name ){ return name ; }
+		virtual void signature(std::string& s, const char* name ){ s = name ; }
 } ;
 
 #include <Rcpp/module/Module_generated_ctor_signature.h>
@@ -193,7 +193,7 @@ public:
     std::string docstring ;
     
     inline int nargs(){ return ctor->nargs() ; }
-    inline const char* signature(const std::string& class_name){ 
+    inline const SEXP signature(const std::string& class_name){ 
         return ctor->signature(class_name) ;
     }
 } ;
@@ -211,7 +211,9 @@ public:
     inline int nargs(){ return method->nargs() ; }
     inline bool is_void(){ return method->is_void() ; }
     inline bool is_const(){ return method->is_const() ; }
-    inline const char* signature(const char* name){ return method->signature(name); }
+    inline void signature(std::string& s, const char* name){ 
+        method->signature(s, name);
+    }
 
 } ;
 
@@ -222,8 +224,7 @@ public:
         field( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
         field( "class_pointer" ) = class_xp ;
         field( "nargs" )         = m->nargs() ;
-        std::string sign(  m->signature(class_name) ) ;
-        field( "signature" )     = sign ;
+        field( "signature" )     = m->signature(class_name) ;
         field( "docstring" )     = m->docstring ;
     }
 } ;
@@ -237,15 +238,17 @@ public:
 	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp, const char* name ) : Reference( "C++OverloadedMethods" ){
         
 	    int n = m->size() ;
-        Rcpp::LogicalVector voidness( n), constness(n) ;
-        Rcpp::CharacterVector docstrings( n ), signatures(n) ;
+        Rcpp::LogicalVector voidness(n), constness(n) ;
+        Rcpp::CharacterVector docstrings(n), signatures(n) ;
         signed_method_class* met ;
+        std::string sign ;
         for( int i=0; i<n; i++){ 
             met = m->at(i) ;
             voidness[i] = met->is_void() ;
             constness[i] = met->is_const() ;
             docstrings[i] = met->docstring ;
-            signatures[i] = met->signature(name) ;
+            met->signature(sign, name) ;
+            signatures[i] = sign ;
         }
         
 	    field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;

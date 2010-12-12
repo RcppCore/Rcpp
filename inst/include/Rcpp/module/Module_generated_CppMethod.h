@@ -33,7 +33,7 @@
 		inline int nargs(){ return 0 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name){ return Rcpp::signature<OUT>(name) ; }
+		inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -51,7 +51,7 @@
 		inline int nargs(){ return 0 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name){ return Rcpp::signature<void_type>(name) ; }
+		inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -68,7 +68,7 @@
 		inline int nargs(){ return 0 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name){ return Rcpp::signature<OUT>(name) ; }
+		inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -86,7 +86,7 @@
 		inline int nargs(){ return 0 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name){ return Rcpp::signature<void_type>(name) ; }
+		inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -106,8 +106,8 @@
 		inline int nargs(){ return 1 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -125,7 +125,7 @@
 		inline int nargs(){ return 1 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -144,7 +144,7 @@
 		inline int nargs(){ return 1 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -163,7 +163,7 @@
 		inline int nargs(){ return 1 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -184,8 +184,8 @@
 		inline int nargs(){ return 2 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -203,7 +203,7 @@
 		inline int nargs(){ return 2 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -222,7 +222,7 @@
 		inline int nargs(){ return 2 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -241,7 +241,7 @@
 		inline int nargs(){ return 2 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -262,8 +262,8 @@
 		inline int nargs(){ return 3 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -281,7 +281,7 @@
 		inline int nargs(){ return 3 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -300,7 +300,7 @@
 		inline int nargs(){ return 3 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -319,7 +319,7 @@
 		inline int nargs(){ return 3 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -340,8 +340,8 @@
 		inline int nargs(){ return 4 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -359,7 +359,7 @@
 		inline int nargs(){ return 4 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -378,7 +378,7 @@
 		inline int nargs(){ return 4 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -397,7 +397,7 @@
 		inline int nargs(){ return 4 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -418,8 +418,8 @@
 		inline int nargs(){ return 5 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -437,7 +437,7 @@
 		inline int nargs(){ return 5 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -456,7 +456,7 @@
 		inline int nargs(){ return 5 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -475,7 +475,7 @@
 		inline int nargs(){ return 5 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -496,8 +496,8 @@
 		inline int nargs(){ return 6 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -515,7 +515,7 @@
 		inline int nargs(){ return 6 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -534,7 +534,7 @@
 		inline int nargs(){ return 6 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -553,7 +553,7 @@
 		inline int nargs(){ return 6 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -574,8 +574,8 @@
 		inline int nargs(){ return 7 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -593,7 +593,7 @@
 		inline int nargs(){ return 7 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -612,7 +612,7 @@
 		inline int nargs(){ return 7 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -631,7 +631,7 @@
 		inline int nargs(){ return 7 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -652,8 +652,8 @@
 		inline int nargs(){ return 8 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -671,7 +671,7 @@
 		inline int nargs(){ return 8 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -690,7 +690,7 @@
 		inline int nargs(){ return 8 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -709,7 +709,7 @@
 		inline int nargs(){ return 8 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -730,8 +730,8 @@
 		inline int nargs(){ return 9 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -749,7 +749,7 @@
 		inline int nargs(){ return 9 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -768,7 +768,7 @@
 		inline int nargs(){ return 9 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -787,7 +787,7 @@
 		inline int nargs(){ return 9 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -808,8 +808,8 @@
 		inline int nargs(){ return 10 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -827,7 +827,7 @@
 		inline int nargs(){ return 10 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -846,7 +846,7 @@
 		inline int nargs(){ return 10 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -865,7 +865,7 @@
 		inline int nargs(){ return 10 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -886,8 +886,8 @@
 		inline int nargs(){ return 11 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -905,7 +905,7 @@
 		inline int nargs(){ return 11 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -924,7 +924,7 @@
 		inline int nargs(){ return 11 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -943,7 +943,7 @@
 		inline int nargs(){ return 11 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -964,8 +964,8 @@
 		inline int nargs(){ return 12 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -983,7 +983,7 @@
 		inline int nargs(){ return 12 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1002,7 +1002,7 @@
 		inline int nargs(){ return 12 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1021,7 +1021,7 @@
 		inline int nargs(){ return 12 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1042,8 +1042,8 @@
 		inline int nargs(){ return 13 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1061,7 +1061,7 @@
 		inline int nargs(){ return 13 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1080,7 +1080,7 @@
 		inline int nargs(){ return 13 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1099,7 +1099,7 @@
 		inline int nargs(){ return 13 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1120,8 +1120,8 @@
 		inline int nargs(){ return 14 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1139,7 +1139,7 @@
 		inline int nargs(){ return 14 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1158,7 +1158,7 @@
 		inline int nargs(){ return 14 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1177,7 +1177,7 @@
 		inline int nargs(){ return 14 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1198,8 +1198,8 @@
 		inline int nargs(){ return 15 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1217,7 +1217,7 @@
 		inline int nargs(){ return 15 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1236,7 +1236,7 @@
 		inline int nargs(){ return 15 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1255,7 +1255,7 @@
 		inline int nargs(){ return 15 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1276,8 +1276,8 @@
 		inline int nargs(){ return 16 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1295,7 +1295,7 @@
 		inline int nargs(){ return 16 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1314,7 +1314,7 @@
 		inline int nargs(){ return 16 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1333,7 +1333,7 @@
 		inline int nargs(){ return 16 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1354,8 +1354,8 @@
 		inline int nargs(){ return 17 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1373,7 +1373,7 @@
 		inline int nargs(){ return 17 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1392,7 +1392,7 @@
 		inline int nargs(){ return 17 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1411,7 +1411,7 @@
 		inline int nargs(){ return 17 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1432,8 +1432,8 @@
 		inline int nargs(){ return 18 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1451,7 +1451,7 @@
 		inline int nargs(){ return 18 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1470,7 +1470,7 @@
 		inline int nargs(){ return 18 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1489,7 +1489,7 @@
 		inline int nargs(){ return 18 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1510,8 +1510,8 @@
 		inline int nargs(){ return 19 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1529,7 +1529,7 @@
 		inline int nargs(){ return 19 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1548,7 +1548,7 @@
 		inline int nargs(){ return 19 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1567,7 +1567,7 @@
 		inline int nargs(){ return 19 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1588,8 +1588,8 @@
 		inline int nargs(){ return 20 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1607,7 +1607,7 @@
 		inline int nargs(){ return 20 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1626,7 +1626,7 @@
 		inline int nargs(){ return 20 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1645,7 +1645,7 @@
 		inline int nargs(){ return 20 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1666,8 +1666,8 @@
 		inline int nargs(){ return 21 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1685,7 +1685,7 @@
 		inline int nargs(){ return 21 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1704,7 +1704,7 @@
 		inline int nargs(){ return 21 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1723,7 +1723,7 @@
 		inline int nargs(){ return 21 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1744,8 +1744,8 @@
 		inline int nargs(){ return 22 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1763,7 +1763,7 @@
 		inline int nargs(){ return 22 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1782,7 +1782,7 @@
 		inline int nargs(){ return 22 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1801,7 +1801,7 @@
 		inline int nargs(){ return 22 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1822,8 +1822,8 @@
 		inline int nargs(){ return 23 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1841,7 +1841,7 @@
 		inline int nargs(){ return 23 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1860,7 +1860,7 @@
 		inline int nargs(){ return 23 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1879,7 +1879,7 @@
 		inline int nargs(){ return 23 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1900,8 +1900,8 @@
 		inline int nargs(){ return 24 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1919,7 +1919,7 @@
 		inline int nargs(){ return 24 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1938,7 +1938,7 @@
 		inline int nargs(){ return 24 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1957,7 +1957,7 @@
 		inline int nargs(){ return 24 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -1978,8 +1978,8 @@
 		inline int nargs(){ return 25 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -1997,7 +1997,7 @@
 		inline int nargs(){ return 25 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2016,7 +2016,7 @@
 		inline int nargs(){ return 25 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2035,7 +2035,7 @@
 		inline int nargs(){ return 25 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2056,8 +2056,8 @@
 		inline int nargs(){ return 26 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2075,7 +2075,7 @@
 		inline int nargs(){ return 26 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2094,7 +2094,7 @@
 		inline int nargs(){ return 26 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2113,7 +2113,7 @@
 		inline int nargs(){ return 26 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2134,8 +2134,8 @@
 		inline int nargs(){ return 27 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2153,7 +2153,7 @@
 		inline int nargs(){ return 27 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2172,7 +2172,7 @@
 		inline int nargs(){ return 27 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2191,7 +2191,7 @@
 		inline int nargs(){ return 27 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2212,8 +2212,8 @@
 		inline int nargs(){ return 28 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2231,7 +2231,7 @@
 		inline int nargs(){ return 28 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2250,7 +2250,7 @@
 		inline int nargs(){ return 28 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2269,7 +2269,7 @@
 		inline int nargs(){ return 28 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2290,8 +2290,8 @@
 		inline int nargs(){ return 29 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2309,7 +2309,7 @@
 		inline int nargs(){ return 29 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2328,7 +2328,7 @@
 		inline int nargs(){ return 29 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2347,7 +2347,7 @@
 		inline int nargs(){ return 29 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2368,8 +2368,8 @@
 		inline int nargs(){ return 30 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2387,7 +2387,7 @@
 		inline int nargs(){ return 30 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2406,7 +2406,7 @@
 		inline int nargs(){ return 30 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2425,7 +2425,7 @@
 		inline int nargs(){ return 30 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2446,8 +2446,8 @@
 		inline int nargs(){ return 31 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2465,7 +2465,7 @@
 		inline int nargs(){ return 31 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2484,7 +2484,7 @@
 		inline int nargs(){ return 31 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2503,7 +2503,7 @@
 		inline int nargs(){ return 31 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2524,8 +2524,8 @@
 		inline int nargs(){ return 32 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2543,7 +2543,7 @@
 		inline int nargs(){ return 32 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2562,7 +2562,7 @@
 		inline int nargs(){ return 32 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2581,7 +2581,7 @@
 		inline int nargs(){ return 32 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2602,8 +2602,8 @@
 		inline int nargs(){ return 33 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2621,7 +2621,7 @@
 		inline int nargs(){ return 33 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2640,7 +2640,7 @@
 		inline int nargs(){ return 33 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2659,7 +2659,7 @@
 		inline int nargs(){ return 33 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2680,8 +2680,8 @@
 		inline int nargs(){ return 34 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2699,7 +2699,7 @@
 		inline int nargs(){ return 34 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2718,7 +2718,7 @@
 		inline int nargs(){ return 34 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2737,7 +2737,7 @@
 		inline int nargs(){ return 34 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2758,8 +2758,8 @@
 		inline int nargs(){ return 35 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2777,7 +2777,7 @@
 		inline int nargs(){ return 35 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2796,7 +2796,7 @@
 		inline int nargs(){ return 35 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2815,7 +2815,7 @@
 		inline int nargs(){ return 35 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2836,8 +2836,8 @@
 		inline int nargs(){ return 36 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2855,7 +2855,7 @@
 		inline int nargs(){ return 36 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2874,7 +2874,7 @@
 		inline int nargs(){ return 36 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2893,7 +2893,7 @@
 		inline int nargs(){ return 36 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2914,8 +2914,8 @@
 		inline int nargs(){ return 37 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2933,7 +2933,7 @@
 		inline int nargs(){ return 37 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -2952,7 +2952,7 @@
 		inline int nargs(){ return 37 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2971,7 +2971,7 @@
 		inline int nargs(){ return 37 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -2992,8 +2992,8 @@
 		inline int nargs(){ return 38 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3011,7 +3011,7 @@
 		inline int nargs(){ return 38 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3030,7 +3030,7 @@
 		inline int nargs(){ return 38 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3049,7 +3049,7 @@
 		inline int nargs(){ return 38 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3070,8 +3070,8 @@
 		inline int nargs(){ return 39 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3089,7 +3089,7 @@
 		inline int nargs(){ return 39 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3108,7 +3108,7 @@
 		inline int nargs(){ return 39 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3127,7 +3127,7 @@
 		inline int nargs(){ return 39 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3148,8 +3148,8 @@
 		inline int nargs(){ return 40 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3167,7 +3167,7 @@
 		inline int nargs(){ return 40 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3186,7 +3186,7 @@
 		inline int nargs(){ return 40 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3205,7 +3205,7 @@
 		inline int nargs(){ return 40 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3226,8 +3226,8 @@
 		inline int nargs(){ return 41 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3245,7 +3245,7 @@
 		inline int nargs(){ return 41 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3264,7 +3264,7 @@
 		inline int nargs(){ return 41 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3283,7 +3283,7 @@
 		inline int nargs(){ return 41 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3304,8 +3304,8 @@
 		inline int nargs(){ return 42 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3323,7 +3323,7 @@
 		inline int nargs(){ return 42 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3342,7 +3342,7 @@
 		inline int nargs(){ return 42 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3361,7 +3361,7 @@
 		inline int nargs(){ return 42 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3382,8 +3382,8 @@
 		inline int nargs(){ return 43 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3401,7 +3401,7 @@
 		inline int nargs(){ return 43 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3420,7 +3420,7 @@
 		inline int nargs(){ return 43 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3439,7 +3439,7 @@
 		inline int nargs(){ return 43 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3460,8 +3460,8 @@
 		inline int nargs(){ return 44 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3479,7 +3479,7 @@
 		inline int nargs(){ return 44 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3498,7 +3498,7 @@
 		inline int nargs(){ return 44 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3517,7 +3517,7 @@
 		inline int nargs(){ return 44 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3538,8 +3538,8 @@
 		inline int nargs(){ return 45 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3557,7 +3557,7 @@
 		inline int nargs(){ return 45 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3576,7 +3576,7 @@
 		inline int nargs(){ return 45 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3595,7 +3595,7 @@
 		inline int nargs(){ return 45 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3616,8 +3616,8 @@
 		inline int nargs(){ return 46 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3635,7 +3635,7 @@
 		inline int nargs(){ return 46 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3654,7 +3654,7 @@
 		inline int nargs(){ return 46 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3673,7 +3673,7 @@
 		inline int nargs(){ return 46 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3694,8 +3694,8 @@
 		inline int nargs(){ return 47 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3713,7 +3713,7 @@
 		inline int nargs(){ return 47 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3732,7 +3732,7 @@
 		inline int nargs(){ return 47 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3751,7 +3751,7 @@
 		inline int nargs(){ return 47 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3772,8 +3772,8 @@
 		inline int nargs(){ return 48 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3791,7 +3791,7 @@
 		inline int nargs(){ return 48 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3810,7 +3810,7 @@
 		inline int nargs(){ return 48 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3829,7 +3829,7 @@
 		inline int nargs(){ return 48 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3850,8 +3850,8 @@
 		inline int nargs(){ return 49 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3869,7 +3869,7 @@
 		inline int nargs(){ return 49 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3888,7 +3888,7 @@
 		inline int nargs(){ return 49 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3907,7 +3907,7 @@
 		inline int nargs(){ return 49 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3928,8 +3928,8 @@
 		inline int nargs(){ return 50 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3947,7 +3947,7 @@
 		inline int nargs(){ return 50 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -3966,7 +3966,7 @@
 		inline int nargs(){ return 50 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -3985,7 +3985,7 @@
 		inline int nargs(){ return 50 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4006,8 +4006,8 @@
 		inline int nargs(){ return 51 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4025,7 +4025,7 @@
 		inline int nargs(){ return 51 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4044,7 +4044,7 @@
 		inline int nargs(){ return 51 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4063,7 +4063,7 @@
 		inline int nargs(){ return 51 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4084,8 +4084,8 @@
 		inline int nargs(){ return 52 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4103,7 +4103,7 @@
 		inline int nargs(){ return 52 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4122,7 +4122,7 @@
 		inline int nargs(){ return 52 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4141,7 +4141,7 @@
 		inline int nargs(){ return 52 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4162,8 +4162,8 @@
 		inline int nargs(){ return 53 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4181,7 +4181,7 @@
 		inline int nargs(){ return 53 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4200,7 +4200,7 @@
 		inline int nargs(){ return 53 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4219,7 +4219,7 @@
 		inline int nargs(){ return 53 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4240,8 +4240,8 @@
 		inline int nargs(){ return 54 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4259,7 +4259,7 @@
 		inline int nargs(){ return 54 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4278,7 +4278,7 @@
 		inline int nargs(){ return 54 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4297,7 +4297,7 @@
 		inline int nargs(){ return 54 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4318,8 +4318,8 @@
 		inline int nargs(){ return 55 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4337,7 +4337,7 @@
 		inline int nargs(){ return 55 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4356,7 +4356,7 @@
 		inline int nargs(){ return 55 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4375,7 +4375,7 @@
 		inline int nargs(){ return 55 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4396,8 +4396,8 @@
 		inline int nargs(){ return 56 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4415,7 +4415,7 @@
 		inline int nargs(){ return 56 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4434,7 +4434,7 @@
 		inline int nargs(){ return 56 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4453,7 +4453,7 @@
 		inline int nargs(){ return 56 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4474,8 +4474,8 @@
 		inline int nargs(){ return 57 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4493,7 +4493,7 @@
 		inline int nargs(){ return 57 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4512,7 +4512,7 @@
 		inline int nargs(){ return 57 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4531,7 +4531,7 @@
 		inline int nargs(){ return 57 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4552,8 +4552,8 @@
 		inline int nargs(){ return 58 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4571,7 +4571,7 @@
 		inline int nargs(){ return 58 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4590,7 +4590,7 @@
 		inline int nargs(){ return 58 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4609,7 +4609,7 @@
 		inline int nargs(){ return 58 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4630,8 +4630,8 @@
 		inline int nargs(){ return 59 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4649,7 +4649,7 @@
 		inline int nargs(){ return 59 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4668,7 +4668,7 @@
 		inline int nargs(){ return 59 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4687,7 +4687,7 @@
 		inline int nargs(){ return 59 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4708,8 +4708,8 @@
 		inline int nargs(){ return 60 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4727,7 +4727,7 @@
 		inline int nargs(){ return 60 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4746,7 +4746,7 @@
 		inline int nargs(){ return 60 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4765,7 +4765,7 @@
 		inline int nargs(){ return 60 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4786,8 +4786,8 @@
 		inline int nargs(){ return 61 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4805,7 +4805,7 @@
 		inline int nargs(){ return 61 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4824,7 +4824,7 @@
 		inline int nargs(){ return 61 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4843,7 +4843,7 @@
 		inline int nargs(){ return 61 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4864,8 +4864,8 @@
 		inline int nargs(){ return 62 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4883,7 +4883,7 @@
 		inline int nargs(){ return 62 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4902,7 +4902,7 @@
 		inline int nargs(){ return 62 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4921,7 +4921,7 @@
 		inline int nargs(){ return 62 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4942,8 +4942,8 @@
 		inline int nargs(){ return 63 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4961,7 +4961,7 @@
 		inline int nargs(){ return 63 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -4980,7 +4980,7 @@
 		inline int nargs(){ return 63 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -4999,7 +4999,7 @@
 		inline int nargs(){ return 63 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -5020,8 +5020,8 @@
 		inline int nargs(){ return 64 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -5039,7 +5039,7 @@
 		inline int nargs(){ return 64 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -5058,7 +5058,7 @@
 		inline int nargs(){ return 64 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -5077,7 +5077,7 @@
 		inline int nargs(){ return 64 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -5098,8 +5098,8 @@
 		inline int nargs(){ return 65 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
 		
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(name) ; }
 	private:
 		Method met ;
 	} ;
@@ -5117,7 +5117,7 @@
 		inline int nargs(){ return 65 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
 	private:
 		Method met ;
 	} ;
@@ -5136,7 +5136,7 @@
 		inline int nargs(){ return 65 ; }
 		inline bool is_void(){ return false ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
 		
 	private:
 		Method met ;
@@ -5155,7 +5155,7 @@
 		inline int nargs(){ return 65 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-		const char* signature(const char* name ){ return Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(name) ; }
+		inline void signature(std::string& s, const char* name ){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
 		
 	private:
 		Method met ;
