@@ -47,7 +47,7 @@ test.macro.switch <- function(){
 	}
 	sexp_types <- c( integer = 13L, double = 14L, raw = 24L,
 		complex = 15L, logical = 10L, list = 19L,
-		"expression" = 20L, character = 16 )
+		"expression" = 20L, character = 16L )
 	checkEquals( rcpp_typeof(1L ), sexp_types[[ "integer" ]], msg = "RCPP_RETURN_VECTOR <INTSXP> " )
 	checkEquals( rcpp_typeof(1.0), sexp_types[["double"]], msg = "RCPP_RETURN_VECTOR <REALSXP> " )
 	checkEquals( rcpp_typeof(as.raw(0)), sexp_types[["raw"]] , msg = "RCPP_RETURN_VECTOR <RAWSXP> " )
