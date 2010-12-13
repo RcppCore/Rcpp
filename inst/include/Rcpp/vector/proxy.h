@@ -158,12 +158,12 @@ namespace internal{
 		
 		// TODO: other operators +=, -=, ...
 		
-		operator SEXP(){
+		operator SEXP() const {
 			 return get() ;
 		}
 		
 		template <typename T>
-		operator T(){
+		operator T() const {
 			#if RCPP_DEBUG_LEVEL > 0
 			SEXP res = get() ;
 			RCPP_DEBUG_1( "generic_name_proxy::get() = <%p> ", res ) ;
@@ -171,6 +171,10 @@ namespace internal{
 			#else
 			return ::Rcpp::as<T>( get() ) ;
 			#endif
+		}
+		
+		operator bool() const{
+		    return ::Rcpp::as<bool>(get()); 
 		}
 		
 	private:
@@ -185,7 +189,7 @@ namespace internal{
 				parent.push_back( rhs, name ); 
 			}
 		}
-		SEXP get(){
+		SEXP get() const {
 			return parent[ parent.offset(name) ];
 		}
 	} ;
