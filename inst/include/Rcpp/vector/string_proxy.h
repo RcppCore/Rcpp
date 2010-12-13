@@ -253,20 +253,26 @@ namespace internal{
 	               
 			template <typename T>
 			generic_proxy& operator=( const T& rhs){
-				set( wrap(rhs) ) ;
+				set(wrap(rhs)) ;
 				return *this; 
 			}
 			
-			operator SEXP() const { return get() ; }
+			operator SEXP() const { 
+			    return get() ;
+			}
 			
 			template <typename U> operator U() const {
-				return ::Rcpp::as<U>( get() ) ;
+				return ::Rcpp::as<U>(get()) ;
+			}
+			
+			operator bool() const {
+			    return ::Rcpp::as<bool>(get()) ;
 			}
 			
 			void swap(generic_proxy& other){
-				SEXP tmp = PROTECT( get() ) ;
+				SEXP tmp = PROTECT(get()) ;
 				set( other.get() ) ;
-				other.set( tmp ) ;
+				other.set(tmp) ;
 				UNPROTECT(1) ;
 			}
 			
