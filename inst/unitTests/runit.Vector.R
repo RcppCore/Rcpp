@@ -569,6 +569,14 @@ definitions <- function(){
 	            		) ;
 	            	
 	            	'
+	            ), 
+	            "List_extract" = list( 
+	                signature( x = "list" ), 
+	                '
+	                    List input(x) ;
+	                    bool a = input[0] ;
+	                    return wrap(a) ;
+	                '
 	            )
 
                 
@@ -1201,4 +1209,8 @@ test.ComplexVector.binary.operators <- function(){
 		), msg = "complex binary operators" )
 }
 
-
+test.ComplexVector.binary.operators <- function(){
+	fun <- .rcpp.Vector$List_extract
+    checkEquals( fun(list(TRUE)), TRUE )
+    checkEquals( fun(list(FALSE)), FALSE )
+}
