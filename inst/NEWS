@@ -1,10 +1,10 @@
 0.9.0   (future)
 
-    o   The classic api was factored out in its own package RcppClassic which
+    o   The classic api was factored out in its own package RcppClassic which is
         released concurrently with this version.
 
     o   Date::getYear() corrected (where addition of 1900 was not called for); 
-        corresponding change in constructor from three ints made tas well
+        corresponding change in constructor from three ints made as well.
 
     o   An Rcpp::not_initialized exception was added and forwarded to R if such
         an object is used.
