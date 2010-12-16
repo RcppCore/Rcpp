@@ -1,4 +1,4 @@
-0.9.0   (future)
+0.9.0   2010-12-18 (anticipated)
 
     o   The classic api was factored out in its own package RcppClassic which is
         released concurrently with this version.
@@ -9,9 +9,23 @@
     o   An Rcpp::not_initialized exception was added and forwarded to R if such
         an object is used.
 
+    o   SubMatrix fixed, and Matrix types now have a nested ::Sub typedef
+  
+    o   New unexported function SHLIB() to aid in creating a shared library on
+        the command-line or in Makefile (similar to CxxFlags() / LdFlags())
+
+    o   Module gets a seven-argument ctor thanks to a patch from Tama Ma
+
+    o   The (still incomplete) QuickRef vignette has grown thanks to a patch
+        by Christian Gunning
+
+    o   Added a sprintf template intended for logging and error messages
+
+    o   A few minor fixes throughout, see ChangeLog
+
 0.8.9   2010-11-27
 
-    o   Many improvements were made to in 'Rcpp modules':
+    o   Many improvements were made in 'Rcpp modules':
 
         - exposing multiple constructors
 
