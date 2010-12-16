@@ -1,15 +1,15 @@
 2010-12-13  Romain Francois <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/vector/string_proxy.h: List::Proxy did not convert
-    bool correctly, reported on Rcpp-devel by 
-    Daniel Sabanés Bové <daniel.sabanesbove@ifspm.uzh.ch>
+	* inst/include/Rcpp/vector/string_proxy.h: List::Proxy did not
+	convert bool correctly, reported on Rcpp-devel by Daniel Sabanés
+	Bové <daniel.sabanesbove@ifspm.uzh.ch>
 
 2010-12-12  Romain Francois <romain@r-enthusiasts.com>
 
-    * R/SHLIB.R: new unexported R function SHLIB, small wrapper around 
-    R CMD SHLIB
-    
-    * inst/include/Rcpp/sprintf.h: returning a std::string to avoid leaks
+	* R/SHLIB.R: new unexported R function SHLIB, small wrapper around
+	R CMD SHLIB
+
+	* inst/include/Rcpp/sprintf.h: returning a std::string to avoid leaks
 
 2010-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
