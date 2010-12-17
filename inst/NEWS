@@ -6,8 +6,9 @@
     o   Date::getYear() corrected (where addition of 1900 was not called for); 
         corresponding change in constructor from three ints made as well.
 
-    o   An Rcpp::not_initialized exception was added and forwarded to R if such
-        an object is used.
+    o   If an object is created but not initialized, attempting to use
+        it now gives a more sensible error message (by forwarding an
+        Rcpp::not_initialized exception to R).
 
     o   SubMatrix fixed, and Matrix types now have a nested ::Sub typedef
   
