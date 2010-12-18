@@ -46,7 +46,8 @@ namespace Rcpp {
 
     Datetime::Datetime(const std::string &s, const std::string &fmt) {
 		Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
-		m_dt = Rcpp::as<double>(strptime(s, fmt));
+		Rcpp::Function asPOSIXct("as.POSIXct");	// and we need to convert to POSIXct
+		m_dt = Rcpp::as<double>(asPOSIXct(strptime(s, fmt)));
 		update_tm();
     }
 
