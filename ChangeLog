@@ -4,10 +4,10 @@
 	fractional seconds and not the popular typo %OS (i.e. ooh, not zero)
 
 	* src/Datetime.cpp: add missing as.POSIXct() after strptime for
-	constructor from string as we then the constructor from double
+	constructor from string as we then use the constructor from double
 
 	* src/Date.cpp: add missing as.Date() after strptime for constructor
-	from string as then use the constructor from int
+	from string as we then use the constructor from int
 
 2010-12-13  Romain Francois <romain@r-enthusiasts.com>
 
