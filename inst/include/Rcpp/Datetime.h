@@ -31,7 +31,7 @@ namespace Rcpp {
 		Datetime();
 		Datetime(SEXP s); 
 		Datetime(const double &dt);	// from double, just like POSIXct
-		Datetime(const std::string &s, const std::string &fmt="%Y-%m-%d %H:%M:%0S");
+		Datetime(const std::string &s, const std::string &fmt="%Y-%m-%d %H:%M:%OS");
 		Datetime(const Datetime &copy);
 		~Datetime() {};
 		

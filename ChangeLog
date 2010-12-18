@@ -1,3 +1,14 @@
+2010-12-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Datetime.h: correct default format to use %OS for
+	fractional seconds and not the popular typo %OS (i.e. ooh, not zero)
+
+	* src/Datetime.cpp: add missing as.POSIXct() after strptime for
+	constructor from string as we then the constructor from double
+
+	* src/Date.cpp: add missing as.Date() after strptime for constructor
+	from string as then use the constructor from int
+
 2010-12-13  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/vector/string_proxy.h: List::Proxy did not

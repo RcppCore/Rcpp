@@ -54,7 +54,8 @@ namespace Rcpp {
 
     Date::Date(const std::string &s, const std::string &fmt) {
 	Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
-	m_d = Rcpp::as<int>(strptime(s, fmt, "UTC"));
+	Rcpp::Function asDate("as.Date");	// and we need to convert to Date
+	m_d = Rcpp::as<int>(asDate(strptime(s, fmt, "UTC")));
 	update_tm();
     }
 
