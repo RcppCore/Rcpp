@@ -3,9 +3,6 @@
     o   The classic api was factored out in its own package RcppClassic which is
         released concurrently with this version.
 
-    o   Date::getYear() corrected (where addition of 1900 was not called for); 
-        corresponding change in constructor from three ints made as well.
-
     o   If an object is created but not initialized, attempting to use
         it now gives a more sensible error message (by forwarding an
         Rcpp::not_initialized exception to R).
@@ -21,6 +18,13 @@
         by Christian Gunning
 
     o   Added a sprintf template intended for logging and error messages
+
+    o   Date::getYear() corrected (where addition of 1900 was not called for); 
+        corresponding change in constructor from three ints made as well.
+
+    o   Date() and Datetime() constructors from string received a missing
+        conversion to int and double following strptime. The default format
+        string for the Datetime() strptime call was also corrected.
 
     o   A few minor fixes throughout, see ChangeLog
 
