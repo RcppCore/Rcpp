@@ -18,16 +18,16 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-definitions <- function(){
-    list("ctor_sexp"=list(
-                  signature(d="Date"),
-                  'Date dt = Date(d);
+definitions <- function() {
+    list(          "ctor_sexp"=list(
+                   signature(d="Date"),
+                   'Date dt = Date(d);
                    return wrap(dt);')
 
                   ,"ctor_mdy"=list(
                    signature(),
                    'Date dt = Date(12,31,2005);
-                    return wrap(dt);')
+                   return wrap(dt);')
 
                   ,"ctor_ymd"=list(
                    signature(),
@@ -39,9 +39,15 @@ definitions <- function(){
                    'Date dt = Date(Rcpp::as<int>(d));
                     return wrap(dt);')
 
-                  ,"operators"=list(
-                   signature(),
-                   'Date d1 = Date(2005,12,31);
+                  ,"ctor_string"=list(
+                   signature(x="date"),
+                   'std::string dtstr = Rcpp::as<std::string>(x);
+                    Date dt(dtstr);
+				    return wrap(dt);')
+
+                   ,"operators"=list(
+                    signature(),
+                    'Date d1 = Date(2005,12,31);
                     Date d2 = d1 + 1;
                     return List::create(Named("diff") = d2 - d1,
                                         Named("bigger") = d2 > d1,
@@ -119,6 +125,12 @@ definitions <- function(){
                    'Datetime dt = Datetime(981162123.123456);
 				    return wrap(dt);')
 
+                  ,"Datetime_from_string"=list(
+                   signature(x="datetime"),
+                   'std::string dtstr = Rcpp::as<std::string>(x);
+                    Datetime dt(dtstr);
+				    return wrap(dt);')
+
                   )
 }
 
@@ -156,6 +168,16 @@ test.Date.ctor.int <- function() {
     checkEquals(fun(as.numeric(d)), d, msg = "Date.ctor.int")
     checkEquals(fun(-1), as.Date("1970-01-01")-1, msg = "Date.ctor.int")
     checkException(fun("foo"), msg = "Date.ctor -> exception" )
+}
+
+test.Date.ctor.string <- function() {
+    fun <- .Rcpp.Date$ctor_string
+    dtstr <- "1991-02-03"
+    dtfun <- fun(dtstr)
+    dtstr <- as.Date(strptime(dtstr, "%Y-%m-%d"))
+    ddstr <- as.Date(dtstr, "%Y-%m-%d")
+    checkEquals(dtfun, dtstr, msg = "Date.fromString.strptime")
+    checkEquals(dtfun, ddstr, msg = "Date.fromString.asDate")
 }
 
 test.Date.operators <- function() {
@@ -215,4 +237,12 @@ test.Datetime.wrap <- function() {
     fun <- .Rcpp.Date$Datetime_wrap
     checkEquals(as.numeric(fun()), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
                 msg = "Datetime.wrap")
+}
+
+test.Datetime.fromString <- function() {
+    fun <- .Rcpp.Date$Datetime_from_string
+    dtstr <- "1991-02-03 04:05:06.789"
+    dtfun <- fun(dtstr)
+    dtstr <- as.POSIXct(strptime(dtstr, "%Y-%m-%d %H:%M:%OS"))
+    checkEquals(as.numeric(dtfun), as.numeric(dtstr), msg = "Datetime.fromString")
 }
