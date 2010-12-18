@@ -1,3 +1,10 @@
+2010-12-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/announce/ANNOUNCE-0.9.0.txt: Started announcement post
+
+	* inst/unitTests/runit.Date.R: Added new unit tests for date and
+	datetime from string
+
 2010-12-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Datetime.h: correct default format to use %OS for
@@ -115,7 +122,7 @@
 
 2010-11-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION: Release 0.8.9
+ 	* DESCRIPTION: Release 0.8.9
 
         * debian/*: Similarly updated for new release to Debian
 
