@@ -1,3 +1,9 @@
+2010-12-19  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* DESCRIPTION: Release 0.9.0
+
+        * debian/*: Similarly updated for new release to Debian
+
 2010-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/announce/ANNOUNCE-0.9.0.txt: Started announcement post
