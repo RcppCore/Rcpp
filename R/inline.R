@@ -1,4 +1,4 @@
-# Copyright (C) 2009- 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2010	Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-Rcpp.plugin.maker <- function( 
-	include.before = "", 
-	include.after = "", 
-	LinkingTo     = unique( c( package, "Rcpp" ) ), 
-	Depends       = unique( c( package, "Rcpp" ) ), 
-	libs          = "", 
-	Makevars      = readLines( system.file("skeleton", "Makevars"    , package = package ) ) , 
-	Makevars.win  = readLines( system.file("skeleton", "Makevars.win", package = package ) ), 
+Rcpp.plugin.maker <- function(
+	include.before = "",
+	include.after = "",
+	LinkingTo     = unique( c( package, "Rcpp" ) ),
+	Depends       = unique( c( package, "Rcpp" ) ),
+	libs          = "",
+	Makevars      = readLines( system.file("skeleton", "Makevars"    , package = package ) ) ,
+	Makevars.win  = readLines( system.file("skeleton", "Makevars.win", package = package ) ),
 	package       = "Rcpp"
 ){
 	function( ... ){
@@ -41,19 +41,19 @@ includes <- sprintf( "%s
 using namespace Rcpp;
 ", include.before, include.after )
 
-	list( 
-		env = list( PKG_LIBS = paste( Rcpp:::RcppLdFlags(), libs ) ), 
-		includes = includes, 
-		LinkingTo = LinkingTo , 
+	list(
+		env = list( PKG_LIBS = paste( libs, Rcpp:::RcppLdFlags() ) ),
+		includes = includes,
+		LinkingTo = LinkingTo ,
 		body = function( x ){
-			sprintf( "BEGIN_RCPP\n%s\nEND_RCPP", x )	
-		}, 
-		Depends = Depends, 
-		Makevars = Makevars, 
+			sprintf( "BEGIN_RCPP\n%s\nEND_RCPP", x )
+		},
+		Depends = Depends,
+		Makevars = Makevars,
 		Makevars.win = Makevars.win
 	)
 }
 }
 
-inlineCxxPlugin <- Rcpp.plugin.maker() 
+inlineCxxPlugin <- Rcpp.plugin.maker()
 
