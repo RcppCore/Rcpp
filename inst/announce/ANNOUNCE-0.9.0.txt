@@ -134,8 +134,8 @@ several operations into one and reduce (or eliminate) the need for
 temporaries.  Armadillo is useful if C++ has been decided as the language of
 choice, rather than another language like Matlab ® or Octave, and aims to be
 as expressive as the former.  Via Rcpp and RcppArmadillo, R users now have
-easy access to this functionality. Examples and more documentation are in the
-vignette of the RcppArmadillo package.
+easy access to this functionality. Examples are provided in the RcppArmadillo
+package.
 
 The RcppGSL package permits easy use of the GNU Scientific Library (GSL), a
 collection of numerical routines for scientifc computing. It is particularly
