@@ -39,12 +39,8 @@ template <typename T> class RangeExporter {
 public:
 	typedef typename T::value_type r_export_type ;
 	
-	RangeExporter( SEXP x ) : object(x){
-		// R_PreserveObject(object) ;
-	}
-	~RangeExporter(){
-		// R_ReleaseObject(object) ;
-	}
+	RangeExporter( SEXP x ) : object(x){}
+	~RangeExporter(){}
 	
 	T get(){ 
 		T vec( ::Rf_length(object) );
