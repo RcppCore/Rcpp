@@ -38,7 +38,7 @@ definitions <- function() {
 }
 
 test.plus.REALSXP <- function(){
-    fun <- .rcpp.as$plus_REALSXP
+    fun <- .rcpp.support$plus_REALSXP
     checkEquals( 
         fun(), 
         list(NA_real_,NA_real_,NA_real_) , 
