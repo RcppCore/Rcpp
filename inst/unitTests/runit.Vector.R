@@ -95,20 +95,40 @@ definitions <- function(){
 				return x ;
 				'
         	), 
-        	"complex_INTSXP" = list( 
+        	"complex_CPLXSXP" = list( 
         		signature(vec = "complex" ), 
         		'
 				ComplexVector x(vec) ;
-				for( int i=0; i<x.size(); i++) { 
+                int nn = x.size();
+				for( int i=0; i<nn; i++) { 
 					x[i].r = x[i].r*2 ;
 					x[i].i = x[i].i*2 ;
 				}
 				return x ;
 				'
         	), 
-        	
-        	
-        	
+        	"complex_INTSXP" = list( 
+        		signature(vec = "integer" ), 
+        		'
+				ComplexVector x(vec);
+                int nn = x.size();
+                IntegerVector tmp(nn, 2.0);
+                ComplexVector tmp1(tmp);
+                x = x * tmp1;
+				return x ;
+				'
+        	), 
+        	"complex_REALSXP" = list( 
+        		signature(vec = "numeric" ), 
+        		'
+				ComplexVector x(vec);
+                int nn = x.size();
+                NumericVector tmp(nn, 3.0);
+                ComplexVector tmp1(tmp);
+                x = x * tmp1;
+				return x ;
+				'
+        	), 
         	
         	"integer_ctor"=list(
                   signature(),
@@ -727,10 +747,21 @@ test.ComplexVector <- function(){
 	funx <- .rcpp.Vector$complex_
 	checkEquals( funx(), 0:9*(1+1i), msg = "ComplexVector" )
 }
-
+test.ComplexVector.CPLXSXP <- function(){
+	funx <- .rcpp.Vector$complex_CPLXSXP
+     vv = (0:9)*(1+1i) ## not working - funx changes its argument 
+	#checkEquals( funx(vv), 2*vv, msg = "ComplexVector( CPLXSXP) " )
+	checkEquals( funx((0:9)*(1+1i)), 2*(0:9)*(1+1i), msg = "ComplexVector( CPLXSXP) " )
+}
 test.ComplexVector.INTSXP <- function(){
 	funx <- .rcpp.Vector$complex_INTSXP
-	checkEquals( funx(0:9*(1+1i)), 2*0:9*(1+1i), msg = "ComplexVector( CPLXSXP) " )
+    vv <- 0L:9L  
+	checkEquals( funx(vv), (2+0i)*vv, msg = "ComplexVector( INTSXP) " )
+}
+test.ComplexVector.REALSXP <- function(){
+	funx <- .rcpp.Vector$complex_REALSXP
+    vv <- as.numeric(0:9)
+	checkEquals( funx(vv), (3+0i)*vv, msg = "ComplexVector( REALSXP) " )
 }
 if( Rcpp:::capabilities()[["initializer lists"]] ){
 	test.ComplexVector.initializer.list <- function(){

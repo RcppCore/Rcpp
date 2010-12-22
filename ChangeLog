@@ -1,6 +1,11 @@
+2010-12-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.Vector.R: Applied patch by Christian Gunning
+	to add more tests for complex-typed vectors
+
 2010-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/inline.R (Rcpp.plugin.maker): Reverse order in PKG_LIBS 
+	* R/inline.R (Rcpp.plugin.maker): Reverse order in PKG_LIBS
 
 2010-12-19  Dirk Eddelbuettel  <edd@debian.org>
 
