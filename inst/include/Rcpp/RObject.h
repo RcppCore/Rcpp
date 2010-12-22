@@ -265,8 +265,8 @@ protected:
     
 private:
 
-    void preserve(){ if( m_sexp != R_NilValue ) R_PreserveObject(m_sexp) ; } 
-    void release() { if( m_sexp != R_NilValue ) R_ReleaseObject(m_sexp) ; } 
+    void preserve(){ if( m_sexp != R_NilValue ) Rcpp_PreserveObject(m_sexp) ; } 
+    void release() { if( m_sexp != R_NilValue ) Rcpp_ReleaseObject(m_sexp) ; } 
     virtual void update() {
         RCPP_DEBUG_1( "RObject::update(SEXP = <%p> )", m_sexp ) ; 
     } ;

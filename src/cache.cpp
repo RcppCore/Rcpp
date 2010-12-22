@@ -47,7 +47,6 @@ namespace Rcpp{
 // only used for debugging
 SEXP get_rcpp_cache() { return Rcpp_cache ; }
 
-
 SEXP init_Rcpp_cache(){   
     Rcpp_cache = PROTECT( Rf_allocVector( VECSXP, 10 ) );
 	
