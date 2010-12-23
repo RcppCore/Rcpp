@@ -18,26 +18,37 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 definitions <- function() {
-    list("plus_REALSXP"=list(
-              signature(),
-              '
-              return List::create( 
-                NA_REAL + NA_REAL, 
-                NA_REAL + 1.0,
-                1.0 + NA_REAL 
-                ); 
-              '), 
-         "times_REALSXP" = list( 
-            signature(), 
-            '
-             return List::create( 
-                NA_REAL * NA_REAL, 
-                NA_REAL * 1.0,
-                1.0 * NA_REAL 
-                ); 
-             
-            '
-         )
+    list(
+    "plus_REALSXP"=list(
+         signature(),
+         '
+         return List::create( 
+           NA_REAL + NA_REAL, 
+           NA_REAL + 1.0,
+           1.0 + NA_REAL 
+           ); 
+         '), 
+    "times_REALSXP" = list( 
+       signature(), 
+       '
+        return List::create( 
+           NA_REAL * NA_REAL, 
+           NA_REAL * 1.0,
+           1.0 * NA_REAL 
+           ); 
+        
+       '), 
+     "divides_REALSXP" = list( 
+        signature(), 
+        '
+        return List::create( 
+           NA_REAL / NA_REAL, 
+           NA_REAL / 1.0,
+           1.0 / NA_REAL 
+           ); 
+        
+        '
+     )
     )
 }
 .setUp <- function() {
@@ -62,5 +73,13 @@ test.times.REALSXP <- function(){
         fun(), 
         list(NA_real_,NA_real_,NA_real_) , 
         msg = " REALSXP * REALSXP" )
+}
+
+test.divides.REALSXP <- function(){
+    fun <- .rcpp.support$divides_REALSXP
+    checkEquals( 
+        fun(), 
+        list(NA_real_,NA_real_,NA_real_) , 
+        msg = " REALSXP / REALSXP" )
 }
 

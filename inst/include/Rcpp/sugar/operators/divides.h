@@ -31,9 +31,11 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
 		
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE x = lhs[i] ; 
@@ -45,8 +47,31 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
+	} ;
+	// RTYPE = REALSXP
+	template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
+	class Divides_Vector_Vector<REALSXP,LHS_NA,LHS_T,RHS_NA,RHS_T> : 
+	    public Rcpp::VectorBase<REALSXP,true, Divides_Vector_Vector<REALSXP,LHS_NA,LHS_T,RHS_NA,RHS_T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,LHS_NA,LHS_T> LHS_TYPE ;
+		typedef typename Rcpp::VectorBase<REALSXP,RHS_NA,RHS_T> RHS_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, RHS_NA, RHS_T>::type RHS_EXT ;
+		      
+		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
+			lhs(lhs_), rhs(rhs_) {}
+		
+		inline double operator[]( int i ) const {
+			return lhs[i] / rhs[i] ;
+		}
+		
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;
 	
 	
@@ -56,9 +81,11 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
 		
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE y = rhs[i] ; 
@@ -69,44 +96,94 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
+	} ;
+	// RTYPE = REALSXP
+	template <typename LHS_T, bool RHS_NA, typename RHS_T >
+	class Divides_Vector_Vector<REALSXP,false,LHS_T,RHS_NA,RHS_T> : 
+	    public Rcpp::VectorBase<REALSXP,true, Divides_Vector_Vector<REALSXP,false,LHS_T,RHS_NA,RHS_T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,false,LHS_T> LHS_TYPE ;
+		typedef typename Rcpp::VectorBase<REALSXP,RHS_NA,RHS_T> RHS_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, RHS_NA, RHS_T>::type RHS_EXT ;
+		
+		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+		
+		inline double operator[]( int i ) const {
+			return lhs[i] / rhs[i] ; 
+		}
+		
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;
 
 	
 	template <int RTYPE, bool LHS_NA, typename LHS_T, typename RHS_T >
-	class Divides_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> : public Rcpp::VectorBase<RTYPE,true, Divides_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> > {
+	class Divides_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> : 
+	    public Rcpp::VectorBase<RTYPE,true, Divides_Vector_Vector<RTYPE,LHS_NA,LHS_T,false,RHS_T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor< RTYPE, false, RHS_T>::type RHS_EXT ;
 		
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			STORAGE x = lhs[i] ; 
 			if( Rcpp::traits::is_na<RTYPE>( x ) ) return x ;
 			return x / rhs[i] ;
 		}
-		
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
+	} ;
+	// RTYPE = REALSXP
+	template <bool LHS_NA, typename LHS_T, typename RHS_T >
+	class Divides_Vector_Vector<REALSXP,LHS_NA,LHS_T,false,RHS_T> : 
+	    public Rcpp::VectorBase<REALSXP,true, Divides_Vector_Vector<REALSXP,LHS_NA,LHS_T,false,RHS_T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,LHS_NA,LHS_T> LHS_TYPE ;
+		typedef typename Rcpp::VectorBase<REALSXP,false,RHS_T> RHS_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, LHS_NA, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, false, RHS_T>::type RHS_EXT ;
+		
+		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+		
+		inline double operator[]( int i ) const {
+			return lhs[i] / rhs[i] ; 
+		}
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;
 	
 	
 	template <int RTYPE, typename LHS_T, typename RHS_T >
-	class Divides_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> : public Rcpp::VectorBase<RTYPE,false, Divides_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> > {
+	class Divides_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> : 
+	    public Rcpp::VectorBase<RTYPE,false, Divides_Vector_Vector<RTYPE,false,LHS_T,false,RHS_T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		typedef typename Rcpp::traits::Extractor<RTYPE, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor<RTYPE, false, RHS_T>::type RHS_EXT ;
 		
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline STORAGE operator[]( int i ) const {
 			return lhs[i] / rhs[i] ;
@@ -115,158 +192,217 @@ namespace sugar{
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const LHS_TYPE& lhs ;
-		const RHS_TYPE& rhs ;
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
 	} ;
-
+    // RTYPE : REALSXP
+    template <typename LHS_T, typename RHS_T >
+	class Divides_Vector_Vector<REALSXP,false,LHS_T,false,RHS_T> : 
+	    public Rcpp::VectorBase<REALSXP,false, Divides_Vector_Vector<REALSXP,false,LHS_T,false,RHS_T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,false,LHS_T> LHS_TYPE ;
+		typedef typename Rcpp::VectorBase<REALSXP,false,RHS_T> RHS_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, false, LHS_T>::type LHS_EXT ;
+		typedef typename Rcpp::traits::Extractor<REALSXP, false, RHS_T>::type RHS_EXT ;
+		
+		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+		
+		inline double operator[]( int i ) const {
+			return lhs[i] / rhs[i] ;
+		}
+		
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const LHS_EXT& lhs ;
+		const RHS_EXT& rhs ;
+	} ;
+    
 	
 	
 	
 	template <int RTYPE, bool NA, typename T>
-	class Divides_Vector_Primitive : public Rcpp::VectorBase<RTYPE,true, Divides_Vector_Primitive<RTYPE,NA,T> > {
+	class Divides_Vector_Primitive : 
+	    public Rcpp::VectorBase<RTYPE,true, Divides_Vector_Primitive<RTYPE,NA,T> > {
 	public:
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
-		typedef STORAGE (Divides_Vector_Primitive::*METHOD)(int) const ;
+		typedef typename Rcpp::traits::Extractor<RTYPE,NA,T>::type VEC_EXT ;
 		
 		Divides_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_){
-			
-			m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
-				&Divides_Vector_Primitive::rhs_is_na :
-				&Divides_Vector_Primitive::rhs_is_not_na ;
-			
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {
 		}
 		
 		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i) ;
-		}
-		
-		inline int size() const { return lhs.size() ; }
-		
-	private:
-		const VEC_TYPE& lhs ;
-		STORAGE rhs ;
-		METHOD m ;
-		
-		inline STORAGE rhs_is_na(int i) const { return rhs ; }
-		inline STORAGE rhs_is_not_na(int i) const { 
+			if(rhs_na) return rhs ;
 			STORAGE x = lhs[i] ;
 			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x / rhs) ;
 		}
 		
-	} ;
-	
-
-	template <int RTYPE, typename T>
-	class Divides_Vector_Primitive<RTYPE,false,T> : public Rcpp::VectorBase<RTYPE,true, Divides_Vector_Primitive<RTYPE,false,T> > {
-	public:
-		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
-		typedef STORAGE (Divides_Vector_Primitive::*METHOD)(int) const ;
+		inline int size() const { return lhs.size() ; }
 		
-		Divides_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
-			lhs(lhs_), rhs(rhs_){
-
-			m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
-				&Divides_Vector_Primitive::rhs_is_na :
-				&Divides_Vector_Primitive::rhs_is_not_na ;
-				
+	private:
+		const VEC_EXT& lhs ;
+		STORAGE rhs ;
+		bool rhs_na ;
+	} ;
+	// RTYPE : REALSXP
+	template <bool NA, typename T>
+	class Divides_Vector_Primitive<REALSXP,NA,T> : 
+	    public Rcpp::VectorBase<REALSXP,true, Divides_Vector_Primitive<REALSXP,NA,T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP,NA,T>::type VEC_EXT ;
+		
+		Divides_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) : 
+			lhs(lhs_.get_ref()), rhs(rhs_) {
 		}
 		
-		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i) ;
+		inline double operator[]( int i ) const {
+			return lhs[i] / rhs ;
 		}
 		
 		inline int size() const { return lhs.size() ; }
 		
 	private:
-		const VEC_TYPE& lhs ;
-		STORAGE rhs ;
-		METHOD m ;
+		const VEC_EXT& lhs ;
+		double rhs ;
+	} ;
+	
+	
+
+	template <int RTYPE, typename T>
+	class Divides_Vector_Primitive<RTYPE,false,T> : 
+	    public Rcpp::VectorBase<RTYPE,true, Divides_Vector_Primitive<RTYPE,false,T> > {
+	public:
+		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
+		typedef typename Rcpp::traits::Extractor<RTYPE,false,T>::type VEC_EXT ;
 		
-		inline STORAGE rhs_is_na(int i) const { return rhs ; }
-		inline STORAGE rhs_is_not_na(int i) const { 
-			STORAGE x = rhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : (lhs / x) ;
+		Divides_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) : 
+			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
+		
+		inline STORAGE operator[]( int i ) const {
+			if( rhs_na ) return rhs ;
+			STORAGE x = lhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x / rhs) ;
 		}
+		inline int size() const { return lhs.size() ; }
 		
+	private:
+		const VEC_EXT& lhs ;
+		STORAGE rhs ;
+		bool rhs_na ;
+	} ;
+	// RTYPE = REALSXP
+	template <typename T>
+	class Divides_Vector_Primitive<REALSXP,false,T> : 
+	    public Rcpp::VectorBase<REALSXP,true, Divides_Vector_Primitive<REALSXP,false,T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,false,T> VEC_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
+		
+		Divides_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) : 
+			lhs(lhs_), rhs(rhs_){}
+		
+		inline double operator[]( int i ) const {
+			return lhs[i] / rhs ;
+		}
+		inline int size() const { return lhs.size() ; }
+		
+	private:
+		const VEC_EXT& lhs ;
+		double rhs ;
 	} ;
 
-	
-	
-	
 	
 	
 	template <int RTYPE, bool NA, typename T>                                                   
-	class Divides_Primitive_Vector : public Rcpp::VectorBase<RTYPE,true, Divides_Primitive_Vector<RTYPE,NA,T> > {
+	class Divides_Primitive_Vector : 
+	    public Rcpp::VectorBase<RTYPE,true, Divides_Primitive_Vector<RTYPE,NA,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
+		typedef typename Rcpp::traits::Extractor<RTYPE,NA,T>::type VEC_EXT ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ; 
-		typedef STORAGE (Divides_Primitive_Vector::*METHOD)(int) const ;
 		
 		Divides_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {
-				
-			m = Rcpp::traits::is_na<RTYPE>(lhs) ? 
-				&Divides_Primitive_Vector::lhs_is_na :
-				&Divides_Primitive_Vector::lhs_is_not_na ;
-
-		}
+			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
 		
 		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i) ;
+			if( lhs_na ) return lhs ;
+			STORAGE x = rhs[i] ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : (lhs / x) ;
 		}
-		
 		inline int size() const { return rhs.size() ; }
-	
-		
 	private:
 		STORAGE lhs ;
-		const VEC_TYPE& rhs ;
-		METHOD m ;
-		
-		inline STORAGE lhs_is_na(int i) const { return lhs ; }
-		inline STORAGE lhs_is_not_na(int i) const { 
-			return lhs / rhs[i] ;
-		}
-		
+		const VEC_EXT& rhs ;
+		bool lhs_na ;
 	} ;
+	// RTYPE = REALSXP
+	template <bool NA, typename T>                                                   
+	class Divides_Primitive_Vector<REALSXP,NA,T> : 
+	    public Rcpp::VectorBase<REALSXP,true, Divides_Primitive_Vector<REALSXP,NA,T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP,NA,T>::type VEC_EXT ;
+		
+		Divides_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) : 
+			lhs(lhs_), rhs(rhs_.get_ref()) {}
+		
+		inline double operator[]( int i ) const {
+			return lhs / rhs[i] ; 
+		}
+		inline int size() const { return rhs.size() ; }
+	private:
+		double lhs ;
+		const VEC_EXT& rhs ;
+	} ;
+	
 
 	
 	template <int RTYPE, typename T>                                                   
-	class Divides_Primitive_Vector<RTYPE,false,T> : public Rcpp::VectorBase<RTYPE,true, Divides_Primitive_Vector<RTYPE,false,T> > {
+	class Divides_Primitive_Vector<RTYPE,false,T> : 
+	    public Rcpp::VectorBase<RTYPE,true, Divides_Primitive_Vector<RTYPE,false,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ; 
-		typedef STORAGE (Divides_Primitive_Vector::*METHOD)(int) const ;
+		typedef typename Rcpp::traits::Extractor<RTYPE,false,T>::type VEC_EXT ;
 		
 		Divides_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {
-				
-			m = Rcpp::traits::is_na<RTYPE>(rhs) ? 
-				&Divides_Primitive_Vector::lhs_is_na :
-				&Divides_Primitive_Vector::lhs_is_not_na ;
+			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
 
-		}
-		
 		inline STORAGE operator[]( int i ) const {
-			return (this->*m)(i) ;
+			if( lhs_na ) return lhs ;
+			return lhs / rhs[i] ;
 		}
-		
 		inline int size() const { return rhs.size() ; }
-	
 		
 	private:
 		STORAGE lhs ;
-		const VEC_TYPE& rhs ;
-		METHOD m ;
+		const VEC_EXT& rhs ;
+		bool lhs_na ;
+	} ;
+	// RTYPE = REALSXP
+	template <typename T>                                                   
+	class Divides_Primitive_Vector<REALSXP,false,T> : 
+	    public Rcpp::VectorBase<REALSXP,true, Divides_Primitive_Vector<REALSXP,false,T> > {
+	public:
+		typedef typename Rcpp::VectorBase<REALSXP,false,T> VEC_TYPE ;
+		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
 		
-		inline STORAGE lhs_is_na(int i) const { return lhs ; }
-		inline STORAGE lhs_is_not_na(int i) const { 
+		Divides_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) : 
+			lhs(lhs_), rhs(rhs_.get_ref()) {}
+
+		inline double operator[]( int i ) const {
 			return lhs / rhs[i] ;
 		}
+		inline int size() const { return rhs.size() ; }
 		
+	private:
+		double lhs ;
+		const VEC_EXT& rhs ;
 	} ;
 
 
