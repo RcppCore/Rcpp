@@ -4,6 +4,11 @@
 	garbage collection. Presumably more efficient than R_PreserveObject and
 	R_ReleaseObject
 
+2010-12-22  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/operators/plus.h: More efficient operator+ for 
+	REALSXP sugar expressions, avoiding unnecessary NA tests.
+
 2010-12-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.Vector.R: Applied patch by Christian Gunning
