@@ -3,6 +3,9 @@
 	* inst/include/Rcpp/RObject.h: New internal class SEXPstack to handle 
 	garbage collection. Presumably more efficient than R_PreserveObject and
 	R_ReleaseObject
+	
+	* inst/include/Rcpp/sugar/operators/times.h: More efficient operator* for 
+	REALSXP sugar expressions, avoiding unnecessary NA tests.
 
 2010-12-22  Romain Francois <romain@r-enthusiasts.com>
 
