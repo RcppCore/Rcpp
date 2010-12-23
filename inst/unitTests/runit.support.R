@@ -26,7 +26,18 @@ definitions <- function() {
                 NA_REAL + 1.0,
                 1.0 + NA_REAL 
                 ); 
-              ')
+              '), 
+         "times_REALSXP" = list( 
+            signature(), 
+            '
+             return List::create( 
+                NA_REAL * NA_REAL, 
+                NA_REAL * 1.0,
+                1.0 * NA_REAL 
+                ); 
+             
+            '
+         )
     )
 }
 .setUp <- function() {
@@ -43,5 +54,13 @@ test.plus.REALSXP <- function(){
         fun(), 
         list(NA_real_,NA_real_,NA_real_) , 
         msg = " REALSXP + REALSXP" )
+}
+
+test.times.REALSXP <- function(){
+    fun <- .rcpp.support$times_REALSXP
+    checkEquals( 
+        fun(), 
+        list(NA_real_,NA_real_,NA_real_) , 
+        msg = " REALSXP * REALSXP" )
 }
 
