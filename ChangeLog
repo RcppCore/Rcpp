@@ -7,6 +7,9 @@
 	* inst/include/Rcpp/sugar/operators/times.h: More efficient operator* for 
 	REALSXP sugar expressions, avoiding unnecessary NA tests.
 
+	* inst/include/Rcpp/sugar/operators/divides.h: More efficient operator/ for 
+	REALSXP sugar expressions, avoiding unnecessary NA tests.
+	
 2010-12-22  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/operators/plus.h: More efficient operator+ for 
