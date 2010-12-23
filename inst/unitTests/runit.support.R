@@ -36,7 +36,6 @@ definitions <- function() {
            NA_REAL * 1.0,
            1.0 * NA_REAL 
            ); 
-        
        '), 
      "divides_REALSXP" = list( 
         signature(), 
@@ -46,7 +45,16 @@ definitions <- function() {
            NA_REAL / 1.0,
            1.0 / NA_REAL 
            ); 
-        
+        '
+     ), 
+     "minus_REALSXP" = list( 
+        signature(), 
+        '
+        return List::create( 
+           NA_REAL - NA_REAL, 
+           NA_REAL - 1.0,
+           1.0 - NA_REAL 
+           ); 
         '
      )
     )
@@ -81,5 +89,13 @@ test.divides.REALSXP <- function(){
         fun(), 
         list(NA_real_,NA_real_,NA_real_) , 
         msg = " REALSXP / REALSXP" )
+}
+
+test.minus.REALSXP <- function(){
+    fun <- .rcpp.support$minus_REALSXP
+    checkEquals( 
+        fun(), 
+        list(NA_real_,NA_real_,NA_real_) , 
+        msg = " REALSXP - REALSXP" )
 }
 
