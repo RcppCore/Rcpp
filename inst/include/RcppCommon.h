@@ -132,9 +132,6 @@ std::string demangle( const std::string& name) ;
 
 #include <Rcpp/complex.h>
 
-inline void Rcpp_PreserveObject( SEXP object ) { R_PreserveObject(object) ; } 
-inline void Rcpp_ReleaseObject( SEXP object )  { R_PreserveObject(object) ; }
-
 #include <Rcpp/barrier.h>
 
 #define RcppExport extern "C"
