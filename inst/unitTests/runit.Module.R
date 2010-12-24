@@ -22,8 +22,9 @@
 	gc()
 }
 
-if( Rcpp:::capabilities()[["Rcpp modules"]] ) {
-
+#if( Rcpp:::capabilities()[["Rcpp modules"]] ) {
+if( FALSE ){
+    
 test.Module <- function(){
 
 	inc  <- '

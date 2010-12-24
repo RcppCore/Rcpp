@@ -61,7 +61,7 @@ namespace sugar{
 		typedef typename Rcpp::traits::Extractor<REALSXP, RHS_NA, RHS_T>::type RHS_EXT ;
 		      
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : 
-			lhs(lhs_), rhs(rhs_) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 		
 		inline double operator[]( int i ) const {
 			return lhs[i] / rhs[i] ;
