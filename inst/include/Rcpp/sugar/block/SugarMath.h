@@ -121,6 +121,4 @@ private:
 	}                                                                        \
 	}
 
-	
-
 #endif

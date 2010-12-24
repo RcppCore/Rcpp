@@ -27,5 +27,6 @@
 #include <Rcpp/sugar/block/SugarBlock_3.h>
 
 #include <Rcpp/sugar/block/SugarMath.h>
+#include <Rcpp/sugar/block/Vectorized_Math.h>
 
 #endif
