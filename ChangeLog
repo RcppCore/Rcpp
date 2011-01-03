@@ -1,22 +1,28 @@
+2011-01-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Applied patch with
+	additional documentation by Christian Gunning
+
 2010-12-23  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/RObject.h: New internal class SEXPstack to handle 
-	garbage collection. Presumably more efficient than R_PreserveObject and
-	R_ReleaseObject
-	
-	* inst/include/Rcpp/sugar/operators/times.h: More efficient operator* for 
+	* inst/include/Rcpp/RObject.h: New internal class SEXPstack to handle
+	garbage collection. Presumably more efficient than R_PreserveObject
+	and R_ReleaseObject
+
+	* inst/include/Rcpp/sugar/operators/times.h: More efficient operator*
+	for REALSXP sugar expressions, avoiding unnecessary NA tests.
+
+	* inst/include/Rcpp/sugar/operators/divides.h: More efficient
+	operator/ for REALSXP sugar expressions, avoiding unnecessary NA
+	tests.
+
+	* inst/include/Rcpp/sugar/operators/minus.h: More efficient operator- for
 	REALSXP sugar expressions, avoiding unnecessary NA tests.
 
-	* inst/include/Rcpp/sugar/operators/divides.h: More efficient operator/ for 
-	REALSXP sugar expressions, avoiding unnecessary NA tests.
-
-	* inst/include/Rcpp/sugar/operators/minus.h: More efficient operator- for 
-	REALSXP sugar expressions, avoiding unnecessary NA tests.
-	
 2010-12-22  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/operators/plus.h: More efficient operator+ for 
-	REALSXP sugar expressions, avoiding unnecessary NA tests.
+	* inst/include/Rcpp/sugar/operators/plus.h: More efficient operator+
+	for REALSXP sugar expressions, avoiding unnecessary NA tests.
 
 2010-12-22  Dirk Eddelbuettel  <edd@debian.org>
 
