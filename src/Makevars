@@ -34,7 +34,7 @@ $(USERLIB): 	$(OBJECTS)
 		@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
 
 $(USERLIBST): 	$(OBJECTS)
-		$(AR) qc $(USERLIBST) $^
+		$(AR) qc $(USERLIBST) $(OBJECTS)
 		@if test -n "$(RANLIB)"; then $(RANLIB) $(USERLIBST); fi
 
 .PHONY: 	all clean userLibrary 
