@@ -699,7 +699,7 @@ test.sugar.abs <- function( ){
 	fx <- .rcpp.sugar$runit_abs
 	x <- rnorm(10)
 	y <- -10:10
-	TRUE #ccheckEquals( fx(x,y) , list( abs(x), abs(y) ) )
+	checkEquals( fx(x,y) , list( abs(x), abs(y) ) )
 }
 
 test.sugar.all.one.less <- function( ){
@@ -900,21 +900,21 @@ test.sugar.exp <- function( ){
 	fx <- .rcpp.sugar$runit_exp
 	x <- rnorm(10)
 	y <- -10:10
-	TRUE #checkEquals( fx(x,y) , list( exp(x), exp(y) ) )
+	checkEquals( fx(x,y) , list( exp(x), exp(y) ) )
 }
 
 test.sugar.floor <- function( ){
 	fx <- .rcpp.sugar$runit_floor
 	x <- rnorm(10)
 	y <- -10:10
-	TRUE #checkEquals( fx(x,y) , list( floor(x), floor(y) ) )
+	checkEquals( fx(x,y) , list( floor(x), floor(y) ) )
 }
 
 test.sugar.ceil <- function( ){
 	fx <- .rcpp.sugar$runit_ceil
 	x <- rnorm(10)
 	y <- -10:10
-	TRUE #checkEquals( fx(x,y) , list( ceiling(x), ceiling(y) ) )
+	checkEquals( fx(x,y) , list( ceiling(x), ceiling(y) ) )
 }
 
 test.sugar.pow <- function( ){
