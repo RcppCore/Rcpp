@@ -22,17 +22,17 @@
 #include <Rcpp.h>
 
 #if defined(__GNUC__)
-#if defined(WIN32)
-/* silly version for windows */
+#if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+// Simpler version for Windows and *BSD 
 SEXP stack_trace( const char* file, int line ){
     Rcpp::List trace = Rcpp::List::create( 
     	Rcpp::Named( "file"  ) = file, 
     	Rcpp::Named( "line"  ) = line, 
-    	Rcpp::Named( "stack" ) = "C++ stack not available on windows (mingw does not have the execinfo.h file)" ) ;
+    	Rcpp::Named( "stack" ) = "C++ stack not available on this system" ) ;
     trace.attr("class") = "Rcpp_stack_trace" ;
     return trace ;
 }
-#else /* !defined(WIN32) */ 
+#else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) 
 #include <execinfo.h>
 #include <cxxabi.h>
 
