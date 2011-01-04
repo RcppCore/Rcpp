@@ -3,6 +3,9 @@
     o   Removed another GNU Make-specific variable from src/Makevars in order
         to make the build more portable; this was noticed on FreeBSD
 
+    o   On *BSD, do not try to compute a stack trace but provide file and
+        line number (which is the same behaviour as implemented in Windows)
+
 0.9.0   2010-12-19
 
     o   The classic API was factored out into its own package RcppClassic which

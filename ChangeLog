@@ -1,5 +1,8 @@
 2011-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
+	* src/debugging.cpp: Treat the *BSD flavours like Windows and offer
+	file and line number but not stack trace (for lack of execinfo)
+
 	* src/Makevars: Replace implicit variable $^ with explicit list
 
 2011-01-02  Dirk Eddelbuettel  <edd@debian.org>
