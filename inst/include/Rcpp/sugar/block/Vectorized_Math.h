@@ -42,7 +42,7 @@ private:
 } ;
 
 template <double Func(double), bool NA, typename VEC>
-class Vectorized_INTSXP : public VectorBase<REALSXP, NA, Vectorized<Func,NA,VEC> >{
+class Vectorized_INTSXP : public VectorBase<REALSXP, NA, Vectorized_INTSXP<Func,NA,VEC> >{
 public:
     typedef typename Rcpp::VectorBase<INTSXP,NA,VEC> VEC_TYPE ;
 	typedef typename Rcpp::traits::Extractor<INTSXP,NA,VEC>::type VEC_EXT ;
@@ -60,7 +60,7 @@ private:
 } ;
 template <double Func(double), typename VEC>
 class Vectorized_INTSXP<Func,false,VEC> : 
-    public VectorBase<REALSXP,false, Vectorized<Func,false,VEC> >{
+    public VectorBase<REALSXP,false, Vectorized_INTSXP<Func,false,VEC> >{
 public:
     typedef typename Rcpp::VectorBase<INTSXP,false,VEC> VEC_TYPE ;
 	typedef typename Rcpp::traits::Extractor<INTSXP,false,VEC>::type VEC_EXT ;
