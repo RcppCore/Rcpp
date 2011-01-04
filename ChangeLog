@@ -1,3 +1,7 @@
+2011-01-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars: Replace implicit variable $^ with explicit list
+
 2011-01-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Applied patch with
