@@ -1,3 +1,8 @@
+0.9.1   2011-..-..
+
+    o   Removed another GNU Make-specific variable from src/Makevars in order
+        to make the build more portable; this was noticed on FreeBSD
+
 0.9.0   2010-12-19
 
     o   The classic API was factored out into its own package RcppClassic which
