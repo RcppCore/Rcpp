@@ -1,5 +1,11 @@
 0.9.1   2011-..-..
 
+    o   FIXME: Known sugar int vector bug -- see next entry
+
+    o   FIXME: Castrated sugar unit tests for abs, ceil, exp and floor which
+        currently fail. That is the WRONG APPROACH but all we can do while
+        Romain is taking a break
+
     o   Removed another GNU Make-specific variable from src/Makevars in order
         to make the build more portable; this was noticed on FreeBSD
 
