@@ -39,7 +39,6 @@ namespace traits {
     template <> 
     struct Extractor<INTSXP, true, Rcpp::Vector<INTSXP> >{
         typedef Rcpp::Fast< Rcpp::Vector<INTSXP> > type ;
-    
     } ;
     
     template <> 
