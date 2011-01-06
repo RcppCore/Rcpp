@@ -1,3 +1,13 @@
+2011-01-06  Douglas Bates  <bates@stat.wisc.edu>
+
+	* R/zzz.R (.onLoad): Don't call init_Rcpp_cache here. 
+
+	* src/Rcpp_init.c: Don't register init_Rcpp_cache.  It should only
+	be called once and it is called in the C function R_init_Rcpp.
+
+	* NAMESPACE: Use registered symbols instead of relisting them.
+	Registration allows for checking the number of arguments.
+
 2011-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/debugging.cpp: Treat the *BSD flavours like Windows and offer
