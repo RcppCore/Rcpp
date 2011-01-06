@@ -1,27 +1,28 @@
-useDynLib(Rcpp, 
+useDynLib(Rcpp, .registration = TRUE
     # .Call functions
-    as_character_externalptr,
+    ## as_character_externalptr,
     
-    CppField__get, CppField__set,
+    ## CppField__get, CppField__set,
     
-    Class__name, Class__has_default_constructor,
+    ## Class__name, Class__has_default_constructor,
     
-    CppClass__complete, CppClass__methods,
+    ## CppClass__complete, CppClass__methods,
     
-    Module__classes_info,Module__complete,Module__get_class,
-    Module__has_class,Module__has_function, Module__functions_arity,
-    Module__functions_names,
-    Module__name, Module__get_function, 
-    CppObject__finalize, 
+    ## Module__classes_info,Module__complete,Module__get_class,
+    ## Module__has_class,Module__has_function, Module__functions_arity,
+    ## Module__functions_names,
+    ## Module__name, Module__get_function, 
+    ## CppObject__finalize, 
     
-    get_rcpp_cache, init_Rcpp_cache, reset_current_error, 
-    rcpp_error_recorder, rcpp_set_current_error, rcpp_get_current_error, 
-    rcpp_set_error_occured, rcpp_get_error_occured, 
-    rcpp_set_stack_trace, rcpp_get_stack_trace,
+    ## get_rcpp_cache, # init_Rcpp_cache,
+    ## reset_current_error, 
+    ## rcpp_error_recorder, rcpp_set_current_error, rcpp_get_current_error, 
+    ## rcpp_set_error_occured, rcpp_get_error_occured, 
+    ## rcpp_set_stack_trace, rcpp_get_stack_trace,
     
-    # .External functions
-    CppMethod__invoke, CppMethod__invoke_void, CppMethod__invoke_notvoid, 
-    InternalFunction_invoke, Module__invoke, class__newInstance
+    ## # .External functions
+    ## CppMethod__invoke, CppMethod__invoke_void, CppMethod__invoke_notvoid, 
+    ## InternalFunction_invoke, Module__invoke, class__newInstance
 )
 
 import( methods )
