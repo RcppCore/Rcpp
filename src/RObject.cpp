@@ -60,7 +60,7 @@ namespace internal{
     }
 }
 
-internal::SEXPstack RObject::PPstack ;    
+// internal::SEXPstack RObject::PPstack ;    
     
 void RObject::setSEXP(SEXP x){
     RCPP_DEBUG_1( "RObject::setSEXP(SEXP = <%p> )", x ) ; 

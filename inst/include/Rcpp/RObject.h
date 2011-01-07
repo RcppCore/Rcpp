@@ -284,10 +284,13 @@ protected:
     
 private:
 
-    static internal::SEXPstack PPstack ;
+//    static internal::SEXPstack PPstack ;
+//    void preserve(){ if( m_sexp != R_NilValue ) PPstack.preserve(m_sexp) ; } 
+//    void release() { if( m_sexp != R_NilValue ) PPstack.release(m_sexp) ; }
+
+    void preserve(){ if( m_sexp != R_NilValue ) R_PreserveObject(m_sexp) ; }
+    void release() { if( m_sexp != R_NilValue ) R_ReleaseObject(m_sexp) ; } 
     
-    void preserve(){ if( m_sexp != R_NilValue ) PPstack.preserve(m_sexp) ; } 
-    void release() { if( m_sexp != R_NilValue ) PPstack.release(m_sexp) ; } 
     virtual void update() {
         RCPP_DEBUG_1( "RObject::update(SEXP = <%p> )", m_sexp ) ; 
     } ;
