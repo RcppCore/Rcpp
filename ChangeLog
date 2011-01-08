@@ -1,6 +1,10 @@
+2011-01-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/config.h (RCPP_VERSION): Set to 0.9.0, at last.
+
 2011-01-06  Douglas Bates  <bates@stat.wisc.edu>
 
-	* R/zzz.R (.onLoad): Don't call init_Rcpp_cache here. 
+	* R/zzz.R (.onLoad): Don't call init_Rcpp_cache here.
 
 	* src/Rcpp_init.c: Don't register init_Rcpp_cache.  It should only
 	be called once and it is called in the C function R_init_Rcpp.
