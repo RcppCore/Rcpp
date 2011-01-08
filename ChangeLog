@@ -1,3 +1,7 @@
+2011-01-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp.bib: Updated a number of CRAN versions
+
 2011-01-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/config.h (RCPP_VERSION): Set to 0.9.0, at last.
