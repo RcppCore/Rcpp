@@ -39,15 +39,15 @@ namespace Rcpp {
 	}
 	
 	Language::Language( const std::string& symbol ): DottedPair() {
-		setSEXP( Rf_lcons( Symbol(symbol), R_NilValue ) );
+		setSEXP( Rf_lang1( Symbol(symbol) ) );
 	}
 	
 	Language::Language( const Symbol& symbol ): DottedPair() {
-		setSEXP( Rf_lcons( symbol, R_NilValue ) ) ;
+		setSEXP( Rf_lang1( symbol ) ) ;
 	}
 	
 	Language::Language( const Function& function): DottedPair() {
-		setSEXP( Rf_lcons( function, R_NilValue ) ) ;		
+		setSEXP( Rf_lang1( function ) ) ;		
 	}
 	
 	Language::~Language(){}

@@ -369,8 +369,8 @@ public:
 				/* use the slower and more flexible version (callback to R) */
 			
 				SEXP new_vec = PROTECT( internal::try_catch( 
-				Rf_lcons( Rf_install("names<-"), 
-						Rf_cons( parent, Rf_cons( x , R_NilValue) )))) ;
+				    Rf_lang3( Rf_install("names<-"), parent, x )
+				)) ;
 				/* names<- makes a new vector, so we have to change 
 				   the SEXP of the parent of this proxy */
 				const_cast<Vector&>(parent).set_sexp( new_vec ) ;

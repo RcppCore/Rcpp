@@ -134,17 +134,17 @@ namespace Rcpp {
     	    	    } else{
     	    	    	    /* unless we want to copy all of do_remove, 
     	    	    	       we have to go back to R to do this operation */
-    	    	    	    SEXP call = Rf_lang2( 
+    	    	    	    SEXP call = PROTECT( Rf_lang2( 
     	    	    	    	    Rf_install( ".Internal" ), 
-    	    	    	    	    Rf_lcons( Rf_install( "remove" ), 
-    	    	    	    	    	    Rf_cons( Rf_mkString(name.c_str()), 
-    	    	    	    	    	    	    Rf_cons( m_sexp, 
-    	    	    	    	    	    	    	    Rf_cons( Rf_ScalarLogical( FALSE ), R_NilValue )
-    	    	    	    	    	    	    	    ) 
-    	    	    	    	    	    	    )
-    	    	    	    	    	    )
-    	    	    	    	    ) ;
+    	    	    	    	    Rf_lang4( 
+    	    	    	    	        Rf_install( "remove" ), 
+    	    	    	    	        Rf_mkString(name.c_str()), 
+    	    	    	    	        m_sexp, 
+    	    	    	    	        Rf_ScalarLogical( FALSE )
+    	    	    	    	    )
+    	    	    	    	    ) );
     	    	    	    Rf_eval( call, R_GlobalEnv ) ;
+    	    	    	    UNPROTECT(1) ;
     	    	    }
     	    } else{
     	    	throw no_such_binding(name) ;
@@ -264,9 +264,8 @@ namespace Rcpp {
     
     Environment Environment::new_child(bool hashed) {
     	    return Environment( Evaluator::run( 
-    	    	    Rf_lcons( Rf_install("new.env"), 
-    	    	    	    Rf_cons(Rf_ScalarLogical(hashed), 
-    	    	    	    	    Rf_cons(m_sexp,R_NilValue)) ) ) );
+    	        Rf_lang3( Rf_install("new.env"), Rf_ScalarLogical(hashed), m_sexp )
+    	    ) );
     }
     
     

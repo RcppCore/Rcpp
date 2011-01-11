@@ -30,7 +30,7 @@ static DataFrame create( const T1& t1 ) throw(not_compatible){
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -44,7 +44,7 @@ static DataFrame create( const T1& t1, const T2& t2 ) throw(not_compatible){
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -58,7 +58,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3 ) throw(not_co
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -72,7 +72,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4 
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -86,7 +86,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -100,7 +100,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -114,7 +114,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -128,7 +128,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -142,7 +142,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -156,7 +156,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -170,7 +170,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -184,7 +184,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -198,7 +198,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -212,7 +212,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -226,7 +226,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -240,7 +240,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -254,7 +254,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -268,7 +268,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -282,7 +282,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
@@ -296,7 +296,7 @@ static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4,
 	try{
 		return DataFrame( 
 			internal::try_catch( 
-				::Rf_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20 ) )
+				::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20 ) )
 				) ) ;
 	} catch( eval_error& __ex__){
 		throw not_compatible("error calling the data.frame function") ;
