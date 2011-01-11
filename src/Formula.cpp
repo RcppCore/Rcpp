@@ -2,7 +2,7 @@
 //
 // Formula.cpp: Rcpp R/C++ interface class library -- Formulae
 //
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
