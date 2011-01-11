@@ -3,7 +3,7 @@
 //
 // is_convertible.h: Rcpp R/C++ interface class library -- type conversion detection
 //
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

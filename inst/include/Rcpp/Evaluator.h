@@ -2,7 +2,7 @@
 //
 // Evaluator.h: Rcpp R/C++ interface class library -- protected evaluation
 //
-// Copyright (C) 2009 - 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2011	Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

@@ -2,7 +2,7 @@
 //
 // InternalFunction.h: Rcpp R/C++ interface class library -- exposing C++ functions
 //
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

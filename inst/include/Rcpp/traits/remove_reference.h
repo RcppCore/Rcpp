@@ -3,7 +3,7 @@
 //
 // is_reference.h: Rcpp R/C++ interface class library -- identifies if a type is a reference
 //
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

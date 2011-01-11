@@ -2,7 +2,7 @@
 //
 // as_vector.h: Rcpp R/C++ interface class library -- as_vector( sugar matrix expression )
 //
-// Copyright (C) 2010 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
