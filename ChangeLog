@@ -1,3 +1,10 @@
+2011-01-11  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/vector/string_proxy.h: fix implicit conversion to int, 
+	reported by Daniel Sabanes Bove on Rcpp-devel
+	
+	* inst/unitTests/runit.vector.R: unit test for the above fix
+
 2011-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp.bib: Updated a number of CRAN versions
