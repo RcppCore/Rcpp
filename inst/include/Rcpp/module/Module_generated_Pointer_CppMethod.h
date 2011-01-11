@@ -2,7 +2,7 @@
 //
 // Module_generated_CppMethod.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010	Doug Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011   Doug Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

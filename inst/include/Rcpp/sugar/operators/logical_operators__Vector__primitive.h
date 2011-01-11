@@ -3,7 +3,7 @@
 // logical_operators__Vector__primitive.h: Rcpp R/C++ interface class library -- 
 //    logical operators for Vector to primitive comparisons
 //                                                                      
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

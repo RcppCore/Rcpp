@@ -3,7 +3,7 @@
 //
 // has_iterator.h: Rcpp R/C++ interface class library -- identify if a class has a nested iterator typedef
 //
-// Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
