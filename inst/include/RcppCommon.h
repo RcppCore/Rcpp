@@ -130,6 +130,13 @@ std::string demangle( const std::string& name) ;
 #include <Rversion.h>
 #define RCPP_GET_NAMES(x)	Rf_getAttrib(x, R_NamesSymbol)
 
+inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
+    PROTECT(car) ;
+    car = Rf_lcons( car, cdr ) ; 
+    UNPROTECT(1) ;
+    return car ;
+}
+
 #include <Rcpp/complex.h>
 
 #include <Rcpp/barrier.h>

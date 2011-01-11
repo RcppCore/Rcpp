@@ -53,15 +53,10 @@ namespace Rcpp {
 	}
 	
 	Reference::Reference( const std::string& klass ) throw(S4_creation_error,reference_creation_error) : S4(){
-		// using callback to R as apparently R_do_new_object always makes the same environment
-	    SEXP call = Rf_lcons( 
-		    Rf_install( "new" ), 
-		        Rf_cons( 
-		            Rf_mkString( klass.c_str() ), 
-		            R_NilValue
-		        )
-		    ) ;
-		setSEXP( Rcpp::internal::try_catch( call ) ) ;
+	    // using callback to R as apparently R_do_new_object always makes the same environment
+	    SEXP call = PROTECT( Rf_lang2( Rf_install( "new" ), Rf_mkString( klass.c_str() ) ) ) ;
+	    setSEXP( Rcpp::internal::try_catch( call ) ) ;
+	    UNPROTECT(1) ; // call
 	}
 	
 	void Reference::set( SEXP x) throw(not_reference) {
@@ -85,29 +80,25 @@ namespace Rcpp {
     SEXP Reference::FieldProxy::get() const {
     	// TODO: get the field  
     	
-    	SEXP call = ::Rf_lcons( 
+    	SEXP call = PROTECT( Rf_lang3( 
     	    R_DollarSymbol, 
-    	    Rf_cons( const_cast<Reference&>(parent).asSexp() , 
-    	        Rf_cons( 
-    	            Rf_mkString( field_name.c_str() ),
-    	            R_NilValue 
-    	            ) ) ) ;
-    	
+    	    const_cast<Reference&>(parent).asSexp(), 
+    	    Rf_mkString( field_name.c_str() )
+    	    ) ) ;
     	return Rcpp::internal::try_catch( call ) ;
+    	UNPROTECT(1) ;
     }
     
     void Reference::FieldProxy::set( SEXP x) const {
     	// TODO: set the field
-        SEXP call = ::Rf_lcons( 
-    	    Rf_install( "$<-") , 
-    	    Rf_cons( const_cast<Reference&>(parent).asSexp() , 
-    	        Rf_cons( 
-    	            Rf_mkString( field_name.c_str() ),
-    	            Rf_cons( 
-    	               x,
-    	               R_NilValue 
-    	            ) ) ) ) ;
-    	const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) );	            
+        SEXP call = PROTECT( Rf_lang4( 
+            Rf_install( "$<-"), 
+            const_cast<Reference&>(parent).asSexp(), 
+            Rf_mkString( field_name.c_str() ), 
+            x
+            ) ) ;
+        const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) );	
+        UNPROTECT(1) ;
     }
 
     Reference::FieldProxy Reference::field( const std::string& name) const {

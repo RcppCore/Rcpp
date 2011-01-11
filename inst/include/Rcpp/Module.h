@@ -237,7 +237,6 @@ public:
 	typedef std::vector<signed_method_class*> vec_signed_method ;
 	
 	S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
-        
 	    int n = m->size() ;
         Rcpp::LogicalVector voidness(n), constness(n) ;
         Rcpp::CharacterVector docstrings(n), signatures(n) ;
@@ -656,7 +655,7 @@ public:
 	    typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
 		vec_signed_method* v; 
 	    for( int i=0; i<n; i++, ++it){
-		    mnames[i] = it->first ;
+	        mnames[i] = it->first ;
 		    v = it->second ;
 		    res[i] = S4_CppOverloadedMethods<Class>( v , class_xp, it->first.c_str(), buffer ) ;
 		}

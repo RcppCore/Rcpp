@@ -52,13 +52,12 @@ namespace internal{
 
 template <typename T>
 SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
-	return Rf_cons( wrap(head), tail ) ;	
+	return Rf_list2( wrap(head), tail ) ;	
 }
 
 template <typename T>
 SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
-	SEXP x;
-	x = PROTECT( Rf_cons( wrap( head.object) , tail) ) ;
+	SEXP x = PROTECT( Rf_list2( wrap( head.object) , tail) ) ;
 	SET_TAG( x, Rf_install( head.name.c_str() ) ); 
 	UNPROTECT(1); 
 	return x; 	
