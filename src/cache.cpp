@@ -51,7 +51,10 @@ SEXP init_Rcpp_cache(){
     Rcpp_cache = PROTECT( Rf_allocVector( VECSXP, 10 ) );
 	
     // the Rcpp namespace
-    SEXP RCPP = PROTECT( Rf_eval( Rf_lcons( Rf_install("getNamespace"), Rf_cons( Rf_mkString("Rcpp") , R_NilValue) ), R_GlobalEnv ) ) ;
+    SEXP RCPP = PROTECT( Rf_eval( 
+        Rf_lang2( Rf_install("getNamespace"), Rf_mkString("Rcpp") ), 
+        R_GlobalEnv
+    ) ) ;
     SET_VECTOR_ELT( Rcpp_cache, 0, RCPP ) ;
 	reset_current_error() ;
 	// SET_VECTOR_ELT( Rcpp_cache, 4, Rf_install("rcpp_tryCatch") ) ;

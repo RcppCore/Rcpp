@@ -30,11 +30,11 @@ namespace internal{
 		
 		SEXP eval(){
 			SEXP xp = ( static_cast<VECTOR&>(*this) ).asSexp() ;
-			return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, R_NilValue) ) ) ;
+			return try_catch( Rf_lang2( Rf_install( "eval" ), xp ) ) ;
 		} ;
 		SEXP eval( const ::Rcpp::Environment& env ){
 			SEXP xp = ( static_cast<VECTOR&>(*this) ).asSexp() ;
-			return try_catch( ::Rf_lcons( ::Rf_install( "eval" ) , ::Rf_cons( xp, ::Rf_cons(env.asSexp(), R_NilValue)) ) ) ;
+			return try_catch( Rf_lang3( Rf_install( "eval" ), xp, env.asSexp() ) ) ;
 		} ;
 	} ;
 	
