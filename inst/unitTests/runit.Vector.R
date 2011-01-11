@@ -595,7 +595,8 @@ definitions <- function(){
 	                '
 	                    List input(x) ;
 	                    bool a = input[0] ;
-	                    return wrap(a) ;
+	                    int b = input[1] ;
+	                    return List::create(a, b) ;
 	                '
 	            )
 
@@ -1242,6 +1243,6 @@ test.ComplexVector.binary.operators <- function(){
 
 test.ComplexVector.binary.operators <- function(){
 	fun <- .rcpp.Vector$List_extract
-    checkEquals( fun(list(TRUE)), TRUE )
-    checkEquals( fun(list(FALSE)), FALSE )
+    checkEquals( fun(list(TRUE, 4)), list(TRUE, 4L) )
+    checkEquals( fun(list(FALSE, -4L)), list(FALSE,-4L) )
 }

@@ -265,9 +265,9 @@ namespace internal{
 				return ::Rcpp::as<U>(get()) ;
 			}
 			
-			operator bool() const {
-			    return ::Rcpp::as<bool>(get()) ;
-			}
+			// helping the compiler (not sure why it can't help itself)
+			operator bool() const { return ::Rcpp::as<bool>(get()) ; }
+			operator int() const { return ::Rcpp::as<int>(get()) ; }
 			
 			void swap(generic_proxy& other){
 				SEXP tmp = PROTECT(get()) ;
