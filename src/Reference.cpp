@@ -90,7 +90,7 @@ namespace Rcpp {
     }
     
     void Reference::FieldProxy::set( SEXP x) const {
-    	// TODO: set the field
+		PROTECT(x);
         SEXP call = PROTECT( Rf_lang4( 
             Rf_install( "$<-"), 
             const_cast<Reference&>(parent).asSexp(), 
@@ -98,7 +98,7 @@ namespace Rcpp {
             x
             ) ) ;
         const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) );	
-        UNPROTECT(1) ;
+        UNPROTECT(2) ;
     }
 
     Reference::FieldProxy Reference::field( const std::string& name) const {
