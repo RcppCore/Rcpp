@@ -1,3 +1,7 @@
+2011-01-13  Douglas Bates  <bates@stat.wisc.edu>
+
+	* src/Reference.cpp: Protect the value being set in Reference::FieldProxy::set
+
 2011-01-11  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/vector/string_proxy.h: fix implicit conversion to int, 
