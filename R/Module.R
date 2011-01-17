@@ -197,9 +197,6 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
 
         fields <- cpp_fields( CLASS, where )
         methods <- cpp_refMethods(CLASS, where)
-        cat( "calling setRefClass\n" )
-        print( fields )
-        print( methods )
         generator <- setRefClass( clname,
                                  fields = fields,
                                  contains = "C++Object",
