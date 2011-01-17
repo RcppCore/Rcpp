@@ -60,8 +60,11 @@ definitions <- function(){
 
                   ,"SlotProxy"=list(
                    signature(x="ANY", y="character"),
-                   'S4 o(x) ;
-					return DataFrame( o.slot( as<std::string>(y) )) ; ')
+                   '
+                   S4 o(x) ;
+                   std::string yy = as<std::string>( y ) ;
+					return DataFrame( o.slot( yy ) ) ;
+					')
 
                   ,"AttributeProxy"=list(
                    signature(x="ANY", y="character"),

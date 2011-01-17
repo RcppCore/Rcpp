@@ -136,6 +136,7 @@ inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
     UNPROTECT(1) ;
     return car ;
 }
+#include <Rcpp/lang.h>
 
 #include <Rcpp/complex.h>
 
