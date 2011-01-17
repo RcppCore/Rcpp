@@ -203,7 +203,6 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                                  methods = methods,
                                  where = where
                                  )
-        cat( " ... done\n" ) 
         # just to make codetools happy
         .self <- .refClassDef <- NULL
         generator$methods(initialize =
