@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
 // Environment.cpp: Rcpp R/C++ interface class library -- Environments
 //
@@ -23,48 +23,49 @@
 
 namespace Rcpp {
 
-	Environment::Environment() : RObject(R_NilValue){}
+    Environment::Environment() : RObject(R_NilValue){}
 
     Environment::Environment( SEXP x = R_GlobalEnv) throw(not_compatible) : RObject(x){
     	if( ! Rf_isEnvironment(x) ) {
-    		/* not an environment, but maybe convertible to one using 
-    		   as.environment, try that */
-    		SEXP res ;
-    		try{
-    			res = Evaluator::run( Rf_lang2(Rf_install("as.environment"), x ) ) ;
-    		} catch( const eval_error& ex){
-    			throw not_compatible( "cannot convert to environment"  ) ; 
-    		}
-    		setSEXP( res ) ;
+	    /* not an environment, but maybe convertible to one using as.environment, try that */
+	    SEXP res ;
+	    try {
+		SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
+		res = Evaluator::run( Rf_lang2(asEnvironmentSym, x ) ) ;
+	    } catch( const eval_error& ex){
+		throw not_compatible( "cannot convert to environment"  ) ; 
+	    }
+	    setSEXP( res ) ;
     	}
     }
 
     Environment::Environment( const std::string& name) throw(no_such_env) : RObject(R_EmptyEnv){
     	/* similar to matchEnvir@envir.c */
     	if( name == ".GlobalEnv" ) {
-    		setSEXP( R_GlobalEnv ) ;
+	    setSEXP( R_GlobalEnv ) ;
     	} else if( name == "package:base" ){
-    		setSEXP( R_BaseEnv ) ;
+	    setSEXP( R_BaseEnv ) ;
     	} else{
-    		SEXP res = R_NilValue ;
-    		try{
-    			res = Evaluator::run( 
-    				Rf_lang2( Rf_install("as.environment"), Rf_mkString(name.c_str()) ) ) ;
-    		} catch( const eval_error& ex){
-    			throw no_such_env(name) ;
-    		}
-    		setSEXP( res ) ;
+	    SEXP res = R_NilValue ;
+	    try{
+		SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
+		res = Evaluator::run(Rf_lang2( asEnvironmentSym, Rf_mkString(name.c_str()) ) ) ;
+	    } catch( const eval_error& ex){
+		throw no_such_env(name) ;
+	    }
+	    setSEXP( res ) ;
     	}
     }
     
     Environment::Environment(int pos) throw(no_such_env) : RObject(R_GlobalEnv){
-    	   SEXP res ;
-    	   try{
-    	   	   res =  Evaluator::run( Rf_lang2( Rf_install("as.environment"), Rf_ScalarInteger(pos) ) ) ;
-    	   } catch( const eval_error& ex){
-    	   	   throw no_such_env(pos) ;
-    	   }
-    	   setSEXP( res ) ;
+	SEXP res ;
+	try{
+	    SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
+	    res =  Evaluator::run( Rf_lang2( asEnvironmentSym, Rf_ScalarInteger(pos) ) ) ;
+	} catch( const eval_error& ex){
+	    throw no_such_env(pos) ;
+	}
+	setSEXP( res ) ;
     }
     
     Environment::Environment( const Environment& other ) throw() {
@@ -93,63 +94,62 @@ namespace Rcpp {
     }
     
     SEXP Environment::get( const std::string& name) const {
-    	SEXP res = Rf_findVarInFrame( m_sexp, Rf_install(name.c_str())  ) ;
+	SEXP nameSym = Rf_install(name.c_str()); 	// cannot be gc()'ed  once in symbol table
+    	SEXP res = Rf_findVarInFrame( m_sexp, nameSym ) ;
     	
     	if( res == R_UnboundValue ) return R_NilValue ;
     	
     	/* We need to evaluate if it is a promise */
     	if( TYPEOF(res) == PROMSXP){
-    		res = Rf_eval( res, m_sexp ) ;
+	    res = Rf_eval( res, m_sexp ) ;
     	}
     	return res ;
     }
     
     SEXP Environment::find( const std::string& name) const throw(binding_not_found) {
-    	SEXP res = Rf_findVar( Rf_install(name.c_str()), m_sexp ) ;
+	SEXP nameSym = Rf_install(name.c_str()); 	// cannot be gc()'ed  once in symbol table
+    	SEXP res = Rf_findVar( nameSym, m_sexp ) ;
     	
     	if( res == R_UnboundValue ) throw binding_not_found(name) ;
     	
     	/* We need to evaluate if it is a promise */
     	if( TYPEOF(res) == PROMSXP){
-    		res = Rf_eval( res, m_sexp ) ;
+	    res = Rf_eval( res, m_sexp ) ;
     	}
     	return res ;
     }
     
     bool Environment::exists( const std::string& name) const{
-    	SEXP res = Rf_findVarInFrame( m_sexp, Rf_install(name.c_str())  ) ;
+	SEXP nameSym = Rf_install(name.c_str()); 	// cannot be gc()'ed  once in symbol table
+    	SEXP res = Rf_findVarInFrame( m_sexp, nameSym  ) ;
     	return res != R_UnboundValue ;
     }
     
     bool Environment::assign( const std::string& name, SEXP x = R_NilValue) const throw(binding_is_locked){
     	if( exists( name) && bindingIsLocked(name) ) throw binding_is_locked(name) ;
-    	Rf_defineVar( Rf_install( name.c_str() ) , x, m_sexp );
+	SEXP nameSym = Rf_install(name.c_str()); 	// cannot be gc()'ed  once in symbol table
+    	Rf_defineVar( nameSym, x, m_sexp );
     	return true ;
     }
     
     bool Environment::remove( const std::string& name) throw(binding_is_locked,no_such_binding){
-    	    if( exists(name) ){
-    	    	    if( bindingIsLocked(name) ){
-    	    	    	    throw binding_is_locked(name) ;
-    	    	    } else{
-    	    	    	    /* unless we want to copy all of do_remove, 
-    	    	    	       we have to go back to R to do this operation */
-    	    	    	    SEXP call = PROTECT( Rf_lang2( 
-    	    	    	    	    Rf_install( ".Internal" ), 
-    	    	    	    	    Rf_lang4( 
-    	    	    	    	        Rf_install( "remove" ), 
-    	    	    	    	        Rf_mkString(name.c_str()), 
-    	    	    	    	        m_sexp, 
-    	    	    	    	        Rf_ScalarLogical( FALSE )
-    	    	    	    	    )
-    	    	    	    	    ) );
-    	    	    	    Rf_eval( call, R_GlobalEnv ) ;
-    	    	    	    UNPROTECT(1) ;
-    	    	    }
-    	    } else{
-    	    	throw no_such_binding(name) ;
-    	    }
-	    return true; // to make g++ -Wall happy
+	if( exists(name) ){
+	    if( bindingIsLocked(name) ){
+		throw binding_is_locked(name) ;
+	    } else{
+		/* unless we want to copy all of do_remove, 
+		   we have to go back to R to do this operation */
+		SEXP internalSym = Rf_install( ".Internal" );
+		SEXP removeSym = Rf_install( "remove" );
+		SEXP call = PROTECT( Rf_lang2(internalSym, Rf_lang4(removeSym, Rf_mkString(name.c_str()), 
+								    m_sexp, Rf_ScalarLogical( FALSE ))) );
+		Rf_eval( call, R_GlobalEnv ) ;
+		UNPROTECT(1) ;
+	    }
+	} else{
+	    throw no_such_binding(name) ;
+	}
+	return true; // to make g++ -Wall happy
     }
     
     bool Environment::isLocked() const{
@@ -158,12 +158,14 @@ namespace Rcpp {
     
     bool Environment::bindingIsActive(const std::string& name) const throw(no_such_binding) {
     	if( !exists( name) ) throw no_such_binding(name) ;
-    	return R_BindingIsActive(Rf_install(name.c_str()), m_sexp) ;
+	SEXP nameSym = Rf_install(name.c_str());	// cannot be gc()'ed  once in symbol table
+    	return R_BindingIsActive(nameSym, m_sexp) ;
     }
     
     bool Environment::bindingIsLocked(const std::string& name) const throw(no_such_binding) {
     	if( !exists( name) ) throw no_such_binding(name) ;
-    	return R_BindingIsLocked(Rf_install(name.c_str()), m_sexp) ;
+	SEXP nameSym = Rf_install(name.c_str());	// cannot be gc()'ed  once in symbol table
+    	return R_BindingIsLocked(nameSym, m_sexp) ;
     }
     
     void Environment::lock( bool bindings = false ) {
@@ -172,12 +174,14 @@ namespace Rcpp {
     
     void Environment::lockBinding(const std::string& name) throw(no_such_binding) {
     	if( !exists( name) ) throw no_such_binding(name) ;
-    	R_LockBinding( Rf_install( name.c_str() ), m_sexp ); 
+	SEXP nameSym = Rf_install(name.c_str());	// cannot be gc()'ed  once in symbol table
+    	R_LockBinding( nameSym, m_sexp ); 
     }
     
     void Environment::unlockBinding(const std::string& name) throw(no_such_binding) {
     	if( !exists( name) ) throw no_such_binding(name) ;
-    	R_unLockBinding( Rf_install( name.c_str() ), m_sexp );
+	SEXP nameSym = Rf_install(name.c_str());	// cannot be gc()'ed  once in symbol table
+    	R_unLockBinding( nameSym, m_sexp );
     }
     
     bool Environment::is_user_database() const {
@@ -206,9 +210,10 @@ namespace Rcpp {
     	
     	SEXP env = R_NilValue ;
     	try{
-    		env = Evaluator::run( Rf_lang2(Rf_install("getNamespace"), Rf_mkString(package.c_str()) ) ) ;
+	    SEXP getNamespaceSym = Rf_install("getNamespace");
+	    env = Evaluator::run( Rf_lang2(getNamespaceSym, Rf_mkString(package.c_str()) ) ) ;
     	} catch( const eval_error& ex){
-    		throw no_such_namespace( package  ) ; 
+	    throw no_such_namespace( package  ) ; 
     	}
     	return Environment( env ) ;
     }
@@ -233,21 +238,21 @@ namespace Rcpp {
     }
     
     void Environment::Binding::lock() {
-    	    env.lockBinding( name ) ;
+	env.lockBinding( name ) ;
     }
     
     void Environment::Binding::unlock() {
-    	    env.unlockBinding( name ) ;
+	env.unlockBinding( name ) ;
     }
     
     Environment::Binding& Environment::Binding::operator=( SEXP rhs ){
-    	    env.assign( name, rhs ) ;
-    	    return *this ;
+	env.assign( name, rhs ) ;
+	return *this ;
     }
     
     Environment::Binding& Environment::Binding::operator=( const Binding& rhs){
-    	    env.assign( name, rhs.env.get(rhs.name) ) ;
-    	    return *this ;
+	env.assign( name, rhs.env.get(rhs.name) ) ;
+	return *this ;
     }
 
     const Environment::Binding Environment::operator[]( const std::string& name) const{
@@ -259,13 +264,12 @@ namespace Rcpp {
     }
     
     Environment Environment::Rcpp_namespace() throw() {
-    	    return Rcpp::internal::get_Rcpp_namespace() ;
+	return Rcpp::internal::get_Rcpp_namespace() ;
     }
     
     Environment Environment::new_child(bool hashed) {
-    	    return Environment( Evaluator::run( 
-    	        Rf_lang3( Rf_install("new.env"), Rf_ScalarLogical(hashed), m_sexp )
-    	    ) );
+	SEXP newEnvSym = Rf_install("new.env");
+	return Environment( Evaluator::run(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), m_sexp )) );
     }
     
     
