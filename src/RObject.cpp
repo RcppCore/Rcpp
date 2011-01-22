@@ -129,9 +129,10 @@ bool RObject::hasAttribute( const std::string& attr) const {
 RObject::SlotProxy::SlotProxy( const RObject& v, const std::string& name) throw(no_such_slot) : 
 	parent(v), slot_name(name)
 {
-	if( !R_has_slot( v, Rf_install(name.c_str())) ){
-		throw no_such_slot() ; 
-	}
+    SEXP nameSym = Rf_install(name.c_str()); 		// cannot be gc()'ed  once in symbol table
+    if( !R_has_slot( v, nameSym) ){
+	throw no_such_slot() ; 
+    }
 }
 
 RObject::SlotProxy& RObject::SlotProxy::operator=(const SlotProxy& rhs){
@@ -141,31 +142,31 @@ RObject::SlotProxy& RObject::SlotProxy::operator=(const SlotProxy& rhs){
 
 
 SEXP RObject::SlotProxy::get() const {
-	return R_do_slot( parent, Rf_install( slot_name.c_str() ) ) ;	
+    SEXP slotSym = Rf_install( slot_name.c_str() );	// cannot be gc()'ed  once in symbol table
+    return R_do_slot( parent, slotSym ) ;	
 }
 
 void RObject::SlotProxy::set( SEXP x) const {
-	// the SEXP might change (.Data)
-	SEXP new_obj = PROTECT( R_do_slot_assign( 
-		parent, 
-		Rf_install( slot_name.c_str() ), 
-		x
-		) ) ;
-	const_cast<RObject&>(parent).setSEXP( new_obj ) ;
-	UNPROTECT(1) ;
+    SEXP slotnameSym = Rf_install( slot_name.c_str() );	// cannot be gc()'ed  once in symbol table
+    // the SEXP might change (.Data)
+    SEXP new_obj = PROTECT( R_do_slot_assign(parent, slotnameSym, x) ) ;
+    const_cast<RObject&>(parent).setSEXP( new_obj ) ;
+    UNPROTECT(1) ;
 }
 
 SEXP RObject::AttributeProxy::get() const {
-	return Rf_getAttrib( parent, Rf_install( attr_name.c_str() ) ) ;
+    SEXP attrnameSym = Rf_install( attr_name.c_str() );	// cannot be gc()'ed  once in symbol table
+    return Rf_getAttrib( parent, attrnameSym ) ;
 }
 
 void RObject::AttributeProxy::set(SEXP x) const{
+    SEXP attrnameSym = Rf_install( attr_name.c_str() );	// cannot be gc()'ed  once in symbol table
 #if RCPP_DEBUG_LEVEL > 0
-RCPP_DEBUG_1( "RObject::AttributeProxy::set() before = <%p>", parent.asSexp() ) ;
-SEXP res = Rf_setAttrib( parent, Rf_install(attr_name.c_str()), x ) ;
-RCPP_DEBUG_1( "RObject::AttributeProxy::set() after  = <%p>", res ) ;
+    RCPP_DEBUG_1( "RObject::AttributeProxy::set() before = <%p>", parent.asSexp() ) ;
+    SEXP res = Rf_setAttrib( parent, attrnameSym, x ) ;
+    RCPP_DEBUG_1( "RObject::AttributeProxy::set() after  = <%p>", res ) ;
 #else
-Rf_setAttrib( parent, Rf_install(attr_name.c_str()), x ) ;
+    Rf_setAttrib( parent, attrnameSym, x ) ;
 #endif
 }
 
