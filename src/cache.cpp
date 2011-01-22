@@ -28,20 +28,20 @@ void maybe_init() {
     if( ! Rcpp_cache_ready ) init_Rcpp_cache() ;
 }
 
-namespace Rcpp{
-    namespace internal{   
-    SEXP get_Rcpp_namespace(){ 
-        maybe_init() ; return VECTOR_ELT( Rcpp_cache , 0 ) ;
-    }
-    SEXP get_rcpptrycatch(){
-       // maybe_init() ; return VECTOR_ELT( Rcpp_cache, 4 ) ; 
-       return Rf_install("rcpp_tryCatch") ;
-    }                              
-    SEXP get_evalq(){
-        // maybe_init() ; return VECTOR_ELT( Rcpp_cache, 5 ) ;
-        return Rf_install("evalq");
-    }
-}
+namespace Rcpp {
+    namespace internal {   
+		SEXP get_Rcpp_namespace(){ 
+			maybe_init() ; return VECTOR_ELT( Rcpp_cache , 0 ) ;
+		}
+		SEXP get_rcpptrycatch(){
+			// maybe_init() ; return VECTOR_ELT( Rcpp_cache, 4 ) ; 
+			return Rf_install("rcpp_tryCatch") ; // maybe not worth assigning to SEXP
+		}                              
+		SEXP get_evalq(){
+			// maybe_init() ; return VECTOR_ELT( Rcpp_cache, 5 ) ;
+			return Rf_install("evalq");	// maybe not worth assigning to SEXP
+		}
+	}
 }
 
 // only used for debugging
@@ -49,12 +49,10 @@ SEXP get_rcpp_cache() { return Rcpp_cache ; }
 
 SEXP init_Rcpp_cache(){   
     Rcpp_cache = PROTECT( Rf_allocVector( VECSXP, 10 ) );
-	
+
     // the Rcpp namespace
-    SEXP RCPP = PROTECT( Rf_eval( 
-        Rf_lang2( Rf_install("getNamespace"), Rf_mkString("Rcpp") ), 
-        R_GlobalEnv
-    ) ) ;
+	SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
+    SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
     SET_VECTOR_ELT( Rcpp_cache, 0, RCPP ) ;
 	reset_current_error() ;
 	// SET_VECTOR_ELT( Rcpp_cache, 4, Rf_install("rcpp_tryCatch") ) ;
