@@ -5,6 +5,8 @@
 	* src/RObject.cpp: idem
 	* src/Symbol.cpp: idem
 
+	* inst/doc/Rcpp.bib: Added SoDA (some time ago)
+
 2011-01-13  Douglas Bates  <bates@stat.wisc.edu>
 
 	* src/Reference.cpp: Protect the value being set in Reference::FieldProxy::set
