@@ -36,9 +36,10 @@ namespace Rcpp {
 	}
 	
 	Function::Function(const std::string& name) throw(no_such_function) : RObject() {
-		SEXP x = PROTECT( Rf_findFun( Rf_install(name.c_str()), R_GlobalEnv ) ) ;
-		setSEXP( x ) ;
-		UNPROTECT(1) ;
+	    SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
+	    SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
+	    setSEXP( x ) ;
+	    UNPROTECT(1) ;
 	}
 	
 	Function::Function(const Function& other) : RObject(){
