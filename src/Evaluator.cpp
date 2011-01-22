@@ -36,21 +36,21 @@ namespace Rcpp {
 	SEXP res = PROTECT( Rf_eval( call, RCPP ) );
 	
 	/* was there an error ? */
-	SEXP err_call = PROTECT( Rf_lang1( Rf_install("errorOccured") ) ) ;
+	SEXP errorOccuredSym = Rf_install("errorOccured");
+	SEXP err_call = PROTECT( Rf_lang1( errorOccuredSym ) ) ;
 	SEXP err_res  = PROTECT( Rf_eval( err_call, RCPP ) ) ;
 	int error = LOGICAL( err_res )[0];
 	UNPROTECT(2) ;
 	
-	if( error ){
-		SEXP err_msg = PROTECT( Rf_eval( 
-			Rf_lang1( Rf_install("getCurrentErrorMessage")), 
-			RCPP ) );
-		std::string message = CHAR(STRING_ELT(err_msg,0)) ;
-		UNPROTECT( 3 ) ;
-		throw eval_error(message) ;
+	if( error ) {
+	    SEXP getCurrentErrorMessageSym = Rf_install("getCurrentErrorMessage");
+	    SEXP err_msg = PROTECT( Rf_eval( Rf_lang1(getCurrentErrorMessageSym),  RCPP ) );
+	    std::string message = CHAR(STRING_ELT(err_msg,0)) ;
+	    UNPROTECT( 3 ) ;
+	    throw eval_error(message) ;
 	} else {
-		UNPROTECT(2) ;
-		return res ;
+	    UNPROTECT(2) ;
+	    return res ;
 	}
     }
     
