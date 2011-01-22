@@ -1,6 +1,7 @@
 2011-01-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Function.cpp: Assign Rf_install() result to local SEXP
+	* src/cache.cpp: Assign Rf_install() result to local SEXP
+	* src/Function.cpp: idem
 	* src/RObject.cpp: idem
 	* src/Symbol.cpp: idem
 
