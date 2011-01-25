@@ -1,3 +1,8 @@
+2011-01-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/DataFrame_generated.h: Assign Rf_install() result
+	to local SEXP (by modifying generator script creating the file)
+
 2011-01-25  Douglas Bates  <bates@stat.wisc.edu>
 
 	* src/exceptions.cpp: Assign Rf_install() result to local SEXP
