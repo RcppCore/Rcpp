@@ -121,9 +121,10 @@ void forward_uncaught_exceptions_to_r(){
     	exception_what = "unrecognized exception" ;
     }
     
+    SEXP cppExceptSym = Rf_install("cpp_exception"); 	// cannot cause a gc() once in symbol table
     Rf_eval( 
 	    Rf_lang3( 
-		     Rf_install("cpp_exception"), 
+		cppExceptSym,
 		     Rf_mkString(exception_what.c_str()), 
 		     has_exception_class ? Rf_mkString(exception_class.c_str()) : R_NilValue), 
 		R_FindNamespace(Rf_mkString("Rcpp"))
@@ -144,10 +145,11 @@ void forward_exception_to_r( const std::exception& ex){
 		} else{
 			exception_class = name ; /* just using the mangled name */
 		}
-   }
-   Rf_eval( 
+	}
+	SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
+	Rf_eval( 
 	    Rf_lang3( 
-		     Rf_install("cpp_exception"), 
+		cppExceptSym,
 		     Rf_mkString(exception_what.c_str()), 
 		     Rf_mkString(exception_class.c_str())
 		), R_FindNamespace(Rf_mkString("Rcpp"))
@@ -155,18 +157,20 @@ void forward_exception_to_r( const std::exception& ex){
 }
 #else
 void forward_uncaught_exceptions_to_r(){
+	SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
 	Rf_eval( 
 	    Rf_lang3( 
-		     Rf_install("cpp_exception"), 
+		cppExceptSym,
 		     Rf_mkString("exception : we don't know how to get the exception message with your compiler, patches welcome"), 
 		     R_NilValue), 
 		R_FindNamespace(Rf_mkString("Rcpp"))
 	     ) ; 
 }
 void forward_exception_to_r( const std::exception& ex){
+	SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
 	Rf_eval( 
 	    Rf_lang3( 
-		     Rf_install("cpp_exception"), 
+		cppExceptSym,
 		     Rf_mkString(ex.what()), 
 		     R_NilValue), 
 		R_FindNamespace(Rf_mkString("Rcpp"))
