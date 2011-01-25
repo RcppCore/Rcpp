@@ -87,7 +87,7 @@ namespace Rcpp {
     }
     
     template<> inline SEXP wrap_extra_steps<Rcpp::Date>( SEXP x ){
-    	Rf_setAttrib( x, Rf_install("class"), Rf_mkString( "Date" ) ) ;
+    	Rf_setAttrib( x, R_ClassSymbol, Rf_mkString( "Date" ) ) ;
     	return x ;
     }
 	
