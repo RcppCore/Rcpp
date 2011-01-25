@@ -6,6 +6,8 @@
 	* inst/include/Rcpp/DottedPair.h: idem
 	* inst/include/Rcpp/grow.h: idem
 	* inst/include/Rcpp/Module.h: idem
+	* inst/include/Rcpp/vector/eval_methods.h: idem
+	* inst/include/Rcpp/vector/Vector.h: idem
 
 2011-01-25  Douglas Bates  <bates@stat.wisc.edu>
 
