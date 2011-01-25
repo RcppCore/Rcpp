@@ -1,5 +1,10 @@
 2011-01-25  Douglas Bates  <bates@stat.wisc.edu>
 
+	* src/exceptions.cpp: Assign Rf_install() result to local SEXP
+	* src/Evaluator.cpp: idem
+	* src/Reference.cpp: idem
+	* src/S4.cpp: idem
+
 	* inst/include/Rcpp/Date.h: Use predefined symbol.
 
 2011-01-22  Dirk Eddelbuettel  <edd@debian.org>
