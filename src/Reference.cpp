@@ -54,7 +54,8 @@ namespace Rcpp {
 	
 	Reference::Reference( const std::string& klass ) throw(S4_creation_error,reference_creation_error) : S4(){
 	    // using callback to R as apparently R_do_new_object always makes the same environment
-	    SEXP call = PROTECT( Rf_lang2( Rf_install( "new" ), Rf_mkString( klass.c_str() ) ) ) ;
+		SEXP newSym = Rf_install("new");
+	    SEXP call = PROTECT( Rf_lang2( newSym, Rf_mkString( klass.c_str() ) ) ) ;
 	    setSEXP( Rcpp::internal::try_catch( call ) ) ;
 	    UNPROTECT(1) ; // call
 	}
@@ -91,8 +92,9 @@ namespace Rcpp {
     
     void Reference::FieldProxy::set( SEXP x) const {
 		PROTECT(x);
+		SEXP dollarGetsSym = Rf_install( "$<-");
         SEXP call = PROTECT( Rf_lang4( 
-            Rf_install( "$<-"), 
+								 dollarGetsSym,
             const_cast<Reference&>(parent).asSexp(), 
             Rf_mkString( field_name.c_str() ), 
             x
