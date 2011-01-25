@@ -63,8 +63,9 @@ namespace internal{
    defined */
     SEXP convert_using_rfunction(SEXP x, const char* const fun) throw(::Rcpp::not_compatible) {
     	SEXP res = R_NilValue ;
-    	try{    
-    		res = Evaluator::run( Rf_lang2( Rf_install(fun), x ) ) ;
+    	try{
+	    SEXP funSym = Rf_install(fun);
+    		res = Evaluator::run( Rf_lang2( funSym, x ) ) ;
     	} catch( eval_error& e){
     		throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
     	}

@@ -73,17 +73,19 @@ namespace Rcpp {
 			// mimic the R call: 
 			// names( slot( getClassDef( cl ), "contains" ) )
 			// 
-			CharacterVector res = internal::try_catch( 
-				Rf_lang2(
-					R_NamesSymbol,
-					Rf_lang3( 
-						Rf_install( "slot" ),
-						Rf_lang2( Rf_install( "getClassDef"), cl ), 
-						Rf_mkString( "contains" )
-					) 
-				)
+		    SEXP slotSym = Rf_install( "slot" ), // cannot cause gc() once in symbol table
+			getClassDefSym = Rf_install( "getClassDef" );
+		    CharacterVector res = internal::try_catch( 
+			Rf_lang2(
+			    R_NamesSymbol,
+			    Rf_lang3( 
+				slotSym,
+				Rf_lang2( getClassDefSym, cl ), 
+				Rf_mkString( "contains" )
+				) 
+			    )
 			) ;
-			return any( res.begin(), res.end(), clazz.c_str() ) ;
+		    return any( res.begin(), res.end(), clazz.c_str() ) ;
 		} catch( ... ){
 			// we catch eval_error and also not_compatible when 
 			// contains is NULL
