@@ -1,3 +1,7 @@
+2011-02-01  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/vector/Vector.h: extra PROTECT'ion in push_back__impl
+
 2011-01-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/DataFrame_generated.h: Assign Rf_install() result
