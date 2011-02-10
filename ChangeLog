@@ -1,3 +1,9 @@
+2011-02-10  Douglas Bates  <bates@stat.wisc.edu>
+
+	* inst/include/Rcpp/XPtr.h: Replace calls to EXTPTR_PTR with
+	R_ExternalPtrAddr.  The distinction is important when R is
+	compiled with PROTECTCHECK enabled.
+
 2011-02-01  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/vector/Vector.h: extra PROTECT'ion in several places
