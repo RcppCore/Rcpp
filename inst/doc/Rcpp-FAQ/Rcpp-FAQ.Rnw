@@ -194,7 +194,7 @@ Dirk's older 'Intro to HPC with R' tutorial slides).  It is still not
 recommended as there are tools and automation mechanisms that can do the work
 for you.
 
-An alternative, which might work better on Windows is to use the 
+An alternative, which might work better on Windows is to use the
 unexported function \texttt{Rcpp:::SHLIB} :
 
 <<lang=bash>>=
@@ -218,6 +218,44 @@ function \texttt{Rcpp:::LdFlags()}.
 If and when \texttt{LinkingTo} changes and lives up to its name, we will be
 sure to adapt \pkg{Rcpp} as well.
 
+
+\subsection{Does \pkg{Rcpp} work on windows}
+
+Yes of course. See the Windows binaries provided by CRAN.
+
+
+\subsection{Can I use \pkg{Rcpp} with Visual Studio}
+
+Not a chance.
+
+And that is not because we are meanies but because \proglang{R} and Visual
+Studio simply do not get along. As \pkg{Rcpp} is all about extending
+\proglang{R} with \proglang{C++} interfaces, we are bound by the available
+toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
+complain to its vendor if you are still upset.
+
+\subsection{Does \pkg{Rcpp} work on solaris/suncc}
+
+Yes.
+
+\subsection{Does \pkg{Rcpp} work with Revolution R}
+
+We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
+with the compilers used by Revolution R.
+
+\subsection{Is it related to CXXR}
+
+CXXR is an ambitious project that aims to totally refactor the \proglang{R}
+interpreter in \proglang{C++}. There are a few similaritites with \pkg{Rcpp}
+but the projects are unrelated.
+
+CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
+but they do it in very different ways.
+
+\section{Examples}
+
+The following questions were asked on the \texttt{rcpp-devel} mailing list,
+which is generally the best place to ask questions.
 
 \subsection{Can I use templates with \pkg{Rcpp} and \pkg{inline} ? }
 
@@ -260,41 +298,6 @@ ex_highlight( "templateUse.R" )
 unlink("templateUse.R")
 @
 
-
-\subsection{Does \pkg{Rcpp} work on windows}
-
-Yes of course. See the Windows binaries provided by CRAN.
-
-
-\subsection{Can I use \pkg{Rcpp} with Visual Studio}
-
-Not a chance.
-
-And that is not because we are meanies but because \proglang{R} and Visual
-Studio simply do not get along. As \pkg{Rcpp} is all about extending
-\proglang{R} with \proglang{C++} interfaces, we are bound by the available
-toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
-complain to its vendor if you are still upset.
-
-\subsection{Does \pkg{Rcpp} work on solaris/suncc}
-
-Yes.
-
-\subsection{Does \pkg{Rcpp} work with Revolution R}
-
-We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
-with the compilers used by Revolution R.
-
-\subsection{Is it related to CXXR}
-
-CXXR is an ambitious project that aims to totally refactor the \proglang{R}
-interpreter in \proglang{C++}. There are a few similaritites with \pkg{Rcpp}
-but the projects are unrelated.
-
-CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
-but they do it in very different ways.
-
-\section{API}
 
 \subsection{Can I do matrix algebra with \pkg{Rcpp} ? }
 
@@ -361,6 +364,52 @@ are provided on \href{http://arma.sourceforge.net/speed.html}{the Armadillo webs
 It should be noted that code below depends on the version \texttt{0.3.5} of
 \pkg{inline} and the version \texttt{0.2.2} of \pkg{RcppArmadillo}
 
+\subsection{Can I use NA and Inf with \pkg{Rcpp} ? }
+
+\begin{quote}
+  \emph{Can I call functions defined in the Rmath header file and the
+    standalone math library for R--as for example the random number generators?}
+\end{quote}
+
+Yes, of course. This math library exports a subset of R, but \pkg{Rcpp} has
+access to much more.  Here is another simple example. Note how we have to use
+and instance of the \texttt{RNGScope} class to set and re-set the
+random-number generator. This also illustrates Rcpp sugar as we are using a
+vectorised call to \texttt{rnorm}. Moreover, because the RNG is reset, the
+two calls result in the same random draws. If we wanted to control the draws,
+we could explicitly set the set after the \texttt{RNGScope} object has been
+instantiated.
+
+<<>>=
+fx <- cxxfunction(signature(),
+                  'RNGScope();
+                   return rnorm(5, 0, 100);',
+                  plugin="Rcpp")
+fx()
+fx()
+@
+
+\subsection{Can I use NA and Inf with \pkg{Rcpp} ? }
+
+\begin{quote}
+  \emph{R knows about NA and Inf. How do I use them from C++?}
+\end{quote}
+
+Yes, see the following example:
+
+<<>>=
+src <- 'Rcpp::NumericVector v(4);
+        v[0] = R_NegInf;  // -Inf
+        v[1] = NA_REAL;   // NA
+        v[2] = R_PosInf;  // Inf
+        v[3] = 42;        // see the Hitchhiker Guide
+        return Rcpp::wrap(v);'
+fun <- cxxfunction(signature(), src, plugin="Rcpp")
+fun()
+@
+
+
+\section{Support}
 
 \subsection{Is the API documented ? }
 
@@ -381,7 +430,6 @@ cover many possible uses of the \pkg{Rcpp} API.
 We are always on the look for more coverage in our testing. Please let us know
 if something has not been tested enough.
 
-\section{Support}
 
 \subsection{Where can I ask further questions ?}
 
