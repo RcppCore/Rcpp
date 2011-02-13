@@ -739,9 +739,16 @@ extern "C" SEXP _rcpp_module_boot_##name(){                          \
 }                                                                    \
 void _rcpp_module_##name##_init()
 
-#define LOAD_RCPP_MODULE(NAME) 							\
-    SEXP moduleSym = Rf_install("Module");					\
-    Rf_eval( Rf_lang2( moduleSym, _rcpp_module_boot_##NAME() ), R_GlobalEnv )
+// helper function to cache the result of Rf_install("Module"): once
+// it is allocated and in the symbol table it is safe from gc
+inline SEXP getModuleSym() {
+    static SEXP moduleSym = NULL;
+    if (moduleSym == NULL) {
+	moduleSym = Rf_install("Module");
+    }
+    return moduleSym;
+}
+#define LOAD_RCPP_MODULE(NAME) Rf_eval( Rf_lang2( getModuleSym(), _rcpp_module_boot_##NAME() ), R_GlobalEnv )
 
 
 #endif

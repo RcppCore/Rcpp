@@ -1,3 +1,12 @@
+2011-02-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Module.h: Cache return of Rf_install("Module") in
+	an inline helper function used by the LOAD_RCPP_MODULE macro
+
+2011-02-11  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added two more examples
+
 2011-02-10  Douglas Bates  <bates@stat.wisc.edu>
 
 	* inst/include/Rcpp/XPtr.h: Replace calls to EXTPTR_PTR with
