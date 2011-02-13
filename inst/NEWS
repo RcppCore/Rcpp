@@ -1,10 +1,25 @@
 0.9.1   2011-..-..
 
+    o   A number of internal changes to the memory allocation / protection of
+        temporary objects were made---with a heartfelt "Thank You!" to both
+        Doug Bates for very persistent debugging of Rcpp modules code, and to
+        Luke Tierney who added additional memory allocation debugging tools
+        to R-devel (which will be in R 2.13.0 and may also be in R 2.12.2)
+	
     o   Removed another GNU Make-specific variable from src/Makevars in order
         to make the build more portable; this was noticed on FreeBSD
 
     o   On *BSD, do not try to compute a stack trace but provide file and
         line number (which is the same behaviour as implemented in Windows)
+
+    o   Fixed an int conversion bug reported by Daniel Sabanes Bove on r-devel,
+        added unit test as well
+    
+    o   Added unit tests for complex-typed vectors (thanks to Christian Gunning)
+    
+    o   Expanded the Rcpp-quickref vignette (with thanks to Christian Gunning)
+
+    o   Additional examples were added to the Rcpp-FAQ vignette
 
 0.9.0   2010-12-19
 
