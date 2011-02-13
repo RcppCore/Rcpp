@@ -741,8 +741,8 @@ void _rcpp_module_##name##_init()
 
 // helper function to cache the result of Rf_install("Module"): once
 // it is allocated and in the symbol table it is safe from gc
-inline SEXP getModuleSym() {
-    static SEXP moduleSym = NULL;
+static SEXP moduleSym = NULL;
+static SEXP getModuleSym() {
     if (moduleSym == NULL) {
 	moduleSym = Rf_install("Module");
     }
