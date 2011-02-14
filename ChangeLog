@@ -1,3 +1,10 @@
+2011-02-14  Dirk Eddelbuettel  <edd@debian.org>
+
+ 	* DESCRIPTION: Release 0.9.1
+	* inst/NEWS: Release 0.9.1
+	* inst/include/Rcpp/config.h: Release 0.9.1
+        * debian/*: Similarly updated for new release to Debian
+
 2011-02-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Module.h: Cache return of Rf_install("Module") in
