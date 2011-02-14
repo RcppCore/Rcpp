@@ -1,4 +1,4 @@
-0.9.1   2011-..-..
+0.9.1   2011-02-14
 
     o   A number of internal changes to the memory allocation / protection of
         temporary objects were made---with a heartfelt "Thank You!" to both

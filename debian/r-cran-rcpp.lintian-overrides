@@ -62,3 +62,4 @@ r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/examples/Convol
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/examples/functionCallback/buildAndRun.sh
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.Module.client.package.R
 r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.modref.R
+r-cran-rcpp: script-not-executable ./usr/lib/R/site-library/Rcpp/unitTests/runit.support.R
