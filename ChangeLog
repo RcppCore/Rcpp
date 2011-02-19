@@ -1,3 +1,8 @@
+2011-02-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added three more setup-related
+	questions in the first section following another rcpp-devel question
+
 2011-02-14  Dirk Eddelbuettel  <edd@debian.org>
 
  	* DESCRIPTION: Release 0.9.1

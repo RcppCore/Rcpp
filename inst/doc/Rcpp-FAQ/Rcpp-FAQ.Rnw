@@ -100,9 +100,72 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
 
 \subsection{How do I get started ?}
 
+Please execute the following command in \proglang{R}
+
 <<eval=FALSE>>=
 vignette( "Rcpp-introduction" )
 @
+
+\noindent to access the vignette which provides a detailed introduction.
+
+\subsection{What do I need ?}
+
+Obviously, \proglang{R} must be installed. \pkg{Rcpp} provides a
+\proglang{C++} API as an extension to the \proglang{R} system.  As such, it
+is bound by the choices made by \proglang{R} and is also influenced by how
+\proglang{R} is configured.
+
+In general, the standard environment for building a CRAN package from source
+(even when it contains \proglang{C} or \proglang{C++} code) is required. This
+means one needs:
+\begin{itemize}
+\item a development environment with a suitable compiler (see
+  below), header files and required libraries;
+\item \proglang{R} should be built in a way that permits linking and possibly
+  embedding of \proglang{R}; this is typically ensured by the
+  \texttt{--enable-shared-lib} option;
+\item standard development tools such as \texttt{make} etc.
+\end{itemize}
+
+
+\subsection{What compiler can I use?}
+
+On almost all platforms, the GNU Compiler Collection (or \texttt{gcc}, which
+is also the name of its \proglang{C} language compiler) has to be used along
+with the corresponding \texttt{g++} compiler for the \proglang{C++} language.
+A minimal suitable version is a final 4.2.* release; earlier 4.2.* were
+lacking some \proglang{C++} features. Generally speaking, and as of early
+2011, the default compilers on all the common platforms are suitable.
+
+Specific per-platform notes:
+\begin{description}
+  \item[Windows] users need the \texttt{Rtools} package from the site maintained by
+    Duncan Murdoch which contains all the required tools in a single package;
+    complete instructions specific to Windows are in the `R Administration'
+    manual \citep[Appendix D]{R:Administration}.
+  \item[OS X] users, as noted in the `R Administration' manual \citep[Appendix
+    C.4]{R:Administration}, need to install the Apple Developer Tools
+    (\textsl{e.g.}, \texttt{Xcode}) (as well as \texttt{gfortran} if \proglang{R} or
+    Fortran-using packages are to be built).
+  \item[Linux] user need to install the standard developement packages. Some
+    distributions provide helper packages which pull in all the required
+    packages; the \texttt{r-base-dev} package on Debian and Ubuntu is an example.
+\end{description}
+
+
+\subsection{What other packages are useful?}
+
+Additional packages that we have found useful are
+
+\begin{description}
+\item[\pkg{inline}] which is invaluable for direct compilation, linking and loading
+  of short code snippets, and used throughout this book too;
+\item[\pkg{RUnit}] is used for unit testing; the package is recommended and will be needed to re-run
+  some of our tests but it is not strictly required;
+\item[\pkg{rbenchmark}] to run simple timing comparisons and benchmarks; it is also
+  recommended but not required.
+\end{description}
+
 
 \section{Compiling and Linking}
 
