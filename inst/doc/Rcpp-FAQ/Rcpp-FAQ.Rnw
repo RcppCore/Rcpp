@@ -159,7 +159,7 @@ Additional packages that we have found useful are
 
 \begin{description}
 \item[\pkg{inline}] which is invaluable for direct compilation, linking and loading
-  of short code snippets, and used throughout this book too;
+  of short code snippets;
 \item[\pkg{RUnit}] is used for unit testing; the package is recommended and will be needed to re-run
   some of our tests but it is not strictly required;
 \item[\pkg{rbenchmark}] to run simple timing comparisons and benchmarks; it is also
