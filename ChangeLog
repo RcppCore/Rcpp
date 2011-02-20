@@ -1,3 +1,7 @@
+2011-02-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added RcppArmadillo example
+
 2011-02-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added three more setup-related

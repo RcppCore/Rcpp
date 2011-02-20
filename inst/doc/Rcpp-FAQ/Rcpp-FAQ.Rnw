@@ -472,6 +472,31 @@ fun()
 @
 
 
+\subsection{Can I easily multiply matrices ? }
+
+\begin{quote}
+  \emph{Can I multiply matrices easily?}
+\end{quote}
+
+Yes, via the \pkg{RcppArmadillo} package which builds upon \pkg{Rcpp} and the
+wonderful Armadillo library at \url{http://arma.sf.net}:
+
+<<eval=FALSE>>=
+txt <- 'arma::mat Am = Rcpp::as< arma::mat >(A);
+        arma::mat Bm = Rcpp::as< arma::mat >(B);
+        return Rcpp::wrap( Am * Bm );'
+mmult <- cxxfunction(signature(A="numeric", B="numeric"),
+                     body=txt, plugin="RcppArmadillo")
+A <- matrix(1:9, 3, 3)
+B <- matrix(9:1, 3, 3)
+C <- mmult(A, B)
+@
+% < < echo=FALSE,print=FALSE > > =
+% A <- matrix(1:9, 3, 3)
+% B <- matrix(9:1, 3, 3)
+% A %*% B
+% @
+
 \section{Support}
 
 \subsection{Is the API documented ? }
