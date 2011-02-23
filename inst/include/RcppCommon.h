@@ -33,6 +33,9 @@
 #ifdef __clang__
 #define GOOD_COMPILER_FOR_RCPP
 #endif
+#ifdef __INTEL_COMPILER
+#define GOOD_COMPILER_FOR_RCPP
+#endif
 
 #ifndef GOOD_COMPILER_FOR_RCPP
 # error "This compiler is not supported"
@@ -84,6 +87,17 @@ namespace Rcpp{
         #define IS_GCC_450_OR_LATER
     #endif
 #endif
+
+#ifdef __INTEL_COMPILER
+    // This is based on an email by Alexey Stukalov who tested 
+    // Intel Compiler 12.0 and states that is does support Cxx0x 
+    // or even TR1 (by default; maybe there are options?)
+    #undef HAS_VARIADIC_TEMPLATES
+    #undef HAS_TR1
+    #undef HAS_TR1_UNORDERED_MAP
+    #undef HAS_TR1_UNORDERED_SET
+#endif
+
 
 #include <iterator>
 #include <exception>
