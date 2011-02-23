@@ -1,6 +1,17 @@
-0.9.2   2011-0x-yz
+0.9.2   2011-02-23
 
-    o   Three additional setup questions were added to the Rcpp-FAQ vignette
+    o   The unitTest runit.Module.client.package.R is now skipped on older OS
+        X releases as it triggers a bug with g++ 4.2.1 or older; OS X 10.6 is
+        fine but as it no longer support ppc we try to accomodate 10.5 too
+        Thanks to Simon Urbankek for pinning this down and Baptiste Auguie
+        and Ken Williams for additonal testing 
+
+    o   RcppCommon.h now recognises the Intel Compiler thanks to a short
+        patch by Alexey Stukalov; this turns off Cxx0x and TR1 features too
+
+    o   Three more setup questions were added to the Rcpp-FAQ vignette
+
+    o   One question about RcppArmadillo was added to the Rcpp-FAQ vignette
 
 0.9.1   2011-02-14
 

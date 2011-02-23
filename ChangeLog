@@ -1,23 +1,45 @@
+2011-02-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.2
+        * inst/NEWS: Release 0.9.2
+        * inst/include/Rcpp/config.h: Release 0.9.2
+        * debian/*: Similarly updated for new release to Debian
+
+        * inst/include/RcppCommon.h: Apply patch by Alexey Stukalov to enable
+        basic Intel Compiler support without Cxx0x or TR1 features
+
+        * inst/THANKS: Added some Thank You! to Baptiste, Alexey and Ken
+
+        * inst/include/Rcpp/Module.h: Minor reworking of module loading
+        macro to get rid of one g++ warning
+
+2011-02-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/runit.Module.client.package.R: Add a test for OS X
+        10.5.* or older and do not execute the test here as g++ 4.2.1 balks
+        at some of the Rcpp modules code. Thanks to Simon Urbankek for
+        pinning this down and Baptiste Auguie for additonal testing.
+
 2011-02-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added RcppArmadillo example
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added RcppArmadillo example
 
 2011-02-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added three more setup-related
-	questions in the first section following another rcpp-devel question
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added three more setup-related
+        questions in the first section following another rcpp-devel question
 
 2011-02-14  Dirk Eddelbuettel  <edd@debian.org>
 
- 	* DESCRIPTION: Release 0.9.1
-	* inst/NEWS: Release 0.9.1
-	* inst/include/Rcpp/config.h: Release 0.9.1
+        * DESCRIPTION: Release 0.9.1
+        * inst/NEWS: Release 0.9.1
+        * inst/include/Rcpp/config.h: Release 0.9.1
         * debian/*: Similarly updated for new release to Debian
 
 2011-02-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Module.h: Cache return of Rf_install("Module") in
-	a static helper function used by the LOAD_RCPP_MODULE macro
+        * inst/include/Rcpp/Module.h: Cache return of Rf_install("Module") in
+        a static helper function used by the LOAD_RCPP_MODULE macro
 
 2011-02-11  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -25,24 +47,24 @@
 
 2011-02-10  Douglas Bates  <bates@stat.wisc.edu>
 
-	* inst/include/Rcpp/XPtr.h: Replace calls to EXTPTR_PTR with
-	R_ExternalPtrAddr.  The distinction is important when R is
-	compiled with PROTECTCHECK enabled.
+        * inst/include/Rcpp/XPtr.h: Replace calls to EXTPTR_PTR with
+        R_ExternalPtrAddr.  The distinction is important when R is
+        compiled with PROTECTCHECK enabled.
 
 2011-02-01  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h: extra PROTECT'ion in several places
+        * inst/include/Rcpp/vector/Vector.h: extra PROTECT'ion in several places
 
 2011-01-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/DataFrame_generated.h: Assign Rf_install() result
-	to local SEXP (by modifying generator script creating the file)
-	* inst/include/Rcpp/DataFrame.h: Assign Rf_install() result to local SEXP
-	* inst/include/Rcpp/DottedPair.h: idem
-	* inst/include/Rcpp/grow.h: idem
-	* inst/include/Rcpp/Module.h: idem
-	* inst/include/Rcpp/vector/eval_methods.h: idem
-	* inst/include/Rcpp/vector/Vector.h: idem
+        * inst/include/Rcpp/DataFrame_generated.h: Assign Rf_install() result
+        to local SEXP (by modifying generator script creating the file)
+        * inst/include/Rcpp/DataFrame.h: Assign Rf_install() result to local SEXP
+        * inst/include/Rcpp/DottedPair.h: idem
+        * inst/include/Rcpp/grow.h: idem
+        * inst/include/Rcpp/Module.h: idem
+        * inst/include/Rcpp/vector/eval_methods.h: idem
+        * inst/include/Rcpp/vector/Vector.h: idem
 
 2011-01-25  Douglas Bates  <bates@stat.wisc.edu>
 
