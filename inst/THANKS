@@ -1,6 +1,7 @@
 
 In alphabetical order:
 
+Baptiste Auguie         for additional OS X testing
 Laurent Gautier         for helpful discussions on R internals
 Alistair Gee            for a patch making ColDatum more robust
 Christian Gunning       for a documentation + unit tests patches and reporting bugs
@@ -13,5 +14,7 @@ David Reiss             for the first-ever contributed patch (Rcpp*View)
 Brian Ripley            for help with Win64 + Solaris build issues
 Dominick Samperi        for starting what is now in the RcppClassic package
 Oleg Sklyar             for the incredibly cool inline package
+Alexey Stukalov         for a support enabling Intel Compiler 12.0 support
 Luke Tierney            for helpful discussions on R internals
 Simon Urbanek           for help on OS X build issues and with R internals
+Ken Williams            for additional OS X testing
