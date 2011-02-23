@@ -739,17 +739,22 @@ extern "C" SEXP _rcpp_module_boot_##name(){                          \
 }                                                                    \
 void _rcpp_module_##name##_init()
 
-// helper function to cache the result of Rf_install("Module"): once
-// it is allocated and in the symbol table it is safe from gc
-static SEXP moduleSym = NULL;
-static SEXP getModuleSym() {
-    if (moduleSym == NULL) {
-	moduleSym = Rf_install("Module");
-    }
-    return moduleSym;
-}
-#define LOAD_RCPP_MODULE(NAME) Rf_eval( Rf_lang2( getModuleSym(), _rcpp_module_boot_##NAME() ), R_GlobalEnv )
+// silly little dance to suppress a 'defined but not used variable' warning
+#ifdef __GNUC__
+  #define VARIABLE_IS_NOT_USED __attribute__ ((unused))
+#else
+  #define VARIABLE_IS_NOT_USED
+#endif
 
+// static variable to hold Rf_install symbol to prevent it from being gc'ed
+static VARIABLE_IS_NOT_USED SEXP moduleSym = NULL;
+
+// helper macro to cache the result of Rf_install("Module"): once
+// it is allocated and in the symbol table it is safe from gc
+#define GET_MODULE_SYM    ( moduleSym == NULL ? moduleSym = Rf_install("Module") : moduleSym )
+
+// this macro is called by code wanting to load a module -- see RInside's rinside_module_sample0.cpp
+#define LOAD_RCPP_MODULE(NAME) Rf_eval( Rf_lang2( GET_MODULE_SYM, _rcpp_module_boot_##NAME() ), R_GlobalEnv )
 
 #endif
 
