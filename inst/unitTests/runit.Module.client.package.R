@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2010	John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2011	 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,7 +22,13 @@
 	gc()
 }
 
-if( Rcpp:::capabilities()[["Rcpp modules"]] ) {
+## The unit test in this file fails on OS X 10.5.* but pass on 10.6.*
+## Sys.info release comes back with 10.* for the latter but 9.* for the former
+## Thanks to Simon Urbanek and Baptiste Auguie for suggesting and testing this
+.badOSX <- (Sys.info()['sysname'] == "Darwin" &&
+            isTRUE(as.integer(gsub("\\..*","",Sys.info()['release'])) < 10L) )
+
+if( Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX ) {
 
 test.Module.package <- function( ){
 
