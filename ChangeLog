@@ -1,3 +1,7 @@
+2011-02-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Makefile: Call R and Rscript relative to R_HOME/bin
+
 2011-02-23  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.2
