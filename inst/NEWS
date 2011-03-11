@@ -2,6 +2,10 @@
 
     o   inst/doc/Makefile now respects $R_HOME environment variable
 
+    o   inst/include/Rcpp/grow.h: C++ conformance issue found by clang/llvm
+        addressed by re-ordering declarations as unqualified names must be
+        declared before they are used, even when used within templates
+
 0.9.2   2011-02-23
 
     o   The unitTest runit.Module.client.package.R is now skipped on older OS

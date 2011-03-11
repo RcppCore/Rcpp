@@ -25,61 +25,60 @@
 #include <RcppCommon.h>
 #include <Rcpp/Named.h>
 
-namespace Rcpp{
+namespace Rcpp {
 
-inline SEXP pairlist() { return R_NilValue ; }
+    inline SEXP pairlist() { return R_NilValue ; }
+
+    namespace internal {
+
+	template <typename T>
+	SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
+	    SEXP x = PROTECT( wrap( head ) ) ;
+	    SEXP res = PROTECT( Rf_cons( x, tail ) ) ;
+	    UNPROTECT(2) ;
+	    return res ;
+	}
+
+	template <typename T>
+	SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
+	    SEXP y = PROTECT( wrap( head.object) ) ;
+	    SEXP x = PROTECT( Rf_cons( y , tail) ) ;
+	    SEXP headNameSym = ::Rf_install( head.name.c_str() ); // cannot be gc()ed once in symbol table
+	    SET_TAG( x, headNameSym ); 
+	    UNPROTECT(2); 
+	    return x; 	
+	}
+
+    } // namespace internal
+
+
+    /**
+     * grows a pairlist. First wrap the head into a SEXP, then 
+     * grow the tail pairlist
+     */
+    template <typename T>
+    SEXP grow(const T& head, SEXP tail) {
+	return internal::grow__dispatch( typename traits::is_named<T>::type(), head, tail );
+    }
 
 #ifdef HAS_VARIADIC_TEMPLATES
 
-/* end of the recursion, wrap first to make the CAR and use 
-   R_NilValue as the CDR of the list */
-template<typename T>
-SEXP pairlist( const T& first){
-	return grow(first, R_NilValue ) ; 
-}
+    /* end of the recursion, wrap first to make the CAR and use R_NilValue as the CDR of the list */
+    template<typename T>
+    SEXP pairlist( const T& first){
+	return grow(first, R_NilValue ); 
+    }
 
-template<typename T, typename... Args>
-SEXP pairlist( const T& first, const Args&... args ){
-	return grow(first, pairlist(args...) ) ;
-}
+    template<typename T, typename... Args>
+    SEXP pairlist( const T& first, const Args&... args ){
+	return grow(first, pairlist(args...) );
+    }
+
 #else
 
 #include <Rcpp/generated/grow__pairlist.h>
 
 #endif
-	
-namespace internal{
-
-template <typename T>
-SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
-	SEXP x = PROTECT( wrap( head ) ) ;
-    SEXP res = PROTECT( Rf_cons( x, tail ) ) ;
-    UNPROTECT(2) ;
-    return res ;
-}
-
-template <typename T>
-SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
-	SEXP y = PROTECT( wrap( head.object) ) ;
-	SEXP x = PROTECT( Rf_cons( y , tail) ) ;
-	SEXP headNameSym = ::Rf_install( head.name.c_str() ); // cannot be gc()ed once in symbol table
-	SET_TAG( x, headNameSym ); 
-	UNPROTECT(2); 
-	return x; 	
-}
-
-} // namespace internal
-
-
-/**
- * grows a pairlist. First wrap the head into a SEXP, then 
- * grow the tail pairlist
- */
-template <typename T>
-SEXP grow(const T& head, SEXP tail){
-	return internal::grow__dispatch( typename traits::is_named<T>::type(), head, tail ) ;
-}
-
 
 } // namespace Rcpp
 
