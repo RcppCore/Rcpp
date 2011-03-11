@@ -1,3 +1,10 @@
+2011-03-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/grow.h: Applied another patch kindly supplied by
+	Murray which fixes another clang/llvm and C++ conformance issue by
+	re-ordering declarations as unqualified names must be declared before
+	they are used, even when used within templates.
+
 2011-02-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Makefile: Call R and Rscript relative to R_HOME/bin
