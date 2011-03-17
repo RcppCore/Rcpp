@@ -1,3 +1,11 @@
+2011-03-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/RcppCommon.h: Condition the typedef for 'long long'
+	of rcpp_long_long_type on the (still experimental) support for C++0x
+	which can be enabled with the non-portable g++ flag '-std=c++0x';
+	adding the test C++0x support suppresses a new warning with g++ about
+	long long being part of C++98; thanks to Kurt Hornik for raising this
+
 2011-03-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/grow.h: Applied another patch kindly supplied by
