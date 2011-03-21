@@ -29,7 +29,7 @@ RCPP_MODULE(stdVector){
     
     // exposing the default constructor
     .default_constructor() 
-	
+
     // exposing member functions
     .method( "size", &vec::size)
     .method( "max_size", &vec::max_size)
@@ -37,7 +37,12 @@ RCPP_MODULE(stdVector){
     .method( "capacity", &vec::capacity)
     .method( "empty", &vec::empty)
     .method( "reserve", &vec::reserve)
+#if IS_GCC_450_OR_LATER
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
+      // cf C++ header file bits/stl_vector.h
     .method( "push_back", &vec::push_back )
+#endif
+#endif
     .method( "pop_back", &vec::pop_back )
     .method( "clear", &vec::clear )
 
