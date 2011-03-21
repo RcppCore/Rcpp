@@ -1,3 +1,8 @@
+2011-03-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/testRcppModule/src/stdVector.cpp: Protect push_back
+	declaration by #ifdef as it conflicts with -std=c++0x use for g++-4.5
+
 2011-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: Condition the typedef for 'long long'
