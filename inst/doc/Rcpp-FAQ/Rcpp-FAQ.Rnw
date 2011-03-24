@@ -427,7 +427,7 @@ are provided on \href{http://arma.sourceforge.net/speed.html}{the Armadillo webs
 It should be noted that code below depends on the version \texttt{0.3.5} of
 \pkg{inline} and the version \texttt{0.2.2} of \pkg{RcppArmadillo}
 
-\subsection{Can I use NA and Inf with \pkg{Rcpp} ? }
+\subsection{Can I use code from the Rmath header and library with \pkg{Rcpp} ? }
 
 \begin{quote}
   \emph{Can I call functions defined in the Rmath header file and the
