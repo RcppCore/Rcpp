@@ -1,3 +1,9 @@
+2011-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/module/Module_generated_ctor_signatureh: Add a
+	bit of null-op code to suppress a 'unused parameter' warning in the
+	initial (and non-templated) ctor_signature() function
+
 2011-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/testRcppModule/src/stdVector.cpp: Protect push_back
