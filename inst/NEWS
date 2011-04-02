@@ -1,4 +1,4 @@
-0.9.3   2011-xx-yy
+0.9.3   2011-04-02
 
     o   Exceptions code include exception_defines.h only when g++ is 4.5 or
         younger as the file no longer exists with g++-4.6

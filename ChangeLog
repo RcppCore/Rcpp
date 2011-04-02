@@ -1,5 +1,12 @@
 2011-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION: Release 0.9.3
+        * inst/NEWS: Release 0.9.3
+        * inst/include/Rcpp/config.h: Release 0.9.3
+        * debian/*: Similarly updated for new release to Debian
+
+	* cleanup: Also clean in inst/unitTest/testRcppModule/src/
+
 	* inst/include/RcppCommon.h: Define new variable for g++ < 4.6.0
 	* src/exceptions.cpp: Include <exception_defines.h> up to g++-4.5 only
 
