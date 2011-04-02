@@ -37,7 +37,7 @@ RCPP_MODULE(stdVector){
     .method( "capacity", &vec::capacity)
     .method( "empty", &vec::empty)
     .method( "reserve", &vec::reserve)
-#if IS_GCC_450_OR_LATER
+#ifdef IS_GCC_450_OR_LATER
 #ifndef __GXX_EXPERIMENTAL_CXX0X__
       // cf C++ header file bits/stl_vector.h
     .method( "push_back", &vec::push_back )
