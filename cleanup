@@ -17,6 +17,8 @@ rm -f confdefs.h config.log config.status \
 	inst/examples/functionCallback/*.so \
 	inst/examples/functionCallback/*.o \
         inst/discovery/cxx0x.Rout \
+	inst/unitTests/testRcppModule/src/*.o \
+	inst/unitTests/testRcppModule/src/*.so \
 	src/Makedeps libRcpp.a \
 	build/Rcpp.pdf
 
