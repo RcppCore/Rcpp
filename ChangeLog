@@ -1,5 +1,8 @@
 2011-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/include/RcppCommon.h: Define new variable for g++ < 4.6.0
+	* src/exceptions.cpp: Include <exception_defines.h> up to g++-4.5 only
+
 	* inst/unitTests/testRcppModule/src/stdVector.cpp: Use #ifdef not #if
 
 	* inst/include/Rcpp/module/Module_generated_ctor_signature.h: Add a
