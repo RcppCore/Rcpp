@@ -25,6 +25,10 @@
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.clear() ;
     s+= "()" ; 
+    if (0 > 1) { // silences 'unused paramater' warning from g++
+       std::string foo = classname;
+       foo.clear();
+    }
 }
 
 template <typename U0>
