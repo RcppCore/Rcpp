@@ -2,7 +2,7 @@
 
 	* inst/unitTests/testRcppModule/src/stdVector.cpp: Use #ifdef not #if
 
-	* inst/include/Rcpp/module/Module_generated_ctor_signatureh: Add a
+	* inst/include/Rcpp/module/Module_generated_ctor_signature.h: Add a
 	bit of null-op code to suppress a 'unused parameter' warning in the
 	initial (and non-templated) ctor_signature() function
 
@@ -16,7 +16,7 @@
 	* inst/include/RcppCommon.h: Condition the typedef for 'long long'
 	of rcpp_long_long_type on the (still experimental) support for C++0x
 	which can be enabled with the non-portable g++ flag '-std=c++0x';
-	adding the test C++0x support suppresses a new warning with g++ about
+	adding a test for C++0x support suppresses a new warning with g++ about
 	long long being part of C++98; thanks to Kurt Hornik for raising this
 
 2011-03-10  Dirk Eddelbuettel  <edd@debian.org>
