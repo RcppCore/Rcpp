@@ -66,7 +66,9 @@ RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
    compilers */
 #ifdef RCPP_HAS_DEMANGLING
 #include <typeinfo>
+#ifdef IS_EARLIER_THAN_GCC_460
 #include <exception_defines.h>
+#endif
 #include <cxxabi.h>
 
 std::string demangle( const std::string& name ){
