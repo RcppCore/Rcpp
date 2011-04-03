@@ -11,6 +11,9 @@
 
 	* inst/CITATION: Added citation() support using forthcoming paper
 
+	* inst/doc/Makefile: Trying make parallel builds possible by not calling
+	'clean' in the 'all' target; thanks to Brian Ripley for the heads-up
+
 2011-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* cleanup: Also clean in inst/unitTest/testRcppModule/src/
