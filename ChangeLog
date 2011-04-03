@@ -1,9 +1,17 @@
-2011-04-02  Dirk Eddelbuettel  <edd@debian.org>
+2011-04-xx  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.3
         * inst/NEWS: Release 0.9.3
         * inst/include/Rcpp/config.h: Release 0.9.3
         * debian/*: Similarly updated for new release to Debian
+
+2011-04-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-introduction.Rnw: Updated to forthcoming JSS paper
+
+	* inst/CITATION: Added citation() support using forthcoming paper
+
+2011-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* cleanup: Also clean in inst/unitTest/testRcppModule/src/
 
