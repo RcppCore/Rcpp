@@ -1,26 +1,29 @@
 
 ## There is an old bug in texidvi that makes it not swallow the ~
 ## marker used to denote whitespace. This is actually due to fixing
-## another bug they whereby you could not run texidvi on directory
-## names containing a tilde (as we happen to do for Debian builds of R
+## another bug whereby you could not run texidvi on directory names
+## containing a tilde (as we happen to do for Debian builds of R
 ## alpha/beta/rc releases). The 'tilde' bug will go away as it
 ## reportedly has been squashed upstream but I am still bitten by it
-## on Ubuntu so for Dirk will insist on pdflatex and this variable helps
+## on Ubuntu so for now Dirk will insist on pdflatex and this helps.
 whoami=$(shell whoami)
 
-all: clean index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
+all: rotateFiles index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
 
 pdfclean:
 	rm -f Rcpp-extending.pdf  Rcpp-FAQ.pdf  Rcpp-introduction.pdf  Rcpp-modules.pdf  Rcpp-package.pdf  Rcpp-quickref.pdf  Rcpp-sugar.pdf  Rcpp-unitTests.pdf
-clean:
-	rm -f index.html
-	rm -f *.tex *.bbl *.blg *.aux *.out *.log
+
+rotateFiles:
 	cp -f Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
 	cp -f Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
 	cp -f Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
 	cp -f Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
 	cp -f Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
 	cp -f Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
+
+clean:
+	rm -f index.html
+	rm -f *.tex *.bbl *.blg *.aux *.out *.log
 
 setvars:
 ifeq (${R_HOME},)
