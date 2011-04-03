@@ -1,176 +1,260 @@
-\documentclass[a4paper]{report}
+%% use JSS class -- use 'nojss' to turn off header
+\documentclass[shortnames,nojss,article]{jss}
 %\VignetteIndexEntry{Rcpp-introduction}
 %\VignetteKeywords{foreign function interface, .Call, C++, R}
 %\VignettePackage{Rcpp}
 
-\usepackage{a4wide,graphicx,color}
-\usepackage[authoryear,round,longnamesfirst]{natbib}
-\bibliographystyle{abbrvnat}
-
 \usepackage{booktabs}           % fancier \hrule
-\usepackage{float}		% float 'here' -- but not with multicol?
-\restylefloat{figure}
+\usepackage{flafter}            % for table 2
 
-\usepackage{RJournal}
+\newcommand{\R}{\proglang{R}\ } % NB forces a space so not good before % fullstop etc.
+\newcommand{\Cpp}{\proglang{C++}\ }
 
-\RequirePackage{ae,mathpple}    % ae as a default font pkg works with Sweave
-\RequirePackage[T1]{fontenc}
+\author{Dirk Eddelbuettel\\Debian Project \And Romain Fran\c{c}ois\\R Enthusiasts}
+\title{Rcpp: Seamless \R and \Cpp Integration}
+
+\Plainauthor{Dirk Eddelbuettel, Romain Fran\c{c}ois} % , Second Author} %% comma-separated
+\Plaintitle{Rcpp: Seamless R and C++ Integration}
+\Shorttitle{Rcpp: Seamless R and C++ Integration}
+
+\Abstract{
+  \noindent
+  The \pkg{Rcpp} package simplifies integrating \Cpp code with \proglang{R}. It
+  provides a consistent \Cpp class hierarchy that maps various types of \R
+  objects (vectors, matrices, functions, environments, ...) to dedicated \Cpp
+  classes. Object interchange between \R and \Cpp is managed by
+  simple, flexible and extensible concepts which include broad support for
+  \Cpp Standard Template Library idioms. \Cpp code can both be
+  compiled, linked and loaded on the fly, or added via packages.
+  Flexible error and exception code handling is provided.
+  \pkg{Rcpp} substantially lowers the barrier for programmers wanting to
+  combine \Cpp code with \proglang{R}.
+}
+
+\Keywords{\proglang{R}, \proglang{C++}, Foreign function interface, \code{.Call}} %% at least one keyword must be supplied
+\Plainkeywords{R, C++, Foreign function interface, .Call} %% without formatting
+
+%% publication information
+%% NOTE: Typically, this can be left commented and will be filled out by the technical editor
+%% \Volume{13}
+%% \Issue{9}
+%% \Month{September}
+%% \Year{2004}
+%% \Submitdate{2004-09-29}
+%% \Acceptdate{2004-09-29}
+
+\Address{
+  Dirk Eddelbuettel \\
+  Debian Project \\
+  River Forest, IL, USA\\
+  %% Telephone: +43/1/31336-5053
+  %% Fax: +43/1/31336-734
+  E-mail: \email{edd@debian.org}\\
+  URL: \url{http://dirk.eddelbuettel.com}\\
+
+  % Can we add a second author ?
+  Romain Fran\c{c}ois\\
+  Professional R Enthusiast\\
+  1 rue du Puits du Temple, 34 000 Montpellier\\
+  FRANCE \\
+  E-mail: \email{romain@r-enthusiasts.com}\\
+  URL: \url{http://romainfrancois.blog.free.fr}
+}
+
+%% need no \usepackage{Sweave.sty}
+
+% ------------------------------------------------------------------------
 
 \begin{document}
 
-\SweaveOpts{engine=R,eps=FALSE}
+%\SweaveOpts{engine=R,eps=FALSE}
 
-%% do not edit, for illustration only
-\fancyhf{}
-\fancyhead[LO,RE]{\textsc{Revised Article currently under Review}}
-\fancyhead[RO,LE]{\thepage}
-%\fancyfoot[L]{The R Journal Vol. X/Y, Month, Year}
-%\fancyfoot[R]{ISSN 2073-4859}
+<<prelim,echo=FALSE,print=FALSE>>=
+library(Rcpp)
+rcpp.version <- packageDescription("Rcpp")$Version
+rcpp.date <- packageDescription("Rcpp")$Date
+now.date <- strftime(Sys.Date(), "%B %d, %Y")
+@
+%
 
-\begin{article}
-  %\input{EddelbuettelFrancois}  %% pull in EddelbuettelFrancois.tex
 
-\title{Rcpp: Seamless R and C++ integration}
-\author{by Dirk Eddelbuettel and Romain Fran\c{c}ois}
+\section{Introduction}
 
-\maketitle
-
-\abstract{The \pkg{Rcpp} package simplifies integrating C++ code with R. It
-  provides a consistent C++ class hierarchy that maps various types of R
-  objects (vectors, functions, environments, ...) to dedicated C++
-  classes. Object interchange between R and C++ is managed by
-  simple, flexible and extensible concepts which include broad support for
-  C++ STL idioms. C++ code can be compiled, linked and loaded on the fly.
-  Flexible error and exception code handling is provided.  \pkg{Rcpp}
-  substantially lowers the barrier for programmers wanting to combine
-  C++ code with R.}
-
-\section{Introduction} 
-
-R is an extensible system. The `Writing R Extensions' manual \citep{R:Extensions}
-describes in detail how to augment R with compiled code,
-focusing mostly on the C language. The R API described in `Writing R Extensions' is
-based on a set of functions and macros operating on \code{SEXP}, the internal
-representation of R objects.
+\R \citep{R:Main} is an extensible system.
+The `Writing R Extensions' manual \citep{R:Extensions}
+describes in detail how to augment \R with compiled code,
+focusing mostly on the \proglang{C} language, but also mentioning
+\proglang{C++} and \proglang{Fortran}. The \R Application Programming
+Interface (API) described in `Writing R Extensions' is
+based on a set of functions and macros operating on \code{SEXP} (pointers to
+\code{SEXPREC} or `S expression' structures, see the `R Language'
+manual \citep{R:Language} for details) which are the internal
+representation of \R objects.
 %
 In this article, we discuss the functionality of the \pkg{Rcpp}
-package, which simplifies the usage of C++ code
-in R. Combining R and C++ is not a new idea, so we start with
+package \citep{CRAN:Rcpp}, which simplifies the usage of \Cpp code
+in \proglang{R}. Combining \R and \Cpp is not a new idea, so we start with
 a short review of other approaches and give some historical
 background on the development of \pkg{Rcpp}.
 
-The \pkg{Rcpp} package combines two distinct
-APIs. The first---which we call `classic \pkg{Rcpp} API'---exists since 
-the first version of \pkg{Rcpp}. While still contained in the package to
-ensure compatibility, its use is otherwise deprecated. All new development should
-use the richer second API. It is enclosed in the \pkg{Rcpp} C++ 
-namespace, and corresponds to the redesigned code base. 
+% [RF] I find talking about classic API in here confusing, why not just keep it
+%      to the Historical context subsection.
+The \pkg{Rcpp} package provides a consistent API for seamlessly accessing,
+extending or modifying \R objects at the \Cpp level. The API is a rewritten
+and extented version of an earlier API which we refer to as the `classic
+\pkg{Rcpp} API'. It is still provided in the \pkg{RcppClassic} package \citep{CRAN:RcppClassic}
+to ensure compatibility, but its use is otherwise deprecated.
+All new development should use the richer second API which
+is enclosed in the \pkg{Rcpp} \Cpp
+namespace, and corresponds to the redesigned code base.
 This article highlights some of the key design and implementation choices of
-the new API: lightweight encapsulation of R objects in C++ classes, automatic
-garbage collection strategy, code inlining, data interchange between R and
-C++ and error handling.
+the new API: Lightweight encapsulation of \R objects in \Cpp classes, automatic
+garbage collection strategy, code inlining, data interchange between \R and
+\proglang{C++}, and error handling.
 
 Several examples are included to illustrate the benefits of using \pkg{Rcpp}
-as opposed to the traditional R API. Many more examples are available within
+as opposed to the traditional \R API. Many more examples are available within
 the package, both as explicit examples and as part of the numerous unit tests.
 
-\subsection{Historical Context}
+\makeatletter
+\if@nojss
+  This vignette corresponds to a forthcoming paper in the \textsl{Journal of
+    Statistical Software} and is currently still identical to the published
+  paper.  Over time, this vignette version may receive minor updates. For
+  citations, please refer to the published version.
 
-\pkg{Rcpp} first appeared in 2005 as a contribution (by Samperi) to the
-\pkg{RQuantLib} package \citep{CRAN:RQuantLib} before becoming a CRAN package
+  This version corresponds to \pkg{Rcpp} version \Sexpr{rcpp.version} and was
+  typeset on \Sexpr{now.date}.
+\fi
+\makeatother
+
+
+\subsection{Historical context}
+
+\pkg{Rcpp} first appeared in 2005 as a contribution (by Dominick Samperi) to the
+\pkg{RQuantLib} package \citep{CRAN:RQuantLib} and became a CRAN package
 in early 2006. Several releases (all by Samperi) followed in quick succession
 under the name \pkg{Rcpp}. The package was then renamed to
 \pkg{RcppTemplate}; several more releases followed during 2006 under the new
-name.  However, no new releases were made during 2007, 2008 or most of
-2009. Following a few updates in late 2009, it has since been withdrawn from CRAN.
+name.  However, no further releases were made during 2007, 2008 or most of
+2009. Following a few updates in late 2009, it was withdrawn from CRAN.
 
 Given the continued use of the package, Eddelbuettel decided to revitalize it. New
 releases, using the initial name \pkg{Rcpp}, started in November 2008. These
-already included an improved build and distribution process, additional
+included an improved build and distribution process, additional
 documentation, and new functionality---while retaining the existing
-interface.  This constitutes the `classic \pkg{Rcpp}' interface 
-(not described in this article) which will be maintained for the foreseeable future.
+`classic \pkg{Rcpp}' interface.  While not described here, this API will
+be provided for the foreseeable future via the \pkg{RcppClassic} package.
 
-Yet C++ coding standards continued to evolve \citep{Meyers:2005:EffectiveC++}.
-In 2009, Eddelbuettel and Fran\c{c}ois started a significant redesign of the
-code base which added numerous new features.  Several of these are described
-below in the section on the \pkg{Rcpp} API interface, as well as in the
-eight vignettes included with the package. This new API is our current focus,
-and we intend to both extend and support it in future development of the
-package. 
+Reflecting evolving \Cpp coding standards \citep[see][]{Meyers:2005:EffectiveC++},
+Eddelbuettel and Fran\c{c}ois started a significant redesign of the
+code base in 2009. This added numerous new features several of which are described
+%below in section~\ref{sec:new_rcpp} on the \pkg{Rcpp} API
+in this article as well as in multiple
+vignettes included with the package. This new API is our current focus,
+and we intend to both extend and support the API in future development of the
+\pkg{Rcpp} package.
 
-\subsection{Comparison}
+\subsection{Related Work}
 
-Integration of C++ and R has been addressed by several authors; the earliest
+Integration of \Cpp and \R has been addressed by several authors; the earliest
 published reference is probably \cite{Bates+DebRoy:2001:C++Classes}.
 An unpublished paper by \cite{Java+Gaile+Manly:2007:RCpp} expresses several ideas
 that are close to some of our approaches, though not yet fully fleshed out.
 %
-The \pkg{Rserve} package \citep{Urbanek:2003:Rserve,CRAN:Rserve} was another early approach,
-going back to 2002. On the server side, \pkg{Rserve} translates R data
+The \pkg{Rserve} package \citep{Urbanek:2003:Rserve,CRAN:Rserve} acts as a
+socket server for \proglang{R}. On the server side, \pkg{Rserve} translates \R data
 structures into a binary serialization format and uses TCP/IP for
 transfer. On the client side, objects are reconstructed as instances of Java
-or C++ classes that emulate the structure of R objects. 
+or \Cpp classes that emulate the structure of \R objects.
 
 The packages \pkg{rcppbind} \citep{Liang:2008:rcppbind}, \pkg{RAbstraction}
 \citep{Armstrong:2009:RAbstraction} and \pkg{RObjects}
-\citep{Armstrong:2009:RObjects} are all implemented using C++ templates.
-However, neither has matured to the point of a CRAN release and it is
-unclear how much usage these packages are seeing beyond their own authors.
-
-\pkg{CXXR} \citep{Runnalls:2009:CXXR} comes to this topic from the other side: 
-its aim is to completely refactor R on a stronger C++ foundation. 
-\pkg{CXXR} is therefore concerned with all aspects of the R interpreter,
-REPL, threading---and object interchange between R and C++ is but one
+\citep{Armstrong:2009:RObjects} are all implemented using \Cpp templates.
+%However, neither has matured to the point of a CRAN release and it is
+%unclear how much usage these packages are seeing beyond their own authors.
+None of them have matured to the point of a CRAN release.
+%
+\pkg{CXXR} \citep{Runnalls:2009:CXXR} approaches this topic from the other direction:
+Its aim is to completely refactor \R on a stronger \Cpp foundation.
+\pkg{CXXR} is therefore concerned with all aspects of the \R interpreter,
+read-eval-print loop (REPL), and threading; object interchange between \R and \Cpp is but one
 part. A similar approach is discussed by \cite{TempleLang:2009:ModestProposal}
 who suggests making low-level internals extensible by package developers in
-order to facilitate extending \R.
+order to facilitate extending \proglang{R}.
 %
-Another slightly different angle is offered by
-\cite{TempleLang:2009:RGCCTranslationUnit} who uses compiler output for
-references on the code in order to add bindings and wrappers.
+\cite{TempleLang:2009:RGCCTranslationUnit}, using compiler output for
+references on the code in order to add bindings and wrappers, offers
+a slightly different angle.
 
-\subsection{Rcpp Use Cases} 
+% [DE 12-Feb-2011] The next two paragraphs (Section 1.3) are somewhat blah.
+%                  We could kill it, or maybe add a quick third paragraph mentioning
+%                  a) the new API allows for more than just function calls
+%                     but a good, concise example would help
+%                  b) Rcpp modules, sugar, ...
+%                  Or shall we not bother and just leave it? Removing it entirely
+%                  makes a couple of the later pagebreaks somewhat awful.
+\subsection{Rcpp use cases}
 \label{sec:classic_rcpp}
 
-The core focus of \pkg{Rcpp} has always been on allowing the 
-programmer to add C++-based functions. 
+The core focus of \pkg{Rcpp} has always been on helping the
+programmer to more easily add \proglang{C++}-based functions.
 Here, we use `function' in the standard mathematical sense of providing
-results (output) given a set of parameters or data (input). 
+results (output) given a set of parameters or data (input).
 This was
-facilitated from the earliest releases using C++ classes for receiving
-various types of R objects, converting them to C++ objects and allowing the
-programmer to return the results to R with relative ease. 
+facilitated from the earliest releases using \Cpp classes for receiving
+various types of \R objects, converting them to \Cpp objects and allowing the
+programmer to return the results to \R with relative ease.
 
-This API therefore supports two typical use cases. First, one can think of
-replacing existing R code with equivalent C++ code in order to reap
-performance gains.  This case is conceptually easy as there may not be
-(built- or run-time) dependencies on other C or C++ libraries.  It typically
+This API therefore supports two typical use cases. First, existing \R code
+may be replaced by equivalent \Cpp code in order to reap
+performance gains.  This case is conceptually easy when there are
+(built- or run-time) dependencies on other \proglang{C} or \Cpp libraries.  It typically
 involves setting up data and parameters---the right-hand side components of a
 function call---before making the call in order to provide the result that is
 to be assigned to the left-hand side. Second, \pkg{Rcpp} facilitates calling
-functions provided by other libraries. The use resembles the first case: data
+functions provided by other libraries. The use resembles the first case but
+with an additional level of abstraction: data
 and parameters are passed via \pkg{Rcpp} to a function set-up to call code
-from an external library.  
+from an external library.
 
-\section{The \pkg{Rcpp} API}
+% [DE 12-Feb-2011] Maybe we can add something like this? And then comment out
+%                  the last four lines of the first para in the next section?
+%                  Or even the full para ?
+Apart from this `vertical mode' of calling \Cpp from \proglang{R}, additional
+features in the new API also support a more `horizontal mode' of directly
+calling \pkg{Rcpp} objects.  This was motivated by the needs of other
+projects such as \pkg{RInside} \citep{CRAN:RInside} for easy embedding of \R
+in \Cpp applications and \pkg{RProtoBuf} \citep{CRAN:RProtoBuf} to
+interface with the Protocol Buffers library. This use will be touched upon
+in the next section, but a more detailed discussion is outside the scope of
+this paper.  Lastly, the more recent additions `Rcpp modules' and `Rcpp sugar'
+also expand the use cases; see Section~\ref{sec:ongoing} below.
+
+\section{The Rcpp API}
 \label{sec:new_rcpp}
 
-More recently, the \pkg{Rcpp} API has been redesigned and extended, 
-based on the usage experience of several 
-years of \pkg{Rcpp} deployment, needs from other projects, knowledge 
-of the internal R API, as well as current C++ design approaches. 
-The new features in \pkg{Rcpp} were also motivated by the needs of other 
-projects such as \pkg{RInside}  \citep{CRAN:RInside} for easy embedding 
-of R in C++ applications and \pkg{RProtoBuf} \citep{CRAN:RProtoBuf} 
-that interfaces with the Protocol Buffers library. 
+% [DE 12-Feb-2011] Moved above
+%The \pkg{Rcpp} API has recently been redesigned and extended,
+%based on the usage experience of several
+%years of \pkg{Rcpp} deployment, %repeated one sentence down  needs from other projects,
+%knowledge of the internal \R API, as well as current \Cpp design approaches.
+%The new features in \pkg{Rcpp} were also motivated by the needs of other
+%projects such as \pkg{RInside}  \citep{CRAN:RInside} for easy embedding
+%of \R in \Cpp applications and \pkg{RProtoBuf} \citep{CRAN:RProtoBuf}
+%that interfaces with the Protocol Buffers library.
 
-\subsection{A First Example}
+\subsection{A first example}
 
-\begin{example}
+We can illustrate the \pkg{Rcpp} API by revisiting the convolution example
+from the `Writing R Extensions' manual \citep[Chapter 5]{R:Extensions}. Using
+\pkg{Rcpp}, this function can be written as follows:
+
+\begin{CodeChunk}
+\begin{CodeInput}
 #include <Rcpp.h>
 
-RcppExport SEXP convolve3cpp(SEXP a, SEXP b) \{
+RcppExport SEXP convolve3cpp(SEXP a, SEXP b) {
     Rcpp::NumericVector xa(a);
     Rcpp::NumericVector xb(b);
     int n_xa = xa.size(), n_xb = xb.size();
@@ -178,404 +262,507 @@ RcppExport SEXP convolve3cpp(SEXP a, SEXP b) \{
     Rcpp::NumericVector xab(nab);
 
     for (int i = 0; i < n_xa; i++)
-        for (int j = 0; j < n_xb; j++) 
+        for (int j = 0; j < n_xb; j++)
             xab[i + j] += xa[i] * xb[j];
 
     return xab;
-\}
-\end{example}
+}
+\end{CodeInput}
+\end{CodeChunk}
 
-We can highlight several aspects. First, only a single header file
-\code{Rcpp.h} is needed to use the \pkg{Rcpp} API.  Second, given two
-arguments of type \code{SEXP}, a third is returned.  Third, both inputs are 
-converted to C++ vector types provided by \pkg{Rcpp} (and we have more to say about these
-conversions below).  Fourth, the
-usefulness of these classes can be seen when we query the vectors directly
-for their size---using the \code{size()} member function---in order to
-reserve a new result type of appropriate length,  
-and with the use of the 
-\verb|operator[]| to extract and set individual elements of the vector. 
-Fifth, the computation itself is
-straightforward embedded looping just as in the original examples in the
-'Writing R Extensions' manual \citep{R:Extensions}.  Sixth, the return conversion
-from the \code{NumericVector} to the \code{SEXP} type is also automatic.
+% We can highlight several aspects. First, only a single header file
+% \code{Rcpp.h} is needed to use the \pkg{Rcpp} API.  Second, given two
+% arguments of type \code{SEXP}, a third is returned (as using only
+% \code{SEXP} types for input and output is prescribed by the \code{.Call()}
+% interface of the \R API).  Third, both inputs are
+% converted to \Cpp vector types provided by \pkg{Rcpp} (and we have more to say about these
+% conversions below).  Fourth, the
+% usefulness of these classes can be seen when we query the vectors directly
+% for their size---using the \code{size()} member function---in order to
+% reserve a new result type of appropriate length,
+% and with the use of the
+% \verb|operator[]| to extract and set individual elements of the vector.
+% Fifth, the computation itself is
+% straightforward embedded looping just as in the original examples in the
+% 'Writing R Extensions' manual \citep{R:Extensions}.  Sixth, the return conversion
+% from the \code{NumericVector} to the \code{SEXP} type is also automatic.
+%% Alternatively using enumerate:
+We can highlight several aspects.
+\begin{enumerate}
+\item Only a single header file
+  \code{Rcpp.h} is needed to use the \pkg{Rcpp} API.
+\item \code{RcppExport} is a convenience macro helping with calling a
+  \proglang{C} function from \proglang{C++}.
+\item Given two
+  arguments of type \code{SEXP}, a third is returned (as using only
+  \code{SEXP} types for input and output is prescribed by the \code{.Call()}
+  interface of the \R API).
+\item Both inputs are
+  converted to \Cpp vector types provided by \pkg{Rcpp} (and we have more to say about these
+  conversions below).
+\item The
+  usefulness of these classes can be seen when we query the vectors directly
+  for their size---using the \code{size()} member function---in order to
+  reserve a new result type of appropriate length,
+  and with the use of the
+  \verb|operator[]| to extract and set individual elements of the vector.
+\item The computation itself is
+  straightforward embedded looping just as in the original examples in the
+  `Writing R Extensions' manual \citep{R:Extensions}.
+\item The return conversion
+  from the \code{NumericVector} to the \code{SEXP} type is also automatic.
+\end{enumerate}
 
 We argue that this \pkg{Rcpp}-based usage is much easier to read, write and debug than the
-C macro-based approach supported by R itself. 
+\proglang{C} macro-based approach supported by \R itself.
 
 
 
-\subsection{Rcpp Class hierarchy}
+\subsection{Rcpp class hierarchy}
 
-The \code{Rcpp::RObject} class is the basic class of the new \pkg{Rcpp} API. 
-An instance of the \code{RObject} class encapsulates an R object
-(\code{SEXP}), exposes methods that are appropriate for all types 
+The \code{Rcpp::RObject} class is the basic class of the new \pkg{Rcpp} API.
+An instance of the \code{RObject} class encapsulates an \R object
+(itself represented by the R type \code{SEXP}), exposes methods that are appropriate for all types
 of objects and transparently manages garbage collection.
 
-The most important aspect of the \code{RObject} class is that it is 
-a very thin wrapper around the \code{SEXP} it encapsulates. The 
-\code{SEXP} is indeed the only data member of an \code{RObject}. The 
-\code{RObject} class does not interfere with the way R manages its 
-memory and does not perform copies of the object into a suboptimal 
-C++ representation. Instead, it merely acts as a proxy to the 
+The most important aspect of the \code{RObject} class is that it is
+a very thin wrapper around the \code{SEXP} it encapsulates. The
+\code{SEXP} is indeed the only data member of an \code{RObject}. The
+\code{RObject} class does not interfere with the way \R manages its
+memory and does not perform copies of the object into a suboptimal
+\Cpp representation. Instead, it merely acts as a proxy to the
 object it encapsulates so that methods applied to the \code{RObject}
 instance are relayed back to the \code{SEXP} in terms of the standard
-R API.
+\R API.
 
-The \code{RObject} class takes advantage of the explicit life cycle of 
-C++ objects to manage exposure of the underlying R object to the 
-garbage collector. The \code{RObject} effectively treats 
+The \code{RObject} class takes advantage of the explicit life cycle of
+\Cpp objects to manage exposure of the underlying \R object to the
+garbage collector. The \code{RObject} effectively treats
 its underlying \code{SEXP} as a resource.
-The constructor of the \code{RObject} class takes 
+The constructor of the \code{RObject} class takes
 the necessary measures to guarantee that the underlying \code{SEXP}
 is protected from the garbage collector, and the destructor
-assumes the responsibility to withdraw that protection. 
+assumes the responsibility to withdraw that protection.
 
 By assuming the entire responsibility of garbage collection, \pkg{Rcpp}
 relieves the programmer from writing boiler plate code to manage
 the protection stack with \code{PROTECT} and \code{UNPROTECT} macros.
 
 The \code{RObject} class defines a set of member functions applicable
-to any R object, regardless of its type. This ranges from 
-querying properties of the object (\texttt{isNULL}, \texttt{isObject}, 
-\texttt{isS4}), management of the attributes 
-(\texttt{attributeNames}, \texttt{hasAttribute}, \texttt{attr}) to 
-handling of slots\footnote{The member functions that deal with slots
-are only applicable to S4 objects; otherwise an exception is thrown.} 
+to any \R object, regardless of its type. This ranges from
+querying properties of the object (\texttt{isNULL}, \texttt{isObject},
+\texttt{isS4}), management of the attributes
+(\texttt{attributeNames}, \texttt{hasAttribute}, \texttt{attr}) to
+handling of slots\footnote{Member functions dealing with slots
+are only applicable to S4 objects; otherwise an exception is thrown.}
 (\texttt{hasSlot}, \texttt{slot}).
 
 \subsection{Derived classes}
 
-Internally, an R object must have one type amongst the set of 
+Internally, an \R object must have one type amongst the set of
 predefined types, commonly referred to as SEXP types. The `R Internals'
-manual \citep{R:Internals} documents these various types. 
-\pkg{Rcpp} associates a dedicated C++ class for most SEXP types, and
-therefore only exposes functionality that is relevant to the R object
+manual \citep{R:Internals} documents these various types.
+\pkg{Rcpp} associates a dedicated \Cpp class for most SEXP types, and
+therefore only exposes functionality that is relevant to the \R object
 that it encapsulates.
 
-For example \code{Rcpp::Environment} contains 
-member functions to manage objects in the associated environment. 
-Similarly, classes related to vectors---\code{IntegerVector}, \code{NumericVector}, 
-\code{RawVector}, \code{LogicalVector}, \code{CharacterVector}, 
-\code{GenericVector} (also known as \code{List}) and 
+For example \code{Rcpp::Environment} contains
+member functions to manage objects in the associated environment.
+Similarly, classes related to vectors---\code{IntegerVector}, \code{NumericVector},
+\code{RawVector}, \code{LogicalVector}, \code{CharacterVector},
+\code{GenericVector} (also known as \code{List}) and
 \code{ExpressionVector}---expose functionality to extract and set values from the vectors.
 
 The following sub-sections present typical uses of \pkg{Rcpp} classes in
-comparison with the same code expressed using functions and macros of the R API.
+comparison with the same code expressed using functions and macros of the \R API.
 
 \subsection{Numeric vectors}
 
-The following code snippet is taken from Writing R extensions
-\citep{R:Extensions}. It creates a \code{numeric} vector of two elements 
-and assigns some values to it. 
+The next code snippet is taken from `Writing R Extensions'
+\citep[Section 5.9.1]{R:Extensions}. It allocates a \code{numeric} vector of two elements
+and assigns some values to it using the \proglang{R} API.
 
-\begin{example}
+\begin{CodeChunk}
+\begin{CodeInput}
 SEXP ab;
 PROTECT(ab = allocVector(REALSXP, 2));
 REAL(ab)[0] = 123.45;
 REAL(ab)[1] = 67.89;
 UNPROTECT(1);
-\end{example}
+\end{CodeInput}
+\end{CodeChunk}
 
-Although this is one of the simplest examples in Writing R extensions, 
-it seems verbose and it is not obvious at first sight what is happening.
+Although this is one of the simplest examples in `Writing R Extensions',
+it seems verbose and yet it is not obvious at first sight what is happening.
 Memory is allocated by \code{allocVector}; we must also supply it with
 the type of data (\code{REALSXP}) and the number of elements.  Once
 allocated, the \code{ab} object must be protected from garbage
 collection.
 Lastly, the \code{REAL} macro returns a pointer to the
-beginning of the actual array; its indexing does not resemble either R or
-C++.
+beginning of the actual array; its indexing does not resemble either \R or
+\proglang{C++}.
 
-Using the \code{Rcpp::NumericVector} class, the code can be rewritten: 
+The code can be simplified using the \code{Rcpp::NumericVector} class:
 
-\begin{example}
+\begin{CodeChunk}
+\begin{CodeInput}
 Rcpp::NumericVector ab(2);
 ab[0] = 123.45;
 ab[1] = 67.89;
-\end{example}
+\end{CodeInput}
+\end{CodeChunk}
 
 The code contains fewer idiomatic decorations. The \code{NumericVector}
 constructor is given the number of elements the vector contains (2), which
-hides a call to the \code{allocVector} we saw previously. Also hidden is
+hides the call to the \code{allocVector} in the original code example. Also hidden is
 protection of the object from garbage collection, which is a behavior that
 \code{NumericVector} inherits from \code{RObject}.  Values are assigned to
 the first and second elements of the vector as \code{NumericVector} overloads
 the \code{operator[]}.
+% (and indexing starts at zero, following common
+% \proglang{C} and \proglang{C++} standards for arrays and vectors).
 
-The snippet can also be written more concisely using the \code{create}
-static member function of the \code{NumericVector} class: 
+The snippet can also be written more concisely as a single statement using the \code{create}
+static member function of the \code{NumericVector} class:
 
-\begin{example}
-Rcpp::NumericVector ab = 
-  Rcpp::NumericVector::create(123.45, 67.89);
-\end{example}
+\begin{CodeChunk}
+\begin{CodeInput}
+Rcpp::NumericVector ab = Rcpp::NumericVector::create(123.45, 67.89);
+\end{CodeInput}
+\end{CodeChunk}
 
-It should be noted that although the copy constructor of the 
-\code{NumericVector} class is used, it does not imply copies of the 
-underlying array, only the \code{SEXP} (\textsl{i.e.} a simple pointer) is copied. 
+% It should be noted that although the copy constructor of the
+% \code{NumericVector} class is used, it does not imply copies of the
+% underlying array, only the \code{SEXP} (\textsl{i.e.}, a simple pointer) is copied.
 
 \subsection{Character vectors}
 
-A second example deals with character vectors and emulates this R code
+A second example deals with character vectors and emulates this \R code:
 
-\begin{example}
-> c("foo", "bar")
-\end{example}
+\begin{CodeChunk}
+\begin{CodeInput}
+R> c("foo", "bar")
+\end{CodeInput}
+\end{CodeChunk}
 
-Using the traditional R API, the vector can be allocated and filled as such:
+Using the traditional \R API, the vector can be allocated and filled as such:
 
-\begin{example}
+\begin{CodeChunk}
+\begin{CodeInput}
 SEXP ab;
 PROTECT(ab = allocVector(STRSXP, 2));
 SET_STRING_ELT( ab, 0, mkChar("foo") );
 SET_STRING_ELT( ab, 1, mkChar("bar") );
 UNPROTECT(1);
-\end{example}
+\end{CodeInput}
+\end{CodeChunk}
 
-This imposes on the programmer knowledge of \code{PROTECT}, \code{UNPROTECT}, 
-\code{SEXP}, \code{allocVector}, \code{SET\_STRING\_ELT}, and \code{mkChar}. 
-
+This imposes on the programmer knowledge of \code{PROTECT}, \code{UNPROTECT},
+\code{SEXP}, \code{allocVector}, \code{SET\_STRING\_ELT}, and \code{mkChar}.
+%
 Using the \code{Rcpp::CharacterVector} class, we can express the same
 code more concisely:
 
-\begin{example}
+\begin{CodeChunk}
+\begin{CodeInput}
 Rcpp::CharacterVector ab(2);
 ab[0] = "foo";
 ab[1] = "bar";
-\end{example}
+\end{CodeInput}
+\end{CodeChunk}
 
-\section{R and C++ data interchange}
+\section[R and C++ data interchange]{\R and \Cpp data interchange}
 
-In addition to classes, the \pkg{Rcpp} package contains two 
-functions to perform conversion of C++ objects to R objects and back. 
+In addition to classes, the \pkg{Rcpp} package contains two
+functions to perform conversion of \Cpp objects to \R objects and back.
 
-\subsection{C++ to R : wrap}
+\subsection[C++ to R: wrap]{\Cpp to \proglang{R}: \code{wrap}}
 
-The C++ to R conversion is performed by the \code{Rcpp::wrap} templated
+The \Cpp to \R conversion is performed by the \code{Rcpp::wrap} templated
 function. It uses advanced template metaprogramming techniques\footnote{A
   discussion of template metaprogramming
   \citep{Vandevoorde+Josuttis:2003:Templates,Abrahams+Gurtovoy:2004:TemplateMetaprogramming} is beyond the
   scope of this article.}  to convert a wide and extensible set of types and
-classes to the most appropriate type of R object. The signature of the
-\code{wrap} template is:
+classes to the most appropriate type of \R object. The signature of the
+\code{wrap} template is as follows:
 
-\begin{example}
-template <typename T> 
-SEXP wrap(const T& object);
-\end{example}
+\begin{CodeChunk}
+\begin{CodeInput}
+template <typename T> SEXP wrap(const T& object);
+\end{CodeInput}
+\end{CodeChunk}
 
-The templated function takes a reference to a `wrappable' 
-object and converts this object into a \code{SEXP}, which is what R expects. 
-Currently wrappable types are :
+The templated function takes a reference to a `wrappable'
+object and converts this object into a \code{SEXP}, which is what \R expects.
+Currently wrappable types are:
 \begin{itemize}
-\item primitive types: \code{int}, \code{double}, ... which are converted 
-into the corresponding atomic R vectors;
-\item \code{std::string} objects which are converted to R atomic character vectors;
-\item STL containers such as \code{std::vector<T>} or \code{std::list<T>}, 
+\item primitive types: \code{int}, \code{double}, \code{bool}, ... which are converted
+into the corresponding atomic \R vectors;
+\item \code{std::string} objects which are converted to \R atomic character vectors;
+\item Standard Template Library (STL) containers such as \code{std::vector<T>} or \code{std::list<T>},
 as long as the template parameter type \code{T} is itself wrappable;
-\item STL maps which use \code{std::string} for keys 
-(e.g. \code{std::map<std::string,T>}); as long as 
+\item STL maps which use \code{std::string} for keys
+(\textsl{e.g.}, \code{std::map<std::string, T>}); as long as
 the type \code{T} is wrappable;
-\item any type that implements implicit conversion to \code{SEXP} through the 
+\item any type that implements implicit conversion to \code{SEXP} through the
 \code{operator SEXP()};
 \item any type for which the \code{wrap} template is
 fully specialized.
 \end{itemize}
 
-Wrappability of an object type is resolved at compile time using 
-modern techniques of template meta programming and class traits. The 
-\code{Rcpp-extending} vignette discusses in depth how to extend \code{wrap}
-to third-party types. The \pkg{RcppArmadillo} package
-\citep*{CRAN:RcppArmadillo} features several examples.
+Wrappability of an object type is resolved at compile time using
+modern techniques of template meta programming and class traits. The
+\code{Rcpp-extending} vignette in the \pkg{Rcpp} package discusses in depth how to extend \code{wrap}
+to third-party types. The \pkg{RcppArmadillo}
+\citep*{CRAN:RcppArmadillo} and \pkg{RcppGSL} \citep{CRAN:RcppGSL} packages
+feature several examples.
 %
-The following example shows that the design allows
+The following segment of code illustrates that the design allows
 composition:
 
-\begin{example}
-RcppExport SEXP someFunction() \{
+\begin{CodeChunk}
+\begin{CodeInput}
+RcppExport SEXP someFunction() {
   std::vector<std::map<std::string,int> > v;
   std::map<std::string, int> m1;
   std::map<std::string, int> m2;
 
-  m1["foo"]=1; m1["bar"]=2;
-  m2["foo"]=1; m2["bar"]=2; m2["baz"]=3;
+  m1["foo"]=1;
+  m1["bar"]=2;
+  m2["foo"]=1;
+  m2["bar"]=2;
+  m2["baz"]=3;
 
   v.push_back( m1 );
   v.push_back( m2 );
   return Rcpp::wrap( v );
-\}
-\end{example}
+}
+\end{CodeInput}
+\end{CodeChunk}
 
-The code creates a list of two named vectors, equal to the 
-result of this R statement:
+In this example, the STL types \verb+vector+ and \verb+map+ are used to
+create a list of two named vectors. The member function \verb+push_back+
+insert a given element into a vector.  This example is equivalent to the
+result of this \R statement:
 
-\begin{example}
-list( c( bar = 2L, foo = 1L) , 
+\begin{CodeChunk}
+  \begin{CodeInput}
+list( c( bar = 2L, foo = 1L) ,
       c( bar = 2L, baz = 3L, foo = 1L) )
-\end{example}
+  \end{CodeInput}
+\end{CodeChunk}
 
-\subsection{R to C++ : as}
 
-The reverse conversion is implemented by variations of the 
+\subsection[R to C++: as]{\R to \proglang{C++}: \code{as}}
+
+The reverse conversion from an \R object to a \Cpp object is implemented by variations of the
 \code{Rcpp::as} template whose signature is:
-\begin{example}
-template <typename T> 
-T as(SEXP x) throw(not_compatible);
-\end{example}
+
+\begin{CodeChunk}
+\begin{CodeInput}
+template <typename T> T as(SEXP x) throw(not_compatible);
+\end{CodeInput}
+\end{CodeChunk}
 
 It offers less flexibility and currently
-handles conversion of R objects into primitive types (bool, int, std::string, ...), 
-STL vectors of primitive types  (\code{std::vector<bool>}, 
-\code{std::vector<double>}, etc ...) and arbitrary types that offer 
-a constructor that takes a \code{SEXP}. In addition, \code{as} can 
-be fully or partially specialized to manage conversion of \R data 
+handles conversion of \R objects into primitive types (\textsl{e.g.}, \code{bool}, \code{int}, \code{std::string}, ...),
+STL vectors of primitive types  (\textsl{e.g.}, \code{std::vector<bool>},
+\code{std::vector<double>}, ...) and arbitrary types that offer
+a constructor that takes a \code{SEXP}. In addition \code{as} can
+be fully or partially specialized to manage conversion of \R data
 structures to third-party types as can be seen for example in the
-\pkg{RcppArmadillo} package which eases transfer of R matrices and vectors to
+\pkg{RcppArmadillo} package which eases transfer of \R matrices and vectors to
 the optimised data structures in the Armadillo linear algebra library \citep{Sanderson:2010:Armadillo}.
 
 
 \subsection{Implicit use of converters}
 
-The converters offered by \code{wrap} and \code{as} provide a very 
-useful framework to implement code logic in terms of C++ 
-data structures and then explicitly convert data back to R. 
+The converters offered by \code{wrap} and \code{as} provide a very
+useful framework to implement code logic in terms of \Cpp
+data structures and then explicitly convert data back to \proglang{R}.
 
 In addition, the converters are also used implicitly
-in various places in the \code{Rcpp} API. 
-Consider the following code that uses the \code{Rcpp::Environment} class to 
-interchange data between C++ and R.
+in various places in the \code{Rcpp} API.
+Consider the following code that uses the \code{Rcpp::Environment} class to
+interchange data between \Cpp and \proglang{R}. It accesses a vector
+\texttt{x} from the global environment, creates an STL \texttt{map} of string
+types and pushes this back to \proglang{R}:
 
-\begin{example}
-// access vector 'x' from global env.
-Rcpp::Environment global = 
-\ \ \ \ Rcpp::Environment::global_env();
+\begin{CodeChunk}
+\begin{CodeInput}
+Rcpp::Environment global = Rcpp::Environment::global_env();
 std::vector<double> vx = global["x"];
 
-// create a map<string,string>
-std::map<std::string,std::string> map;
-map["foo"] = "oof"; 
+std::map<std::string, std::string> map;
+map["foo"] = "oof";
 map["bar"] = "rab";
 
-// push the STL map to R
 global["y"] = map;
-\end{example}
+\end{CodeInput}
+\end{CodeChunk}
 
-In the first part of the example, the code extracts a 
-\code{std::vector<double>} from the global environment. In order to achieve this, 
-the \code{operator[]}  of \code{Environment} uses the proxy pattern 
+In the first part of the example, the code extracts a
+\code{std::vector<double>} from the global environment. In order to achieve this,
+the \code{operator[]}  of \code{Environment} uses the proxy pattern
 \citep{Meyers:1995:MoreEffectiveC++}
-to distinguish between left hand side (LHS) and right hand side (RHS) use. 
-%
-The output of the operator is an instance of the nested class
-\code{Environment::Binding}, which defines a templated implicit conversion 
-operator that allows a \code{Binding} to be assigned to any type that 
-\code{Rcpp::as} is able to handle. 
+to distinguish between left hand side (LHS) and right hand side (RHS) use.
 
-In the second part of the example, LHS use of the \code{Binding} instance is 
-implemented through its assignment operator, which is also templated and uses
-\code{Rcpp::wrap} to perform the conversion to a \code{SEXP} that can be 
-assigned to the requested symbol in the global environment. 
+The output of the \code{operator[]} is an instance of the nested class
+\code{Environment::Binding}. This class defines a templated implicit conversion
+operator. It is this conversion operator which allows a \code{Binding}
+object to be assigned to any type that \code{Rcpp::as} is able to handle.
+
+In the last part of the example, the LHS use of the \code{Binding} instance is
+implemented through its assignment operator. This is also templated and uses
+\code{Rcpp::wrap} to perform the conversion to a \code{SEXP} that can be
+assigned to the requested symbol in the global environment.
 
 The same mechanism is used throughout the API. Examples include access/modification
-of object attributes, slots, elements of generic vectors (lists), 
-function arguments, nodes of dotted pair lists, language calls and more. 
+of object attributes, slots, elements of generic vectors (lists),
+function arguments, nodes of dotted pair lists, language calls and more.
 
 \section{Function calls}
+\label{sec:functions}
 
-\begin{table*}[t]
+\begin{table}[p]
   \begin{minipage}[t]{0.465\linewidth}
     \centering{\underline{Environment: Using the \pkg{Rcpp} API}}
-    \begin{example}
+    \begin{CodeChunk}
+    \begin{CodeInput}
 Environment stats("package:stats");
 Function rnorm = stats["rnorm"];
 return rnorm(10, Named("sd", 100.0));
-    \end{example}
-  \end{minipage}
+    \end{CodeInput}
+    \end{CodeChunk}
+\end{minipage}
   \begin{minipage}{0.06\linewidth}
     \phantom{XXX}
   \end{minipage}
   \begin{minipage}[t]{0.465\linewidth}
-    \centering{\underline{Environment: Using the R API}}
-    \begin{example}
-SEXP stats = PROTECT( 
-\ \ R_FindNamespace( mkString("stats")));
-SEXP rnorm = PROTECT( 
-\ \ findVarInFrame( stats, install("rnorm")));
-SEXP call  = PROTECT( 
-\ \ LCONS( rnorm, 
-\ \ \ \ CONS(ScalarInteger(10), 
-\ \ \ \ \ \ CONS(ScalarReal(100.0),R_NilValue))));
-SET_TAG( CDDR(call), install("sd") );
-SEXP res = PROTECT(eval(call, R_GlobalEnv));
+    \centering{\underline{Environment: Using the \R API}}
+    \begin{CodeChunk}
+    \begin{CodeInput}
+SEXP stats = PROTECT(
+  R_FindNamespace(
+    mkString("stats")));
+SEXP rnorm = PROTECT(
+  findVarInFrame(stats,
+                 install("rnorm")));
+SEXP call  = PROTECT(
+  LCONS( rnorm,
+    CONS(ScalarInteger(10),
+      CONS(ScalarReal(100.0),
+           R_NilValue))));
+SET_TAG( CDDR(call), install("sd"));
+SEXP res = PROTECT(eval(call,
+                   R_GlobalEnv));
 UNPROTECT(4);
 return res;
-    \end{example}
+    \end{CodeInput}
+    \end{CodeChunk}
   \end{minipage}
 
+\bigskip
 
   \begin{minipage}[t]{0.465\linewidth}
     \centering{\underline{Language: Using the \pkg{Rcpp} API}}
-    \begin{example}
-Language call("rnorm",10,Named("sd",100.0));
+    \begin{CodeChunk}
+    \begin{CodeInput}
+Language call("rnorm", 10,
+              Named("sd",100.0));
 return call.eval();
-    \end{example}
+    \end{CodeInput}
+    \end{CodeChunk}
   \end{minipage}
   \begin{minipage}{0.06\linewidth}
     \phantom{XXX}
   \end{minipage}
   \begin{minipage}[t]{0.465\linewidth}
-    \centering{\underline{Language: Using the R API}}
-    \begin{example}
-SEXP call  = PROTECT( 
-\ \ LCONS( install("rnorm"), 
-\ \ \ \ CONS(ScalarInteger(10), 
-\ \ \ \ \ \ CONS(ScalarReal(100.0),R_NilValue))));
-SET_TAG( CDDR(call), install("sd") );
-SEXP res = PROTECT(eval(call, R_GlobalEnv));
+    \centering{\underline{Language: Using the \R API}}
+    \begin{CodeChunk}
+    \begin{CodeInput}
+SEXP call  = PROTECT(
+    LCONS( install("rnorm"),
+    CONS(ScalarInteger(10),
+      CONS(ScalarReal(100.0),
+           R_NilValue))));
+SET_TAG( CDDR(call), install("sd"));
+SEXP res = PROTECT(eval(call,
+                   R_GlobalEnv));
 UNPROTECT(2);
 return res;
-    \end{example}
+    \end{CodeInput}
+    \end{CodeChunk}
   \end{minipage}
-  \caption{\pkg{Rcpp} versus the R API: Four ways of calling \code{rnorm(10L, sd=100)} in C / C++. 
-  We have removed the \code{Rcpp::} prefix for readability; this corresponds to adding a directive
-  \texttt{using namespace Rcpp;} in the code.}
-  \label{fig:rnormCode}
-\end{table*}
 
-The next example shows how to use \pkg{Rcpp} to emulate the R code
+\bigskip
+
+  \begin{minipage}[t]{0.465\linewidth}
+    \centering{\underline{Sugar: Using the \pkg{Rcpp} API}}
+    \begin{CodeChunk}
+    \begin{CodeInput}
+RNGScope scope;
+return rnorm(10, 0, 100);
+    \end{CodeInput}
+    \end{CodeChunk}
+\end{minipage}
+  \begin{minipage}{0.06\linewidth}
+    \phantom{XXX}
+  \end{minipage}
+  \begin{minipage}[t]{0.465\linewidth}
+    \centering{\underline{Sugar: Using the \R API}}
+
+    \medskip
+    (not applicable)
+  \end{minipage}
+
+\bigskip
+
+  \caption{\pkg{Rcpp} versus the \R API: Five ways of calling
+    \code{rnorm(10L, sd=100)} in \proglang{C}/\proglang{C++}.}
+  \label{fig:rnormCode}
+  \medskip \small
+  Note that we have removed the \code{Rcpp::} prefix for readability; this corresponds to adding a directive
+  \texttt{using namespace Rcpp;} in the code. The versions that use callbacks to R do not require handling
+  of the state of the random number generator. The version that uses \pkg{Rcpp} sugar requires it, which
+  is done via the instantiation of the \code{RNGScope} variable.
+\end{table}
+
+The next example shows how to use \pkg{Rcpp} to emulate the \R code
 \code{rnorm(10L, sd=100.0)}.
 %
 As shown in Table~\ref{fig:rnormCode}, the code can be expressed in several
-ways in either \pkg{Rcpp} or the standard R API. The first version shows the
+ways in either \pkg{Rcpp} or the standard \R API. The first version shows the
 use of the \code{Environment} and \code{Function} classes by
 \pkg{Rcpp}.
-The second version shows the use of the \code{Language} class, which 
-manage calls (LANGSXP). 
-For comparison, we also show both versions using the standard R API.
+The second version shows the use of the \code{Language} class, which
+manages calls (LANGSXP).
+For comparison, we also show both versions using the standard \R API.
+Finally, we also show a variant using `Rcpp sugar', a topic which is
+discussed in Sections~\ref{sec:perfcomp} and \ref{sec:ongoing} below.
 
 This example illustrates that the \pkg{Rcpp} API permits us to work with code
 that is easier to read, write and maintain. More examples are available as
 part of the documentation included in the \pkg{Rcpp} package, as well as
-among its over seven hundred and seventy unit tests.
+among its over seven hundred and fifty unit tests.
 
 \section{Using code `inline'}
 \label{sec:inline}
 
-Extending R with compiled code also needs to address how to reliably compile,
-link and load the code.  While using a package is preferable in the long run,
+Extending \R with compiled code requires a mechanism for reliably compiling,
+linking, and loading the code. While using a package is preferable in the long run,
 it may be too involved for quick explorations. An alternative is
 provided by the \pkg{inline} package \citep{CRAN:inline} which compiles,
-links and loads a C, C++ or Fortran function---directly from the R prompt
+links and loads a \proglang{C}, \Cpp or \proglang{Fortran} function---directly from the \R prompt
 using simple functions \code{cfunction} and \code{cxxfunction}.  The latter provides an extension which
 works particularly well with \pkg{Rcpp} via so-called `plugins' which provide
 information about additional header file and
-library locations. 
+library locations.
 
 The use of \pkg{inline} is possible as \pkg{Rcpp} can be installed and
-updated just like any other R package using \textsl{e.g.} the
+updated just like any other \R package using, for examples, the
 \code{install.packages()} function for initial installation as well as
-\code{update.packages()} for upgrades.  So even though R / C++ interfacing
+\code{update.packages()} for upgrades.  So even though \R / \Cpp interfacing
 would otherwise require source code, the \pkg{Rcpp} library is always provided
 ready for use as a pre-built library through the CRAN package
 mechanism.\footnote{This presumes a platform for which pre-built binaries are
@@ -585,353 +772,398 @@ mechanism.\footnote{This presumes a platform for which pre-built binaries are
   or upgrades.}
 
 The library and header files provided by \pkg{Rcpp} for use by other packages
-are installed along with the \pkg{Rcpp} package. The \code{LinkingTo:~Rcpp}
-directive in the DESCRIPTION file lets R compute the location of the header
-file. The \pkg{Rcpp} package provides appropriate information for the \code{-L}
-switch needed for linking via the function \code{Rcpp:::LdFlags()} that
-provide this information. It can be used by \code{Makevars} files of other
+are installed along with the \pkg{Rcpp} package. The \code{LinkingTo:}~\code{Rcpp}
+directive in the DESCRIPTION file lets \R properly reference the header files.
+The \pkg{Rcpp} package provides appropriate information for the \code{-L}
+switch needed for linking via the function \code{Rcpp:::LdFlags()}.
+It can be used by \code{Makevars} files of other
 packages, and \pkg{inline} makes use of it internally so that all of this is
 done behind the scenes without the need for explicitly setting compiler or
 linker options.
 
 The convolution example provided above can be rewritten for use by
-\pkg{inline} as shown below.  The function body is provided by the character
+\pkg{inline} as shown below.  The function body is provided by the \R character
 variable \code{src}, the function header is defined by the argument
-\code{signature}---and we only need to enable \code{plugin="Rcpp"} to obtain a
-new function \code{fun} based on the C++ code in \code{src}: 
+\code{signature}, and we only need to enable \code{plugin="Rcpp"} to obtain a
+new \R function \code{fun} based on the \Cpp code in \code{src}:
 
-\begin{example}
-> src <- '
+\begin{CodeChunk}
+\begin{CodeInput}
+R> src <- '
 +   Rcpp::NumericVector xa(a);
 +   Rcpp::NumericVector xb(b);
 +   int n_xa = xa.size(), n_xb = xb.size();
-+ 
++
 +   Rcpp::NumericVector xab(n_xa + n_xb - 1);
 +   for (int i = 0; i < n_xa; i++)
 +     for (int j = 0; j < n_xb; j++)
 +        xab[i + j] += xa[i] * xb[j];
 +   return xab;
 + '
-> fun <- cxxfunction( 
-+ \ \ \ \	signature(a="numeric", b="numeric"), 
-+ \ \ \ \	src, plugin="Rcpp")
-> fun( 1:3, 1:4 )
+R> fun <- cxxfunction(signature(a="numeric", b="numeric"),
++                     src, plugin="Rcpp")
+R> fun( 1:3, 1:4 )
 [1]  1  4 10 16 17 12
-\end{example}
+\end{CodeInput}
+\end{CodeChunk}
 
-\section{Using STL algorithms}
+With one assignment to the \R variable \code{src}, and one call of the \R function
+\code{cxxfunction} (provided by the \pkg{inline} package), we have created a new \R
+function \code{fun} that uses the \proglang{C++} code we assigned to
+\code{src}---and all this functionality can be used directly from the \R
+prompt making prototyping with \Cpp functions straightforward.
 
-The C++ Standard Template Library (STL) offers a variety of generic
+\section{Using Standard Template Library algorithms}
+
+The \Cpp Standard Template Library (STL) offers a variety of generic
 algorithms designed to be used on ranges of elements
 \citep{Plauger+Et+Al:2000:STL}. A range is any sequence of objects that can be
 accessed through iterators or pointers.  All \pkg{Rcpp} classes from the new
 API representing vectors (including lists) can produce ranges through their
 member functions \code{begin()} and \code{end()}, effectively supporting
-iterating over elements of an R vector.
+iterating over elements of an \R vector.
 
 The following code illustrates how \pkg{Rcpp} might be used
-to emulate a 
+to emulate a
 simpler\footnote{The version of \code{lapply} does not allow use of the
 ellipsis (\code{...}).} version of \code{lapply}
-using the \code{transform} algorithm from the STL. 
+using the \code{transform} algorithm from the STL.
 
-\begin{example}
-> src <- '
-+   Rcpp::List input(data); 
+\begin{CodeChunk}
+\begin{CodeInput}
+R> src <- '
++   Rcpp::List input(data);
 +   Rcpp::Function f(fun);
 +   Rcpp::List output(input.size());
-+   std::transform( 
-+   	input.begin(), input.end(), 
-+   	output.begin(), 
-+   	f );
++   std::transform(input.begin(), input.end(), output.begin(), f);
 +   output.names() = input.names();
 +   return output;
 +   '
-> cpp_lapply <- cxxfunction(
-+ \ \ signature(data="list", fun = "function"), 
-+ \ \ src, plugin="Rcpp")
-\end{example}
+R> cpp_lapply <- cxxfunction(signature(data="list", fun = "function"),
++                           src, plugin="Rcpp")
+\end{CodeInput}
+\end{CodeChunk}
 
-We can use this to calculate a summary of each 
-column of the \code{faithful} data set included with R.
+We can now use this \code{cpp_lapply} function to calculate a summary of each
+column of the \code{faithful} data set included with \proglang{R}.
 
-\begin{example}
-> cpp_lapply( faithful, summary )
+\begin{CodeChunk}
+\begin{CodeInput}
+R> cpp_lapply( faithful, summary )
+\end{CodeInput}
+\begin{CodeOutput}
 $eruptions
- Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-1.600   2.163   4.000   3.488   4.454   5.100 
+ Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+1.600   2.163   4.000   3.488   4.454   5.100
 
 $waiting
- Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 43.0    58.0    76.0    70.9    82.0    96.0 
-\end{example}
-
+ Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+ 43.0    58.0    76.0    70.9    82.0    96.0
+\end{CodeOutput}
+\end{CodeChunk}
 
 
 \section{Error handling}
 
-Code that uses both R and C++ has to deal with two concurrent
-error handling models. \pkg{Rcpp} simplifies this and allows both 
+Code that uses both \R and \Cpp has to deal with two distinct
+error handling models. \pkg{Rcpp} simplifies this and allows both
 systems to work together.
 
-\subsection{C++ exceptions in R}
+\subsection[C++ exceptions in R]{\Cpp exceptions in \proglang{R}}
 
-The internals of the R condition mechanism and the implementation of 
-C++ exceptions are both based on a layer above POSIX jumps. These layers 
+The internals of the \R condition mechanism and the implementation of
+\Cpp exceptions are both based on a layer above POSIX jumps. These layers
 both assume total control over the call stack and should not be used together
 without extra precaution. \pkg{Rcpp} contains facilities to combine both systems
-so that C++ exceptions are caught and recycled into the R condition 
-mechanism. 
+so that \Cpp exceptions are caught and recycled into the \R condition
+mechanism.
 
-\pkg{Rcpp} defines the \code{BEGIN\_RCPP} and \code{END\_RCPP} macros that should 
-be used to bracket code that might throw C++ exceptions. 
+\pkg{Rcpp} defines the \code{BEGIN\_RCPP} and \code{END\_RCPP} macros that should
+be used to bracket code that might throw \Cpp exceptions.
 
-\begin{example}
-RcppExport SEXP fun( SEXP x )\{
+\begin{CodeChunk}
+\begin{CodeInput}
+RcppExport SEXP fun( SEXP x ) {
 BEGIN_RCPP
     int dx = Rcpp::as<int>(x);
-    if( dx > 10 ) 
+    if( dx > 10 )
         throw std::range_error("too big");
-    return Rcpp::wrap( dx * dx); 
+    return Rcpp::wrap( dx * dx);
 END_RCPP
-\}
-\end{example}
+}
+\end{CodeInput}
+\end{CodeChunk}
 
-The macros are simply defined to avoid code repetition. They expand to 
-simple try/catch blocks: 
+The macros are simply defined to avoid code repetition. They expand to
+simple\code{try}/\code{catch} blocks so that the above example becomes:
 
-\begin{example}
-RcppExport SEXP fun( SEXP x )\{
-    try\{
+\begin{CodeChunk}
+\begin{CodeInput}
+RcppExport SEXP fun( SEXP x ) {
+    try {
         int dx = Rcpp::as<int>(x);
-        if( dx > 10 ) 
+        if( dx > 10 )
             throw std::range_error("too big");
-        return Rcpp::wrap( dx * dx); 
-    \} catch( std::exception& __ex__ )\{ 
+        return Rcpp::wrap( dx * dx);
+    } catch( std::exception& __ex__ ) {
         forward_exception_to_r( __ex__ );
-    \} catch(...)\{ 
-        ::Rf_error( "c++ exception "
-                    "(unknown reason)" );
-    \}
-\}
-\end{example}
+    } catch(...) {
+        ::Rf_error( "c++ exception (unknown reason)" );
+    }
+}
+\end{CodeInput}
+\end{CodeChunk}
 
-Using \code{BEGIN\_RCPP} and \code{END\_RCPP} --- or the expanded versions ---
-guarantees that the stack is first unwound in terms of C++ exceptions, before 
-the problem is converted to the standard R error management system (\code{Rf\_error}).
+Using \code{BEGIN\_RCPP} and \code{END\_RCPP}---or the expanded
+versions---guarantees that the stack is first unwound in terms of \Cpp
+exceptions, before the problem is converted to the standard \R error
+management system using the function \code{Rf\_error} of the \R API.
 
-The \code{forward\_exception\_to\_r} function uses run-time type information to 
-extract information about the class of the C++ exception and its message, so that 
-dedicated handlers can be installed on the R side. 
+The \code{forward\_exception\_to\_r} function uses run-time type information to
+extract information about the class of the \Cpp exception and its message so that
+dedicated handlers can be installed on the \R side.
 
-\begin{example}
-> f <- function(x) .Call( "fun", x )
-> tryCatch( f( 12 ), 
-+    "std::range_error" = function(e) \{
-+       conditionMessage( e )
-+    \} )
+\begin{CodeChunk}
+\begin{CodeInput}
+R> f <- function(x) .Call( "fun", x )
+R> tryCatch( f(12), "std::range_error" = function(e) { conditionMessage(e) })
+\end{CodeInput}
+\begin{CodeOutput}
 [1] "too big"
-> tryCatch( f( 12 ), 
-+    "std::range_error" = function(e) \{
-+       class( e )
-+    \} )
-[1] "std::range_error" "C++Error"
-[3] "error"            "condition" 
-\end{example}
+\end{CodeOutput}
+\begin{CodeInput}
+R> tryCatch( f(12), "std::range_error" = function(e) { class(e) } )
+\end{CodeInput}
+\begin{CodeOutput}
+[1] "std::range_error" "C++Error"         "error"            "condition"
+\end{CodeOutput}
+\end{CodeChunk}
 
-\subsection{R error in C++}
+A serious limitation of this approach is the lack of support for calling
+handlers. \R calling handlers are also based on POSIX jumps, and using both
+calling handlers from the \R engine as well \Cpp exception forwarding might
+lead to undetermined results. Future versions of \pkg{Rcpp} might attempt to
+to improve this issue.
 
-R currently does not offer C-level mechanisms to deal with errors. To 
+\subsection[R errors in C++]{\R errors in \Cpp}
+
+\R itself currently does not offer \proglang{C}-level mechanisms to deal with errors. To
 overcome this problem, \pkg{Rcpp} uses the \code{Rcpp::Evaluator}
-class to evaluate an expression in an R-level \code{tryCatch}
-block. The error, if any, that occurs while evaluating the 
-function is then translated into an C++ exception that can be dealt with using 
-regular C++ try/catch syntax.
+class to evaluate an \R expression in an R-level \code{tryCatch}
+block. The error, if any, that occurs while evaluating the
+function is then translated into an \Cpp exception that can be dealt with using
+regular \Cpp \code{try}/\code{catch} syntax.
+
+An open (and rather hard) problem, however, is posed by the fact that calls
+into the \proglang{C} API offered by \R cannot be reliably protected.  Such
+calls can always encounter an error condition of their own triggering a call
+to \code{Rf_error} which will lead to a sudden death of the program. In
+particular, neither \Cpp class destructors nor \code{catch} parts of outer
+\code{try}/\code{catch} blocks will be called. This leaves the potential for
+memory or resource leakage.  So while newly written code can improve on this
+situation via use of \Cpp exception handling, existing code calling
+the into \R \proglang{C} API cannot be amended just by having an outer layer
+of exception handling around it.
+
 
 \section{Performance comparison}
+\label{sec:perfcomp}
 
-In this section, we present several different ways to leverage \pkg{Rcpp} to 
-rewrite the convolution example taken from \cite{R:Extensions}. 
-
+In this section, we present several different ways to leverage \pkg{Rcpp} to
+rewrite the convolution example from `Writing R Extensions' \citep[Chapter 5]{R:Extensions}
+first discussed in Section~\ref{sec:new_rcpp}.
+%
 As part of the redesign of \pkg{Rcpp}, data copy is kept to the
 absolute minimum: the \code{RObject} class and all its derived
-classes are just a container for a \code{SEXP} object. We let R perform
+classes are just a container for a \code{SEXP} object. We let \R perform
 all memory management and access data though the macros or functions
-offered by the standard R API. 
+offered by the standard \R API.
 
-The implementation of the \code{operator[]} is designed to be as 
-efficient as possible, using both inlining and caching, 
-but even this implementation is still less efficient than the 
-reference C implementation described in \cite{R:Extensions}. 
+The implementation of the \code{operator[]} is designed to be as
+efficient as possible, using both inlining and caching,
+but even this implementation is still less efficient than the
+reference \proglang{C} implementation described in \cite{R:Extensions}.
 
-\pkg{Rcpp} follows design principles from the STL, and classes such 
-as \code{NumericVector} expose iterators that can be used for 
-sequential scans of the data. Algorithms using iterators are 
-usually more efficient than those that operate on objects using the 
-\code{operator[]}. The following version illustrate the use of the
-\code{NumericVector::iterator}. 
+\pkg{Rcpp} follows design principles from the STL, and classes such
+as \code{NumericVector} expose iterators that can be used for
+sequential scans of the data. Algorithms using iterators are
+usually more efficient than those that operate on objects using the
+\code{operator[]}. The following version of the convolution function
+illustrates the use of the \code{NumericVector::iterator}.
 
-\begin{example}
+\begin{CodeChunk}
+\begin{CodeInput}
 #include <Rcpp.h>
 
-RcppExport SEXP convolve4cpp(SEXP a, SEXP b)\{
+RcppExport SEXP convolve4cpp(SEXP a, SEXP b) {
     Rcpp::NumericVector xa(a), xb(b);
     int n_xa = xa.size(), n_xb = xb.size();
     Rcpp::NumericVector xab(n_xa + n_xb - 1);
-    
-    typedef Rcpp::NumericVector::iterator 
-        vec_iterator;
-    vec_iterator ia = xa.begin(), 
-                 ib = xb.begin();
+
+    typedef Rcpp::NumericVector::iterator vec_iterator;
+    vec_iterator ia = xa.begin(), ib = xb.begin();
     vec_iterator iab = xab.begin();
     for (int i = 0; i < n_xa; i++)
-        for (int j = 0; j < n_xb; j++) 
+        for (int j = 0; j < n_xb; j++)
             iab[i + j] += ia[i] * ib[j];
 
     return xab;
-\}
-\end{example}
+}
+\end{CodeInput}
+\end{CodeChunk}
 
-One of the focuses of recent developments of \pkg{Rcpp} is called `Rcpp sugar', 
-and aims to provide R-like syntax in C++. A discussion of Rcpp sugar is 
-beyond the scope of this article, but for illustrative purposes we have included
-another version of the convolution algorithm based on Rcpp sugar. 
+One of the focuses of recent developments of \pkg{Rcpp} is called `Rcpp sugar',
+and aims to provide R-like syntax in \proglang{C++}. While a fuller discussion of Rcpp sugar is
+beyond the scope of this article, we have included
+another version of the convolution algorithm based on Rcpp sugar for illustrative purposes here:
 
-\begin{example}
+\begin{CodeChunk}
+\begin{CodeInput}
 #include <Rcpp.h>
 
-RcppExport SEXP convolve11cpp(SEXP a, SEXP b)\{
-    Rcpp::NumericVector xa(a), xb(b); 
+RcppExport SEXP convolve11cpp(SEXP a, SEXP b) {
+    Rcpp::NumericVector xa(a), xb(b);
     int n_xa = xa.size(), n_xb = xb.size();
-    Rcpp::NumericVector xab(n_xa+n_xb-1,0.0);
-    
+    Rcpp::NumericVector xab(n_xa + n_xb-1, 0.0);
+
     Rcpp::Range r( 0, n_xb-1 );
     for (int i=0; i<n_xa; i++, r++)
-        xab[ r ] += Rcpp::noNA(xa[i]) * 
-                    Rcpp::noNA(xb);
+        xab[ r ] += Rcpp::noNA(xa[i]) * Rcpp::noNA(xb);
     return xab ;
-\}
-\end{example}
+}
+\end{CodeInput}
+\end{CodeChunk}
 
-Rcpp sugar allows manipulation of entire subsets of vectors at once, thanks to 
-the \code{Range} class. Rcpp sugar uses techniques such as expression templates, 
-lazy evaluation and loop unrolling to generate very efficient code. 
-The \code{noNA} template function marks its argument to indicates that it does 
-not contain any missing values---an assumption made implicitly by other 
+Rcpp sugar allows manipulation of entire subsets of vectors at once, thanks to
+the \code{Range} class. Rcpp sugar uses techniques such as expression templates,
+lazy evaluation and loop unrolling to generate very efficient code.
+The \code{noNA} template function marks its argument to indicates that it does
+not contain any missing values---an assumption made implicitly by other
 versions---allowing sugar to compute the individual operations without having
-to test for missing values. 
+to test for missing values.
 
-\begin{table}[H]
+We have benchmarked the various implementations by averaging over 5000 calls
+of each function with \code{a} and \code{b} containing 200 elements
+each.\footnote{The code is contained in the directory
+  \code{inst/examples/ConvolveBenchmarks} in the \pkg{Rcpp} package.} The timings
+are summarized in Table~\ref{tab:benchmark} below.
+
+\begin{table}[t]
   \begin{center}
     \begin{small}
       \begin{tabular}{lrr}
         \toprule
-        Implementation                    & Time in   & Relative \\ 
-                                          & millisec  & to R API \\ 
+        Implementation                    & Time in millisec. & Relative to \R API \\
         \cmidrule(r){2-3}
-        R API (as benchmark)              &  218       & \\
+        \R API (as benchmark)             &  218       & \\
         Rcpp sugar                        &  145       & 0.67 \\
         \code{NumericVector::iterator}    &  217       & 1.00 \\
         \code{NumericVector::operator[]}  &  282       & 1.29 \\
-        \code{RcppVector<double>}         &  683       & 3.13 \\
+        %\code{RcppVector<double>}         &  683       & 3.13 \\
         \bottomrule
       \end{tabular}
     \end{small}
-    \caption{Performance for convolution example}
+    \caption{Run-time performance of the different convolution examples.}
     \label{tab:benchmark}
   \end{center}
 \end{table}
 
-We have benchmarked the various implementations by averaging over 5000 calls 
-of each function with \code{a} and \code{b} containing 200 elements
-each.\footnote{The code for this example is contained in the directory
-  \code{inst/examples/ConvolveBenchmarks} in the \pkg{Rcpp} package.} The timings
-are summarized in Table~\ref{tab:benchmark}.
+The first implementation, written in \proglang{C} and using the traditional \R API,
+provides our base case. It takes advantage of pointer arithmetics and therefore
+does not to pay the price of \Cpp object encapsulation or operator overloading.
 
-The first implementation, written in C and using the traditional R API
-provides our base case. It takes advantage of pointer arithmetics, therefore
-does not pay the price of C++'s object encapsulation or operator overloading.
-%
-The slowest implementation comes from the (deprecated) classic \pkg{Rcpp} API. 
-It is clearly behind in terms of efficiency. The difference is mainly 
-caused by the many unnecessary copies that the older code 
-performs. 
+%The slowest implementation comes from the (deprecated) classic \pkg{Rcpp} API.
+%It is clearly behind in terms of efficiency. The difference is mainly
+%caused by the many unnecessary copies that the older code
+%performs.
 
-The second-slowest solution uses the more efficient new \pkg{Rcpp} API. While
-already orders of magnitude faster than the preceding solution, it
-illustrates the price of object encapsulation and of calling an overloaded
+%The slowest solution uses the more efficient new \pkg{Rcpp} API. While
+%already several times faster than the preceding solution, it
+%illustrates the price of object encapsulation and of calling an overloaded
+%\code{operator[]} as opposed to using direct pointer arithmetics as in the
+%reference case.
+The slowest solution illustrates the price of object encapsulation. Calling an overloaded
 \code{operator[]} as opposed to using direct pointer arithmetics as in the
-reference case.
+reference case costs about 29\% in performance.
 
 The next implementation uses iterators rather than indexing. Its performance
-is indistinguishable from the base case. 
-This shows that use of C++ does not necessarily imply any performance penalty.
+is indistinguishable from the base case.
+This also shows that the use of \Cpp may not necessarily imply any performance
+penalty. Further, \Cpp \code{iterators} can be used to achieve the performance
+of \proglang{C} pointers, but without the potential dangers of direct memory
+access via pointers.
 
 Finally, the fastest implementation uses Rcpp sugar. It performs
-significantly better than the base case: explicit loop unrolling provides
-vectorization at the C++ level which is responsible for this speedup.  
+significantly better than the base case.  Explicit loop unrolling provides us with
+vectorization at the \Cpp level which is responsible for this particular speedup.
 
 \section{On-going development}
+\label{sec:ongoing}
 
 \pkg{Rcpp} is in very active development: Current work in the
 package (and in packages such as \pkg{RcppArmadillo})
-focuses on further improving interoperability between R and C++. 
-Two core themes are `Rcpp sugar' as well as `Rcpp modules' both of which are
-discussed in specific vignettes in the package.  
+focuses on further improving interoperability between \R and \proglang{C++}.
+Two core themes for on-going development are `Rcpp sugar' as well as `Rcpp modules', both of which are
+also discussed in more detail in specific vignettes in the \pkg{Rcpp} package.
 
-`Rcpp sugar' brings syntactic
-sugar at the C++ level, including optimized binary operators and many 
-R functions such as \code{ifelse}, \code{sapply}, \code{any}, ... 
+`Rcpp sugar' offers syntactic
+sugar at the \Cpp level, including optimized binary operators and many
+\R functions such as \code{ifelse}, \code{sapply}, \code{any}, \code{head},
+\code{tail}, and more.
 The main technique used in Rcpp sugar is
 expression templates pioneered by the Blitz++ library \citep{Veldhuizen:1998:Blitz}
-and since adopted 
-by projects such as Armadillo \citep{Sanderson:2010:Armadillo}. 
+and since adopted
+by projects such as Armadillo \citep{Sanderson:2010:Armadillo}.
 Access to most of the d/p/q/r-variants of the statistical distribution
-functions has also been added, enabling the use of expressions such as 
+functions has also been added, enabling the use of expressions such as
 \code{dnorm(X, m, s)} for a numeric vector $X$ and scalars $m$ and
-$s$. Similarly, and continuing Table~\ref{fig:rnormCode},  the R expression
-\code{rnorm(10L, sd=100)} can now be written in C++ as \code{rnorm(10, 0,
-  100)} where C++ semantics require the second parameter to be used. 
+$s$. This was shown in Table~\ref{fig:rnormCode} in
+Section~\ref{sec:functions} above where
+the \R expression \code{rnorm(10L, sd=100)}
+was rewritten in \Cpp as \code{rnorm(10, 0, 100)}. Note that
+\Cpp semantics require the second parameter to be used here, which is
+different from the \R case.
 
-`Rcpp modules' allows programmers to expose C++ functions and classes 
-at the R level. This offers access to C++ code from R using even less
-interface code than by writing accessor function. Modules are inspired by
-the \code{Boost.Python} library 
-\citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python} that provides similar functionality for Python. C++ Classes
-exposed by Rcpp modules are shadowed by reference classes that have been 
-introduced in R 2.12.0. 
+`Rcpp modules' allows programmers to expose \Cpp functions and classes at the
+\R level. This offers access to \Cpp code from \R using even less interface
+code than by writing accessor functions. Modules are inspired by the
+\code{Boost.Python} library
+\citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python} which provides similar
+functionality for \proglang{Python}. \Cpp Classes exposed by Rcpp modules are
+shadowed by Reference Classes which have been introduced in \R 2.12.0.
 
 
 \section{Summary}
 
-The \pkg{Rcpp} package presented here greatly simplifies integration of
-compiled C++ code with R.
-
-The class hierarchy allows manipulation of R data structures in C++ 
+The \pkg{Rcpp} package presented in this paper greatly simplifies integration of
+compiled \Cpp code with \proglang{R}.
+%
+\pkg{Rcpp} provides a \Cpp class hierarchy which allows manipulation of \R data structures in \Cpp
 using member functions and operators directly related to the type
 of object being used, thereby reducing the level of expertise
 required to master the various functions and macros offered by the
-internal R API. The classes assume the entire 
-responsibility of garbage collection of objects, relieving the 
-programmer from book-keeping operations with the protection stack 
-and enabling him/her to focus on the underlying problem. 
+internal \R API. The classes assume the entire
+responsibility of garbage collection of objects, relieving the
+programmer from book-keeping operations with the protection stack
+and enabling him/her to focus on the underlying problem.
 
-Data interchange between R and C++ code---performed by the \code{wrap} and
-\code{as} template functions---allows the programmer to write logic in terms
-of C++ data structures and facilitates use of modern libraries such as the
-Standard Template Library and its containers and algorithms. The
-\code{wrap()} and \code{as()} template functions are extensible by design and
-can be used either explicitly or implicitly throughout the API.
-By using only thin wrappers around \code{SEXP} objects and adopting C++
-idioms such as iterators, the footprint of the \pkg{Rcpp} API 
-is very lightweight, and does not incur a significant performance penalty. 
+Data interchange between \R and \Cpp code is performed by the \code{wrap()} and
+\code{as()} template functions. They allow the programmer to write logic in terms
+of \Cpp data structures, and facilitate use of modern libraries such as the
+Standard Template Library (STL) and its containers and algorithms. The
+\code{wrap()} and \code{as()} template functions are extensible by
+design. They are also used either explicitly or implicitly throughout the API.
+By using only thin wrappers around \code{SEXP} objects and adopting \Cpp
+idioms such as iterators, the footprint of the \pkg{Rcpp} API
+is very lightweight, and does not incur a significant performance penalty.
 
 The \pkg{Rcpp} API offers opportunities to dramatically reduce the complexity
-of code, which should improve code readability, maintainability and reuse.
+of code, which should lower the initial cost of writing code and improve code readability, maintainability, and
+reuse---without incurring noticeable penalties in run-time performance.
 
-\section{Acknowledgments}
+\section*{Acknowledgments}
 
-Detailed comments and suggestions by an editor as well as two anonymous referees
+Detailed comments and suggestions by editors as well as anonymous referees
 are gratefully acknowledged.  We are also thankful for code contributions by
 Doug Bates and John Chambers, as well as for very helpful suggestions by Uwe
 Ligges, Brian Ripley and Simon Urbanek concerning the build systems for different
@@ -940,23 +1172,10 @@ ideas for new or extended features via the \code{rcpp-devel} mailing list.
 
 \bibliography{Rcpp}
 
-\address{Dirk Eddelbuettel\\
-  Debian Project\\
-  Chicago, IL\\
-  USA}\\
-\email{edd@debian.org}
-
-\address{Romain Fran\c{c}ois\\
-  Professional R Enthusiast\\
-  1 rue du Puits du Temple, 34 000 Montpellier\\
-  FRANCE}\\
-\email{romain@r-enthusiasts.com}
-
-\end{article}
-
 \end{document}
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
-%%% End: 
+%%% End:
+
