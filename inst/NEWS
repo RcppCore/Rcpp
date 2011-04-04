@@ -1,6 +1,6 @@
 0.9.3   2011-04-02
 
-    o   Exceptions code include exception_defines.h only when g++ is 4.5 or
+    o   Exceptions code includes exception_defines.h only when g++ is 4.5 or
         younger as the file no longer exists with g++-4.6
     
     o   The documentation Makefile now uses the $R_HOME environment variable
@@ -14,7 +14,7 @@
     o   The 'long long' typedef now depends on C++0x being enabled as this
         was not a feature in C++98; this suppresses a new g++-4.5 warning
 
-    o   The Rcpp-introduction vignette is now the forthcoming JSS paper 
+    o   The Rcpp-introduction vignette was updated to the forthcoming JSS paper
 
 0.9.2   2011-02-23
 
