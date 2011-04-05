@@ -292,9 +292,10 @@ OS X is a little more conservative with compiler versions, so it pays to get
 the latest of whatever Apple releases which may already be a little behind
 what is used on Linux or Windows.
 
-At the time of writing this paragraph in the spring of 2011, \pkg{Rcpp} (just
-like CRAN) supported all OS X releases greater or equal to 10.5.  Building
-from source also requires a recent-enough version of Xcode; the current
+At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
+(just like CRAN) supports all OS X releases greater or equal to 10.5.
+However, building \pkg{Rcpp} from source (or building packages using
+\pkg{Rcpp}) also requires a recent-enough version of Xcode; the current
 version is 3.1.4 which can be downloaded free of charge from the Apple
 Developer site.
 
