@@ -23,8 +23,7 @@
 }
 
 if( Rcpp:::capabilities()[["Rcpp modules"]] ) {
-# if( FALSE ){
-    
+
 test.Module <- function(){
 
 	inc  <- '
@@ -78,9 +77,9 @@ test.Module <- function(){
 		function( "bla2"  , &bla2   ) ;
 
 		class_<World>( "World" )
-		
+
 		    .constructor()
-		    
+
 			.method( "greet", &World::greet )
 			.method( "set", &World::set )
 			.method( "clear", &clearWorld )
@@ -131,9 +130,9 @@ test.Module.property <- function(){
 		using namespace Rcpp ;
 
 		class_<Num>( "Num" )
-		    
-		    .constructor() 
-	    
+
+		    .constructor()
+
 			// read and write property
 			.property( "x", &Num::getX, &Num::setX )
 
@@ -173,8 +172,8 @@ test.Module.member <- function(){
 
 		class_<Number>( "Number" )
 
-		    .constructor() 
-	    
+		    .constructor()
+
 			// read and write data member
 			.field( "x", &Number::x )
 
@@ -221,7 +220,7 @@ RCPP_MODULE(mod){
 
         // No default: .default_constructor()
         .constructor<double,double>()
-    
+
         .method( "get" , &Randomizer::get ) ;
 
 }
