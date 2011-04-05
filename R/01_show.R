@@ -74,14 +74,18 @@ setMethod( "show", "C++Class", function(object){
 	    writeLines( "\nFields: No public fields exposed by this class" )
 	}
 	
-	writeLines( "\nMethods: " )
 	mets <- object@methods
 	nmethods <- length(mets)
-	txt <- character( nmethods )
-	for( i in seq_len(nmethods) ){
-	    txt[i] <- mets[[i]]$info("    ")
+	if( nmethods ){
+	    writeLines( "\nMethods: " )
+	    txt <- character( nmethods )
+	    for( i in seq_len(nmethods) ){
+	        txt[i] <- mets[[i]]$info("    ")
+	    }
+	    writeLines( paste( txt, collapse = "\n" ) ) 
+	} else {
+	    writeLines( "\nMethods: no methods exposed by this class" )
 	}
-	writeLines( paste( txt, collapse = "\n" ) )
 } )
 
 setMethod( "show", "C++Function", function(object){
