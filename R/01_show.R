@@ -53,22 +53,26 @@ setMethod( "show", "C++Class", function(object){
 	writeLines( "Constructors:" )
 	writeLines( paste( txt, collapse = "\n" ) )
 	
-	writeLines( "\nFields: " )
 	fields <- object@fields
 	nfields <- length(fields)
-	names <- names(fields)
-	txt <- character(nfields)
-	for( i in seq_len(nfields) ){
-	    f <- fields[[i]]
-	    doc <- f$docstring
-	    txt[i] <- sprintf( "    %s %s%s%s",
-	        f$cpp_class, 
-	        names[i], 
-	        if( f$read_only ) " [readonly]" else "", 
-	        if( nchar(doc) ) sprintf( "\n        docstring : %s", doc ) else ""
-	    )    
+	if( nfields ){
+	    names <- names(fields)
+	    txt <- character(nfields)
+	    writeLines( "\nFields: " )
+	    for( i in seq_len(nfields) ){
+	        f <- fields[[i]]
+	        doc <- f$docstring
+	        txt[i] <- sprintf( "    %s %s%s%s",
+	            f$cpp_class, 
+	            names[i], 
+	            if( f$read_only ) " [readonly]" else "", 
+	            if( nchar(doc) ) sprintf( "\n        docstring : %s", doc ) else ""
+	        )    
+	    }
+	    writeLines( paste( txt, collapse = "\n" ) )
+	} else {
+	    writeLines( "\nFields: No public fields exposed by this class" )
 	}
-	writeLines( paste( txt, collapse = "\n" ) )
 	
 	writeLines( "\nMethods: " )
 	mets <- object@methods
