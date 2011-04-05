@@ -139,6 +139,7 @@ cpp_object_dummy <- function(.self, .refClassDef) {
 }    
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ) {
+    if(is(module, "DLLInfo") && missing(mustStart)) mustStart <- TRUE
     if(is(module, "Module")) {
         xp <- .getModulePointer(module, FALSE)
         if(!missing(PACKAGE))
