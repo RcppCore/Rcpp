@@ -7,7 +7,7 @@ citEntry(entry="Article",
          journal      = "Journal of Statistical Software",
          year         = "forthcoming",
 	 volume       = "XX",
-	 number       = "YY,
+	 number       = "YY",
 	 pages        = "aa--bb",
          url          = "http://www.jstatsoft.org/vXX/iYY/",
          
