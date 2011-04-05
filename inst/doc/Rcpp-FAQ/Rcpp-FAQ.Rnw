@@ -297,8 +297,10 @@ At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
 However, building \pkg{Rcpp} from source (or building packages using
 \pkg{Rcpp}) also requires a recent-enough version of Xcode. For the
 \textsl{Leopard} release of OS X, the current version is 3.1.4 which can be
-downloaded free of charge from the Apple Developer site. The \textsl{Snow
-  Leopard} release already comes with Xcode 3.2.x.
+downloaded free of charge from the Apple Developer site. Users may have to
+manually select \code{g++-4.2} via the symbolic link \code{/usr/bin/g++}.
+The \textsl{Snow Leopard} release already comes with Xcode 3.2.x and work as
+is.
 
 \subsection{Can I use \pkg{Rcpp} with Visual Studio ?}
 
