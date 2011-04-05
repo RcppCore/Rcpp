@@ -1,4 +1,4 @@
-0.9.3   2011-04-04
+0.9.3   2011-04-05
 
     o   Fixed a bug in which modules code was not behaving when compiled 
         twice as can easily happen with inline'ed version
