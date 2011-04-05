@@ -3,7 +3,7 @@
 \usepackage{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
-\usepackage{color, alltt}
+\usepackage{color,alltt}
 \usepackage[authoryear,round,longnamesfirst]{natbib}
 \usepackage[colorlinks]{hyperref}
 \definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
@@ -17,6 +17,7 @@
 
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+\newcommand{\code}[1]{\texttt{#1}}
 
 %% defined as a stop-gap measure til interaction with highlight is sorted out
 \newcommand{\hlboxlessthan}{   \hlnormalsizeboxlessthan}
@@ -37,56 +38,56 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 
 <<echo=FALSE>>=
 link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
-	h <- if( missing(package) ) {
-		as.character( help( f ) )
-	} else {
-		as.character( help( f, package = paste( package, sep = "" ) ) )
-	}
-	if( ! length(h) ){
-		sprintf( "\\\\textbf{%s}", f )
-	} else {
-		rx <- "^.*/([^/]*?)/help/(.*?)$"
-		package <- sub( rx, "\\1", h, perl = TRUE )
-		page <- sub( rx, "\\2", h, perl = TRUE )
-		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
-	}
+    h <- if( missing(package) ) {
+        as.character( help( f ) )
+    } else {
+        as.character( help( f, package = paste( package, sep = "" ) ) )
+    }
+    if( ! length(h) ){
+        sprintf( "\\\\textbf{%s}", f )
+    } else {
+        rx <- "^.*/([^/]*?)/help/(.*?)$"
+        package <- sub( rx, "\\1", h, perl = TRUE )
+        page <- sub( rx, "\\2", h, perl = TRUE )
+        sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+    }
 }
 linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
-	link( sprintf("%s-class", cl), package, text, root )
+    link( sprintf("%s-class", cl), package, text, root )
 }
 require(inline)
 # this will be integrated to package highlight later
 ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
-	if( verbatim ){
-		writeLines( "\\begin{verbatim}" )
-		writeLines( readLines( file ) )
-		writeLines( "\\end{verbatim}" )
-	} else {
-		tf <- tempfile()
-		if( external.highlight ){
-			cmd <- sprintf( 'highlight --input="%s" --output="%s" -L --pretty-symbols', file, tf )
-			tryCatch( {
-				system( cmd )
-				tex <- readLines( tf )
-				keep <- seq( which( tex == "\\noindent" ), which( tex == "\\normalfont" ) )
-				tex <- c(
-					"\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}" ,
-					tex[ keep ],
-					"\\end{minipage}}\\vspace{1em}" )
-				writeLines( tex )
-			})
-		} else {
-			r = renderer_latex( minipage = TRUE, doc = FALSE )
-			tex <- highlight( file, renderer = r , output = NULL )
-			writeLines( tex )
-		}
-	}
-	invisible(NULL)
+    if( verbatim ){
+        writeLines( "\\begin{verbatim}" )
+        writeLines( readLines( file ) )
+        writeLines( "\\end{verbatim}" )
+    } else {
+        tf <- tempfile()
+        if( external.highlight ){
+            cmd <- sprintf( 'highlight --input="%s" --output="%s" -L --pretty-symbols', file, tf )
+            tryCatch( {
+                system( cmd )
+                tex <- readLines( tf )
+                keep <- seq( which( tex == "\\noindent" ), which( tex == "\\normalfont" ) )
+                tex <- c(
+                         "\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}" ,
+                         tex[ keep ],
+                         "\\end{minipage}}\\vspace{1em}" )
+                writeLines( tex )
+            })
+        } else {
+            r = renderer_latex( minipage = TRUE, doc = FALSE )
+            tex <- highlight( file, renderer = r , output = NULL )
+            writeLines( tex )
+        }
+    }
+    invisible(NULL)
 }
 
 @
 
-\newcommand{\faq}[1]{\textbf{FAQ~\ref{#1}}}
+\newcommand{\faq}[1]{FAQ~\ref{#1}}
 
 \begin{document}
 \maketitle
@@ -116,7 +117,7 @@ is bound by the choices made by \proglang{R} and is also influenced by how
 \proglang{R} is configured.
 
 In general, the standard environment for building a CRAN package from source
-(even when it contains \proglang{C} or \proglang{C++} code) is required. This
+(particularly when it contains \proglang{C} or \proglang{C++} code) is required. This
 means one needs:
 \begin{itemize}
 \item a development environment with a suitable compiler (see
@@ -146,7 +147,7 @@ Specific per-platform notes:
   \item[OS X] users, as noted in the `R Administration' manual \citep[Appendix
     C.4]{R:Administration}, need to install the Apple Developer Tools
     (\textsl{e.g.}, \texttt{Xcode}) (as well as \texttt{gfortran} if \proglang{R} or
-    Fortran-using packages are to be built).
+    Fortran-using packages are to be built); also see \faq{q:OSX} below.
   \item[Linux] user need to install the standard developement packages. Some
     distributions provide helper packages which pull in all the required
     packages; the \texttt{r-base-dev} package on Debian and Ubuntu is an example.
@@ -193,10 +194,10 @@ function that uses \texttt{accumulate} from the (\proglang{C++}) Standard
 Template Library to sum the elements of a numeric vector.
 
 <<>>=
-fx <- cxxfunction( signature( x = "numeric" ),
-' NumericVector xx(x); return wrap( std::accumulate( xx.begin(), xx.end(), 0.0 ) ) ; '
-, plugin = "Rcpp"
-	)
+fx <- cxxfunction(signature( x = "numeric" ),
+    'NumericVector xx(x);
+     return wrap( std::accumulate( xx.begin(), xx.end(), 0.0));',
+    plugin = "Rcpp")
 res <- fx( seq( 1, 10, by = 0.5 ) )
 res
 <<echo=FALSE>>=
@@ -286,7 +287,18 @@ sure to adapt \pkg{Rcpp} as well.
 
 Yes of course. See the Windows binaries provided by CRAN.
 
+\subsection{Can I use \pkg{Rcpp} with Visual Studio ?}
+
+Not a chance.
+
+And that is not because we are meanies but because \proglang{R} and Visual
+Studio simply do not get along. As \pkg{Rcpp} is all about extending
+\proglang{R} with \proglang{C++} interfaces, we are bound by the available
+toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
+complain to its vendor if you are still upset.
+
 \subsection{I am having problems building Rcpp on OS X, any help ?}
+\label{q:OSX}
 
 OS X is a little more conservative with compiler versions, so it pays to get
 the latest of whatever Apple releases which may already be a little behind
@@ -301,16 +313,6 @@ downloaded free of charge from the Apple Developer site. Users may have to
 manually select \code{g++-4.2} via the symbolic link \code{/usr/bin/g++}.
 The \textsl{Snow Leopard} release already comes with Xcode 3.2.x and work as
 is.
-
-\subsection{Can I use \pkg{Rcpp} with Visual Studio ?}
-
-Not a chance.
-
-And that is not because we are meanies but because \proglang{R} and Visual
-Studio simply do not get along. As \pkg{Rcpp} is all about extending
-\proglang{R} with \proglang{C++} interfaces, we are bound by the available
-toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
-complain to its vendor if you are still upset.
 
 \subsection{Does \pkg{Rcpp} work on solaris/suncc ?}
 
@@ -400,7 +402,7 @@ faster by using fiendishly clever ways available via the so-called template
 meta programming, an advanced \proglang{C++} technique.
 
 The following example is adapted from the examples available at the project
-page of Armadillo. It calculate $ x' \times Y^{-1} \times z$
+page of Armadillo. It calculates $ x' \times Y^{-1} \times z$
 
 <<echo=FALSE>>=
 writeLines( '
@@ -449,7 +451,7 @@ It should be noted that code below depends on the version \texttt{0.3.5} of
     standalone math library for R--as for example the random number generators?}
 \end{quote}
 
-Yes, of course. This math library exports a subset of R, but \pkg{Rcpp} has
+\noindent Yes, of course. This math library exports a subset of R, but \pkg{Rcpp} has
 access to much more.  Here is another simple example. Note how we have to use
 and instance of the \texttt{RNGScope} class to set and re-set the
 random-number generator. This also illustrates Rcpp sugar as we are using a
@@ -473,7 +475,7 @@ fx()
   \emph{R knows about NA and Inf. How do I use them from C++?}
 \end{quote}
 
-Yes, see the following example:
+\noindent Yes, see the following example:
 
 <<>>=
 src <- 'Rcpp::NumericVector v(4);
@@ -493,7 +495,7 @@ fun()
   \emph{Can I multiply matrices easily?}
 \end{quote}
 
-Yes, via the \pkg{RcppArmadillo} package which builds upon \pkg{Rcpp} and the
+\noindent Yes, via the \pkg{RcppArmadillo} package which builds upon \pkg{Rcpp} and the
 wonderful Armadillo library at \url{http://arma.sf.net}:
 
 <<eval=FALSE>>=
