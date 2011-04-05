@@ -21,9 +21,10 @@
 
 #ifndef Rcpp__vector__RangeIndexer_h
 #define Rcpp__vector__RangeIndexer_h
-
+       
 #define UNROLL_LOOP(OP)                              \
-    const T& input = x.get_ref() ;                   \
+    typedef typename ::Rcpp::traits::Extractor<RTYPE,NA,T>::type EXT ; \
+    const EXT& input( x.get_ref() ) ;                   \
     int __trip_count = (size_) >> 2;                 \
     int i=0 ;                                        \
     for ( ; __trip_count > 0 ; --__trip_count) {     \
