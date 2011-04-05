@@ -343,14 +343,16 @@ public:
 	    properties(), 
 	    finalizer_pointer(0), 
 	    specials(0), 
-	    constructors()
+	    constructors(), 
+	    singleton(0)
 	{
-		if( !singleton ){
+	    Rcpp::Module* module = getCurrentScope() ;
+		if( ! module->has_class(name_) ){
 			singleton = new self ;
 			singleton->name = name_ ;
 			singleton->docstring = std::string( doc == 0 ? "" : doc );
 			singleton->finalizer_pointer = new finalizer_class ;
-			getCurrentScope()->AddClass( name_, singleton ) ;
+			module->AddClass( name_, singleton ) ;
 		}
 	}
          
@@ -695,17 +697,15 @@ private:
     
 	map_vec_signed_method vec_methods ;
 	PROPERTY_MAP properties ;
-	static self* singleton ;
+	
 	finalizer_class* finalizer_pointer ;
 	int specials ;
 	vec_signed_constructor constructors ;
-   
+    self* singleton ;
+	
 	class_( ) : class_Base(), vec_methods(), properties(), specials(0) {}; 
 	
 } ;   
-
-template <typename Class> 
-class_<Class>* class_<Class>::singleton ;
 
 // function factories
 #include <Rcpp/module/Module_generated_function.h>
