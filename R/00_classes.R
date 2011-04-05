@@ -46,7 +46,10 @@ setRefClass( "C++OverloadedMethods",
     ), 
     methods = list( 
         info = function(prefix = "    " ){
-             paste( paste( prefix, signatures, ifelse(const, " const", "" ), "\n", prefix, prefix, "docstring :", docstrings) , collapse = "\n" )   
+             paste( 
+                paste( prefix, signatures, ifelse(const, " const", "" ), "\n", prefix, prefix, 
+                    ifelse( nchar(docstrings), paste( "docstring :", docstrings) , "" ) 
+                ) , collapse = "\n" )   
         }
     )
 )
