@@ -1,3 +1,7 @@
+2011-04-03  Romain Francois  <romain@r-enthusiasts.com>
+
+	* R/01_show.R: set of cosmetic changes to the show method for C++ classes
+
 2011-04-xx  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.3
