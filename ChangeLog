@@ -2,6 +2,9 @@
 
 	* R/01_show.R: set of cosmetic changes to the show method for C++ classes
 
+	* inst/include/Rcpp/Module.h: fixed module bug by not using singletons of the
+	class_ template
+	
 2011-04-xx  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.3
