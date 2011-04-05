@@ -22,13 +22,9 @@
 #ifndef Rcpp_Module_generated_ctor_signature_h
 #define Rcpp_Module_generated_ctor_signature_h
 
-inline void ctor_signature( std::string& s, const std::string& classname ){
+inline void ctor_signature( std::string& s, const std::string& ){
     s.clear() ;
     s+= "()" ; 
-    if (0 > 1) { // silences 'unused paramater' warning from g++
-       std::string foo = classname;
-       foo.clear();
-    }
 }
 
 template <typename U0>
