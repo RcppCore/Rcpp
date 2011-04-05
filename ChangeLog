@@ -1,16 +1,16 @@
+2011-04-04  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.3
+        * inst/NEWS: Release 0.9.3
+        * inst/include/Rcpp/config.h: Release 0.9.3
+        * debian/*: Similarly updated for new release to Debian
+
 2011-04-03  Romain Francois  <romain@r-enthusiasts.com>
 
 	* R/01_show.R: set of cosmetic changes to the show method for C++ classes
 
 	* inst/include/Rcpp/Module.h: fixed module bug by not using singletons of the
 	class_ template
-	
-2011-04-xx  Dirk Eddelbuettel  <edd@debian.org>
-
-        * DESCRIPTION: Release 0.9.3
-        * inst/NEWS: Release 0.9.3
-        * inst/include/Rcpp/config.h: Release 0.9.3
-        * debian/*: Similarly updated for new release to Debian
 
 2011-04-03  Dirk Eddelbuettel  <edd@debian.org>
 
