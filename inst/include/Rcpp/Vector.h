@@ -30,6 +30,12 @@
 #include <Rcpp/Dimension.h>
 
 namespace Rcpp{
+    namespace traits{
+         template <int RTYPE, bool NA, typename VECTOR> struct Extractor ;  
+    }
+}
+
+namespace Rcpp{
 
 #include <Rcpp/vector/00_forward_Vector.h>
 #include <Rcpp/vector/00_forward_proxy.h>
