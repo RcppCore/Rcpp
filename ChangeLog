@@ -1,3 +1,8 @@
+2011-04-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Add patch by Christian
+	pointing out need for Rcpp:: namespace qualifier, and hint for Rcpp-FAQ
+
 2011-04-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added OS X entry for min. sufficient
