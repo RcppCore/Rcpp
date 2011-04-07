@@ -47,7 +47,19 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 
 % without the ~, latex does not want to newline
 % a newline between paragraph and code disconnects them and can orphan heading
-\paragraph{Create simple vectors}~ 
+
+\paragraph{Important Notes}~
+  \newline
+<<lang=cpp>>=
+// If you experience compiler errors, please check that you have an appropriate version of g++. See `Rcpp-FAQ' for more information.
+
+// Many of the examples here imply the following:
+using namespace Rcpp;
+// The inline package adds this for you. Alternately, use e.g.:
+Rcpp::NumericVector xx(10);
+@
+
+\paragraph{Create simple vectors}~
   \newline
 <<lang=cpp>>=
 SEXP x; std::vector<double> y(10);
@@ -94,9 +106,9 @@ yy["foobar"] = 10.0;
 \paragraph{Using matrices}~
   \newline
 <<lang=cpp>>=
-// Initializing from SEXP, 
+// Initializing from SEXP,
 // dimensions handled automatically
-SEXP x; 
+SEXP x;
 NumericMatrix xx(x);
 
 // Matrix of 4 rows & 5 columns (filled with 0)
@@ -110,7 +122,7 @@ for (int i = 0; i < xsize; i++) {
 // Same as above, using STL fill
 std::fill(xx.begin(), xx.end(), 8);
 
-// Assign this value to single element 
+// Assign this value to single element
 // (1st row, 2nd col)
 xx(0,1) = 4;
 
@@ -144,25 +156,25 @@ testfun(1:5, 3)
 \paragraph{Interface with R}~
   \newline
 <<lang=cpp>>=
-## In R, create a package shell. For details, see the "Writing R Extensions" manual. 
+## In R, create a package shell. For details, see the "Writing R Extensions" manual.
 
 Rcpp.package.skeleton("myPackage")
 
 ## Add R code to pkg R/ directory. Call C++ function. Do type-checking in R.
 
 myfunR = function(Rx, Ry) {
-    ret = .Call("myCfun", Rx, Ry, 
+    ret = .Call("myCfun", Rx, Ry,
             package="myPackage")
-    return(ret) 
+    return(ret)
 }
 
-// Add C++ code to pkg src/ directory. 
+// Add C++ code to pkg src/ directory.
 using namespace Rcpp;
 // Define function as extern with RcppExport
 RcppExport SEXP myCfun( SEXP x, SEXP y) {
     // If R/C++ types match, use pointer to x.  Pointer is faster, but changes to xx propagate to R ( xx -> x == Rx).
     NumericVector xx(x);
-    // clone is slower and uses extra memory. Safe, R-like. 
+    // clone is slower and uses extra memory. Safe, R-like.
     NumericVector yy(clone(y));
     xx[0] = yy[0] = -1.5;
     int zz = xx[0];
@@ -182,7 +194,7 @@ require(myPackage)
 aa = 1.5; bb = 1.5; cc =  myfunR(aa, bb)
 aa == bb ## FALSE, C++ modifies aa
 aa = 1:2; bb = 1:2; cc =  myfunR(aa, bb)
-identical(aa, bb) 
+identical(aa, bb)
 ## TRUE, R/C++ types don't match
 @
 
@@ -280,7 +292,7 @@ IntegerVector yy = rev( y );
 // Set seed
 RNGScope scope;
 
-// For details see Section 6.7.1--Distribution functions of the `Writing R Extensions' manual. In some cases (e.g. rnorm), distribution-specific arguments can be omitted; when in doubt, specify all dist-specific arguments. The use of doubles rather than integers for dist-specific arguments is recommended. Unless explicitly specified, log=FALSE. 
+// For details see Section 6.7.1--Distribution functions of the `Writing R Extensions' manual. In some cases (e.g. rnorm), distribution-specific arguments can be omitted; when in doubt, specify all dist-specific arguments. The use of doubles rather than integers for dist-specific arguments is recommended. Unless explicitly specified, log=FALSE.
 
 // Equivalent to R calls
 NumericVector xx = runif(20);
