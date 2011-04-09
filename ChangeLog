@@ -1,3 +1,7 @@
+2011-04-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/CITATION: Finalized using JSS data on volume, number, pages
+
 2011-04-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Add patch by Christian
