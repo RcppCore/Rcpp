@@ -1,19 +1,21 @@
 citHeader("To cite Rcpp in publications use:")
 
-citEntry(entry="Article",
-         title = "Rcpp: Seamless R and C++ Integration",
-         author = personList(as.person("Dirk Eddelbuettel"),
-	                     as.person("Romain Francois")),
-         journal      = "Journal of Statistical Software",
-         year         = "forthcoming",
-	 volume       = "XX",
-	 number       = "YY",
-	 pages        = "aa--bb",
-         url          = "http://www.jstatsoft.org/vXX/iYY/",
-         
-         textVersion = 
-         paste("Dirk Eddelbuettel and Romain Francois (2011).", 
-               "Rcpp: Seamless R and C++ Integration.",
-               "Journal of Statistical Software, xx(yy), aa-bb.",
-	       "URL http://www.jstatsoft.org/vXX/iYY/")
+citEntry(entry = "Article",
+  title        = "{Rcpp}: Seamless {R} and {C++} Integration",
+  author       = personList(as.person("Dirk Eddelbuettel"),
+                   as.person("Romain Fran\\c{c}ois")),
+  journal      = "Journal of Statistical Software",
+  year         = "2011",
+  volume       = "40",
+  number       = "8",
+  pages        = "1--18",
+  url          = "http://www.jstatsoft.org/v40/i08/",
+
+  textVersion  =
+  paste("Dirk Eddelbuettel, Romain Francois (2011).",
+        "Rcpp: Seamless R and C++ Integration.",
+        "Journal of Statistical Software, 40(8), 1-18.",
+        "URL http://www.jstatsoft.org/v40/i08/.")
 )
+
+
