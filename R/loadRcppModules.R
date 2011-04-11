@@ -7,7 +7,7 @@ loadRcppModules <- function(){
    } ) )
    if( !length(w) ) 
     stop( "loadRcppModules can only be used within a .onLoad function" )
-   w <- tail( w, 1L )
+   w <- w[ length(w) ]
    call <- calls[[w]]
    if( !identical( call[[2L]], ".onLoad" ) ) 
     stop( "loadRcppModules can only be used within a .onLoad function" )
