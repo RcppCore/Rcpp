@@ -1,6 +1,9 @@
 %% use JSS class -- use 'nojss' to turn off header
 \documentclass[shortnames,nojss,article]{jss}
 \usepackage{booktabs,flafter,thumbpdf}
+%\VignetteIndexEntry{Rcpp-introduction}
+%\VignetteKeywords{foreign function interface, .Call, C++, R}
+%\VignettePackage{Rcpp}
 
 \author{Dirk Eddelbuettel\\Debian Project \And Romain Fran\c{c}ois\\\proglang{R} Enthusiasts}
 \Plainauthor{Dirk Eddelbuettel, Romain Fran\c{c}ois}
