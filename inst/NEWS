@@ -1,3 +1,9 @@
+0.9.4   (future)
+
+    o   new R function "loadRcppModules" to load Rcpp modules automatically
+        from a package. This function must be called from the .onLoad function
+        and works with the "RcppModules" field of the package's DESCRIPTION file
+
 0.9.3   2011-04-05
 
     o   Fixed a bug in which modules code was not behaving when compiled 
