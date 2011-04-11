@@ -1095,27 +1095,24 @@ options( prompt = " ", continue = " " )
 import( Rcpp )
 @
 
-Loading the module must happen after the dynamic library of the
-package is loaded. The most appropriate place for this is
-within the \Sexpr{link(".onLoad" )} hook.
+The simplest way to load all functions and classes from a module directly
+into a package namespace is to use the \Sexpr{link("loadRcppModules" )} function
+within the \Sexpr{link(".onLoad" )} body. 
 
 <<eval=FALSE>>=
-# grab the namespace
-NAMESPACE <- environment()
-
 .onLoad <- function(libname, pkgname) {
-    ## load the module and store it in our namespace
-    yada <- Module( "yada" )
-    populate( yada, NAMESPACE  )
+    loadRcppModules()
 }
 @
 
-The call to \texttt{populate} installs all functions and classes from the
-module into the namespace of package.
+This will look in the package's DESCRIPTION file for the \texttt{RcppModules}
+field, load each declared module and populate their contents into the 
+package's namespace. For example, the \pkg{testRcppModule} 
+(part of \pkg{Rcpp}'s testing) package has this declaration:
 
-<<echo=FALSE,eval=TRUE>>=
-options( prompt = "> ", continue = "+ " )
-@
+\begin{verbatim}
+RcppModules: yada, stdVector, NumEx
+\end{verbatim}
 
 \subsubsection{Just expose the module}
 
@@ -1125,14 +1122,15 @@ so that the module is only loaded the first time the user attempts to extract
 a function or a class with the dollar extractor.
 
 <<eval=FALSE>>=
-# grab the namespace
-NAMESPACE <- environment()
-
 yada <- Module( "yada" )
 
 .onLoad <- function(libname, pkgname) {
     # placeholder
 }
+@
+
+<<echo=FALSE,eval=TRUE>>=
+options( prompt = "> ", continue = "+ " )
 @
 
 
