@@ -1,10 +1,5 @@
 #include <Rcpp.h>
 
-/* removed as it upsets windows */
-// std::string hello() {
-// 	throw std::range_error( "boom" ) ;
-// }
-
 int bar( int x){
 	return x*2 ;
 }
@@ -40,7 +35,6 @@ private:
 RCPP_MODULE(yada){
 	using namespace Rcpp ;
 	                  
-	// function( "hello" , &hello ) ;
 	function( "bar"   , &bar   ) ;
 	function( "foo"   , &foo   ) ;
 	function( "bla"   , &bla   ) ;
