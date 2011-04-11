@@ -1,28 +1,21 @@
 library(testRcppModule)
-vClass <- stdVector$vec
-vec <- new(vClass)
 
+v <- new(vec)
 data <- 1:10
-vec$assign(data)
-vec[[3]] <- vec[[3]] + 1
+v$assign(data)
+v[[3]] <- v[[3]] + 1
 
 data[[4]] <- data[[4]] +1
 
-stopifnot(identical(all.equal(vec$as.vector(), data), TRUE))
+stopifnot(identical(all.equal(v$as.vector(), data), TRUE))
 
 ## a few function calls
 
-stopifnot(all.equal(yada$bar(2), 4))
-
-e <- tryCatch(yada$hello(), error = function(x)x)
-
-stopifnot(is(e, "error"), all.equal(e$message, "boom"))
-
-stopifnot(all.equal(yada$foo(2,3), 6))
+stopifnot(all.equal(bar(2), 4))
+stopifnot(all.equal(foo(2,3), 6))
 
 ## properties (at one stage this seqfaulted, so beware)
-nc = NumEx$Num
-nn <- new(nc)
+nn <- new(Num)
 nn$x <- pi
 stopifnot(all.equal(nn$x, pi))
 

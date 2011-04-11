@@ -28,7 +28,7 @@ RCPP_MODULE(stdVector){
     class_<vec>( "vec")
     
     // exposing the default constructor
-    .default_constructor() 
+    .constructor() 
 
     // exposing member functions
     .method( "size", &vec::size)
