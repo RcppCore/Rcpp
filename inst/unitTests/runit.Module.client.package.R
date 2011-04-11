@@ -45,34 +45,19 @@ test.Module.package <- function( ){
     install.packages( "testRcppModule_0.1.tar.gz", "templib", repos = NULL, type = "source" )
     require( "testRcppModule", "templib", character.only = TRUE )
 
-	vClass <- stdVector$vec
-	vec <- new(vClass)
+	v <- new(vec)
 
 	data <- 1:10
-	vec$assign(data)
-	vec[[3]] <- vec[[3]] + 1
+	v$assign(data)
+	v[[3]] <- v[[3]] + 1
 
 	data[[4]] <- data[[4]] +1
 
-	checkEquals( vec$as.vector(), data )
+	checkEquals( v$as.vector(), data )
 
 	## a few function calls
-
-	checkEquals( yada$bar(2), 4)
-
-	# this upsets the windows/gcc 4.5 combo
-	# e <- tryCatch(yada$hello(), error = function(x)x)
-	# checkTrue(is(e, "error"))
-	# checkEquals( e$message, "boom")
-
-	checkEquals( yada$foo(2,3), 6)
-
-	## properties (at one stage this seqfaulted, so beware)
-    ## FIXME: Commented-out test below to let R CMD check pass with g++-4.5
-	## nc = NumEx$Num
-	## nn <- new(nc)
-	## nn$x <- pi
-	## checkEquals( nn$x, pi )
+	checkEquals( bar(2), 4)
+	checkEquals( foo(2,3), 6)
 
 }
 
