@@ -80,12 +80,17 @@ Rcpp.package.skeleton <- function(
 			"Depends" = paste( depends, collapse = ", ") , 
 			"LinkingTo" = "Rcpp"
 		)
+		if( isTRUE( module ) ){
+		    x <- cbind( x, "RcppModules" = "yada" )
+		    message( " >> added RcppModules: yada" )
+		}
 		x[, "Author" ] <- author
 		x[, "Maintainer" ] <- sprintf( "%s <%s>", maintainer, email )
 		x[, "License"] <- license
-		write.dcf( x, file = DESCRIPTION )
 		message( " >> added Depends: Rcpp" )
 		message( " >> added LinkingTo: Rcpp" )
+		write.dcf( x, file = DESCRIPTION )
+		
 	}
 	
 	# if there is a NAMESPACE, add a useDynLib
@@ -155,10 +160,6 @@ Rcpp.package.skeleton <- function(
 		file.copy( 
 			system.file( "skeleton", "zzz.R", package = "Rcpp" ), 
 			file.path( root, "R" )
-		)
-		file.copy( 
-			system.file( "skeleton", "yada.Rd", package = "Rcpp" ), 
-			file.path( root, "man" )
 		)
 		message( " >> copied the example module " )
 		
