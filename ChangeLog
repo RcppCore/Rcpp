@@ -1,3 +1,10 @@
+2011-04-12  Romain Francois  <romain@r-enthusiasts.com>
+
+	* inst/unitTests/testRcppModules/src/stdVector.cpp: compiler disambiguation
+	
+	* src/r_cast.cpp: use a callback to R's "as.character" instead of calling
+	Rf_coerceVector, which did not work as expected for factors
+
 2011-04-11  Romain Francois  <romain@r-enthusiasts.com>
 
 	* R/loadRcppModules.R: New R function "loadRcppModules" that looks
