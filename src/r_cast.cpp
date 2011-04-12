@@ -98,7 +98,14 @@ template<> SEXP r_true_cast<STRSXP>( SEXP x) throw(::Rcpp::not_compatible){
 	case LGLSXP:
 	case REALSXP:
 	case INTSXP:
-		return Rf_coerceVector( x, STRSXP );
+	    {
+	    // return Rf_coerceVector( x, STRSXP );
+	    // coerceVector does not work for some reason
+		SEXP call = PROTECT( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
+		SEXP res  = PROTECT( Rf_eval( call, R_GlobalEnv ) ) ;
+		UNPROTECT(2); 
+		return res ;
+		}
 	case CHARSXP:
 		return Rf_ScalarString( x ) ;
 	case SYMSXP:
