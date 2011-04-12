@@ -66,11 +66,11 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 
 Exposing \proglang{C++} functionality to \proglang{R} is greatly facilitated
 by the \pkg{Rcpp} package and its underlying \proglang{C++} library
-\citep{CRAN:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
+\citep{CRAN:Rcpp,JSS:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
 \proglang{R} and \proglang{C++} integration by replacing the traditional
 \proglang{R} Application Programming Interface (API) described in
 `\textsl{Writing R Extensions}' \citep{R:Extensions} with a consistent set of \proglang{C++}
-classes. The `\textsl{Rcpp-introduction}' vignette \citep{CRAN:Rcpp} describes the API and
+classes. The `\textsl{Rcpp-introduction}' vignette \citep{CRAN:Rcpp,JSS:Rcpp} describes the API and
 provides an introduction to using \pkg{Rcpp}.
 
 These \pkg{Rcpp} facilities offer a lot of assistance to the programmer
@@ -1097,7 +1097,7 @@ import( Rcpp )
 
 The simplest way to load all functions and classes from a module directly
 into a package namespace is to use the \Sexpr{link("loadRcppModules" )} function
-within the \Sexpr{link(".onLoad" )} body. 
+within the \Sexpr{link(".onLoad" )} body.
 
 <<eval=FALSE>>=
 .onLoad <- function(libname, pkgname) {
@@ -1106,8 +1106,8 @@ within the \Sexpr{link(".onLoad" )} body.
 @
 
 This will look in the package's DESCRIPTION file for the \texttt{RcppModules}
-field, load each declared module and populate their contents into the 
-package's namespace. For example, the \pkg{testRcppModule} 
+field, load each declared module and populate their contents into the
+package's namespace. For example, the \pkg{testRcppModule}
 (part of \pkg{Rcpp}'s testing) package has this declaration:
 
 \begin{verbatim}

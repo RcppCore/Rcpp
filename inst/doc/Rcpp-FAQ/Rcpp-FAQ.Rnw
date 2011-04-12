@@ -94,7 +94,7 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
 
 \abstract{
   \noindent This document attempts to answer the most Frequently Asked
-  Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp} package.
+  Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp} package.
 }
 
 \section{Getting started}
