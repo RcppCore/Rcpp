@@ -598,11 +598,14 @@ definitions <- function(){
 	                    int b = input[1] ;
 	                    return List::create(a, b) ;
 	                '
+	            ), 
+	            "factors" = list( 
+	                signature( x = "factor" ), 
+	                '
+	                    StringVector s(x) ;
+	                    return s; 
+	                '
 	            )
-
-                
-                  
-
                   
         )
 
@@ -1245,4 +1248,11 @@ test.ComplexVector.binary.operators <- function(){
 	fun <- .rcpp.Vector$List_extract
     checkEquals( fun(list(TRUE, 4)), list(TRUE, 4L) )
     checkEquals( fun(list(FALSE, -4L)), list(FALSE,-4L) )
+}
+
+test.factors <- function(){
+    fun <-    .rcpp.Vector$factors
+    x <- as.factor( c("c3", "c2", "c1") )
+    y <- fun(x)
+    checkEquals( y, as.character(x) )
 }
