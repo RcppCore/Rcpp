@@ -21,6 +21,8 @@ void vec_set( vec* obj, int i, double value ){
 	obj->at( i ) = value ;
 }
 
+void vec_resize( vec* obj, int n){ obj->resize( n ) ; }
+
 RCPP_MODULE(stdVector){
     using namespace Rcpp ;
 
@@ -33,7 +35,7 @@ RCPP_MODULE(stdVector){
     // exposing member functions
     .method( "size", &vec::size)
     .method( "max_size", &vec::max_size)
-    .method( "resize", &vec::resize)
+    .method( "resize", &vec_resize)
     .method( "capacity", &vec::capacity)
     .method( "empty", &vec::empty)
     .method( "reserve", &vec::reserve)
