@@ -57,7 +57,7 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 \abstract{
   \noindent
   This note describes \sugar~which has been introduced in
-  version 0.8.3 of \pkg{Rcpp} \citep{CRAN:Rcpp}. \sugar~
+  version 0.8.3 of \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp}. \sugar~
   brings a higher-level of abstraction to \proglang{C++} code
   written using the \pkg{Rcpp} API.
 
