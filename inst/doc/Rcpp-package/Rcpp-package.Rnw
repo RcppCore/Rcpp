@@ -90,7 +90,7 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
 
 \abstract{
   \noindent This document provides a short overview of how to use
-  \pkg{Rcpp}~\citep{CRAN:Rcpp} when writing an \proglang{R} package.  It
+  \pkg{Rcpp}~\citep{CRAN:Rcpp,JSS:Rcpp} when writing an \proglang{R} package.  It
   shows how usage of the function \Sexpr{link("Rcpp.package.skeleton")}
   which creates a complete and self-sufficient example package using
   \pkg{Rcpp}. All components of the directory tree created by
@@ -102,7 +102,7 @@ ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
 
 \section{Introduction}
 
-\pkg{Rcpp}~\citep{CRAN:Rcpp} is an extension package for \proglang{R} which
+\pkg{Rcpp}~\citep{CRAN:Rcpp,JSS:Rcpp} is an extension package for \proglang{R} which
 offers an easy-to-use yet featureful interface between \proglang{C++} and
 \proglang{R}.  However, it is somewhat different from a traditional
 \proglang{R} package because its key component is a \proglang{C++} library. A
