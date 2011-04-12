@@ -17,6 +17,12 @@
 	The "Rcpp-package" vignette documents how to use Rcpp in client packages.
 }
 \author{Dirk Eddelbuettel and Romain Francois}
+\references{
+  Dirk Eddelbuettel and Romain Francois (2011). \pkg{Rcpp}: Seamless R
+  and C++ Integration. \emph{Journal of Statistical Software},
+  \bold{40(8)}, 1-18. URL http://www.jstatsoft.org/v40/i08/ and
+  available as \code{vignette("Rcpp-introduction")}.
+}
 \section{History}{
   The initial versions of Rcpp were written by Dominick Samperi during 2005 and
   2006.
