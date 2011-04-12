@@ -22,6 +22,7 @@ void vec_set( vec* obj, int i, double value ){
 }
 
 void vec_resize( vec* obj, int n){ obj->resize( n ) ; }
+void vec_push_back( vec* obj, double x ){ obj->push_back( x ); }
 
 RCPP_MODULE(stdVector){
     using namespace Rcpp ;
@@ -35,16 +36,9 @@ RCPP_MODULE(stdVector){
     // exposing member functions
     .method( "size", &vec::size)
     .method( "max_size", &vec::max_size)
-    .method( "resize", &vec_resize)
     .method( "capacity", &vec::capacity)
     .method( "empty", &vec::empty)
     .method( "reserve", &vec::reserve)
-#ifdef IS_GCC_450_OR_LATER
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
-      // cf C++ header file bits/stl_vector.h
-    .method( "push_back", &vec::push_back )
-#endif
-#endif
     .method( "pop_back", &vec::pop_back )
     .method( "clear", &vec::clear )
 
@@ -52,13 +46,15 @@ RCPP_MODULE(stdVector){
     .const_method( "back", &vec::back )
     .const_method( "front", &vec::front )
     .const_method( "at", &vec::at )
-
+    
     // exposing free functions taking a std::vector<double>*
     // as their first argument
     .method( "assign", &vec_assign )
     .method( "insert", &vec_insert )
     .method( "as.vector", &vec_asR )
-
+    .method( "push_back", &vec_push_back )
+    .method( "resize", &vec_resize)
+    
     // special methods for indexing
     .const_method( "[[", &vec::at )
     .method( "[[<-", &vec_set )
