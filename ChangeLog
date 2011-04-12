@@ -1,12 +1,18 @@
 2011-04-11  Romain Francois  <romain@r-enthusiasts.com>
 
-	* R/loadRcppModules.R: New R function "loadRcppModules" that looks for
-	the "RcppModules" field in the DESCRIPTION file, loads and populates
-	the modules into the package NAMESPACE
-	
+	* R/loadRcppModules.R: New R function "loadRcppModules" that looks
+	for the "RcppModules" field in the DESCRIPTION file, loads and
+	populates the modules into the package NAMESPACE
+
 	* man/loadRcppModules.Rd: documentation
-	
+
 	* inst/unitTests/testRcppModule: using loadRcppModules
+
+2011-04-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/man/Rcpp-package.Rd: Added JSS reference in \references{}
+
+	* inst/doc/*: Added JSS reference to vignettes
 
 2011-04-09  Dirk Eddelbuettel  <edd@debian.org>
 
