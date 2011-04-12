@@ -57,7 +57,7 @@ ifneq (,$(findstring edd,$(whoami)))
 else
 	$(RSCRIPT) -e "tools::texi2dvi( 'Rcpp-introduction.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-introduction.tex
+	rm -fr Rcpp-introduction.tex Rcpp-introduction.bbl Rcpp-introduction.blg Rcpp-introduction.aux Rcpp-introduction.out Rcpp-introduction.log
 
 Rcpp-modules.pdf: Rcpp-modules/Rcpp-modules.Rnw
 	cp -f Rcpp-modules/Rcpp-modules.Rnw .
