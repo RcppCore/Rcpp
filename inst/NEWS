@@ -1,11 +1,17 @@
-0.9.4   (future)
+0.9.4   2011-04-12
 
     o   New R function "loadRcppModules" to load Rcpp modules automatically
         from a package. This function must be called from the .onLoad function
         and works with the "RcppModules" field of the package's DESCRIPTION file
 
-    o   A CITATION file for the published JSS paper has been added, and a
-        reference was added to Rcpp-package.Rd and the different vignettes
+    o   The Modules example wrapped the STL std::vector received some editing
+        to disambiguate some symbols the newer compilers did not like
+
+    o   Coercing of vectors of factors is now done with an explicit callback
+        to R's "as.character()" as Rf_coerceVector no longer plays along
+
+    o   A CITATION file for the published JSS paper has been added, and 
+        references were added to Rcpp-package.Rd and the different vignettes
 
 0.9.3   2011-04-05
 
