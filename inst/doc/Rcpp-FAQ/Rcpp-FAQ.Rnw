@@ -514,6 +514,42 @@ C <- mmult(A, B)
 % A %*% B
 % @
 
+
+\subsection{How do I write a plugin for \pkg{inline} ?}
+
+\begin{quote}
+  \emph{How can I create my own plugin for use by the \pkg{inline} package?}
+\end{quote}
+
+\noindent Here is an example which shows how to it using GSL libraries as an
+example.  This is merely for demonstration, it is also not perfectly general
+as we do not detect locations first---but it serves as an example:
+
+<<eval=FALSE>>=
+## simple example of seeding RNG and drawing one random number
+gslrng <- '
+int seed = Rcpp::as<int>(par) ;
+gsl_rng_env_setup();
+gsl_rng *r = gsl_rng_alloc (gsl_rng_default);
+gsl_rng_set (r, (unsigned long) seed);
+double v = gsl_rng_get (r);
+gsl_rng_free(r);
+return Rcpp::wrap(v);'
+
+plug <- Rcpp:::Rcpp.plugin.maker(
+    include.before = "#include <gsl/gsl_rng.h>",
+    libs = paste("-L/usr/local/lib/R/site-library/Rcpp/lib -lRcpp",
+                 "-Wl,-rpath,/usr/local/lib/R/site-library/Rcpp/lib",
+                 "-L/usr/lib -lgsl -lgslcblas -lm"))
+registerPlugin("gslDemo", plug )
+fun <- cxxfunction(signature(par="numeric"), gslrng, plugin="gslDemo")
+fun(0)
+@
+%
+
+Here the \pkg{Rcpp} function \code{Rcpp.plugin.maker} is used to create a
+plugin 'plug' which is then registered, and subsequently used by \pkg{inline}.
+
 \section{Support}
 
 \subsection{Is the API documented ?}
