@@ -550,6 +550,32 @@ fun(0)
 Here the \pkg{Rcpp} function \code{Rcpp.plugin.maker} is used to create a
 plugin 'plug' which is then registered, and subsequently used by \pkg{inline}.
 
+\subsection{How can I set matrix row and column names ?}
+
+\begin{quote}
+  \emph{Ok, I can create a matrix, but how do I set its row and columns names?}
+\end{quote}
+
+Pretty much the same way as in \proglang{R} itself: We define a list with two
+character vectors, one each for row and column names, and assign this to the
+\code{dimnames} attribute:
+
+<<eval=FALSE>>=
+src <- '
+  Rcpp::NumericMatrix x(2,2);
+  x.fill(42);                           // or more interesting values
+  Rcpp::List dimnms =                   // two vec. with static names
+      Rcpp::List::create(Rcpp::CharacterVector::create("cc", "dd"),
+                         Rcpp::CharacterVector::create("ee", "ff"));
+  // and assign it
+  x.attr("dimnames") = dimnms;
+  return(x);
+'
+fun <- cxxfunction(signature(), body=src, plugin="Rcpp")
+fun()
+@
+%
+
 \section{Support}
 
 \subsection{Is the API documented ?}
