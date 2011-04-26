@@ -2,6 +2,8 @@
 
     o   New Rcpp-FAQ examples on using the plugin maker for inline's
         cxxfunction(), and on setting row and column names for matrices
+        
+    o   New sugar function: mean
 
 0.9.4   2011-04-12
 
