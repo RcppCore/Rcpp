@@ -53,6 +53,7 @@
 #include <Rcpp/sugar/functions/sum.h>
 #include <Rcpp/sugar/functions/mean.h>
 #include <Rcpp/sugar/functions/var.h>
+#include <Rcpp/sugar/functions/sd.h>
 #include <Rcpp/sugar/functions/cumsum.h>
 
 #endif
