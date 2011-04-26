@@ -1,3 +1,7 @@
+2011-04-26  Romain Francois  <romain@r-enthusiasts.com>
+
+    * inst/include/Rcpp/sugar/functions/mean.h: new sugar function: mean
+
 2011-04-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New example setting row and column
