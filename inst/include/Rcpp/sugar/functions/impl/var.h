@@ -26,7 +26,7 @@ namespace Rcpp{
 namespace sugar{
 
     template <int RTYPE, bool NA, typename T>
-    typename Rcpp::traits::storage_type<RTYPE>::type Var<RTYPE,NA,T>::get() const {
+    typename Var<RTYPE,NA,T>::STORAGE Var<RTYPE,NA,T>::get() const {
 		STORAGE m = mean(object).get() ;
 		Minus_Vector_Primitive<RTYPE,NA,T> mm( object, m) ;
 		STORAGE ssq  = sum( pow(mm,2.0) ).get() ;
