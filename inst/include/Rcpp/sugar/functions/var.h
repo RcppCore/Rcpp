@@ -33,7 +33,12 @@ public:
 		                                             
 	Var( const VEC_TYPE& object_ ) : object(object_){}
 	
-	STORAGE get() const ; 
+	STORAGE get() const{
+	    STORAGE m = mean(object).get() ;
+		Minus_Vector_Primitive<RTYPE,NA,T> mm( object, m) ;
+		STORAGE ssq  = sum( pow(mm,2.0) ).get() ;
+	    return ssq / (object.size() - 1 ) ;    
+	}
 	
 private:
 	const VEC_TYPE& object ;
