@@ -4,6 +4,8 @@
     
     * inst/include/Rcpp/sugar/functions/var.h: new sugar function: var
     
+    * inst/include/Rcpp/sugar/functions/sd.h: new sugar function: sd
+    
 2011-04-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New example setting row and column
