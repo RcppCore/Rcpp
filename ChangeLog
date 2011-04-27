@@ -1,11 +1,16 @@
+2011-04-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/OpenMP/piWithInterrupts.cpp: Beginnings of new
+	contributed example on OpenMP as well as user interrupt handling
+
 2011-04-26  Romain Francois  <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/sugar/functions/mean.h: new sugar function: mean
-    
-    * inst/include/Rcpp/sugar/functions/var.h: new sugar function: var
-    
-    * inst/include/Rcpp/sugar/functions/sd.h: new sugar function: sd
-    
+	* inst/include/Rcpp/sugar/functions/mean.h: new sugar function: mean
+
+	* inst/include/Rcpp/sugar/functions/var.h: new sugar function: var
+
+	* inst/include/Rcpp/sugar/functions/sd.h: new sugar function: sd
+
 2011-04-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New example setting row and column
@@ -24,10 +29,11 @@
 
 2011-04-12  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/unitTests/testRcppModules/src/stdVector.cpp: compiler disambiguation
+	* inst/unitTests/testRcppModules/src/stdVector.cpp: compiler
+	disambiguation
 
-	* src/r_cast.cpp: use a callback to R's "as.character" instead of calling
-	Rf_coerceVector, which did not work as expected for factors
+	* src/r_cast.cpp: use a callback to R's "as.character" instead of
+	calling Rf_coerceVector, which did not work as expected for factors
 
 2011-04-11  Romain Francois  <romain@r-enthusiasts.com>
 
