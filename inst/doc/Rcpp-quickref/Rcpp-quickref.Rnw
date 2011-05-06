@@ -247,6 +247,53 @@ Environment e = stats.parent();
 Environment e = glob.new_child();
 @
 
+\paragraph{Modules}~
+  \newline
+<<lang=cpp>>=
+// Warning -- At present, module-based objects do not persist across quit(save="yes")/reload cycles.  To be safe, save results to R objects and remove module objects before exiting R.
+
+// To create a module-containing package from R, use: 
+Rcpp.package.skeleton("mypackage",module=TRUE) 
+// You will need to edit the RcppModules: line of the DESCRIPTION file to match your module name (in this example, from yada to mod_bar).
+
+class Bar {
+  public:
+    Bar(double x_) : 
+      x(x_), nread(0), nwrite(0) {}
+
+    double get_x( ) {
+      nread++;    return x;
+    }
+
+    void set_x( double x_) {
+      nwrite++;   x = x_;
+    }
+    
+    IntegerVector stats() const {
+      return IntegerVector::create(
+        _["read"] = nread, 
+        _["write"] = nwrite);
+    }
+  private:
+    double x; int nread, nwrite;
+};
+
+RCPP_MODULE(mod_bar) {
+  class_<Bar>( "Bar" )
+  .constructor<double>()
+  .property( "x", &Bar::get_x, &Bar::set_x, 
+    "Docstring for x" )
+  .method( "stats", &Bar::stats, 
+    "Docstring for stats")
+;}
+
+## The following is R code.
+require(mypackage); show(Bar)
+b <- new(Bar, 10);  b$x <- 10 
+b_persist <- list(stats=b$stats(), x=b$x)
+rm(b)
+@
+
 \newpage
 
 \paragraph{Rcpp sugar}~
