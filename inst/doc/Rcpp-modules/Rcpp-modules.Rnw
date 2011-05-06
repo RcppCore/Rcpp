@@ -784,7 +784,8 @@ class Bar {
     private:
         double x;
         int nread, nwrite;
-}
+};
+
 RCPP_MODULE(mod_bar) {
     class_<Bar>( "Bar" )
 
