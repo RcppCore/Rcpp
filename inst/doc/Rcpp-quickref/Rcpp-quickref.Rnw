@@ -201,9 +201,15 @@ identical(aa, bb)
 \paragraph{STL interface}~
   \newline
 <<lang=cpp>>=
-std::accumulate( xx.begin(), xx.end(),
-    std::plus<double>(), 0.0 );
-int n = xx.size();
+// sum a vector from beginning to end
+double s = std::accumulate(x.begin(),
+   x.end(), 0.0);
+// prod of elements from beginning to end
+int p = std::accumulate(vec.begin(),
+    vec.end(), 1, std::multiplies<int>());
+// inner_product to compute sum of squares
+double s2 = std::inner_product(res.begin(),
+    res.end(), res.begin(), 0.0);
 @
 
 \paragraph{Function}~
@@ -252,13 +258,13 @@ Environment e = glob.new_child();
 <<lang=cpp>>=
 // Warning -- At present, module-based objects do not persist across quit(save="yes")/reload cycles.  To be safe, save results to R objects and remove module objects before exiting R.
 
-// To create a module-containing package from R, use: 
-Rcpp.package.skeleton("mypackage",module=TRUE) 
+// To create a module-containing package from R, use:
+Rcpp.package.skeleton("mypackage",module=TRUE)
 // You will need to edit the RcppModules: line of the DESCRIPTION file to match your module name (in this example, from yada to mod_bar).
 
 class Bar {
   public:
-    Bar(double x_) : 
+    Bar(double x_) :
       x(x_), nread(0), nwrite(0) {}
 
     double get_x( ) {
@@ -268,10 +274,10 @@ class Bar {
     void set_x( double x_) {
       nwrite++;   x = x_;
     }
-    
+
     IntegerVector stats() const {
       return IntegerVector::create(
-        _["read"] = nread, 
+        _["read"] = nread,
         _["write"] = nwrite);
     }
   private:
@@ -281,15 +287,15 @@ class Bar {
 RCPP_MODULE(mod_bar) {
   class_<Bar>( "Bar" )
   .constructor<double>()
-  .property( "x", &Bar::get_x, &Bar::set_x, 
+  .property( "x", &Bar::get_x, &Bar::set_x,
     "Docstring for x" )
-  .method( "stats", &Bar::stats, 
+  .method( "stats", &Bar::stats,
     "Docstring for stats")
 ;}
 
 ## The following is R code.
 require(mypackage); show(Bar)
-b <- new(Bar, 10);  b$x <- 10 
+b <- new(Bar, 10);  b$x <- 10
 b_persist <- list(stats=b$stats(), x=b$x)
 rm(b)
 @
