@@ -1,3 +1,8 @@
+2011-05-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Corrected an error in STL
+	example and added two more STL examples
+
 2011-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/OpenMP/piWithInterrupts.cpp: Beginnings of new
