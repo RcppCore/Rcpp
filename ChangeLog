@@ -1,3 +1,9 @@
+2011-05-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/internal/wrap.h: For arguments of type const char *,
+	wrap now checks for NULL arguments before calling Rf_mkString()
+	* unitTests/runit.wrap.R: Added unit test for this
+
 2011-05-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Corrected an error in STL

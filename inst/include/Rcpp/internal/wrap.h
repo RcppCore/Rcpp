@@ -3,7 +3,7 @@
 //
 // wrap.h: Rcpp R/C++ interface class library -- wrap implementations
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -778,6 +778,9 @@ inline SEXP wrap(const T& object){
 
 // special case - FIXME : this is not template specializations of wrap<>
 inline SEXP wrap(const char* const v ){ 
+    if (v == NULL)
+	return R_NilValue;
+    else
 	return Rf_mkString(v) ;
 }
 
