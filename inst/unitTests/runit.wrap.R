@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -120,6 +120,17 @@ f <- list("map_string_int"=list(
   	            std::vector<int> c ; c.push_back(1) ; c.push_back(2) ; c.push_back(2) ; c.push_back(2) ;
   	            m.insert( _pair("c",  c) );
   	            return wrap(m);')
+
+                  ,"null_const_char"=list(
+                   signature(),
+                   'const char *p = NULL;
+  	            return wrap(p);')
+
+                   ,"nonnull_const_char"=list(
+                   signature(),
+                   'const char *p = "foo";
+  	            return wrap(p);')
+
                   )
 
 
@@ -274,7 +285,19 @@ test.wrap.multimap.string.generic <- function(){
 		msg = "wrap( multimap<string,vector<int>>) " )
 }
 
+test.null.const.char <- function() {
+    fun <- .rcpp.wrap$null_const_char
+    checkEquals(fun(),
+                NULL,
+                msg = "null const char*")
+}
 
+test.nonnull.const.char <- function() {
+    fun <- .rcpp.wrap$nonnull_const_char
+    checkEquals(fun(),
+                "foo",
+                msg = "null const char*")
+}
 
 ## tr1::unordered_map
 if (Rcpp:::capabilities()[["tr1 unordered maps"]]) {
