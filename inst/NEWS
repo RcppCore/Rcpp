@@ -7,6 +7,8 @@
 
     o   Minor correction and extension to STL documentation in Rcpp-quickref
 
+    o   wrap() is now resilient to NULL pointers passed as in const char * 
+
 0.9.4   2011-04-12
 
     o   New R function "loadRcppModules" to load Rcpp modules automatically
