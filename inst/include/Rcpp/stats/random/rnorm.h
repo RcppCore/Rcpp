@@ -19,8 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_norm_h
-#define Rcpp__stats__random_norm_h
+#ifndef Rcpp__stats__random_rnorm_h
+#define Rcpp__stats__random_rnorm_h
 
 namespace Rcpp {
 	namespace stats {
