@@ -19,8 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__stats__random_norm_h
-#define Rcpp__stats__random_norm_h
+#ifndef Rcpp__stats__random_lnorm_h
+#define Rcpp__stats__random_lnorm_h
 
 namespace Rcpp {
 	namespace stats {
@@ -32,7 +32,7 @@ namespace Rcpp {
 				meanlog(meanlog_), sdlog(sdlog_) {}
 	
 			inline double operator()() const {
-				return exp( meanlog + sdlog * ::norm_rand() ) ;
+				return ::exp( meanlog + sdlog * ::norm_rand() ) ;
 			}
 	
 		private:
@@ -47,7 +47,7 @@ namespace Rcpp {
 				meanlog(meanlog_) {}
 	
 			inline double operator()() const {
-				return exp( meanlog + ::norm_rand() ) ;
+				return ::exp( meanlog + ::norm_rand() ) ;
 			}
 	
 		private:
@@ -57,10 +57,10 @@ namespace Rcpp {
 		class LNormGenerator_0 : public Generator<false,double> {
 		public:
 	
-			LNormGenerator_1( ) {}
+			LNormGenerator_0( ) {}
 	
 			inline double operator()() const {
-				return exp(::norm_rand() ) ;
+				return ::exp(::norm_rand() ) ;
 			}
 	
 		} ;
@@ -75,7 +75,7 @@ namespace Rcpp {
 			// TODO: R also throws a warning in that case, should we ?
 			return NumericVector( n, R_NaN ) ;
 		}  else if (sdlog == 0. || !R_FINITE(meanlog)){
-			return NumericVector( n, exp( meanlog ) ) ;
+			return NumericVector( n, ::exp( meanlog ) ) ;
 		} else {
 			return NumericVector( n, stats::LNormGenerator( meanlog, sdlog ) ); 
 		}
