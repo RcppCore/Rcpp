@@ -1,3 +1,10 @@
+2011-05-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/stats/random/rlnorm.h: Repaired accidental header
+	guard from 'norm' to 'lnorm' so that the file really gets included,
+	make several calls to standard library'exp()' explicit as '::exp()'
+	and fixed a cut-and-paste typo
+
 2011-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/internal/wrap.h: For arguments of type const char *,
