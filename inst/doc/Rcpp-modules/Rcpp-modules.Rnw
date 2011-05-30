@@ -552,7 +552,7 @@ on the reference classes introduced in R 2.12.0.
 
 \subsubsection{Initial example}
 
-A class is exposed using the \texttt{class\_} keyword. The \texttt{World}
+A class is exposed using the \texttt{class\_} keyword. The \texttt{Uniform}
 class may be exposed to \proglang{R} as follows:
 
 <<lang=cpp>>=
@@ -582,7 +582,7 @@ RCPP_MODULE(unif_module) {
     .field( "min", &Uniform::min )
     .field( "max", &Uniform::max )
 
-    .method( "draw", &World::draw )
+    .method( "draw", &Uniform::draw )
     .method( "range", &range )
     ;
 
