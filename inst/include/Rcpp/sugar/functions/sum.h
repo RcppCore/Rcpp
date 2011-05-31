@@ -104,6 +104,10 @@ inline sugar::Sum<REALSXP,NA,T> sum( const VectorBase<REALSXP,NA,T>& t){
 	return sugar::Sum<REALSXP,NA,T>( t ) ;
 }
 
+template <bool NA, typename T>
+inline sugar::Sum<LGLSXP,NA,T> sum( const VectorBase<LGLSXP,NA,T>& t){
+	return sugar::Sum<LGLSXP,NA,T>( t ) ;
+}
 
 } // Rcpp
 #endif
