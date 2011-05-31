@@ -11,7 +11,11 @@ to query the names of the modules that the package should export, loads each mod
 and \code{\link{populate}} each module into the package NAMESPACE.
 }
 \usage{
-loadRcppModules()
+loadRcppModules(direct=TRUE)
+}
+\arguments{
+    \item{direct}{if \code{TRUE} the content of the module is exposed in the
+    namespace. Otherwise, the module is exposed. }
 }
 \seealso{
     \code{\link{populate}}
