@@ -25,15 +25,7 @@ populate <- function( module, env ){
     
     is_ns <- isNamespace( env )
     for( x in symbols ){
-        if( is_ns && exists( x, env ) && bindingIsLocked(x, env ) ){
-            unlockBinding( x, env )
-        }
-        
-        assign( x, storage[[x]], env )
-        
-        if( is_ns ){
-            lockBinding( x, env )
-        }
+        forceAssignInNamespace( x, storage[[x]], env )
     }
 }
 

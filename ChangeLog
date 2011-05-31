@@ -1,3 +1,9 @@
+2011-05-31  Romain Francois  <romain@r-enthusiasts.com>
+
+	* R/loadRcppModules.R: New argument "direct" in loadRcppModules
+
+	* R/tools.R: New unexported function forceAssignInNamespace
+
 2011-05-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/stats/random/rlnorm.h: Repaired accidental header
