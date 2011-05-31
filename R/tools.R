@@ -19,3 +19,16 @@ externalptr_address <- function(xp){
 	.Call( as_character_externalptr, xp )	
 }
 
+# just like assignInNamespace but first checks that the binding exists             
+forceAssignInNamespace <- function( x, value, env ){
+    is_ns <- isNamespace( env )
+    if( is_ns && exists( x, env ) && bindingIsLocked(x, env ) ){
+        unlockBinding( x, env )
+    }
+    
+    assign( x, value, env )
+    
+    if( is_ns ){
+        lockBinding( x, env )
+    }    
+}

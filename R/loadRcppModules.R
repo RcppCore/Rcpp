@@ -1,5 +1,5 @@
 
-loadRcppModules <- function(){
+loadRcppModules <- function(direct=TRUE){
    # hunt for the namespace of the package that calls this
    calls <- sys.calls()
    w <- which( sapply( calls, function(call){
@@ -25,9 +25,13 @@ loadRcppModules <- function(){
         for( m in modules ){
             tryCatch( {
                 mod <- Module( m, pkg, mustStart = TRUE)
-                populate( mod, ns )
+                if(isTRUE(direct)){
+                   populate( mod, ns )
+                } else {
+                    forceAssignInNamespace( m, mod, ns ) 
+                }
             }, error = function(e){
-                stop( sprintf( "failed to load module %s from package %s", m, pkg ) )  
+                stop( sprintf( "failed to load module %s from package %s\n%s", m, pkg, conditionMessage(e) ) )  
             })
         }
    }
