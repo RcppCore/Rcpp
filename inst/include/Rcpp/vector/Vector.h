@@ -636,11 +636,11 @@ private:
 		set_sexp(target.asSexp() );
 		return result ;
 	}
-		
+protected:	
 	void init(){
 		internal::r_init_vector<RTYPE>(RObject::m_sexp) ;
 	}
-
+private:
 	virtual void update(){
 		RCPP_DEBUG_2( "Vector<%d>::update( SEXP = <%p> )", RTYPE, RObject::asSexp() ) ;
 		update_vector() ;
