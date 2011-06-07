@@ -23,6 +23,8 @@ Information about an internal c++ class.
     \item{\code{methods}:}{list of \linkS4class{C++OverloadedMethods} objects}
     \item{generator}{the generator object for the class}
     \item{docstring}{description of the class}
+    \item{typeid}{unmangled typeid of the class}
+
   }
 }
 \section{Methods}{
