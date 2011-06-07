@@ -38,6 +38,15 @@ private:
     T* ptr;
 } ;
 
+namespace internal {
+template <typename Class>
+SEXP make_new_object( Class* ptr ){
+    Rcpp::XPtr<Class> xp( ptr, true ) ;
+	Function maker = Environment::Rcpp_namespace()[ "cpp_object_maker"] ;
+	return maker( typeid(Class).name() , xp ) ;
+}
+} 
+
 class CppFunction {
 	public:
 		CppFunction(const char* doc = 0) : docstring( doc == 0 ? "" : doc) {}
