@@ -72,7 +72,8 @@ setClass( "C++Class",
 	    methods      = "list",
 	    constructors = "list",
 	    generator    = "refObjectGenerator", 
-	    docstring    = "character"
+	    docstring    = "character", 
+	    typeid       = "character"
 	), 
 	contains = "character"
 	)

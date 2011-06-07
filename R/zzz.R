@@ -17,6 +17,8 @@
 
 .dummyInstancePointer <- new.env() # just something permanent
 
+.classes_map <- new.env()
+
 .onLoad <- function(libname, pkgname){
     ## Call to init_Rcpp_cache is not needed here as it is called in
     ## R_init_Rcpp.  Calling it twice is potentially destructive
@@ -29,4 +31,5 @@
     # }
     new_dummyObject(.dummyInstancePointer);
 }
+
 

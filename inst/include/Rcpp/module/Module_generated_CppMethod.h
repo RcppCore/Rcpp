@@ -56,6 +56,30 @@
 	private:
 		Method met ;
 	} ;
+	
+	template <typename Class, typename T> 
+	class CppMethod0< Class, result<T> > : public CppMethod<Class> {
+	public:
+		typedef result<T> (Class::*Method)(void) ;
+		typedef CppMethod<Class> method_class ;
+		typedef XPtr<T> XP ;
+		CppMethod0( Method m) : method_class(), met(m){} 
+		SEXP operator()( Class* object, SEXP* ){
+		    T* ptr = (object->*met)( ) ;
+			XP res = XP( ptr, true ) ;
+			Function maker = Environment::Rcpp_namespace()[ "cpp_object_maker"] ;
+			return maker( typeid(T).name() , res ) ;
+		}
+		inline int nargs(){ return 0 ; }
+		inline bool is_void(){ return false ; }
+		inline bool is_const(){ return false ; }
+		inline void signature(std::string& s, const char* name){ Rcpp::signature< result<T> >(s, name) ; }
+		
+	private:
+		Method met ;
+	} ;
+	
+	
 
 	template <typename Class, typename OUT> class const_CppMethod0 : public CppMethod<Class> {
 	public:

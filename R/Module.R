@@ -114,12 +114,12 @@ new_dummyObject <- function(...)
 
 
 # class method for $initialize
-cpp_object_initializer <- function(.self, .refClassDef, ...){
+cpp_object_initializer <- function(.self, .refClassDef, ..., .object_pointer){
     selfEnv <- as.environment(.self)
     ## generate the C++-side object and store its pointer, etc.
     ## access the private fields in the fieldPrototypes env.
     fields <- .refClassDef@fieldPrototypes
-    pointer <- new_CppObject_xp(fields$.module, fields$.pointer, ...)
+    pointer <- if(missing(.object_pointer)) new_CppObject_xp(fields$.module, fields$.pointer, ...) else .object_pointer
     assign(".module", fields$.module, envir = selfEnv)
     assign(".pointer", pointer, envir = selfEnv)
     assign(".cppclass", fields$.pointer, envir = selfEnv)
@@ -137,6 +137,11 @@ cpp_object_dummy <- function(.self, .refClassDef) {
     assign(".cppclass", fields$.pointer, envir = selfEnv)
     .self
 }    
+
+cpp_object_maker <- function(typeid, pointer){
+    Class <- Rcpp:::.classes_map[[ typeid ]]
+    new( Class, .object_pointer = pointer )
+}
 
 Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ) {
     if(is(module, "DLLInfo") && missing(mustStart)) mustStart <- TRUE
@@ -194,6 +199,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
     
     for( i in seq_along(classes) ){
         CLASS <- classes[[i]]
+        
         clname <- as.character(CLASS)
 
         fields <- cpp_fields( CLASS, where )
@@ -244,15 +250,17 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
             }
             
         }
+        
     }
     if(length(classes)) {
         module$refClassGenerators <- generators
     }
     
     for( i in seq_along(classes) ){
-        clname <- as.character(classes[[i]])
+        CLASS <- classes[[i]]
+        clname <- as.character(CLASS)
         demangled_name <- sub( "^Rcpp_", "", clname )
-        storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
+        .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
     }
     
     # functions
