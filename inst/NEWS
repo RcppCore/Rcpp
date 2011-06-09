@@ -12,6 +12,9 @@
     o   loadRcppModules() gains a "direct" argument to expose the module instead
         of exposing what is inside it
 
+    o   Suppress a spurious warning from R CMD check on packages created with
+        Rcpp.package.skeleton(..., module=TRUE)
+
 0.9.4   2011-04-12
 
     o   New R function "loadRcppModules" to load Rcpp modules automatically
