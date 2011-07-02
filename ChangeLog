@@ -1,3 +1,7 @@
+2011-07-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* cleanup: Also clean in examples/OpenMP/
+
 2011-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/skeleton/zzz.R (.onLoad): Force load of methods package before
@@ -5,8 +9,8 @@
 
 2011-06-06  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h : init becomes protected to fix the bug 
-	reported by Doug Bates on Rcpp-devel. 
+	* inst/include/Rcpp/vector/Vector.h : init becomes protected to fix the bug
+	reported by Doug Bates on Rcpp-devel.
 
 2011-05-31  Romain Francois  <romain@r-enthusiasts.com>
 
