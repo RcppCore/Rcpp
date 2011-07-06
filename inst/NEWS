@@ -1,4 +1,4 @@
-0.9.5   2011-xx-yy
+0.9.5   2011-07-05
 
     o   New Rcpp-FAQ examples on using the plugin maker for inline's
         cxxfunction(), and on setting row and column names for matrices
@@ -14,6 +14,10 @@
 
     o   Suppress a spurious warning from R CMD check on packages created with
         Rcpp.package.skeleton(..., module=TRUE)
+
+    o   Some fixes and improvements for Rcpp sugar function 'rlnorm()'
+
+    o   Beginnings of new example using OpenMP and recognising user interrupts
 
 0.9.4   2011-04-12
 
