@@ -1,8 +1,8 @@
 2011-07-05  Dirk Eddelbuettel  <edd@debian.org>
 
-        * DESCRIPTION: Release 0.9.4
-        * inst/NEWS: Release 0.9.4
-        * inst/include/Rcpp/config.h: Release 0.9.4
+        * DESCRIPTION: Release 0.9.5
+        * inst/NEWS: Release 0.9.5
+        * inst/include/Rcpp/config.h: Release 0.9.5
         * debian/*: Similarly updated for new release to Debian
 
 2011-07-02  Dirk Eddelbuettel  <edd@debian.org>
