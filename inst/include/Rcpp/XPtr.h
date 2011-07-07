@@ -25,7 +25,7 @@
 #include <RcppCommon.h>
 
 namespace Rcpp{
-
+    
 template <typename T>
 void delete_finalizer(SEXP p){
     if( TYPEOF(p) == EXTPTRSXP ){
@@ -35,6 +35,19 @@ void delete_finalizer(SEXP p){
 }
 
 template <typename T>
+void standard_delete_finalizer(T* obj){
+    delete obj ;   
+}
+
+template <typename T, void Finalizer(T*) >
+void finalizer_wrapper(SEXP p){
+    if( TYPEOF(p) == EXTPTRSXP ){
+	T* ptr = (T*) R_ExternalPtrAddr(p) ;
+	Finalizer(ptr) ;
+    }
+}
+
+template <typename T, void Finalizer(T*) = standard_delete_finalizer<T> >
 class XPtr : public RObject {
 public:
 		
@@ -59,7 +72,13 @@ public:
      *        so you need to make sure the pointer can be "delete" d
      *        this way (has to be a C++ object)
      */
-    explicit XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue);
+     explicit XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue){
+         setSEXP( R_MakeExternalPtr( (void*)p , tag, prot) ) ;
+        if( set_delete_finalizer ){
+    	setDeleteFinalizer() ;
+        }
+    
+     }
 
     XPtr( const XPtr& other ) : RObject( other.asSexp() ) {}
     
@@ -72,15 +91,21 @@ public:
      * Returns a reference to the object wrapped. This allows this
      * object to look and feel like a dumb pointer to T
      */
-    T& operator*() const ;
+     T& operator*() const {
+         return *((T*)R_ExternalPtrAddr( m_sexp )) ;    
+     }
   		
     /**
      * Returns the dumb pointer. This allows to call the -> operator 
      * on this as if it was the dumb pointer
      */
-    T* operator->() const ;
+     T* operator->() const {
+          return (T*)(R_ExternalPtrAddr(m_sexp));
+     }
   		  		        
-    void setDeleteFinalizer() ;
+    void setDeleteFinalizer() {
+        R_RegisterCFinalizerEx( m_sexp, finalizer_wrapper<T,Finalizer> , FALSE) ;     
+    }
   	
     inline operator T*(){ return (T*)( R_ExternalPtrAddr(m_sexp)) ; }
 
@@ -152,29 +177,6 @@ public:
 	
     
 };
-
-template<typename T>
-XPtr<T>::XPtr(T* p, bool set_delete_finalizer, SEXP tag, SEXP prot) : RObject() {
-    setSEXP( R_MakeExternalPtr( (void*)p , tag, prot) ) ;
-    if( set_delete_finalizer ){
-	setDeleteFinalizer() ;
-    }
-}
-
-template<typename T>
-void XPtr<T>::setDeleteFinalizer(){
-    R_RegisterCFinalizerEx( m_sexp, delete_finalizer<T> , FALSE) ; 
-}
-
-template<typename T>
-T& XPtr<T>::operator*() const {
-    return *((T*)R_ExternalPtrAddr( m_sexp )) ;
-}
-
-template<typename T>
-T* XPtr<T>::operator->() const {
-    return (T*)(R_ExternalPtrAddr(m_sexp));
-}
 
 } // namespace Rcpp 
 
