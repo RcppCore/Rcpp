@@ -1,3 +1,10 @@
+0.9.6   (future)
+
+    o   XPtr now accepts a second template parameter, which is a function
+        taking a pointer to the target class. This allows the developper to supply
+        his/her own finalizer. The template parameter has a default value
+        which retains the original behaviour (calling delete on the pointer)
+
 0.9.5   2011-07-05
 
     o   New Rcpp-FAQ examples on using the plugin maker for inline's
