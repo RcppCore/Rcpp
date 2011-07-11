@@ -32,6 +32,8 @@ namespace Rcpp{
 
 template <typename T> SEXP wrap( const T& object ) ;
 
+template <typename T> class CustomImporter ;
+
 namespace internal{
 	
 	template <typename InputIterator> SEXP range_wrap(InputIterator first, InputIterator last) ;
@@ -661,7 +663,11 @@ inline SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::t
 	return wrap_dispatch_importer<T,typename T::r_import_type>( object ) ;
 }
  
- 
+template <typename T>
+inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_custom_importer_tag ){
+	return CustomImporter<T>( object ) ;
+}
+
 /** 
  * This is called by wrap when the wrap_type_traits is wrap_type_unknown_tag
  * 
