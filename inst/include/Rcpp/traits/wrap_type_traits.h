@@ -36,6 +36,8 @@ struct wrap_type_primitive_tag{};
  */
 struct wrap_type_unknown_tag{};
 
+struct wrap_type_custom_importer_tag{};
+
 /**
  * Type trait that helps the dispatch of wrap to the proper method
  *
