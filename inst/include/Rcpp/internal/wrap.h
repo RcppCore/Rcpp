@@ -29,7 +29,10 @@
 // don't include it directly
 
 namespace Rcpp{
-
+	namespace RcppEigen{
+		template <typename T> SEXP eigen_wrap( const T& object ) ;
+	}
+	
 template <typename T> SEXP wrap( const T& object ) ;
 
 template <typename T> class CustomImporter ;
@@ -646,13 +649,24 @@ inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_primitive_
 	return primitive_wrap( object ) ;
 }
 
+template <typename T>
+inline SEXP wrap_dispatch_eigen( const T& object, ::Rcpp::traits::false_type){
+	return wrap_dispatch_unknown( object, typename ::Rcpp::traits::is_convertible<T,SEXP>::type() ) ;
+}
+
+template <typename T>
+inline SEXP wrap_dispatch_eigen( const T& object, ::Rcpp::traits::true_type){
+	return ::Rcpp::RcppEigen::eigen_wrap( object ) ;
+}
+
+
 /**
  * called when T is wrap_type_unknown_tag and is not an Importer class
  * The next step is to try implicit conversion to SEXP
  */
 template <typename T> 
 inline SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::false_type){
-	return wrap_dispatch_unknown( object, typename ::Rcpp::traits::is_convertible<T,SEXP>::type() ) ;
+	return wrap_dispatch_eigen( object, typename traits::is_eigen_base<T>::type() ) ;
 }
 
 /**
