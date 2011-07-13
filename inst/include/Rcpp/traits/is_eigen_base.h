@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// is_sugar_expression.h: Rcpp R/C++ interface class library -- 
+// is_eigen_base.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2011 Doug Bates, Dirk Eddelbuettel and Romain Francois
 //
