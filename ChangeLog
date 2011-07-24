@@ -1,3 +1,15 @@
+2011-07-xx  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.6
+        * inst/NEWS: Release 0.9.6
+        * inst/include/Rcpp/config.h: Release 0.9.6
+        * debian/*: Similarly updated for new release to Debian
+
+2011-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/Fibonacci/fib.r: New example showing how to compute a
+	Fibonacci sequence using Rcpp and compare it to R and byte-compiled R
+
 2011-07-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/RcppGibbs/RcppGibbs.R: New example RcppGibbs,
@@ -5,7 +17,7 @@
 	comparison of MCMC Gibbs Sampler implementations;
 	* inst/examples/RcppGibbs/timeRNGs.R: added short timing on Normal
 	and Gaussian RNG draws between Rcpp and GSL as R's rgamma() is seen
-	to significantly slower
+	to be significantly slower
 
 2011-07-13  Romain Francois  <romain@r-enthusiasts.com>
 
