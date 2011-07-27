@@ -1,14 +1,23 @@
-0.9.6   (future)
+0.9.6   2011-07-26
+
+    o   Added helper traits to facilitate implementation of the RcppEigen
+	package: The is_eigen_base traits identifies if a class derives from
+	EigenBase using SFINAE; and new dispatch layer was added to wrap() to
+	help RcppEigen
 
     o   XPtr now accepts a second template parameter, which is a function
-        taking a pointer to the target class. This allows the developper to supply
-        his/her own finalizer. The template parameter has a default value
-        which retains the original behaviour (calling delete on the pointer)
+        taking a pointer to the target class. This allows the developper to
+        supply his/her own finalizer. The template parameter has a default
+        value which retains the original behaviour (calling delete on the
+        pointer)
 
     o   New example RcppGibbs, extending Sanjog Misra's Rcpp illustration of
         Darren Wilkinson's comparison of MCMC Gibbs Sampler implementations;
 	also added short timing on Normal and Gaussian RNG draws between Rcpp
 	and GSL as R's rgamma() is seen to significantly slower
+
+    o   New example on recursively computing a Fibonacci number using Rcpp and
+        comparing this to R and byte-compiled R for a significant speed gain
 
 0.9.5   2011-07-05
 
