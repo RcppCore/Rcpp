@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4 -*-
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -67,8 +67,16 @@ definitions <- function(){
 						) ;
 					return output ;
 				'
+        	),
+        	"function_namespace_env" = list(
+        		signature(),
+        		'
+                Environment ns = Environment::namespace_env( "stats" ) ;
+                Function fun = ns[".asSparse"] ;  // accesses a non-exported function
+                return fun;
+				'
         	)
-        )    
+        )
 }
 
 cxxargs <- function(){
@@ -80,9 +88,9 @@ cxxargs <- function(){
     tests <- ".rcpp.Function"
     if( ! exists( tests, globalenv() )) {
         ## definition of all the functions at once
-        fun <- Rcpp:::compile_unit_tests( 
-            definitions(), 
-            cxxargs = cxxargs() 
+        fun <- Rcpp:::compile_unit_tests(
+            definitions(),
+            cxxargs = cxxargs()
         )
         assign( tests, fun, globalenv() )
     }
@@ -134,3 +142,11 @@ test.Function.binary.call <- function(){
 		msg = "binary_call(Function)" )
 }
 
+test.Function.namespace.env <- function() {
+    funx <- .rcpp.Function$function_namespace_env
+    exportedfunc <- funx()
+    mat <- matrix(1:9, 3)
+    res <- exportedfunc(mat)
+    expected <- stats:::.asSparse(mat)
+	checkEquals( res, expected, msg = "namespace_env(Function)" )
+}
