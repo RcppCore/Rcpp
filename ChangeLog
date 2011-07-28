@@ -1,3 +1,8 @@
+2011-07-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.Function.R: new unit test for accessing a
+	non-exported function from a namespace
+
 2011-07-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.6
