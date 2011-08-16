@@ -119,14 +119,15 @@ high-level \proglang{R} syntax in \proglang{C++}. Hence, with \sugar, the
 RcppExport SEXP foo( SEXP xs, SEXP ys){
     Rcpp::NumericVector x(xs) ;
     Rcpp::NumericVector y(ys) ;
-    return ifelse( x < y, x*x, -(y*y) ) ;
+    return Rcpp::wrap( ifelse( x < y, x*x, -(y*y) )) ;
 }
 @
 
 Apart from the fact that we need to assign the two objects we obtain from
-\proglang{R}---which is a simple statement each thanks to the template magic in
-\pkg{Rcpp}---and the need for an explicit \texttt{return} statement, the code
-is now identical between highly-vectorised \proglang{R} and \proglang{C++}.
+\proglang{R}---which is a simple statement each thanks to the template magic
+in \pkg{Rcpp}---and the need for explicit \texttt{return} and
+\texttt{Rcpp::wrap} statements, the code is now identical between
+highly-vectorised \proglang{R} and \proglang{C++}.
 
 \sugar~is written using expression templates and lazy evaluation techniques
 \citep{Abrahams+Gurtovoy:2004:TemplateMetaprogramming,Vandevoorde+Josuttis:2003:Templates}.
