@@ -400,6 +400,9 @@ expression templates to remove temporaries and allow chaining of
 operations. That is a mouthful of words meaning that it makes the code go
 faster by using fiendishly clever ways available via the so-called template
 meta programming, an advanced \proglang{C++} technique.
+Also, the \pkg{RcppEigen} package provides an alternative using the
+\href{Eigen}{http://eigen.tuxfamily.org} template library.
+
 
 The following example is adapted from the examples available at the project
 page of Armadillo. It calculates $ x' \times Y^{-1} \times z$
@@ -514,6 +517,10 @@ C <- mmult(A, B)
 % A %*% B
 % @
 
+Armadillo supports a full range of common linear algebra operations.
+
+The \pkg{RcppEigen} package provides an alternative using the
+\href{Eigen}{http://eigen.tuxfamily.org} template library.
 
 \subsection{How do I write a plugin for \pkg{inline} ?}
 
@@ -575,6 +582,41 @@ fun <- cxxfunction(signature(), body=src, plugin="Rcpp")
 fun()
 @
 %
+
+\subsection{Why can long long types not be cast correctly?}
+
+That is a good and open question. We rely on the basic \proglang{R} types,
+notably \code{integer} and \code{numeric}.  These can be cast to and from
+\proglang{C++} types without problems.  But there are corner cases.  The
+following example, contributed by a user, shows that we cannot reliably cast
+\code{long} types (on a 64-bit machines).
+
+<<eval=FALSE>>=
+BigInts <- cxxfunction(signature(),
+  'std::vector<long> bigints;
+   bigints.push_back(12345678901234567LL);
+   bigints.push_back(12345678901234568LL);
+   Rprintf("Difference of %ld\\n", 12345678901234568LL - 12345678901234567LL);
+   return wrap(bigints);', plugin="Rcpp", includes="#include <vector>")
+
+retval<-BigInts()
+
+# Unique 64-bit integers were cast to identical lower precision numerics
+# behind my back with no warnings or errors whatsoever.  Error.
+
+stopifnot(length(unique(retval)) == 2)
+@
+%
+
+While the difference of one is evident at the \proglang{C++} level, it is no
+longer present once cast to \proglang{R}. The 64-bit integer values get cast
+to a floating point types with a 53-bit mantissa. We do not have a good
+suggestion or fix for casting 64-bit integer values: 32-bit integer values
+fit into \code{integer} types, up to 53 bit precision fits into
+\code{numeric} and beyond that truly large integers may have to converted
+(rather crudely) to text and re-parsed. Using a different representation as
+for example from the \href{http://gmplib.org/}{GNU Multiple Precision Arithmetic
+  Library} may be an alternative.
 
 \section{Support}
 

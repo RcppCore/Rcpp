@@ -1,3 +1,9 @@
+2011-08-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added a short section including an
+	example on the issue raised by Murray wherein 64 bit 'long' integer
+	types can be cast with loss to numeric types without error or warning.
+
 2011-07-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.Function.R: new unit test for accessing a
