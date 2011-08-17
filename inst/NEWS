@@ -1,5 +1,8 @@
 0.9.7   2011-xx-yy
 
+    o   New Rcpp-FAQ example warning of lossy conversion from 64-bit long
+        integer types into a 53-bit mantissa which has no clear fix yet.
+
     o   New unit test for accessing a non-exported function from a namespace
 
 0.9.6   2011-07-26
