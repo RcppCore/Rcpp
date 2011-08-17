@@ -30,13 +30,14 @@ fibRcpp <- cxxfunction(signature(xs="int"),
 ')
 
 ## for comparison, the original (but repaired with 0/1 offsets)
-fibR <- function(seq) {
-    if (seq == 0) return(0)
-    if (seq == 1) return(1)
-    return (fibR(seq - 1) + fibR(seq - 2))
+fibR <- function(n) {
+    if (n == 0) return(0)
+    if (n == 1) return(1)
+    return (fibR(n - 1) + fibR(n - 2))
 }
 
 ## also use byte-compiled R function
+require(compiler)
 fibRC <- cmpfun(fibR)
 
 ## load rbenchmark to compare
