@@ -48,7 +48,8 @@ funRcpp <- cxxfunction(signature(zs="numeric"), plugin="Rcpp", body="
 
 
 z <- rep(c(1,1,0,0,0,0), 100)
-identical(fun1(z),fun2(z),fun1c(z),fun2c(z),funRcpp(z))
+## test all others against fun1 and make sure all are identical
+all(sapply(list(fun2(z),fun1c(z),fun2c(z),funRcpp(z)), identical, fun1(z)))
 
 res <- benchmark(fun1(z), fun2(z),
                  fun1c(z), fun2c(z),
