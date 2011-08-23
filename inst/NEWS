@@ -1,5 +1,11 @@
 0.9.7   2011-xx-yy
 
+    o   New example 'ifelseLooped.r' showing Rcpp can accelerate loops that may
+	be difficult to vectorise due to dependencies
+
+    o   New example directory examples/Misc/ regrouping the new example as
+        well as the fibonacci example added in Rcpp 0.9.6
+
     o   New Rcpp-FAQ example warning of lossy conversion from 64-bit long
         integer types into a 53-bit mantissa which has no clear fix yet.
 
