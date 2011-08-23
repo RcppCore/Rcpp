@@ -1,3 +1,12 @@
+2011-08-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/Misc/ifelseLooped.r: Added new example based on blog
+	post today, and a StackOverflow ansers---and which shows how Rcpp can
+	accelerate loops that may be difficult to vectorise due to dependencies
+
+        * inst/examples/Misc/: New directory for small examples regrouping
+	the new example as well as the fibonacci example added in Rcpp 0.9.6
+
 2011-08-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added a short section including an
