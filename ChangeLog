@@ -1,3 +1,8 @@
+2011-08-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/OpenMP/OpenMPandInline.r: Added new example for
+	OpenMP via inline, comparing simple loops with plain Rcpp and sugar
+
 2011-08-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/Misc/ifelseLooped.r: Added new example based on blog

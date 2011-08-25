@@ -1,5 +1,8 @@
 0.9.7   2011-xx-yy
 
+    o   New example 'OpenMPandInline.r' in the OpenMP/ directory, showing how
+        easily use OpenMP by modifying the RcppPlugin output
+
     o   New example 'ifelseLooped.r' showing Rcpp can accelerate loops that may
 	be difficult to vectorise due to dependencies
 
