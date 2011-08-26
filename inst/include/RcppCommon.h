@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // RcppCommon.h: Rcpp R/C++ interface class library -- common include and defines statements
 //
@@ -51,37 +51,37 @@ void logTxtFunction(const char* file, const int line, const char* expression ) ;
  */
 namespace Rcpp{
 
-	/**
-	 * \brief traits used to dispatch wrap
-	 */
-	namespace traits{
-	} // traits
+    /**
+     * \brief traits used to dispatch wrap
+     */
+    namespace traits{
+    } // traits
 
-	/**
-	 * \brief internal implementation details
-	 */
-	namespace internal{	
-	} // internal 
+    /**
+     * \brief internal implementation details
+     */
+    namespace internal{     
+    } // internal 
 } // Rcpp
 
 #ifdef __GNUC__
-	#define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-	#ifdef __GXX_EXPERIMENTAL_CXX0X__
-		#define HAS_CXX0X
-		#if GCC_VERSION >= 40300
-			#define HAS_VARIADIC_TEMPLATES
-		#endif
-		#if GCC_VERSION >= 40400
-			#define HAS_INIT_LISTS
-		#endif
-	#endif
-	// FIXME: [romain] I did not actually check, tr1::unordered_map was 
-	// probably introduced before GCC 4.2.1
-	#if GCC_VERSION >= 40201
-		#define HAS_TR1
-		#define HAS_TR1_UNORDERED_MAP
-		#define HAS_TR1_UNORDERED_SET
-	#endif
+    #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+    #ifdef __GXX_EXPERIMENTAL_CXX0X__
+        #define HAS_CXX0X
+        #if GCC_VERSION >= 40300
+            #define HAS_VARIADIC_TEMPLATES
+        #endif
+        #if GCC_VERSION >= 40400
+            #define HAS_INIT_LISTS
+        #endif
+    #endif
+    // FIXME: [romain] I did not actually check, tr1::unordered_map was 
+    // probably introduced before GCC 4.2.1
+    #if GCC_VERSION >= 40201
+        #define HAS_TR1
+        #define HAS_TR1_UNORDERED_MAP
+        #define HAS_TR1_UNORDERED_SET
+    #endif
     // g++ 4.5 does not seem to like some of the fast indexing
     #if GCC_VERSION >= 40500
         #define IS_GCC_450_OR_LATER
@@ -146,7 +146,7 @@ std::string demangle( const std::string& name) ;
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
-#define RCPP_GET_NAMES(x)	Rf_getAttrib(x, R_NamesSymbol)
+#define RCPP_GET_NAMES(x)       Rf_getAttrib(x, R_NamesSymbol)
 
 inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
     PROTECT(car) ;
@@ -168,11 +168,11 @@ RcppExport void init_Rcpp_routines(DllInfo*) ;
 
 namespace Rcpp{
     namespace internal{
-		template <typename T> int rcpp_call_test(T t){
-			return T::r_type::value ;
-		}
-		int rcpp_call_test_(SEXP) ;
-	}
+        template <typename T> int rcpp_call_test(T t){
+            return T::r_type::value ;
+        }
+        int rcpp_call_test_(SEXP) ;
+    }
 }
 
 extern "C" SEXP rcpp_call_test(SEXP x) ;
@@ -202,22 +202,21 @@ const char * sexp_to_name(int sexp_type);
 #include <Rcpp/exceptions.h>
 
 namespace Rcpp{
-	/* internal namespace for things not intended to be used by the 
-	   user */
-	namespace internal{	
-	
-		/* defined in Evaluator.cpp */
-		SEXP convert_using_rfunction(SEXP x, const char* const fun) throw(::Rcpp::not_compatible) ;
-	
-		SEXP try_catch( SEXP expr, SEXP env ) throw(::Rcpp::eval_error) ;
-		SEXP try_catch( SEXP expr ) throw(::Rcpp::eval_error) ;
-	
-	} // namespace internal 
-
-	inline bool Rboolean_to_bool( int x){ return x == TRUE ; }
-	inline bool int_to_bool(int x){ return x != 0 ; }
-	inline bool double_to_bool(double x){ return x != 0.0 ; }
-	inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
+    /* internal namespace for things not intended to be used by the user */
+    namespace internal{     
+        
+        /* defined in Evaluator.cpp */
+        SEXP convert_using_rfunction(SEXP x, const char* const fun);
+        
+        SEXP try_catch( SEXP expr, SEXP env );
+        SEXP try_catch( SEXP expr );
+        
+    } // namespace internal 
+    
+    inline bool Rboolean_to_bool( int x){ return x == TRUE ; }
+    inline bool int_to_bool(int x){ return x != 0 ; }
+    inline bool double_to_bool(double x){ return x != 0.0 ; }
+    inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 
 } // namespace Rcpp
 
@@ -225,23 +224,23 @@ namespace Rcpp{
 #define RCPP_DEBUG_LEVEL 0
 
 #ifndef logTxt
-	#if RCPP_DEBUG_LEVEL > 0
-		#define logTxt(x) ::logTxtFunction(__FILE__, __LINE__, x);
-	#else
-		#define logTxt(x)
-	#endif
+    #if RCPP_DEBUG_LEVEL > 0
+        #define logTxt(x) ::logTxtFunction(__FILE__, __LINE__, x);
+    #else
+        #define logTxt(x)
+    #endif
 #endif
 
 #if RCPP_DEBUG_LEVEL > 0
-	#define RCPP_DEBUG( MSG ) Rprintf( "%s:%d %s\n" , __FILE__, __LINE__, MSG ) ;
-	#define RCPP_DEBUG_1( fmt, MSG ) Rprintf( "%s:%d " fmt "\n" , __FILE__, __LINE__, MSG ) ;
-	#define RCPP_DEBUG_2( fmt, M1, M2 ) Rprintf( "%s:%d" fmt "\n" , __FILE__, __LINE__, M1, M2 ) ;
-	#define RCPP_DEBUG_3( fmt, M1, M2, M3 ) Rprintf( "%s:%d" fmt "\n" , __FILE__, __LINE__, M1, M2, M3) ;
+    #define RCPP_DEBUG( MSG ) Rprintf( "%s:%d %s\n" , __FILE__, __LINE__, MSG ) ;
+    #define RCPP_DEBUG_1( fmt, MSG ) Rprintf( "%s:%d " fmt "\n" , __FILE__, __LINE__, MSG ) ;
+    #define RCPP_DEBUG_2( fmt, M1, M2 ) Rprintf( "%s:%d" fmt "\n" , __FILE__, __LINE__, M1, M2 ) ;
+    #define RCPP_DEBUG_3( fmt, M1, M2, M3 ) Rprintf( "%s:%d" fmt "\n" , __FILE__, __LINE__, M1, M2, M3) ;
 #else
-	#define RCPP_DEBUG( MSG )
-	#define RCPP_DEBUG_1( fmt, MSG )
-	#define RCPP_DEBUG_2( fmt, M1, M2 )
-	#define RCPP_DEBUG_3( fmt, M1, M2, M3 )
+    #define RCPP_DEBUG( MSG )
+    #define RCPP_DEBUG_1( fmt, MSG )
+    #define RCPP_DEBUG_2( fmt, M1, M2 )
+    #define RCPP_DEBUG_3( fmt, M1, M2, M3 )
 #endif
 
 SEXP stack_trace( const char *file, int line) ;
@@ -249,7 +248,7 @@ SEXP stack_trace( const char *file, int line) ;
 #define Rcpp_error(MESSAGE) throw new Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
 
 #if RCPP_DEBUG_LEVEL > 0
-  #include <typeinfo>
+    #include <typeinfo>
 #endif
 
 #ifdef __GNUC__

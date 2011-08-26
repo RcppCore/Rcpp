@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Promise.h: Rcpp R/C++ interface class library -- promises (PROMSXP)
 //
@@ -23,44 +23,44 @@
 
 namespace Rcpp {
 
-	Promise::Promise(SEXP x) throw(not_compatible) : RObject(){
-		if( TYPEOF(x) == PROMSXP ){
-			setSEXP( x ) ;
-		} else{
-			throw not_compatible("not a promise") ;
-		}
-	}
+    Promise::Promise(SEXP x) : RObject(){
+        if( TYPEOF(x) == PROMSXP ){
+            setSEXP( x ) ;
+        } else{
+            throw not_compatible("not a promise") ;
+        }
+    }
 
-	Promise::Promise(const Promise& other) : RObject() {
-		setSEXP( other.asSexp() );
-	}
+    Promise::Promise(const Promise& other) : RObject() {
+        setSEXP( other.asSexp() );
+    }
 	
-	Promise& Promise::operator=(const Promise& other){
-		setSEXP( other.asSexp() );
-		return *this ;
-	}
+    Promise& Promise::operator=(const Promise& other){
+        setSEXP( other.asSexp() );
+        return *this ;
+    }
 	
-	int Promise::seen() const {
-		return PRSEEN(m_sexp);
-	}
+    int Promise::seen() const {
+        return PRSEEN(m_sexp);
+    }
 
-	SEXP Promise::value() const throw(unevaluated_promise) {
-		SEXP val = PRVALUE(m_sexp) ; 
-		if( val == R_UnboundValue ) throw unevaluated_promise() ;
-		return val ;
-	}
+    SEXP Promise::value() const {
+        SEXP val = PRVALUE(m_sexp) ; 
+        if( val == R_UnboundValue ) throw unevaluated_promise() ;
+        return val ;
+    }
 	
-	bool Promise::was_evaluated() const {
-		return PRVALUE(m_sexp) != R_UnboundValue ;
-	}
+    bool Promise::was_evaluated() const {
+        return PRVALUE(m_sexp) != R_UnboundValue ;
+    }
 
-	Environment Promise::environment() const {
-		return Environment(PRENV(m_sexp)) ;
-	}
+    Environment Promise::environment() const {
+        return Environment(PRENV(m_sexp)) ;
+    }
 
-	ExpressionVector Promise::expression() const {
-		return ExpressionVector(PRCODE(m_sexp)) ;
-	}
+    ExpressionVector Promise::expression() const {
+        return ExpressionVector(PRCODE(m_sexp)) ;
+    }
 	
 } // namespace
 

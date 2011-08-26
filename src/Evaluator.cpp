@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Evaluator.cpp: Rcpp R/C++ interface class library -- evaluator
 //
@@ -23,62 +23,61 @@
 
 namespace Rcpp {
 
-   SEXP Evaluator::run(SEXP expr, SEXP env) throw(eval_error) {
-       SEXP call = PROTECT( 
-		Rf_lang2( 
-		    internal::get_rcpptrycatch() , 
-			Rf_lang3( internal::get_evalq() , expr, env )
-			)
-		) ;
-	Environment RCPP = Environment::Rcpp_namespace(); 
-   	
-	/* call the tryCatch call */
-	SEXP res = PROTECT( Rf_eval( call, RCPP ) );
-	
-	/* was there an error ? */
-	SEXP errorOccuredSym = Rf_install("errorOccured");
-	SEXP err_call = PROTECT( Rf_lang1( errorOccuredSym ) ) ;
-	SEXP err_res  = PROTECT( Rf_eval( err_call, RCPP ) ) ;
-	int error = LOGICAL( err_res )[0];
-	UNPROTECT(2) ;
-	
-	if( error ) {
-	    SEXP getCurrentErrorMessageSym = Rf_install("getCurrentErrorMessage");
-	    SEXP err_msg = PROTECT( Rf_eval( Rf_lang1(getCurrentErrorMessageSym),  RCPP ) );
-	    std::string message = CHAR(STRING_ELT(err_msg,0)) ;
-	    UNPROTECT( 3 ) ;
-	    throw eval_error(message) ;
-	} else {
-	    UNPROTECT(2) ;
-	    return res ;
-	}
+    SEXP Evaluator::run(SEXP expr, SEXP env) {
+        SEXP call = PROTECT( 
+                            Rf_lang2( 
+                                     internal::get_rcpptrycatch() , 
+                                     Rf_lang3( internal::get_evalq() , expr, env )
+                                      )
+                             ) ;
+        Environment RCPP = Environment::Rcpp_namespace(); 
+        
+        /* call the tryCatch call */
+        SEXP res = PROTECT( Rf_eval( call, RCPP ) );
+        
+        /* was there an error ? */
+        SEXP errorOccuredSym = Rf_install("errorOccured");
+        SEXP err_call = PROTECT( Rf_lang1( errorOccuredSym ) ) ;
+        SEXP err_res  = PROTECT( Rf_eval( err_call, RCPP ) ) ;
+        int error = LOGICAL( err_res )[0];
+        UNPROTECT(2) ;
+        
+        if( error ) {
+            SEXP getCurrentErrorMessageSym = Rf_install("getCurrentErrorMessage");
+            SEXP err_msg = PROTECT( Rf_eval( Rf_lang1(getCurrentErrorMessageSym),  RCPP ) );
+            std::string message = CHAR(STRING_ELT(err_msg,0)) ;
+            UNPROTECT( 3 ) ;
+            throw eval_error(message) ;
+        } else {
+            UNPROTECT(2) ;
+            return res ;
+        }
     }
     
-    SEXP Evaluator::run( SEXP expr) throw(eval_error){
-    	return run(expr, R_GlobalEnv );
+    SEXP Evaluator::run( SEXP expr) {
+        return run(expr, R_GlobalEnv );
     }
     
-namespace internal{
-/* this is defined here because we need to be sure that Evaluator is 
-   defined */
-    SEXP convert_using_rfunction(SEXP x, const char* const fun) throw(::Rcpp::not_compatible) {
-    	SEXP res = R_NilValue ;
-    	try{
-	    SEXP funSym = Rf_install(fun);
-    		res = Evaluator::run( Rf_lang2( funSym, x ) ) ;
-    	} catch( eval_error& e){
-    		throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
-    	}
-    	return res;
-    }
+    namespace internal{
+        /* this is defined here because we need to be sure that Evaluator is defined */
+        SEXP convert_using_rfunction(SEXP x, const char* const fun) {
+            SEXP res = R_NilValue ;
+            try{
+                SEXP funSym = Rf_install(fun);
+                res = Evaluator::run( Rf_lang2( funSym, x ) ) ;
+            } catch( eval_error& e){
+                throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
+            }
+            return res;
+        }
     
-    SEXP try_catch( SEXP expr, SEXP env ) throw(::Rcpp::eval_error) {
-    	    return Evaluator::run(expr, env) ;
-    }
-    SEXP try_catch( SEXP expr ) throw(::Rcpp::eval_error) {
-    	    return Evaluator::run(expr) ;
-    }
+        SEXP try_catch( SEXP expr, SEXP env ) {
+            return Evaluator::run(expr, env) ;
+        }
+        SEXP try_catch( SEXP expr ) {
+            return Evaluator::run(expr) ;
+        }
     
-} // namespace internal
+    } // namespace internal
     
 } // namespace Rcpp

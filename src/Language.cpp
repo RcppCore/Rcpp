@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Language.cpp: Rcpp R/C++ interface class library -- Language objects ( calls )
 //
@@ -22,61 +22,61 @@
 #include <Rcpp/Language.h>
 
 namespace Rcpp {
-	
-	Language::Language() : DottedPair() {}
-	
-	Language::Language( SEXP x ) throw(not_compatible) : DottedPair(){
-		setSEXP( r_cast<LANGSXP>(x) ) ;
-	}
-	
-	Language::Language( const Language& other): DottedPair(){
-		setSEXP( other.asSexp() ) ;
-	}
-	
-	Language& Language::operator=(const Language& other){
-		setSEXP( other.asSexp() ) ;
-		return *this ;
-	}
-	
-	Language::Language( const std::string& symbol ): DottedPair() {
-		setSEXP( Rf_lang1( Symbol(symbol) ) );
-	}
-	
-	Language::Language( const Symbol& symbol ): DottedPair() {
-		setSEXP( Rf_lang1( symbol ) ) ;
-	}
-	
-	Language::Language( const Function& function): DottedPair() {
-		setSEXP( Rf_lang1( function ) ) ;		
-	}
-	
-	Language::~Language(){}
+        
+    Language::Language() : DottedPair() {}
+        
+    Language::Language( SEXP x ) : DottedPair(){
+        setSEXP( r_cast<LANGSXP>(x) ) ;
+    }
+        
+    Language::Language( const Language& other): DottedPair(){
+        setSEXP( other.asSexp() ) ;
+    }
+        
+    Language& Language::operator=(const Language& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+        
+    Language::Language( const std::string& symbol ): DottedPair() {
+        setSEXP( Rf_lang1( Symbol(symbol) ) );
+    }
+        
+    Language::Language( const Symbol& symbol ): DottedPair() {
+        setSEXP( Rf_lang1( symbol ) ) ;
+    }
+        
+    Language::Language( const Function& function): DottedPair() {
+        setSEXP( Rf_lang1( function ) ) ;               
+    }
+        
+    Language::~Language(){}
 
-	void Language::setSymbol( const std::string& symbol){
-		setSymbol( Symbol( symbol ) ) ;
-	}
-	
-	void Language::setSymbol( const Symbol& symbol){
-		SETCAR( m_sexp, symbol ) ;
-		SET_TAG(m_sexp, R_NilValue);/* probably not necessary */
-	}
-	
-	void Language::setFunction( const Function& function){
-		SETCAR( m_sexp, function );
-		SET_TAG(m_sexp, R_NilValue); /* probably not necessary */
-	}
-	
-	void Language::update(){ 
-		SET_TYPEOF( m_sexp, LANGSXP ) ;
-		SET_TAG( m_sexp, R_NilValue ) ;
-	}
-	
-	SEXP Language::eval() throw(eval_error) {
-		return eval( R_GlobalEnv ) ;
-	}
-	
-	SEXP Language::eval( SEXP env ) throw(eval_error) {
-		return internal::try_catch( m_sexp, env );
-	}
-	
+    void Language::setSymbol( const std::string& symbol){
+        setSymbol( Symbol( symbol ) ) ;
+    }
+        
+    void Language::setSymbol( const Symbol& symbol){
+        SETCAR( m_sexp, symbol ) ;
+        SET_TAG(m_sexp, R_NilValue);/* probably not necessary */
+    }
+        
+    void Language::setFunction( const Function& function){
+        SETCAR( m_sexp, function );
+        SET_TAG(m_sexp, R_NilValue); /* probably not necessary */
+    }
+        
+    void Language::update(){ 
+        SET_TYPEOF( m_sexp, LANGSXP ) ;
+        SET_TAG( m_sexp, R_NilValue ) ;
+    }
+        
+    SEXP Language::eval() {
+        return eval( R_GlobalEnv ) ;
+    }
+        
+    SEXP Language::eval( SEXP env ) {
+        return internal::try_catch( m_sexp, env );
+    }
+        
 } // namespace Rcpp

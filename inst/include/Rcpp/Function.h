@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Function.h: Rcpp R/C++ interface class library -- functions (also primitives and builtins)
 //
@@ -29,71 +29,71 @@
 
 namespace Rcpp{ 
 
-/** 
- * functions
- */
-class Function : public RObject{
-public:
+    /** 
+     * functions
+     */
+    class Function : public RObject{
+    public:
 
-	/**
-	 * Attempts to convert the SEXP to a pair list
-	 *
-	 * @throw not_compatible if the SEXP could not be converted
-	 * to a pair list using as.pairlist
-	 */
-	Function(SEXP lang) throw(not_compatible) ;
-	
-	/**
-	 * Finds a function, searching from the global environment
-	 *
-	 * @param name name of the function
-	 */
-	Function(const std::string& name) throw(no_such_function) ;
-	
-	Function(const Function& other) ;
-	Function& operator=(const Function& other );
-	
-	// /**
-	//  * Finds a function, searching from a specific environment
-	//  *
-	//  * @param name name of the function
-	//  * @param env environment where to find it
-	//  */
-	// Function(const std::string& name, SEXP env ) ;
-	
-	/**
-	 * calls the function with the specified arguments
-	 *
-	 * @param ...Args variable length argument list. The type of each 
-	 *        argument must be wrappable, meaning there need to be 
-	 *        a wrap function that takes this type as its parameter
-	 *
-	 */
+        /**
+         * Attempts to convert the SEXP to a pair list
+         *
+         * @throw not_compatible if the SEXP could not be converted
+         * to a pair list using as.pairlist
+         */
+        Function(SEXP lang) ;
+        
+        /**
+         * Finds a function, searching from the global environment
+         *
+         * @param name name of the function
+         */
+        Function(const std::string& name) ;
+        
+        Function(const Function& other) ;
+        Function& operator=(const Function& other );
+        
+        // /**
+        //  * Finds a function, searching from a specific environment
+        //  *
+        //  * @param name name of the function
+        //  * @param env environment where to find it
+        //  */
+        // Function(const std::string& name, SEXP env ) ;
+        
+        /**
+         * calls the function with the specified arguments
+         *
+         * @param ...Args variable length argument list. The type of each 
+         *        argument must be wrappable, meaning there need to be 
+         *        a wrap function that takes this type as its parameter
+         *
+         */
 #ifdef HAS_VARIADIC_TEMPLATES
-template<typename... Args> 
-	SEXP operator()( const Args&... args) /* throw(Evaluator::eval_error) */ const {
-		return internal::try_catch( Rf_lang2( m_sexp, pairlist(args...) ) ) ;
-	}
+        template<typename... Args> 
+        SEXP operator()( const Args&... args) const {
+            return internal::try_catch( Rf_lang2( m_sexp, pairlist(args...) ) ) ;
+        }
 #else
-	SEXP operator()() const {
-		return internal::try_catch( Rf_lang1( m_sexp  ) ) ;	
-	}
-	
-#include <Rcpp/generated/Function__operator.h>	
+        SEXP operator()() const {
+            return internal::try_catch( Rf_lang1( m_sexp  ) ) ;     
+        }
+        
+#include <Rcpp/generated/Function__operator.h>  
 #endif
-	
-	/**
-	 * Returns the environment of this function
-	 */
-	SEXP environment() const throw(not_a_closure) ;
-	
-	/**
-	 * Returns the body of the function
-	 */
-	SEXP body() const ;
-	 
-	~Function() ;
-};
+        
+        /**
+         * Returns the environment of this function
+         */
+        SEXP environment() const ;
+        
+        /**
+         * Returns the body of the function
+         */
+        SEXP body() const ;
+         
+        ~Function() ;
+    };
 
 } // namespace Rcpp
 

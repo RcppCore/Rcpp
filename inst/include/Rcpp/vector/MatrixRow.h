@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // MatrixRow.h: Rcpp R/C++ interface class library -- matrices row
 //
@@ -25,137 +25,137 @@
 template <int RTYPE>
 class MatrixRow : public VectorBase< RTYPE, true, MatrixRow<RTYPE> > {
 public:
-	typedef Matrix<RTYPE> MATRIX ;
-	typedef typename MATRIX::Proxy Proxy ;
-	typedef typename MATRIX::Proxy reference ;
-	typedef typename MATRIX::value_type value_type ;
-	
-	class iterator {
-	public:
-		typedef typename traits::r_vector_iterator<RTYPE>::type vector_iterator ;
-		
-		typedef int difference_type ;
-		typedef typename traits::r_vector_proxy<RTYPE>::type value_type ;
-		typedef typename traits::r_vector_proxy<RTYPE>::type reference ;
-		typedef typename std::iterator_traits<vector_iterator>::pointer pointer ;
-	
-		typedef std::random_access_iterator_tag iterator_category ;
-		
-		iterator( MatrixRow& row_, int index_ ) : row(row_), index(index_){}
-		
-		iterator& operator++(){ 
-			index++;
-			return *this ;
-		}
-		iterator& operator++(int) { 
-			index++;
-			return *this ;
-		}
-	
-		iterator& operator--(){ 
-			index-- ;
-			return *this ;
-		} 
-		iterator& operator--(int){ 
-			index-- ;
-			return *this ;
-		}
-		                    
-		iterator operator+(difference_type n) const { return iterator( row, index + n ) ; }
-		iterator operator-(difference_type n) const { return iterator( row, index - n ) ; }
-		
-		iterator& operator+=(difference_type n) { index += n ; return *this ;} 
-		iterator& operator-=(difference_type n) { index -= n ; return *this ;} 
-        	
-		reference operator*() {
-			return row[index] ;
-		}
-		pointer operator->(){
-			return &row[index] ;
-		}
-		
-		bool operator==( const iterator& other) { return index == other.index ; } 
-		bool operator!=( const iterator& other) { return index != other.index ; }
-		bool operator<( const iterator& other ) { return index < other.index ;}
-		bool operator>( const iterator& other ) { return index > other.index ;}
-		bool operator<=( const iterator& other ) { return index <= other.index ; }
-		bool operator>=( const iterator& other ) { return index >= other.index ; }
-		
-		inline reference operator[]( int i){
-		    return row[ index + i ] ;
-		}
-		
-		difference_type operator-(const iterator& other) {
-			return index - other.index ;
-		}
-		
-	private:
-		MatrixRow& row ;
-		int index ;
-	} ;
-	
-	MatrixRow( MATRIX& object, int i ) : 
-	    parent(object), 
-	    start(parent.begin() + i), 
-	    parent_nrow(parent.nrow()) 
-	{
-		if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds() ;
-	}
-	
-	MatrixRow( const MatrixRow& other ) : 
-	    parent(other.parent), 
-	    start(other.start), 
-	    parent_nrow(other.parent_nrow)
-	{} ;
-	
-	template <int RT, bool NA, typename T>
-	MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
-	    int n = size() ;
-	    const T& ref = rhs.get_ref() ;
-	    RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,ref)
-	    return *this ;
-	}
-	
-	MatrixRow& operator=( const MatrixRow& rhs ){
-	    int n = size() ;
-	    RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,rhs)
-	    return *this ;
-	}
+    typedef Matrix<RTYPE> MATRIX ;
+    typedef typename MATRIX::Proxy Proxy ;
+    typedef typename MATRIX::Proxy reference ;
+    typedef typename MATRIX::value_type value_type ;
+        
+    class iterator {
+    public:
+        typedef typename traits::r_vector_iterator<RTYPE>::type vector_iterator ;
+                
+        typedef int difference_type ;
+        typedef typename traits::r_vector_proxy<RTYPE>::type value_type ;
+        typedef typename traits::r_vector_proxy<RTYPE>::type reference ;
+        typedef typename std::iterator_traits<vector_iterator>::pointer pointer ;
+        
+        typedef std::random_access_iterator_tag iterator_category ;
+                
+        iterator( MatrixRow& row_, int index_ ) : row(row_), index(index_){}
+                
+        iterator& operator++(){ 
+            index++;
+            return *this ;
+        }
+        iterator& operator++(int) { 
+            index++;
+            return *this ;
+        }
+        
+        iterator& operator--(){ 
+            index-- ;
+            return *this ;
+        } 
+        iterator& operator--(int){ 
+            index-- ;
+            return *this ;
+        }
+                                    
+        iterator operator+(difference_type n) const { return iterator( row, index + n ) ; }
+        iterator operator-(difference_type n) const { return iterator( row, index - n ) ; }
+                
+        iterator& operator+=(difference_type n) { index += n ; return *this ;} 
+        iterator& operator-=(difference_type n) { index -= n ; return *this ;} 
+                
+        reference operator*() {
+            return row[index] ;
+        }
+        pointer operator->(){
+            return &row[index] ;
+        }
+                
+        bool operator==( const iterator& other) { return index == other.index ; } 
+        bool operator!=( const iterator& other) { return index != other.index ; }
+        bool operator<( const iterator& other ) { return index < other.index ;}
+        bool operator>( const iterator& other ) { return index > other.index ;}
+        bool operator<=( const iterator& other ) { return index <= other.index ; }
+        bool operator>=( const iterator& other ) { return index >= other.index ; }
+                
+        inline reference operator[]( int i){
+            return row[ index + i ] ;
+        }
+                
+        difference_type operator-(const iterator& other) {
+            return index - other.index ;
+        }
+                
+    private:
+        MatrixRow& row ;
+        int index ;
+    } ;
+        
+    MatrixRow( MATRIX& object, int i ) : 
+        parent(object), 
+        start(parent.begin() + i), 
+        parent_nrow(parent.nrow()) 
+    {
+        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds() ;
+    }
+        
+    MatrixRow( const MatrixRow& other ) : 
+        parent(other.parent), 
+        start(other.start), 
+        parent_nrow(other.parent_nrow)
+    {} ;
+        
+    template <int RT, bool NA, typename T>
+    MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+        int n = size() ;
+        const T& ref = rhs.get_ref() ;
+        RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,ref)
+            return *this ;
+    }
+        
+    MatrixRow& operator=( const MatrixRow& rhs ){
+        int n = size() ;
+        RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,rhs)
+            return *this ;
+    }
 
-	inline reference operator[]( int i ){
-		return start[ get_parent_index(i) ] ;
-	}
-	
-	inline reference operator[]( int i ) const {
-		return start[ get_parent_index(i) ] ;
-	}
-	
-	inline iterator begin(){
-		return iterator( *this, 0 ) ;
-	}
-	
-	inline iterator end(){
-		return iterator( *this, size() ) ;
-	}
-	
-	inline iterator begin() const {
-		return iterator( const_cast<MatrixRow&>(*this), 0 ) ;
-	}
-	
-	inline iterator end() const {
-		return iterator( const_cast<MatrixRow&>(*this), size() ) ;
-	}
-	
-	inline int size() const {
-		return parent.ncol() ;
-	}
-	
+    inline reference operator[]( int i ){
+        return start[ get_parent_index(i) ] ;
+    }
+        
+    inline reference operator[]( int i ) const {
+        return start[ get_parent_index(i) ] ;
+    }
+        
+    inline iterator begin(){
+        return iterator( *this, 0 ) ;
+    }
+        
+    inline iterator end(){
+        return iterator( *this, size() ) ;
+    }
+        
+    inline iterator begin() const {
+        return iterator( const_cast<MatrixRow&>(*this), 0 ) ;
+    }
+        
+    inline iterator end() const {
+        return iterator( const_cast<MatrixRow&>(*this), size() ) ;
+    }
+        
+    inline int size() const {
+        return parent.ncol() ;
+    }
+        
 private:
-	MATRIX& parent; 
-	typename MATRIX::iterator start ;
-	int parent_nrow ;
-	
-	inline int get_parent_index(int i) const { return i * parent_nrow ; } 
+    MATRIX& parent; 
+    typename MATRIX::iterator start ;
+    int parent_nrow ;
+        
+    inline int get_parent_index(int i) const { return i * parent_nrow ; } 
 } ;
 
 #endif

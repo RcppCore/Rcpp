@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rcast.h: Rcpp R/C++ interface class library -- cast from one SEXP type to another
 //
@@ -23,147 +23,144 @@
 #include <Rcpp/RObject.h>
 
 namespace Rcpp{
-namespace internal{
+    namespace internal{
 
-template<> SEXP r_true_cast<INTSXP>(SEXP x) throw(::Rcpp::not_compatible){
-	switch( TYPEOF(x) ){
-	case REALSXP:
-	case RAWSXP:
-	case LGLSXP:
-	case CPLXSXP:
-		return Rf_coerceVector( x, INTSXP) ;
-	default:
-		throw ::Rcpp::not_compatible( "not compatible with INTSXP" ) ;
-	}
-	return R_NilValue ; /* -Wall */
-}
+        template<> SEXP r_true_cast<INTSXP>(SEXP x) {
+            switch( TYPEOF(x) ){
+            case REALSXP:
+            case RAWSXP:
+            case LGLSXP:
+            case CPLXSXP:
+                return Rf_coerceVector( x, INTSXP) ;
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with INTSXP" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
 
-template<> SEXP r_true_cast<REALSXP>( SEXP x) throw(::Rcpp::not_compatible){
-	switch( TYPEOF( x ) ){
-	case INTSXP:
-	case LGLSXP:
-	case CPLXSXP:
-	case RAWSXP:
-		return Rf_coerceVector( x, REALSXP );
-	default:
-		throw ::Rcpp::not_compatible( "not compatible with REALSXP" ) ;
-	}
-	return R_NilValue ; /* -Wall */
-}
+        template<> SEXP r_true_cast<REALSXP>( SEXP x) {
+            switch( TYPEOF( x ) ){
+            case INTSXP:
+            case LGLSXP:
+            case CPLXSXP:
+            case RAWSXP:
+                return Rf_coerceVector( x, REALSXP );
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with REALSXP" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
 
-template<> SEXP r_true_cast<LGLSXP>( SEXP x) throw(::Rcpp::not_compatible){
-	switch( TYPEOF( x ) ){
-	case REALSXP:
-	case INTSXP:
-	case CPLXSXP:
-	case RAWSXP:
-		return Rf_coerceVector( x, LGLSXP );
-	default:
-		throw ::Rcpp::not_compatible( "not compatible with LGLSXP" ) ;
-	}
-	return R_NilValue ; /* -Wall */
-}
+        template<> SEXP r_true_cast<LGLSXP>( SEXP x) {
+            switch( TYPEOF( x ) ){
+            case REALSXP:
+            case INTSXP:
+            case CPLXSXP:
+            case RAWSXP:
+                return Rf_coerceVector( x, LGLSXP );
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with LGLSXP" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
 
-template<> SEXP r_true_cast<RAWSXP>( SEXP x) throw(::Rcpp::not_compatible){
-	switch( TYPEOF( x ) ){
-	case LGLSXP:
-	case REALSXP:
-	case INTSXP:
-	case CPLXSXP:
-		return Rf_coerceVector( x, RAWSXP );
-	default:
-		throw ::Rcpp::not_compatible( "not compatible with RAWSXP" ) ;
-	}
-	return R_NilValue ; /* -Wall */
-}
+        template<> SEXP r_true_cast<RAWSXP>( SEXP x) {
+            switch( TYPEOF( x ) ){
+            case LGLSXP:
+            case REALSXP:
+            case INTSXP:
+            case CPLXSXP:
+                return Rf_coerceVector( x, RAWSXP );
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with RAWSXP" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
 
 
-template<> SEXP r_true_cast<CPLXSXP>( SEXP x) throw(::Rcpp::not_compatible){
-	switch( TYPEOF( x ) ){
-	case RAWSXP:
-	case LGLSXP:
-	case REALSXP:
-	case INTSXP:
-		return Rf_coerceVector( x, CPLXSXP );
-	default:
-		throw ::Rcpp::not_compatible( "not compatible with CPLXSXP" ) ;
-	}
-	return R_NilValue ; /* -Wall */
-}
+        template<> SEXP r_true_cast<CPLXSXP>( SEXP x) {
+            switch( TYPEOF( x ) ){
+            case RAWSXP:
+            case LGLSXP:
+            case REALSXP:
+            case INTSXP:
+                return Rf_coerceVector( x, CPLXSXP );
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with CPLXSXP" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
 
-template<> SEXP r_true_cast<STRSXP>( SEXP x) throw(::Rcpp::not_compatible){
-	switch( TYPEOF( x ) ){
-	case CPLXSXP:
-	case RAWSXP:
-	case LGLSXP:
-	case REALSXP:
-	case INTSXP:
-	    {
-	    // return Rf_coerceVector( x, STRSXP );
-	    // coerceVector does not work for some reason
-		SEXP call = PROTECT( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
-		SEXP res  = PROTECT( Rf_eval( call, R_GlobalEnv ) ) ;
-		UNPROTECT(2); 
-		return res ;
-		}
-	case CHARSXP:
-		return Rf_ScalarString( x ) ;
-	case SYMSXP:
-		return Rf_ScalarString( PRINTNAME( x ) ) ; 
-	default:
-		throw ::Rcpp::not_compatible( "not compatible with STRSXP" ) ;
-	}
-	return R_NilValue ; /* -Wall */
-}
+        template<> SEXP r_true_cast<STRSXP>( SEXP x) {
+            switch( TYPEOF( x ) ){
+            case CPLXSXP:
+            case RAWSXP:
+            case LGLSXP:
+            case REALSXP:
+            case INTSXP:
+                {
+                    // return Rf_coerceVector( x, STRSXP );
+                    // coerceVector does not work for some reason
+                    SEXP call = PROTECT( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
+                    SEXP res  = PROTECT( Rf_eval( call, R_GlobalEnv ) ) ;
+                    UNPROTECT(2); 
+                    return res ;
+                }
+            case CHARSXP:
+                return Rf_ScalarString( x ) ;
+            case SYMSXP:
+                return Rf_ScalarString( PRINTNAME( x ) ) ; 
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with STRSXP" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
 
-template<> SEXP r_true_cast<VECSXP>(SEXP x) throw(::Rcpp::not_compatible){
-	return convert_using_rfunction(x, "as.list" ) ;
-}
+        template<> SEXP r_true_cast<VECSXP>(SEXP x) {
+            return convert_using_rfunction(x, "as.list" ) ;
+        }
     
-template<> SEXP r_true_cast<EXPRSXP>(SEXP x) throw(::Rcpp::not_compatible){
-	return convert_using_rfunction(x, "as.expression" ) ;
-}
+        template<> SEXP r_true_cast<EXPRSXP>(SEXP x) {
+            return convert_using_rfunction(x, "as.expression" ) ;
+        }
 
-template<> SEXP r_true_cast<LISTSXP>(SEXP x) throw(::Rcpp::not_compatible){
-	switch( TYPEOF(x) ){
-	case LANGSXP:
-		{
-			SEXP y = R_NilValue ;
-			PROTECT(y = Rf_duplicate( x )); 
-			SET_TYPEOF(y,LISTSXP) ;
-			UNPROTECT(1);
-			return y ;
-		}
-	default:
-		return convert_using_rfunction(x, "as.pairlist" ) ;
-	}
-	
-}
+        template<> SEXP r_true_cast<LISTSXP>(SEXP x) {
+            switch( TYPEOF(x) ){
+            case LANGSXP:
+                {
+                    SEXP y = R_NilValue ;
+                    PROTECT(y = Rf_duplicate( x )); 
+                    SET_TYPEOF(y,LISTSXP) ;
+                    UNPROTECT(1);
+                    return y ;
+                }
+            default:
+                return convert_using_rfunction(x, "as.pairlist" ) ;
+            }
+        
+        }
 
-template<> SEXP r_true_cast<LANGSXP>(SEXP x) throw(::Rcpp::not_compatible) {
-	return convert_using_rfunction(x, "as.call" ) ;
-}
+        template<> SEXP r_true_cast<LANGSXP>(SEXP x) {
+            return convert_using_rfunction(x, "as.call" ) ;
+        }
 
-// this was in Language.cpp before it became generated by DottedPair template
-// class
-//
-//	    				int n = Rf_length(lang) ;
-//	    				if( n == 0 ) throw not_compatible("cannot convert to call (LANGSXP)") ;
-//	    				SEXP names = RCPP_GET_NAMES(lang) ; 
-//	    				SEXP res, ap;
-//	    				PROTECT( ap = res = Rf_allocList( n ) ) ;
-//	    				for( int i=0; i<n; i++){
-//	    					SETCAR(ap, VECTOR_ELT(lang, i));
-//	    					if (names != R_NilValue && !Rf_StringBlank(STRING_ELT(names, i))){
-//	    						SET_TAG(ap, Rf_install(Rf_translateChar(STRING_ELT(names, i))));
-//	    					}
-//	    					ap = CDR( ap) ;
-//	    				}
-//	    				UNPROTECT(1) ;
-//	    				setSEXP(res) ; 
+        // this was in Language.cpp before it became generated by DottedPair template class
+        //
+        //     int n = Rf_length(lang) ;
+        //     if( n == 0 ) throw not_compatible("cannot convert to call (LANGSXP)") ;
+        //     SEXP names = RCPP_GET_NAMES(lang) ; 
+        //     SEXP res, ap;
+        //     PROTECT( ap = res = Rf_allocList( n ) ) ;
+        //     for( int i=0; i<n; i++){
+        //             SETCAR(ap, VECTOR_ELT(lang, i));
+        //             if (names != R_NilValue && !Rf_StringBlank(STRING_ELT(names, i))){
+        //                     SET_TAG(ap, Rf_install(Rf_translateChar(STRING_ELT(names, i))));
+        //             }
+        //             ap = CDR( ap) ;
+        //     }
+        //     UNPROTECT(1) ;
+        //     setSEXP(res) ; 
 
-
-
-} // namespace internal
+    } // namespace internal
 } // namespace Rcpp
 

@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // DatetimeVector.h: Rcpp R/C++ interface class library -- Datetime vector
 //
@@ -26,37 +26,36 @@
 
 namespace Rcpp {
 
-	class DatetimeVector {
-	public:
-		typedef std::vector<Datetime>::iterator iterator;
-		typedef std::vector<Datetime>::const_iterator const_iterator;
-		
-		// TODO: use a custom exception class instead of std::range_error
-		DatetimeVector(SEXP vec) throw(std::range_error);
-		DatetimeVector(int n);
-		~DatetimeVector() {};
+    class DatetimeVector {
+    public:
+        typedef std::vector<Datetime>::iterator iterator;
+        typedef std::vector<Datetime>::const_iterator const_iterator;
+        
+        DatetimeVector(SEXP vec);
+        DatetimeVector(int n);
+        ~DatetimeVector() {};
 
-		const Datetime& operator()(int i) const throw(std::range_error);
-		Datetime& operator()(int i) throw(std::range_error);
+        const Datetime& operator()(int i) const;
+        Datetime& operator()(int i);
 
-		const Datetime& operator[](int i) const throw(std::range_error);
-		Datetime& operator[](int i) throw(std::range_error);
+        const Datetime& operator[](int i) const;
+        Datetime& operator[](int i);
 
-		int size() const;
+        int size() const;
 
-		std::vector<Datetime> getDatetimes() const;
-		
-		inline iterator begin(){ return v.begin(); }
-		inline iterator end(){ return v.end(); }
-		
-		inline const_iterator begin() const { return v.begin(); }
-		inline const_iterator end() const { return v.end(); }
-		
-		inline operator SEXP() const { return wrap( v ) ; } 
-		
-	private:
-		std::vector<Datetime> v;
-	};
+        std::vector<Datetime> getDatetimes() const;
+        
+        inline iterator begin(){ return v.begin(); }
+        inline iterator end(){ return v.end(); }
+        
+        inline const_iterator begin() const { return v.begin(); }
+        inline const_iterator end() const { return v.end(); }
+        
+        inline operator SEXP() const { return wrap( v ) ; } 
+        
+    private:
+        std::vector<Datetime> v;
+    };
 }
 
 #endif

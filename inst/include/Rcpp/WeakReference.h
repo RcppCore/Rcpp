@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // WeakReference.h: Rcpp R/C++ interface class library -- weak references
 //
-// Copyright (C) 2009 - 2011	Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2011    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,36 +27,36 @@
 
 namespace Rcpp{
 
-class WeakReference : public RObject {
-public:
-	WeakReference() : RObject(){} ;
+    class WeakReference : public RObject {
+    public:
+        WeakReference() : RObject(){} ;
 
-	/**
-	 * wraps a weak reference
-	 *
-	 * @param x presumably a SEXP of SEXTYPE WEAKREFSXP
-	 *
-	 * @throw not_compatible if x is not a weak reference
-	 */
-	WeakReference( SEXP x) throw(not_compatible) ; 
+        /**
+         * wraps a weak reference
+         *
+         * @param x presumably a SEXP of SEXTYPE WEAKREFSXP
+         *
+         * @throw not_compatible if x is not a weak reference
+         */
+        WeakReference( SEXP x) ; 
 
-	WeakReference( const WeakReference& other) ;
-	WeakReference& operator=(const WeakReference& other) ;
-	
-	/* TODO: constructor that makes a new weak reference based
-		on key, value, finalizer (C and R) */
-	
-	/** 
-	 * Retrieve the key
-	 */
-	SEXP key() ; 
+        WeakReference( const WeakReference& other) ;
+        WeakReference& operator=(const WeakReference& other) ;
+        
+        /* TODO: constructor that makes a new weak reference based
+           on key, value, finalizer (C and R) */
+        
+        /** 
+         * Retrieve the key
+         */
+        SEXP key() ; 
 
-	/**
-	 * Retrieve the value
-	 */
-	SEXP value() ;
+        /**
+         * Retrieve the value
+         */
+        SEXP value() ;
 
-} ;
+    } ;
 
 
 }

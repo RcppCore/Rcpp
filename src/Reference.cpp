@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // S4.cpp: Rcpp R/C++ interface class library -- S4 objects
 //
@@ -25,86 +25,86 @@
 
 namespace Rcpp {
 
-	Reference::Reference() : S4(){}
-	
-	Reference::Reference(SEXP x) throw(not_reference) : S4(){
-		set( x) ;
-	}
-	
-	Reference::Reference( const Reference& other) : S4(){
-		setSEXP( other.asSexp() ) ;	
-	}
-	
-	Reference::Reference( const RObject::SlotProxy& proxy ) throw(not_reference) : S4() {
-		set( proxy ) ;
-	}
-	Reference::Reference( const RObject::AttributeProxy& proxy ) throw(not_reference) : S4() {
-		set( proxy ) ;
-	}
-	
-	Reference& Reference::operator=( const Reference& other){
-		setSEXP( other.asSexp() ) ;
-		return *this ;
-	}
-	
-	Reference& Reference::operator=( SEXP other ) throw(not_reference) {
-		set( other ) ;
-		return *this ;
-	}
-	
-	Reference::Reference( const std::string& klass ) throw(S4_creation_error,reference_creation_error) : S4(){
-	    // using callback to R as apparently R_do_new_object always makes the same environment
-		SEXP newSym = Rf_install("new");
-	    SEXP call = PROTECT( Rf_lang2( newSym, Rf_mkString( klass.c_str() ) ) ) ;
-	    setSEXP( Rcpp::internal::try_catch( call ) ) ;
-	    UNPROTECT(1) ; // call
-	}
-	
-	void Reference::set( SEXP x) throw(not_reference) {
-		// TODO: check that x is of a reference class
-	    if( ! ::Rf_isS4(x) ){
-			throw not_reference() ;
-		} else{
-			setSEXP( x) ;
-		}
-	}
-	
-	Reference::FieldProxy::FieldProxy( const Reference& v, const std::string& name) throw(no_such_field) : 
-	    parent(v), field_name(name) {}
+    Reference::Reference() : S4(){}
+    
+    Reference::Reference(SEXP x) : S4(){
+        set( x) ;
+    }
+    
+    Reference::Reference( const Reference& other) : S4(){
+        setSEXP( other.asSexp() ) ; 
+    }
+    
+    Reference::Reference( const RObject::SlotProxy& proxy ) : S4() {
+        set( proxy ) ;
+    }
+    Reference::Reference( const RObject::AttributeProxy& proxy ) : S4() {
+        set( proxy ) ;
+    }
+    
+    Reference& Reference::operator=( const Reference& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+    
+    Reference& Reference::operator=( SEXP other ) {
+        set( other ) ;
+        return *this ;
+    }
+    
+    Reference::Reference( const std::string& klass ) : S4(){
+        // using callback to R as apparently R_do_new_object always makes the same environment
+        SEXP newSym = Rf_install("new");
+        SEXP call = PROTECT( Rf_lang2( newSym, Rf_mkString( klass.c_str() ) ) ) ;
+        setSEXP( Rcpp::internal::try_catch( call ) ) ;
+        UNPROTECT(1) ; // call
+    }
+    
+    void Reference::set( SEXP x) {
+        // TODO: check that x is of a reference class
+        if( ! ::Rf_isS4(x) ){
+            throw not_reference() ;
+        } else{
+            setSEXP( x) ;
+        }
+    }
+    
+    Reference::FieldProxy::FieldProxy( const Reference& v, const std::string& name) : 
+        parent(v), field_name(name) {}
 
     Reference::FieldProxy& Reference::FieldProxy::operator=(const FieldProxy& rhs){
-    	set( rhs.get() ) ;
-    	return *this ;
+        set( rhs.get() ) ;
+        return *this ;
     }
     
     
     SEXP Reference::FieldProxy::get() const {
-    	// TODO: get the field  
-    	
-    	SEXP call = PROTECT( Rf_lang3( 
-    	    R_DollarSymbol, 
-    	    const_cast<Reference&>(parent).asSexp(), 
-    	    Rf_mkString( field_name.c_str() )
-    	    ) ) ;
-    	return Rcpp::internal::try_catch( call ) ;
-    	UNPROTECT(1) ;
+        // TODO: get the field  
+        
+        SEXP call = PROTECT( Rf_lang3( 
+									  R_DollarSymbol, 
+									  const_cast<Reference&>(parent).asSexp(), 
+									  Rf_mkString( field_name.c_str() )
+									   ) ) ;
+        return Rcpp::internal::try_catch( call ) ;
+        UNPROTECT(1) ;
     }
     
     void Reference::FieldProxy::set( SEXP x) const {
-		PROTECT(x);
-		SEXP dollarGetsSym = Rf_install( "$<-");
+        PROTECT(x);
+        SEXP dollarGetsSym = Rf_install( "$<-");
         SEXP call = PROTECT( Rf_lang4( 
-								 dollarGetsSym,
-            const_cast<Reference&>(parent).asSexp(), 
-            Rf_mkString( field_name.c_str() ), 
-            x
-            ) ) ;
-        const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) );	
+									  dollarGetsSym,
+									  const_cast<Reference&>(parent).asSexp(), 
+									  Rf_mkString( field_name.c_str() ), 
+									  x
+									   ) ) ;
+        const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) ); 
         UNPROTECT(2) ;
     }
 
     Reference::FieldProxy Reference::field( const std::string& name) const {
         return FieldProxy( *this, name );
     }
-	
+    
 } // namespace Rcpp

@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // DateVector.h: Rcpp R/C++ interface class library -- Date vector support
 //
@@ -26,37 +26,36 @@
 
 namespace Rcpp {
 
-	class DateVector {
-	public:
-		typedef std::vector<Date>::iterator iterator;
-		typedef std::vector<Date>::const_iterator const_iterator;
-		
-		// TODO: use a custom exception class instead of std::range_error
-		DateVector(SEXP vec) throw(std::range_error);
-		DateVector(int n);
-		~DateVector() {};
+    class DateVector {
+    public:
+        typedef std::vector<Date>::iterator iterator;
+        typedef std::vector<Date>::const_iterator const_iterator;
+        
+        DateVector(SEXP vec);
+        DateVector(int n);
+        ~DateVector() {};
 
-		const Date& operator()(int i) const throw(std::range_error);
-		Date& operator()(int i) throw(std::range_error);
+        const Date& operator()(int i) const;
+        Date& operator()(int i);
 
-		const Date& operator[](int i) const throw(std::range_error);
-		Date& operator[](int i) throw(std::range_error);
+        const Date& operator[](int i) const;
+        Date& operator[](int i);
 
-		int size() const;
+        int size() const;
 
-		std::vector<Date> getDates() const;
-		
-		inline iterator begin(){ return v.begin(); }
-		inline iterator end(){ return v.end(); }
-		
-		inline const_iterator begin() const { return v.begin(); }
-		inline const_iterator end() const { return v.end(); }
-		
-		inline operator SEXP() const { return wrap( v ) ; } 
-		
-	private:
-		std::vector<Date> v;
-	};
+        std::vector<Date> getDates() const;
+        
+        inline iterator begin(){ return v.begin(); }
+        inline iterator end(){ return v.end(); }
+        
+        inline const_iterator begin() const { return v.begin(); }
+        inline const_iterator end() const { return v.end(); }
+        
+        inline operator SEXP() const { return wrap( v ) ; } 
+        
+    private:
+        std::vector<Date> v;
+    };
 }
 
 #endif

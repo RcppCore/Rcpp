@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // S4.cpp: Rcpp R/C++ interface class library -- S4 objects
 //
@@ -25,81 +25,75 @@
 
 namespace Rcpp {
 
-	S4::S4() : RObject(){}
-	
-	S4::S4(SEXP x) throw(not_s4) : RObject(){
-		set( x) ;
-	}
-	
-	S4::S4( const S4& other) : RObject(){
-		setSEXP( other.asSexp() ) ;	
-	}
-	
-	S4::S4( const RObject::SlotProxy& proxy ) throw(not_s4) : RObject() {
-		set( proxy ) ;
-	}
-	S4::S4( const RObject::AttributeProxy& proxy ) throw(not_s4) : RObject() {
-		set( proxy ) ;
-	}
-	
-	S4& S4::operator=( const S4& other){
-		setSEXP( other.asSexp() ) ;
-		return *this ;
-	}
-	
-	S4& S4::operator=( SEXP other ) throw(not_s4) {
-		set( other ) ;
-		return *this ;
-	}
-	
-	S4::S4( const std::string& klass ) throw(S4_creation_error) {
-		SEXP oo = PROTECT( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) ) ;
-  		if (!Rf_inherits(oo, klass.c_str())) {
-  			UNPROTECT( 1) ;
-  			throw S4_creation_error( klass ) ;
-  		}
-  		setSEXP( oo ) ;
-  		UNPROTECT( 1) ; /* oo */
-	}
-	
-	bool S4::is( const std::string& clazz ) {
-		CharacterVector cl = attr("class");
-		
-		// simple test for exact match
-		if( ! clazz.compare( cl[0] ) ) return true ;
-		
-		try{
-			// 
-			// mimic the R call: 
-			// names( slot( getClassDef( cl ), "contains" ) )
-			// 
-		    SEXP slotSym = Rf_install( "slot" ), // cannot cause gc() once in symbol table
-			getClassDefSym = Rf_install( "getClassDef" );
-		    CharacterVector res = internal::try_catch( 
-			Rf_lang2(
-			    R_NamesSymbol,
-			    Rf_lang3( 
-				slotSym,
-				Rf_lang2( getClassDefSym, cl ), 
-				Rf_mkString( "contains" )
-				) 
-			    )
-			) ;
-		    return any( res.begin(), res.end(), clazz.c_str() ) ;
-		} catch( ... ){
-			// we catch eval_error and also not_compatible when 
-			// contains is NULL
-		}
-		return false ;
-		
-	}
-	
-	void S4::set( SEXP x) throw(not_s4) {
-		if( ! ::Rf_isS4(x) ){
-			throw not_s4() ;
-		} else{
-			setSEXP( x) ;
-		}
-	}
-	
+    S4::S4() : RObject(){}
+        
+    S4::S4(SEXP x) : RObject(){
+        set( x) ;
+    }
+        
+    S4::S4( const S4& other) : RObject(){
+        setSEXP( other.asSexp() ) ;     
+    }
+        
+    S4::S4( const RObject::SlotProxy& proxy ) : RObject() {
+        set( proxy ) ;
+    }
+    S4::S4( const RObject::AttributeProxy& proxy ) : RObject() {
+        set( proxy ) ;
+    }
+        
+    S4& S4::operator=( const S4& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+        
+    S4& S4::operator=( SEXP other ) {
+        set( other ) ;
+        return *this ;
+    }
+        
+    S4::S4( const std::string& klass ) {
+        SEXP oo = PROTECT( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) ) ;
+        if (!Rf_inherits(oo, klass.c_str())) {
+            UNPROTECT( 1) ;
+            throw S4_creation_error( klass ) ;
+        }
+        setSEXP( oo ) ;
+        UNPROTECT( 1) ; /* oo */
+    }
+        
+    bool S4::is( const std::string& clazz ) {
+        CharacterVector cl = attr("class");
+                
+        // simple test for exact match
+        if( ! clazz.compare( cl[0] ) ) return true ;
+                
+        try{
+            // 
+            // mimic the R call: 
+            // names( slot( getClassDef( cl ), "contains" ) )
+            // 
+            SEXP slotSym = Rf_install( "slot" ), // cannot cause gc() once in symbol table
+                getClassDefSym = Rf_install( "getClassDef" );
+            CharacterVector res = internal::try_catch(Rf_lang2(R_NamesSymbol,
+                                                               Rf_lang3(slotSym,
+                                                                        Rf_lang2( getClassDefSym, cl ), 
+                                                                        Rf_mkString( "contains" )))) ;
+            return any( res.begin(), res.end(), clazz.c_str() ) ;
+        } catch( ... ){
+            // we catch eval_error and also not_compatible when 
+            // contains is NULL
+        }
+        return false ;
+                
+    }
+        
+    void S4::set( SEXP x) {
+        if( ! ::Rf_isS4(x) ){
+            throw not_s4() ;
+        } else{
+            setSEXP( x) ;
+        }
+    }
+        
 } // namespace Rcpp
