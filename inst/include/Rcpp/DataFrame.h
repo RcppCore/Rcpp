@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // DataFrame.h: Rcpp R/C++ interface class library -- data frames
 //
@@ -26,55 +26,55 @@
 #include <Rcpp/Vector.h>
 
 namespace Rcpp{
-	
+        
     namespace internal{
-	inline SEXP empty_data_frame(){
-	    SEXP dataFrameSym = ::Rf_install( "data.frame"); // cannot be gc()ed once in symbol table
-	    return ::Rf_eval( ::Rf_lang1( dataFrameSym ), R_GlobalEnv ) ;	
-	}
+        inline SEXP empty_data_frame(){
+            SEXP dataFrameSym = ::Rf_install( "data.frame"); // cannot be gc()ed once in symbol table
+            return ::Rf_eval( ::Rf_lang1( dataFrameSym ), R_GlobalEnv ) ;       
+        }
     }
-	
+        
     class DataFrame : public List {
-    public:	
-	DataFrame(): List( internal::empty_data_frame() ){}
-		
-	DataFrame(SEXP x) throw(not_compatible) : List(){
-	    set(x) ;
-	}
-		
-	DataFrame( const DataFrame& other): List(other.asSexp()) {}
-		
-	DataFrame( const RObject::SlotProxy& proxy ) throw(not_compatible){ set(proxy); }
-	DataFrame( const RObject::AttributeProxy& proxy ) throw(not_compatible){ set(proxy); }
-		
-	DataFrame& operator=( DataFrame& other){
-	    setSEXP( other.asSexp() ) ;
-	    return *this ;
-	}
-		
-	DataFrame& operator=( SEXP x) throw( not_compatible) {
-	    set(x) ;
-	    return *this ;
-	}
-		
-	~DataFrame(){}
+    public:     
+        DataFrame(): List( internal::empty_data_frame() ){}
+                
+        DataFrame(SEXP x) : List(){
+            set(x) ;
+        }
+                
+        DataFrame( const DataFrame& other): List(other.asSexp()) {}
+                
+        DataFrame( const RObject::SlotProxy& proxy ) { set(proxy); }
+        DataFrame( const RObject::AttributeProxy& proxy ) { set(proxy); }
+                
+        DataFrame& operator=( DataFrame& other){
+            setSEXP( other.asSexp() ) ;
+            return *this ;
+        }
+                
+        DataFrame& operator=( SEXP x) {
+            set(x) ;
+            return *this ;
+        }
+                
+        ~DataFrame(){}
 
-	static DataFrame create(){ return DataFrame() ; }
-		
-#include <Rcpp/DataFrame_generated.h>		
+        static DataFrame create(){ return DataFrame() ; }
+                
+#include <Rcpp/DataFrame_generated.h>           
 
     private:
-	void set(SEXP x) throw(not_compatible) {
-	    if( ::Rf_inherits( x, "data.frame" )){
-		setSEXP( x ) ;
-	    } else{
-		SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
-		setSEXP( y ) ;
-	    }
-	}
-	
+        void set(SEXP x) {
+            if( ::Rf_inherits( x, "data.frame" )){
+                setSEXP( x ) ;
+            } else{
+                SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
+                setSEXP( y ) ;
+            }
+        }
+        
     } ;
-	
+        
 }
 
 #endif

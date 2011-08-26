@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Symbol.h: Rcpp R/C++ interface class library -- access R environments
 //
@@ -27,33 +27,33 @@
 
 namespace Rcpp{ 
 
-class Symbol: public RObject{
-public:
+    class Symbol: public RObject{
+    public:
 
-    /**
-     * wraps the SEXP into a Symbol object. 
-     * 
-     * @param m_sexp Accepted SEXP types are SYMSXP, CHARSXP and STRSXP
-     * in the last case, the first element of the character vector 
-     * is silently used
-     */
-    Symbol(SEXP x) throw(not_compatible) ;
+        /**
+         * wraps the SEXP into a Symbol object. 
+         * 
+         * @param m_sexp Accepted SEXP types are SYMSXP, CHARSXP and STRSXP
+         * in the last case, the first element of the character vector 
+         * is silently used
+         */
+        Symbol(SEXP x) ;
     
-    /**
-     *
-     */
-    Symbol(const std::string& symbol) ;
+        /**
+         *
+         */
+        Symbol(const std::string& symbol) ;
     
-    Symbol( const Symbol& other) ;
-    Symbol& operator=(const Symbol& other) ;
+        Symbol( const Symbol& other) ;
+        Symbol& operator=(const Symbol& other) ;
     
-    /**
-     * Nothing specific
-     */ 
-    ~Symbol() ;
+        /**
+         * Nothing specific
+         */ 
+        ~Symbol() ;
 
-    inline const char* c_str(){ return CHAR(PRINTNAME(m_sexp)) ; }
-};
+        inline const char* c_str(){ return CHAR(PRINTNAME(m_sexp)) ; }
+    };
 
 } // namespace Rcpp
 

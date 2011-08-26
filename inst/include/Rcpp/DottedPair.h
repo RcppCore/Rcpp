@@ -98,7 +98,7 @@ template<typename... Args>
 	 * @param object object to wrap
 	 */
 	template <typename T>
-	void insert( const size_t& index, const T& object) throw(index_out_of_bounds) {
+	void insert( const size_t& index, const T& object) {
 		if( index == 0 ) {
 			push_front( object ) ;
 		} else{
@@ -126,7 +126,7 @@ template<typename... Args>
 	 * @param object object that can be wrapped
 	 */
 	template <typename T>
-	void replace( const int& index, const T& object ) throw(index_out_of_bounds){
+	void replace( const int& index, const T& object ) {
  	        if( static_cast<R_len_t>(index) >= ::Rf_length(m_sexp) ) throw index_out_of_bounds() ;
 		
 		/* pretend we do a pairlist so that we get Named to work for us */
@@ -148,11 +148,11 @@ template<typename... Args>
 	 *
 	 * @param index position where the element is to be removed
 	 */
-	void remove( const size_t& index ) throw(index_out_of_bounds) ; 
+	void remove( const size_t& index ); 
 	
 	class Proxy {
 	public:
-		Proxy( DottedPair& v, const size_t& index_ ) throw(index_out_of_bounds) ; 
+		Proxy( DottedPair& v, const size_t& index_ ); 
 		
 		/* lvalue uses */
 		Proxy& operator=(const Proxy& rhs) ; 

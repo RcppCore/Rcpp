@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Function.cpp: Rcpp R/C++ interface class library -- functions
 //
@@ -23,45 +23,45 @@
 
 namespace Rcpp {
 	
-	Function::Function( SEXP x = R_NilValue ) throw(not_compatible) : RObject( ){
-		switch( TYPEOF(x) ){
-		case CLOSXP:
-		case SPECIALSXP:
-		case BUILTINSXP:
-			setSEXP(x); 
-			break; 
-		default:
-			throw not_compatible("cannot convert to function") ;
-		}
-	}
+    Function::Function( SEXP x = R_NilValue ) : RObject( ){
+        switch( TYPEOF(x) ){
+        case CLOSXP:
+        case SPECIALSXP:
+        case BUILTINSXP:
+            setSEXP(x); 
+            break; 
+        default:
+            throw not_compatible("cannot convert to function") ;
+        }
+    }
 	
-	Function::Function(const std::string& name) throw(no_such_function) : RObject() {
-	    SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
-	    SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
-	    setSEXP( x ) ;
-	    UNPROTECT(1) ;
-	}
+    Function::Function(const std::string& name) : RObject() {
+        SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
+        SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
+        setSEXP( x ) ;
+        UNPROTECT(1) ;
+    }
 	
-	Function::Function(const Function& other) : RObject(){
-		setSEXP( other.asSexp() );
-	}
+    Function::Function(const Function& other) : RObject(){
+        setSEXP( other.asSexp() );
+    }
 	
-	Function& Function::operator=(const Function& other){
-		setSEXP( other.asSexp() );
-		return *this ;
-	}
+    Function& Function::operator=(const Function& other){
+        setSEXP( other.asSexp() );
+        return *this ;
+    }
 	
-	Function::~Function(){}	
+    Function::~Function(){}	
 	
-	SEXP Function::environment() const throw(not_a_closure){
-		if( TYPEOF(m_sexp) != CLOSXP ) {
-			throw not_a_closure() ;
-		}
-		return CLOENV(m_sexp) ;
-	}
+    SEXP Function::environment() const {
+        if( TYPEOF(m_sexp) != CLOSXP ) {
+            throw not_a_closure() ;
+        }
+        return CLOENV(m_sexp) ;
+    }
 	
-	SEXP Function::body() const {
-		return BODY( m_sexp ) ;
-	}
+    SEXP Function::body() const {
+        return BODY( m_sexp ) ;
+    }
 	
 } // namespace Rcpp

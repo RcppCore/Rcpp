@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Symbol.cpp: Rcpp R/C++ interface class library -- Symbols
 //
@@ -23,45 +23,45 @@
 
 namespace Rcpp {
 
-    Symbol::Symbol( SEXP x ) throw(not_compatible) : RObject() {
-	if( x != R_NilValue ){
-	    int type = TYPEOF(x) ;
-	    switch( type ){
-	    case SYMSXP:
-		setSEXP( x ) ;
-		break; /* nothing to do */
-	    case CHARSXP: {
-		SEXP charSym = Rf_install(CHAR(x)); 	// cannot be gc()'ed  once in symbol table
-		setSEXP( charSym ) ;
-		break ;
-	    }
-	    case STRSXP: {
-		/* FIXME: check that there is at least one element */
-		SEXP charSym = Rf_install( CHAR(STRING_ELT(x, 0 )) ); // cannot be gc()'ed  once in symbol table
-		setSEXP( charSym );
-		break ;
-	    }
-	    default:
-		throw not_compatible("cannot convert to symbol (SYMSXP)") ;
-	    }
-	} 
+    Symbol::Symbol( SEXP x ) : RObject() {
+        if( x != R_NilValue ){
+            int type = TYPEOF(x) ;
+            switch( type ){
+            case SYMSXP:
+                setSEXP( x ) ;
+                break; /* nothing to do */
+            case CHARSXP: {
+                SEXP charSym = Rf_install(CHAR(x));     // cannot be gc()'ed  once in symbol table
+                setSEXP( charSym ) ;
+                break ;
+            }
+            case STRSXP: {
+                /* FIXME: check that there is at least one element */
+                SEXP charSym = Rf_install( CHAR(STRING_ELT(x, 0 )) ); // cannot be gc()'ed  once in symbol table
+                setSEXP( charSym );
+                break ;
+            }
+            default:
+                throw not_compatible("cannot convert to symbol (SYMSXP)") ;
+            }
+        } 
     }
-	
+        
     Symbol::Symbol(const std::string& symbol): RObject(){
-	SEXP charSym = Rf_install(symbol.c_str()); 	// cannot be gc()'ed  once in symbol table
-	setSEXP( charSym );
+        SEXP charSym = Rf_install(symbol.c_str());      // cannot be gc()'ed  once in symbol table
+        setSEXP( charSym );
     }
-	
+        
     Symbol::Symbol( const Symbol& other) : RObject() {
-	setSEXP( other.asSexp() );
+        setSEXP( other.asSexp() );
     }
-	
+        
     Symbol& Symbol::operator=(const Symbol& other){
-	setSEXP( other.asSexp() );
-	return *this;
+        setSEXP( other.asSexp() );
+        return *this;
     }
-	
+        
     Symbol::~Symbol(){}
-	
+        
 } // namespace Rcpp
 

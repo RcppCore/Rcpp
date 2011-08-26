@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
 // export.h: Rcpp R/C++ interface class library -- 
@@ -24,113 +24,113 @@
 #define Rcpp__internal__export__h
 
 namespace Rcpp{
-namespace internal{
+    namespace internal{
 
-	/* iterating */
-	
-	template <typename InputIterator, typename value_type>
-	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ) throw(::Rcpp::not_compatible){
-		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
-		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-		STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
-		std::copy( start, start + ::Rf_length(y), first ) ;
-		UNPROTECT(1) ;
-	}
-	
-	template <typename InputIterator, typename value_type>
-	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::true_type ) throw(::Rcpp::not_compatible){
-		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
-		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-		STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
-		std::transform( start, start + ::Rf_length(y) , first, caster<STORAGE,value_type> ) ;
-		UNPROTECT(1) ;
-	}
-	
-	template <typename InputIterator, typename value_type>
-	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_primitive_tag ) throw(::Rcpp::not_compatible){
-		export_range__impl<InputIterator,value_type>(
-			x, 
-			first,
-			typename ::Rcpp::traits::r_sexptype_needscast<value_type>() );
-	}
-	
-	template <typename InputIterator, typename value_type>
-	void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ) throw(::Rcpp::not_compatible){
-		if( ! ::Rf_isString( x) ) throw ::Rcpp::not_compatible( "expecting a string vector" ) ;
-		std::string buf ;
-		R_len_t n = ::Rf_length(x) ;
-		for( R_len_t i=0; i<n; i++, ++first ){
-			*first = CHAR( STRING_ELT(x, i )) ;
-		}
-	}
-	
-	template <typename InputIterator>
-	void export_range( SEXP x, InputIterator first ) throw(::Rcpp::not_compatible){
-		export_range__dispatch<InputIterator,typename std::iterator_traits<InputIterator>::value_type>( 
-			x, 
-			first, 
-			typename ::Rcpp::traits::r_type_traits<typename std::iterator_traits<InputIterator>::value_type>::r_category() 
-			);
-	}
-	
-	
-	/* indexing */
-	
-	template <typename T, typename value_type>
-	void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::false_type ) throw(::Rcpp::not_compatible){
-		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
-		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-		STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
-		R_len_t size = ::Rf_length(y)  ;
-		for( R_len_t i=0; i<size; i++){
-			res[i] =  start[i] ;
-		}
-		UNPROTECT(1) ; /* y */
-	}
-	
-	template <typename T, typename value_type>
-	void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::true_type ) throw(::Rcpp::not_compatible){
-		const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
-		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-		SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-		STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
-		R_len_t size = ::Rf_length(y)  ;
-		for( R_len_t i=0; i<size; i++){
-			res[i] = caster<STORAGE,value_type>(start[i]) ;
-		}
-		UNPROTECT(1) ; /* y */
-	}
+        /* iterating */
+        
+        template <typename InputIterator, typename value_type>
+        void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ) {
+	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
+	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    std::copy( start, start + ::Rf_length(y), first ) ;
+	    UNPROTECT(1) ;
+        }
+        
+        template <typename InputIterator, typename value_type>
+        void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::true_type ) {
+	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
+	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    std::transform( start, start + ::Rf_length(y) , first, caster<STORAGE,value_type> ) ;
+	    UNPROTECT(1) ;
+        }
+        
+        template <typename InputIterator, typename value_type>
+        void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_primitive_tag ) {
+	    export_range__impl<InputIterator,value_type>(
+							 x, 
+							 first,
+							 typename ::Rcpp::traits::r_sexptype_needscast<value_type>() );
+        }
+        
+        template <typename InputIterator, typename value_type>
+        void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ) {
+	    if( ! ::Rf_isString( x) ) throw ::Rcpp::not_compatible( "expecting a string vector" ) ;
+	    std::string buf ;
+	    R_len_t n = ::Rf_length(x) ;
+	    for( R_len_t i=0; i<n; i++, ++first ){
+		*first = CHAR( STRING_ELT(x, i )) ;
+	    }
+        }
+        
+        template <typename InputIterator>
+        void export_range( SEXP x, InputIterator first ) {
+	    export_range__dispatch<InputIterator,typename std::iterator_traits<InputIterator>::value_type>( 
+													   x, 
+													   first, 
+													   typename ::Rcpp::traits::r_type_traits<typename std::iterator_traits<InputIterator>::value_type>::r_category() 
+													    );
+        }
+        
+        
+        /* indexing */
+        
+        template <typename T, typename value_type>
+        void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::false_type ) {
+	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
+	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    R_len_t size = ::Rf_length(y)  ;
+	    for( R_len_t i=0; i<size; i++){
+		res[i] =  start[i] ;
+	    }
+	    UNPROTECT(1) ; /* y */
+        }
+        
+        template <typename T, typename value_type>
+        void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::true_type ) {
+	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
+	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    R_len_t size = ::Rf_length(y)  ;
+	    for( R_len_t i=0; i<size; i++){
+		res[i] = caster<STORAGE,value_type>(start[i]) ;
+	    }
+	    UNPROTECT(1) ; /* y */
+        }
 
-	template <typename T, typename value_type>
-	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_primitive_tag ) throw(::Rcpp::not_compatible){
-		export_indexing__impl<T,value_type>(
-			x, 
-			res,
-			typename ::Rcpp::traits::r_sexptype_needscast<value_type>() );
-	}
-	
-	template <typename T, typename value_type>
-	void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_string_tag ) throw(::Rcpp::not_compatible){
-		if( ! ::Rf_isString( x) ) throw Rcpp::not_compatible( "expecting a string vector" ) ;
-		std::string buf ;
-		R_len_t n = ::Rf_length(x) ;
-		for( R_len_t i=0; i<n; i++ ){
-			res[i] = CHAR( STRING_ELT(x, i )) ;
-		}
-	}
-	
-	template <typename T, typename value_type>
-	void export_indexing( SEXP x, T& res ) throw(::Rcpp::not_compatible) {
-		export_indexing__dispatch<T,value_type>( 
-			x, 
-			res, 
-			typename ::Rcpp::traits::r_type_traits<value_type>::r_category() );
-	}
-	
-}
+        template <typename T, typename value_type>
+        void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_primitive_tag ) {
+	    export_indexing__impl<T,value_type>(
+						x, 
+						res,
+						typename ::Rcpp::traits::r_sexptype_needscast<value_type>() );
+        }
+        
+        template <typename T, typename value_type>
+        void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_string_tag ) {
+	    if( ! ::Rf_isString( x) ) throw Rcpp::not_compatible( "expecting a string vector" ) ;
+	    std::string buf ;
+	    R_len_t n = ::Rf_length(x) ;
+	    for( R_len_t i=0; i<n; i++ ){
+		res[i] = CHAR( STRING_ELT(x, i )) ;
+	    }
+        }
+        
+        template <typename T, typename value_type>
+        void export_indexing( SEXP x, T& res ) {
+	    export_indexing__dispatch<T,value_type>( 
+						    x, 
+						    res, 
+						    typename ::Rcpp::traits::r_type_traits<value_type>::r_category() );
+        }
+        
+    }
 }
 
 #endif

@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Pairlist.cpp: Rcpp R/C++ interface class library -- Pairlist objects
 //
@@ -22,18 +22,18 @@
 #include <Rcpp/Pairlist.h>
 
 namespace Rcpp {
-	
-	Pairlist::Pairlist() : DottedPair() {}
-	Pairlist::Pairlist( SEXP x ) throw(not_compatible) : DottedPair(){
-		setSEXP( r_cast<LISTSXP>(x) );
-	}
-	Pairlist::~Pairlist(){}
-	Pairlist::Pairlist( const Pairlist& other): DottedPair(){
-		setSEXP( other.asSexp() ) ;
-	}
-	Pairlist& Pairlist::operator=(const Pairlist& other){
-		setSEXP( other.asSexp() ) ;
-		return *this ;
-	}
-	
+        
+    Pairlist::Pairlist() : DottedPair() {}
+    Pairlist::Pairlist( SEXP x ) : DottedPair(){
+        setSEXP( r_cast<LISTSXP>(x) );
+    }
+    Pairlist::~Pairlist(){}
+    Pairlist::Pairlist( const Pairlist& other): DottedPair(){
+        setSEXP( other.asSexp() ) ;
+    }
+    Pairlist& Pairlist::operator=(const Pairlist& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+        
 } // namespace Rcpp

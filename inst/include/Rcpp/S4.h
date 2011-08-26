@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // S4.h: Rcpp R/C++ interface class library -- S4 objects
 //
@@ -27,53 +27,53 @@
 
 namespace Rcpp{ 
 
-/**
- * S4 object
- */
-class S4 : public RObject{
-public:
-	S4() ;
-	
-	/**
-	 * checks that x is an S4 object and wrap it.
-	 *
-	 * @param x must be an S4 object
-	 */
-	S4(SEXP x) throw(not_s4) ; 
-	
-	/**
-	 * copy constructor
-	 *
-	 * @param other other S4 object
-	 */
-	S4(const S4& other) ;
-	
-	S4(const RObject::SlotProxy& proxy ) throw(not_s4) ;
-	S4(const RObject::AttributeProxy& proxy ) throw(not_s4);
-	
-	/**
-	 * assignment operator. 
-	 */
-	S4& operator=( const S4& other);
-	
-	S4& operator=( SEXP other ) throw(not_s4) ; 
-	
-	/**
-	 * Creates an S4 object of the requested class. 
-	 *
-	 * @param klass name of the target S4 class
-	 * @throw not_s4 if klass does not map to a known S4 class
-	 */
-	S4( const std::string& klass ) throw(S4_creation_error) ;
-	
-	/**
-	 * Indicates if this object is an instance of the given S4 class
-	 */
-	bool is( const std::string& clazz) ;
-	
-private:
-	void set( SEXP x) throw(not_s4) ;
-} ;
+    /**
+     * S4 object
+     */
+    class S4 : public RObject{
+    public:
+        S4() ;
+        
+        /**
+         * checks that x is an S4 object and wrap it.
+         *
+         * @param x must be an S4 object
+         */
+        S4(SEXP x) ; 
+        
+        /**
+         * copy constructor
+         *
+         * @param other other S4 object
+         */
+        S4(const S4& other) ;
+        
+        S4(const RObject::SlotProxy& proxy ) ;
+        S4(const RObject::AttributeProxy& proxy ) ;
+        
+        /**
+         * assignment operator. 
+         */
+        S4& operator=( const S4& other);
+        
+        S4& operator=( SEXP other ) ; 
+        
+        /**
+         * Creates an S4 object of the requested class. 
+         *
+         * @param klass name of the target S4 class
+         * @throw not_s4 if klass does not map to a known S4 class
+         */
+        S4( const std::string& klass ) ;
+        
+        /**
+         * Indicates if this object is an instance of the given S4 class
+         */
+        bool is( const std::string& clazz) ;
+        
+    private:
+        void set( SEXP x) ;
+    } ;
 
 } // namespace Rcpp
 

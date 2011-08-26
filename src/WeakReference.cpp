@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // WeakReference.cpp: Rcpp R/C++ interface class library -- weak references
 //
-// Copyright (C) 2009 - 2011	Romain Francois and Dirk Eddelbuettel
+// Copyright (C) 2009 - 2011    Romain Francois and Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -23,29 +23,29 @@
 #include <Rcpp/RObject.h>
 
 namespace Rcpp{
-	
-	WeakReference::WeakReference( SEXP x) throw(not_compatible) : RObject(){
-		if( TYPEOF(x) == WEAKREFSXP ){
-			setSEXP(x) ; 
-		} else{
-			throw not_compatible( "not a weak reference" ) ;
-		}
-	}
-	
-	SEXP WeakReference::key() {
-		return R_WeakRefKey(m_sexp) ;
-	}
-	
-	SEXP WeakReference::value() {
-		return R_WeakRefValue(m_sexp);
-	}
-	
-	WeakReference::WeakReference( const WeakReference& other ) : RObject( other.asSexp() ){}
-	
-	WeakReference& WeakReference::operator=(const WeakReference& other){
-		setSEXP( other.asSexp() );
-		return *this;
-	}
-	
+        
+    WeakReference::WeakReference( SEXP x) : RObject(){
+        if( TYPEOF(x) == WEAKREFSXP ){
+            setSEXP(x) ; 
+        } else{
+            throw not_compatible( "not a weak reference" ) ;
+        }
+    }
+        
+    SEXP WeakReference::key() {
+        return R_WeakRefKey(m_sexp) ;
+    }
+        
+    SEXP WeakReference::value() {
+        return R_WeakRefValue(m_sexp);
+    }
+        
+    WeakReference::WeakReference( const WeakReference& other ) : RObject( other.asSexp() ){}
+        
+    WeakReference& WeakReference::operator=(const WeakReference& other){
+        setSEXP( other.asSexp() );
+        return *this;
+    }
+        
 }
 // namesapce
