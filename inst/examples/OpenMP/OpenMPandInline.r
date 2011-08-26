@@ -14,6 +14,13 @@ serialCode <- '
 '
 funSerial <- cxxfunction(signature(xs="numeric"), body=serialCode, plugin="Rcpp")
 
+serialStdAlgCode <- '
+   std::vector<double> x = Rcpp::as<std::vector< double > >(xs);
+   std::transform(x.begin(), x.end(), x.begin(), ::log);
+   return Rcpp::wrap(x);
+'
+funSerialStdAlg <- cxxfunction(signature(xs="numeric"), body=serialStdAlgCode, plugin="Rcpp")
+
 ## same, but with Rcpp vector just to see if there is measurable difference
 serialRcppCode <- '
    // assign to C++ vector
@@ -25,6 +32,13 @@ serialRcppCode <- '
    return x;
 '
 funSerialRcpp <- cxxfunction(signature(xs="numeric"), body=serialRcppCode, plugin="Rcpp")
+
+serialStdAlgRcppCode <- '
+   Rcpp::NumericVector x = Rcpp::NumericVector(xs);
+   std::transform(x.begin(), x.end(), x.begin(), ::log);
+   return x;
+'
+funSerialStdAlgRcpp <- cxxfunction(signature(xs="numeric"), body=serialStdAlgRcppCode, plugin="Rcpp")
 
 ## now with a sugar expression with internalizes the loop
 sugarRcppCode <- '
@@ -56,6 +70,7 @@ funOpenMP <- cxxfunction(signature(xs="numeric"), body=openMPCode, plugin="Rcpp"
 
 z <- seq(1, 2e6)
 res <- benchmark(funSerial(z), funOpenMP(z),
+                 funSerialStdAlgRcpp(z), funSerialStdAlg(z),
                  funSerialRcpp(z), funSugarRcpp(z),
                  columns=c("test", "replications", "elapsed",
                            "relative", "user.self", "sys.self"),
