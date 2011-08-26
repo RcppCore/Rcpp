@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Dimension.h: Rcpp R/C++ interface class library -- dimensions
 //
@@ -26,8 +26,8 @@
  
 namespace Rcpp{ 
 
-class Dimension {
-public:
+    class Dimension {
+    public:
 	typedef std::vector<int>::reference reference ;
 	typedef std::vector<int>::const_reference const_reference ;
 	
@@ -43,12 +43,12 @@ public:
 	int size() const ;
 	int prod() const ;
 	
-	reference operator[](int i) throw(std::range_error) ;
-	const_reference operator[](int i) const throw(std::range_error) ;
+	reference operator[](int i);
+	const_reference operator[](int i) const;
 	
-private:
-	std::vector<int> dims ;
-} ;
+    private:
+	std::vector<int> dims;
+    };
 
 }
 #endif

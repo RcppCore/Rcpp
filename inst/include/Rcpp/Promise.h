@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Promise.h: Rcpp R/C++ interface class library -- promises (PROMSXP)
 //
@@ -29,37 +29,37 @@
 
 namespace Rcpp{ 
 
-class Promise : public RObject {     
-public:
+    class Promise : public RObject {     
+    public:
 
-	Promise( SEXP x) throw(not_compatible) ;
-	
-	Promise( const Promise& other) ;
-	Promise& operator=(const Promise& other ) ;
-	
-	/** 
-	 * Return the result of the PRSEEN macro
-	 */
-	int seen() const ;
-	
-	/**
-	 * Return the result of the PRVALUE macro on the promise
-	 */
-	SEXP value() const throw(unevaluated_promise) ;
+        Promise( SEXP x);
+        
+        Promise( const Promise& other) ;
+        Promise& operator=(const Promise& other ) ;
+        
+        /** 
+         * Return the result of the PRSEEN macro
+         */
+        int seen() const ;
+        
+        /**
+         * Return the result of the PRVALUE macro on the promise
+         */
+        SEXP value() const;
 
-	bool was_evaluated() const ;
-	
-	/**
-	 * The promise expression: PRCODE
-	 */
-	ExpressionVector expression() const ;
+        bool was_evaluated() const ;
+        
+        /**
+         * The promise expression: PRCODE
+         */
+        ExpressionVector expression() const ;
 
-	/**
-	 * The promise environment : PRENV
-	 */
-	Environment environment() const ;
-	
-} ;
+        /**
+         * The promise environment : PRENV
+         */
+        Environment environment() const ;
+        
+    } ;
 
 } // namespace
 

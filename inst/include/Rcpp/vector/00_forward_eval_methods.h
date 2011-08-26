@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // eval_methods.h: Rcpp R/C++ interface class library -- 
 //
@@ -23,35 +23,35 @@
 #define Rcpp__vector__forward_eval_methods_h
 
 namespace internal{
-	template <int RTYPE>
-	SEXP vector_from_string( const std::string& st ) throw(parse_error,not_compatible) {
-		return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
-	}
-	
-	template <int RTYPE>
-	SEXP vector_from_string_expr( const std::string& code) throw(parse_error,not_compatible) {
-		ParseStatus status;
-		SEXP expr = PROTECT( ::Rf_mkString( code.c_str() ) );
-		SEXP res  = PROTECT( ::R_ParseVector(expr, -1, &status, R_NilValue));
-		switch( status ){
-		case PARSE_OK:
-			UNPROTECT( 2) ;
-			return(res) ;
-			break;
-		default:
-			UNPROTECT(2) ;
-			throw parse_error() ;
-		}
-		return R_NilValue ; /* -Wall */
-	}
-	
-	template <>
-	inline SEXP vector_from_string<EXPRSXP>( const std::string& st ) throw(parse_error,not_compatible) {
-		return vector_from_string_expr<EXPRSXP>( st ) ;
-	}
-	
-	template <int RTYPE> class eval_methods {} ;
-	template <> class eval_methods<EXPRSXP> ;
-	
+    template <int RTYPE>
+    SEXP vector_from_string( const std::string& st ) {
+        return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
+    }
+        
+    template <int RTYPE>
+    SEXP vector_from_string_expr( const std::string& code) {
+        ParseStatus status;
+        SEXP expr = PROTECT( ::Rf_mkString( code.c_str() ) );
+        SEXP res  = PROTECT( ::R_ParseVector(expr, -1, &status, R_NilValue));
+        switch( status ){
+        case PARSE_OK:
+            UNPROTECT( 2) ;
+            return(res) ;
+            break;
+        default:
+            UNPROTECT(2) ;
+            throw parse_error() ;
+        }
+        return R_NilValue ; /* -Wall */
+    }
+        
+    template <>
+    inline SEXP vector_from_string<EXPRSXP>( const std::string& st ) {
+        return vector_from_string_expr<EXPRSXP>( st ) ;
+    }
+        
+    template <int RTYPE> class eval_methods {} ;
+    template <> class eval_methods<EXPRSXP> ;
+        
 }
 #endif

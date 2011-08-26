@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Pairlist.h: Rcpp R/C++ interface class library -- pair lists objects (LISTSXP)
 //
@@ -28,25 +28,25 @@
 
 namespace Rcpp{
 
-class Pairlist : public DottedPair {
-public:		
-	Pairlist();
-	Pairlist(SEXP x) throw(not_compatible) ;
-	Pairlist(const Pairlist& other) ;
-	Pairlist& operator=(const Pairlist& other) ;
-		
+    class Pairlist : public DottedPair {
+    public:         
+        Pairlist();
+        Pairlist(SEXP x) ;
+        Pairlist(const Pairlist& other) ;
+        Pairlist& operator=(const Pairlist& other) ;
+                
 #ifdef HAS_VARIADIC_TEMPLATES
-template<typename... Args> 
-	Pairlist( const Args&... args) : DottedPair(args...) {}
+        template<typename... Args> 
+        Pairlist( const Args&... args) : DottedPair(args...) {}
 #else
 
 #include <Rcpp/generated/Pairlist__ctors.h>
 
 #endif
 
-	~Pairlist() ;
-		
-} ;
-	
+        ~Pairlist() ;
+                
+    } ;
+        
 }
 #endif

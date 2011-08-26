@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // DatetimeVector.cpp: Rcpp R/C++ interface class library -- Datetime vector
 //
@@ -24,63 +24,63 @@
 
 namespace Rcpp {
 
-	DatetimeVector::DatetimeVector(SEXP vec) throw(std::range_error) : v()  {
-		int i;
-		if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
-			throw std::range_error("DatetimeVector: invalid numeric vector in constructor");
-		int len = Rf_length(vec);
-		if (len == 0)
-			throw std::range_error("DatetimeVector: null vector in constructor");
-		v.resize(len);
-		for (i = 0; i < len; i++)
-			v[i] = Datetime( static_cast<double>(REAL(vec)[i]));
-	}
+    DatetimeVector::DatetimeVector(SEXP vec) : v()  {
+        int i;
+        if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
+            throw std::range_error("DatetimeVector: invalid numeric vector in constructor");
+        int len = Rf_length(vec);
+        if (len == 0)
+            throw std::range_error("DatetimeVector: null vector in constructor");
+        v.resize(len);
+        for (i = 0; i < len; i++)
+            v[i] = Datetime( static_cast<double>(REAL(vec)[i]));
+    }
 
 
-	DatetimeVector::DatetimeVector(int n) : v(n) {}
+    DatetimeVector::DatetimeVector(int n) : v(n) {}
 
-	const Datetime & DatetimeVector::operator()(int i) const throw(std::range_error) {
-		if (i < 0 || i >= static_cast<int>(v.size())) {
-			std::ostringstream oss;
-			oss << "DatetimeVector: subscript out of range: " << i;
-			throw std::range_error(oss.str());
-		}
-		return v[i];
-	}
+    const Datetime & DatetimeVector::operator()(int i) const {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
 
-	Datetime & DatetimeVector::operator()(int i) throw(std::range_error) {
-		if (i < 0 || i >= static_cast<int>(v.size())) {
-			std::ostringstream oss;
-			oss << "DatetimeVector: subscript out of range: " << i;
-			throw std::range_error(oss.str());
-		}
-		return v[i];
-	}
+    Datetime & DatetimeVector::operator()(int i) {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
 
-	const Datetime & DatetimeVector::operator[](int i) const throw(std::range_error) {
-		if (i < 0 || i >= static_cast<int>(v.size())) {
-			std::ostringstream oss;
-			oss << "DatetimeVector: subscript out of range: " << i;
-			throw std::range_error(oss.str());
-		}
-		return v[i];
-	}
+    const Datetime & DatetimeVector::operator[](int i) const {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
 
-	Datetime & DatetimeVector::operator[](int i) throw(std::range_error) {
-		if (i < 0 || i >= static_cast<int>(v.size())) {
-			std::ostringstream oss;
-			oss << "DatetimeVector: subscript out of range: " << i;
-			throw std::range_error(oss.str());
-		}
-		return v[i];
-	}
+    Datetime & DatetimeVector::operator[](int i) {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
 
-	int DatetimeVector::size() const { 
-		return v.size(); 
-	}
+    int DatetimeVector::size() const { 
+        return v.size(); 
+    }
 
-	std::vector<Datetime> DatetimeVector::getDatetimes() const {
-		return v;
-	}
+    std::vector<Datetime> DatetimeVector::getDatetimes() const {
+        return v;
+    }
 
 }
