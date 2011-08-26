@@ -1,3 +1,8 @@
+2011-08-26  Douglas Bates  <bates@stat.wisc.edu>
+
+	* inst/examples/OpenMP/OpenMPandInline.r: Added another variant
+	using import_transform for the Rcpp Vector class.
+
 2011-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/OpenMP/OpenMPandInline.r: Added two std::transform()
