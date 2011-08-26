@@ -1,3 +1,8 @@
+2011-08-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/OpenMP/OpenMPandInline.r: Added two std::transform()
+	variants as suggested in rcpp-devel email by Davor Cubranic
+
 2011-08-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/OpenMP/OpenMPandInline.r: Added new example for
