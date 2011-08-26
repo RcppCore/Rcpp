@@ -69,9 +69,9 @@ funOpenMP <- cxxfunction(signature(xs="numeric"), body=openMPCode, plugin="Rcpp"
 
 
 z <- seq(1, 2e6)
-res <- benchmark(funSerial(z), funOpenMP(z),
-                 funSerialStdAlgRcpp(z), funSerialStdAlg(z),
-                 funSerialRcpp(z), funSugarRcpp(z),
+res <- benchmark(funSerial(z), funSerialStdAlg(z),
+                 funSerialRcpp(z), funSerialStdAlgRcpp(z),
+                 funOpenMP(z), funSugarRcpp(z),
                  columns=c("test", "replications", "elapsed",
                            "relative", "user.self", "sys.self"),
                  order="relative",
