@@ -40,6 +40,12 @@ serialStdAlgRcppCode <- '
 '
 funSerialStdAlgRcpp <- cxxfunction(signature(xs="numeric"), body=serialStdAlgRcppCode, plugin="Rcpp")
 
+serialImportTransRcppCode <- '
+   Rcpp::NumericVector x(xs);
+   return Rcpp::NumericVector::import_transform(x.begin(), x.end(), ::log);
+'
+funSerialImportTransRcpp <- cxxfunction(signature(xs="numeric"), body=serialImportTransRcppCode, plugin="Rcpp")
+
 ## now with a sugar expression with internalizes the loop
 sugarRcppCode <- '
    // assign to C++ vector
@@ -71,6 +77,7 @@ funOpenMP <- cxxfunction(signature(xs="numeric"), body=openMPCode, plugin="Rcpp"
 z <- seq(1, 2e6)
 res <- benchmark(funSerial(z), funSerialStdAlg(z),
                  funSerialRcpp(z), funSerialStdAlgRcpp(z),
+                 funSerialImportTransRcpp(z),
                  funOpenMP(z), funSugarRcpp(z),
                  columns=c("test", "replications", "elapsed",
                            "relative", "user.self", "sys.self"),
