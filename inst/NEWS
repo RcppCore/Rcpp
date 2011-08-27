@@ -1,5 +1,10 @@
 0.9.7   2011-xx-yy
 
+    o   Minor code reorganisation in which exception specifiers are removed;
+        this effectively only implements a run-time (rather than compile-time) 
+        check and is generally seen as a somewhat depreated C++ idiom. Thanks
+        to Darren Cook for alerting us to this issue.
+
     o   New example 'OpenMPandInline.r' in the OpenMP/ directory, showing how
         easily use OpenMP by modifying the RcppPlugin output
 
