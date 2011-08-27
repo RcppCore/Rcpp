@@ -475,7 +475,7 @@ The reverse conversion from an \proglang{R} object to a \proglang{C++} object is
 \code{Rcpp::as} template whose signature is:
 %
 \begin{Code}
-template <typename T> T as(SEXP x) throw(not_compatible);
+template <typename T> T as(SEXP x);
 \end{Code}
 %
 It offers less flexibility and currently

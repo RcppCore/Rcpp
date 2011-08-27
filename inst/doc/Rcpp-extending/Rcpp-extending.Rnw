@@ -114,7 +114,7 @@ versa.  The corresponding function declarations are as follows:
 
 <<lang=cpp>>=
 // conversion from R to C++
-template <typename T> T as( SEXP m_sexp) throw(not_compatible) ;
+template <typename T> T as( SEXP m_sexp) ;
 
 // conversion from C++ to R
 template <typename T> SEXP wrap(const T& object) ;
@@ -291,7 +291,7 @@ non intrusive implicit conversion capabilities.
 
 // declaring the specialization
 namespace Rcpp {
-    template <> Bar as( SEXP ) throw(not_compatible) ;
+    template <> Bar as( SEXP ) ;
 }
 
 // this must appear after the specialization,
