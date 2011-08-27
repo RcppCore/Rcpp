@@ -28,7 +28,7 @@ create integer vectors.
 \paragraph{Constructors}
 
 \begin{verbatim}
-IntegerVector( SEXP x ) throw(not_compatible) ;
+IntegerVector( SEXP x );
 \end{verbatim}
 
 This constructor creates a \texttt{IntegerVector} from an existing \texttt{SEXP}, 
