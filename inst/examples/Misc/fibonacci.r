@@ -9,6 +9,9 @@
 ## inline to compile, load and link the C++ code
 require(inline)
 
+## byte compiler
+require(compiler)
+
 ## we need a pure C/C++ function as the generated function
 ## will have a random identifier at the C++ level preventing
 ## us from direct recursive calls
