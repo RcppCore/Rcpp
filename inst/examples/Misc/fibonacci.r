@@ -22,9 +22,9 @@ int fibonacci(const int x) {
 ## now use the snipped above as well as one argument conversion
 ## in as well as out to provide Fibonacci numbers via C++
 fibRcpp <- cxxfunction(signature(xs="int"),
-                   plugin="Rcpp",
-                   incl=incltxt,
-                   body='
+                       plugin="Rcpp",
+                       incl=incltxt,
+                       body='
    int x = Rcpp::as<int>(xs);
    return Rcpp::wrap( fibonacci(x) );
 ')
