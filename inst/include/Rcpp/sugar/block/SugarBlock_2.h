@@ -47,7 +47,7 @@ private:
 #else
     const T1& x ;
     const T2& y ;
-#fi
+#endif
 };
 
 
@@ -69,7 +69,7 @@ private:
     const T1 x ;
 #else
     const T1& x ;
-#fi
+#endif
     U2 y ;
 };
 
@@ -92,7 +92,7 @@ private:
     const T2 y ;
 #else
     const T2& y ;
-#fi
+#endif
 };
 
 
