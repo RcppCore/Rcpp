@@ -2,8 +2,12 @@
 
 	* inst/include/Rcpp/Extractor.h: Apply patch by Martyn Plummer to
 	help with compilation on Solaris
-	* inst/include/Rcpp/sugar/block/Vectorized_Math.h: Idem 
+	* inst/include/Rcpp/sugar/block/Vectorized_Math.h: Idem
 	* inst/include/Rcpp/sugar/functions/math.h: Idem
+
+	* inst/include/Rcpp/sugar/block/SugarBlock_2.h: Also applied path by
+	Martyn Plummer, but with additional #ifdef layer for SunPro Compiler
+	* inst/include/Rcpp/vector/LazyVector.h: Idem
 
 2011-08-26  Douglas Bates  <bates@stat.wisc.edu>
 
