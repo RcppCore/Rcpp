@@ -1,3 +1,10 @@
+2011-09-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Extractor.h: Apply patch by Martyn Plummer to
+	help with compilation on Solaris
+	* inst/include/Rcpp/sugar/block/Vectorized_Math.h: Idem 
+	* inst/include/Rcpp/sugar/functions/math.h: Idem
+
 2011-08-26  Douglas Bates  <bates@stat.wisc.edu>
 
 	* inst/examples/OpenMP/OpenMPandInline.r: Added another variant

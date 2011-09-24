@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Extractor.h: Rcpp R/C++ interface class library -- faster vectors (less interface)
 //
@@ -35,6 +35,7 @@ namespace traits {
     // update 30 Oct 2010: that may have been g++ 4.5 rather than Windows
     //                     so rephrasing text in terms of macro from RcppCommon.h
 //#ifndef WIN32
+#ifdef __GNUC__
 #ifndef IS_GCC_450_OR_LATER
     template <> 
     struct Extractor<INTSXP, true, Rcpp::Vector<INTSXP> >{
@@ -56,7 +57,8 @@ namespace traits {
         typedef Rcpp::Fast< Rcpp::Vector<RAWSXP> > type ;
     } ;
 #endif    
-    
+#endif
+
 } // traits
 } // Rcpp 
 
