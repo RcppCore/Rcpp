@@ -1,0 +1,124 @@
+----------------------------------------------------------------------
+diff -uNr Rcpp-orig/inst/include/Rcpp/Extractor.h Rcpp-patched/inst/include/Rcpp/Extractor.h
+--- Rcpp-orig/inst/include/Rcpp/Extractor.h	2011-09-13 22:44:54.000000000 +0200
++++ Rcpp-patched/inst/include/Rcpp/Extractor.h	2011-09-23 17:20:31.004013732 +0200
+@@ -35,6 +35,7 @@
+     // update 30 Oct 2010: that may have been g++ 4.5 rather than Windows
+     //                     so rephrasing text in terms of macro from RcppCommon.h
+ //#ifndef WIN32
++#ifdef __GNUC__
+ #ifndef IS_GCC_450_OR_LATER
+     template <> 
+     struct Extractor<INTSXP, true, Rcpp::Vector<INTSXP> >{
+@@ -56,7 +57,8 @@
+         typedef Rcpp::Fast< Rcpp::Vector<RAWSXP> > type ;
+     } ;
+ #endif    
+-    
++#endif
++
+ } // traits
+ } // Rcpp 
+ 
+diff -uNr Rcpp-orig/inst/include/Rcpp/sugar/block/Vectorized_Math.h Rcpp-patched/inst/include/Rcpp/sugar/block/Vectorized_Math.h
+--- Rcpp-orig/inst/include/Rcpp/sugar/block/Vectorized_Math.h	2011-09-13 22:44:55.000000000 +0200
++++ Rcpp-patched/inst/include/Rcpp/sugar/block/Vectorized_Math.h	2011-09-23 09:12:24.268341925 +0200
+@@ -25,7 +25,9 @@
+ namespace Rcpp{
+ namespace sugar{
+ 
+-template <double Func(double), bool NA, typename VEC>
++extern "C" typedef double (*DDFun)(double);
++
++template <DDFun Func, bool NA, typename VEC>
+ class Vectorized : public VectorBase<REALSXP, NA, Vectorized<Func,NA,VEC> >{
+ public:
+     typedef typename Rcpp::VectorBase<REALSXP,NA,VEC> VEC_TYPE ;
+@@ -41,7 +43,7 @@
+     const VEC_EXT& object ;	
+ } ;
+ 
+-template <double Func(double), bool NA, typename VEC>
++template <DDFun Func, bool NA, typename VEC>
+ class Vectorized_INTSXP : public VectorBase<REALSXP, NA, Vectorized_INTSXP<Func,NA,VEC> >{
+ public:
+     typedef typename Rcpp::VectorBase<INTSXP,NA,VEC> VEC_TYPE ;
+@@ -58,7 +60,7 @@
+ private:
+     const VEC_EXT& object ;	
+ } ;
+-template <double Func(double), typename VEC>
++template <DDFun Func, typename VEC>
+ class Vectorized_INTSXP<Func,false,VEC> : 
+     public VectorBase<REALSXP,false, Vectorized_INTSXP<Func,false,VEC> >{
+ public:
+diff -uNr Rcpp-orig/inst/include/Rcpp/sugar/functions/math.h Rcpp-patched/inst/include/Rcpp/sugar/functions/math.h
+--- Rcpp-orig/inst/include/Rcpp/sugar/functions/math.h	2011-09-13 22:44:55.000000000 +0200
++++ Rcpp-patched/inst/include/Rcpp/sugar/functions/math.h	2011-09-23 09:14:38.690177208 +0200
+@@ -53,10 +53,10 @@
+ namespace Rcpp{
+ namespace internal{
+ 
+-inline double factorial( double x ){
++extern "C" inline double factorial( double x ){
+ 	return ::Rf_gammafn( x + 1.0 ) ;
+ }
+-inline double lfactorial( double x ){
++extern "C" inline double lfactorial( double x ){
+ 	return ::Rf_lgammafn( x + 1.0 ) ;
+ }
+ 
+
+----------------------------------------------------------------------
+diff -uNr Rcpp-orig/inst/include/Rcpp/sugar/block/SugarBlock_2.h Rcpp-patched/inst/include/Rcpp/sugar/block/SugarBlock_2.h
+--- Rcpp-orig/inst/include/Rcpp/sugar/block/SugarBlock_2.h	2011-09-13 22:44:55.000000000 +0200
++++ Rcpp-patched/inst/include/Rcpp/sugar/block/SugarBlock_2.h	2011-09-23 17:17:09.535833313 +0200
+@@ -41,8 +41,8 @@
+ 	
+ private:
+ 	FunPtr ptr ;
+-	const T1& x ;
+-	const T2& y ;
++	const T1 x ;
++	const T2 y ;
+ };
+ 
+ 
+@@ -60,7 +60,7 @@
+ 	
+ private:
+ 	FunPtr ptr ;
+-	const T1& x ;
++	const T1 x ;
+ 	U2 y ;
+ };
+ 
+@@ -79,7 +79,7 @@
+ private:
+ 	FunPtr ptr ;
+ 	U1 x ;
+-	const T2& y ;
++	const T2 y ;
+ };
+ 
+diff -uNr Rcpp-orig/inst/include/Rcpp/vector/LazyVector.h Rcpp-patched/inst/include/Rcpp/vector/LazyVector.h
+--- Rcpp-orig/inst/include/Rcpp/vector/LazyVector.h	2011-09-13 22:44:55.000000000 +0200
++++ Rcpp-patched/inst/include/Rcpp/vector/LazyVector.h	2011-09-23 17:27:08.939868672 +0200
+@@ -44,7 +44,7 @@
+ 		}
+ 		
+ 	private:
+-		const VECTOR& vec ;
++		const VECTOR vec ;
+ 		int n ;
+ 		mutable std::vector<stored_type> data ;
+ 		mutable std::vector<bool> known ;
+@@ -60,7 +60,7 @@
+ 	inline Proxy operator[]( int i) const { return vec[i] ; }
+ 	
+ private:
+-	const VECTOR& vec ;
++	const VECTOR vec ;
+ 		
+ } ;
+ 
