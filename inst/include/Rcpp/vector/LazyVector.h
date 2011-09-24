@@ -48,7 +48,7 @@ private:
     const VECTOR vec ;
 #else
     const VECTOR& vec ;
-#fi
+#endif
     int n ;
     mutable std::vector<stored_type> data ;
     mutable std::vector<bool> known ;
@@ -68,7 +68,7 @@ private:
     const VECTOR vec ;
 #else
     const VECTOR& vec ;
-#fi                
+#endif             
 } ;
 
         
