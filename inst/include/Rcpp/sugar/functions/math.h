@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // SugarBlock.h: Rcpp R/C++ interface class library -- sugar functions
 //
@@ -53,11 +53,11 @@ VECTORIZED_MATH_1(log1p      , ::log1p          )
 namespace Rcpp{
 namespace internal{
 
-inline double factorial( double x ){
-	return ::Rf_gammafn( x + 1.0 ) ;
+extern "C" inline double factorial( double x ){
+    return ::Rf_gammafn( x + 1.0 ) ;
 }
-inline double lfactorial( double x ){
-	return ::Rf_lgammafn( x + 1.0 ) ;
+extern "C" inline double lfactorial( double x ){
+    return ::Rf_lgammafn( x + 1.0 ) ;
 }
 
 }
