@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // SugarBlock.h: Rcpp R/C++ interface class library -- sugar functions
 //
@@ -26,31 +26,31 @@ namespace Rcpp{
 namespace sugar{                         
 
 template <
-	bool NA, typename OUT, 
-	typename U1, typename T1, 
-	typename U2, typename T2, 
-	typename U3, typename T3
+    bool NA, typename OUT, 
+    typename U1, typename T1, 
+    typename U2, typename T2, 
+    typename U3, typename T3
 >
 class SugarBlock_3_VVV : public Rcpp::VectorBase< 
-	Rcpp::traits::r_sexptype_traits<OUT>::rtype , 
-	NA, 
-	SugarBlock_3_VVV<NA,OUT,U1,T1,U2,T2,U3,T3> > {
+    Rcpp::traits::r_sexptype_traits<OUT>::rtype , 
+    NA, 
+    SugarBlock_3_VVV<NA,OUT,U1,T1,U2,T2,U3,T3> > {
 public:
-	typedef OUT (*FunPtr)(U1,U2,U3) ;
-	SugarBlock_3_VVV( FunPtr ptr_, const T1 & x_, const T2& y_, const T3& z_ ) : 
-		ptr(ptr_), x(x_), y(y_), z(z_) {
-			// TODO: size checks, recycling, etc ...	
-	}
-	inline OUT operator[]( int i) const { 
-		return ptr( x[i], y[i], z[i] ) ;
-	}
-	inline int size() const { return x.size() ; }
+    typedef OUT (*FunPtr)(U1,U2,U3) ;
+    SugarBlock_3_VVV( FunPtr ptr_, const T1 & x_, const T2& y_, const T3& z_ ) : 
+        ptr(ptr_), x(x_), y(y_), z(z_) {
+        // TODO: size checks, recycling, etc ...	
+    }
+    inline OUT operator[]( int i) const { 
+        return ptr( x[i], y[i], z[i] ) ;
+    }
+    inline int size() const { return x.size() ; }
 	
 private:
-	FunPtr ptr ;
-	const T1& x ;
-	const T2& y ;
-	const T2& z ;  
+    FunPtr ptr ;
+    const T1& x ;
+    const T2& y ;
+    const T2& z ;  
 };
 
 
@@ -94,28 +94,32 @@ private:
 } // sugar
 } // Rcpp
 
+#define SB3_T1 VectorBase<REALSXP,T1_NA,T1>
+#define SB3_T2 VectorBase<REALSXP,T2_NA,T2>
+#define SB3_T3 VectorBase<REALSXP,T3_NA,T3>
+
 #define SUGAR_BLOCK_3(__NAME__,__SYMBOL__)                                                \
 namespace Rcpp{                                                                           \
 	template <bool T1_NA, typename T1, bool T2_NA, typename T2, bool T3_NA, typename T3>  \
 	inline sugar::SugarBlock_3_VVV<                                                       \
-		(T1_NA||T2_NA||T3_NA) ,double,                                                    \
-		double,T1,                                                                        \
-		double,T2,                                                                        \
-		double,T3                                                                         \
+		(T1_NA||T2_NA||T3_NA) ,double,                                                \
+		double,SB3_T1,                                                                \
+		double,SB3_T2,                                                                \
+		double,SB3_T3                                                                 \
 	>                                                                                     \
 	__NAME__(                                                                             \
-		const VectorBase<REALSXP,T1_NA,T1>& x1,                                           \
-		const VectorBase<REALSXP,T2_NA,T2>& x2,                                           \
-		const VectorBase<REALSXP,T3_NA,T3>& x3                                            \
+		const SB3_T1& x1,                                                             \
+		const SB3_T2& x2,                                                             \
+		const SB3_T3& x3                                                              \
 	){                                                                                    \
-		return sugar::SugarBlock_3_VVV<                                                   \
-			(T1_NA||T2_NA||T3_NA) , double,                                               \
-			double,T1,                                                                    \
-			double,T2,                                                                    \
-			double,T3                                                                     \
-		>(                                                                                \
-			__SYMBOL__ , x1, x2, x3                                                       \
-		) ;                                                                               \
+		return sugar::SugarBlock_3_VVV<                                               \
+			(T1_NA||T2_NA||T3_NA) , double,                                       \
+			double,SB3_T1,                                                        \
+			double,SB3_T2,                                                        \
+			double,SB3_T3                                                         \
+		>(                                                                            \
+			__SYMBOL__ , x1, x2, x3                                               \
+		) ;                                                                           \
 	}                                                                                     \
 }
 	

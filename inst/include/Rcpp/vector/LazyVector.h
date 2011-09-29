@@ -44,11 +44,7 @@ public:
     }
                 
 private:
-#ifdef __SUNPRO_CC
-    const VECTOR vec ;
-#else
     const VECTOR& vec ;
-#endif
     int n ;
     mutable std::vector<stored_type> data ;
     mutable std::vector<bool> known ;
@@ -64,11 +60,7 @@ public:
     inline Proxy operator[]( int i) const { return vec[i] ; }
         
 private:
-#ifdef __SUNPRO_CC
-    const VECTOR vec ;
-#else
     const VECTOR& vec ;
-#endif             
 } ;
 
         
