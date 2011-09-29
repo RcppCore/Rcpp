@@ -41,13 +41,8 @@ public:
         
 private:
     FunPtr ptr ;
-#ifdef __SUNPRO_CC
-    const T1 x ;
-    const T2 y ;
-#else
     const T1& x ;
     const T2& y ;
-#endif
 };
 
 
@@ -65,11 +60,7 @@ public:
         
 private:
     FunPtr ptr ;
-#ifdef __SUNPRO_CC
-    const T1 x ;
-#else
     const T1& x ;
-#endif
     U2 y ;
 };
 
@@ -88,46 +79,45 @@ public:
 private:
     FunPtr ptr ;
     U1 x ;
-#ifdef __SUNPRO_CC
-    const T2 y ;
-#else
     const T2& y ;
-#endif
 };
 
 
 } // sugar
 } // Rcpp
 
+#define SB2_LHT VectorBase<REALSXP,LHS_NA,LHS_T>
+#define SB2_RHT VectorBase<REALSXP,RHS_NA,RHS_T>
+
 #define SUGAR_BLOCK_2(__NAME__,__SYMBOL__)                                                      \
     namespace Rcpp{                                                     			\
         template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >                    \
-        inline sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,LHS_T,double,RHS_T>         \
+        inline sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,SB2_LHT,double,SB2_RHT>     \
         __NAME__(                                                                               \
-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
+                const SB2_LHT& lhs,                                                             \
+                const SB2_RHT& rhs                                                              \
         ){                                                                                      \
-                return sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,LHS_T,double,RHS_T>(\
+                return sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,SB2_LHT,double,SB2_RHT >(\
                         __SYMBOL__ , lhs, rhs                                                   \
                 ) ;                                                                             \
         }                                                                                       \
         template <bool LHS_NA, typename LHS_T>                                                  \
-        inline sugar::SugarBlock_2__VP<LHS_NA,double,double,LHS_T,double>                       \
+        inline sugar::SugarBlock_2__VP<LHS_NA,double,double,SB2_LHT,double>                     \
         __NAME__(                                                                               \
-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
+                const SB2_LHT& lhs,                                                             \
                 double rhs                                                                      \
         ){                                                                                      \
-                return sugar::SugarBlock_2__VP<LHS_NA,double,double,LHS_T,double>(              \
+                return sugar::SugarBlock_2__VP<LHS_NA,double,double,SB2_LHT,double>(            \
                         __SYMBOL__ , lhs, rhs                                                   \
                 ) ;                                                                             \
         }                                                                                       \
         template <bool RHS_NA, typename RHS_T>                                                  \
-        inline sugar::SugarBlock_2__PV<RHS_NA,double,double,double,RHS_T>                       \
+        inline sugar::SugarBlock_2__PV<RHS_NA,double,double,double,SB2_RHT>                     \
         __NAME__(                                                                               \
                 double lhs,                                                                     \
-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
+                const SB2_RHT& rhs                                                              \
         ){                                                                                      \
-                return sugar::SugarBlock_2__PV<RHS_NA,double,double,double,RHS_T>(              \
+                return sugar::SugarBlock_2__PV<RHS_NA,double,double,double,SB2_RHT >(           \
                         __SYMBOL__ , lhs, rhs                                                   \
                 ) ;                                                                             \
         }                                                                                       \
@@ -137,32 +127,34 @@ private:
 #define SUGAR_BLOCK_2_NA(__NAME__,__SYMBOL__,__NA__)                                            \
         namespace Rcpp{                                                                         \
         template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >                    \
-        inline sugar::SugarBlock_2< __NA__ ,double,double,LHS_T,double,RHS_T>                   \
+        inline sugar::SugarBlock_2< __NA__ ,double,double,SB2_LHT,double,SB2_RHT>               \
         __NAME__(                                                                               \
-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
+                const SB2_LHT& lhs,                                                             \
+                const SB2_RHT& rhs                                                              \
         ){                                                                                      \
-                return sugar::SugarBlock_2< __NA__ ,double,double,LHS_T,double,RHS_T>(          \
+                return sugar::SugarBlock_2< __NA__ ,double,double,SB2_LHT,double,SB2_RHT        \
+                >(                                                                              \
                         __SYMBOL__ , lhs, rhs                                                   \
                 ) ;                                                                             \
         }                                                                                       \
         template <bool LHS_NA, typename LHS_T>                                                  \
-        inline sugar::SugarBlock_2__VP<__NA__,double,double,LHS_T,double>                       \
+        inline sugar::SugarBlock_2__VP<__NA__,double,double,SB2_LHT,double>                     \
         __NAME__(                                                                               \
-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
+                const SB2_LHT& lhs,                                                             \
                 double rhs                                                                      \
         ){                                                                                      \
-                return sugar::SugarBlock_2__VP<__NA__,double,double,LHS_T,double>(              \
+                return sugar::SugarBlock_2__VP<__NA__,double,double,SB2_LHT,double>(            \
                         __SYMBOL__ , lhs, rhs                                                   \
                 ) ;                                                                             \
         }                                                                                       \
         template <bool RHS_NA, typename RHS_T>                                                  \
-        inline sugar::SugarBlock_2__PV<__NA__,double,double,double,RHS_T>                       \
+        inline sugar::SugarBlock_2__PV<__NA__,double,double,double,SB2_RHT>                     \
         __NAME__(                                                                               \
                 double lhs,                                                                     \
-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
+                const SB2_RHT& rhs                                                              \
         ){                                                                                      \
-                return sugar::SugarBlock_2__PV<__NA__,double,double,double,RHS_T>(              \
+                return sugar::SugarBlock_2__PV<__NA__,double,double,double,SB2_RHT              \
+                >(                                                                              \
                         __SYMBOL__ , lhs, rhs                                                   \
                 ) ;                                                                             \
         }                                                                                       \
