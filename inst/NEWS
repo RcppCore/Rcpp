@@ -1,4 +1,7 @@
-0.9.7   2011-xx-yy
+0.9.7   2011-09-29
+
+    o   Applied two patches kindly provided by Martyn Plummer which provide
+    	support for compilation on Solaris using the SunPro compiler
 
     o   Minor code reorganisation in which exception specifiers are removed;
         this effectively only implements a run-time (rather than compile-time) 
