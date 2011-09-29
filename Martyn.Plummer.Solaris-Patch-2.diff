@@ -1,0 +1,366 @@
+From: Martyn Plummer <plummerM@iarc.fr>
+To: rcpp-core@r-forge.wu-wien.ac.at
+Subject: [Rcpp-core] More Solaris patches
+Date: Thu, 29 Sep 2011 18:56:46 +0200
+
+
+Here is another patch that should solve the remaining problems on
+Solaris.  There are three parts.
+
+Files: SugarBlock_1.h, SugarBlock_2.h, SugarBlock_3.h, outer.h,
+LazyVector.h
+
+This part reverts the Solaris-specific workarounds from my previous
+patch, and implemented by Dirk, and puts in proper fixes.  The problem
+here is with LazyVectors and references to other vectors. Parts of the
+code had a type mismatch between the original vector and its lazy
+copy/reference.  C++ handles the type conversion with an implicit copy
+constructor. But you end up taking a reference to/lazy copy of a
+temporary vector and not the original one. Attempts to access the
+temporary vector after it goes out of scope (which happens almost
+immediately) are illegal.  The GNU runtime appears to let you get away
+with this. Presumably it defers clearing or reclaiming the memory long
+enough to allow you to continue to use the temporary vector, whereas
+Solaris reclaims it immediately.
+
+The patch ensures that there is no type conversion and hence no
+additional copying. This should also make the code more efficient.
+
+Please review the patch for accuracy.  I resorted to #define to keep the
+code readable. I know that use of the preprocessor is considered bad
+form, but I could not see any alternative.  Note that I applied fixes
+that SugarBlock_1 and SugarBlock_3 although these are currently not used
+or tested.
+
+File: MatrixRow.h
+
+I had to define an explicit "-" operator that takes the difference
+between two Matrix iterators.  I have no idea why this is not required
+on other platforms, but the error message from Solaris Studio was
+unambiguous and the workaround clear.
+
+File: stdVector.cpp
+
+This is part of the demonstration of Rcpp modules. Solaris Studio chokes
+when you use .method to expose a member function that returns a
+reference (e.g. front, back, at). I created standalone wrappers around
+these functions which work fine.
+
+Since the Vignette Rcpp-Modules uses the same example, you may wish to
+modify this or put in some Solaris-specific warnings.
+
+With these changes I get Rcpp to pass R CMD check, so hopefully the CRAN
+checks will pass too. Then we need to keep an eye on the packages that
+use Rcpp to see if they expose any other issues.
+
+best
+Martyn
+
+-----------------------------------------------------------------------
+This message and its attachments are strictly confidential. If you are
+not the intended recipient of this message, please immediately notify 
+the sender and delete it. Since its integrity cannot be guaranteed, 
+its content cannot involve the sender's responsibility. Any misuse, 
+any disclosure or publication of its content, either whole or partial, 
+is prohibited, exception made of formally approved use
+-----------------------------------------------------------------------
+
+
+diff -uNr Rcpp/inst/include/Rcpp/sugar/block/SugarBlock_1.h Rcpp-fixed/inst/include/Rcpp/sugar/block/SugarBlock_1.h
+--- Rcpp/inst/include/Rcpp/sugar/block/SugarBlock_1.h	2011-09-25 22:38:43.000000000 +0200
++++ Rcpp-fixed/inst/include/Rcpp/sugar/block/SugarBlock_1.h	2011-09-29 12:27:38.135261217 +0200
+@@ -43,15 +43,17 @@
+ 
+ } // sugar
+ } // Rcpp
++
++#define SB1_T VectorBase<REALSXP,NA,T>
+                                                             
+ #define SUGAR_BLOCK_1(__NAME__,__SYMBOL__)                                                \
+ 	namespace Rcpp{                                                                       \
+ 	template <bool NA, typename T>                                                        \
+-	inline sugar::SugarBlock_1<NA,double,double,T>                                        \
++	inline sugar::SugarBlock_1<NA,double,double,SB1_T >                                   \
+ 	__NAME__(                                                                             \
+-		const VectorBase<REALSXP,NA,T>& t                                                 \
++		const SB1_T& t                                                                \
+ 	){                                                                                    \
+-		return sugar::SugarBlock_1<NA,double,double,T>(                                   \
++		return sugar::SugarBlock_1<NA,double,double,SB1_T >(                          \
+ 			__SYMBOL__ , t                                                                \
+ 		) ;                                                                               \
+ 	}                                                                                     \
+diff -uNr Rcpp/inst/include/Rcpp/sugar/block/SugarBlock_2.h Rcpp-fixed/inst/include/Rcpp/sugar/block/SugarBlock_2.h
+--- Rcpp/inst/include/Rcpp/sugar/block/SugarBlock_2.h	2011-09-25 22:38:43.000000000 +0200
++++ Rcpp-fixed/inst/include/Rcpp/sugar/block/SugarBlock_2.h	2011-09-29 12:19:35.181867621 +0200
+@@ -41,13 +41,8 @@
+         
+ private:
+     FunPtr ptr ;
+-#ifdef __SUNPRO_CC
+-    const T1 x ;
+-    const T2 y ;
+-#else
+     const T1& x ;
+     const T2& y ;
+-#endif
+ };
+ 
+ 
+@@ -65,11 +60,7 @@
+         
+ private:
+     FunPtr ptr ;
+-#ifdef __SUNPRO_CC
+-    const T1 x ;
+-#else
+     const T1& x ;
+-#endif
+     U2 y ;
+ };
+ 
+@@ -88,46 +79,45 @@
+ private:
+     FunPtr ptr ;
+     U1 x ;
+-#ifdef __SUNPRO_CC
+-    const T2 y ;
+-#else
+     const T2& y ;
+-#endif
+ };
+ 
+ 
+ } // sugar
+ } // Rcpp
+ 
++#define SB2_LHT VectorBase<REALSXP,LHS_NA,LHS_T>
++#define SB2_RHT VectorBase<REALSXP,RHS_NA,RHS_T>
++
+ #define SUGAR_BLOCK_2(__NAME__,__SYMBOL__)                                                      \
+     namespace Rcpp{                                                     			\
+         template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >                    \
+-        inline sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,LHS_T,double,RHS_T>         \
++        inline sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,SB2_LHT,double,SB2_RHT>     \
+         __NAME__(                                                                               \
+-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
+-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
++                const SB2_LHT& lhs,                                                             \
++                const SB2_RHT& rhs                                                              \
+         ){                                                                                      \
+-                return sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,LHS_T,double,RHS_T>(\
++                return sugar::SugarBlock_2< (LHS_NA||RHS_NA) ,double,double,SB2_LHT,double,SB2_RHT >(\
+                         __SYMBOL__ , lhs, rhs                                                   \
+                 ) ;                                                                             \
+         }                                                                                       \
+         template <bool LHS_NA, typename LHS_T>                                                  \
+-        inline sugar::SugarBlock_2__VP<LHS_NA,double,double,LHS_T,double>                       \
++        inline sugar::SugarBlock_2__VP<LHS_NA,double,double,SB2_LHT,double>                     \
+         __NAME__(                                                                               \
+-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
++                const SB2_LHT& lhs,                                                             \
+                 double rhs                                                                      \
+         ){                                                                                      \
+-                return sugar::SugarBlock_2__VP<LHS_NA,double,double,LHS_T,double>(              \
++                return sugar::SugarBlock_2__VP<LHS_NA,double,double,SB2_LHT,double>(            \
+                         __SYMBOL__ , lhs, rhs                                                   \
+                 ) ;                                                                             \
+         }                                                                                       \
+         template <bool RHS_NA, typename RHS_T>                                                  \
+-        inline sugar::SugarBlock_2__PV<RHS_NA,double,double,double,RHS_T>                       \
++        inline sugar::SugarBlock_2__PV<RHS_NA,double,double,double,SB2_RHT>                     \
+         __NAME__(                                                                               \
+                 double lhs,                                                                     \
+-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
++                const SB2_RHT& rhs                                                              \
+         ){                                                                                      \
+-                return sugar::SugarBlock_2__PV<RHS_NA,double,double,double,RHS_T>(              \
++                return sugar::SugarBlock_2__PV<RHS_NA,double,double,double,SB2_RHT >(           \
+                         __SYMBOL__ , lhs, rhs                                                   \
+                 ) ;                                                                             \
+         }                                                                                       \
+@@ -137,32 +127,34 @@
+ #define SUGAR_BLOCK_2_NA(__NAME__,__SYMBOL__,__NA__)                                            \
+         namespace Rcpp{                                                                         \
+         template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >                    \
+-        inline sugar::SugarBlock_2< __NA__ ,double,double,LHS_T,double,RHS_T>                   \
++        inline sugar::SugarBlock_2< __NA__ ,double,double,SB2_LHT,double,SB2_RHT>               \
+         __NAME__(                                                                               \
+-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
+-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
++                const SB2_LHT& lhs,                                                             \
++                const SB2_RHT& rhs                                                              \
+         ){                                                                                      \
+-                return sugar::SugarBlock_2< __NA__ ,double,double,LHS_T,double,RHS_T>(          \
++                return sugar::SugarBlock_2< __NA__ ,double,double,SB2_LHT,double,SB2_RHT        \
++                >(                                                                              \
+                         __SYMBOL__ , lhs, rhs                                                   \
+                 ) ;                                                                             \
+         }                                                                                       \
+         template <bool LHS_NA, typename LHS_T>                                                  \
+-        inline sugar::SugarBlock_2__VP<__NA__,double,double,LHS_T,double>                       \
++        inline sugar::SugarBlock_2__VP<__NA__,double,double,SB2_LHT,double>                     \
+         __NAME__(                                                                               \
+-                const VectorBase<REALSXP,LHS_NA,LHS_T>& lhs,                                    \
++                const SB2_LHT& lhs,                                                             \
+                 double rhs                                                                      \
+         ){                                                                                      \
+-                return sugar::SugarBlock_2__VP<__NA__,double,double,LHS_T,double>(              \
++                return sugar::SugarBlock_2__VP<__NA__,double,double,SB2_LHT,double>(            \
+                         __SYMBOL__ , lhs, rhs                                                   \
+                 ) ;                                                                             \
+         }                                                                                       \
+         template <bool RHS_NA, typename RHS_T>                                                  \
+-        inline sugar::SugarBlock_2__PV<__NA__,double,double,double,RHS_T>                       \
++        inline sugar::SugarBlock_2__PV<__NA__,double,double,double,SB2_RHT>                     \
+         __NAME__(                                                                               \
+                 double lhs,                                                                     \
+-                const VectorBase<REALSXP,RHS_NA,RHS_T>& rhs                                     \
++                const SB2_RHT& rhs                                                              \
+         ){                                                                                      \
+-                return sugar::SugarBlock_2__PV<__NA__,double,double,double,RHS_T>(              \
++                return sugar::SugarBlock_2__PV<__NA__,double,double,double,SB2_RHT              \
++                >(                                                                              \
+                         __SYMBOL__ , lhs, rhs                                                   \
+                 ) ;                                                                             \
+         }                                                                                       \
+diff -uNr Rcpp/inst/include/Rcpp/sugar/block/SugarBlock_3.h Rcpp-fixed/inst/include/Rcpp/sugar/block/SugarBlock_3.h
+--- Rcpp/inst/include/Rcpp/sugar/block/SugarBlock_3.h	2011-09-25 22:38:43.000000000 +0200
++++ Rcpp-fixed/inst/include/Rcpp/sugar/block/SugarBlock_3.h	2011-09-29 12:38:31.725669597 +0200
+@@ -94,25 +94,29 @@
+ } // sugar
+ } // Rcpp
+ 
++#define SB3_T1 VectorBase<REALSXP,T1_NA,T1>
++#define SB3_T2 VectorBase<REALSXP,T2_NA,T2>
++#define SB3_T3 VectorBase<REALSXP,T3_NA,T3>
++
+ #define SUGAR_BLOCK_3(__NAME__,__SYMBOL__)                                                \
+ namespace Rcpp{                                                                           \
+ 	template <bool T1_NA, typename T1, bool T2_NA, typename T2, bool T3_NA, typename T3>  \
+ 	inline sugar::SugarBlock_3_VVV<                                                       \
+ 		(T1_NA||T2_NA||T3_NA) ,double,                                                    \
+-		double,T1,                                                                        \
+-		double,T2,                                                                        \
+-		double,T3                                                                         \
++		double,SB3_T1,                                                                        \
++		double,SB3_T2,                                                                        \
++		double,SB3_T3                                                                         \
+ 	>                                                                                     \
+ 	__NAME__(                                                                             \
+-		const VectorBase<REALSXP,T1_NA,T1>& x1,                                           \
+-		const VectorBase<REALSXP,T2_NA,T2>& x2,                                           \
+-		const VectorBase<REALSXP,T3_NA,T3>& x3                                            \
++		const SB3_T1& x1,                                                             \
++		const SB3_T2& x2,                                                             \
++		const SB3_T3& x3                                                              \
+ 	){                                                                                    \
+ 		return sugar::SugarBlock_3_VVV<                                                   \
+ 			(T1_NA||T2_NA||T3_NA) , double,                                               \
+-			double,T1,                                                                    \
+-			double,T2,                                                                    \
+-			double,T3                                                                     \
++			double,SB3_T1,                                                        \
++			double,SB3_T2,                                                        \
++			double,SB3_T3                                                         \
+ 		>(                                                                                \
+ 			__SYMBOL__ , x1, x2, x3                                                       \
+ 		) ;                                                                               \
+diff -uNr Rcpp/inst/include/Rcpp/sugar/matrix/outer.h Rcpp-fixed/inst/include/Rcpp/sugar/matrix/outer.h
+--- Rcpp/inst/include/Rcpp/sugar/matrix/outer.h	2011-09-25 22:38:43.000000000 +0200
++++ Rcpp-fixed/inst/include/Rcpp/sugar/matrix/outer.h	2011-09-29 10:38:52.253338516 +0200
+@@ -44,8 +44,8 @@
+ 	typedef Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
+ 	typedef Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
+ 	
+-	typedef Rcpp::internal::LazyVector<LHS_T> LHS_LAZY ;
+-	typedef Rcpp::internal::LazyVector<RHS_T> RHS_LAZY ;
++	typedef Rcpp::internal::LazyVector<LHS_TYPE> LHS_LAZY ;
++	typedef Rcpp::internal::LazyVector<RHS_TYPE> RHS_LAZY ;
+ 	
+ 	typedef typename Rcpp::traits::r_vector_element_converter<RESULT_R_TYPE>::type converter_type ;
+ 	typedef typename Rcpp::traits::storage_type<RESULT_R_TYPE>::type STORAGE ;
+diff -uNr Rcpp/inst/include/Rcpp/vector/LazyVector.h Rcpp-fixed/inst/include/Rcpp/vector/LazyVector.h
+--- Rcpp/inst/include/Rcpp/vector/LazyVector.h	2011-09-25 22:38:44.000000000 +0200
++++ Rcpp-fixed/inst/include/Rcpp/vector/LazyVector.h	2011-09-29 11:48:01.871670579 +0200
+@@ -44,11 +44,7 @@
+     }
+                 
+ private:
+-#ifdef __SUNPRO_CC
+-    const VECTOR vec ;
+-#else
+     const VECTOR& vec ;
+-#endif
+     int n ;
+     mutable std::vector<stored_type> data ;
+     mutable std::vector<bool> known ;
+@@ -64,11 +60,7 @@
+     inline Proxy operator[]( int i) const { return vec[i] ; }
+         
+ private:
+-#ifdef __SUNPRO_CC
+-    const VECTOR vec ;
+-#else
+     const VECTOR& vec ;
+-#endif             
+ } ;
+ 
+         
+diff -uNr Rcpp/inst/include/Rcpp/vector/MatrixRow.h Rcpp-fixed/inst/include/Rcpp/vector/MatrixRow.h
+--- Rcpp/inst/include/Rcpp/vector/MatrixRow.h	2011-09-25 22:38:44.000000000 +0200
++++ Rcpp-fixed/inst/include/Rcpp/vector/MatrixRow.h	2011-09-29 11:37:58.052407607 +0200
+@@ -63,6 +63,7 @@
+                                     
+         iterator operator+(difference_type n) const { return iterator( row, index + n ) ; }
+         iterator operator-(difference_type n) const { return iterator( row, index - n ) ; }
++        difference_type operator-(const iterator& other) const { return index - other.index ; }
+                 
+         iterator& operator+=(difference_type n) { index += n ; return *this ;} 
+         iterator& operator-=(difference_type n) { index -= n ; return *this ;} 
+diff -uNr Rcpp/inst/unitTests/testRcppModule/src/stdVector.cpp Rcpp-fixed/inst/unitTests/testRcppModule/src/stdVector.cpp
+--- Rcpp/inst/unitTests/testRcppModule/src/stdVector.cpp	2011-09-25 22:38:44.000000000 +0200
++++ Rcpp-fixed/inst/unitTests/testRcppModule/src/stdVector.cpp	2011-09-29 16:32:45.350607928 +0200
+@@ -24,6 +24,12 @@
+ void vec_resize( vec* obj, int n){ obj->resize( n ) ; }
+ void vec_push_back( vec* obj, double x ){ obj->push_back( x ); }
+ 
++//Wrappers for member functions that return a reference
++//Required on Solaris 
++double vec_back(vec *obj){ return obj->back() ; } 
++double vec_front(vec *obj){ return obj->front() ; } 
++double vec_at(vec *obj, int i){ return obj->at(i) ; } 
++
+ RCPP_MODULE(stdVector){
+     using namespace Rcpp ;
+ 
+@@ -43,9 +49,9 @@
+     .method( "clear", &vec::clear )
+ 
+     // specifically exposing const member functions
+-    .const_method( "back", &vec::back )
+-    .const_method( "front", &vec::front )
+-    .const_method( "at", &vec::at )
++    .method( "back", &vec_back )
++    .method( "front", &vec_front )
++    .method( "at", &vec_at )
+     
+     // exposing free functions taking a std::vector<double>*
+     // as their first argument
+@@ -56,7 +62,7 @@
+     .method( "resize", &vec_resize)
+     
+     // special methods for indexing
+-    .const_method( "[[", &vec::at )
++    .method( "[[", &vec_at )
+     .method( "[[<-", &vec_set )
+ 
+ 	;
+
+
+_______________________________________________
+Rcpp-core mailing list
+Rcpp-core@lists.r-forge.r-project.org
+https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-core
+
+

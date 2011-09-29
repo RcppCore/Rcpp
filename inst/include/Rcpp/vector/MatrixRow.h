@@ -29,11 +29,11 @@ public:
     typedef typename MATRIX::Proxy Proxy ;
     typedef typename MATRIX::Proxy reference ;
     typedef typename MATRIX::value_type value_type ;
-        
+    
     class iterator {
     public:
         typedef typename traits::r_vector_iterator<RTYPE>::type vector_iterator ;
-                
+        
         typedef int difference_type ;
         typedef typename traits::r_vector_proxy<RTYPE>::type value_type ;
         typedef typename traits::r_vector_proxy<RTYPE>::type reference ;
@@ -63,6 +63,7 @@ public:
                                     
         iterator operator+(difference_type n) const { return iterator( row, index + n ) ; }
         iterator operator-(difference_type n) const { return iterator( row, index - n ) ; }
+        difference_type operator-(const iterator& other) const { return index - other.index ; }
                 
         iterator& operator+=(difference_type n) { index += n ; return *this ;} 
         iterator& operator-=(difference_type n) { index -= n ; return *this ;} 
