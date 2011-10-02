@@ -126,4 +126,30 @@
 
 
 
+//! \example OpenMP/piWithInterrupts.cpp.R
+//! Computing pi via MPI, and letting the user interupt via Ctrl-C
+
+//! \example OpenMP/check.R
+//! Compares both approaches
+
+//! \example OpenMP/OpenMPandInline.r
+//! Example of using OpenMP compilation via inline
+
+
+
+//! \example RcppGibbs/RcppGibbs.R
+//! Implementation of a MCMC Gibbs sampler using Rcpp
+
+//! \example RcppGibbs/timeRNGs.R
+//! Illustration of speed differences between Nornal and Uniform RNG draws from R and GSL
+
+
+//! \example Misc/fibonacci.r
+//! Faster recursive computation of Fibonacci numbers via Rcpp
+
+//! \example Misc/ifelseLooped.r
+//! Nice example of accelerating path-dependent loops with Rcpp
+
+
+
 
