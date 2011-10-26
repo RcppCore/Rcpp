@@ -1,3 +1,12 @@
+2011-10-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Rostream.cpp: Patch by Jelmer Ypma which adds a new device
+	'Rcout' not unlike std::cout but uses Rprintf internally
+	* src/Rstreambuf.cpp: Idem
+	* include/include/Rcpp/iostream/Rostream.h: Idem
+	* include/include/Rcpp/iostream/Rstreambuf.h: Idem
+	* include/include/Rcpp.h:  Include new headers
+
 2011-09-29  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.7
