@@ -1,3 +1,9 @@
+0.9.8   201x-yy-zz
+
+    o   Applied patch by Jelmer Ypma which adds an output stream class
+    	'Rcout' not unlike std::cout, but implemented via Rprintf to
+    	cooperate with R and its output buffering.
+
 0.9.7   2011-09-29
 
     o   Applied two patches kindly provided by Martyn Plummer which provide
