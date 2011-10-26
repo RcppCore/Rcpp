@@ -68,4 +68,8 @@
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
 
+// "Rcout" iostream class contributed by Jelmer Ypma
+#include <Rcpp/iostream/Rstreambuf.h>
+#include <Rcpp/iostream/Rostream.h>
+
 #endif
