@@ -1,3 +1,11 @@
+2011-10-31  Romain Francois  <romain@r-enthusiasts.com>
+
+    * include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types, 
+    based on the int64 package
+    * include/Rcpp/internal/wrap.h: new dispatch layers to handle int64_t, 
+    uint64_t and containers of these
+    * DESCRIPTION: new depending on int64
+
 2011-10-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Rostream.cpp: Patch by Jelmer Ypma which adds a new device

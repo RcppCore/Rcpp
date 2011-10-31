@@ -37,6 +37,11 @@ struct wrap_type_primitive_tag{};
 struct wrap_type_unknown_tag{};
 
 /**
+ * int64_t
+ */
+struct wrap_type_int64_tag{};
+
+/**
  * Type trait that helps the dispatch of wrap to the proper method
  *
  * This builds a struct that contains a typedef called wrap_category
@@ -77,6 +82,9 @@ template <> struct wrap_type_traits<unsigned short> { typedef wrap_type_primitiv
 template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
 #endif
+
+template <> struct wrap_type_traits<int64_t> { typedef wrap_type_int64_tag wrap_category; } ;
+template <> struct wrap_type_traits<uint64_t> { typedef wrap_type_int64_tag wrap_category; } ;
 
 } // namespace traits
 } // namespace Rcpp
