@@ -3,6 +3,10 @@
     o   Applied patch by Jelmer Ypma which adds an output stream class
     	'Rcout' not unlike std::cout, but implemented via Rprintf to
     	cooperate with R and its output buffering.
+    	
+    o   wrap now handles 64 bit integer types (int64_t, uint64_t) and containers
+        of them. This work has been sponsored by the Google Open Source
+        Programs Office. 
 
 0.9.7   2011-09-29
 

@@ -43,6 +43,7 @@
 
 #include <Rcpp/config.h>
 #include <Rcpp/macros/unroll.h>
+#include <stdint.h>
 
 void logTxtFunction(const char* file, const int line, const char* expression ) ;
 
@@ -283,6 +284,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/traits/get_na.h>
 #include <Rcpp/traits/is_trivial.h>
 #include <Rcpp/traits/init_type.h>
+#include <Rcpp/traits/or.h>
 
 #include <Rcpp/traits/is_const.h>
 #include <Rcpp/traits/is_reference.h>
@@ -297,6 +299,7 @@ SEXP stack_trace( const char *file, int line) ;
 #include <Rcpp/internal/r_vector.h>
 #include <Rcpp/r_cast.h>
 
+#include <Rcpp/int64/int64_lite.h>
 #include <Rcpp/internal/wrap_forward.h>
 
 #include <Rcpp/Date_forward.h>

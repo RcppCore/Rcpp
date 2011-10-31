@@ -250,6 +250,12 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 		typename ::Rcpp::traits::r_sexptype_needscast<typename T::second_type>() ) ;
 }
 
+template <typename InputIterator, typename T>
+inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_int64_tag){ 
+	return Rcpp::int64::LongVector<T>( std::distance(first, last), first, last ) ;
+}
+
+
 /**
  * Range based wrap implementation that deals with iterators over
  * pair<const string, U> where U is wrappable. This is the kind of 
@@ -686,6 +692,17 @@ template <typename T>
 inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_unknown_tag ){
 	return wrap_dispatch_unknown_importable( object, typename ::Rcpp::traits::is_importer<T>::type() ) ;
 }
+
+/** 
+ * This is called by wrap when the wrap_type_traits is wrap_type_int64_tag
+ * 
+ * This wraps a single int64
+ */
+template <typename T> 
+inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_int64_tag ){
+	return Rcpp::int64::new_long<T>( object ) ;
+}
+
 	// }}}
 
 // {{{ wrap a container that is structured in row major order
