@@ -1,10 +1,16 @@
 2011-10-31  Romain Francois  <romain@r-enthusiasts.com>
 
-    * include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types, 
-    based on the int64 package
-    * include/Rcpp/internal/wrap.h: new dispatch layers to handle int64_t, 
-    uint64_t and containers of these
-    * DESCRIPTION: new depending on int64
+	* include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types, 
+	based on the int64 package
+	* include/Rcpp/internal/wrap.h: new dispatch layers to handle int64_t, 
+	uint64_t and containers of these
+	* DESCRIPTION: new depending on int64
+
+2011-10-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/iostream/Rostream.h (Rcpp): Added tentative patch
+	for operator<< also contributed by Jelmer Ypma -- but kept commented
+	out for now
 
 2011-10-25  Dirk Eddelbuettel  <edd@debian.org>
 
