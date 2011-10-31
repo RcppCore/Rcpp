@@ -59,6 +59,8 @@ struct r_type_pairstring_string_tag{} ;
  */
 struct r_type_pairstring_generic_tag{} ;
 
+struct r_type_int64_tag{} ;
+
 /**
  * R type trait. Helps wrap.
  */
@@ -128,6 +130,9 @@ template<> struct r_type_traits< std::pair<const std::string,rcpp_long_long_type
 template<> struct r_type_traits<rcpp_ulong_long_type>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,rcpp_ulong_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
 #endif
+
+template<> struct r_type_traits<int64_t>{ typedef r_type_int64_tag r_category; } ;
+template<> struct r_type_traits<uint64_t>{ typedef r_type_int64_tag r_category ; } ;
 
 } // traits
 } // Rcpp
