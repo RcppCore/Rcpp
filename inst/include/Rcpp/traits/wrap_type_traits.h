@@ -70,18 +70,24 @@ template <> struct wrap_type_traits<float> { typedef wrap_type_primitive_tag wra
 template <> struct wrap_type_traits< std::complex<float> > { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits< std::complex<double> > { typedef wrap_type_primitive_tag wrap_category; } ;
 
-template <> struct wrap_type_traits<long> { typedef wrap_type_primitive_tag wrap_category; } ;
-template <> struct wrap_type_traits<unsigned long> { typedef wrap_type_primitive_tag wrap_category; } ;
+// FIXME : sometimes long = int64_t
+template <> struct wrap_type_traits<long> { 
+	typedef wrap_type_primitive_tag wrap_category;
+} ;
+template <> struct wrap_type_traits<unsigned long> {
+	typedef wrap_type_primitive_tag wrap_category;
+} ;
 
 template <> struct wrap_type_traits<long double> { typedef wrap_type_primitive_tag wrap_category; } ;
 
 template <> struct wrap_type_traits<short> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<unsigned short> { typedef wrap_type_primitive_tag wrap_category; } ;
 
-#ifdef RCPP_HAS_LONG_LONG_TYPES
-template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-#endif
+// #ifdef RCPP_HAS_LONG_LONG_TYPES
+// [romain] : don't think we need this anymore as we deal with int64_t and uint64_t below
+// template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
+// template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
+// #endif
 
 template <> struct wrap_type_traits<int64_t> { typedef wrap_type_int64_tag wrap_category; } ;
 template <> struct wrap_type_traits<uint64_t> { typedef wrap_type_int64_tag wrap_category; } ;
