@@ -124,12 +124,12 @@ template<> struct r_type_traits< std::complex<float> >{ typedef r_type_primitive
 template<> struct r_type_traits< std::pair<const std::string,std::complex<float> > >{ typedef r_type_primitive_tag r_category ; } ;
 
 /* long long int */
-#ifdef RCPP_HAS_LONG_LONG_TYPES
-template<> struct r_type_traits<rcpp_long_long_type>{ typedef r_type_primitive_tag r_category ; } ;
-template<> struct r_type_traits< std::pair<const std::string,rcpp_long_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
-template<> struct r_type_traits<rcpp_ulong_long_type>{ typedef r_type_primitive_tag r_category ; } ;
-template<> struct r_type_traits< std::pair<const std::string,rcpp_ulong_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
-#endif
+// #ifdef RCPP_HAS_LONG_LONG_TYPES
+// template<> struct r_type_traits<rcpp_long_long_type>{ typedef r_type_primitive_tag r_category ; } ;
+// template<> struct r_type_traits< std::pair<const std::string,rcpp_long_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
+// template<> struct r_type_traits<rcpp_ulong_long_type>{ typedef r_type_primitive_tag r_category ; } ;
+// template<> struct r_type_traits< std::pair<const std::string,rcpp_ulong_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
+// #endif
 
 template<> struct r_type_traits<int64_t>{ typedef r_type_int64_tag r_category; } ;
 template<> struct r_type_traits<uint64_t>{ typedef r_type_int64_tag r_category ; } ;
