@@ -41,6 +41,11 @@
 # error "This compiler is not supported"
 #endif
 
+/* we define this so that INT64_MAX, etc ... are defined */
+#define __STDC_LIMIT_MACROS
+#include <limits.h>
+
+
 #include <Rcpp/config.h>
 #include <Rcpp/macros/unroll.h>
 #include <stdint.h>
@@ -119,7 +124,6 @@ namespace Rcpp{
 #include <numeric>
 #include <algorithm>
 #include <complex>
-#include <limits.h>
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 
@@ -252,15 +256,15 @@ SEXP stack_trace( const char *file, int line) ;
     #include <typeinfo>
 #endif
 
-#ifdef __GNUC__
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
-#ifdef LONG_LONG_MAX
-    __extension__ typedef long long int rcpp_long_long_type;
-    __extension__ typedef unsigned long long int rcpp_ulong_long_type;
-    #define RCPP_HAS_LONG_LONG_TYPES
-#endif
-#endif
-#endif
+// #ifdef __GNUC__
+// #ifdef __GXX_EXPERIMENTAL_CXX0X__
+// #ifdef LONG_LONG_MAX
+//     __extension__ typedef long long int rcpp_long_long_type;
+//     __extension__ typedef unsigned long long int rcpp_ulong_long_type;
+//     #define RCPP_HAS_LONG_LONG_TYPES
+// #endif
+// #endif
+// #endif
 
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
 #include <Rcpp/traits/integral_constant.h>

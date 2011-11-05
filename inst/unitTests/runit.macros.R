@@ -218,7 +218,7 @@ test.RCPPXPFIELD <- function(){
 }
 
 ### regression test for long long support
-test.long.long <- function(){
+test.int64 <- function(){
 	
 	fx <- cxxfunction( signature(), '
 		return foo() ;
