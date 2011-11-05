@@ -930,7 +930,7 @@ setMethod( "show", yada$World , function(object) {
 } )
 @
 
-TODO: mention R inheritance (John ?)
+% TODO: mention R inheritance (John ?)
 
 \subsubsection{Full example}
 
@@ -961,6 +961,12 @@ void vec_set( vec* obj, int i, double value ) {
     obj->at( i ) = value;
 }
 
+int vec_size( vec* obj ){ return obj->size(); }
+int vec_max_size( vec* obj){ return obj->max_size() ; }
+int vec_capacity( vec* obj){ return obj->capacity() ; }
+void vec_reserve( vec* obj, int n){ obj->reserve( n ); }
+void vec_resize(vec* obj, int n){ obj->resize(n); }
+
 RCPP_MODULE(mod_vec) {
     using namespace Rcpp;
 
@@ -972,12 +978,12 @@ RCPP_MODULE(mod_vec) {
     .constructor<int>()
 
     // exposing member functions
-    .method( "size", &vec::size)
-    .method( "max_size", &vec::max_size)
-    .method( "resize", &vec::resize)
-    .method( "capacity", &vec::capacity)
+    .method( "size", &vec_size)
+    .method( "max_size", &vec_max_size)
+    .method( "capacity", &vec_capacity)
+    .method( "resize", &vec_resize)
+    .method( "reserve", &vec_reserve)
     .method( "empty", &vec::empty)
-    .method( "reserve", &vec::reserve)
     .method( "push_back", &vec::push_back )
     .method( "pop_back", &vec::pop_back )
     .method( "clear", &vec::clear )
@@ -1035,12 +1041,12 @@ RCPP_MODULE(mod_vec) {
     .constructor<int>()
 
     // exposing member functions
-    .method( "size", &vec::size)
-    .method( "max_size", &vec::max_size)
-    .method( "resize", &vec::resize)
-    .method( "capacity", &vec::capacity)
+    .method( "size", &vec_size)
+    .method( "max_size", &vec_max_size)
+    .method( "capacity", &vec_capacity)
+    .method( "resize", &vec_resize)
+    .method( "reserve", &vec_reserve)
     .method( "empty", &vec::empty)
-    .method( "reserve", &vec::reserve)
     .method( "push_back", &vec::push_back )
     .method( "pop_back", &vec::pop_back )
     .method( "clear", &vec::clear )
