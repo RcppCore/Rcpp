@@ -53,6 +53,32 @@ namespace Rcpp{
             return exporter.get() ;
         }
         
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_int64_tag){
+            if( Rf_inherits( x,  "int64" ) ){
+                Rcpp::int64::LongVector<int64_t> data(x) ;
+                return data.get(0) ;
+            } else if( TYPEOF(x) == INTSXP ){
+                return (int64_t)INTEGER(x)[0] ;   
+            } else if( TYPEOF(x) == REALSXP ){
+                return (int64_t)REAL(x)[0] ;    
+            } else {
+                Rf_error("expexting an int64_t, an integer or a numeric value") ;   
+            }
+        }
+        
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_uint64_tag){
+            if( Rf_inherits( x,  "uint64" ) ){
+                Rcpp::int64::LongVector<uint64_t> data(x) ;
+                return data.get(0) ;
+            } else if( TYPEOF(x) == INTSXP ){
+                return (uint64_t)INTEGER(x)[0] ;   
+            } else if( TYPEOF(x) == REALSXP ){
+                return (uint64_t)REAL(x)[0] ;    
+            } else {
+                Rf_error("expexting an uint64, an integer or a numeric value") ;   
+            }
+        }
+        
     }
         
         
