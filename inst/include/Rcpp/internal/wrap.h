@@ -254,6 +254,10 @@ template <typename InputIterator, typename T>
 inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_int64_tag){ 
 	return Rcpp::int64::LongVector<T>( std::distance(first, last), first, last ) ;
 }
+template <typename InputIterator, typename T>
+inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_uint64_tag){ 
+	return Rcpp::int64::LongVector<T>( std::distance(first, last), first, last ) ;
+}
 
 
 /**
