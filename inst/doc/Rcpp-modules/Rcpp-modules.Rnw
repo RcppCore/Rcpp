@@ -1030,6 +1030,13 @@ void vec_set( vec* obj, int i, double value ) {
     obj->at( i ) = value;
 }
 
+int vec_size( vec* obj ){ return obj->size(); }
+int vec_max_size( vec* obj){ return obj->max_size() ; }
+int vec_capacity( vec* obj){ return obj->capacity() ; }
+void vec_reserve( vec* obj, int n){ obj->reserve( n ); }
+void vec_resize(vec* obj, int n){ obj->resize(n); }
+double vec_at( const vec* obj, int i){ return obj->at(i); }
+
 RCPP_MODULE(mod_vec) {
     using namespace Rcpp;
 
@@ -1054,7 +1061,7 @@ RCPP_MODULE(mod_vec) {
     // specifically exposing const member functions
     .const_method( "back", &vec::back )
     .const_method( "front", &vec::front )
-    .const_method( "at", &vec::at )
+    .const_method( "at", &vec_at )
 
     // exposing free functions taking a std::vector<double>*
     // as their first argument
@@ -1063,7 +1070,7 @@ RCPP_MODULE(mod_vec) {
     .method( "as.vector", &vec_asR )
 
     // special methods for indexing
-    .const_method( "[[", &vec::at )
+    .const_method( "[[", &vec_at )
     .method( "[[<-", &vec_set )
 
     ;
