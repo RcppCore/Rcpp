@@ -6,6 +6,9 @@
 	e.g. OUT Class::foo( ... ) const 
 	* include/Rcpp/modules/Module_generated_Pointer_CppMethod.h: idem
 	* include/Rcpp/as.h: deal with as<int64_t> and as<uint64_t>
+	* include/Rcpp/internal/export.h : deal with as< some_container<int64_t> >
+	and as< some_container<uint64_t> > where some_container is some container
+	that has iterators, e.g. std::vector
 
 2011-10-31  Romain Francois  <romain@r-enthusiasts.com>
 

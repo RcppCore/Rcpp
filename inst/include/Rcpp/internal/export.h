@@ -66,6 +66,50 @@ namespace Rcpp{
 	    }
         }
         
+        /* iterators over int64_t */
+        template <typename InputIterator, typename value_type>
+        void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_int64_tag ) {
+        	int n = Rf_length(x) ;
+        	if( Rf_inherits( x, "int64" ) ){
+        		Rcpp::int64::LongVector<int64_t> data(x) ;
+        		for( int i=0; i<n; i++, ++first){
+        			*first = data.get(i) ;	
+        		}
+        	} else if( TYPEOF(x) == INTSXP ){
+        		int* p_i_x = INTEGER(x) ;
+        		for( int i=0; i<n; i++, ++first){
+        			*first = (int64_t)p_i_x[i] ;	
+        		}	
+        	} else if( TYPEOF(x) == REALSXP ){
+        		double* p_d_x = REAL(x) ;
+        		for( int i=0; i<n; i++, ++first){
+        			*first = (int64_t)p_d_x[i] ;	
+        		}	
+        	}
+        }
+        
+        /* iterators over uint64_t */
+        template <typename InputIterator, typename value_type>
+        void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_uint64_tag ) {
+        	int n = Rf_length(x) ;
+        	if( Rf_inherits( x, "uint64" ) ){
+        		Rcpp::int64::LongVector<uint64_t> data(x) ;
+        		for( int i=0; i<n; i++, ++first){
+        			*first = data.get(i) ;	
+        		}
+        	} else if( TYPEOF(x) == INTSXP ){
+        		int* p_i_x = INTEGER(x) ;
+        		for( int i=0; i<n; i++, ++first){
+        			*first = (uint64_t)p_i_x[i] ;	
+        		}	
+        	} else if( TYPEOF(x) == REALSXP ){
+        		double* p_d_x = REAL(x) ;
+        		for( int i=0; i<n; i++, ++first){
+        			*first = (uint64_t)p_d_x[i] ;	
+        		}	
+        	}
+        }
+        
         template <typename InputIterator>
         void export_range( SEXP x, InputIterator first ) {
 	    export_range__dispatch<InputIterator,typename std::iterator_traits<InputIterator>::value_type>( 
@@ -74,7 +118,6 @@ namespace Rcpp{
 													   typename ::Rcpp::traits::r_type_traits<typename std::iterator_traits<InputIterator>::value_type>::r_category() 
 													    );
         }
-        
         
         /* indexing */
         
