@@ -1,3 +1,11 @@
+2011-11-06  Romain Francois  <romain@r-enthusiasts.com>
+
+	* include/Rcpp/modules/Module_generated_Pointer_method.h: added code to deal
+	with const free "methods", e.g. OUT foo( const Class*, ...) in modules
+	Before const_method could only deal with actual const methods of the class,
+	e.g. OUT Class::foo( ... ) const 
+	* include/Rcpp/modules/Module_generated_Pointer_CppMethod.h: idem
+
 2011-10-31  Romain Francois  <romain@r-enthusiasts.com>
 
 	* include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types, 
