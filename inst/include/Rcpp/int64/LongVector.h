@@ -30,8 +30,71 @@ template <class LONG>
         SEXP data ;
         
     public:
-        LongVector(SEXP x) : data(x) {
-            R_PreserveObject(data) ;   
+        LongVector(SEXP x) : data(R_NilValue) {
+            if( Rf_inherits( x, get_class<LONG>().c_str() ) ){
+                data = x ;
+                R_PreserveObject(data) ;
+            } else {
+                switch( TYPEOF(x) ){
+                    case INTSXP:
+                        {
+                            int n = Rf_length(x) ;
+                            SEXP y = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
+                            int hb, lb ;
+                            LONG tmp ;
+                            int* p_i_x = INTEGER(x) ;
+                            for( int i=0; i<n; i++){
+                                tmp = (LONG) p_i_x[i] ;
+                                hb = get_high_bits<LONG>(tmp) ;
+                                lb = get_low_bits<LONG>(tmp) ;
+                                SET_VECTOR_ELT( y, i, Rcpp::int64::int2(hb,lb) ) ;    
+                            }
+                            UNPROTECT(1) ; // y
+                            data = y ;
+                            R_PreserveObject(data) ;  
+                            break ;
+                        }
+                    case REALSXP: 
+                        {
+                            int n = Rf_length(x) ;
+                            SEXP y = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
+                            int hb, lb ;
+                            LONG tmp ;
+                            double* p_d_x = REAL(x) ;
+                            for( int i=0; i<n; i++){
+                                tmp = (LONG) p_d_x[i] ;
+                                hb = get_high_bits<LONG>(tmp) ;
+                                lb = get_low_bits<LONG>(tmp) ;
+                                SET_VECTOR_ELT( y, i, Rcpp::int64::int2(hb,lb) ) ;    
+                            }
+                            UNPROTECT(1) ; // y
+                            data = y ;
+                            R_PreserveObject(data) ;  
+                            break ;  
+                        }
+                    case STRSXP:
+                        {
+                            int n = Rf_length(x) ;
+                            SEXP y = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
+                            int hb, lb ;
+                            LONG tmp ;
+                            for( int i=0; i<n; i++){
+                                tmp = read_string<LONG>( CHAR(STRING_ELT(x,i)) ) ;
+                                hb = get_high_bits<LONG>(tmp) ;
+                                lb = get_low_bits<LONG>(tmp) ;
+                                SET_VECTOR_ELT( y, i, Rcpp::int64::int2(hb,lb) ) ;    
+                            }
+                            UNPROTECT(1) ; // y
+                            data = y ;
+                            R_PreserveObject(data) ;  
+                            break ;        
+                        }
+                    default:
+                        {
+                            Rf_error( "unimplemented conversion" ) ;   
+                        }
+                }
+            }
         }
         
         operator SEXP(){ 
@@ -72,7 +135,7 @@ template <class LONG>
         
         
         ~LongVector(){
-            R_ReleaseObject(data) ;   
+            if( !Rf_isNull(data)) R_ReleaseObject(data) ;   
         }
         
         inline LONG get(int i) const {
