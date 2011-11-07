@@ -84,19 +84,37 @@ uint64_t sum = 0 ;
 for( int i=0; i<x.size(); i++) sum += x[i] ;
 return wrap( sum == 10 ) ;
         '
+    ), 
+    "export_indexing_vector_int64" = list( 
+    signature( x_ = "ANY" ), 
+        '
+std::vector<int64_t> x(4) ;
+Rcpp::internal::export_indexing< std::vector<int64_t>, int64_t>( x_, x) ;
+int64_t sum = 0 ;
+for( int i=0; i<x.size(); i++) sum += x[i] ;
+return wrap( sum == 10 ) ;
+
+'
+    ), 
+    "export_indexing_vector_uint64" = list( 
+    signature( x_ = "ANY" ), 
+        '
+std::vector<uint64_t> x(4) ;
+Rcpp::internal::export_indexing< std::vector<uint64_t>, uint64_t>( x_, x) ;
+uint64_t sum = 0 ;
+for( int i=0; i<x.size(); i++) sum += x[i] ;
+return wrap( sum == 10 ) ;
+
+'
     )
  )
         f
 }
 
-includes <- function()
-'
-
-'
 
 .setUp <- function() {
     if( ! exists( ".rcpp.int64", globalenv() )) {
-       fun <- Rcpp:::compile_unit_tests( definitions(),includes() )
+       fun <- Rcpp:::compile_unit_tests( definitions() )
        assign( ".rcpp.int64", fun, globalenv() )
     }
 }
@@ -152,4 +170,15 @@ test.as.vector.int64 <- function(){
 
 }
 
+test.as.vector.int64 <- function(){
+    fun <- .rcpp.int64$export_indexing_vector_int64
+    checkTrue(fun(1:4), msg = "export_indexing< vector<int64_t>, int64_t>" )
+    checkTrue(fun(seq(1, 4, by = 1)), msg = "export_indexing< vector<int64_t>, int64_t>" )
+    checkTrue(fun(as.int64(1:4)), msg = "export_indexing< vector<int64_t>, int64_t>" )
+
+    fun <- .rcpp.int64$export_indexing_vector_uint64
+    checkTrue(fun(1:4), msg = "export_indexing< vector<uint64_t>, uint64_t>" )
+    checkTrue(fun(seq(1, 4, by = 1)), msg = "export_indexing< vector<uint64_t>, uint64_t>" )
+    checkTrue(fun(as.uint64(1:4)), msg = "export_indexing< vector<uint64_t>, uint64_t>" )
+}
 
