@@ -630,6 +630,25 @@ inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_typ
 	return x ;
 }
 
+template <typename T, typename elem_type>
+inline SEXP wrap_dispatch_importer_int64( const T& object ){
+	int size = object.size() ;
+	Rcpp::int64::LongVector<elem_type> res(size) ;
+	for( int i=0; i<size; i++){
+		res.set(i, object.get(i) ) ;
+	}
+	return res ;
+}
+
+template <typename T, typename elem_type>
+inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_int64_tag ){
+	return wrap_dispatch_importer_int64<T,elem_type>( object ) ;
+}
+template <typename T, typename elem_type>
+inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_uint64_tag ){
+	return wrap_dispatch_importer_int64<T,elem_type>( object ) ;
+}
+
 
 template <typename T, typename elem_type>
 inline SEXP wrap_dispatch_importer( const T& object ){
