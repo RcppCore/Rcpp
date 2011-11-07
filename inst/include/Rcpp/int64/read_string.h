@@ -1,6 +1,8 @@
-// int64_lite.h : 64 bit integers
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// Copyright (C) 2011 Romain Francois and Dirk Eddelbuettel
+// read_string.h : Rcpp R/C++ interface class library -- 
+//
+// Copyright (C) 2011 Romain Francois
 // Copyright (C) 2011 Google Inc.  All rights reserved.
 //
 // This file is part of Rcpp.
@@ -17,23 +19,27 @@
 //
 // You should have received a copy of the GNU General Public License  
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.    
-  
-#ifndef int64__lite_h
-#define int64__lite_h
+    
+#ifndef Rcpp__int64__read_string__h
+#define Rcpp__int64__read_string__h
 
 namespace Rcpp{
     namespace int64{
-        SEXP int2(int,int); 
+
+        template <typename LONG>
+        inline LONG read_string(const char* s) ;
         
-        template <typename LONG> class LongVector ;
-    }
-}    
-
-#include <Rcpp/int64/get_class.h>
-#include <Rcpp/int64/get_long.h>
-#include <Rcpp/int64/read_string.h>
-#include <Rcpp/int64/get_bits.h>
-#include <Rcpp/int64/new_long.h>
-#include <Rcpp/int64/LongVector.h>
-
+        template <>
+        inline int64_t read_string<int64_t>(const char* s ){
+            return strtoll( s, NULL, 0 ) ; 
+        }
+            
+        template <>
+        inline uint64_t read_string<uint64_t>(const char* s){
+            return strtoull( s, NULL, 0 ) ;
+        } 
+    
+        
+    } // namespace int64
+} // namespace Rcpp
 #endif
