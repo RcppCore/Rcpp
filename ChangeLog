@@ -1,3 +1,8 @@
+2011-11-07  Romain Francois  <romain@r-enthusiasts.com>
+
+	* include/Rcpp/internal/wrap.h: implemented wrap_dispatch_importer__impl
+	for int64 and uint64, needed for RProtoBuf
+
 2011-11-06  Romain Francois  <romain@r-enthusiasts.com>
 
 	* include/Rcpp/modules/Module_generated_Pointer_method.h: added code to deal
