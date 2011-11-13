@@ -8,6 +8,8 @@
         of them. This work has been sponsored by the Google Open Source
         Programs Office. 
 
+    o   New unit test for pnf() (ie prob. function of a non-central F dist.)
+
 0.9.7   2011-09-29
 
     o   Applied two patches kindly provided by Martyn Plummer which provide
