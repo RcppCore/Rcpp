@@ -1,3 +1,7 @@
+2011-11-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.stats.R: Add unit test for pnf() 
+
 2011-11-07  Romain Francois  <romain@r-enthusiasts.com>
 
 	* include/Rcpp/internal/wrap.h: implemented wrap_dispatch_importer__impl
