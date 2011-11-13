@@ -1,6 +1,8 @@
 2011-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.stats.R: Add unit test for pnf() 
+	* inst/include/Rcpp/stats/f.h: Correct call to not require ncp parameter
+
+	* inst/unitTests/runit.stats.R: Add unit test for pf() and pnf() 
 
 2011-11-07  Romain Francois  <romain@r-enthusiasts.com>
 

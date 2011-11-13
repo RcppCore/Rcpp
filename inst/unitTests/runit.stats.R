@@ -148,10 +148,21 @@ definitions <- function(){
 				  signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pnf( xx, 6.0, 8.0, 0.0, true ),
-									  _["lowerLog"]	  = pnf( xx, 6.0, 8.0, 0.0, true, true ),
-									  _["upperNoLog"] = pnf( xx, 6.0, 8.0, 0.0, false ),
-									  _["upperLog"]	  = pnf( xx, 6.0, 8.0, 0.0, false, true ));
+				  return List::create(_["lowerNoLog"] = pnf( xx, 6.0, 8.0, 2.5, true ),
+									  _["lowerLog"]	  = pnf( xx, 6.0, 8.0, 2.5, true, true ),
+									  _["upperNoLog"] = pnf( xx, 6.0, 8.0, 2.5, false ),
+									  _["upperLog"]	  = pnf( xx, 6.0, 8.0, 2.5, false, true ));
+				  ')
+
+				  ,
+				  "runit_pf" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = pf( xx, 6.0, 8.0 ),
+									  _["lowerLog"]	  = pf( xx, 6.0, 8.0, true, true ),
+									  _["upperNoLog"] = pf( xx, 6.0, 8.0, false ),
+									  _["upperLog"]	  = pf( xx, 6.0, 8.0, false, true ));
 				  ')
 
 				  ,
@@ -383,8 +394,8 @@ test.stats.punif <- function( ) {
     # TODO: also borrow from R's d-p-q-r-tests.R
 }
 
-test.stats.pnf <- function( ) {
-    fx <- .rcpp.stats$runit_pnf
+test.stats.pf <- function( ) {
+    fx <- .rcpp.stats$runit_pf
     v <- (1:9)/10
     checkEquals(fx(v),
                 list(lowerNoLog = pf(v, 6, 8, lower=TRUE, log=FALSE),
@@ -393,6 +404,18 @@ test.stats.pnf <- function( ) {
                      upperLog   = pf(v, 6, 8, lower=FALSE, log=TRUE)
                      ),
                 msg = "stats.pf" )
+}
+
+test.stats.pnf <- function( ) {
+    fx <- .rcpp.stats$runit_pnf
+    v <- (1:9)/10
+    checkEquals(fx(v),
+                list(lowerNoLog = pf(v, 6, 8, ncp=2.5, lower=TRUE, log=FALSE),
+                     lowerLog   = pf(v, 6, 8, ncp=2.5, log=TRUE ),
+                     upperNoLog = pf(v, 6, 8, ncp=2.5, lower=FALSE),
+                     upperLog   = pf(v, 6, 8, ncp=2.5, lower=FALSE, log=TRUE)
+                     ),
+                msg = "stats.pnf" )
 }
 
 test.stats.pgamma <- function( ) {

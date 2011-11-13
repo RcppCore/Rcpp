@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__f_h
 #define Rcpp__stats__f_h
 
-RCPP_DPQ_3(f,::Rf_df,::Rf_pf,::Rf_qf)
+RCPP_DPQ_2(f,::Rf_df,::Rf_pf,::Rf_qf)
 
 #endif
 
