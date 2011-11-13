@@ -4,11 +4,12 @@
     	'Rcout' not unlike std::cout, but implemented via Rprintf to
     	cooperate with R and its output buffering.
     	
-    o   wrap now handles 64 bit integer types (int64_t, uint64_t) and containers
-        of them. This work has been sponsored by the Google Open Source
-        Programs Office. 
+    o   wrap now handles 64 bit integers (int64_t, uint64_t) and containers 
+        of them, and Rcpp now depends on the int64 package (also on CRAN).
+        This work has been sponsored by the Google Open Source Programs
+        Office.
 
-    o   New unit test for pf(), pnf(), pchisq() and pnchisq()
+    o   New unit tests for pf(), pnf(), pchisq() and pnchisq()
 
 0.9.7   2011-09-29
 
