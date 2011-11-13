@@ -166,6 +166,28 @@ definitions <- function(){
 				  ')
 
 				  ,
+				  "runit_pnchisq" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = pnchisq( xx, 6.0, 2.5, true ),
+									  _["lowerLog"]	  = pnchisq( xx, 6.0, 2.5, true, true ),
+									  _["upperNoLog"] = pnchisq( xx, 6.0, 2.5, false ),
+									  _["upperLog"]	  = pnchisq( xx, 6.0, 2.5, false, true ));
+				  ')
+
+				  ,
+				  "runit_pchisq" = list(
+				  signature( x = "numeric" ),
+				  '
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = pchisq( xx, 6.0 ),
+									  _["lowerLog"]	  = pchisq( xx, 6.0, true, true ),
+									  _["upperNoLog"] = pchisq( xx, 6.0, false ),
+									  _["upperLog"]	  = pchisq( xx, 6.0, false, true ));
+				  ')
+
+                  ,
 				  "runit_pnorm" = list(signature( x = "numeric" ),
 				  '
 				  NumericVector xx(x) ;
@@ -418,6 +440,30 @@ test.stats.pnf <- function( ) {
                 msg = "stats.pnf" )
 }
 
+test.stats.pchisq <- function( ) {
+    fx <- .rcpp.stats$runit_pchisq
+    v <- (1:9)/10
+    checkEquals(fx(v),
+                list(lowerNoLog = pchisq(v, 6, lower=TRUE, log=FALSE),
+                     lowerLog   = pchisq(v, 6, log=TRUE ),
+                     upperNoLog = pchisq(v, 6, lower=FALSE),
+                     upperLog   = pchisq(v, 6, lower=FALSE, log=TRUE)
+                     ),
+                msg = "stats.pchisq" )
+}
+
+test.stats.pnchisq <- function( ) {
+    fx <- .rcpp.stats$runit_pnchisq
+    v <- (1:9)/10
+    checkEquals(fx(v),
+                list(lowerNoLog = pchisq(v, 6, ncp=2.5, lower=TRUE, log=FALSE),
+                     lowerLog   = pchisq(v, 6, ncp=2.5, log=TRUE ),
+                     upperNoLog = pchisq(v, 6, ncp=2.5, lower=FALSE),
+                     upperLog   = pchisq(v, 6, ncp=2.5, lower=FALSE, log=TRUE)
+                     ),
+                msg = "stats.pnchisq" )
+}
+
 test.stats.pgamma <- function( ) {
     fx <- .rcpp.stats$runit_pgamma
     v <- (1:9)/10
@@ -539,5 +585,5 @@ test.stats.qt <- function( ) {
 }
 
 # TODO: test.stats.qgamma
-# TODO: test.stats.(dpq)chisq
+# TODO: test.stats.(dq)chisq
 
