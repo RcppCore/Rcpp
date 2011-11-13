@@ -8,7 +8,7 @@
         of them. This work has been sponsored by the Google Open Source
         Programs Office. 
 
-    o   New unit test for pf() and pnf() 
+    o   New unit test for pf(), pnf(), pchisq() and pnchisq()
 
 0.9.7   2011-09-29
 
