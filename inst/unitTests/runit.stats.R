@@ -122,6 +122,19 @@ definitions <- function(){
 				  ')
 
 				  ,
+				  "runit_pcauchy" = list(
+				  signature( x = "numeric", location = "numeric", scale = "numeric" ),
+				  '
+				  double loc = as<double>(location);
+				  double scl = as<double>(scale);
+				  NumericVector xx(x) ;
+				  return List::create(_["lowerNoLog"] = pcauchy(xx, loc, scl ),
+									  _["lowerLog"]	  = pcauchy(xx, loc, scl, true, true ),
+									  _["upperNoLog"] = pcauchy(xx, loc, scl, false ),
+									  _["upperLog"]	  = pcauchy(xx, loc, scl, false, true ));
+				  ')
+
+				  ,
 				  "runit_punif" = list(
 				  signature( x = "numeric" ),
 				  '
@@ -403,6 +416,20 @@ test.stats.pbinom <- function( ) {
                 msg = " stats.pbinom")
 }
 
+test.stats.pcauchy <- function( ) {
+    fx <- .rcpp.stats$runit_pcauchy
+    location <- 0.5
+    scale <- 1.5
+    vv <- 1:5
+    checkEquals(fx(vv, location, scale),
+                list(lowerNoLog = pcauchy(vv, location, scale),
+                     lowerLog   = pcauchy(vv, location, scale, log=TRUE),
+                     upperNoLog = pcauchy(vv, location, scale, lower=FALSE),
+                     upperLog   = pcauchy(vv, location, scale, lower=FALSE, log=TRUE)
+                     ),
+                msg = " stats.pcauchy")
+}
+
 test.stats.punif <- function( ) {
     fx <- .rcpp.stats$runit_punif
     v <- qunif(seq(0.0, 1.0, by=0.1))
@@ -522,7 +549,7 @@ test.stats.qbinom <- function( ) {
     n <- 20
     p <- 0.5
     vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv, n, p),
+    checkEquals(fx(vv, location, scale),
                 list(lower = qbinom(vv, n, p),
                      upper = qbinom(vv, n, p, lower=FALSE)
                      ),

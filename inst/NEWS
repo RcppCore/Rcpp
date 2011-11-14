@@ -9,7 +9,7 @@
         This work has been sponsored by the Google Open Source Programs
         Office.
 
-    o   New unit tests for pf(), pnf(), pchisq() and pnchisq()
+    o   New unit tests for pf(), pnf(), pchisq(), pnchisq() and pcauchy()
 
 0.9.7   2011-09-29
 
