@@ -3,7 +3,7 @@
 	* inst/include/Rcpp/stats/f.h: Correct call to not require ncp parameter
 
 	* inst/unitTests/runit.stats.R: Add unit tests for pf(), pnf(),
-	pchisq() and pnchisq()
+	pchisq(), pnchisq() and pcauchy()
 
 2011-11-07  Romain Francois  <romain@r-enthusiasts.com>
 
