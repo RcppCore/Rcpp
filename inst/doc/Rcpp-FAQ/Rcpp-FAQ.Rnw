@@ -460,7 +460,7 @@ and instance of the \texttt{RNGScope} class to set and re-set the
 random-number generator. This also illustrates Rcpp sugar as we are using a
 vectorised call to \texttt{rnorm}. Moreover, because the RNG is reset, the
 two calls result in the same random draws. If we wanted to control the draws,
-we could explicitly set the set after the \texttt{RNGScope} object has been
+we could explicitly set the seed after the \texttt{RNGScope} object has been
 instantiated.
 
 <<>>=
@@ -586,13 +586,13 @@ fun()
 \subsection{Can I use 64 bits integer types ?}
 
 Yes. Since version 0.9.8, \pkg{Rcpp} depends on the \pkg{int64}
-package. \pkg{int64} brings 64 bit integer vectors to R, with the 
-two S4 classes \code{int64} and \code{uint64} that internally 
-handle C++ types \code{int64\_t} and \code{uint64\_t}. 
+package. \pkg{int64} brings 64 bit integer vectors to R, with the
+two S4 classes \code{int64} and \code{uint64} that internally
+handle C++ types \code{int64\_t} and \code{uint64\_t}.
 
-\pkg{Rcpp}'s \code{wrap} function is able to handle the 
+\pkg{Rcpp}'s \code{wrap} function is able to handle the
 primitives \code{int64\_t} and \code{uint64\_t} as well as containers
-of these: 
+of these:
 
 <<>>=
 BigInts <- cxxfunction(signature(),
@@ -600,16 +600,16 @@ BigInts <- cxxfunction(signature(),
    bigints.push_back(12345678901234567LL);
    bigints.push_back(12345678901234568LL);
    Rprintf("Difference of %ld\\n", 12345678901234568LL - 12345678901234567LL);
-   return wrap(bigints);', 
+   return wrap(bigints);',
 plugin="Rcpp" )
 
 retval<-BigInts()
 retval
 @
 
-The vignette in the \pkg{int64} package has the details on how 64 bit 
+The vignette in the \pkg{int64} package has the details on how 64 bit
 integer types are handled. In short, we split the higher bits and the lower
-into two integers. 
+into two integers.
 
 \section{Support}
 
