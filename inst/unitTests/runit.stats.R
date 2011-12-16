@@ -549,7 +549,7 @@ test.stats.qbinom <- function( ) {
     n <- 20
     p <- 0.5
     vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv, location, scale),
+    checkEquals(fx(vv, n, p),
                 list(lower = qbinom(vv, n, p),
                      upper = qbinom(vv, n, p, lower=FALSE)
                      ),
