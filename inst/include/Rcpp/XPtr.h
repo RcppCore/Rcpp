@@ -57,6 +57,8 @@ public:
      * @param xp external pointer to wrap
      */
     explicit XPtr(SEXP m_sexp, SEXP tag = R_NilValue, SEXP prot = R_NilValue) : RObject(m_sexp){
+	if( TYPEOF(m_sexp) != EXTPTRSXP )
+	    throw ::Rcpp::not_compatible( "expecting an external pointer" ) ;
     	R_SetExternalPtrTag( m_sexp, tag ) ;
     	R_SetExternalPtrProtected( m_sexp, prot ) ;
     } ;
