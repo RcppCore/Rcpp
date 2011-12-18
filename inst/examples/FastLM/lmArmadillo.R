@@ -54,6 +54,6 @@ lmArmadillo <- function() {
                      includes="#include <armadillo>",
                      Rcpp=TRUE,
                      cppargs="-I/usr/include",
-                     libargs="-larmadillo")
+                     libargs="-larmadillo -llapack")
 }
 
