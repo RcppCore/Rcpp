@@ -1,15 +1,21 @@
 0.9.8   201x-yy-zz
 
-    o   Applied patch by Jelmer Ypma which adds an output stream class
-    	'Rcout' not unlike std::cout, but implemented via Rprintf to
-    	cooperate with R and its output buffering.
-    	
     o   wrap now handles 64 bit integers (int64_t, uint64_t) and containers 
         of them, and Rcpp now depends on the int64 package (also on CRAN).
         This work has been sponsored by the Google Open Source Programs
         Office.
 
+    o   Added setRcppClass() function to create extended reference classes 
+        with an interface to a C++ class (typically via Rcpp Module) which
+	can have R-based fields and methods in addition to those from the C++.
+
+    o   Applied patch by Jelmer Ypma which adds an output stream class
+    	'Rcout' not unlike std::cout, but implemented via Rprintf to
+    	cooperate with R and its output buffering.
+    	
     o   New unit tests for pf(), pnf(), pchisq(), pnchisq() and pcauchy()
+
+    o   XPtr constructor now checks for corresponding tupe in SEXP
 
     o   Updated vignettes for use with updated highlight package
 
