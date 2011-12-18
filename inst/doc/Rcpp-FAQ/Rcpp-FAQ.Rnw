@@ -56,35 +56,6 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
     link( sprintf("%s-class", cl), package, text, root )
 }
 require(inline)
-# this will be integrated to package highlight later
-ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
-    if( verbatim ){
-        writeLines( "\\begin{verbatim}" )
-        writeLines( readLines( file ) )
-        writeLines( "\\end{verbatim}" )
-    } else {
-        tf <- tempfile()
-        if( external.highlight ){
-            cmd <- sprintf( 'highlight --input="%s" --output="%s" -L --pretty-symbols', file, tf )
-            tryCatch( {
-                system( cmd )
-                tex <- readLines( tf )
-                keep <- seq( which( tex == "\\noindent" ), which( tex == "\\normalfont" ) )
-                tex <- c(
-                         "\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}" ,
-                         tex[ keep ],
-                         "\\end{minipage}}\\vspace{1em}" )
-                writeLines( tex )
-            })
-        } else {
-            r = renderer_latex( minipage = TRUE, doc = FALSE )
-            tex <- highlight( file, renderer = r , output = NULL )
-            writeLines( tex )
-        }
-    }
-    invisible(NULL)
-}
-
 @
 
 \newcommand{\faq}[1]{FAQ~\ref{#1}}
@@ -348,34 +319,26 @@ which is generally the best place to ask questions.
 \noindent Most certainly, consider this simple example of a templated class
 which squares its argument:
 
-<<echo=FALSE>>=
-writeLines( '
-inc <- \'template <typename T>
+<<lang=r>>=
+inc <- 'template <typename T>
         class square : public std::unary_function<T,T> {
         public:
             T operator()( T t) const { return t*t ;}
         };
-       \'
+       '
 
-src <- \'
+src <- '
        double x = Rcpp::as<double>(xs);
        int i = Rcpp::as<int>(is);
        square<double> sqdbl;
        square<int> sqint;
        return Rcpp::DataFrame::create(Rcpp::Named("x", sqdbl(x)),
                                       Rcpp::Named("i", sqint(i)));
-       \'
+       '
 fun <- cxxfunction(signature(xs="numeric", is="integer"),
                    body=src, include=inc, plugin="Rcpp")
 
 fun(2.2, 3L)
-', "templateUse.R")
-@
-<<echo=FALSE,results=tex>>=
-ex_highlight( "templateUse.R" )
-@
-<<echo=FALSE>>=
-unlink("templateUse.R")
 @
 
 
@@ -424,7 +387,7 @@ writeLines( '
 ', "myfile.cpp" )
 @
 <<echo=FALSE,results=tex>>=
-ex_highlight( "myfile.cpp" )
+external_highlight( "myfile.cpp", type = "LATEX", doc = FALSE )
 @
 
 <<>>=
