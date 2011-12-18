@@ -1,3 +1,8 @@
+2011-12-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/FastLM/lmArmadillo.R: Link with -llapack when using
+	external Armadillo library (but RcppArmadillo makes all	this easier)
+
 2011-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/stats/f.h: Correct call to not require ncp parameter
