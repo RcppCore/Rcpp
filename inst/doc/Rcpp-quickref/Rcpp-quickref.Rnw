@@ -29,17 +29,17 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \title{\pkg{Rcpp} Quick Reference Guide}
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
-
-\renewenvironment{Hchunk}%
-{%
-\vspace{0.5em}\noindent\begin{lrbox}{\highlightbox}%
-\begin{minipage}[b]{.42\textwidth}%
-}%
-{%
-\end{minipage}%
-\end{lrbox}%
-\fcolorbox{highlightBorder}{highlightBg}{\usebox{\highlightbox}}%
-\vspace{0.5em}}%
+% \newsavebox{\highlightbox}
+% \renewenvironment{Hchunk}%
+% {%
+% \vspace{0.5em}\noindent\begin{lrbox}{\highlightbox}%
+% \begin{minipage}[b]{.42\textwidth}%
+% }%
+% {%
+% \end{minipage}%
+% \end{lrbox}%
+% \fcolorbox{highlightBorder}{highlightBg}{\usebox{\highlightbox}}%
+% \vspace{0.5em}}%
 
 \begin{document}
 \maketitle
