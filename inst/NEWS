@@ -11,6 +11,11 @@
 
     o   New unit tests for pf(), pnf(), pchisq(), pnchisq() and pcauchy()
 
+    o   Updated vignettes for use with updated highlight package
+
+    o   Update linking command for older fastLm() example using external 
+        Armadillo
+
 0.9.7   2011-09-29
 
     o   Applied two patches kindly provided by Martyn Plummer which provide
