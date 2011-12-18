@@ -55,34 +55,6 @@ link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/l
 linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
 	link( sprintf("%s-class", cl), package, text, root )
 }
-# this will be integrated to package highlight later
-ex_highlight <- function( file, external.highlight = TRUE, verbatim = FALSE ){
-	if( verbatim ){
-		writeLines( "\\begin{verbatim}" )
-		writeLines( readLines( file ) )
-		writeLines( "\\end{verbatim}" )
-	} else {
-		tf <- tempfile()
-		if( external.highlight ){
-			cmd <- sprintf( 'highlight --input="%s" --output="%s" -L --pretty-symbols', file, tf )
-			tryCatch( {
-				system( cmd )
-				tex <- readLines( tf )
-				keep <- seq( which( tex == "\\noindent" ), which( tex == "\\normalfont" ) )
-				tex <- c(
-					"\\vspace{1em}\\noindent\\fbox{\\begin{minipage}{0.9\\textwidth}" ,
-                                         gsub("^$", "%", tex[keep]),
-					"\\end{minipage}}\\vspace{1em}" )
-				writeLines( tex )
-			})
-		} else {
-			r = renderer_latex( minipage = TRUE, doc = FALSE )
-			tex <- highlight( file, renderer = r , output = NULL )
-			writeLines( tex )
-		}
-	}
-	invisible(NULL)
-}
 @
 
 \begin{document}
@@ -208,7 +180,10 @@ invoke the \proglang{C++} function \texttt{rcpp\_hello\_world} from the
 package \texttt{mypackage}.
 
 <<echo=FALSE,results=tex>>=
-ex_highlight( file.path( gendir, "mypackage", "R", "rcpp_hello_world.R" ), FALSE )
+highlight( 
+    file.path( gendir, "mypackage", "R", "rcpp_hello_world.R" ), 
+    renderer = renderer_latex( doc = FALSE )
+    )
 @
 
 \pkg{Rcpp} uses the \Sexpr{link(".Call")} calling convention as it allows
@@ -227,7 +202,11 @@ The \proglang{C++} function is declared in the \texttt{rcpp\_hello\_world.h}
 header file:
 
 <<echo=FALSE,results=tex>>=
-ex_highlight( file.path( gendir, "mypackage", "src", "rcpp_hello_world.h" )  )
+external_highlight( 
+    file.path( gendir, "mypackage", "src", "rcpp_hello_world.h" ),
+    type = "LATEX", 
+    doc = FALSE
+    )
 @
 
 The header includes the \texttt{Rcpp.h} file, which is the only file that
@@ -235,7 +214,11 @@ needs to be included to use \pkg{Rcpp}. The function is then implemented in
 the \texttt{rcpp\_hello\_world.cpp} file
 
 <<echo=FALSE,results=tex>>=
-ex_highlight( file.path( gendir, "mypackage", "src", "rcpp_hello_world.cpp" )  )
+external_highlight( 
+    file.path( gendir, "mypackage", "src", "rcpp_hello_world.cpp" ), 
+    type = "LATEX", 
+    doc = FALSE
+)
 @
 
 The function creates an \proglang{R} list that contains a
@@ -256,7 +239,7 @@ both \texttt{Depends:} and \texttt{LinkingTo} for \pkg{Rcpp}:
 local({
 	tf <- sprintf( "%s.make", tempfile() )
 	file.copy( file.path( gendir, "mypackage", "DESCRIPTION" ), tf )
-	ex_highlight( tf )
+	external_highlight( tf, type = "LATEX", doc = FALSE )
 	unlink( tf )
 })
 @
@@ -282,7 +265,7 @@ unexported function \texttt{Rcpp:::LdFlags()} to ease the process:
 local({
 	tf <- sprintf( "%s.make", tempfile() )
 	file.copy( file.path( gendir, "mypackage", "src", "Makevars" ), tf )
-	ex_highlight( tf )
+	external_highlight( tf, type = "LATEX", doc = FALSE )
 	unlink( tf )
 })
 @
@@ -293,7 +276,7 @@ The \texttt{Makevars.win} is the equivalent, targeting windows.
 local({
 	tf <- sprintf( "%s.make", tempfile() )
 	file.copy( file.path( gendir, "mypackage", "src", "Makevars.win" ), tf )
-	ex_highlight( tf )
+	external_highlight( tf, type = "LATEX", doc = FALSE )
 	unlink( tf )
 })
 @
@@ -307,7 +290,7 @@ The \Sexpr{link("Rcpp.package.skeleton")} function also creates a file
 local({
 	tf <- sprintf( "%s.make", tempfile() )
 	file.copy( file.path( gendir, "mypackage", "NAMESPACE" ), tf )
-	ex_highlight( tf )
+	external_highlight( tf, type = "LATEX", doc = FALSE )
 	unlink( tf )
 })
 @
@@ -337,7 +320,7 @@ the new package.
 local({
 	tf <- sprintf( "%s.make", tempfile() )
 	file.copy( file.path( gendir, "mypackage", "man", "mypackage-package.Rd" ), tf )
-	ex_highlight( tf )
+	external_highlight( tf, type = "LATEX", doc = FALSE )
 	unlink( tf )
 })
 @
@@ -352,7 +335,7 @@ example \proglang{R} function.
 local({
 	tf <- sprintf( "%s.make", tempfile() )
 	file.copy( file.path( gendir, "mypackage", "man", "rcpp_hello_world.Rd" ), tf )
-	ex_highlight( tf )
+	external_highlight( tf, type = "LATEX", doc = FALSE )
 	unlink( tf )
 })
 @
