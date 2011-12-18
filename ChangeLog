@@ -3,6 +3,22 @@
 	* inst/examples/FastLM/lmArmadillo.R: Link with -llapack when using
 	external Armadillo library (but RcppArmadillo makes all	this easier)
 
+2011-12-18  Romain Francois  <romain@r-enthusiasts.com>
+
+	* inst/doc/*: Fixes to various vignettes for new version of highlight
+
+2011-12-16  Douglas Bates  <bates@stat.wisc.edu>
+
+	* inst/unitTests/runit.stats.R: Correct cut+paste typo in qbinom
+
+	* inst/include/Rcpp/XPtr.h: Check for XPtr type constructing from SEXP
+
+2011-12-12  John M Chambers  <jmc@r-project.org>
+
+	* R/RcppClass.R: Added setRcppClass for classes extending C++ classes
+	* man/setRcppClass.Rd: Added corresponding documentation
+	* NAMESPACE: Added corresponding exports entry
+
 2011-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/stats/f.h: Correct call to not require ncp parameter
@@ -15,12 +31,14 @@
 	* include/Rcpp/internal/wrap.h: implemented wrap_dispatch_importer__impl
 	for int64 and uint64, needed for RProtoBuf
 
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Add int64_t usage example
+
 2011-11-06  Romain Francois  <romain@r-enthusiasts.com>
 
 	* include/Rcpp/modules/Module_generated_Pointer_method.h: added code to deal
 	with const free "methods", e.g. OUT foo( const Class*, ...) in modules
 	Before const_method could only deal with actual const methods of the class,
-	e.g. OUT Class::foo( ... ) const 
+	e.g. OUT Class::foo( ... ) const
 	* include/Rcpp/modules/Module_generated_Pointer_CppMethod.h: idem
 	* include/Rcpp/as.h: deal with as<int64_t> and as<uint64_t>
 	* include/Rcpp/internal/export.h : deal with as< some_container<int64_t> >
@@ -29,9 +47,9 @@
 
 2011-10-31  Romain Francois  <romain@r-enthusiasts.com>
 
-	* include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types, 
+	* include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types,
 	based on the int64 package
-	* include/Rcpp/internal/wrap.h: new dispatch layers to handle int64_t, 
+	* include/Rcpp/internal/wrap.h: new dispatch layers to handle int64_t,
 	uint64_t and containers of these
 	* DESCRIPTION: new depending on int64
 
