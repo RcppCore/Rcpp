@@ -197,6 +197,7 @@ test.Module.member <- function(){
 }
 
 test.Module.Constructor <- function() {
+
     inc <- '
 
 class Randomizer {
@@ -236,8 +237,8 @@ RCPP_MODULE(mod){
     set.seed(123)
     checkEquals(r$get(10), x10)
 
-    r <- new( Randomizer )
-    stopifnot(is(tryCatch(r$get(10), error = function(e)e), "error"))
+    ##r <- new( Randomizer )
+    ##stopifnot(is(tryCatch(r$get(10), error = function(e)e), "error"))
 }
 
 }
