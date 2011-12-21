@@ -1,3 +1,7 @@
+2011-12-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/skeleton/zzz.R (.onLoad): correct order of arguments
+
 2011-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/FastLM/lmArmadillo.R: Link with -llapack when using
