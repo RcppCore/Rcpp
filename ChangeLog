@@ -1,3 +1,10 @@
+2011-12-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.8
+        * inst/NEWS: Release 0.9.8
+        * inst/include/Rcpp/config.h: Release 0.9.8
+        * debian/*: Similarly updated for new release to Debian
+
 2011-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/skeleton/zzz.R (.onLoad): correct order of arguments
