@@ -1,4 +1,4 @@
-0.9.8   201x-yy-zz
+0.9.8   2011-12-21
 
     o   wrap now handles 64 bit integers (int64_t, uint64_t) and containers 
         of them, and Rcpp now depends on the int64 package (also on CRAN).
@@ -15,7 +15,7 @@
     	
     o   New unit tests for pf(), pnf(), pchisq(), pnchisq() and pcauchy()
 
-    o   XPtr constructor now checks for corresponding tupe in SEXP
+    o   XPtr constructor now checks for corresponding type in SEXP
 
     o   Updated vignettes for use with updated highlight package
 
