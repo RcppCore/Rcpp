@@ -65,3 +65,5 @@ r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.m
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.support.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/examples/Misc/ifelseLooped.r
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/examples/OpenMP/OpenMPandInline.r
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.int64.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.rcout.R
