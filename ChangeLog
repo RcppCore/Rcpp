@@ -1,3 +1,8 @@
+2011-12-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runTests.R: unit tests output 'fallback' directory
+	changed to '..' and files are now in top-level of $pkg.Rcheck/
+
 2011-12-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.8

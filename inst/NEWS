@@ -1,3 +1,7 @@
+0.9.9   2012-xx-yy
+
+    o   Unit test output directory fallback changed to use Rcpp.Rcheck/
+
 0.9.8   2011-12-21
 
     o   wrap now handles 64 bit integers (int64_t, uint64_t) and containers 
