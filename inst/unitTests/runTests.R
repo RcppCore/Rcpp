@@ -1,6 +1,6 @@
 ## -*- mode: R; tab-width: 4 -*-
 ##
-## Copyright (C) 2009- 2010	Dirk Eddelbuettel and Romain Francois
+## Copyright (C) 2009- 2011	Dirk Eddelbuettel and Romain Francois
 ##
 ## This file is part of Rcpp.
 ##
@@ -103,13 +103,8 @@ if(require("RUnit", quietly = TRUE)) {
             }
         }
 
-                                        # if it did not work, try to use /tmp
-        if( is.null(output) ){
-            if( file.exists( "/tmp" ) ){
-                output <- "/tmp"
-            } else{
-                output <- getwd()
-            }
+        if( is.null(output) ) {         # if it did not work, use parent dir
+            output <- ".."              # as BDR does not want /tmp to be used
         }
 
         ## Print results
@@ -130,13 +125,13 @@ if(require("RUnit", quietly = TRUE)) {
         ## This will cause R CMD check to return error and stop
         err <- getErrors(tests)
         if( (err$nFail + err$nErr) > 0) {
-        	data <- Filter( 
-        		function(x) any( sapply(x, function(.) .[["kind"]] ) %in% c("error","failure") ) , 
+        	data <- Filter(
+        		function(x) any( sapply(x, function(.) .[["kind"]] ) %in% c("error","failure") ) ,
         		tests[[1]]$sourceFileResults )
-        	err_msg <- sapply( data, 
+        	err_msg <- sapply( data,
         	function(x) {
-        		raw.msg <- paste( 
-        			sapply( Filter( function(.) .[["kind"]] %in% c("error","failure"), x ), "[[", "msg" ), 
+        		raw.msg <- paste(
+        			sapply( Filter( function(.) .[["kind"]] %in% c("error","failure"), x ), "[[", "msg" ),
         			collapse = " // "
         			)
         		raw.msg <- gsub( "Error in compileCode(f, code, language = language, verbose = verbose) : \n", "", raw.msg, fixed = TRUE )
@@ -145,7 +140,7 @@ if(require("RUnit", quietly = TRUE)) {
         		}
         	)
         	msg <- sprintf( "unit test problems: %d failures, %d errors\n%s",
-        		err$nFail, err$nErr, 
+        		err$nFail, err$nErr,
         		paste( err_msg, collapse = "\n" )
         		)
         	stop( msg )
