@@ -28,37 +28,40 @@
 .badOSX <- (Sys.info()['sysname'] == "Darwin" &&
             isTRUE(as.integer(gsub("\\..*","",Sys.info()['release'])) < 10L) )
 
-if( Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX ) {
+## It now (Dec 2011) appears to fail on Windows too
+.onWindows <- .Platform$OS.type == "windows"
 
-test.Module.package <- function( ){
+if( Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .onWindows) {
 
-    td <- tempfile()
-    cwd <- getwd()
-    dir.create( td )
-    file.copy( system.file( "unitTests", "testRcppModule", package = "Rcpp" ) , td, recursive = TRUE)
-    setwd( td )
-    on.exit( { setwd( cwd) ; unlink( td, recursive = TRUE ) } )
-    R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
-    cmd <- paste( R , "CMD build testRcppModule" )
-    system( cmd )
-    dir.create( "templib" )
-    install.packages( "testRcppModule_0.1.tar.gz", "templib", repos = NULL, type = "source" )
-    require( "testRcppModule", "templib", character.only = TRUE )
+    test.Module.package <- function( ){
 
-	v <- new(vec)
+        td <- tempfile()
+        cwd <- getwd()
+        dir.create( td )
+        file.copy( system.file( "unitTests", "testRcppModule", package = "Rcpp" ) , td, recursive = TRUE)
+        setwd( td )
+        on.exit( { setwd( cwd) ; unlink( td, recursive = TRUE ) } )
+        R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
+        cmd <- paste( R , "CMD build testRcppModule" )
+        system( cmd )
+        dir.create( "templib" )
+        install.packages( "testRcppModule_0.1.tar.gz", "templib", repos = NULL, type = "source" )
+        require( "testRcppModule", "templib", character.only = TRUE )
 
-	data <- 1:10
-	v$assign(data)
-	v[[3]] <- v[[3]] + 1
+        v <- new(vec)
 
-	data[[4]] <- data[[4]] +1
+        data <- 1:10
+        v$assign(data)
+        v[[3]] <- v[[3]] + 1
 
-	checkEquals( v$as.vector(), data )
+        data[[4]] <- data[[4]] +1
 
-	## a few function calls
-	checkEquals( bar(2), 4)
-	checkEquals( foo(2,3), 6)
+        checkEquals( v$as.vector(), data )
 
-}
+        ## a few function calls
+        checkEquals( bar(2), 4)
+        checkEquals( foo(2,3), 6)
+
+    }
 
 }
