@@ -42,10 +42,10 @@ template<> struct r_sexptype_traits<Rbyte>{ enum{ rtype = RAWSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned int>{ enum{ rtype = INTSXP } ; } ;
 template<> struct r_sexptype_traits<float>{ enum{ rtype = REALSXP } ; } ;
 
-// /* long are represented as numeric vectors which allows more precision 
-//    to be preserved than int */
-// template<> struct r_sexptype_traits<long>{ enum{ rtype = REALSXP } ; } ;
-// template<> struct r_sexptype_traits<unsigned long>{ enum{ rtype = REALSXP } ; } ;
+/* long are represented as numeric vectors which allows more precision 
+   to be preserved than int */
+template<> struct r_sexptype_traits<long>{ enum{ rtype = REALSXP } ; } ;
+template<> struct r_sexptype_traits<unsigned long>{ enum{ rtype = REALSXP } ; } ;
 
 /* long double are represented as numeric vectors because we cannot do better in R
    some precision will be lost though
@@ -57,11 +57,11 @@ template<> struct r_sexptype_traits<long double>{ enum{ rtype = REALSXP } ; } ;
 template<> struct r_sexptype_traits<short>{ enum{ rtype = INTSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned short>{ enum{ rtype = INTSXP } ; } ;
 
-// /* long long int */
-// #ifdef RCPP_HAS_LONG_LONG_TYPES
-// template<> struct r_sexptype_traits<rcpp_long_long_type>{ enum{ rtype = REALSXP } ; } ;
-// template<> struct r_sexptype_traits<rcpp_ulong_long_type>{ enum{ rtype = REALSXP } ; } ;
-// #endif
+/* long long int */
+#ifdef RCPP_HAS_LONG_LONG_TYPES
+template<> struct r_sexptype_traits<rcpp_long_long_type>{ enum{ rtype = REALSXP } ; } ;
+template<> struct r_sexptype_traits<rcpp_ulong_long_type>{ enum{ rtype = REALSXP } ; } ;
+#endif
 
 /* std::complex */
 template<> struct r_sexptype_traits< std::complex<double> >{ enum{ rtype = CPLXSXP } ; } ;

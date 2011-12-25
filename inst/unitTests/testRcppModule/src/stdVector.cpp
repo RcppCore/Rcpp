@@ -30,12 +30,6 @@ double vec_back(vec *obj){ return obj->back() ; }
 double vec_front(vec *obj){ return obj->front() ; } 
 double vec_at(vec *obj, int i){ return obj->at(i) ; } 
 
-int vec_size(vec* obj){ return obj->size(); }
-int vec_max_size(vec* obj){ return obj->max_size(); }
-int vec_capacity(vec* obj){ return obj->capacity(); }
-void vec_reserve(vec* obj, int n){ obj->reserve(n); }
-
-
 RCPP_MODULE(stdVector){
     using namespace Rcpp ;
 
@@ -46,11 +40,11 @@ RCPP_MODULE(stdVector){
     .constructor() 
 
     // exposing member functions
-    .method( "size", &vec_size)
-    .method( "max_size", &vec_max_size)
-    .method( "capacity", &vec_capacity)
+    .method( "size", &vec::size)
+    .method( "max_size", &vec::max_size)
+    .method( "capacity", &vec::capacity)
     .method( "empty", &vec::empty)
-    .method( "reserve", &vec_reserve)
+    .method( "reserve", &vec::reserve)
     .method( "pop_back", &vec::pop_back )
     .method( "clear", &vec::clear )
 

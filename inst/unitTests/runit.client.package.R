@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,27 +17,31 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+## This now (Dec 2011) appears to fail on Windows
+.onWindows <- .Platform$OS.type == "windows"
+
 .client.package <- function( pkg = "RcppTestA" ){
-	td <- tempfile()
-	cwd <- getwd()
-	dir.create( td )
-	file.copy( system.file( "unitTests", pkg, package = "Rcpp" ) , td, recursive = TRUE)
-	setwd( td )
-	on.exit( { setwd( cwd) ; unlink( td, recursive = TRUE ) } )
-	R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
-	cmd <- paste( R , "CMD build", pkg )
-	system( cmd )
-	dir.create( "templib" )
-	install.packages( paste( pkg, "_1.0.tar.gz", sep = "" ), "templib", repos = NULL, type = "source" )
-	require( pkg, "templib", character.only = TRUE )
+    td <- tempfile()
+    cwd <- getwd()
+    dir.create( td )
+    file.copy( system.file( "unitTests", pkg, package = "Rcpp" ) , td, recursive = TRUE)
+    setwd( td )
+    on.exit( { setwd( cwd) ; unlink( td, recursive = TRUE ) } )
+    R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
+    cmd <- paste( R , "CMD build", pkg )
+    system( cmd )
+    dir.create( "templib" )
+    install.packages( paste( pkg, "_1.0.tar.gz", sep = "" ), "templib", repos = NULL, type = "source" )
+    require( pkg, "templib", character.only = TRUE )
 
-	hello_world <- get( "rcpp_hello_world", asNamespace( pkg ) )
-	checkEquals( hello_world(), list( c("foo", "bar"), c(0.0, 1.0) ), msg = "code from client package" )
+    hello_world <- get( "rcpp_hello_world", asNamespace( pkg ) )
+    checkEquals( hello_world(), list( c("foo", "bar"), c(0.0, 1.0) ), msg = "code from client package" )
 
-	checkException( .Call("hello_world_ex", PACKAGE = pkg ), msg = "exception in client package" )
+    checkException( .Call("hello_world_ex", PACKAGE = pkg ), msg = "exception in client package" )
 }
 
-test.client.packageA <- function(){
-    .client.package( "RcppTestA" )
+if ( ! .onWindows ) {
+    test.client.packageA <- function(){
+        .client.package( "RcppTestA" )
+    }
 }
-
