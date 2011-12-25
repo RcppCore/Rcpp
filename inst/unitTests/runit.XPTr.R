@@ -18,38 +18,38 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 test.XPtr <- function(){
-	
+
 	funx <- cxxfunction(signature(), '
 		/* creating a pointer to a vector<int> */
 		std::vector<int>* v = new std::vector<int> ;
 		v->push_back( 1 ) ;
 		v->push_back( 2 ) ;
-		
+
 		/* wrap the pointer as an external pointer */
-		/* this automatically protected the external pointer from R garbage 
+		/* this automatically protected the external pointer from R garbage
 		   collection until p goes out of scope. */
 		Rcpp::XPtr< std::vector<int> > p(v, true) ;
-		
-		/* return it back to R, since p goes out of scope after the return 
-		   the external pointer is no more protected by p, but it gets 
+
+		/* return it back to R, since p goes out of scope after the return
+		   the external pointer is no more protected by p, but it gets
 		   protected by being on the R side */
 		return( p ) ;
 	', plugin = "Rcpp" )
 	xp <- funx()
-	checkEquals( typeof( xp ), "externalptr", 
+	checkEquals( typeof( xp ), "externalptr",
 		msg = "checking external pointer creation" )
-	
+
 	# passing the pointer back to C++
 	funx <- cxxfunction(signature(x = "externalptr" ), '
 		/* wrapping x as smart external pointer */
-		/* The SEXP based constructor does not protect the SEXP from 
-		   garbage collection automatically, it is already protected 
-		   because it comes from the R side, however if you want to keep 
+		/* The SEXP based constructor does not protect the SEXP from
+		   garbage collection automatically, it is already protected
+		   because it comes from the R side, however if you want to keep
 		   the Rcpp::XPtr object on the C(++) side
 		   and return something else to R, you need to protect the external
 		   pointer, by using the protect member function */
 		Rcpp::XPtr< std::vector<int> > p(x) ;
-		
+
 		/* just return the front of the vector as a SEXP */
 		return( Rcpp::wrap( p->front() ) ) ;
 	', plugin = "Rcpp" )

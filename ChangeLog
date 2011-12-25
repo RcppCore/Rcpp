@@ -1,3 +1,20 @@
+2011-12-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Reverting the 'int64' changes listed below (during the period from
+	  Oct-31 to Nov-07) which adversely affect packages using Rcpp
+	  We will re-apply the 'int64' changes in a way which should
+	  cooperate more easily with 'long' and 'unsigned long'
+	  This covered svn revisions 3264 to 3308.
+
+	* DESCRIPTION: Remove (for now) Depends: on int64
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Dito for int64_t example
+
+	* inst/unitTests/runit.Module.client.package.R: On Windows,
+	deactivate 'test.Module.package'
+
+	* inst/unitTests/runit.client.package.R: On Windows, deactivate
+	'test.client.packageA' test
+
 2011-12-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runTests.R: unit tests output 'fallback' directory

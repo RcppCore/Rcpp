@@ -37,11 +37,6 @@ struct wrap_type_primitive_tag{};
 struct wrap_type_unknown_tag{};
 
 /**
- * int64_t
- */
-struct wrap_type_int64_tag{};
-
-/**
  * Type trait that helps the dispatch of wrap to the proper method
  *
  * This builds a struct that contains a typedef called wrap_category
@@ -49,12 +44,12 @@ struct wrap_type_int64_tag{};
  *
  * The default is "wrap_type_unknown_tag" and this is specialized
  * for primitive types
- */                                                                                  
+ */
 template <typename T> struct wrap_type_traits { typedef wrap_type_unknown_tag wrap_category; } ;
 
 /**
  * Total specialization for primitive types
- */                                                                   
+ */
 template <> struct wrap_type_traits<int> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<const int> { typedef wrap_type_primitive_tag wrap_category; } ;
 
@@ -70,27 +65,18 @@ template <> struct wrap_type_traits<float> { typedef wrap_type_primitive_tag wra
 template <> struct wrap_type_traits< std::complex<float> > { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits< std::complex<double> > { typedef wrap_type_primitive_tag wrap_category; } ;
 
-// // FIXME : sometimes long = int64_t
-// template <> struct wrap_type_traits<long> { 
-// 	typedef wrap_type_primitive_tag wrap_category;
-// } ;
-// template <> struct wrap_type_traits<unsigned long> {
-// 	typedef wrap_type_primitive_tag wrap_category;
-// } ;
+template <> struct wrap_type_traits<long> { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits<unsigned long> { typedef wrap_type_primitive_tag wrap_category; } ;
 
 template <> struct wrap_type_traits<long double> { typedef wrap_type_primitive_tag wrap_category; } ;
 
 template <> struct wrap_type_traits<short> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<unsigned short> { typedef wrap_type_primitive_tag wrap_category; } ;
 
-// #ifdef RCPP_HAS_LONG_LONG_TYPES
-// [romain] : don't think we need this anymore as we deal with int64_t and uint64_t below                                          
-// template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-// template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-// #endif
-
-template <> struct wrap_type_traits<int64_t> { typedef wrap_type_int64_tag wrap_category; } ;
-template <> struct wrap_type_traits<uint64_t> { typedef wrap_type_int64_tag wrap_category; } ;
+#ifdef RCPP_HAS_LONG_LONG_TYPES
+template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
+#endif
 
 } // namespace traits
 } // namespace Rcpp

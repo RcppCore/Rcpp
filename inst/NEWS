@@ -1,6 +1,15 @@
 0.9.9   2012-xx-yy
 
+    o   Reverting the 'int64' changes listed below (during the period from
+	Oct-31 to Nov-07) which adversely affect packages using Rcpp
+	We will re-apply the 'int64' changes in a way which should
+	cooperate more easily with 'long' and 'unsigned long'.
+	This covered svn revisions 3249 and 3264 to 3308.
+
     o   Unit test output directory fallback changed to use Rcpp.Rcheck/
+
+    o   Conditioned two unit tests to not run on Windows where they now break
+        whereas they passed before, and continue to pass on other OSs
 
 0.9.8   2011-12-21
 
