@@ -1,3 +1,10 @@
+2011-12-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.9
+        * inst/NEWS: Release 0.9.9
+        * inst/include/Rcpp/config.h: Release 0.9.9
+        * debian/*: Similarly updated for new release to Debian
+
 2011-12-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Reverting the 'int64' changes listed below (during the period from
