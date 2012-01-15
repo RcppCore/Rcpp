@@ -605,6 +605,13 @@ definitions <- function(){
 	                    StringVector s(x) ;
 	                    return s; 
 	                '
+	            ), 
+	            "IntegerVector_int_init" = list( 
+	                signature(), 
+	                '
+	                    IntegerVector x(2,4) ;
+	                    return x ;
+	                '
 	            )
                   
         )
@@ -1256,3 +1263,9 @@ test.factors <- function(){
     y <- fun(x)
     checkEquals( y, as.character(x) )
 }
+
+test.IntegerVector_int_init <- function(){
+    fun <-    .rcpp.Vector$IntegerVector_int_init
+    checkEquals( fun(), c(4L,4L), msg = "IntegerVector int init regression test" )
+}
+
