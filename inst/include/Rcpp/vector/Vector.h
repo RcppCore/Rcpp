@@ -198,6 +198,11 @@ public:
     	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
         fill_or_generate( u ) ;	
     }
+    
+    Vector( const int& size, const stored_type& u ){
+        RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
+        fill( u ) ;
+    }
 
     Vector( const int& siz, stored_type (*gen)(void) ){
     	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
