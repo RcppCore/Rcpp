@@ -1,7 +1,12 @@
+2012-01-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New FAQ entry on passing a single
+	option to g++, based on a rcpp-devel question by Whit Armstrong.
+
 2012-01-15  Romain Francois  <romain@r-enthusiasts.com>
 
-        * inst/include/Rcpp/vector/Vector.h: fixing IntegerVector(int,int), reported
-	  by Gregor Kastner on rcpp-devel
+        * inst/include/Rcpp/vector/Vector.h: fixing IntegerVector(int,int),
+	reported by Gregor Kastner on rcpp-devel
         * inst/unitTests/runit.Vector.R: regression test for the above
 
 2011-12-25  Dirk Eddelbuettel  <edd@debian.org>

@@ -520,6 +520,29 @@ fun(0)
 Here the \pkg{Rcpp} function \code{Rcpp.plugin.maker} is used to create a
 plugin 'plug' which is then registered, and subsequently used by \pkg{inline}.
 
+
+\subsection{How can I pass one additional flag to the compiler?}
+
+\begin{quote}
+  \emph{How can I pass \verb{-std=c++0x} to the \verb{g++} compiler without
+    writing a new plugin?}
+\end{quote}
+
+The quickest way is to modify the return value from an existing plugin. Here
+we use the default one from \pkg{Rcpp} itself. As it does not set the
+\code{PKG_CXXFLAGS} variable, we simply assign this. For other plugins, one
+may need to append to the existing values instead.
+
+<<eval=FALSE>>=
+myplugin <- getPlugin("Rcpp")
+myplugin$env$PKG_CXXFLAGS <- "-std=c++0x"
+f <- cxxfunction(signature(), settings=myplugin, body='
++    std::vector<double> x = { 1.0, 2.0, 3.0 };  // fails without -std=c++0x
++    return Rcpp::wrap(x);
++ ')
+f()
+@
+
 \subsection{How can I set matrix row and column names ?}
 
 \begin{quote}
