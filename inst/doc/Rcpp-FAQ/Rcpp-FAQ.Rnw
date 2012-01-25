@@ -524,14 +524,14 @@ plugin 'plug' which is then registered, and subsequently used by \pkg{inline}.
 \subsection{How can I pass one additional flag to the compiler?}
 
 \begin{quote}
-  \emph{How can I pass \verb{-std=c++0x} to the \verb{g++} compiler without
-    writing a new plugin?}
+  \emph{How can I pass another flag to the \code{g++} compiler without writing a new plugin?}
 \end{quote}
 
 The quickest way is to modify the return value from an existing plugin. Here
-we use the default one from \pkg{Rcpp} itself. As it does not set the
-\code{PKG_CXXFLAGS} variable, we simply assign this. For other plugins, one
-may need to append to the existing values instead.
+we use the default one from \pkg{Rcpp} itself in order to pass the new flag
+\verb|-std=c++0x|. As it does not set the \verb|PKG_CXXFLAGS| variable, we
+simply assign this. For other plugins, one may need to append to the existing
+values instead.
 
 <<eval=FALSE>>=
 myplugin <- getPlugin("Rcpp")
