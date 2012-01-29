@@ -2,7 +2,7 @@
 //
 // sum.h: Rcpp R/C++ interface class library -- sum
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

@@ -2,7 +2,7 @@
 //
 // WeakReference.cpp: Rcpp R/C++ interface class library -- weak references
 //
-// Copyright (C) 2009 - 2011    Romain Francois and Dirk Eddelbuettel
+// Copyright (C) 2009 - 2012    Romain Francois and Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
