@@ -2,7 +2,7 @@
 //
 // is_eigen_base.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2011 Doug Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2011 - 2012 Doug Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
