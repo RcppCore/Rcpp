@@ -83,8 +83,6 @@ private:
 	mutable double previous ;
 } ;
 
-
-
 template <int RTYPE, typename LHS_T>
 class Diff<RTYPE,false,LHS_T> : public Rcpp::VectorBase< RTYPE, false , Diff<RTYPE,false,LHS_T> > {
 public:
