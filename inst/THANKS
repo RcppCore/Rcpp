@@ -7,6 +7,7 @@ Laurent Gautier         for helpful discussions on R internals
 Alistair Gee            for a patch making ColDatum more robust
 Christian Gunning       for a documentation + unit tests patches and reporting bugs
 Rainer Hurling          for help debugging builds issues on FreeBSD
+Gregor Kastner          for noticing a bug in IntegerVector initialization
 Uwe Ligges              for help with Windows (32 and 64 bit) build issues
 Tama Ma                 for a patch that extends Module constructors
 Karl Millar             for a patch helping with a non-g++ compiler
