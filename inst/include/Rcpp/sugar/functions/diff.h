@@ -63,6 +63,28 @@ private:
 	mutable bool was_na ;
 } ;
 
+template <typename LHS_T, bool LHS_NA>
+class Diff<REALSXP, LHS_NA, LHS_T> : public Rcpp::VectorBase< REALSXP, LHS_NA, Diff<REALSXP,LHS_NA,LHS_T> >{
+public:
+	typedef typename Rcpp::VectorBase<REALSXP,LHS_NA,LHS_T> LHS_TYPE ;
+	
+	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs_[0]) {}
+	
+	inline double operator[]( int i ) const {
+		double y = lhs[i+1] ;
+		double res = y - previous ;
+		previous = y ;
+		return res ;
+	}
+	inline int size() const { return lhs.size() - 1 ; }
+	         
+private:
+	const LHS_TYPE& lhs ;
+	mutable double previous ;
+} ;
+
+
+
 template <int RTYPE, typename LHS_T>
 class Diff<RTYPE,false,LHS_T> : public Rcpp::VectorBase< RTYPE, false , Diff<RTYPE,false,LHS_T> > {
 public:
