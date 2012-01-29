@@ -668,6 +668,14 @@ list(
 			        as_vector( outer( NumericVector(x) , NumericVector(y) , std::plus<double>() ) )
 			    ) ;
 			    '
+			), 
+			"runit_diff_REALSXP_NA" = list(
+			    signature( x_= "numeric" ), 
+			    '
+			         NumericVector x(x_) ;
+			         NumericVector res= diff(x) ;
+			         return res ;
+			    '
 			)
 		)
 
@@ -1311,5 +1319,11 @@ test.sugar.asvector <- function(){
     res <- fx( 1:4, 1:5, diag( 1:5 ) )
     checkEquals( res[[1]], as.vector( diag(1:5) ) )
     checkEquals( res[[2]], as.vector( outer( 1:4, 1:5, "+" ) ) )
+}
+       
+test.sugar.asvector <- function(){
+    fx <- .rcpp.sugar$runit_diff_REALSXP_NA
+    x <- c( NA, 1.5, 2.5, NA, 3.5, 5.5, NA )
+    checkEquals( fx(x), c(NA, 1.0, NA, NA, 2.0, NA) )
 }
 
