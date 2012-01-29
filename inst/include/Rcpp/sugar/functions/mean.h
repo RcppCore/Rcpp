@@ -2,7 +2,7 @@
 //
 // mean.h: Rcpp R/C++ interface class library -- mean
 //
-// Copyright (C) 2011 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //

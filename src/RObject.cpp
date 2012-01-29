@@ -2,7 +2,7 @@
 //
 // RObject.cpp: Rcpp R/C++ interface class library -- R Object support
 //
-// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
