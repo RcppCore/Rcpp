@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -19,72 +19,72 @@
 
 definitions <- function(){
     f <- list(
-        	"raw_" = list( 
-        		signature(), 
+        	"raw_" = list(
+        		signature(),
         		'
 				RawVector x(10) ;
 				for( int i=0; i<10; i++) x[i] = (Rbyte)i ;
 				return x ;
 				'
-        	), 
-        	"raw_REALSXP" = list( 
+        	),
+        	"raw_REALSXP" = list(
         		signature(vec = "raw" ),
         		'
 				RawVector x(vec) ;
-				for( int i=0; i<x.size(); i++) { 
+				for( int i=0; i<x.size(); i++) {
 					x[i] = x[i]*2 ;
 				}
 				return x ;
 				'
-        	), 
-        	"expression_" = list( 
-        		signature(), 
+        	),
+        	"expression_" = list(
+        		signature(),
         		'
 				ExpressionVector x(2) ;
 				x[0] = Symbol( "rnorm" ) ;
 				x[1] = Rf_lcons( Symbol("rnorm"), Rf_cons( Rf_ScalarReal(10.0), R_NilValue) ) ;
 				return x ;
 				'
-        	), 
-        	"expression_variadic" = list( 
-        		signature(), 
+        	),
+        	"expression_variadic" = list(
+        		signature(),
         		'
 				ExpressionVector x(2) ;
 				x[0] = Symbol( "rnorm" ) ;
 				x[1] = Language( "rnorm", 10.0 ) ;
 				return x ;
 				'
-        	), 
-        	"expression_parse" = list( 
-        		signature(), 
+        	),
+        	"expression_parse" = list(
+        		signature(),
         		'
 					ExpressionVector code( "local( { y <- sample(1:10); sort(y) })" ) ;
 					return code ;
 				'
-        	), 
-        	"expression_parseerror" = list( 
-        		signature(), 
+        	),
+        	"expression_parseerror" = list(
+        		signature(),
         		'
 					ExpressionVector code( "rnorm(" ) ;
 					return code ;
 				'
-        	), 
-        	"expression_eval" = list( 
-        		signature(), 
+        	),
+        	"expression_eval" = list(
+        		signature(),
         		'
 				ExpressionVector code( "local( { y <- sample(1:10); sort(y) })" ) ;
 				return code.eval() ;
 				'
-        	), 
-        	"expression_evalenv" = list( 
-        		signature(env = "environment"), 
+        	),
+        	"expression_evalenv" = list(
+        		signature(env = "environment"),
         		'
 				ExpressionVector code( "sort(x)" ) ;
 				return code.eval(env) ;
-				' 
-        	), 
-        	"complex_" = list( 
-        		signature(), 
+				'
+        	),
+        	"complex_" = list(
+        		signature(),
         		'
 				ComplexVector x(10) ;
 				Rcomplex rc ;
@@ -94,21 +94,21 @@ definitions <- function(){
 				}
 				return x ;
 				'
-        	), 
-        	"complex_CPLXSXP" = list( 
-        		signature(vec = "complex" ), 
+        	),
+        	"complex_CPLXSXP" = list(
+        		signature(vec = "complex" ),
         		'
 				ComplexVector x(vec) ;
                 int nn = x.size();
-				for( int i=0; i<nn; i++) { 
+				for( int i=0; i<nn; i++) {
 					x[i].r = x[i].r*2 ;
 					x[i].i = x[i].i*2 ;
 				}
 				return x ;
 				'
-        	), 
-        	"complex_INTSXP" = list( 
-        		signature(vec = "integer" ), 
+        	),
+        	"complex_INTSXP" = list(
+        		signature(vec = "integer" ),
         		'
 				ComplexVector x(vec);
                 int nn = x.size();
@@ -117,9 +117,9 @@ definitions <- function(){
                 x = x * tmp1;
 				return x ;
 				'
-        	), 
-        	"complex_REALSXP" = list( 
-        		signature(vec = "numeric" ), 
+        	),
+        	"complex_REALSXP" = list(
+        		signature(vec = "numeric" ),
         		'
 				ComplexVector x(vec);
                 int nn = x.size();
@@ -128,8 +128,8 @@ definitions <- function(){
                 x = x * tmp1;
 				return x ;
 				'
-        	), 
-        	
+        	),
+
         	"integer_ctor"=list(
                   signature(),
                   'IntegerVector x(10) ;
@@ -238,20 +238,20 @@ definitions <- function(){
                   ,"integer_create_zero"=list(
                    signature(),
                    'return IntegerVector::create();'
-                  ), 
-                  "integer_create_" = list( 
-                  signature(), 
+                  ),
+                  "integer_create_" = list(
+                  signature(),
                   '
-					List output(2); 
+					List output(2);
 					output[0] = IntegerVector::create( 10, 20 ) ;
-					output[1] = IntegerVector::create( 
-						_["foo"] = 20, 
+					output[1] = IntegerVector::create(
+						_["foo"] = 20,
 						_["bar"] = 30 ) ;
 					return output ;
-					' 
-                  ), 
-                  "integer_clone_" = list( 
-                  signature(x="integer"), 
+					'
+                  ),
+                  "integer_clone_" = list(
+                  signature(x="integer"),
                   '
 					IntegerVector vec(x) ;
 					IntegerVector dolly = clone( vec ) ;
@@ -260,53 +260,53 @@ definitions <- function(){
 					}
 					return dolly ;
 					'
-                  ) , 
-                  
-                  
-                  
-           "numeric_" = list( 
+                  ) ,
+
+
+
+           "numeric_" = list(
         		signature(),
         		'
 				NumericVector x(10) ;
 				for( int i=0; i<10; i++) x[i] = i ;
 				return x ;
 				'
-        	), 
-        	"numeric_REALSXP" = list( 
-        		signature(vec = "numeric" ), 
+        	),
+        	"numeric_REALSXP" = list(
+        		signature(vec = "numeric" ),
         		'
 				NumericVector x(vec) ;
-				for( int i=0; i<x.size(); i++) { 
+				for( int i=0; i<x.size(); i++) {
 					x[i] = x[i]*2.0 ;
 				}
 				return x ;
-				'	
-        	), 
-        	"numeric_import" = list( 
-        		signature(), 
+				'
+        	),
+        	"numeric_import" = list(
+        		signature(),
         		'
 					std::vector<int> v(10) ;
 					for( int i=0; i<10; i++) v[i] = i ;
-					
+
 					return IntegerVector::import( v.begin(), v.end() ) ;
-				
+
 				'
-        	), 
-        	"numeric_importtransform" = list( 
-        		signature(), 
+        	),
+        	"numeric_importtransform" = list(
+        		signature(),
         		'
 					std::vector<double> v(10) ;
 					for( int i=0; i<10; i++) v[i] = i ;
-					
+
 					return NumericVector::import_transform( v.begin(), v.end(), square ) ;
-				
+
 				'
-        	)  , 
-        	
-        	
-        	
-        	
-        	
+        	)  ,
+
+
+
+
+
         	"list_ctor"=list(
                   signature(),
                   'List x(10) ;
@@ -405,29 +405,29 @@ definitions <- function(){
                     list["foo"] = 10 ;
                     list["bar" ] = "foobar" ;
                     return list ;
-                   '), 
-              "list_create_" = list( 
-              	signature(), 
+                   '),
+              "list_create_" = list(
+              	signature(),
               	'
-					List output(2); 
+					List output(2);
 					output[0] = List::create( 10, "foo" ) ;
-					output[1] = List::create( 
-						_["foo"] = 10, 
+					output[1] = List::create(
+						_["foo"] = 10,
 						_["bar"] = true ) ;
 					return output ;
 				'
-              ), 
-              "list_stdcomplex" = list( 
+              ),
+              "list_stdcomplex" = list(
               		signature() , '
               			std::vector< std::complex<double> > v_double(10) ;
     					std::vector< std::complex<float> > v_float(10) ;
     					return List::create( _["float"] = v_float, _["double"] = v_double ) ;
     				'
-    			), 
-    			
-    			
-    			
-    			
+    			),
+
+
+
+
               "character_ctor"=list(
                   signature(),
                   'CharacterVector x(10) ;
@@ -565,76 +565,76 @@ definitions <- function(){
                    'CharacterVector y(x) ;
 	            CharacterVector::iterator it = std::find( y.begin(), y.end(), "foo" ) ;
 	            return wrap( std::distance( y.begin(), it )); '
-	            
-	            ), "character_create_" = list( 
-	            	signature(), 
+
+	            ), "character_create_" = list(
+	            	signature(),
 	            	'
-						List output(2); 
+						List output(2);
 						output[0] = CharacterVector::create( "foo", "bar" ) ;
-						output[1] = CharacterVector::create( 
-							_["foo"] = "bar", 
+						output[1] = CharacterVector::create(
+							_["foo"] = "bar",
 							_["bar"] = "foo"
 							) ;
 						return output ;
 					'
-	            ), "complex_binary_sugar" = list( 
-	            	signature( x = "complex", y = "complex" ), 
+	            ), "complex_binary_sugar" = list(
+	            	signature( x = "complex", y = "complex" ),
 	            	'
 	            		ComplexVector xx(x), yy(y) ;
-	            		return List::create( 
-	            			_["+"] = xx + yy, 
-	            			_["-"] = xx - yy, 
-	            			_["*"] = xx * yy, 
+	            		return List::create(
+	            			_["+"] = xx + yy,
+	            			_["-"] = xx - yy,
+	            			_["*"] = xx * yy,
 	            			_["/"] = xx / yy
 	            		) ;
-	            	
+
 	            	'
-	            ), 
-	            "List_extract" = list( 
-	                signature( x = "list" ), 
+	            ),
+	            "List_extract" = list(
+	                signature( x = "list" ),
 	                '
 	                    List input(x) ;
 	                    bool a = input[0] ;
 	                    int b = input[1] ;
 	                    return List::create(a, b) ;
 	                '
-	            ), 
-	            "factors" = list( 
-	                signature( x = "factor" ), 
+	            ),
+	            "factors" = list(
+	                signature( x = "factor" ),
 	                '
 	                    StringVector s(x) ;
-	                    return s; 
+	                    return s;
 	                '
-	            ), 
-	            "IntegerVector_int_init" = list( 
-	                signature(), 
+	            ),
+	            "IntegerVector_int_init" = list(
+	                signature(),
 	                '
 	                    IntegerVector x(2,4) ;
 	                    return x ;
 	                '
 	            )
-                  
+
         )
 
         if (Rcpp:::capabilities()[["initializer lists"]]) {
-        	g <- list( 
+        	g <- list(
         		"raw_initializer_list"=list(
-        			signature(), 
+        			signature(),
         			'
 					RawVector x = {0,1,2,3} ;
 					for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 					return x ;
 					'
-        		), 
-        		"complex_initializer_list" = list( 
-        			signature(), 
+        		),
+        		"complex_initializer_list" = list(
+        			signature(),
         			'
 					Rcomplex c1 ; c1.r = c1.i = 0.0 ;
 					Rcomplex c2 ; c2.r = c2.i = 1.0 ;
 					ComplexVector x = { c1, c2 } ;
 					return x ;
 					'
-        		), 
+        		),
         		"integer_initializer_list"=list(
                   	signature(),
                   	'
@@ -642,17 +642,17 @@ definitions <- function(){
 		   				for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 		   				return x ;
 		   			'
-		   		), 
-		   		
-		   		"numeric_initlist" = list( 
-        			signature(), 
+		   		),
+
+		   		"numeric_initlist" = list(
+        			signature(),
         			'
 						NumericVector x = {0.0,1.0,2.0,3.0} ;
 						for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 						return x ;
 					'
-        		), 
-        		
+        		),
+
         		"list_initializer_list"=list(
                   signature(),
                   'SEXP x0 = PROTECT( Rf_ScalarInteger( 0 ) ) ;
@@ -660,25 +660,25 @@ definitions <- function(){
 		   			SEXP x2 = PROTECT( Rf_ScalarInteger( 2 ) ) ;
 		   			List x = { x0, x1, x2} ;
 		   			UNPROTECT(3) ;
-		   			return x ;'), 
-		   			
+		   			return x ;'),
+
 		   		"character_initializer_list"=list(
                   signature(),
                   'CharacterVector x = {"foo", "bar"} ;
                   return x ;')
 
-                  
-        	)     
+
+        	)
         	f <- c(f,g)
         }
         f
-    
+
 }
 
 includes <- function(){
 "
     inline double square( double x){ return x*x; }
-"    
+"
 }
 
 cxxargs <- function(){
@@ -688,9 +688,9 @@ cxxargs <- function(){
 .setUp <- function() {
     tests <- ".rcpp.Vector"
     if( ! exists( tests, globalenv() )) {
-        fun <- Rcpp:::compile_unit_tests( 
-            definitions(), 
-            includes = includes(), 
+        fun <- Rcpp:::compile_unit_tests(
+            definitions(),
+            includes = includes(),
             cxxargs = cxxargs()
         )
         assign( tests, fun, globalenv() )
@@ -719,7 +719,7 @@ test.ExpressionVector <- function(){
 	ex <- parse( text = "rnorm; rnorm(10)" )
 	# get rid of the srcref stuff so that we can compare
 	# more easily
-	attributes(ex) <- NULL 
+	attributes(ex) <- NULL
 	checkEquals( funx(),  ex , msg = "ExpressionVector" )
 }
 
@@ -753,20 +753,20 @@ test.ExpressionVector.eval.env <- function(){
 	e[["x"]] <- sample(1:10)
 	checkEquals( funx(e), 1:10, msg = "ExpressionVector::eval in specific environment" )
 }
-         
+
 test.ComplexVector <- function(){
 	funx <- .rcpp.Vector$complex_
 	checkEquals( funx(), 0:9*(1+1i), msg = "ComplexVector" )
 }
 test.ComplexVector.CPLXSXP <- function(){
 	funx <- .rcpp.Vector$complex_CPLXSXP
-     vv = (0:9)*(1+1i) ## not working - funx changes its argument 
+     vv = (0:9)*(1+1i) ## not working - funx changes its argument
 	#checkEquals( funx(vv), 2*vv, msg = "ComplexVector( CPLXSXP) " )
 	checkEquals( funx((0:9)*(1+1i)), 2*(0:9)*(1+1i), msg = "ComplexVector( CPLXSXP) " )
 }
 test.ComplexVector.INTSXP <- function(){
 	funx <- .rcpp.Vector$complex_INTSXP
-    vv <- 0L:9L  
+    vv <- 0L:9L
 	checkEquals( funx(vv), (2+0i)*vv, msg = "ComplexVector( INTSXP) " )
 }
 test.ComplexVector.REALSXP <- function(){
@@ -932,7 +932,7 @@ test.IntegerVector.create.zero <- function( ){
 
 test.IntegerVector.create <- function(){
     fun <- .rcpp.Vector$integer_create_
-	checkEquals( fun(), list( c( 10L, 20L) , c(foo = 20L, bar = 30L) ), 
+	checkEquals( fun(), list( c( 10L, 20L) , c(foo = 20L, bar = 30L) ),
 		msg = "IntegerVector::create" )
 }
 
@@ -943,7 +943,7 @@ test.IntegerVector.clone <- function(){
 	checkEquals( x, 1:10, msg = "clone" )
 	checkEquals( y, 10:1, msg = "clone" )
 }
-          
+
 
 
 
@@ -967,14 +967,14 @@ if( Rcpp:::capabilities()[["initializer lists"]] ){
 
 test.NumericVector.import <- function(){
 	funx <- .rcpp.Vector$numeric_import
-	checkEquals( funx(), 0:9, msg = "IntegerVector::import" ) 
+	checkEquals( funx(), 0:9, msg = "IntegerVector::import" )
 }
 
 test.NumericVector.import.transform <- function(){
 	funx <- .rcpp.Vector$numeric_importtransform
 	checkEquals( funx(), (0:9)^2, msg = "NumericVector::import_transform" )
 }
-         
+
 
 
 
@@ -1101,18 +1101,18 @@ test.List.implicit.push.back <- function(){
 
 test.List.create <- function(){
 	fun <- .rcpp.Vector$list_create_
-    checkEquals( fun(), list( list( 10L, "foo" ), list(foo = 10L, bar =  TRUE ) ), 
+    checkEquals( fun(), list( list( 10L, "foo" ), list(foo = 10L, bar =  TRUE ) ),
 		msg = "List::create" )
 }
 
 test.List.stdcomplex <- function(){
 	fun <- .rcpp.Vector$list_stdcomplex
-    checkEquals( 
-		fun(), 
-		list( float = rep(0+0i, 10), double = rep(0+0i, 10) ), 
+    checkEquals(
+		fun(),
+		list( float = rep(0+0i, 10), double = rep(0+0i, 10) ),
 		msg = "range wrap over std::complex" )
 }
-           
+
 
 
 
@@ -1229,10 +1229,10 @@ test.CharacterVector.find <- function(){
     fun <- .rcpp.Vector$character_find_
     checkEquals( fun( c("bar", "foo", "bob") ), 1L, msg = "support for std::find in CharacterVector" )
 }
-    
+
 test.CharacterVector.create <- function(){
 	fun <- .rcpp.Vector$character_create_
-    checkEquals( fun(), list( c( "foo", "bar" ), c(foo = "bar", bar = "foo" ) ), 
+    checkEquals( fun(), list( c( "foo", "bar" ), c(foo = "bar", bar = "foo" ) ),
 	 	msg = "CharacterVector::create" )
 }
 
@@ -1240,12 +1240,12 @@ test.ComplexVector.binary.operators <- function(){
 	fun <- .rcpp.Vector$complex_binary_sugar
     x <- (1+1i) * 1:10
     y <- (2-3i) * 1:10
-    
-	checkEquals( 
-		fun(x, y), 
-		list( 
-			"+" = x + y, 
-			"-" = x - y, 
+
+	checkEquals(
+		fun(x, y),
+		list(
+			"+" = x + y,
+			"-" = x - y,
 			"*" = x * y,
 			"/" = x / y
 		), msg = "complex binary operators" )

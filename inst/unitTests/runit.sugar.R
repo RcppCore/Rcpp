@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -668,9 +668,9 @@ list(
 			        as_vector( outer( NumericVector(x) , NumericVector(y) , std::plus<double>() ) )
 			    ) ;
 			    '
-			), 
+			),
 			"runit_diff_REALSXP_NA" = list(
-			    signature( x_= "numeric" ), 
+			    signature( x_= "numeric" ),
 			    '
 			         NumericVector x(x_) ;
 			         NumericVector res= diff(x) ;
@@ -1320,7 +1320,7 @@ test.sugar.asvector <- function(){
     checkEquals( res[[1]], as.vector( diag(1:5) ) )
     checkEquals( res[[2]], as.vector( outer( 1:4, 1:5, "+" ) ) )
 }
-       
+
 test.sugar.asvector <- function(){
     fx <- .rcpp.sugar$runit_diff_REALSXP_NA
     x <- c( NA, 1.5, 2.5, NA, 3.5, 5.5, NA )
