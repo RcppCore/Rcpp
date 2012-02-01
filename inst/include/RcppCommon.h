@@ -3,7 +3,7 @@
 // RcppCommon.h: Rcpp R/C++ interface class library -- common include and defines statements
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -325,5 +325,9 @@ RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP );
 
 #include <Rcpp/routines.h>
 #include <Rcpp/cache.h>
+
+// "Rcout" iostream class contributed by Jelmer Ypma
+#include <Rcpp/iostream/Rstreambuf.h>
+#include <Rcpp/iostream/Rostream.h>
 
 #endif

@@ -2,7 +2,7 @@
 //
 // Rostream.h: Rcpp R/C++ interface class library -- output stream
 //
-// Copyright (C) 2011           Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+// Copyright (C) 2012           Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
 //
 // This file is part of Rcpp.
 //
@@ -23,8 +23,6 @@
 #define __ROSTREAM_H__
 
 #include <iomanip>				// USES setw
-
-#include <Rcpp.h>
 
 // modified from 
 // http://stackoverflow.com/questions/243696/correctly-over-loading-a-stringbuf-to-replace-cout-in-a-matlab-mex-file

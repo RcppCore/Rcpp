@@ -3,7 +3,7 @@
 // Rcpp.h: R/C++ interface class library
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -67,9 +67,5 @@
 
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
-
-// "Rcout" iostream class contributed by Jelmer Ypma
-#include <Rcpp/iostream/Rstreambuf.h>
-#include <Rcpp/iostream/Rostream.h>
 
 #endif
