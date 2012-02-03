@@ -2,13 +2,13 @@ Source: rcpp
 Section: gnu-r
 Priority: optional
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
-Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 2.14.0), cdbs, r-cran-int64
+Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 2.14.1), cdbs
 Standards-Version: 3.9.2
 Homepage: http://dirk.eddelbuettel.com/code/rcpp.html
 
 Package: r-cran-rcpp
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, r-base-core (>= 2.14.0), littler, r-cran-int64
+Depends: ${shlibs:Depends}, ${misc:Depends}, r-base-core (>= 2.14.1), littler
 Suggests: r-cran-inline
 Description: GNU R package for Seamless R and C++ Integration
  The Rcpp package provides a C++ library which facilitates the
