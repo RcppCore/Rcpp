@@ -1,10 +1,11 @@
 2012-02-01  Romain Francois  <romain@r-enthusiasts.com>
 
-        * inst/include/Rcpp/iostream/Rostream.h: no need to include Rcpp.h here
+        * inst/include/Rcpp/iostream/Rostream.h: no need to include Rcpp.h
+	here
         
         * inst/include/RcppCommon.h: include Rostream.h here, instead of ...
         
-        * inst/include/Rcpp.h: ... here (need for RcppArmadillo)
+        * inst/include/Rcpp.h: ... here (needed for RcppArmadillo)
 
 2012-01-29  Romain Francois  <romain@r-enthusiasts.com>
 
