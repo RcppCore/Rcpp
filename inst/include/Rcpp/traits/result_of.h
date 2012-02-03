@@ -3,7 +3,7 @@
 //
 // result_of.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -38,6 +38,11 @@ struct result_of< RESULT_TYPE (*)(INPUT_TYPE) >{
 
 template <typename RESULT_TYPE, typename U1, typename U2>
 struct result_of< RESULT_TYPE (*)(U1, U2) >{
+	typedef RESULT_TYPE type ;
+} ;
+
+template <typename RESULT_TYPE, typename U1, typename U2, typename U3>
+struct result_of< RESULT_TYPE (*)(U1, U2, U3) >{
 	typedef RESULT_TYPE type ;
 } ;
 
