@@ -1,6 +1,13 @@
+2012-02-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.10
+        * inst/NEWS: Release 0.9.10
+        * inst/include/Rcpp/config.h: Release 0.9.10
+        * debian/*: Similarly updated for new release to Debian
+
 2012-02-03  Romain Francois  <romain@r-enthusiasts.com>
 
-        * inst/include/Rcpp/Extractor.h: rmove use of Fast in Extractor
+        * inst/include/Rcpp/Extractor.h: remove use of Fast in Extractor
         
         * inst/include/Rcpp/sugar/functions/mapply/mapply.h: new sugar function, 
         similar to sapply, but with 2 or 3 (for now) input vectors
