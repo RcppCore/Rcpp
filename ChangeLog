@@ -1,3 +1,7 @@
+2012-02-06  Romain Francois  <romain@r-enthusiasts.com>
+
+        * R/tools.R: one less .Internal call
+
 2012-02-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.10
