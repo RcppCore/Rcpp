@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -52,17 +52,32 @@ errorOccured <- function() getErrorOccured()
 	invisible( .Call( rcpp_error_recorder, e ) )
 }
 
-# simplified version of utils::tryCatch
-rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, but is indeed not used
-	.Call(reset_current_error)
-	rcpp_doTryCatch <- function(expr, env) {
-	    .Internal(.addCondHands("error", list(.rcpp_error_recorder), 
-	    	env, environment(), FALSE))
-	    expr
-	}
-	parentenv <- parent.frame()
-    value <- rcpp_doTryCatch( return(expr), parentenv )
-	if (is.null(value[[1L]])) {
+# # simplified version of utils::tryCatch
+# rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, but is indeed not used
+# 	.Call(reset_current_error)
+# 	rcpp_doTryCatch <- function(expr, env) {
+# 	    .Internal(.addCondHands("error", list(.rcpp_error_recorder), 
+# 	    	env, environment(), FALSE))
+# 	    expr
+# 	}
+# 	parentenv <- parent.frame()
+#     value <- rcpp_doTryCatch( return(expr), parentenv )
+# 	if (is.null(value[[1L]])) {
+# 	    # a simple error; message is stored internally
+# 	    # and call is in result; this defers all allocs until
+# 	    # after the jump
+# 	    msg <- geterrmessage()
+# 	    call <- value[[2L]]
+# 	    cond <- simpleError(msg, call)
+# 	}
+# 	else cond <- value[[1L]]
+# 	.rcpp_error_recorder(cond)
+# }
+
+rcpp_tryCatch <- function(expr){
+    .Call(reset_current_error)
+    value <- withCallingHandlers( return(expr), error = .rcpp_error_recorder )
+    if (is.null(value[[1L]])) {
 	    # a simple error; message is stored internally
 	    # and call is in result; this defers all allocs until
 	    # after the jump
@@ -73,4 +88,6 @@ rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, bu
 	else cond <- value[[1L]]
 	.rcpp_error_recorder(cond)
 }
+
+
 

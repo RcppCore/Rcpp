@@ -65,6 +65,7 @@ SEXP init_Rcpp_cache(){
 }
 
 SEXP reset_current_error(){
+    
     // error occured
     SET_VECTOR_ELT( Rcpp_cache, 1, Rf_ScalarLogical(FALSE) ) ;
 	
