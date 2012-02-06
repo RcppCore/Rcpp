@@ -66,7 +66,7 @@ rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, bu
 	    # a simple error; message is stored internally
 	    # and call is in result; this defers all allocs until
 	    # after the jump
-	    msg <- .Internal(geterrmessage())
+	    msg <- geterrmessage()
 	    call <- value[[2L]]
 	    cond <- simpleError(msg, call)
 	}
