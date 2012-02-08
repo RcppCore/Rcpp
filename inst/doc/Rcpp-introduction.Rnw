@@ -860,7 +860,7 @@ particular, neither \proglang{C++} class destructors nor \code{catch} parts of o
 \code{try}/\code{catch} blocks will be called. This leaves the potential for
 memory or resource leakage.  So while newly written code can improve on this
 situation via use of \proglang{C++} exception handling, existing code calling
-the into \proglang{R} \proglang{C} API cannot be amended just by having an outer layer
+into the \proglang{C} API of \proglang{R} cannot be amended just by having an outer layer
 of exception handling around it.
 
 
