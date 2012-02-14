@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -16,19 +16,21 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 externalptr_address <- function(xp){
-	.Call( as_character_externalptr, xp )	
+    .Call( as_character_externalptr, xp )
 }
 
-# just like assignInNamespace but first checks that the binding exists             
+# just like assignInNamespace but first checks that the binding exists
 forceAssignInNamespace <- function( x, value, env ){
-    is_ns <- isNamespace( env )
-    if( is_ns && exists( x, env ) && bindingIsLocked(x, env ) ){
-        unlockBinding( x, env )
+    if (getRversion() >= "2.15.0") {
+        assignInMyNamespace(x, value)
+    } else {
+        is_ns <- isNamespace( env )
+        if( is_ns && exists( x, env ) && bindingIsLocked(x, env ) ){
+            unlockBinding( x, env )
+        }
+        assign( x, value, env )
+        if( is_ns ){
+            lockBinding( x, env )
+        }
     }
-    
-    assign( x, value, env )
-    
-    if( is_ns ){
-        lockBinding( x, env )
-    }    
 }
