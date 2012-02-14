@@ -51,12 +51,14 @@ errorOccured <- function() getErrorOccured()
     invisible( .Call( rcpp_error_recorder, e ) )
 }
 
-# simplified version of utils::tryCatch
+# simplified version of base::tryCatch
 rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, but is indeed not used
     .Call(reset_current_error)
     rcpp_doTryCatch <- function(expr, env) {
-        .Internal(.addCondHands("error", list(.rcpp_error_recorder),
-                                env, environment(), FALSE))
+        .Internal(.addCondHands("error", list(.rcpp_error_recorder), env, environment(), FALSE))
+        ## dot.int.ernal <- get( paste( '.Int', 'ernal', sep=''), baseenv())
+        ## dot.add.cond.hands <- get( paste( '.add', 'Cond', 'Hands', sep=''), baseenv()) -- never found :-/
+        ## dot.int.ernal(.Call("addcondhands", "error", list(.rcpp_error_recorder), env, environment(), FALSE))
         expr
     }
     parentenv <- parent.frame()
