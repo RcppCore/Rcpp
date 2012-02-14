@@ -16,15 +16,14 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 cpp_exception <- function( message = "C++ exception", class = NULL, cppstack = rcpp_get_current_stack_trace() ){
-	callstack <- sys.calls()
-	ncalls <- length(callstack)
-	call <- if( ncalls > 1L) callstack[[ ncalls - 1L ]] else match.call()
-	classes <- c( class, "C++Error", "error", "condition" )
-	condition <- structure( 
-		list( message = message, call = call, cppstack = cppstack ), 
-		class = classes )
-	setStackTrace( NULL )
-	stop( condition )
+    callstack <- sys.calls()
+    ncalls <- length(callstack)
+    call <- if( ncalls > 1L) callstack[[ ncalls - 1L ]] else match.call()
+    classes <- c( class, "C++Error", "error", "condition" )
+    condition <- structure(list( message = message, call = call, cppstack = cppstack ),
+                           class = classes )
+    setStackTrace( NULL )
+    stop( condition )
 }
 
 ## Dummy versions
@@ -42,52 +41,52 @@ getErrorOccured <- function() .Call( rcpp_get_error_occured )
 setStackTrace <- function(trace = TRUE) .Call( rcpp_set_stack_trace, trace )
 getStackTrace <- function() .Call( rcpp_get_stack_trace)
 
-# all below are called from Evaluator::run 
+# all below are called from Evaluator::run
 # on the C++ side, don't change them unless you also change
 # Evaluator::run
 
 getCurrentErrorMessage <- function() conditionMessage( getCurrentError() )
 errorOccured <- function() getErrorOccured()
 .rcpp_error_recorder <- function(e){
-	invisible( .Call( rcpp_error_recorder, e ) )
+    invisible( .Call( rcpp_error_recorder, e ) )
 }
 
-# # simplified version of utils::tryCatch
-# rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, but is indeed not used
-# 	.Call(reset_current_error)
-# 	rcpp_doTryCatch <- function(expr, env) {
-# 	    .Internal(.addCondHands("error", list(.rcpp_error_recorder), 
-# 	    	env, environment(), FALSE))
-# 	    expr
-# 	}
-# 	parentenv <- parent.frame()
-#     value <- rcpp_doTryCatch( return(expr), parentenv )
-# 	if (is.null(value[[1L]])) {
-# 	    # a simple error; message is stored internally
-# 	    # and call is in result; this defers all allocs until
-# 	    # after the jump
-# 	    msg <- geterrmessage()
-# 	    call <- value[[2L]]
-# 	    cond <- simpleError(msg, call)
-# 	}
-# 	else cond <- value[[1L]]
-# 	.rcpp_error_recorder(cond)
-# }
-
-rcpp_tryCatch <- function(expr){
+# simplified version of utils::tryCatch
+rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, but is indeed not used
     .Call(reset_current_error)
-    value <- withCallingHandlers( return(expr), error = .rcpp_error_recorder )
+    rcpp_doTryCatch <- function(expr, env) {
+        .Internal(.addCondHands("error", list(.rcpp_error_recorder),
+                                env, environment(), FALSE))
+        expr
+    }
+    parentenv <- parent.frame()
+    value <- rcpp_doTryCatch( return(expr), parentenv )
     if (is.null(value[[1L]])) {
-	    # a simple error; message is stored internally
-	    # and call is in result; this defers all allocs until
-	    # after the jump
-	    msg <- geterrmessage()
-	    call <- value[[2L]]
-	    cond <- simpleError(msg, call)
-	}
-	else cond <- value[[1L]]
-	.rcpp_error_recorder(cond)
+        ## a simple error; message is stored internally
+        ## and call is in result; this defers all allocs until
+        ## after the jump
+        msg <- geterrmessage()
+        call <- value[[2L]]
+        cond <- simpleError(msg, call)
+    }
+    else cond <- value[[1L]]
+    .rcpp_error_recorder(cond)
 }
+
+## rcpp_tryCatch <- function(expr){
+##     .Call(reset_current_error)
+##     value <- withCallingHandlers( return(expr), error = .rcpp_error_recorder )
+##     if (is.null(value[[1L]])) {
+## 	    # a simple error; message is stored internally
+## 	    # and call is in result; this defers all allocs until
+## 	    # after the jump
+## 	    msg <- geterrmessage()
+## 	    call <- value[[2L]]
+## 	    cond <- simpleError(msg, call)
+## 	}
+## 	else cond <- value[[1L]]
+## 	.rcpp_error_recorder(cond)
+## }
 
 
 
