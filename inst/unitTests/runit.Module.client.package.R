@@ -31,7 +31,10 @@
 ## It now (Dec 2011) appears to fail on Windows too
 .onWindows <- .Platform$OS.type == "windows"
 
-if( Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .onWindows) {
+## Disabling this test for now
+.runThisTest <- FALSE
+
+if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .onWindows) {
 
     test.Module.package <- function( ){
 
