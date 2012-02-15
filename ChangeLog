@@ -1,28 +1,32 @@
+2012-02-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/excections.R: Revert to previous use with .Internal
+        * R/tools.R: Add branch for R 2.15.0 which can use
+	assingInMyNamespace; else still use unlockBinding
+
+2012-02-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Rcpp-introduction.Rnw: Small wording fix thanks to Pat Burns
+
 2012-02-06  Romain Francois  <romain@r-enthusiasts.com>
 
-        * R/tools.R: one less .Internal call
-
-2012-02-03  Dirk Eddelbuettel  <edd@debian.org>
-
-        * DESCRIPTION: Release 0.9.10
-        * inst/NEWS: Release 0.9.10
-        * inst/include/Rcpp/config.h: Release 0.9.10
-        * debian/*: Similarly updated for new release to Debian
+        * R/exceptions.R: one less .Internal call
+	* src/Evaluator.cpp: one less .Internal call
 
 2012-02-03  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/Extractor.h: remove use of Fast in Extractor
-        
-        * inst/include/Rcpp/sugar/functions/mapply/mapply.h: new sugar function, 
-        similar to sapply, but with 2 or 3 (for now) input vectors
-        
+
+        * inst/include/Rcpp/sugar/functions/mapply/mapply.h: new sugar
+	function, similar to sapply, but with 2 or 3 (for now) input vectors
+
 2012-02-01  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/iostream/Rostream.h: no need to include Rcpp.h
 	here
-        
+
         * inst/include/RcppCommon.h: include Rostream.h here, instead of ...
-        
+
         * inst/include/Rcpp.h: ... here (needed for RcppArmadillo)
 
 2012-01-29  Romain Francois  <romain@r-enthusiasts.com>
