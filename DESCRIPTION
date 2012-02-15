@@ -5,8 +5,8 @@ Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, 
  with contributions by Douglas Bates and John Chambers
 Maintainer: Dirk Eddelbuettel and Romain Francois <RomainAndDirk@r-enthusiasts.com>
-Description: The Rcpp package provides a C++ library which facilitates the 
- integration of R and C++.
+Description: The Rcpp package provides R functions as well as a C++ library
+ which facilitate the integration of R and C++.
  .
  R data types (SEXP) are matched to C++ objects in a class hierarchy.  All R
  types are supported (vectors, functions, environment, etc ...)  and each
@@ -36,8 +36,8 @@ Description: The Rcpp package provides a C++ library which facilitates the
  An earlier version of Rcpp, containing what we now call the 'classic Rcpp
  API' was written during 2005 and 2006 by Dominick Samperi.  This code has
  been factored out of Rcpp into the package RcppClassic, and it is still
- available for code relying on the older interface. New development, however, 
- should use the Rcpp package instead.
+ available for code relying on the older interface. New development should 
+ use alwayse use this Rcpp package instead.
 Depends: R (>= 2.12.0), methods
 Suggests: RUnit, inline, rbenchmark
 URL: http://dirk.eddelbuettel.com/code/rcpp.html, http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
