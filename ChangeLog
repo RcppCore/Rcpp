@@ -1,4 +1,11 @@
-2011-12-16  Douglas Bates  <bates@stat.wisc.edu>
+2012-02-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.10
+        * inst/NEWS: Release 0.9.10
+        * inst/include/Rcpp/config.h: Release 0.9.10
+        * debian/*: Similarly updated for new release to Debian
+
+2011-12-15  Douglas Bates  <bates@stat.wisc.edu>
 
         * src/Evaluator.cpp: Avoid Rf_install inside an R API call
 
