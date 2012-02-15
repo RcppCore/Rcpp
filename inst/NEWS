@@ -1,4 +1,4 @@
-0.9.10  2012-xx-yy
+0.9.10  2012-02-15
 
     o   Rearrange headers so that Rcpp::Rcout can be used by RcppArmadillo et al
 
@@ -7,6 +7,9 @@
     o   Added custom version of the Rcpp sugar diff function for numeric vectors
         skipping unncesserry checks for NA
 
+    o   Some internal code changes to reflect changes and stricter requirements
+        in R CMD check in the current R-devel versions
+    
     o   Corrected fixed-value initialization for IntegerVector (with thanks to
         Gregor Kastner for spotting this)
 
