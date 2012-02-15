@@ -2,7 +2,7 @@
 //
 // Evaluator.cpp: Rcpp R/C++ interface class library -- evaluator
 //
-// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,11 +30,13 @@ namespace Rcpp {
         maybe_init() ;
         reset_current_error() ; 
         Environment RCPP = Environment::Rcpp_namespace(); 
+        static SEXP rcpp_tryCatch = NULL;
+        if (!rcpp_tryCatch) rcpp_tryCatch = ::Rf_install( "rcpp_tryCatch" );
         
         SEXP call = PROTECT( 
                             Rf_lang2( 
                                      // internal::get_rcpptrycatch() ,
-                                     Rf_install( "rcpp_tryCatch" ), 
+                                     rcpp_tryCatch,
                                      Rf_lang3( internal::get_evalq() , expr, env )
                                      // , 
                                      // Rf_eval( Rf_install(".rcpp_error_recorder"),  RCPP )
