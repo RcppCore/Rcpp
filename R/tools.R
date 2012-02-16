@@ -21,9 +21,9 @@ externalptr_address <- function(xp){
 
 # just like assignInNamespace but first checks that the binding exists
 forceAssignInNamespace <- function( x, value, env ){
-    if (getRversion() >= "2.15.0") {
-        assignInMyNamespace(x, value)
-    } else {
+    #if (getRversion() >= "2.15.0") {
+    #    assignInMyNamespace(x, value)
+    #} else {
         is_ns <- isNamespace( env )
         if( is_ns && exists( x, env ) && bindingIsLocked(x, env ) ){
             unlockBinding( x, env )
@@ -32,5 +32,5 @@ forceAssignInNamespace <- function( x, value, env ){
         if( is_ns ){
             lockBinding( x, env )
         }
-    }
+    #}
 }
