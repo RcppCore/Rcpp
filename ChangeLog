@@ -1,3 +1,8 @@
+2012-02-16  Douglas Bates  <bates@stat.wisc.edu>
+
+	* src/Evaluator.cpp: PROTECT the expr argument to Evaluator::Run.
+	Reorganize code.
+
 2012-02-15  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.10
