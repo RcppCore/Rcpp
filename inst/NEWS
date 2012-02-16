@@ -1,4 +1,4 @@
-0.9.10  2012-02-15
+0.9.10  2012-02-16
 
     o   Rearrange headers so that Rcpp::Rcout can be used by RcppArmadillo et al
 
