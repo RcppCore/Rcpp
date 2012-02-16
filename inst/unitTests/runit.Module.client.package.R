@@ -32,7 +32,7 @@
 .onWindows <- .Platform$OS.type == "windows"
 
 ## Disabling this test for now as it fails in R-devel
-.runThisTest <- FALSE
+.runThisTest <- TRUE
 
 if (.runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .onWindows) {
 
