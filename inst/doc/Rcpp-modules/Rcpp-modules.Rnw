@@ -1156,6 +1156,12 @@ yada <- Module( "yada" )
 prompt( yada, "yada-module.Rd" )
 @
 
+We strongly recommend using a package when working with Modules.  But in case a
+manually compiled shared library has to loaded, the return argument of the
+\code{dyn.load()} function can be supplied as the \code{PACKAGE} argument to
+the \code{Module()} function as well.
+
+
 \section{Future extensions}
 
 \texttt{Boost.Python} has many more features that we would like to port
