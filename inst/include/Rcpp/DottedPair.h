@@ -102,7 +102,8 @@ template<typename... Args>
 		if( index == 0 ) {
 			push_front( object ) ;
 		} else{
-			if( index <  0 ) throw index_out_of_bounds() ;
+		    // tautological comparison flagged by clang++
+//			if( index <  0 ) throw index_out_of_bounds() ;
 			if( isNULL( ) ) throw index_out_of_bounds() ;
 			
 			if( static_cast<R_len_t>(index) > ::Rf_length(m_sexp) ) throw index_out_of_bounds() ;
