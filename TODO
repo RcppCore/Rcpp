@@ -1,4 +1,22 @@
 
+Current misfeatures
+
+    o   Rcpp readmission at CRAN issue one:  use of unlockBinding in R/tools.R
+        in order to populate modules symbols; John looking into it
+ 
+    o   Rcpp readmission at CRAN issue two:  use of .Internal in rcpp_tryCatch
+        we should probably talk to Luke
+ 
+    o   Bugs found by Doug when using -ltcmalloc from the Google
+        Performance ToolsOne: 
+          - Rcpp::Dimension tickled from Rcpp::Matrix
+          - Rcpp::Function and eval
+        Both should be tickleable using the one-but-last version of
+        minqa and an R-devel version built with --enable-strict-barrier
+ 
+    o   Glenn Lawyer post to rcpp-devel on Mar 14 with Rcpp modules patch
+
+
 Documentation
 
     o   Add a vignette about Rcpp sugar [in progress]
