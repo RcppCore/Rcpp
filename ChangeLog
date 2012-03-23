@@ -1,3 +1,9 @@
+2012-03-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added short subsection on how to
+	test a package from the command-line, expanding a patch by Glenn
+	Lawyer in response to an initial rcpp-devel post by Dirk
+
 2012-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.10
