@@ -156,7 +156,7 @@ Further steps, specific to \pkg{Rcpp}, are described in a separate vignette.
 vignette( "Rcpp-package" )
 @
 
-\subsection{How do I quickly prototype my code ?}
+\subsection{How do I quickly prototype my code using inline?}
 \label{using-inline}
 
 The \pkg{inline} package \citep{CRAN:inline} provides the functions
@@ -176,7 +176,7 @@ stopifnot( identical( res, sum( seq( 1, 10, by = 0.5 ) ) ) )
 @
 
 \pkg{Rcpp} uses \pkg{inline} to power its entire unit test suite. Consult the
-\texttt{unitTests} directory of \pkg{Rcpp} for over five hundred further examples.
+\texttt{unitTests} directory of \pkg{Rcpp} for several hundred further examples.
 
 <<eval=FALSE>>=
 list.files( system.file( "unitTests", package = "Rcpp" ), pattern = "^runit[.]" )
@@ -195,6 +195,7 @@ fx <- cxxfunction( signature(),
 The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
 useful as it shows how \pkg{inline} runs the show.
 
+
 \subsection{How do I convert my prototyped code to a package ?}
 \label{from-inline-to-package}
 
@@ -204,6 +205,38 @@ Since release 0.3.5 of \pkg{inline}, one can combine \faq{using-inline} and
 transform a prototyped function into the minimal structure of a package.
 After that you can proceed with working on the package in the spirit of
 \faq{make-package}.
+
+\subsection{How do I quickly prototype my code in a package?}
+\label{using-a-package}
+
+The simplest way may be to work directly with a package.  Changes to both the
+\proglang{R} and \proglang{C++} code can be compiled and tested from the
+command line via:
+
+<<lang=bash>>=
+$ R CMD INSTALL mypkg && Rscript --default-packages=mypkg -e 'someFunctionToTickle(3.14)'
+@
+
+This first installs the packages, and then uses the command-line tool
+\code{Rscript} (which ships with \code{R}) to load the package, and execute
+the \proglang{R} expression following the \code{-e} switch. Such an
+expression can contain multiple statements separated by semicolons.
+\code{Rscript} is available on all three core operating systems.
+
+On Linux, one can also use \code{r} from the \code{littler} package by Horner
+and Eddelbuettel which is an alternative front end to \proglang{R} designed
+for both \verb|#!| (hashbang) scripting and command-line use. It has slightly
+faster start-up times than \code{Rscript}; and both give a guaranteed clean
+slate as a new session is created.
+
+The example then becomes
+
+<<lang=bash>>=
+ $ R CMD INSTALL mypkg && r -l mypkg -e 'someFunctionToTickle(3.14)'
+@
+
+The \code{-l} option calls 'suppressMessages(library(mypkg))' before executing the
+\proglang{R} expression. Several packages can be listed, separated by a comma.
 
 \subsection{But I want to compile my code with R CMD SHLIB !}
 
