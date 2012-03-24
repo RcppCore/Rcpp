@@ -51,5 +51,8 @@ getCurrentErrorMessage <- function() conditionMessage( getCurrentError() )
     invisible( .Call( rcpp_error_recorder, e ) )
 }
 
-
+# for backwards compatibility, but not used anywhere
+rcpp_tryCatch <- function(expr){ 
+    tryCatch(expr, error = .rcpp_error_recorder ) )
+}
 
