@@ -20,9 +20,6 @@
 .classes_map <- new.env()
 
 .onLoad <- function(libname, pkgname){
-    ## Call to init_Rcpp_cache is not needed here as it is called in
-    ## R_init_Rcpp.  Calling it twice is potentially destructive
-#    .Call("init_Rcpp_cache", PACKAGE = "Rcpp" )
     minimum_svn_rev <- packageDescription( pkgname )[["MinimumSvnRev"]]
     # if( as.integer(R.version[["svn rev"]]) < as.integer(minimum_svn_rev)){
     #     packageStartupMessage(gettextf(paste("R version (%s) older than minimum required (%s)",

@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.rcpp_cache <- NULL
 cpp_exception <- function( message = "C++ exception", class = NULL, cppstack = rcpp_get_current_stack_trace() ){
     callstack <- sys.calls()
     ncalls <- length(callstack)
@@ -46,49 +47,9 @@ getStackTrace <- function() .Call( rcpp_get_stack_trace)
 # Evaluator::run
 
 getCurrentErrorMessage <- function() conditionMessage( getCurrentError() )
-errorOccured <- function() getErrorOccured()
-.rcpp_error_recorder <- function(e){
+.rcpp_error_recorder <- function(e){  
     invisible( .Call( rcpp_error_recorder, e ) )
 }
-
-# simplified version of base::tryCatch
-rcpp_tryCatch <- function(expr, unused){  # unused is kept for compatibility, but is indeed not used
-    .Call(reset_current_error)
-    rcpp_doTryCatch <- function(expr, env) {
-        .Internal(.addCondHands("error", list(.rcpp_error_recorder), env, environment(), FALSE))
-        ## dot.int.ernal <- get( paste( '.Int', 'ernal', sep=''), baseenv())
-        ## dot.add.cond.hands <- get( paste( '.add', 'Cond', 'Hands', sep=''), baseenv()) -- never found :-/
-        ## dot.int.ernal(.Call("addcondhands", "error", list(.rcpp_error_recorder), env, environment(), FALSE))
-        expr
-    }
-    parentenv <- parent.frame()
-    value <- rcpp_doTryCatch( return(expr), parentenv )
-    if (is.null(value[[1L]])) {
-        ## a simple error; message is stored internally
-        ## and call is in result; this defers all allocs until
-        ## after the jump
-        msg <- geterrmessage()
-        call <- value[[2L]]
-        cond <- simpleError(msg, call)
-    }
-    else cond <- value[[1L]]
-    .rcpp_error_recorder(cond)
-}
-
-## rcpp_tryCatch <- function(expr){
-##     .Call(reset_current_error)
-##     value <- withCallingHandlers( return(expr), error = .rcpp_error_recorder )
-##     if (is.null(value[[1L]])) {
-## 	    # a simple error; message is stored internally
-## 	    # and call is in result; this defers all allocs until
-## 	    # after the jump
-## 	    msg <- geterrmessage()
-## 	    call <- value[[2L]]
-## 	    cond <- simpleError(msg, call)
-## 	}
-## 	else cond <- value[[1L]]
-## 	.rcpp_error_recorder(cond)
-## }
 
 
 

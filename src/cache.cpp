@@ -21,68 +21,64 @@
 
 #include <Rcpp.h>
 
+static bool Rcpp_cache_know = false ;
 static SEXP Rcpp_cache = R_NilValue ;
-static bool Rcpp_cache_ready = false ;
-  
-void maybe_init() { 
-    if( ! Rcpp_cache_ready ) init_Rcpp_cache() ;
-}
+
+SEXP reset_current_error__(SEXP) ;
 
 namespace Rcpp {
     namespace internal {   
 		SEXP get_Rcpp_namespace(){ 
-			maybe_init() ; return VECTOR_ELT( Rcpp_cache , 0 ) ;
-		}
-		SEXP get_rcpptrycatch(){
-			// maybe_init() ; return VECTOR_ELT( Rcpp_cache, 4 ) ; 
-			return Rf_install("rcpp_tryCatch") ; // maybe not worth assigning to SEXP
-		}                              
-		SEXP get_evalq(){
-			// maybe_init() ; return VECTOR_ELT( Rcpp_cache, 5 ) ;
-			return Rf_install("evalq");	// maybe not worth assigning to SEXP
+			return VECTOR_ELT( Rcpp_cache , 0 ) ;
 		}
 	}
 }
 
 // only used for debugging
-SEXP get_rcpp_cache() { return Rcpp_cache ; }
-
-SEXP init_Rcpp_cache(){   
-    Rcpp_cache = PROTECT( Rf_allocVector( VECSXP, 10 ) );
-
-    // the Rcpp namespace
-	SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
-    SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
-    SET_VECTOR_ELT( Rcpp_cache, 0, RCPP ) ;
-	reset_current_error() ;
-	// SET_VECTOR_ELT( Rcpp_cache, 4, Rf_install("rcpp_tryCatch") ) ;
-	// SET_VECTOR_ELT( Rcpp_cache, 5, Rf_install("evalq") ) ;
-	
-    R_PreserveObject( Rcpp_cache ) ;
-	UNPROTECT(2) ;  
-	Rcpp_cache_ready = true ;
-	return Rcpp_cache ;
+SEXP get_rcpp_cache() {
+    if( ! Rcpp_cache_know ){
+        SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
+        SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+        
+        Rcpp_cache = Rf_findVarInFrame( RCPP, Rf_install(".rcpp_cache") ) ;
+        Rcpp_cache_know = true ;
+        UNPROTECT(1) ;
+    }
+    return Rcpp_cache ;
 }
 
-SEXP reset_current_error(){
+SEXP init_Rcpp_cache(){   
+    SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
+    SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+    SEXP cache = PROTECT( Rf_allocVector( VECSXP, 10 ) );
     
-    // error occured
-    SET_VECTOR_ELT( Rcpp_cache, 1, Rf_ScalarLogical(FALSE) ) ;
+    // the Rcpp namespace
+	SET_VECTOR_ELT( cache, 0, RCPP ) ;
+	reset_current_error__(cache) ;
+	
+	Rf_defineVar( Rf_install(".rcpp_cache"), cache, RCPP );
+    
+    UNPROTECT(2) ;  
+	return cache ;
+}
+
+SEXP reset_current_error__(SEXP cache){
+    
+    SET_VECTOR_ELT( cache, 1, Rf_ScalarLogical(FALSE) ) ;
 	
     // current error
-    SET_VECTOR_ELT( Rcpp_cache, 2, R_NilValue ) ;
+    SET_VECTOR_ELT( cache, 2, R_NilValue ) ;
 	
     // stack trace
-    SET_VECTOR_ELT( Rcpp_cache, 3, R_NilValue ) ;
+    SET_VECTOR_ELT( cache, 3, R_NilValue ) ;
 	
     return R_NilValue ;
 }
+SEXP reset_current_error(){ return reset_current_error__( get_rcpp_cache() ) ; }
 
-SEXP rcpp_error_recorder(SEXP e){
-    maybe_init() ;
-    
+SEXP rcpp_error_recorder(SEXP e, SEXP cache){
     // error occured
-    SET_VECTOR_ELT( Rcpp_cache, 1, Rf_ScalarLogical(TRUE) ) ;
+    SET_VECTOR_ELT( cache, 1, Rf_ScalarLogical(TRUE) ) ;
 	
     // current error
     rcpp_set_current_error(e ) ;
@@ -90,31 +86,33 @@ SEXP rcpp_error_recorder(SEXP e){
     return R_NilValue ;
 	
 }
+SEXP rcpp_error_recorder(SEXP e){ return rcpp_error_recorder(e, get_rcpp_cache() ) ;}
 
-SEXP rcpp_set_current_error(SEXP e){
-    SET_VECTOR_ELT( Rcpp_cache, 2, e ) ;
+SEXP rcpp_set_current_error(SEXP e, SEXP cache){
+    SET_VECTOR_ELT( cache, 2, e ) ;
     return R_NilValue ;
 }
+SEXP rcpp_set_current_error(SEXP e){ return rcpp_set_current_error(e, get_rcpp_cache() ) ; }
 
 SEXP rcpp_get_current_error(){
-    return VECTOR_ELT( Rcpp_cache, 2 ) ;
+    return VECTOR_ELT( get_rcpp_cache(), 2 ) ;
 }
 
 SEXP rcpp_set_error_occured(SEXP e){
-    SET_VECTOR_ELT( Rcpp_cache, 1, e ) ;
+    SET_VECTOR_ELT( get_rcpp_cache(), 1, e ) ;
     return R_NilValue ;
 }
 
 SEXP rcpp_get_error_occured(){
-    return VECTOR_ELT( Rcpp_cache, 1 ) ;
+    return VECTOR_ELT( get_rcpp_cache(), 1 ) ;
 }
 
 SEXP rcpp_set_stack_trace(SEXP e){
-    SET_VECTOR_ELT( Rcpp_cache, 3, e ) ;
+    SET_VECTOR_ELT( get_rcpp_cache(), 3, e ) ;
     return R_NilValue ;
 }
 
 SEXP rcpp_get_stack_trace(){
-    return VECTOR_ELT( Rcpp_cache, 3 ) ;
+    return VECTOR_ELT( get_rcpp_cache(), 3 ) ;
 }
 
