@@ -1,6 +1,6 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.9.10
+Version: 0.9.10.1
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Douglas Bates and John Chambers
