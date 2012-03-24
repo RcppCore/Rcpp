@@ -1,9 +1,6 @@
 
 Current misfeatures
 
-    o   Rcpp readmission at CRAN issue one:  use of unlockBinding in R/tools.R
-        in order to populate modules symbols; John looking into it
- 
     o   Bugs found by Doug when using -ltcmalloc from the Google
         Performance ToolsOne: 
           - Rcpp::Dimension tickled from Rcpp::Matrix
