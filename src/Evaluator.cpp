@@ -21,43 +21,45 @@
 
 #include <Rcpp/Evaluator.h>
 
-void maybe_init() ;
-
 namespace Rcpp {
 
     SEXP Evaluator::run(SEXP expr, SEXP env) {
         PROTECT(expr);
 
-        maybe_init() ;
         reset_current_error() ; 
 
         Environment RCPP = Environment::Rcpp_namespace(); 
-        static SEXP rcpp_tryCatchSym = NULL, evalqSym, errorOccuredSym, getCurrentErrorMessageSym;
-        if (!rcpp_tryCatchSym) {
-            rcpp_tryCatchSym          = ::Rf_install("rcpp_tryCatch");
+        static SEXP tryCatchSym = NULL, evalqSym, errorOccuredSym, getCurrentErrorMessageSym;
+        if (!tryCatchSym) {
+            tryCatchSym          = ::Rf_install("tryCatch");
             evalqSym                  = ::Rf_install("evalq");
             errorOccuredSym           = ::Rf_install("errorOccured");
             getCurrentErrorMessageSym = ::Rf_install("getCurrentErrorMessage");
         }
 
-        SEXP call = PROTECT(::Rf_lang2(rcpp_tryCatchSym, PROTECT(::Rf_lang3(evalqSym, expr, env))));
+        SEXP call = PROTECT( Rf_lang3( 
+            tryCatchSym, 
+            Rf_lang3( evalqSym, expr, env ),
+            Rf_install( ".rcpp_error_recorder" )
+        ) ) ;
+        SET_TAG( CDDR(call), Rf_install( "error" ) ) ;
         /* call the tryCatch call */
         SEXP res  = PROTECT(::Rf_eval( call, RCPP ) );
         
         /* was there an error ? */
-        int error = ::Rf_asLogical(PROTECT(::Rf_eval(PROTECT(::Rf_lang1(errorOccuredSym)), RCPP)));
-        UNPROTECT(2) ;
+        int error = INTEGER( rcpp_get_error_occured())[0] ;
+        
+        UNPROTECT(3) ;
         
         if( error ) {
             std::string 
                 message(CHAR(::Rf_asChar(PROTECT(::Rf_eval(
                                                      PROTECT(::Rf_lang1(getCurrentErrorMessageSym)),
                                                      RCPP)))));
-            UNPROTECT( 6 ) ;
+            UNPROTECT( 2 ) ;
             throw eval_error(message) ;
         }
 
-        UNPROTECT(4) ;
         return res ;
     }
 
