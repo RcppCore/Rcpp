@@ -1158,8 +1158,8 @@ prompt( yada, "yada-module.Rd" )
 
 We strongly recommend using a package when working with Modules.  But in case a
 manually compiled shared library has to loaded, the return argument of the
-\code{dyn.load()} function can be supplied as the \code{PACKAGE} argument to
-the \code{Module()} function as well.
+\texttt{dyn.load()} function can be supplied as the \texttt{PACKAGE} argument to
+the \texttt{Module()} function as well.
 
 
 \section{Future extensions}
