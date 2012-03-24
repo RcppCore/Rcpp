@@ -26,8 +26,6 @@ namespace Rcpp {
 namespace internal{
         
     SEXP get_Rcpp_namespace() ;
-    SEXP get_rcpptrycatch() ;
-    SEXP get_evalq() ;
     
 }    
 }
