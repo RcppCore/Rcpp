@@ -7,6 +7,8 @@ Current misfeatures
           - Rcpp::Function and eval
         Both should be tickleable using the one-but-last version of
         minqa and an R-devel version built with --enable-strict-barrier
+
+        Update by DE:  Cannot replicate this on my Linux box
  
     o   Glenn Lawyer post to rcpp-devel on Mar 14 with Rcpp modules patch
 
@@ -21,6 +23,7 @@ Current misfeatures
           no binding for "World"
           Error: loading failed
 
+        Update by DE: Bob now says may be local...
 
 Documentation
 
