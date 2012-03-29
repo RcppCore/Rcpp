@@ -1,4 +1,5 @@
 #!/usr/bin/r -t
+#       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
 # Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
@@ -19,15 +20,16 @@
 
 definitions <- function(){
     f <- list(
-        	"raw_" = list(
+              "raw_" = list(
         		signature(),
         		'
 				RawVector x(10) ;
 				for( int i=0; i<10; i++) x[i] = (Rbyte)i ;
 				return x ;
 				'
-        	),
-        	"raw_REALSXP" = list(
+              ),
+
+              "raw_REALSXP" = list(
         		signature(vec = "raw" ),
         		'
 				RawVector x(vec) ;
@@ -36,8 +38,9 @@ definitions <- function(){
 				}
 				return x ;
 				'
-        	),
-        	"expression_" = list(
+              ),
+
+              "expression_" = list(
         		signature(),
         		'
 				ExpressionVector x(2) ;
@@ -45,8 +48,9 @@ definitions <- function(){
 				x[1] = Rf_lcons( Symbol("rnorm"), Rf_cons( Rf_ScalarReal(10.0), R_NilValue) ) ;
 				return x ;
 				'
-        	),
-        	"expression_variadic" = list(
+              ),
+
+              "expression_variadic" = list(
         		signature(),
         		'
 				ExpressionVector x(2) ;
@@ -54,36 +58,41 @@ definitions <- function(){
 				x[1] = Language( "rnorm", 10.0 ) ;
 				return x ;
 				'
-        	),
-        	"expression_parse" = list(
+              ),
+
+        	  "expression_parse" = list(
         		signature(),
         		'
-					ExpressionVector code( "local( { y <- sample(1:10); sort(y) })" ) ;
-					return code ;
+				ExpressionVector code( "local( { y <- sample(1:10); sort(y) })" ) ;
+				return code ;
 				'
-        	),
-        	"expression_parseerror" = list(
+        	  ),
+
+        	  "expression_parseerror" = list(
         		signature(),
         		'
-					ExpressionVector code( "rnorm(" ) ;
-					return code ;
+				ExpressionVector code( "rnorm(" ) ;
+				return code ;
 				'
-        	),
-        	"expression_eval" = list(
+        	  ),
+
+              "expression_eval" = list(
         		signature(),
         		'
 				ExpressionVector code( "local( { y <- sample(1:10); sort(y) })" ) ;
 				return code.eval() ;
 				'
-        	),
-        	"expression_evalenv" = list(
+        	  ),
+
+              "expression_evalenv" = list(
         		signature(env = "environment"),
         		'
 				ExpressionVector code( "sort(x)" ) ;
 				return code.eval(env) ;
 				'
-        	),
-        	"complex_" = list(
+              ),
+
+        	  "complex_" = list(
         		signature(),
         		'
 				ComplexVector x(10) ;
@@ -94,154 +103,176 @@ definitions <- function(){
 				}
 				return x ;
 				'
-        	),
-        	"complex_CPLXSXP" = list(
+        	  ),
+
+        	  "complex_CPLXSXP" = list(
         		signature(vec = "complex" ),
         		'
 				ComplexVector x(vec) ;
-                int nn = x.size();
+                		int nn = x.size();
 				for( int i=0; i<nn; i++) {
 					x[i].r = x[i].r*2 ;
 					x[i].i = x[i].i*2 ;
 				}
 				return x ;
 				'
-        	),
-        	"complex_INTSXP" = list(
+        	  ),
+
+              "complex_INTSXP" = list(
         		signature(vec = "integer" ),
         		'
 				ComplexVector x(vec);
-                int nn = x.size();
-                IntegerVector tmp(nn, 2.0);
-                ComplexVector tmp1(tmp);
-                x = x * tmp1;
+	                	int nn = x.size();
+        	        	IntegerVector tmp(nn, 2.0);
+                		ComplexVector tmp1(tmp);
+                		x = x * tmp1;
 				return x ;
-				'
-        	),
-        	"complex_REALSXP" = list(
+			    '
+        	  ),
+
+              "complex_REALSXP" = list(
         		signature(vec = "numeric" ),
         		'
-				ComplexVector x(vec);
-                int nn = x.size();
-                NumericVector tmp(nn, 3.0);
-                ComplexVector tmp1(tmp);
-                x = x * tmp1;
-				return x ;
+					ComplexVector x(vec);
+                	int nn = x.size();
+                	NumericVector tmp(nn, 3.0);
+                	ComplexVector tmp1(tmp);
+                	x = x * tmp1;
+					return x ;
 				'
-        	),
+        	  ),
 
-        	"integer_ctor"=list(
-                  signature(),
-                  'IntegerVector x(10) ;
-	           for( int i=0; i<10; i++) x[i] = i ;
-	           return x ;')
+              "integer_ctor"=list(
+                  	signature(),
+                  	'IntegerVector x(10) ;
+	           	for( int i=0; i<10; i++) x[i] = i ;
+	           	return x ;'
+                ),
 
-                  ,"integer_INTSXP_"=list(
+              "integer_INTSXP_"=list(
                    signature(vec = "integer" ),
                    'IntegerVector x(vec) ;
 	            for( int i=0; i<x.size(); i++) {
-		       x[i] = x[i]*2 ;
+		          x[i] = x[i]*2 ;
 	            }
-	            return x ;')
+	            return x ;'
+              ),
 
-                  ,"integer_dimension_ctor_1"=list(
+              "integer_dimension_ctor_1"=list(
                    signature(),
-                   'return IntegerVector( Dimension( 5 ) ) ;')
+                   'return IntegerVector( Dimension( 5 ) ) ;'
+              ),
 
-                  ,"integer_dimension_ctor_2"=list(
+              "integer_dimension_ctor_2"=list(
                    signature(),
-                   'return IntegerVector( Dimension( 5, 5 ) ) ;')
+                   'return IntegerVector( Dimension( 5, 5 ) ) ;'
+              ),
 
-                  ,"integer_dimension_ctor_3"=list(
+              "integer_dimension_ctor_3"=list(
                    signature(),
-                   'return IntegerVector( Dimension( 2, 3, 4) ) ;')
+                   'return IntegerVector( Dimension( 2, 3, 4) ) ;'
+              ),
 
-                  ,"integer_range_ctor_1"=list(
+              "integer_range_ctor_1"=list(
                    signature(),
                    'int x[] = { 0, 1, 2, 3 } ;
-		    IntegerVector y( x, x+4 ) ;
-		    return y; ')
+		    		IntegerVector y( x, x+4 ) ;
+		    		return y; '
+              ),
 
-                  ,"integer_range_ctor_2"=list(
+              "integer_range_ctor_2"=list(
                    signature(),
                    'std::vector<int> vec(4) ;
-		    for( size_t i = 0; i<4; i++) vec[i] = i;
-		    IntegerVector y( vec.begin(), vec.end() ) ;
-		    return y;')
+		    		for( size_t i = 0; i<4; i++) vec[i] = i;
+		    		IntegerVector y( vec.begin(), vec.end() ) ;
+		    		return y;'
+              ),
 
-                  ,"integer_names_set"=list(
+              "integer_names_set"=list(
                    signature(),
                    'IntegerVector y(2) ;
-		    std::vector<std::string> names(2)  ;
-		    names[0] = "foo" ;
-		    names[1] = "bar" ;
-		    y.names() = names ;
-		    return y ; ')
+				    std::vector<std::string> names(2)  ;
+				    names[0] = "foo" ;
+				    names[1] = "bar" ;
+				    y.names() = names ;
+				    return y ; '
+              ),
 
-                  ,"integer_names_get"=list(
+              "integer_names_get"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
-		    return y.names() ;')
+				    return y.names() ;'
+              ),
 
-                  ,"integer_names_indexing"=list(
+              "integer_names_indexing"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
-		    return wrap( y["foo"] ); ')
+				    return wrap( y["foo"] ); '
+              ),
 
-                  ,"integer_comma"=list(
+              "integer_comma"=list(
                    signature(),
                    'IntegerVector x(4) ;
-	            x = 0, 1, 2, 3 ;
-	            return x ;')
+		            x = 0, 1, 2, 3 ;
+		            return x ;'
+              ),
 
-                  ,"integer_push_back"=list(
+              "integer_push_back"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
 	            y.push_back( 5 ) ;
-	            return y ;')
+	            return y ;'
+                ),
 
-                  ,"integer_push_front"=list(
+              "integer_push_front"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
 	            y.push_front( 5 ) ;
-	            return y ;')
+	            return y ;'
+                ),
 
-                  ,"integer_insert"=list(
+              "integer_insert"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
 	            y.insert( 0, 5 ) ;
 	            y.insert( 2, 7 ) ;
-	            return y ;')
+	            return y ;'
+              ),
 
-                  ,"integer_erase"=list(
+              "integer_erase"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
 	            y.erase(2) ;
-	            return y ;')
+	            return y ;'
+              ),
 
-                  ,"integer_erase2"=list(
+              "integer_erase2"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
 	            y.erase(1,2) ;
-	            return y ;')
+	            return y ;'
+              ),
 
-                  ,"integer_fill"=list(
+              "integer_fill"=list(
                    signature(x = "integer"),
                    'IntegerVector y(x) ;
 	            y.fill(10) ;
-	            return y ;' )
+	            return y ;'
+              ),
 
-                  ,"integer_zero"=list(
+              "integer_zero"=list(
                    signature(),
-                   'return IntegerVector(0);' )
+                   'return IntegerVector(0);'
+              ),
 
-                  ,"integer_create_zero"=list(
+              "integer_create_zero"=list(
                    signature(),
                    'return IntegerVector::create();'
-                  ),
-                  "integer_create_" = list(
-                  signature(),
-                  '
+              ),
+
+              "integer_create_" = list(
+                	signature(),
+                  	'
 					List output(2);
 					output[0] = IntegerVector::create( 10, 20 ) ;
 					output[1] = IntegerVector::create(
@@ -249,10 +280,11 @@ definitions <- function(){
 						_["bar"] = 30 ) ;
 					return output ;
 					'
-                  ),
-                  "integer_clone_" = list(
-                  signature(x="integer"),
-                  '
+              ),
+
+              "integer_clone_" = list(
+                	  signature(x="integer"),
+                  	'
 					IntegerVector vec(x) ;
 					IntegerVector dolly = clone( vec ) ;
 					for( size_t i=0; i<10; i++){
@@ -260,19 +292,19 @@ definitions <- function(){
 					}
 					return dolly ;
 					'
-                  ) ,
+              ),
 
 
-
-           "numeric_" = list(
+              "numeric_" = list(
         		signature(),
         		'
 				NumericVector x(10) ;
 				for( int i=0; i<10; i++) x[i] = i ;
 				return x ;
 				'
-        	),
-        	"numeric_REALSXP" = list(
+              ),
+
+              "numeric_REALSXP" = list(
         		signature(vec = "numeric" ),
         		'
 				NumericVector x(vec) ;
@@ -281,8 +313,9 @@ definitions <- function(){
 				}
 				return x ;
 				'
-        	),
-        	"numeric_import" = list(
+              ),
+
+              "numeric_import" = list(
         		signature(),
         		'
 					std::vector<int> v(10) ;
@@ -291,8 +324,9 @@ definitions <- function(){
 					return IntegerVector::import( v.begin(), v.end() ) ;
 
 				'
-        	),
-        	"numeric_importtransform" = list(
+              ),
+
+              "numeric_importtransform" = list(
         		signature(),
         		'
 					std::vector<double> v(10) ;
@@ -301,114 +335,126 @@ definitions <- function(){
 					return NumericVector::import_transform( v.begin(), v.end(), square ) ;
 
 				'
-        	)  ,
+              ),
 
+              "list_ctor"=list(
+                	  signature(),
+                  	'List x(10) ;
+	           	for( int i=0; i<10; i++) x[i] = Rf_ScalarInteger( i * 2)  ;
+	           	return x ;'
+              ),
 
-
-
-
-        	"list_ctor"=list(
-                  signature(),
-                  'List x(10) ;
-	           for( int i=0; i<10; i++) x[i] = Rf_ScalarInteger( i * 2)  ;
-	           return x ;')
-
-                  ,"list_template_"=list(
+              "list_template_"=list(
                    signature(),
                    'List x(4) ;
 	            x[0] = "foo"  ;
 	            x[1] = 10 ;
 	            x[2] = 10.2 ;
 	            x[3] = false;
-	            return x ;')
+	            return x ;'
+              ),
 
-                  ,"list_VECSXP_"=list(
+              "list_VECSXP_"=list(
                    signature(vec = "list" ),
                    'List x(vec) ;
-                    return x ;')
+                    return x ;'
+              ),
 
-                  ,"list_matrix_indexing_1"=list(
+              "list_matrix_indexing_1"=list(
                    signature(x = "character" ),
                    'GenericVector m(x) ;
-		    GenericVector out(4) ;
-		    for( size_t i=0 ; i<4; i++){
-		        out[i] = m(i,i) ;
-		    }
-		    return out ;')
+				    GenericVector out(4) ;
+				    for( size_t i=0 ; i<4; i++){
+				        out[i] = m(i,i) ;
+				    }
+				    return out ;'
+              ),
 
-                  ,"list_matrix_indexing_2"=list(
+              "list_matrix_indexing_2"=list(
                    signature(x = "integer" ),
                    'GenericVector m(x) ;
-		    for(size_t i=0 ; i<4; i++){
-		        m(i,i) = "foo" ;
-		    }
-		    return m ; ')
+				    for(size_t i=0 ; i<4; i++){
+				        m(i,i) = "foo" ;
+				    }
+				    return m ; '
+              ),
 
-                  ,"list_Dimension_constructor_1"=list(
+              "list_Dimension_constructor_1"=list(
                    signature(),
-                   'return List( Dimension( 5 ) ) ;')
+                   'return List( Dimension( 5 ) ) ;'
+              ),
 
-                  ,"list_Dimension_constructor_2"=list(
+              "list_Dimension_constructor_2"=list(
                    signature(),
-                   'return List( Dimension( 5, 5 ) );')
+                   'return List( Dimension( 5, 5 ) );'
+              ),
 
-                  ,"list_Dimension_constructor_3"=list(
+              "list_Dimension_constructor_3"=list(
                    signature(),
-                   ' return List( Dimension( 2, 3, 4) ) ;')
+                   ' return List( Dimension( 2, 3, 4) ) ;'
+              ),
 
-                  ,"list_iterator_"=list(
+              "list_iterator_"=list(
                    signature(x = "list", g = "function" ),
                    'Function fun(g) ;
-		    List input(x) ;
-		    List output( input.size() ) ;
-		    std::transform( input.begin(), input.end(), output.begin(), fun ) ;
-		    output.names() = input.names() ;
-		    return output ; ')
+				    List input(x) ;
+				    List output( input.size() ) ;
+				    std::transform( input.begin(), input.end(), output.begin(), fun ) ;
+				    output.names() = input.names() ;
+				    return output ; '
+              ),
 
-                  ,"list_name_indexing"=list(
+              "list_name_indexing"=list(
                    signature(x = "data.frame"),
                    'List df(x) ;
 	            IntegerVector df_x = df["x"] ;
 	            int res = std::accumulate( df_x.begin(), df_x.end(), 0 ) ;
-	            return wrap(res); ')
+	            return wrap(res); '
+              ),
 
-                  ,"list_push_back"=list(
+              "list_push_back"=list(
                    signature(x = "list"),
                    'List list(x) ;
 	            list.push_back( 10 ) ;
 	            list.push_back( "bar", "foo" ) ;
 	            return list ;
-	           ')
+	           '
+              ),
 
-                  ,"list_push_front"=list(
+              "list_push_front"=list(
                    signature(x = "list"),
                    'List list(x) ;
 	            list.push_front( 10 ) ;
 	            list.push_front( "bar", "foo" ) ;
-	            return list ; ')
+	            return list ; '
+              ),
 
-                  ,"list_erase"=list(
+              "list_erase"=list(
                    signature(x = "list"),
                    'List list(x) ;
 	            list.erase( list.begin() ) ;
-	            return list ; ')
+	            return list ; '
+              ),
 
-                  ,"list_erase_range"=list(
+              "list_erase_range"=list(
                    signature(x = "list"),
 	           'List list(x) ;
 	            list.erase( 0, 1 ) ;
-	            return list ; ')
+	            return list ; '
+              ),
 
-                  ,"list_implicit_push_back"=list(
+              "list_implicit_push_back"=list(
                    signature(),
                    'List list ;
                     list["foo"] = 10 ;
                     list["bar" ] = "foobar" ;
                     return list ;
-                   '),
+                   '
+              ),
+
               "list_create_" = list(
-              	signature(),
-              	'
+              		signature(),
+              		'
 					List output(2);
 					output[0] = List::create( 10, "foo" ) ;
 					output[1] = List::create(
@@ -417,156 +463,173 @@ definitions <- function(){
 					return output ;
 				'
               ),
+
               "list_stdcomplex" = list(
               		signature() , '
               			std::vector< std::complex<double> > v_double(10) ;
     					std::vector< std::complex<float> > v_float(10) ;
     					return List::create( _["float"] = v_float, _["double"] = v_double ) ;
     				'
-    			),
-
-
-
+              ),
 
               "character_ctor"=list(
                   signature(),
                   'CharacterVector x(10) ;
-	           for( int i=0; i<10; i++) x[i] = "foo" ;
-	           return x ;')
+	          		 for( int i=0; i<10; i++) x[i] = "foo" ;
+			           return x ;'
+              ),
 
-                  ,"character_STRSXP_"=list(
+              "character_STRSXP_"=list(
                    signature(vec = "character" ),
                    'CharacterVector x(vec) ;
 	            std::string st = "" ;
 	            for( int i=0; i<x.size(); i++) {
 		         st += x[i] ;
 	            }
-	            return wrap( st ) ;' )
+	            return wrap( st ) ;'
+              ),
 
-                  ,"character_plusequals"=list(
+              "character_plusequals"=list(
                    signature(),
                    'CharacterVector x(2) ;
 	            x[0] = "foo" ;
 	            x[1] = "bar" ;
 	            x[0] += "bar" ;
 	            x[1] += x[0] ;
-	            return x ;')
+	            return x ;'
+              ),
 
-                  ,"character_matrix_indexing"=list(
+              "character_matrix_indexing"=list(
                    signature(x = "character" ),
                    'CharacterVector m(x) ;
-		    std::string trace;
-		    for( size_t i=0 ; i<4; i++){
-		        trace += m(i,i) ;
-		    }
-		    return wrap( trace ) ;')
+				    std::string trace;
+				    for( size_t i=0 ; i<4; i++){
+				        trace += m(i,i) ;
+				    }
+				    return wrap( trace ) ;'
+              ),
 
-                  ,"character_matrix_indexing_lhs"=list(
+              "character_matrix_indexing_lhs"=list(
                    signature(x = "integer" ),
                    'CharacterVector m(x) ;
-		    for( size_t i=0 ; i<4; i++){
-		        m(i,i) = "foo" ;
-		    }
-		    return m ;')
+				    for( size_t i=0 ; i<4; i++){
+				        m(i,i) = "foo" ;
+				    }
+				    return m ;'),
 
-                  ,"character_assign1"=list(
+              "character_assign1"=list(
                    signature(),
                    'const char* x[] = { "foo", "bar", "bling", "boom" } ;
-		    CharacterVector y ;
-		    y.assign( x, x+4 ) ;
-		    return y;')
+		    		CharacterVector y ;
+				    y.assign( x, x+4 ) ;
+				    return y;'
+              ),
 
-                  ,"character_assign2"=list(
+              "character_assign2"=list(
                    signature(),
                    'std::vector<std::string> vec(4) ;
-		    vec[0] = "foo";
-		    vec[1] = "bar";
-		    vec[2] = "bling";
-		    vec[3] = "boom" ;
-		    CharacterVector y ;
-		    y.assign( vec.begin(), vec.end() ) ;
-		    return y;')
+				    vec[0] = "foo";
+				    vec[1] = "bar";
+				    vec[2] = "bling";
+				    vec[3] = "boom" ;
+				    CharacterVector y ;
+				    y.assign( vec.begin(), vec.end() ) ;
+				    return y;'
+              ),
 
-                  ,"character_range_ctor1"=list(
+              "character_range_ctor1"=list(
                    signature(),
                    'const char* x[] = { "foo", "bar", "bling", "boom" } ;
-		    CharacterVector y( x, x+4 ) ;
-		    return y;')
+				    CharacterVector y( x, x+4 ) ;
+				    return y;'
+              ),
 
-                  ,"character_range_ctor2"=list(
+              "character_range_ctor2"=list(
                    signature(),
                    'std::vector<std::string> vec(4) ;
-		    vec[0] = "foo";
-		    vec[1] = "bar";
-		    vec[2] = "bling";
-		    vec[3] = "boom" ;
-		    CharacterVector y( vec.begin(), vec.end() ) ;
-		    return y; ')
+				    vec[0] = "foo";
+				    vec[1] = "bar";
+				    vec[2] = "bling";
+				    vec[3] = "boom" ;
+				    CharacterVector y( vec.begin(), vec.end() ) ;
+				    return y; '
+              ),
 
-                  ,"character_dimension_ctor1"=list(
+              "character_dimension_ctor1"=list(
                    signature(),
-                   'return CharacterVector( Dimension( 5 ) ) ;')
+                   'return CharacterVector( Dimension( 5 ) ) ;'
+              ),
 
-                  ,"character_dimension_ctor2"=list(
+              "character_dimension_ctor2"=list(
                    signature(),
-                   'return CharacterVector( Dimension( 5, 5 ) ) ;')
+                   'return CharacterVector( Dimension( 5, 5 ) ) ;'
+              ),
 
-                  ,"character_dimension_ctor3"=list(
+              "character_dimension_ctor3"=list(
                    signature(),
-                   'return CharacterVector( Dimension( 2, 3, 4) ) ;')
+                   'return CharacterVector( Dimension( 2, 3, 4) ) ;'
+              ),
 
-                  ,"character_iterator1"=list(
+              "character_iterator1"=list(
                    signature(x = "character"),
                    'CharacterVector letters(x) ;
-		    std::string res ;
-		    CharacterVector::iterator first = letters.begin() ;
-		    CharacterVector::iterator last = letters.end() ;
-		    while( first != last ){
-		        res += *first ;
-			++first ;
-		    }
-		    return wrap(res) ;' )
+				    std::string res ;
+				    CharacterVector::iterator first = letters.begin() ;
+				    CharacterVector::iterator last = letters.end() ;
+				    while( first != last ){
+				        res += *first ;
+						++first ;
+				    }
+		    		return wrap(res) ;'
+              ),
 
-                  ,"character_iterator2"=list(
+              "character_iterator2"=list(
                    signature(x = "character"),
                    'CharacterVector letters(x) ;
-		    std::string res(std::accumulate(letters.begin(), letters.end(), std::string()));
-		    return wrap(res) ;' )
+		    		std::string res(std::accumulate(letters.begin(), letters.end(), std::string()));
+		    		return wrap(res) ;'
+              ),
 
-                  ,"character_reverse"=list(
+              "character_reverse"=list(
                    signature(x = "character"),
                    'CharacterVector y(x) ;
-		    std::reverse( y.begin(), y.end() ) ;
-		    return y ;')
+		    		std::reverse( y.begin(), y.end() ) ;
+		    		return y ;'
+              ),
 
-                  ,"character_names_indexing"=list(
+              "character_names_indexing"=list(
                    signature(x = "character"),
                    'CharacterVector y(x) ;
-		    std::string foo( y["foo"] ) ;
-		    return wrap(foo) ;')
+		    		std::string foo( y["foo"] ) ;
+		    		return wrap(foo) ;'
+              ),
 
-                  ,"character_comma"=list(
+              "character_comma"=list(
                    signature(),
                    'CharacterVector x(3) ;
-        	    x = "foo", "bar", "bling" ;
-        	    return x ;')
+        	  		x = "foo", "bar", "bling" ;
+        	    	return x ;'
+              ),
 
-                  ,"character_listOf"=list(
+              "character_listOf"=list(
                    signature(l = "list"),
                    'List ll(l);
                     CharacterVector cv1 = ll["foo"];
                     CharacterVector cv2 = ll["bar"];
                     std::string rv1 = std::string(cv1[0]) + cv1[1] + cv1[2];
                     std::string rv2 = std::string(cv2[0]) + cv2[1] + cv2[2];
-                    return List::create(_["foo"] = rv1, _["bar"] = rv2); ')
+                    return List::create(_["foo"] = rv1, _["bar"] = rv2); '
+              ),
 
-                  ,"character_find_"=list(
+              "character_find_"=list(
                    signature(x = "character"),
                    'CharacterVector y(x) ;
-	            CharacterVector::iterator it = std::find( y.begin(), y.end(), "foo" ) ;
-	            return wrap( std::distance( y.begin(), it )); '
+	          		CharacterVector::iterator it = std::find( y.begin(), y.end(), "foo" ) ;
+	            	return wrap( std::distance( y.begin(), it )); '
 
-	            ), "character_create_" = list(
+              ),
+
+              "character_create_" = list(
 	            	signature(),
 	            	'
 						List output(2);
@@ -577,7 +640,9 @@ definitions <- function(){
 							) ;
 						return output ;
 					'
-	            ), "complex_binary_sugar" = list(
+              ),
+
+              "complex_binary_sugar" = list(
 	            	signature( x = "complex", y = "complex" ),
 	            	'
 	            		ComplexVector xx(x), yy(y) ;
@@ -589,8 +654,9 @@ definitions <- function(){
 	            		) ;
 
 	            	'
-	            ),
-	            "List_extract" = list(
+              ),
+
+              "List_extract" = list(
 	                signature( x = "list" ),
 	                '
 	                    List input(x) ;
@@ -598,35 +664,47 @@ definitions <- function(){
 	                    int b = input[1] ;
 	                    return List::create(a, b) ;
 	                '
-	            ),
-	            "factors" = list(
+              ),
+
+	          "factors" = list(
 	                signature( x = "factor" ),
 	                '
 	                    StringVector s(x) ;
 	                    return s;
 	                '
-	            ),
-	            "IntegerVector_int_init" = list(
+	          ),
+
+	          "IntegerVector_int_init" = list(
 	                signature(),
 	                '
 	                    IntegerVector x(2,4) ;
 	                    return x ;
 	                '
-	            )
+	          ),
 
-        )
+              "contains_element_named" = list(
+                	signature(ls="list", ns="character"),
+                	'
+                	    List l(ls);
+                            CharacterVector n(ns);
 
-        if (Rcpp:::capabilities()[["initializer lists"]]) {
-        	g <- list(
-        		"raw_initializer_list"=list(
+			    return wrap(l.has_element_called(n[0]));
+	                '
+              )
+          )
+
+    if (Rcpp:::capabilities()[["initializer lists"]]) {
+        g <- list(
+                  "raw_initializer_list"=list(
         			signature(),
         			'
 					RawVector x = {0,1,2,3} ;
 					for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 					return x ;
 					'
-        		),
-        		"complex_initializer_list" = list(
+                  ),
+
+                  "complex_initializer_list" = list(
         			signature(),
         			'
 					Rcomplex c1 ; c1.r = c1.i = 0.0 ;
@@ -634,45 +712,49 @@ definitions <- function(){
 					ComplexVector x = { c1, c2 } ;
 					return x ;
 					'
-        		),
-        		"integer_initializer_list"=list(
+                  ),
+
+
+                  "integer_initializer_list"=list(
                   	signature(),
                   	'
                   		IntegerVector x = {0,1,2,3} ;
 		   				for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 		   				return x ;
 		   			'
-		   		),
+                  ),
 
-		   		"numeric_initlist" = list(
+                  "numeric_initlist" = list(
         			signature(),
         			'
 						NumericVector x = {0.0,1.0,2.0,3.0} ;
 						for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
 						return x ;
 					'
-        		),
+                  ),
 
-        		"list_initializer_list"=list(
-                  signature(),
-                  'SEXP x0 = PROTECT( Rf_ScalarInteger( 0 ) ) ;
+                  "list_initializer_list"=list(
+                  	signature(),
+                  	'SEXP x0 = PROTECT( Rf_ScalarInteger( 0 ) ) ;
 		   			SEXP x1 = PROTECT( Rf_ScalarInteger( 1 ) ) ;
 		   			SEXP x2 = PROTECT( Rf_ScalarInteger( 2 ) ) ;
 		   			List x = { x0, x1, x2} ;
 		   			UNPROTECT(3) ;
-		   			return x ;'),
-
-		   		"character_initializer_list"=list(
-                  signature(),
-                  'CharacterVector x = {"foo", "bar"} ;
-                  return x ;')
+		   			return x ;'
+                  ),
 
 
-        	)
-        	f <- c(f,g)
-        }
-        f
+                  "character_initializer_list"=list(
+                  	signature(),
+                  	'CharacterVector x = {"foo", "bar"} ;
+                  	return x ;'
+                  )
 
+
+                  )
+        f <- c(f,g)
+    }
+    f
 }
 
 includes <- function(){
@@ -1237,11 +1319,11 @@ test.CharacterVector.create <- function(){
 }
 
 test.ComplexVector.binary.operators <- function(){
-	fun <- .rcpp.Vector$complex_binary_sugar
+    fun <- .rcpp.Vector$complex_binary_sugar
     x <- (1+1i) * 1:10
     y <- (2-3i) * 1:10
 
-	checkEquals(
+    checkEquals(
 		fun(x, y),
 		list(
 			"+" = x + y,
@@ -1252,7 +1334,7 @@ test.ComplexVector.binary.operators <- function(){
 }
 
 test.ComplexVector.binary.operators <- function(){
-	fun <- .rcpp.Vector$List_extract
+    fun <- .rcpp.Vector$List_extract
     checkEquals( fun(list(TRUE, 4)), list(TRUE, 4L) )
     checkEquals( fun(list(FALSE, -4L)), list(FALSE,-4L) )
 }
@@ -1269,3 +1351,12 @@ test.IntegerVector_int_init <- function(){
     checkEquals( fun(), c(4L,4L), msg = "IntegerVector int init regression test" )
 }
 
+test.contains_element_named <- function() {
+    fun <- .rcpp.Vector$contains_element_named
+
+    x <- list( foo = 2, bla = 1:10 )
+
+    checkEquals(fun(x, "foo"), TRUE, msg = "contains_element_names with element")
+    checkEquals(fun(x, "bar"), FALSE, msg = "contains_element_names without element")
+    checkEquals(fun(x, ""), FALSE, msg = "contains_element_names with empty element")
+}
