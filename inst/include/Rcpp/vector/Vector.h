@@ -706,12 +706,13 @@ public:
     /** 
      *  Does this vector have an element with the target name 
      */
-    bool has_element_called( const char* target ) const {
+    bool containsElementNamed( const char* target ) const {
         SEXP names = RCPP_GET_NAMES(m_sexp) ; 
         if( Rf_isNull(names) ) return false ;
         int n = Rf_length(names) ;
         for( int i=0; i<n; i++){
-            if( !strcmp( target, CHAR(STRING_ELT(names, i)) ) ) return true ;   
+            if( !strcmp( target, CHAR(STRING_ELT(names, i)) ) ) 
+                return true ;   
         }
         return false ;
     }
