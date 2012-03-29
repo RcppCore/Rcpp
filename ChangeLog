@@ -1,6 +1,11 @@
+2012-03-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.Vector.R: unit test for has_element_called
+
 2012-03-29  Romain Francois  <romain@r-enthusiasts.com>
 
-    * inst/include/Rcpp/vector/Vector.h: Vector<> gains the has_element_called method
+	* inst/include/Rcpp/vector/Vector.h: Vector<> gains the
+	has_element_called method
 
 2012-03-24  Romain Francois  <romain@r-enthusiasts.com>
 
