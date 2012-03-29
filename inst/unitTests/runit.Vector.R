@@ -682,13 +682,13 @@ definitions <- function(){
 	                '
 	          ),
 
-              "contains_element_named" = list(
+              "containsElementNamed" = list(
                 	signature(ls="list", ns="character"),
                 	'
                 	    List l(ls);
                             CharacterVector n(ns);
 
-			    return wrap(l.has_element_called(n[0]));
+			    return wrap(l.containsElementNamed(n[0]));
 	                '
               )
           )
@@ -1351,12 +1351,12 @@ test.IntegerVector_int_init <- function(){
     checkEquals( fun(), c(4L,4L), msg = "IntegerVector int init regression test" )
 }
 
-test.contains_element_named <- function() {
-    fun <- .rcpp.Vector$contains_element_named
+test.containsElementNamed <- function() {
+    fun <- .rcpp.Vector$containsElementNamed
 
     x <- list( foo = 2, bla = 1:10 )
 
-    checkEquals(fun(x, "foo"), TRUE, msg = "contains_element_names with element")
-    checkEquals(fun(x, "bar"), FALSE, msg = "contains_element_names without element")
-    checkEquals(fun(x, ""), FALSE, msg = "contains_element_names with empty element")
+    checkEquals(fun(x, "foo"), TRUE, msg = "containsElementNamed with element")
+    checkEquals(fun(x, "bar"), FALSE, msg = "containsElementNamed without element")
+    checkEquals(fun(x, ""), FALSE, msg = "containsElementNamed with empty element")
 }
