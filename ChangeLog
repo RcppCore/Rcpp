@@ -1,3 +1,9 @@
+
+2012-04-07  Romain Francois  <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/vector/Vector.h: bug fix. reported on Rcpp-devel
+	http://comments.gmane.org/gmane.comp.lang.r.rcpp/3292
+
 2012-03-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.Vector.R: unit test for containsElementNamed
