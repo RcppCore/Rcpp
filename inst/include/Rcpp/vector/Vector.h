@@ -47,7 +47,7 @@ public:
     };
     
     Vector( const Vector& other) : RObject() {
-        RObject::setSEXP(other.asSexp()) ;
+        set_sexp( other.asSexp() ) ;
     }
 	
     Vector& operator=( const Vector& other ){
