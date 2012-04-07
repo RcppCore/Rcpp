@@ -86,9 +86,12 @@ namespace Rcpp{
     #if GCC_VERSION >= 40500
         #define IS_GCC_450_OR_LATER
     #endif
-    // g++ 4.6 no longer has exception_defines.h so need a flag for that
+    // g++ 4.6 switches from exception_defines.h to bits/exception_defines.h
     #if GCC_VERSION < 40600
         #define IS_EARLIER_THAN_GCC_460
+    #endif
+    #if GCC_VERSION >= 40600
+        #define IS_GCC_460_OR_LATER
     #endif
 #endif
 
