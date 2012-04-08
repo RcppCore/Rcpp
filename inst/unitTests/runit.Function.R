@@ -145,8 +145,6 @@ test.Function.binary.call <- function(){
 test.Function.namespace.env <- function() {
     funx <- .rcpp.Function$function_namespace_env
     exportedfunc <- funx()
-    mat <- matrix(1:9, 3)
-    res <- exportedfunc(mat)
-    expected <- stats:::.asSparse(mat)
-	checkEquals( res, expected, msg = "namespace_env(Function)" )
+    checkEquals( stats:::.asSparse, exportedfunc, msg = "namespace_env(Function)" )
 }
+
