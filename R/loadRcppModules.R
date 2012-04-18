@@ -46,6 +46,7 @@ loadRcppModules <- function(direct=TRUE){
                 } else {
                     forceAssignInNamespace( m, mod, ns ) 
                 }
+                assign(.moduleMetaName(m), mod, envir = ns)
             }, error = function(e){
                 stop( sprintf( "failed to load module %s from package %s\n%s", m, pkg, conditionMessage(e) ) )  
             })

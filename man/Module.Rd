@@ -8,7 +8,7 @@ Retrieves an Rcpp module from a dynamic library, usually associated with a
 package.
 }
 \usage{
-Module(module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE )
+Module(module, PACKAGE = , where = , mustStart =  )
 }
 \arguments{
 \item{module}{Name of the module, as declared in the \code{RCPP_MODULE} macro internally}

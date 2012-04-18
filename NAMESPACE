@@ -15,7 +15,8 @@ S3method( .DollarNames, "Module" )
 exportMethods( prompt, show, .DollarNames, initialize, "formals<-" )
 
 export( 
-    Module, Rcpp.package.skeleton, populate, loadRcppModules, setRcppClass
+    Module, Rcpp.package.skeleton, populate, loadRcppModules, setRcppClass,
+       loadModule
 )
 
 exportClass(RcppClass)
