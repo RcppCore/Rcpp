@@ -1,0 +1,9 @@
+useDynLib(testRcppClass)
+## until 2.15.1 the namespace load fails to find patterns at load time
+## exportPattern("^[[:alpha:]]+")
+import(Rcpp)
+
+export(genWorld, stdNumeric, rcpp_hello_world,
+       bar, foo, baz, baz1)
+
+exportClass(World, stdNumeric)#, NumEx)
