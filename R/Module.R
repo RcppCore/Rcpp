@@ -56,7 +56,7 @@ setMethod("initialize", "Module",
                    moduleName = "UNKNOWN",
                    packageName = "",
                    pointer = .badModulePointer, ...) {
-              env <- new.env(TRUE, emptyenv())           
+              env <- new.env(TRUE, emptyenv())
               as(.Object, "environment") <- env
               assign("pointer", pointer, envir = env)
               assign("packageName", packageName, envir = env)
@@ -79,12 +79,12 @@ setMethod("initialize", "Module",
 	body(f) <- if( info[[2]] ) {
 	    substitute( {
 	        .External( InternalFunction_invoke, fun_pointer, ... )
-	        invisible(NULL)         
-	    }, stuff ) 
+	        invisible(NULL)
+	    }, stuff )
 	} else {
 	    substitute( {
 	        .External( InternalFunction_invoke, fun_pointer, ... )
-	    }, stuff ) 
+	    }, stuff )
 	}
 	out <- new( "C++Function", f, pointer = fun_ptr, docstring = doc, signature = sign )
 	if( ! is.null( formal_args ) ){
@@ -98,11 +98,11 @@ setMethod("initialize", "Module",
     value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
     value
 }
-          
+
 setMethod( "$", "Module", function(x, name){
     pointer <- .getModulePointer(x)
     storage <- get( "storage", envir = as.environment(x) )
-    storage[[ name ]] 
+    storage[[ name ]]
 } )
 
 new_CppObject_xp <- function(module, pointer, ...) {
@@ -136,16 +136,16 @@ cpp_object_dummy <- function(.self, .refClassDef) {
     assign(".pointer", pointer, envir = selfEnv)
     assign(".cppclass", fields$.pointer, envir = selfEnv)
     .self
-}    
+}
 
 cpp_object_maker <- function(typeid, pointer){
     Class <- Rcpp:::.classes_map[[ typeid ]]
     new( Class, .object_pointer = pointer )
 }
 
-Module <- function( module, PACKAGE = getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ) {
-    if(is(module, "DLLInfo") && missing(mustStart)) mustStart <- TRUE
-    if(is(module, "Module")) {
+Module <- function( module, PACKAGE = methods::getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ) {
+    if(inherits(module, "DLLInfo") && missing(mustStart)) mustStart <- TRUE
+    if(inherits(module, "Module")) {
         xp <- .getModulePointer(module, FALSE)
         if(!missing(PACKAGE))
             warning("ignoring PACKAGE argument in favor of internal package from Module object")
@@ -164,12 +164,12 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         ## and just check whether it's been reset from that (bad) value
         xp <- module
         moduleName <- .Call( Module__name, xp )
-        module <- new("Module", pointer = xp, packageName = PACKAGE,
+        module <- methods::new("Module", pointer = xp, packageName = PACKAGE,
                       moduleName = moduleName)
-    } else if(is(module, "character")) {
+    } else if(is.character(module)) {
         moduleName <- module
         xp <- .badModulePointer
-        module <- new("Module", pointer = xp, packageName = PACKAGE,
+        module <- methods::new("Module", pointer = xp, packageName = PACKAGE,
                       moduleName = moduleName)
     }
     if(identical(xp, .badModulePointer)) {
@@ -177,7 +177,7 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
             name <- sprintf( "_rcpp_module_boot_%s", moduleName )
             symbol <- tryCatch(getNativeSymbolInfo( name, PACKAGE ),
                                error = function(e)e)
-            if(is(symbol, "error"))
+            if(inherits(symbol, "error"))
                 stop(gettextf("Failed to initialize module pointer: %s",
                               symbol), domain = NA)
             xp  <- .Call( symbol )
@@ -194,17 +194,17 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
     if(environmentIsLocked(where))
         where <- .GlobalEnv # or???
     generators <- list()
-    
+
     storage <- new.env()
-    
+
     for( i in seq_along(classes) ){
         CLASS <- classes[[i]]
-        
+
         clname <- as.character(CLASS)
 
         fields <- cpp_fields( CLASS, where )
         methods <- cpp_refMethods(CLASS, where)
-        generator <- setRefClass( clname,
+        generator <- methods::setRefClass( clname,
                                  fields = fields,
                                  contains = "C++Object",
                                  methods = methods,
@@ -221,10 +221,10 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
                      else Rcpp:::cpp_object_dummy(.self, .refClassDef)
                  }
                           )
-               
+
         rm( .self, .refClassDef )
-        
-        classDef <- getClass(clname)
+
+        classDef <- methods:::getClass(clname)
         ## non-public (static) fields in class representation
         ## <fixme>  Should these become real fields? </fixme>
         fields <- classDef@fieldPrototypes
@@ -232,43 +232,43 @@ Module <- function( module, PACKAGE = getPackageName(where), where = topenv(pare
         assign(".module", xp, envir = fields)
         assign(".CppClassName", clname, envir = fields)
         generators[[clname]] <- generator
-        
+
         # [romain] : should this be promoted to reference classes
         #            perhaps with better handling of j and ... arguments
         if( any( grepl( "^[[]", names(CLASS@methods) ) ) ){
             if( "[[" %in% names( CLASS@methods ) ){
-                setMethod( "[[", clname, function(x, i, j, ..., exact = TRUE){
+                methods::setMethod( "[[", clname, function(x, i, j, ..., exact = TRUE){
                     x$`[[`( i )
                 }, where = where )
             }
-            
+
             if( "[[<-" %in% names( CLASS@methods ) ){
-                setReplaceMethod( "[[", clname, function(x, i, j, ..., exact = TRUE, value){
+                methods::setReplaceMethod( "[[", clname, function(x, i, j, ..., exact = TRUE, value){
                     x$`[[<-`( i, value )
                     x
                 } , where = where )
             }
-            
+
         }
-        
+
     }
     if(length(classes)) {
         module$refClassGenerators <- generators
     }
-    
+
     for( i in seq_along(classes) ){
         CLASS <- classes[[i]]
         clname <- as.character(CLASS)
         demangled_name <- sub( "^Rcpp_", "", clname )
         .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
     }
-    
+
     # functions
     functions <- .Call( Module__functions_names, xp )
     for( fun in functions ){
         storage[[ fun ]] <- .get_Module_function( module, fun, xp )
     }
-    
+
     assign( "storage", storage, envir = as.environment(module) )
     module
 }
@@ -277,37 +277,37 @@ dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]
 
 method_wrapper <- function( METHOD, where ){
         f <- function(...) NULL
-        
+
         stuff <- list(
             class_pointer = METHOD$class_pointer,
             pointer = METHOD$pointer,
             CppMethod__invoke = CppMethod__invoke,
             CppMethod__invoke_void = CppMethod__invoke_void,
             CppMethod__invoke_notvoid = CppMethod__invoke_notvoid,
-            dealWith = dealWith, 
+            dealWith = dealWith,
             docstring = METHOD$info("")
         )
-        
+
         extCall <- if( all( METHOD$void ) ){
             # all methods are void, so we know we want to return invisible(NULL)
-            substitute( 
+            substitute(
             {
                 docstring
                 .External(CppMethod__invoke_void, class_pointer, pointer, .pointer, ...)
                 invisible(NULL)
             } , stuff )
         } else if( all( ! METHOD$void ) ){
-            # none of the methods are void so we always return the result of 
+            # none of the methods are void so we always return the result of
             # .External
-            substitute( 
+            substitute(
             {
                 docstring
                .External(CppMethod__invoke_notvoid, class_pointer, pointer, .pointer, ...)
             } , stuff )
         } else {
-            # some are void, some are not, so the voidness is part of the result 
+            # some are void, some are not, so the voidness is part of the result
             # we get from internally and we need to deal with it
-            substitute( 
+            substitute(
 	        {
 	            docstring
 	            dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
@@ -319,17 +319,17 @@ method_wrapper <- function( METHOD, where ){
 ## create a named list of the R methods to invoke C++ methods
 ## from the C++ class with pointer xp
 cpp_refMethods <- function(CLASS, where) {
-    finalizer <- eval( substitute( 
+    finalizer <- eval( substitute(
 	    function(){
 	        .Call( CppObject__finalize, class_pointer , .pointer )
-	    }, 
-	    list( 
-	        CLASS = CLASS@pointer, 
-	        CppObject__finalize = CppObject__finalize, 
+	    },
+	    list(
+	        CLASS = CLASS@pointer,
+	        CppObject__finalize = CppObject__finalize,
 	        class_pointer = CLASS@pointer
 	    )
 	) )
-	mets <- c( 
+	mets <- c(
 	    sapply( CLASS@methods, method_wrapper, where = where ),
 	    "finalize" = finalizer
 	)
@@ -348,14 +348,16 @@ binding_maker <- function( FIELD, where ){
         else
             .Call( CppField__set, class_pointer, pointer, .pointer, x)
     }, list(class_pointer = FIELD$class_pointer,
-            pointer = FIELD$pointer, 
-            CppField__get = CppField__get, 
+            pointer = FIELD$pointer,
+            CppField__get = CppField__get,
             CppField__set = CppField__set ))
     environment(f) <- where
     f
 }
-    
+
 cpp_fields <- function( CLASS, where){
      sapply( CLASS@fields, binding_maker, where = where )
 }
 
+.CppClassName <- function(name)
+    paste0("Rcpp_",name)
