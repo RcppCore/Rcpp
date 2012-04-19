@@ -3,6 +3,8 @@
     o   New member function for vectors (and lists etc) containsElementNamed() 
         which returns a boolean indicating if the given element name is present
 
+    o   Extended functionality to let R modify C++ clases imported via modules
+
 0.9.10  2012-02-16
 
     o   Rearrange headers so that Rcpp::Rcout can be used by RcppArmadillo et al
