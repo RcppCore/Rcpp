@@ -1,5 +1,11 @@
 
-Current misfeatures
+Current active misfeatures
+
+    o   Rcpp.package.skeleton() does not work with supplied functions,
+        eg Rcpp.package.skeleton("foo", list=c("funA", "funB")) ends
+        in error.
+
+Current inactive misfeatures
 
     o   Bugs found by Doug when using -ltcmalloc from the Google
         Performance ToolsOne: 
@@ -10,8 +16,6 @@ Current misfeatures
 
         Update by DE:  Cannot replicate this on my Linux box
  
-    o   Glenn Lawyer post to rcpp-devel on Mar 14 with Rcpp modules patch
-
     o   Bob Carpenter post to rcpp-devel on Mar 23 with Rcpp modules,
         freshly generated from skeleton, breaking under 64 bit OS X
         _And_ while this works for me on R 2.14.2 on 64 bit Linux, it
@@ -23,9 +27,11 @@ Current misfeatures
           no binding for "World"
           Error: loading failed
 
-        Update by DE: Bob now says may be local...
+        Update by DE: Bob now says this may be local, so let's disregard.
 
 Documentation
+
+    o   Glenn Lawyer post to rcpp-devel on Mar 14 with Rcpp modules patch
 
     o   Add a vignette about Rcpp sugar [in progress]
     
