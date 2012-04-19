@@ -1,3 +1,7 @@
+2012-04-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Evaluator.cpp: errorOccuredSym never used and commented out
+
 2012-04-18  John M Chambers  <jmc@r-project.org>
 
 	* R/RcppClass.R: New version of setRcppClass, allowing R classes to
