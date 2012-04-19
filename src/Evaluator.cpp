@@ -29,11 +29,11 @@ namespace Rcpp {
         reset_current_error() ; 
 
         Environment RCPP = Environment::Rcpp_namespace(); 
-        static SEXP tryCatchSym = NULL, evalqSym, errorOccuredSym, getCurrentErrorMessageSym;
+        static SEXP tryCatchSym = NULL, evalqSym, getCurrentErrorMessageSym; //, errorOccuredSym;
         if (!tryCatchSym) {
-            tryCatchSym          = ::Rf_install("tryCatch");
+            tryCatchSym               = ::Rf_install("tryCatch");
             evalqSym                  = ::Rf_install("evalq");
-            errorOccuredSym           = ::Rf_install("errorOccured");
+            //errorOccuredSym           = ::Rf_install("errorOccured");
             getCurrentErrorMessageSym = ::Rf_install("getCurrentErrorMessage");
         }
 
@@ -52,10 +52,7 @@ namespace Rcpp {
         UNPROTECT(3) ;
         
         if( error ) {
-            std::string 
-                message(CHAR(::Rf_asChar(PROTECT(::Rf_eval(
-                                                     PROTECT(::Rf_lang1(getCurrentErrorMessageSym)),
-                                                     RCPP)))));
+            std::string message(CHAR(::Rf_asChar(PROTECT(::Rf_eval(PROTECT(::Rf_lang1(getCurrentErrorMessageSym)), RCPP)))));
             UNPROTECT( 2 ) ;
             throw eval_error(message) ;
         }
