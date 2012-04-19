@@ -1,3 +1,9 @@
+2012-04-18  John M Chambers  <jmc@r-project.org>
+
+	* R/RcppClass.R: New version of setRcppClass, allowing R classes to
+	extend C++ classes used via Rcpp modules
+	* R/loadModule.R: New function, replaces uses of .onLoad()
+	* man/*: Added/updated corresponding documentation
 
 2012-04-07  Romain Francois  <romain@r-enthusiasts.com>
 
