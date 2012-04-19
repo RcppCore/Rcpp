@@ -1,3 +1,5 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
 #include "rcpp_hello_world.h"
 
 class Num{
@@ -15,16 +17,16 @@ private:
 };
 
 RCPP_MODULE(NumEx){
-	using namespace Rcpp ;
+    using namespace Rcpp ;
 
-	class_<Num>( "Num" )
+    class_<Num>( "Num" )
 	
-	    .default_constructor()
+        .default_constructor()
 
-		// read and write property
-		.property( "x", &Num::getX, &Num::setX )
+        // read and write property
+        .property( "x", &Num::getX, &Num::setX )
 
-		// read-only property
-		.property( "y", &Num::getY )
+        // read-only property
+        .property( "y", &Num::getY )
 	;
 }
