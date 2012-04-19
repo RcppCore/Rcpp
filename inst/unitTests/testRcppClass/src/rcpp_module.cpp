@@ -1,23 +1,25 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
 #include <Rcpp.h>
 
 int bar( int x){
-	return x*2 ;
+    return x*2 ;
 }
         
 double foo( int x, double y){
-	return x * y ;
+    return x * y ;
 }
 
 void bla( ){
-	Rprintf( "hello\\n" ) ;
+    Rprintf( "hello\\n" ) ;
 }
 
 void bla1( int x){
-	Rprintf( "hello (x = %d)\\n", x ) ;
+    Rprintf( "hello (x = %d)\\n", x ) ;
 }
   
 void bla2( int x, double y){
-	Rprintf( "hello (x = %d, y = %5.2f)\\n", x, y ) ;
+    Rprintf( "hello (x = %d, y = %5.2f)\\n", x, y ) ;
 }
 
 class World {
@@ -33,21 +35,19 @@ private:
 
 
 RCPP_MODULE(yada){
-	using namespace Rcpp ;
+    using namespace Rcpp ;
 	                  
-	function( "bar"   , &bar   ) ;
-	function( "foo"   , &foo   ) ;
-	function( "bla"   , &bla   ) ;
-	function( "bla1"  , &bla1   ) ;
-	function( "bla2"  , &bla2   ) ;
+    function( "bar"   , &bar   ) ;
+    function( "foo"   , &foo   ) ;
+    function( "bla"   , &bla   ) ;
+    function( "bla1"  , &bla1   ) ;
+    function( "bla2"  , &bla2   ) ;
 	
-	class_<World>( "World" )
+    class_<World>( "World" )
 	
-	    .default_constructor()
+        .default_constructor()
 	    
-		.method( "greet", &World::greet )
-		.method( "set", &World::set )
+        .method( "greet", &World::greet )
+        .method( "set", &World::set )
 	;
 }                     
-
-
