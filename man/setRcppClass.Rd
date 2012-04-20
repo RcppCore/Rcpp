@@ -80,6 +80,21 @@ A generator for the new class.
 \author{
 John Chambers
 }
+\note{
+This function and function \code{\link{loadModule}()} require
+version  2.15.0 of \R{} or later, in order to
+use load actions, introduced in that version.
+
+A subtle way this can fail is by somehow loading a legitimate
+binary version of your package (installed under a valid version of
+\R{}) into a session with an older \R{}.
+In this case the load actions created in the binary package will
+simply not be called.  None of the modules will be loaded and none of
+the classes created.
+
+If your symptom is that classes or other objects from modules don't
+exist, check the \R{} version.
+}
 \examples{
 \dontrun{
 setRcppClass("World", 
