@@ -70,6 +70,11 @@ specified after the call to \code{loadModule()}.
 If the load takes place, the module environment is returned.  Usually
 however the function is called for its side effects.
 }
+\note{
+This function requires version  2.15.0 of \R{} or later, in order to
+use load actions, introduced in that version.  See the note in the
+help page for \code{\link{setRcppClass}()} for details.
+}
 \author{
 John Chambers
 }
