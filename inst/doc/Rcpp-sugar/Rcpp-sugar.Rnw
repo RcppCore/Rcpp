@@ -623,7 +623,7 @@ private:
     Function fun ;
 } ;
 
-} // sugar
+// sugar
 
 template <int RTYPE, bool _NA_, typename T, typename Function >
 inline sugar::Sapply<RTYPE,_NA_,T,Function>
