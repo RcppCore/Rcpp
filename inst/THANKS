@@ -2,6 +2,7 @@
 In alphabetical order:
 
 Baptiste Auguie         for additional OS X testing
+Dario Buttari           for a patch permitting compilation under Cygwin
 Darren Cook             for suggesting to remove exception specifiers
 Laurent Gautier         for helpful discussions on R internals
 Alistair Gee            for a patch making ColDatum more robust
