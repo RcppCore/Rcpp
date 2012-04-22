@@ -5,6 +5,8 @@
 
     o   Extended functionality to let R modify C++ clases imported via modules
 
+    o   Support compilation in Cygwin thanks to a patch by Dario Buttari
+
 0.9.10  2012-02-16
 
     o   Rearrange headers so that Rcpp::Rcout can be used by RcppArmadillo et al
