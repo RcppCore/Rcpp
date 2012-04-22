@@ -22,8 +22,7 @@
 #include <Rcpp.h>
 
 #if defined(__GNUC__)
-#if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || \
-    defined(__OpenBSD__) || defined(__CYGWIN__)
+#if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__)
 // Simpler version for Windows and *BSD 
 SEXP stack_trace( const char* file, int line ){
     Rcpp::List trace = Rcpp::List::create( 
@@ -33,7 +32,7 @@ SEXP stack_trace( const char* file, int line ){
     trace.attr("class") = "Rcpp_stack_trace" ;
     return trace ;
 }
-#else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) 
+#else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__)
 #include <execinfo.h>
 #include <cxxabi.h>
 
