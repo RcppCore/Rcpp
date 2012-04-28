@@ -7,7 +7,7 @@ setRcppClass("stdNumeric", "vec", "stdVector")
 
 ## some methods that use C++ methods
 evalqOnLoad({
-    library(methods)
+    ##library(methods)
      stdNumeric$methods(
     getEl = function(i) {
         i <- as.integer(i)
@@ -35,6 +35,7 @@ evalqOnLoad({
     }
     )
 })
+
 
 ## loadModule("NumEx")
 
