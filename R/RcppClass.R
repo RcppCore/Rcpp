@@ -44,7 +44,7 @@ loadRcppClass <- function(Class, CppClass = Class,
                          saveAs = Class,
                          where = topenv(parent.frame()),
                          ...) {
-    
+
     if(isBotchedSession()) {
         value <- setRefClass(Class, fields = fields, methods = methods,  contains = contains, where = where, ...)  # kludge -- see loadModule.R
         if(is.character(saveAs) && length(saveAs) == 1)
@@ -72,6 +72,12 @@ loadRcppClass <- function(Class, CppClass = Class,
     value <- setRefClass(Class, fields = allfields,
                          contains = c(contains, "RcppClass"),
                          methods = allmethods, where=where, ...)
+    ## declare the fields and methods to shut up codetools
+    ## the R level fields and methods were declared by setRefClass
+    ## but we declare them again; globalVariables() applies unique()
+    if(exists("globalVariables", envir = asNamespace("utils"))) # >=2.15.1
+       utils::globalVariables(c(names(allfields), names(allmethods)),
+                              where)
     if(is.character(saveAs) && length(saveAs) == 1)
         assign(saveAs, value, envir = where)
     value
