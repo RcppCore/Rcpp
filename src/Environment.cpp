@@ -2,7 +2,7 @@
 //
 // Environment.cpp: Rcpp R/C++ interface class library -- Environments
 //
-// Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,7 @@ namespace Rcpp {
 
     Environment::Environment() : RObject(R_NilValue){}
 
-    Environment::Environment( SEXP x = R_GlobalEnv) : RObject(x){
+    Environment::Environment(SEXP x) : RObject(x){
         if( ! Rf_isEnvironment(x) ) {
             /* not an environment, but maybe convertible to one using as.environment, try that */
             SEXP res ;
