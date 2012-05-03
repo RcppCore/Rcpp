@@ -2,7 +2,7 @@
 //
 // Function.h: Rcpp R/C++ interface class library -- functions (also primitives and builtins)
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -41,7 +41,7 @@ namespace Rcpp{
          * @throw not_compatible if the SEXP could not be converted
          * to a pair list using as.pairlist
          */
-        Function(SEXP lang) ;
+        Function(SEXP lang = R_NilValue) ;
         
         /**
          * Finds a function, searching from the global environment

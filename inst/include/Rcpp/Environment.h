@@ -2,7 +2,7 @@
 //
 // Environment.h: Rcpp R/C++ interface class library -- access R environments
 //
-// Copyright (C) 2009 - 2011    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -174,7 +174,7 @@ namespace Rcpp{
          *
          * if the SEXP is not an environment, and exception is thrown
          */
-        Environment(SEXP x);
+        Environment(SEXP x = R_GlobalEnv);
     
         /**
          * copy constructor
