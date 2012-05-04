@@ -1,3 +1,15 @@
+2012-05-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Environment.cpp: Move one default argument to Environment.h
+	* src/Function.cpp: Move one default argument to Function.h
+	* inst/THANKS: Thanks to Anirban Mukherjee for these two changes
+
+2012-04-28  John M Chambers  <jmc@r-project.org>
+
+	* R/RcppClass.R: use globalVariables() from R 2.15.1 (with exists()
+	test to no break older versions) to declare C++ fields and methods
+	* inst/unitTests/testRcppClass/R/load.R: test use
+
 2012-04-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/debugging.cpp: Expanded 'if defined()' test to included Cygwin
