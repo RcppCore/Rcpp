@@ -22,7 +22,9 @@ rm -f confdefs.h config.log config.status \
 	inst/unitTests/testRcppModule/src/*.o \
 	inst/unitTests/testRcppModule/src/*.so \
 	src/Makedeps libRcpp.a \
-	build/Rcpp.pdf
+	build/Rcpp.pdf \
+	src/symbols.rds \
+	inst/unitTests/testRcppClass/src/symbols.rds
 
 rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
    	inst/doc/auto inst/doc/Rcpp-*/auto/ src-* 
