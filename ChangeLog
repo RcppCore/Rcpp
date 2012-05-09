@@ -1,3 +1,9 @@
+2012-05-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Expanded R CMD SHLIB discussion
+	after suggested changes from Søren Højsgaard; also expanded compiler
+	section a little mentioning clang/clang++ and icc.
+
 2012-05-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Environment.cpp: Move one default argument to Environment.h
