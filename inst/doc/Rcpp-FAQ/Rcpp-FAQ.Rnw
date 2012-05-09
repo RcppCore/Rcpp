@@ -106,7 +106,10 @@ On almost all platforms, the GNU Compiler Collection (or \texttt{gcc}, which
 is also the name of its \proglang{C} language compiler) has to be used along
 with the corresponding \texttt{g++} compiler for the \proglang{C++} language.
 A minimal suitable version is a final 4.2.* release; earlier 4.2.* were
-lacking some \proglang{C++} features. Generally speaking, and as of early
+lacking some \proglang{C++} features (and even 4.2.1, still used on OS X, has
+issues).
+
+Generally speaking, and as of early
 2011, the default compilers on all the common platforms are suitable.
 
 Specific per-platform notes:
@@ -124,6 +127,13 @@ Specific per-platform notes:
     packages; the \texttt{r-base-dev} package on Debian and Ubuntu is an example.
 \end{description}
 
+The \texttt{clang} and \texttt{clang++} compilers from the LLVM project can
+also be used as they are inter-operable with \texttt{gcc} et al.  The
+\texttt{clang++} compiler is particularly interesting as it emits much more
+comprehensible error messages than \texttt{g++}.
+
+The Intel \texttt{icc} family has also been used successfully  as its output
+files can also be combined with those from \texttt{gcc}.
 
 \subsection{What other packages are useful ?}
 
@@ -239,6 +249,7 @@ The \code{-l} option calls 'suppressMessages(library(mypkg))' before executing t
 \proglang{R} expression. Several packages can be listed, separated by a comma.
 
 \subsection{But I want to compile my code with R CMD SHLIB !}
+\label{using-r-cmd-shlib}
 
 The recommended way is to create a package and follow \faq{make-package}. The
 alternate recommendation is to use \pkg{inline} and follow \faq{using-inline}
@@ -246,15 +257,19 @@ because it takes care of all the details.
 
 However, some people have shown that they prefer not to follow recommended
 guidelines and compile their code using the traditional \texttt{R CMD SHLIB}. To
-do this, we need to help \texttt{SHLIB} and let it know about the header files
+do so, we need to help \texttt{SHLIB} and let it know about the header files
 that \pkg{Rcpp} provides and the \proglang{C++} library the code must link
 against.
 
+On the Linux command-line, you can do the following:\newline
 <<lang=bash>>=
 $ export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
 $ export PKG_CXXFLAGS=`Rscript -e "Rcpp:::CxxFlags()"`
 $ R CMD SHLIB myfile.cpp
 @
+which first defines and exports two relevant environment variables which
+\texttt{R CMD SHLIB} then relies on.  On other operating systems, appropriate
+settings may have to be used to define the environment variables.
 
 This approach corresponds to the very earliest ways of building programs and
 can still be found in some deprecated documents (as \textit{e.g.} some of
@@ -268,6 +283,20 @@ unexported function \texttt{Rcpp:::SHLIB} :
 <<lang=bash>>=
 $ Rscript -e "Rcpp:::SHLIB('myfile.cpp')"
 @
+
+\subsection{But R CMD SHLIB still does not work !}
+
+We have had reports in the past where build failures occurred when users had
+non-standard code in their \verb|~/.Rprofile| or \texttt{Rprofile.site} (or
+equivalent) files.
+
+If such code emits text on \texttt{stdout}, the frequent and implicit
+invocation of \texttt{Rscript -e "..."} (as in \faq{using-r-cmd-shlib}
+above) to retrieve settings directly from \pkg{Rcpp} will fail.
+
+You may need to uncomment such non-standard code, or protect it by wrapping
+it inside \texttt{if (interactive())}, or possibly try to use \texttt{Rscript
+  --vanilla} instead of plain \texttt{Rscript}.
 
 
 \subsection{What about \texttt{LinkingTo} ?}
@@ -320,12 +349,13 @@ is.
 
 \subsection{Does \pkg{Rcpp} work on solaris/suncc ?}
 
-Yes.
+Yes, it generally does.  But as we do not have access to such systems, some
+issues persist on the CRAN test systems.
 
 \subsection{Does \pkg{Rcpp} work with Revolution R ?}
 
 We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
-with the compilers used by Revolution R.
+with the compilers used by Revolution R (if those differ from the defaults).
 
 \subsection{Is it related to CXXR ?}
 
