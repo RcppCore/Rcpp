@@ -24,6 +24,8 @@
 
 #include <iomanip>				// USES setw
 
+#include "Rstreambuf.h"         		// to permit direct inclusion of Rostream header
+
 // modified from 
 // http://stackoverflow.com/questions/243696/correctly-over-loading-a-stringbuf-to-replace-cout-in-a-matlab-mex-file
 
