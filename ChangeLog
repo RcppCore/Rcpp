@@ -1,3 +1,8 @@
+2012-05-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/iostream/Rostream.h: Added Rstreambuf.h include
+	as per rcpp-devel discussion with Alexey Stukalov
+
 2012-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Expanded R CMD SHLIB discussion
