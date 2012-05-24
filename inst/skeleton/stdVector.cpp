@@ -57,34 +57,34 @@ RCPP_MODULE(stdVector){
     // we expose the class std::vector<double> as "vec" on the R side
     class_<vec>("vec")
     
-        // exposing the default constructor
-        .constructor() 
+    // exposing the default constructor
+    .constructor() 
 
-        // exposing member functions -- taken directly from std::vector<double>
-        .method( "size",     &vec::size)
-        .method( "max_size", &vec::max_size)
-        .method( "capacity", &vec::capacity)
-        .method( "empty",    &vec::empty)
-        .method( "reserve",  &vec::reserve)
-        .method( "pop_back", &vec::pop_back )
-        .method( "clear",    &vec::clear )
-        
-        // specifically exposing const member functions defined above
-        .method( "back",     &vec_back )
-        .method( "front",    &vec_front )
-        .method( "at",       &vec_at )
+    // exposing member functions -- taken directly from std::vector<double>
+    .method( "size",     &vec::size)
+    .method( "max_size", &vec::max_size)
+    .method( "capacity", &vec::capacity)
+    .method( "empty",    &vec::empty)
+    .method( "reserve",  &vec::reserve)
+    .method( "pop_back", &vec::pop_back )
+    .method( "clear",    &vec::clear )
     
-        // exposing free functions taking a std::vector<double>*
-        // as their first argument
-        .method( "assign",   &vec_assign )
-        .method( "insert",   &vec_insert )
-        .method( "as.vector",&vec_asR )
-        .method( "push_back",&vec_push_back )
-        .method( "resize",   &vec_resize)
+    // specifically exposing const member functions defined above
+    .method( "back",     &vec_back )
+    .method( "front",    &vec_front )
+    .method( "at",       &vec_at )
     
-        // special methods for indexing
-        .method( "[[",       &vec_at )
-        .method( "[[<-",     &vec_set )
+    // exposing free functions taking a std::vector<double>*
+    // as their first argument
+    .method( "assign",   &vec_assign )
+    .method( "insert",   &vec_insert )
+    .method( "as.vector",&vec_asR )
+    .method( "push_back",&vec_push_back )
+    .method( "resize",   &vec_resize)
+    
+    // special methods for indexing
+    .method( "[[",       &vec_at )
+    .method( "[[<-",     &vec_set )
 
-	;
+    ;
 }
