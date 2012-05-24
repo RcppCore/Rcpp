@@ -74,13 +74,12 @@ RCPP_MODULE(yada){
               "documentation for foo " ) ;	
 	
     class_<World>( "World" )
-	
-        // expose the default constructor
-        .constructor()    
-	    
-        .method( "greet", &World::greet , "get the message" )
-        .method( "set", &World::set     , "set the message" )
-	;
+    // expose the default constructor
+    .constructor()    
+        
+    .method( "greet", &World::greet , "get the message" )
+    .method( "set", &World::set     , "set the message" )
+    ;
 }                     
 
 
