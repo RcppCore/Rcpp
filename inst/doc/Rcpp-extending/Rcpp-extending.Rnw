@@ -1,6 +1,6 @@
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-extending}
-\usepackage{vmargin}
+\usepackage[USletter]{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
 \usepackage{color, alltt}
