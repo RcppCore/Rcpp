@@ -1,11 +1,18 @@
 2012-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/skeleton/Num.cpp: Added to Rcpp.package.skeleton(); will be
+	added when module=TRUE in call
+	* inst/skeleton/stdVector.cpp: Idem
+
 	* inst/unitTests/testRcppModule/src/rcpp_module.cpp: added more
 	comments, added copyright header, corrected output of example
 	functions by not escaping "backslash-n" twice
 	* inst/unitTests/testRcppModule/src/stdVector.cpp: added some
 	comments, added copyright header
 	* inst/unitTests/testRcppModule/src/Num.cpp: Idem
+
+	* inst/unitTests/runit.Module.client.package.R: Added four simple
+	tests for Rcpp Modules
 
 2012-05-13  Dirk Eddelbuettel  <edd@debian.org>
 

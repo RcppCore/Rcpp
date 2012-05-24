@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2010 - 2011	 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012	 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -46,25 +46,29 @@ if (.runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .o
         on.exit( { setwd( cwd) ; unlink( td, recursive = TRUE ) } )
         R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
         cmd <- paste( R , "CMD build testRcppModule" )
-        system( cmd )
+        system( cmd )  # quieten this by suppressing output
         dir.create( "templib" )
-        install.packages( "testRcppModule_0.1.tar.gz", "templib", repos = NULL, type = "source" )
+        install.packages( "testRcppModule_0.1.tar.gz",
+                         "templib", repos = NULL, type = "source" )
         require( "testRcppModule", "templib", character.only = TRUE )
 
-        v <- new(vec)
-
+        v <- new(vec)                   # stdVector module
         data <- 1:10
         v$assign(data)
         v[[3]] <- v[[3]] + 1
-
         data[[4]] <- data[[4]] +1
-
         checkEquals( v$as.vector(), data )
 
-        ## a few function calls
-        checkEquals( bar(2), 4)
-        checkEquals( foo(2,3), 6)
+        y <- new(World)                 # Yada module
+        y$set("quick brown fox")        # which y$greet() would
+        checkEquals(y$greet(), "quick brown fox")
 
+        checkEquals(bar(2), 4)
+        checkEquals(foo(2,3), 6)
+
+        nm <- new(Num)                  # NumEx module
+        nm$x <- 3.14
+        checkEquals(nm$x, 3.14)
     }
 
     ## ## added test for 'testRcppClass' example of extending C++ classes via R
