@@ -3,6 +3,10 @@
     o   New member function for vectors (and lists etc) containsElementNamed() 
         which returns a boolean indicating if the given element name is present
 
+    o   Updated the Rcpp.package.skeleton() support for Rcpp modules by
+        carrying functions already present from the corresponding unit test
+	which was also slightly expanded; and added more comments to the code 
+
     o   Extended functionality to let R modify C++ clases imported via modules
 
     o   Support compilation in Cygwin thanks to a patch by Dario Buttari
