@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,18 +17,18 @@
 
 Rcpp.package.skeleton <- function(
 	name = "anRpackage", list = character(), environment = .GlobalEnv,
-	path = ".", force = FALSE, namespace = TRUE, 
-	code_files = character(), 
-	example_code = TRUE, 
-	module = FALSE, 
-	author = "Who wrote it", 
-	maintainer = if(missing( author)) "Who to complain to" else author, 
-	email = "yourfault@somewhere.net", 
+	path = ".", force = FALSE, namespace = TRUE,
+	code_files = character(),
+	example_code = TRUE,
+	module = FALSE,
+	author = "Who wrote it",
+	maintainer = if(missing( author)) "Who to complain to" else author,
+	email = "yourfault@somewhere.net",
 	license = "What Licence is it under ?"
 	){
-	
+
 	env <- parent.frame(1)
-	
+
 	if( !length(list) ){
 		fake <- TRUE
 		assign( "Rcpp.fake.fun", function(){}, envir = env )
@@ -36,7 +36,7 @@ Rcpp.package.skeleton <- function(
 			assign( "rcpp_hello_world", function(){}, envir = env )
 			remove_hello_world <- TRUE
 		} else {
-		    remove_hello_world <- FALSE 
+		    remove_hello_world <- FALSE
 		}
 	} else {
 		if( ! "rcpp_hello_world" %in% list ){
@@ -47,41 +47,41 @@ Rcpp.package.skeleton <- function(
 		}
 		fake <- FALSE
 	}
-	
+
 	# first let the traditional version do its business
 	call <- match.call()
 	call[[1]] <- as.name("package.skeleton")
 	call[["namespace"]] <- namespace
 	# remove Rcpp specific arguments
-	
+
 	call <- call[ c( 1L, which( names(call) %in% names(formals(package.skeleton)))) ]
-	
+
 	if( fake ){
 		call[["list"]] <- c( if( isTRUE(example_code)) "rcpp_hello_world" , "Rcpp.fake.fun" )
 	}
-		
+
 	tryCatch( eval( call, envir = env ), error = function(e){
 		stop( sprintf( "error while calling `package.skeleton` : %s", conditionMessage(e) ) )
 	} )
-	
+
 	message( "\nAdding Rcpp settings" )
-	
-	# now pick things up 
+
+	# now pick things up
 	root <- file.path( path, name )
-	
+
 	# Add Rcpp to the DESCRIPTION
 	DESCRIPTION <- file.path( root, "DESCRIPTION" )
 	if( file.exists( DESCRIPTION ) ){
-		depends <- c( 
-			if( isTRUE(module) ) "methods", 
+		depends <- c(
+			if( isTRUE(module) ) "methods",
 			sprintf( "Rcpp (>= %s)", packageDescription("Rcpp")[["Version"]] )
-		) 
-		x <- cbind( read.dcf( DESCRIPTION ), 
-			"Depends" = paste( depends, collapse = ", ") , 
+		)
+		x <- cbind( read.dcf( DESCRIPTION ),
+			"Depends" = paste( depends, collapse = ", ") ,
 			"LinkingTo" = "Rcpp"
 		)
 		if( isTRUE( module ) ){
-		    x <- cbind( x, "RcppModules" = "yada" )
+		    x <- cbind( x, "RcppModules" = "yada, stdVector, NumEx" )
 		    message( " >> added RcppModules: yada" )
 		}
 		x[, "Author" ] <- author
@@ -90,9 +90,9 @@ Rcpp.package.skeleton <- function(
 		message( " >> added Depends: Rcpp" )
 		message( " >> added LinkingTo: Rcpp" )
 		write.dcf( x, file = DESCRIPTION )
-		
+
 	}
-	
+
 	# if there is a NAMESPACE, add a useDynLib
 	NAMESPACE <- file.path( root, "NAMESPACE")
 	if( file.exists( NAMESPACE ) ){
@@ -103,13 +103,13 @@ Rcpp.package.skeleton <- function(
 			writeLines( lines, con = ns )
 			message( " >> added useDynLib directive to NAMESPACE" )
 		}
-		
+
 		if(isTRUE(module)){
 			writeLines( 'import( Rcpp )', ns )
 		}
 		close( ns )
 	}
-	
+
 	# lay things out in the src directory
 	src <- file.path( root, "src")
 	if( !file.exists( src )){
@@ -121,70 +121,66 @@ Rcpp.package.skeleton <- function(
 		file.copy( file.path( skeleton, "Makevars" ), Makevars )
 		message( " >> added Makevars file with Rcpp settings" )
 	}
-	
+
 	Makevars.win <- file.path( src, "Makevars.win" )
 	if( !file.exists( Makevars.win ) ){
 		file.copy( file.path( skeleton, "Makevars.win" ), Makevars.win )
 		message( " >> added Makevars.win file with Rcpp settings" )
 	}
-		
+
 	if( example_code ){
 		header <- readLines( file.path( skeleton, "rcpp_hello_world.h" ) )
 		header <- gsub( "@PKG@", name, header, fixed = TRUE )
 		writeLines( header , file.path( src, "rcpp_hello_world.h" ) )
 		message( " >> added example header file using Rcpp classes")
-		
+
 		file.copy( file.path( skeleton, "rcpp_hello_world.cpp" ), src )
 		message( " >> added example src file using Rcpp classes")
-		
+
 		rcode <- readLines( file.path( skeleton, "rcpp_hello_world.R" ) )
 		rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
 		writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
 		message( " >> added example R file calling the C++ example")
-		
+
 		hello.Rd <- file.path( root, "man", "rcpp_hello_world.Rd")
 		unlink( hello.Rd )
-		file.copy( 
-			system.file("skeleton", "rcpp_hello_world.Rd", package = "Rcpp" ), 
+		file.copy(
+			system.file("skeleton", "rcpp_hello_world.Rd", package = "Rcpp" ),
 			hello.Rd
 			)
 		message( " >> added Rd file for rcpp_hello_world")
-		
+
 	}
-	
+
 	if( isTRUE( module ) ){
-		file.copy( 
-			system.file( "skeleton", "rcpp_module.cpp", package = "Rcpp" ), 
-			file.path( root, "src" )
-		)
-		file.copy( 
-			system.file( "skeleton", "zzz.R", package = "Rcpp" ), 
-			file.path( root, "R" )
-		)
+		file.copy(system.file( "skeleton", "rcpp_module.cpp", package = "Rcpp" ), file.path( root, "src" ))
+		file.copy(system.file( "skeleton", "Num.cpp", package = "Rcpp" ), file.path( root, "src" ))
+		file.copy(system.file( "skeleton", "stdVector.cpp", package = "Rcpp" ), file.path( root, "src" ))
+		file.copy(system.file( "skeleton", "zzz.R", package = "Rcpp" ), file.path( root, "R" ))
 		message( " >> copied the example module " )
-		
+
 	}
-	
+
 	lines <- readLines( package.doc <- file.path( root, "man", sprintf( "%s-package.Rd", name ) ) )
 	lines <- sub( "~~ simple examples", "%% ~~ simple examples", lines )
-	
+
 	lines <- lines[ !grepl( "~~ package title", lines) ]
 	lines <- lines[ !grepl( "~~ The author and", lines) ]
 	lines <- sub( "Who wrote it", author, lines )
 	lines <- sub( "Who to complain to.*", sprintf( "%s <%s>", maintainer, email), lines )
-	
+
 	writeLines( lines, package.doc )
-	
+
 	if( fake ){
 		rm( "Rcpp.fake.fun", envir = env )
 		unlink( file.path( root, "R"  , "Rcpp.fake.fun.R" ) )
 		unlink( file.path( root, "man", "Rcpp.fake.fun.Rd" ) )
 	}
-	
+
 	if( isTRUE(remove_hello_world) ){
 		rm( "rcpp_hello_world", envir = env )
 	}
-	
+
 	invisible( NULL )
 }
 
