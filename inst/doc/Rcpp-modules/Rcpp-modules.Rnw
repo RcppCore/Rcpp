@@ -32,22 +32,22 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 
 <<echo=FALSE>>=
 link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ) {
-	h <- if( missing(package) ) {
-		as.character( help( f ) )
-	} else {
-		as.character( help( f, package = paste( package, sep = "" ) ) )
-	}
-	if( ! length(h) ) {
-		sprintf( "\\\\textbf{%s}", f )
-	} else {
-		rx <- "^.*/([^/]*?)/help/(.*?)$"
-		package <- sub( rx, "\\1", h, perl = TRUE )
-		page <- sub( rx, "\\2", h, perl = TRUE )
-		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
-	}
+    h <- if( missing(package) ) {
+        as.character( help( f ) )
+    } else {
+        as.character( help( f, package = paste( package, sep = "" ) ) )
+    }
+    if( ! length(h) ) {
+        sprintf( "\\\\textbf{%s}", f )
+    } else {
+        rx <- "^.*/([^/]*?)/help/(.*?)$"
+        package <- sub( rx, "\\1", h, perl = TRUE )
+        page <- sub( rx, "\\2", h, perl = TRUE )
+        sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+    }
 }
 linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ) {
-	link( sprintf("%s-class", cl), package, text, root )
+    link( sprintf("%s-class", cl), package, text, root )
 }
 @
 
@@ -373,7 +373,7 @@ void bla2( int x, double y) {
 }
 @
 
-It can be exposed with the following minimal code:
+can be exposed with the following minimal code:
 
 <<lang=cpp>>=
 RCPP_MODULE(yada) {
@@ -388,7 +388,7 @@ RCPP_MODULE(yada) {
 }
 @
 
-and can then be used from \proglang{R}:
+which can then be used from \proglang{R}:
 
 <<eval=FALSE>>=
 require( Rcpp )
@@ -484,10 +484,10 @@ double norm( double x, double y ) {
 }
 
 RCPP_MODULE(mod_formals) {
-     function( "norm",
-              &norm,
-              List::create( _["x"] = 0.0, _["y"] = 0.0 ),
-              "Provides a simple vector norm");
+    function("norm",
+             &norm,
+             List::create( _["x"] = 0.0, _["y"] = 0.0 ),
+             "Provides a simple vector norm");
 }
 @
 
@@ -502,9 +502,9 @@ double norm( double x, double y ) {
 }
 
 RCPP_MODULE(mod_formals) {
-     function( "norm", &norm,
-              List::create( _["x"] = 0.0, _["y"] = 0.0 ),
-              "Provides a simple vector norm");
+    function("norm", &norm,
+             List::create( _["x"] = 0.0, _["y"] = 0.0 ),
+             "Provides a simple vector norm");
 }
 ', plugin = "Rcpp" )
 mod <- Module( "mod_formals", getDynLib( fx_form ), mustStart = TRUE )
@@ -527,7 +527,7 @@ double norm( double x, double y ) {
 }
 
 RCPP_MODULE(mod_formals2) {
-    function( "norm", &norm,
+    function("norm", &norm,
              List::create( _["x"], _["y"] = 0.0 ),
              "Provides a simple vector norm");
 }
@@ -544,9 +544,9 @@ double norm( double x, double y ) {
 }
 
 RCPP_MODULE(mod_formals2) {
-        function( "norm", &norm,
-                 List::create( _["x"], _["y"] = 0.0 ),
-                 "Provides a simple vector norm");
+    function("norm", &norm,
+             List::create( _["x"], _["y"] = 0.0 ),
+             "Provides a simple vector norm");
 }
 ', plugin = "Rcpp" )
 mod <- Module( "mod_formals2", getDynLib( fx_form2 ), mustStart = TRUE )
@@ -729,18 +729,18 @@ illustrated in the example below :
 <<lang=cpp>>=
 using namespace Rcpp;
 class Foo {
-    public:
-        Foo( double x_, double y_, double z_ ):
-            x(x_), y(y_), z(z_) {}
+public:
+    Foo(double x_, double y_, double z_ ):
+        x(x_), y(y_), z(z_) {}
 
-        double x;
-        double y;
+    double x;
+    double y;
 
-        double get_z() { return z; }
-        void set_z( double z_ ) { z = z_; }
+    double get_z() { return z; }
+    void set_z( double z_ ) { z = z_; }
 
-    private:
-        double z;
+private:
+    double z;
 };
 
 RCPP_MODULE(mod_foo) {
@@ -810,30 +810,28 @@ the \texttt{x} field is read and written.
 
 <<lang=cpp>>=
 class Bar {
-    public:
+public:
 
-        Bar(double x_) : x(x_), nread(0), nwrite(0) {}
+    Bar(double x_) : x(x_), nread(0), nwrite(0) {}
 
-        double get_x( ) {
-            nread++;
-            return x;
-        }
+    double get_x( ) {
+        nread++;
+        return x;
+    }
 
-        void set_x( double x_) {
-            nwrite++;
-            x = x_;
-        }
+    void set_x( double x_) {
+        nwrite++;
+        x = x_;
+    }
 
-        IntegerVector stats() const {
-            return IntegerVector::create(
-                _["read"] = nread,
-                _["write"] = nwrite
-            );
-        }
+    IntegerVector stats() const {
+        return IntegerVector::create(_["read"] = nread,
+                                     _["write"] = nwrite);
+    }
 
-    private:
-        double x;
-        int nread, nwrite;
+private:
+    double x;
+    int nread, nwrite;
 };
 
 RCPP_MODULE(mod_bar) {
@@ -852,39 +850,37 @@ Here is a simple usage example:
 <<echo=FALSE,results=hide>>=
 fx_bar <- cxxfunction( , "", includes = '
 class Bar {
-    public:
+public:
 
-        Bar(double x_) : x(x_), nread(0), nwrite(0) {}
+    Bar(double x_) : x(x_), nread(0), nwrite(0) {}
 
-        double get_x( ) {
-            nread++;
-            return x;
-        }
+    double get_x( ) {
+        nread++;
+        return x;
+    }
 
-        void set_x( double x_) {
-            nwrite++;
-            x = x_;
-        }
+    void set_x( double x_) {
+        nwrite++;
+        x = x_;
+    }
 
-        IntegerVector stats() const {
-            return IntegerVector::create(
-                _["read"] = nread,
-                _["write"] = nwrite
-            );
-        }
+    IntegerVector stats() const {
+        return IntegerVector::create(_["read"] = nread,
+                		     _["write"] = nwrite);
+    }
 
-    private:
-        double x;
-        int nread, nwrite;
+private:
+    double x;
+    int nread, nwrite;
 };
 
 RCPP_MODULE(mod_bar) {
     class_<Bar>( "Bar" )
 
-        .constructor<double>()
+    .constructor<double>()
 
-        .property( "x", &Bar::get_x, &Bar::set_x )
-        .method( "stats", &Bar::stats )
+    .property( "x", &Bar::get_x, &Bar::set_x )
+    .method( "stats", &Bar::stats )
     ;
 }
 ', plugin = "Rcpp" )
@@ -920,7 +916,7 @@ a short documentation of the method, after the
 method (or free function) pointer.
 
 <<lang=cpp>>=
-    .method( "stats", &Bar::stats,
+.method("stats", &Bar::stats,
         "vector indicating the number of times x has been read and written" )
 @
 
@@ -1190,6 +1186,10 @@ the skeleton generator installs code that uses a simple module.
 Rcpp.package.skeleton( "testmod", module = TRUE )
 @
 
+Creating a new package using \textsl{Rcpp modules} is easiest via the call to
+\code{Rcpp.package.skeleton()} with argument \code{module=TRUE} as a working
+package with three example Modules results.
+
 \subsection{Module documentation}
 
 \pkg{Rcpp} defines a \Sexpr{link("prompt")} method for the
@@ -1213,6 +1213,20 @@ the \texttt{Module()} function as well.
 \texttt{Boost.Python} has many more features that we would like to port
 to Rcpp modules : class inheritance, default arguments, enum
 types, ...
+
+\section{Known shortcomings}
+\label{sec:misfeatures}
+
+There are some things \textsl{Rcpp modules} is not good at:
+\begin{itemize}
+\item serialization and deserialization of objects: modules are
+  implemented via an external pointer using a memory location, which is
+  non-constant and varies between session. Objects have to be re-created,
+  which is different from the (de-)serialization that R offers. So these
+  objects cannot be save from session to session.
+\item mulitple inheritance: currently, only simple class structures are
+  representable via \textsl{Rcpp modules}.
+\end{itemize}
 
 \section{Summary}
 
