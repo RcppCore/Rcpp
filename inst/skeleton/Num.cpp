@@ -40,12 +40,12 @@ RCPP_MODULE(NumEx){
 
     class_<Num>( "Num" )
 	
-        .default_constructor()
+    .default_constructor()
 
-        // read and write property
-        .property( "x", &Num::getX, &Num::setX )
+    // read and write property
+    .property( "x", &Num::getX, &Num::setX )
 
-        // read-only property
-        .property( "y", &Num::getY )
-	;
+    // read-only property
+    .property( "y", &Num::getY )
+    ;
 }
