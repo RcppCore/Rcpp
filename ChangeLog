@@ -16,6 +16,9 @@
 	* inst/unitTests/runit.Module.client.package.R: Added four simple
 	tests for Rcpp Modules
 
+	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Some extensions and
+	clarifications added 
+
 2012-05-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/iostream/Rostream.h: Added Rstreambuf.h include
