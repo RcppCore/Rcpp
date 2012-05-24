@@ -1,3 +1,5 @@
+# -*- tab-width: 4; -*-
+
 # Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
@@ -157,7 +159,7 @@ Rcpp.package.skeleton <- function(
 		file.copy(system.file( "skeleton", "Num.cpp", package = "Rcpp" ), file.path( root, "src" ))
 		file.copy(system.file( "skeleton", "stdVector.cpp", package = "Rcpp" ), file.path( root, "src" ))
 		file.copy(system.file( "skeleton", "zzz.R", package = "Rcpp" ), file.path( root, "R" ))
-		message( " >> copied the example module " )
+		message( " >> copied the example module file " )
 
 	}
 
