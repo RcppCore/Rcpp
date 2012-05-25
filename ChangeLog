@@ -1,3 +1,8 @@
+2012-05-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/skeleton/zzz.R: Added new 'evalqOnLoad()' call for R-devel,
+	currently commented out
+
 2012-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/skeleton/Num.cpp: Added to Rcpp.package.skeleton(); will be
