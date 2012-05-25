@@ -4,8 +4,6 @@
 	added when module=TRUE in call
 	* inst/skeleton/stdVector.cpp: Idem
 
-	* inst/skeleton/zzz.R: Now just a loadRcppModules() call in .onLoad()
-
 	* inst/unitTests/testRcppModule/src/rcpp_module.cpp: added more
 	comments, added copyright header, corrected output of example
 	functions by not escaping "backslash-n" twice
@@ -17,7 +15,7 @@
 	tests for Rcpp Modules
 
 	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Some extensions and
-	clarifications added 
+	clarifications added
 
 2012-05-13  Dirk Eddelbuettel  <edd@debian.org>
 
