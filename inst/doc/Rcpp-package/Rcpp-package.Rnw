@@ -123,6 +123,7 @@ Rcpp.package.skeleton( "mypackage" )
 dir.create( tlib <- tempfile() )
 system( sprintf( 'R CMD INSTALL --library="%s" mypackage ', tlib ) )
 require( "mypackage", lib.loc = tlib )
+setwd(here)
 @
 
 % <<>>=
