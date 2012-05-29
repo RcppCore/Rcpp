@@ -1156,6 +1156,11 @@ declaration:
 RcppModules: yada, stdVector, NumEx
 \end{verbatim}
 
+The \Sexpr{link("loadRcppModules" )} has a single argument \texttt{direct}
+with a default value of \texttt{TRUE}. With this default value, all content
+from the module is exposed directly in the package namespace. If set to
+\texttt{FALSE}, all content is exposed as components of the module.
+
 \subsubsection{Just expose the module}
 
 Alternatively, it is possible to just expose the module to the user of the package,
