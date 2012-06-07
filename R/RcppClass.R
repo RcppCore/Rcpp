@@ -110,7 +110,7 @@ loadRcppClass <- function(Class, CppClass = Class,
     newFields <- names(fields)
     for(what in cppFields[! cppFields %in% newFields])
         fields[[what]] <- eval(substitute(
-            function(value) if(missing(value)) .CppObject$WHAT else .cppObject$WHAT <- value,
+            function(value) if(missing(value)) .CppObject$WHAT else .CppObject$WHAT <- value,
                  list(WHAT = as.name(what))), env)
     ## insert the generator and cppclass def as constants
     cppgenerator <- getRefClass(cppclassinfo)
