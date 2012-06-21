@@ -1164,7 +1164,7 @@ from the module is exposed directly in the package namespace. If set to
 Starting with release 0.9.11, an alternative is provided by the
 \code{loadModule()} function which takes the module name as an argument.
 It can be placed in any \code{.R} file in the package. This is useful as it allows to load
-the module from the same file as some auxiliary \R functions using the
+the module from the same file as some auxiliary \proglang{R} functions using the
 module. For the example module, the equivalent code to the \code{.onLoad()}
 use shown above then becomes
 
