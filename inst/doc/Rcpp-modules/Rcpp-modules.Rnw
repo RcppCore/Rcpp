@@ -1161,6 +1161,21 @@ with a default value of \texttt{TRUE}. With this default value, all content
 from the module is exposed directly in the package namespace. If set to
 \texttt{FALSE}, all content is exposed as components of the module.
 
+Starting with release 0.9.11, an alternative is provided by the
+\code{loadModule()} function which takes the module name as an argument.
+It can be placed in any \code{.R} file in the package. This is useful as it allows to load
+the module from the same file as some auxiliary \R functions using the
+module. For the example module, the equivalent code to the \code{.onLoad()}
+use shown above then becomes
+
+<<eval=FALSE>>=
+loadModule("yada")
+loadModule("stdVector")
+loadModule("NumEx")
+@
+
+This feature is also used in the new Rcpp Classes introduced with Rcpp 0.9.11.
+
 \subsubsection{Just expose the module}
 
 Alternatively, it is possible to just expose the module to the user of the package,
