@@ -1,4 +1,4 @@
-0.9.11. 2012-xx-yy
+0.9.11  2012-06-22
 
     o   New member function for vectors (and lists etc) containsElementNamed() 
         which returns a boolean indicating if the given element name is present
@@ -7,17 +7,24 @@
         carrying functions already present from the corresponding unit test
 	which was also slightly expanded; and added more comments to the code 
 
+    o   Rcpp modules can now be loaded via loadRcppModules() from .onLoad(),
+        or via loadModule("moduleName") from any R file 
+
     o   Extended functionality to let R modify C++ clases imported via modules
+        documented in help(setRcppClass)
 
     o   Support compilation in Cygwin thanks to a patch by Dario Buttari
 
-    o   Small extensions to the Rcpp-FAQ and the Rcpp-modules vignettes
+    o   Extensions to the Rcpp-FAQ and the Rcpp-modules vignettes
+
+    o   The minium version of R is now 2.15.1 which is required for some of
+        the Rcpp modules support 
 
 0.9.10  2012-02-16
 
     o   Rearrange headers so that Rcpp::Rcout can be used by RcppArmadillo et al
 
-    o   New Rcpp sugar function mapply (for limited to two or three input vectors)
+    o   New Rcpp sugar function mapply (limited to two or three input vectors)
 
     o   Added custom version of the Rcpp sugar diff function for numeric vectors
         skipping unncesserry checks for NA
