@@ -1,3 +1,25 @@
+2012-06-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.11
+        * inst/NEWS: Release 0.9.11
+        * inst/include/Rcpp/config.h: Release 0.9.11
+        * debian/*: Similarly updated for new release to Debian
+
+	* DESCRIPTION: Increased Depends to R (>= 2.15.1)
+
+2012-06-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Updated to reflect use
+	under R 2.15.1 
+	* inst/skeleton/zzz.R: Idem
+
+2012-06-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/loadRcppModules.R: Use lib.loc= argument on packageDescription()
+	as suggested by Kurt, and fetch libname from enclosing environment
+
+	* DESCRIPTION: Typo and grammar fixes with thanks to Kurt and Doug
+	
 2012-05-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/skeleton/zzz.R: Added new 'evalqOnLoad()' call for R-devel,
