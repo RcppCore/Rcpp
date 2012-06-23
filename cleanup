@@ -21,6 +21,8 @@ rm -f confdefs.h config.log config.status \
         inst/discovery/cxx0x.Rout \
 	inst/unitTests/testRcppModule/src/*.o \
 	inst/unitTests/testRcppModule/src/*.so \
+	inst/unitTests/testRcppClass/src/*.o \
+	inst/unitTests/testRcppClass/src/*.so \
 	src/Makedeps libRcpp.a \
 	build/Rcpp.pdf \
 	src/symbols.rds \

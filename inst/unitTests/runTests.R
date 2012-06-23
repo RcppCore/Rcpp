@@ -1,6 +1,6 @@
 ## -*- mode: R; tab-width: 4 -*-
 ##
-## Copyright (C) 2009- 2011	Dirk Eddelbuettel and Romain Francois
+## Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 ##
 ## This file is part of Rcpp.
 ##
@@ -17,17 +17,25 @@
 ## You should have received a copy of the GNU General Public License
 ## along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+## Usage:
+##
+##   r some/path/to/runTests.R                 # defaults
+##   r some/path/to/runTests.R --local         # use cwd, not pkg dir
+##   r some/path/to/runTests.R --output=/tmp   # undo what BDR imposed
+##   r some/path/to/runTests.R --allTests      # undo what KH imposed
+##
+
 pkg <- "Rcpp"
 
-if( ! require( "inline", character.only = TRUE, quietly = TRUE ) ){
+if ( ! require( "inline", character.only = TRUE, quietly = TRUE ) ){
     stop( "The inline package is required to run Rcpp unit tests" )
 }
 
-if( compareVersion( packageDescription( "inline" )[["Version"]], "0.3.4.4" ) < 0 ){
+if ( compareVersion( packageDescription( "inline" )[["Version"]], "0.3.4.4" ) < 0 ){
     stop( "Rcpp unit tests need at least the version 0.3.4.4 of inline" )
 }
 
-if(require("RUnit", quietly = TRUE)) {
+if (require("RUnit", quietly = TRUE)) {
 
     is_local <- function(){
     	if( exists( "argv", globalenv() ) && "--local" %in% argv ) return(TRUE)
@@ -37,7 +45,7 @@ if(require("RUnit", quietly = TRUE)) {
     if (is_local() ) path <- getwd()
 
     library(package=pkg, character.only = TRUE)
-    if(!(exists("path") && file.exists(path)))
+    if (!(exists("path"))) ## && file.exists(path)))
         path <- system.file("unitTests", package = pkg)
 
     ## --- Testing ---
@@ -47,20 +55,27 @@ if(require("RUnit", quietly = TRUE)) {
                                  #     , testFileRegexp = "Vector"
                                  )
 
-    ## this is crass but as we time out on Windows we have no choice
-    ## but to disable a number of tests
     ## TODO: actually prioritize which ones we want
+    ##       for now, expensive tests (eg Modules, client packages) are skipped
     allTests <- function() {
-        if (.Platform$OS.type != "windows") return(TRUE)
-    	if (exists( "argv", globalenv() ) && "--allTests" %in% argv) return(TRUE)
-    	if ("--allTests" %in% commandArgs(TRUE)) return(TRUE)
-    	return(FALSE)
+    	if (exists( "argv", globalenv() ) && "--allTests" %in% argv) {
+            Sys.setenv("RunAllRcppTests"="yes")
+            return(TRUE)
+        }
+    	if ("--allTests" %in% commandArgs(TRUE)) {
+            Sys.setenv("RunAllRcppTests"="yes")
+            return(TRUE)
+        }
+        Sys.setenv("RunAllRcppTests"="no")
+        return(FALSE)
     }
     ## if (.Platform$OS.type == "windows" && allTests() == FALSE) {
     ##     ## by imposing [D-Z] (instead of an implicit A-Z) we are going from
     ##     ## 45 tests to run down to 38 (numbers as of release 0.8.3)
-    ##     testSuite$testFileRegexp <- "^runit.[D-Z]+\\.[rR]$"
+    ##     testSuite$testFileRegexp <- "^runit\\.[D-Z].+\\.[rR]$"
     ## }
+
+    allTests()                          # see if we want to set shortcut flag
 
     if (interactive()) {
         cat("Now have RUnit Test Suite 'testSuite' for package '", pkg,

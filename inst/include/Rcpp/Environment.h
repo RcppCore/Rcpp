@@ -167,8 +167,6 @@ namespace Rcpp{
     
         friend class Binding ;
     
-        Environment() ;
-    
         /**
          * wraps the given environment
          *
