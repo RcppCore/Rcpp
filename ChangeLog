@@ -1,3 +1,26 @@
+2012-06-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Environment.cpp: Remove empty constructor which is redundant
+	since fix in rev3592 with default SEXP value of R_GlobalEnv
+	* inst/include/Rcpp/Environment.h: Idem 
+
+	* inst/unitTests/runTests.R (allTests): Command-line flag --allTests
+	sets an environment variable indicating that all tests should run
+
+	* inst/unitTests/runit.Module.R: Run only if RunAllCppTests var set 
+	* inst/unitTests/runit.Module.client.package.R: Idem 
+	* inst/unitTests/runit.client.package.R: Idem
+	* inst/unitTests/runit.XPtr.R: Idem
+	* inst/unitTests/runit.macros.R: Idem
+
+	* inst/doc/unitTests/Rcpp-unitTests.R: Ensure Rcpp-unitTests 
+	vignette is built with RunAllCppTests flag set
+	
+	* cleanup: Also clean in inst/unitTests/testRcppClass/src
+
+	* DESCRIPTION: Set Maintainer: to edd@debian.org as CRAN prefers to
+	receive upload email from the same address the Maintainer field
+	
 2012-06-22  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.11
@@ -10,7 +33,7 @@
 2012-06-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Updated to reflect use
-	under R 2.15.1 
+	under R 2.15.1
 	* inst/skeleton/zzz.R: Idem
 
 2012-06-20  Dirk Eddelbuettel  <edd@debian.org>
@@ -19,7 +42,7 @@
 	as suggested by Kurt, and fetch libname from enclosing environment
 
 	* DESCRIPTION: Typo and grammar fixes with thanks to Kurt and Doug
-	
+
 2012-05-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/skeleton/zzz.R: Added new 'evalqOnLoad()' call for R-devel,

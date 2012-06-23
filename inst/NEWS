@@ -1,3 +1,15 @@
+0.9.12  2012-06-23
+
+    o   Corrected Rcpp::Environment class by removing (empty) ctor following
+        rev3592 (on May 2) where default argument for ctor was moved
+
+    o   Unit testing now supports argument --allTests to impose that all
+        tests are executed; otherwise some expensive tests are skipped. This
+	is arguably not the right thing to do, but CRAN maintainers insist 
+	on faster tests.
+
+    o   The cleanup script now also considers inst/unitTests/testRcppClass/src 
+
 0.9.11  2012-06-22
 
     o   New member function for vectors (and lists etc) containsElementNamed() 

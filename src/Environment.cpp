@@ -23,8 +23,6 @@
 
 namespace Rcpp {
 
-    Environment::Environment() : RObject(R_NilValue){}
-
     Environment::Environment(SEXP x) : RObject(x){
         if( ! Rf_isEnvironment(x) ) {
             /* not an environment, but maybe convertible to one using as.environment, try that */

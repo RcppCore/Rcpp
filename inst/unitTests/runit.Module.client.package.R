@@ -31,8 +31,7 @@
 ## It now (Dec 2011) appears to fail on Windows too
 .onWindows <- .Platform$OS.type == "windows"
 
-## Disabling this test for now as it fails in R-devel
-.runThisTest <- TRUE
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
 if (.runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .onWindows) {
 
