@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,6 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if( .runThisTest  ) {
 
 .getDll <- function( fx ){
 	env <- environment( fx@.Data )
@@ -146,7 +149,7 @@ test.RCPPXPMETHOD <- function(){
 	checkEquals( info[["class"]], "std::vector<int>" )
 	checkEquals( info[["method"]], "back")
 	checkEquals( class(info), "rcppxpmethodinfo" )
-	
+
 	f_push_back <- cxxfunction( signature( xp = "externalptr", x = "integer" ), '
 		vec_push_back( xp, x );
 		return R_NilValue ;
@@ -219,7 +222,7 @@ test.RCPPXPFIELD <- function(){
 
 ### regression test for long long support
 test.long.long <- function(){
-	
+
 	fx <- cxxfunction( signature(), '
 		return foo() ;
 	', includes = '
@@ -232,3 +235,4 @@ test.long.long <- function(){
 
 }
 
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -19,6 +19,8 @@
 
 ## This now (Dec 2011) appears to fail on Windows
 .onWindows <- .Platform$OS.type == "windows"
+
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
 .client.package <- function( pkg = "RcppTestA" ){
     td <- tempfile()
@@ -40,7 +42,7 @@
     checkException( .Call("hello_world_ex", PACKAGE = pkg ), msg = "exception in client package" )
 }
 
-if ( ! .onWindows ) {
+if ( .runThisTest && ! .onWindows ) {
     test.client.packageA <- function(){
         .client.package( "RcppTestA" )
     }

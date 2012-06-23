@@ -12,6 +12,9 @@ cppfunction <- function( ... ){
 	cxxfunction( ..., plugin = "Rcpp" )
 }
 
+## Make sure we run all tests for the vignette
+Sys.setenv("RunAllRcppTests"="yes")
+
 #load RUnit
 runit <- "RUnit" ; require( runit, character.only = TRUE )
 if( file.exists( "unitTests-results" ) ){ unlink("unitTests-results", recursive = TRUE ) }
