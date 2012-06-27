@@ -167,12 +167,14 @@ namespace Rcpp{
     
         friend class Binding ;
     
+        Environment() ;
+
         /**
          * wraps the given environment
          *
          * if the SEXP is not an environment, and exception is thrown
          */
-        Environment(SEXP x = R_GlobalEnv);
+        Environment(SEXP x);
     
         /**
          * copy constructor
