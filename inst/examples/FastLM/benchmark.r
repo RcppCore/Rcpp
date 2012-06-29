@@ -26,7 +26,7 @@ source("lmArmadillo.R")
 source("lmGSL.R")
 
 set.seed(42)
-n <- 25000
+n <- 5000
 k <- 9
 X <- cbind( rep(1,n), matrix(rnorm(n*k), ncol=k) )
 truecoef <- 1:(k+1)
