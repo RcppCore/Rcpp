@@ -1,37 +1,59 @@
-#### doRUnit.R --- Run RUnit tests
-####------------------------------------------------------------------------
+# Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
+# Earlier copyrights Gregor Gorjanc and Martin Maechler as detailed below
+#
+# This file is part of Rcpp.
+#
+# Rcpp is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# Rcpp is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-### borrowed from package fUtilities in RMetrics
-### http://r-forge.r-project.org/plugins/scmsvn/viewcvs.php/pkg/fUtilities/tests/doRUnit.R?rev=1958&root=rmetrics&view=markup
+## Unit test wrapper invoked from tests/
 
-### Originally follows Gregor Gojanc's example in CRAN package  'gdata'
-### and the corresponding section in the R Wiki:
-###  http://wiki.r-project.org/rwiki/doku.php?id=developers:runit
+##
+## Based on a file written by Martin Maechler for the Rmetrics
+## packages which itself was based on earlier work by Gregor Gorjanc
+## and documented on the R Wiki.
 
-### MM: Vastly changed:  This should also be "runnable" for *installed*
-##              package which has no ./tests/
-## ----> put the bulk of the code e.g. in  ../inst/unitTests/runTests.R :
+## doRUnit.R --- Run RUnit tests
+## ------------------------------------------------------------------------
+##
+## borrowed from package fUtilities in RMetrics
+## http://r-forge.r-project.org/plugins/scmsvn/viewcvs.php/pkg/fUtilities/tests/doRUnit.R?rev=1958&root=rmetrics&view=markup
+##
+## Originally follows Gregor Gorjanc's example in CRAN package  'gdata'
+## and the corresponding section in the R Wiki:
+## http://wiki.r-project.org/rwiki/doku.php?id=developers:runit
+##
+## MM: Vastly changed:  This should also be "runnable" for *installed*
+##     package which has no ./tests/
+##     --> put the bulk of the code e.g. in  ../inst/unitTests/runTests.R :
 
-if( identical( .Platform$OS.type, "windows" ) && identical( .Platform$r_arch, "x64" ) ){
-    print( "unit tests not run on windows 64 (workaround alert)" )
+if (require("RUnit", quietly = TRUE)) {
+
+    pkg <- "Rcpp"                           # code below for Rcpp
+    require( pkg, character.only=TRUE)
+    path <- system.file("unitTests", package = pkg)
+    stopifnot(file.exists(path), file.info(path.expand(path))$isdir)
+
+    ## without this, we get unit test failures
+    Sys.setenv( R_TESTS = "" )
+
+    ## force all tests to be executed if commented-out
+    #Sys.setenv("RunAllRcppTests"="yes")
+
+    Rcpp.unit.test.output.dir <- getwd()
+
+    source(file.path(path, "runTests.R"), echo = TRUE)
+
 } else {
-    if(require("RUnit", quietly = TRUE)) {
-      pkg <- "Rcpp"
-                                           
-      require( pkg, character.only=TRUE)
-      
-      path <- system.file("unitTests", package = pkg)
-      
-      stopifnot(file.exists(path), file.info(path.expand(path))$isdir)
-      
-      # without this, we get unit test failures
-      Sys.setenv( R_TESTS = "" )
-      
-      Rcpp.unit.test.output.dir <- getwd()
-      
-      source(file.path(path, "runTests.R"), echo = TRUE)
-      
-    } else {
-    	print( "package RUnit not available, cannot run unit tests" )
-    }       
+    print( "package RUnit not available, cannot run unit tests" )
 }

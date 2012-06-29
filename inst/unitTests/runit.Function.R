@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4 -*-
 #
-# Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,6 +17,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
 
 definitions <- function(){
     list(
@@ -148,3 +152,4 @@ test.Function.namespace.env <- function() {
     checkEquals( stats:::.asSparse, exportedfunc, msg = "namespace_env(Function)" )
 }
 
+}
