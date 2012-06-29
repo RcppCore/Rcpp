@@ -95,6 +95,16 @@ namespace Rcpp{
     #endif
 #endif
 
+#ifdef __clang__
+    #define CLANG_VERSION (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
+    #if CLANG_VERSION < 30000
+        #define IS_EARLIER_THAN_CLANG_300
+    #endif
+    #if CLANG_VERSION >= 30000
+        #define IS_CLANG_300_OR_LATER
+    #endif
+#endif
+
 #ifdef __INTEL_COMPILER
     // This is based on an email by Alexey Stukalov who tested 
     // Intel Compiler 12.0 and states that is does support Cxx0x 
