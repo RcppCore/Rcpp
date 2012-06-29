@@ -66,11 +66,21 @@ RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
    compilers */
 #ifdef RCPP_HAS_DEMANGLING
 #include <typeinfo>
-#ifdef IS_EARLIER_THAN_GCC_460
-#include <exception_defines.h>
+#ifdef __GNUC__
+  #ifdef IS_EARLIER_THAN_GCC_460
+    #include <exception_defines.h>
+  #endif
+  #ifdef IS_GCC_460_OR_LATER
+    #include <bits/exception_defines.h>
+  #endif
 #endif
-#ifdef IS_GCC_460_OR_LATER
-#include <bits/exception_defines.h>
+#ifdef __clang__
+  #ifdef IS_EARLIER_THAN_CLANG_300
+    #include <exception_defines.h>
+  #endif
+  #ifdef IS_CLANG_300_OR_LATER
+    #include <bits/exception_defines.h>
+  #endif
 #endif
 #include <cxxabi.h>
 
