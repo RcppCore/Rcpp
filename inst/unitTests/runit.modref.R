@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,9 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-test.modRef <- function() {
-    inc  <- '
+if (.runThisTest) {
+
+    test.modRef <- function() {
+        inc  <- '
 
 	class World {
 	public:
@@ -42,9 +45,9 @@ test.modRef <- function() {
 		using namespace Rcpp ;
 
 		class_<World>( "World" )
-		
+
 		    .default_constructor()
-		    
+
 			.method( "greet", &World::greet )
 			.method( "set", &World::set )
 			.method( "clear", &clearWorld )
@@ -56,28 +59,27 @@ test.modRef <- function() {
 	}
 
 	'
-    fx <- inline::cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
+        fx <- inline::cxxfunction( signature(), "" , include = inc, plugin = "Rcpp" )
 
-    mod <- Module( "yada", getDynLib(fx) )
+        mod <- Module( "yada", getDynLib(fx) )
 
-    ## FIXME: Commented-out test below to let R CMD check pass with g++-4.5
-    ## World <- mod$World
+        World <- mod$World
 
-    ## ww = new(World)
-    ## wg = World$new()
+        ww = new(World)
+        wg = World$new()
 
-    ## checkEquals(ww$greet(), wg$greet())
-    ## wgg <- wg$greet()
+        checkEquals(ww$greet(), wg$greet())
+        wgg <- wg$greet()
 
-    ## ww$set("Other")
+        ww$set("Other")
 
-    ## ## test independence of ww, wg
-    ## checkEquals(ww$greet(), "Other")
-    ## checkEquals(wg$greet(), wgg)
+        ## test independence of ww, wg
+        checkEquals(ww$greet(), "Other")
+        checkEquals(wg$greet(), wgg)
 
-    ## World$methods(
-    ##               twice = function() paste(greet(), greet()))
+        World$methods(twice = function() paste(greet(), greet()))
 
-    ## checkEquals(ww$twice(), paste(ww$greet(), ww$greet()))
+        checkEquals(ww$twice(), paste(ww$greet(), ww$greet()))
 
+    }
 }

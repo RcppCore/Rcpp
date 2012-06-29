@@ -57,7 +57,7 @@ if (require("RUnit", quietly = TRUE)) {
 
     ## TODO: actually prioritize which ones we want
     ##       for now, expensive tests (eg Modules, client packages) are skipped
-    allTests <- function() {
+    checkForAllTests <- function() {
     	if (exists( "argv", globalenv() ) && "--allTests" %in% argv) {
             Sys.setenv("RunAllRcppTests"="yes")
             return(TRUE)
@@ -75,7 +75,9 @@ if (require("RUnit", quietly = TRUE)) {
     ##     testSuite$testFileRegexp <- "^runit\\.[D-Z].+\\.[rR]$"
     ## }
 
-    allTests()                          # see if we want to set shortcut flag
+    if (Sys.getenv("RunAllRcppTests") == "") { 	# if env.var not yet set
+        checkForAllTests()       				# see if we want to set flag
+    }
 
     if (interactive()) {
         cat("Now have RUnit Test Suite 'testSuite' for package '", pkg,
