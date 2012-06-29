@@ -1,10 +1,45 @@
+2012-06-28  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.13
+        * inst/NEWS: Release 0.9.13
+        * inst/include/Rcpp/config.h: Release 0.9.13
+        * debian/*: Similarly updated for new release to Debian
+
+        * tests/doRUnit.R: Updated, added (by default commented-out) setting
+        to enforce all tests to run, added standard copyright headers noting
+        heritage off work by Martin Maechler and Gregor Gorjanc
+
+        * inst/unitTests/runTests.R: Only check environment variable to run
+        all tests if it is not already set (to cooperate with doRUnit.R)
+
 2012-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Environment.cpp: Default ctor initializes its RObject with
 	R_GlobalEnv; SEXP constructor does not use a default arg as it tests
 	* inst/include/Rcpp/Environment.h: Corresponding change
 
+	* inst/include/RcppCommon.h: #define(s) for before/after clang++ 3.0
+
+	* src/exceptions.cpp: Added support for clang++ (>= 3.0) which (just
+	like g++ 4.6 or later) needs bits/exceptions_defines
+
+	* inst/unitTests/runit.modref.R: re-activated
+	* inst/unitTests/runit.Module.client.package.R: re-activated core
+
+ 	* inst/unitTests/runit.modref.R: Run only if RunAllCppTests var set
+	* inst/unitTests/runit.Module.client.package.R: Idem
+	* inst/unitTests/runit.support.R: Idem
+	* inst/unitTests/runit.rcout.R: Idem
+	* inst/unitTests/runit.environments.R: Idem
+	* inst/unitTests/runit.Language.R: Idem
+	* inst/unitTests/runit.Function.R: Idem
+
 2012-06-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.12
+        * inst/NEWS: Release 0.9.12
+        * inst/include/Rcpp/config.h: Release 0.9.12
+        * debian/*: Similarly updated for new release to Debian
 
 	* src/Environment.cpp: Remove empty constructor which is redundant
 	since fix in rev3592 with default SEXP value of R_GlobalEnv
@@ -13,7 +48,7 @@
 	* inst/unitTests/runTests.R (allTests): Command-line flag --allTests
 	sets an environment variable indicating that all tests should run
 
-	* inst/unitTests/runit.Module.R: Run only if RunAllCppTests var set
+ 	* inst/unitTests/runit.Module.R: Run only if RunAllCppTests var set
 	* inst/unitTests/runit.Module.client.package.R: Idem
 	* inst/unitTests/runit.client.package.R: Idem
 	* inst/unitTests/runit.XPtr.R: Idem

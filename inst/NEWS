@@ -1,12 +1,29 @@
+0.9.13  2012-06-28
+
+    o   Truly corrected Rcpp::Environment class by having default constructor
+        use the global environment, and removing the default argument of
+        global environment from the SEXP constructor
+
+    o   Added tests for clang++ version to include bits/exception_defines.h
+        for versions 3.0 or higher (similar to g++ 4.6.0 or later), needed to
+	include one particular exceptions header
+
+    o   Made more regression tests conditional on the RunAllRcppTests to come
+        closer to the CRAN mandate of running tests in sixty seconds
+
+    o   Updated unit test wrapper tests/doRUnit.R as well as unitTests/runTests.R
+
 0.9.12  2012-06-23
 
     o   Corrected Rcpp::Environment class by removing (empty) ctor following
         rev3592 (on May 2) where default argument for ctor was moved
 
-    o   Unit testing now supports argument --allTests to impose that all
-        tests are executed; otherwise some expensive tests are skipped. This
-	is arguably not the right thing to do, but CRAN maintainers insist 
-	on faster tests.
+    o   Unit testing now checks for environment variable RunAllRcppTests being
+        set to "yes"; otherwise some tests are skipped. This is arguably not
+        the right thing to do, but CRAN maintainers insist on faster tests.
+
+    o   Unit test wrapper script runTests.R has new option --allTests to set
+        the environment variable
 
     o   The cleanup script now also considers inst/unitTests/testRcppClass/src 
 
