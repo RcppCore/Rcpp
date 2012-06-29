@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2011	Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+# Copyright (C) 2011 - 2012  Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
 #
 # This file is part of Rcpp.
 #
@@ -17,9 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-test.rcout <- function() {
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-    src <- '
+if (.runThisTest) {
+
+    test.rcout <- function() {
+
+        src <- '
         std::string tfile = as<std::string>(tmpfile);
 
 	// define and open testfile
@@ -43,24 +47,25 @@ test.rcout <- function() {
         return Rcpp::wrap<int>( 0 );
 '
 
-    fun <- cxxfunction(signature(tmpfile="character",
-                                 teststring = "character" ),
-                       includes = "#include <iostream>\n#include <fstream>",
-                       body = src, plugin="Rcpp")
+        fun <- cxxfunction(signature(tmpfile="character",
+                                     teststring = "character" ),
+                           includes = "#include <iostream>\n#include <fstream>",
+                           body = src, plugin="Rcpp")
 
-    ## define test string that is written to two files
-    teststr <- "First line.\nSecond line."
+        ## define test string that is written to two files
+        teststr <- "First line.\nSecond line."
 
-    rcppfile <- tempfile()
-    rfile <- tempfile()
+        rcppfile <- tempfile()
+        rfile <- tempfile()
 
-    ## write to test_rcpp.txt from Rcpp
-    fun(rcppfile,  teststr )
+        ## write to test_rcpp.txt from Rcpp
+        fun(rcppfile,  teststr )
 
-    ## write to test_r.txt from R
-    cat( teststr, file=rfile, sep='\n' )
+        ## write to test_r.txt from R
+        cat( teststr, file=rfile, sep='\n' )
 
-    ## compare whether the two files have the same data
-    checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")
+        ## compare whether the two files have the same data
+        checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")
 
+    }
 }
