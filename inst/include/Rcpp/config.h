@@ -28,7 +28,7 @@
     #ifndef __MACH__
       #define RCPP_HAS_DEMANGLING
     #endif
-  #ednif
+  #endif
 #endif
 
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
