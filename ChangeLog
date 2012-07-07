@@ -1,3 +1,10 @@
+2012-07-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/config.h: In order to not attempt to include
+	exception_defines.h if on OS X (as the clang runtime may not have
+	predictable access to g+++ headers providing these), do not define
+	RCPP_HAS_DEMANGLING which is used in src/exceptions.cpp
+
 2012-06-28  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.9.13
