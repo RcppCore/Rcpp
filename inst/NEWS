@@ -1,3 +1,9 @@
+0.9.14  2012-xx-yy
+
+    o   Be more conservative about where we support clang++ and the inclusion
+        of exception_defines.h and prevent this from being attempted on OS X
+        where it failed for clang 3.1
+
 0.9.13  2012-06-28
 
     o   Truly corrected Rcpp::Environment class by having default constructor
