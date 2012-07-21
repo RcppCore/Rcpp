@@ -1,3 +1,8 @@
+2012-07-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Module.h (Rcpp): Corrected typo / incomplete
+	reference in finalizer use
+
 2012-07-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/config.h: In order to not attempt to include

@@ -4,6 +4,8 @@
         of exception_defines.h and prevent this from being attempted on OS X
         where it failed for clang 3.1
 
+    o   Corrected a typo in Module.h who now again permits use of finalizers
+
 0.9.13  2012-06-28
 
     o   Truly corrected Rcpp::Environment class by having default constructor
