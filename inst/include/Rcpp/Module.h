@@ -717,7 +717,7 @@ namespace Rcpp{
     private:
     
         void SetFinalizer( finalizer_class* f ){
-            if( class_pointer->finalizer_pointer ) delete class_pointer->finalizer ;
+            if( class_pointer->finalizer_pointer ) delete class_pointer->finalizer_pointer ;
             class_pointer->finalizer_pointer = f ; 
         }
     
