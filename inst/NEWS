@@ -6,6 +6,9 @@
 
     o   Corrected a typo in Module.h who now again permits use of finalizers
 
+    o   Small correction for (unexported) bib() function (which provides a path
+        to the bibtex file that ships with Rcpp)
+
 0.9.13  2012-06-28
 
     o   Truly corrected Rcpp::Environment class by having default constructor
