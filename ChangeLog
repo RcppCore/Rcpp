@@ -1,3 +1,8 @@
+2012-07-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/bib.R: Trim the trailing ".bib" from the generated bibtex
+	filename as Windows adds one anyway leading to two and an error
+
 2012-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Module.h (Rcpp): Corrected typo / incomplete
