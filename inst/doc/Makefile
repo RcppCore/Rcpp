@@ -8,7 +8,11 @@
 ## on Ubuntu so for now Dirk will insist on pdflatex and this helps.
 whoami=$(shell whoami)
 
-all: rotateFiles index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
+all:
+	@echo The 'make all' target is now empty as eg R-Forge builds fall over
+	@echo So please use 'make pdfclean; make pdfall' to rebuild
+
+pdfall: rotateFiles index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-quickref.pdf
 
 pdfclean:
 	rm -f Rcpp-extending.pdf  Rcpp-FAQ.pdf  Rcpp-introduction.pdf  Rcpp-modules.pdf  Rcpp-package.pdf  Rcpp-quickref.pdf  Rcpp-sugar.pdf  Rcpp-unitTests.pdf

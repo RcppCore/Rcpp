@@ -1,3 +1,8 @@
+2012-09-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Makefile: The 'all' target is now empty to prevent
+	autobuilders such as R-Forge from falling over
+
 2012-07-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/bib.R: Trim the trailing ".bib" from the generated bibtex
@@ -12,7 +17,7 @@
 
 	* inst/include/Rcpp/config.h: In order to not attempt to include
 	exception_defines.h if on OS X (as the clang runtime may not have
-	predictable access to g+++ headers providing these), do not define
+	predictable access to g++ headers providing these), do not define
 	RCPP_HAS_DEMANGLING which is used in src/exceptions.cpp
 
 2012-06-28  Dirk Eddelbuettel  <edd@debian.org>
