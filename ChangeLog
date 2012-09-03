@@ -1,3 +1,9 @@
+2012-09-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/sugar/functions/math.h: Added new sugar
+	function trunc(), round() and signif()
+	* inst/unitTests/runit.sugar.R: Added unit tests for these
+
 2012-09-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Makefile: The 'all' target is now empty to prevent
