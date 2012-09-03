@@ -1,4 +1,5 @@
 #!/usr/bin/r -t
+#                     -*- mode: R; ess-indent-level: 4; indent-tabs-mode: nil; -*-
 #
 # Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
@@ -18,7 +19,7 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 definitions <- function(){
-list(
+    list(
 			"runit_abs" = list(
 				signature( x = "numeric", y = "numeric" ),
 				'
@@ -676,7 +677,32 @@ list(
 			         NumericVector res= diff(x) ;
 			         return res ;
 			    '
+			),
+			"runit_trunc" = list(
+                        	signature( x = "numeric", y = "integer" ),
+                        	'
+					NumericVector xx(x) ;
+					IntegerVector yy(y) ;
+					return List::create(trunc(xx), trunc(yy)) ;
+				'
+			),
+			"runit_round" = list(
+                        	signature( x = "numeric", ds = "integer" ),
+                        	'
+					NumericVector xx(x);
+					int d = as<int>(ds);
+					return wrap(round(xx, d));
+				'
+			),
+			"runit_signif" = list(
+                        	signature( x = "numeric", ds = "integer" ),
+                        	'
+					NumericVector xx(x);
+					int d = as<int>(ds);
+					return wrap(signif(xx, d));
+				'
 			)
+
 		)
 
 }
@@ -1327,3 +1353,26 @@ test.sugar.asvector <- function(){
     checkEquals( fx(x), c(NA, 1.0, NA, NA, 2.0, NA) )
 }
 
+# additions 03 Sep 2012
+test.sugar.trunc <- function() {
+    fx <- .rcpp.sugar$runit_trunc
+    x <- seq(-5,5) + 0.5
+    y <- seq(-5L, 5L)
+    checkEquals(fx(x, y), list(trunc(x), trunc(y)))
+}
+test.sugar.round <- function() {
+    fx <- .rcpp.sugar$runit_round
+    x <- seq(-5,5) + 0.25
+    checkEquals( fx(x, 0), round(x, 0) )
+    checkEquals( fx(x, 1), round(x, 1) )
+    checkEquals( fx(x, 2), round(x, 2) )
+    checkEquals( fx(x, 3), round(x, 3) )
+}
+test.sugar.signif <- function() {
+    fx <- .rcpp.sugar$runit_signif
+    x <- seq(-5,5) + 0.25
+    checkEquals( fx(x, 0), signif(x, 0) )
+    checkEquals( fx(x, 1), signif(x, 1) )
+    checkEquals( fx(x, 2), signif(x, 2) )
+    checkEquals( fx(x, 3), signif(x, 3) )
+}
