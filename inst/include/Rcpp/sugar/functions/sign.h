@@ -2,7 +2,7 @@
 //
 // sign.h: Rcpp R/C++ interface class library -- sign
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -49,14 +49,17 @@ class Sign : public Rcpp::VectorBase< INTSXP,NA, Sign<RTYPE,NA,T> > {
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	typedef int r_import_type ;
 	
 	Sign( const VEC_TYPE& object_ ) : object(object_){}
 	
 	inline int operator[]( int i ) const {
-		return sign__impl<NA,RTYPE>::get( object[i] );
+		return get(i) ;
 	}
 	inline int size() const { return object.size() ; }
-	         
+	    
+	operator SEXP() const { return wrap( *this ); }
+	inline int get(int i) const { return sign__impl<NA,RTYPE>::get( object[i] ); }
 private:
 	const VEC_TYPE& object ;
 } ;
