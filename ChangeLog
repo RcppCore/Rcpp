@@ -1,3 +1,8 @@
+2012-09-07  Dirk Eddelbuettel  <edd@dexter>
+
+	* inst/unitTests/runit.sugarOps.R: (Incomplete) beginnings of new
+	unit test file for sugar operations on vectors and matrices 
+
 2012-09-07  Romain Francois  <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/sugar/functions/sign.h: Sign gets a SEXP operator
