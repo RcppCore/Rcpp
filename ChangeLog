@@ -1,3 +1,7 @@
+2012-09-07  Romain Francois  <romain@r-enthusiasts.com>
+
+	* inst/include/Rcpp/sugar/functions/sign.h: Sign gets a SEXP operator
+
 2012-09-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/sugar/functions/math.h: Added new sugar
