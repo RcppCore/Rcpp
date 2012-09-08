@@ -1,7 +1,11 @@
-2012-09-07  Dirk Eddelbuettel  <edd@dexter>
+2012-09-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.sugarOps.R: More sugar Ops unit tests
+
+2012-09-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.sugarOps.R: (Incomplete) beginnings of new
-	unit test file for sugar operations on vectors and matrices 
+	unit test file for sugar operations on vectors and matrices
 
 2012-09-07  Romain Francois  <romain@r-enthusiasts.com>
 
