@@ -20,22 +20,51 @@
 
 definitions <- function() {
     list(
-    	"vector_plus" = list(signature(x = "numeric"),
+    	"vector_scalar_ops" = list(signature(x = "numeric"),
     			'
 			NumericVector xx(x);
-			NumericVector yy = xx + 2;
-			return yy;
+			NumericVector y1 = xx + 2;
+			NumericVector y2 = 2 - xx;
+			NumericVector y3 = xx * 2.0;
+			NumericVector y4 = 2.0 / xx;
+			return List::create(y1, y2, y3, y4);
 			'
 			)
-    	,
-    	"matrix_plus" = list(signature(x = "numeric"),
+
+        ,
+    	"vector_scalar_logical" = list(signature(x = "numeric"),
+    			'
+			NumericVector xx(x);
+			LogicalVector y1 = xx < 2;
+			LogicalVector y2 = 2  > xx;
+			LogicalVector y3 = xx <= 2;
+			LogicalVector y4 = 2 != xx;
+			return List::create(y1, y2, y3, y4);
 			'
-			NumericMatrix xx(x);
-			// -- fails to compile  NumericMatrix yy = xx + 2;
-			NumericMatrix yy = xx;
-			return yy;
+        		)
+
+        ,
+    	"vector_vector_ops" = list(signature(x = "numeric", y="numeric"),
+    			'
+			NumericVector xx(x);
+			NumericVector yy(y);
+			NumericVector y1 = xx + yy;
+			NumericVector y2 = yy - xx;
+			NumericVector y3 = xx * yy;
+			NumericVector y4 = yy / xx;
+			return List::create(y1, y2, y3, y4);
 			'
-			)
+        		)
+
+        ## ,
+    	## "matrix_plus" = list(signature(x = "numeric"),
+	## 		'
+	## 		NumericMatrix xx(x);
+	## 		// -- fails to compile
+        ##                 NumericMatrix yy = xx + 2;
+	## 		return yy;
+	## 		'
+	## 		)
     )
 }
 
@@ -46,15 +75,28 @@ definitions <- function() {
     }
 }
 
-test.vector.plus <- function( ){
-    fx <- .rcpp.sugarOps$vector_plus
+test.vector.scalar.ops <- function( ){
+    fx <- .rcpp.sugarOps$vector_scalar_ops
     x <- rnorm(10)
-    checkEquals(fx(x) , x + 2)
+    checkEquals(fx(x), list(x + 2, 2 - x, x * 2, 2 / x), "sugar vector scalar operations")
 }
 
-test.matrix.plus <- function( ){
-    fx <- .rcpp.sugarOps$matrix_plus
-    x <- matrix(rnorm(10), 5, 2)
-    #checkEquals(fx(x) , x + 2)
-    checkEquals(fx(x) , x )             # DUMMY
+test.vector.scalar.logical <- function( ){
+    fx <- .rcpp.sugarOps$vector_scalar_logical
+    x <- rnorm(10) + 2
+    checkEquals(fx(x), list(x < 2, 2 > x, x <= 2, 2 != x), "sugar vector scalara logical operations")
 }
+
+test.vector.vector.ops <- function( ){
+    fx <- .rcpp.sugarOps$vector_vector_ops
+    x <- rnorm(10)
+    y <- runif(10)
+    checkEquals(fx(x,y), list(x + y, y - x, x * y, y / x), "sugar vector vector operations")
+}
+
+## test.matrix.plus <- function( ){
+##     fx <- .rcpp.sugarOps$matrix_plus
+##     x <- matrix(rnorm(10), 5, 2)
+##     checkEquals(fx(x) , x + 2)
+##     #checkEquals(fx(x) , x )             # DUMMY
+## }
