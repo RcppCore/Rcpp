@@ -1,15 +1,18 @@
 \name{NEWS}
 \title{News for Package 'Rcpp'}
+\newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
 \section{Changes in Rcpp version 0.9.14 (2012-xx-yy)}{
   \itemize{
     \item Added new Rcpp sugar functions trunc(), round() and signif(), as well
-             as unit tests for them
+    as unit tests for them
     \item Be more conservative about where we support clang++ and the inclusion
-             of exception_defines.h and prevent this from being attempted on OS X
-             where it failed for clang 3.1
-    \item Corrected a typo in Module.h who now again permits use of finalizers
+    of exception_defines.h and prevent this from being attempted on OS X
+    where it failed for clang 3.1
+    \item Corrected a typo in Module.h which now again permits use of finalizers
     \item Small correction for (unexported) bib() function (which provides a path
-             to the bibtex file that ships with Rcpp)
+    to the bibtex file that ships with Rcpp)
+    \item Converted NEWS to NEWS.Rd
   }
 }
 \section{Changes in Rcpp version 0.9.13 (2012-06-28)}{
