@@ -56,6 +56,21 @@ definitions <- function() {
 			'
         		)
 
+        ,
+    	"vector_vector_logical" = list(signature(x = "numeric", y="numeric"),
+    			'
+			NumericVector xx(x);
+			NumericVector yy(y);
+			LogicalVector y1 = xx < yy;
+			LogicalVector y2 = xx > yy;
+			LogicalVector y3 = xx <= yy;
+			LogicalVector y4 = xx >= yy;
+			LogicalVector y5 = xx == yy;
+			LogicalVector y6 = xx != yy;
+			return List::create(y1, y2, y3, y4, y5, y6);
+			'
+        		)
+
         ## ,
     	## "matrix_plus" = list(signature(x = "numeric"),
 	## 		'
@@ -84,7 +99,7 @@ test.vector.scalar.ops <- function( ){
 test.vector.scalar.logical <- function( ){
     fx <- .rcpp.sugarOps$vector_scalar_logical
     x <- rnorm(10) + 2
-    checkEquals(fx(x), list(x < 2, 2 > x, x <= 2, 2 != x), "sugar vector scalara logical operations")
+    checkEquals(fx(x), list(x < 2, 2 > x, x <= 2, 2 != x), "sugar vector scalar logical operations")
 }
 
 test.vector.vector.ops <- function( ){
@@ -92,6 +107,13 @@ test.vector.vector.ops <- function( ){
     x <- rnorm(10)
     y <- runif(10)
     checkEquals(fx(x,y), list(x + y, y - x, x * y, y / x), "sugar vector vector operations")
+}
+
+test.vector.vector.logical <- function( ){
+    fx <- .rcpp.sugarOps$vector_vector_logical
+    x <- rnorm(10)
+    y <- runif(10)
+    checkEquals(fx(x,y), list(x < y, x > y, x <= y, x >= y, x == y, x != y), "sugar vector vector operations")
 }
 
 ## test.matrix.plus <- function( ){
