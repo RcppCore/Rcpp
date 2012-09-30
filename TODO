@@ -5,6 +5,8 @@ Current active misfeatures
         eg Rcpp.package.skeleton("foo", list=c("funA", "funB")) ends
         in error.
 
+    o   Sugar ops unit tests on +, -, ... need double, fail with int
+
 Current inactive misfeatures
 
     o   Bugs found by Doug when using -ltcmalloc from the Google
