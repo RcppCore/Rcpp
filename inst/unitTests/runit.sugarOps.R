@@ -23,7 +23,7 @@ definitions <- function() {
     	"vector_scalar_ops" = list(signature(x = "numeric"),
     			'
 			NumericVector xx(x);
-			NumericVector y1 = xx + 2;
+			NumericVector y1 = xx + 2.0;
 			NumericVector y2 = 2 - xx;
 			NumericVector y3 = xx * 2.0;
 			NumericVector y4 = 2.0 / xx;
