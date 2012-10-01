@@ -1,3 +1,10 @@
+2012-09-30  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.14
+        * inst/NEWS: Release 0.9.14
+        * inst/include/Rcpp/config.h: Release 0.9.14
+        * debian/*: Similarly updated for new release to Debian
+
 2012-09-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.sugarOps.R: More sugar Ops unit tests

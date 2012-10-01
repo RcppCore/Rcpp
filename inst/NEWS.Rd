@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.9.14 (2012-xx-yy)}{
+\section{Changes in Rcpp version 0.9.14 (2012-09-30)}{
   \itemize{
     \item Added new Rcpp sugar functions trunc(), round() and signif(), as well
     as unit tests for them
