@@ -2,6 +2,15 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.9.15 (2012-xx-yy)}{
+  \itemize{
+    \item Untangling the clang++ build issue about the location of the
+    exceptions header by directly checking for the include file -- an
+    approach provided by Martin Morgan in a kindly contributed patch
+    as unit tests for them. 
+  }
+}
+
 \section{Changes in Rcpp version 0.9.14 (2012-09-30)}{
   \itemize{
     \item Added new Rcpp sugar functions trunc(), round() and signif(), as well
