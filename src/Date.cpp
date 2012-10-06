@@ -2,7 +2,7 @@
 //
 // Date.h: Rcpp R/C++ interface class library -- Date type
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 //
 //    The mktime00() as well as the gmtime_() replacement function are
 //    Copyright (C) 2000 - 2010  The R Development Core Team.
@@ -43,13 +43,18 @@ namespace Rcpp {
     }
 
     Date::Date(SEXP d) {
-	m_d = Rcpp::as<int>(d); 
+	m_d = Rcpp::as<double>(d);
 	update_tm();
     }
 
     Date::Date(const int &dt) {
 	m_d = dt;
 	update_tm();
+    }
+
+    Date::Date(const double &dt) {
+        m_d = dt;
+        update_tm();
     }
 
     Date::Date(const std::string &s, const std::string &fmt) {
@@ -92,9 +97,13 @@ namespace Rcpp {
     }
 
     void Date::update_tm() {
-	time_t t = 24*60*60 * m_d;	// days since epoch to seconds since epoch
-	//m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
-	m_tm = *gmtime_(&t);
+        if (R_FINITE(m_d)) {
+            time_t t = 24*60*60 * m_d;		// (fractional) days since epoch to seconds since epoch
+            m_tm = *gmtime_(&t);
+        } else {
+            m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
+            m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
+        }
     }
 
     // Taken from R's src/main/datetime.c and made a member function called with C++ reference

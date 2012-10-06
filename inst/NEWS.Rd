@@ -7,7 +7,9 @@
     \item Untangling the clang++ build issue about the location of the
     exceptions header by directly checking for the include file -- an
     approach provided by Martin Morgan in a kindly contributed patch
-    as unit tests for them. 
+    as unit tests for them.
+    \item The \code{Date} type now correctly handles \code{NA},
+    \code{NaN} and \code{Inf} representation
   }
 }
 
