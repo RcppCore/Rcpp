@@ -2,7 +2,7 @@
 //
 // Date.h: Rcpp R/C++ interface class library -- dates
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,13 +30,14 @@ namespace Rcpp {
     public:	
 		Date();
 		Date(SEXP s); 
-		Date(const int &dt);	// from integer, just like R (with negative dates before Jan 1, 1970)
+		Date(const int &dt);		// from integer (with negative dates before Jan 1, 1970)
+		Date(const double &dt);		// from fractional integer since epoch, just like R 
 		Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
 		Date(const unsigned int &m, const unsigned int &d, const unsigned int &y); 
 		Date(const Date &copy);
 		~Date() {};
 		
-		int getDate(void) const { return m_d; } 
+		double getDate(void) const { return m_d; } 
 
 		// intra-day useless for date class
 		//int getSeconds() const { return m_tm.tm_sec; }
@@ -64,7 +65,7 @@ namespace Rcpp {
 		friend bool  operator!=(const Date &date1, const Date& date2);
 
     private:
-        int m_d;					// day number, relative to epoch of Jan 1, 1970
+        double m_d;					// (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;				// standard time representation
 
 		void update_tm();			// update m_tm based on m_d
