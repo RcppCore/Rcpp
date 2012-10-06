@@ -66,7 +66,7 @@ RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
 // compilers 
 #ifdef RCPP_HAS_DEMANGLING
 #include <typeinfo>
-#ifdef __GNUC__
+#if defined(__GNUC__) && !defined(__clang__)
   #ifdef IS_EARLIER_THAN_GCC_460
     #include <exception_defines.h>
   #endif
@@ -75,11 +75,12 @@ RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
   #endif
 #endif
 #ifdef __clang__
-  #ifdef IS_EARLIER_THAN_CLANG_300
+  #if __has_include(<exception_defines.h>)
     #include <exception_defines.h>
-  #endif
-  #ifdef IS_CLANG_300_OR_LATER
+  #elif  __has_include(<bits/exception_defines.h>)
     #include <bits/exception_defines.h>
+  #else
+    #error clang could not find <exception_defines.h>
   #endif
 #endif
 #include <cxxabi.h>
