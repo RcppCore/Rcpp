@@ -9,6 +9,8 @@
 
 	* src/DateVector.cpp: Instantiate Date types as double
 
+	* src/Datetime.cpp: Also added support for NA, NaN and Inf values
+
 2012-10-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/exceptions.cpp: Applied patch by Martin Morgan which untangles
