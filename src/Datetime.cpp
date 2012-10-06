@@ -2,7 +2,7 @@
 //
 // Datetime.h: Rcpp R/C++ interface class library -- Datetime (POSIXct)
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // The mktime00() function is
 // Copyright (C) 2000 - 2010  The R Development Core Team.
@@ -67,11 +67,17 @@ namespace Rcpp {
     }
 
     void Datetime::update_tm() {
-		time_t t = static_cast<time_t>(floor(m_dt));	
-		m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
-		// m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
-		m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
-    }
+        if (R_FINITE(m_dt)) {
+			time_t t = static_cast<time_t>(floor(m_dt));	
+			m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
+			// m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
+			m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
+        } else {
+            m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
+            m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
+			m_us = NA_INTEGER;
+        }
+	}
 
     Datetime operator+(const Datetime &datetime, double offset) {
 		Datetime newdt(datetime.m_dt);
