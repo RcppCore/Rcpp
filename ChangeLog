@@ -1,8 +1,19 @@
+2012-10-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Date.h (Rcpp): Dates are now represented as
+	doubles, also added accessor functions for double and retained int
+
+	* src/Date.cpp (Rcpp): Convert from SEXP to double, added constructor
+	from double and added checks for 'finite' representation before
+	converting to 'struct tm' adding support for NA, NaN and Inf
+
+	* src/DateVector.cpp: Instantiate Date types as double
+
 2012-10-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/exceptions.cpp: Applied patch by Martin Morgan which untangles
 	the clang includes driven by version, and uses direct tests for
-	presence of the header file 
+	presence of the header file
 	* inst/include/RcppCommon.h: No longer define CLANG version meta
 	variables as we can directly include the relevant header
 

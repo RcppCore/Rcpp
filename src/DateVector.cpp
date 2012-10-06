@@ -2,7 +2,7 @@
 //
 // DateVector.cpp: Rcpp R/C++ interface class library -- Date vector support
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -33,7 +33,7 @@ namespace Rcpp {
             throw std::range_error("DateVector: null vector in constructor");
         v.resize(len);
         for (i = 0; i < len; i++)
-            v[i] = Date( static_cast<int>(REAL(vec)[i]));
+            v[i] = Date( static_cast<double>(REAL(vec)[i]));
     }
 
 
