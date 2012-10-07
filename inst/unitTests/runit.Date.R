@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4 -*-
 #
-# Copyright (C) 2010    Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010, 2012   Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -131,6 +131,11 @@ definitions <- function() {
                     Datetime dt(dtstr);
 				    return wrap(dt);')
 
+                  ,"Datetime_ctor_sexp"=list(
+                   signature(d="Datetime"),
+                   'Datetime dt = Datetime(d);
+                   return wrap(dt);')
+
                   )
 }
 
@@ -150,6 +155,21 @@ test.Date.ctor.sexp <- function() {
     d <- as.Date("1969-12-31"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.3")
     d <- as.Date("1954-07-04"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.4") # cf 'Miracle of Berne' ;-)
     d <- as.Date("1789-07-14"); checkEquals(fun(d), d, msg = "Date.ctor.sexp.5") # cf 'Quatorze Juillet' ;-)
+}
+
+test.Date.ctor.notFinite <- function() {
+    fun <- .Rcpp.Date$ctor_sexp
+    checkEquals(fun(NA),  as.Date(NA,  origin="1970-01-01"), msg = "Date.ctor.na")
+    checkEquals(fun(NaN), as.Date(NaN, origin="1970-01-01"), msg = "Date.ctor.nan")
+    checkEquals(fun(Inf), as.Date(Inf, origin="1970-01-01"), msg = "Date.ctor.inf")
+}
+
+test.Date.ctor.diffs <- function() {
+    fun <- .Rcpp.Date$ctor_sexp
+    now <- Sys.Date()
+    checkEquals(as.numeric(difftime(fun(now+0.025),  fun(now), units="days")), 0.025, msg = "Date.ctor.diff.0025")
+    checkEquals(as.numeric(difftime(fun(now+0.250),  fun(now), units="days")), 0.250, msg = "Date.ctor.diff.0250")
+    checkEquals(as.numeric(difftime(fun(now+2.500),  fun(now), units="days")), 2.500, msg = "Date.ctor.diff.2500")
 }
 
 test.Date.ctor.mdy <- function() {
@@ -245,4 +265,28 @@ test.Datetime.fromString <- function() {
     dtfun <- fun(dtstr)
     dtstr <- as.POSIXct(strptime(dtstr, "%Y-%m-%d %H:%M:%OS"))
     checkEquals(as.numeric(dtfun), as.numeric(dtstr), msg = "Datetime.fromString")
+}
+
+# TZ difference ...
+#test.Datetime.ctor <- function() {
+#    fun <- .Rcpp.Date$Datetime_ctor_sexp
+#    checkEquals(fun(1234567),  as.POSIXct(1234567,  origin="1970-01-01"), msg = "Datetime.ctor.1")
+#    checkEquals(fun(-120.25),  as.POSIXct(-120.5,   origin="1970-01-01"), msg = "Datetime.ctor.2")
+#    checkEquals(fun( 120.25),  as.POSIXct( 120.25,  origin="1970-01-01"), msg = "Datetime.ctor.3")
+#}
+
+test.Datetime.ctor.notFinite <- function() {
+    fun <- .Rcpp.Date$Datetime_ctor_sexp
+    checkEquals(fun(NA),  as.POSIXct(NA,  origin="1970-01-01"), msg = "Datetime.ctor.na")
+    checkEquals(fun(NaN), as.POSIXct(NaN, origin="1970-01-01"), msg = "Datetime.ctor.nan")
+    checkEquals(fun(Inf), as.POSIXct(Inf, origin="1970-01-01"), msg = "Datetime.ctor.inf")
+}
+
+test.Datetime.ctor.diffs <- function() {
+    fun <- .Rcpp.Date$Datetime_ctor_sexp
+    now <- Sys.time()
+    ## first one is Ripley's fault as he decreed that difftime of POSIXct should stop at milliseconds
+    checkEquals(round(as.numeric(difftime(fun(now+0.025),  fun(now), units="sec")), digits=4), 0.025, msg = "Datetime.ctor.diff.0025")
+    checkEquals(as.numeric(difftime(fun(now+0.250),  fun(now), units="sec")), 0.250, msg = "Datetime.ctor.diff.0250")
+    checkEquals(as.numeric(difftime(fun(now+2.500),  fun(now), units="sec")), 2.500, msg = "Datetime.ctor.diff.2500")
 }
