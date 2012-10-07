@@ -297,7 +297,7 @@ test.Datetime.ctor.diffs <- function() {
     checkEquals(as.numeric(difftime(fun(now+2.500),  fun(now), units="sec")), 2.500, msg = "Datetime.ctor.diff.2500")
 }
 
-test.zzzDatetimeVector.ctor <- function() {
+test.DatetimeVector.ctor <- function() {
     fun <- .Rcpp.Date$DatetimeVector_ctor
     now <- Sys.time()
     checkEquals(fun(now + (0:4)*60), now+(0:4)*60, msg = "Datetime.ctor.sequence")
