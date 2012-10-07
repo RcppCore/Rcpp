@@ -1,3 +1,7 @@
+2012-10-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.Date.R: Added a few more tests
+
 2012-10-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Date.h (Rcpp): Dates are now represented as
@@ -10,6 +14,8 @@
 	* src/DateVector.cpp: Instantiate Date types as double
 
 	* src/Datetime.cpp: Also added support for NA, NaN and Inf values
+
+	* inst/unitTests/runit.Date.R: A few additional tests
 
 2012-10-05  Dirk Eddelbuettel  <edd@debian.org>
 

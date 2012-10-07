@@ -9,7 +9,9 @@
     approach provided by Martin Morgan in a kindly contributed patch
     as unit tests for them.
     \item The \code{Date} and \code{Datetime} types now correctly
-    handles \code{NA}, \code{NaN} and \code{Inf} representation
+    handles \code{NA}, \code{NaN} and \code{Inf} representation; the
+    \code{Date} type switched to an internal representation via \code{double}
+    \item Added \code{Date} and \code{Datetime} unit tests for the new features
   }
 }
 
