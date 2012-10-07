@@ -73,6 +73,7 @@ namespace Rcpp {
 			// m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
 			m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
         } else {
+			m_dt = NA_REAL;			// NaN and Inf need it set
             m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
             m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
 			m_us = NA_INTEGER;

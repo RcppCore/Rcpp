@@ -80,7 +80,7 @@ definitions <- function() {
                     v[1] = Date(12,31,2005) ;
                     return wrap( v );')
 
-                  ,"operator_sexp"=list(
+                  ,"Datevector_sexp"=list(
                    signature(),
                    'DateVector v(2) ;
                     v[0] = Date(2005,12,31) ;
@@ -134,6 +134,11 @@ definitions <- function() {
                   ,"Datetime_ctor_sexp"=list(
                    signature(d="Datetime"),
                    'Datetime dt = Datetime(d);
+                   return wrap(dt);')
+
+                  ,"DatetimeVector_ctor"=list(
+                   signature(d="DatetimeVector"),
+                   'DatetimeVector dt = DatetimeVector(d);
                    return wrap(dt);')
 
                   )
@@ -225,7 +230,7 @@ test.DateVector.wrap <- function(){
 }
 
 test.DateVector.operator.SEXP <- function(){
-    fun <- .Rcpp.Date$operator_sexp
+    fun <- .Rcpp.Date$Datevector_sexp
     checkEquals(fun(), rep(as.Date("2005-12-31"),2), msg = "DateVector.SEXP")
 }
 
@@ -277,9 +282,10 @@ test.Datetime.fromString <- function() {
 
 test.Datetime.ctor.notFinite <- function() {
     fun <- .Rcpp.Date$Datetime_ctor_sexp
-    checkEquals(fun(NA),  as.POSIXct(NA,  origin="1970-01-01"), msg = "Datetime.ctor.na")
-    checkEquals(fun(NaN), as.POSIXct(NaN, origin="1970-01-01"), msg = "Datetime.ctor.nan")
-    checkEquals(fun(Inf), as.POSIXct(Inf, origin="1970-01-01"), msg = "Datetime.ctor.inf")
+    posixtNA <- as.POSIXct(NA,  origin="1970-01-01")
+    checkEquals(fun(NA),  posixtNA, msg = "Datetime.ctor.na")
+    checkEquals(fun(NaN), posixtNA, msg = "Datetime.ctor.nan")
+    checkEquals(fun(Inf), posixtNA, msg = "Datetime.ctor.inf")
 }
 
 test.Datetime.ctor.diffs <- function() {
@@ -289,4 +295,13 @@ test.Datetime.ctor.diffs <- function() {
     checkEquals(round(as.numeric(difftime(fun(now+0.025),  fun(now), units="sec")), digits=4), 0.025, msg = "Datetime.ctor.diff.0025")
     checkEquals(as.numeric(difftime(fun(now+0.250),  fun(now), units="sec")), 0.250, msg = "Datetime.ctor.diff.0250")
     checkEquals(as.numeric(difftime(fun(now+2.500),  fun(now), units="sec")), 2.500, msg = "Datetime.ctor.diff.2500")
+}
+
+test.zzzDatetimeVector.ctor <- function() {
+    fun <- .Rcpp.Date$DatetimeVector_ctor
+    now <- Sys.time()
+    checkEquals(fun(now + (0:4)*60), now+(0:4)*60, msg = "Datetime.ctor.sequence")
+    vec <- c(now, NA, NaN, Inf, now+2.345)
+    posixtNA <- as.POSIXct(NA,  origin="1970-01-01")
+    checkEquals(fun(vec), c(now, rep(posixtNA, 3), now+2.345), msg = "Datetime.ctor.set")
 }
