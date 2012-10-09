@@ -11,7 +11,10 @@
     \item The \code{Date} and \code{Datetime} types now correctly
     handles \code{NA}, \code{NaN} and \code{Inf} representation; the
     \code{Date} type switched to an internal representation via \code{double}
-    \item Added \code{Date} and \code{Datetime} unit tests for the new features
+    \item Added \code{Date} and \code{Datetime} unit tests for the new
+    features
+    \item An additional \code{PROTECT} was added for parsing exception
+    messages before returning them to R, following a report by Ben North
   }
 }
 

@@ -1,15 +1,20 @@
+2012-10-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/exceptions.cpp: Additional PROTECT for parsing exception
+	messages before returning them to R
+
 2012-10-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.Date.R: Added a few more tests
 
 2012-10-06  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Date.h (Rcpp): Dates are now represented as
-	doubles, also added accessor functions for double and retained int
+	* inst/include/Rcpp/Date.h: Dates are now represented as doubles,
+	also added accessor functions for double and retained int
 
-	* src/Date.cpp (Rcpp): Convert from SEXP to double, added constructor
-	from double and added checks for 'finite' representation before
-	converting to 'struct tm' adding support for NA, NaN and Inf
+	* src/Date.cpp: Convert from SEXP to double, added constructor from
+	double and added checks for 'finite' representation before converting
+	to 'struct tm' adding support for NA, NaN and Inf
 
 	* src/DateVector.cpp: Instantiate Date types as double
 

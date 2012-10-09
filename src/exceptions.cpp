@@ -2,7 +2,7 @@
 //
 // exceptions.cpp: R/C++ interface class library -- exception handling
 //
-// Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,41 +22,41 @@
 #include <Rcpp.h>
 
 namespace Rcpp{
-	exception::exception( const char* message_, const char* file, int line) : message(message_){
-		rcpp_set_stack_trace( stack_trace(file,line) ) ;
-	}
-	exception::~exception() throw(){}
+    exception::exception( const char* message_, const char* file, int line) : message(message_){
+	rcpp_set_stack_trace( stack_trace(file,line) ) ;
+    }
+    exception::~exception() throw(){}
 
-#define RCPP_EXCEPTION_WHAT(__CLASS__) \
-const char* __CLASS__::what() const throw(){ return message.c_str(); }
+#define RCPP_EXCEPTION_WHAT(__CLASS__)					\
+    const char* __CLASS__::what() const throw(){ return message.c_str(); }
 
-RCPP_EXCEPTION_WHAT(exception)
+    RCPP_EXCEPTION_WHAT(exception)
 
-RCPP_EXCEPTION_WHAT(not_compatible)
-RCPP_EXCEPTION_WHAT(S4_creation_error)
-RCPP_EXCEPTION_WHAT(reference_creation_error)
-RCPP_EXCEPTION_WHAT(no_such_binding)
-RCPP_EXCEPTION_WHAT(binding_not_found)
-RCPP_EXCEPTION_WHAT(binding_is_locked)
-RCPP_EXCEPTION_WHAT(no_such_namespace)
-RCPP_EXCEPTION_WHAT(eval_error)
+    RCPP_EXCEPTION_WHAT(not_compatible)
+    RCPP_EXCEPTION_WHAT(S4_creation_error)
+    RCPP_EXCEPTION_WHAT(reference_creation_error)
+    RCPP_EXCEPTION_WHAT(no_such_binding)
+    RCPP_EXCEPTION_WHAT(binding_not_found)
+    RCPP_EXCEPTION_WHAT(binding_is_locked)
+    RCPP_EXCEPTION_WHAT(no_such_namespace)
+    RCPP_EXCEPTION_WHAT(eval_error)
 
 #undef RCPP_EXCEPTION_WHAT
 
-#define RCPP_SIMPLE_EXCEPTION_WHAT(__CLASS__,__MESSAGE__)  \
+#define RCPP_SIMPLE_EXCEPTION_WHAT(__CLASS__,__MESSAGE__)		\
 const char* __CLASS__::what() const throw(){ return __MESSAGE__ ; }
 
-RCPP_SIMPLE_EXCEPTION_WHAT(not_a_matrix, "not a matrix" )
-RCPP_SIMPLE_EXCEPTION_WHAT(index_out_of_bounds, "index out of bounds" )
-RCPP_SIMPLE_EXCEPTION_WHAT(parse_error, "parse error") 
-RCPP_SIMPLE_EXCEPTION_WHAT(not_s4, "not an S4 object" )
-RCPP_SIMPLE_EXCEPTION_WHAT(not_reference, "not a reference S4 object" )
-RCPP_SIMPLE_EXCEPTION_WHAT(not_initialized, "C++ object not initialized" )
-RCPP_SIMPLE_EXCEPTION_WHAT(no_such_slot, "no such slot" )
-RCPP_SIMPLE_EXCEPTION_WHAT(no_such_field, "no such field" )
-RCPP_SIMPLE_EXCEPTION_WHAT(not_a_closure, "not a closure" )
-RCPP_SIMPLE_EXCEPTION_WHAT(no_such_function, "no such function" )
-RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(not_a_matrix, "not a matrix" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(index_out_of_bounds, "index out of bounds" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(parse_error, "parse error") 
+    RCPP_SIMPLE_EXCEPTION_WHAT(not_s4, "not an S4 object" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(not_reference, "not a reference S4 object" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(not_initialized, "C++ object not initialized" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(no_such_slot, "no such slot" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(no_such_field, "no such field" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(not_a_closure, "not a closure" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(no_such_function, "no such function" )
+    RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
 
 #undef RCPP_SIMPLE_EXCEPTION_WHAT
 }
@@ -86,17 +86,17 @@ RCPP_SIMPLE_EXCEPTION_WHAT(unevaluated_promise, "promise not yet evaluated" )
 #include <cxxabi.h>
 
 std::string demangle( const std::string& name ){
-	std::string real_class ;
-	int status =-1 ;
-	char *dem = 0;
-	dem = abi::__cxa_demangle(name.c_str(), 0, 0, &status);
-	if( status == 0 ){
-		real_class = dem ;
-		free(dem);
-	} else {
-		real_class = name ;
-	}
-	return real_class ;
+    std::string real_class ;
+    int status =-1 ;
+    char *dem = 0;
+    dem = abi::__cxa_demangle(name.c_str(), 0, 0, &status);
+    if( status == 0 ){
+	real_class = dem ;
+	free(dem);
+    } else {
+	real_class = name ;
+    }
+    return real_class ;
 }
 
 /* much inspired from the __verbose_terminate_handler of the GCC */
@@ -138,60 +138,50 @@ void forward_uncaught_exceptions_to_r(){
     }
     
     SEXP cppExceptSym = Rf_install("cpp_exception"); 	// cannot cause a gc() once in symbol table
-    Rf_eval( 
-	    Rf_lang3( 
-		cppExceptSym,
-		     Rf_mkString(exception_what.c_str()), 
-		     has_exception_class ? Rf_mkString(exception_class.c_str()) : R_NilValue), 
-		R_FindNamespace(Rf_mkString("Rcpp"))
-	     ) ; 
+    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym,
+					  Rf_mkString(exception_what.c_str()), 
+					  has_exception_class ? Rf_mkString(exception_class.c_str()) : R_NilValue)); 
+    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); // Should not return
+    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
 }
 void forward_exception_to_r( const std::exception& ex){
-	std::string exception_class ;
+    std::string exception_class ;
     std::string exception_what  = ex.what();
-   	const char *name = typeid(ex).name() ;
-   	// now we need to demangle "name"
-   	{
-		int status = -1;
-		char *dem = 0;
-		dem = abi::__cxa_demangle(name, 0, 0, &status);
-		if( status == 0){
-			exception_class = dem ; /* great we can use the demangled name */
-			free(dem);
-		} else{
-			exception_class = name ; /* just using the mangled name */
-		}
+    const char *name = typeid(ex).name() ;
+    // now we need to demangle "name"
+    {
+	int status = -1;
+	char *dem = 0;
+	dem = abi::__cxa_demangle(name, 0, 0, &status);
+	if( status == 0){
+	    exception_class = dem ; /* great we can use the demangled name */
+	    free(dem);
+	} else{
+	    exception_class = name ; /* just using the mangled name */
 	}
-	SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
-	Rf_eval( 
-	    Rf_lang3( 
-		cppExceptSym,
-		     Rf_mkString(exception_what.c_str()), 
-		     Rf_mkString(exception_class.c_str())
-		), R_FindNamespace(Rf_mkString("Rcpp"))
-	) ; 
+    }
+    SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
+    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym,
+					  Rf_mkString(exception_what.c_str()), 
+					  Rf_mkString(exception_class.c_str())));
+    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); // Should not return
+    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
 }
 #else
 void forward_uncaught_exceptions_to_r(){
-	SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
-	Rf_eval( 
-	    Rf_lang3( 
-		cppExceptSym,
-		     Rf_mkString("exception : we don't know how to get the exception message with your compiler, patches welcome"), 
-		     R_NilValue), 
-		R_FindNamespace(Rf_mkString("Rcpp"))
-	     ) ; 
+    SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
+    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym,
+					  Rf_mkString("exception : we don't know how to get the exception"
+						      "message with your compiler, patches welcome"), 
+					  R_NilValue)); 
+    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); 	 // Should not return 
+    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
 }
 void forward_exception_to_r( const std::exception& ex){
-	SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
-	Rf_eval( 
-	    Rf_lang3( 
-		cppExceptSym,
-		     Rf_mkString(ex.what()), 
-		     R_NilValue), 
-		R_FindNamespace(Rf_mkString("Rcpp"))
-	     ) ; 
-	
+    SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
+    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym, Rf_mkString(ex.what()), R_NilValue)); 
+    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); 	 // Should not return
+    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
 }
 std::string demangle( const std::string& name ){
 	return name ;	
