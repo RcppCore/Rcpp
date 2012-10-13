@@ -32,7 +32,7 @@
 #endif
 
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
-#define RCPP_VERSION Rcpp_Version(0,9,14)
+#define RCPP_VERSION Rcpp_Version(0,9,15)
 
 #endif
 
