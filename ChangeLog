@@ -1,7 +1,14 @@
+2012-10-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.9.15
+        * inst/NEWS: Release 0.9.15
+        * inst/include/Rcpp/config.h: Release 0.9.15
+        * debian/*: Similarly updated for new release to Debian
+
 2012-10-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/exceptions.cpp: Additional PROTECT for parsing exception
-	messages before returning them to R
+	messages before returning them to R, from a suggestion by Ben North
 
 2012-10-07  Dirk Eddelbuettel  <edd@debian.org>
 

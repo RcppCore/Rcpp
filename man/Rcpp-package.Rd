@@ -8,13 +8,13 @@
   the \code{.Call} interface provided by \R.
 }
 \section{Introduction}{
-	\pkg{Rcpp} provides C++ classes to facilitate manipulation of a large 
-	number of R data structures : vectors, functions, environments, ... 
+  \pkg{Rcpp} provides C++ classes to facilitate manipulation of a large 
+  number of R data structures : vectors, functions, environments, ... 
 	
-	The "Rcpp-introduction" vignette gives an introduction on the package
+  The \dQuote{Rcpp-introduction} vignette gives an introduction on the package
 }
 \section{Usage for package building}{
-	The "Rcpp-package" vignette documents how to use Rcpp in client packages.
+  The \dQuote{Rcpp-package} vignette documents how to use Rcpp in client packages.
 }
 \author{Dirk Eddelbuettel and Romain Francois}
 \references{
