@@ -3,7 +3,7 @@ Section: gnu-r
 Priority: optional
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 2.15.1), cdbs
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: http://dirk.eddelbuettel.com/code/rcpp.html
 
 Package: r-cran-rcpp
@@ -36,7 +36,7 @@ Description: GNU R package for Seamless R and C++ Integration
  to use than the equivalent low-level loop code. The "Rcpp-sugar" vignette
  gives an overview of the feature.
  .
- Several examples are included, and over 800 unit tests in in over 360 unit
+ Several examples are included, and over 800 unit tests in over 360 unit
  test functions provide additional usage examples.
  .
  An earlier version of Rcpp, containing what we now call the 'classic Rcpp
