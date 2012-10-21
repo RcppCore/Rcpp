@@ -650,6 +650,11 @@ inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_primitive_
 }
 
 template <typename T>
+inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_module_object_tag ){
+	return Rcpp::internal::make_new_object< typename T::object_type >( object.ptr ) ;	
+}
+
+template <typename T>
 inline SEXP wrap_dispatch_eigen( const T& object, ::Rcpp::traits::false_type){
 	return wrap_dispatch_unknown( object, typename ::Rcpp::traits::is_convertible<T,SEXP>::type() ) ;
 }
