@@ -274,6 +274,13 @@ SEXP stack_trace( const char *file, int line) ;
 #endif
 #endif
 
+namespace Rcpp{
+    template <typename T> class object ;
+	namespace internal{
+		template <typename Class> SEXP make_new_object( Class* ptr ) ;	
+	}
+}	
+
 // DO NOT CHANGE THE ORDER OF THESE INCLUDES
 #include <Rcpp/traits/integral_constant.h>
 #include <Rcpp/traits/same_type.h>

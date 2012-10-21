@@ -3,7 +3,7 @@
 //
 // wrap_type_traits.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -36,6 +36,11 @@ struct wrap_type_primitive_tag{};
  */
 struct wrap_type_unknown_tag{};
 
+/**
+ * module objects. conversion done using make_new_object<>() 
+ */
+struct wrap_type_module_object_tag{} ;
+ 
 /**
  * Type trait that helps the dispatch of wrap to the proper method
  *
@@ -77,6 +82,9 @@ template <> struct wrap_type_traits<unsigned short> { typedef wrap_type_primitiv
 template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
 #endif
+
+template <typename T> struct wrap_type_traits< Rcpp::object<T> > { typedef wrap_type_module_object_tag wrap_category; } ;
+
 
 } // namespace traits
 } // namespace Rcpp
