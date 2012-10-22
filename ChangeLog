@@ -1,9 +1,15 @@
+2012-10-22  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/as.h: support for as<> for module objects
+        * include/Rcpp/Module.h: idem
+        * include/Rcpp/traits/r_type_traits.h: idem
+        * src/Module.cpp: idem
+
 2012-10-21  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/wrap_type_traits.h: support for wrapping module objects
         * include/Rcpp/internal/wrap.h : idem
         * include/Rcpp/Module.h: idem
-        
 
 2012-10-13  Dirk Eddelbuettel  <edd@debian.org>
 
