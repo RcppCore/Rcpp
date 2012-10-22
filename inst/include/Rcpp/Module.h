@@ -44,6 +44,8 @@ namespace Rcpp{
         typedef T object_type ;
         object( T* ptr_ ) : ptr(ptr_){}
         operator T*(){ return ptr ; }
+        T* operator->(){ return ptr ; }
+        T& operator&(){ return *ptr ; }  
         T* ptr ;
     } ;
 

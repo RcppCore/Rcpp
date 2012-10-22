@@ -2,7 +2,7 @@
 //
 // as.h: Rcpp R/C++ interface class library -- convert SEXP to C++ objects
 //
-// Copyright (C) 2009 - 2011    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -51,6 +51,15 @@ namespace Rcpp{
             ::Rcpp::traits::Exporter<T> exporter(x);
             RCPP_DEBUG_1( "exporter type = %s", DEMANGLE(exporter) ) ;
             return exporter.get() ;
+        }
+        
+        void* as_module_object_internal(SEXP) ;
+        template <typename T> object<T> as_module_object(SEXP x){
+            return (T*) as_module_object_internal(x) ;
+        }
+        
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_tag ) {
+            return as_module_object<typename T::object_type>( x ) ;
         }
         
     }

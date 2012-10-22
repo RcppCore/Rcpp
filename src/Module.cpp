@@ -416,5 +416,12 @@ namespace Rcpp{
 		END_RCPP
 	}
 	
+	namespace internal{
+	    void* as_module_object_internal(SEXP obj){
+	        Environment env(obj) ;
+	        SEXP xp = env.get(".pointer") ;
+	        return R_ExternalPtrAddr(xp );
+	    }
+	}
 }
 
