@@ -796,24 +796,24 @@ inline SEXP wrap(const T& object){
 	return internal::wrap_dispatch( object, typename ::Rcpp::traits::wrap_type_traits<T>::wrap_category() ) ;
 }
 
-template <typename Class, typename T>
+template <typename T>
 inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::void_wrap_tag ){
 	return R_NilValue ;
 }
 
-template <typename Class, typename T>
+template <typename T>
 inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::pointer_wrap_tag ){
-	return wrap( object<Class>( obj ) ) ;
+	return wrap( object< typename traits::un_pointer<T>::type >( obj ) ) ;
 }
 
-template <typename Class, typename T>
+template <typename T>
 inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::normal_wrap_tag ){
 	return wrap( obj ) ;
 }
 
-template <typename Class, typename T>
+template <typename T>
 inline SEXP module_wrap( const T& obj ){
-	return module_wrap_dispatch<Class,T>( obj, typename Rcpp::traits::module_wrap_traits<Class,T>::category() ) ;	
+	return module_wrap_dispatch<T>( obj, typename Rcpp::traits::module_wrap_traits<T>::category() ) ;	
 }
 
 // special case - FIXME : this is not template specializations of wrap<>
