@@ -7,6 +7,16 @@
         simplified the code
         * include/Rcpp/traits/module_wrap_traits.h : new file. helping implementation of 
         module_wrap
+        
+        * R/00_classes.R: C++OverloadedMethods gets the field "nargs" to capture
+        the number of arguments
+        
+        * R/01_show.R: cleanup
+        
+        * R/Module.R: handle the case where a method has no argument. In that 
+        case, the ellipsis does not end up in the formals
+        
+        * include/Rcpp/Module.h: exposing nargs in C++OverloadedMethods
 
 2012-10-22  Romain Francois <romain@r-enthusiasts.com>
 

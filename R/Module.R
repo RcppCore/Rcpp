@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2011 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -276,7 +276,12 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]
 
 method_wrapper <- function( METHOD, where ){
-        f <- function(...) NULL
+        noargs <- all( METHOD$nargs == 0 ) 
+        if( noargs ){
+            f <- function() NULL
+        } else { 
+            f <- function(...) NULL
+        }
 
         stuff <- list(
             class_pointer = METHOD$class_pointer,
@@ -287,31 +292,60 @@ method_wrapper <- function( METHOD, where ){
             dealWith = dealWith,
             docstring = METHOD$info("")
         )
-
-        extCall <- if( all( METHOD$void ) ){
-            # all methods are void, so we know we want to return invisible(NULL)
-            substitute(
-            {
-                docstring
-                .External(CppMethod__invoke_void, class_pointer, pointer, .pointer, ...)
-                invisible(NULL)
-            } , stuff )
-        } else if( all( ! METHOD$void ) ){
-            # none of the methods are void so we always return the result of
-            # .External
-            substitute(
-            {
-                docstring
-               .External(CppMethod__invoke_notvoid, class_pointer, pointer, .pointer, ...)
-            } , stuff )
+                   
+        
+        extCall <- if( noargs ) { 
+            if( all( METHOD$void ) ){
+                # all methods are void, so we know we want to return invisible(NULL)
+                substitute(
+                {
+                    docstring
+                    .External(CppMethod__invoke_void, class_pointer, pointer, .pointer )
+                    invisible(NULL)
+                } , stuff )
+            } else if( all( ! METHOD$void ) ){
+                # none of the methods are void so we always return the result of
+                # .External
+                substitute(
+                {
+                    docstring
+                   .External(CppMethod__invoke_notvoid, class_pointer, pointer, .pointer )
+                } , stuff )
+            } else {
+                # some are void, some are not, so the voidness is part of the result
+                # we get from internally and we need to deal with it
+                substitute(
+	            {
+	                docstring
+	                dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer ) )
+                } , stuff )
+            }
         } else {
-            # some are void, some are not, so the voidness is part of the result
-            # we get from internally and we need to deal with it
-            substitute(
-	        {
-	            docstring
-	            dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
-            } , stuff )
+            if( all( METHOD$void ) ){
+                # all methods are void, so we know we want to return invisible(NULL)
+                substitute(
+                {
+                    docstring
+                    .External(CppMethod__invoke_void, class_pointer, pointer, .pointer, ...)
+                    invisible(NULL)
+                } , stuff )
+            } else if( all( ! METHOD$void ) ){
+                # none of the methods are void so we always return the result of
+                # .External
+                substitute(
+                {
+                    docstring
+                   .External(CppMethod__invoke_notvoid, class_pointer, pointer, .pointer, ...)
+                } , stuff )
+            } else {
+                # some are void, some are not, so the voidness is part of the result
+                # we get from internally and we need to deal with it
+                substitute(
+	            {
+	                docstring
+	                dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
+                } , stuff )
+            }
         }
         body(f, where) <- extCall
         f

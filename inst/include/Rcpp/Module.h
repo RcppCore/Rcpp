@@ -283,9 +283,11 @@ namespace Rcpp{
             int n = m->size() ;
             Rcpp::LogicalVector voidness(n), constness(n) ;
             Rcpp::CharacterVector docstrings(n), signatures(n) ;
+            Rcpp::IntegerVector nargs(n) ;
             signed_method_class* met ;
             for( int i=0; i<n; i++){ 
                 met = m->at(i) ;
+                nargs[i] = met->nargs() ;
                 voidness[i] = met->is_void() ;
                 constness[i] = met->is_const() ;
                 docstrings[i] = met->docstring ;
@@ -300,6 +302,8 @@ namespace Rcpp{
             field( "const" )         = constness ;
             field( "docstrings" )    = docstrings ;
             field( "signatures" )    = signatures ;
+            field( "nargs" )         = nargs ;
+            
         }
     } ;
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2011 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -42,7 +42,8 @@ setRefClass( "C++OverloadedMethods",
         void          = "logical",
         const         = "logical", 
         docstrings    = "character", 
-        signatures    = "character"
+        signatures    = "character", 
+        nargs         = "integer"
     ), 
     methods = list( 
         info = function(prefix = "    " ){
