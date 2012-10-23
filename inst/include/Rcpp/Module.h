@@ -83,7 +83,7 @@ namespace Rcpp{
     public:
         class_Base() : name(), docstring() {} ;
         class_Base(const char* name_, const char* doc) : 
-            name(name_), docstring( doc == 0 ? "" : doc ){} ;
+            name(name_), docstring( doc == 0 ? "" : doc ), enums() {} ;
         
         virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
         virtual Rcpp::List getMethods(SEXP, std::string&){ return Rcpp::List(0); }
@@ -129,9 +129,19 @@ namespace Rcpp{
             throw std::range_error( "cannot set property" ) ;
         }
         virtual std::string get_typeinfo_name(){ return "" ; }
+        bool has_typeinfo_name( const std::string& name_ ){
+            return get_typeinfo_name().compare(name_) == 0;   
+        }
+        void add_enum( const std::string& enum_name, const std::map<std::string, int>& value ) ;
         
         std::string name ;
         std::string docstring ;
+        
+        typedef std::map< std::string, int > ENUM ;
+        typedef std::map< std::string, ENUM > ENUM_MAP ;
+        typedef ENUM_MAP::value_type ENUM_MAP_PAIR ;
+        ENUM_MAP enums ;
+        
     } ;
 
     class Module {
@@ -141,6 +151,7 @@ namespace Rcpp{
                 
         typedef std::map<std::string,class_Base*> CLASS_MAP ;
         typedef std::pair<const std::string,class_Base*> CLASS_PAIR ;
+        typedef CLASS_MAP::iterator CLASS_ITERATOR ;
         
         Module()  ;
         Module(const char* name_)  ;
@@ -174,7 +185,9 @@ namespace Rcpp{
         Rcpp::CppClass get_class(const std::string& ) ;
                 
         std::string name ;
-                
+           
+        void add_enum( const std::string& parent_class_typeinfo_name, const std::string& enum_name, const std::map<std::string, int>& value ) ;
+        
     private:
         MAP functions ;
         CLASS_MAP classes ;
@@ -745,6 +758,34 @@ namespace Rcpp{
         
     } ;   
 
+    template <typename Enum, typename Parent>
+    class enum_ {
+        public:
+            typedef enum_<Enum,Parent> self ;
+            
+            enum_( const char* name_ ) : 
+                name(name_), values(), parent_typeinfo_name( typeid(Parent).name() ){ 
+                } 
+            ~enum_(){
+                Rcpp::Module* module = getCurrentScope() ;
+                module->add_enum( parent_typeinfo_name, name, values ) ;
+            }
+            
+            self& value( const char* name_, Enum value_ ){
+                values.insert( PAIR( name_, static_cast<int>( value_ ) ) ) ;
+                return *this ;
+            }
+                
+        private:
+            
+            std::string name ;
+            typedef std::map< std::string, int > MAP ;
+            typedef MAP::value_type PAIR ;
+            MAP values ;
+            std::string parent_typeinfo_name ;
+            
+    } ;
+    
     // function factories
 #include <Rcpp/module/Module_generated_function.h>
 

@@ -382,6 +382,24 @@ namespace Rcpp{
 		return res ;
 	}
 	
+	void Module::add_enum( const std::string& parent_class_typeinfo_name, const std::string& enum_name, const std::map<std::string, int>& value ){
+	    // find the parent class
+	    CLASS_ITERATOR it ;
+	    class_Base* target_class ;
+	    for( it = classes.begin(); it != classes.end(); it++){
+	        if( it->second->has_typeinfo_name(parent_class_typeinfo_name) ){
+	            target_class = it->second ;
+	        }
+	    }
+	    
+	    // TODO: add the enum to the class
+	    target_class->add_enum( enum_name, value ) ;
+	}
+	
+	void class_Base::add_enum( const std::string& enum_name, const std::map<std::string, int>& value ){
+	    enums.insert( ENUM_MAP_PAIR( enum_name, value ) ) ;
+	}
+        
 	CppClass::CppClass( SEXP x) : S4(x){}
 	
 	CppClass::CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
@@ -399,6 +417,7 @@ namespace Rcpp{
 		slot( "constructors") = cl->getConstructors( clxp.asSexp(), buffer ) ;
 		slot( "docstring"   ) = cl->docstring ;
 		slot( "typeid" )      = cl->get_typeinfo_name() ;
+		slot( "enums"  )      = cl->enums ;
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
