@@ -5,6 +5,8 @@
         simplified the code (removing 35% of the generated code now rendered useless)
         * include/Rcpp/module/Module_generated_PointerCppMethod.h: using module_wrap and
         simplified the code
+        * include/Rcpp/traits/module_wrap_traits.h : new file. helping implementation of 
+        module_wrap
 
 2012-10-22  Romain Francois <romain@r-enthusiasts.com>
 
