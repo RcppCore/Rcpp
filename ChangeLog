@@ -3,6 +3,8 @@
         * include/Rcpp/internal/wrap.h: new function module_wrap used internally by modules
         * include/Rcpp/module/Module_generated_CppMethod.h: using module_wrap and
         simplified the code (removing 35% of the generated code now rendered useless)
+        * include/Rcpp/module/Module_generated_PointerCppMethod.h: using module_wrap and
+        simplified the code
 
 2012-10-22  Romain Francois <romain@r-enthusiasts.com>
 
