@@ -57,28 +57,6 @@
 		Method met ;
 	} ;
 	
-	template <typename Class, typename T> 
-	class CppMethod0< Class, result<T> > : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(void) ;
-		typedef CppMethod<Class> method_class ;
-		typedef XPtr<T> XP ;
-		CppMethod0( Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* ){
-		    T* ptr = (object->*met)( ) ;
-			return internal::make_new_object<T>(ptr) ; 
-		}
-		inline int nargs(){ return 0 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name){ Rcpp::signature< result<T> >(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-
-	
 	template <typename Class, typename OUT> class const_CppMethod0 : public CppMethod<Class> {
 	public:
 		typedef OUT (Class::*Method)(void) const ;
@@ -114,27 +92,6 @@
 		Method met ;
 	} ;
 
-	template <typename Class, typename T> 
-	class const_CppMethod0< Class, result<T> > : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(void) const ;
-		typedef CppMethod<Class> method_class ;
-		typedef XPtr<T> XP ;
-		const_CppMethod0( Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* ){
-		    T* ptr = (object->*met)( ) ;
-			return internal::make_new_object<T>(ptr) ; 
-		}
-		inline int nargs(){ return 0 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name){ Rcpp::signature< result<T> >(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
 
 
 	template < typename Class, typename OUT, typename U0 > class CppMethod1 : public CppMethod<Class> {
@@ -154,28 +111,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0 >
-	class CppMethod1 <Class, result<T>, U0> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod1(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 1 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0 > class CppMethod1<Class,void,U0> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0) ;
@@ -215,27 +151,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0 > 
-	class const_CppMethod1 <Class, result<T>, U0> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod1(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 1 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0 > class const_CppMethod1<Class,void,U0> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0) const ;
@@ -275,28 +191,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1 >
-	class CppMethod2 <Class, result<T>, U0, U1> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod2(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 2 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1 > class CppMethod2<Class,void,U0, U1> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1) ;
@@ -336,27 +231,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1 > 
-	class const_CppMethod2 <Class, result<T>, U0, U1> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod2(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 2 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1 > class const_CppMethod2<Class,void,U0, U1> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1) const ;
@@ -396,28 +271,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2 >
-	class CppMethod3 <Class, result<T>, U0, U1, U2> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod3(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 3 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2 > class CppMethod3<Class,void,U0, U1, U2> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2) ;
@@ -457,27 +311,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2 > 
-	class const_CppMethod3 <Class, result<T>, U0, U1, U2> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod3(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 3 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2 > class const_CppMethod3<Class,void,U0, U1, U2> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2) const ;
@@ -517,28 +351,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3 >
-	class CppMethod4 <Class, result<T>, U0, U1, U2, U3> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod4(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 4 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3 > class CppMethod4<Class,void,U0, U1, U2, U3> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3) ;
@@ -578,27 +391,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3 > 
-	class const_CppMethod4 <Class, result<T>, U0, U1, U2, U3> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod4(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 4 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3 > class const_CppMethod4<Class,void,U0, U1, U2, U3> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3) const ;
@@ -638,28 +431,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4 >
-	class CppMethod5 <Class, result<T>, U0, U1, U2, U3, U4> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod5(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 5 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4 > class CppMethod5<Class,void,U0, U1, U2, U3, U4> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4) ;
@@ -699,27 +471,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4 > 
-	class const_CppMethod5 <Class, result<T>, U0, U1, U2, U3, U4> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod5(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 5 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4 > class const_CppMethod5<Class,void,U0, U1, U2, U3, U4> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4) const ;
@@ -759,28 +511,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5 >
-	class CppMethod6 <Class, result<T>, U0, U1, U2, U3, U4, U5> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod6(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 6 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5 > class CppMethod6<Class,void,U0, U1, U2, U3, U4, U5> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5) ;
@@ -820,27 +551,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5 > 
-	class const_CppMethod6 <Class, result<T>, U0, U1, U2, U3, U4, U5> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod6(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 6 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5 > class const_CppMethod6<Class,void,U0, U1, U2, U3, U4, U5> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5) const ;
@@ -880,28 +591,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6 >
-	class CppMethod7 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod7(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 7 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6 > class CppMethod7<Class,void,U0, U1, U2, U3, U4, U5, U6> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6) ;
@@ -941,27 +631,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6 > 
-	class const_CppMethod7 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod7(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 7 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6 > class const_CppMethod7<Class,void,U0, U1, U2, U3, U4, U5, U6> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6) const ;
@@ -1001,28 +671,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7 >
-	class CppMethod8 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod8(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 8 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7 > class CppMethod8<Class,void,U0, U1, U2, U3, U4, U5, U6, U7> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7) ;
@@ -1062,27 +711,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7 > 
-	class const_CppMethod8 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod8(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 8 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7 > class const_CppMethod8<Class,void,U0, U1, U2, U3, U4, U5, U6, U7> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7) const ;
@@ -1122,28 +751,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8 >
-	class CppMethod9 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod9(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 9 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8 > class CppMethod9<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8) ;
@@ -1183,27 +791,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8 > 
-	class const_CppMethod9 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod9(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 9 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8 > class const_CppMethod9<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8) const ;
@@ -1243,28 +831,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9 >
-	class CppMethod10 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod10(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 10 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9 > class CppMethod10<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9) ;
@@ -1304,27 +871,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9 > 
-	class const_CppMethod10 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod10(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 10 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9 > class const_CppMethod10<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9) const ;
@@ -1364,28 +911,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10 >
-	class CppMethod11 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod11(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 11 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10 > class CppMethod11<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10) ;
@@ -1425,27 +951,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10 > 
-	class const_CppMethod11 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod11(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 11 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10 > class const_CppMethod11<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10) const ;
@@ -1485,28 +991,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11 >
-	class CppMethod12 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod12(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 12 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11 > class CppMethod12<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11) ;
@@ -1546,27 +1031,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11 > 
-	class const_CppMethod12 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod12(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 12 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11 > class const_CppMethod12<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11) const ;
@@ -1606,28 +1071,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12 >
-	class CppMethod13 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod13(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 13 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12 > class CppMethod13<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12) ;
@@ -1667,27 +1111,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12 > 
-	class const_CppMethod13 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod13(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 13 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12 > class const_CppMethod13<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12) const ;
@@ -1727,28 +1151,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13 >
-	class CppMethod14 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod14(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 14 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13 > class CppMethod14<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13) ;
@@ -1788,27 +1191,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13 > 
-	class const_CppMethod14 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod14(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 14 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13 > class const_CppMethod14<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13) const ;
@@ -1848,28 +1231,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14 >
-	class CppMethod15 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod15(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 15 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14 > class CppMethod15<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14) ;
@@ -1909,27 +1271,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14 > 
-	class const_CppMethod15 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod15(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 15 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14 > class const_CppMethod15<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14) const ;
@@ -1969,28 +1311,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15 >
-	class CppMethod16 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod16(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 16 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15 > class CppMethod16<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15) ;
@@ -2030,27 +1351,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15 > 
-	class const_CppMethod16 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod16(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 16 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15 > class const_CppMethod16<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15) const ;
@@ -2090,28 +1391,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16 >
-	class CppMethod17 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod17(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 17 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16 > class CppMethod17<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16) ;
@@ -2151,27 +1431,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16 > 
-	class const_CppMethod17 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod17(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 17 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16 > class const_CppMethod17<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16) const ;
@@ -2211,28 +1471,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17 >
-	class CppMethod18 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod18(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 18 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17 > class CppMethod18<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17) ;
@@ -2272,27 +1511,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17 > 
-	class const_CppMethod18 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod18(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 18 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17 > class const_CppMethod18<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17) const ;
@@ -2332,28 +1551,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18 >
-	class CppMethod19 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod19(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 19 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18 > class CppMethod19<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18) ;
@@ -2393,27 +1591,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18 > 
-	class const_CppMethod19 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod19(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 19 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18 > class const_CppMethod19<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18) const ;
@@ -2453,28 +1631,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19 >
-	class CppMethod20 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod20(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 20 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19 > class CppMethod20<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19) ;
@@ -2514,27 +1671,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19 > 
-	class const_CppMethod20 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod20(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 20 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19 > class const_CppMethod20<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19) const ;
@@ -2574,28 +1711,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20 >
-	class CppMethod21 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod21(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 21 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20 > class CppMethod21<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20) ;
@@ -2635,27 +1751,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20 > 
-	class const_CppMethod21 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod21(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 21 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20 > class const_CppMethod21<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20) const ;
@@ -2695,28 +1791,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21 >
-	class CppMethod22 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod22(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 22 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21 > class CppMethod22<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21) ;
@@ -2756,27 +1831,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21 > 
-	class const_CppMethod22 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod22(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 22 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21 > class const_CppMethod22<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21) const ;
@@ -2816,28 +1871,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22 >
-	class CppMethod23 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod23(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 23 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22 > class CppMethod23<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22) ;
@@ -2877,27 +1911,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22 > 
-	class const_CppMethod23 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod23(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 23 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22 > class const_CppMethod23<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22) const ;
@@ -2937,28 +1951,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23 >
-	class CppMethod24 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod24(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 24 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23 > class CppMethod24<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23) ;
@@ -2998,27 +1991,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23 > 
-	class const_CppMethod24 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod24(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 24 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23 > class const_CppMethod24<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23) const ;
@@ -3058,28 +2031,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24 >
-	class CppMethod25 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod25(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 25 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24 > class CppMethod25<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24) ;
@@ -3119,27 +2071,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24 > 
-	class const_CppMethod25 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod25(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 25 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24 > class const_CppMethod25<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24) const ;
@@ -3179,28 +2111,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25 >
-	class CppMethod26 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod26(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 26 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25 > class CppMethod26<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25) ;
@@ -3240,27 +2151,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25 > 
-	class const_CppMethod26 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod26(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 26 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25 > class const_CppMethod26<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25) const ;
@@ -3300,28 +2191,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26 >
-	class CppMethod27 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod27(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 27 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26 > class CppMethod27<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26) ;
@@ -3361,27 +2231,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26 > 
-	class const_CppMethod27 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod27(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 27 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26 > class const_CppMethod27<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26) const ;
@@ -3421,28 +2271,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27 >
-	class CppMethod28 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod28(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 28 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27 > class CppMethod28<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27) ;
@@ -3482,27 +2311,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27 > 
-	class const_CppMethod28 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod28(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 28 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27 > class const_CppMethod28<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27) const ;
@@ -3542,28 +2351,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28 >
-	class CppMethod29 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod29(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 29 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28 > class CppMethod29<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28) ;
@@ -3603,27 +2391,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28 > 
-	class const_CppMethod29 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod29(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 29 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28 > class const_CppMethod29<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28) const ;
@@ -3663,28 +2431,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29 >
-	class CppMethod30 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod30(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 30 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29 > class CppMethod30<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29) ;
@@ -3724,27 +2471,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29 > 
-	class const_CppMethod30 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod30(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 30 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29 > class const_CppMethod30<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29) const ;
@@ -3784,28 +2511,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30 >
-	class CppMethod31 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod31(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 31 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30 > class CppMethod31<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30) ;
@@ -3845,27 +2551,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30 > 
-	class const_CppMethod31 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod31(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 31 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30 > class const_CppMethod31<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30) const ;
@@ -3905,28 +2591,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31 >
-	class CppMethod32 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod32(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 32 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31 > class CppMethod32<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31) ;
@@ -3966,27 +2631,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31 > 
-	class const_CppMethod32 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod32(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 32 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31 > class const_CppMethod32<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31) const ;
@@ -4026,28 +2671,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32 >
-	class CppMethod33 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod33(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 33 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32 > class CppMethod33<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32) ;
@@ -4087,27 +2711,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32 > 
-	class const_CppMethod33 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod33(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 33 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32 > class const_CppMethod33<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32) const ;
@@ -4147,28 +2751,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33 >
-	class CppMethod34 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod34(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 34 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33 > class CppMethod34<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33) ;
@@ -4208,27 +2791,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33 > 
-	class const_CppMethod34 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod34(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 34 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33 > class const_CppMethod34<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33) const ;
@@ -4268,28 +2831,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34 >
-	class CppMethod35 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod35(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 35 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34 > class CppMethod35<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34) ;
@@ -4329,27 +2871,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34 > 
-	class const_CppMethod35 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod35(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 35 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34 > class const_CppMethod35<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34) const ;
@@ -4389,28 +2911,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35 >
-	class CppMethod36 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod36(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 36 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35 > class CppMethod36<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35) ;
@@ -4450,27 +2951,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35 > 
-	class const_CppMethod36 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod36(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 36 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35 > class const_CppMethod36<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35) const ;
@@ -4510,28 +2991,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36 >
-	class CppMethod37 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod37(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 37 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36 > class CppMethod37<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36) ;
@@ -4571,27 +3031,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36 > 
-	class const_CppMethod37 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod37(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 37 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36 > class const_CppMethod37<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36) const ;
@@ -4631,28 +3071,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37 >
-	class CppMethod38 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod38(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 38 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37 > class CppMethod38<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37) ;
@@ -4692,27 +3111,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37 > 
-	class const_CppMethod38 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod38(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 38 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37 > class const_CppMethod38<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37) const ;
@@ -4752,28 +3151,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38 >
-	class CppMethod39 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod39(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 39 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38 > class CppMethod39<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38) ;
@@ -4813,27 +3191,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38 > 
-	class const_CppMethod39 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod39(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 39 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38 > class const_CppMethod39<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38) const ;
@@ -4873,28 +3231,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39 >
-	class CppMethod40 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod40(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 40 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39 > class CppMethod40<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39) ;
@@ -4934,27 +3271,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39 > 
-	class const_CppMethod40 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod40(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 40 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39 > class const_CppMethod40<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39) const ;
@@ -4994,28 +3311,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40 >
-	class CppMethod41 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod41(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 41 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40 > class CppMethod41<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40) ;
@@ -5055,27 +3351,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40 > 
-	class const_CppMethod41 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod41(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 41 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40 > class const_CppMethod41<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40) const ;
@@ -5115,28 +3391,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41 >
-	class CppMethod42 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod42(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 42 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41 > class CppMethod42<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41) ;
@@ -5176,27 +3431,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41 > 
-	class const_CppMethod42 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod42(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 42 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41 > class const_CppMethod42<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41) const ;
@@ -5236,28 +3471,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42 >
-	class CppMethod43 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod43(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 43 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42 > class CppMethod43<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42) ;
@@ -5297,27 +3511,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42 > 
-	class const_CppMethod43 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod43(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 43 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42 > class const_CppMethod43<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42) const ;
@@ -5357,28 +3551,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43 >
-	class CppMethod44 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod44(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 44 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43 > class CppMethod44<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43) ;
@@ -5418,27 +3591,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43 > 
-	class const_CppMethod44 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod44(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 44 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43 > class const_CppMethod44<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43) const ;
@@ -5478,28 +3631,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44 >
-	class CppMethod45 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod45(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 45 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44 > class CppMethod45<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44) ;
@@ -5539,27 +3671,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44 > 
-	class const_CppMethod45 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod45(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 45 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44 > class const_CppMethod45<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44) const ;
@@ -5599,28 +3711,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45 >
-	class CppMethod46 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod46(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 46 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45 > class CppMethod46<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45) ;
@@ -5660,27 +3751,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45 > 
-	class const_CppMethod46 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod46(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 46 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45 > class const_CppMethod46<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45) const ;
@@ -5720,28 +3791,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46 >
-	class CppMethod47 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod47(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 47 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46 > class CppMethod47<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46) ;
@@ -5781,27 +3831,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46 > 
-	class const_CppMethod47 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod47(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 47 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46 > class const_CppMethod47<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46) const ;
@@ -5841,28 +3871,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47 >
-	class CppMethod48 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod48(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 48 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47 > class CppMethod48<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47) ;
@@ -5902,27 +3911,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47 > 
-	class const_CppMethod48 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod48(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 48 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47 > class const_CppMethod48<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47) const ;
@@ -5962,28 +3951,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48 >
-	class CppMethod49 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod49(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 49 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48 > class CppMethod49<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48) ;
@@ -6023,27 +3991,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48 > 
-	class const_CppMethod49 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod49(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 49 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48 > class const_CppMethod49<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48) const ;
@@ -6083,28 +4031,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49 >
-	class CppMethod50 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod50(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 50 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49 > class CppMethod50<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49) ;
@@ -6144,27 +4071,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49 > 
-	class const_CppMethod50 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod50(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 50 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49 > class const_CppMethod50<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49) const ;
@@ -6204,28 +4111,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50 >
-	class CppMethod51 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod51(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 51 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50 > class CppMethod51<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50) ;
@@ -6265,27 +4151,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50 > 
-	class const_CppMethod51 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod51(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 51 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50 > class const_CppMethod51<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50) const ;
@@ -6325,28 +4191,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51 >
-	class CppMethod52 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod52(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 52 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51 > class CppMethod52<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51) ;
@@ -6386,27 +4231,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51 > 
-	class const_CppMethod52 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod52(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 52 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51 > class const_CppMethod52<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51) const ;
@@ -6446,28 +4271,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52 >
-	class CppMethod53 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod53(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 53 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52 > class CppMethod53<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52) ;
@@ -6507,27 +4311,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52 > 
-	class const_CppMethod53 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod53(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 53 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52 > class const_CppMethod53<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52) const ;
@@ -6567,28 +4351,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53 >
-	class CppMethod54 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod54(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 54 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53 > class CppMethod54<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53) ;
@@ -6628,27 +4391,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53 > 
-	class const_CppMethod54 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod54(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 54 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53 > class const_CppMethod54<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53) const ;
@@ -6688,28 +4431,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54 >
-	class CppMethod55 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod55(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 55 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54 > class CppMethod55<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54) ;
@@ -6749,27 +4471,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54 > 
-	class const_CppMethod55 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod55(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 55 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54 > class const_CppMethod55<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54) const ;
@@ -6809,28 +4511,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55 >
-	class CppMethod56 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod56(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 56 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55 > class CppMethod56<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55) ;
@@ -6870,27 +4551,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55 > 
-	class const_CppMethod56 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod56(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 56 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55 > class const_CppMethod56<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55) const ;
@@ -6930,28 +4591,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56 >
-	class CppMethod57 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod57(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 57 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56 > class CppMethod57<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56) ;
@@ -6991,27 +4631,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56 > 
-	class const_CppMethod57 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod57(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 57 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56 > class const_CppMethod57<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56) const ;
@@ -7051,28 +4671,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57 >
-	class CppMethod58 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod58(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 58 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57 > class CppMethod58<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57) ;
@@ -7112,27 +4711,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57 > 
-	class const_CppMethod58 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod58(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 58 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57 > class const_CppMethod58<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57) const ;
@@ -7172,28 +4751,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58 >
-	class CppMethod59 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod59(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 59 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58 > class CppMethod59<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58) ;
@@ -7233,27 +4791,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58 > 
-	class const_CppMethod59 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod59(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 59 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58 > class const_CppMethod59<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58) const ;
@@ -7293,28 +4831,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59 >
-	class CppMethod60 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod60(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 60 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59 > class CppMethod60<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59) ;
@@ -7354,27 +4871,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59 > 
-	class const_CppMethod60 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod60(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 60 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59 > class const_CppMethod60<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59) const ;
@@ -7414,28 +4911,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60 >
-	class CppMethod61 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod61(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 61 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60 > class CppMethod61<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60) ;
@@ -7475,27 +4951,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60 > 
-	class const_CppMethod61 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod61(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 61 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60 > class const_CppMethod61<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60) const ;
@@ -7535,28 +4991,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61 >
-	class CppMethod62 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod62(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 62 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61 > class CppMethod62<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61) ;
@@ -7596,27 +5031,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61 > 
-	class const_CppMethod62 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod62(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 62 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61 > class const_CppMethod62<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61) const ;
@@ -7656,28 +5071,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62 >
-	class CppMethod63 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod63(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 63 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62 > class CppMethod63<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62) ;
@@ -7717,27 +5111,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62 > 
-	class const_CppMethod63 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod63(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 63 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62 > class const_CppMethod63<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62) const ;
@@ -7777,28 +5151,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63 >
-	class CppMethod64 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod64(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63 >::type >( args[63] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 64 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63 > class CppMethod64<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63) ;
@@ -7838,27 +5191,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63 > 
-	class const_CppMethod64 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod64(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63 >::type >( args[63] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 64 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63 > class const_CppMethod64<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63) const ;
@@ -7898,28 +5231,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64 >
-	class CppMethod65 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63, U64 u64) ;
-		typedef CppMethod<Class> method_class ;
-		
-		CppMethod65(Method m) : method_class(), met(m) {} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63 >::type >( args[63] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U64 >::type >( args[64] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 65 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return false ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
-	
+
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64 > class CppMethod65<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63, U64 u64) ;
@@ -7959,27 +5271,7 @@
 	private:
 		Method met ;
 	} ;
-	
-	template < typename Class, typename T, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64 > 
-	class const_CppMethod65 <Class, result<T>, U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64> : public CppMethod<Class> {
-	public:
-		typedef result<T> (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63, U64 u64) const ;
-		typedef CppMethod<Class> method_class ;
 		
-		const_CppMethod65(Method m) : method_class(), met(m){} 
-		SEXP operator()( Class* object, SEXP* args){
-		    T* ptr = (object->*met)( Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U0 >::type >( args[0] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U1 >::type >( args[1] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U2 >::type >( args[2] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U3 >::type >( args[3] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U4 >::type >( args[4] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U5 >::type >( args[5] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U6 >::type >( args[6] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U7 >::type >( args[7] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U8 >::type >( args[8] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U9 >::type >( args[9] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U10 >::type >( args[10] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U11 >::type >( args[11] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U12 >::type >( args[12] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U13 >::type >( args[13] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U14 >::type >( args[14] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U15 >::type >( args[15] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U16 >::type >( args[16] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U17 >::type >( args[17] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U18 >::type >( args[18] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U19 >::type >( args[19] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U20 >::type >( args[20] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U21 >::type >( args[21] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U22 >::type >( args[22] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U23 >::type >( args[23] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U24 >::type >( args[24] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U25 >::type >( args[25] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U26 >::type >( args[26] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U27 >::type >( args[27] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U28 >::type >( args[28] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U29 >::type >( args[29] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U30 >::type >( args[30] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U31 >::type >( args[31] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U32 >::type >( args[32] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U33 >::type >( args[33] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U34 >::type >( args[34] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U35 >::type >( args[35] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U36 >::type >( args[36] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U37 >::type >( args[37] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U38 >::type >( args[38] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U39 >::type >( args[39] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U40 >::type >( args[40] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U41 >::type >( args[41] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U42 >::type >( args[42] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U43 >::type >( args[43] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U44 >::type >( args[44] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U45 >::type >( args[45] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U46 >::type >( args[46] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U47 >::type >( args[47] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U48 >::type >( args[48] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U49 >::type >( args[49] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U50 >::type >( args[50] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U51 >::type >( args[51] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U52 >::type >( args[52] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U53 >::type >( args[53] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U54 >::type >( args[54] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U55 >::type >( args[55] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U56 >::type >( args[56] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U57 >::type >( args[57] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U58 >::type >( args[58] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U59 >::type >( args[59] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U60 >::type >( args[60] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U61 >::type >( args[61] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U62 >::type >( args[62] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U63 >::type >( args[63] ), Rcpp::as< typename Rcpp::traits::remove_const_and_reference< U64 >::type >( args[64] ) ) ;
-			return internal::make_new_object<T>(ptr) ;
-		}
-		inline int nargs(){ return 65 ; }
-		inline bool is_void(){ return false ; }
-		inline bool is_const(){ return true ; }
-		inline void signature(std::string& s, const char* name ){ Rcpp::signature<result<T>,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
-		
-	private:
-		Method met ;
-	} ;
-	
 	template < typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64 > class const_CppMethod65<Class,void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64> : public CppMethod<Class> {
 	public:
 		typedef void (Class::*Method)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63, U64 u64) const ;
