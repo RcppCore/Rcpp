@@ -796,6 +796,24 @@ inline SEXP wrap(const T& object){
 	return internal::wrap_dispatch( object, typename ::Rcpp::traits::wrap_type_traits<T>::wrap_category() ) ;
 }
 
+
+
+
+template <typename Class, typename T>
+inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::true_type ){
+	return wrap( object<Class>( obj ) ) ;
+}
+template <typename Class, typename T>
+inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::false_type ){
+	return wrap( obj ) ;
+}
+
+template <typename Class, typename T>
+inline SEXP module_wrap( const T& obj ){
+	return module_wrap_dispatch<Class,T>( obj, Rcpp::traits::same_type<Class*,T>() ) ;	
+}
+
+
 // special case - FIXME : this is not template specializations of wrap<>
 inline SEXP wrap(const char* const v ){ 
     if (v == NULL)
