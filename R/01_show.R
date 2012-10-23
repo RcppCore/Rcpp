@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2011 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -18,14 +18,8 @@
 setMethod( "show", "C++Object", function(object){
     env <- as.environment(object)
     pointer <- get(".pointer", envir = env)
-    # FIXME: .emptyPointer is gone
-    # if(identical(pointer, .emptyPointer))
-    #     stop("Uninitialized C++ object")
     cppclass <- get(".cppclass", envir = env)
-    # FIXME: .emptyPointer is gone
-    # if(identical(cppclass, .emptyPointer))
-    #     stop("C++ object with unset C++ class pointer")
-	txt <- sprintf( "C++ object <%s> of class '%s' <%s>", 
+    txt <- sprintf( "C++ object <%s> of class '%s' <%s>", 
 		externalptr_address(pointer), 
 		.Call( Class__name, cppclass ), 
 		externalptr_address(cppclass)
