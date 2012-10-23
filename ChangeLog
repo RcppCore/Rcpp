@@ -1,3 +1,8 @@
+2012-10-23  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/internal/wrap.h: new function module_wrap used internally by modules
+        * include/Rcpp/module/Module_generated_CppMethod.h: using module_wrap
+
 2012-10-22  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/as.h: support for as<> for module objects

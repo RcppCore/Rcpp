@@ -2,6 +2,12 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.9.16 (future)}{
+  \itemize{
+    \item Exposed methods for class Foo can now return a Foo*
+  }
+}
+
 \section{Changes in Rcpp version 0.9.15 (2012-10-13)}{
   \itemize{
     \item Untangling the clang++ build issue about the location of the
