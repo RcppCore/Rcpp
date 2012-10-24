@@ -64,6 +64,8 @@ namespace Rcpp{
     } // internal 
 } // Rcpp
 
+#include <Rcpp/module/macros.h>
+
 #ifdef __GNUC__
     #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
     #ifdef __GXX_EXPERIMENTAL_CXX0X__
