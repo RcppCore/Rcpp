@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// module_wrap_traits.h: Rcpp R/C++ interface class library -- traits to help module wrap
+// is_pointer.h: Rcpp R/C++ interface class library -- identifies if a type is a pointer
 //
 // Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
 //
@@ -16,24 +16,20 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//                                   
+//
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits__module_wrap_traits__h
-#define Rcpp__traits__module_wrap_traits__h
+#ifndef Rcpp__traits__is_pointer__h
+#define Rcpp__traits__is_pointer__h
 
 namespace Rcpp{
 namespace traits{
 
-struct normal_wrap_tag{} ;	
-struct void_wrap_tag{} ;
-struct pointer_wrap_tag{} ;
+	template <typename T> struct is_pointer : public false_type{}; 
+	template <typename T> struct is_pointer<T*> : public true_type{}; 
 	
-template <typename T> struct module_wrap_traits     { typedef normal_wrap_tag category; } ;
-template <> struct module_wrap_traits<void>         { typedef void_wrap_tag category; } ;
-template <typename T> struct module_wrap_traits<T*> { typedef pointer_wrap_tag category; } ;
-     
-} // namespace traits
-} // namespace Rcpp
+}
+}
+
 #endif

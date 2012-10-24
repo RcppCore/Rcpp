@@ -24,15 +24,18 @@
 
 #ifdef __GNUC__
   // from http://sourceforge.net/apps/mediawiki/predef/index.php?title=Operating_Systems#MacOS
-  #ifndef __APPLE__ 
-    #ifndef __MACH__
-      #define RCPP_HAS_DEMANGLING
+  #ifdef __APPLE__ 
+    #include <Availability.h>
+    #ifndef __MAC_10_8
+        #define RCPP_HAS_DEMANGLING
     #endif
+  #else
+      #define RCPP_HAS_DEMANGLING
   #endif
 #endif
 
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
 #define RCPP_VERSION Rcpp_Version(0,9,15)
-
+                                                                                                                
 #endif
 

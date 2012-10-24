@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// module_wrap_traits.h: Rcpp R/C++ interface class library -- traits to help module wrap
+// un_pointer.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
 //
@@ -20,20 +20,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits__module_wrap_traits__h
-#define Rcpp__traits__module_wrap_traits__h
+#ifndef Rcpp__traits__un_pointer__h
+#define Rcpp__traits__un_pointer__h
 
 namespace Rcpp{
-namespace traits{
-
-struct normal_wrap_tag{} ;	
-struct void_wrap_tag{} ;
-struct pointer_wrap_tag{} ;
+namespace traits{   
 	
-template <typename T> struct module_wrap_traits     { typedef normal_wrap_tag category; } ;
-template <> struct module_wrap_traits<void>         { typedef void_wrap_tag category; } ;
-template <typename T> struct module_wrap_traits<T*> { typedef pointer_wrap_tag category; } ;
-     
+template <typename T> struct un_pointer { typedef T type ;} ;
+template <typename T> struct un_pointer<T*> { typedef T type ;} ;
+
 } // namespace traits
 } // namespace Rcpp
 #endif
