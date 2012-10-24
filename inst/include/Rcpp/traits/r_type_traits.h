@@ -60,7 +60,13 @@ struct r_type_pairstring_string_tag{} ;
 struct r_type_pairstring_generic_tag{} ;
 
 /**
- * identifies a module object
+ * identifies a module object pointer (i.e. something like object<T>
+ */ 
+struct r_type_module_object_pointer_tag{} ;
+
+/**
+ * identifies a module object. Implementers of modules can define the 
+ * r_type_traits to sghow that their object is handled
  */ 
 struct r_type_module_object_tag{} ;
 
@@ -72,7 +78,7 @@ template <typename T> struct r_type_traits { typedef r_type_generic_tag r_catego
 /**
  * module object type
  */
-template <typename T> struct r_type_traits< Rcpp::object<T> >{ typedef r_type_module_object_tag r_category ; } ;
+template <typename T> struct r_type_traits< Rcpp::object<T> >{ typedef r_type_module_object_pointer_tag r_category ; } ;
 
 /** 
  * special cases pair<string,T> to deal with map<string,T> etc ...

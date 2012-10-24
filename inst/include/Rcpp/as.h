@@ -58,8 +58,15 @@ namespace Rcpp{
             return (T*) as_module_object_internal(x) ;
         }
         
-        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_tag ) {
+        /** handling object<T> */ 
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_pointer_tag ) {
             return as_module_object<typename T::object_type>( x ) ;
+        }
+        
+        /** handling T such that T is exposed by a module */
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_tag ){
+            T* obj = as_module_object<T>(x) ;
+            return &obj ;
         }
         
     }

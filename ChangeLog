@@ -4,6 +4,10 @@
         * include/Rcpp/traits/un_pointer.h: traits to remove a pointer
         * include/Rcpp/module/Module_generated_get_return_type.h : handle pointer return types
         * include/Rcpp/config.h: define RCPP_HAS_DEMANGLING for MAC OS <= 10.7 (up to Lion)
+        * include/Rcpp/module/macros.h: new file that contains macro to help with modules
+        * include/Rcpp/traits/r_type_traits.h : new tag to allow as<T> where T
+        is some class exposed in a module
+        * include/Rcpp/as.h : implementation of as<T> in that case
 
 2012-10-23  Romain Francois <romain@r-enthusiasts.com>
 
