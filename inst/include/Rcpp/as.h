@@ -66,7 +66,7 @@ namespace Rcpp{
         /** handling T such that T is exposed by a module */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_tag ){
             T* obj = as_module_object<T>(x) ;
-            return &obj ;
+            return *obj ;
         }
         
     }
