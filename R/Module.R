@@ -221,7 +221,6 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                      else Rcpp:::cpp_object_dummy(.self, .refClassDef)
                  }
                           )
-
         rm( .self, .refClassDef )
 
         classDef <- methods:::getClass(clname)
@@ -261,6 +260,17 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         clname <- as.character(CLASS)
         demangled_name <- sub( "^Rcpp_", "", clname )
         .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
+        
+        # exposing enums values as CLASS.VALUE 
+        # (should really be CLASS$value but I don't know how to do it)
+        if( length( CLASS@enums ) ){
+            for( enum in CLASS@enums ){
+                for( i in 1:length(enum) ){
+                    storage[[ paste( demangled_name, ".", names(enum)[i], sep = "" ) ]] <- enum[i]  
+                }
+            }
+        }
+        
     }
 
     # functions
