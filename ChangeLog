@@ -1,3 +1,10 @@
+2012-10-24  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/traits/is_pointer.h: traits to identify if a type is a pointer
+        * include/Rcpp/traits/un_pointer.h: traits to remove a pointer
+        * include/Rcpp/module/Module_generated_get_return_type.h : handle pointer return types
+        * include/Rcpp/config.h: define RCPP_HAS_DEMANGLING for MAC OS <= 10.7 (up to Lion)
+
 2012-10-23  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/wrap.h: new function module_wrap used internally by modules
