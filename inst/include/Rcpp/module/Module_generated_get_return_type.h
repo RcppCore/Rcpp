@@ -2,7 +2,7 @@
 //
 // Module_generated_get_return_type.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,12 +25,28 @@
 struct void_type{} ;
 
 template <typename OUT>
-inline std::string get_return_type(){
+inline std::string get_return_type_dispatch( Rcpp::traits::false_type ){
     return demangle( typeid(OUT).name() ).data() ;
+}
+template <typename OUT>
+inline std::string get_return_type_dispatch( Rcpp::traits::true_type ){
+    typedef typename Rcpp::traits::un_pointer<OUT>::type pointer ;
+    std::string res = demangle( typeid( pointer ).name() ).data() ;
+    res += "*" ;
+    return res ;
+}
+
+template <typename OUT>
+inline std::string get_return_type(){
+    return get_return_type_dispatch<OUT>( typename Rcpp::traits::is_pointer<OUT>::type() ) ;
 }
 template <>
 inline std::string get_return_type<void_type>(){
     return "void" ;
+}
+template <>
+inline std::string get_return_type<SEXP>(){
+    return "SEXP" ;
 }
 template <>
 inline std::string get_return_type<Rcpp::IntegerVector>(){
