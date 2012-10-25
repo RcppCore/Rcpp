@@ -1,3 +1,11 @@
+2012-10-25  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/internal/wrap.h: wrapping module object with the help
+        of the RCPP_EXPOSED_CLASS
+        * include/Rcpp/module/macros.h: improving the macros so that wrap and as
+        are covered
+        * include/Rcpp/traits/wrap_type_traits.h: wrapping module objects 
+
 2012-10-24  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_pointer.h: traits to identify if a type is a pointer
