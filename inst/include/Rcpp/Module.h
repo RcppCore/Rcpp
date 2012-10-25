@@ -216,6 +216,8 @@ namespace Rcpp{
 
 #include <Rcpp/module/Module_generated_ctor_signature.h>
 #include <Rcpp/module/Module_generated_Constructor.h>
+#include <Rcpp/module/Module_generated_Factory.h>
+
 #include <Rcpp/module/Module_generated_class_signature.h>
 
     typedef bool (*ValidConstructor)(SEXP*,int) ;
@@ -240,6 +242,27 @@ namespace Rcpp{
             ctor->signature(buffer, class_name) ;
         }
     } ;
+    
+    template <typename Class>
+    class SignedFactory {
+    public:
+    
+        SignedFactory( 
+                          Factory_Base<Class>* fact_, 
+                          ValidConstructor valid_, 
+                          const char* doc
+                           ) : fact(fact_), valid(valid_), docstring(doc == 0 ? "" : doc){}
+    
+        Factory_Base<Class>* fact ;
+        ValidConstructor valid ;
+        std::string docstring ;
+    
+        inline int nargs(){ return fact->nargs() ; }
+        inline void signature(std::string& buffer, const std::string& class_name){ 
+            fact->signature(buffer, class_name) ;
+        }
+    } ;
+
 
     template <typename Class>
     class SignedMethod {
@@ -380,6 +403,10 @@ namespace Rcpp{
         typedef SignedConstructor<Class> signed_constructor_class ;
         typedef std::vector<signed_constructor_class*> vec_signed_constructor ;
         
+        typedef Factory_Base<Class> factory_class ;
+        typedef SignedFactory<Class> signed_factory_class ;
+        typedef std::vector<signed_factory_class*> vec_signed_factory ;
+        
         typedef CppProperty<Class> prop_class ;
         typedef std::map<std::string,prop_class*> PROPERTY_MAP ;
         typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
@@ -390,7 +417,8 @@ namespace Rcpp{
             properties(), 
             finalizer_pointer(0), 
             specials(0), 
-            constructors(), 
+            constructors(),
+            factories(),
             class_pointer(0), 
             typeinfo_name("")
         {
@@ -413,11 +441,17 @@ namespace Rcpp{
             return *this ;
         }
         
+        self& AddFactory( factory_class* fact, ValidConstructor valid, const char* docstring = 0 ){
+            class_pointer->factories.push_back( new signed_factory_class( fact, valid, docstring ) ) ;
+            return *this ;
+        }
+        
         self& default_constructor( const char* docstring= 0, ValidConstructor valid = &yes_arity<0> ){
             return constructor( docstring, valid ) ;  
         }
                 
 #include <Rcpp/module/Module_generated_class_constructor.h>
+#include <Rcpp/module/Module_generated_class_factory.h>
         
     public:
         
@@ -437,6 +471,18 @@ namespace Rcpp{
                     return XP( ptr, true ) ;
                 }
             }
+            
+            signed_factory_class* pfact ;
+            n = factories.size() ;
+            for( int i=0; i<n; i++){
+              pfact = factories[i] ;
+              bool ok = (pfact->valid)(args, nargs) ;
+              if( ok ){
+                Class* ptr = pfact->fact->get_new( args, nargs ) ;
+                return XP( ptr, true ) ;
+              }
+            }
+            
             throw std::range_error( "no valid constructor available for the argument list" ) ;
             END_RCPP
                 }
@@ -447,6 +493,12 @@ namespace Rcpp{
             for( int i=0; i<n; i++ ){
                 p = constructors[i];
                 if( p->nargs() == 0 ) return true ;
+            }
+            n = factories.size() ;
+            signed_factory_class* pfact ;
+            for( int i=0; i<n; i++ ){
+                pfact = factories[i];
+                if( pfact->nargs() == 0 ) return true ;
             }
             return false ;
         }
@@ -755,10 +807,11 @@ namespace Rcpp{
         finalizer_class* finalizer_pointer ;
         int specials ;
         vec_signed_constructor constructors ;
+        vec_signed_factory factories ;
         self* class_pointer ;
         std::string typeinfo_name ;
     
-        class_( ) : class_Base(), vec_methods(), properties(), specials(0) {}; 
+        class_( ) : class_Base(), vec_methods(), properties(), specials(0), constructors(), factories() {}; 
         
     } ;   
 

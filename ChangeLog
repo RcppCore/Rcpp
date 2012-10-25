@@ -4,7 +4,12 @@
         of the RCPP_EXPOSED_CLASS
         * include/Rcpp/module/macros.h: improving the macros so that wrap and as
         are covered
-        * include/Rcpp/traits/wrap_type_traits.h: wrapping module objects 
+        * include/Rcpp/traits/wrap_type_traits.h: wrapping module objects
+        * include/Rcpp/module/Module_generated_class_factory.h : factories are alternatives
+        to constructors. For now, we can expose as factories any free function
+        that returns a pointer to the target class
+        * include/Rcpp/module/Module_generated_Factory.h : factories
+        * include/Rcpp/Module.h: exposing factories
 
 2012-10-24  Romain Francois <romain@r-enthusiasts.com>
 
