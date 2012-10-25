@@ -37,10 +37,15 @@ struct wrap_type_primitive_tag{};
 struct wrap_type_unknown_tag{};
 
 /**
- * module objects. conversion done using make_new_object<>() 
+ * module objects pointers (object<T>). conversion done using make_new_object<>() 
+ */
+struct wrap_type_module_object_pointer_tag{} ;
+ 
+/**
+ * declared module object type (by the RCPP_EXPOSED_CLASS macro)
  */
 struct wrap_type_module_object_tag{} ;
- 
+
 /**
  * Type trait that helps the dispatch of wrap to the proper method
  *
@@ -83,7 +88,7 @@ template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_pri
 template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
 #endif
 
-template <typename T> struct wrap_type_traits< Rcpp::object<T> > { typedef wrap_type_module_object_tag wrap_category; } ;
+template <typename T> struct wrap_type_traits< Rcpp::object<T> > { typedef wrap_type_module_object_pointer_tag wrap_category; } ;
 
 
 } // namespace traits

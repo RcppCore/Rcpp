@@ -26,6 +26,12 @@
  *  as a parameter of a function or method exposed by modules. This defines
  *  the necessary trait that makes the class as<>'able
  */
-#define RCPP_EXPOSED_CLASS(CLASS) namespace Rcpp{ namespace traits { template<> struct r_type_traits< CLASS >{ typedef r_type_module_object_tag r_category ; } ; }}
+#define RCPP_EXPOSED_AS(CLASS)   namespace Rcpp{ namespace traits{ template<> struct r_type_traits< CLASS >{ typedef r_type_module_object_tag r_category ; } ; }}
+#define RCPP_EXPOSED_WRAP(CLASS) namespace Rcpp{ namespace traits{ template<> struct wrap_type_traits< CLASS >{typedef wrap_type_module_object_tag wrap_category ; } ; }}
+
+#define RCPP_EXPOSED_CLASS(CLASS) \
+  RCPP_EXPOSED_AS(CLASS)          \
+  RCPP_EXPOSED_WRAP(CLASS)
+
 
 #endif

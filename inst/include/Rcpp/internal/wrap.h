@@ -650,8 +650,13 @@ inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_primitive_
 }
 
 template <typename T>
-inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_module_object_tag ){
+inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_module_object_pointer_tag ){
 	return Rcpp::internal::make_new_object< typename T::object_type >( object.ptr ) ;	
+}
+
+template <typename T>
+inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_module_object_tag ){
+	return Rcpp::internal::make_new_object<T>( new T(object) ) ;	
 }
 
 template <typename T>
