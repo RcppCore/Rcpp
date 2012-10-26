@@ -2,7 +2,7 @@
 //
 // SugarBlock.h: Rcpp R/C++ interface class library -- sugar functions
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -41,32 +41,32 @@ VECTORIZED_MATH_1(tanh,::tanh)
 
 VECTORIZED_MATH_1(abs,::fabs)
 
-VECTORIZED_MATH_1(gamma      , ::Rf_gammafn     )
-VECTORIZED_MATH_1(lgamma     , ::Rf_lgammafn    )
-VECTORIZED_MATH_1(digamma    , ::Rf_digamma     )
-VECTORIZED_MATH_1(trigamma   , ::Rf_trigamma    )
-VECTORIZED_MATH_1(tetragamma , ::Rf_tetragamma  )
-VECTORIZED_MATH_1(pentagamma , ::Rf_pentagamma  )
-VECTORIZED_MATH_1(expm1      , ::expm1          )
-VECTORIZED_MATH_1(log1p      , ::log1p          )
+VECTORIZED_MATH_1(gamma      , R::Rf_gammafn     )
+VECTORIZED_MATH_1(lgamma     , R::Rf_lgammafn    )
+VECTORIZED_MATH_1(digamma    , R::Rf_digamma     )
+VECTORIZED_MATH_1(trigamma   , R::Rf_trigamma    )
+VECTORIZED_MATH_1(tetragamma , R::Rf_tetragamma  )
+VECTORIZED_MATH_1(pentagamma , R::Rf_pentagamma  )
+VECTORIZED_MATH_1(expm1      , ::expm1           )
+VECTORIZED_MATH_1(log1p      , ::log1p           )
 
 namespace Rcpp{
     namespace internal{
-        extern "C" inline double factorial( double x ){ return ::Rf_gammafn( x + 1.0 ) ; }
-        extern "C" inline double lfactorial( double x ){ return ::Rf_lgammafn( x + 1.0 ) ; }
+        extern "C" inline double factorial( double x ){ return R::Rf_gammafn( x + 1.0 ) ; }
+        extern "C" inline double lfactorial( double x ){ return R::Rf_lgammafn( x + 1.0 ) ; }
     }
 }
 VECTORIZED_MATH_1(factorial  , ::Rcpp::internal::factorial   )
 VECTORIZED_MATH_1(lfactorial , ::Rcpp::internal::lfactorial  )
 
-SUGAR_BLOCK_2(choose    , ::Rf_choose   )
-SUGAR_BLOCK_2(lchoose   , ::Rf_lchoose  )
-SUGAR_BLOCK_2(beta      , ::Rf_beta     )
-SUGAR_BLOCK_2(lbeta     , ::Rf_lbeta    )
-SUGAR_BLOCK_2(psigamma  , ::Rf_psigamma )
+SUGAR_BLOCK_2(choose    , R::Rf_choose   )
+SUGAR_BLOCK_2(lchoose   , R::Rf_lchoose  )
+SUGAR_BLOCK_2(beta      , R::Rf_beta     )
+SUGAR_BLOCK_2(lbeta     , R::Rf_lbeta    )
+SUGAR_BLOCK_2(psigamma  , R::Rf_psigamma )
 
-VECTORIZED_MATH_1(trunc, ::Rf_ftrunc) 		// truncates to zero (cf Writing R Extension, 6.7.3 Numerical Utilities)
-SUGAR_BLOCK_2(round,     ::Rf_fround)           // rounds 'x' to 'digits' decimals digits (used by R's round())
-SUGAR_BLOCK_2(signif,    ::Rf_fprec)            // rounds 'x' to 'digits' significant digits (used by R's signif())
+VECTORIZED_MATH_1(trunc, R::Rf_ftrunc) 		// truncates to zero (cf Writing R Extension, 6.7.3 Numerical Utilities)
+SUGAR_BLOCK_2(round,     R::Rf_fround)           // rounds 'x' to 'digits' decimals digits (used by R's round())
+SUGAR_BLOCK_2(signif,    R::Rf_fprec)            // rounds 'x' to 'digits' significant digits (used by R's signif())
 
 #endif

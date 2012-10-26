@@ -2,7 +2,7 @@
 //
 // rgammah: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -33,7 +33,7 @@ namespace Rcpp {
 			return NumericVector( n, R_NaN ) ;
 		}
 		if( a == 0. ) return NumericVector(n, 0. ) ;
-		return NumericVector( n, ::Rf_rgamma, a, scale ) ;
+		return NumericVector( n, R::Rf_rgamma, a, scale ) ;
 	}
 
 } // Rcpp

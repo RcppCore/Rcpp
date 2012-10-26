@@ -2,7 +2,7 @@
 //
 // rweibull.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -32,7 +32,7 @@ namespace Rcpp {
 				shape_inv( 1/shape_), scale(scale_) {}
 	
 			inline double operator()() const {
-				return scale * ::R_pow(-::log(unif_rand()), shape_inv );
+				return scale * R::R_pow(-::log(unif_rand()), shape_inv );
 			}
 	
 		private:
