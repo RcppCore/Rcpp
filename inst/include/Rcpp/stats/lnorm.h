@@ -5,7 +5,7 @@
 //
 // lnorm.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -94,7 +94,7 @@ inline double qlnorm_0(double p, int lower_tail, int log_p){
 #endif
     R_Q_P01_boundaries(p, 0, ML_POSINF);
 
-    return ::exp(R::Rf_qnorm5(p, 0.0, 1.0, lower_tail, log_p));
+    return ::exp(::Rf_qnorm5(p, 0.0, 1.0, lower_tail, log_p));
 }
 
 inline double qlnorm_1(double p, double meanlog, int lower_tail, int log_p){
@@ -104,7 +104,7 @@ inline double qlnorm_1(double p, double meanlog, int lower_tail, int log_p){
 #endif
     R_Q_P01_boundaries(p, 0, ML_POSINF);
 
-    return ::exp(R::Rf_qnorm5(p, meanlog, 1.0, lower_tail, log_p));
+    return ::exp(::Rf_qnorm5(p, meanlog, 1.0, lower_tail, log_p));
 }
 
 } // stats
@@ -112,7 +112,7 @@ inline double qlnorm_1(double p, double meanlog, int lower_tail, int log_p){
 
 RCPP_DPQ_0(lnorm,Rcpp::stats::dlnorm_0,Rcpp::stats::plnorm_0,Rcpp::stats::qlnorm_0)
 RCPP_DPQ_1(lnorm,Rcpp::stats::dlnorm_1,Rcpp::stats::plnorm_1,Rcpp::stats::qlnorm_1)
-RCPP_DPQ_2(lnorm,R::Rf_dlnorm,R::Rf_plnorm,R::Rf_qlnorm)
+RCPP_DPQ_2(lnorm,::Rf_dlnorm,::Rf_plnorm,::Rf_qlnorm)
 
 #endif
 

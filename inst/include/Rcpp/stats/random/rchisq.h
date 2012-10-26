@@ -2,7 +2,7 @@
 //
 // rchisq.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -31,7 +31,7 @@ namespace Rcpp {
 			ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
 			
 			inline double operator()() const {
-				return R::Rf_rgamma( df_2, 2.0 ) ; 
+				return ::Rf_rgamma( df_2, 2.0 ) ; 
 			}
 			
 		private:

@@ -2,7 +2,7 @@
 //
 // rhyper.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,7 +28,7 @@ namespace Rcpp {
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rhyper( int n, double nn1, double nn2, double kk ){
-		return NumericVector( n, R::Rf_rhyper, nn1, nn2, kk ) ;
+		return NumericVector( n, ::Rf_rhyper, nn1, nn2, kk ) ;
 	}
 
 } // Rcpp
