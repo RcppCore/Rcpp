@@ -2,7 +2,7 @@
 //
 // norm.h: Rcpp R/C++ interface class library -- normal distribution
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -68,7 +68,7 @@ inline double pnorm_1(double x, double mu /*, double sigma [=1.]*/ , int lower_t
 	return (x < mu) ? R_DT_0 : R_DT_1;
     x = p;
 
-    ::Rf_pnorm_both(x, &p, &cp, (lower_tail ? 0 : 1), log_p);
+    R::Rf_pnorm_both(x, &p, &cp, (lower_tail ? 0 : 1), log_p);
 
     return(lower_tail ? p : cp);
 }
@@ -88,16 +88,16 @@ inline double pnorm_0(double x /*, double mu [=0.] , double sigma [=1.]*/ , int 
 	return (x < 0.0 ) ? R_DT_0 : R_DT_1;
     x = p;
 
-    ::Rf_pnorm_both(x, &p, &cp, (lower_tail ? 0 : 1), log_p);
+    R::Rf_pnorm_both(x, &p, &cp, (lower_tail ? 0 : 1), log_p);
 
     return(lower_tail ? p : cp);
 }
 
 inline double qnorm_1(double p, double mu /*, double sigma [=1.] */, int lower_tail, int log_p){
-	return ::Rf_qnorm5(p, mu, 1.0, lower_tail, log_p ) ;
+	return R::Rf_qnorm5(p, mu, 1.0, lower_tail, log_p ) ;
 }
 inline double qnorm_0(double p /*, double mu [=0.], double sigma [=1.] */, int lower_tail, int log_p){
-	return ::Rf_qnorm5(p, 0.0, 1.0, lower_tail, log_p ) ;
+	return R::Rf_qnorm5(p, 0.0, 1.0, lower_tail, log_p ) ;
 }
 
 } // stats
@@ -105,6 +105,6 @@ inline double qnorm_0(double p /*, double mu [=0.], double sigma [=1.] */, int l
 	
 RCPP_DPQ_0(norm, Rcpp::stats::dnorm_0, Rcpp::stats::pnorm_0, Rcpp::stats::qnorm_0 )
 RCPP_DPQ_1(norm, Rcpp::stats::dnorm_1, Rcpp::stats::pnorm_1, Rcpp::stats::qnorm_1 )
-RCPP_DPQ_2(norm, ::Rf_dnorm4, ::Rf_pnorm5, ::Rf_qnorm5 )
+RCPP_DPQ_2(norm, R::Rf_dnorm4, R::Rf_pnorm5, R::Rf_qnorm5 )
 
 #endif

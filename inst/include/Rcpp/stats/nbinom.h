@@ -2,7 +2,7 @@
 //
 // nbinom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__nbinom_h
 #define Rcpp__stats__nbinom_h
 
-RCPP_DPQ_2(nbinom, ::Rf_dnbinom, ::Rf_pnbinom, ::Rf_qnbinom )
+RCPP_DPQ_2(nbinom, R::Rf_dnbinom, R::Rf_pnbinom, R::Rf_qnbinom )
 	
 #endif
 

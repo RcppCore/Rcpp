@@ -2,7 +2,7 @@
 //
 // rnbinom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -32,7 +32,7 @@ namespace Rcpp {
 				siz(siz_), lambda( (1-prob_)/prob_ ) {}
 	
 			inline double operator()() const {
-				return ::Rf_rpois( ::Rf_rgamma( siz, lambda ) ) ; 
+				return R::Rf_rpois( R::Rf_rgamma( siz, lambda ) ) ; 
 			}
 	
 		private:

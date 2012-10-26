@@ -2,7 +2,7 @@
 //
 // hyper.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__hyper_h
 #define Rcpp__stats__hyper_h
 
-RCPP_DPQ_3(hyper,::Rf_dhyper,::Rf_phyper,::Rf_qhyper)
+RCPP_DPQ_3(hyper,R::Rf_dhyper,R::Rf_phyper,R::Rf_qhyper)
 
 #endif
 

@@ -5,7 +5,7 @@
 //
 // exp.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -78,17 +78,17 @@ namespace Rcpp{
 // we cannot use the RCPP_DPQ_1 macro here because of rate and shape
 template <bool NA, typename T>
 inline stats::D1<REALSXP,NA,T> dexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape, bool log = false ) {
-	return stats::D1<REALSXP,NA,T>( ::Rf_dexp, x, 1.0/shape, log ); 
+	return stats::D1<REALSXP,NA,T>( R::Rf_dexp, x, 1.0/shape, log ); 
 }
 
 template <bool NA, typename T>
 inline stats::P1<REALSXP,NA,T> pexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape, bool lower = true, bool log = false ) {
-	return stats::P1<REALSXP,NA,T>( ::Rf_pexp, x, 1.0/shape, lower, log ); 
+	return stats::P1<REALSXP,NA,T>( R::Rf_pexp, x, 1.0/shape, lower, log ); 
 }
 
 template <bool NA, typename T>
 inline stats::Q1<REALSXP,NA,T> qexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape, bool lower = true, bool log = false ) {
-	return stats::Q1<REALSXP,NA,T>( ::Rf_qexp, x, 1.0/shape, lower, log ); 
+	return stats::Q1<REALSXP,NA,T>( R::Rf_qexp, x, 1.0/shape, lower, log ); 
 }
 
 } // Rcpp

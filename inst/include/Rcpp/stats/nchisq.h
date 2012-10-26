@@ -2,7 +2,7 @@
 //
 // nchisq.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__nchisq_h
 #define Rcpp__stats__nchisq_h
 
-RCPP_DPQ_2( nchisq, ::Rf_dnchisq, ::Rf_pnchisq, ::Rf_qnchisq )
+RCPP_DPQ_2( nchisq, R::Rf_dnchisq, R::Rf_pnchisq, R::Rf_qnchisq )
 
 #endif
 
