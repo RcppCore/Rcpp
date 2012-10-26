@@ -2,7 +2,7 @@
 //
 // pois.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,6 @@
 #ifndef Rcpp__stats__pois_h
 #define Rcpp__stats__pois_h
 
-RCPP_DPQ_1(pois,R::Rf_dpois,R::Rf_ppois,R::Rf_qpois)
+RCPP_DPQ_1(pois,::Rf_dpois,::Rf_ppois,::Rf_qpois)
 
 #endif

@@ -71,7 +71,7 @@ namespace Rcpp {
 			time_t t = static_cast<time_t>(floor(m_dt));	
 			m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
 			// m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
-			m_us = static_cast<int>(R::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
+			m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
         } else {
 			m_dt = NA_REAL;			// NaN and Inf need it set
             m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
@@ -85,7 +85,7 @@ namespace Rcpp {
 		newdt.m_dt += offset;
 		time_t t = static_cast<time_t>(floor(newdt.m_dt));	
 		newdt.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's dat		
-		newdt.m_us = static_cast<int>(R::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));	
+		newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));	
 		return newdt;
     }
 

@@ -2,7 +2,7 @@
 //
 // rbinom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,7 +28,7 @@ namespace Rcpp {
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rbinom( int n, double nin, double pp ){
-		return NumericVector( n, R::Rf_rbinom, nin, pp) ;
+		return NumericVector( n, ::Rf_rbinom, nin, pp) ;
 	}
 
 } // Rcpp

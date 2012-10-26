@@ -2,7 +2,7 @@
 //
 // nf.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__nf_h
 #define Rcpp__stats__nf_h
 
-RCPP_DPQ_3(nf,R::Rf_dnf,R::Rf_pnf,R::Rf_qnf)
+RCPP_DPQ_3(nf,::Rf_dnf,::Rf_pnf,::Rf_qnf)
 
 #endif
 

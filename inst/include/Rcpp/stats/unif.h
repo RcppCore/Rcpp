@@ -5,7 +5,7 @@
 //
 // unif.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,7 +29,7 @@ namespace Rcpp {
 namespace stats {
 
 inline double dunif_1(double x, double a/*, double b [=1.]*/ , int give_log){
-	return R::Rf_dunif(x, a, 1.0, give_log ) ;
+	return ::Rf_dunif(x, a, 1.0, give_log ) ;
 }
 inline double dunif_0( double x /*, double a [=0.], double b [=1.]*/ , int give_log){
 #ifdef IEEE_754
@@ -43,7 +43,7 @@ inline double dunif_0( double x /*, double a [=0.], double b [=1.]*/ , int give_
 
 
 inline double punif_1(double x, double a /*, double b [=1.0]*/, int lower_tail, int log_p) {
-	return R::Rf_punif( x, a, 1.0, lower_tail, log_p ) ;
+	return ::Rf_punif( x, a, 1.0, lower_tail, log_p ) ;
 }
 inline double punif_0(double x /*, double a [=0.0], double b [=1.0]*/, int lower_tail, int log_p) {
 #ifdef IEEE_754
@@ -87,7 +87,7 @@ inline double qunif_0(double p /*, double a [=0.0], double b [=1.0] */, int lowe
 
 RCPP_DPQ_0(unif, Rcpp::stats::dunif_0, Rcpp::stats::punif_0, Rcpp::stats::qunif_0 )
 RCPP_DPQ_1(unif, Rcpp::stats::dunif_1, Rcpp::stats::punif_1, Rcpp::stats::qunif_1 )   
-RCPP_DPQ_2(unif, R::Rf_dunif, R::Rf_punif, R::Rf_qunif )
+RCPP_DPQ_2(unif, ::Rf_dunif, ::Rf_punif, ::Rf_qunif )
 
 #endif
 

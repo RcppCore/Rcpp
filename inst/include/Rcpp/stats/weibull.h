@@ -5,7 +5,7 @@
 //
 // weibull.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -81,7 +81,7 @@ inline double qweibull_1(double p, double shape /*, double scale [=1.0] */, int 
 } // Rcpp
 
 RCPP_DPQ_1(weibull,Rcpp::stats::dweibull_1,Rcpp::stats::pweibull_1,Rcpp::stats::qweibull_1)
-RCPP_DPQ_2(weibull,R::Rf_dweibull,R::Rf_pweibull,R::Rf_qweibull)
+RCPP_DPQ_2(weibull,::Rf_dweibull,::Rf_pweibull,::Rf_qweibull)
 
 #endif
 

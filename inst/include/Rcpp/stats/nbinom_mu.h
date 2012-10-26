@@ -2,7 +2,7 @@
 //
 // nbinom_mu.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__nbinom_mu_h
 #define Rcpp__stats__nbinom_mu_h
 
-RCPP_DPQ_2(nbinom_mu,Rcpp::dnbinom_mu, Rcpp::pnbinom_mu, Rcpp::qnbinom_mu )
+RCPP_DPQ_2(nbinom_mu,::dnbinom_mu, ::pnbinom_mu, ::qnbinom_mu )
 
 #endif
 
