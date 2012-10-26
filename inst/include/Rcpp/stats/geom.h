@@ -2,7 +2,7 @@
 //
 // geom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__geom_h
 #define Rcpp__stats__geom_h
 
-RCPP_DPQ_1(geom, ::Rf_dgeom, ::Rf_pgeom, ::Rf_qgeom )
+RCPP_DPQ_1(geom, R::Rf_dgeom, R::Rf_pgeom, R::Rf_qgeom )
 
 #endif
 

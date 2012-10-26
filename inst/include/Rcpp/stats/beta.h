@@ -2,7 +2,7 @@
 //
 // beta.h: Rcpp R/C++ interface class library -- beta distribution
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,6 @@
 #ifndef Rcpp__stats__beta_h
 #define Rcpp__stats__beta_h
 
-RCPP_DPQ_2(beta,::Rf_dbeta,::Rf_pbeta,::Rf_qbeta)
+RCPP_DPQ_2(beta,R::Rf_dbeta,R::Rf_pbeta,R::Rf_qbeta)
 
 #endif
