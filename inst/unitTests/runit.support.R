@@ -82,13 +82,13 @@ definitions <- function() {
                tan( NA_REAL ),
                tanh( NA_REAL ),
                fabs( NA_REAL ),
-               R::Rf_gammafn( NA_REAL),
-               R::Rf_lgammafn( NA_REAL ),
-               R::Rf_digamma( NA_REAL ),
-               R::Rf_trigamma( NA_REAL )
+               Rf_gammafn( NA_REAL),
+               Rf_lgammafn( NA_REAL ),
+               Rf_digamma( NA_REAL ),
+               Rf_trigamma( NA_REAL )
             ) , NumericVector::create(
-               R::Rf_tetragamma( NA_REAL) ,
-               R::Rf_pentagamma( NA_REAL) ,
+               Rf_tetragamma( NA_REAL) ,
+               Rf_pentagamma( NA_REAL) ,
                expm1( NA_REAL ),
                log1p( NA_REAL ),
                Rcpp::internal::factorial( NA_REAL ),

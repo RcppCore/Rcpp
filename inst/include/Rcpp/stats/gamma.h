@@ -5,7 +5,7 @@
 //
 // gamma.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -47,18 +47,18 @@ inline double dgamma_1(double x, double shape, int log_p){
     }
 
     if (shape < 1) {
-    	pr = R::Rf_dpois(shape, x, log_p);
+    	pr = ::Rf_dpois(shape, x, log_p);
 	return log_p ?  pr + ::log(shape/x) : pr*shape/x;
     }
     /* else  shape >= 1 */
-    pr = R::Rf_dpois(shape-1, x, log_p);
+    pr = ::Rf_dpois(shape-1, x, log_p);
     return pr;
 }	
 inline double pgamma_1(double x, double alph, int lower_tail, int log_p){
-	return R::Rf_pgamma(x, alph, 1.0, lower_tail, log_p) ;
+	return ::Rf_pgamma(x, alph, 1.0, lower_tail, log_p) ;
 }	
 inline double qgamma_1(double p, double alpha, int lower_tail, int log_p){
-	return R::Rf_qgamma(p, alpha, 1.0, lower_tail, log_p ); 
+	return ::Rf_qgamma(p, alpha, 1.0, lower_tail, log_p ); 
 }
 
 }
@@ -69,7 +69,7 @@ RCPP_DPQ_1(gamma,Rcpp::stats::dgamma_1,Rcpp::stats::pgamma_1, Rcpp::stats::qgamm
 
 
 // 2 parameter case
-RCPP_DPQ_2(gamma,R::Rf_dgamma,R::Rf_pgamma,R::Rf_qgamma)
+RCPP_DPQ_2(gamma,::Rf_dgamma,::Rf_pgamma,::Rf_qgamma)
 
 
 #endif

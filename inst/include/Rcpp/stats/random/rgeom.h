@@ -2,7 +2,7 @@
 //
 // rgeom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -31,7 +31,7 @@ namespace Rcpp {
 			GeomGenerator( double p ) : lambda( (1-p)/p  ) {}
 	
 			inline double operator()() const {
-				return R::Rf_rpois(exp_rand() * lambda); 
+				return ::Rf_rpois(exp_rand() * lambda); 
 			}
 	
 		private:

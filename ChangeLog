@@ -1,14 +1,3 @@
-2012-10-26  Dirk Eddelbuettel  <edd@debian.org>
-
-	* inst/include/RcppCommon.h: Include Rmath.h in a namespace for R so
-	that these R API functions become available as R::foo
-	* inst/include/stats/*: Adapt various header files to this change
-	* inst/include/stats/random/*: Idem
-	* inst/include/sugar/functions/complex.h: Idem
-	* inst/include/sugar/functions/math.h: Idem
-	* src/Datetime.cpp: Idem
-	* inst/unitTests/runit.support.R: Idem
-
 2012-10-25  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/wrap.h: wrapping module object with the help
@@ -40,17 +29,17 @@
         simplified the code (removing 35% of the generated code now rendered useless)
         * include/Rcpp/module/Module_generated_PointerCppMethod.h: using module_wrap and
         simplified the code
-        * include/Rcpp/traits/module_wrap_traits.h : new file. helping implementation of
+        * include/Rcpp/traits/module_wrap_traits.h : new file. helping implementation of 
         module_wrap
-
+        
         * R/00_classes.R: C++OverloadedMethods gets the field "nargs" to capture
         the number of arguments
-
+        
         * R/01_show.R: cleanup
-
-        * R/Module.R: handle the case where a method has no argument. In that
+        
+        * R/Module.R: handle the case where a method has no argument. In that 
         case, the ellipsis does not end up in the formals
-
+        
         * include/Rcpp/Module.h: exposing nargs in C++OverloadedMethods
 
 2012-10-22  Romain Francois <romain@r-enthusiasts.com>

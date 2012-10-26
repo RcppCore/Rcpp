@@ -2,7 +2,7 @@
 //
 // binom.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,6 @@
 #ifndef Rcpp__stats__binom_h
 #define Rcpp__stats__binom_h
 
-RCPP_DPQ_2(binom,R::Rf_dbinom,R::Rf_pbinom,R::Rf_qbinom)
+RCPP_DPQ_2(binom,::Rf_dbinom,::Rf_pbinom,::Rf_qbinom)
 
 #endif

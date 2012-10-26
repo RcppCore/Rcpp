@@ -2,7 +2,7 @@
 //
 // t.h: Rcpp R/C++ interface class library -- t distribution
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,6 @@
 #ifndef Rcpp__stats__t_h
 #define Rcpp__stats__t_h
 
-RCPP_DPQ_1(t, R::Rf_dt, R::Rf_pt, R::Rf_qt)
+RCPP_DPQ_1(t, ::Rf_dt, ::Rf_pt, ::Rf_qt)
 
 #endif

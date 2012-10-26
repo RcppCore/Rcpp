@@ -2,7 +2,7 @@
 //
 // chisq.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__chisq_h
 #define Rcpp__stats__chisq_h
 
-RCPP_DPQ_1(chisq,R::Rf_dchisq,R::Rf_pchisq,R::Rf_qchisq)
+RCPP_DPQ_1(chisq,::Rf_dchisq,::Rf_pchisq,::Rf_qchisq)
 
 #endif
 

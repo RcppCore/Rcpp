@@ -2,7 +2,7 @@
 //
 // nt.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__nt_h
 #define Rcpp__stats__nt_h
 
-RCPP_DPQ_2(t,R::Rf_dt,R::Rf_pt,R::Rf_qt)
+RCPP_DPQ_2(t,::Rf_dt,::Rf_pt,::Rf_qt)
 
 #endif
 

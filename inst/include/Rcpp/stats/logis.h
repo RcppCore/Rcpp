@@ -2,7 +2,7 @@
 //
 // logis.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -130,7 +130,7 @@ inline double qlogis_1(double p, double location /*, double scale [=1.0] */, int
 
 RCPP_DPQ_0(logis,Rcpp::stats::dlogis_0,Rcpp::stats::plogis_0,Rcpp::stats::qlogis_0)
 RCPP_DPQ_1(logis,Rcpp::stats::dlogis_1,Rcpp::stats::plogis_1,Rcpp::stats::qlogis_1)
-RCPP_DPQ_2(logis,R::Rf_dlogis,R::Rf_plogis,R::Rf_qlogis)
+RCPP_DPQ_2(logis,::Rf_dlogis,::Rf_plogis,::Rf_qlogis)
 
 #endif
 
