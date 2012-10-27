@@ -30,6 +30,7 @@
 #define RCPP_EXPOSED_WRAP(CLASS) namespace Rcpp{ namespace traits{ template<> struct wrap_type_traits< CLASS >{typedef wrap_type_module_object_tag wrap_category ; } ; }}
 
 #define RCPP_EXPOSED_CLASS(CLASS) \
+  class CLASS;                    \
   RCPP_EXPOSED_AS(CLASS)          \
   RCPP_EXPOSED_WRAP(CLASS)
 
