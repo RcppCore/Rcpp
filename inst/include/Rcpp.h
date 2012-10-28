@@ -68,4 +68,7 @@
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
 
+// wrappers for R API 'scalar' functions
+#include <Rcpp/Rmath.h>
+
 #endif
