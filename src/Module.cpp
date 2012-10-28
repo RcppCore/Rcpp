@@ -385,7 +385,7 @@ namespace Rcpp{
 	void Module::add_enum( const std::string& parent_class_typeinfo_name, const std::string& enum_name, const std::map<std::string, int>& value ){
 	    // find the parent class
 	    CLASS_ITERATOR it ;
-	    class_Base* target_class ;
+	    class_Base* target_class = NULL;
 	    for( it = classes.begin(); it != classes.end(); it++){
 	        if( it->second->has_typeinfo_name(parent_class_typeinfo_name) ){
 	            target_class = it->second ;
