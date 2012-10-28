@@ -1,3 +1,10 @@
+2012-10-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Rmath.h: Beginnings of a namespave 'R' around
+	Rmath functions so that Rcpp users can call the (scalar) functions
+	R::pnorm() which helps with adapting or integrating programs writting
+	outside of Rcpp
+
 2012-10-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/module/macros.h: Add forward declaration of class
