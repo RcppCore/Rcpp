@@ -5,6 +5,9 @@
 \section{Changes in Rcpp version 0.9.16 (future)}{
   \itemize{
     \item Exposed methods for class Foo can now return a Foo*
+    [ TODO -- Lots more Rcpp modules work to be described ? ]
+    \item Provide a namespace 'R' for the standalone Rmath library so
+    that Rcpp users can access those functions too 
   }
 }
 
