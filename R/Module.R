@@ -247,7 +247,19 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                     x
                 } , where = where )
             }
-
+        }
+        
+        as_rx <- "^[.]___as___(.+)$"
+        if( length( matches <- grep( as_rx, names(CLASS@methods) ) ) ){
+            for( i in matches ){
+                met <- names(CLASS@methods)[i]
+                to <- sub( as_rx, "\\1", met )
+                converter <- function( from ){}
+                body( converter ) <- substitute( { from$CONVERT() }, 
+                    list( CONVERT = met )
+                )
+                setAs( clname, to, converter, where = where)
+            }
         }
 
     }
