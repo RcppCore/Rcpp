@@ -27,17 +27,27 @@
 namespace Rcpp{
     
     namespace internal{
-        template <typename OUT>
-        std::string get_as_method_name(const char* target){
-            std::string method_name( ".___as___" ) ;
-            typedef typename Rcpp::traits::r_type_traits<OUT>::r_category CATEGORY ;
-            if( Rcpp::traits::same_type< CATEGORY, ::Rcpp::traits::r_type_module_object_tag >::value ){
+        
+        template <typename FROM, typename TO>
+        std::string get_converter_name(const char* from, const char* to){
+            std::string method_name( ".___converter___" ) ;
+            typedef typename Rcpp::traits::r_type_traits< typename Rcpp::traits::remove_const_and_reference<FROM>::type >::r_category FROM_CATEGORY ;
+            if( Rcpp::traits::same_type< FROM_CATEGORY, ::Rcpp::traits::r_type_module_object_tag >::value ){
                 method_name += "Rcpp_" ;    
             }
-            method_name += target ;
+            method_name += from ;
+            method_name += "___" ;
+            typedef typename Rcpp::traits::r_type_traits< typename Rcpp::traits::remove_const_and_reference<TO>::type >::r_category TO_CATEGORY ;
+            if( Rcpp::traits::same_type< TO_CATEGORY, ::Rcpp::traits::r_type_module_object_tag >::value ){
+                method_name += "Rcpp_" ;    
+            }
+            method_name += to ;
+            
             return method_name ;
         }
-    }
+        
+        
+   }
 
     class CppClass ;
     class CppObject ;
@@ -448,7 +458,6 @@ namespace Rcpp{
          
         ~class_(){}
         
-        
         self& AddConstructor( constructor_class* ctor, ValidConstructor valid, const char* docstring = 0 ){
             class_pointer->constructors.push_back( new signed_constructor_class( ctor, valid, docstring ) );  
             return *this ;
@@ -605,19 +614,6 @@ namespace Rcpp{
 
 #include <Rcpp/module/Module_generated_method.h>
 #include <Rcpp/module/Module_generated_Pointer_method.h>
-        
-        template <typename OUT>
-        self& convert_to( const char* target, OUT (Class::*fun)(void), const char* docstring = 0 ){
-            std::string method_name = internal::get_as_method_name<OUT>(target) ; 
-            method( method_name.c_str() , fun, docstring, &yes ) ;
-            return *this ;
-        }
-        template <typename OUT>
-        self& convert_to( const char* target, OUT (*fun)(Class*), const char* docstring = 0 ){
-            std::string method_name = internal::get_as_method_name<OUT>(target) ; 
-            method( method_name.c_str(), fun, docstring, &yes ) ;
-            return *this ;
-        }
         
         bool has_method( const std::string& m){
             return vec_methods.find(m) != vec_methods.end() ;
@@ -872,6 +868,19 @@ namespace Rcpp{
     // function factories
 #include <Rcpp/module/Module_generated_function.h>
 
+    template <typename FROM, typename TO>
+    void converter( const char* from, const char* to, TO (*fun)(FROM), const char* docstring = 0 ){
+        std::string fun_name = internal::get_converter_name<FROM,TO>( from, to ) ;
+        function( fun_name.c_str(), fun, docstring ) ;
+    }  
+                       
+    template <typename FROM, typename TO>
+    void converter( const char* /* from */ , const char* to, TO (FROM::*fun)(), const char* docstring = 0 ){
+        Rcpp::Module* scope = ::getCurrentScope() ;
+        class_<FROM>().convert_to( to, fun, docstring ) ;
+    }
+    
+    
     class CppClass : public S4{
     public:
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
