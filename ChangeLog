@@ -6,10 +6,10 @@
 
 	* R/Module.R: Taking care of a check warning
 	* include/Rcpp/module/macros.h: adding RCPP_EXPOSED_CLASS_NODECL
-	* include/Rcpp/Module.h: introducing convert_to to facilitate
-	conversion to other class.
-	* R/Module.R: Methods registered internally with convert_to will
-	generate the appropriate as S4 method.
+	* include/Rcpp/Module.h: introducing converter to facilitate
+	conversion between classes.
+	* R/Module.R: Methods registered internally with converter will
+	generate the appropriate "as" S4 method.
 
 2012-10-28  Dirk Eddelbuettel  <edd@debian.org>
 
