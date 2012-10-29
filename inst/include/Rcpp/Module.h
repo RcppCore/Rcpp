@@ -25,6 +25,19 @@
 #include <Rcpp/config.h>
 
 namespace Rcpp{
+    
+    namespace internal{
+        template <typename OUT>
+        std::string get_as_method_name(const char* target){
+            std::string method_name( ".___as___" ) ;
+            typedef typename Rcpp::traits::r_type_traits<OUT>::r_category CATEGORY ;
+            if( Rcpp::traits::same_type< CATEGORY, ::Rcpp::traits::r_type_module_object_tag >::value ){
+                method_name += "Rcpp_" ;    
+            }
+            method_name += target ;
+            return method_name ;
+        }
+    }
 
     class CppClass ;
     class CppObject ;
@@ -592,6 +605,19 @@ namespace Rcpp{
 
 #include <Rcpp/module/Module_generated_method.h>
 #include <Rcpp/module/Module_generated_Pointer_method.h>
+        
+        template <typename OUT>
+        self& convert_to( const char* target, OUT (Class::*fun)(void), const char* docstring = 0 ){
+            std::string method_name = internal::get_as_method_name<OUT>(target) ; 
+            method( method_name.c_str() , fun, docstring, &yes ) ;
+            return *this ;
+        }
+        template <typename OUT>
+        self& convert_to( const char* target, OUT (*fun)(Class*), const char* docstring = 0 ){
+            std::string method_name = internal::get_as_method_name<OUT>(target) ; 
+            method( method_name.c_str(), fun, docstring, &yes ) ;
+            return *this ;
+        }
         
         bool has_method( const std::string& m){
             return vec_methods.find(m) != vec_methods.end() ;
