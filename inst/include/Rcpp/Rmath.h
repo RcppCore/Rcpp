@@ -80,6 +80,24 @@ namespace R {
     inline double qnchisq(double p, double df, double ncp, int lt, int lg)  { return ::Rf_qnchisq(p, df, ncp, lt, lg); }	
     inline double rnchisq(double df, double lb)                             { return ::Rf_rnchisq(df, lb); }
 
+    /* F Distibution */
+    inline double df(double x, double df1, double df2, int lg)		{ return ::Rf_df(x, df1, df2, lg); }
+    inline double pf(double x, double df1, double df2, int lt, int lg)	{ return ::Rf_pf(x, df1, df2, lt, lg); }
+    inline double qf(double p, double df1, double df2, int lt, int lg)	{ return ::Rf_qf(p, df1, df2, lt, lg); }
+    inline double rf(double df1, double df2)				{ return ::Rf_rf(df1, df2); }
+
+    /* Student t Distibution */
+    inline double dt(double x, double n, int lg)			{ return ::Rf_dt(x, n, lg); }
+    inline double pt(double x, double n, int lt, int lg)		{ return ::Rf_pt(x, n, lt, lg); }
+    inline double qt(double p, double n, int lt, int lg)		{ return ::Rf_qt(p, n, lt, lg); }
+    inline double rt(double n)						{ return ::Rf_rt(n); }
+
+    /* Binomial Distribution */
+    inline double dbinom(double x, double n, double p, int lg)	  	{ return ::Rf_dbinom(x, n, p, lg); }
+    inline double pbinom(double x, double n, double p, int lt, int lg)  { return ::Rf_pbinom(x, n, p, lt, lg); }
+    inline double qbinom(double p, double n, double m, int lt, int lg)  { return ::Rf_qbinom(p, n, m, lt, lg); }
+    inline double rbinom(double n, double p)				{ return ::Rf_rbinom(n, p); }
+
 }
 
 #endif
