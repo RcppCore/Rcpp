@@ -249,19 +249,6 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
             }
         }
         
-        as_rx <- "^[.]___as___(.+)$"
-        if( length( matches <- grep( as_rx, names(CLASS@methods) ) ) ){
-            for( i in matches ){
-                met <- names(CLASS@methods)[i]
-                to <- sub( as_rx, "\\1", met )
-                converter <- function( from ){}
-                body( converter ) <- substitute( { from$CONVERT() }, 
-                    list( CONVERT = met )
-                )
-                setAs( clname, to, converter, where = where)
-            }
-        }
-
     }
     if(length(classes)) {
         module$refClassGenerators <- generators
@@ -289,6 +276,22 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
     functions <- .Call( Module__functions_names, xp )
     for( fun in functions ){
         storage[[ fun ]] <- .get_Module_function( module, fun, xp )
+        
+        # register as(FROM, TO) methods
+        converter_rx <- "^[.]___converter___(.*)___(.*)$"
+        if( length( matches <- grep( converter_rx, functions ) ) ){
+            for( i in matches ){
+                fun <- functions[i]
+                from <- sub( converter_rx, "\\1", fun )
+                to   <- sub( converter_rx, "\\2", fun )
+                converter <- function( from ){}
+                body( converter ) <- substitute( { CONVERT(from) }, 
+                    list( CONVERT = storage[[fun]] )
+                )
+                setAs( from, to, converter, where = where )
+            }
+        }
+        
     }
 
     assign( "storage", storage, envir = as.environment(module) )
