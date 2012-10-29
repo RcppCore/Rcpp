@@ -1,6 +1,7 @@
 2012-10-29  Romain Francois <romain@r-enthusiasts.com>
 
     * R/Module.R: Taking care of a check warning
+    * include/Rcpp/module/macros.h: adding RCPP_EXPOSED_CLASS_NODECL
 
 2012-10-28  Dirk Eddelbuettel  <edd@debian.org>
 
