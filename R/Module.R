@@ -287,12 +287,6 @@ dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]
 
 method_wrapper <- function( METHOD, where ){
         noargs <- all( METHOD$nargs == 0 ) 
-        if( noargs ){
-            f <- function() NULL
-        } else { 
-            f <- function(...) NULL
-        }
-
         stuff <- list(
             class_pointer = METHOD$class_pointer,
             pointer = METHOD$pointer,
@@ -302,7 +296,10 @@ method_wrapper <- function( METHOD, where ){
             dealWith = dealWith,
             docstring = METHOD$info("")
         )
-                   
+        f <- function(...) NULL
+        if( noargs ){
+            formals(f) <- NULL
+        } 
         
         extCall <- if( noargs ) { 
             if( all( METHOD$void ) ){
