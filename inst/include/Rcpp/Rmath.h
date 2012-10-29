@@ -56,6 +56,29 @@ namespace R {
     inline double logspace_add(double lx, double ly) { return ::Rf_logspace_add(lx, ly); }
     inline double logspace_sub(double lx, double ly) { return ::Rf_logspace_sub(lx, ly); }
 
+    /* Beta Distribution */
+    inline double dbeta(double x, double a, double b, int lg)         { return ::Rf_dbeta(x, a, b, lg); }
+    inline double pbeta(double x, double p, double q, int lt, int lg) { return ::Rf_pbeta(x, p, q, lt, lg); }
+    inline double qbeta(double a, double p, double q, int lt, int lg) { return ::Rf_qbeta(a, p, q, lt, lg); }
+    inline double rbeta(double a, double b)                           { return ::Rf_rbeta(a, b); }
+
+    /* Lognormal Distribution */
+    inline double dlnorm(double x, double ml, double sl, int lg)	 { return ::Rf_dlnorm(x, ml, sl, lg); }
+    inline double plnorm(double x, double ml, double sl, int lt, int lg) { return ::Rf_plnorm(x, ml, sl, lt, lg); }
+    inline double qlnorm(double p, double ml, double sl, int lt, int lg) { return ::Rf_qlnorm(p, ml, sl, lt, lg); }
+    inline double rlnorm(double ml, double sl)                           { return ::Rf_rlnorm(ml, sl); }
+
+    /* Chi-squared Distribution */
+    inline double dchisq(double x, double df, int lg)          { return ::Rf_dchisq(x, df, lg); }
+    inline double pchisq(double x, double df, int lt, int lg)  { return ::Rf_pchisq(x, df, lt, lg); }
+    inline double qchisq(double p, double df, int lt, int lg)  { return ::Rf_qchisq(p, df, lt, lg); }	
+    inline double rchisq(double df)                            { return ::Rf_rchisq(df); }
+
+    /* Non-central Chi-squared Distribution */
+    inline double dnchisq(double x, double df, double ncp, int lg)          { return ::Rf_dnchisq(x, df, ncp, lg); }
+    inline double pnchisq(double x, double df, double ncp, int lt, int lg)  { return ::Rf_pnchisq(x, df, ncp, lt, lg); }
+    inline double qnchisq(double p, double df, double ncp, int lt, int lg)  { return ::Rf_qnchisq(p, df, ncp, lt, lg); }	
+    inline double rnchisq(double df, double lb)                             { return ::Rf_rnchisq(df, lb); }
 
 }
 
