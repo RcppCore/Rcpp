@@ -50,6 +50,26 @@ private:
     std::string message ;                                                      
 } ;
 
+class file_io_error : public std::exception {                                      
+public:                                                                        
+    file_io_error(const std::string& file) throw() : message( std::string("file io error: '") + file + "'" ){} ;
+    file_io_error(int code, const std::string& file) throw() : message( "file io error " + toString(code) + ": '" + file + "'") {} ;
+    file_io_error(const std::string& msg, const std::string& file) throw() : message( msg + ": '" + file + "'") {} ;
+    virtual ~file_io_error() throw(){} ;                                         
+    virtual const char* what() const throw(){ return message.c_str() ; } ;     
+private:                                                                       
+    std::string message ;                                                      
+} ;
+
+class file_not_found : public file_io_error {
+public:
+    file_not_found(const std::string& file) throw() : file_io_error("file not found", file) {}
+};
+
+class file_exists : public file_io_error {
+public:
+    file_exists(const std::string& file) throw() : file_io_error("file already exists", file) {}
+};
 
 #define RCPP_EXCEPTION_CLASS(__CLASS__,__WHAT__)                               \
 class __CLASS__ : public std::exception{                                       \
