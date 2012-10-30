@@ -16,6 +16,7 @@
         * include/Rcpp/as.h: new bare_as to simplify uses of as
         * include/Rcpp/module/Module_generated_Factory.h: using bare_as
         * R/Module.R: promoting the show method
+        * src/Attributes.cpp: remove g++ warning (int != size_t)
 
 2012-10-29  Dirk Eddelbuettel  <edd@debian.org>
 
