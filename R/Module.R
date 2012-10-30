@@ -249,6 +249,11 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
             }
         }
         
+        # promoting show to S4
+        if( any( grepl( "show", names(CLASS@methods) ) ) ){
+            setMethod( "show", clname, function(object) object$show(), where = where )
+        }
+        
     }
     if(length(classes)) {
         module$refClassGenerators <- generators
