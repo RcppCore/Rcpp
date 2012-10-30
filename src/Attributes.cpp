@@ -879,6 +879,14 @@ std::string generateCpp(const SourceFileAttributes& attributes,
     return ostr.str();
 }
 
+// Determine the exported name for a function 
+std::string exportedName(const Attribute& attribute) {   
+    if (!attribute.params().empty())
+        return attribute.params()[0].name();
+    else
+        return attribute.function().name();
+}
+
 // Generate R functions from the passed attributes
 std::string generateRFunctions(const SourceFileAttributes& attributes,
                                const std::string& contextId,
@@ -917,9 +925,7 @@ std::string generateRFunctions(const SourceFileAttributes& attributes,
         std::string args = argsOstr.str();
         
         // determine the function name
-        std::string name = function.name();
-        if (!attribute.params().empty())
-            name = attribute.params()[0].name();
+        std::string name = exportedName(attribute);
             
         // write the function - use contextId to ensure symbol uniqueness
         ostr << name << " <- function(" << args << ") {" 
@@ -1062,16 +1068,19 @@ public:
         rOfs << rCode;
         rOfs.close();
         
-        // look for depends attributes
+        // enumerate exported functions and dependencies
+        exportedFunctions_.clear();
         depends_.clear();
         for (SourceFileAttributes::const_iterator 
           it = sourceAttributes.begin(); it != sourceAttributes.end(); ++it) {
-             if (it->name() == kDependsAttribute) {
+             if (it->name() == kExportAttribute && !it->function().empty()) 
+                exportedFunctions_.push_back(exportedName(*it));
+            
+             else if (it->name() == kDependsAttribute) {
                  for (size_t i = 0; i<it->params().size(); ++i)
                     depends_.push_back(it->params()[i].name());
              }   
         }
-        
     }
     
     const std::string& cppSourcePath() const {
@@ -1102,6 +1111,10 @@ public:
         return buildDirectory_ + fileSep_ + dynlibFilename();
     }
     
+    const std::vector<std::string>& exportedFunctions() const {
+        return exportedFunctions_;
+    }
+    
     const std::vector<std::string>& depends() const { return depends_; };
       
 private:
@@ -1123,9 +1136,58 @@ private:
     std::string buildDirectory_;
     std::string fileSep_;
     std::string dynlibExt_;
+    std::vector<std::string> exportedFunctions_;
     std::vector<std::string> depends_;
 };
 
+// Dynlib cache that allows lookup by either file path or code contents
+class SourceCppDynlibCache {
+  
+public:
+    // Insert into cache by file name
+    void insertFile(const std::string& file, const SourceCppDynlib& dynlib) {
+        Entry entry;
+        entry.file = file;
+        entry.dynlib = dynlib;
+        entries_.push_back(entry);
+    }
+    
+    // Insert into cache by code
+    void insertCode(const std::string& code, const SourceCppDynlib& dynlib) {
+        Entry entry;
+        entry.code = code;
+        entry.dynlib = dynlib;
+        entries_.push_back(entry);
+    }
+
+    // Lookup by file
+    SourceCppDynlib lookupByFile(const std::string& file) {
+        for (std::size_t i = 0; i < entries_.size(); i++) {
+            if (entries_[i].file == file)
+                return entries_[i].dynlib;
+        }
+        
+        return SourceCppDynlib();
+    }
+    
+    // Lookup by code
+    SourceCppDynlib lookupByCode(const std::string& code) {
+        for (std::size_t i = 0; i < entries_.size(); i++) {
+            if (entries_[i].code == code)
+                return entries_[i].dynlib;
+        }
+        
+        return SourceCppDynlib();
+    }
+  
+private:
+    struct Entry {
+        std::string file;
+        std::string code;
+        SourceCppDynlib dynlib;
+    };
+    std::vector<Entry> entries_;
+};
 
 // Class which manages writing of code for compileAttributes
 class ExportsStream {
@@ -1246,16 +1308,21 @@ public:
 
 // Create temporary build directory, generate code as necessary, and return
 // the context required for the sourceCpp function to complete it's work
-RcppExport SEXP sourceCppContext(SEXP sFile, SEXP sPlatform) {
+RcppExport SEXP sourceCppContext(SEXP sFile, SEXP sCode, SEXP sPlatform) {
 BEGIN_RCPP
     // parameters
     std::string file = Rcpp::as<std::string>(sFile);
+    std::string code = sCode != R_NilValue ? Rcpp::as<std::string>(sCode) : "";
     Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
     
     // get dynlib (using cache if possible)
-    static std::map<std::string,SourceCppDynlib> s_dynlibs;
-    SourceCppDynlib dynlib = s_dynlibs[file];
-    
+    static SourceCppDynlibCache s_dynlibCache;
+    SourceCppDynlib dynlib;
+    if (!code.empty())
+        dynlib = s_dynlibCache.lookupByCode(code);
+    else
+        dynlib = s_dynlibCache.lookupByFile(file);
+  
     // check dynlib build state
     bool buildRequired = false;
     
@@ -1263,7 +1330,10 @@ BEGIN_RCPP
     if (dynlib.isEmpty()) {
         buildRequired = true;
         dynlib = SourceCppDynlib(file, platform);
-        s_dynlibs[file] = dynlib;
+        if (!code.empty())
+            s_dynlibCache.insertCode(code, dynlib);
+        else
+            s_dynlibCache.insertFile(file, dynlib);
     }    
         
     // if the cached dynlib is dirty then regenerate the source
@@ -1283,6 +1353,7 @@ BEGIN_RCPP
     context["buildRequired"] = buildRequired;
     context["buildDirectory"] = dynlib.buildDirectory();
     context["generatedCpp"] = dynlib.generatedCpp();
+    context["exportedFunctions"] = dynlib.exportedFunctions();
     context["cppSourceFilename"] = dynlib.cppSourceFilename();
     context["rSourceFilename"] = dynlib.rSourceFilename();
     context["dynlibFilename"] = dynlib.dynlibFilename();
