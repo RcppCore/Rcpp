@@ -49,7 +49,7 @@ class Factory_1 : public Factory_Base<Class>{
 public:
   Factory_1( Class* (*fun)(U0) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
-      return ptr_fun( as<U0>(args[0]) ) ;
+      return ptr_fun( bare_as<U0>(args[0]) ) ;
   }
   virtual int nargs(){ return 1 ; }
   virtual void signature(std::string& s, const std::string& class_name ){
@@ -64,8 +64,8 @@ public:
   Factory_2( Class* (*fun)(U0, U1) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
       return ptr_fun( 
-          as<U0>(args[0]), 
-          as<U1>(args[1]) 
+          bare_as<U0>(args[0]), 
+          bare_as<U1>(args[1]) 
           ) ;
   }
   virtual int nargs(){ return 2 ; }
@@ -81,9 +81,9 @@ public:
   Factory_3( Class* (*fun)(U0, U1, U2) ) :ptr_fun(fun){} 
   virtual Class* get_new( SEXP* args, int nargs ){
       return ptr_fun( 
-          as<U0>(args[0]), 
-          as<U1>(args[1]), 
-          as<U2>(args[2]) 
+          bare_as<U0>(args[0]), 
+          bare_as<U1>(args[1]), 
+          bare_as<U2>(args[2]) 
           ) ;
   }
   virtual int nargs(){ return 3 ; }
@@ -99,10 +99,10 @@ public:
   Factory_4( Class* (*fun)(U0, U1, U2, U3) ) :ptr_fun(fun){} 
   virtual Class* get_new( SEXP* args, int nargs ){
       return ptr_fun( 
-          as<U0>(args[0]), 
-          as<U1>(args[1]), 
-          as<U2>(args[2]), 
-          as<U3>(args[3]) 
+          bare_as<U0>(args[0]), 
+          bare_as<U1>(args[1]), 
+          bare_as<U2>(args[2]), 
+          bare_as<U3>(args[3]) 
           ) ;
   }
   virtual int nargs(){ return 4 ; }
@@ -118,11 +118,11 @@ public:
   Factory_5( Class* (*fun)(U0, U1, U2, U3, U4) ) :ptr_fun(fun){} 
   virtual Class* get_new( SEXP* args, int nargs ){
       return ptr_fun( 
-          as<U0>(args[0]), 
-          as<U1>(args[1]), 
-          as<U2>(args[2]), 
-          as<U3>(args[3]), 
-          as<U4>(args[4]) 
+          bare_as<U0>(args[0]), 
+          bare_as<U1>(args[1]), 
+          bare_as<U2>(args[2]), 
+          bare_as<U3>(args[3]), 
+          bare_as<U4>(args[4]) 
           ) ;
   }
   virtual int nargs(){ return 5 ; }
@@ -138,12 +138,12 @@ public:
   Factory_6( Class* (*fun)(U0, U1, U2, U3, U4, U5) ) :ptr_fun(fun){} 
   virtual Class* get_new( SEXP* args, int nargs ){
       return ptr_fun( 
-          as<U0>(args[0]), 
-          as<U1>(args[1]), 
-          as<U2>(args[2]), 
-          as<U3>(args[3]), 
-          as<U4>(args[4]),
-          as<U5>(args[5]) 
+          bare_as<U0>(args[0]), 
+          bare_as<U1>(args[1]), 
+          bare_as<U2>(args[2]), 
+          bare_as<U3>(args[3]), 
+          bare_as<U4>(args[4]),
+          bare_as<U5>(args[5]) 
           ) ;
   }
   virtual int nargs(){ return 6 ; }
@@ -159,13 +159,13 @@ public:
   Factory_7( Class* (*fun)(U0, U1, U2, U3, U4, U5, U6) ) :ptr_fun(fun){} 
   virtual Class* get_new( SEXP* args, int nargs ){
       return ptr_fun( 
-          as<U0>(args[0]), 
-          as<U1>(args[1]), 
-          as<U2>(args[2]), 
-          as<U3>(args[3]), 
-          as<U4>(args[4]),
-          as<U5>(args[5]),
-          as<U6>(args[6]) 
+          bare_as<U0>(args[0]), 
+          bare_as<U1>(args[1]), 
+          bare_as<U2>(args[2]), 
+          bare_as<U3>(args[3]), 
+          bare_as<U4>(args[4]),
+          bare_as<U5>(args[5]),
+          bare_as<U6>(args[6]) 
           ) ;
   }
   virtual int nargs(){ return 7 ; }
