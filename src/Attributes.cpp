@@ -2,7 +2,7 @@
 //
 // Attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
-// Copyright (C) 2010 - 2012  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 JJ Allaire, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
