@@ -8,6 +8,9 @@
     [ TODO -- Lots more Rcpp modules work to be described ? ]
     \item Provide a namespace 'R' for the standalone Rmath library so
     that Rcpp users can access those functions too 
+    \item Added new functions sourceCpp() and compileAttributes()
+    that use C++11 style attributes (embedded in comments) to 
+    perform automatic generation of boilerplate marshaling code
   }
 }
 

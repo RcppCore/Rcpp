@@ -1,0 +1,44 @@
+\name{compileAttributes}
+\alias{compileAttributes}
+\title{
+Compile Rcpp Attributes for a Package
+}
+\description{
+Scan the source files within a package for attributes and generate code as required. Generates the bindings required to call C++ functions from R for functions adorned with the \code{Rcpp::export} attribute.
+}
+\usage{
+compileAttributes(pkgdir = ".", verbose = getOption("verbose"))
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{pkgdir}{
+    Directory containing the package to compile attributes for (defaults to the current working directory)
+}
+  \item{verbose}{
+    \code{TRUE} to print detailed information about generated code to the console
+}
+}
+\details{
+    The source files in the package directory given by \code{pkgdir} are scanned for attributes and code is generated as required based on the attributes. 
+    
+    For C++ functions adorned with the \code{Rcpp::export} attribute, the C++ and R source code required to bind to the function from R is generated and added (respectively) to \code{src/RcppExports.cpp} or \code{R/RcppExports.R}.
+    
+    In order to access the declarations for custom \code{Rcpp::as} and \code{Rcpp::wrap} handlers the \code{compileAttributes} function will also call any \link[inline:plugins]{inline plugins} available for packages listed in the \code{LinkingTo} field of the \code{DESCRIPTION} file.
+}
+\value{
+    Returns \code{TRUE} if generated code was updated, \code{FALSE} if no updates were required.
+}
+
+\seealso{
+\code{\link[=exportAttribute]{Rcpp::export}}
+}
+
+
+\examples{
+\dontrun{
+
+# Compile attributes for package in the current working dir
+compileAttributes()
+}
+}
+
