@@ -433,7 +433,7 @@ private:
 
     // Parse an attribute from the vector returned by regmatches
     Attribute parseAttribute(const std::vector<std::string>& match,
-                             size_t lineNumber) {
+                             int lineNumber) {
             
         // Attribute name
         std::string name = match[1];
