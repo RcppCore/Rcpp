@@ -1,3 +1,8 @@
+2012-10-30  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/as.h: new bare_as to simplify uses of as
+        * include/Rcpp/module/Module_generated_Factory.h: using bare_as
+
 2012-10-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Rmath.h: More Rmath functions
