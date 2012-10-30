@@ -4,7 +4,7 @@
 Source C++ Code from a File
 }
 \description{
-\code{sourceCpp} parses the specified C++ file and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. The C++ file is then built into a shared library and it's exported functions are made available as R functions in the specified environment.
+\code{sourceCpp} parses the specified C++ file and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. The C++ file is then built into a shared library and its exported functions are made available as R functions in the specified environment.
 }
 \usage{
 sourceCpp(file, local = FALSE, rebuild = FALSE, 
