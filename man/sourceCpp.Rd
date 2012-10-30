@@ -4,16 +4,19 @@
 Source C++ Code from a File
 }
 \description{
-\code{sourceCpp} parses the specified C++ file and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. The C++ file is then built into a shared library and its exported functions are made available as R functions in the specified environment.
+\code{sourceCpp} parses the specified C++ file or source code and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. A shared library is then built and its exported functions are made available as R functions in the specified environment.
 }
 \usage{
-sourceCpp(file, local = FALSE, rebuild = FALSE, 
+sourceCpp(file, code = NULL, local = FALSE, rebuild = FALSE, 
           show.output = verbose, verbose = getOption("verbose"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{file}{
-    A character string giving the pathname of a file.
+    A character string giving the pathname of a file
+}
+  \item{code}{
+    A character string with C++ source code to compile
 }
   \item{local}{
     \code{TRUE}, \code{FALSE} or an environment, determining where the R functions will be made available. \code{FALSE} (the default) corresponds to the user's workspace (the global environment) and \code{TRUE} to the environment from which source is called
@@ -29,9 +32,17 @@ sourceCpp(file, local = FALSE, rebuild = FALSE,
 }
 }
 \details{
+    If the \code{code} parameter is provided then the \code{file} parameter is ignored.
+
     Functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute must have return types that are compatible with \code{Rcpp::wrap} and parameter types that are compatible with \code{Rcpp::as}.
     
-    If the source file has compilation dependencies on other packages (e.g. \pkg{Matrix}, \pkg{RcppArmadillo}) then an \code{\link[=dependsAttribute]{Rcpp::depends}} attribute should be added to the file naming these dependencies.
+    If the code has compilation dependencies on other packages (e.g. \pkg{Matrix}, \pkg{RcppArmadillo}) then an \code{\link[=dependsAttribute]{Rcpp::depends}} attribute should be added naming these dependencies.
+    
+    The \code{sourceCpp} function will not rebuild the shared library if the underlying code has not changed since the last compilation.
+}
+
+\value{
+    Returns (invisibly) a character vector with the names of the R functions that were sourced into the specified environment.
 }
 
 \seealso{
@@ -41,6 +52,18 @@ sourceCpp(file, local = FALSE, rebuild = FALSE,
 \examples{
 \dontrun{
 
-sourceCpp("transform.cpp")
+sourceCpp("fibonacci.cpp")
+
+sourceCpp(code='
+  #include <Rcpp.h>
+
+  // [[Rcpp::export]]
+  int fibonacci(const int x) {
+    if (x == 0) return(0);
+    if (x == 1) return(1);
+    return (fibonacci(x - 1)) + fibonacci(x - 2);
+  }'
+)
+
 }
 }

@@ -17,15 +17,24 @@
 
 
 # Source C++ code from a file
-sourceCpp <- function(file, 
+sourceCpp <- function(file = "",
+                      code = NULL,
                       local = FALSE, 
                       rebuild = FALSE,
                       show.output = verbose,
                       verbose = getOption("verbose")) {
     
+    # resolve code into a file if necessary
+    if (!missing(code)) {
+        file <- tempfile(fileext = ".cpp")
+        con <- file(file, open = "w")
+        writeLines(code, con)
+        close(con)
+    }
+    
     # get the context (does code generation as necessary)
     file <- normalizePath(file, winslash = "/")
-    context <- .Call("sourceCppContext", PACKAGE="Rcpp", file, .Platform)
+    context <- .Call("sourceCppContext", PACKAGE="Rcpp", file, code, .Platform)
      
     # perform a build if necessary
     if (context$buildRequired || rebuild) {
@@ -114,8 +123,38 @@ sourceCpp <- function(file,
     }
     
     # source the R script
-    scriptPath <- file.path(context$buildDirectory, context$rSourceFilename)    
-    source(scriptPath, local)
+    scriptPath <- file.path(context$buildDirectory, context$rSourceFilename) 
+    if (is.environment(local))
+        source(scriptPath, local = local)
+    else if (local)
+        source(scriptPath, local = parent.frame())
+    else
+        source(scriptPath, local = FALSE)
+    
+    # return (invisibly) a list of exported functions
+    invisible(context$exportedFunctions)
+}
+
+# Define a single C++ function.
+cppFunction <- function(code) {
+    
+    # add scaffolding 
+    code <- paste("#include <Rcpp.h>", "using namespace Rcpp;",
+                  "// [[Rcpp::export]]", code, sep="\n")
+    
+    # source cpp into environment we create to hold the function
+    env <- new.env()
+    exported <- sourceCpp(code = code, local = env)
+    
+    # verify that a single function was exported and return it
+    if (length(exported) == 0)
+        stop("No function definition found")
+    else if (length(exported) > 1)
+        stop("More than one function definition")
+    else {
+        functionName <- exported[[1]]
+        get(functionName, env)
+    }
 }
 
 # Scan the source files within a package for attributes and generate code
