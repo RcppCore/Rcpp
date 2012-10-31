@@ -1,6 +1,6 @@
 2012-10-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Rmath.h: More Rmath functions
+	* inst/include/Rcpp/Rmath.h: Finalised adding Rmath functions
 
 2012-10-30  JJ Allaire <jj@rstudio.org>
 
