@@ -250,6 +250,12 @@ namespace attributes_parser {
                         if (*(namespaceLine.rbegin()) == ';')
                             namespaces_.push_back(namespaceLine);
                     }
+                    
+                    // look for roxygen comments
+                    else if (line.find("//'") == 0) {
+                        std::string roxLine = "#" + line.substr(2);
+                        roxygenBuffer_.push_back(roxLine);
+                    }
                 } 
             }
         }       
@@ -300,7 +306,8 @@ namespace attributes_parser {
         }  
         
         // Return attribute
-        Attribute attribute = Attribute(name, params, function);
+        Attribute attribute = Attribute(name, params, function, roxygenBuffer_);
+        roxygenBuffer_.clear();
         return attribute;
     }
     
