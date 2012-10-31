@@ -98,6 +98,57 @@ namespace R {
     inline double qbinom(double p, double n, double m, int lt, int lg)  { return ::Rf_qbinom(p, n, m, lt, lg); }
     inline double rbinom(double n, double p)				{ return ::Rf_rbinom(n, p); }
 
+    /* Multnomial Distribution */
+    //inline void rmultinom(int n, double* prob, int k, int* rn)	{ return ::Rf_rmultinom(n, prob, k, rn); }
+
+    /* Cauchy Distribution */
+    inline double dcauchy(double x, double lc, double sl, int lg)		{ return ::Rf_dcauchy(x, lc, sl, lg); }
+    inline double pcauchy(double x, double lc, double sl, int lt, int lg)	{ return ::Rf_pcauchy(x, lc, sl, lt, lg); }
+    inline double qcauchy(double p, double lc, double sl, int lt, int lg)	{ return ::Rf_qcauchy(p, lc, sl, lt, lg); }
+    inline double rcauchy(double lc, double sl)					{ return ::Rf_rcauchy(lc, sl); }
+
+    /* Exponential Distribution */
+    inline double dexp(double x, double sl, int lg)		{ return ::Rf_dexp(x, sl, lg); }
+    inline double pexp(double x, double sl, int lt, int lg)	{ return ::Rf_pexp(x, sl, lt, lg); }
+    inline double qexp(double p, double sl, int lt, int lg)	{ return ::Rf_qexp(p, sl, lt, lg); }
+    inline double rexp(double sl)				{ return ::Rf_rexp(sl); }
+
+    /* Geometric Distribution */
+    inline double dgeom(double x, double p, int lg)		{ return ::Rf_dgeom(x, p, lg); }
+    inline double pgeom(double x, double p, int lt, int lg)	{ return ::Rf_pgeom(x, p, lt, lg); }
+    inline double qgeom(double p, double pb, int lt, int lg)	{ return ::Rf_qgeom(p, pb, lt, lg); }
+    inline double rgeom(double p)				{ return ::Rf_rgeom(p); }
+
+    /* Hypergeometric Distibution */
+    inline double dhyper(double x, double r, double b, double n, int lg)		{ return ::Rf_dhyper(x, r, b, n, lg); }
+    inline double phyper(double x, double r, double b, double n, int lt, int lg)	{ return ::Rf_phyper(x, r, b, n, lt, lg); }
+    inline double qhyper(double p, double r, double b, double n, int lt, int lg)	{ return ::Rf_qhyper(p, r, b, n, lt, lg); }
+    inline double rhyper(double r, double b, double n)					{ return ::Rf_rhyper(r, b, n); }
+
+    /* Negative Binomial Distribution */
+    inline double dnbinom(double x, double sz, double pb, int lg)		{ return ::Rf_dnbinom(x, sz, pb, lg); }
+    inline double pnbinom(double x, double sz, double pb, int lt, int lg)	{ return ::Rf_pnbinom(x, sz, pb, lt, lg); }
+    inline double qnbinom(double p, double sz, double pb, int lt, int lg)	{ return ::Rf_qnbinom(p, sz, pb, lt, lg); }
+    inline double rnbinom(double sz, double pb)					{ return ::Rf_rnbinom(sz, pb); }
+
+    inline double dnbinom_mu(double x, double sz, double mu, int lg)		{ return ::Rf_dnbinom(x, sz, mu, lg); }
+    inline double pnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_pnbinom(x, sz, mu, lt, lg); }
+    inline double qnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_qnbinom(x, sz, mu, lt, lg); }
+    inline double rnbinom_mu(double sz, double mu)				{ return ::Rf_rnbinom(sz, mu); }
+
+    /* Poisson Distribution */
+    inline double dpois(double x, double lb, int lg)		{ return ::Rf_dpois(x, lb, lg); }
+    inline double ppois(double x, double lb, int lt, int lg)	{ return ::Rf_ppois(x, lb, lt, lg); }
+    inline double qpois(double p, double lb, int lt, int lg)	{ return ::Rf_qpois(p, lb, lt, lg); }
+    inline double rpois(double mu)				{ return ::Rf_rpois(mu); }
+
+    /* Weibull Distribution */
+    inline double dweibull(double x, double sh, double sl, int lg)		{ return ::Rf_dweibull(x, sh, sl, lg); }
+    inline double pweibull(double x, double sh, double sl, int lt, int lg)	{ return ::Rf_pweibull(x, sh, sl, lt, lg); }
+    inline double qweibull(double p, double sh, double sl, int lt, int lg)	{ return ::Rf_qweibull(p, sh, sl, lt, lg); }
+    inline double rweibull(double sh, double sl)				{ return ::Rf_rweibull(sh, sl); }
+
+
 }
 
 #endif
