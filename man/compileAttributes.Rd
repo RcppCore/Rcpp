@@ -12,10 +12,10 @@ compileAttributes(pkgdir = ".", verbose = getOption("verbose"))
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{pkgdir}{
-    Directory containing the package to compile attributes for (defaults to the current working directory)
+    Directory containing the package to compile attributes for (defaults to the current working directory).
 }
   \item{verbose}{
-    \code{TRUE} to print detailed information about generated code to the console
+    \code{TRUE} to print detailed information about generated code to the console.
 }
 }
 \details{
