@@ -16,22 +16,19 @@ sourceCpp(file, code = NULL, envir = globalenv(), rebuild = FALSE,
     A character string giving the pathname of a file
 }
   \item{code}{
-    A character string with C++ source code to compile
+    A charcter string with source code. If supplied, the code is taken from this string instead of a file. 
 }
   \item{envir}{
-    Environment where the R functions should be made available
+    Environment where the R functions should be made available.
 }
   \item{rebuild}{
-    Force a rebuild of the shared library by passing \code{--preclean} to \code{R CMD SHLIB} 
+    Force a rebuild of the shared library.
 }
   \item{show.output}{
-    \code{TRUE} to print \code{R CMD SHLIB} output to the console
+    \code{TRUE} to print \code{R CMD SHLIB} output to the console.
 }
   \item{verbose}{
-    \code{TRUE} to print detailed information about generated code to the console
-}
-  \item{code}{
-    Code. If supplied, the code is taken from this string instead of a file.  
+    \code{TRUE} to print detailed information about generated code to the console.
 }
 }
 \details{

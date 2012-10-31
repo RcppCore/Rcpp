@@ -1,11 +1,15 @@
 2012-10-31  JJ Allaire <jj@rstudio.org>
 
-    * R/Attributes.R: change 'local' param to (more explicit) 'envir'
-    * src/Attributes.cpp: factored parser into it's own file; eliminated 
-    tranposition of roxygen comments.
-    * src/AttributesParser.h: attributes parser header
-    * src/AttributesParser.cpp: attributes parser implementation
-    * man/source.Cpp.Rd: documentation updates
+	* R/Attributes.R: add cppFunction for inline-style definitions; 
+	change 'local' param to (more clear and explicit) 'envir' param.
+	* src/Attributes.cpp: factored parser into it's own file; eliminated 
+	tranposition of roxygen comments.
+	* src/AttributesParser.h: attributes parser header
+	* src/AttributesParser.cpp: attributes parser implementation
+	* man/sourceCpp.Rd: documentation updates
+	* man/compileAttributes.Rd: documentation updates
+	* man/cppFunction.Rd: documentation for cppFunction
+	* NAMESPACE: export for cppFunction 
 
 2012-10-31  Romain Francois <romain@r-enthusiasts.com>
 
