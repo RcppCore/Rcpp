@@ -435,6 +435,12 @@ namespace Rcpp{
 		END_RCPP
 	}
 	
+	class_Base* Module::get_class_pointer(const std::string& cl){
+        CLASS_MAP::iterator it = classes.find(cl) ;
+        if( it == classes.end() ) throw std::range_error( "no such class" ) ;
+        return it->second ;	
+	}
+	
 	namespace internal{
 	    void* as_module_object_internal(SEXP obj){
 	        Environment env(obj) ;
