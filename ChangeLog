@@ -1,3 +1,12 @@
+2012-10-31  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/module/class.h: factored out of Module.h which started to 
+        be too big. class_ gains a derives<Parent>( "Parent" ) for so that the 
+        class inherits method that were exposed by its parent. 
+        * include/Rcpp/Module.h: template class CppInheritedMethod for implementing
+        inherited method
+        * src/Module.cpp: get_class_pointer implementation
+        
 2012-10-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Rmath.h: Finalised adding Rmath functions
