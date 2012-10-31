@@ -7,7 +7,7 @@ Source C++ Code from a File
 \code{sourceCpp} parses the specified C++ file or source code and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. A shared library is then built and its exported functions are made available as R functions in the specified environment.
 }
 \usage{
-sourceCpp(file, code = NULL, local = FALSE, rebuild = FALSE, 
+sourceCpp(file, code = NULL, envir = globalenv(), rebuild = FALSE, 
           show.output = verbose, verbose = getOption("verbose"), code)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -18,8 +18,8 @@ sourceCpp(file, code = NULL, local = FALSE, rebuild = FALSE,
   \item{code}{
     A character string with C++ source code to compile
 }
-  \item{local}{
-    \code{TRUE}, \code{FALSE} or an environment, determining where the R functions will be made available. \code{FALSE} (the default) corresponds to the user's workspace (the global environment) and \code{TRUE} to the environment from which source is called
+  \item{envir}{
+    Environment where the R functions should be made available
 }
   \item{rebuild}{
     Force a rebuild of the shared library by passing \code{--preclean} to \code{R CMD SHLIB} 

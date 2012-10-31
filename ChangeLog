@@ -1,9 +1,11 @@
 2012-10-30  JJ Allaire <jj@rstudio.org>
 
+    * R/Attributes.R: change 'local' param to (more explicit) 'envir'
     * src/Attributes.cpp: factored parser into it's own file; eliminated 
     tranposition of roxygen comments.
     * src/AttributesParser.h: attributes parser header
     * src/AttributesParser.cpp: attributes parser implementation
+    * man/source.Cpp.Rd: documentation updates
 
 2012-10-31  Romain Francois <romain@r-enthusiasts.com>
 
