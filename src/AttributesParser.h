@@ -116,8 +116,9 @@ namespace attributes_parser {
         Attribute() {}
         Attribute(const std::string& name, 
                   const std::vector<Param>& params,
-                  const Function& function)
-            : name_(name), params_(params), function_(function)
+                  const Function& function,
+                  const std::vector<std::string>& roxygen)
+            : name_(name), params_(params), function_(function), roxygen_(roxygen)
         {
         }
         
@@ -135,10 +136,13 @@ namespace attributes_parser {
         
         const Function& function() const { return function_; }
         
+        const std::vector<std::string>& roxygen() const { return roxygen_; }
+        
     private:
         std::string name_;
         std::vector<Param> params_;
         Function function_;
+        std::vector<std::string> roxygen_;
     };
 
     // Operator << for parsed types
@@ -220,6 +224,7 @@ namespace attributes_parser {
         CharacterVector lines_;
         std::vector<Attribute> attributes_;
         std::vector<std::string> namespaces_;
+        std::vector<std::string> roxygenBuffer_;
     };
 
 } // namespace attributes_parser

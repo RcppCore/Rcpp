@@ -4,8 +4,7 @@
 	change 'local' param to (more clear and explicit) 'envir' param;
 	change 'show.output' param to 'showOutput'; add parameter to 
 	onBuild hook to indicate if the source was from a 'code' parameter
-	* src/Attributes.cpp: factored parser into it's own file; eliminated 
-	tranposition of roxygen comments.
+	* src/Attributes.cpp: factored parser into it's own file
 	* src/AttributesParser.h: attributes parser header
 	* src/AttributesParser.cpp: attributes parser implementation
 	* man/sourceCpp.Rd: documentation updates
