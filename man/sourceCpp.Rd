@@ -8,7 +8,7 @@ Source C++ Code from a File
 }
 \usage{
 sourceCpp(file, code = NULL, local = FALSE, rebuild = FALSE, 
-          show.output = verbose, verbose = getOption("verbose"))
+          show.output = verbose, verbose = getOption("verbose"), code)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,6 +29,9 @@ sourceCpp(file, code = NULL, local = FALSE, rebuild = FALSE,
 }
   \item{verbose}{
     \code{TRUE} to print detailed information about generated code to the console
+}
+  \item{code}{
+    Code. If supplied, the code is taken from this string instead of a file.  
 }
 }
 \details{
