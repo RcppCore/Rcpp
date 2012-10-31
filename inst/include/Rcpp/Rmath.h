@@ -99,7 +99,7 @@ namespace R {
     inline double rbinom(double n, double p)				{ return ::Rf_rbinom(n, p); }
 
     /* Multnomial Distribution */
-    //inline void rmultinom(int n, double* prob, int k, int* rn)	{ return ::Rf_rmultinom(n, prob, k, rn); }
+    inline void rmultinom(int n, double* prob, int k, int* rn)		{ return ::rmultinom(n, prob, k, rn); }
 
     /* Cauchy Distribution */
     inline double dcauchy(double x, double lc, double sl, int lg)		{ return ::Rf_dcauchy(x, lc, sl, lg); }
@@ -148,7 +148,92 @@ namespace R {
     inline double qweibull(double p, double sh, double sl, int lt, int lg)	{ return ::Rf_qweibull(p, sh, sl, lt, lg); }
     inline double rweibull(double sh, double sl)				{ return ::Rf_rweibull(sh, sl); }
 
+    /* Logistic Distribution */
+    inline double dlogis(double x, double lc, double sl, int lg)		{ return ::Rf_dlogis(x, lc, sl, lg); }
+    inline double plogis(double x, double lc, double sl, int lt, int lg)	{ return ::Rf_plogis(x, lc, sl, lt, lg); }
+    inline double qlogis(double p, double lc, double sl, int lt, int lg)	{ return ::Rf_qlogis(p, lc, sl, lt, lg); }
+    inline double rlogis(double lc, double sl)					{ return ::Rf_rlogis(lc, sl); }
 
+    /* Non-central Beta Distribution */
+    inline double dnbeta(double x, double a, double b, double ncp, int lg)		{ return ::Rf_dnbeta(x, a, b, ncp, lg); }
+    inline double pnbeta(double x, double a, double b, double ncp, int lt, int lg)	{ return ::Rf_pnbeta(x, a, b, ncp, lt, lg); }
+    inline double qnbeta(double p, double a, double b, double ncp, int lt, int lg)	{ return ::Rf_qnbeta(p, a, b, ncp, lt, lg); }
+    inline double rnbeta(double a, double b, double np)					{ return ::Rf_rnbeta(a, b, np); }
+
+    /* Non-central F Distribution */
+    inline double dnf(double x, double df1, double df2, double ncp, int lg)		{ return ::Rf_dnf(x, df1, df2, ncp, lg); }
+    inline double pnf(double x, double df1, double df2, double ncp, int lt, int lg)	{ return ::Rf_pnf(x, df1, df2, ncp, lt, lg); }
+    inline double qnf(double p, double df1, double df2, double ncp, int lt, int lg)	{ return ::Rf_qnf(p, df1, df2, ncp, lt, lg); }
+
+    /* Non-central Student t Distribution */
+    inline double dnt(double x, double df, double ncp, int lg)		{ return ::Rf_dnt(x, df, ncp, lg); }
+    inline double pnt(double x, double df, double ncp, int lt, int lg)	{ return ::Rf_pnt(x, df, ncp, lt, lg); }
+    inline double qnt(double p, double df, double ncp, int lt, int lg)	{ return ::Rf_qnt(p, df, ncp, lt, lg); }
+
+    /* Studentized Range Distribution */
+    inline double ptukey(double q, double rr, double cc, double df, int lt, int lg)	{ return ::Rf_ptukey(q, rr, cc, df, lt, lg); }
+    inline double qtukey(double p, double rr, double cc, double df, int lt, int lg)	{ return ::Rf_qtukey(p, rr, cc, df, lt, lg); }
+
+    /* Wilcoxon Rank Sum Distribution */
+    inline double dwilcox(double x, double m, double n, int lg)		{ return ::Rf_dwilcox(x, m, n, lg); }
+    inline double pwilcox(double q, double m, double n, int lt, int lg)	{ return ::Rf_pwilcox(q, m, n, lt, lg); }
+    inline double qwilcox(double x, double m, double n, int lt, int lg)	{ return ::Rf_qwilcox(x, m, n, lt, lg); }
+    inline double rwilcox(double m, double n)				{ return ::Rf_rwilcox(m, n); }
+
+    /* Wilcoxon Signed Rank Distribution */
+    inline double dsignrank(double x, double n, int lg)			{ return ::Rf_dsignrank(x, n, lg); }
+    inline double psignrank(double x, double n, int lt, int lg)		{ return ::Rf_psignrank(x, n, lt, lg); }
+    inline double qsignrank(double x, double n, int lt, int lg)		{ return ::Rf_qsignrank(x, n, lt, lg); }
+    inline double rsignrank(double n)					{ return ::Rf_rsignrank(n); }
+
+    /* Gamma and Related Functions */
+    inline double gammafn(double x)			{ return ::Rf_gammafn(x); }
+    inline double lgammafn(double x)			{ return ::Rf_lgammafn(x); }
+    inline double lgammafn_sign(double x, int *sgn)	{ return ::Rf_lgammafn_sign(x, sgn); }
+    inline void   dpsifn(double x, int n, int kode, int m, double *ans, int *nz, int *ierr)	{ return ::Rf_dpsifn(x, n, kode, m, ans, nz, ierr); }
+    inline double psigamma(double x, double deriv)	{ return ::Rf_psigamma(x, deriv); }
+    inline double digamma(double x)	{ return ::Rf_digamma(x); }
+    inline double trigamma(double x)	{ return ::Rf_trigamma(x); }
+    inline double tetragamma(double x)	{ return ::Rf_tetragamma(x); }
+    inline double pentagamma(double x)	{ return ::Rf_pentagamma(x); }
+    
+    inline double beta(double a, double b)	{ return ::Rf_beta(a, b); }
+    inline double lbeta(double a, double b)	{ return ::Rf_lbeta(a, b); }
+
+    inline double choose(double n, double k)	{ return ::Rf_choose(n, k); }
+    inline double lchoose(double n, double k)	{ return ::Rf_lchoose(n, k); }
+
+    /* Bessel Functions */
+    inline double bessel_i(double x, double al, double ex)	{ return ::Rf_bessel_i(x, al, ex); }
+    inline double bessel_j(double x, double al)			{ return ::Rf_bessel_j(x, al); }
+    inline double bessel_k(double x, double al, double ex)	{ return ::Rf_bessel_k(x, al, ex); }
+    inline double bessel_y(double x, double al)			{ return ::Rf_bessel_y(x, al); }
+    inline double bessel_i_ex(double x, double al, double ex, double *bi)	{ return ::Rf_bessel_i_ex(x, al, ex, bi); }
+    inline double bessel_j_ex(double x, double al, double *bj)			{ return ::Rf_bessel_j_ex(x, al, bj); }
+    inline double bessel_k_ex(double x, double al, double ex, double *bk)	{ return ::Rf_bessel_k_ex(x, al, ex, bk); }
+    inline double bessel_y_ex(double x, double al, double *by)			{ return ::Rf_bessel_y_ex(x, al, by); }
+
+    /* General Support Functions */
+#ifndef HAVE_HYPOT
+    inline double hypot(double a, double b)	{ return ::Rf_hypot(a, b); }
+#endif
+    inline double pythag(double a, double b)	{ return ::Rf_pythag(a, b); }
+#ifndef HAVE_EXPM1
+    inline double expm1(double x); /* = exp(x)-1 {care for small x} */	{ return ::Rf_expm1(x); }
+#endif
+#ifndef HAVE_LOG1P
+    inline double log1p(double x); /* = log(1+x) {care for small x} */ { return ::Rf_log1p(x); }
+#endif
+    inline int imax2(int x, int y)		{ return ::Rf_imax2(x, y); }
+    inline int imin2(int x, int y)		{ return ::Rf_imin2(x, y); }
+    inline double fmax2(double x, double y)	{ return ::Rf_fmax2(x, y); }
+    inline double fmin2(double x, double y)	{ return ::Rf_fmin2(x, y); }
+    inline double sign(double x)		{ return ::Rf_sign(x); }
+    inline double fprec(double x, double dg)	{ return ::Rf_fprec(x, dg); }
+    inline double fround(double x, double dg)	{ return ::Rf_fround(x, dg); }
+    inline double fsign(double x, double y)	{ return ::Rf_fsign(x, y); }
+    inline double ftrunc(double x)		{ return ::Rf_ftrunc(x); }
+    
 }
 
 #endif
