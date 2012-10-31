@@ -1,15 +1,19 @@
+2012-10-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Rmath.h: More Rmath functions
+
 2012-10-30  JJ Allaire <jj@rstudio.org>
 
-    * R/Attributes.R: new functions sourceCpp and compileAttributes
-    that use C++11 style attributes (embedded in comments) to 
-    perform automatic generation of boilerplate marshaling code
-    * src/Attributes.cpp: support functions for attribute handling
-    * include/Rcpp/exceptions.h: file io exception classes
-    * man/sourceCpp.Rd: documentation for sourceCpp
-    * man/compileAttributes.Rd: documentation for compileAttributes
-    * man/exportAttriute.Rd: documentation for export attribute
-    * man/dependsAttribute.Rd: documentation for depends attribute
-    * NAMESPACE: exports for sourceCpp and compileAttributes
+	* R/Attributes.R: new functions sourceCpp and compileAttributes that
+	use C++11 style attributes (embedded in comments) to perform
+	automatic generation of boilerplate marshaling code
+	* src/Attributes.cpp: support functions for attribute handling
+	* include/Rcpp/exceptions.h: file io exception classes
+	* man/sourceCpp.Rd: documentation for sourceCpp
+	* man/compileAttributes.Rd: documentation for compileAttributes
+	* man/exportAttriute.Rd: documentation for export attribute
+	* man/dependsAttribute.Rd: documentation for depends attribute
+	* NAMESPACE: exports for sourceCpp and compileAttributes
 
 2012-10-30  Romain Francois <romain@r-enthusiasts.com>
 
