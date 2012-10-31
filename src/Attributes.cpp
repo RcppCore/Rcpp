@@ -195,6 +195,10 @@ namespace {
             const Function& function = attribute.function();
             if (function.empty())
                 continue;
+                
+            // print roxygen lines
+            for (size_t i=0; i<attribute.roxygen().size(); i++)
+                ostr << attribute.roxygen()[i] << std::endl;
                     
             // build the parameter list 
             std::ostringstream argsOstr;
