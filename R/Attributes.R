@@ -19,7 +19,7 @@
 # Source C++ code from a file
 sourceCpp <- function(file = "",
                       code = NULL,
-                      local = FALSE, 
+                      envir = globalenv(), 
                       rebuild = FALSE,
                       show.output = verbose,
                       verbose = getOption("verbose")) {
@@ -124,12 +124,7 @@ sourceCpp <- function(file = "",
     
     # source the R script
     scriptPath <- file.path(context$buildDirectory, context$rSourceFilename) 
-    if (is.environment(local))
-        source(scriptPath, local = local)
-    else if (local)
-        source(scriptPath, local = parent.frame())
-    else
-        source(scriptPath, local = FALSE)
+    source(scriptPath, local = envir)
     
     # return (invisibly) a list of exported functions
     invisible(context$exportedFunctions)
@@ -143,8 +138,8 @@ cppFunction <- function(code) {
                   "// [[Rcpp::export]]", code, sep="\n")
     
     # source cpp into environment we create to hold the function
-    env <- new.env()
-    exported <- sourceCpp(code = code, local = env)
+    envir <- new.env()
+    exported <- sourceCpp(code = code, envir = envir)
     
     # verify that a single function was exported and return it
     if (length(exported) == 0)
@@ -153,7 +148,7 @@ cppFunction <- function(code) {
         stop("More than one function definition")
     else {
         functionName <- exported[[1]]
-        get(functionName, env)
+        get(functionName, envir)
     }
 }
 
