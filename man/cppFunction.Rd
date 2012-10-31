@@ -9,7 +9,7 @@ Dynamically define an R function with C++ source code. Compiles and links a shar
 \usage{
 cppFunction(code, plugin = NULL, includes = NULL, 
             envir = parent.frame(), rebuild = FALSE, 
-            verbose = getOption("verbose"))
+            showOutput = verbose, verbose = getOption("verbose"))
 }
 
 \arguments{
@@ -27,6 +27,9 @@ cppFunction(code, plugin = NULL, includes = NULL,
 }
   \item{rebuild}{
     Force a rebuild of the shared library.
+}
+  \item{showOutput}{
+    \code{TRUE} to print \code{R CMD SHLIB} output to the console.
 }
   \item{verbose}{
     \code{TRUE} to print detailed information about generated code to the console.

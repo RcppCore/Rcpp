@@ -1,7 +1,9 @@
 2012-10-31  JJ Allaire <jj@rstudio.org>
 
 	* R/Attributes.R: add cppFunction for inline-style definitions; 
-	change 'local' param to (more clear and explicit) 'envir' param.
+	change 'local' param to (more clear and explicit) 'envir' param;
+	change 'show.output' param to 'showOutput'; add parameter to 
+	onBuild hook to indicate if the source was from a 'code' parameter
 	* src/Attributes.cpp: factored parser into it's own file; eliminated 
 	tranposition of roxygen comments.
 	* src/AttributesParser.h: attributes parser header

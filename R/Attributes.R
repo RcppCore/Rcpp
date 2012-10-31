@@ -21,7 +21,7 @@ sourceCpp <- function(file = "",
                       code = NULL,
                       envir = globalenv(), 
                       rebuild = FALSE,
-                      show.output = verbose,
+                      showOutput = verbose,
                       verbose = getOption("verbose")) {
     
     # resolve code into a file if necessary
@@ -60,7 +60,8 @@ sourceCpp <- function(file = "",
         # call the onBuild hook. note that this hook should always be called
         # after .setupBuildEnvironment so subscribers are able to examine
         # the build environment
-        if (!.callBuildHook(context$cppSourcePath, show.output)) {
+        fromCode <- !missing(code)
+        if (!.callBuildHook(context$cppSourcePath, fromCode, showOutput)) {
             .restoreEnvironment(envRestore)
             setwd(cwd)
             return (invisible(NULL))
@@ -81,21 +82,21 @@ sourceCpp <- function(file = "",
             })
         }
            
-        # prepare the command (output if we are in show.output mode)
+        # prepare the command (output if we are in showOutput mode)
         cmd <- paste(R.home(component="bin"), .Platform$file.sep, "R ",
                      "CMD SHLIB ",  
                      "-o ", shQuote(context$dynlibFilename), " ",
                      ifelse(rebuild, "--preclean ", ""),
                      shQuote(context$cppSourceFilename), sep="")
-        if (show.output)
+        if (showOutput)
             cat(cmd, "\n")
         
-        # execute the build -- suppressWarnings b/c when show.output = FALSE
+        # execute the build -- suppressWarnings b/c when showOutput = FALSE
         # we are going to explicitly check for an error and print the output
-        result <- suppressWarnings(system(cmd, intern = !show.output))
+        result <- suppressWarnings(system(cmd, intern = !showOutput))
         
         # check build results
-        if(!show.output) {
+        if(!showOutput) {
             # capture output
             output <- result
             attributes(output) <- NULL
@@ -136,6 +137,7 @@ cppFunction <- function(code,
                         includes = NULL,
                         envir = parent.frame(),
                         rebuild = FALSE,
+                        showOutput = verbose,
                         verbose = getOption("verbose")) {
     
     # generate required scaffolding
@@ -174,6 +176,7 @@ cppFunction <- function(code,
     exported <- sourceCpp(code = code, 
                           envir = envir, 
                           rebuild = rebuild, 
+                          showOutput = showOutput,
                           verbose = verbose)
     
     # verify that a single function was exported and return it
@@ -366,11 +369,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 # Call the onBuild hook. This hook is provided so that external tools
 # can perform processing (e.g. lint checking or other diagnostics) prior
-# to the execution of a build). The show.output flag is there to inform the
+# to the execution of a build). The showOutput flag is there to inform the
 # subscriber whether they'll be getting output in the onBuildComplete hook
 # or whether it will need to be scraped from the console (for verbose=TRUE)
 # The onBuild hook is always called from within the temporary build directory
-.callBuildHook <- function(file, show.output) {
+.callBuildHook <- function(file, fromCode, showOutput) {
         
     for (fun in .getHooksList("sourceCpp.onBuild")) {
         
@@ -379,7 +382,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         
         # allow the hook to cancel the build (errors in the hook explicitly
         # do not cancel the build since they are unexpected bugs)
-        continue <- tryCatch(fun(file, show.output),
+        continue <- tryCatch(fun(file, fromCode, showOutput),
                              error = function(e) TRUE)
         
         if (!continue)
@@ -391,7 +394,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 # Call the onBuildComplete hook. This hook is provided so that external tools
 # can do analysis of build errors and (for example) present them in a 
-# navigable list. Note that the output parameter will be NULL when show.output
+# navigable list. Note that the output parameter will be NULL when showOutput
 # is TRUE. Tools can try to scrape the output from the console (in an 
 # implemenentation-dependent fashion) or can simply not rely on output 
 # processing in that case (since the user explicitly asked for output to be

@@ -8,7 +8,7 @@ Source C++ Code from a File
 }
 \usage{
 sourceCpp(file, code = NULL, envir = globalenv(), rebuild = FALSE, 
-          show.output = verbose, verbose = getOption("verbose"), code)
+          showOutput = verbose, verbose = getOption("verbose"), code)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,7 +24,7 @@ sourceCpp(file, code = NULL, envir = globalenv(), rebuild = FALSE,
   \item{rebuild}{
     Force a rebuild of the shared library.
 }
-  \item{show.output}{
+  \item{showOutput}{
     \code{TRUE} to print \code{R CMD SHLIB} output to the console.
 }
   \item{verbose}{
