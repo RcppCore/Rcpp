@@ -1,4 +1,4 @@
-2012-10-30  JJ Allaire <jj@rstudio.org>
+2012-10-31  JJ Allaire <jj@rstudio.org>
 
     * R/Attributes.R: change 'local' param to (more explicit) 'envir'
     * src/Attributes.cpp: factored parser into it's own file; eliminated 
