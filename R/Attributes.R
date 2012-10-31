@@ -130,16 +130,51 @@ sourceCpp <- function(file = "",
     invisible(context$exportedFunctions)
 }
 
-# Define a single C++ function.
-cppFunction <- function(code) {
+# Define a single C++ function
+cppFunction <- function(code, 
+                        plugin = NULL,
+                        includes = NULL,
+                        envir = parent.frame(),
+                        rebuild = FALSE,
+                        verbose = getOption("verbose")) {
     
-    # add scaffolding 
-    code <- paste("#include <Rcpp.h>", "using namespace Rcpp;",
-                  "// [[Rcpp::export]]", code, sep="\n")
+    # generate required scaffolding
+    if (!is.null(plugin)) {
+        depends <- paste(plugin, sep=", ")
+        scaffolding <- paste("// [[Rcpp::depends(", depends, ")]]", sep="")
+        scaffolding <- c(scaffolding, "", .rcppExportsIncludes(plugin), 
+                         recursive=T)
+    }
+    else {
+        scaffolding <- "#include <Rcpp.h>"
+    }
+    scaffolding <- c(scaffolding, 
+                     "",
+                     "using namespace Rcpp;", 
+                     "",
+                     includes,
+                     "// [[Rcpp::export]]",
+                     recursive = T)
+        
+    # prepend scaffolding to code
+    code <- paste(c(scaffolding, code, recursive = T), collapse="\n")
     
-    # source cpp into environment we create to hold the function
-    envir <- new.env()
-    exported <- sourceCpp(code = code, envir = envir)
+    # print the generated code if we are in verbose mode
+    if (verbose) {
+        cat("\nGenerated code for function definition:",
+            "\n--------------------------------------------------------\n\n")
+        cat(code)
+    }
+    
+    # source cpp into specified environment. if envir is set to NULL
+    # then create a new one (the caller can get a hold of the function
+    # via the return value)
+    if (is.null(envir))
+        envir <- new.env()
+    exported <- sourceCpp(code = code, 
+                          envir = envir, 
+                          rebuild = rebuild, 
+                          verbose = verbose)
     
     # verify that a single function was exported and return it
     if (length(exported) == 0)
@@ -148,7 +183,7 @@ cppFunction <- function(code) {
         stop("More than one function definition")
     else {
         functionName <- exported[[1]]
-        get(functionName, envir)
+        invisible(get(functionName, envir))
     }
 }
 
