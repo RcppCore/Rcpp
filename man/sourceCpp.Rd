@@ -1,14 +1,14 @@
 \name{sourceCpp}
 \alias{sourceCpp}
 \title{
-Source C++ Code from a File
+Source C++ Code from a File or String
 }
 \description{
 \code{sourceCpp} parses the specified C++ file or source code and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. A shared library is then built and its exported functions are made available as R functions in the specified environment.
 }
 \usage{
-sourceCpp(file, code = NULL, envir = globalenv(), rebuild = FALSE, 
-          showOutput = verbose, verbose = getOption("verbose"), code)
+sourceCpp(file = "", code = NULL, envir = globalenv(), rebuild = FALSE, 
+          showOutput = verbose, verbose = getOption("verbose"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
