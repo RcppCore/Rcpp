@@ -19,6 +19,10 @@
 # e.g. highlight 
 setClass( "C++ObjectS3" ) 
 
+# anticipating a change in R 2.16.0
+setClass( "refClassGeneratorFunction" )
+setClassUnion("refGenerator", c("refObjectGenerator", "refClassGeneratorFunction")) 
+
 ## "Module" class as an environment with "pointer", "moduleName",
 ##  "packageName" and "refClassGenerators"
 ## Stands in for a reference class with those fields.
@@ -72,7 +76,7 @@ setClass( "C++Class",
 	    fields       = "list",
 	    methods      = "list",
 	    constructors = "list",
-	    generator    = "refObjectGenerator", 
+	    generator    = "refGenerator", 
 	    docstring    = "character", 
 	    typeid       = "character", 
 	    enums        = "list"
@@ -82,7 +86,7 @@ setClass( "C++Class",
 setClass( "C++ClassRepresentation", 
     representation( 
         pointer         = "externalptr", 
-        generator       = "refObjectGenerator", 
+        generator       = "refGenerator", 
         cpp_fields      = "list", 
         cpp_methods     = "list", 
         cpp_constructor = "list"
