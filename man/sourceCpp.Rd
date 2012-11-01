@@ -7,7 +7,7 @@ Source C++ Code from a File or String
 \code{sourceCpp} parses the specified C++ file or source code and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. A shared library is then built and its exported functions are made available as R functions in the specified environment.
 }
 \usage{
-sourceCpp(file = "", code = NULL, envir = globalenv(), rebuild = FALSE, 
+sourceCpp(file = "", code = NULL, env = globalenv(), rebuild = FALSE, 
           showOutput = verbose, verbose = getOption("verbose"))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -18,7 +18,7 @@ sourceCpp(file = "", code = NULL, envir = globalenv(), rebuild = FALSE,
   \item{code}{
     A charcter string with source code. If supplied, the code is taken from this string instead of a file. 
 }
-  \item{envir}{
+  \item{env}{
     Environment where the R functions should be made available.
 }
   \item{rebuild}{

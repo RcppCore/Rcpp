@@ -8,7 +8,7 @@ Dynamically define an R function with C++ source code. Compiles and links a shar
 }
 \usage{
 cppFunction(code, plugin = NULL, includes = NULL, 
-            envir = parent.frame(), rebuild = FALSE, 
+            env = parent.frame(), rebuild = FALSE, 
             showOutput = verbose, verbose = getOption("verbose"))
 }
 
@@ -22,7 +22,7 @@ cppFunction(code, plugin = NULL, includes = NULL,
   \item{includes}{
     User includes, inserted after the includes provided by the plugin.
 }
-  \item{envir}{
+  \item{env}{
     The \link[base:environment]{environment} in which to define the R function. May be \code{NULL} in which case the defined function can be obtained from the return value of \code{cppFunction}.
 }
   \item{rebuild}{

@@ -19,7 +19,7 @@
 # Source C++ code from a file
 sourceCpp <- function(file = "",
                       code = NULL,
-                      envir = globalenv(), 
+                      env = globalenv(), 
                       rebuild = FALSE,
                       showOutput = verbose,
                       verbose = getOption("verbose")) {
@@ -125,7 +125,7 @@ sourceCpp <- function(file = "",
     
     # source the R script
     scriptPath <- file.path(context$buildDirectory, context$rSourceFilename) 
-    source(scriptPath, local = envir)
+    source(scriptPath, local = env)
     
     # return (invisibly) a list of exported functions
     invisible(context$exportedFunctions)
@@ -135,7 +135,7 @@ sourceCpp <- function(file = "",
 cppFunction <- function(code, 
                         plugin = NULL,
                         includes = NULL,
-                        envir = parent.frame(),
+                        env = parent.frame(),
                         rebuild = FALSE,
                         showOutput = verbose,
                         verbose = getOption("verbose")) {
@@ -168,13 +168,13 @@ cppFunction <- function(code,
         cat(code)
     }
     
-    # source cpp into specified environment. if envir is set to NULL
+    # source cpp into specified environment. if env is set to NULL
     # then create a new one (the caller can get a hold of the function
     # via the return value)
-    if (is.null(envir))
-        envir <- new.env()
+    if (is.null(env))
+        env <- new.env()
     exported <- sourceCpp(code = code, 
-                          envir = envir, 
+                          env = env, 
                           rebuild = rebuild, 
                           showOutput = showOutput,
                           verbose = verbose)
@@ -186,7 +186,7 @@ cppFunction <- function(code,
         stop("More than one function definition")
     else {
         functionName <- exported[[1]]
-        invisible(get(functionName, envir))
+        invisible(get(functionName, env))
     }
 }
 
