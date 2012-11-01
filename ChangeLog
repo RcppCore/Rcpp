@@ -2,6 +2,8 @@
 
         * include/Rcpp/sugar/logical/or.h : implementing x | y where x and y are
         Logical sugar expressions
+        * include/Rcpp/sugar/logical/and.h : implementing x & y where x and y are
+        Logical sugar expressions
 
 2012-10-31  JJ Allaire <jj@rstudio.org>
 
