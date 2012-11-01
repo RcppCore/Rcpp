@@ -2,7 +2,7 @@
 //
 // or.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -197,8 +197,90 @@ private:
 	
 } ;
 
-}
-}
+// (LogicalExpression) | (LogicalExpression) 
+template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+class Or_LogicalExpression_LogicalExpression : public Rcpp::VectorBase< LGLSXP, true, Or_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,RHS_NA,RHS_T> >{
+public:
+    typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
+    typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
+    
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    
+    inline int operator[]( int i ) const{
+        if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
+        if( lhs[i] == FALSE && rhs[i] == FALSE ) return FALSE ;
+        return NA_LOGICAL; 
+    }
+    inline int size() const { return lhs.size(); }
+    
+private:
+    const LHS_TYPE& lhs ;
+    const RHS_TYPE& rhs ;
+} ;
+template <typename LHS_T, bool RHS_NA, typename RHS_T>
+class Or_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T> 
+    : public Rcpp::VectorBase< LGLSXP, true, Or_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T> >{
+public:
+    typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
+    typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
+    
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    
+    inline int operator[]( int i ) const{
+        if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
+        if( rhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
+        return FALSE ; 
+    }
+    inline int size() const { return lhs.size(); }
+    
+private:
+    const LHS_TYPE& lhs ;
+    const RHS_TYPE& rhs ;
+} ;
+template <bool LHS_NA, typename LHS_T, typename RHS_T>
+class Or_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T> 
+    : public Rcpp::VectorBase< LGLSXP, true, Or_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T> >{
+public:
+    typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
+    typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
+    
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    
+    inline int operator[]( int i ) const{
+        if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
+        if( lhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
+        return FALSE; 
+    }
+    inline int size() const { return lhs.size(); }
+    
+private:
+    const LHS_TYPE& lhs ;
+    const RHS_TYPE& rhs ;
+} ;
+template <typename LHS_T, typename RHS_T>
+class Or_LogicalExpression_LogicalExpression<false,LHS_T,false,RHS_T>
+    : public Rcpp::VectorBase< LGLSXP, false, Or_LogicalExpression_LogicalExpression<false,LHS_T,false,RHS_T> >{
+public:
+    typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
+    typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
+    
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    
+    inline int operator[]( int i ) const{
+        if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
+        return FALSE; 
+    }
+    inline int size() const { return lhs.size(); }
+    
+private:
+    const LHS_TYPE& lhs ;
+    const RHS_TYPE& rhs ;
+} ;
+
+
+
+} // sugar
+} // Rcpp
 
 template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Or_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>
@@ -226,5 +308,16 @@ operator||(
 ){
 	return Rcpp::sugar::Or_SingleLogicalResult_bool<LHS_NA,LHS_T>( lhs, rhs ) ;
 }
+     
+// (logical expression) | (logical expression)
+template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+inline Rcpp::sugar::Or_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,RHS_NA,RHS_T>
+operator|( 
+    const Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T>& lhs, 
+    const Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T>& rhs
+){
+    return Rcpp::sugar::Or_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs, rhs ) ;
+}
+
 
 #endif
