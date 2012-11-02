@@ -47,7 +47,7 @@ namespace R {
     /* Gamma Distribution */
     inline double dgamma(double x, double shp, double scl, int lg)	   { return ::Rf_dgamma(x, shp, scl, lg); }
     inline double pgamma(double x, double alp, double scl, int lt, int lg) { return ::Rf_pgamma(x, alp, scl, lt, lg); }
-    inline double qgamma(double p, double alp, double scl, int lt, int lg) { return ::Rf_pgamma(p, alp, scl, lt, lg); }
+    inline double qgamma(double p, double alp, double scl, int lt, int lg) { return ::Rf_qgamma(p, alp, scl, lt, lg); }
     inline double rgamma(double a, double scl)                             { return ::Rf_rgamma(a, scl); }
 
     inline double log1pmx(double x)                  { return ::Rf_log1pmx(x); }
