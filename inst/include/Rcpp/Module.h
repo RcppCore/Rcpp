@@ -81,21 +81,7 @@ namespace Rcpp{
         }
     } 
 
-    class CppFunction {
-    public:
-        CppFunction(const char* doc = 0) : docstring( doc == 0 ? "" : doc) {}
-        virtual SEXP operator()(SEXP*) { 
-            return R_NilValue ;
-        }
-        virtual ~CppFunction(){} ;
-        virtual int nargs(){ return 0 ; }
-        virtual bool is_void(){ return false ; }
-        virtual void signature(std::string&, const char* ){}
-        virtual SEXP get_formals(){ return R_NilValue; }
-                
-        std::string docstring ;
-    };
-
+#include <Rcpp/module/CppFunction.h>
 #include <Rcpp/module/Module_generated_get_return_type.h>
 #include <Rcpp/module/Module_generated_get_signature.h>
 
