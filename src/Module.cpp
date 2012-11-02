@@ -31,7 +31,7 @@ RCPP_FUNCTION_1( bool, Class__has_default_constructor, XP_Class cl ){
     return cl->has_default_constructor() ;
 }
 RCPP_FUNCTION_2( SEXP, Module__get_function, XP_Module module, std::string fun ){
-    return module->get_function_ptr( fun ) ;
+    return module->get_function( fun ) ;
 }
 RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
 	return cl->has_method(m) ;
@@ -290,7 +290,7 @@ namespace Rcpp{
 		END_RCPP
 	}                                                                                  
 	
-	SEXP Module::get_function_ptr( const std::string& name ){
+	SEXP Module::get_function( const std::string& name ){
 	    MAP::iterator it = functions.begin() ;
 	    int n = functions.size() ;
 	    CppFunction* fun = 0 ;
