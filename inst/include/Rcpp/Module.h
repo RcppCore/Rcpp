@@ -152,58 +152,7 @@ namespace Rcpp{
         ENUM_MAP enums ;
         
     } ;
-
-    class Module {
-    public:    
-        typedef std::map<std::string,CppFunction*> MAP ;
-        typedef std::pair<const std::string,CppFunction*> FUNCTION_PAIR ;
-                
-        typedef std::map<std::string,class_Base*> CLASS_MAP ;
-        typedef std::pair<const std::string,class_Base*> CLASS_PAIR ;
-        typedef CLASS_MAP::iterator CLASS_ITERATOR ;
-        
-        Module()  ;
-        Module(const char* name_)  ;
-                      
-        SEXP invoke( const std::string& /* name */,  SEXP* /* args */, int /* nargs */ ) ;                        
-                
-        Rcpp::IntegerVector functions_arity() ;
-        Rcpp::CharacterVector functions_names() ;
-                
-        Rcpp::CharacterVector class_names() ;
-        Rcpp::List classes_info() ;
-        Rcpp::CharacterVector complete() ;
-        SEXP get_function_ptr( const std::string& ) ;
-                
-        inline void Add( const char* name_ , CppFunction* ptr){
-            functions.insert( FUNCTION_PAIR( name_ , ptr ) ) ;
-        }
-                
-        inline void AddClass(const char* name_ , class_Base* cptr){
-            classes.insert( CLASS_PAIR( name_ , cptr ) ) ;
-        }
-
-        inline bool has_function( const std::string& m){
-            return functions.find(m) != functions.end() ;
-        }
-                
-        inline bool has_class( const std::string& m){
-            return classes.find(m) != classes.end() ;
-        }
-                
-        Rcpp::CppClass get_class(const std::string& ) ;
-        class_Base* get_class_pointer(const std::string& ) ;
-        
-        std::string name ;
-           
-        void add_enum( const std::string& parent_class_typeinfo_name, const std::string& enum_name, const std::map<std::string, int>& value ) ;
-        
-    private:
-        MAP functions ;
-        CLASS_MAP classes ;
-                           
-    };
-
+#include <Rcpp/module/Module.h>
 }
 extern "C" Rcpp::Module* getCurrentScope() ;
 extern "C" void setCurrentScope( Rcpp::Module* ) ;
