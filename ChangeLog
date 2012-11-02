@@ -1,4 +1,8 @@
-2012-10-31  JJ Allaire <jj@rstudio.org>
+2012-11-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.rmath.R: New unit test file added
+
+2012-11-01  JJ Allaire <jj@rstudio.org>
 
 	* R/Attributes.R: change 'envir' param to 'env' for consistency with
 	the interface of loadModule
@@ -7,16 +11,16 @@
 
 2012-11-01  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/sugar/logical/or.h : implementing x | y where x and y are
-        Logical sugar expressions
-        * include/Rcpp/sugar/logical/and.h : implementing x & y where x and y are
-        Logical sugar expressions
+        * include/Rcpp/sugar/logical/or.h : implementing x | y where x and y
+	are Logical sugar expressions
+        * include/Rcpp/sugar/logical/and.h : implementing x & y where x and y
+	are Logical sugar expressions
 
 2012-10-31  JJ Allaire <jj@rstudio.org>
 
-	* R/Attributes.R: add cppFunction for inline-style definitions; 
+	* R/Attributes.R: add cppFunction for inline-style definitions;
 	change 'local' param to (more clear and explicit) 'envir' param;
-	change 'show.output' param to 'showOutput'; add parameter to 
+	change 'show.output' param to 'showOutput'; add parameter to
 	onBuild hook to indicate if the source was from a 'code' parameter
 	* src/Attributes.cpp: factored parser into it's own file
 	* src/AttributesParser.h: attributes parser header
@@ -24,17 +28,17 @@
 	* man/sourceCpp.Rd: documentation updates
 	* man/compileAttributes.Rd: documentation updates
 	* man/cppFunction.Rd: documentation for cppFunction
-	* NAMESPACE: export for cppFunction 
+	* NAMESPACE: export for cppFunction
 
 2012-10-31  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/module/class.h: factored out of Module.h which started to 
-        be too big. class_ gains a derives<Parent>( "Parent" ) for so that the 
-        class inherits method that were exposed by its parent. 
-        * include/Rcpp/Module.h: template class CppInheritedMethod for implementing
-        inherited method
+        * include/Rcpp/module/class.h: factored out of Module.h which started to
+        be too big. class_ gains a derives<Parent>( "Parent" ) for so that the
+        class inherits method that were exposed by its parent.
+        * include/Rcpp/Module.h: template class CppInheritedMethod for
+	implementing inherited method
         * src/Module.cpp: get_class_pointer implementation
-        
+
 2012-10-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Rmath.h: Finalised adding Rmath functions

@@ -7,7 +7,7 @@
     \item Exposed methods for class Foo can now return a Foo*
     [ TODO -- Lots more Rcpp modules work to be described ? ]
     \item Provide a namespace 'R' for the standalone Rmath library so
-    that Rcpp users can access those functions too 
+    that Rcpp users can access those functions too; also added unit tests 
     \item Added new functions cppFunction(), sourceCpp() and 
     compileAttributes() that use C++11 style attributes (embedded in 
     comments) to make declaring and using C++ functions in R much 
@@ -22,7 +22,7 @@
     approach provided by Martin Morgan in a kindly contributed patch
     as unit tests for them.
     \item The \code{Date} and \code{Datetime} types now correctly
-    handles \code{NA}, \code{NaN} and \code{Inf} representation; the
+    handle \code{NA}, \code{NaN} and \code{Inf} representation; the
     \code{Date} type switched to an internal representation via \code{double}
     \item Added \code{Date} and \code{Datetime} unit tests for the new
     features
