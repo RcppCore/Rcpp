@@ -2,7 +2,7 @@
 //
 // nbeta.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,7 @@
 #ifndef Rcpp__stats__nbeta_h
 #define Rcpp__stats__nbeta_h
 
-RCPP_DPQ_3(nbeta,::Rf_dnbeta,::Rf_pbeta,::Rf_qbeta)
+RCPP_DPQ_3(nbeta,::Rf_dnbeta,::Rf_pnbeta,::Rf_qnbeta)
 
 #endif
 
