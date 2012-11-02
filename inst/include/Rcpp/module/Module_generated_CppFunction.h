@@ -32,7 +32,8 @@ class CppFunction0 : public CppFunction {
 
         inline int nargs(){ return 0; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(void) ;
 } ;
@@ -51,7 +52,8 @@ class CppFunction0<void> : public CppFunction {
         inline int nargs(){ return 0; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(void) ;
 } ;
@@ -67,7 +69,8 @@ class CppFunction_WithFormals0 : public CppFunction {
 
         inline int nargs(){ return 0; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(void) ;
 } ;
@@ -86,7 +89,8 @@ class CppFunction_WithFormals0<void> : public CppFunction {
         inline int nargs(){ return 0; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(void) ;
 } ;
@@ -103,7 +107,8 @@ template <typename OUT, typename U0> class CppFunction1 : public CppFunction {
 
         inline int nargs(){ return 1; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0) ;
 } ;
@@ -121,7 +126,8 @@ class CppFunction1<void,U0> : public CppFunction {
         inline int nargs(){ return 1; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0) ;
 } ;
@@ -142,7 +148,8 @@ class CppFunction_WithFormals1 : public CppFunction {
         inline int nargs(){ return 1; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0) ;
@@ -163,7 +170,8 @@ class CppFunction_WithFormals1<void,U0> : public CppFunction {
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0) ;
@@ -182,7 +190,8 @@ template <typename OUT, typename U0, typename U1> class CppFunction2 : public Cp
 
         inline int nargs(){ return 2; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1) ;
 } ;
@@ -200,7 +209,8 @@ class CppFunction2<void,U0, U1> : public CppFunction {
         inline int nargs(){ return 2; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1) ;
 } ;
@@ -221,7 +231,8 @@ class CppFunction_WithFormals2 : public CppFunction {
         inline int nargs(){ return 2; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1) ;
@@ -242,7 +253,8 @@ class CppFunction_WithFormals2<void,U0, U1> : public CppFunction {
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1) ;
@@ -261,7 +273,8 @@ template <typename OUT, typename U0, typename U1, typename U2> class CppFunction
 
         inline int nargs(){ return 3; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2) ;
 } ;
@@ -279,7 +292,8 @@ class CppFunction3<void,U0, U1, U2> : public CppFunction {
         inline int nargs(){ return 3; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2) ;
 } ;
@@ -300,7 +314,8 @@ class CppFunction_WithFormals3 : public CppFunction {
         inline int nargs(){ return 3; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2) ;
@@ -321,7 +336,8 @@ class CppFunction_WithFormals3<void,U0, U1, U2> : public CppFunction {
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2) ;
@@ -340,7 +356,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3> clas
 
         inline int nargs(){ return 4; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3) ;
 } ;
@@ -358,7 +375,8 @@ class CppFunction4<void,U0, U1, U2, U3> : public CppFunction {
         inline int nargs(){ return 4; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3) ;
 } ;
@@ -379,7 +397,8 @@ class CppFunction_WithFormals4 : public CppFunction {
         inline int nargs(){ return 4; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3) ;
@@ -400,7 +419,8 @@ class CppFunction_WithFormals4<void,U0, U1, U2, U3> : public CppFunction {
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3) ;
@@ -419,7 +439,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 5; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4) ;
 } ;
@@ -437,7 +458,8 @@ class CppFunction5<void,U0, U1, U2, U3, U4> : public CppFunction {
         inline int nargs(){ return 5; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4) ;
 } ;
@@ -458,7 +480,8 @@ class CppFunction_WithFormals5 : public CppFunction {
         inline int nargs(){ return 5; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4) ;
@@ -479,7 +502,8 @@ class CppFunction_WithFormals5<void,U0, U1, U2, U3, U4> : public CppFunction {
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4) ;
@@ -498,7 +522,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 6; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5) ;
 } ;
@@ -516,7 +541,8 @@ class CppFunction6<void,U0, U1, U2, U3, U4, U5> : public CppFunction {
         inline int nargs(){ return 6; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5) ;
 } ;
@@ -537,7 +563,8 @@ class CppFunction_WithFormals6 : public CppFunction {
         inline int nargs(){ return 6; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5) ;
@@ -558,7 +585,8 @@ class CppFunction_WithFormals6<void,U0, U1, U2, U3, U4, U5> : public CppFunction
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5) ;
@@ -577,7 +605,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 7; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6) ;
 } ;
@@ -595,7 +624,8 @@ class CppFunction7<void,U0, U1, U2, U3, U4, U5, U6> : public CppFunction {
         inline int nargs(){ return 7; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6) ;
 } ;
@@ -616,7 +646,8 @@ class CppFunction_WithFormals7 : public CppFunction {
         inline int nargs(){ return 7; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6) ;
@@ -637,7 +668,8 @@ class CppFunction_WithFormals7<void,U0, U1, U2, U3, U4, U5, U6> : public CppFunc
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6) ;
@@ -656,7 +688,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 8; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7) ;
 } ;
@@ -674,7 +707,8 @@ class CppFunction8<void,U0, U1, U2, U3, U4, U5, U6, U7> : public CppFunction {
         inline int nargs(){ return 8; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7) ;
 } ;
@@ -695,7 +729,8 @@ class CppFunction_WithFormals8 : public CppFunction {
         inline int nargs(){ return 8; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7) ;
@@ -716,7 +751,8 @@ class CppFunction_WithFormals8<void,U0, U1, U2, U3, U4, U5, U6, U7> : public Cpp
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7) ;
@@ -735,7 +771,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 9; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ;
 } ;
@@ -753,7 +790,8 @@ class CppFunction9<void,U0, U1, U2, U3, U4, U5, U6, U7, U8> : public CppFunction
         inline int nargs(){ return 9; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ;
 } ;
@@ -774,7 +812,8 @@ class CppFunction_WithFormals9 : public CppFunction {
         inline int nargs(){ return 9; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ;
@@ -795,7 +834,8 @@ class CppFunction_WithFormals9<void,U0, U1, U2, U3, U4, U5, U6, U7, U8> : public
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8) ;
@@ -814,7 +854,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 10; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ;
 } ;
@@ -832,7 +873,8 @@ class CppFunction10<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : public CppFun
         inline int nargs(){ return 10; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ;
 } ;
@@ -853,7 +895,8 @@ class CppFunction_WithFormals10 : public CppFunction {
         inline int nargs(){ return 10; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ;
@@ -874,7 +917,8 @@ class CppFunction_WithFormals10<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9> : p
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9) ;
@@ -893,7 +937,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 11; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ;
 } ;
@@ -911,7 +956,8 @@ class CppFunction11<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10> : public C
         inline int nargs(){ return 11; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ;
 } ;
@@ -932,7 +978,8 @@ class CppFunction_WithFormals11 : public CppFunction {
         inline int nargs(){ return 11; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ;
@@ -953,7 +1000,8 @@ class CppFunction_WithFormals11<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10) ;
@@ -972,7 +1020,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 12; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ;
 } ;
@@ -990,7 +1039,8 @@ class CppFunction12<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11> : pub
         inline int nargs(){ return 12; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ;
 } ;
@@ -1011,7 +1061,8 @@ class CppFunction_WithFormals12 : public CppFunction {
         inline int nargs(){ return 12; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ;
@@ -1032,7 +1083,8 @@ class CppFunction_WithFormals12<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11) ;
@@ -1051,7 +1103,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 13; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ;
 } ;
@@ -1069,7 +1122,8 @@ class CppFunction13<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12> 
         inline int nargs(){ return 13; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ;
 } ;
@@ -1090,7 +1144,8 @@ class CppFunction_WithFormals13 : public CppFunction {
         inline int nargs(){ return 13; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ;
@@ -1111,7 +1166,8 @@ class CppFunction_WithFormals13<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12) ;
@@ -1130,7 +1186,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 14; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ;
 } ;
@@ -1148,7 +1205,8 @@ class CppFunction14<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 14; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ;
 } ;
@@ -1169,7 +1227,8 @@ class CppFunction_WithFormals14 : public CppFunction {
         inline int nargs(){ return 14; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ;
@@ -1190,7 +1249,8 @@ class CppFunction_WithFormals14<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13) ;
@@ -1209,7 +1269,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 15; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ;
 } ;
@@ -1227,7 +1288,8 @@ class CppFunction15<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 15; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ;
 } ;
@@ -1248,7 +1310,8 @@ class CppFunction_WithFormals15 : public CppFunction {
         inline int nargs(){ return 15; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ;
@@ -1269,7 +1332,8 @@ class CppFunction_WithFormals15<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14) ;
@@ -1288,7 +1352,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 16; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ;
 } ;
@@ -1306,7 +1371,8 @@ class CppFunction16<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 16; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ;
 } ;
@@ -1327,7 +1393,8 @@ class CppFunction_WithFormals16 : public CppFunction {
         inline int nargs(){ return 16; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ;
@@ -1348,7 +1415,8 @@ class CppFunction_WithFormals16<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15) ;
@@ -1367,7 +1435,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 17; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ;
 } ;
@@ -1385,7 +1454,8 @@ class CppFunction17<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 17; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ;
 } ;
@@ -1406,7 +1476,8 @@ class CppFunction_WithFormals17 : public CppFunction {
         inline int nargs(){ return 17; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ;
@@ -1427,7 +1498,8 @@ class CppFunction_WithFormals17<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16) ;
@@ -1446,7 +1518,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 18; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ;
 } ;
@@ -1464,7 +1537,8 @@ class CppFunction18<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 18; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ;
 } ;
@@ -1485,7 +1559,8 @@ class CppFunction_WithFormals18 : public CppFunction {
         inline int nargs(){ return 18; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ;
@@ -1506,7 +1581,8 @@ class CppFunction_WithFormals18<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17) ;
@@ -1525,7 +1601,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 19; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ;
 } ;
@@ -1543,7 +1620,8 @@ class CppFunction19<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 19; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ;
 } ;
@@ -1564,7 +1642,8 @@ class CppFunction_WithFormals19 : public CppFunction {
         inline int nargs(){ return 19; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ;
@@ -1585,7 +1664,8 @@ class CppFunction_WithFormals19<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18) ;
@@ -1604,7 +1684,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 20; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ;
 } ;
@@ -1622,7 +1703,8 @@ class CppFunction20<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 20; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ;
 } ;
@@ -1643,7 +1725,8 @@ class CppFunction_WithFormals20 : public CppFunction {
         inline int nargs(){ return 20; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ;
@@ -1664,7 +1747,8 @@ class CppFunction_WithFormals20<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19) ;
@@ -1683,7 +1767,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 21; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ;
 } ;
@@ -1701,7 +1786,8 @@ class CppFunction21<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 21; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ;
 } ;
@@ -1722,7 +1808,8 @@ class CppFunction_WithFormals21 : public CppFunction {
         inline int nargs(){ return 21; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ;
@@ -1743,7 +1830,8 @@ class CppFunction_WithFormals21<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20) ;
@@ -1762,7 +1850,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 22; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ;
 } ;
@@ -1780,7 +1869,8 @@ class CppFunction22<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 22; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ;
 } ;
@@ -1801,7 +1891,8 @@ class CppFunction_WithFormals22 : public CppFunction {
         inline int nargs(){ return 22; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ;
@@ -1822,7 +1913,8 @@ class CppFunction_WithFormals22<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21) ;
@@ -1841,7 +1933,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 23; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ;
 } ;
@@ -1859,7 +1952,8 @@ class CppFunction23<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 23; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ;
 } ;
@@ -1880,7 +1974,8 @@ class CppFunction_WithFormals23 : public CppFunction {
         inline int nargs(){ return 23; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ;
@@ -1901,7 +1996,8 @@ class CppFunction_WithFormals23<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22) ;
@@ -1920,7 +2016,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 24; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ;
 } ;
@@ -1938,7 +2035,8 @@ class CppFunction24<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 24; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ;
 } ;
@@ -1959,7 +2057,8 @@ class CppFunction_WithFormals24 : public CppFunction {
         inline int nargs(){ return 24; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ;
@@ -1980,7 +2079,8 @@ class CppFunction_WithFormals24<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23) ;
@@ -1999,7 +2099,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 25; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ;
 } ;
@@ -2017,7 +2118,8 @@ class CppFunction25<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 25; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ;
 } ;
@@ -2038,7 +2140,8 @@ class CppFunction_WithFormals25 : public CppFunction {
         inline int nargs(){ return 25; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ;
@@ -2059,7 +2162,8 @@ class CppFunction_WithFormals25<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24) ;
@@ -2078,7 +2182,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 26; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ;
 } ;
@@ -2096,7 +2201,8 @@ class CppFunction26<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 26; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ;
 } ;
@@ -2117,7 +2223,8 @@ class CppFunction_WithFormals26 : public CppFunction {
         inline int nargs(){ return 26; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ;
@@ -2138,7 +2245,8 @@ class CppFunction_WithFormals26<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25) ;
@@ -2157,7 +2265,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 27; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ;
 } ;
@@ -2175,7 +2284,8 @@ class CppFunction27<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 27; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ;
 } ;
@@ -2196,7 +2306,8 @@ class CppFunction_WithFormals27 : public CppFunction {
         inline int nargs(){ return 27; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ;
@@ -2217,7 +2328,8 @@ class CppFunction_WithFormals27<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26) ;
@@ -2236,7 +2348,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 28; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ;
 } ;
@@ -2254,7 +2367,8 @@ class CppFunction28<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 28; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ;
 } ;
@@ -2275,7 +2389,8 @@ class CppFunction_WithFormals28 : public CppFunction {
         inline int nargs(){ return 28; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ;
@@ -2296,7 +2411,8 @@ class CppFunction_WithFormals28<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27) ;
@@ -2315,7 +2431,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 29; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ;
 } ;
@@ -2333,7 +2450,8 @@ class CppFunction29<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 29; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ;
 } ;
@@ -2354,7 +2472,8 @@ class CppFunction_WithFormals29 : public CppFunction {
         inline int nargs(){ return 29; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ;
@@ -2375,7 +2494,8 @@ class CppFunction_WithFormals29<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28) ;
@@ -2394,7 +2514,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 30; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ;
 } ;
@@ -2412,7 +2533,8 @@ class CppFunction30<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 30; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ;
 } ;
@@ -2433,7 +2555,8 @@ class CppFunction_WithFormals30 : public CppFunction {
         inline int nargs(){ return 30; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ;
@@ -2454,7 +2577,8 @@ class CppFunction_WithFormals30<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29) ;
@@ -2473,7 +2597,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 31; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ;
 } ;
@@ -2491,7 +2616,8 @@ class CppFunction31<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 31; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ;
 } ;
@@ -2512,7 +2638,8 @@ class CppFunction_WithFormals31 : public CppFunction {
         inline int nargs(){ return 31; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ;
@@ -2533,7 +2660,8 @@ class CppFunction_WithFormals31<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30) ;
@@ -2552,7 +2680,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 32; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ;
 } ;
@@ -2570,7 +2699,8 @@ class CppFunction32<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 32; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ;
 } ;
@@ -2591,7 +2721,8 @@ class CppFunction_WithFormals32 : public CppFunction {
         inline int nargs(){ return 32; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ;
@@ -2612,7 +2743,8 @@ class CppFunction_WithFormals32<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31) ;
@@ -2631,7 +2763,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 33; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ;
 } ;
@@ -2649,7 +2782,8 @@ class CppFunction33<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 33; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ;
 } ;
@@ -2670,7 +2804,8 @@ class CppFunction_WithFormals33 : public CppFunction {
         inline int nargs(){ return 33; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ;
@@ -2691,7 +2826,8 @@ class CppFunction_WithFormals33<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32) ;
@@ -2710,7 +2846,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 34; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ;
 } ;
@@ -2728,7 +2865,8 @@ class CppFunction34<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 34; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ;
 } ;
@@ -2749,7 +2887,8 @@ class CppFunction_WithFormals34 : public CppFunction {
         inline int nargs(){ return 34; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ;
@@ -2770,7 +2909,8 @@ class CppFunction_WithFormals34<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33) ;
@@ -2789,7 +2929,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 35; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ;
 } ;
@@ -2807,7 +2948,8 @@ class CppFunction35<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 35; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ;
 } ;
@@ -2828,7 +2970,8 @@ class CppFunction_WithFormals35 : public CppFunction {
         inline int nargs(){ return 35; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ;
@@ -2849,7 +2992,8 @@ class CppFunction_WithFormals35<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34) ;
@@ -2868,7 +3012,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 36; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ;
 } ;
@@ -2886,7 +3031,8 @@ class CppFunction36<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 36; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ;
 } ;
@@ -2907,7 +3053,8 @@ class CppFunction_WithFormals36 : public CppFunction {
         inline int nargs(){ return 36; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ;
@@ -2928,7 +3075,8 @@ class CppFunction_WithFormals36<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35) ;
@@ -2947,7 +3095,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 37; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ;
 } ;
@@ -2965,7 +3114,8 @@ class CppFunction37<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 37; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ;
 } ;
@@ -2986,7 +3136,8 @@ class CppFunction_WithFormals37 : public CppFunction {
         inline int nargs(){ return 37; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ;
@@ -3007,7 +3158,8 @@ class CppFunction_WithFormals37<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36) ;
@@ -3026,7 +3178,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 38; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ;
 } ;
@@ -3044,7 +3197,8 @@ class CppFunction38<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 38; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ;
 } ;
@@ -3065,7 +3219,8 @@ class CppFunction_WithFormals38 : public CppFunction {
         inline int nargs(){ return 38; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ;
@@ -3086,7 +3241,8 @@ class CppFunction_WithFormals38<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37) ;
@@ -3105,7 +3261,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 39; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ;
 } ;
@@ -3123,7 +3280,8 @@ class CppFunction39<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 39; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ;
 } ;
@@ -3144,7 +3302,8 @@ class CppFunction_WithFormals39 : public CppFunction {
         inline int nargs(){ return 39; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ;
@@ -3165,7 +3324,8 @@ class CppFunction_WithFormals39<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38) ;
@@ -3184,7 +3344,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 40; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ;
 } ;
@@ -3202,7 +3363,8 @@ class CppFunction40<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 40; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ;
 } ;
@@ -3223,7 +3385,8 @@ class CppFunction_WithFormals40 : public CppFunction {
         inline int nargs(){ return 40; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ;
@@ -3244,7 +3407,8 @@ class CppFunction_WithFormals40<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39) ;
@@ -3263,7 +3427,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 41; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ;
 } ;
@@ -3281,7 +3446,8 @@ class CppFunction41<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 41; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ;
 } ;
@@ -3302,7 +3468,8 @@ class CppFunction_WithFormals41 : public CppFunction {
         inline int nargs(){ return 41; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ;
@@ -3323,7 +3490,8 @@ class CppFunction_WithFormals41<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40) ;
@@ -3342,7 +3510,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 42; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ;
 } ;
@@ -3360,7 +3529,8 @@ class CppFunction42<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 42; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ;
 } ;
@@ -3381,7 +3551,8 @@ class CppFunction_WithFormals42 : public CppFunction {
         inline int nargs(){ return 42; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ;
@@ -3402,7 +3573,8 @@ class CppFunction_WithFormals42<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41) ;
@@ -3421,7 +3593,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 43; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ;
 } ;
@@ -3439,7 +3612,8 @@ class CppFunction43<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 43; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ;
 } ;
@@ -3460,7 +3634,8 @@ class CppFunction_WithFormals43 : public CppFunction {
         inline int nargs(){ return 43; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ;
@@ -3481,7 +3656,8 @@ class CppFunction_WithFormals43<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42) ;
@@ -3500,7 +3676,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 44; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ;
 } ;
@@ -3518,7 +3695,8 @@ class CppFunction44<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 44; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ;
 } ;
@@ -3539,7 +3717,8 @@ class CppFunction_WithFormals44 : public CppFunction {
         inline int nargs(){ return 44; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ;
@@ -3560,7 +3739,8 @@ class CppFunction_WithFormals44<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43) ;
@@ -3579,7 +3759,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 45; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ;
 } ;
@@ -3597,7 +3778,8 @@ class CppFunction45<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 45; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ;
 } ;
@@ -3618,7 +3800,8 @@ class CppFunction_WithFormals45 : public CppFunction {
         inline int nargs(){ return 45; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ;
@@ -3639,7 +3822,8 @@ class CppFunction_WithFormals45<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44) ;
@@ -3658,7 +3842,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 46; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ;
 } ;
@@ -3676,7 +3861,8 @@ class CppFunction46<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 46; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ;
 } ;
@@ -3697,7 +3883,8 @@ class CppFunction_WithFormals46 : public CppFunction {
         inline int nargs(){ return 46; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ;
@@ -3718,7 +3905,8 @@ class CppFunction_WithFormals46<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45) ;
@@ -3737,7 +3925,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 47; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ;
 } ;
@@ -3755,7 +3944,8 @@ class CppFunction47<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 47; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ;
 } ;
@@ -3776,7 +3966,8 @@ class CppFunction_WithFormals47 : public CppFunction {
         inline int nargs(){ return 47; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ;
@@ -3797,7 +3988,8 @@ class CppFunction_WithFormals47<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46) ;
@@ -3816,7 +4008,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 48; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ;
 } ;
@@ -3834,7 +4027,8 @@ class CppFunction48<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 48; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ;
 } ;
@@ -3855,7 +4049,8 @@ class CppFunction_WithFormals48 : public CppFunction {
         inline int nargs(){ return 48; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ;
@@ -3876,7 +4071,8 @@ class CppFunction_WithFormals48<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47) ;
@@ -3895,7 +4091,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 49; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ;
 } ;
@@ -3913,7 +4110,8 @@ class CppFunction49<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 49; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ;
 } ;
@@ -3934,7 +4132,8 @@ class CppFunction_WithFormals49 : public CppFunction {
         inline int nargs(){ return 49; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ;
@@ -3955,7 +4154,8 @@ class CppFunction_WithFormals49<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48) ;
@@ -3974,7 +4174,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 50; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ;
 } ;
@@ -3992,7 +4193,8 @@ class CppFunction50<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 50; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ;
 } ;
@@ -4013,7 +4215,8 @@ class CppFunction_WithFormals50 : public CppFunction {
         inline int nargs(){ return 50; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ;
@@ -4034,7 +4237,8 @@ class CppFunction_WithFormals50<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49) ;
@@ -4053,7 +4257,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 51; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ;
 } ;
@@ -4071,7 +4276,8 @@ class CppFunction51<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 51; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ;
 } ;
@@ -4092,7 +4298,8 @@ class CppFunction_WithFormals51 : public CppFunction {
         inline int nargs(){ return 51; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ;
@@ -4113,7 +4320,8 @@ class CppFunction_WithFormals51<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50) ;
@@ -4132,7 +4340,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 52; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ;
 } ;
@@ -4150,7 +4359,8 @@ class CppFunction52<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 52; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ;
 } ;
@@ -4171,7 +4381,8 @@ class CppFunction_WithFormals52 : public CppFunction {
         inline int nargs(){ return 52; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ;
@@ -4192,7 +4403,8 @@ class CppFunction_WithFormals52<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51) ;
@@ -4211,7 +4423,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 53; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ;
 } ;
@@ -4229,7 +4442,8 @@ class CppFunction53<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 53; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ;
 } ;
@@ -4250,7 +4464,8 @@ class CppFunction_WithFormals53 : public CppFunction {
         inline int nargs(){ return 53; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ;
@@ -4271,7 +4486,8 @@ class CppFunction_WithFormals53<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52) ;
@@ -4290,7 +4506,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 54; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ;
 } ;
@@ -4308,7 +4525,8 @@ class CppFunction54<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 54; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ;
 } ;
@@ -4329,7 +4547,8 @@ class CppFunction_WithFormals54 : public CppFunction {
         inline int nargs(){ return 54; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ;
@@ -4350,7 +4569,8 @@ class CppFunction_WithFormals54<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53) ;
@@ -4369,7 +4589,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 55; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ;
 } ;
@@ -4387,7 +4608,8 @@ class CppFunction55<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 55; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ;
 } ;
@@ -4408,7 +4630,8 @@ class CppFunction_WithFormals55 : public CppFunction {
         inline int nargs(){ return 55; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ;
@@ -4429,7 +4652,8 @@ class CppFunction_WithFormals55<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54) ;
@@ -4448,7 +4672,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 56; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ;
 } ;
@@ -4466,7 +4691,8 @@ class CppFunction56<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 56; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ;
 } ;
@@ -4487,7 +4713,8 @@ class CppFunction_WithFormals56 : public CppFunction {
         inline int nargs(){ return 56; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ;
@@ -4508,7 +4735,8 @@ class CppFunction_WithFormals56<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55) ;
@@ -4527,7 +4755,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 57; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ;
 } ;
@@ -4545,7 +4774,8 @@ class CppFunction57<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 57; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ;
 } ;
@@ -4566,7 +4796,8 @@ class CppFunction_WithFormals57 : public CppFunction {
         inline int nargs(){ return 57; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ;
@@ -4587,7 +4818,8 @@ class CppFunction_WithFormals57<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56) ;
@@ -4606,7 +4838,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 58; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ;
 } ;
@@ -4624,7 +4857,8 @@ class CppFunction58<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 58; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ;
 } ;
@@ -4645,7 +4879,8 @@ class CppFunction_WithFormals58 : public CppFunction {
         inline int nargs(){ return 58; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ;
@@ -4666,7 +4901,8 @@ class CppFunction_WithFormals58<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57) ;
@@ -4685,7 +4921,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 59; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ;
 } ;
@@ -4703,7 +4940,8 @@ class CppFunction59<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 59; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ;
 } ;
@@ -4724,7 +4962,8 @@ class CppFunction_WithFormals59 : public CppFunction {
         inline int nargs(){ return 59; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ;
@@ -4745,7 +4984,8 @@ class CppFunction_WithFormals59<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58) ;
@@ -4764,7 +5004,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 60; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ;
 } ;
@@ -4782,7 +5023,8 @@ class CppFunction60<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 60; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ;
 } ;
@@ -4803,7 +5045,8 @@ class CppFunction_WithFormals60 : public CppFunction {
         inline int nargs(){ return 60; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ;
@@ -4824,7 +5067,8 @@ class CppFunction_WithFormals60<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59) ;
@@ -4843,7 +5087,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 61; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ;
 } ;
@@ -4861,7 +5106,8 @@ class CppFunction61<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 61; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ;
 } ;
@@ -4882,7 +5128,8 @@ class CppFunction_WithFormals61 : public CppFunction {
         inline int nargs(){ return 61; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ;
@@ -4903,7 +5150,8 @@ class CppFunction_WithFormals61<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60) ;
@@ -4922,7 +5170,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 62; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ;
 } ;
@@ -4940,7 +5189,8 @@ class CppFunction62<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 62; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ;
 } ;
@@ -4961,7 +5211,8 @@ class CppFunction_WithFormals62 : public CppFunction {
         inline int nargs(){ return 62; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ;
@@ -4982,7 +5233,8 @@ class CppFunction_WithFormals62<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61) ;
@@ -5001,7 +5253,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 63; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ;
 } ;
@@ -5019,7 +5272,8 @@ class CppFunction63<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 63; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ;
 } ;
@@ -5040,7 +5294,8 @@ class CppFunction_WithFormals63 : public CppFunction {
         inline int nargs(){ return 63; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ;
@@ -5061,7 +5316,8 @@ class CppFunction_WithFormals63<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62) ;
@@ -5080,7 +5336,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 64; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ;
 } ;
@@ -5098,7 +5355,8 @@ class CppFunction64<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 64; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ;
 } ;
@@ -5119,7 +5377,8 @@ class CppFunction_WithFormals64 : public CppFunction {
         inline int nargs(){ return 64; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ;
@@ -5140,7 +5399,8 @@ class CppFunction_WithFormals64<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63) ;
@@ -5159,7 +5419,8 @@ template <typename OUT, typename U0, typename U1, typename U2, typename U3, type
 
         inline int nargs(){ return 65; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ;
 } ;
@@ -5177,7 +5438,8 @@ class CppFunction65<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, 
         inline int nargs(){ return 65; }
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ;
 } ;
@@ -5198,7 +5460,8 @@ class CppFunction_WithFormals65 : public CppFunction {
         inline int nargs(){ return 65; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         OUT (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ;
@@ -5219,7 +5482,8 @@ class CppFunction_WithFormals65<void,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10
         inline bool is_void(){ return true; }
         inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>(s, name) ; }
         SEXP get_formals(){ return formals; }
-
+        inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
+        
     private:
         Rcpp::List formals ;
         void (*ptr_fun)(U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64) ;
