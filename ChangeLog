@@ -1,3 +1,8 @@
+2012-11-03  JJ Allaire <jj@rstudio.org>
+
+        * Use CLINK_CPPFLAGS rather than PKG_CXXFLAGS for LinkingTo 
+        include directories (identical behavior to inline)
+
 2012-11-03  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/functions/which_min.h : sugar which.min
