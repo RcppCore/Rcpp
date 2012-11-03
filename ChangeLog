@@ -1,12 +1,17 @@
+2012-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.rmath.R: More tests added
+
 2012-11-02  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/module/CppFunction.h : factored CppFunction in its own file
-        and added the get_function_ptr virtual method. added documentation
-        * include/Rcpp/module/Module_generated_CppFunction.h: implementation 
-        of get_function_ptr in classes that derive CppFunction
+        * include/Rcpp/module/CppFunction.h : factored CppFunction in its own
+	file and added the get_function_ptr virtual method. added
+	documentation
+        * include/Rcpp/module/Module_generated_CppFunction.h: implementation
+	of get_function_ptr in classes that derive CppFunction
         * src/Module.cpp: s/get_function_ptr/get_function/
-        * include/Rcpp/module/Module.h : factored out and documented. 
-        s/get_function_ptr/get_function/
+        * include/Rcpp/module/Module.h : factored out and documented.
+	s/get_function_ptr/get_function/
 
 2012-11-01  Dirk Eddelbuettel  <edd@debian.org>
 

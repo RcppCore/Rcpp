@@ -1,4 +1,4 @@
-## -*- mode: R; tab-width: 4 -*-
+## -*- mode: R; tab-width: 4; -*-
 ##
 ## Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
 ##
