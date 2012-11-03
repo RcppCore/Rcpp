@@ -56,5 +56,7 @@
 #include <Rcpp/sugar/functions/var.h>
 #include <Rcpp/sugar/functions/sd.h>
 #include <Rcpp/sugar/functions/cumsum.h>
+#include <Rcpp/sugar/functions/which_min.h>
+#include <Rcpp/sugar/functions/which_max.h>
 
 #endif
