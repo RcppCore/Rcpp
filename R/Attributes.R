@@ -322,10 +322,8 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
             buildEnv$PKG_LIBS <- paste(pkgLibs, rcppLibs)
     }
     
-    # set cxxFlags based on the LinkingTo dependencies (and also respect
-    # any PKG_CXXFLAGS set by the plugin)
-    pkgCxxFlags <- .buildPkgCxxFlags(linkingToPackages)
-    buildEnv$PKG_CXXFLAGS <- paste(buildEnv$PKG_CXXFLAGS, pkgCxxFlags)        
+    # set CLINK_CPPFLAGS based on the LinkingTo dependencies
+    buildEnv$CLINK_CPPFLAGS <- .buildClinkCppFlags(linkingToPackages)
 
     # add cygwin message muffler
     buildEnv$CYGWIN = "nodosfilewarning"
@@ -342,8 +340,8 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     return (restore)
 }
 
-# Build PKG_CXXFLAGS by from include directories of LinkingTo packages
-.buildPkgCxxFlags <- function(linkingToPackages) {
+# Build CLINK_CPPFLAGS from include directories of LinkingTo packages
+.buildClinkCppFlags <- function(linkingToPackages) {
     pkgCxxFlags <- NULL
     for (package in linkingToPackages) {
         packagePath <- find.package(package, NULL, quiet=TRUE)
