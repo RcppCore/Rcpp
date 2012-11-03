@@ -1,3 +1,10 @@
+2012-11-03  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/sugar/functions/which_min.h : sugar which.min
+        * include/Rcpp/sugar/functions/which_max.h : sugar which.max
+        * include/Rcpp/module/Module.h : added get_function_ptr which returns
+        the pointer of the target function as a DL_FUNC
+
 2012-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.rmath.R: More tests added
@@ -14,7 +21,7 @@
 	s/get_function_ptr/get_function/
 
 2012-11-01  Dirk Eddelbuettel  <edd@debian.org>
-
+      
 	* inst/unitTests/runit.rmath.R: New unit test file added
 
 2012-11-01  JJ Allaire <jj@rstudio.org>
