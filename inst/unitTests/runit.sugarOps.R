@@ -1,5 +1,5 @@
 #!/usr/bin/r -t
-#                     -*- mode: R; ess-indent-level: 4; indent-tabs-mode: nil; -*-
+#   -*- mode: R; ess-indent-level: 4; indent-tabs-mode: nil; -*-
 #
 # Copyright (C) 2012         Dirk Eddelbuettel and Romain Francois
 #

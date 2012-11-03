@@ -1,5 +1,5 @@
 #!/usr/bin/r -t
-# -*- mode: R; tab-width: 4 -*-
+# -*- mode: R; tab-width: 4; -*-
 #
 # Copyright (C) 2009 - 2010  Romain Francois and Dirk Eddelbuettel
 #
@@ -162,7 +162,7 @@ cxxargs <- function(){
     tests <- ".Rcpp.RObject"
     if( ! exists(tests, globalenv() )) {
         fun <- Rcpp:::compile_unit_tests(
-            definitions(), 
+            definitions(),
             cxxargs = cxxargs()
         )
         assign( tests, fun, globalenv() )

@@ -1,5 +1,5 @@
 #!/usr/bin/r -t
-# -*- mode: R; tab-width: 4 -*-
+# -*- mode: R; tab-width: 4; -*-
 #
 # Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
 #
@@ -84,7 +84,7 @@ definitions <- function(){
 						_["stringsAsFactors"] = false ); ')
 
                   )
-   
+
 }
 
 .setUp <- function(){
