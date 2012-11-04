@@ -40,20 +40,26 @@
 if (require("RUnit", quietly = TRUE)) {
 
     pkg <- "Rcpp"                           # code below for Rcpp
-    require( pkg, character.only=TRUE)
+    require(pkg, character.only=TRUE)
     path <- system.file("unitTests", package = pkg)
     stopifnot(file.exists(path), file.info(path.expand(path))$isdir)
 
     ## without this, we get unit test failures
     Sys.setenv( R_TESTS = "" )
 
-    ## force all tests to be executed if commented-out
-    #Sys.setenv("RunAllRcppTests"="yes")
+    ## force tests to be executed if in dev release which we define as
+    ## having a sub-release, eg 0.9.15.5 is one whereas 0.9.16 is not
+    if (length(strsplit(packageDescription(pkg)$Version, "\\.")[[1]]) > 3) {	# dev release, and
+        if (Sys.getenv("RunAllRcppTests") != "no") { 				# if env.var not yet set
+            message("Setting \"RunAllRcppTests\"=\"yes\" for development release\n")
+            Sys.setenv("RunAllRcppTests"="yes")
+        }
+    }
 
     Rcpp.unit.test.output.dir <- getwd()
 
     source(file.path(path, "runTests.R"), echo = TRUE)
 
 } else {
-    print( "package RUnit not available, cannot run unit tests" )
+    print("package RUnit not available, cannot run unit tests")
 }

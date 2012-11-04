@@ -18,6 +18,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
 definitions <- function(){
     list(
 			"runit_abs" = list(
@@ -1375,4 +1379,6 @@ test.sugar.signif <- function() {
     checkEquals( fx(x, 1), signif(x, 1) )
     checkEquals( fx(x, 2), signif(x, 2) )
     checkEquals( fx(x, 3), signif(x, 3) )
+}
+
 }

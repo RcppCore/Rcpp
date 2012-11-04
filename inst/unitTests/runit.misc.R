@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,73 +17,77 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
 definitions <- function(){
     list(
-        	"symbol_" = list( 
-        		signature(), 
+        	"symbol_" = list(
+        		signature(),
         		'
 				SEXP res = PROTECT( Rf_allocVector( LGLSXP, 4) ) ;
 				/* SYMSXP */
 				LOGICAL(res)[0] = Symbol( Rf_install("foobar") ).asSexp() == Rf_install("foobar") ? TRUE : FALSE ;
-				
+
 				/* CHARSXP */
 				LOGICAL(res)[1] = Symbol( Rf_mkChar("foobar") ).asSexp() == Rf_install("foobar") ? TRUE : FALSE ;
-				
+
 				/* STRSXP */
 				LOGICAL(res)[2] = Symbol( Rf_mkString("foobar") ).asSexp() == Rf_install("foobar") ? TRUE : FALSE ;
-				
+
 				/* std::string */
 				LOGICAL(res)[3] = Symbol( "foobar" ).asSexp() == Rf_install("foobar") ? TRUE : FALSE ;
-				
+
 				UNPROTECT(1) ; /* res */
 				return res ;
 				'
-        	), 
-        	"symbol_ctor" = list( 
-        		signature(x="ANY"), 
-        		'return Symbol(x);' 
-        	), 
-        	"Argument_" = list( 
-        		signature(), 
+        	),
+        	"symbol_ctor" = list(
+        		signature(x="ANY"),
+        		'return Symbol(x);'
+        	),
+        	"Argument_" = list(
+        		signature(),
         		'
 				Argument x("x");
 				Argument y("y");
-    			
+
 				return List::create( x = 2, y = 3 );
     			'
-        	), 
-        	"Dimension_const" = list( 
-        		signature( ia = "integer" ), 
+        	),
+        	"Dimension_const" = list(
+        		signature( ia = "integer" ),
         		'
 				simple ss(ia);
 				return wrap(ss.nrow());
 				'
-        	), 
-        	"evaluator_error" = list( 
-        		signature(),  
+        	),
+        	"evaluator_error" = list(
+        		signature(),
         		'
 				return Rcpp::Evaluator::run( Rf_lang2( Rf_install("stop"), Rf_mkString( "boom" ) ) ) ;
 				'
-        	), 
-        	"evaluator_ok" = list( 
+        	),
+        	"evaluator_ok" = list(
         		signature(x="integer"),  '
 				return Rcpp::Evaluator::run( Rf_lang2( Rf_install("sample"), x ) ) ;
 				'
-        	), 
-        	"exceptions_" = list( 
+        	),
+        	"exceptions_" = list(
         		signature(), '
 				throw std::range_error("boom") ;
 				return R_NilValue ;
 				'
         	)
-        )   
+        )
 }
 
 includes <- function(){
     "
-                           
+
     using namespace std;
-                           
+
 	class simple {
 	    Rcpp::Dimension dd;
 	public:
@@ -101,8 +105,8 @@ cxxargs <- function() {
 .setUp <- function() {
     tests <- ".rcpp.misc"
     if( ! exists( tests, globalenv() )) {
-        fun <- Rcpp:::compile_unit_tests( 
-            definitions(), 
+        fun <- Rcpp:::compile_unit_tests(
+            definitions(),
             includes = includes(),
             cxxargs = cxxargs()
         )
@@ -112,7 +116,7 @@ cxxargs <- function() {
 
 test.Symbol <- function(){
 	funx <- .rcpp.misc$symbol_
-	res <- funx() 	
+	res <- funx()
 	checkTrue( res[1L], msg = "Symbol creation - SYMSXP " )
 	checkTrue( res[2L], msg = "Symbol creation - CHARSXP " )
 	checkTrue( res[3L], msg = "Symbol creation - STRSXP " )
@@ -140,7 +144,7 @@ test.Dimension.const <- function(){
 	# http://article.gmane.org/gmane.comp.lang.r.rcpp/327
 	funx <- .rcpp.misc$Dimension_const
    checkEquals( funx( c(2L, 2L)) , 2L, msg = "testing const operator[]" )
-	
+
 }
 
 test.evaluator.error <- function(){
@@ -152,19 +156,19 @@ test.evaluator.ok <- function(){
 	funx <- .rcpp.misc$evaluator_ok
 	checkEquals( sort(funx(1:10)), 1:10, msg = "Evaluator running fine" )
 }
-       
+
 test.exceptions <- function(){
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
-	
+
 	funx <- .rcpp.misc$exceptions_
 	e <- tryCatch(  funx(), "C++Error" = function(e) e )
 	checkTrue( "C++Error" %in% class(e), msg = "exception class C++Error" )
-	
+
 	if( can.demangle ){
 		checkTrue( "std::range_error" %in% class(e), msg = "exception class std::range_error" )
 	}
 	checkEquals( e$message, "boom", msg = "exception message" )
-	
+
 	if( can.demangle ){
 		# same with direct handler
 		e <- tryCatch(  funx(), "std::range_error" = function(e) e )
@@ -174,19 +178,19 @@ test.exceptions <- function(){
 	}
 	f <- function(){
 		try( funx(), silent = TRUE)
-		"hello world" 
+		"hello world"
 	}
 	checkEquals( f(), "hello world", msg = "life continues after an exception" )
-	
+
 }
 
 
 
 test.has.iterator <- function(){
-	
-	classes <- c( "std::vector<int>", "std::list<int>", "std::deque<int>", 
-		"std::set<int>", "std::map<std::string,int>", 
-		"std::pair<std::string,int>", 
+
+	classes <- c( "std::vector<int>", "std::list<int>", "std::deque<int>",
+		"std::set<int>", "std::map<std::string,int>",
+		"std::pair<std::string,int>",
 		"Rcpp::Symbol"
 		)
 	code <- lapply( classes, function(.){
@@ -198,15 +202,16 @@ test.has.iterator <- function(){
 	signatures <- rep( list(signature()), 7 )
 	names( code ) <- names( signatures ) <- sprintf( "runit_has_iterator_%d", 1:7 )
 	fx <- cxxfunction( signatures, code, plugin = "Rcpp" )
-	
+
 	checkTrue( fx$runit_has_iterator_1() , msg = "has_iterator< std::vector<int> >" )
 	checkTrue( fx$runit_has_iterator_2() , msg = "has_iterator< std::ist<int> >" )
 	checkTrue( fx$runit_has_iterator_3() , msg = "has_iterator< std::deque<int> >" )
 	checkTrue( fx$runit_has_iterator_4() , msg = "has_iterator< std::set<int> >" )
 	checkTrue( fx$runit_has_iterator_5() , msg = "has_iterator< std::map<string,int> >" )
-	
+
 	checkTrue( ! fx$runit_has_iterator_6(), msg = "has_iterator< std::pair<string,int> >" )
 	checkTrue( ! fx$runit_has_iterator_7(), msg = "Rcpp::Symbol" )
-	
+
 }
 
+}

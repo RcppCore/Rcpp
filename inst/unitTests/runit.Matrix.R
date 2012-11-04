@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,9 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
 definitions <- function(){
     list(
-        	"matrix_numeric" = list( 
+        	"matrix_numeric" = list(
         		signature(x = "matrix" ), '
 					NumericMatrix m(x) ;
 					double trace = 0.0 ;
@@ -27,9 +31,9 @@ definitions <- function(){
 						trace += m(i,i) ;
 					}
 					return wrap( trace ) ;
-				'	
-        	), 
-        	"matrix_character" = list( 
+				'
+        	),
+        	"matrix_character" = list(
         		signature(x = "matrix" ), '
 					CharacterMatrix m(x) ;
 					std::string trace ;
@@ -38,8 +42,8 @@ definitions <- function(){
 					}
 					return wrap( trace ) ;
 				'
-        	), 
-        	"matrix_generic" = list( 
+        	),
+        	"matrix_generic" = list(
         		signature(x = "matrix" ), '
 					GenericMatrix m(x) ;
 					List output( m.ncol() ) ;
@@ -48,27 +52,27 @@ definitions <- function(){
 					}
 					return output ;
 				'
-        	), 
-        	"matrix_integer_diag" = list( 
-        		signature(), 
-        		'return IntegerMatrix::diag( 5, 1 ) ; ' 
-        	), 
-        	"matrix_character_diag" = list( 
-        		signature(), 
+        	),
+        	"matrix_integer_diag" = list(
+        		signature(),
+        		'return IntegerMatrix::diag( 5, 1 ) ; '
+        	),
+        	"matrix_character_diag" = list(
+        		signature(),
         		'return CharacterMatrix::diag( 5, "foo" ) ;'
-        	), 
-        	"matrix_numeric_ctor1" = list( 
-        		signature(), 
+        	),
+        	"matrix_numeric_ctor1" = list(
+        		signature(),
         		'
 					NumericMatrix m(3);
 					return m;
 				'
-        	), 
-        	"matrix_numeric_ctor2" = list( 
+        	),
+        	"matrix_numeric_ctor2" = list(
         		signature(), '
 					NumericMatrix m(3,3);
 					return m;
-				' 
+				'
         	),
         	"integer_matrix_indexing"=list(
                    signature(x = "integer" ),
@@ -86,55 +90,55 @@ definitions <- function(){
 		    		    m(i,i) = 2 * i ;
 		    		}
 		    		return m ; '
-		    ), 
-		    
-		    
-		    "runit_NumericMatrix_row" = list( 
-				signature(x = "matrix" ), 
+		    ),
+
+
+		    "runit_NumericMatrix_row" = list(
+				signature(x = "matrix" ),
 				'
 					NumericMatrix m(x) ;
 					NumericMatrix::Row first_row = m.row(0) ;
 					return wrap( std::accumulate( first_row.begin(), first_row.end(), 0.0 ) ) ;
-				'), 
-			"runit_CharacterMatrix_row" = list( 
-				signature(x = "matrix" ), 
+				'),
+			"runit_CharacterMatrix_row" = list(
+				signature(x = "matrix" ),
 				'
 					CharacterMatrix m(x) ;
 					CharacterMatrix::Row first_row = m.row(0) ;
-					std::string res( 
-						std::accumulate( 
+					std::string res(
+						std::accumulate(
 							first_row.begin(), first_row.end(), std::string() ) ) ;
 					return wrap(res) ;
-				'				
-			),           
-			"runit_GenericMatrix_row" = list( 
-				signature(x = "matrix" ), 
+				'
+			),
+			"runit_GenericMatrix_row" = list(
+				signature(x = "matrix" ),
 				'
 					GenericMatrix m(x) ;
 					GenericMatrix::Row first_row = m.row(0) ;
 					IntegerVector out( first_row.size() ) ;
-					std::transform( 
+					std::transform(
 						first_row.begin(), first_row.end(),
-						out.begin(), 
+						out.begin(),
 						unary_call<SEXP,int>( Function("length" ) ) ) ;
 					return wrap(out) ;
 				'
 			),
-			"runit_NumericMatrix_column" = list( 
-				signature(x = "matrix" ), 
+			"runit_NumericMatrix_column" = list(
+				signature(x = "matrix" ),
 				'
 					NumericMatrix m(x) ;
 					NumericMatrix::Column col = m.column(0) ;
 					return wrap( std::accumulate( col.begin(), col.end(), 0.0 ) ) ;
-				'	
-			), 
-			"runit_NumericMatrix_cumsum" = list( 
-			    signature(x = "matrix" ), 
+				'
+			),
+			"runit_NumericMatrix_cumsum" = list(
+			    signature(x = "matrix" ),
 				'
 				NumericMatrix input( x ) ;
                 int nr = input.nrow(), nc = input.ncol() ;
                 NumericMatrix output(nr, nc) ;
-                
+
                 NumericVector tmp( nr );
                 for( int i=0; i<nc; i++){
                     tmp = tmp + input.column(i) ;
@@ -143,72 +147,72 @@ definitions <- function(){
                 }
                 return output ;
                 '
-			), 
-			"runit_CharacterMatrix_column" = list( 
+			),
+			"runit_CharacterMatrix_column" = list(
 				signature(x = "matrix" ),
 					'
 						CharacterMatrix m(x) ;
 						CharacterMatrix::Column col = m.column(0) ;
-						std::string res( 
-							std::accumulate( 
+						std::string res(
+							std::accumulate(
 								col.begin(), col.end(), std::string() ) ) ;
 						return wrap(res) ;
-					'			
-			), 
-			"runit_GenericMatrix_column" = list( 
-				signature(x = "matrix" ), 
+					'
+			),
+			"runit_GenericMatrix_column" = list(
+				signature(x = "matrix" ),
 				'
 					GenericMatrix m(x) ;
 					GenericMatrix::Column col = m.column(0) ;
 					IntegerVector out( col.size() ) ;
-					std::transform( 
+					std::transform(
 						col.begin(), col.end(),
-						out.begin(), 
+						out.begin(),
 						unary_call<SEXP,int>( Function("length" ) ) ) ;
 					return wrap(out) ;
-				' 			
-			), 
-			"runit_Row_Column_sugar" = list( 
-			    signature( x_ = "matrix" ), 
+				'
+			),
+			"runit_Row_Column_sugar" = list(
+			    signature( x_ = "matrix" ),
 			    '
 			    NumericMatrix x( x_) ;
 			    NumericVector r0 = x.row(0) ;
 			    NumericVector c0 = x.column(0) ;
-			    return List::create( 
-			        r0, 
-			        c0, 
-			        x.row(1), 
-			        x.column(1), 
+			    return List::create(
+			        r0,
+			        c0,
+			        x.row(1),
+			        x.column(1),
 			        x.row(1) + x.column(1)
 			        ) ;
 			    '
-			), 
-			"runit_NumericMatrix_colsum" = list( 
-			    signature( x = "matrix" ), 
+			),
+			"runit_NumericMatrix_colsum" = list(
+			    signature( x = "matrix" ),
 			    '
                  NumericMatrix input( x ) ;
                  int nc = input.ncol() ;
                  NumericMatrix output = clone<NumericMatrix>( input ) ;
                  for( int i=1; i<nc; i++){
-                    output(_,i) = output(_,i-1) + input(_,i) ; 
+                    output(_,i) = output(_,i-1) + input(_,i) ;
                  }
                  return output ;
 			    '
-			), 
-			"runit_NumericMatrix_rowsum" = list( 
-			    signature( x = "matrix" ), 
+			),
+			"runit_NumericMatrix_rowsum" = list(
+			    signature( x = "matrix" ),
 			    '
                  NumericMatrix input( x ) ;
                  int nr = input.nrow();
                  NumericMatrix output = clone<NumericMatrix>( input ) ;
                  for( int i=1; i<nr; i++){
-                    output(i,_) = output(i-1,_) + input(i,_) ; 
+                    output(i,_) = output(i-1,_) + input(i,_) ;
                  }
                  return output ;
 			    '
-			), 
-			"runit_SubMatrix" = list( 
-			    signature(), 
+			),
+			"runit_SubMatrix" = list(
+			    signature(),
 			    '
                  NumericMatrix xx(4, 5);
                  xx(0,0) = 3;
@@ -231,8 +235,8 @@ cxxargs <- function(){
 .setUp <- function() {
     tests <- ".rcpp.Matrix"
     if( ! exists( tests, globalenv() )) {
-        fun <- Rcpp:::compile_unit_tests( 
-            definitions(), 
+        fun <- Rcpp:::compile_unit_tests(
+            definitions(),
             cxxargs = cxxargs()
         )
         assign( tests, fun, globalenv() )
@@ -244,15 +248,15 @@ test.List.column <- function(){
 	funx <- .rcpp.Matrix$runit_Row_Column_sugar
 	x <- matrix( 1:16+.5, nc = 4 )
 	res <- funx( x )
-	target <- list( 
-	    x[1,], 
-	    x[,1], 
+	target <- list(
+	    x[1,],
+	    x[,1],
 	    x[2,],
-	    x[,2], 
+	    x[,2],
 	    x[2,] + x[,2]
 	    )
 	checkEquals( res, target, msg = "column and row as sugar" )
-	
+
 }
 
 test.NumericMatrix <- function(){
@@ -317,7 +321,7 @@ test.IntegerVector.matrix.indexing <- function(){
 }
 
 
-			
+
 test.NumericMatrix.row <- function(){
 	funx <- .rcpp.Matrix$runit_NumericMatrix_row
 	x <- matrix( 1:16 + .5, ncol = 4 )
@@ -335,7 +339,7 @@ test.List.row <- function(){
 	m <- lapply( 1:16, function(i) seq(from=1, to = i ) )
 	dim( m ) <- c( 4, 4 )
 	checkEquals( funx( m ), 1 + 0:3*4, msg = "List::Row" )
-	
+
 }
 
 test.NumericMatrix.column <- function(){
@@ -382,3 +386,4 @@ test.NumericMatrix.SubMatrix <- function( ){
 }
 
 
+}
