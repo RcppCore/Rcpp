@@ -1,3 +1,10 @@
+2012-11-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/doRUnit.R: In "development releases" (such as 0.9.15.5) we
+	now default to setting the required CRAN-test-workaround-kludge
+	"RunAllRcppTests" to "yes" as a default -- but not for actual
+	releases (with versions such as 0.9.15)
+
 2012-11-04  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/module/CppFunction.h: fixed module bug (virtual function
@@ -5,7 +12,7 @@
 
 2012-11-03  JJ Allaire <jj@rstudio.org>
 
-        * Use CLINK_CPPFLAGS rather than PKG_CXXFLAGS for LinkingTo 
+        * Use CLINK_CPPFLAGS rather than PKG_CXXFLAGS for LinkingTo
         include directories (identical behavior to inline)
 
 2012-11-03  Romain Francois <romain@r-enthusiasts.com>
@@ -31,7 +38,7 @@
 	s/get_function_ptr/get_function/
 
 2012-11-01  Dirk Eddelbuettel  <edd@debian.org>
-      
+
 	* inst/unitTests/runit.rmath.R: New unit test file added
 
 2012-11-01  JJ Allaire <jj@rstudio.org>

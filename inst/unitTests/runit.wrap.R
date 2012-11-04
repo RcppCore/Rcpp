@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,8 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
 definitions <- function(){
-f <- list("map_string_int"=list(
+
+    f <- list("map_string_int"=list(
                   signature(),
                   'std::map< std::string, int > m ;
    	           m["b"] = 100;
@@ -353,5 +358,5 @@ if (Rcpp:::capabilities()[["tr1 unordered maps"]]) {
 } # if( Rcpp:::capabilities("tr1 unordered maps") )
 
 
-
+}
 

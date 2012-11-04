@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 -2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,9 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
 definitions <- function(){
     list(
-        	"S4_methods" = list( 
+        	"S4_methods" = list(
         		signature(x = "ANY" ), '
 					RObject y(x) ;
 					List res(5) ;
@@ -30,66 +34,66 @@ definitions <- function(){
 					res[4] = y.slot("y") ;
 					return res ;
 				'
-        	), 
-        	"S4_getslots" = list( 
+        	),
+        	"S4_getslots" = list(
         		signature(x = "ANY" ), '
 					RObject y(x) ;
 					y.slot( "x" ) = 10.0 ;
 					y.slot( "y" ) = 20.0 ;
 					return R_NilValue ;
 				'
-        	), 
-        	"S4_setslots" = list( 
+        	),
+        	"S4_setslots" = list(
         		signature(x = "ANY" ), '
 				RObject y(x) ;
 				y.slot( "foo" ) = 10.0 ;
 				return R_NilValue ;
 				'
-        	), 
-        	"S4_setslots_2" = list( 
+        	),
+        	"S4_setslots_2" = list(
         		signature(x = "ANY" ), '
 					RObject y(x) ;
 					y.slot( "foo" ) ;
 					return R_NilValue ;
 				'
-        	), 
-        	"S4_ctor" = list( 
-        		signature( clazz = "character" ), 
+        	),
+        	"S4_ctor" = list(
+        		signature( clazz = "character" ),
 				'
 					std::string cl = as<std::string>( clazz );
-					return S4( cl ); 
-				' 
-        	), 
-        	"S4_is" = list( 
+					return S4( cl );
+				'
+        	),
+        	"S4_is" = list(
         		signature(tr="ANY"), '
 					S4 o(tr) ;
 					return wrap( o.is( "track" ) ) ;
 				'
-        	), 
-        	"S4_is_2" = list( 
+        	),
+        	"S4_is_2" = list(
         		signature(tr="ANY"), '
 					S4 o(tr) ;
 					return wrap( o.is( "trackCurve" ) ) ;
 				'
-        	), 
+        	),
         	"S4_slotproxy" = list(
-        	    signature(tr="ANY"), 
+        	    signature(tr="ANY"),
         	    ' S4 o(tr); return NumericVector(o.slot("x")); '
-        	), 
-        	"S4_attrproxy" = list( 
-        		signature(tr="ANY"), 
+        	),
+        	"S4_attrproxy" = list(
+        		signature(tr="ANY"),
         		' IntegerVector o(tr); return CharacterVector(o.attr("foo")); '
-        	), 
-        	"S4_dotdata" = list( 
-        		signature( x = "ANY" ), 
+        	),
+        	"S4_dotdata" = list(
+        		signature( x = "ANY" ),
         		'
-        			S4 foo( x ) ; 
-        			foo.slot( ".Data" ) = "foooo" ; 
+        			S4 foo( x ) ;
+        			foo.slot( ".Data" ) = "foooo" ;
         			return foo ;
         		'
         	)
         )
-        
+
 }
 
 cxxargs <- function(){
@@ -99,9 +103,9 @@ cxxargs <- function(){
 .setUp <- function() {
     tests <- ".rcpp.S4"
     if( ! exists( tests, globalenv() )) {
-        fun <- Rcpp:::compile_unit_tests( 
-            definitions(), 
-            cxxargs = cxxargs() 
+        fun <- Rcpp:::compile_unit_tests(
+            definitions(),
+            cxxargs = cxxargs()
         )
         assign( tests, fun, globalenv() )
     }
@@ -115,18 +119,18 @@ test.RObject.S4methods <- function(){
 	checkEquals( fx(tr),
 		list( TRUE, TRUE, FALSE, 2.0, 2.0 )
 	, msg = "slot management" )
-	
+
 	fx <- .rcpp.S4$S4_getslots
 	fx( tr )
 	checkEquals( tr@x, 10.0 , msg = "slot('x') = 10" )
 	checkEquals( tr@y, 20.0 , msg = "slot('y') = 20" )
-	
+
 	fx <- .rcpp.S4$S4_setslots
 	checkException( fx( tr ), msg = "slot does not exist" )
-	
+
 	fx <- .rcpp.S4$S4_setslots_2
 	checkException( fx( tr ), msg = "slot does not exist" )
-	
+
 }
 
 test.S4 <- function(){
@@ -136,7 +140,7 @@ test.S4 <- function(){
 	fx <- cxxfunction( signature( x = "ANY" ),
                         'S4 o(x); return o.slot( "x" ) ;', plugin = "Rcpp" )
 	checkEquals( fx( tr ), 2, msg = "S4( SEXP )" )
-	
+
 	checkException( fx( list( x = 2, y = 3 ) ), msg = "not S4" )
 	checkException( fx( structure( list( x = 2, y = 3 ), class = "track" ) ), msg = "S3 is not S4" )
 
@@ -152,43 +156,44 @@ test.S4 <- function(){
 test.S4.is <- function(){
 	setClass("track", representation(x="numeric", y="numeric"))
 	setClass("trackCurve", representation(smooth = "numeric"), contains = "track")
-	
+
 	tr1 <- new( "track", x = 2, y = 3 )
 	tr2 <- new( "trackCurve", x = 2, y = 3, smooth = 5 )
-	
+
 	fx <- .rcpp.S4$S4_is
 	checkTrue( fx( tr1 ), msg = 'track is track' )
 	checkTrue( fx( tr2 ), msg = 'trackCurve is track' )
-	
+
 	fx <- .rcpp.S4$S4_is_2
 	checkTrue( !fx( tr1 ), msg = 'track is not trackCurve' )
 	checkTrue( fx( tr2 ), msg = 'trackCurve is trackCurve' )
-	
+
 }
 
 test.Vector.SlotProxy.ambiguity <- function(){
 	setClass("track", representation(x="numeric", y="numeric"))
 	setClass("trackCurve", representation(smooth = "numeric"), contains = "track")
-	
+
 	tr1 <- new( "track", x = 2, y = 3 )
 	fx <- .rcpp.S4$S4_slotproxy
 	checkEquals( fx(tr1), 2, "Vector( SlotProxy ) ambiguity" )
-	
+
 }
 
 test.Vector.AttributeProxy.ambiguity <- function(){
 	x <- 1:10
 	attr( x, "foo" ) <- "bar"
-	
+
 	fx <- .rcpp.S4$S4_attrproxy
 	checkEquals( fx(x), "bar", "Vector( AttributeProxy ) ambiguity" )
-	
+
 }
 
 test.S4.dotdataslot <- function(){
 	setClass( "Foo", contains = "character", representation( x = "numeric" ) )
 	fx <- .rcpp.S4$S4_dotdata
 	foo <- fx( new( "Foo", "bla", x = 10 ) )
-	checkEquals( as.character( foo) , "foooo" )	
+	checkEquals( as.character( foo) , "foooo" )
 }
 
+}
