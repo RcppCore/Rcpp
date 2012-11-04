@@ -1,3 +1,8 @@
+2012-11-04  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/module/CppFunction.h: fixed module bug (virtual function
+        was not defined)
+
 2012-11-03  JJ Allaire <jj@rstudio.org>
 
         * Use CLINK_CPPFLAGS rather than PKG_CXXFLAGS for LinkingTo 
