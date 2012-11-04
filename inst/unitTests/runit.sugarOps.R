@@ -18,6 +18,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
 definitions <- function() {
     list(
     	"vector_scalar_ops" = list(signature(x = "numeric"),
@@ -122,3 +126,5 @@ test.vector.vector.logical <- function( ){
 ##     checkEquals(fx(x) , x + 2)
 ##     #checkEquals(fx(x) , x )             # DUMMY
 ## }
+
+}

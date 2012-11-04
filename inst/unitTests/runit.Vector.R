@@ -18,6 +18,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
 definitions <- function(){
     f <- list(
               "raw_" = list(
@@ -1359,4 +1363,6 @@ test.containsElementNamed <- function() {
     checkEquals(fun(x, "foo"), TRUE, msg = "containsElementNamed with element")
     checkEquals(fun(x, "bar"), FALSE, msg = "containsElementNamed without element")
     checkEquals(fun(x, ""), FALSE, msg = "containsElementNamed with empty element")
+}
+
 }

@@ -12,6 +12,9 @@
     compileAttributes() that use C++11 style attributes (embedded in 
     comments) to make declaring and using C++ functions in R much 
     more straightforward.
+    \item Development releases set RunAllRcppTests to yes to run all
+    tests (unless it was alredy set to 'no'), CRAN releases do not and
+    still require setting which helps with the desired CRAN default.
   }
 }
 

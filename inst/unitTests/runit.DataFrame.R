@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,6 +17,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
 
 definitions <- function(){
     list("FromSEXP"=list(
@@ -156,3 +160,4 @@ test.DataFrame.CreateTwo.stringsAsFactors <- function() {
     checkEquals( fun(), DF, msg = "DataFrame create2 stringsAsFactors = false")
 }
 
+}
