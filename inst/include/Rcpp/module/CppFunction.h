@@ -65,7 +65,7 @@
          * The actual function pointer, as a catch all function pointer
          * (see Rdynload.h for definition of DL_FUNC)
          */
-        virtual DL_FUNC get_function_ptr() ;        
+        virtual DL_FUNC get_function_ptr() = 0  ;        
         
         /**
          * description of the function
