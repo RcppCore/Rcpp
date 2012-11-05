@@ -483,7 +483,22 @@
                      AddMethod( method_name.c_str(), method,  signed_method->valid , signed_method->docstring.c_str() ) ;
                 }
             }
-                
+             
+            
+            // importing properties
+            typedef typename parent_class_::prop_class parent_prop_class ;
+            typedef typename parent_class_::PROPERTY_MAP parent_PROPERTY_MAP ;
+            typedef typename parent_PROPERTY_MAP::iterator parent_PROPERTY_MAP_iterator ;
+            
+            parent_PROPERTY_MAP_iterator parent_property_it = parent_class_pointer->properties.begin() ;
+            parent_PROPERTY_MAP_iterator parent_property_end = parent_class_pointer->properties.end() ;
+            for( ; parent_property_it != parent_property_end; parent_property_it++){
+                AddProperty( 
+                    parent_property_it->first.c_str(), 
+                    new CppInheritedProperty<Class,PARENT>( parent_property_it->second )
+                ) ;
+            }
+            
             return *this ;
         }
         
