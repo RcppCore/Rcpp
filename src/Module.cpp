@@ -269,8 +269,10 @@ extern "C" void R_init_Rcpp( DllInfo* info){
 
 namespace Rcpp{
 	
-	Module::Module() : name(), functions(), classes() {}
-	Module::Module(const char* name_) : name(name_), functions(), classes() {}
+	Module::Module() : name(), functions(), classes(), prefix() {}
+	Module::Module(const char* name_) : name(name_), functions(), classes(), prefix("Rcpp_module_") {
+	    prefix += name ;
+	}
 	
 	SEXP Module::invoke( const std::string& name_, SEXP* args, int nargs){
 		BEGIN_RCPP
@@ -461,5 +463,12 @@ namespace Rcpp{
 	        return R_ExternalPtrAddr(xp );
 	    }
 	}
+	
+	FunctionProxy GetCppCallable( const std::string& mod, const std::string& fun){
+        std::string pack( "Rcpp_module_" ) ;
+        pack += mod ;
+        return R_GetCCallable( pack.c_str(), fun.c_str() ) ;     
+    }
+	
 }
 
