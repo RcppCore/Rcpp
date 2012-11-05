@@ -1,3 +1,9 @@
+2012-11-05  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/Module.h: added class CppInheritedProperty to handle 
+        inherited properties
+        * include/Rcpp/module/class.h: implemented inheritance of properties
+
 2012-11-05  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: use modules for attribute code generation
