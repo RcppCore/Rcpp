@@ -327,6 +327,25 @@ namespace Rcpp{
                 
         std::string docstring ;
     } ;
+    
+    template <typename Class, typename Parent>
+    class CppInheritedProperty : public CppProperty<Class> {
+    public:
+        typedef CppProperty<Class> Base ;
+        
+        CppInheritedProperty( CppProperty<Parent>* parent_property_ ) : 
+            Base( parent_property_->docstring.c_str() ), 
+            parent_property(parent_property_) 
+        {}
+        
+        SEXP get( Class* obj ){ return parent_property->get( (Parent*)obj ) ; }
+        void set( Class* obj, SEXP s) { parent_property->set( (Parent*)obj, s ) ; }
+        bool is_readonly(){ return parent_property->is_readonly() ; }
+        std::string get_class(){ return parent_property->get_class() ; }
+        
+    private:
+        CppProperty<Parent>* parent_property ;    
+    } ;
 
     template <typename Class>
     class CppFinalizer{ 
