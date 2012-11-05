@@ -299,8 +299,15 @@ namespace attributes_parser {
              
             // parse the function (unless we are at the end of the file in
             // which case we print a warning)
-            if ((lineNumber + 1) < lines_.size())
+            if ((lineNumber + 1) < lines_.size()) {
                 function = parseFunction(lineNumber + 1);
+                if (!function.empty()) {
+                    std::ostringstream ostr;
+                    ostr << function;
+                    prototypes_.push_back(ostr.str());
+                }
+                
+            }
             else 
                 rcppExportWarning("No function found", lineNumber);    
         }  

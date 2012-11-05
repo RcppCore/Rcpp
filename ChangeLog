@@ -1,3 +1,10 @@
+2012-11-05  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: use modules for attribute code generation
+        * src/Attributes.cpp: use modules for attribute code generation
+        * src/AttributesParser.h: use modules for attribute code generation
+        * src/AttributesParser.cpp: use modules for attribute code generation
+
 2012-11-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/doRUnit.R: In "development releases" (such as 0.9.15.5) we
