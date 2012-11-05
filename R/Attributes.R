@@ -35,7 +35,7 @@ sourceCpp <- function(file = "",
     # get the context (does code generation as necessary)
     file <- normalizePath(file, winslash = "/")
     context <- .Call("sourceCppContext", PACKAGE="Rcpp", file, code, .Platform)
-     
+    
     # perform a build if necessary
     if (context$buildRequired || rebuild) {
     
@@ -123,9 +123,9 @@ sourceCpp <- function(file = "",
                 "force a rebuild)\n\n", sep="")
     }
     
-    # source the R script
-    scriptPath <- file.path(context$buildDirectory, context$rSourceFilename) 
-    source(scriptPath, local = env)
+    # load the module
+    dll <- dyn.load(context$dynlibPath)
+    populate(Module(context$moduleName, PACKAGE = dll, mustStart = TRUE), env)
     
     # return (invisibly) a list of exported functions
     invisible(context$exportedFunctions)
@@ -166,6 +166,7 @@ cppFunction <- function(code,
         cat("\nGenerated code for function definition:",
             "\n--------------------------------------------------------\n\n")
         cat(code)
+        cat("\n")
     }
     
     # source cpp into specified environment. if env is set to NULL
@@ -214,6 +215,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     
     # get a list of all source files
     cppFiles <- list.files(srcDir, pattern=glob2rx("*.c*"))
+    
+    # derive base names (will be used for modules)
+    cppFileBasenames <- tools:::file_path_sans_ext(cppFiles)
+    
+    # expend them to their full paths
     cppFiles <- file.path(srcDir, cppFiles)
     cppFiles <- normalizePath(cppFiles, winslash = "/")
     
@@ -222,24 +228,19 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     
     # generate exports
     invisible(.Call("compileAttributes", PACKAGE="Rcpp", 
-                    pkgdir, pkgname, cppFiles, includes, verbose, .Platform))
+                    pkgdir, pkgname, cppFiles, cppFileBasenames, 
+                    includes, verbose, .Platform))
 }
 
 
 # Print verbose output
 .printVerboseOutput <- function(context) {
     
-    cat("\nGenerated extern \"C\" functions",
+    cat("\nGenerated Rcpp module declaration:",
         "\n--------------------------------------------------------\n")
     cat(context$generatedCpp, sep="")
     
-    cat("\nGenerated R .Call bindings",
-        "\n-------------------------------------------------------\n\n")
-    cat(readLines(file.path(context$buildDirectory, 
-        context$rSourceFilename)), 
-        sep="\n")
-    
-    cat("Building shared library", 
+    cat("\nBuilding shared library", 
         "\n--------------------------------------------------------\n",
         "\nDIR: ", context$buildDirectory, "\n\n", sep="")
 }

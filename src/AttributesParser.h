@@ -181,6 +181,11 @@ namespace attributes_parser {
         const std::vector<std::string>& namespaces() const {
             return namespaces_;
         }
+        
+        // function prototypes
+        const std::vector<std::string>& prototypes() const {
+            return prototypes_;
+        }
        
     private:
     
@@ -224,6 +229,7 @@ namespace attributes_parser {
         CharacterVector lines_;
         std::vector<Attribute> attributes_;
         std::vector<std::string> namespaces_;
+        std::vector<std::string> prototypes_;
         std::vector<std::string> roxygenBuffer_;
     };
 
