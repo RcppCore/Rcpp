@@ -86,35 +86,6 @@ namespace {
             return attribute.function().name();
     }
     
-    // Generate the preamble for a C++ file (headers)
-    std::string generateCppPreamble(const std::vector<std::string>& includes,
-                                    const std::vector<std::string>& namespaces,
-                                    const std::vector<std::string>& prototypes){
-        
-        std::ostringstream ostr;
-        
-        if (!includes.empty()) {
-            for (std::size_t i=0;i<includes.size(); i++)
-                ostr << includes[i] << std::endl;
-            ostr << std::endl;
-        }
-        
-        if (!namespaces.empty()) {
-            for (std::size_t i=0;i<namespaces.size(); i++)
-                ostr << namespaces[i] << std::endl;
-            ostr << std::endl;
-        }
-        
-        if (!prototypes.empty()) {
-            for (std::size_t i=0;i<prototypes.size(); i++)
-                ostr << prototypes[i] << ";" << std::endl;
-            ostr << std::endl;
-        }
-            
-        return ostr.str();
-    }
-    
-    
     // Generate function entries for passed attributes
     void generateCppModuleFunctions(std::ostream& ostr,
                                     const SourceFileAttributes& attributes,
@@ -387,11 +358,11 @@ namespace {
         std::vector<Entry> entries_;
     };
     
-    // Class which manages writing of code for compileAttributes
-    class ExportsStream {
-    public:
-        ExportsStream(const std::string& targetFile, 
-                      const std::string& commentPrefix) 
+    // Abstract class which manages writing of code for compileAttributes
+    class ExportsGenerator {
+    protected:
+        ExportsGenerator(const std::string& targetFile, 
+                         const std::string& commentPrefix) 
             : targetFile_(targetFile), commentPrefix_(commentPrefix) {
             
             // read the existing target file if it exists
@@ -408,25 +379,39 @@ namespace {
             if (!isSafeToOverwrite())
                 throw Rcpp::file_exists(targetFile_);
         }
-        
+ 
     private:
         // prohibit copying
-        ExportsStream(const ExportsStream&);
-        ExportsStream& operator=(const ExportsStream&); 
+        ExportsGenerator(const ExportsGenerator&);
+        ExportsGenerator& operator=(const ExportsGenerator&); 
         
     public:
-        // Stream code into the buffer
-        template <typename T>
-        std::ostream& operator<<(const T& data) {
-            codeStream_ << data;
-            return codeStream_;
+        virtual ~ExportsGenerator() {}
+        
+        // Abstract interface for code generation
+        virtual void writeBegin() {}
+        virtual void writeFunctions(const SourceFileAttributes &attributes,
+                                    bool verbose) {}
+        virtual void writeEnd() {}
+        
+        virtual bool commit(const std::vector<std::string>& includes,
+                            const std::vector<std::string>& namespaces,
+                            const std::vector<std::string>& prototypes) {
+            return commit();                        
         }
         
-        // Covert to ostream
+        // Allow generator to appear as a std::ostream&
         operator std::ostream&() {
             return codeStream_;
         }
         
+    protected: 
+    
+        // Allow access to the output stream 
+        std::ostream& ostr() {
+            return codeStream_;
+        }
+    
         // Commit the stream -- is a no-op if the existing code is identical
         // to the generated code. Returns true if data was written and false
         // if it wasn't (throws exception on io error)
@@ -490,20 +475,153 @@ namespace {
         std::ostringstream codeStream_;
     };
     
-    class CppExportsStream : public ExportsStream {
+    
+    // Class which manages generating RcppExports.cpp
+    class CppExportsGenerator : public ExportsGenerator {
     public:
-        explicit CppExportsStream(const std::string& targetFile)
-            : ExportsStream(targetFile, "//")
+        explicit CppExportsGenerator(const std::string& packageDir, 
+                                     const std::string& fileSep)
+            : ExportsGenerator( 
+                packageDir + fileSep + "src" +  fileSep + "RcppExports.cpp", 
+                "//")
         {
+        }
+        
+        virtual void writeBegin() {
+            ostr() << "RCPP_MODULE(RcppExports) {" << std::endl;
+        }
+        
+        virtual void writeFunctions(const SourceFileAttributes &attributes,
+                                    bool verbose) {
+            // verbose output if requested
+            if (verbose) {
+                Rcpp::Rcout << "Exports from " << attributes.sourceFile() << ":" 
+                            << std::endl;
+            }
+        
+            // generate functions
+            generateCppModuleFunctions(ostr(), attributes, verbose);
+         
+            // verbose if requested
+            if (verbose)
+                Rcpp::Rcout << std::endl;                           
+        }
+    
+        virtual void writeEnd() {
+            ostr() << "}" << std::endl;   
+        }
+        
+        virtual bool commit(const std::vector<std::string>& includes,
+                            const std::vector<std::string>& namespaces,
+                            const std::vector<std::string>& prototypes) {
+            
+            // generate preamble 
+            std::ostringstream ostr;
+            if (!includes.empty()) {
+                for (std::size_t i=0;i<includes.size(); i++)
+                    ostr << includes[i] << std::endl;
+                ostr << std::endl;
+            }
+            
+            if (!namespaces.empty()) {
+                for (std::size_t i=0;i<namespaces.size(); i++)
+                    ostr << namespaces[i] << std::endl;
+                ostr << std::endl;
+            }
+            
+            if (!prototypes.empty()) {
+                for (std::size_t i=0;i<prototypes.size(); i++)
+                    ostr << prototypes[i] << ";" << std::endl;
+                ostr << std::endl;
+            }
+            
+            // commit with preamble
+            return ExportsGenerator::commit(ostr.str());
+                                
+        }
+    
+    };
+    
+    // Class which manages generator RcppExports.R
+    class RExportsGenerator : public ExportsGenerator {
+    public:
+        explicit RExportsGenerator(const std::string& packageDir, 
+                                   const std::string& fileSep)
+            : ExportsGenerator(
+                packageDir + fileSep + "R" +  fileSep + "RcppExports.R", 
+                "#")
+        {
+        }
+        
+        virtual void writeFunctions(const SourceFileAttributes &attributes,
+                                    bool verbose) {
+            // generate roxygen placeholders
+            generateRoxygen(ostr(), attributes);                            
+        }
+        
+        virtual void writeEnd() {   
+            ostr() << "Rcpp::loadModule(\"RcppExports\", what = TRUE)" 
+                   << std::endl;
         }
     };
     
-    class RExportsStream : public ExportsStream {
+    // Class to manage and dispatch to a list of generators
+    class ExportsGenerators {
     public:
-        explicit RExportsStream(const std::string& targetFile)
-            : ExportsStream(targetFile, "#")
-        {
+        typedef std::vector<ExportsGenerator*>::iterator Itr;
+        
+        ExportsGenerators() {}
+        
+        virtual ~ExportsGenerators() {
+            try {
+                for(Itr it = generators_.begin(); it != generators_.end(); ++it)
+                    delete *it;
+                generators_.clear(); 
+            }
+            catch(...) {}
         }
+        
+        void add(ExportsGenerator* pGenerator) {
+            generators_.push_back(pGenerator);
+        }
+        
+        void writeBegin() {
+            for(Itr it = generators_.begin(); it != generators_.end(); ++it)
+                (*it)->writeBegin();
+        }
+        
+        void writeFunctions(const SourceFileAttributes &attributes,
+                            bool verbose) {
+            for(Itr it = generators_.begin(); it != generators_.end(); ++it)
+                (*it)->writeFunctions(attributes, verbose);
+        }
+        
+        void writeEnd() {
+            for(Itr it = generators_.begin(); it != generators_.end(); ++it)
+                (*it)->writeEnd();
+        }
+        
+        bool commit(const std::vector<std::string>& includes,
+                    const std::vector<std::string>& namespaces,
+                    const std::vector<std::string>& prototypes) {
+            
+            bool wrote = false;
+            
+            for(Itr it = generators_.begin(); it != generators_.end(); ++it) {
+               if ((*it)->commit(includes, namespaces, prototypes))
+                wrote = true;
+            }
+               
+            return wrote;
+        }
+    
+    private:
+        // prohibit copying
+        ExportsGenerators(const ExportsGenerators&);
+        ExportsGenerators& operator=(const ExportsGenerators&); 
+        
+    private:
+        std::vector<ExportsGenerator*> generators_;
     };
 
 } // anonymous namespace
@@ -587,24 +705,18 @@ BEGIN_RCPP
                     Rcpp::as<std::vector<std::string> >(sIncludes);
     bool verbose = Rcpp::as<bool>(sVerbose);
     Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
+    std::string fileSep = Rcpp::as<std::string>(platform["file.sep"]); 
      
-    // establish stream for Cpp code as well as vectors to collect
-    // namespaces and function prototypes
-    std::string fileSep = Rcpp::as<std::string>(platform["file.sep"]);
-    std::string cppExportsFile = packageDir + fileSep + "src" + 
-                                 fileSep + "RcppExports.cpp";
-    CppExportsStream cppStream(cppExportsFile);
+    // initialize generators and namespace/prototype vectors
+    ExportsGenerators generators;
+    generators.add(new CppExportsGenerator(packageDir, fileSep));
+    generators.add(new RExportsGenerator(packageDir, fileSep));
     std::vector<std::string> namespaces;
     std::vector<std::string> prototypes;
     
-    // establish stream for R code
-    std::string rExportsFile = packageDir + fileSep + "R" + 
-                               fileSep + "RcppExports.R";
-    RExportsStream rStream(rExportsFile);
+    // write begin
+    generators.writeBegin();
      
-    // start Rcpp module
-    cppStream << "RCPP_MODULE(RcppExports) {" << std::endl;
-    
     // Parse attributes from each file and generate code as required. 
     for (std::size_t i=0; i<cppFiles.size(); i++) {
         
@@ -613,14 +725,7 @@ BEGIN_RCPP
         SourceFileAttributes attributes(cppFile);
         if (attributes.empty())
             continue;
-                  
-        // verbose output if requested
-        if (!attributes.empty() && verbose)
-            Rcpp::Rcout << "Exports from " << cppFile << ":" << std::endl;
-        
-        // generate functions
-        generateCppModuleFunctions(cppStream, attributes, verbose);
-        
+            
         // copy namespaces and prototypes
         std::copy(attributes.namespaces().begin(),
                   attributes.namespaces().end(),
@@ -629,44 +734,31 @@ BEGIN_RCPP
                   attributes.prototypes().end(),
                   std::back_inserter(prototypes));
         
-        // generate roxygen placeholders
-        generateRoxygen(rStream, attributes);
-        
-        // verbose if requested
-        if (!attributes.empty() && verbose)
-            Rcpp::Rcout << std::endl;
+        // write functions
+        generators.writeFunctions(attributes, verbose);
     }
     
-    // end Rcpp module
-    cppStream << "}" << std::endl;
-          
+    // write end
+    generators.writeEnd();
+            
     // eliminate namespace duplicates
     std::sort(namespaces.begin(), namespaces.end());
     std::vector<std::string>::const_iterator it = 
                         std::unique(namespaces.begin(), namespaces.end());
     namespaces.resize( it - namespaces.begin());
           
-    // commit the C++ code
-    bool wroteCpp = cppStream.commit(generateCppPreamble(includes, 
-                                                         namespaces, 
-                                                         prototypes));     
-                                                         
-    // add loadModule call for R
-    rStream << "Rcpp::loadModule(\"RcppExports\", what = TRUE)" << std::endl;
-             
-    // commit the R code
-    bool wroteR = rStream.commit();
-    
-    // verbose outputs
+    // commit 
+    bool wrote = generators.commit(includes, namespaces, prototypes);  
+                                                                                                                   
+    // verbose output
     if (verbose) {
-        Rcpp::Rcout << "Generating exports files:" << std::endl;
-        Rcpp::Rcout << "  RcppExports.cpp (" <<  
-           (wroteCpp ? "updated" : "already up to date") << ")" << std::endl;
-        Rcpp::Rcout << "  RcppExports.R (" <<  
-           (wroteR ? "updated" : "already up to date") << ")" << std::endl;
+        if (wrote)
+            Rcpp::Rcout << "Rcpp exports files updated" << std::endl;
+        else
+            Rcpp::Rcout << "Rcpp exports files already up to date" << std::endl;
     }
     
     // return status
-    return Rcpp::wrap(wroteCpp || wroteR);
+    return Rcpp::wrap<bool>(wrote);
 END_RCPP
 }
