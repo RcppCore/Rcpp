@@ -175,6 +175,9 @@ namespace attributes_parser {
     // Known attribute names
     const char * const kExportAttribute = "export";
     const char * const kDependsAttribute = "depends";
+    const char * const kInterfacesAttribute = "interfaces";
+    const char * const kInterfaceR = "r";
+    const char * const kInterfaceCpp = "cpp";
       
     // Parse the attributes from a source file
     SourceFileAttributes::SourceFileAttributes(const std::string& sourceFile)
@@ -239,20 +242,11 @@ namespace attributes_parser {
                 } 
                 
                 // if it's not an attribute line then it could still be a 
-                // line of interest (e.g. using namespace)
+                // line of interest (e.g. roxygen comment)
                 else {
                     
-                    // save global namespace imports (need to bring these over
-                    // to RcppExports.cpp to ensure type names all work)
-                    if (line.find("using namespace") == 0) {
-                        std::string namespaceLine = line;
-                        trimWhitespace(&namespaceLine);
-                        if (*(namespaceLine.rbegin()) == ';')
-                            namespaces_.push_back(namespaceLine);
-                    }
-                    
-                    // look for roxygen comments
-                    else if (line.find("//'") == 0) {
+                    // save roxygen comments
+                    if (line.find("//'") == 0) {
                         std::string roxLine = "#" + line.substr(2);
                         roxygenBuffer_.push_back(roxLine);
                     }
@@ -311,6 +305,24 @@ namespace attributes_parser {
             else 
                 rcppExportWarning("No function found", lineNumber);    
         }  
+        
+        // validate interfaces parameter
+        else if (name == kInterfacesAttribute) {
+            if (params.empty()) {
+                rcppInterfacesWarning("No interfaces specified", lineNumber);
+            }
+            else {
+                for (std::size_t i=0; i<params.size(); i++) {
+                    std::string param = params[i].name();
+                    if (param != kInterfaceR && param != kInterfaceCpp) {
+                        rcppInterfacesWarning(
+                            "Unknown interface '" + param + "'", lineNumber);
+                    }
+                }
+            }
+                
+           
+        }
         
         // Return attribute
         Attribute attribute = Attribute(name, params, function, roxygenBuffer_);
@@ -547,7 +559,8 @@ namespace attributes_parser {
     
     bool SourceFileAttributes::isKnownAttribute(const std::string& name) const {
         return name == kExportAttribute || 
-               name == kDependsAttribute;
+               name == kDependsAttribute ||
+               name == kInterfacesAttribute;
     }
 
     // Print an attribute parsing related warning
@@ -586,11 +599,17 @@ namespace attributes_parser {
     void SourceFileAttributes::rcppExportInvalidParameterWarning(
                                                     const std::string& param, 
                                                     size_t lineNumber) {
-        rcppExportWarning("Invalid parameter declaration: "
+        rcppExportWarning("Invalid parameter: "
                           "'" + param + "'", lineNumber);
     }
     
-   
+    void SourceFileAttributes::rcppInterfacesWarning(const std::string& message,
+                                                     size_t lineNumber) {
+        attributeWarning(message + " (valid interfaces are 'r' and 'cpp')", 
+                        "Rcpp::interfaces", lineNumber);                                                     
+    }
+    
+
     // Track /* */ comment state     
     void SourceFileAttributes::CommentState::submitLine(const std::string& line) {
         std::size_t pos = 0;
