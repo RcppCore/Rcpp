@@ -237,7 +237,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 .printVerboseOutput <- function(context) {
     
     cat("\nGenerated Rcpp module declaration:",
-        "\n--------------------------------------------------------\n")
+        "\n--------------------------------------------------------\n\n")
     cat(context$generatedCpp, sep="")
     
     cat("\nBuilding shared library", 
