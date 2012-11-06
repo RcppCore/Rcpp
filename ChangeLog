@@ -4,7 +4,9 @@
         * src/AttributesParser.h: support for interfaces attribute
         * src/AttributesParser.cpp: support for interfaces attribute
         * src/Attributes.cpp: support for interfaces attribute; refactor 
-        code generators; use single module for exports
+        code generators; use single module for exports; return list of
+        updated files from compileAttributes
+        * man/compileAttributes.Rd: documentation updates
 
 2012-11-05  Romain Francois <romain@r-enthusiasts.com>
 
