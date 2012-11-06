@@ -384,8 +384,11 @@ namespace {
     class ExportsGenerator {
     protected:
         ExportsGenerator(const std::string& targetFile, 
+                         const std::string& package,
                          const std::string& commentPrefix) 
-            : targetFile_(targetFile), commentPrefix_(commentPrefix) {
+            : targetFile_(targetFile), 
+              package_(package),
+              commentPrefix_(commentPrefix) {
             
             // read the existing target file if it exists
             if (FileInfo(targetFile_).exists()) {
@@ -413,6 +416,11 @@ namespace {
         // Name of target file
         const std::string& targetFile() const {
             return targetFile_;
+        }
+        
+        // Name of package
+        const std::string& package() const {
+            return package_;
         }
         
         // Abstract interface for code generation
@@ -499,6 +507,7 @@ namespace {
     
     private:
         std::string targetFile_;
+        std::string package_;
         std::string commentPrefix_;
         std::string existingCode_;
         std::ostringstream codeStream_;
@@ -509,15 +518,18 @@ namespace {
     class CppExportsGenerator : public ExportsGenerator {
     public:
         explicit CppExportsGenerator(const std::string& packageDir, 
+                                     const std::string& package,
                                      const std::string& fileSep)
             : ExportsGenerator( 
                 packageDir + fileSep + "src" +  fileSep + "RcppExports.cpp", 
+                package,
                 "//")
         {
         }
         
         virtual void writeBegin() {
-            ostr() << "RCPP_MODULE(RcppExports) {" << std::endl;
+            ostr() << "RCPP_MODULE(" << package() << "_RcppExports) {" 
+                    << std::endl;
         }
         
         virtual void writeFunctions(const SourceFileAttributes &attributes,
@@ -564,24 +576,24 @@ namespace {
     
     };
     
-    // Class which manages generating RcppExports.cpp
+    // Class which manages generating the header file for the package
     class CppIncludeGenerator : public ExportsGenerator {
     public:
         explicit CppIncludeGenerator(const std::string& packageDir, 
-                                     const std::string& fileSep,
-                                     const std::string& scope)
+                                     const std::string& package,
+                                     const std::string& fileSep)
             : ExportsGenerator( 
                 packageDir +  fileSep + "inst" +  fileSep + "include" +
-                fileSep + scope + ".hpp", 
+                fileSep + package + ".hpp", 
+                package,
                 "//")
         {
-            scope_ = scope;
             includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
             hasCppInterface_ = false; 
         }
         
         virtual void writeBegin() {
-            ostr() << "namespace " << scope_ << " {" << std::endl;
+            ostr() << "namespace " << package() << " {" << std::endl;
         }
     
         virtual void writeFunctions(const SourceFileAttributes &attributes,
@@ -610,8 +622,9 @@ namespace {
                     ostr() << "    inline " << function << " {" 
                             << std::endl;
                     
+                    std::string ptrName = "p_" + function.name();
                     ostr() << "        static " << function.type() 
-                           << "(*p_" << function.name() << ")(";
+                           << "(*" << ptrName << ")(";
                     
                     const std::vector<Argument>& args = 
                                                 function.arguments();
@@ -622,12 +635,13 @@ namespace {
                             ostr() << ",";
                     }
                     
-                    ostr() << ") = Rcpp::GetCppCallable(\"RcppExports\", "
+                    ostr() << ") = Rcpp::GetCppCallable"
+                           << "(\"" << package() << "\", "
+                           << "\"" << package() << "_RcppExports\", "
                            << "\"" << function.name() << "\");" 
                            << std::endl;
                     
-                    ostr() << "        return p_" << function.name()
-                           << "(";
+                    ostr() << "        return " << ptrName  << "(";
                            
                     for (std::size_t i = 0; i<args.size(); i++) {
                         ostr() << args[i].name();
@@ -637,8 +651,6 @@ namespace {
                            
                     ostr() << ");" << std::endl;
                     ostr() << "    }" << std::endl;
-                    
-                    
                 } 
             }                           
         }
@@ -672,7 +684,6 @@ namespace {
         }
         
     private:
-        std::string scope_;
         std::string includeDir_;
         bool hasCppInterface_;
     };
@@ -680,10 +691,12 @@ namespace {
     // Class which manages generator RcppExports.R
     class RExportsGenerator : public ExportsGenerator {
     public:
-        explicit RExportsGenerator(const std::string& packageDir, 
+        explicit RExportsGenerator(const std::string& packageDir,
+                                   const std::string& package,
                                    const std::string& fileSep)
             : ExportsGenerator(
                 packageDir + fileSep + "R" +  fileSep + "RcppExports.R", 
+                package,
                 "#")
         {
         }
@@ -712,7 +725,7 @@ namespace {
         
         virtual void writeEnd() { 
             
-            ostr() << "Rcpp::loadModule(\"RcppExports\", ";
+            ostr() << "Rcpp::loadModule(\"" << package() << "_RcppExports\", ";
             
             if (rExports_.size() > 0) {
                 ostr() << "what = c(";
@@ -894,9 +907,9 @@ BEGIN_RCPP
      
     // initialize generators and namespace/prototype vectors
     ExportsGenerators generators;
-    generators.add(new CppExportsGenerator(packageDir, fileSep));
-    generators.add(new RExportsGenerator(packageDir, fileSep));
-    generators.add(new CppIncludeGenerator(packageDir, fileSep, packageName));
+    generators.add(new CppExportsGenerator(packageDir, packageName, fileSep));
+    generators.add(new RExportsGenerator(packageDir, packageName, fileSep));
+    generators.add(new CppIncludeGenerator(packageDir, packageName, fileSep));
     std::vector<std::string> prototypes;
     
     // write begin
