@@ -73,10 +73,14 @@ namespace {
     };
     
     // Remove a file (call back into R for this)
-    void removeFile(const std::string& path) {
+    bool removeFile(const std::string& path) {
         if (FileInfo(path).exists()) {
             Rcpp::Function rm = Rcpp::Environment::base_env()["file.remove"];
             rm(path);
+            return true;
+        }
+        else {
+            return false;
         }
     }
     
@@ -406,6 +410,11 @@ namespace {
     public:
         virtual ~ExportsGenerator() {}
         
+        // Name of target file
+        const std::string& targetFile() const {
+            return targetFile_;
+        }
+        
         // Abstract interface for code generation
         virtual void writeBegin() = 0;
         virtual void writeFunctions(const SourceFileAttributes &attributes,
@@ -469,8 +478,8 @@ namespace {
         }
         
         // Remove the generated file entirely
-        void remove() {
-            removeFile(targetFile_);
+        bool remove() {
+            return removeFile(targetFile_);
         }
         
     private:
@@ -658,8 +667,7 @@ namespace {
                 return ExportsGenerator::commit(ostr.str());
             }
             else {
-                ExportsGenerator::remove();
-                return false;
+                return ExportsGenerator::remove();
             }
         }
         
@@ -767,17 +775,18 @@ namespace {
                 (*it)->writeEnd();
         }
         
-        bool commit(const std::vector<std::string>& includes,
+        // Commit and return a list of the files that were update
+        std::vector<std::string> commit(const std::vector<std::string>& includes,
                     const std::vector<std::string>& prototypes) {
             
-            bool wrote = false;
+            std::vector<std::string> updated;
             
             for(Itr it = generators_.begin(); it != generators_.end(); ++it) {
-               if ((*it)->commit(includes, prototypes))
-                wrote = true;
+                if ((*it)->commit(includes, prototypes))
+                    updated.push_back((*it)->targetFile());
             }
                
-            return wrote;
+            return updated;
         }
     
     private:
@@ -904,17 +913,15 @@ BEGIN_RCPP
     generators.writeEnd();
 
     // commit 
-    bool wrote = generators.commit(includes, prototypes);  
+    std::vector<std::string> updated = generators.commit(includes, prototypes);  
                                                                                                                    
     // verbose output
     if (verbose) {
-        if (wrote)
-            Rcpp::Rcout << "Rcpp exports files updated" << std::endl;
-        else
-            Rcpp::Rcout << "Rcpp exports files already up to date" << std::endl;
+        for (size_t i=0; i<updated.size(); i++)
+            Rcpp::Rcout << updated[i] << " updated." << std::endl;
     }
     
-    // return status
-    return Rcpp::wrap<bool>(wrote);
+    // return files updated
+    return Rcpp::wrap<std::vector<std::string> >(updated);
 END_RCPP
 }
