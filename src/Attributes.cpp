@@ -424,6 +424,11 @@ namespace {
         virtual bool commit(const std::vector<std::string>& includes,
                             const std::vector<std::string>& prototypes) = 0;
         
+        // Remove the generated file entirely
+        bool remove() {
+            return removeFile(targetFile_);
+        }
+        
         // Allow generator to appear as a std::ostream&
         operator std::ostream&() {
             return codeStream_;
@@ -475,11 +480,6 @@ namespace {
             else {
                 return false;
             }
-        }
-        
-        // Remove the generated file entirely
-        bool remove() {
-            return removeFile(targetFile_);
         }
         
     private:
@@ -775,8 +775,9 @@ namespace {
                 (*it)->writeEnd();
         }
         
-        // Commit and return a list of the files that were update
-        std::vector<std::string> commit(const std::vector<std::string>& includes,
+        // Commit and return a list of the files that were updated
+        std::vector<std::string> commit(
+                    const std::vector<std::string>& includes,
                     const std::vector<std::string>& prototypes) {
             
             std::vector<std::string> updated;
@@ -788,7 +789,17 @@ namespace {
                
             return updated;
         }
-    
+        
+        // Remove and return a list of files that were removed
+        std::vector<std::string> remove() {
+            std::vector<std::string> removed;
+            for(Itr it = generators_.begin(); it != generators_.end(); ++it) {
+                if ((*it)->remove())
+                    removed.push_back((*it)->targetFile());
+            }
+            return removed;
+        }
+                 
     private:
         // prohibit copying
         ExportsGenerators(const ExportsGenerators&);
@@ -892,6 +903,7 @@ BEGIN_RCPP
     generators.writeBegin();
      
     // Parse attributes from each file and generate code as required. 
+    bool haveAttributes = false;
     for (std::size_t i=0; i<cppFiles.size(); i++) {
         
         // parse attributes (continue if there are none)
@@ -899,6 +911,9 @@ BEGIN_RCPP
         SourceFileAttributes attributes(cppFile);
         if (attributes.empty())
             continue;
+            
+        // confirm we have attributes
+        haveAttributes = true;
             
         // copy prototypes
         std::copy(attributes.prototypes().begin(),
@@ -912,8 +927,12 @@ BEGIN_RCPP
     // write end
     generators.writeEnd();
 
-    // commit 
-    std::vector<std::string> updated = generators.commit(includes, prototypes);  
+    // commit or remove
+    std::vector<std::string> updated;
+    if (haveAttributes)
+        updated = generators.commit(includes, prototypes);  
+    else
+        updated = generators.remove();
                                                                                                                    
     // verbose output
     if (verbose) {
