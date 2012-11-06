@@ -1,3 +1,8 @@
+2012-11-06  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: use single module for exports
+        * src/Attributes.cpp: use single module for exports
+
 2012-11-05  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/Module.h: added class CppInheritedProperty to handle 
