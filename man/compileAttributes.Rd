@@ -26,7 +26,7 @@ compileAttributes(pkgdir = ".", verbose = getOption("verbose"))
     In order to access the declarations for custom \code{Rcpp::as} and \code{Rcpp::wrap} handlers the \code{compileAttributes} function will also call any \link[inline:plugins]{inline plugins} available for packages listed in the \code{LinkingTo} field of the \code{DESCRIPTION} file.
 }
 \value{
-    Returns \code{TRUE} if generated code was updated, \code{FALSE} if no updates were required.
+    Returns (invisibly) a character vector with the paths to any files that were updated as a result of the call.
 }
 
 \seealso{
