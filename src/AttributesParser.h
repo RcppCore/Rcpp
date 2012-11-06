@@ -81,6 +81,10 @@ namespace attributes_parser {
         {
         }
         
+        Function renamedTo(const std::string& name) const {
+            return Function(type(), name, arguments(), source());
+        }
+        
         bool empty() const { return name().empty(); }
         
         const Type& type() const { return type_; }
@@ -152,9 +156,12 @@ namespace attributes_parser {
     std::ostream& operator<<(std::ostream& os, const Param& param); 
     std::ostream& operator<<(std::ostream& os, const Attribute& attribute); 
 
-    // Known attribute names
+    // Known attribute names & parameters
     extern const char * const kExportAttribute;
     extern const char * const kDependsAttribute;
+    extern const char * const kInterfacesAttribute;
+    extern const char * const kInterfaceR;
+    extern const char * const kInterfaceCpp;
    
     // Class used to parse and return attribute information from a source file
     class SourceFileAttributes {
@@ -177,9 +184,20 @@ namespace attributes_parser {
         const_iterator end() const { return attributes_.end(); }
         bool empty() const { return attributes_.empty(); }
         
-        // namespace imports
-        const std::vector<std::string>& namespaces() const {
-            return namespaces_;
+        // Higher level queries
+        bool hasInterface(const std::string& name) const {
+            
+            for (const_iterator it=begin(); it != end(); ++it) {
+                if (it->name() == kInterfacesAttribute) {
+                    return it->hasParameter(name);
+                }
+            }
+            
+            // if there's no interfaces attrbute we default to R
+            if (name == kInterfaceR)
+                return true;
+            else
+                return false;            
         }
         
         // function prototypes
@@ -208,6 +226,8 @@ namespace attributes_parser {
         void rcppExportNoFunctionFoundWarning(size_t lineNumber); 
         void rcppExportInvalidParameterWarning(const std::string& param, 
                                                size_t lineNumber); 
+        void rcppInterfacesWarning(const std::string& message,
+                                   size_t lineNumber);
         
         // Helper class for determining whether we are in a comment
         class CommentState {
@@ -228,7 +248,6 @@ namespace attributes_parser {
         std::string sourceFile_;
         CharacterVector lines_;
         std::vector<Attribute> attributes_;
-        std::vector<std::string> namespaces_;
         std::vector<std::string> prototypes_;
         std::vector<std::string> roxygenBuffer_;
     };
