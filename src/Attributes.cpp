@@ -72,17 +72,7 @@ namespace {
         time_t lastModified_;
     };
     
-    // Generate the preamble for a C++ file (headers)
-    std::string generateCppPreamble(const std::vector<std::string>& includes){
-        
-        std::ostringstream ostr;
-        for (std::size_t i=0;i<includes.size(); i++)
-            ostr << includes[i] << std::endl;
-        
-        return ostr.str();
-    }
-    
-    // Check if the passed attribute represents an exported function
+     // Check if the passed attribute represents an exported function
     bool isExportedFunction(const Attribute& attribute) {
         return (attribute.name() == kExportAttribute) &&
                !attribute.function().empty();
@@ -95,34 +85,41 @@ namespace {
         else
             return attribute.function().name();
     }
- 
-    // Generate a module declaration
-    std::string generateCppModule(const std::string& moduleName, 
-                                  const SourceFileAttributes& attributes,
-                                  bool includeTypeInfo,
-                                  bool verbose) {
+    
+    // Generate the preamble for a C++ file (headers)
+    std::string generateCppPreamble(const std::vector<std::string>& includes,
+                                    const std::vector<std::string>& namespaces,
+                                    const std::vector<std::string>& prototypes){
         
         std::ostringstream ostr;
-           
-        // module header
-        ostr << std::endl << "// Module: " << moduleName << std::endl;  
         
-        // include namespace imports and function prototypes if requested
-        if (includeTypeInfo) {
-            
-            if (!attributes.namespaces().empty()) {
-                for (std::size_t i=0;i<attributes.namespaces().size(); i++)
-                    ostr << attributes.namespaces()[i] << std::endl;
-            }
-        
-            if (!attributes.prototypes().empty()) {
-                for (std::size_t i=0;i<attributes.prototypes().size(); i++)
-                    ostr << attributes.prototypes()[i] << ";" << std::endl;
-            }
+        if (!includes.empty()) {
+            for (std::size_t i=0;i<includes.size(); i++)
+                ostr << includes[i] << std::endl;
+            ostr << std::endl;
         }
         
-        // output the module
-        ostr << "RCPP_MODULE(" << moduleName  << ") {" << std::endl;
+        if (!namespaces.empty()) {
+            for (std::size_t i=0;i<namespaces.size(); i++)
+                ostr << namespaces[i] << std::endl;
+            ostr << std::endl;
+        }
+        
+        if (!prototypes.empty()) {
+            for (std::size_t i=0;i<prototypes.size(); i++)
+                ostr << prototypes[i] << ";" << std::endl;
+            ostr << std::endl;
+        }
+            
+        return ostr.str();
+    }
+    
+    
+    // Generate function entries for passed attributes
+    void generateCppModuleFunctions(std::ostream& ostr,
+                                    const SourceFileAttributes& attributes,
+                                    bool verbose)
+    {
         for(std::vector<Attribute>::const_iterator 
                 it = attributes.begin(); it != attributes.end(); ++it) {
             
@@ -140,10 +137,48 @@ namespace {
                       
             } 
         }
+    }
+    
+    // Generate a module declaration
+   void generateCppModule(std::ostream& ostr,
+                          const std::string& moduleName, 
+                          const SourceFileAttributes& attributes,
+                          bool verbose) {    
+        ostr << "RCPP_MODULE(" << moduleName  << ") {" << std::endl;
+        generateCppModuleFunctions(ostr, attributes, verbose);
         ostr << "}" << std::endl;
-        
-        return ostr.str();    
     }    
+    
+    // Generate placeholder function declaration (for roxygen)
+    void generateRoxygenPlaceholder(std::ostream& ostr,
+                                    const Attribute& attribute) {
+        
+        ostr << exportedName(attribute) << "<- function(";
+        const std::vector<Argument>& args = attribute.function().arguments();
+        for (std::size_t i=0; i<args.size(); i++) {
+            ostr << args[i].name();
+            if (i != (args.size()-1))
+                ostr << ", ";
+        }
+        ostr << ") {}" << std::endl;
+    }
+    
+    // Generate roxygen
+    void generateRoxygen(std::ostream& ostr,
+                         const SourceFileAttributes& attributes) {
+        
+        for(std::vector<Attribute>::const_iterator 
+                it = attributes.begin(); it != attributes.end(); ++it) {
+         
+            if (isExportedFunction(*it) && !it->roxygen().empty()) {
+                ostr << std::endl;
+                for (std::size_t i=0; i<it->roxygen().size(); i++)
+                    ostr << it->roxygen()[i] << std::endl;
+                generateRoxygenPlaceholder(ostr, *it);
+                ostr << std::endl;
+            } 
+        }
+    }
     
     // Class that manages generation of source code for the sourceCpp dynlib
     class SourceCppDynlib {
@@ -214,10 +249,9 @@ namespace {
             SourceFileAttributes sourceAttributes(cppSourcePath_);
         
             // generate RCPP module
-            generatedCpp_ = generateCppModule(moduleName(), 
-                                              sourceAttributes, 
-                                              false,    // no typeinfo 
-                                              false);   // not verbose
+            std::ostringstream ostr;
+            generateCppModule(ostr, moduleName(), sourceAttributes, false); 
+            generatedCpp_ = ostr.str();
             
             // open source file and append module
             std::ofstream cppOfs(generatedCppSourcePath().c_str(), 
@@ -388,6 +422,11 @@ namespace {
             return codeStream_;
         }
         
+        // Covert to ostream
+        operator std::ostream&() {
+            return codeStream_;
+        }
+        
         // Commit the stream -- is a no-op if the existing code is identical
         // to the generated code. Returns true if data was written and false
         // if it wasn't (throws exception on io error)
@@ -408,7 +447,7 @@ namespace {
             headerStream << commentPrefix_ << " Generator token: " 
                          << generatorToken() << std::endl << std::endl;      
             if (!preamble.empty())
-                headerStream << preamble << std::endl;
+                headerStream << preamble;
                 
             // get generated code and only write it if there was a change
             std::string generatedCode = headerStream.str() + code;        
@@ -549,17 +588,23 @@ BEGIN_RCPP
     bool verbose = Rcpp::as<bool>(sVerbose);
     Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
      
-    // Establish stream for Cpp code
+    // establish stream for Cpp code as well as vectors to collect
+    // namespaces and function prototypes
     std::string fileSep = Rcpp::as<std::string>(platform["file.sep"]);
     std::string cppExportsFile = packageDir + fileSep + "src" + 
                                  fileSep + "RcppExports.cpp";
     CppExportsStream cppStream(cppExportsFile);
+    std::vector<std::string> namespaces;
+    std::vector<std::string> prototypes;
     
-    // Establish stream for R code
+    // establish stream for R code
     std::string rExportsFile = packageDir + fileSep + "R" + 
                                fileSep + "RcppExports.R";
     RExportsStream rStream(rExportsFile);
      
+    // start Rcpp module
+    cppStream << "RCPP_MODULE(RcppExports) {" << std::endl;
+    
     // Parse attributes from each file and generate code as required. 
     for (std::size_t i=0; i<cppFiles.size(); i++) {
         
@@ -573,21 +618,43 @@ BEGIN_RCPP
         if (!attributes.empty() && verbose)
             Rcpp::Rcout << "Exports from " << cppFile << ":" << std::endl;
         
-        // generate C++ module
-        std::string moduleName = "RcppExports_" + cppFileBasenames[i];
-        cppStream << generateCppModule(moduleName, attributes, true, verbose);
+        // generate functions
+        generateCppModuleFunctions(cppStream, attributes, verbose);
         
-        // genereate R loadModule 
-        rStream << "loadModule(\"" << moduleName << "\", what = TRUE)" 
-                << std::endl;
-      
+        // copy namespaces and prototypes
+        std::copy(attributes.namespaces().begin(),
+                  attributes.namespaces().end(),
+                  std::back_inserter(namespaces));
+        std::copy(attributes.prototypes().begin(),
+                  attributes.prototypes().end(),
+                  std::back_inserter(prototypes));
+        
+        // generate roxygen placeholders
+        generateRoxygen(rStream, attributes);
+        
         // verbose if requested
         if (!attributes.empty() && verbose)
             Rcpp::Rcout << std::endl;
     }
-                           
-    // commit the code
-    bool wroteCpp = cppStream.commit(generateCppPreamble(includes));     
+    
+    // end Rcpp module
+    cppStream << "}" << std::endl;
+          
+    // eliminate namespace duplicates
+    std::sort(namespaces.begin(), namespaces.end());
+    std::vector<std::string>::const_iterator it = 
+                        std::unique(namespaces.begin(), namespaces.end());
+    namespaces.resize( it - namespaces.begin());
+          
+    // commit the C++ code
+    bool wroteCpp = cppStream.commit(generateCppPreamble(includes, 
+                                                         namespaces, 
+                                                         prototypes));     
+                                                         
+    // add loadModule call for R
+    rStream << "Rcpp::loadModule(\"RcppExports\", what = TRUE)" << std::endl;
+             
+    // commit the R code
     bool wroteR = rStream.commit();
     
     // verbose outputs
