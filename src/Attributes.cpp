@@ -218,8 +218,7 @@ namespace {
                                     bool verbose) = 0;
         virtual void writeEnd() = 0;
         
-        virtual bool commit(const std::vector<std::string>& includes,
-                            const std::vector<std::string>& prototypes) = 0;
+        virtual bool commit(const std::vector<std::string>& includes) = 0;
         
         // Remove the generated file entirely
         bool remove() {
@@ -236,6 +235,14 @@ namespace {
         // Allow access to the output stream 
         std::ostream& ostr() {
             return codeStream_;
+        }
+        
+        // Shared knowledge about the special export validation function
+        std::string exportValidationFunction() {
+            return "validateExported";
+        } 
+        std::string exportValidationFunctionRegisteredName() {
+            return "RcppExports_" + exportValidationFunction();
         }
     
         // Commit the stream -- is a no-op if the existing code is identical
@@ -330,6 +337,24 @@ namespace {
         
             // generate functions
             generateCppModuleFunctions(ostr(), attributes, verbose);
+            
+            // track prototypes/signatures for inclusion in the preamble
+            for (SourceFileAttributes::const_iterator 
+                it = attributes.begin(); it != attributes.end(); ++it) {
+                if (isExportedFunction(*it)) {
+                    
+                    // prototypes
+                    std::ostringstream ostr;
+                    ostr << it->function();
+                    prototypes_.push_back(ostr.str());   
+                    
+                    // signatures
+                    if (!it->function().isHidden()) {
+                        signatures_.push_back(
+                            it->function().signature(exportedName(*it)));
+                    }
+                }
+            }
          
             // verbose if requested
             if (verbose)
@@ -337,31 +362,59 @@ namespace {
         }
     
         virtual void writeEnd() {
+            
+            // add our export validation helper
+            ostr() << "    Rcpp::function(\"" 
+                   << exportValidationFunctionRegisteredName() << "\", &" 
+                   << exportValidationFunction() << ");" << std::endl;
+
             ostr() << "}" << std::endl;   
         }
         
-        virtual bool commit(const std::vector<std::string>& includes,
-                            const std::vector<std::string>& prototypes) {
+        virtual bool commit(const std::vector<std::string>& includes) {
             
-            // generate preamble 
+            // includes 
             std::ostringstream ostr;
             if (!includes.empty()) {
                 for (std::size_t i=0;i<includes.size(); i++)
                     ostr << includes[i] << std::endl;
+            }
+            ostr << "#include <string>" << std::endl;
+            ostr << "#include <set>" << std::endl;
+            ostr << std::endl;
+            
+            // prototypes
+            if (!prototypes_.empty()) {
+                for (std::size_t i=0;i<prototypes_.size(); i++)
+                    ostr << prototypes_[i] << ";" << std::endl;
                 ostr << std::endl;
             }
             
-            if (!prototypes.empty()) {
-                for (std::size_t i=0;i<prototypes.size(); i++)
-                    ostr << prototypes[i] << ";" << std::endl;
-                ostr << std::endl;
+            // generate a function that can be used to validate exported
+            // functions and their signatures prior to looking up with
+            // GetCppCallable (otherwise inconsistent signatures between
+            // client and library would cause a crash)
+            ostr << "static bool " << exportValidationFunction() 
+                 << "(const std::string& sig)" << " {" << std::endl;
+            ostr << "    static std::set<std::string> signatures;" 
+                 << std::endl;
+            ostr << "    if (signatures.empty()) {" << std::endl;
+            for (std::size_t i=0;i<signatures_.size(); i++) {
+                ostr << "        signatures.insert(\"" << signatures_[i] 
+                     << "\");" << std::endl;
             }
+            ostr << "    }" << std::endl;
+            ostr << "    return signatures.find(sig) != signatures.end();"
+                 << std::endl;
+            ostr << "}" << std::endl << std::endl;
             
             // commit with preamble
-            return ExportsGenerator::commit(ostr.str());
-                                
+            return ExportsGenerator::commit(ostr.str());                  
         }
-    
+        
+    private:
+        std::vector<std::string> prototypes_;
+        std::vector<std::string> signatures_;
     };
     
     // Class which manages generating the header file for the package
@@ -382,8 +435,28 @@ namespace {
         
         virtual void writeBegin() {
             ostr() << "namespace " << package() << " {" << std::endl;
+            
+            // Write our export validation helper function. Putting it in 
+            // an anonymous namespace will hide it from callers and give
+            // it per-translation unit linkage
+            ostr() << "    namespace {" << std::endl;
+            
+            ostr() << "        void " << exportValidationFunction()  
+                   << "(const std::string& sig) {" << std::endl;
+            std::string ptrName = "p_" + exportValidationFunction();
+            ostr() << "            static bool(" << "*" << ptrName 
+                   << ")(const std::string&) = "
+                   << getCppCallable(exportValidationFunctionRegisteredName())
+                   << ";" << std::endl;
+            ostr() << "            if (!" << ptrName << "(sig))" << std::endl;
+            ostr() << "                throw Rcpp::function_not_exported(\""
+                   << "Function '\" + sig + \"' not found in " << package()
+                   << "\");" << std::endl;
+            ostr() << "        }" << std::endl;
+            
+            ostr() << "    }" << std::endl << std::endl;
         }
-    
+        
         virtual void writeFunctions(const SourceFileAttributes &attributes,
                                     bool verbose) {
                                         
@@ -402,35 +475,28 @@ namespace {
                     Function function = 
                         it->function().renamedTo(exportedName(*it));
                         
-                    // if the function starts with "." then it's a 
-                    // a hidden R-only function
-                    if (function.name().find_first_of('.') == 0)
+                    // if it's hidden then don't generate a C++ interface
+                    if (function.isHidden())
                         continue;  
                     
-                    ostr() << "    inline " << function << " {" 
+                    ostr() << "    static " << function << " {" 
                             << std::endl;
                     
                     std::string ptrName = "p_" + function.name();
-                    ostr() << "        static " << function.type() 
-                           << "(*" << ptrName << ")(";
-                    
-                    const std::vector<Argument>& args = 
-                                                function.arguments();
-                    
-                    for (std::size_t i = 0; i<args.size(); i++) {
-                        ostr() << args[i].type();
-                        if (i != (args.size()-1))
-                            ostr() << ",";
-                    }
-                    
-                    ostr() << ") = Rcpp::GetCppCallable"
-                           << "(\"" << package() << "\", "
-                           << "\"" << package() << "_RcppExports\", "
-                           << "\"" << function.name() << "\");" 
+                    ostr() << "        static " << function.signature(ptrName);
+                    ostr() << " = NULL;" << std::endl;
+                    ostr() << "        if (" << ptrName << " == NULL) {" 
                            << std::endl;
-                    
+                    ostr() << "            " << exportValidationFunction()
+                           << "(\"" << function.signature() << "\");" 
+                           << std::endl;
+                    ostr() << "            " << ptrName << " = " 
+                           << getCppCallable(function.name()) << ";" 
+                           << std::endl;
+                    ostr() << "        }" << std::endl;
                     ostr() << "        return " << ptrName  << "(";
-                           
+                    
+                    const std::vector<Argument>& args = function.arguments();
                     for (std::size_t i = 0; i<args.size(); i++) {
                         ostr() << args[i].name();
                         if (i != (args.size()-1))
@@ -447,8 +513,7 @@ namespace {
             ostr() << "}" << std::endl;
         }
         
-        virtual bool commit(const std::vector<std::string>& includes,
-                            const std::vector<std::string>& prototypes) {
+        virtual bool commit(const std::vector<std::string>& includes) {
             
             if (hasCppInterface_) {
                 
@@ -469,6 +534,17 @@ namespace {
             else {
                 return ExportsGenerator::remove();
             }
+        }
+        
+    private:
+        
+        std::string getCppCallable(const std::string& function) const {
+            std::ostringstream ostr;
+            ostr << "Rcpp::GetCppCallable"
+                 << "(\"" << package() << "\", "
+                 << "\"" << package() + "_RcppExports\", "
+                 << "\"" << function << "\")";
+            return ostr.str();
         }
         
     private:
@@ -531,8 +607,7 @@ namespace {
             }
         }
         
-        virtual bool commit(const std::vector<std::string>& includes,
-                            const std::vector<std::string>& prototypes) {
+        virtual bool commit(const std::vector<std::string>& includes) {
             return ExportsGenerator::commit();                    
         }
     
@@ -578,13 +653,12 @@ namespace {
         
         // Commit and return a list of the files that were updated
         std::vector<std::string> commit(
-                    const std::vector<std::string>& includes,
-                    const std::vector<std::string>& prototypes) {
+                                const std::vector<std::string>& includes) {
             
             std::vector<std::string> updated;
             
             for(Itr it = generators_.begin(); it != generators_.end(); ++it) {
-                if ((*it)->commit(includes, prototypes))
+                if ((*it)->commit(includes))
                     updated.push_back((*it)->targetFile());
             }
                
@@ -636,12 +710,11 @@ BEGIN_RCPP
     Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
     std::string fileSep = Rcpp::as<std::string>(platform["file.sep"]); 
      
-    // initialize generators and namespace/prototype vectors
+    // initialize generators
     ExportsGenerators generators;
     generators.add(new CppExportsGenerator(packageDir, packageName, fileSep));
     generators.add(new RExportsGenerator(packageDir, packageName, fileSep));
     generators.add(new CppIncludeGenerator(packageDir, packageName, fileSep));
-    std::vector<std::string> prototypes;
     
     // write begin
     generators.writeBegin();
@@ -658,12 +731,7 @@ BEGIN_RCPP
             
         // confirm we have attributes
         haveAttributes = true;
-            
-        // copy prototypes
-        std::copy(attributes.prototypes().begin(),
-                  attributes.prototypes().end(),
-                  std::back_inserter(prototypes));
-        
+               
         // write functions
         generators.writeFunctions(attributes, verbose);
     }
@@ -674,7 +742,7 @@ BEGIN_RCPP
     // commit or remove
     std::vector<std::string> updated;
     if (haveAttributes)
-        updated = generators.commit(includes, prototypes);  
+        updated = generators.commit(includes);  
     else
         updated = generators.remove();
                                                                                                                    

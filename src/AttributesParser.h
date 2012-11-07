@@ -19,6 +19,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+
+#ifndef Rcpp__AttributesParser__h
+#define Rcpp__AttributesParser__h
+
 #include <string>
 #include <vector>
 #include <iosfwd>
@@ -83,6 +87,13 @@ namespace attributes_parser {
         
         Function renamedTo(const std::string& name) const {
             return Function(type(), name, arguments(), source());
+        }
+        
+        std::string signature() const { return signature(name()); }
+        std::string signature(const std::string& name) const;
+        
+        bool isHidden() const {
+            return name().find_first_of('.') == 0;
         }
         
         bool empty() const { return name().empty(); }
@@ -199,12 +210,7 @@ namespace attributes_parser {
             else
                 return false;            
         }
-        
-        // function prototypes
-        const std::vector<std::string>& prototypes() const {
-            return prototypes_;
-        }
-       
+         
     private:
     
         // Parsing helpers
@@ -248,10 +254,10 @@ namespace attributes_parser {
         std::string sourceFile_;
         CharacterVector lines_;
         std::vector<Attribute> attributes_;
-        std::vector<std::string> prototypes_;
         std::vector<std::string> roxygenBuffer_;
     };
 
 } // namespace attributes_parser
 } // namespace Rcpp
 
+#endif // Rcpp__AttributesParser__h
