@@ -1,7 +1,8 @@
 2012-11-07  JJ Allaire <jj@rstudio.org>
 
         * src/Attributes.cpp: validate exported C++ functions before calling;
-        use static rather than inline for stubs to avoid call-site bloat
+        use static rather than inline for stubs to avoid call-site bloat;
+        improved error message when package hpp already exists
         * src/AttributesParser.h: add signature and isHidden methods
         * src/AttributesParser.cpp: add signature and isHidden methods
         * src/exceptions.cpp: add function_not_exported exception
