@@ -59,4 +59,6 @@
 #include <Rcpp/sugar/functions/which_min.h>
 #include <Rcpp/sugar/functions/which_max.h>
 
+#include <Rcpp/sugar/functions/unique.h>
+
 #endif

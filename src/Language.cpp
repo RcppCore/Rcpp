@@ -78,5 +78,13 @@ namespace Rcpp {
     SEXP Language::eval( SEXP env ) {
         return internal::try_catch( m_sexp, env );
     }
+    
+    SEXP Language::fast_eval(){
+        return Rf_eval( m_sexp, R_GlobalEnv ) ;    
+    }
+    SEXP Language::fast_eval(SEXP env ){
+        return Rf_eval( m_sexp, env ) ;
+    }
+        
         
 } // namespace Rcpp

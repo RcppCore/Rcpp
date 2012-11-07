@@ -137,6 +137,9 @@ namespace Rcpp{
          */
         SEXP eval(SEXP env) ;
 
+        SEXP fast_eval() ;
+        SEXP fast_eval(SEXP env ) ;
+        
         ~Language() ;
 
     private:
