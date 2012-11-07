@@ -23,7 +23,7 @@
 #include <vector>
 #include <iosfwd>
 
-#include <Rcpp.h>
+#include <Rcpp/Vector.h>
 
 namespace Rcpp {
 namespace attributes_parser {

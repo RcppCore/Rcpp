@@ -29,13 +29,15 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-#include <Rcpp.h>
+#include <Rcpp/Function.h>
+#include <Rcpp/Environment.h>
 #include <Rcpp/exceptions.h>
 
 #include "AttributesParser.h"
 
 using namespace Rcpp::attributes_parser;
 
+// General utilities
 namespace {
 
     // Utility class for getting file existence and last modified time
@@ -130,16 +132,11 @@ namespace {
             } 
         }
     }
-    
-    // Generate a module declaration
-   void generateCppModule(std::ostream& ostr,
-                          const std::string& moduleName, 
-                          const SourceFileAttributes& attributes,
-                          bool verbose) {    
-        ostr << "RCPP_MODULE(" << moduleName  << ") {" << std::endl;
-        generateCppModuleFunctions(ostr, attributes, verbose);
-        ostr << "}" << std::endl;
-    }    
+} // anonymous namespace
+
+
+// Implementation helpers for compileAttributes
+namespace {
     
     // Generate placeholder function declaration (for roxygen)
     void generateRoxygenPlaceholder(std::ostream& ostr,
@@ -171,214 +168,6 @@ namespace {
             } 
         }
     }
-    
-    // Class that manages generation of source code for the sourceCpp dynlib
-    class SourceCppDynlib {
-    public:
-        SourceCppDynlib() {}
-        
-        SourceCppDynlib(const std::string& cppSourcePath, Rcpp::List platform) 
-            :  cppSourcePath_(cppSourcePath)
-               
-        {
-            // get cpp source file info 
-            FileInfo cppSourceFilenameInfo(cppSourcePath_);
-            if (!cppSourceFilenameInfo.exists())
-                throw Rcpp::file_not_found(cppSourcePath_);
-                    
-            // get last modified time        
-            cppSourceLastModified_ = cppSourceFilenameInfo.lastModified();
-            
-            // record the base name of the source file
-            Rcpp::Function basename = Rcpp::Environment::base_env()["basename"];
-            cppSourceFilename_ = Rcpp::as<std::string>(basename(cppSourcePath_));
-            
-            // get platform info
-            fileSep_ = Rcpp::as<std::string>(platform["file.sep"]);
-            dynlibExt_ = Rcpp::as<std::string>(platform["dynlib.ext"]);
-            
-            // generate temp directory 
-            Rcpp::Function tempfile = Rcpp::Environment::base_env()["tempfile"];
-            buildDirectory_ = Rcpp::as<std::string>(tempfile("sourcecpp_"));
-            std::replace(buildDirectory_.begin(), buildDirectory_.end(), '\\', '/');
-            Rcpp::Function dircreate = Rcpp::Environment::base_env()["dir.create"];
-            dircreate(buildDirectory_);
-            
-            // generate a random module name
-            Rcpp::Function sample = Rcpp::Environment::base_env()["sample"];
-            std::ostringstream ostr;
-            ostr << "sourceCpp_" << Rcpp::as<int>(sample(100000, 1));
-            moduleName_ = ostr.str();
-            
-            // regenerate the source code
-            regenerateSource();
-        }
-        
-        bool isEmpty() const { return cppSourcePath_.empty(); }
-        
-        bool isBuilt() const { return FileInfo(dynlibPath()).exists(); };
-                
-        bool isSourceDirty() const {          
-            // source file out of date means we're dirty
-            if (FileInfo(cppSourcePath_).lastModified() > 
-                FileInfo(generatedCppSourcePath()).lastModified())
-                return true;
-                     
-            // no dynlib means we're dirty
-            if (!FileInfo(dynlibPath()).exists())
-                return true;
-                
-            // not dirty
-            return false;
-        }
-        
-        void regenerateSource() {
-            
-            // copy the source file to the build dir
-            Rcpp::Function filecopy = Rcpp::Environment::base_env()["file.copy"];
-            filecopy(cppSourcePath_, generatedCppSourcePath(), true);
-            
-            // parse attributes
-            SourceFileAttributes sourceAttributes(cppSourcePath_);
-        
-            // generate RCPP module
-            std::ostringstream ostr;
-            generateCppModule(ostr, moduleName(), sourceAttributes, false); 
-            generatedCpp_ = ostr.str();
-            
-            // open source file and append module
-            std::ofstream cppOfs(generatedCppSourcePath().c_str(), 
-                                 std::ofstream::out | std::ofstream::app);
-            if (cppOfs.fail())
-                throw Rcpp::file_io_error(generatedCppSourcePath());
-            cppOfs << std::endl;
-            cppOfs << generatedCpp_;
-            cppOfs.close();
-               
-            // discover exported functions, and dependencies
-            exportedFunctions_.clear();
-            depends_.clear();
-            for (SourceFileAttributes::const_iterator 
-              it = sourceAttributes.begin(); it != sourceAttributes.end(); ++it) {
-                 if (it->name() == kExportAttribute && !it->function().empty()) 
-                    exportedFunctions_.push_back(exportedName(*it));
-                
-                 else if (it->name() == kDependsAttribute) {
-                     for (size_t i = 0; i<it->params().size(); ++i)
-                        depends_.push_back(it->params()[i].name());
-                 }   
-            }
-        }
-        
-        const std::string& moduleName() const {
-            return moduleName_;
-        }
-        
-        const std::string& cppSourcePath() const {
-            return cppSourcePath_;
-        }
-        
-        std::string buildDirectory() const {
-            return buildDirectory_;
-        }
-        
-        std::string generatedCpp() const {
-            return generatedCpp_;
-        }
-        
-        std::string cppSourceFilename() const {
-            return cppSourceFilename_;
-        }
-         
-        std::string dynlibFilename() const {
-            return moduleName() + dynlibExt_;
-        }
-        
-        std::string dynlibPath() const {
-            return buildDirectory_ + fileSep_ + dynlibFilename();
-        }
-       
-        const std::vector<std::string>& exportedFunctions() const {
-            return exportedFunctions_;
-        }
-        
-        const std::vector<std::string>& depends() const { return depends_; };
-          
-    private:
-    
-        std::string generatedCppSourcePath() const {
-           return buildDirectory_ + fileSep_ + cppSourceFilename(); 
-        }
-        
-    private:
-        std::string cppSourcePath_;
-        time_t cppSourceLastModified_;
-        std::string generatedCpp_;
-        std::string cppSourceFilename_;
-        std::string moduleName_;
-        std::string buildDirectory_;
-        std::string fileSep_;
-        std::string dynlibExt_;
-        std::vector<std::string> exportedFunctions_;
-        std::vector<std::string> depends_;
-    };
-    
-    // Dynlib cache that allows lookup by either file path or code contents
-    class SourceCppDynlibCache {
-      
-    public:
-        SourceCppDynlibCache() {}
-        
-    private:
-        // prohibit copying
-        SourceCppDynlibCache(const SourceCppDynlibCache&);
-        SourceCppDynlibCache& operator=(const SourceCppDynlibCache&); 
-      
-    public:
-        // Insert into cache by file name
-        void insertFile(const std::string& file, const SourceCppDynlib& dynlib) {
-            Entry entry;
-            entry.file = file;
-            entry.dynlib = dynlib;
-            entries_.push_back(entry);
-        }
-        
-        // Insert into cache by code
-        void insertCode(const std::string& code, const SourceCppDynlib& dynlib) {
-            Entry entry;
-            entry.code = code;
-            entry.dynlib = dynlib;
-            entries_.push_back(entry);
-        }
-    
-        // Lookup by file
-        SourceCppDynlib lookupByFile(const std::string& file) {
-            for (std::size_t i = 0; i < entries_.size(); i++) {
-                if (entries_[i].file == file)
-                    return entries_[i].dynlib;
-            }
-            
-            return SourceCppDynlib();
-        }
-        
-        // Lookup by code
-        SourceCppDynlib lookupByCode(const std::string& code) {
-            for (std::size_t i = 0; i < entries_.size(); i++) {
-                if (entries_[i].code == code)
-                    return entries_[i].dynlib;
-            }
-            
-            return SourceCppDynlib();
-        }
-      
-    private:
-        struct Entry {
-            std::string file;
-            std::string code;
-            SourceCppDynlib dynlib;
-        };
-        std::vector<Entry> entries_;
-    };
     
     // Abstract class which manages writing of code for compileAttributes
     class ExportsGenerator {
@@ -512,7 +301,6 @@ namespace {
         std::string existingCode_;
         std::ostringstream codeStream_;
     };
-    
     
     // Class which manages generating RcppExports.cpp
     class CppExportsGenerator : public ExportsGenerator {
@@ -825,63 +613,6 @@ namespace {
 } // anonymous namespace
 
 
-// Create temporary build directory, generate code as necessary, and return
-// the context required for the sourceCpp function to complete it's work
-RcppExport SEXP sourceCppContext(SEXP sFile, SEXP sCode, SEXP sPlatform) {
-BEGIN_RCPP
-    // parameters
-    std::string file = Rcpp::as<std::string>(sFile);
-    std::string code = sCode != R_NilValue ? Rcpp::as<std::string>(sCode) : "";
-    Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
-    
-    // get dynlib (using cache if possible)
-    static SourceCppDynlibCache s_dynlibCache;
-    SourceCppDynlib dynlib;
-    if (!code.empty())
-        dynlib = s_dynlibCache.lookupByCode(code);
-    else
-        dynlib = s_dynlibCache.lookupByFile(file);
-  
-    // check dynlib build state
-    bool buildRequired = false;
-    
-    // if there is no dynlib in the cache then create one
-    if (dynlib.isEmpty()) {   
-        buildRequired = true;
-        dynlib = SourceCppDynlib(file, platform);
-        if (!code.empty())
-            s_dynlibCache.insertCode(code, dynlib);
-        else
-            s_dynlibCache.insertFile(file, dynlib);
-    }    
-        
-    // if the cached dynlib is dirty then regenerate the source
-    else if (dynlib.isSourceDirty()) {
-        buildRequired = true;    
-        dynlib.regenerateSource();
-    }
-    
-    // if the dynlib hasn't yet been built then note that
-    else if (!dynlib.isBuilt()) {
-        buildRequired = true; 
-    }
-    
-    // return context as a list
-    Rcpp::List context;
-    context["moduleName"] = dynlib.moduleName();
-    context["cppSourcePath"] = dynlib.cppSourcePath();
-    context["buildRequired"] = buildRequired;
-    context["buildDirectory"] = dynlib.buildDirectory();
-    context["generatedCpp"] = dynlib.generatedCpp();
-    context["exportedFunctions"] = dynlib.exportedFunctions();
-    context["cppSourceFilename"] = dynlib.cppSourceFilename();
-    context["dynlibFilename"] = dynlib.dynlibFilename();
-    context["dynlibPath"] = dynlib.dynlibPath();
-    context["depends"] = dynlib.depends();
-    return Rcpp::wrap(context);
-END_RCPP
-}
-
 // Compile the attributes within the specified package directory into 
 // RcppExports.cpp and RcppExports.R
 RcppExport SEXP compileAttributes(SEXP sPackageDir, 
@@ -955,5 +686,278 @@ BEGIN_RCPP
     
     // return files updated
     return Rcpp::wrap<std::vector<std::string> >(updated);
+END_RCPP
+}
+
+
+// Implementation helpers for sourceCppContext
+namespace {
+    
+    // Class that manages generation of source code for the sourceCpp dynlib
+    class SourceCppDynlib {
+    public:
+        SourceCppDynlib() {}
+        
+        SourceCppDynlib(const std::string& cppSourcePath, Rcpp::List platform) 
+            :  cppSourcePath_(cppSourcePath)
+               
+        {
+            // get cpp source file info 
+            FileInfo cppSourceFilenameInfo(cppSourcePath_);
+            if (!cppSourceFilenameInfo.exists())
+                throw Rcpp::file_not_found(cppSourcePath_);
+                    
+            // get last modified time        
+            cppSourceLastModified_ = cppSourceFilenameInfo.lastModified();
+            
+            // record the base name of the source file
+            Rcpp::Function basename = Rcpp::Environment::base_env()["basename"];
+            cppSourceFilename_ = Rcpp::as<std::string>(basename(cppSourcePath_));
+            
+            // get platform info
+            fileSep_ = Rcpp::as<std::string>(platform["file.sep"]);
+            dynlibExt_ = Rcpp::as<std::string>(platform["dynlib.ext"]);
+            
+            // generate temp directory 
+            Rcpp::Function tempfile = Rcpp::Environment::base_env()["tempfile"];
+            buildDirectory_ = Rcpp::as<std::string>(tempfile("sourcecpp_"));
+            std::replace(buildDirectory_.begin(), buildDirectory_.end(), '\\', '/');
+            Rcpp::Function dircreate = Rcpp::Environment::base_env()["dir.create"];
+            dircreate(buildDirectory_);
+            
+            // generate a random module name
+            Rcpp::Function sample = Rcpp::Environment::base_env()["sample"];
+            std::ostringstream ostr;
+            ostr << "sourceCpp_" << Rcpp::as<int>(sample(100000, 1));
+            moduleName_ = ostr.str();
+            
+            // regenerate the source code
+            regenerateSource();
+        }
+        
+        bool isEmpty() const { return cppSourcePath_.empty(); }
+        
+        bool isBuilt() const { return FileInfo(dynlibPath()).exists(); };
+                
+        bool isSourceDirty() const {          
+            // source file out of date means we're dirty
+            if (FileInfo(cppSourcePath_).lastModified() > 
+                FileInfo(generatedCppSourcePath()).lastModified())
+                return true;
+                     
+            // no dynlib means we're dirty
+            if (!FileInfo(dynlibPath()).exists())
+                return true;
+                
+            // not dirty
+            return false;
+        }
+        
+        void regenerateSource() {
+            
+            // copy the source file to the build dir
+            Rcpp::Function filecopy = Rcpp::Environment::base_env()["file.copy"];
+            filecopy(cppSourcePath_, generatedCppSourcePath(), true);
+            
+            // parse attributes
+            SourceFileAttributes sourceAttributes(cppSourcePath_);
+        
+            // generate RCPP module
+            std::ostringstream ostr;
+            ostr << "RCPP_MODULE(" << moduleName()  << ") {" << std::endl;
+            generateCppModuleFunctions(ostr, sourceAttributes, false);
+            ostr << "}" << std::endl;
+            generatedCpp_ = ostr.str();
+            
+            // open source file and append module
+            std::ofstream cppOfs(generatedCppSourcePath().c_str(), 
+                                 std::ofstream::out | std::ofstream::app);
+            if (cppOfs.fail())
+                throw Rcpp::file_io_error(generatedCppSourcePath());
+            cppOfs << std::endl;
+            cppOfs << generatedCpp_;
+            cppOfs.close();
+               
+            // discover exported functions, and dependencies
+            exportedFunctions_.clear();
+            depends_.clear();
+            for (SourceFileAttributes::const_iterator 
+              it = sourceAttributes.begin(); it != sourceAttributes.end(); ++it) {
+                 if (it->name() == kExportAttribute && !it->function().empty()) 
+                    exportedFunctions_.push_back(exportedName(*it));
+                
+                 else if (it->name() == kDependsAttribute) {
+                     for (size_t i = 0; i<it->params().size(); ++i)
+                        depends_.push_back(it->params()[i].name());
+                 }   
+            }
+        }
+        
+        const std::string& moduleName() const {
+            return moduleName_;
+        }
+        
+        const std::string& cppSourcePath() const {
+            return cppSourcePath_;
+        }
+        
+        std::string buildDirectory() const {
+            return buildDirectory_;
+        }
+        
+        std::string generatedCpp() const {
+            return generatedCpp_;
+        }
+        
+        std::string cppSourceFilename() const {
+            return cppSourceFilename_;
+        }
+         
+        std::string dynlibFilename() const {
+            return moduleName() + dynlibExt_;
+        }
+        
+        std::string dynlibPath() const {
+            return buildDirectory_ + fileSep_ + dynlibFilename();
+        }
+       
+        const std::vector<std::string>& exportedFunctions() const {
+            return exportedFunctions_;
+        }
+        
+        const std::vector<std::string>& depends() const { return depends_; };
+          
+    private:
+    
+        std::string generatedCppSourcePath() const {
+           return buildDirectory_ + fileSep_ + cppSourceFilename(); 
+        }
+        
+    private:
+        std::string cppSourcePath_;
+        time_t cppSourceLastModified_;
+        std::string generatedCpp_;
+        std::string cppSourceFilename_;
+        std::string moduleName_;
+        std::string buildDirectory_;
+        std::string fileSep_;
+        std::string dynlibExt_;
+        std::vector<std::string> exportedFunctions_;
+        std::vector<std::string> depends_;
+    };
+    
+    // Dynlib cache that allows lookup by either file path or code contents
+    class SourceCppDynlibCache {
+      
+    public:
+        SourceCppDynlibCache() {}
+        
+    private:
+        // prohibit copying
+        SourceCppDynlibCache(const SourceCppDynlibCache&);
+        SourceCppDynlibCache& operator=(const SourceCppDynlibCache&); 
+      
+    public:
+        // Insert into cache by file name
+        void insertFile(const std::string& file, const SourceCppDynlib& dynlib) {
+            Entry entry;
+            entry.file = file;
+            entry.dynlib = dynlib;
+            entries_.push_back(entry);
+        }
+        
+        // Insert into cache by code
+        void insertCode(const std::string& code, const SourceCppDynlib& dynlib) {
+            Entry entry;
+            entry.code = code;
+            entry.dynlib = dynlib;
+            entries_.push_back(entry);
+        }
+    
+        // Lookup by file
+        SourceCppDynlib lookupByFile(const std::string& file) {
+            for (std::size_t i = 0; i < entries_.size(); i++) {
+                if (entries_[i].file == file)
+                    return entries_[i].dynlib;
+            }
+            
+            return SourceCppDynlib();
+        }
+        
+        // Lookup by code
+        SourceCppDynlib lookupByCode(const std::string& code) {
+            for (std::size_t i = 0; i < entries_.size(); i++) {
+                if (entries_[i].code == code)
+                    return entries_[i].dynlib;
+            }
+            
+            return SourceCppDynlib();
+        }
+      
+    private:
+        struct Entry {
+            std::string file;
+            std::string code;
+            SourceCppDynlib dynlib;
+        };
+        std::vector<Entry> entries_;
+    };
+    
+} // anonymous namespace
+
+// Create temporary build directory, generate code as necessary, and return
+// the context required for the sourceCpp function to complete it's work
+RcppExport SEXP sourceCppContext(SEXP sFile, SEXP sCode, SEXP sPlatform) {
+BEGIN_RCPP
+    // parameters
+    std::string file = Rcpp::as<std::string>(sFile);
+    std::string code = sCode != R_NilValue ? Rcpp::as<std::string>(sCode) : "";
+    Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
+    
+    // get dynlib (using cache if possible)
+    static SourceCppDynlibCache s_dynlibCache;
+    SourceCppDynlib dynlib;
+    if (!code.empty())
+        dynlib = s_dynlibCache.lookupByCode(code);
+    else
+        dynlib = s_dynlibCache.lookupByFile(file);
+  
+    // check dynlib build state
+    bool buildRequired = false;
+    
+    // if there is no dynlib in the cache then create one
+    if (dynlib.isEmpty()) {   
+        buildRequired = true;
+        dynlib = SourceCppDynlib(file, platform);
+        if (!code.empty())
+            s_dynlibCache.insertCode(code, dynlib);
+        else
+            s_dynlibCache.insertFile(file, dynlib);
+    }    
+        
+    // if the cached dynlib is dirty then regenerate the source
+    else if (dynlib.isSourceDirty()) {
+        buildRequired = true;    
+        dynlib.regenerateSource();
+    }
+    
+    // if the dynlib hasn't yet been built then note that
+    else if (!dynlib.isBuilt()) {
+        buildRequired = true; 
+    }
+    
+    // return context as a list
+    Rcpp::List context;
+    context["moduleName"] = dynlib.moduleName();
+    context["cppSourcePath"] = dynlib.cppSourcePath();
+    context["buildRequired"] = buildRequired;
+    context["buildDirectory"] = dynlib.buildDirectory();
+    context["generatedCpp"] = dynlib.generatedCpp();
+    context["exportedFunctions"] = dynlib.exportedFunctions();
+    context["cppSourceFilename"] = dynlib.cppSourceFilename();
+    context["dynlibFilename"] = dynlib.dynlibFilename();
+    context["dynlibPath"] = dynlib.dynlibPath();
+    context["depends"] = dynlib.depends();
+    return Rcpp::wrap(context);
 END_RCPP
 }
