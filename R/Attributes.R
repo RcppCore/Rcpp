@@ -22,7 +22,7 @@ sourceCpp <- function(file = "",
                       env = globalenv(), 
                       rebuild = FALSE,
                       showOutput = verbose,
-                      verbose = getOption("verbose")) {
+                      verbose = getOption("verbose")) { 
     
     # resolve code into a file if necessary
     if (!missing(code)) {
@@ -32,8 +32,10 @@ sourceCpp <- function(file = "",
         close(con)
     }
     
-    # get the context (does code generation as necessary)
+    # resolve the file path
     file <- normalizePath(file, winslash = "/")
+     
+    # get the context (does code generation as necessary)
     context <- .Call("sourceCppContext", PACKAGE="Rcpp", file, code, .Platform)
     
     # perform a build if necessary
@@ -47,11 +49,14 @@ sourceCpp <- function(file = "",
         succeeded <- FALSE
         output <- NULL
         
+        # build dependency list
+        depends <- .getSourceCppDependencies(context$depends, file)
+        
         # validate packages (error if package not found)
-        .validatePackages(context$depends, context$cppSourceFilename)
+        .validatePackages(depends, context$cppSourceFilename)
         
         # temporarily modify environment for the build
-        envRestore <- .setupBuildEnvironment(context$depends)
+        envRestore <- .setupBuildEnvironment(depends)
         
         # temporarily setwd to build directory
         cwd <- getwd()
@@ -144,7 +149,7 @@ cppFunction <- function(code,
     if (!is.null(plugin)) {
         depends <- paste(plugin, sep=", ")
         scaffolding <- paste("// [[Rcpp::depends(", depends, ")]]", sep="")
-        scaffolding <- c(scaffolding, "", .rcppExportsIncludes(plugin), 
+        scaffolding <- c(scaffolding, "", .rcppExportsIncludes(depends), 
                          recursive=T)
     }
     else {
@@ -245,6 +250,19 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         "\nDIR: ", context$buildDirectory, "\n\n", sep="")
 }
 
+
+.getSourceCppDependencies <- function(depends, sourceFile) {
+    
+    # add package LinkingTo dependencies if the source file is in a package
+    descFile <- file.path(dirname(sourceFile), "..", "DESCRIPTION")
+    if (file.exists(descFile)) {
+        DESCRIPTION <- read.dcf(descFile, all = TRUE)
+        linkingTo <- .parseLinkingTo(DESCRIPTION$LinkingTo)
+        unique(c(depends, linkingTo))
+    } else {
+        depends
+    }
+}
 
 # Error if a package is not currently available
 .validatePackages <- function(depends, sourceFilename) {
@@ -437,8 +455,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     # Look for Rcpp inline plugins within the list or LinkedTo packages
     include.before <- character()
     include.after <- character()
-    linkingToPackages <- strsplit(linkingTo, "\\s*\\,")[[1]]
-    linkingToPackages <- gsub("\\s", "", linkingToPackages)
+    linkingToPackages <- .parseLinkingTo(linkingTo)
     for (package in linkingToPackages) {
         
         # We already handle Rcpp internally
@@ -499,5 +516,13 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     list(before = before, after = after)
 }
 
-
+# Parse a LinkingTo field into a character vector
+.parseLinkingTo <- function(linkingTo) {
+    
+    if (is.null(linkingTo))
+        return (character())
+    
+    linkingTo <- strsplit(linkingTo, "\\s*\\,")[[1]]
+    gsub("\\s", "", linkingTo)
+}
 

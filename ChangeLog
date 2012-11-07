@@ -1,5 +1,6 @@
 2012-11-07  JJ Allaire <jj@rstudio.org>
 
+        * R/Attributes.R: derive depends from package LinkingTo
         * src/Attributes.cpp: validate exported C++ functions before calling;
         use static rather than inline for stubs to avoid call-site bloat;
         improved error message when package hpp already exists; import Rcpp
