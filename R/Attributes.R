@@ -138,18 +138,18 @@ sourceCpp <- function(file = "",
 
 # Define a single C++ function
 cppFunction <- function(code, 
-                        plugin = NULL,
-                        includes = NULL,
+                        depends = character(),
+                        includes = character(),
                         env = parent.frame(),
                         rebuild = FALSE,
                         showOutput = verbose,
                         verbose = getOption("verbose")) {
     
     # generate required scaffolding
-    if (!is.null(plugin)) {
-        depends <- paste(plugin, sep=", ")
+    if (!is.null(depends) && length(depends) > 0) {
+        depends <- paste(depends, sep=", ")
         scaffolding <- paste("// [[Rcpp::depends(", depends, ")]]", sep="")
-        scaffolding <- c(scaffolding, "", .rcppExportsIncludes(depends), 
+        scaffolding <- c(scaffolding, "", .linkingToIncludes(depends, FALSE), 
                          recursive=T)
     }
     else {
@@ -228,8 +228,9 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     cppFiles <- file.path(srcDir, cppFiles)
     cppFiles <- normalizePath(cppFiles, winslash = "/")
     
-    # generate the includes list based on LinkingTo
-    includes <- .rcppExportsIncludes(DESCRIPTION$LinkingTo)
+    # generate the includes list based on LinkingTo. Specify plugins-only
+    # because we only need as/wrap declarations
+    includes <- .linkingToIncludes(DESCRIPTION$LinkingTo, TRUE)
     
     # generate exports
     invisible(.Call("compileAttributes", PACKAGE="Rcpp", 
@@ -439,14 +440,12 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 }
 
 
-# Generate list of includes for RcppExports.cpp based on LinkingTo.
-# Since the RcppExports.cpp file contains only shims, we typically don't
-# need to capture headers from linked to packages. However, if a linked
-# to package includes definitions of Rcpp type converters (as/wrap) then
-# we do need those headers. To distinguish this case and to capture 
-# headers in the correct order we analyze the contents of the plugin's
-# includes field and extact the includes.before and includes.after
-.rcppExportsIncludes <- function(linkingTo) {
+# Generate list of includes based on LinkingTo. The pluginsOnly parameter
+# to distinguish the case of capturing all includes needed for a compiliation
+# (e.g. cppFunction) verses only needing to capture as/wrap converters which
+# is the case for generation of shims (RcppExports.cpp) and Rcpp::interfaces
+# package header files.
+.linkingToIncludes <- function(linkingTo, pluginsOnly) {
     
     # This field can be NULL or empty -- in that case just return Rcpp.h
     if (is.null(linkingTo) || !nzchar(linkingTo))
@@ -470,6 +469,16 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
                 include.before <- c(include.before, includes$before)
                 include.after <- c(include.after, includes$after)
             }
+        } 
+        # otherwise check for standard Rcpp::interfaces generated include
+        else if (!pluginsOnly) {
+            pkgPath <- find.package(package, NULL, quiet=TRUE)
+            pkgHeader <- paste(package, ".hpp", sep="")
+            pkgHeaderPath <- file.path(pkgPath, "include",  pkgHeader)
+            if (file.exists(pkgHeaderPath)) {
+                pkgInclude <- paste("#include <", pkgHeader, ">", sep="")
+                include.after <- c(include.after, pkgInclude)
+            } 
         }
     }
     
