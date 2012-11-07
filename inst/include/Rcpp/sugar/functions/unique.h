@@ -21,24 +21,9 @@
 
 #ifndef Rcpp__sugar__unique_h
 #define Rcpp__sugar__unique_h
-
-#if __cplusplus >= 201103L
-    #define RCPP_UNIQUE_SET std::unordered_set
-#elseif defined(HAS_TR1_UNORDERED_SET)
-    #define RCPP_UNIQUE_SET std::tr1::unordered_set  
-#else
-    #define RCPP_UNIQUE_SET std::set
-#endif
-              
+          
 namespace Rcpp{
 namespace sugar{
-    
-class StringCompare {
-public:
-    inline bool operator()( SEXP x, SEXP y){
-        return strcmp( char_nocheck(x), char_nocheck(y) ) < 0 ; 
-    }
-} ;
 
 template <int RTYPE, typename T>
 class Unique {
