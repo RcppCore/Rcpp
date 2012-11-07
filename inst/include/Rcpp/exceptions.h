@@ -108,6 +108,7 @@ RCPP_EXCEPTION_CLASS(no_such_binding, std::string("no such binding : '") + messa
 RCPP_EXCEPTION_CLASS(binding_not_found, std::string("binding not found: '") + message + "'" )
 RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("binding is locked: '") + message + "'" )
 RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("no such namespace: '") + message + "'" )
+RCPP_EXCEPTION_CLASS(function_not_exported, std::string("function not exported: ") + message)
 RCPP_EXCEPTION_CLASS(eval_error, message )
 
 #undef RCPP_EXCEPTION_CLASS

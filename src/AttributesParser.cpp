@@ -65,6 +65,26 @@ namespace {
 
 namespace Rcpp {
 namespace attributes_parser {
+    
+    // Generate a type signature for the function with the provided name
+    // (type signature == function pointer declaration)
+    std::string Function::signature(const std::string& name) const {
+        
+        std::ostringstream ostr;
+        
+        ostr << type() << "(*" << name << ")(";
+        
+        const std::vector<Argument>& args = arguments();
+        for (std::size_t i = 0; i<args.size(); i++) {
+            ostr << args[i].type();
+            if (i != (args.size()-1))
+                ostr << ",";
+        }
+        ostr << ")";
+        
+        return ostr.str();
+    }
+    
 
     // Parse attribute parameter from parameter text
     Param::Param(const std::string& paramText)
@@ -293,15 +313,8 @@ namespace attributes_parser {
              
             // parse the function (unless we are at the end of the file in
             // which case we print a warning)
-            if ((lineNumber + 1) < lines_.size()) {
+            if ((lineNumber + 1) < lines_.size())
                 function = parseFunction(lineNumber + 1);
-                if (!function.empty()) {
-                    std::ostringstream ostr;
-                    ostr << function;
-                    prototypes_.push_back(ostr.str());
-                }
-                
-            }
             else 
                 rcppExportWarning("No function found", lineNumber);    
         }  
