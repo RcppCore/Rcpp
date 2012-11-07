@@ -1,3 +1,12 @@
+2012-11-07  JJ Allaire <jj@rstudio.org>
+
+        * src/Attributes.cpp: validate exported C++ functions before calling;
+        use static rather than inline for stubs to avoid call-site bloat
+        * src/AttributesParser.h: add signature and isHidden methods
+        * src/AttributesParser.cpp: add signature and isHidden methods
+        * src/exceptions.cpp: add function_not_exported exception
+        * include/Rcpp/exceptions.h: add function_not_exported exception
+
 2012-11-07  Romain Francois <romain@r-enthusiasts.com>
 
         * src/Language.cpp: Language gains a fast_eval method, without the whole try/catch

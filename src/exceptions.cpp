@@ -39,6 +39,7 @@ namespace Rcpp{
     RCPP_EXCEPTION_WHAT(binding_not_found)
     RCPP_EXCEPTION_WHAT(binding_is_locked)
     RCPP_EXCEPTION_WHAT(no_such_namespace)
+    RCPP_EXCEPTION_WHAT(function_not_exported)
     RCPP_EXCEPTION_WHAT(eval_error)
 
 #undef RCPP_EXCEPTION_WHAT
