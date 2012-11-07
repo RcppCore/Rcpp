@@ -29,8 +29,12 @@ compileAttributes(pkgdir = ".", verbose = getOption("verbose"))
     Returns (invisibly) a character vector with the paths to any files that were updated as a result of the call.
 }
 
+\note{
+    In addition to exporting R bindings for C++ functions, the \code{compileAttributes} function can also generate a direct C++ interface to the functions using the \code{\link[=interfacesAttribute]{Rcpp::interfaces}} attribute.
+}
+
 \seealso{
-\code{\link[=exportAttribute]{Rcpp::export}}
+\code{\link[=exportAttribute]{Rcpp::export}}, \code{\link[=interfacesAttribute]{Rcpp::interfaces}}
 }
 
 

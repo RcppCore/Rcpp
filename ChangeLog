@@ -11,7 +11,12 @@
         * src/AttributesParser.cpp: add signature and isHidden methods
         * src/exceptions.cpp: add function_not_exported exception
         * include/Rcpp/exceptions.h: add function_not_exported exception
-        * man/cppFunction.Rd: update documentation on depends parameter
+        * man/cppFunction.Rd: update documentation
+        * man/sourceCpp.Rd: update documentation
+        * man/compileAttributes.Rd: update documentation
+        * man/dependsAttribute.Rd: update documentation
+        * man/exportAttribute.Rd: update documentation
+        * man/interfacesAttribute.Rd: update documentation
 
 2012-11-07  Romain Francois <romain@r-enthusiasts.com>
 
