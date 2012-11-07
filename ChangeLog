@@ -2,7 +2,8 @@
 
         * src/Attributes.cpp: validate exported C++ functions before calling;
         use static rather than inline for stubs to avoid call-site bloat;
-        improved error message when package hpp already exists
+        improved error message when package hpp already exists; import Rcpp
+        namespace into package shim namespace
         * src/AttributesParser.h: add signature and isHidden methods
         * src/AttributesParser.cpp: add signature and isHidden methods
         * src/exceptions.cpp: add function_not_exported exception
