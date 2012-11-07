@@ -7,7 +7,7 @@ Define an R Function with a C++ Implementation
 Dynamically define an R function with C++ source code. Compiles and links a shared library with bindings to the C++ function then defines an R function that uses \code{.Call} to invoke the library.
 }
 \usage{
-cppFunction(code, plugin = NULL, includes = NULL, 
+cppFunction(code, depends = character(), includes = character(), 
             env = parent.frame(), rebuild = FALSE, 
             showOutput = verbose, verbose = getOption("verbose"))
 }
@@ -16,11 +16,11 @@ cppFunction(code, plugin = NULL, includes = NULL,
   \item{code}{
     Source code for the function definition.
 }
-  \item{plugin}{
-    The name of an \link[inline:plugins]{inline plugin} to use for the compilation.
+  \item{depends}{
+    Character vector of packages that the compilation depends on. Each package listed will first be queried for an \link[inline:plugins]{inline plugin} to determine header files to include. If no plugin is defined for the package then a header file based the package's name (e.g. \code{PkgName.hpp}) will be included.
 }
   \item{includes}{
-    User includes, inserted after the includes provided by the plugin.
+    Character vector of user includes (inserted after the includes provided by \code{depends}).
 }
   \item{env}{
     The \link[base:environment]{environment} in which to define the R function. May be \code{NULL} in which case the defined function can be obtained from the return value of \code{cppFunction}.
@@ -62,7 +62,7 @@ cppFunction(
         return (fibonacci(x - 1)) + fibonacci(x - 2);
     }')
 
-cppFunction(plugin = "RcppArmadillo",
+cppFunction(depends = "RcppArmadillo",
     'List fastLm(NumericVector yr, NumericMatrix Xr) {
         
         int n = Xr.nrow(), k = Xr.ncol();
