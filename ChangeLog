@@ -1,3 +1,10 @@
+2012-11-07  Romain Francois <romain@r-enthusiasts.com>
+
+        * src/Language.cpp: Language gains a fast_eval method, without the whole try/catch
+        * src/barrier.cpp: function char_nocheck to avoid the check in using CHAR
+        * include/Rcpp/sugar/functions/unique.h: sugar unique and sort_unique
+        using unordered_set (perhaps we could use it from c++11). 
+
 2012-11-06  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: tweak whitespace in verbose mode
