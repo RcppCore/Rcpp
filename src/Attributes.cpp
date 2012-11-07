@@ -383,6 +383,9 @@ namespace {
             ostr << "#include <set>" << std::endl;
             ostr << std::endl;
             
+            // always bring in Rcpp
+            ostr << "using namespace Rcpp;" << std::endl << std::endl;
+            
             // prototypes
             if (!prototypes_.empty()) {
                 for (std::size_t i=0;i<prototypes_.size(); i++)
@@ -434,13 +437,21 @@ namespace {
         }
         
         virtual void writeBegin() {
-            ostr() << "namespace " << package() << " {" << std::endl;
+            ostr() << "namespace " << package() << " {" 
+                   << std::endl << std::endl;
             
+            // Import Rcpp into this namespace. This allows declarations to
+            // be written without fully qualifying all Rcpp types. The only
+            // negative side-effect is that when this package's namespace
+            // is imported it will also pull in Rcpp. However since this is
+            // opt-in and represents a general desire to do namespace aliasing
+            // this seems okay
+            ostr() << "    using namespace Rcpp;" << std::endl << std::endl;
+          
             // Write our export validation helper function. Putting it in 
             // an anonymous namespace will hide it from callers and give
             // it per-translation unit linkage
             ostr() << "    namespace {" << std::endl;
-            
             ostr() << "        void " << exportValidationFunction()  
                    << "(const std::string& sig) {" << std::endl;
             std::string ptrName = "p_" + exportValidationFunction();
@@ -504,7 +515,7 @@ namespace {
                     }
                            
                     ostr() << ");" << std::endl;
-                    ostr() << "    }" << std::endl;
+                    ostr() << "    }" << std::endl << std::endl;
                 } 
             }                           
         }
