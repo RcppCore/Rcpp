@@ -820,6 +820,11 @@ template <typename T>
 inline SEXP module_wrap( const T& obj ){
 	return module_wrap_dispatch<T>( obj, typename Rcpp::traits::module_wrap_traits<T>::category() ) ;	
 }
+template <>
+inline SEXP module_wrap<SEXP>( const SEXP& obj ){
+	return obj ;	
+}
+
 
 // special case - FIXME : this is not template specializations of wrap<>
 inline SEXP wrap(const char* const v ){ 
