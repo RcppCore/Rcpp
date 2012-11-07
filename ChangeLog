@@ -1,6 +1,8 @@
 2012-11-07  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: derive depends from package LinkingTo
+        * R/Attributes.R: derive depends from package LinkingTo; change 
+        sourceCpp plugin parameter to depends and respect Rcpp::interfaces
+        generated include files
         * src/Attributes.cpp: validate exported C++ functions before calling;
         use static rather than inline for stubs to avoid call-site bloat;
         improved error message when package hpp already exists; import Rcpp
@@ -9,6 +11,7 @@
         * src/AttributesParser.cpp: add signature and isHidden methods
         * src/exceptions.cpp: add function_not_exported exception
         * include/Rcpp/exceptions.h: add function_not_exported exception
+        * man/cppFunction.Rd: update documentation on depends parameter
 
 2012-11-07  Romain Francois <romain@r-enthusiasts.com>
 
