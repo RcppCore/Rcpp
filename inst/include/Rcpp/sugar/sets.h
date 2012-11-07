@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// sugar.h: Rcpp R/C++ interface class library -- main file for Rcpp::sugar
+// sets.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,14 +19,31 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_H
-#define RCPP_SUGAR_H
+#ifndef Rcpp__sugar__sets_h
+#define Rcpp__sugar__sets_h
 
-#include <Rcpp/sugar/sets.h>
-#include <Rcpp/sugar/block/block.h>
+#if __cplusplus >= 201103L
+    #define RCPP_UNIQUE_SET std::unordered_set
+    #define RCPP_UNIQUE_MAP std::unordered_map
+#elseif defined(HAS_TR1_UNORDERED_SET)
+    #define RCPP_UNIQUE_SET std::tr1::unordered_set
+    #define RCPP_UNIQUE_MAP std::tr1::unordered_map
+#else
+    #define RCPP_UNIQUE_SET std::set
+    #define RCPP_UNIQUE_MAP std::map
+#endif
 
-#include <Rcpp/sugar/operators/operators.h>
-#include <Rcpp/sugar/functions/functions.h>
-#include <Rcpp/sugar/matrix/matrix_functions.h>
+namespace Rcpp{
+namespace sugar{
+    
+class StringCompare {
+public:
+    inline bool operator()( SEXP x, SEXP y){
+        return strcmp( char_nocheck(x), char_nocheck(y) ) < 0 ; 
+    }
+} ;
+
+} // sugar
+} // Rcpp
 
 #endif
