@@ -2,7 +2,7 @@
 //
 // barrier.h: Rcpp R/C++ interface class library -- crossin the write barrier
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -31,5 +31,6 @@ SEXP* get_string_ptr(SEXP) ;
 SEXP get_vector_elt(SEXP, int) ;
 void set_vector_elt(SEXP, int, SEXP ) ;
 SEXP* get_vector_ptr(SEXP) ;
+const char* char_nocheck( SEXP ) ;
 
 #endif
