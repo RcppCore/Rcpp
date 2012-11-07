@@ -8,7 +8,6 @@
         updated files from compileAttributes
         * src/Module.cpp: add package parameter to GetCppCallable
         * include/Rcpp/Module.h: add package parameter to GetCppCallable
-    
         * man/compileAttributes.Rd: documentation updates
 
 2012-11-05  Romain Francois <romain@r-enthusiasts.com>
