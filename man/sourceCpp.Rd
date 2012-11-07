@@ -13,10 +13,10 @@ sourceCpp(file = "", code = NULL, env = globalenv(), rebuild = FALSE,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{file}{
-    A character string giving the pathname of a file
+    A character string giving the path name of a file
 }
   \item{code}{
-    A charcter string with source code. If supplied, the code is taken from this string instead of a file. 
+    A character string with source code. If supplied, the code is taken from this string instead of a file. 
 }
   \item{env}{
     Environment where the R functions should be made available.
@@ -34,9 +34,9 @@ sourceCpp(file = "", code = NULL, env = globalenv(), rebuild = FALSE,
 \details{
     If the \code{code} parameter is provided then the \code{file} parameter is ignored.
 
-    Functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute must have return types that are compatible with \code{Rcpp::wrap} and parameter types that are compatible with \code{Rcpp::as}.
+    Functions exported using \code{sourceCpp} must meet several conditions, including being defined in the global namespace and having return types that are compatible with \code{Rcpp::wrap} and parameter types that are compatible with \code{Rcpp::as}. See the \code{\link[=exportAttribute]{Rcpp::export}} documentation for more details.
     
-    If the code has compilation dependencies on other packages (e.g. \pkg{Matrix}, \pkg{RcppArmadillo}) then an \code{\link[=dependsAttribute]{Rcpp::depends}} attribute should be added naming these dependencies.
+    If the code has compilation dependencies on other packages (e.g. \pkg{Matrix}, \pkg{RcppArmadillo}) then an \code{\link[=dependsAttribute]{Rcpp::depends}} attribute should be added naming these dependencies. Note that if you are sourcing a C++ file from within the \code{src} directory of a package then the package's \code{LinkingTo} dependencies are automatically included in the compilation.
     
     The \code{sourceCpp} function will not rebuild the shared library if the underlying code has not changed since the last compilation.
 }
