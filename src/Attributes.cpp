@@ -714,7 +714,20 @@ BEGIN_RCPP
     ExportsGenerators generators;
     generators.add(new CppExportsGenerator(packageDir, packageName, fileSep));
     generators.add(new RExportsGenerator(packageDir, packageName, fileSep));
-    generators.add(new CppIncludeGenerator(packageDir, packageName, fileSep));
+    
+    // catch file exists exception if the include file already exists
+    // and we are unable to overwrite it
+    try {
+        generators.add(new CppIncludeGenerator(packageDir, 
+                                               packageName, 
+                                               fileSep));
+    }
+    catch(const Rcpp::file_exists& e) {
+        std::string msg = 
+            "The header file '" + e.filePath() + "' already exists so "
+            "cannot be overwritten by Rcpp::interfaces";
+        throw Rcpp::exception(msg.c_str(), __FILE__, __LINE__);
+    }
     
     // write begin
     generators.writeBegin();

@@ -52,13 +52,15 @@ private:
 
 class file_io_error : public std::exception {                                      
 public:                                                                        
-    file_io_error(const std::string& file) throw() : message( std::string("file io error: '") + file + "'" ){} ;
-    file_io_error(int code, const std::string& file) throw() : message( "file io error " + toString(code) + ": '" + file + "'") {} ;
-    file_io_error(const std::string& msg, const std::string& file) throw() : message( msg + ": '" + file + "'") {} ;
+    file_io_error(const std::string& file) throw() : message( std::string("file io error: '") + file + "'" ), file(file) {} ;
+    file_io_error(int code, const std::string& file) throw() : message( "file io error " + toString(code) + ": '" + file + "'"), file(file) {} ;
+    file_io_error(const std::string& msg, const std::string& file) throw() : message( msg + ": '" + file + "'"), file(file) {} ;
     virtual ~file_io_error() throw(){} ;                                         
-    virtual const char* what() const throw(){ return message.c_str() ; } ;     
+    virtual const char* what() const throw(){ return message.c_str() ; } ; 
+    std::string filePath() const throw(){ return file ; } ;
 private:                                                                       
     std::string message ;                                                      
+    std::string file;
 } ;
 
 class file_not_found : public file_io_error {
