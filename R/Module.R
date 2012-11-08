@@ -71,20 +71,36 @@ setMethod("initialize", "Module",
     pointer <- .getModulePointer(x)
 	info <- .Call( Module__get_function, pointer, name )
 	fun_ptr <- info[[1L]]
+	is_void <- info[[2L]]
 	doc     <- info[[3L]]
 	sign    <- info[[4L]]
 	formal_args <- info[[5L]]
+	nargs <- info[[6L]]
 	f <- function(...) NULL
+	if( nargs == 0L ) formals(f) <- NULL
 	stuff <- list( fun_pointer = fun_ptr, InternalFunction_invoke = InternalFunction_invoke )
-	body(f) <- if( info[[2]] ) {
-	    substitute( {
-	        .External( InternalFunction_invoke, fun_pointer, ... )
-	        invisible(NULL)
-	    }, stuff )
+	body(f) <- if( nargs == 0L ){
+	    if( is_void ) {
+	        substitute( {
+	            .External( InternalFunction_invoke, fun_pointer)
+	            invisible(NULL)
+	        }, stuff )
+	    } else {
+	        substitute( {
+	            .External( InternalFunction_invoke, fun_pointer)
+	        }, stuff )
+	    }
 	} else {
-	    substitute( {
-	        .External( InternalFunction_invoke, fun_pointer, ... )
-	    }, stuff )
+	    if( is_void ) {
+	        substitute( {
+	            .External( InternalFunction_invoke, fun_pointer, ... )
+	            invisible(NULL)
+	        }, stuff )
+	    } else {
+	        substitute( {
+	            .External( InternalFunction_invoke, fun_pointer, ... )
+	        }, stuff )
+	    }
 	}
 	out <- new( "C++Function", f, pointer = fun_ptr, docstring = doc, signature = sign )
 	if( ! is.null( formal_args ) ){

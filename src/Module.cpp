@@ -309,7 +309,8 @@ namespace Rcpp{
 	        fun->is_void(), 
 	        fun->docstring, 
 	        sign, 
-	        fun->get_formals()
+	        fun->get_formals(), 
+	        fun->nargs()
 	        ) ;
 	}
 	
