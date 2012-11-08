@@ -50,7 +50,7 @@ cppFunction(code, depends = character(), includes = character(),
 
 
 \seealso{
-\code{\link{sourceCpp}}
+\code{\link{sourceCpp}},  \code{\link{evalCpp}}
 }
 \examples{
 \dontrun{
