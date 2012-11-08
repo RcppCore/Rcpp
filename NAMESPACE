@@ -16,7 +16,7 @@ exportMethods( prompt, show, .DollarNames, initialize, "formals<-" )
 
 export( 
     Module, Rcpp.package.skeleton, populate, loadRcppModules, setRcppClass,
-       loadModule, cppFunction, sourceCpp, compileAttributes
+       loadModule, cppFunction, cppEval, sourceCpp, compileAttributes
 )
 
 exportClass(RcppClass)
