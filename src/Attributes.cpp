@@ -127,7 +127,19 @@ namespace {
               
                 // add module function export
                 ostr << "    Rcpp::function(\"" << exportedName(*it) << "\", &"
-                     << function.name() << ");" << std::endl;
+                     << function.name();
+                     
+                    // add information on arguments
+                    const std::vector<Argument>& args = 
+                                        it->function().arguments();
+                    ostr << ", Rcpp::List::create("; 
+                    for (size_t i=0; i<args.size(); i++) {
+                        ostr << "_[\"" << args[i].name() << "\"]";
+                        if (i != (args.size()-1))
+                            ostr << ", ";
+                    }
+                    ostr << ")"; 
+                    ostr << ");" << std::endl;
                       
             } 
         }
@@ -490,7 +502,7 @@ namespace {
                     if (function.isHidden())
                         continue;  
                     
-                    ostr() << "    static " << function << " {" 
+                    ostr() << "    inline " << function << " {" 
                             << std::endl;
                     
                     std::string ptrName = "p_" + function.name();
@@ -601,12 +613,12 @@ namespace {
         virtual void writeEnd() { 
             
             ostr() << "Rcpp::loadModule(\"" << package() << "_RcppExports\", ";
-            
             if (rExports_.size() > 0) {
-                ostr() << "what = c(";
+                ostr() << std::endl;
+                ostr() << "    what = c(";
                 for (size_t i=0; i<rExports_.size(); i++) {
                     if (i != 0)
-                        ostr() << "                                         ";
+                        ostr() << "             ";
                     ostr() << "\"" << rExports_[i] << "\"";
                     if (i != (rExports_.size()-1))
                         ostr() << "," << std::endl;
