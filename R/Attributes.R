@@ -196,6 +196,21 @@ cppFunction <- function(code,
     }
 }
 
+# Evaluate a simple c++ expression
+cppEval <- function( code, 
+                     depends = character(), 
+                     includes = character(), 
+                     showOutput = verbose, 
+                     verbose = getOption( "verbose" ) ){
+ 
+                         
+    code <- sprintf( "SEXP get_value(){ return wrap( %s ) ; }", code )
+    env <- new.env()
+    cppFunction( code, depends = depends, includes = includes, env = env, showOutput = showOutput )
+    fun <- env[["get_value"]]
+    fun()
+}
+
 # Scan the source files within a package for attributes and generate code
 # based on the attributes. 
 compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
