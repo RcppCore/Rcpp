@@ -29,7 +29,7 @@ The \code{Rcpp::export} attribute is added to a C++ function definition to indic
 }
 
 \seealso{
-\code{\link{sourceCpp}}, \code{\link{compileAttributes}}
+\code{\link{sourceCpp}} and \code{\link{compileAttributes}}
 }
 
 \examples{

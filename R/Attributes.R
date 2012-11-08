@@ -56,7 +56,7 @@ sourceCpp <- function(file = "",
         .validatePackages(depends, context$cppSourceFilename)
         
         # temporarily modify environment for the build
-        envRestore <- .setupBuildEnvironment(depends)
+        envRestore <- .setupBuildEnvironment(depends, file)
         
         # temporarily setwd to build directory
         cwd <- getwd()
@@ -128,9 +128,12 @@ sourceCpp <- function(file = "",
                 "force a rebuild)\n\n", sep="")
     }
     
-    # load the module
-    dll <- dyn.load(context$dynlibPath)
-    populate(Module(context$moduleName, PACKAGE = dll, mustStart = TRUE), env)
+    # load the module if we have exported functions (else there is no module)
+    if (length(context$exportedFunctions) > 0) {
+        dll <- dyn.load(context$dynlibPath)
+        populate(Module(context$moduleName, PACKAGE = dll, mustStart = TRUE), 
+                 env)
+    }
     
     # return (invisibly) a list of exported functions
     invisible(context$exportedFunctions)
@@ -197,16 +200,18 @@ cppFunction <- function(code,
 }
 
 # Evaluate a simple c++ expression
-evalCpp <- function( code, 
-                     depends = character(), 
-                     includes = character(), 
-                     showOutput = verbose, 
-                     verbose = getOption( "verbose" ) ){
+evalCpp <- function(code, 
+                    depends = character(), 
+                    includes = character(), 
+                    rebuild = FALSE,
+                    showOutput = verbose, 
+                    verbose = getOption( "verbose" ) ){
  
                          
     code <- sprintf( "SEXP get_value(){ return wrap( %s ) ; }", code )
     env <- new.env()
-    cppFunction( code, depends = depends, includes = includes, env = env, showOutput = showOutput )
+    cppFunction(code, depends = depends, includes = includes, env = env, 
+                rebuild = rebuild, showOutput = showOutput)
     fun <- env[["get_value"]]
     fun()
 }
@@ -267,17 +272,26 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 }
 
 
+# Add LinkingTo dependencies if the sourceFile is in a package
 .getSourceCppDependencies <- function(depends, sourceFile) {
     
-    # add package LinkingTo dependencies if the source file is in a package
-    descFile <- file.path(dirname(sourceFile), "..", "DESCRIPTION")
-    if (file.exists(descFile)) {
+    # If the source file is in a package then simulate it being built 
+    # within the package by including it's LinkingTo dependencies,
+    # the src directory (.), and the inst/include directory
+    if (.isPackageSourceFile(sourceFile)) {
+        descFile <- file.path(dirname(sourceFile), "..", "DESCRIPTION")
         DESCRIPTION <- read.dcf(descFile, all = TRUE)
         linkingTo <- .parseLinkingTo(DESCRIPTION$LinkingTo)
         unique(c(depends, linkingTo))
     } else {
         depends
     }
+}
+
+
+# Check whether a source file is in a package
+.isPackageSourceFile <- function(sourceFile) {
+    file.exists(file.path(dirname(sourceFile), "..", "DESCRIPTION"))
 }
 
 # Error if a package is not currently available
@@ -302,7 +316,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 # Setup the build environment based on the specified dependencies. Returns an
 # opaque object that can be passed to .restoreEnvironment to reverse whatever
 # changes that were made
-.setupBuildEnvironment <- function(depends) {
+.setupBuildEnvironment <- function(depends, sourceFile) {
     
     # discover dependencies
     buildEnv <- list()
@@ -359,6 +373,16 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     
     # set CLINK_CPPFLAGS based on the LinkingTo dependencies
     buildEnv$CLINK_CPPFLAGS <- .buildClinkCppFlags(linkingToPackages)
+    
+    # if the source file is in a package then add standard package
+    # include directories
+    if (.isPackageSourceFile(sourceFile)) {
+        srcDir <- dirname(sourceFile)
+        incDir <- file.path(dirname(sourceFile), "..", "inst", "include")
+        buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS, 
+                                         paste0('-I"', c(srcDir, incDir), '"'), 
+                                         collapse=" ")
+    }
 
     # add cygwin message muffler
     buildEnv$CYGWIN = "nodosfilewarning"
@@ -488,7 +512,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         # otherwise check for standard Rcpp::interfaces generated include
         else if (!pluginsOnly) {
             pkgPath <- find.package(package, NULL, quiet=TRUE)
-            pkgHeader <- paste(package, ".hpp", sep="")
+            pkgHeader <- paste(package, ".h", sep="")
             pkgHeaderPath <- file.path(pkgPath, "include",  pkgHeader)
             if (file.exists(pkgHeaderPath)) {
                 pkgInclude <- paste("#include <", pkgHeader, ">", sep="")
