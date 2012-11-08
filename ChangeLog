@@ -1,3 +1,9 @@
+
+2012-11-08  JJ Allaire <jj@rstudio.org>
+
+        * src/Attributes.cpp: add information on arguments to Rcpp module;
+        use inline rather than static linkage for generated C++ shims
+
 2012-11-08  Romain Francois <romain@r-enthusiasts.com>
 
         * R/Module.R: Module functions taking no arguments don't get the ellipsis
