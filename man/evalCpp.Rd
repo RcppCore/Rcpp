@@ -1,15 +1,16 @@
 \name{evalCpp}
 \alias{evalCpp}
 \title{
-Evaluate a C++ expression
+Evaluate a C++ Expression
 }
 \description{
 Evaluates a C++ expression. This creates a C++ function using 
-\code{\link{cppFunction}} and call it to get the result. 
+\code{\link{cppFunction}} and calls it to get the result. 
 }
 \usage{
 evalCpp(code, depends = character(), includes = character(), 
-    showOutput = verbose, verbose = getOption("verbose") )
+        rebuild = FALSE, showOutput = verbose, 
+        verbose = getOption("verbose"))
 }
 \arguments{
   \item{code}{
@@ -21,6 +22,9 @@ see \code{\link{cppFunction}}
   \item{includes}{
 see \code{\link{cppFunction}}
 }
+  \item{rebuild}{
+see \code{\link{cppFunction}}
+}
   \item{showOutput}{
 see \code{\link{cppFunction}}
 }
@@ -29,13 +33,13 @@ see \code{\link{cppFunction}}
 }
 }
 \note{
-    The result type of the C++ expression must be compatible with wrap.     
+    The result type of the C++ expression must be compatible with \code{Rcpp::wrap}.     
 }
 \value{
     The result of the evaluated C++ expression. 
 }
 \seealso{
-\code{\link{sourceCpp}} and \code{\link{cppFunction}}
+\code{\link{sourceCpp}}, \code{\link{cppFunction}}
 }
 \examples{
 \dontrun{

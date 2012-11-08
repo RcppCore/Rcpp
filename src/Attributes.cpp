@@ -384,7 +384,7 @@ namespace {
         }
         
         virtual bool commit(const std::vector<std::string>& includes) {
-            
+                       
             // includes 
             std::ostringstream ostr;
             if (!includes.empty()) {
@@ -440,7 +440,7 @@ namespace {
                                      const std::string& fileSep)
             : ExportsGenerator( 
                 packageDir +  fileSep + "inst" +  fileSep + "include" +
-                fileSep + package + ".hpp", 
+                fileSep + package + ".h", 
                 package,
                 "//")
         {
@@ -534,7 +534,9 @@ namespace {
         
         virtual void writeEnd() {
             ostr() << "}" << std::endl;
-        }
+            ostr() << std::endl;
+            ostr() << "#endif // " << getHeaderGuard() << std::endl;
+         }
         
         virtual bool commit(const std::vector<std::string>& includes) {
             
@@ -545,6 +547,13 @@ namespace {
                 
                 // generate preamble 
                 std::ostringstream ostr;
+                
+                // header guard
+                std::string guard = getHeaderGuard();
+                ostr << "#ifndef " << guard << std::endl;
+                ostr << "#define " << guard << std::endl << std::endl; 
+                
+                // includes
                 if (!includes.empty()) {
                     for (std::size_t i=0;i<includes.size(); i++)
                         ostr << includes[i] << std::endl;
@@ -568,6 +577,10 @@ namespace {
                  << "\"" << package() + "_RcppExports\", "
                  << "\"" << function << "\")";
             return ostr.str();
+        }
+        
+        std::string getHeaderGuard() const {
+            return package() + "_RcppExports_h";
         }
         
     private:
@@ -867,11 +880,14 @@ namespace {
             SourceFileAttributes sourceAttributes(cppSourcePath_);
         
             // generate RCPP module
-            std::ostringstream ostr;
-            ostr << "RCPP_MODULE(" << moduleName()  << ") {" << std::endl;
-            generateCppModuleFunctions(ostr, sourceAttributes, false);
-            ostr << "}" << std::endl;
-            generatedCpp_ = ostr.str();
+            generatedCpp_.clear();
+            if (!sourceAttributes.empty()) {
+                std::ostringstream ostr;
+                ostr << "RCPP_MODULE(" << moduleName()  << ") {" << std::endl;
+                generateCppModuleFunctions(ostr, sourceAttributes, false);
+                ostr << "}" << std::endl;
+                generatedCpp_ = ostr.str();
+            }
             
             // open source file and append module
             std::ofstream cppOfs(generatedCppSourcePath().c_str(), 
@@ -1052,6 +1068,7 @@ BEGIN_RCPP
     
     // return context as a list
     Rcpp::List context;
+    
     context["moduleName"] = dynlib.moduleName();
     context["cppSourcePath"] = dynlib.cppSourcePath();
     context["buildRequired"] = buildRequired;
