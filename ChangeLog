@@ -1,3 +1,9 @@
+2012-11-08  Romain Francois <romain@r-enthusiasts.com>
+
+        * R/Module.R: Module functions taking no arguments don't get the ellipsis
+        anymore in their formals
+        * src/Module.cpp: passing up the number of arguments of the function
+        
 2012-11-07  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: derive depends from package LinkingTo; change 
