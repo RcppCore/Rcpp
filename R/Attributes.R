@@ -197,7 +197,7 @@ cppFunction <- function(code,
 }
 
 # Evaluate a simple c++ expression
-cppEval <- function( code, 
+evalCpp <- function( code, 
                      depends = character(), 
                      includes = character(), 
                      showOutput = verbose, 

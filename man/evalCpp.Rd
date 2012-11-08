@@ -1,5 +1,5 @@
-\name{cppEval}
-\alias{cppEval}
+\name{evalCpp}
+\alias{evalCpp}
 \title{
 Evaluate a C++ expression
 }
@@ -8,7 +8,7 @@ Evaluates a C++ expression. This creates a C++ function using
 \code{\link{cppFunction}} and call it to get the result. 
 }
 \usage{
-cppEval(code, depends = character(), includes = character(), 
+evalCpp(code, depends = character(), includes = character(), 
     showOutput = verbose, verbose = getOption("verbose") )
 }
 \arguments{
@@ -40,8 +40,8 @@ see \code{\link{cppFunction}}
 \examples{
 \dontrun{
 
-cppEval( "__cplusplus" )
-cppEval( "std::numeric_limits<double>::max()" )
+evalCpp( "__cplusplus" )
+evalCpp( "std::numeric_limits<double>::max()" )
     
 }
 }

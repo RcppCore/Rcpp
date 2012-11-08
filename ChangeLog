@@ -9,8 +9,8 @@
         * R/Module.R: Module functions taking no arguments don't get the ellipsis
         anymore in their formals
         * src/Module.cpp: passing up the number of arguments of the function
-        * R/Attributes.R: added cppEval
-        * man/cppEval.Rd: documentation for cppeval
+        * R/Attributes.R: added evalCpp
+        * man/evalCpp.Rd: documentation for evalCpp
         
 2012-11-07  JJ Allaire <jj@rstudio.org>
 
