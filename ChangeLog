@@ -2,6 +2,9 @@
 
         * R/Attributes.R: Passing verbose from evalCpp to cppFunction
         * include/RcppCommon.h: include <limits> instead of <limits.h>
+        * include/Rcpp/vector/CharacterVectorExtractionIterator.h: iterator class
+        to quickly iterate over the content of a CharacterVector. The content that 
+        is iterated over is to be considered read-only. 
 
 2012-11-08  JJ Allaire <jj@rstudio.org>
 

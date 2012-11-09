@@ -2,7 +2,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -65,6 +65,8 @@ template <int RTYPE> class SubMatrix ;
 #include <Rcpp/vector/string_proxy.h>
 
 #include <Rcpp/vector/LazyVector.h>
+
+#include <Rcpp/vector/CharacterVectorExtractionIterator.h>
 
 }  // Rcpp
 
