@@ -133,7 +133,7 @@ namespace Rcpp{
 #include <numeric>
 #include <algorithm>
 #include <complex>
-#include <limits.h>
+#include <limits>
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 
