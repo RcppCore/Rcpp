@@ -1,3 +1,7 @@
+2012-11-09  Romain Francois <romain@r-enthusiasts.com>
+
+        * R/Attributes.R: Passing verbose from evalCpp to cppFunction
+        * include/RcppCommon.h: include <limits> instead of <limits.h>
 
 2012-11-08  JJ Allaire <jj@rstudio.org>
 

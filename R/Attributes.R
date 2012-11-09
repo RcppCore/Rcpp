@@ -211,7 +211,7 @@ evalCpp <- function(code,
     code <- sprintf( "SEXP get_value(){ return wrap( %s ) ; }", code )
     env <- new.env()
     cppFunction(code, depends = depends, includes = includes, env = env, 
-                rebuild = rebuild, showOutput = showOutput)
+                rebuild = rebuild, showOutput = showOutput, verbose = verbose )
     fun <- env[["get_value"]]
     fun()
 }
