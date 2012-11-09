@@ -8,10 +8,22 @@
     [ TODO -- Lots more Rcpp modules work to be described ? ]
     \item Provide a namespace 'R' for the standalone Rmath library so
     that Rcpp users can access those functions too; also added unit tests 
-    \item Added new functions cppFunction(), sourceCpp() and 
-    compileAttributes() that use C++11 style attributes (embedded in 
-    comments) to make declaring and using C++ functions in R much 
-    more straightforward.
+    \item Support for C++11 style attributes (embedded in comments) to enable
+    use of C++ within interactive sessions and to automatically generate module
+    declarations for packages:
+    \itemize{
+        \item Rcpp::export attribute to export a C++ function to R
+        \item sourceCpp() function to source exported functions from a file
+        \item cppFunction() and evalCpp() functions for inline declarations 
+        and execution
+        \item compileAttribtes() function to generate Rcpp modules from 
+        exported functions within a package
+        \item Rcpp::depends attribute for specifying additional build 
+        dependencies for sourceCpp()
+        \item Rcpp::interfaces attribute to specify the external bindings
+        compileAttributes() should generate (defaults to R-only but a  
+        C++ include file using R_GetCCallable can also be generated)
+    }
     \item Development releases set RunAllRcppTests to yes to run all
     tests (unless it was alredy set to 'no'), CRAN releases do not and
     still require setting which helps with the desired CRAN default.
