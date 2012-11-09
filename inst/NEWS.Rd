@@ -4,10 +4,6 @@
 
 \section{Changes in Rcpp version 0.9.16 (future)}{
   \itemize{
-    \item Exposed methods for class Foo can now return a Foo*
-    [ TODO -- Lots more Rcpp modules work to be described ? ]
-    \item Provide a namespace 'R' for the standalone Rmath library so
-    that Rcpp users can access those functions too; also added unit tests 
     \item Support for C++11 style attributes (embedded in comments) to enable
     use of C++ within interactive sessions and to automatically generate module
     declarations for packages:
@@ -23,6 +19,42 @@
         \item Rcpp::interfaces attribute to specify the external bindings
         compileAttributes() should generate (defaults to R-only but a  
         C++ include file using R_GetCCallable can also be generated)
+    }
+    \item Rcpp modules feature set is expanded :
+    \itemize{
+        \item Functions and methods can now return objects from classes that 
+        are exposed through modules. This uses the make_new_object template
+        internally. This feature requires that some class traits are declared
+        to indicate Rcpp's wrap/as system that these classes are covered 
+        by modules. The macro RCPP_EXPOSED_CLASS and RCPP_EXPOSED_CLASS_NODECL
+        can be used to declared these type traits. 
+        \item Classes exposed through modules can also be used as parameters
+        of exposed functions or methods. 
+        \item Exposed classes can declare factories with ".factory". A factory 
+        is a c++ function that returns a pointer to the target class. It is 
+        assumed that these objects are allocated with new on the factory. On the 
+        R side, factories are called just like other constructors, with the 
+        "new" function. This feature allows an alternative way to construct
+        objects. 
+        \item "converter" can be used to declare a way to convert an object
+        of a type to another type. This gets translated to the appropriate
+        "as" method on the R side. 
+        \item Inheritance. A class can now declare that it inherits from 
+        another class with the .derives<Parent>( "Parent" ) notation. As a result
+        the exposed class gains methods and properties (fields) from its
+        parent class. 
+    }
+    \item Provide a namespace 'R' for the standalone Rmath library so
+    that Rcpp users can access those functions too; also added unit tests 
+    \item New sugar functions: 
+    \itemize{
+        \item "which_min" implements which.min. Traversing the sugar expression
+        and returning the index of the first time the minimum value is found. 
+        \item "which_max" ... 
+        \item "unique" uses unordered_set to find unique values. In particular, 
+        the version for CharacterVector is found to be more efficient than 
+        R's version
+        \item "sort_unique" calculates unique values and then sorts them. 
     }
     \item Development releases set RunAllRcppTests to yes to run all
     tests (unless it was alredy set to 'no'), CRAN releases do not and
