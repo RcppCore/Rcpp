@@ -81,10 +81,8 @@ sourceCpp <- function(file = "",
         
         # unload and delete existing dylib if necessary
         if (file.exists(context$dynlibPath)) {
-            try(silent=TRUE, {
-                dyn.unload(context$dynlibPath)
-                file.remove(context$dylibPath)
-            })
+            dyn.unload(context$dynlibPath)
+            file.remove(context$dylibPath)
         }
            
         # prepare the command (output if we are in showOutput mode)
@@ -130,6 +128,9 @@ sourceCpp <- function(file = "",
     
     # load the module if we have exported functions (else there is no module)
     if (length(context$exportedFunctions) > 0) {
+        # remove existing objects of the same name from the environment
+        remove(list = context$exportedFunctions, envir = env)
+        # load the module and populate the target environment
         dll <- dyn.load(context$dynlibPath)
         populate(Module(context$moduleName, PACKAGE = dll, mustStart = TRUE), 
                  env)
