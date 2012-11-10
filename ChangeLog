@@ -1,3 +1,7 @@
+2012-11-10  JJ Allaire <jj@rstudio.org>
+
+        * src/Attributes.cpp: add optional hook for inclusion of package types
+
 2012-11-09  Romain Francois <romain@r-enthusiasts.com>
 
         * R/Attributes.R: Passing verbose from evalCpp to cppFunction
