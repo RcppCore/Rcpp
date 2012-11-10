@@ -433,6 +433,7 @@ namespace {
     };
     
     // Class which manages generating the header file for the package
+    const char * const kTypesSuffix = "_types.h";
     class CppIncludeGenerator : public ExportsGenerator {
     public:
         explicit CppIncludeGenerator(const std::string& packageDir, 
@@ -445,6 +446,7 @@ namespace {
                 "//")
         {
             includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
+            includeTypes_ = includeDir_ + fileSep + package + kTypesSuffix;
             hasCppInterface_ = false; 
         }
         
@@ -560,6 +562,12 @@ namespace {
                     ostr << std::endl;
                 }
                 
+                // if there is a types header then include it as well
+                if (FileInfo(includeTypes_).exists()) {
+                    ostr << "#include <" << package() << kTypesSuffix << ">"
+                         << std::endl << std::endl;
+                }
+                
                 // commit with preamble
                 return ExportsGenerator::commit(ostr.str());
             }
@@ -585,6 +593,7 @@ namespace {
         
     private:
         std::string includeDir_;
+        std::string includeTypes_;
         bool hasCppInterface_;
     };
     
