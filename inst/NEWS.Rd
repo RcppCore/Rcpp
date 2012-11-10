@@ -9,15 +9,15 @@
     declarations for packages:
     \itemize{
         \item Rcpp::export attribute to export a C++ function to R
-        \item sourceCpp() function to source exported functions from a file
-        \item cppFunction() and evalCpp() functions for inline declarations 
+        \item \code{sourceCpp()} function to source exported functions from a file
+        \item \code{cppFunction()} and \code{evalCpp()} functions for inline declarations 
         and execution
-        \item compileAttribtes() function to generate Rcpp modules from 
+        \item \code{compileAttribtes()} function to generate Rcpp modules from 
         exported functions within a package
         \item Rcpp::depends attribute for specifying additional build 
-        dependencies for sourceCpp()
+        dependencies for \code{sourceCpp()}
         \item Rcpp::interfaces attribute to specify the external bindings
-        compileAttributes() should generate (defaults to R-only but a  
+        \code{compileAttributes()} should generate (defaults to R-only but a  
         C++ include file using R_GetCCallable can also be generated)
     }
     \item Rcpp modules feature set is expanded :
@@ -25,7 +25,7 @@
         \item Functions and methods can now return objects from classes that 
         are exposed through modules. This uses the make_new_object template
         internally. This feature requires that some class traits are declared
-        to indicate Rcpp's wrap/as system that these classes are covered 
+        to indicate Rcpp's \code{wrap}/\code{as} system that these classes are covered 
         by modules. The macro RCPP_EXPOSED_CLASS and RCPP_EXPOSED_CLASS_NODECL
         can be used to declared these type traits. 
         \item Classes exposed through modules can also be used as parameters
@@ -48,17 +48,18 @@
     that Rcpp users can access those functions too; also added unit tests 
     \item New sugar functions: 
     \itemize{
-        \item "which_min" implements which.min. Traversing the sugar expression
+        \item \code{which_min} implements which.min. Traversing the sugar expression
         and returning the index of the first time the minimum value is found. 
-        \item "which_max" ... 
-        \item "unique" uses unordered_set to find unique values. In particular, 
+        \item \code{which_max} idem
+        \item \code{unique} uses unordered_set to find unique values. In particular, 
         the version for CharacterVector is found to be more efficient than 
         R's version
-        \item "sort_unique" calculates unique values and then sorts them. 
+        \item \code{sort_unique} calculates unique values and then sorts them. 
     }
-    \item Development releases set RunAllRcppTests to yes to run all
-    tests (unless it was alredy set to 'no'), CRAN releases do not and
-    still require setting which helps with the desired CRAN default.
+    \item Development releases sets variable RunAllRcppTests to yes to
+    run all tests (unless it was alredy set to 'no'); CRAN releases do
+    not and still require setting -- which helps with the desired CRAN
+    default of less testing at the CRAN server farm.
   }
 }
 
