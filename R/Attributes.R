@@ -81,7 +81,7 @@ sourceCpp <- function(file = "",
         
         # unload and delete existing dylib if necessary
         if (file.exists(context$dynlibPath)) {
-            dyn.unload(context$dynlibPath)
+            try(silent=T, dyn.unload(context$dynlibPath))
             file.remove(context$dynlibPath)
         }
            
