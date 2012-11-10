@@ -1,5 +1,6 @@
 2012-11-10  JJ Allaire <jj@rstudio.org>
 
+        * R/Attributes.R: ensure function definitions are never stale
         * src/Attributes.cpp: add optional hook for inclusion of package types
         * examples/Attributes/Export.cpp: example use of Rcpp::export
         * examples/Attributes/Depends.cpp: example use of Rcpp::depends
