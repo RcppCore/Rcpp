@@ -1,6 +1,7 @@
 2012-11-11  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/iostream/Rstreambuf.h: implementing sync() so that flush works
+        * include/Rcpp/iostream/Rstreambuf.h: implementing sync() so that
+	flush works
         * src/Rstreambuf.cpp: implementation
         * src/Rostream.cpp : added Rcerr that forwards to REprintf
 
@@ -17,9 +18,9 @@
 
         * R/Attributes.R: Passing verbose from evalCpp to cppFunction
         * include/RcppCommon.h: include <limits> instead of <limits.h>
-        * include/Rcpp/vector/CharacterVectorExtractionIterator.h: iterator class
-        to quickly iterate over the content of a CharacterVector. The content that 
-        is iterated over is to be considered read-only. 
+        * include/Rcpp/vector/CharacterVectorExtractionIterator.h: iterator
+	class to quickly iterate over the content of a CharacterVector. The
+	content that is iterated over is to be considered read-only.
 
 2012-11-08  JJ Allaire <jj@rstudio.org>
 
@@ -42,12 +43,12 @@
         * src/Module.cpp: passing up the number of arguments of the function
         * R/Attributes.R: added evalCpp
         * man/evalCpp.Rd: documentation for evalCpp
-        
+
 2012-11-07  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: derive depends from package LinkingTo; change 
-        sourceCpp plugin parameter to depends and respect Rcpp::interfaces
-        generated include files
+        * R/Attributes.R: derive depends from package LinkingTo; change
+	sourceCpp plugin parameter to depends and respect Rcpp::interfaces
+	generated include files
         * src/Attributes.cpp: validate exported C++ functions before calling;
         use static rather than inline for stubs to avoid call-site bloat;
         improved error message when package hpp already exists; import Rcpp
