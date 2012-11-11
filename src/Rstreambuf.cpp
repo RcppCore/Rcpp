@@ -33,3 +33,8 @@ int Rcpp::Rstreambuf::overflow(int c ) {
     }
     return c;
 }
+
+int Rcpp::Rstreambuf::sync(){
+    R_FlushConsole() ;
+    return 0 ;    
+}
