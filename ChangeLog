@@ -2,6 +2,7 @@
 
         * include/Rcpp/iostream/Rstreambuf.h: implementing sync() so that flush works
         * src/Rstreambuf.cpp: implementation
+        * src/Rostream.cpp : added Rcerr that forwards to REprintf
 
 2012-11-10  JJ Allaire <jj@rstudio.org>
 

@@ -22,7 +22,7 @@
 #include <RcppCommon.h>
 #include <Rcpp/iostream/Rostream.h>
 
-Rcpp::Rostream::Rostream() : std::ostream( &buf ) {}
-
 // define global variable Rcout
-Rcpp::Rostream Rcpp::Rcout;
+Rcpp::Rostream Rcpp::Rcout(true);
+Rcpp::Rostream Rcpp::Rcerr(false);
+
