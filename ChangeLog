@@ -1,3 +1,8 @@
+2012-11-11  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/iostream/Rstreambuf.h: implementing sync() so that flush works
+        * src/Rstreambuf.cpp: implementation
+
 2012-11-10  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: ensure function definitions are never stale

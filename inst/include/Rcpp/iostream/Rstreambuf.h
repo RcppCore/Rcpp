@@ -37,6 +37,8 @@ namespace Rcpp {
         virtual std::streamsize xsputn(const char *s, std::streamsize n );
         
         virtual int overflow(int c = EOF );
+        
+        virtual int sync() ;
   };
 
 }
