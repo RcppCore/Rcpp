@@ -2,7 +2,7 @@
 //
 // Rostream.h: Rcpp R/C++ interface class library -- stream buffer
 //
-// Copyright (C) 2011           Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+// Copyright (C) 2011 - 2012    Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
 //
 // This file is part of Rcpp.
 //
@@ -23,13 +23,21 @@
 #include <Rcpp/iostream/Rstreambuf.h>
 
 std::streamsize Rcpp::Rstreambuf::xsputn(const char *s, std::streamsize num ) {
-    Rprintf( "%.*s", num, s );
+    if(output) {
+        Rprintf( "%.*s", num, s ) ; 
+    } else {
+        REprintf( "%.*s", num, s) ;
+    }
     return num;
 }
 
 int Rcpp::Rstreambuf::overflow(int c ) {
     if (c != EOF) {
-        Rprintf( "%.1s", &c );
+        if( output ) {
+            Rprintf( "%.1s", &c ) ;
+        } else {
+            REprintf( "%.1s", &c ) ;
+        }
     }
     return c;
 }
