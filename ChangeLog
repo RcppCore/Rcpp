@@ -1,3 +1,7 @@
+2012-11-11  JJ Allaire <jj@rstudio.org>
+
+        * src/Attributes.cpp: fully qualify _ in generated code
+
 2012-11-11  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream/Rstreambuf.h: implementing sync() so that
