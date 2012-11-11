@@ -44,8 +44,6 @@
         the exposed class gains methods and properties (fields) from its
         parent class. 
     }
-    \item Provide a namespace 'R' for the standalone Rmath library so
-    that Rcpp users can access those functions too; also added unit tests 
     \item New sugar functions: 
     \itemize{
         \item \code{which_min} implements which.min. Traversing the sugar expression
@@ -56,6 +54,14 @@
         R's version
         \item \code{sort_unique} calculates unique values and then sorts them. 
     }
+    \item Improvements to output facilities:
+    \itemize{
+      \item Implemented \code{sync()} so that flushing output streams works
+      \item Added \code{Rcerr} output stream (forwarding to
+      \code{REprintf})
+    }
+    \item Provide a namespace 'R' for the standalone Rmath library so
+    that Rcpp users can access those functions too; also added unit tests 
     \item Development releases sets variable RunAllRcppTests to yes to
     run all tests (unless it was alredy set to 'no'); CRAN releases do
     not and still require setting -- which helps with the desired CRAN
