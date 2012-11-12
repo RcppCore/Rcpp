@@ -2,7 +2,7 @@
 //
 // proxy.h: Rcpp R/C++ interface class library -- proxies
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,9 @@
 #ifndef Rcpp__vector__forward_proxy_h
 #define Rcpp__vector__forward_proxy_h
 
+// const iterator for CharacterVector
+class CharacterVectorExtractionIterator ;
+
 namespace internal{
 	template <int RTYPE> class string_proxy ;
 	template <int RTYPE> class generic_proxy ;
@@ -31,10 +34,11 @@ namespace internal{
 }
 
 namespace traits {
-
+    template <int RTYPE> struct r_vector_cache_type ;
 	template <int RTYPE> struct r_vector_name_proxy ;
 	template <int RTYPE> struct r_vector_proxy ;
 	template <int RTYPE> struct r_vector_iterator ;
+	template <int RTYPE> struct r_vector_const_iterator ;
 	template <int RTYPE> class r_vector_cache ;
 }
 
