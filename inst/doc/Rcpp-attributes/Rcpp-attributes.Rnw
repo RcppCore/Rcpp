@@ -1,0 +1,375 @@
+\documentclass[10pt]{article}
+%\VignetteIndexEntry{Rcpp-attributes}
+\usepackage[USletter]{vmargin}
+\setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+\usepackage{color, alltt}
+\usepackage[authoryear,round,longnamesfirst]{natbib}
+\usepackage[colorlinks]{hyperref}
+\definecolor{link}{rgb}{0,0,0.3}	%% next few lines courtesy of RJournal.sty
+\hypersetup{
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link
+}
+
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+\newcommand{\ith}{\textsl{i}-\textsuperscript{th}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+<<echo=FALSE,print=FALSE>>=
+prettyVersion <- packageDescription("Rcpp")$Version
+prettyDate <- format(Sys.Date(), "%B %e, %Y")
+@
+
+\author{J.J. Allaire \and Dirk Eddelbuettel \and Romain Fran\c{c}ois}
+\title{\pkg{Rcpp} Attributes}
+\date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
+
+<<echo=FALSE>>=
+link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	h <- if( missing(package) ) {
+		as.character( help( f ) )
+	} else {
+		as.character( help( f, package = paste( package, sep = "" ) ) )
+	}
+	if( ! length(h) ){
+		sprintf( "\\\\textbf{%s}", f )
+	} else {
+		rx <- "^.*/([^/]*?)/help/(.*?)$"
+		package <- sub( rx, "\\1", h, perl = TRUE )
+		page <- sub( rx, "\\2", h, perl = TRUE )
+		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+	}
+}
+linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
+	link( sprintf("%s-class", cl), package, text, root )
+}
+@
+
+\begin{document}
+\maketitle
+
+\abstract{
+  \noindent
+  \textsl{Rcpp attributes} provide a high-level syntax for declaring \proglang{C++} 
+  functions as callable from \proglang{R} and automatically generating the code 
+  required to invoke them. Attributes are intended to facilate both interactive use
+  of \proglang{C++} within \proglang{R} sessions as well as to support \proglang{R} 
+  package development. Attributes are built on top of \pkg{Rcpp} modules
+  and their implementation is based on previous work in the \pkg{inline} 
+  package \citep{CRAN:inline}. 
+}
+
+
+\section{Introduction}
+
+Rcpp attributes are a new feature of \pkg{Rcpp} version 0.10 \citep{CRAN:Rcpp,JSS:Rcpp}
+that provide infrastructure for seamless language bindings between \proglang{R} and 
+\proglang{C++}. The motivation for attributes is several-fold:
+
+\begin{enumerate}
+\item
+  Reducing the learning curve associated with using C++ and R together
+\item
+  Eliminating boilerplate conversion and marshaling code wherever
+  possible
+\item
+  Seamless use of C++ within interactive R sessions
+\item
+  Unified syntax for interactive work and package development
+\end{enumerate}
+
+The core concept is to add declarative attributes to \proglang{C++} source
+files that provide the context required to automatically generate \proglang{R} 
+bindings to \proglang{C++} functions. Attributes and their supporting 
+functions include:
+
+\begin{itemize}
+\item
+  \texttt{Rcpp::export} attribute to export a \proglang{C++} function 
+  to \proglang{R}
+\item
+  \texttt{sourceCpp} function to source exported functions from a file
+\item
+  \texttt{cppFunction} and \texttt{evalCpp} functions for inline
+  declarations and execution
+\item
+  \texttt{Rcpp::depends} attribute for specifying additional build
+  dependencies for \texttt{sourceCpp}
+\end{itemize}
+
+Attributes can also be used for package development via the
+\texttt{compileAttributes} function, which generates an \pkg{Rcpp} module for
+all exported functions within a package.
+
+Attributes derive their syntax from \proglang{C++11} style attributes
+\citep{Maurer+Wong:2008:AttributesInC++} and are included in source files using specially 
+formatted comments.
+
+\section{Sourcing C++ Functions}
+
+The \texttt{sourceCpp} function parses a \proglang{C++} file and looks for
+functions marked with the \texttt{Rcpp::export} attribute. A shared
+library is then built and its exported functions are made available as R
+functions in the specified environment. For example, this source file
+contains an implementation of convolve (note the \texttt{Rcpp::export}
+attribute in the comment above the function):
+
+<<lang=cpp>>=
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector convolveCpp(NumericVector a, NumericVector b) {
+
+    int na = a.size(), nb = b.size();
+    int nab = na + nb - 1;
+    NumericVector xab(nab);
+
+    for (int i = 0; i < na; i++)
+        for (int j = 0; j < nb; j++)
+            xab[i + j] += a[i] * b[j];
+
+    return xab;
+}
+@
+
+The addition of the export attribute allows us to do this from the \proglang{R}
+prompt:
+
+<<eval=FALSE>>=
+sourceCpp("convolve.cpp")
+convolveCpp(x, y)
+@
+
+
+We can now write \proglang{C++} functions using standard \proglang{C++} types
+and then source them just like an \proglang{R} script using the \texttt{sourceCpp}
+function. Any types that can be marshaled with \texttt{as} and \texttt{wrap} 
+can be used in the signatures of exported functions (and since as and wrap are
+in turn extensible,  a wide variety of custom types can be supported).
+
+You can change the name of the exported function as it appears to \proglang{R} by
+adding a name parameter to \texttt{Rcpp::export}. For example the
+following will export \texttt{convolveCpp} as a hidden \proglang{R} function:
+
+<<lang=cpp>>=
+// [[Rcpp::export(".convolveCpp")]]
+NumericVector convolveCpp(NumericVector a, NumericVector b)
+@
+
+The \texttt{sourceCpp} function performs caching based on the last
+modified date of the source file so as long as the source file does not
+change the compilation will occur only once per R session.
+
+\section{Importing Dependencies}
+
+It's also possible to use the \texttt{Rcpp::depends} attribute to declare
+dependencies on other packages. For example:
+
+<<lang=cpp>>=
+// [[Rcpp::depends(RcppArmadillo)]]
+
+#include <RcppArmadillo.h>
+using namespace Rcpp
+
+// [[Rcpp::export]]
+List fastLm(NumericVector yr, NumericMatrix Xr) {
+
+    int n = Xr.nrow(), k = Xr.ncol();
+
+    arma::mat X(Xr.begin(), n, k, false); 
+    arma::colvec y(yr.begin(), yr.size(), false);
+
+    arma::colvec coef = arma::solve(X, y); 
+    arma::colvec resid = y - X*coef; 
+
+    double sig2 = arma::as_scalar(arma::trans(resid)*resid/(n-k));
+    arma::colvec stderrest = arma::sqrt(
+          sig2 * arma::diagvec( arma::inv(arma::trans(X)*X)) );
+
+    return List::create(Named("coefficients") = coef,
+                        Named("stderr")       = stderrest);
+}
+@
+
+The inclusion of the \texttt{Rcpp::depends} attribute causes \texttt{sourceCpp} 
+to configure the build environment to correctly compile and link against the
+\pkg{RcppArmadillo} package. Source files can declare more than one dependency 
+either by using multiple \texttt{Rcpp::depends} attributes or with syntax like this:
+
+<<lang=cpp>>=
+// [[Rcpp::depends(Matrix, RcppArmadillo)]]
+@
+
+Dependencies are discovered both by scanning for package include directories 
+and by invoking \pkg{inline} plugins if they are available for a package.
+
+\section{Using C++ Inline}
+
+Maintaining C++ code in it's own source file provides several benefits including
+the ability to use \proglang{C++} aware text-editing tools and straightforward 
+mapping of compilation errors to lines in the source file. However, it's also
+possible to do inline declaration and execution of C++ code. This is accomplished
+by either passing a code string to \texttt{sourceCpp} or using the shorter-form
+\texttt{cppFunction} or \texttt{evalCpp} functions. For example:
+
+<<eval=FALSE>>=
+cppFunction('
+    int fibonacci(const int x) {
+        if (x == 0) return(0);
+        if (x == 1) return(1);
+        return (fibonacci(x - 1)) + fibonacci(x - 2);
+    }
+')
+
+evalCpp('std::numeric_limits<double>::max()')
+@
+
+You can also specify a depends parameter to \texttt{cppFunction} or \texttt{evalCpp}:
+
+<<eval=FALSE>>=
+cppFunction(depends = 'RcppArmadillo', code = '...')
+@
+
+Note that using \texttt{sourceCpp}, \texttt{cppFunction}, and \texttt{evalCpp} 
+require that \proglang{C++} development tools be available to build the code. 
+If you want to distribute \pkg{Rcpp} code to users that don't have these tools 
+installed you can bundle your code into an R package. The next section describes
+how you can use \pkg{Rcpp} attributes for package development.
+
+\section{Package Development}
+
+\subsection{Exporting R Functions}
+
+\proglang{C++} source code that uses attributes to export R functions can also be
+included in an \proglang{R} package. In this case rather than calling \texttt{sourceCpp}
+on individual files you call a single utility function for the whole package. 
+The \texttt{compileAttributes} function scans the source files within a package
+for export attributes and generates code as required.
+
+For example, executing this from within the package working directory:
+
+<<eval=FALSE>>=
+compileAttributes()
+@
+
+Results in the generation of the following two source files:
+
+\begin{itemize}
+\item
+  \texttt{src/RcppExports.cpp} -- An \pkg{Rcpp} module that exports the functions
+\item
+  \texttt{R/RcppExports.R} -- The \proglang{R} code required to load the
+  \pkg{Rcpp} module
+\end{itemize}
+
+The generated code deals only with interface of functions rather than the 
+implementation, so \texttt{compileAttributes} needs to be run only when functions
+are added, removed, or have their signatures changed.
+
+\subsection{Providing a C++ Interface}
+
+You can use the \texttt{Rcpp::interfaces} attribute to expose the underlying 
+\proglang{C++} functions directly to users of your package. For example, the following 
+specifies that both R and \proglang{C++} interfaces should be generated:
+
+<<lang=cpp>>==
+// [[Rcpp::interfaces(r, cpp)]]
+@
+
+The \texttt{Rcpp::interfaces} attribute is specified on a per-source file basis. 
+If you request a \texttt{cpp} interface for a source file then \texttt{compileAttributes} 
+does the following:
+
+\begin{enumerate}
+\item
+  Bindings are generated into a header file located in the
+  \texttt{inst/include} directory of the package using the naming
+  convention \emph{PackageName.h}
+\item
+  The generated header file enables calling the exported \proglang{C++}functions 
+  without  any linking dependency on the package. This is based on using the 
+  \texttt{R\_RegisterCCallable} and \texttt{R\_GetCCallable} functions described 
+  in `\textsl{Writing R Extensions}' \citep{R:Extensions}.
+\item
+  The exported functions are defined within a \proglang{C++} namespace that matches
+  the name of the package.
+\end{enumerate}
+
+For example, an exported \proglang{C++} function \texttt{foo} could be called from
+package \texttt{MyPackage} as follows:
+
+<<lang=cpp>>==
+// [[Rcpp::depends(MyPackage)]]
+
+#include <MyPackage.h>
+
+void foo() {
+    MyPackage::bar();
+}
+@
+
+Note that the default behavior if an \texttt{Rcpp::interfaces} attribute
+is not included in a source file is to generate an R interface only.
+
+\subsection{Using Roxygen}
+
+The \pkg{roxygen2} package \citep{CRAN:roxygen2} provides a facility for 
+automatically generating \proglang{R} documentation files based on specially
+formatted comments in \proglang{R} source code.
+
+If you include roxygen comments in your \proglang{C++} source file with a
+\texttt{//'} prefix then \texttt{compileAttributes} will transpose them
+into R roxygen comments within \texttt{R/RcppExports.R}. For example the
+following code in a \proglang{C++} source file:
+
+<<lang=cpp>>=
+//' The length of a string (in characters).
+//'
+//' @param str input character vector
+//' @return characters in each element of the vector
+// [[Rcpp::export]]
+NumericVector strLength(CharacterVector str)
+@
+
+Results in the following code in the generated \proglang{R} source file:
+
+<<lang=r>>=
+#' The length of a string (in characters).
+#'
+#' @param str input character vector
+#' @return characters in each element of the vector
+strLength <- function(str)
+@
+
+\subsection{Packages and sourceCpp}
+
+One of the goals of \pkg{Rcpp} attributes is to simultaneously facilitate
+ad-hoc and interactive work with \proglang{C++} while also making it very easy to
+migrate that work into an \proglang{R} package. Two major benefits of moving code
+from a standalone \proglang{C++} source file to a package are:
+
+\begin{enumerate}
+\item
+  Users without \proglang{C++} development tools available can use your code.
+\item
+  Multiple source files and their dependencies are handled automatically
+  by the \proglang{R} package build system.
+\end{enumerate}
+
+Once you've migrated \proglang{C++} code into a package it's still possible use
+\texttt{sourceCpp} with it for iterative development. The main thing to keep in 
+mind is that the dependencies for source files within a package are derived from
+the \texttt{Depends} and \texttt{LinkingTo} fields in the package
+\texttt{DESCRIPTION} file rather than the \texttt{Rcpp::depends} attribute.
+
+\bibliographystyle{plainnat}
+\bibliography{Rcpp}
+
+\end{document}
+
