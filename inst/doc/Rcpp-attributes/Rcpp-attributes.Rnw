@@ -1,7 +1,11 @@
-\documentclass[10pt]{article}
+\documentclass[11pt]{article}
 %\VignetteIndexEntry{Rcpp-attributes}
 \usepackage[USletter]{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
+
+\usepackage[T1]{fontenc}
+\usepackage{pslatex}        % just like RJournal
+\usepackage{palatino,mathpazo}
 
 \usepackage{color, alltt}
 \usepackage[authoryear,round,longnamesfirst]{natbib}
@@ -28,27 +32,6 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \author{J.J. Allaire \and Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{\pkg{Rcpp} Attributes}
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
-
-<<echo=FALSE>>=
-link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
-	h <- if( missing(package) ) {
-		as.character( help( f ) )
-	} else {
-		as.character( help( f, package = paste( package, sep = "" ) ) )
-	}
-	if( ! length(h) ){
-		sprintf( "\\\\textbf{%s}", f )
-	} else {
-		rx <- "^.*/([^/]*?)/help/(.*?)$"
-		package <- sub( rx, "\\1", h, perl = TRUE )
-		page <- sub( rx, "\\2", h, perl = TRUE )
-		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
-	}
-}
-linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
-	link( sprintf("%s-class", cl), package, text, root )
-}
-@
 
 \begin{document}
 \maketitle
@@ -221,9 +204,10 @@ by either passing a code string to \texttt{sourceCpp} or using the shorter-form
 <<eval=FALSE>>=
 cppFunction('
     int fibonacci(const int x) {
-        if (x == 0) return(0);
-        if (x == 1) return(1);
-        return (fibonacci(x - 1)) + fibonacci(x - 2);
+        if (x < 2)
+            return x;
+        else
+            return (fibonacci(x - 1)) + fibonacci(x - 2);
     }
 ')
 
