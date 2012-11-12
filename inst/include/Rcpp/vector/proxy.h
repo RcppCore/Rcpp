@@ -2,7 +2,7 @@
 //
 // proxy.h: Rcpp R/C++ interface class library -- proxies
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -229,12 +229,24 @@ namespace traits {
 	struct r_vector_iterator {
 		typedef typename storage_type<RTYPE>::type* type ;
 	};
+	template <int RTYPE>
+	struct r_vector_const_iterator {
+		typedef typename storage_type<RTYPE>::type* type ;
+	};
+	
 	template <int RTYPE> struct proxy_based_iterator{
 		typedef ::Rcpp::internal::Proxy_Iterator< typename r_vector_proxy<RTYPE>::type > type ;
 	} ;
 	template<> struct r_vector_iterator<VECSXP> : proxy_based_iterator<VECSXP>{} ;
 	template<> struct r_vector_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
 	template<> struct r_vector_iterator<STRSXP> : proxy_based_iterator<STRSXP>{} ;
+
+	template<> struct r_vector_const_iterator<VECSXP> : proxy_based_iterator<VECSXP>{} ;
+	template<> struct r_vector_const_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
+	
+	template<> struct r_vector_const_iterator<STRSXP> {
+	    typedef CharacterVectorExtractionIterator type ;
+	} ;
 
 }  // traits
 

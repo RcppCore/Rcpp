@@ -2,7 +2,7 @@
 //
 // traits.h: Rcpp R/C++ interface class library -- support traits for vector
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,6 +29,7 @@ namespace traits{
 	public:
 		typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
 		typedef typename r_vector_iterator<RTYPE>::type iterator ;
+		typedef typename r_vector_const_iterator<RTYPE>::type const_iterator ;
 		typedef typename r_vector_proxy<RTYPE>::type proxy ;
 		typedef typename storage_type<RTYPE>::type storage_type ;
 		
@@ -38,7 +39,7 @@ namespace traits{
 			RCPP_DEBUG_3( " cache<%d>::update( <%p> ), start = <%p>", RTYPE, reinterpret_cast<void*>(v.asSexp()),  reinterpret_cast<void*>(start) ) ;
 		}
 		inline iterator get() const { return start; }
-		inline iterator get(int i) const { return start + i ; }
+		inline const_iterator get_const() const { return start; }
 		
 		inline proxy ref() { return *start ;}
 		inline proxy ref(int i) { return start[i] ; }
@@ -53,6 +54,7 @@ namespace traits{
 	public:
 		typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
 		typedef typename r_vector_iterator<RTYPE>::type iterator ;
+		typedef typename r_vector_const_iterator<RTYPE>::type const_iterator ;
 		typedef typename r_vector_proxy<RTYPE>::type proxy ;
 		
 		proxy_cache(): p(0){}
@@ -62,25 +64,22 @@ namespace traits{
 			RCPP_DEBUG_3( " cache<%d>::update( <%p> ), p = <%p>", RTYPE, reinterpret_cast<void*>(v.asSexp()),  reinterpret_cast<void*>(p) ) ;
 		}
 		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
-		inline iterator get(int i) const { return iterator( proxy(*p, i ) ) ;}
+		inline iterator get_const() const { return const_iterator( proxy(*p, 0 ) ) ;}
+		
 		inline proxy ref() const { return proxy(*p,0) ; }
 		inline proxy ref(int i) const { return proxy(*p,i);}
 		
 		private:
 			VECTOR* p ;
 	} ;
-	template<> class r_vector_cache<VECSXP> : public proxy_cache<VECSXP>{
-	public:
-		r_vector_cache() : proxy_cache<VECSXP>(){} ;
-	};
-	template<> class r_vector_cache<EXPRSXP> : public proxy_cache<EXPRSXP>{
-	public:
-		r_vector_cache() : proxy_cache<EXPRSXP>(){} ;
-	};
-	template<> class r_vector_cache<STRSXP> : public proxy_cache<STRSXP>{
-	public:
-		r_vector_cache() : proxy_cache<STRSXP>(){} ;
-	} ;
+	
+	// regular types for INTSXP, REALSXP, ...
+	template <int RTYPE> struct r_vector_cache_type { typedef r_vector_cache<RTYPE> type ;  } ;
+	
+	// proxy types for VECSXP, STRSXP and EXPRSXP
+	template <> struct r_vector_cache_type<VECSXP>  { typedef proxy_cache<VECSXP> type ;  } ;
+	template <> struct r_vector_cache_type<EXPRSXP> { typedef proxy_cache<EXPRSXP> type ; } ;
+	template <> struct r_vector_cache_type<STRSXP>  { typedef proxy_cache<STRSXP> type ;  } ;
 		
 } // traits 
 

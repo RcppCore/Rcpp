@@ -1,3 +1,9 @@
+2012-11-12  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/Vector.h : adding const_iterator and associated 
+        begin() and end() methods
+        * include/Rcpp/vector/Matrix.h : idem
+        
 2012-11-11  JJ Allaire <jj@rstudio.org>
 
         * src/Attributes.cpp: fully qualify _ in generated code
@@ -5,7 +11,7 @@
 2012-11-11  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream/Rstreambuf.h: implementing sync() so that
-	flush works
+        flush works
         * src/Rstreambuf.cpp: implementation
         * src/Rostream.cpp : added Rcerr that forwards to REprintf
 

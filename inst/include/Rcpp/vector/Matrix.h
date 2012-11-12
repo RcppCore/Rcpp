@@ -2,7 +2,7 @@
 //
 // Matrix.h: Rcpp R/C++ interface class library -- matrices
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,6 +30,7 @@ public:
         
     typedef Vector<RTYPE> VECTOR ;
     typedef typename VECTOR::iterator iterator ;
+    typedef typename VECTOR::const_iterator const_iterator ;
     typedef typename VECTOR::converter_type converter_type ;
     typedef typename VECTOR::stored_type stored_type ;
     typedef typename VECTOR::Proxy Proxy ;
@@ -213,8 +214,10 @@ public:
     inline Row row( int i ){ return Row( *this, i ) ; }
     inline Column column( int i ){ return Column(*this, i ) ; }
         
-    inline iterator begin() const{ return VECTOR::begin() ; }
-    inline iterator end() const{ return VECTOR::end() ; }
+    inline const_iterator begin() const{ return VECTOR::begin() ; }
+    inline const_iterator end() const{ return VECTOR::end() ; }
+    inline iterator begin() { return VECTOR::begin() ; }
+    inline iterator end() { return VECTOR::end() ; }
     
 private:
     int nrows ; 
