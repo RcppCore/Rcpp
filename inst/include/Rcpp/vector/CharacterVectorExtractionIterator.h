@@ -22,6 +22,9 @@
 #ifndef Rcpp__vector__CharacterVectorExtractionIterator_h
 #define Rcpp__vector__CharacterVectorExtractionIterator_h
 
+// const iterator for CharacterVector
+// this is faster than the regular proxy iterator because it works directly 
+// on a SEXP*. 
 class CharacterVectorExtractionIterator {
 public:
     typedef int difference_type;
@@ -61,9 +64,5 @@ private:
     CharacterVectorExtractionIterator( SEXP* ptr_ ) : ptr(ptr_){}
     
 };
-
-inline CharacterVectorExtractionIterator input_iterator( const CharacterVector& vec){
-    return CharacterVectorExtractionIterator(vec) ;  
-}
 
 #endif

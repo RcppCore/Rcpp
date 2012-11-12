@@ -33,6 +33,7 @@ public:
     typedef typename traits::r_vector_name_proxy<RTYPE>::type NameProxy ;
     typedef typename traits::r_vector_proxy<RTYPE>::type value_type ;
     typedef typename traits::r_vector_iterator<RTYPE>::type iterator ;
+    typedef typename traits::r_vector_const_iterator<RTYPE>::type const_iterator ;
     typedef typename traits::init_type<RTYPE>::type init_type ;
     typedef typename traits::r_vector_element_converter<RTYPE>::type converter_type ;
     typedef typename traits::storage_type<RTYPE>::type stored_type ;
@@ -388,8 +389,10 @@ public:
         return NamesProxy(*this) ;
     }
     
-    inline iterator begin() const{ return cache.get() ; }
-    inline iterator end() const{ return cache.get(size()) ; }
+    inline iterator begin() { return cache.get() ; }
+    inline iterator end() { return cache.get() + size() ; }
+	inline const_iterator begin() const{ return cache.get_const() ; }
+    inline const_iterator end() const{ return cache.get_const() + size() ; }
 	
     inline Proxy operator[]( int i ){ return cache.ref(i) ; }
     inline Proxy operator[]( int i ) const { return cache.ref(i) ; }
@@ -476,13 +479,13 @@ public:
 	
     template <typename T>
     iterator insert( int position, const T& object){
-        return insert__impl( cache.get(position), converter_type::get(object), 
+        return insert__impl( cache.get() + position, converter_type::get(object), 
                              typename traits::same_type<stored_type,SEXP>()
                              ); 
     }
 	
     iterator erase( int position){
-        return erase_single__impl( cache.get(position) ) ;
+        return erase_single__impl( cache.get() + position) ;
     }
 	
     iterator erase( iterator position){
@@ -490,7 +493,8 @@ public:
     }
 	
     iterator erase( int first, int last){
-        return erase_range__impl( cache.get(first), cache.get(last) ) ;
+        iterator start = cache.get() ;
+        return erase_range__impl( start + first, start + last ) ;
     }
 	
     iterator erase( iterator first, iterator last){
@@ -651,7 +655,7 @@ private:
         update_vector() ;
     }
 	
-    traits::r_vector_cache<RTYPE> cache ;
+    typename traits::r_vector_cache_type<RTYPE>::type cache ;
 
 public:
 	
