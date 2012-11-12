@@ -33,7 +33,7 @@ public:
     typedef const char*& reference;
     typedef std::input_iterator_tag iterator_category;
     
-    CharacterVectorExtractionIterator( const CharacterVector& vec) : ptr( get_string_ptr( vec) ){}
+    CharacterVectorExtractionIterator( const CharacterVector& vec) : ptr( get_string_ptr(vec) ){}
     
     CharacterVectorExtractionIterator( const CharacterVectorExtractionIterator& other) : ptr(other.ptr){}
     CharacterVectorExtractionIterator& operator=(const CharacterVectorExtractionIterator& other){ ptr = other.ptr ; return *this ;}
