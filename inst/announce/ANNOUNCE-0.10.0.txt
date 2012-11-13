@@ -29,41 +29,57 @@ Several key features of the new 0.10.0 release are described below.
 
 ===== Rcpp attributes =====
 
-An existing new addition is provided by "Rcpp attributes". It takes its name
-and inspiration from "C++ attributes", a language addition for C++ which will
-become more widely available via the new C++11 standard. However, "Rcpp
-attributes" is implemented in standard R and C++ and available now for all
-current C++ compiler versions used for R.
+Rcpp attributes are a new feature of Rcpp version 0.10.0 that provide 
+infrastructure for seamless language bindings between R and C++. With
+attributes we hope to eliminate the need to write boilerplate conversion
+and marshaling code, make it much easier to use C++ within interactive
+R sessions, and reduce the learning curve associated with using C++
+and R together. 
 
-By using attributes, we can direct the compilers to automatically generate
-interface code which makes the integration of C++ and even more direct.  As a
-concrete example, the R statements
+Rcpp attributes derive their syntax from C++11 style attributes and
+are included in C++ source files using specially formatted comments.
+For example, the following source file includes the definition of 
+a fibonacci function with an Rcpp::export attribute included 
+immediately above the function definition:
 
-R> prg <- "int f(const int x) {if(x<2) return x; else return f(x-1)+f(x-2);}"
-R> fibCpp <- cppFunction(prg)
-R> fibCpp(20)
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int fibonacci(const int x) {
+   if (x < 2)
+      return x;
+   else
+      return (fibonacci(x - 1)) + fibonacci(x - 2);
+}
+
+The export attribute indicates that we'd like the function to be callable
+from R. We can now "source" this C++ file at the R prompt and then call
+the function as follows:
+
+R> source("fibonacci.cpp")
+R> fibonacci(20)
 [1] 6765
 
-define a (short) C/C++ program to recursively compute the Fibonacci sequence
-as an R string which is then passed to cppFunction() -- which does all the
-required interface generation and argument marshaling.  The resulting object
-can then called like an R function -- but runs at C++ speed.
-
-Other key Rcpp attributes functions and tools are:
- - sourceCpp() to source exported functions from a file
- - evalCpp() for inline expression evaluation
- - compileAttributes() for converting code for use in a package
- - Rcpp::exports to define the export of a C++ function to R
- - Rcpp::depends to declare external dependencies for sourceCpp()
- - Rcpp::interfaces to to specify the external bindings.
-
 Rcpp attributes build upon Rcpp modules (described in another vignette in the
-package), as well as the automatic type converters Rcpp::as<>() and
-Rcpp::wrap.  The converters can already be used for a wide variety of
-standard C and C++ types, and can also be adapted to other C++ types and
-libraries as described in the Rcpp-extending vignette.
+package), as well as the automatic type converters Rcpp::as<>() and Rcpp::wrap.  
+The converters can already be used for a wide variety of standard C and C++
+types, and can also be adapted to other C++ types and libraries as described
+in the Rcpp-extending vignette.
 
-More detail are provided in the new vignette Rcpp-attributes.  We also intend
+Rcpp attributes and their supporting functions include: 
+
+ - Rcpp::export attribute to export a C++ function to R
+ - sourceCpp function to source exported functions from a file
+ - cppFunction and evalCpp functions for inline declarations and execution
+ - Rcpp::depends attribute for specifying additional build dependencies
+   for sourceCpp
+
+Attributes can also be used for package development via the `compileAttributes`
+function, which generates an Rcpp module for all exported functions within
+an R package.
+
+More details are provided in the new vignette Rcpp-attributes.  We also intend
 to provide further illustrations via our blogs following the release.
 
 
