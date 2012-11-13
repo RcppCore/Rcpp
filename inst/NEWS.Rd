@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.9.16 (future)}{
+\section{Changes in Rcpp version 0.10.0 (2012-11-xx)}{
   \itemize{
     \item Support for C++11 style attributes (embedded in comments) to enable
     use of C++ within interactive sessions and to automatically generate module
@@ -19,6 +19,7 @@
         \item Rcpp::interfaces attribute to specify the external bindings
         \code{compileAttributes()} should generate (defaults to R-only but a  
         C++ include file using R_GetCCallable can also be generated)
+	\item New vignette "Rcpp-attribute" 
     }
     \item Rcpp modules feature set is expanded :
     \itemize{
