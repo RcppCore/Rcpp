@@ -159,7 +159,15 @@ Romain's blog section about Rcpp:
 RStudio blog:
     http://blog.rstudio.org
 
-
+Google+: 
+    https://plus.google.com/b/107029540907667241299/107029540907667241299/posts
+    
+Facebook:
+    http://www.facebook.com/pages/Rcpp/213047595425775
+    
+Twitter:
+    https://twitter.com/romain_francois
+    https://twitter.com/eddelbuettel
 
 ===== Support =====
 
