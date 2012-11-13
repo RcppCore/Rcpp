@@ -1,3 +1,12 @@
+2012-11-13  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/as.h: as<enum>
+        * include/Rcpp/internal/wrap.h : wrap( enum )
+        * include/Rcpp/traits/wrap_type_traits.h: trait to help wrap( enum )
+        * include/Rcpp/traits/r_type_traits.h: trait to help as<enum>
+        * include/Rcpp/module/macros.h: macros RCPP_EXPOSED_ENUM to help as/wrap
+        of enums
+        
 2012-11-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/announce/ANNOUNCE-0.10.0.txt: Announcement draft
