@@ -293,7 +293,7 @@ does the following:
   the name of the package.
 \end{enumerate}
 
-For example, an exported \proglang{C++} function \texttt{foo} could be called from
+For example, an exported \proglang{C++} function \texttt{bar} could be called from
 package \texttt{MyPackage} as follows:
 
 \begin{code}
