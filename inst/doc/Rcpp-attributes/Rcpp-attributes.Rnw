@@ -71,7 +71,7 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 
 \section{Introduction}
 
-Rcpp attributes are a new feature of \pkg{Rcpp} version 0.10 \citep{CRAN:Rcpp,JSS:Rcpp}
+Rcpp attributes are a new feature of \pkg{Rcpp} version 0.10.0 \citep{CRAN:Rcpp,JSS:Rcpp}
 that provide infrastructure for seamless language bindings between \proglang{R} and 
 \proglang{C++}. The motivation for attributes is several-fold:
 
