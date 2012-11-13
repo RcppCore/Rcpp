@@ -141,7 +141,7 @@ endif
 
 Rcpp-attributes.pdf : Rcpp-attributes/Rcpp-attributes.Rnw
 	cp -f Rcpp-attributes/Rcpp-attributes.Rnw .
-	$(RSCRIPT) --vanilla -e "require(highlight); driver <- HighlightWeaveLatex(boxes = TRUE, bg = 'white' ); Sweave( 'Rcpp-attributes.Rnw', driver = driver ); "
+	$(RSCRIPT) --vanilla -e "Sweave( 'Rcpp-attributes.Rnw' );"
 	$(RSCRIPT) --vanilla -e "tools::texi2dvi( 'Rcpp-attributes.tex', pdf = TRUE, clean = FALSE )"
 	bibtex Rcpp-attributes
 ifneq (,$(findstring edd,$(whoami)))
