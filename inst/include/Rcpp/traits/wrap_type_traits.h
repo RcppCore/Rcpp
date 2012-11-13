@@ -47,6 +47,11 @@ struct wrap_type_module_object_pointer_tag{} ;
 struct wrap_type_module_object_tag{} ;
 
 /**
+ * enums
+ */
+struct wrap_type_enum_tag{} ;
+
+/**
  * Type trait that helps the dispatch of wrap to the proper method
  *
  * This builds a struct that contains a typedef called wrap_category
