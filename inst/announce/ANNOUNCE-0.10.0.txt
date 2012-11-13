@@ -86,22 +86,28 @@ to provide further illustrations via our blogs following the release.
 
 ===== Rcpp modules =====
 
-Rcpp modules provide an easy way to expose C++ code to R by means of
-declarations.  Rcpp modules have been extended for the new release.  A brief
+Rcpp modules provide an easy way to expose C++ functions and classes to R using 
+a declarative syntax. We declare which functions and which classes we want to 
+make available to R and modules takes care of automatically (via the compiler, 
+through template deduction ...) creating the interface code between the C++
+code and R. 
+
+Rcpp modules have been extended for the new release.  A brief
 summary of new key features is:
 
+ - inheritance: A class can now declare that it inherits from another class;
+   the exposed class gains methods and properties (fields) from its parent class. 
  - Functions and methods can now return objects from classes that are exposed
-   through modules. The macro RCPP_EXPOSED_CLASS and RCPP_EXPOSED_CLASS_NODECL can be
-   used to declared the required type traits.
+   through modules. The macro RCPP_EXPOSED_CLASS and RCPP_EXPOSED_CLASS_NODECL 
+   can be used to declared the required type traits.
  - Classes exposed through modules can also be used as parameters of exposed
    functions or methods.  
- - Exposed classes can declare factories, ie a C++ function returning a
+ - Exposed classes can declare factories, i.e. a C++ function returning a
    pointer to the target class, providing an alternative way to construct
    objects. 
  - "converter" can be used to declare a way to convert ("cast") an object of
-   a type to another type. 
- - inheritance: A class can now declare that it inherits from another class;
-   the exposed class gains methods and properties (fields) from its parent class. 
+   a type to another type. This is translated at the R level in terms of an "as"
+   method.
 
 We intend to provide example package using these new features in the near future.
 
@@ -120,8 +126,8 @@ added
 
 ===== New I/O facilities =====
 
-The Rcpp::Rcout object now supports sync() to flush output directly to the R
-I/O facilities.  A new object Rcpp::Rcerr has been added with passes content
+The Rcpp::Rcout object now supports the std::flush manipulator, which calls
+R_FlushConsole. A new object Rcpp::Rcerr has been added with passes content
 for error messages to REprintf().
 
 
