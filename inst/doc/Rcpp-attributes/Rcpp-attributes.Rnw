@@ -52,27 +52,27 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \newcommand{\hlkwc}[1]{\textcolor[rgb]{0,0,1}{#1}}
 \newcommand{\hlkwd}[1]{\textcolor[rgb]{0,0,0}{#1}}
 \definecolor{bgcolor}{rgb}{1,1,1}
-
+\newcommand{\hlppc}[1]{\textcolor[rgb]{0,0.51,0}{#1}}
 
 \begin{document}
 \maketitle
 
 \abstract{
   \noindent
-  \textsl{Rcpp attributes} provide a high-level syntax for declaring \proglang{C++} 
-  functions as callable from \proglang{R} and automatically generating the code 
+  \textsl{Rcpp attributes} provide a high-level syntax for declaring \proglang{C++}
+  functions as callable from \proglang{R} and automatically generating the code
   required to invoke them. Attributes are intended to facilate both interactive use
-  of \proglang{C++} within \proglang{R} sessions as well as to support \proglang{R} 
+  of \proglang{C++} within \proglang{R} sessions as well as to support \proglang{R}
   package development. Attributes are built on top of \pkg{Rcpp} modules
-  and their implementation is based on previous work in the \pkg{inline} 
-  package \citep{CRAN:inline}. 
+  and their implementation is based on previous work in the \pkg{inline}
+  package \citep{CRAN:inline}.
 }
 
 
 \section{Introduction}
 
 Rcpp attributes are a new feature of \pkg{Rcpp} version 0.10.0 \citep{CRAN:Rcpp,JSS:Rcpp}
-that provide infrastructure for seamless language bindings between \proglang{R} and 
+that provide infrastructure for seamless language bindings between \proglang{R} and
 \proglang{C++}. The motivation for attributes is several-fold:
 
 \begin{enumerate}
@@ -88,13 +88,13 @@ that provide infrastructure for seamless language bindings between \proglang{R} 
 \end{enumerate}
 
 The core concept is to add declarative attributes to \proglang{C++} source
-files that provide the context required to automatically generate \proglang{R} 
-bindings to \proglang{C++} functions. Attributes and their supporting 
+files that provide the context required to automatically generate \proglang{R}
+bindings to \proglang{C++} functions. Attributes and their supporting
 functions include:
 
 \begin{itemize}
 \item
-  \texttt{Rcpp::export} attribute to export a \proglang{C++} function 
+  \texttt{Rcpp::export} attribute to export a \proglang{C++} function
   to \proglang{R}
 \item
   \texttt{sourceCpp} function to source exported functions from a file
@@ -111,7 +111,7 @@ Attributes can also be used for package development via the
 all exported functions within a package.
 
 Attributes derive their syntax from \proglang{C++11} style attributes
-\citep{Maurer+Wong:2008:AttributesInC++} and are included in source files using specially 
+\citep{Maurer+Wong:2008:AttributesInC++} and are included in source files using specially
 formatted comments.
 
 \pagebreak
@@ -125,38 +125,74 @@ functions in the specified environment. For example, this source file
 contains an implementation of convolve (note the \texttt{Rcpp::export}
 attribute in the comment above the function):
 
-\begin{verbatim}
-#include <Rcpp.h>
-using namespace Rcpp;
+% \begin{verbatim}
+% #include <Rcpp.h>
+% using namespace Rcpp;
 
-// [[Rcpp::export]]
-NumericVector convolveCpp(NumericVector a, NumericVector b) {
+% // [[Rcpp::export]]
+% NumericVector convolveCpp(NumericVector a, NumericVector b) {
 
-    int na = a.size(), nb = b.size();
-    int nab = na + nb - 1;
-    NumericVector xab(nab);
+%     int na = a.size(), nb = b.size();
+%     int nab = na + nb - 1;
+%     NumericVector xab(nab);
 
-    for (int i = 0; i < na; i++)
-        for (int j = 0; j < nb; j++)
-            xab[i + j] += a[i] * b[j];
+%     for (int i = 0; i < na; i++)
+%         for (int j = 0; j < nb; j++)
+%             xab[i + j] += a[i] * b[j];
 
-    return xab;
-}
-\end{verbatim}
+%     return xab;
+% }
+% \end{verbatim}
 
+%% can use "figure" or "quote" or ...
+%% converted via 'highlight --enclose-pre --no-doc --out-format=latex --syntax=C++'
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlppc{\#include\ $<$Rcpp.h$>$}\hspace*{\fill}\\
+\hlstd{}\hlkwa{using\ namespace\ }\hlstd{Rcpp}\hlopt{;}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlslc{//\ {[}{[}Rcpp::export{]}{]}}\hspace*{\fill}\\
+\hlstd{NumericVector\ }\hlkwd{convolveCpp}\hlstd{}\hlopt{(}\hlstd{NumericVector\ a}\hlopt{,\ }\hlstd{NumericVector\ b}\hlopt{)\ \{}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwb{int\ }\hlstd{na\ }\hlopt{=\ }\hlstd{a}\hlopt{.}\hlstd{}\hlkwd{size}\hlstd{}\hlopt{(),\ }\hlstd{nb\ }\hlopt{=\ }\hlstd{b}\hlopt{.}\hlstd{}\hlkwd{size}\hlstd{}\hlopt{();}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwb{int\ }\hlstd{nab\ }\hlopt{=\ }\hlstd{na\ }\hlopt{+\ }\hlstd{nb\ }\hlopt{{-}\ }\hlstd{}\hlnum{1}\hlstd{}\hlopt{;}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{NumericVector\ }\hlkwd{xab}\hlstd{}\hlopt{(}\hlstd{nab}\hlopt{);}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{}\hlopt{(}\hlstd{}\hlkwb{int\ }\hlstd{i\ }\hlopt{=\ }\hlstd{}\hlnum{0}\hlstd{}\hlopt{;\ }\hlstd{i\ }\hlopt{$<$\ }\hlstd{na}\hlopt{;\ }\hlstd{i}\hlopt{++)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ }\hlstd{}\hlkwa{for\ }\hlstd{}\hlopt{(}\hlstd{}\hlkwb{int\ }\hlstd{j\ }\hlopt{=\ }\hlstd{}\hlnum{0}\hlstd{}\hlopt{;\ }\hlstd{j\ }\hlopt{$<$\ }\hlstd{nb}\hlopt{;\ }\hlstd{j}\hlopt{++)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{xab}\hlopt{{[}}\hlstd{i\ }\hlopt{+\ }\hlstd{j}\hlopt{{]}\ +=\ }\hlstd{a}\hlopt{{[}}\hlstd{i}\hlopt{{]}\ {*}\ }\hlstd{b}\hlopt{{[}}\hlstd{j}\hlopt{{]};}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{xab}\hlopt{;}\hspace*{\fill}\\
+\hlstd{}\hlopt{\}}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 The addition of the export attribute allows us to do this from the \proglang{R}
 prompt:
 
-\begin{verbatim}
-> sourceCpp("convolve.cpp")
-> convolveCpp(x, y)
-\end{verbatim}
+% \begin{verbatim}
+% > sourceCpp("convolve.cpp")
+% > convolveCpp(x, y)
+% \end{verbatim}
+
+%% converted via 'highlight --enclose-pre --no-doc --out-format=latex --syntax=R'
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{$>$\ }\hlstd{}\hlkwd{sourceCpp}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"convolve.cpp"}\hlstd{}\hlopt{)}\hspace*{\fill}\\
+\hlstd{}\hlopt{$>$\ }\hlstd{}\hlkwd{convolveCpp}\hlstd{}\hlopt{(}\hlstd{x}\hlopt{,\ }\hlstd{y}\hlopt{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 
 We can now write \proglang{C++} functions using standard \proglang{C++} types
 and then source them just like an \proglang{R} script using the \texttt{sourceCpp}
-function. Any types that can be marshaled with \texttt{as} and \texttt{wrap} 
+function. Any types that can be marshaled with \texttt{as} and \texttt{wrap}
 can be used in the signatures of exported functions (and since as and wrap are
 in turn extensible,  a wide variety of custom types can be supported).
 
@@ -164,10 +200,20 @@ You can change the name of the exported function as it appears to \proglang{R} b
 adding a name parameter to \texttt{Rcpp::export}. For example the
 following will export \texttt{convolveCpp} as a hidden \proglang{R} function:
 
-\begin{verbatim}
-// [[Rcpp::export(".convolveCpp")]]
-NumericVector convolveCpp(NumericVector a, NumericVector b)
-\end{verbatim}
+% \begin{verbatim}
+% // [[Rcpp::export(".convolveCpp")]]
+% NumericVector convolveCpp(NumericVector a, NumericVector b)
+% \end{verbatim}
+
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::export(".convolveCpp"){]}{]}}\hspace*{\fill}\\
+\hlstd{NumericVector\ }\hlkwd{convolveCpp}\hlstd{}\hlopt{(}\hlstd{NumericVector\ a}\hlopt{,\ }\hlstd{NumericVector\ b}\hlopt{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 The \texttt{sourceCpp} function performs caching based on the last
 modified date of the source file so as long as the source file does not
@@ -180,42 +226,82 @@ change the compilation will occur only once per R session.
 It's also possible to use the \texttt{Rcpp::depends} attribute to declare
 dependencies on other packages. For example:
 
-\begin{verbatim}
-// [[Rcpp::depends(RcppArmadillo)]]
+% \begin{verbatim}
+% // [[Rcpp::depends(RcppArmadillo)]]
 
-#include <RcppArmadillo.h>
-using namespace Rcpp
+% #include <RcppArmadillo.h>
+% using namespace Rcpp
 
-// [[Rcpp::export]]
-List fastLm(NumericVector yr, NumericMatrix Xr) {
+% // [[Rcpp::export]]
+% List fastLm(NumericVector yr, NumericMatrix Xr) {
 
-    int n = Xr.nrow(), k = Xr.ncol();
+%     int n = Xr.nrow(), k = Xr.ncol();
 
-    arma::mat X(Xr.begin(), n, k, false); 
-    arma::colvec y(yr.begin(), yr.size(), false);
+%     arma::mat X(Xr.begin(), n, k, false);
+%     arma::colvec y(yr.begin(), yr.size(), false);
 
-    arma::colvec coef = arma::solve(X, y); 
-    arma::colvec resid = y - X*coef; 
+%     arma::colvec coef = arma::solve(X, y);
+%     arma::colvec resid = y - X*coef;
 
-    double sig2 = arma::as_scalar(arma::trans(resid)*resid/(n-k));
-    arma::colvec stderrest = arma::sqrt(
-          sig2 * arma::diagvec( arma::inv(arma::trans(X)*X)) );
+%     double sig2 = arma::as_scalar(arma::trans(resid)*resid/(n-k));
+%     arma::colvec stderrest = arma::sqrt(
+%           sig2 * arma::diagvec( arma::inv(arma::trans(X)*X)) );
 
-    return List::create(Named("coefficients") = coef,
-                        Named("stderr")       = stderrest);
-}
-\end{verbatim}
+%     return List::create(Named("coefficients") = coef,
+%                         Named("stderr")       = stderrest);
+% }
+% \end{verbatim}
 
-The inclusion of the \texttt{Rcpp::depends} attribute causes \texttt{sourceCpp} 
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::depends(RcppArmadillo){]}{]}}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlppc{\#include\ $<$RcppArmadillo.h$>$}\hspace*{\fill}\\
+\hlstd{}\hlkwa{using\ namespace\ }\hlstd{Rcpp}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlslc{//\ {[}{[}Rcpp::export{]}{]}}\hspace*{\fill}\\
+\hlstd{List\ }\hlkwd{fastLm}\hlstd{}\hlopt{(}\hlstd{NumericVector\ yr}\hlopt{,\ }\hlstd{NumericMatrix\ Xr}\hlopt{)\ \{}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwb{int\ }\hlstd{n\ }\hlopt{=\ }\hlstd{Xr}\hlopt{.}\hlstd{}\hlkwd{nrow}\hlstd{}\hlopt{(),\ }\hlstd{k\ }\hlopt{=\ }\hlstd{Xr}\hlopt{.}\hlstd{}\hlkwd{ncol}\hlstd{}\hlopt{();}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{arma}\hlopt{::}\hlstd{mat\ }\hlkwd{X}\hlstd{}\hlopt{(}\hlstd{Xr}\hlopt{.}\hlstd{}\hlkwd{begin}\hlstd{}\hlopt{(),\ }\hlstd{n}\hlopt{,\ }\hlstd{k}\hlopt{,\ }\hlstd{}\hlkwa{false}\hlstd{}\hlopt{);}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{arma}\hlopt{::}\hlstd{colvec\ }\hlkwd{y}\hlstd{}\hlopt{(}\hlstd{yr}\hlopt{.}\hlstd{}\hlkwd{begin}\hlstd{}\hlopt{(),\ }\hlstd{yr}\hlopt{.}\hlstd{}\hlkwd{size}\hlstd{}\hlopt{(),\ }\hlstd{}\hlkwa{false}\hlstd{}\hlopt{);}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{arma}\hlopt{::}\hlstd{colvec\ coef\ }\hlopt{=\ }\hlstd{arma}\hlopt{::}\hlstd{}\hlkwd{solve}\hlstd{}\hlopt{(}\hlstd{X}\hlopt{,\ }\hlstd{y}\hlopt{);}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{arma}\hlopt{::}\hlstd{colvec\ resid\ }\hlopt{=\ }\hlstd{y\ }\hlopt{{-}\ }\hlstd{X}\hlopt{{*}}\hlstd{coef}\hlopt{;}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwb{double\ }\hlstd{sig2\ }\hlopt{=\ }\hlstd{arma}\hlopt{::}\hlstd{}\hlkwd{as\textunderscore scalar}\hlstd{}\hlopt{(}\hlstd{arma}\hlopt{::}\hlstd{}\hlkwd{trans}\hlstd{}\hlopt{(}\hlstd{resid}\hlopt{){*}}\hlstd{resid}\hlopt{/(}\hlstd{n}\hlopt{{-}}\hlstd{k}\hlopt{));}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{arma}\hlopt{::}\hlstd{colvec\ stderrest\ }\hlopt{=\ }\hlstd{arma}\hlopt{::}\hlstd{}\hlkwd{sqrt}\hlstd{}\hlopt{(}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ }\hlstd{sig2\ }\hlopt{{*}\ }\hlstd{arma}\hlopt{::}\hlstd{}\hlkwd{diagvec}\hlstd{}\hlopt{(\ }\hlstd{arma}\hlopt{::}\hlstd{}\hlkwd{inv}\hlstd{}\hlopt{(}\hlstd{arma}\hlopt{::}\hlstd{}\hlkwd{trans}\hlstd{}\hlopt{(}\hlstd{X}\hlopt{){*}}\hlstd{X}\hlopt{))\ );}\hspace*{\fill}\\
+\hlstd{\hspace*{\fill}\\
+}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{return\ }\hlstd{List}\hlopt{::}\hlstd{}\hlkwd{create}\hlstd{}\hlopt{(}\hlstd{}\hlkwd{Named}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"coefficients"}\hlstd{}\hlopt{)\ =\ }\hlstd{coef}\hlopt{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{}\hlkwd{Named}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"stderr"}\hlstd{}\hlopt{)}\hlstd{\ \ \ \ \ \ \ }\hlopt{=\ }\hlstd{stderrest}\hlopt{);}\hspace*{\fill}\\
+\hlstd{}\hlopt{\}}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
+
+The inclusion of the \texttt{Rcpp::depends} attribute causes \texttt{sourceCpp}
 to configure the build environment to correctly compile and link against the
-\pkg{RcppArmadillo} package. Source files can declare more than one dependency 
+\pkg{RcppArmadillo} package. Source files can declare more than one dependency
 either by using multiple \texttt{Rcpp::depends} attributes or with syntax like this:
 
-\begin{verbatim}
-// [[Rcpp::depends(Matrix, RcppArmadillo)]]
-\end{verbatim}
+% \begin{verbatim}
+% // [[Rcpp::depends(Matrix, RcppArmadillo)]]
+% \end{verbatim}
 
-Dependencies are discovered both by scanning for package include directories 
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::depends(Matrix,\ RcppArmadillo){]}{]}}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
+
+Dependencies are discovered both by scanning for package include directories
 and by invoking \pkg{inline} plugins if they are available for a package.
 
 \pagebreak
@@ -223,34 +309,61 @@ and by invoking \pkg{inline} plugins if they are available for a package.
 \section{Using C++ Inline}
 
 Maintaining C++ code in it's own source file provides several benefits including
-the ability to use \proglang{C++} aware text-editing tools and straightforward 
+the ability to use \proglang{C++} aware text-editing tools and straightforward
 mapping of compilation errors to lines in the source file. However, it's also
 possible to do inline declaration and execution of C++ code. This is accomplished
 by either passing a code string to \texttt{sourceCpp} or using the shorter-form
 \texttt{cppFunction} or \texttt{evalCpp} functions. For example:
 
-\begin{verbatim}
-> cppFunction('
-    int fibonacci(const int x) {
-        if (x < 2)
-            return x;
-        else
-            return (fibonacci(x - 1)) + fibonacci(x - 2);
-    }
-')
+% \begin{verbatim}
+% > cppFunction('
+%     int fibonacci(const int x) {
+%         if (x < 2)
+%             return x;
+%         else
+%             return (fibonacci(x - 1)) + fibonacci(x - 2);
+%     }
+% ')
 
-> evalCpp('std::numeric_limits<double>::max()')
-\end{verbatim}
+% > evalCpp('std::numeric_limits<double>::max()')
+% \end{verbatim}
+
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{$>$\ }\hlstd{}\hlkwd{cppFunction}\hlstd{}\hlopt{(}\hlstd{}\hlstr{'}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ }\hlstr{int\ fibonacci(const\ int\ x)\ \{}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ }\hlstr{if\ (x\ $<$\ 2)}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{return\ x;}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ }\hlstr{else}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ }\hlstr{return\ (fibonacci(x\ {-}\ 1))\ +\ fibonacci(x\ {-}\ 2);}\hspace*{\fill}\\
+\hlstr{}\hlstd{\ \ \ \ }\hlstr{\}}\hspace*{\fill}\\
+\hlstr{'}\hlstd{}\hlopt{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlopt{$>$\ }\hlstd{}\hlkwd{evalCpp}\hlstd{}\hlopt{(}\hlstd{}\hlstr{'std::numeric\textunderscore limits$<$double$>$::max()'}\hlstd{}\hlopt{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 You can also specify a depends parameter to \texttt{cppFunction} or \texttt{evalCpp}:
 
-\begin{verbatim}
-> cppFunction(depends = 'RcppArmadillo', code = '...')
-\end{verbatim}
+% \begin{verbatim}
+% > cppFunction(depends = 'RcppArmadillo', code = '...')
+% \end{verbatim}
 
-Note that using \texttt{sourceCpp}, \texttt{cppFunction}, and \texttt{evalCpp} 
-require that \proglang{C++} development tools be available to build the code. 
-If you want to distribute \pkg{Rcpp} code to users that don't have these tools 
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{$>$\ }\hlstd{}\hlkwd{cppFunction}\hlstd{}\hlopt{(}\hlstd{depends\ }\hlopt{=\ }\hlstd{}\hlstr{'RcppArmadillo'}\hlstd{}\hlopt{,\ }\hlstd{code\ }\hlopt{=\ }\hlstd{}\hlstr{'...'}\hlstd{}\hlopt{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
+
+Note that using \texttt{sourceCpp}, \texttt{cppFunction}, and \texttt{evalCpp}
+require that \proglang{C++} development tools be available to build the code.
+If you want to distribute \pkg{Rcpp} code to users that don't have these tools
 installed you can bundle your code into an R package. The next section describes
 how you can use \pkg{Rcpp} attributes for package development.
 
@@ -260,15 +373,24 @@ how you can use \pkg{Rcpp} attributes for package development.
 
 \proglang{C++} source code that uses attributes to export R functions can also be
 included in an \proglang{R} package. In this case rather than calling \texttt{sourceCpp}
-on individual files you call a single utility function for the whole package. 
+on individual files you call a single utility function for the whole package.
 The \texttt{compileAttributes} function scans the source files within a package
 for export attributes and generates code as required.
 
 For example, executing this from within the package working directory:
 
-\begin{verbatim}
-> compileAttributes()
-\end{verbatim}
+% \begin{verbatim}
+% > compileAttributes()
+% \end{verbatim}
+
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{$>$\ }\hlstd{}\hlkwd{compileAttributes}\hlstd{}\hlopt{()}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 Results in the generation of the following two source files:
 
@@ -280,22 +402,31 @@ Results in the generation of the following two source files:
   \pkg{Rcpp} module
 \end{itemize}
 
-The generated code deals only with interface of functions rather than the 
+The generated code deals only with interface of functions rather than the
 implementation, so \texttt{compileAttributes} needs to be run only when functions
 are added, removed, or have their signatures changed.
 
 \subsection{Providing a C++ Interface}
 
-You can use the \texttt{Rcpp::interfaces} attribute to expose the underlying 
-\proglang{C++} functions directly to users of your package. For example, the following 
+You can use the \texttt{Rcpp::interfaces} attribute to expose the underlying
+\proglang{C++} functions directly to users of your package. For example, the following
 specifies that both R and \proglang{C++} interfaces should be generated:
 
-\begin{verbatim}
-// [[Rcpp::interfaces(r, cpp)]]
-\end{verbatim}
+% \begin{verbatim}
+% // [[Rcpp::interfaces(r, cpp)]]
+% \end{verbatim}
 
-The \texttt{Rcpp::interfaces} attribute is specified on a per-source file basis. 
-If you request a \texttt{cpp} interface for a source file then \texttt{compileAttributes} 
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::interfaces(r,\ cpp){]}{]}}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
+
+The \texttt{Rcpp::interfaces} attribute is specified on a per-source file basis.
+If you request a \texttt{cpp} interface for a source file then \texttt{compileAttributes}
 does the following:
 
 \begin{enumerate}
@@ -304,9 +435,9 @@ does the following:
   \texttt{inst/include} directory of the package using the naming
   convention \emph{PackageName.h}
 \item
-  The generated header file enables calling the exported \proglang{C++}functions 
-  without  any linking dependency on the package. This is based on using the 
-  \texttt{R\_RegisterCCallable} and \texttt{R\_GetCCallable} functions described 
+  The generated header file enables calling the exported \proglang{C++}functions
+  without  any linking dependency on the package. This is based on using the
+  \texttt{R\_RegisterCCallable} and \texttt{R\_GetCCallable} functions described
   in `\textsl{Writing R Extensions}' \citep{R:Extensions}.
 \item
   The exported functions are defined within a \proglang{C++} namespace that matches
@@ -316,15 +447,30 @@ does the following:
 For example, an exported \proglang{C++} function \texttt{bar} could be called from
 package \texttt{MyPackage} as follows:
 
-\begin{verbatim}
-// [[Rcpp::depends(MyPackage)]]
+% \begin{verbatim}
+% // [[Rcpp::depends(MyPackage)]]
 
-#include <MyPackage.h>
+% #include <MyPackage.h>
 
-void foo() {
-    MyPackage::bar();
-}
-\end{verbatim}
+% void foo() {
+%     MyPackage::bar();
+% }
+% \end{verbatim}
+
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::depends(MyPackage){]}{]}}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlppc{\#include\ $<$MyPackage.h$>$}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlkwb{void\ }\hlstd{}\hlkwd{foo}\hlstd{}\hlopt{()\ \{}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{MyPackage}\hlopt{::}\hlstd{}\hlkwd{bar}\hlstd{}\hlopt{();}\hspace*{\fill}\\
+\hlstd{}\hlopt{\}}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 Note that the default behavior if an \texttt{Rcpp::interfaces} attribute
 is not included in a source file is to generate an R interface only.
@@ -333,7 +479,7 @@ is not included in a source file is to generate an R interface only.
 
 \subsection{Using Roxygen}
 
-The \pkg{roxygen2} package \citep{CRAN:roxygen2} provides a facility for 
+The \pkg{roxygen2} package \citep{CRAN:roxygen2} provides a facility for
 automatically generating \proglang{R} documentation files based on specially
 formatted comments in \proglang{R} source code.
 
@@ -342,24 +488,51 @@ If you include roxygen comments in your \proglang{C++} source file with a
 into R roxygen comments within \texttt{R/RcppExports.R}. For example the
 following code in a \proglang{C++} source file:
 
-\begin{verbatim}
-//' The length of a string (in characters).
-//'
-//' @param str input character vector
-//' @return characters in each element of the vector
-// [[Rcpp::export]]
-NumericVector strLength(CharacterVector str)
-\end{verbatim}
+% \begin{verbatim}
+% //' The length of a string (in characters).
+% //'
+% //' @param str input character vector
+% //' @return characters in each element of the vector
+% // [[Rcpp::export]]
+% NumericVector strLength(CharacterVector str)
+% \end{verbatim}
+
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//'\ The\ length\ of\ a\ string\ (in\ characters).}\hspace*{\fill}\\
+\hlstd{}\hlslc{//'}\hspace*{\fill}\\
+\hlstd{}\hlslc{//'\ @param\ str\ input\ character\ vector}\hspace*{\fill}\\
+\hlstd{}\hlslc{//'\ @return\ characters\ in\ each\ element\ of\ the\ vector}\hspace*{\fill}\\
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::export{]}{]}}\hspace*{\fill}\\
+\hlstd{NumericVector\ }\hlkwd{strLength}\hlstd{}\hlopt{(}\hlstd{CharacterVector\ str}\hlopt{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 Results in the following code in the generated \proglang{R} source file:
 
-\begin{verbatim}
-#' The length of a string (in characters).
-#'
-#' @param str input character vector
-#' @return characters in each element of the vector
-strLength <- function(str)
-\end{verbatim}
+% \begin{verbatim}
+% #' The length of a string (in characters).
+% #'
+% #' @param str input character vector
+% #' @return characters in each element of the vector
+% strLength <- function(str)
+% \end{verbatim}
+
+\begin{quote}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{\#'\ The\ length\ of\ a\ string\ (in\ characters).}\hspace*{\fill}\\
+\hlstd{}\hlslc{\#'}\hspace*{\fill}\\
+\hlstd{}\hlslc{\#'\ @param\ str\ input\ character\ vector}\hspace*{\fill}\\
+\hlstd{}\hlslc{\#'\ @return\ characters\ in\ each\ element\ of\ the\ vector}\hspace*{\fill}\\
+\hlstd{strLength\ }\hlopt{$<${-}\ }\hlstd{}\hlkwa{function}\hlstd{}\hlopt{(}\hlstd{str}\hlopt{)}\hlstd{}\hspace*{\fill}\\
+\mbox{}
+\normalfont
+\normalsize
+\end{quote}
 
 \subsection{Packages and sourceCpp}
 
@@ -377,7 +550,7 @@ from a standalone \proglang{C++} source file to a package are:
 \end{enumerate}
 
 Once you've migrated \proglang{C++} code into a package it's still possible use
-\texttt{sourceCpp} with it for iterative development. The main thing to keep in 
+\texttt{sourceCpp} with it for iterative development. The main thing to keep in
 mind is that the dependencies for source files within a package are derived from
 the \texttt{Depends} and \texttt{LinkingTo} fields in the package
 \texttt{DESCRIPTION} file rather than the \texttt{Rcpp::depends} attribute.
