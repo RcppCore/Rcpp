@@ -109,7 +109,7 @@ summary of new key features is:
    a type to another type. This is translated at the R level in terms of an "as"
    method.
 
-We intend to provide example package using these new features in the near future.
+We intend to provide example packages using these new features in the near future.
 
 
 
@@ -166,14 +166,19 @@ Facebook:
     http://www.facebook.com/pages/Rcpp/213047595425775
     
 Twitter:
-    https://twitter.com/romain_francois
     https://twitter.com/eddelbuettel
+    https://twitter.com/romain_francois
+
+
 
 ===== Support =====
 
 Questions about Rcpp should be directed to the Rcpp-devel mailing list
     https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel
 
+While we prefer the mailing list, StackOverflow has also become a frequently
+used resource under the [rcpp] tag:
+    http://stackoverflow.com/questions/tagged/rcpp
 
 
 Dirk Eddelbuettel, Romain Francois, Doug Bates, John Chambers and JJ Allaire
