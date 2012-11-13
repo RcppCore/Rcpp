@@ -71,6 +71,11 @@ struct r_type_module_object_pointer_tag{} ;
 struct r_type_module_object_tag{} ;
 
 /**
+ * identifies an enum. conversions from/to int is used
+ */ 
+struct r_type_enum_tag{} ;
+
+/**
  * R type trait. Helps wrap.
  */
 template <typename T> struct r_type_traits { typedef r_type_generic_tag r_category ; } ;

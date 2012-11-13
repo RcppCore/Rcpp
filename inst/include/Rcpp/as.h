@@ -26,7 +26,7 @@ namespace Rcpp{
 
     namespace internal{
         
-        template <typename T> T as( SEXP x, ::Rcpp::traits::r_type_primitive_tag ) {
+        template <typename T> T primitive_as( SEXP x ){
             if( ::Rf_length(x) != 1 ) throw ::Rcpp::not_compatible( "expecting a single value" ) ;
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
             SEXP y = PROTECT( r_cast<RTYPE>(x) );
@@ -34,6 +34,10 @@ namespace Rcpp{
             T res = caster<STORAGE,T>( *r_vector_start<RTYPE,STORAGE>( y ) ) ;
             UNPROTECT(1) ;
             return res ; 
+        }
+        
+        template <typename T> T as( SEXP x, ::Rcpp::traits::r_type_primitive_tag ) {
+            return primitive_as<T>(x) ;
         }
         
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_tag ) {
@@ -67,6 +71,11 @@ namespace Rcpp{
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_tag ){
             T* obj = as_module_object<T>(x) ;
             return *obj ;
+        }
+        
+        /** handling enums by converting to int first */
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_enum_tag ){
+            return T( primitive_as<int>(x) ) ;
         }
         
     }
