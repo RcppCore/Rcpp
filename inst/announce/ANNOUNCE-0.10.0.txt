@@ -1,0 +1,153 @@
+
+
+===== Summary =====
+
+Version 0.10.0 of the Rcpp package is now on CRAN and its mirrors.  
+
+This new release brings a number of new features, as well as extensions to
+existing features, to the package.  Several key aspects are highlighted
+below, and further details can be found in the NEWS and ChangeLog files which
+are included in the package.
+
+
+
+===== Overview =====
+
+Rcpp is an R package and associated C++ library for seamless integration
+between C++ and R.  
+
+It has been described in a recent paper in the Journal of Statistical
+Software (Vol 40, Issue 08) which is also included in the package as the
+"Rcpp-introduction" pdf vignette.
+
+As of late 2012, Rcpp is used by over 80 other CRAN packages making it the
+most widely-used language interface for R.
+
+Several key features of the new 0.10.0 release are described below.
+
+
+
+===== Rcpp attributes =====
+
+An existing new addition is provided by "Rcpp attributes". It takes its name
+and inspiration from "C++ attributes", a language addition for C++ which will
+become more widely available via the new C++11 standard. However, "Rcpp
+attributes" is implemented in standard R and C++ and available now for all
+current C++ compiler versions used for R.
+
+By using attributes, we can direct the compilers to automatically generate
+interface code which makes the integration of C++ and even more direct.  As a
+concrete example, the R statements
+
+R> prg <- "int f(const int x) {if(x<2) return x; else return f(x-1)+f(x-2);}"
+R> fibCpp <- cppFunction(prg)
+R> fibCpp(20)
+[1] 6765
+
+define a (short) C/C++ program to recursively compute the Fibonacci sequence
+as an R string which is then passed to cppFunction() -- which does all the
+required interface generation and argument marshaling.  The resulting object
+can then called like an R function -- but runs at C++ speed.
+
+Other key Rcpp attributes functions and tools are:
+ - sourceCpp() to source exported functions from a file
+ - evalCpp() for inline expression evaluation
+ - compileAttributes() for converting code for use in a package
+ - Rcpp::exports to define the export of a C++ function to R
+ - Rcpp::depends to declare external dependencies for sourceCpp()
+ - Rcpp::interfaces to to specify the external bindings.
+
+Rcpp attributes build upon Rcpp modules (described in another vignette in the
+package), as well as the automatic type converters Rcpp::as<>() and
+Rcpp::wrap.  The converters can already be used for a wide variety of
+standard C and C++ types, and can also be adapted to other C++ types and
+libraries as described in the Rcpp-extending vignette.
+
+More detail are provided in the new vignette Rcpp-attributes.  We also intend
+to provide further illustrations via our blogs following the release.
+
+
+
+===== Rcpp modules =====
+
+Rcpp modules provide an easy way to expose C++ code to R by means of
+declarations.  Rcpp modules have been extended for the new release.  A brief
+summary of new key features is:
+
+ - Functions and methods can now return objects from classes that are exposed
+   through modules. The macro RCPP_EXPOSED_CLASS and RCPP_EXPOSED_CLASS_NODECL can be
+   used to declared the required type traits.
+ - Classes exposed through modules can also be used as parameters of exposed
+   functions or methods.  
+ - Exposed classes can declare factories, ie a C++ function returning a
+   pointer to the target class, providing an alternative way to construct
+   objects. 
+ - "converter" can be used to declare a way to convert ("cast") an object of
+   a type to another type. 
+ - inheritance: A class can now declare that it inherits from another class;
+   the exposed class gains methods and properties (fields) from its parent class. 
+
+We intend to provide example package using these new features in the near future.
+
+
+
+===== New sugar functions =====
+
+Rcpp sugar provides "syntactic sugar" familiar to R programmers at the C++
+level, including a large number of vectorised functions.  In this release, we
+added 
+ - which_min() and which_max() returning the index of the first object
+   matching the condition
+ - unique() and sort_unique()
+
+
+
+===== New I/O facilities =====
+
+The Rcpp::Rcout object now supports sync() to flush output directly to the R
+I/O facilities.  A new object Rcpp::Rcerr has been added with passes content
+for error messages to REprintf().
+
+
+
+===== New namespace "R::" for Rmath functions =====
+
+A side-effect of Rcpp sugar providing vectorised d/p/q/r functions for the
+various statistical distribution was that the scalar variants of these
+functions (available from Rmath.h) were masked behind a Rf_ prefix.
+Previously, one had to call ::Rf_pnorm5() to compute pnorm() -- but now a
+cleaner interface R::pnorm() is available.  Unit tests were added as well.
+
+
+
+===== Links =====
+
+Rcpp main page: 
+    http://dirk.eddelbuettel.com/code/rcpp.html
+
+R-forge project page: 
+    http://r-forge.r-project.org/projects/rcpp/
+
+Dirk's blog section about Rcpp 
+    Rcpp: http://dirk.eddelbuettel.com/blog/code/rcpp/
+
+Romain's blog section about Rcpp: 
+    http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
+
+RStudio blog:
+    http://blog.rstudio.org
+
+
+
+===== Support =====
+
+Questions about Rcpp should be directed to the Rcpp-devel mailing list
+    https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel
+
+
+
+Dirk Eddelbuettel, Romain Francois, Doug Bates, John Chambers and JJ Allaire
+November 2012
+
+
+
