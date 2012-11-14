@@ -25,6 +25,7 @@ Information about an internal c++ class.
     \item{docstring}{description of the class}
     \item{typeid}{unmangled typeid of the class}
     \item{enums}{enums of the class}
+    \item{parents}{names of the parent classes of this class}
   }
 }
 \section{Methods}{

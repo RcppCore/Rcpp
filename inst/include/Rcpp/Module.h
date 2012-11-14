@@ -87,71 +87,7 @@ namespace Rcpp{
 
     // templates CppFunction0, ..., CppFunction65
 #include <Rcpp/module/Module_generated_CppFunction.h>
-
-    class class_Base {
-    public:
-        class_Base() : name(), docstring() {} ;
-        class_Base(const char* name_, const char* doc) : 
-            name(name_), docstring( doc == 0 ? "" : doc ), enums() {} ;
-        
-        virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
-        virtual Rcpp::List getMethods(SEXP, std::string&){ return Rcpp::List(0); }
-        virtual Rcpp::List getConstructors(SEXP, std::string&){ return Rcpp::List(0); }
-        
-        virtual void run_finalizer(SEXP){ }
-        
-        virtual bool has_default_constructor(){ return false ; }
-        virtual bool has_method( const std::string& ){ 
-            return false ; 
-        }
-        virtual bool has_property( const std::string& ) { 
-            return false ;
-        }
-        virtual SEXP newInstance(SEXP *, int){ 
-            return R_NilValue;
-        }
-        virtual SEXP invoke( SEXP, SEXP, SEXP *, int ){ 
-            return R_NilValue ;
-        }
-        virtual SEXP invoke_void( SEXP, SEXP, SEXP *, int ){ 
-            return R_NilValue ;
-        }
-        virtual SEXP invoke_notvoid( SEXP, SEXP, SEXP *, int ){ 
-            return R_NilValue ;
-        }
-        
-        virtual Rcpp::CharacterVector method_names(){ return Rcpp::CharacterVector(0) ; }
-        virtual Rcpp::CharacterVector property_names(){ return Rcpp::CharacterVector(0) ; }
-        virtual bool property_is_readonly(const std::string& ) { return false ; }
-        virtual std::string property_class(const std::string& ) { return "" ; }
-        virtual Rcpp::IntegerVector methods_arity(){ return Rcpp::IntegerVector(0) ; }
-        virtual Rcpp::LogicalVector methods_voidness(){ return Rcpp::LogicalVector(0); }
-        virtual Rcpp::List property_classes(){ return Rcpp::List(0); }
-        
-        virtual Rcpp::CharacterVector complete(){ return Rcpp::CharacterVector(0) ; }
-        virtual ~class_Base(){}
-        
-        virtual SEXP getProperty( SEXP, SEXP ) {
-            throw std::range_error( "cannot retrieve property" ) ;
-        }
-        virtual void setProperty( SEXP, SEXP, SEXP) {
-            throw std::range_error( "cannot set property" ) ;
-        }
-        virtual std::string get_typeinfo_name(){ return "" ; }
-        bool has_typeinfo_name( const std::string& name_ ){
-            return get_typeinfo_name().compare(name_) == 0;   
-        }
-        void add_enum( const std::string& enum_name, const std::map<std::string, int>& value ) ;
-        
-        std::string name ;
-        std::string docstring ;
-        
-        typedef std::map< std::string, int > ENUM ;
-        typedef std::map< std::string, ENUM > ENUM_MAP ;
-        typedef ENUM_MAP::value_type ENUM_MAP_PAIR ;
-        ENUM_MAP enums ;
-        
-    } ;
+#include <Rcpp/module/class_Base.h>
 #include <Rcpp/module/Module.h>
 }
 extern "C" Rcpp::Module* getCurrentScope() ;

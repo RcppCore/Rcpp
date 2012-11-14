@@ -6,6 +6,10 @@
 2012-11-14  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/wrap.h: fix for wrap( std::complex<double> )
+        * include/Rcpp/module/class_Base.h: factored out from Module.h
+        * R/00_classes.R: the C++Class gains the parents slot to hold information
+        about parent classes of the class
+        * src/Module.cpp : The CppClass constructor fills the parents slot of C++Class
 
 2012-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
