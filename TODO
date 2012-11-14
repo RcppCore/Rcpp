@@ -135,6 +135,15 @@ Attributes
 
     o   Add unit tests 
 
+    o   Mechanism for specifying default values for exported R functions
+        (Rcpp::defaults attribute?)
+
+    o   onBuildCompleted hook should pass succeeded = false if the loading
+        of the dynamic library fails
+
+    o   Typechecking on CppFunction calls so that seg-faults don't occur
+        when passing incorrect types
+
 Testing
 
     o	all r* functions : rnorm, etc ...
