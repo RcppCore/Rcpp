@@ -1,3 +1,10 @@
+2012-11-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.10.0
+        * inst/NEWS: Release 0.10.0
+        * inst/include/Rcpp/config.h: Release 0.10.0
+        * debian/*: Similarly updated for new release to Debian
+
 2012-11-13  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/as.h: as<enum>
@@ -6,7 +13,7 @@
         * include/Rcpp/traits/r_type_traits.h: trait to help as<enum>
         * include/Rcpp/module/macros.h: macros RCPP_EXPOSED_ENUM to help as/wrap
         of enums
-        
+
 2012-11-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/announce/ANNOUNCE-0.10.0.txt: Announcement draft
