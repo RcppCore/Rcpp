@@ -1,3 +1,8 @@
+2012-11-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/announce/ANNOUNCE-0.10.0.txt: Fix typo spotted by Martin
+	Morgan in announcement mail
+
 2012-11-14  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/wrap.h: fix for wrap( std::complex<double> )
