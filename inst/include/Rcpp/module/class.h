@@ -448,6 +448,7 @@
         self* class_pointer ;
         std::string typeinfo_name ;
     
+        
         class_( ) : class_Base(), vec_methods(), properties(), specials(0), constructors(), factories() {}; 
         
    
@@ -499,6 +500,8 @@
                 ) ;
             }
             
+            std::string buffer( "Rcpp_" ) ; buffer += parent ; 
+            class_pointer->parents.push_back( buffer.c_str() ) ;
             return *this ;
         }
         

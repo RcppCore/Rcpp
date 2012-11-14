@@ -415,7 +415,7 @@ namespace Rcpp{
 	void class_Base::add_enum( const std::string& enum_name, const std::map<std::string, int>& value ){
 	    enums.insert( ENUM_MAP_PAIR( enum_name, value ) ) ;
 	}
-        
+    
 	CppClass::CppClass( SEXP x) : S4(x){}
 	
 	CppClass::CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
@@ -434,6 +434,7 @@ namespace Rcpp{
 		slot( "docstring"   ) = cl->docstring ;
 		slot( "typeid" )      = cl->get_typeinfo_name() ;
 		slot( "enums"  )      = cl->enums ;
+		slot( "parents" )     = cl->parents ;
 	}
 
 	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
