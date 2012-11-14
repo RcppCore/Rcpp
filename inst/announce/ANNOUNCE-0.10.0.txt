@@ -57,7 +57,7 @@ The export attribute indicates that we'd like the function to be callable
 from R. We can now "source" this C++ file at the R prompt and then call
 the function as follows:
 
-R> source("fibonacci.cpp")
+R> sourceCpp("fibonacci.cpp")
 R> fibonacci(20)
 [1] 6765
 
