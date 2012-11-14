@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.10.0 (2012-11-xx)}{
+\section{Changes in Rcpp version 0.10.0 (2012-11-13)}{
   \itemize{
     \item Support for C++11 style attributes (embedded in comments) to enable
     use of C++ within interactive sessions and to automatically generate module
@@ -21,7 +21,7 @@
         C++ include file using R_GetCCallable can also be generated)
 	\item New vignette "Rcpp-attribute" 
     }
-    \item Rcpp modules feature set is expanded :
+    \item Rcpp modules feature set has been expanded:
     \itemize{
         \item Functions and methods can now return objects from classes that 
         are exposed through modules. This uses the make_new_object template
