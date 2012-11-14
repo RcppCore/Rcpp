@@ -68,3 +68,5 @@ r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/examples/OpenMP/O
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.int64.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.rcout.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.sugarOps.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/examples/Misc/newFib.r
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.rmath.R
