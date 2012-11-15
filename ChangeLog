@@ -1,3 +1,8 @@
+2012-11-15  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/sugar/logical/SingleLogicalResult.h : apply patch suggested
+        by Karl Millar
+
 2012-11-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/announce/ANNOUNCE-0.10.0.txt: Fix typo spotted by Martin
