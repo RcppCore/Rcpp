@@ -9,6 +9,8 @@
         in terms of stl algorithms.
         * include/Rcpp/vector/Vector.h: class no_init that can be used to create
         an uninitialized vector. e.g. IntegerVector out = no_init(10) ;
+        * include/Rcpp/sugar/functions/unique.h: sugar version of %in% using 
+        unordered_set
 
 2012-11-14  JJ Allaire <jj@rstudio.org>
 
