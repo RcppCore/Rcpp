@@ -43,7 +43,7 @@ public:
     
 private:
     
-    RCPP_UNIQUE_SET<STORAGE> set ;
+    RCPP_UNORDERED_SET<STORAGE> set ;
     
 } ;
    
@@ -72,7 +72,7 @@ public:
     
 private:
     
-    RCPP_UNIQUE_SET<std::string> set ;
+    RCPP_UNORDERED_SET<std::string> set ;
    
 } ;
 
@@ -102,7 +102,7 @@ public:
     }
 private:
     
-    RCPP_UNIQUE_SET<SEXP> set ;
+    RCPP_UNORDERED_SET<SEXP> set ;
    
 } ;
 

@@ -2,6 +2,13 @@
 
         * include/Rcpp/sugar/logical/SingleLogicalResult.h : apply patch suggested
         by Karl Millar
+        * R/Attributes.R: new R function areMacrosDefined
+        * man/evalCpp.Rd: documentation update
+        * include/Rcpp/sugar/functions/match.h : generic version of match
+        * include/Rcpp/sugar/tools/iterator.h: help iterator that helps writing match 
+        in terms of stl algorithms.
+        * include/Rcpp/vector/Vector.h: class no_init that can be used to create
+        an uninitialized vector. e.g. IntegerVector out = no_init(10) ;
 
 2012-11-14  JJ Allaire <jj@rstudio.org>
 

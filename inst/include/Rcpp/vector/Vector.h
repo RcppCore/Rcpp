@@ -22,6 +22,18 @@
 #ifndef Rcpp__vector__Vector_h
 #define Rcpp__vector__Vector_h
 
+class no_init {
+public:
+    no_init(int size_): size(size_){}
+    inline int get() const { return size; }
+    
+    template <int RTYPE>
+    operator Vector<RTYPE>(){ return Rf_allocVector(RTYPE, size) ; }
+    
+private:
+    int size ;
+} ;
+
 template <int RTYPE>
 class Vector :
     public RObject,       
@@ -204,7 +216,7 @@ public:
         RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
         fill( u ) ;
     }
-
+    
     Vector( const int& siz, stored_type (*gen)(void) ){
     	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
         iterator first = begin(), last = end() ;
