@@ -3,6 +3,11 @@
         * include/Rcpp/sugar/logical/SingleLogicalResult.h : apply patch suggested
         by Karl Millar
 
+2012-11-14  JJ Allaire <jj@rstudio.org>
+
+        * src/Attributes.cpp: create sourceCpp context list using 
+          single statement
+
 2012-11-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/announce/ANNOUNCE-0.10.0.txt: Fix typo spotted by Martin
