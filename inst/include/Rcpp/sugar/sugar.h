@@ -23,6 +23,7 @@
 #define RCPP_SUGAR_H
 
 #include <Rcpp/sugar/sets.h>
+#include <Rcpp/sugar/tools/iterator.h>
 #include <Rcpp/sugar/block/block.h>
 
 #include <Rcpp/sugar/operators/operators.h>

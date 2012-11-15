@@ -221,6 +221,37 @@ evalCpp <- function(code,
     fun()
 }
 
+areMacrosDefined <- function(names, 
+                    depends = character(), 
+                    includes = character(), 
+                    rebuild = FALSE,
+                    showOutput = verbose, 
+                    verbose = getOption( "verbose" ) ){
+ 
+                         
+    code <- sprintf( '
+        LogicalVector get_value(){ 
+            
+            return LogicalVector::create( 
+                %s
+            ) ;
+        }', 
+        
+        paste( sprintf( '    _["%s"] = 
+                #if defined(%s)
+                    true
+                #else
+                    false
+                #endif
+         ', names, names ), collapse = ",\n" )
+    )
+    env <- new.env()
+    cppFunction(code, depends = depends, includes = includes, env = env, 
+                rebuild = rebuild, showOutput = showOutput, verbose = verbose )
+    fun <- env[["get_value"]]
+    fun()
+}
+
 # Scan the source files within a package for attributes and generate code
 # based on the attributes. 
 compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {

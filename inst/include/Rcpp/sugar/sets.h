@@ -23,14 +23,14 @@
 #define Rcpp__sugar__sets_h
 
 #if __cplusplus >= 201103L
-    #define RCPP_UNIQUE_SET std::unordered_set
-    #define RCPP_UNIQUE_MAP std::unordered_map
-#elseif defined(HAS_TR1_UNORDERED_SET)
-    #define RCPP_UNIQUE_SET std::tr1::unordered_set
-    #define RCPP_UNIQUE_MAP std::tr1::unordered_map
+    #define RCPP_UNORDERED_SET std::unordered_set
+    #define RCPP_UNORDERED_MAP std::unordered_map
+#elif defined(HAS_TR1_UNORDERED_SET)
+    #define RCPP_UNORDERED_SET std::tr1::unordered_set
+    #define RCPP_UNORDERED_MAP std::tr1::unordered_map
 #else
-    #define RCPP_UNIQUE_SET std::set
-    #define RCPP_UNIQUE_MAP std::map
+    #define RCPP_UNORDERED_SET std::set
+    #define RCPP_UNORDERED_MAP std::map
 #endif
 
 namespace Rcpp{

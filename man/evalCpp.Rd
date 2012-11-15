@@ -1,5 +1,6 @@
 \name{evalCpp}
 \alias{evalCpp}
+\alias{areMacrosDefined}
 \title{
 Evaluate a C++ Expression
 }
@@ -11,10 +12,16 @@ Evaluates a C++ expression. This creates a C++ function using
 evalCpp(code, depends = character(), includes = character(), 
         rebuild = FALSE, showOutput = verbose, 
         verbose = getOption("verbose"))
+areMacrosDefined(names, depends = character(), includes = character(), 
+        rebuild = FALSE, showOutput = verbose, 
+        verbose = getOption("verbose"))
 }
 \arguments{
   \item{code}{
 C++ expression to evaluate
+}
+  \item{names}{
+names of the macros we want to test
 }
   \item{depends}{
 see \code{\link{cppFunction}}
@@ -47,5 +54,7 @@ see \code{\link{cppFunction}}
 evalCpp( "__cplusplus" )
 evalCpp( "std::numeric_limits<double>::max()" )
     
+areMacrosDefined( c("__cplusplus", "HAS_TR1" ) )
+
 }
 }

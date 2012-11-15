@@ -60,5 +60,6 @@
 #include <Rcpp/sugar/functions/which_max.h>
 
 #include <Rcpp/sugar/functions/unique.h>
+#include <Rcpp/sugar/functions/match.h>
 
 #endif
