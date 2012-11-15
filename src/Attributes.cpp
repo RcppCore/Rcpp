@@ -1076,18 +1076,17 @@ BEGIN_RCPP
     }
     
     // return context as a list
-    Rcpp::List context;
-    
-    context["moduleName"] = dynlib.moduleName();
-    context["cppSourcePath"] = dynlib.cppSourcePath();
-    context["buildRequired"] = buildRequired;
-    context["buildDirectory"] = dynlib.buildDirectory();
-    context["generatedCpp"] = dynlib.generatedCpp();
-    context["exportedFunctions"] = dynlib.exportedFunctions();
-    context["cppSourceFilename"] = dynlib.cppSourceFilename();
-    context["dynlibFilename"] = dynlib.dynlibFilename();
-    context["dynlibPath"] = dynlib.dynlibPath();
-    context["depends"] = dynlib.depends();
-    return Rcpp::wrap(context);
+    using namespace Rcpp;
+    return List::create(
+        _["moduleName"] = dynlib.moduleName(),
+        _["cppSourcePath"] = dynlib.cppSourcePath(),
+        _["buildRequired"] = buildRequired,
+        _["buildDirectory"] = dynlib.buildDirectory(),
+        _["generatedCpp"] = dynlib.generatedCpp(),
+        _["exportedFunctions"] = dynlib.exportedFunctions(),
+        _["cppSourceFilename"] = dynlib.cppSourceFilename(),
+        _["dynlibFilename"] = dynlib.dynlibFilename(),
+        _["dynlibPath"] = dynlib.dynlibPath(),
+        _["depends"] = dynlib.depends());
 END_RCPP
 }
