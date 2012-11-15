@@ -106,7 +106,43 @@ private:
    
 } ;
 
+template <typename SET>
+class InSet {
+public:
+    InSet( const SET& hash_ ) : hash(hash_), end(hash_.end()){}
+    
+    template <typename T>
+    inline int operator()(T value){
+        return hash.find(value) != end ;    
+    }
+    
+private:
+    const SET& hash ;
+    typename SET::const_iterator end ;
+} ;
 
+template <int RTYPE, typename TABLE_T>
+class In {
+public:
+    In( const TABLE_T& table) : hash( get_const_begin(table), get_const_end(table) ){}
+    
+    template <typename T>
+    LogicalVector get( const T& x) const {
+        int n = x.size() ;
+        LogicalVector out = no_init(n) ;
+        std::transform( 
+            get_const_begin(x), get_const_end(x),
+            out.begin(),
+            InSet<SET>(hash)
+        ) ;
+        return out ;
+    }
+    
+private:
+    typedef typename RCPP_UNORDERED_SET< typename traits::storage_type<RTYPE>::type > SET ;
+    SET hash ;
+    
+} ;
 
 
 } // sugar
@@ -120,6 +156,11 @@ inline Vector<RTYPE> sort_unique( const VectorBase<RTYPE,NA,T>& t ){
 	return sugar::Unique<RTYPE,T>( t.get_ref() ).get_sorted() ;
 }
 
+template <int RTYPE, bool NA, typename T, bool RHS_NA, typename RHS_T>
+inline LogicalVector in( const VectorBase<RTYPE,NA,T>& x, const VectorBase<RTYPE,RHS_NA,RHS_T>& table ){
+    sugar::In<RTYPE,RHS_T> obj(table.get_ref()) ;
+    return obj.get( x.get_ref() );
+}
 
 
 } // Rcpp
