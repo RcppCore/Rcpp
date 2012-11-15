@@ -11,6 +11,7 @@
         an uninitialized vector. e.g. IntegerVector out = no_init(10) ;
         * include/Rcpp/sugar/functions/unique.h: sugar version of %in% using 
         unordered_set
+        * include/Rcpp/sugar/functions/minmax.h: min, max, and range
 
 2012-11-14  JJ Allaire <jj@rstudio.org>
 
