@@ -65,6 +65,8 @@ namespace sugar{
                 current = obj[i] ;
                 if( Rcpp::traits::is_na<RTYPE>( current ) ) return Vector<RTYPE>::create( min_, max_ ) ;
                 if( current < min_ ) min_ = current ;
+                if( current > max_ ) max_ = current ;
+                
             }
             return Vector<RTYPE>::create( min_, max_ ) ;
         }
@@ -110,6 +112,7 @@ namespace sugar{
             for( int i=1; i<n; i++){
                 current = obj[i] ;
                 if( current < min_ ) min_ = current ;
+                if( current > max_ ) max_ = current ;
             }
             return Vector<RTYPE>::create( min_, max_ ) ;
         }
