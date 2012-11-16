@@ -2,7 +2,8 @@
 
         * include/Rcpp/vector/Vector.h : added static methods Vector::is_na and
         Vector::get_na
-        * inst/include/Rcpp/sugar/functions/setdiff.h: initial version of setdiff
+        * inst/include/Rcpp/sugar/functions/setdiff.h: initial version of 
+        setdiff and intersect
 
 2012-11-15  Romain Francois <romain@r-enthusiasts.com>
 
