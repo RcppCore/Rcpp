@@ -149,6 +149,11 @@ Attributes
 
     o   Include <Rcpp.h> header above generated module in sourceCpp
 
+    o   Clarify in 5.1 of vignette that attribute package features still
+        require Makevars, etc. created by Rcpp.package.skeleton 
+
+    o   Provide single action to source both C++ and R code (possible
+        source_with attribute and/or embed R code in cpp file w/ comment)
 
 Testing
 
