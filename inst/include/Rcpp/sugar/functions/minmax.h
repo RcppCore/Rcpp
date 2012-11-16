@@ -42,7 +42,7 @@ namespace sugar{
                 if( Rcpp::traits::is_na<RTYPE>( current ) ) return current;
                 if( current < min_ ) min_ = current ;
             }
-            return min ;
+            return min_ ;
         }
         STORAGE max() {
             max_ = obj[0] ;
@@ -54,7 +54,7 @@ namespace sugar{
                 if( Rcpp::traits::is_na<RTYPE>( current ) ) return current;
                 if( current > max_ ) max_ = current ;
             }
-            return min ;
+            return max_ ;
         }
         Vector<RTYPE> range(){
             min_ = max_ = obj[0] ;
@@ -93,7 +93,7 @@ namespace sugar{
                 current = obj[i] ;
                 if( current < min_ ) min_ = current ;
             }
-            return min ;
+            return min_ ;
         }
         STORAGE max() {
             max_ = obj[0] ;
@@ -103,7 +103,7 @@ namespace sugar{
                 current = obj[i] ;
                 if( current > max_ ) max_ = current ;
             }
-            return min ;
+            return max_ ;
         }
         Vector<RTYPE> range(){
             min_ = max_ = obj[0] ;
