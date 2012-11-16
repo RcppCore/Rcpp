@@ -66,6 +66,37 @@ namespace sugar{
         SET rhs_set ;
         
     } ;
+
+    template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+    class SetEqual {
+    public:
+        typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+        
+        SetEqual( const LHS_T& lhs, const RHS_T& rhs) : 
+            lhs_set( get_const_begin(lhs), get_const_end(lhs) ), 
+            rhs_set( get_const_begin(rhs), get_const_end(rhs) )
+        {
+            
+            std::for_each( rhs_set.begin(), rhs_set.end(), RemoveFromSet<SET>(lhs_set) ) ;
+        }
+        
+        bool get() const {
+            if( lhs_set.size() != rhs_set.size() ) return false ;
+            
+            ITERATOR it = lhs_set.begin(), end = lhs_set.end(), rhs_end = rhs_set.end() ;
+            for( ; it != end; ){
+                if( rhs_set.find(*it++) == rhs_end ) return false ;
+            }
+            return true ;
+        }
+        
+    private:
+        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef typename SET::const_iterator ITERATOR ;
+        SET lhs_set ;
+        SET rhs_set ;
+        
+    } ;
     
     template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
     class Intersect {
@@ -100,6 +131,31 @@ namespace sugar{
         
     } ;
     
+    template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+    class Union {
+    public:
+        typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+        
+        Union( const LHS_T& lhs, const RHS_T& rhs) : 
+            result( get_const_begin(lhs), get_const_end(lhs) )
+        {
+            result.insert( get_const_begin(rhs), get_const_end(rhs) ) ;
+        }
+        
+        Vector<RTYPE> get() const {
+            int n = result.size() ;
+            Vector<RTYPE> out = no_init(n) ;
+            std::copy( result.begin(), result.end(), get_const_begin(out) ) ;
+            return out ;
+        }
+        
+    private:
+        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef typename SET::const_iterator ITERATOR ;
+        SET result ;
+        
+    } ;
+    
     
 } // sugar
 
@@ -109,10 +165,20 @@ inline Vector<RTYPE> setdiff( const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, const V
 }
 
 template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+inline bool setequal( const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs ){
+    return sugar::SetEqual<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs.get_ref(), rhs.get_ref() ).get() ;
+}
+
+template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Vector<RTYPE> intersect( const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs ){
     return sugar::Intersect<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs.get_ref(), rhs.get_ref() ).get() ;
 }
 
+// we cannot use "union" because it is a keyword
+template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+inline Vector<RTYPE> union_( const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs ){
+    return sugar::Union<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs.get_ref(), rhs.get_ref() ).get() ;
+}
 
 
 
