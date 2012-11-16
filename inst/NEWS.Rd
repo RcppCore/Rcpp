@@ -2,6 +2,28 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.10.1 (future)}{
+    \itemize{
+        \item Changes in Rcpp sugar: 
+        \itemize{
+            \item New functions: \code{setdiff}, \code{union_}, \code{intersect}
+            \code{setequal}, \code{in}, \code{min}, \code{max}, \code{range}, 
+            \code{match}
+        }
+        \item Changes in Rcpp API:
+        \itemize{
+            \item The \code{Vector} template class (hence \code{NumericVector}
+            ...) get the \code{is_na} and the \code{get_na} static methods.
+            \item New helper class \code{no_init} that can be used to 
+            create a vector without initializing its data, e.g. : 
+            \code{ IntegerVector out = no_init(n) ; }
+        }
+        \item Changes in R code :
+        \itemize{
+            \item New function \code{areMacrosDefined}    
+        }
+    }
+}
 \section{Changes in Rcpp version 0.10.0 (2012-11-13)}{
   \itemize{
     \item Support for C++11 style attributes (embedded in comments) to enable
