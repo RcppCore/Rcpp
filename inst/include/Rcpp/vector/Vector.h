@@ -42,6 +42,7 @@ class Vector :
 {
 public:
     typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
+    typedef typename traits::r_vector_const_proxy<RTYPE>::type const_Proxy ;
     typedef typename traits::r_vector_name_proxy<RTYPE>::type NameProxy ;
     typedef typename traits::r_vector_proxy<RTYPE>::type value_type ;
     typedef typename traits::r_vector_iterator<RTYPE>::type iterator ;

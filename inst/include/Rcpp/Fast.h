@@ -2,7 +2,7 @@
 //
 // Fast.h: Rcpp R/C++ interface class library -- faster vectors (less interface)
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -31,7 +31,7 @@ public:
     Fast( const VECTOR& v_) : v(v_), data( v_.begin() ){} 
     
     inline value_type& operator[]( int i){ return data[i] ; }
-    inline value_type& operator[]( int i) const { return data[i] ; }
+    inline const value_type& operator[]( int i) const { return data[i] ; }
     inline int size() const { return v.size() ; }
     
 private:

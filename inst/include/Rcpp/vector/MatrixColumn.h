@@ -2,7 +2,7 @@
 //
 // MatrixColumn.h: Rcpp R/C++ interface class library -- matrices column
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,68 +27,78 @@ class MatrixColumn : public VectorBase<RTYPE,true,MatrixColumn<RTYPE> > {
 public:
     typedef Matrix<RTYPE> MATRIX ;
     typedef typename MATRIX::Proxy Proxy ;
+    typedef typename MATRIX::const_Proxy const_Proxy ;
     typedef typename MATRIX::value_type value_type ;
     typedef typename MATRIX::iterator iterator ;
+    typedef typename MATRIX::const_iterator const_iterator ;
         
-    MatrixColumn( MATRIX& object, int i ) : 
-        parent(object), index(i), start(parent.begin() + i * parent.nrow() )
+    MatrixColumn( MATRIX& parent, int i ) : 
+        n(parent.nrow()),
+        start(parent.begin() + i * n ), 
+        const_start(parent.begin() + i *n)
+    {
+        if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
+    }
+    
+    MatrixColumn( const MATRIX& parent, int i ) : 
+        n(parent.nrow()),
+        start(parent.begin() + i * n ), 
+        const_start(parent.begin() + i *n)
     {
         if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
     }
         
     MatrixColumn( const MatrixColumn& other ) : 
-        parent(other.parent), index(other.index), start(other.start){} ;
+        n(other.n), 
+        start(other.start),
+        const_start(other.const_start) {}
         
     template <int RT, bool NA, typename T>
     MatrixColumn& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
-        int n = size() ;
         const T& ref = rhs.get_ref() ;
         RCPP_LOOP_UNROLL(start,ref)
-            return *this ;
+        return *this ;
     }
         
     MatrixColumn& operator=( const MatrixColumn& rhs ){
-        int n = size() ;
         iterator rhs_start = rhs.start ; 
         RCPP_LOOP_UNROLL(start,rhs_start)
-            return *this ;
+        return *this ;
     }
 
     inline Proxy operator[]( int i ){
-        /* TODO: should we cache nrow and ncol */
         return start[i] ;
     }
         
-    inline Proxy operator[]( int i ) const {
-        /* TODO: should we cache nrow and ncol */
-        return start[i] ;
+    inline const_Proxy operator[]( int i ) const {
+        return const_start[i] ;
     }
         
     inline iterator begin(){
         return start ;
     }
         
-    inline iterator begin() const {
-        return start ;
+    inline const_iterator begin() const {
+        return const_start ;
     }
         
     inline iterator end(){
-        return start + parent.nrow() ;
+        return start + n ;
     }
         
-    inline iterator end() const {
-        return start + parent.nrow() ;
+    inline const_iterator end() const {
+        return const_start + n ;
     }
         
-    inline int size() const {
-        return parent.nrow() ;
+    inline R_len_t size() const {
+        return n ;
     }
-        
+     
 private:
-    MATRIX& parent; 
-    int index ;     
+    const R_len_t n ;
     iterator start ;
-
+    const_iterator const_start ;
+    
 } ;
 
 #endif
