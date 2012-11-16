@@ -1,0 +1,79 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+//
+// setdiff.h: Rcpp R/C++ interface class library -- setdiff
+//
+// Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
+//
+// This file is part of Rcpp.
+//
+// Rcpp is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// (at your option) any later version.
+//
+// Rcpp is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+#ifndef Rcpp__sugar__setdiff_h
+#define Rcpp__sugar__setdiff_h
+          
+namespace Rcpp{
+namespace sugar{
+       
+    template <typename SET>
+    class RemoveFromSet {
+    public:
+        RemoveFromSet( SET& set_) : set(set_){}
+        
+        template <typename T>
+        void operator()(T value){
+            set.erase( value );    
+        }
+        
+    private:
+        SET& set ;
+    } ;
+    
+    template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+    class SetDiff {
+    public:
+        typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+        
+        SetDiff( const LHS_T& lhs, const RHS_T& rhs) : 
+            lhs_set( get_const_begin(lhs), get_const_end(lhs) ), 
+            rhs_set( get_const_begin(rhs), get_const_end(rhs) )
+        {
+            
+            std::for_each( rhs_set.begin(), rhs_set.end(), RemoveFromSet<SET>(lhs_set) ) ;
+        }
+        
+        Vector<RTYPE> get() const {
+            int n = lhs_set.size() ;
+            Vector<RTYPE> out = no_init(n) ;
+            std::copy( lhs_set.begin(), lhs_set.end(), get_const_begin(out) ) ;
+            return out ;
+        }
+        
+    private:
+        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef typename SET::const_iterator ITERATOR ;
+        SET lhs_set ;
+        SET rhs_set ;
+        
+    } ;
+    
+} // sugar
+
+template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+inline Vector<RTYPE> setdiff( const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs ){
+    return sugar::SetDiff<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs.get_ref(), rhs.get_ref() ).get() ;
+}
+
+} // Rcpp
+#endif
+
