@@ -67,12 +67,54 @@ namespace sugar{
         
     } ;
     
+    template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+    class Intersect {
+    public:
+        typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+        
+        Intersect( const LHS_T& lhs, const RHS_T& rhs) : 
+            intersect()
+        {
+            
+            SET lhs_set( get_const_begin(lhs), get_const_end(lhs) ) ; 
+            SET rhs_set( get_const_begin(rhs), get_const_end(rhs) ) ; 
+            
+            ITERATOR end = lhs_set.end() ;
+            ITERATOR rhs_end = rhs_set.end() ;
+            for( ITERATOR it=lhs_set.begin(); it != end; it++){
+                if( rhs_set.find(*it) != rhs_end ) intersect.insert(*it) ;
+            }
+        }
+        
+        Vector<RTYPE> get() const {
+            int n = intersect.size() ;
+            Vector<RTYPE> out = no_init(n) ;
+            std::copy( intersect.begin(), intersect.end(), get_const_begin(out) ) ;
+            return out ;
+        }
+        
+    private:
+        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef typename SET::const_iterator ITERATOR ;
+        SET intersect ;
+        
+    } ;
+    
+    
 } // sugar
 
 template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Vector<RTYPE> setdiff( const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs ){
     return sugar::SetDiff<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs.get_ref(), rhs.get_ref() ).get() ;
 }
+
+template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
+inline Vector<RTYPE> intersect( const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs ){
+    return sugar::Intersect<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs.get_ref(), rhs.get_ref() ).get() ;
+}
+
+
+
 
 } // Rcpp
 #endif
