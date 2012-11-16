@@ -37,6 +37,7 @@ namespace traits {
     template <int RTYPE> struct r_vector_cache_type ;
 	template <int RTYPE> struct r_vector_name_proxy ;
 	template <int RTYPE> struct r_vector_proxy ;
+	template <int RTYPE> struct r_vector_const_proxy ;
 	template <int RTYPE> struct r_vector_iterator ;
 	template <int RTYPE> struct r_vector_const_iterator ;
 	template <int RTYPE> class r_vector_cache ;

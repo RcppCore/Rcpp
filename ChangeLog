@@ -2,8 +2,14 @@
 
         * include/Rcpp/vector/Vector.h : added static methods Vector::is_na and
         Vector::get_na
-        * inst/include/Rcpp/sugar/functions/setdiff.h: initial version of 
+        * include/Rcpp/sugar/functions/setdiff.h: initial version of 
         setdiff and intersect
+        * include/Rcpp/vector/MatrixColumn.h: dealing with const-ness
+        * include/Rcpp/vector/MatrixRow.h: dealing with const-ness
+        * include/Rcpp/vector/traits.h: dealing with const-ness
+        * include/Rcpp/vector/proxy.h: dealing with const-ness
+        * include/Rcpp/vector/MatrixBase.h: dealing with const-ness
+        * include/Rcpp/vector/Vector.h: dealing with const-ness
 
 2012-11-15  Romain Francois <romain@r-enthusiasts.com>
 

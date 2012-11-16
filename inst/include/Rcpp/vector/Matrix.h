@@ -34,6 +34,7 @@ public:
     typedef typename VECTOR::converter_type converter_type ;
     typedef typename VECTOR::stored_type stored_type ;
     typedef typename VECTOR::Proxy Proxy ;
+    typedef typename VECTOR::const_Proxy const_Proxy ;
     
     Matrix() : VECTOR() {}
         
@@ -145,6 +146,9 @@ public:
     }
         
     inline Column operator()( internal::NamedPlaceHolder, int i ){
+        return Column( *this, i ) ;
+    }
+    inline Column operator()( internal::NamedPlaceHolder, int i ) const {
         return Column( *this, i ) ;
     }
         
