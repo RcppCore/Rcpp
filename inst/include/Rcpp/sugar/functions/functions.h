@@ -62,5 +62,6 @@
 
 #include <Rcpp/sugar/functions/unique.h>
 #include <Rcpp/sugar/functions/match.h>
+#include <Rcpp/sugar/functions/setdiff.h>
 
 #endif
