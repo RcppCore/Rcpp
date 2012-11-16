@@ -82,6 +82,9 @@ public:
         return *this ;
     }
 	
+    static inline stored_type get_na() { return traits::get_na<RTYPE>(); }
+    static inline bool is_na( stored_type x){ return traits::is_na<RTYPE>(x); }
+    
 private:
     
     // sugar
@@ -150,6 +153,8 @@ public:
     	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
     	import_expression<NA,VEC>( other, n ) ;
     }
+    
+    
     
 private:
 	  
