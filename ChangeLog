@@ -1,3 +1,8 @@
+2012-11-16  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/Vector.h : added static methods Vector::is_na and
+        Vector::get_na
+
 2012-11-15  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/logical/SingleLogicalResult.h : apply patch suggested
