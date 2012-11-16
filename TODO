@@ -155,6 +155,10 @@ Attributes
     o   Provide single action to source both C++ and R code (possible
         source_with attribute and/or embed R code in cpp file w/ comment)
 
+    o   Add docstring parameter to Rcpp::export attribute
+
+    o   Emit warning if sourceCpp finds no exports (control via option)
+
 Testing
 
     o	all r* functions : rnorm, etc ...
