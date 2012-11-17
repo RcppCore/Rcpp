@@ -1,7 +1,9 @@
 2012-11-17  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/wrap_end.h: have calls to wrap as late as possible
-        so that they "see" all (potentially user defined) overloads of wrap. 
+        so that they "see" all (potentially user defined) overloads of wrap.
+        * include/Rcpp/internal/SEXP_Iterator.h: directly iterate over SEXP. 
+        const iterator for List and ExpressionVector
 
 2012-11-16  Romain Francois <romain@r-enthusiasts.com>
 
