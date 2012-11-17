@@ -339,6 +339,7 @@ namespace Rcpp{
 
 #include <Rcpp/internal/ListInitialization.h>
 #include <Rcpp/internal/Proxy_Iterator.h>
+#include <Rcpp/internal/SEXP_Iterator.h>
 
 RcppExport SEXP RcppXPtrExample_create_external_pointer() ;
 RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP ); 
