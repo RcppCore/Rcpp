@@ -255,9 +255,11 @@ namespace traits {
 	template<> struct r_vector_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
 	template<> struct r_vector_iterator<STRSXP> : proxy_based_iterator<STRSXP>{} ;
 
-	template<> struct r_vector_const_iterator<VECSXP> : proxy_based_iterator<VECSXP>{} ;
-	template<> struct r_vector_const_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
-	
+	template <int RTYPE> struct proxy_based_const_iterator{
+		typedef ::Rcpp::internal::SEXP_Iterator<RTYPE, Vector<RTYPE> > type ;
+	} ;
+	template<> struct r_vector_const_iterator<VECSXP> : proxy_based_const_iterator<VECSXP>{} ;
+	template<> struct r_vector_const_iterator<EXPRSXP> : proxy_based_const_iterator<EXPRSXP>{} ;
 	template<> struct r_vector_const_iterator<STRSXP> {
 	    typedef CharacterVectorExtractionIterator type ;
 	} ;
