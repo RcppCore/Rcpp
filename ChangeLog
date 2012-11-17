@@ -1,16 +1,23 @@
+2012-11-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Change free function name
+	'range' to 'uniformRange' to protect it from getting clobbered by the
+	new sugar function range.
+
 2012-11-17  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/internal/wrap_end.h: have calls to wrap as late as possible
-        so that they "see" all (potentially user defined) overloads of wrap.
-        * include/Rcpp/internal/SEXP_Iterator.h: directly iterate over SEXP. 
+        * include/Rcpp/internal/wrap_end.h: have calls to wrap as late as
+	possible so that they "see" all (potentially user defined) overloads
+	of wrap.
+        * include/Rcpp/internal/SEXP_Iterator.h: directly iterate over SEXP.
         const iterator for List and ExpressionVector
 
 2012-11-16  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/vector/Vector.h : added static methods Vector::is_na and
-        Vector::get_na
-        * include/Rcpp/sugar/functions/setdiff.h: initial version of 
-        setdiff and intersect
+        * include/Rcpp/vector/Vector.h : added static methods Vector::is_na
+	and Vector::get_na
+        * include/Rcpp/sugar/functions/setdiff.h: initial version of setdiff
+	and intersect
         * include/Rcpp/vector/MatrixColumn.h: dealing with const-ness
         * include/Rcpp/vector/MatrixRow.h: dealing with const-ness
         * include/Rcpp/vector/traits.h: dealing with const-ness
@@ -20,23 +27,23 @@
 
 2012-11-15  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/sugar/logical/SingleLogicalResult.h : apply patch suggested
-        by Karl Millar
+        * include/Rcpp/sugar/logical/SingleLogicalResult.h : apply patch
+	suggested by Karl Millar
         * R/Attributes.R: new R function areMacrosDefined
         * man/evalCpp.Rd: documentation update
         * include/Rcpp/sugar/functions/match.h : generic version of match
-        * include/Rcpp/sugar/tools/iterator.h: help iterator that helps writing match 
-        in terms of stl algorithms.
+        * include/Rcpp/sugar/tools/iterator.h: help iterator that helps
+	writing match in terms of stl algorithms.
         * include/Rcpp/vector/Vector.h: class no_init that can be used to create
         an uninitialized vector. e.g. IntegerVector out = no_init(10) ;
-        * include/Rcpp/sugar/functions/unique.h: sugar version of %in% using 
-        unordered_set
+        * include/Rcpp/sugar/functions/unique.h: sugar version of %in% using
+	unordered_set
         * include/Rcpp/sugar/functions/minmax.h: min, max, and range
 
 2012-11-14  JJ Allaire <jj@rstudio.org>
 
-        * src/Attributes.cpp: create sourceCpp context list using 
-          single statement
+        * src/Attributes.cpp: create sourceCpp context list using single
+	statement
 
 2012-11-14  Dirk Eddelbuettel  <edd@debian.org>
 
