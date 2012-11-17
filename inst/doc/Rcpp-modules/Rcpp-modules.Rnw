@@ -618,7 +618,7 @@ public:
     double min, max;
 };
 
-double range( Uniform* w) {
+double uniformRange( Uniform* w) {
     return w->max - w->min;
 }
 
@@ -632,7 +632,7 @@ RCPP_MODULE(unif_module) {
     .field( "max", &Uniform::max )
 
     .method( "draw", &Uniform::draw )
-    .method( "range", &range )
+    .method( "range", &uniformRange )
     ;
 
 }
@@ -653,7 +653,7 @@ public:
     double min, max;
 };
 
-double range( Uniform* w) {
+double uniformRange( Uniform* w) {
     return w->max - w->min;
 }
 
@@ -667,7 +667,7 @@ RCPP_MODULE(unif_module) {
     .field( "max", &Uniform::max )
 
     .method( "draw", &Uniform::draw )
-    .method( "range", &range )
+    .method( "range", &uniformRange )
     ;
 
 }
