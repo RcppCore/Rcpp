@@ -812,15 +812,12 @@ inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::void_wrap_tag ){
 	return R_NilValue ;
 }
 
+// these are defined in wrap_end.h
 template <typename T>
-inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::pointer_wrap_tag ){
-	return wrap( object< typename traits::un_pointer<T>::type >( obj ) ) ;
-}
+inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::pointer_wrap_tag ) ; 
 
 template <typename T>
-inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::normal_wrap_tag ){
-	return wrap( obj ) ;
-}
+inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::normal_wrap_tag ) ;
 
 template <typename T>
 inline SEXP module_wrap( const T& obj ){
