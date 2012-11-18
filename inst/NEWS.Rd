@@ -21,7 +21,9 @@
         \item Changes in Rcpp attributes: 
         \itemize{
             \item Ability to embed R code chunks (via specially formatted
-            block comments) in C++ source files.
+            block comments) in C++ source files
+            \item New scheme for more flexible mixing of user and generated
+            C++ headers
             \item Print warning if no export attributes are found in source file
         }
         \item Changes in R code :
