@@ -18,6 +18,12 @@
             create a vector without initializing its data, e.g. : 
             \code{ IntegerVector out = no_init(n) ; }
         }
+        \item Changes in Rcpp attributes: 
+        \itemize{
+            \item Ability to embed R code chunks (via specially formatted
+            block comments) in C++ source files.
+            \item Print warning if no export attributes are found in source file
+        }
         \item Changes in R code :
         \itemize{
             \item New function \code{areMacrosDefined}    
