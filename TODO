@@ -147,8 +147,6 @@ Attributes
     o   Typechecking on CppFunction calls so that seg-faults don't occur
         when passing incorrect types
 
-    o   Include <Rcpp.h> header above generated module in sourceCpp
-
     o   Clarify in 5.1 of vignette that attribute package features still
         require Makevars, etc. created by Rcpp.package.skeleton 
 
