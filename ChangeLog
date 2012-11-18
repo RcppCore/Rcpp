@@ -3,7 +3,8 @@
         * R/Attributes.R: sourceCpp embedded R code
         * src/AttributesParser.h: sourceCpp embedded R code
         * src/AttributesParser.cpp: sourceCpp embedded R code
-        * src/Attributes.cpp: sourceCpp embedded R code
+        * src/Attributes.cpp: sourceCpp embedded R code; include <Rcpp.h>
+        above generated modules
 
 2012-11-18  Romain Francois <romain@r-enthusiasts.com>
 
