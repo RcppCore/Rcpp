@@ -431,22 +431,21 @@ namespace {
         std::vector<std::string> prototypes_;
         std::vector<std::string> signatures_;
     };
-    
-    // Class which manages generating the header file for the package
-    const char * const kTypesSuffix = "_types.h";
-    class CppIncludeGenerator : public ExportsGenerator {
+       
+    // Class which manages generating PackageName_RcppExports.h header file
+    const char * const kRcppExportsSuffix = "_RcppExports.h";
+    class CppExportsIncludeGenerator : public ExportsGenerator {
     public:
-        explicit CppIncludeGenerator(const std::string& packageDir, 
-                                     const std::string& package,
-                                     const std::string& fileSep)
+        CppExportsIncludeGenerator(const std::string& packageDir, 
+                                   const std::string& package,
+                                   const std::string& fileSep)
             : ExportsGenerator( 
                 packageDir +  fileSep + "inst" +  fileSep + "include" +
-                fileSep + package + ".h", 
+                fileSep + package + kRcppExportsSuffix, 
                 package,
                 "//")
         {
             includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
-            includeTypes_ = includeDir_ + fileSep + package + kTypesSuffix;
             hasCppInterface_ = false; 
         }
         
@@ -562,12 +561,6 @@ namespace {
                     ostr << std::endl;
                 }
                 
-                // if there is a types header then include it as well
-                if (FileInfo(includeTypes_).exists()) {
-                    ostr << "#include <" << package() << kTypesSuffix << ">"
-                         << std::endl << std::endl;
-                }
-                
                 // commit with preamble
                 return ExportsGenerator::commit(ostr.str());
             }
@@ -593,9 +586,76 @@ namespace {
         
     private:
         std::string includeDir_;
-        std::string includeTypes_;
         bool hasCppInterface_;
     };
+    
+     // Class which manages generating PackageName_RcppExports.h header file
+    class CppPackageIncludeGenerator : public ExportsGenerator {
+    public:
+        CppPackageIncludeGenerator(const std::string& packageDir, 
+                                   const std::string& package,
+                                   const std::string& fileSep)
+            : ExportsGenerator( 
+                packageDir +  fileSep + "inst" +  fileSep + "include" +
+                fileSep + package + ".h", 
+                package,
+                "//")
+        {
+            includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
+            hasCppInterface_ = false; 
+        }
+        
+        virtual void writeBegin() {
+        }
+        
+        virtual void writeFunctions(const SourceFileAttributes &attributes,
+                                    bool verbose) {     
+            // See if there is a C++ interface exported by any attributes
+            if (attributes.hasInterface(kInterfaceCpp)) 
+                hasCppInterface_ = true;  
+        }
+        
+        virtual void writeEnd() {
+            if (hasCppInterface_) {
+                // header guard
+                std::string guard = getHeaderGuard();
+                ostr() << "#ifndef " << guard << std::endl;
+                ostr() << "#define " << guard << std::endl << std::endl; 
+                
+                ostr() << "#include \"" << package() << kRcppExportsSuffix 
+                       << "\"" << std::endl;
+                
+                ostr() << std::endl;
+                ostr() << "#endif // " << getHeaderGuard() << std::endl;
+            }
+        }
+        
+        virtual bool commit(const std::vector<std::string>& includes) {
+            
+            if (hasCppInterface_) {
+                
+                // create the include dir if necessary
+                createDirectory(includeDir_);
+                
+                // commit 
+                return ExportsGenerator::commit();
+            }
+            else {
+                return ExportsGenerator::remove();
+            }
+        }
+        
+    private:
+    
+        std::string getHeaderGuard() const {
+            return package() + "_h";
+        }
+        
+    private:
+        std::string includeDir_;
+        bool hasCppInterface_;
+    };
+    
     
     // Class which manages generator RcppExports.R
     class RExportsGenerator : public ExportsGenerator {
@@ -763,9 +823,9 @@ BEGIN_RCPP
     // catch file exists exception if the include file already exists
     // and we are unable to overwrite it
     try {
-        generators.add(new CppIncludeGenerator(packageDir, 
-                                               packageName, 
-                                               fileSep));
+        generators.add(new CppExportsIncludeGenerator(packageDir, 
+                                                      packageName, 
+                                                      fileSep));
     }
     catch(const Rcpp::file_exists& e) {
         std::string msg = 
@@ -773,6 +833,15 @@ BEGIN_RCPP
             "cannot be overwritten by Rcpp::interfaces";
         throw Rcpp::exception(msg.c_str(), __FILE__, __LINE__);
     }
+    
+    // catch file exists exception for package include (because if it 
+    // already exists we simply leave it alone)
+    try {
+        generators.add(new CppPackageIncludeGenerator(packageDir, 
+                                                      packageName, 
+                                                      fileSep));
+    }
+    catch(const Rcpp::file_exists& e) {}
     
     // write begin
     generators.writeBegin();
