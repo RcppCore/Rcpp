@@ -138,6 +138,8 @@ sourceCpp <- function(file = "",
         dll <- dyn.load(context$dynlibPath)
         populate(Module(context$moduleName, PACKAGE = dll, mustStart = TRUE), 
                  env)
+    } else if (getOption("rcpp.warnNoExports", default=TRUE)) {
+        warning("No Rcpp::export attributes found in source")
     }
     
     # source the embeddedR

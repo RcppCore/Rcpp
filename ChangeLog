@@ -1,10 +1,12 @@
 2012-11-18  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: sourceCpp embedded R code
+        * R/Attributes.R: sourceCpp embedded R code; print warning if 
+        no export attributes are found in source file
         * src/AttributesParser.h: sourceCpp embedded R code
         * src/AttributesParser.cpp: sourceCpp embedded R code
         * src/Attributes.cpp: sourceCpp embedded R code; include <Rcpp.h>
         above generated modules
+        * man/sourceCpp.Rd: documentation updates
 
 2012-11-18  Romain Francois <romain@r-enthusiasts.com>
 
