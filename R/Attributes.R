@@ -140,6 +140,12 @@ sourceCpp <- function(file = "",
                  env)
     }
     
+    # source the embeddedR
+    if (length(context$embeddedR) > 0) {
+        srcConn <- textConnection(context$embeddedR)
+        source(file=srcConn, print.eval=TRUE)
+    }
+    
     # return (invisibly) a list of exported functions
     invisible(context$exportedFunctions)
 }
