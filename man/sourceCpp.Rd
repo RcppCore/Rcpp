@@ -61,6 +61,8 @@ fibonacci(10)
     The \code{sourceCpp} function is designed for compiling a standalone source file whose only dependencies are R packages. If you are compiling more than one source file or have external dependencies then you should create an R package rather than using \code{sourceCpp}. Note that the \code{\link[=exportAttribute]{Rcpp::export}} attribute can also be used within packages via the \code{\link{compileAttributes}} function.
     
     If you are sourcing a C++ file from within the \code{src} directory of a package then the package's \code{LinkingTo} dependencies, \code{inst/include}, and \code{src} directories are automatically included in the compilation.
+    
+    If no \code{Rcpp::export} attributes are found within the source file then a warning is printed to the console. You can disable this warning by setting the \code{rcpp.warnNoExports} option to \code{FALSE}.
 
 }
 
