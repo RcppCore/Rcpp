@@ -892,6 +892,7 @@ namespace {
             generatedCpp_.clear();
             if (!sourceAttributes.empty()) {
                 std::ostringstream ostr;
+                ostr << "#include <Rcpp.h>" << std::endl;
                 ostr << "RCPP_MODULE(" << moduleName()  << ") {" << std::endl;
                 generateCppModuleFunctions(ostr, sourceAttributes, false);
                 ostr << "}" << std::endl;
