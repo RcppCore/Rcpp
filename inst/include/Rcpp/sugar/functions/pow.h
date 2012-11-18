@@ -25,69 +25,62 @@
 namespace Rcpp{
 namespace sugar{
 
-template <bool NA, int RTYPE, typename EXPONENT_TYPE>
-class pow__impl{
-public:
-	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	pow__impl( EXPONENT_TYPE exponent_) : exponent(exponent_){}
-	
-	inline double get( STORAGE x) const {
-		return Rcpp::traits::is_na<RTYPE>(x) ? NA_INTEGER : ::pow(x, exponent) ;
-	}
-private:
-	EXPONENT_TYPE exponent ;
-} ;
-
-template <int RTYPE, typename EXPONENT_TYPE>
-class pow__impl<false,RTYPE,EXPONENT_TYPE>{
-public:
-	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	pow__impl( EXPONENT_TYPE exponent_) : exponent(exponent_){}
-	
-	inline double get( STORAGE x) const {
-		return ::pow(x, exponent) ;
-	}
-private:
-	EXPONENT_TYPE exponent ;
-} ;
-
-	
 template <int RTYPE, bool NA, typename T, typename EXPONENT_TYPE>
 class Pow : public Rcpp::VectorBase< REALSXP ,NA, Pow<RTYPE,NA,T,EXPONENT_TYPE> > {
 public:
-	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	typedef pow__impl<NA,RTYPE, typename Rcpp::traits::remove_const<EXPONENT_TYPE>::type > OPERATOR ;
 	
-	Pow( const VEC_TYPE& object_, EXPONENT_TYPE exponent ) : 
-		object(object_), op(exponent) {}
+	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
 	
 	inline double operator[]( int i ) const {
-		return op.get( object[i] );
+	    return ::pow( object[i], op );
 	}
 	inline int size() const { return object.size() ; }
 	         
 private:
-	const VEC_TYPE& object ;
-	OPERATOR op ;
+	const T& object ;
+	EXPONENT_TYPE op ;
 } ;
 	
+template <bool NA, typename T, typename EXPONENT_TYPE>
+class Pow<INTSXP,NA,T,EXPONENT_TYPE> : public Rcpp::VectorBase< REALSXP ,NA, Pow<INTSXP,NA,T,EXPONENT_TYPE> > {
+public:
+	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
+	
+	inline double operator[]( int i ) const {
+		int x = object[i] ;
+	    return x == NA_INTEGER ? NA_INTEGER : ::pow( x, op );
+	}
+	inline int size() const { return object.size() ; }
+	         
+private:
+	const T& object ;
+	EXPONENT_TYPE op ;
+} ;
+template <typename T, typename EXPONENT_TYPE>
+class Pow<INTSXP,false,T,EXPONENT_TYPE> : public Rcpp::VectorBase< REALSXP ,false, Pow<INTSXP,false,T,EXPONENT_TYPE> > {
+public:
+	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
+	
+	inline double operator[]( int i ) const {
+	    return ::pow( object[i], op );
+	}
+	inline int size() const { return object.size() ; }
+	         
+private:
+	const T& object ;
+	EXPONENT_TYPE op ;
+} ;
+
+
 } // sugar
 
-template <bool NA, typename T, typename EXPONENT_TYPE >
-inline sugar::Pow<INTSXP,NA,T,EXPONENT_TYPE> pow( 
-	const VectorBase<INTSXP,NA,T>& t, 
-	EXPONENT_TYPE exponent 
-){
-	return sugar::Pow<INTSXP,NA,T,EXPONENT_TYPE>( t , exponent ) ;
-}
-
-template <bool NA, typename T, typename EXPONENT_TYPE>
-inline sugar::Pow<REALSXP,NA,T,EXPONENT_TYPE> pow( 
-	const VectorBase<REALSXP,NA,T>& t, 
+template <int RTYPE, bool NA, typename T, typename EXPONENT_TYPE>
+inline sugar::Pow<RTYPE,NA,T,EXPONENT_TYPE> pow( 
+	const VectorBase<RTYPE,NA,T>& t, 
 	EXPONENT_TYPE exponent
 ){
-	return sugar::Pow<REALSXP,NA,T,EXPONENT_TYPE>( t, exponent ) ;
+	return sugar::Pow<RTYPE,NA,T,EXPONENT_TYPE>( t.get_ref() , exponent ) ;
 }
 
 

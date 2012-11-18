@@ -56,6 +56,9 @@ namespace internal {
 		static SEXP get(const char& input){
 			return Rf_mkChar( &input ) ;
 		}
+		
+		// assuming a CHARSXP
+		static SEXP get(SEXP x){ return x; }
 	} ;
 	
 	template <int RTYPE>
