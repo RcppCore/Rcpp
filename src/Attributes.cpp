@@ -920,6 +920,9 @@ namespace {
                         depends_.push_back(it->params()[i].name());
                  }   
             }
+            
+            // capture embededded R
+            embeddedR_ = sourceAttributes.embeddedR();
         }
         
         const std::string& moduleName() const {
@@ -955,6 +958,8 @@ namespace {
         }
         
         const std::vector<std::string>& depends() const { return depends_; };
+        
+        const std::vector<std::string>& embeddedR() const { return embeddedR_; }
           
     private:
     
@@ -973,6 +978,7 @@ namespace {
         std::string dynlibExt_;
         std::vector<std::string> exportedFunctions_;
         std::vector<std::string> depends_;
+        std::vector<std::string> embeddedR_;
     };
     
     // Dynlib cache that allows lookup by either file path or code contents
@@ -1087,6 +1093,7 @@ BEGIN_RCPP
         _["cppSourceFilename"] = dynlib.cppSourceFilename(),
         _["dynlibFilename"] = dynlib.dynlibFilename(),
         _["dynlibPath"] = dynlib.dynlibPath(),
-        _["depends"] = dynlib.depends());
+        _["depends"] = dynlib.depends(),
+        _["embeddedR"] = dynlib.embeddedR());
 END_RCPP
 }

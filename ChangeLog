@@ -1,3 +1,10 @@
+2012-11-18  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: sourceCpp embedded R code
+        * src/AttributesParser.h: sourceCpp embedded R code
+        * src/AttributesParser.cpp: sourceCpp embedded R code
+        * src/Attributes.cpp: sourceCpp embedded R code
+
 2012-11-18  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/converter.h: allow CharacterVector::create( NA_STRING )
