@@ -152,8 +152,6 @@ Attributes
 
     o   Add docstring parameter to Rcpp::export attribute
 
-    o   Emit warning if sourceCpp finds no exports (control via option)
-
 Testing
 
     o	all r* functions : rnorm, etc ...
