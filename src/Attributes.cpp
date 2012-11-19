@@ -134,7 +134,10 @@ namespace {
                                         it->function().arguments();
                     ostr << ", Rcpp::List::create("; 
                     for (size_t i=0; i<args.size(); i++) {
-                        ostr << "Rcpp::Named(\"" << args[i].name() << "\")";
+                        const Argument& arg = args[i];
+                        ostr << "Rcpp::Named(\"" << arg.name() << "\")";
+                        if (!arg.defaultValue().empty())
+                            ostr << " = " << arg.defaultValue();
                         if (i != (args.size()-1))
                             ostr << ", ";
                     }

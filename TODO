@@ -132,9 +132,6 @@ Attributes
     
     o   Add unit tests 
 
-    o   Mechanism for specifying default values for exported R functions
-        (Rcpp::defaults attribute?)
-
     o   onBuildCompleted hook should pass succeeded = false if the loading
         of the dynamic library fails
 

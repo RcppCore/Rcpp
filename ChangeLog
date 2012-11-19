@@ -1,3 +1,10 @@
+2012-11-19  JJ Allaire <jj@rstudio.org>
+
+        * src/AttributesParser.h: support for argument default values
+        * src/AttributesParser.cpp: support for argument default values
+        * src/Attributes.cpp: support for argument default values
+        * man/exportAttribute.Rd: documentation updates
+
 2012-11-18  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: sourceCpp embedded R code; print warning if 
