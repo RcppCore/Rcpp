@@ -22,7 +22,8 @@
         \itemize{
             \item Ability to embed R code chunks (via specially formatted
             block comments) in C++ source files
-            \item New scheme for more flexible mixing of user and generated
+            \item Allow specification of argument defaults for exported functions 
+            \item New scheme for more flexible mixing of generated and user composed
             C++ headers
             \item Print warning if no export attributes are found in source file
         }

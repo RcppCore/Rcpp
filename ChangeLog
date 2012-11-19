@@ -4,6 +4,10 @@
         * src/AttributesParser.cpp: support for argument default values
         * src/Attributes.cpp: support for argument default values
         * man/exportAttribute.Rd: documentation updates
+        * man/compileAttributes.Rd: documentation updates
+        * man/sourceCpp.Rd: documentation updates
+        * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: add documentation
+        on changes to attributes in 0.10.1
 
 2012-11-18  JJ Allaire <jj@rstudio.org>
 
