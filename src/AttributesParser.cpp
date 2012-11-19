@@ -146,6 +146,8 @@ namespace attributes_parser {
             if (!argument.name().empty()) {
                 os << " ";
                 os << argument.name();
+                if (!argument.defaultValue().empty())
+                    os << " = " << argument.defaultValue();
             }
         }
         return os;
@@ -388,7 +390,7 @@ namespace attributes_parser {
         // Start at the end and look for the () that deliniates the arguments
         // (bail with an empty result if we can't find them)
         std::string::size_type endParenLoc = signature.find_last_of(')');
-        std::string::size_type beginParenLoc = signature.find_last_of('(');
+        std::string::size_type beginParenLoc = signature.find_first_of('(');
         if (endParenLoc == std::string::npos || 
             beginParenLoc == std::string::npos ||
             endParenLoc < beginParenLoc) {
@@ -451,6 +453,16 @@ namespace attributes_parser {
                 // we don't warn here because the compilation will fail anyway
                 continue;
             }
+            
+            // If the argument has an = within it then it has a default value
+            std::string defaultValue;
+            std::string::size_type eqPos = arg.find_first_of('=');
+            if ( (eqPos != std::string::npos) && ((eqPos + 1) < arg.size()) ) {    
+                defaultValue = arg.substr(eqPos+1);
+                trimWhitespace(&defaultValue);    
+                arg = arg.substr(0, eqPos);
+                trimWhitespace(&arg);
+            }
                     
             // Scan backwards for whitespace to determine where the type ends
             // (we go backwards because whitespace is valid inside the type
@@ -480,7 +492,7 @@ namespace attributes_parser {
             }
             
             // add argument
-            arguments.push_back(Argument(name, type));
+            arguments.push_back(Argument(name, type, defaultValue));
         }
         
         return Function(type, name, arguments, signature);
@@ -517,23 +529,45 @@ namespace attributes_parser {
                                                 const std::string& argText) {
         
         int templateCount = 0;
+        int parenCount = 0;
+        bool insideQuotes = false;
         std::string currentArg;
         std::vector<std::string> args;
+        char prevChar = 0;
         for (std::string::const_iterator 
                             it = argText.begin(); it != argText.end(); ++it) {
             char ch = *it;
             
-            if (ch == ',' && templateCount == 0) {
+            if (ch == '"' && prevChar != '\\') {
+                insideQuotes = !insideQuotes;
+            }
+              
+            if ((ch == ',') && 
+                (templateCount == 0) &&
+                (parenCount == 0) &&
+                !insideQuotes) {
                 args.push_back(currentArg);
                 currentArg.clear();
                 continue;
             } else {
-                currentArg.push_back(ch);   
-                if (ch == '<')
-                    templateCount++;
-                else if (ch == '>')
-                    templateCount--;
+                currentArg.push_back(ch); 
+                switch(ch) {
+                    case '<':
+                        templateCount++;
+                        break;
+                    case '>':
+                        templateCount--;
+                        break;
+                    case '(':
+                        parenCount++;
+                        break;
+                    case ')':
+                        parenCount--;
+                        break;
+                }
             }
+            
+            prevChar = ch;
         }
         
         if (!currentArg.empty())
