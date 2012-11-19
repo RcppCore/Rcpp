@@ -126,17 +126,11 @@ Attributes
     o   Proactively detect types that can't be handled by as/wrap and print
         a clearer error message
     
-    o   Enhance Rcpp.package.skeleton to accept a source file with an 
-        Rcpp::depends attribute and do the right thing (use inline plugins
-        to get the right Makevars, etc.)
+    o   Enhance Rcpp.package.skeleton to: optionally generate hello_world
+        using attributes and handle existing source files with Rcpp::depends
+        (use inline plugin to get the right Makevars, etc.)
     
     o   Add unit tests 
-
-    o   onBuildCompleted hook should pass succeeded = false if the loading
-        of the dynamic library fails
-
-    o   onBuildCompleted hook should join output lines for API 
-        consistency between windows and posix
 
     o   Typechecking on CppFunction calls so that seg-faults don't occur
         when passing incorrect types
