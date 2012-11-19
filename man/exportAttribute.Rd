@@ -20,6 +20,23 @@ The \code{Rcpp::export} attribute is added to a C++ function definition to indic
     \item Have a return type that is either void or compatible with \code{Rcpp::wrap} and parameter types that are compatible with \code{Rcpp::as} (see sections 3.1 and 3.2 of the \emph{Rcpp-introduction} vignette for more details).
     \item Use fully qualified type names for the return value and all parameters. However, Rcpp types may appear without the namespace qualifier (i.e. \code{DataFrame} is okay as a type name but \code{std::string} must be specified fully).
 }
+    If default argument values are provided in the C++ function definition then these defaults are also used for the exported R function. For example, the following C++ function:
+    
+\preformatted{
+DataFrame readData(
+    CharacterVector file, 
+    CharacterVector exclude = CharacterVector::create(),
+    bool fill = true)
+}
+
+    Will be exported to R as:
+
+\preformatted{
+function (file, exclude = character(0), fill = TRUE)
+}
+
+    Note that C++ rules for default arguments still apply: they must occur consecutively at the end of the function signature and unlike R can't rely on the values of other arguments.
+
 }
 
 \note{

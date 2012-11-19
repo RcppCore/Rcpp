@@ -58,8 +58,10 @@ namespace attributes_parser {
     class Argument {
     public:
         Argument() {}
-        Argument(const std::string& name, const Type& type) 
-            : name_(name), type_(type) 
+        Argument(const std::string& name, 
+                 const Type& type,
+                 const std::string& defaultValue) 
+            : name_(name), type_(type), defaultValue_(defaultValue) 
         {
         }
         
@@ -67,10 +69,12 @@ namespace attributes_parser {
         
         const std::string& name() const { return name_; }
         const Type& type() const { return type_; }
+        const std::string& defaultValue() const { return defaultValue_; }
         
     private:
         std::string name_;
         Type type_;
+        std::string defaultValue_;
     };
     
     // Function info  
