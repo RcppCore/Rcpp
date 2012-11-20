@@ -33,11 +33,10 @@ namespace Rcpp {
 
     class Rostream : public std::ostream {
     public:
-        Rostream(bool output) : std::ostream(&buf), buf(output) {}
-        
-    protected:
-        Rstreambuf buf;
-	
+        Rostream(bool output) : buf(output), std::ostream(&buf) {}
+    
+    private:
+        Rstreambuf buf ;
     };
     
     // declare global variable

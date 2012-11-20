@@ -1,3 +1,8 @@
+2012-11-20  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/iostream/Rostream.h: change order of initiaization in 
+        ctor. was making solaris compiler unhappy
+
 2012-11-19  JJ Allaire <jj@rstudio.org>
 
         * src/AttributesParser.h: support for argument default values
