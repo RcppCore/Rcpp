@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class UnifGenerator : public ::Rcpp::Generator<false,double> {
+		template <bool seed>
+		class UnifGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
@@ -43,6 +44,18 @@ namespace Rcpp {
 			double diff ;
 		} ;
 
+		template <bool seed>
+		class UnifGenerator__0__1 : public ::Rcpp::Generator<seed,double> {
+		public:
+	
+			UnifGenerator__0__1( double min_ = 0.0, double max_ = 1.0) {}
+	
+			inline double operator()() const {
+				double u;
+				do {u = unif_rand();} while (u <= 0 || u >= 1);
+				return u;
+			}
+		} ;
 	} // stats
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
@@ -51,7 +64,7 @@ namespace Rcpp {
 	inline NumericVector runif( int n, double min, double max ){
 		if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
 		if( min == max ) return NumericVector( n, min ) ;
-		return NumericVector( n, stats::UnifGenerator( min, max ) ) ;
+		return NumericVector( n, stats::UnifGenerator<false>( min, max ) ) ;
 	}
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
@@ -60,14 +73,14 @@ namespace Rcpp {
 	inline NumericVector runif( int n, double min /*, double max = 1.0 */ ){
 		if (!R_FINITE(min) || 1.0 < min) return NumericVector( n, R_NaN ) ;
 		if( min == 1.0 ) return NumericVector( n, 1.0 ) ;
-		return NumericVector( n, stats::UnifGenerator( min, 1.0 ) ) ;
+		return NumericVector( n, stats::UnifGenerator<false>( min, 1.0 ) ) ;
 	}
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector runif( int n /*, double min = 0.0, double max = 1.0 */ ){
-		return NumericVector( n, unif_rand ) ;
+		return NumericVector( n, stats::UnifGenerator__0__1<false>() ) ;
 	}
 
 } // Rcpp

@@ -2,6 +2,10 @@
 
         * include/Rcpp/iostream/Rostream.h: change order of initiaization in 
         ctor. was making solaris compiler unhappy
+        * include/Rcpp/stats/random/rnorm.h: not using function pointer
+        generators, as this generates (anachronisms) warning on solaris. Also, 
+        this version is more efficient since there is no need to dereference
+        the function pointer
 
 2012-11-19  JJ Allaire <jj@rstudio.org>
 

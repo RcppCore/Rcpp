@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class NBinomGenerator_Mu : public ::Rcpp::Generator<false,double> {
+	    template <bool seed>
+		class NBinomGenerator_Mu : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			NBinomGenerator_Mu( double siz_, double mu_ ) : 
@@ -48,7 +49,7 @@ namespace Rcpp {
 		if(!R_FINITE(siz) || !R_FINITE(mu) || siz <= 0 || mu < 0)
 			return NumericVector( n, R_NaN ) ;
     
-		return NumericVector( n, stats::NBinomGenerator_Mu( siz, mu ) ) ;
+		return NumericVector( n, stats::NBinomGenerator_Mu<false>( siz, mu ) ) ;
 	}
 
 } // Rcpp

@@ -2,7 +2,7 @@
 //
 // rsignrank.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,12 +23,23 @@
 #define Rcpp__stats__random_rsignrank_h
 
 namespace Rcpp {
-
+    namespace stats{
+    
+        template <bool seed>
+		class SignRankGenerator : public Generator<seed,double>{
+		public:
+		    SignRankGenerator(double nn_) : nn(nn_){}
+		    inline double operator()() const { return ::Rf_rsignrank(nn) ; }
+		private:
+		    double nn ;
+		} ;
+    } // stats
+    
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rsignrank( int n, double nn ){
-		return NumericVector( n, ::Rf_rsignrank, nn ) ;
+		return NumericVector( n, stats::SignRankGenerator<false>(nn) ) ;
 	}
 
 } // Rcpp
