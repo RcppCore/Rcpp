@@ -490,15 +490,19 @@ You can also specify a depends parameter to \texttt{cppFunction} or \texttt{eval
 
 One of the goals of \pkg{Rcpp} attributes is to simultaneously facilitate
 ad-hoc and interactive work with \proglang{C++} while also making it very easy to
-migrate that work into an \proglang{R} package. Two major benefits of moving code
-from a standalone \proglang{C++} source file to a package are:
+migrate that work into an \proglang{R} package. There are several benefits of
+moving code from a standalone \proglang{C++} source file to a package:
 
 \begin{enumerate}
 \item
-  Users without \proglang{C++} development tools available can use your code.
+  Your code can be made availiable to users without \proglang{C++} development
+  tools (at least on Windows or Mac OS X where binary packages are common)
 \item
   Multiple source files and their dependencies are handled automatically
-  by the \proglang{R} package build system.
+  by the \proglang{R} package build system
+\item
+  Packages provide additional infrastructure for testing, documentation
+  and consistency
 \end{enumerate}
 
 To build a package that is based on \pkg{Rcpp} you should first follow the 
@@ -556,8 +560,6 @@ source files are derived from the \texttt{Depends} and \texttt{LinkingTo} fields
 in the package \texttt{DESCRIPTION} file rather than the \texttt{Rcpp::depends}
 attribute. For every package you import C++ code from (including \pkg{Rcpp}) 
 you need to add these entries.
-
-\pagebreak
 
 For example, if your package depends on \pkg{Rcpp} and \pkg{RcppArmadillo}
 you would have the following in your \texttt{DESCRIPTION} file:
