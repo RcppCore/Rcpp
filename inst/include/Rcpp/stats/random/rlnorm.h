@@ -2,7 +2,7 @@
 //
 // rlnorm.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class LNormGenerator : public Generator<false,double> {
+	    template <bool seed>
+		class LNormGenerator : public Generator<seed,double> {
 		public:
 	
 			LNormGenerator( double meanlog_ = 0.0 , double sdlog_ = 1.0 ) : 
@@ -40,7 +41,8 @@ namespace Rcpp {
 			double sdlog ;
 		} ;
 
-		class LNormGenerator_1 : public Generator<false,double> {
+		template <bool seed>
+		class LNormGenerator_1 : public Generator<seed,double> {
 		public:
 	
 			LNormGenerator_1( double meanlog_ = 0.0 ) : 
@@ -54,7 +56,8 @@ namespace Rcpp {
 			double meanlog ;
 		} ;
 
-		class LNormGenerator_0 : public Generator<false,double> {
+		template <bool seed>
+		class LNormGenerator_0 : public Generator<seed,double> {
 		public:
 	
 			LNormGenerator_0( ) {}
@@ -77,7 +80,7 @@ namespace Rcpp {
 		}  else if (sdlog == 0. || !R_FINITE(meanlog)){
 			return NumericVector( n, ::exp( meanlog ) ) ;
 		} else {
-			return NumericVector( n, stats::LNormGenerator( meanlog, sdlog ) ); 
+			return NumericVector( n, stats::LNormGenerator<false>( meanlog, sdlog ) ); 
 		}
 	}
 
@@ -91,7 +94,7 @@ namespace Rcpp {
 		}  else if ( !R_FINITE(meanlog)){
 			return NumericVector( n, ::exp( meanlog ) ) ;
 		} else {
-			return NumericVector( n, stats::LNormGenerator_1( meanlog ) ); 
+			return NumericVector( n, stats::LNormGenerator_1<false>( meanlog ) ); 
 		}
 	}
 
@@ -99,7 +102,7 @@ namespace Rcpp {
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rlnorm( int n /*, double meanlog [=0.], double sdlog = 1.0 */){
-		return NumericVector( n, stats::LNormGenerator_0( ) ); 
+		return NumericVector( n, stats::LNormGenerator_0<false>( ) ); 
 	}
 
 

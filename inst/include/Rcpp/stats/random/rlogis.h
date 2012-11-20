@@ -2,7 +2,7 @@
 //
 // rlogis.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -24,8 +24,9 @@
 
 namespace Rcpp {
 	namespace stats {
-
-		class LogisGenerator : public ::Rcpp::Generator<false,double> {
+	    
+	    template <bool seed>
+		class LogisGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			LogisGenerator( double location_, double scale_ ) : 
@@ -41,7 +42,8 @@ namespace Rcpp {
 			double scale ;
 		} ;
 
-		class LogisGenerator_1 : public ::Rcpp::Generator<false,double> {
+		template <bool seed>
+		class LogisGenerator_1 : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			LogisGenerator_1( double location_) : 
@@ -56,7 +58,8 @@ namespace Rcpp {
 			double location ;
 		} ;
 
-		class LogisGenerator_0 : public ::Rcpp::Generator<false,double> {
+		template <bool seed>
+		class LogisGenerator_0 : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			LogisGenerator_0() {}
@@ -80,7 +83,7 @@ namespace Rcpp {
 		if (scale == 0. || !R_FINITE(location))
 			return NumericVector( n, location );
     
-		return NumericVector( n, stats::LogisGenerator( location, scale ) ) ;
+		return NumericVector( n, stats::LogisGenerator<false>( location, scale ) ) ;
 	}
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
@@ -93,14 +96,14 @@ namespace Rcpp {
 		if (!R_FINITE(location))
 			return NumericVector( n, location );
     
-		return NumericVector( n, stats::LogisGenerator_1( location ) ) ;
+		return NumericVector( n, stats::LogisGenerator_1<false>( location ) ) ;
 	}
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rlogis( int n /*, double location [=0.0], double scale =1.0 */ ){
-		return NumericVector( n, stats::LogisGenerator_0() ) ;
+		return NumericVector( n, stats::LogisGenerator_0<false>() ) ;
 	}
 
 } // Rcpp

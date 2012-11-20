@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class WeibullGenerator : public ::Rcpp::Generator<false,double> {
+		template <bool seed>
+		class WeibullGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			WeibullGenerator( double shape_, double scale_ ) : 
@@ -36,8 +37,22 @@ namespace Rcpp {
 			}
 	
 		private:
-			double shape_inv ;
-			double scale ;
+			double shape_inv, scale ; 
+		} ;
+		
+		template <bool seed>
+		class WeibullGenerator__scale1 : public ::Rcpp::Generator<seed,double> {
+		public:
+	
+			WeibullGenerator__scale1( double shape_ ) : 
+				shape_inv( 1/shape_) {}
+	
+			inline double operator()() const {
+				return ::R_pow(-::log(unif_rand()), shape_inv );
+			}
+	
+		private:
+			double shape_inv ; 
 		} ;
 	} // stats
 
@@ -50,9 +65,15 @@ namespace Rcpp {
 			/* else */
 			return NumericVector(n, R_NaN);
 		}
-		return NumericVector( n, stats::WeibullGenerator( shape, scale ) ) ;
+		return NumericVector( n, stats::WeibullGenerator<false>( shape, scale ) ) ;
 	}
 
+	inline NumericVector rweibull( int n, double shape /* scale = 1 */ ){
+		if (!R_FINITE(shape) || shape <= 0. ) {
+			return NumericVector(n, R_NaN);
+		}
+		return NumericVector( n, stats::WeibullGenerator__scale1<false>( shape ) ) ;
+	}
 } // Rcpp
 
 #endif

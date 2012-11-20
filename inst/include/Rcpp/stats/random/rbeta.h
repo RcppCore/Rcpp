@@ -2,7 +2,7 @@
 //
 // rbeta.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,12 +23,27 @@
 #define Rcpp__stats__random_rbeta_h
 
 namespace Rcpp {
+namespace stats{
+    
+    template <bool seed>
+    class BetaGenerator : public Generator<seed,double>{
+    public: 
+        BetaGenerator(double a_, double b_) : a(a), b(b_){}
+        
+        inline double operator()() const {
+            return ::Rf_rbeta(a, b) ;    
+        }
+    private:
+        double a, b ;
+    } ;
+    
+} // namespace stats
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rbeta( int n, double a, double b ){
-		return NumericVector( n, ::Rf_rbeta, a, b ) ;
+		return NumericVector( n, stats::BetaGenerator<false>(a, b ) ) ;
 	}
 
 } // Rcpp

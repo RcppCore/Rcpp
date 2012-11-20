@@ -2,7 +2,7 @@
 //
 // rcauchy.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,8 @@
 namespace Rcpp {
 namespace stats {
 
-class CauchyGenerator : public ::Rcpp::Generator<false,double> {
+template <bool seed>
+class CauchyGenerator : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	CauchyGenerator( double location_, double scale_) : 
@@ -39,7 +40,8 @@ private:
 	double location, scale ;
 } ;
 
-class CauchyGenerator_1 : public ::Rcpp::Generator<false,double> {
+template <bool seed>
+class CauchyGenerator_1 : public ::Rcpp::Generator<seed,double> {
 public:
 	
 	CauchyGenerator_1( double location_) : 
@@ -53,6 +55,7 @@ private:
 	double location ;
 } ;
 
+template <bool seed>
 class CauchyGenerator_0 : public ::Rcpp::Generator<false,double> {
 public:
 	
@@ -78,7 +81,7 @@ inline NumericVector rcauchy( int n, double location, double scale ){
     if (scale == 0. || !R_FINITE(location))
     	return NumericVector( n, location ) ;
     
-	return NumericVector( n, stats::CauchyGenerator( location, scale ) ) ;
+	return NumericVector( n, stats::CauchyGenerator<false>( location, scale ) ) ;
 }
 
 // Please make sure you to read Section 6.3 of "Writing R Extensions"
@@ -91,14 +94,14 @@ inline NumericVector rcauchy( int n, double location /* , double scale [=1.0] */
     if (!R_FINITE(location))
     	return NumericVector( n, location ) ;
     
-	return NumericVector( n, stats::CauchyGenerator_1( location ) ) ;
+	return NumericVector( n, stats::CauchyGenerator_1<false>( location ) ) ;
 }
 
 // Please make sure you to read Section 6.3 of "Writing R Extensions"
 // about the need to call GetRNGstate() and PutRNGstate() when using 
 // the random number generators provided by R.
 inline NumericVector rcauchy( int n /*, double location [=0.0] , double scale [=1.0] */ ){
-	return NumericVector( n, stats::CauchyGenerator_0() ) ;
+	return NumericVector( n, stats::CauchyGenerator_0<false>() ) ;
 }
 
 } // Rcpp

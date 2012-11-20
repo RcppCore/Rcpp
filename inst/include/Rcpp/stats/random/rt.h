@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class TGenerator : public ::Rcpp::Generator<false,double> {
+	    template <bool seed>
+		class TGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			TGenerator( double df_ ) : df(df_), df_2(df_/2.0) {}
@@ -56,10 +57,10 @@ namespace Rcpp {
 	
 		// just generating a N(0,1)
 		if(!R_FINITE(df))
-			return NumericVector( n, norm_rand ) ;
+			return NumericVector( n, stats::NormGenerator__mean0__sd1<false>() ) ;
 	
 		// general case
-		return NumericVector( n, stats::TGenerator( df ) ) ;
+		return NumericVector( n, stats::TGenerator<false>( df ) ) ;
 	}
 
 } // Rcpp

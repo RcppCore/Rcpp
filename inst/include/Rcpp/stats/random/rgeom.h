@@ -2,7 +2,7 @@
 //
 // rgeom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class GeomGenerator : public ::Rcpp::Generator<false,double> {
+	    template <bool seed>
+		class GeomGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			GeomGenerator( double p ) : lambda( (1-p)/p  ) {}
@@ -45,7 +46,7 @@ namespace Rcpp {
 	inline NumericVector rgeom( int n, double p ){
 		if (!R_FINITE(p) || p <= 0 || p > 1) 
 			return NumericVector( n, R_NaN );
-		return NumericVector( n, stats::GeomGenerator( p ) ) ;
+		return NumericVector( n, stats::GeomGenerator<false>( p ) ) ;
 	}
 
 } // Rcpp

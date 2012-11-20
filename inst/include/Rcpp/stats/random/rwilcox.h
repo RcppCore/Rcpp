@@ -2,7 +2,7 @@
 //
 // rwilcox.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,12 +23,22 @@
 #define Rcpp__stats__random_rwilcox_h
 
 namespace Rcpp {
-
+    namespace stats {
+        template <bool seed>
+        class WilcoxGenerator : public Generator<seed,double>{
+        public:
+            WilcoxGenerator( double mm_, double nn_) : mm(mm_), nn(nn_){} 
+            inline double operator()() const { return ::Rf_rwilcox(mm,nn); }
+        private:
+            double mm, nn ;
+        } ;
+    } // stats    
+    
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rwilcox( int n, double mm, double nn ){
-		return NumericVector( n, ::Rf_rwilcox, mm, nn ) ;
+		return NumericVector( n, stats::WilcoxGenerator<false>(mm, nn) ) ;
 	}
 
 } // Rcpp
