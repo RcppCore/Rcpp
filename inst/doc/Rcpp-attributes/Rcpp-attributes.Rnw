@@ -92,15 +92,15 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 
 \section{Introduction}
 
-Rcpp attributes are a new feature of \pkg{Rcpp} version 0.10.0 \citep{CRAN:Rcpp,JSS:Rcpp}
+Attributes are a new feature of \pkg{Rcpp} version 0.10.0 \citep{CRAN:Rcpp,JSS:Rcpp}
 that provide infrastructure for seamless language bindings between \proglang{R} and
 \proglang{C++}. The motivation for attributes is several-fold:
 
 \begin{enumerate}
 \item
-  Reducing the learning curve associated with using C++ and R together
+  Reduce the learning curve associated with using C++ and R together
 \item
-  Eliminating boilerplate conversion and marshaling code wherever
+  Eliminate boilerplate conversion and marshaling code wherever
   possible
 \item
   Seamless use of C++ within interactive R sessions
@@ -108,7 +108,7 @@ that provide infrastructure for seamless language bindings between \proglang{R} 
   Unified syntax for interactive work and package development
 \end{enumerate}
 
-The core concept is to add declarative attributes to \proglang{C++} source
+The core concept is to add annotations to \proglang{C++} source
 files that provide the context required to automatically generate \proglang{R}
 bindings to \proglang{C++} functions. Attributes and their supporting
 functions include:
@@ -131,15 +131,19 @@ Attributes can also be used for package development via the
 \texttt{compileAttributes} function, which generates an \pkg{Rcpp} module for
 all exported functions within a package.
 
-Attributes derive their syntax from \proglang{C++11} style attributes
-\citep{Maurer+Wong:2008:AttributesInC++} and are included in source files using specially
-formatted comments.
-
-\pagebreak
-
 \section{Using Attributes}
 
-\subsection{Sourcing C++ Functions}
+Attributes are annotations that are added to C++ source files to provide 
+additional information to the compiler. \pkg{Rcpp} supports attributes
+to indicate that C++ functions should be made available as R functions,
+as well as to optionally specify additional build dependencies for source files.
+
+\proglang{C++11} specifies a standard syntax for attributes
+\citep{Maurer+Wong:2008:AttributesInC++}. Since this standard isn't yet
+fully supported across all compilers, \pkg{Rcpp} attributes are included in
+source files using specially formatted comments.
+
+\subsection{Exporting C++ Functions}
 
 The \texttt{sourceCpp} function parses a \proglang{C++} file and looks for
 functions marked with the \texttt{Rcpp::export} attribute. A shared
@@ -213,17 +217,13 @@ prompt:
 \end{kframe}
 
 
-We can now write \proglang{C++} functions using standard \proglang{C++} types
-and then source them just like an \proglang{R} script using the \texttt{sourceCpp}
-function. Any types that can be marshaled with \texttt{as} and \texttt{wrap}
-can be used in the signatures of exported functions (and since as and wrap are
-in turn extensible,  a wide variety of custom types can be supported).
+We can now write \proglang{C++} functions using built-in \proglang{C++} types
+and \pkg{Rcpp} wrapper types and then source them just as we would an
+\proglang{R} script. 
 
 The \texttt{sourceCpp} function performs caching based on the last
 modified date of the source file so as long as the source file does not
 change the compilation will occur only once per R session.
-
-\pagebreak
 
 \subsection{Specifying Argument Defaults}
 
@@ -234,17 +234,18 @@ the following C++ function:
 % \begin{verbatim}
 % DataFrame readData(
 %     CharacterVector file, 
-%     CharacterVector exclude = CharacterVector::create(),
-%     bool fill = true)
+%     CharacterVector colNames = CharacterVector::create(),
+%     std::string commentChar = "#",
+%     bool header = true)
 % \end{verbatim}
 \begin{kframe}
 \noindent
 \ttfamily
-\hlstd{\hspace*{\fill}\\
-DataFrame\ }\hlkwd{readData}\hlstd{}\hlopt{(}\hspace*{\fill}\\
-\hlstd{}\hlstd{\ \ \ \ }\hlstd{CharacterVector\ file}\hlopt{,\ }\hspace*{\fill}\\
-\hlstd{}\hlstd{\ \ \ \ }\hlstd{CharacterVector\ exclude\ }\hlopt{=\ }\hlstd{CharacterVector}\hlopt{::}\hlstd{}\hlkwd{create}\hlstd{}\hlopt{(),}\hspace*{\fill}\\
-\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwb{bool\ }\hlstd{fill\ }\hlopt{=\ }\hlstd{}\hlkwa{true}\hlstd{}\hlopt{)}\hspace*{\fill}
+\hlstd{DataFrame\ }\hlkwd{readData}\hlstd{}\hlopt{(}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{CharacterVector\ file}\hlopt{,\ }\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{CharacterVector\ cols\ }\hlopt{=\ }\hlstd{CharacterVector}\hlopt{::}\hlstd{}\hlkwd{create}\hlstd{}\hlopt{(),}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{std}\hlopt{::}\hlstd{string\ comment\ }\hlopt{=\ }\hlstd{}\hlstr{"\#"}\hlstd{}\hlopt{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ }\hlstd{}\hlkwb{bool\ }\hlstd{header\ }\hlopt{=\ }\hlstd{}\hlkwa{true}\hlstd{}\hlopt{)}\hlstd{}\hspace*{\fill}
 \mbox{}
 \normalfont
 \normalsize
@@ -253,12 +254,12 @@ DataFrame\ }\hlkwd{readData}\hlstd{}\hlopt{(}\hspace*{\fill}\\
 Will be exported to R as:
 
 % \begin{verbatim}
-% function (file, exclude = character(0), fill = TRUE)
+% function (file, colNames = character(0), commentChar = "#", header = TRUE)
 % \end{verbatim}
 \begin{kframe}
 \noindent
 \ttfamily
-\hlstd{}\hlkwa{function\ }\hlstd{}\hlopt{(}\hlstd{file}\hlopt{,\ }\hlstd{exclude\ }\hlopt{=\ }\hlstd{}\hlkwd{character}\hlstd{}\hlopt{(}\hlstd{}\hlnum{0}\hlstd{}\hlopt{),\ }\hlstd{fill\ }\hlopt{=\ }\hlstd{}\hlkwb{TRUE}\hlstd{}\hlopt{)}\hlstd{}\hspace*{\fill}
+\hlstd{}\hlkwa{function\ }\hlstd{}\hlopt{(}\hlstd{file}\hlopt{,\ }\hlstd{cols\ }\hlopt{=\ }\hlstd{}\hlkwd{character}\hlstd{}\hlopt{(}\hlstd{}\hlnum{0}\hlstd{}\hlopt{),\ }\hlstd{comment\ }\hlopt{=\ }\hlstd{}\hlstr{"\#"}\hlstd{}\hlopt{,\ }\hlstd{header\ }\hlopt{=\ }\hlstd{}\hlkwb{TRUE}\hlstd{}\hlopt{)\ }\hlstd{}\hspace*{\fill}
 \mbox{}
 \normalfont
 \normalsize
@@ -308,8 +309,6 @@ requirements to be correctly handled:
    \texttt{DataFrame} is okay as a type name but \texttt{std::string} must be
    specified fully).  
 \end{itemize}
-
-\pagebreak
 
 \subsection{Importing Dependencies}
 
@@ -394,8 +393,6 @@ either by using multiple \texttt{Rcpp::depends} attributes or with syntax like t
 Dependencies are discovered both by scanning for package include directories
 and by invoking \pkg{inline} plugins if they are available for a package.
 
-\pagebreak
-
 \subsection{Embedding R Code}
 
 Typically \proglang{C++} and \proglang{R} code are kept in their own source
@@ -432,7 +429,7 @@ Multiple \proglang{R} code chunks can be included in a \proglang{C++} file. The
 \texttt{sourceCpp} function will first compile the \proglang{C++} code into a
 shared library and then source the embedded \proglang{R} code.
 
-\subsection{Using C++ Inline}
+\subsection{Including C++ Inline}
 
 Maintaining C++ code in it's own source file provides several benefits including
 the ability to use \proglang{C++} aware text-editing tools and straightforward
@@ -491,10 +488,18 @@ You can also specify a depends parameter to \texttt{cppFunction} or \texttt{eval
 
 \section{Package Development}
 
-Using \texttt{sourceCpp} requires that \proglang{C++} development tools be 
-available to build the code. If you want to distribute code to
-users that don't have these tools installed you should bundle your code into
-an R package. 
+One of the goals of \pkg{Rcpp} attributes is to simultaneously facilitate
+ad-hoc and interactive work with \proglang{C++} while also making it very easy to
+migrate that work into an \proglang{R} package. Two major benefits of moving code
+from a standalone \proglang{C++} source file to a package are:
+
+\begin{enumerate}
+\item
+  Users without \proglang{C++} development tools available can use your code.
+\item
+  Multiple source files and their dependencies are handled automatically
+  by the \proglang{R} package build system.
+\end{enumerate}
 
 To build a package that is based on \pkg{Rcpp} you should first follow the 
 guidelines in the `\textsl{Rcpp-package}' vignette (for a new package this
@@ -544,107 +549,34 @@ step may be required. Specifically, if your package \texttt{NAMESPACE} file
 does not use a pattern to export functions then you should add an explicit
 entry to \texttt{NAMESPACE} for each R function you want publicly available.
 
-\subsection{Providing a C++ Interface}
+\subsection{Specifying Dependencies}
 
-You can use the \texttt{Rcpp::interfaces} attribute to expose the underlying
-\proglang{C++} functions directly to users of your package. For example, the following
-specifies that both R and \proglang{C++} interfaces should be generated:
-
-% \begin{verbatim}
-% // [[Rcpp::interfaces(r, cpp)]]
-% \end{verbatim}
-
-\begin{kframe}
-\noindent
-\ttfamily
-\hlstd{}\hlslc{//\ {[}{[}Rcpp::interfaces(r,\ cpp){]}{]}}\hlstd{}\hspace*{\fill}
-\mbox{}
-\normalfont
-\normalsize
-\end{kframe}
-
-The \texttt{Rcpp::interfaces} attribute is specified on a per-source file basis.
-If you request a \texttt{cpp} interface for a source file then
-\texttt{compileAttributes} does the following:
-
-\begin{enumerate}
-\item
-  Bindings are generated into a header file located in the
-  \texttt{inst/include} directory of the package using the naming
-  convention \code{PackageName\_RcppExports.h}
-\item
-  If not already present, an additional header file named \code{PackageName.h}
-  is also generated which in turn includes  \code{PackageName\_RcppExports.h}
-  
-  In the case that you already have a \code{PackageName.h} header for your
-  package then you can manually add an include of
-  \code{PackageName\_RcppExports.h} to it to make the exported
-  functions available to users of your package.
-\item
-  The generated header file enables calling the exported \proglang{C++}functions
-  without  any linking dependency on the package. This is based on using the
-  \texttt{R\_RegisterCCallable} and \texttt{R\_GetCCallable} functions described
-  in `\textsl{Writing R Extensions}' \citep{R:Extensions}.
-\item
-  The exported functions are defined within a \proglang{C++} namespace that matches
-  the name of the package.
-\end{enumerate}
-
-For example, an exported \proglang{C++} function \texttt{bar} could be called from
-package \texttt{MyPackage} as follows:
-
-% \begin{verbatim}
-% // [[Rcpp::depends(MyPackage)]]
-
-% #include <MyPackage.h>
-
-% void foo() {
-%     MyPackage::bar();
-% }
-% \end{verbatim}
-
-\begin{kframe}
-\noindent
-\ttfamily
-\hlstd{}\hlslc{//\ {[}{[}Rcpp::depends(MyPackage){]}{]}}\hspace*{\fill}\\
-\hlstd{}\hspace*{\fill}\\
-\hlppc{\#include\ $<$MyPackage.h$>$}\hspace*{\fill}\\
-\hlstd{}\hspace*{\fill}\\
-\hlkwb{void\ }\hlstd{}\hlkwd{foo}\hlstd{}\hlopt{()\ \{}\hspace*{\fill}\\
-\hlstd{}\hlstd{\ \ \ \ }\hlstd{MyPackage}\hlopt{::}\hlstd{}\hlkwd{bar}\hlstd{}\hlopt{();}\hspace*{\fill}\\
-\hlstd{}\hlopt{\}}\hlstd{}\hspace*{\fill}
-\mbox{}
-\normalfont
-\normalsize
-\end{kframe}
-
-Note that the default behavior if an \texttt{Rcpp::interfaces} attribute
-is not included in a source file is to generate an R interface only.
-
-\subsection{Packages and sourceCpp}
-
-One of the goals of \pkg{Rcpp} attributes is to simultaneously facilitate
-ad-hoc and interactive work with \proglang{C++} while also making it very easy to
-migrate that work into an \proglang{R} package. Two major benefits of moving code
-from a standalone \proglang{C++} source file to a package are:
-
-\begin{enumerate}
-\item
-  Users without \proglang{C++} development tools available can use your code.
-\item
-  Multiple source files and their dependencies are handled automatically
-  by the \proglang{R} package build system.
-\end{enumerate}
-
-Once you've migrated \proglang{C++} code into a package it's still possible use
-\texttt{sourceCpp} with it for iterative development. The main thing to keep in
-mind is that the dependencies for source files within a package are derived from
-the \texttt{Depends} and \texttt{LinkingTo} fields in the package
-\texttt{DESCRIPTION} file rather than the \texttt{Rcpp::depends} attribute.
+Once you've migrated \proglang{C++} code into a package, the dependencies for
+source files are derived from the \texttt{Depends} and \texttt{LinkingTo} fields
+in the package \texttt{DESCRIPTION} file rather than the \texttt{Rcpp::depends}
+attribute. For every package you import C++ code from (including \pkg{Rcpp}) 
+you need to add these entries.
 
 \pagebreak
 
-\subsection{Using Roxygen}
+For example, if your package depends on \pkg{Rcpp} and \pkg{RcppArmadillo}
+you would have the following in your \texttt{DESCRIPTION} file:
+
+% \begin{verbatim}
+% Depends: Rcpp (>= 0.10.0), RcppArmadillo (>= 0.3.4.4)
+% LinkingTo: Rcpp, RcppArmadillo
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{Depends:\ Rcpp\ ($>$=\ 0.10.0),\ RcppArmadillo\ ($>$=\ 0.3.4.4)\hspace*{\fill}\\
+LinkingTo:\ Rcpp,\ RcppArmadillo}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+\subsection{Roxygen Comments}
 
 The \pkg{roxygen2} package \citep{CRAN:roxygen2} provides a facility for
 automatically generating \proglang{R} documentation files based on specially
@@ -703,13 +635,169 @@ Two notes about the R functions written to \texttt{RcppExports.R} for use with
 roxygen:
 \begin{enumerate}
 \item The generated R functions have an empty body. This is because they are 
-only present for binding to roxygen comments (they'll be replaced by the 
-corresponding \proglang{C++} functions by \texttt{loadModule}).
+only present for binding to roxygen comments. A call to \texttt{Rcpp::loadModule}
+will replace the empty defintions with the appropriate \proglang{C++} functions.
 \item The functions do not include argument defaults since they are 
 not known at the time of generation. If you have argument defaults that you'd
 like included in the Rd usage section you can do this by adding an explicit
 \texttt{@usage} roxygen tag.
 \end{enumerate}
+
+\pagebreak
+
+\subsection{Providing a C++ Interface}
+
+The interface exposed from \proglang{R} packages is most typically a set of
+\proglang{R} functions. However, the \proglang{R} package system also provides
+a mechanism to allow the exporting of \proglang{C} and \proglang{C++}
+interfaces using package header files.  This is based on the
+\texttt{R\_RegisterCCallable} and \texttt{R\_GetCCallable} functions described in 
+`\textsl{Writing R Extensions}' \citep{R:Extensions}.
+
+\proglang{C++} interfaces to a package are published within the 
+top level \texttt{include} directory of the package (which within the package
+source directory is located at \texttt{inst/include}). The \proglang{R} build
+system automatically adds the required \texttt{include} directories for all
+packages specified in the \texttt{LinkingTo} field of the package
+\texttt{DESCRIPTION} file.
+
+\subsubsection{Interfaces Attribute}
+
+The \texttt{Rcpp::interfaces} attribute can be used to automatically 
+generate a header-only interface to your \proglang{C++} functions
+within the \texttt{include} directory of your package.
+
+The \texttt{Rcpp::interfaces} attribute is specified on a per-source
+file basis, and indicates which interfaces (\proglang{R}, \proglang{C++}, 
+or both) should be provided for exported functions within the file.
+
+For example, the following specifies that both R and \proglang{C++} interfaces
+should be generated for a source file:
+
+% \begin{verbatim}
+% // [[Rcpp::interfaces(r, cpp)]]
+% \end{verbatim}
+
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::interfaces(r,\ cpp){]}{]}}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+Note that the default behavior if an \texttt{Rcpp::interfaces} attribute
+is not included in a source file is to generate an R interface only.
+
+\subsubsection{Generated Code}
+
+If you request a \texttt{cpp} interface for a source file then
+\texttt{compileAttributes} generates the following header files 
+(substituting \emph{Package} with the name of the package code is being
+generated for):
+
+% \begin{verbatim}
+% inst/include/Package.h
+% inst/include/Package_RcppExports.h
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{inst/include/Package.h\hspace*{\fill}\\
+inst/include/Package\textunderscore RcppExports.h}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+The \texttt{Package\_RcppExports.h} file has inline definitions for all 
+exported \proglang{C++} functions that enable calling them using the
+\texttt{R\_GetCCallable} mechanism. 
+
+The \texttt{Package.h} file does nothing other than include the
+\texttt{Package\_RcppExports.h} header. This is done so 
+that package authors can replace the \texttt{Package.h} header with
+a custom one and still be able to include the automatically generated exports 
+(details on doing this are provided in the next section).
+
+\pagebreak
+
+The exported functions are defined within a \proglang{C++} namespace that matches
+the name of the package. For example, an exported \proglang{C++} function
+\texttt{bar} could be called from package \texttt{MyPackage} as follows:
+
+% \begin{verbatim}
+% // [[Rcpp::depends(MyPackage)]]
+
+% #include <MyPackage.h>
+
+% void foo() {
+%     MyPackage::bar();
+% }
+% \end{verbatim}
+
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlslc{//\ {[}{[}Rcpp::depends(MyPackage){]}{]}}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlppc{\#include\ $<$MyPackage.h$>$}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlkwb{void\ }\hlstd{}\hlkwd{foo}\hlstd{}\hlopt{()\ \{}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{MyPackage}\hlopt{::}\hlstd{}\hlkwd{bar}\hlstd{}\hlopt{();}\hspace*{\fill}\\
+\hlstd{}\hlopt{\}}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+\subsubsection{Including Additional Code}
+
+You might wish to use the \texttt{Rcpp::interfaces} attribute to generate
+a part of your package's \proglang{C++} interface but also provide 
+additional custom \proglang{C++} code. In this case you 
+should replace the generated \texttt{Package.h} file with one of your own. 
+
+Note that the way \pkg{Rcpp} distinguishes user verses generated files is by checking
+for the presence a special token in the file (if it's present then it's known
+to be generated and thus safe to overwrite). You'll see this token at the top
+of the generated \texttt{Package.h} file, be sure to remove it if you want 
+to provide a custom header.
+
+Once you've established a custom package header file, you need only include the 
+\texttt{Package\_RcppExports.h} file within your header to make available 
+the automatically generated code alongside your own.
+
+If you need to include code from your custom header files within the 
+compilation of your package source files, you will also need to add the
+following entry to \texttt{Makevars} and \texttt{Makevars.win} (both are 
+in the \texttt{src} directory of your package):
+
+% \begin{verbatim}
+% PKG_CPPFLAGS += -I../inst/include/
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{PKG\textunderscore CPPFLAGS\ +=\ {-}I../inst/include/}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+Note that the R package build system does not automatically force a rebuild
+when headers in \texttt{inst/include} change, so you should be sure to perform a
+full rebuild of the package after making changes to these headers.
+
+\subsubsection{Binary Compatibility}
+
+An additional consideration related to exposing \proglang{C++} functions from a package
+is binary compatibility. If a user of your package compiles against 
+one version of your package and then runs against another version the binary
+layout of \proglang{C++} types used must remain stable in order for things to work
+correctly. The recommended way to minimize binary compatibility problems is to
+only use built-in \proglang{C++} types and \pkg{Rcpp} wrapper types in your interfaces. 
 
 \pagebreak
 

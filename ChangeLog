@@ -1,3 +1,8 @@
+2012-11-20  JJ Allaire <jj@rstudio.org>
+
+        * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: elaborate further
+        on exporting C++ interfaces from packages
+
 2012-11-20  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream/Rostream.h: change order of initiaization in 
