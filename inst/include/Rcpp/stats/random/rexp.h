@@ -2,7 +2,7 @@
 //
 // rexp.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class ExpGenerator : public ::Rcpp::Generator<false,double> {
+	    template <bool seed>
+		class ExpGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			ExpGenerator( double scale_ ) : scale(scale_) {}
@@ -36,6 +37,13 @@ namespace Rcpp {
 	
 		private:
 			double scale ;
+		} ;
+		
+		template <bool seed>
+		class ExpGenerator__rate1 : public Generator<seed,double>{
+		public:
+		    ExpGenerator__rate1(){}
+		    inline double operator()() const { return exp_rand() ; }
 		} ;
 
 	} // stats
@@ -50,12 +58,10 @@ namespace Rcpp {
 			/* else */
 			return NumericVector( n, R_NaN ) ;
 		}
-		if( scale == 1.0 )
-			return NumericVector( n, ::exp_rand ) ;
-		return NumericVector( n, stats::ExpGenerator( scale ) ) ;
+		return NumericVector( n, stats::ExpGenerator<false>( scale ) ) ;
 	}
-	inline NumericVector rexp( int n){
-		return NumericVector( n, ::exp_rand ) ;
+	inline NumericVector rexp( int n /* , rate = 1 */ ){
+		return NumericVector( n, stats::ExpGenerator__rate1<false>() ) ;
 	}
 
 }

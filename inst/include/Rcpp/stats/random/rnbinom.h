@@ -2,7 +2,7 @@
 //
 // rnbinom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class NBinomGenerator : public ::Rcpp::Generator<false,double> {
+	    template <bool seed>
+		class NBinomGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			NBinomGenerator( double siz_, double prob_ ) : 
@@ -49,7 +50,7 @@ namespace Rcpp {
 			/* prob = 1 is ok, PR#1218 */
 			return NumericVector( n, R_NaN ) ;
     
-		return NumericVector( n, stats::NBinomGenerator( siz, prob ) ) ;
+		return NumericVector( n, stats::NBinomGenerator<false>( siz, prob ) ) ;
 	}
 
 } // Rcpp

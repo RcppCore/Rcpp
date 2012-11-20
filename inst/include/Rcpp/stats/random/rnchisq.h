@@ -2,7 +2,7 @@
 //
 // rnchisq.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class NChisqGenerator : public ::Rcpp::Generator<false,double> {
+		template <bool seed>
+		class NChisqGenerator : public ::Rcpp::Generator<seed,double> {
 		public:
 	
 			NChisqGenerator( double df_, double lambda_ ) : 
@@ -57,9 +58,9 @@ namespace Rcpp {
 			return NumericVector(n, R_NaN) ;
 		if( lambda == 0.0 ){
 			// using the central generator, see rchisq.h
-			return NumericVector( n, stats::ChisqGenerator( df ) ) ;
+			return NumericVector( n, stats::ChisqGenerator<false>( df ) ) ;
 		}
-		return NumericVector( n, stats::NChisqGenerator( df, lambda ) ) ;
+		return NumericVector( n, stats::NChisqGenerator<false>( df, lambda ) ) ;
 	}
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
@@ -68,7 +69,7 @@ namespace Rcpp {
 	inline NumericVector rnchisq( int n, double df /*, double lambda = 0.0 */ ){
 		if (!R_FINITE(df) || df < 0. ) 
 			return NumericVector(n, R_NaN) ;
-		return NumericVector( n, stats::ChisqGenerator( df ) ) ;
+		return NumericVector( n, stats::ChisqGenerator<false>( df ) ) ;
 	}
 
 } // Rcpp

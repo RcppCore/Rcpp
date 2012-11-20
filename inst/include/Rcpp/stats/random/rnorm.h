@@ -2,7 +2,7 @@
 //
 // rnorm.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,7 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		class NormGenerator : public Generator<false,double> {
+	    template <bool seed>
+		class NormGenerator : public Generator<seed,double> {
 		public:
 	
 			NormGenerator( double mean_ = 0.0 , double sd_ = 1.0 ) : 
@@ -41,7 +42,8 @@ namespace Rcpp {
 		} ;
 
 
-		class NormGenerator__sd1 : public Generator<false,double> {
+		template <bool seed>
+		class NormGenerator__sd1 : public Generator<seed,double> {
 		public:
 	
 			NormGenerator__sd1( double mean_ = 0.0 ) : mean(mean_) {}
@@ -55,7 +57,8 @@ namespace Rcpp {
 		} ;
 
 
-		class NormGenerator__mean0 : public Generator<false,double> {
+		template <bool seed>
+		class NormGenerator__mean0 : public Generator<seed,double> {
 		public:
 	
 			NormGenerator__mean0( double sd_ = 1.0 ) : sd(sd_) {}
@@ -68,7 +71,18 @@ namespace Rcpp {
 			double sd ;
 		} ;
 
-
+		template <bool seed>
+		class NormGenerator__mean0__sd1 : public Generator<seed,double> {
+		public:
+	
+			NormGenerator__mean0__sd1( ) {}
+	
+			inline double operator()() const {
+				return ::norm_rand() ;
+			}
+	
+		} ;
+		
 	} // stats
 
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
@@ -84,14 +98,14 @@ namespace Rcpp {
 			bool sd1 = sd == 1.0 ; 
 			bool mean0 = mean == 0.0 ;
 			if( sd1 && mean0 ){
-				return NumericVector( n, norm_rand ) ;
+				return NumericVector( n, stats::NormGenerator__mean0__sd1<false>() ) ;
 			} else if( sd1 ){
-				return NumericVector( n, stats::NormGenerator__sd1( mean ) );
+				return NumericVector( n, stats::NormGenerator__sd1<false>( mean ) );
 			} else if( mean0 ){
-				return NumericVector( n, stats::NormGenerator__mean0( sd ) );
+				return NumericVector( n, stats::NormGenerator__mean0<false>( sd ) );
 			} else {
 				// general case
-				return NumericVector( n, stats::NormGenerator( mean, sd ) );
+				return NumericVector( n, stats::NormGenerator<false>( mean, sd ) );
 			}
 		}
 	}
@@ -108,9 +122,9 @@ namespace Rcpp {
 		} else {
 			bool mean0 = mean == 0.0 ;
 			if( mean0 ){
-				return NumericVector( n, norm_rand ) ;
+				return NumericVector( n, stats::NormGenerator__mean0__sd1<false>() ) ;
 			} else {
-				return NumericVector( n, stats::NormGenerator__sd1( mean ) );
+				return NumericVector( n, stats::NormGenerator__sd1<false>( mean ) );
 			}
 		}
 	}
@@ -119,7 +133,7 @@ namespace Rcpp {
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rnorm( int n /*, double mean [=0.0], double sd [=1.0] */ ){
-		return NumericVector( n, norm_rand ) ;
+		return NumericVector( n, stats::NormGenerator<false>() ) ;
 	}
 
 } // Rcpp

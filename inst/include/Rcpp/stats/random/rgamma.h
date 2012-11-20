@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rgammah: Rcpp R/C++ interface class library -- 
+// rgamma.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,7 +23,19 @@
 #define Rcpp__stats__random_rgamma_h
 
 namespace Rcpp {
-
+    namespace stats {
+        template <bool seed>
+        class GammaGenerator : public Generator<seed,double>{
+        public:
+            GammaGenerator(double a_, double scale_) : 
+                a(a_), scale(scale_) {}
+            inline double operator()() const { return ::Rf_rgamma(a, scale ) ;}    
+        private:
+            double a, scale ;
+        } ;
+    }    // stats
+    
+    
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
@@ -33,8 +45,17 @@ namespace Rcpp {
 			return NumericVector( n, R_NaN ) ;
 		}
 		if( a == 0. ) return NumericVector(n, 0. ) ;
-		return NumericVector( n, ::Rf_rgamma, a, scale ) ;
-	}
+		return NumericVector( n, stats::GammaGenerator<false>(a, scale) ) ;
+	} 
+	inline NumericVector rgamma( int n, double a /* scale = 1.0 */ ){
+		if (!R_FINITE(a) || a < 0.0 ) {
+			return NumericVector( n, R_NaN ) ;
+		}
+		if( a == 0. ) return NumericVector(n, 0. ) ;
+		/* TODO: check if we can take advantage of the scale = 1 special case */
+		return NumericVector( n, stats::GammaGenerator<false>(a, 1.0) ) ;
+	} 
+	
 
 } // Rcpp
 

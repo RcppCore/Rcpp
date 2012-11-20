@@ -2,7 +2,7 @@
 //
 // rbinom.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,12 +23,27 @@
 #define Rcpp__stats__random_rbinom_h
 
 namespace Rcpp {
-
+namespace stats {
+    
+    template <bool seed> 
+    class BinomGenerator : public Generator<seed,double>{
+    public:
+        BinomGenerator( double nin_, double pp_ ) : nin(nin_), pp(pp_){}
+        inline double operator()() const{
+            return ::Rf_rbinom( nin, pp ) ;    
+        }
+    private:
+        double nin, pp ;
+    } ;
+    
+}  // stats
+    
+    
 	// Please make sure you to read Section 6.3 of "Writing R Extensions"
 	// about the need to call GetRNGstate() and PutRNGstate() when using 
 	// the random number generators provided by R.
 	inline NumericVector rbinom( int n, double nin, double pp ){
-		return NumericVector( n, ::Rf_rbinom, nin, pp) ;
+		return NumericVector( n, stats::BinomGenerator<false>(nin, pp) ) ;
 	}
 
 } // Rcpp
