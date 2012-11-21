@@ -93,27 +93,7 @@ private:
         int n = size() ;
         if( n == x.size() ){
             // just copy the data 
-            iterator start = begin() ;
-            
-            int __trip_count = n >> 2 ;
-            int i = 0 ;
-            for ( ; __trip_count > 0 ; --__trip_count) { 
-            	*start++ = x[i++] ;            
-            	*start++ = x[i++] ;            
-            	*start++ = x[i++] ;            
-            	*start++ = x[i++] ;            
-            }                                            
-            switch (n - i){                          
-            case 3:                                    
-                *start++ = x[i++] ;             
-            case 2:                                    
-                *start++ = x[i++] ;             
-            case 1:                                    
-                *start++ = x[i++] ;             
-            case 0:                                    
-            default:                                   
-                {}                         
-            }
+            import_expression<T>(x, n ) ;
         } else{
             // different size, so we change the memory
             set_sexp( r_cast<RTYPE>( wrap(x) ) ); 
@@ -156,7 +136,7 @@ public:
     Vector( const VectorBase<RTYPE,NA,VEC>& other ) : RObject() {
     	int n = other.size() ;
     	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
-    	import_expression<NA,VEC>( other, n ) ;
+    	import_expression<VEC>( other.get_ref() , n ) ;
     }
     
     
@@ -164,37 +144,11 @@ public:
 private:
 	  
     // TODO: do some dispatch when VEC == Vector so that we use std::copy
-    template <bool NA, typename VEC>
-    inline void import_expression( const VectorBase<RTYPE,NA,VEC>& other, int n ){
+    template <typename T>
+    inline void import_expression( const T& other, int n ){
         iterator start = begin() ; 
-        const VEC& ref = other.get_ref() ;
-        
-        int __trip_count = n >> 2 ;
-        int i = 0 ;
-    	for ( ; __trip_count > 0 ; --__trip_count) { 
-            start[i] = ref[i] ; i++ ;            
-            start[i] = ref[i] ; i++ ;            
-            start[i] = ref[i] ; i++ ;            
-            start[i] = ref[i] ; i++ ;            
-    	}                                            
-    	switch (n - i){                          
-        case 3:                                    
-            start[i] = ref[i] ; i++ ;             
-        case 2:                                    
-            start[i] = ref[i] ; i++ ;             
-        case 1:                                    
-            start[i] = ref[i] ; i++ ;             
-        case 0:                                    
-        default:                                   
-            {}                         
-    	}
+        RCPP_LOOP_UNROLL_PTR(start,other)
     }
-    
-    // template <>
-    // inline void import_expression<true,Vector>( const VectorBase<RTYPE,NA,VEC>& other, int n ){
-    //     const VEC& ref = other.get_ref() ;
-    //     std::copy( ref.begin(), ref.end(), begin() ) ;
-    // }
     
     template <typename T>
     inline void fill_or_generate( const T& t){

@@ -9,6 +9,8 @@
           \item New functions: \code{setdiff}, \code{union_}, \code{intersect}
             \code{setequal}, \code{in}, \code{min}, \code{max}, \code{range}, 
             \code{match}
+          \item New function: \code{clip} which combines pmin and pmax, e.g. 
+          clip( a, x, b) is the same as pmax( b, pmin(x, a) )
         }
         \item Changes in Rcpp API:
         \itemize{
