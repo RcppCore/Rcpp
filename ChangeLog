@@ -1,3 +1,7 @@
+2012-11-21  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/iostream/Rostream.h: Fix warning given by -Wreorder
+
 2012-11-20  JJ Allaire <jj@rstudio.org>
 
         * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: elaborate further
