@@ -6,6 +6,7 @@
         that uses attributes
         * man/Rcpp.package.skeleton.Rd: doc updates
         * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: doc updates
+        * DESCRIPTION: bump version to 0.10.0.3
 
 2012-11-21  Dirk Eddelbuettel  <edd@debian.org>
 
