@@ -1,3 +1,9 @@
+2012-11-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/Misc/piBySimulation.r: New simple example using Rcpp
+	attributes in a 'compute pi by simulation in R and C++' exercise
+	* inst/examples/Misc/piSugar.cpp: Corresponding C++ variant
+
 2012-11-21  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream/Rostream.h: Fix warning given by -Wreorder
@@ -10,12 +16,12 @@
 
 2012-11-20  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/iostream/Rostream.h: change order of initiaization in 
-        ctor. was making solaris compiler unhappy
+        * include/Rcpp/iostream/Rostream.h: change order of initiaization in
+	ctor. was making solaris compiler unhappy
         * include/Rcpp/stats/random/rnorm.h: not using function pointer
-        generators, as this generates (anachronisms) warning on solaris. Also, 
-        this version is more efficient since there is no need to dereference
-        the function pointer
+	generators, as this generates (anachronisms) warning on
+	solaris. Also, this version is more efficient since there is no need
+	to dereference the function pointer
 
 2012-11-19  JJ Allaire <jj@rstudio.org>
 
@@ -30,8 +36,8 @@
 
 2012-11-18  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: sourceCpp embedded R code; print warning if 
-        no export attributes are found in source file
+        * R/Attributes.R: sourceCpp embedded R code; print warning if no
+	export attributes are found in source file
         * src/AttributesParser.h: sourceCpp embedded R code
         * src/AttributesParser.cpp: sourceCpp embedded R code; new scheme
         for mixing user and generated C++ headers
