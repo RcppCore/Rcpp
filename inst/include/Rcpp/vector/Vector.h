@@ -88,30 +88,28 @@ public:
     
 private:
     
-    // sugar
     template <typename T>
-    inline void assign_object( const T& x, traits::true_type ){
+    inline void assign_sugar_expression( const T& x ){
         int n = size() ;
         if( n == x.size() ){
-           
             // just copy the data 
             iterator start = begin() ;
             
             int __trip_count = n >> 2 ;
             int i = 0 ;
             for ( ; __trip_count > 0 ; --__trip_count) { 
-            	start[i] = x[i] ; i++ ;            
-            	start[i] = x[i] ; i++ ;            
-            	start[i] = x[i] ; i++ ;            
-            	start[i] = x[i] ; i++ ;            
+            	*start++ = x[i++] ;            
+            	*start++ = x[i++] ;            
+            	*start++ = x[i++] ;            
+            	*start++ = x[i++] ;            
             }                                            
             switch (n - i){                          
             case 3:                                    
-                start[i] = x[i] ; i++ ;             
+                *start++ = x[i++] ;             
             case 2:                                    
-                start[i] = x[i] ; i++ ;             
+                *start++ = x[i++] ;             
             case 1:                                    
-                start[i] = x[i] ; i++ ;             
+                *start++ = x[i++] ;             
             case 0:                                    
             default:                                   
                 {}                         
@@ -120,6 +118,12 @@ private:
             // different size, so we change the memory
             set_sexp( r_cast<RTYPE>( wrap(x) ) ); 
         }
+    }
+    
+    // sugar
+    template <typename T>
+    inline void assign_object( const T& x, traits::true_type ){
+        assign_sugar_expression( x.get_ref() ) ;
     }
     
     // anything else
