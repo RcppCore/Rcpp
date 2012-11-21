@@ -7,6 +7,9 @@
 2012-11-21  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream/Rostream.h: Fix warning given by -Wreorder
+        * include/Rcpp/sugar/functions/mapply/mapply_3.h: more flexible
+        * include/Rcpp/vector/Vector.h: More efficient assign_object, which is 
+        used in the assignment operator
 
 2012-11-20  JJ Allaire <jj@rstudio.org>
 
