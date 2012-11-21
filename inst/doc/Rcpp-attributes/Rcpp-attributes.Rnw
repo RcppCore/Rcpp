@@ -495,7 +495,7 @@ moving code from a standalone \proglang{C++} source file to a package:
 
 \begin{enumerate}
 \item
-  Your code can be made availiable to users without \proglang{C++} development
+  Your code can be made available to users without \proglang{C++} development
   tools (at least on Windows or Mac OS X where binary packages are common)
 \item
   Multiple source files and their dependencies are handled automatically
@@ -505,9 +505,43 @@ moving code from a standalone \proglang{C++} source file to a package:
   and consistency
 \end{enumerate}
 
-To build a package that is based on \pkg{Rcpp} you should first follow the 
-guidelines in the `\textsl{Rcpp-package}' vignette (for a new package this
-typically entails creating the package using \texttt{Rcpp.package.skeleton}).
+\subsection{Package Creation}
+
+To create a package that is based on \pkg{Rcpp} you should follow the 
+guidelines in the `\textsl{Rcpp-package}' vignette. For a new package this
+is most conveniently done using  the \texttt{Rcpp.package.skeleton} function.
+
+To generate a new package with a simple hello, world function that uses 
+attributes you can do the following:
+
+% \begin{verbatim}
+% > Rcpp.package.skeleton("NewPackage", attributes = TRUE)
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{$>$\ }\hlstd{Rcpp}\hlopt{.}\hlstd{package}\hlopt{.}\hlstd{}\hlkwd{skeleton}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"NewPackage"}\hlstd{}\hlopt{,\ }\hlstd{attributes\ }\hlopt{=\ }\hlstd{}\hlkwb{TRUE}\hlstd{}\hlopt{)}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+To generate a package based on \proglang{C++} files that you've been using
+with \texttt{sourceCpp} you can use the \texttt{cpp\_files} parameter:
+
+% \begin{verbatim}
+% > Rcpp.package.skeleton("NewPackage", example_code = FALSE,
+%                          cpp_files = c("convolve.cpp"))
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{$>$\ }\hlstd{Rcpp}\hlopt{.}\hlstd{package}\hlopt{.}\hlstd{}\hlkwd{skeleton}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"NewPackage"}\hlstd{}\hlopt{,\ }\hlstd{example\textunderscore code\ }\hlopt{=\ }\hlstd{}\hlkwb{FALSE}\hlstd{}\hlopt{,}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\hlstd{cpp\textunderscore files\ }\hlopt{=\ }\hlstd{}\hlkwd{c}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"convolve.cpp"}\hlstd{}\hlopt{))}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
 
 \subsection{Exporting R Functions}
 
@@ -638,14 +672,12 @@ roxygen:
 \begin{enumerate}
 \item The generated R functions have an empty body. This is because they are 
 only present for binding to roxygen comments. A call to \texttt{Rcpp::loadModule}
-will replace the empty defintions with the appropriate \proglang{C++} functions.
+will replace the empty definitions with the appropriate \proglang{C++} functions.
 \item The functions do not include argument defaults since they are 
 not known at the time of generation. If you have argument defaults that you'd
 like included in the Rd usage section you can do this by adding an explicit
 \texttt{@usage} roxygen tag.
 \end{enumerate}
-
-\pagebreak
 
 \subsection{Providing a C++ Interface}
 
@@ -723,8 +755,6 @@ that package authors can replace the \texttt{Package.h} header with
 a custom one and still be able to include the automatically generated exports 
 (details on doing this are provided in the next section).
 
-\pagebreak
-
 The exported functions are defined within a \proglang{C++} namespace that matches
 the name of the package. For example, an exported \proglang{C++} function
 \texttt{bar} could be called from package \texttt{MyPackage} as follows:
@@ -800,8 +830,6 @@ one version of your package and then runs against another version the binary
 layout of \proglang{C++} types used must remain stable in order for things to work
 correctly. The recommended way to minimize binary compatibility problems is to
 only use built-in \proglang{C++} types and \pkg{Rcpp} wrapper types in your interfaces. 
-
-\pagebreak
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}
