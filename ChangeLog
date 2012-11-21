@@ -4,6 +4,7 @@
 
 2012-11-20  JJ Allaire <jj@rstudio.org>
 
+        * src/Attributes.cpp: ensure dynlib cache state is always updated
         * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: elaborate further
         on exporting C++ interfaces from packages
 
