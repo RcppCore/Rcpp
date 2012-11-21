@@ -13,8 +13,8 @@ Create a skeleton for a new package depending on Rcpp
 \usage{
 Rcpp.package.skeleton(name = "anRpackage", list = character(), 
 	environment = .GlobalEnv, path = ".", force = FALSE, 
-	namespace = TRUE, code_files = character(), 
-	example_code = TRUE, module = FALSE, 
+	namespace = TRUE, code_files = character(), cpp_files = character(),
+	example_code = TRUE, attributes = FALSE, module = FALSE, 
 	author = "Who wrote it", 
 	maintainer = if(missing( author)) "Who to complain to" else author, 
 	email = "yourfault@somewhere.net", 
@@ -29,7 +29,9 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	\item{force}{See \link[utils]{package.skeleton}}
 	\item{namespace}{See \link[utils]{package.skeleton}}
 	\item{code_files}{See \link[utils]{package.skeleton}}
+	\item{cpp_files}{A character vector with the paths to C++ source files to add to the package. }
 	\item{example_code}{If TRUE, example c++ code using Rcpp is added to the package. }
+	\item{attributes}{If TRUE, example code makes use of Rcpp attributes.}
 	\item{module}{If TRUE, an example \code{\link{Module}} is added to the skeleton. }
 	\item{author}{Author of the package.}
 	\item{maintainer}{Maintainer of the package.}
@@ -49,6 +51,9 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	a \samp{Makevars} file is added setting the environment variables
 	\samp{PKG_LIBS} to accomodate the necessary flags to link with the Rcpp library. 
 	
+	If \code{cpp_files} are provided then they will be copied to the \samp{src}
+	directory.
+	
 	If the \code{example_code} argument is set to \code{TRUE}, 
 	example files \samp{rcpp_hello_world.h} and \samp{rcpp_hello_world.cpp}
 	are also created in the \samp{src}. An R file \samp{rcpp_hello_world.R} is 
@@ -56,6 +61,10 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	defined in this files makes use of the C++ function \samp{rcpp_hello_world}
 	defined in the C++ file. These files are given as an example and should 
 	eventually by removed from the generated package.
+	
+	If the \code{attributes} argument is \code{TRUE}, then rather than generate
+	the example files as described above, a single \samp{rcpp_hello_world.cpp}
+	file is created in the \samp{src} directory and it's attributes are compiled.
 	
 	If the \code{module} argument is \code{TRUE}, a sample Rcpp module will 
 	be generated as well. 
@@ -77,6 +86,9 @@ see the \emph{R Installation and Administration} manual,
 \dontrun{
 # simple package
 Rcpp.package.skeleton( "foobar" )
+
+# package using attributes
+Rcpp.package.skeleton( "foobar", attributes = TRUE )
 
 # package with a module
 Rcpp.package.skeleton( "testmod", module = TRUE )

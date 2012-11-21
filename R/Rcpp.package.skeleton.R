@@ -20,14 +20,18 @@
 Rcpp.package.skeleton <- function(
 	name = "anRpackage", list = character(), environment = .GlobalEnv,
 	path = ".", force = FALSE, namespace = TRUE,
-	code_files = character(),
+	code_files = character(), cpp_files = character(),
 	example_code = TRUE,
+	attributes = FALSE,
 	module = FALSE,
 	author = "Who wrote it",
 	maintainer = if(missing( author)) "Who to complain to" else author,
 	email = "yourfault@somewhere.net",
 	license = "What Licence is it under ?"
 	){
+	
+	if (!is.character(cpp_files)) 
+		stop("'cpp_files' must be a character vector")
 
 	env <- parent.frame(1)
 
@@ -129,21 +133,37 @@ Rcpp.package.skeleton <- function(
 		file.copy( file.path( skeleton, "Makevars.win" ), Makevars.win )
 		message( " >> added Makevars.win file with Rcpp settings" )
 	}
-
+	
+	if ( length(cpp_files) > 0L ) {
+		for (file in cpp_files) {
+			file.copy(file, src)
+			message( " >> copied ", file, " to src directory" )
+		}
+		compileAttributes(root)
+	}
+	
 	if( example_code ){
-		header <- readLines( file.path( skeleton, "rcpp_hello_world.h" ) )
-		header <- gsub( "@PKG@", name, header, fixed = TRUE )
-		writeLines( header , file.path( src, "rcpp_hello_world.h" ) )
-		message( " >> added example header file using Rcpp classes")
-
-		file.copy( file.path( skeleton, "rcpp_hello_world.cpp" ), src )
-		message( " >> added example src file using Rcpp classes")
-
-		rcode <- readLines( file.path( skeleton, "rcpp_hello_world.R" ) )
-		rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
-		writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
-		message( " >> added example R file calling the C++ example")
-
+		if ( isTRUE( attributes ) ) {
+			file.copy( file.path( skeleton, "rcpp_hello_world_attributes.cpp" ), 
+								 file.path( src, "rcpp_hello_world.cpp" ) )
+			message( " >> added example src file using Rcpp attributes")
+			compileAttributes(root)
+			message( " >> compiled Rcpp attributes")
+		} else {
+			header <- readLines( file.path( skeleton, "rcpp_hello_world.h" ) )
+			header <- gsub( "@PKG@", name, header, fixed = TRUE )
+			writeLines( header , file.path( src, "rcpp_hello_world.h" ) )
+			message( " >> added example header file using Rcpp classes")
+			
+			file.copy( file.path( skeleton, "rcpp_hello_world.cpp" ), src )
+			message( " >> added example src file using Rcpp classes")
+			
+			rcode <- readLines( file.path( skeleton, "rcpp_hello_world.R" ) )
+			rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
+			writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
+			message( " >> added example R file calling the C++ example")
+		}
+		
 		hello.Rd <- file.path( root, "man", "rcpp_hello_world.Rd")
 		unlink( hello.Rd )
 		file.copy(

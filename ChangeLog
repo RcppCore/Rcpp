@@ -1,3 +1,11 @@
+2012-11-21  JJ Allaire <jj@rstudio.org>
+
+        * R/Rcpp.package.skeleton.R: add 'attributes' and 'cpp_files'
+        parameters to Rcpp.pacakge.skeleton
+        * inst/skeleton/rcpp_hello_world_attributes.cpp: version of hello world
+        that uses attributes
+        * man/Rcpp.package.skeleton.Rd: documentation updates
+
 2012-11-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/Misc/piBySimulation.r: New simple example using Rcpp
