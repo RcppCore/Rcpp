@@ -21,11 +21,20 @@
         \item Changes in Rcpp attributes: 
         \itemize{
             \item Ability to embed R code chunks (via specially formatted
-            block comments) in C++ source files
-            \item Allow specification of argument defaults for exported functions 
+            block comments) in C++ source files.
+            \item Allow specification of argument defaults for exported functions. 
             \item New scheme for more flexible mixing of generated and user composed
-            C++ headers
-            \item Print warning if no export attributes are found in source file
+            C++ headers.
+            \item Additions to \code{Rcpp.package.skeleton}:
+            \itemize{
+            	\item \code{attributes} parameter to generate a version of 
+            	\code{rcpp_hello_world} that uses \code{Rcpp::export}.
+            	\item \code{cpp_files} parameter to provide a list of C++
+            	files to include the in the \code{src} directory of the package.
+            }
+            \item Print warning if no export attributes are found in source file.
+            \item Updated vignette with additional documentation on exposing
+            C++ interfaces from packages.
         }
         \item Changes in R code :
         \itemize{

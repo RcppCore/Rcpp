@@ -125,15 +125,11 @@ Attributes
     
     o   Proactively detect types that can't be handled by as/wrap and print
         a clearer error message
-    
-    o   Enhance Rcpp.package.skeleton to: optionally generate hello_world
-        using attributes and handle existing source files with Rcpp::depends
-        (use inline plugin to get the right Makevars, etc.)
-    
+     
     o   Add unit tests 
 
-    o   Typechecking on CppFunction calls so that seg-faults don't occur
-        when passing incorrect types
+    o   Seg-fault occurs whenever exceptions (including as/wrap incorrect
+        type errors) occur within a module exported function
 
     o   Add docstring parameter to Rcpp::export attribute
 
