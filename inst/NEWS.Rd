@@ -6,7 +6,7 @@
     \itemize{
         \item Changes in Rcpp sugar: 
         \itemize{
-            \item New functions: \code{setdiff}, \code{union_}, \code{intersect}
+          \item New functions: \code{setdiff}, \code{union_}, \code{intersect}
             \code{setequal}, \code{in}, \code{min}, \code{max}, \code{range}, 
             \code{match}
         }
@@ -31,6 +31,10 @@
         \itemize{
             \item New function \code{areMacrosDefined}    
         }
+        \item Miscellaneous changes:
+        \itemize{
+          \item New example 'pi simulation' using R and C++ via Rcpp attributes
+	}
     }
 }
 \section{Changes in Rcpp version 0.10.0 (2012-11-13)}{
