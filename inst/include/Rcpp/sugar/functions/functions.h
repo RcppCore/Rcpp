@@ -41,7 +41,7 @@
 #include <Rcpp/sugar/functions/ifelse.h>
 #include <Rcpp/sugar/functions/pmin.h>
 #include <Rcpp/sugar/functions/pmax.h>
-#include <Rcpp/sugar/functions/clip.h>
+#include <Rcpp/sugar/functions/clamp.h>
 #include <Rcpp/sugar/functions/minmax.h>
 #include <Rcpp/sugar/functions/sign.h>
 #include <Rcpp/sugar/functions/diff.h>
