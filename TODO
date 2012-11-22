@@ -46,18 +46,13 @@ Documentation
 API
 
     o   Rcpp::Factor and Rcpp::Ordered
-    
-    o   const operators, as requested on Rcpp-devel:
-        http://permalink.gmane.org/gmane.comp.lang.r.rcpp/494
 
     o   Fast indexing and g++ 4.5.0 or later: open issue of why this compiler
         gets upset when the previous version(s) coped just fine
 
 Modules 
         
-    o   Class inheritance. If we have Foo and Bar : public Foo, and we expose
-        both Foo and Bar to R, R level class Bar should enjoy methods of Foo
-        and the S4 inheritance should reflect the C++ level inheritance
+    o   Class inheritance. Reflect C++ inheritance at the R level. 
         
 Syntactic sugar
 
@@ -73,13 +68,9 @@ Syntactic sugar
 
     o 	crossprod
 	
-    o	SUGAR_MATH: is there overhead in having the function pointer, should
-	the macro generate code that statically calls the function ? It would 
-	probably be harder to write/debug
-		
     o	Vector * Matrix, Matrix * Matrix
 
-    o   duplicated, unique, count, sum
+    o   duplicated, count
     
     o   operator% 
     

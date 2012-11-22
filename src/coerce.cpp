@@ -2,7 +2,7 @@
 //
 // coerce.cpp: Rcpp R/C++ interface class library -- coercion
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -20,6 +20,8 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <RcppCommon.h>
+
+#include <R_ext/PrtUtil.h>
 
 namespace Rcpp{ 
 namespace internal{
@@ -134,6 +136,62 @@ template <> Rcomplex r_coerce<LGLSXP,CPLXSXP>(int from){
 		c.r = c.i = NA_REAL;
 	}
 	return c ;
+}
+
+inline int integer_width( int n ){
+    return n < 0 ? ( (int) ( log10( -n+0.5) + 2 ) ) : ( (int) ( log10( n+0.5) + 1 ) ) ;    
+}
+
+#define NB 1000
+template <> SEXP r_coerce<INTSXP ,STRSXP>(int from){
+    static char buffer[NB] ;
+    if( from == NA_INTEGER ) return NA_STRING ;
+    snprintf( buffer, NB, "%*d", integer_width(from), from );
+    return Rf_mkChar(buffer) ;
+}
+template <> SEXP r_coerce<LGLSXP ,STRSXP>(int from){
+    return from == NA_LOGICAL ? NA_STRING : (from == 0 ? Rf_mkChar("FALSE") : Rf_mkChar("TRUE") ) ;    
+}
+template <> SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from){
+    char buff[3];
+    ::sprintf(buff, "%02x", from);
+    return Rf_mkChar( buff ) ;    
+}
+
+
+static const char* dropTrailing0(char *s, char cdec) {
+    /* Note that  's'  is modified */
+    char *p = s;
+    for (p = s; *p; p++) {
+	if(*p == cdec) {
+	    char *replace = p++;
+	    while ('0' <= *p  &&  *p <= '9')
+		if(*(p++) != '0')
+		    replace = p;
+	    if(replace != p)
+		while((*(replace++) = *(p++)))
+		    ;
+	    break;
+	}
+    }
+    return s;
+}
+
+template <> SEXP r_coerce<REALSXP,STRSXP>(double x){
+    if( Rcpp::traits::is_na<REALSXP>( x ) ) return NA_STRING ;
+    
+    int w,d,e ;
+    Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
+    char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
+	return Rf_mkChar(dropTrailing0(tmp, '.'));
+        
+}
+template <> SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex x){
+    if( Rcpp::traits::is_na<CPLXSXP>(x) ) return NA_STRING ;
+    
+    int wr, dr, er, wi, di, ei;
+    Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
+    return Rf_mkChar( Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' ));
 }
 
 
