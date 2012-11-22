@@ -7,33 +7,7 @@ Current active misfeatures
 
     o   Sugar ops unit tests on +, -, ... need double, fail with int
 
-Current inactive misfeatures
-
-    o   Bugs found by Doug when using -ltcmalloc from the Google
-        Performance ToolsOne: 
-          - Rcpp::Dimension tickled from Rcpp::Matrix
-          - Rcpp::Function and eval
-        Both should be tickleable using the one-but-last version of
-        minqa and an R-devel version built with --enable-strict-barrier
-
-        Update by DE:  Cannot replicate this on my Linux box
- 
-    o   Bob Carpenter post to rcpp-devel on Mar 23 with Rcpp modules,
-        freshly generated from skeleton, breaking under 64 bit OS X
-        _And_ while this works for me on R 2.14.2 on 64 bit Linux, it
-        also breaks for me with R-devel and does not build:
-          ** testing if installed package can be loaded
-          Error : .onLoad failed in loadNamespace() for 'mypkg2', details:
-            call: value[[3L]](cond)
-            error: failed to load module yada from package mypkg2
-          no binding for "World"
-          Error: loading failed
-
-        Update by DE: Bob now says this may be local, so let's disregard.
-
 Documentation
-
-    o   Glenn Lawyer post to rcpp-devel on Mar 14 with Rcpp modules patch
 
     o   Add a vignette about Rcpp sugar [in progress]
     
