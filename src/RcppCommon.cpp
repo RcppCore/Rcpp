@@ -3,7 +3,7 @@
 // RcppCommon.cpp: R/C++ interface class library -- common functions
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -124,11 +124,11 @@ const char * sexp_to_name(int sexp_type) {
 namespace Rcpp{
 namespace internal{
 
-	template<> int* r_vector_start<INTSXP,int>(SEXP x){ return INTEGER(x) ; }
-	template<> int* r_vector_start<LGLSXP,int>(SEXP x){ return LOGICAL(x) ; }
-	template<> double* r_vector_start<REALSXP,double>(SEXP x){ return REAL(x) ; }
-	template<> Rbyte* r_vector_start<RAWSXP,Rbyte>(SEXP x){ return RAW(x) ; }
-	template<> Rcomplex* r_vector_start<CPLXSXP,Rcomplex>(SEXP x){ return COMPLEX(x) ; }
+	template<> int* r_vector_start<INTSXP>(SEXP x){ return INTEGER(x) ; }
+	template<> int* r_vector_start<LGLSXP>(SEXP x){ return LOGICAL(x) ; }
+	template<> double* r_vector_start<REALSXP>(SEXP x){ return REAL(x) ; }
+	template<> Rbyte* r_vector_start<RAWSXP>(SEXP x){ return RAW(x) ; }
+	template<> Rcomplex* r_vector_start<CPLXSXP>(SEXP x){ return COMPLEX(x) ; }
 	
 	template<> void r_init_vector<VECSXP>(SEXP x){}
 	template<> void r_init_vector<EXPRSXP>(SEXP x){}

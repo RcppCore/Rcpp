@@ -416,6 +416,15 @@ public:
         return NameProxy( *this, name ) ;
     }
 	
+    Vector& sort(){
+        std::sort( 
+            internal::r_vector_start<RTYPE>(m_sexp), 
+            internal::r_vector_start<RTYPE>(m_sexp) + size(), 
+            typename traits::comparator_type<RTYPE>::type()
+            ) ;
+        return *this ;
+    }
+
     template <typename InputIterator>
     void assign( InputIterator first, InputIterator last){
         /* FIXME: we can do better than this r_cast to avoid 

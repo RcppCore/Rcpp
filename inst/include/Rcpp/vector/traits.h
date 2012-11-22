@@ -36,7 +36,7 @@ namespace traits{
 		
 		r_vector_cache() : start(0){} ;
 		void update( const VECTOR& v ) {
-			start = ::Rcpp::internal::r_vector_start<RTYPE,storage_type>(v.asSexp()) ;
+			start = ::Rcpp::internal::r_vector_start<RTYPE>(v.asSexp()) ;
 			RCPP_DEBUG_3( " cache<%d>::update( <%p> ), start = <%p>", RTYPE, reinterpret_cast<void*>(v.asSexp()),  reinterpret_cast<void*>(start) ) ;
 		}
 		inline iterator get() const { return start; }
