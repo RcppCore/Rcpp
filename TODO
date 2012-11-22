@@ -44,7 +44,7 @@ Syntactic sugar
 	
     o	Vector * Matrix, Matrix * Matrix
 
-    o   duplicated, count
+    o   duplicated
     
     o   operator% 
     
