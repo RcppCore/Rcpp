@@ -1,3 +1,7 @@
+2012-11-22 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/iostream.h: use delete rdbuf() as recommended by Martyn Plummer
+        
 2012-11-21  JJ Allaire <jj@rstudio.org>
 
         * R/Rcpp.package.skeleton.R: add 'attributes' and 'cpp_files'
