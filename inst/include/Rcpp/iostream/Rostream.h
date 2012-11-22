@@ -34,6 +34,7 @@ namespace Rcpp {
     class Rostream : public std::ostream {
     public:
         Rostream(bool output) : std::ostream( new Rstreambuf(output) ) {}
+        ~Rostream(){ delete rdbuf() ; }
     };
     
     // declare global variable
