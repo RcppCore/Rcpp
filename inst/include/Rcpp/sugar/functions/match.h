@@ -25,13 +25,12 @@
 namespace Rcpp{
 namespace sugar{
 
-template <typename HASH>
+template <typename HASH, typename STORAGE>
 class HashIndexInserter {
 public:
     HashIndexInserter( HASH& hash_ ) : hash(hash_), index(1){}
     
-    template <typename T>
-    inline void operator()( T value ){
+    inline void operator()( STORAGE value ){
         hash.insert( std::make_pair(value, index++) ) ;
     }
     
@@ -39,13 +38,12 @@ private:
     HASH& hash ;
     int index;
 } ; 
-template <typename HASH>
+template <typename HASH, typename STORAGE>
 class HashIndexFinder {
 public:
     HashIndexFinder( HASH& hash_) : hash(hash_), end(hash.end()) {}
     
-    template <typename T>
-    inline int operator()( T value ){
+    inline int operator()( STORAGE value ){
         typename HASH::const_iterator it = hash.find(value);
         if( it == end ){
             return NA_INTEGER ;    
@@ -64,25 +62,22 @@ private:
 template <int RTYPE, typename TABLE_T>        
 class IndexHash {
 public:
+    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+    
     IndexHash( const TABLE_T& table ): hash() {
-        for_each( get_const_begin(table), get_const_end(table), HashIndexInserter<HASH>(hash) ) ;
+        for_each( table.begin(), table.end(), Inserter(hash) ) ;
     }
     
     template <typename T>
     IntegerVector match( const T& obj ){
-        int n=obj.size() ;
-        IntegerVector out = no_init(n) ;
-        std::transform( 
-            get_const_begin(obj), get_const_end(obj), 
-            out.begin(), 
-            HashIndexFinder<HASH>(hash)
-        ) ;
+        IntegerVector out( obj.begin(), obj.end(), Finder(hash) ) ;
         return out ;
     }
  
 private:
-    typedef RCPP_UNORDERED_MAP< typename Rcpp::traits::storage_type<RTYPE>::type, int > HASH ;
-    typedef typename HASH::const_iterator HASH_iterator ;
+    typedef RCPP_UNORDERED_MAP<STORAGE,int> HASH ;
+    typedef HashIndexInserter<HASH,STORAGE> Inserter ;
+    typedef HashIndexFinder<HASH,STORAGE> Finder ;
     HASH hash ;    
 }; 
     
