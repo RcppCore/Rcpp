@@ -1,6 +1,8 @@
 2012-11-22 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream.h: use delete rdbuf() as recommended by Martyn Plummer
+        * include/Rcpp/sugar/functions/self_match.h: self_match, giving a
+        functionality similar to match( x, unique(x) )
         
 2012-11-21  JJ Allaire <jj@rstudio.org>
 

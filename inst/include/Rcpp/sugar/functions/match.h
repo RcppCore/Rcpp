@@ -88,15 +88,6 @@ inline IntegerVector match( const VectorBase<RTYPE,NA,T>& x, const VectorBase<RT
     return hash.match( x.get_ref() ) ;
 }
 
-
-template <int RTYPE, bool NA, typename T>
-inline IntegerVector self_match( const VectorBase<RTYPE,NA,T>& x ){
-    const T& ref = x.get_ref() ;
-    sugar::IndexHash<RTYPE,T> hash( ref ) ;
-    return hash.match( ref ) ;
-}
-
-
 } // Rcpp
 #endif
 
