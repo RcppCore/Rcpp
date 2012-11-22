@@ -6,6 +6,7 @@
         * src/coerce.cpp: added coercion to STRSXP
         * include/Rcpp/internal/r_coerce.h : added r_coerce<.,STRPSXP>
         * include/Rcpp/sugar/functions/table.h: sugar table
+        * include/Rcpp/sugar/functions/duplicated.h: sugar duplicated
         
 2012-11-21  JJ Allaire <jj@rstudio.org>
 
