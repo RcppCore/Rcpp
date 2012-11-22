@@ -75,10 +75,7 @@ private:
 template <>
 class Unique<STRSXP,CharacterVector> {
 public:
-    Unique( const CharacterVector& vec ) : 
-        set( get_string_ptr(vec), get_string_ptr(vec) + vec.size() )
-    {
-    }
+    Unique( const CharacterVector& vec ) : set( vec.begin(), vec.end() ) {}
     
     CharacterVector get( ) {
         return CharacterVector( set.begin(), set.end() ) ;
