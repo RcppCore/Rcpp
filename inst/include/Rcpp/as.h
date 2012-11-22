@@ -31,7 +31,7 @@ namespace Rcpp{
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
             SEXP y = PROTECT( r_cast<RTYPE>(x) );
             typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
-            T res = caster<STORAGE,T>( *r_vector_start<RTYPE,STORAGE>( y ) ) ;
+            T res = caster<STORAGE,T>( *r_vector_start<RTYPE>( y ) ) ;
             UNPROTECT(1) ;
             return res ; 
         }
