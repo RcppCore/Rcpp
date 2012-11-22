@@ -36,9 +36,7 @@ public:
         return Vector<RTYPE>( set.begin(), set.end() ) ;
     }
     Vector<RTYPE> get_sorted( ) {
-        Vector<RTYPE> out( set.begin(), set.end() ) ;
-        std::sort( out.begin(), out.end() ) ;
-        return out ;
+        return Vector<RTYPE>( set.begin(), set.end() ).sort() ;
     }
     
 private:
@@ -64,10 +62,7 @@ public:
         return CharacterVector( set.begin(), set.end() ) ;
     }
     CharacterVector get_sorted( ) {
-        CharacterVector out( set.begin(), set.end() ) ;
-        SEXP* p_out = get_string_ptr(out) ;
-        std::sort( p_out, p_out + set.size(), StringCompare() );
-        return out ;
+        return CharacterVector( set.begin(), set.end() ).sort() ;
     }
     
 private:
@@ -86,19 +81,11 @@ public:
     }
     
     CharacterVector get( ) {
-        CharacterVector out(set.size()) ;
-        std::copy( set.begin(), set.end(), get_string_ptr(out) ) ;
-        return out ;
+        return CharacterVector( set.begin(), set.end() ) ;
     }
     
     CharacterVector get_sorted( ) {
-        int n = set.size() ;
-        CharacterVector out(n) ;
-        SEXP* p_out = get_string_ptr(out) ;
-        std::copy( set.begin(), set.end(), p_out ) ;
-        std::sort( p_out, p_out+n, StringCompare() ) ;
-        
-        return out ;
+        return CharacterVector( set.begin(), set.end() ).sort() ;
     }
 private:
     
@@ -106,13 +93,12 @@ private:
    
 } ;
 
-template <typename SET>
+template <typename SET, typename STORAGE>
 class InSet {
 public:
     InSet( const SET& hash_ ) : hash(hash_), end(hash_.end()){}
     
-    template <typename T>
-    inline int operator()(T value){
+    inline int operator()(STORAGE value){
         return hash.find(value) != end ;    
     }
     
@@ -128,18 +114,12 @@ public:
     
     template <typename T>
     LogicalVector get( const T& x) const {
-        int n = x.size() ;
-        LogicalVector out = no_init(n) ;
-        std::transform( 
-            get_const_begin(x), get_const_end(x),
-            out.begin(),
-            InSet<SET>(hash)
-        ) ;
-        return out ;
+        return LogicalVector( x.begin(), x.end(), InSet<SET,STORAGE>(hash) ) ;
     }
     
 private:
-    typedef typename RCPP_UNORDERED_SET< typename traits::storage_type<RTYPE>::type > SET ;
+    typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+    typedef typename RCPP_UNORDERED_SET<STORAGE> SET ;
     SET hash ;
     
 } ;

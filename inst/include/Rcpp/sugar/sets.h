@@ -33,17 +33,4 @@
     #define RCPP_UNORDERED_MAP std::map
 #endif
 
-namespace Rcpp{
-namespace sugar{
-    
-class StringCompare {
-public:
-    inline bool operator()( SEXP x, SEXP y){
-        return strcmp( char_nocheck(x), char_nocheck(y) ) < 0 ; 
-    }
-} ;
-
-} // sugar
-} // Rcpp
-
 #endif

@@ -3,7 +3,7 @@
 //
 // r_vector.h: Rcpp R/C++ interface class library -- information about R vectors
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,12 +26,14 @@
 namespace Rcpp{
 namespace internal{
 
-template<int RTYPE, typename CTYPE> CTYPE* r_vector_start(SEXP x){ return static_cast<CTYPE*>(0) ; }
-template<> int* r_vector_start<INTSXP,int>(SEXP x) ; 
-template<> int* r_vector_start<LGLSXP,int>(SEXP x) ;
-template<> double* r_vector_start<REALSXP,double>(SEXP x) ;
-template<> Rbyte* r_vector_start<RAWSXP,Rbyte>(SEXP x) ; 
-template<> Rcomplex* r_vector_start<CPLXSXP,Rcomplex>(SEXP x) ;                         
+template<int RTYPE> 
+typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x){ return get_vector_ptr(x) ; }
+
+template<> int* r_vector_start<INTSXP>(SEXP x) ; 
+template<> int* r_vector_start<LGLSXP>(SEXP x) ;
+template<> double* r_vector_start<REALSXP>(SEXP x) ;
+template<> Rbyte* r_vector_start<RAWSXP>(SEXP x) ; 
+template<> Rcomplex* r_vector_start<CPLXSXP>(SEXP x) ;                         
 
 /**
  * The value 0 statically casted to the appropriate type for 
@@ -50,7 +52,7 @@ template<> Rcomplex get_zero<CPLXSXP,Rcomplex>() ;
  */
 template<int RTYPE> void r_init_vector(SEXP x){
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
-	CTYPE* start=r_vector_start<RTYPE,CTYPE>(x) ;
+	CTYPE* start=r_vector_start<RTYPE>(x) ;
 	std::fill( start, start + Rf_length(x), get_zero<RTYPE,CTYPE>() ) ;
 }
 /**

@@ -58,8 +58,7 @@ inline SEXP primitive_range_wrap__impl( InputIterator first, InputIterator last,
 	size_t size = std::distance( first, last ) ;
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
-	std::transform( first, last, 
-		r_vector_start< RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x), 
+	std::transform( first, last, r_vector_start<RTYPE>(x), 
 		caster< T, typename ::Rcpp::traits::storage_type<RTYPE>::type >
 		) ; 
 	UNPROTECT(1) ;
@@ -74,7 +73,7 @@ inline SEXP primitive_range_wrap__impl__nocast( InputIterator first, InputIterat
 	                                          
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	int __trip_count = size >> 2 ;
-	STORAGE* start = r_vector_start<RTYPE,STORAGE>(x) ;
+	STORAGE* start = r_vector_start<RTYPE>(x) ;
 	int i = 0 ;
 	for ( ; __trip_count > 0 ; --__trip_count) { 
     	start[i] = first[i] ; i++ ;            
@@ -103,7 +102,7 @@ inline SEXP primitive_range_wrap__impl__nocast( InputIterator first, InputIterat
 	size_t size = std::distance( first, last ) ;
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
-	std::copy( first, last, r_vector_start<RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x) ) ; 
+	std::copy( first, last, r_vector_start<RTYPE>(x) ) ; 
 	UNPROTECT(1) ;
 	return wrap_extra_steps<T>( x ) ;
 }
@@ -192,7 +191,7 @@ inline SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
-	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
+	CTYPE* start = r_vector_start<RTYPE>(x) ;
 	size_t i =0;
 	std::string buf ; 
 	for( ; i<size; i++, ++first){
@@ -221,7 +220,7 @@ inline SEXP range_wrap_dispatch___impl__cast( InputIterator first, InputIterator
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
-	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
+	CTYPE* start = r_vector_start<RTYPE>(x) ;
 	size_t i =0;
 	std::string buf ; 
 	for( ; i<size; i++, ++first){
@@ -346,7 +345,7 @@ template <typename T>
 inline SEXP primitive_wrap__impl__cast( const T& object, ::Rcpp::traits::false_type ){
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, 1 ) );
-	r_vector_start<RTYPE, typename ::Rcpp::traits::storage_type<RTYPE>::type >(x)[0] = object ;
+	r_vector_start<RTYPE>(x)[0] = object ;
 	UNPROTECT(1);
 	return x;
 }
@@ -359,7 +358,7 @@ inline SEXP primitive_wrap__impl__cast( const T& object, ::Rcpp::traits::true_ty
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE_TYPE ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, 1 ) );
-	r_vector_start<RTYPE,STORAGE_TYPE>(x)[0] = caster<T,STORAGE_TYPE>(object) ;
+	r_vector_start<RTYPE>(x)[0] = caster<T,STORAGE_TYPE>(object) ;
 	UNPROTECT(1);
 	return x;
 }
@@ -482,7 +481,7 @@ inline SEXP wrap_dispatch_matrix_primitive( const T& object ){
 	SEXP res = PROTECT( Rf_allocVector( RTYPE, nr*nc ) );
 	
 	int k=0 ;
-	STORAGE* p = r_vector_start< RTYPE, STORAGE >(res) ;
+	STORAGE* p = r_vector_start< RTYPE>(res) ;
 	for( int j=0; j<nc; j++)
 		for( int i=0; i<nr; i++, k++)
 			p[k] = object(i,j) ;
@@ -568,7 +567,7 @@ inline SEXP wrap_dispatch_importer__impl__prim( const T& object, ::Rcpp::traits:
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
-	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
+	CTYPE* start = r_vector_start<RTYPE>(x) ;
 	for( int i=0; i<size; i++){
 		start[i] = object.get(i) ;
 	}
@@ -583,7 +582,7 @@ inline SEXP wrap_dispatch_importer__impl__prim( const T& object, ::Rcpp::traits:
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype ;
 	SEXP x = PROTECT( Rf_allocVector( RTYPE, size ) );
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
-	CTYPE* start = r_vector_start<RTYPE,CTYPE>(x) ;
+	CTYPE* start = r_vector_start<RTYPE>(x) ;
 	for( int i=0; i<size; i++){
 		start[i] = caster<elem_type,CTYPE>( object.get(i) );
 	}
@@ -745,7 +744,7 @@ template <typename value_type, typename InputIterator>
 inline SEXP primitive_rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::false_type ){
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	SEXP out = PROTECT( ::Rf_allocVector( RTYPE, nrow * ncol ) );
-	value_type* ptr = r_vector_start<RTYPE,value_type>( out );
+	value_type* ptr = r_vector_start<RTYPE>( out );
 	int i=0, j=0 ;
 	for( j=0; j<ncol; j++){
 		for( i=0; i<nrow; i++, ++first ){
@@ -764,7 +763,7 @@ inline SEXP primitive_rowmajor_wrap__dispatch( InputIterator first, int nrow, in
 	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	SEXP out = PROTECT( ::Rf_allocVector( RTYPE, nrow * ncol ) );
-	STORAGE* ptr = r_vector_start<RTYPE,STORAGE>( out );
+	STORAGE* ptr = r_vector_start<RTYPE>( out );
 	int i=0, j=0 ;
 	for( j=0; j<ncol; j++){
 		for( i=0; i<nrow; i++, ++first ){

@@ -70,8 +70,7 @@ public:
     
     template <typename T>
     IntegerVector match( const T& obj ){
-        IntegerVector out( obj.begin(), obj.end(), Finder(hash) ) ;
-        return out ;
+        return IntegerVector( obj.begin(), obj.end(), Finder(hash) ) ;
     }
  
 private:

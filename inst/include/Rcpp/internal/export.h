@@ -3,7 +3,7 @@
 //
 // export.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -33,7 +33,7 @@ namespace Rcpp{
 	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 	    std::copy( start, start + ::Rf_length(y), first ) ;
 	    UNPROTECT(1) ;
         }
@@ -43,7 +43,7 @@ namespace Rcpp{
 	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 	    std::transform( start, start + ::Rf_length(y) , first, caster<STORAGE,value_type> ) ;
 	    UNPROTECT(1) ;
         }
@@ -83,7 +83,7 @@ namespace Rcpp{
 	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 	    R_len_t size = ::Rf_length(y)  ;
 	    for( R_len_t i=0; i<size; i++){
 		res[i] =  start[i] ;
@@ -96,7 +96,7 @@ namespace Rcpp{
 	    const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 	    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	    SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE,STORAGE>(y) ;
+	    STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 	    R_len_t size = ::Rf_length(y)  ;
 	    for( R_len_t i=0; i<size; i++){
 		res[i] = caster<STORAGE,value_type>(start[i]) ;
