@@ -32,9 +32,13 @@
 namespace Rcpp {
 
     class Rostream : public std::ostream {
+        Rstreambuf* buf ;
     public:
-        Rostream(bool output) : std::ostream( new Rstreambuf(output) ) {}
-        ~Rostream(){ delete rdbuf() ; }
+        Rostream(bool output) : 
+            std::ostream( new Rstreambuf(output) ), 
+            buf( static_cast<Rstreambuf*>( rdbuf() ) )
+        {}
+        ~Rostream(){ delete buf ; }
     };
     
     // declare global variable
