@@ -231,6 +231,18 @@ public:
         assign( first, last ) ;
     }
 
+    template <typename InputIterator, typename Func>
+    Vector( InputIterator first, InputIterator last, Func func) : 
+        RObject( Rf_allocVector( RTYPE, std::distance(first,last) ) )
+    {
+        std::transform( first, last, begin(), func) ;
+    }
+    
+    template <typename InputIterator, typename Func>
+    Vector( InputIterator first, InputIterator last, Func func, int n) : RObject( Rf_allocVector( RTYPE, n ) ){
+        std::transform( first, last, begin(), func) ;
+    }
+
     Vector( const std::string& st ) : RObject(){
         RObject::setSEXP( internal::vector_from_string<RTYPE>(st) );
     }
@@ -413,10 +425,7 @@ public:
 
     template <typename InputIterator, typename F>
     static Vector import_transform( InputIterator first, InputIterator last, F f){
-        int n = std::distance( first, last ) ;
-        Vector v( n ) ;
-        std::transform( first, last, v.begin(), f) ;
-        return v ;
+        return Vector( first, last, f) ;
     }
 	
     template <typename T>
