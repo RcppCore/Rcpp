@@ -3,6 +3,9 @@
         * include/Rcpp/iostream.h: use delete rdbuf() as recommended by Martyn Plummer
         * include/Rcpp/sugar/functions/self_match.h: self_match, giving a
         functionality similar to match( x, unique(x) )
+        * src/coerce.cpp: added coercion to STRSXP
+        * include/Rcpp/internal/r_coerce.h : added r_coerce<.,STRPSXP>
+        * include/Rcpp/sugar/functions/table.h: sugar table
         
 2012-11-21  JJ Allaire <jj@rstudio.org>
 
