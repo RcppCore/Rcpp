@@ -227,19 +227,29 @@ public:
     
    
     template <typename InputIterator>
-    Vector( InputIterator first, InputIterator last) : RObject(){
-        assign( first, last ) ;
+    Vector( InputIterator first, InputIterator last) : RObject( ){
+        int n = std::distance(first, last) ;
+        RObject::setSEXP( Rf_allocVector(RTYPE, n) ) ;
+        std::copy( first, last, begin() ) ; 
+    }
+
+    template <typename InputIterator>
+    Vector( InputIterator first, InputIterator last, int n) : RObject( ){
+        RObject::setSEXP( Rf_allocVector(RTYPE, n) ) ;
+        std::copy( first, last, begin() ) ; 
     }
 
     template <typename InputIterator, typename Func>
     Vector( InputIterator first, InputIterator last, Func func) : 
-        RObject( Rf_allocVector( RTYPE, std::distance(first,last) ) )
+        RObject( )
     {
+        RObject::setSEXP( Rf_allocVector( RTYPE, std::distance(first,last) ) ) ;
         std::transform( first, last, begin(), func) ;
     }
     
     template <typename InputIterator, typename Func>
-    Vector( InputIterator first, InputIterator last, Func func, int n) : RObject( Rf_allocVector( RTYPE, n ) ){
+    Vector( InputIterator first, InputIterator last, Func func, int n) : RObject(  ){
+        RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
         std::transform( first, last, begin(), func) ;
     }
 
