@@ -3,7 +3,7 @@
 //
 // r_coerce.h: Rcpp R/C++ interface class library -- coercion
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -67,6 +67,15 @@ template <> Rcomplex r_coerce<REALSXP,CPLXSXP>(double from) ;
 template <> Rcomplex r_coerce<INTSXP,CPLXSXP>(int from);
 template <> Rcomplex r_coerce<RAWSXP,CPLXSXP>(Rbyte from);
 template <> Rcomplex r_coerce<LGLSXP,CPLXSXP>(int from) ;
+
+// -> STRSXP
+template <> inline SEXP r_coerce<STRSXP ,STRSXP>(SEXP from){ return from ; }
+template <> SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex from) ;
+template <> SEXP r_coerce<REALSXP,STRSXP>(double from) ;
+template <> SEXP r_coerce<INTSXP ,STRSXP>(int from);
+template <> SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from);
+template <> SEXP r_coerce<LGLSXP ,STRSXP>(int from) ;
+
 
 
 } // internal
