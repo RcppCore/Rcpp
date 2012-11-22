@@ -25,9 +25,6 @@
 namespace Rcpp{
 namespace sugar{
 
-    
-    
-    
 template <int RTYPE, typename T>
 class Unique {
 public:
