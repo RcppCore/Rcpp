@@ -2,6 +2,8 @@
 
         * src/AttributesParser.cpp : attempt to fix build issue on r-forge
         * include/Rcpp/DataFrame.h: nrows() method
+        * include/Rcpp/vector/RangeIndexer.h: now derives from VectorBase so that 
+        we can use it in sugar. 
 
 2012-11-22  JJ Allaire <jj@rstudio.org>
 
