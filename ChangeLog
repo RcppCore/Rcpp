@@ -1,3 +1,9 @@
+2012-11-22  JJ Allaire <jj@rstudio.org>
+
+        * include/exceptions.h: new exception constructor / stop function
+        * src/exceptions.cpp: new exception constructor / stop function
+        * include/RcppCommon.h: new exception constructor / stop function
+
 2012-11-22 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream.h: use delete rdbuf() as recommended by Martyn Plummer

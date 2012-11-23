@@ -22,6 +22,7 @@
 #include <Rcpp.h>
 
 namespace Rcpp{
+    exception::exception(const char* message_) : message(message_) {}
     exception::exception( const char* message_, const char* file, int line) : message(message_){
 	rcpp_set_stack_trace( stack_trace(file,line) ) ;
     }
