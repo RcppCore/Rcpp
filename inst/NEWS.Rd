@@ -21,8 +21,9 @@
             \item New helper class \code{no_init} that can be used to 
             create a vector without initializing its data, e.g. : 
             \code{ IntegerVector out = no_init(n) ; }
-            \item New exception constructor requiring only a message; stop
+            \item New exception constructor requiring only a message; \code{stop}
             function to throw an exception
+            \item \code{DataFrame} gains a \code{nrows} method  
         }
         \item Changes in Rcpp attributes: 
         \itemize{

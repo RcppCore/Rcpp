@@ -61,6 +61,8 @@ namespace Rcpp{
 
         static DataFrame create(){ return DataFrame() ; }
                 
+        int nrows(){ return Rf_length( VECTOR_ELT(m_sexp, 0) ); }
+        
 #include <Rcpp/DataFrame_generated.h>           
 
     private:

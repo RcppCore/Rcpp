@@ -403,7 +403,7 @@ namespace attributes_parser {
         // delimites the type and name 
         Type type;
         std::string name;
-        std::string preambleText = signature.substr(0, beginParenLoc);
+        const std::string preambleText = signature.substr(0, beginParenLoc);
         for (std::string::const_reverse_iterator 
             it = preambleText.rbegin(); it != preambleText.rend(); ++it) {
             char ch = *it;
