@@ -26,6 +26,7 @@ namespace Rcpp{
 
 class exception : public std::exception {
 public:
+    explicit exception(const char* message_) ;
     exception(const char* message_, const char* file, int line ) ;
     virtual ~exception() throw() ;
     virtual const char* what() const throw() ;
