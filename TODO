@@ -98,6 +98,10 @@ Attributes
 
     o   Add docstring parameter to Rcpp::export attribute
 
+    o   Rcpp.package.skeleton should look for Rcpp::depends in cpp_files
+        and call inline plugins, etc. as necessary to create a package
+        that can build the cpp file(s)
+
 Testing
 
     o	all r* functions : rnorm, etc ...
