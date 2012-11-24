@@ -834,7 +834,7 @@ exposed by shared libraries and is not specific to \proglang{R} packages or
 `\textsl{Binary Compatibility Issues with C++}' \citep{KDE-TechBase:2012}.
 
 Note that if your package is used within a \proglang{C++} source file compiled with
-\texttt{sourceCpp} then binary compatability is not a concern (because the 
+\texttt{sourceCpp} then binary compatibility is not a concern (because the 
 compilation is always synchronized with the currently installed version of your
 package). Also, packages published on \texttt{CRAN} are automatically rebuilt when a
 package they depend on via \texttt{LinkingTo} is updated, so users with updated
