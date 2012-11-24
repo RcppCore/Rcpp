@@ -824,12 +824,27 @@ full rebuild of the package after making changes to these headers.
 
 \subsubsection{Binary Compatibility}
 
-An additional consideration related to exposing \proglang{C++} functions from a package
-is binary compatibility. If a user of your package compiles against 
-one version of your package and then runs against another version the binary
+An additional consideration related to exposing \proglang{C++} types from a 
+package is binary compatibility. If a user of your package compiles against 
+one version of the package and then runs against another version the binary
 layout of \proglang{C++} types used must remain stable in order for things to work
-correctly. The recommended way to minimize binary compatibility problems is to
-only use built-in \proglang{C++} types and \pkg{Rcpp} wrapper types in your interfaces. 
+correctly. Note that this is an issue that affects all \proglang{C++} interfaces
+exposed by shared libraries and is not specific to \proglang{R} packages or 
+\pkg{Rcpp}. A summary of the issues presented can be found in
+`\textsl{Binary Compatibility Issues with C++}' \citep{KDE-TechBase:2012}.
+
+Note that if your package is used within a \proglang{C++} source file compiled with
+\texttt{sourceCpp} then binary compatability is not a concern (because the 
+compilation is always synchronized with the currently installed version of your
+package). Also, packages published on \texttt{CRAN} are automatically rebuilt when a
+package they depend on via \texttt{LinkingTo} is updated, so users with updated
+versions of all packages will similarly not have binary compatibility problems.
+
+However, even when installing from \texttt{CRAN} it's possible for users to
+have the latest version of one package but not of another. If you want to
+minimize binary compatibility problems even in the face of out-of-sync package
+versions then it's strongly recommended that you use only use built-in
+\proglang{C++} types and \pkg{Rcpp} wrapper types in your interfaces. 
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}
