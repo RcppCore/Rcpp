@@ -14,8 +14,8 @@
 
         * src/AttributesParser.cpp : attempt to fix build issue on r-forge
         * include/Rcpp/DataFrame.h: nrows() method
-        * include/Rcpp/vector/RangeIndexer.h: now derives from VectorBase so that 
-        we can use it in sugar. 
+        * include/Rcpp/vector/RangeIndexer.h: now derives from VectorBase so
+	that we can use it in sugar.
 
 2012-11-22  JJ Allaire <jj@rstudio.org>
 
@@ -25,14 +25,15 @@
 
 2012-11-22 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/iostream.h: use delete rdbuf() as recommended by Martyn Plummer
+        * include/Rcpp/iostream.h: use delete rdbuf() as recommended by
+	Martyn Plummer
         * include/Rcpp/sugar/functions/self_match.h: self_match, giving a
         functionality similar to match( x, unique(x) )
         * src/coerce.cpp: added coercion to STRSXP
         * include/Rcpp/internal/r_coerce.h : added r_coerce<.,STRPSXP>
         * include/Rcpp/sugar/functions/table.h: sugar table
         * include/Rcpp/sugar/functions/duplicated.h: sugar duplicated
-        
+
 2012-11-21  JJ Allaire <jj@rstudio.org>
 
         * R/Rcpp.package.skeleton.R: add 'attributes' and 'cpp_files'
@@ -53,8 +54,8 @@
 
         * include/Rcpp/iostream/Rostream.h: Fix warning given by -Wreorder
         * include/Rcpp/sugar/functions/mapply/mapply_3.h: more flexible
-        * include/Rcpp/vector/Vector.h: More efficient assign_object, which is 
-        used in the assignment operator
+        * include/Rcpp/vector/Vector.h: More efficient assign_object, which
+	is used in the assignment operator
         * include/Rcpp/sugar/functions/clip.h: added clip function
 
 2012-11-20  JJ Allaire <jj@rstudio.org>
@@ -97,7 +98,8 @@
 
 2012-11-18  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/vector/converter.h: allow CharacterVector::create( NA_STRING )
+        * include/Rcpp/vector/converter.h: allow CharacterVector::create(
+	NA_STRING )
         * include/Rcpp/sugar/functions/mapply/mapply_2.h: more cases in mapply
 
 2012-11-17  Dirk Eddelbuettel  <edd@debian.org>
