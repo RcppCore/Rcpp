@@ -93,9 +93,6 @@ Attributes
      
     o   Add unit tests 
 
-    o   Seg-fault occurs whenever exceptions (including as/wrap incorrect
-        type errors) occur within a module exported function
-
     o   Add docstring parameter to Rcpp::export attribute
 
     o   Rcpp.package.skeleton should look for Rcpp::depends in cpp_files

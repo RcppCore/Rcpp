@@ -269,6 +269,89 @@ Note that C++ rules for default arguments still apply: they must occur
 consecutively at the end of the function signature and (unlike R) can't rely
 on the values of other arguments.
 
+\subsection{Signaling Errors}
+
+Within \proglang{R} code the \texttt{stop} function is typically used to signal
+errors. Within \proglang{R} extensions written in \proglang{C} the \texttt{Rf\_error} function is typically used. However, within \proglang{C++} code you cannot
+safely use \texttt{Rf\_error} because it results in a \texttt{longjmp} over
+any \proglang{C++} destructors on the stack.
+
+The correct way to signal errors within \proglang{C++} functions is to throw an \\\texttt{Rcpp::exception}. For example:
+
+% \begin{verbatim}
+% if (unexpectedCondition)
+%     throw Rcpp::exception("Unexpected condition occurred");
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlkwa{if\ }\hlstd{}\hlopt{(}\hlstd{unexpectedCondition}\hlopt{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{}\hlkwa{throw\ }\hlstd{Rcpp}\hlopt{::}\hlstd{}\hlkwd{exception}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"Unexpected\ condition\ occurred"}\hlstd{}\hlopt{);}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+There is also an \texttt{Rcpp::stop} function that is shorthand for throwing
+an \\\texttt{Rcpp::exception}. For example:
+
+% \begin{verbatim}
+% if (unexpectedCondition)
+%     Rcpp::stop("Unexpected condition occurred");
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlkwa{if\ }\hlstd{}\hlopt{(}\hlstd{unexpectedCondition}\hlopt{)}\hspace*{\fill}\\
+\hlstd{}\hlstd{\ \ \ \ }\hlstd{Rcpp}\hlopt{::}\hlstd{}\hlkwd{stop}\hlstd{}\hlopt{(}\hlstd{}\hlstr{"Unexpected\ condition\ occurred"}\hlstd{}\hlopt{);}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+In both cases the \proglang{C++} exception will be caught by \pkg{Rcpp}
+prior to returning control to \proglang{R} and converted into the correct
+signal to \proglang{R} that execution should stop with the specified message.
+
+\subsection{Embedding R Code}
+
+Typically \proglang{C++} and \proglang{R} code are kept in their own source
+files. However, it's often convenient to bundle code from both languages into
+a common source file that can be executed using single call to \texttt{sourceCpp}.
+
+To embed chunks of \proglang{R} code within a \proglang{C++}
+source file you include the \proglang{R} code within a block comment that 
+has the prefix of \texttt{/*** R}. For example:
+
+% \begin{verbatim}
+% /*** R
+% 
+% # Call the fibonacci function defined in C++
+% fibonacci(10)
+% 
+% */
+% \end{verbatim}
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{/{*}{*}{*}\ }\hlstd{R}\hspace*{\fill}\\
+\hspace*{\fill}\\
+\hlslc{\#\ Call\ the\ fibonacci\ function\ defined\ in\ C++}\hspace*{\fill}\\
+\hlstd{}\hlkwd{fibonacci}\hlstd{}\hlopt{(}\hlstd{}\hlnum{10}\hlstd{}\hlopt{)}\hspace*{\fill}\\
+\hlstd{}\hspace*{\fill}\\
+\hlopt{{*}/}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+Multiple \proglang{R} code chunks can be included in a \proglang{C++} file. The
+\texttt{sourceCpp} function will first compile the \proglang{C++} code into a
+shared library and then source the embedded \proglang{R} code.
+
+
+
+
 \subsection{Modifying Function Names}
 
 You can change the name of an exported function as it appears to \proglang{R} by
@@ -393,41 +476,6 @@ either by using multiple \texttt{Rcpp::depends} attributes or with syntax like t
 Dependencies are discovered both by scanning for package include directories
 and by invoking \pkg{inline} plugins if they are available for a package.
 
-\subsection{Embedding R Code}
-
-Typically \proglang{C++} and \proglang{R} code are kept in their own source
-files. However, it's often convenient to bundle code from both languages into
-a common source file that can be executed using single call to \texttt{sourceCpp}.
-
-To embed chunks of \proglang{R} code within a \proglang{C++}
-source file you include the \proglang{R} code within a block comment that 
-has the prefix of \texttt{/*** R}. For example:
-
-% \begin{verbatim}
-% /*** R
-% 
-% # Call the fibonacci function defined in C++
-% fibonacci(10)
-% 
-% */
-% \end{verbatim}
-\begin{kframe}
-\noindent
-\ttfamily
-\hlstd{}\hlopt{/{*}{*}{*}\ }\hlstd{R}\hspace*{\fill}\\
-\hspace*{\fill}\\
-\hlslc{\#\ Call\ the\ fibonacci\ function\ defined\ in\ C++}\hspace*{\fill}\\
-\hlstd{}\hlkwd{fibonacci}\hlstd{}\hlopt{(}\hlstd{}\hlnum{10}\hlstd{}\hlopt{)}\hspace*{\fill}\\
-\hlstd{}\hspace*{\fill}\\
-\hlopt{{*}/}\hlstd{}\hspace*{\fill}
-\mbox{}
-\normalfont
-\normalsize
-\end{kframe}
-
-Multiple \proglang{R} code chunks can be included in a \proglang{C++} file. The
-\texttt{sourceCpp} function will first compile the \proglang{C++} code into a
-shared library and then source the embedded \proglang{R} code.
 
 \subsection{Including C++ Inline}
 
@@ -845,6 +893,8 @@ have the latest version of one package but not of another. If you want to
 minimize binary compatibility problems even in the face of out-of-sync package
 versions then it's strongly recommended that you use only use built-in
 \proglang{C++} types and \pkg{Rcpp} wrapper types in your interfaces. 
+
+\pagebreak
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}
