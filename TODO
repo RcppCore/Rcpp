@@ -102,6 +102,8 @@ Attributes
         and call inline plugins, etc. as necessary to create a package
         that can build the cpp file(s)
 
+    o   Allow sourceCpp to build an entire directory
+
 Testing
 
     o	all r* functions : rnorm, etc ...
