@@ -1,6 +1,9 @@
 2012-11-25  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: use echo = TRUE for sourceCpp R code chunks
+        * src/Module.cpp: BEGIN_RCPP/END_RCPP in InternalFunction_invoke
+        * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: add documentation
+        on correct semantics for signaling error conditions
 
 2012-11-24  JJ Allaire <jj@rstudio.org>
 
