@@ -145,7 +145,7 @@ sourceCpp <- function(file = "",
     # source the embeddedR
     if (length(context$embeddedR) > 0) {
         srcConn <- textConnection(context$embeddedR)
-        source(file=srcConn, print.eval=TRUE)
+        source(file=srcConn, echo=TRUE)
     }
     
     # return (invisibly) a list of exported functions

@@ -1,4 +1,8 @@
-2012-11-21  JJ Allaire <jj@rstudio.org>
+2012-11-25  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: use echo = TRUE for sourceCpp R code chunks
+
+2012-11-24  JJ Allaire <jj@rstudio.org>
 
         * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: expand discussion
         of binary compatibility issues.
