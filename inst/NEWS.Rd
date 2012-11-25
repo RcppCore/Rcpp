@@ -9,7 +9,7 @@
           \item New functions: \code{setdiff}, \code{union_}, \code{intersect}
             \code{setequal}, \code{in}, \code{min}, \code{max}, \code{range}, 
             \code{match}, \code{table}, \code{duplicated}
-          \item New function: \code{clip} which combines pmin and pmax, e.g. 
+          \item New function: \code{clamp} which combines pmin and pmax, e.g. 
           clip( a, x, b) is the same as pmax( b, pmin(x, a) )
           \item New function: \code{self_match} which implements something 
           similar to \code{match( x, unique( x ) )}
