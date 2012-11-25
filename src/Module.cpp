@@ -114,6 +114,7 @@ RCPP_FUNCTION_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj){
 
 // .External functions
 extern "C" SEXP InternalFunction_invoke( SEXP args ){
+BEGIN_RCPP
 	SEXP p = CDR(args) ;
 	XP_Function fun( CAR(p) ) ; p = CDR(p) ;
 	
@@ -125,6 +126,7 @@ extern "C" SEXP InternalFunction_invoke( SEXP args ){
    		p = CDR(p) ;
    	}
    	return fun->operator()( cargs ) ;
+END_RCPP
 }
 
 extern "C" SEXP Module__invoke( SEXP args){
