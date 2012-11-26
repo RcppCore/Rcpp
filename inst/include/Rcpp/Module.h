@@ -356,12 +356,13 @@ namespace Rcpp{
         std::string fun_name = internal::get_converter_name<FROM,TO>( from, to ) ;
         function( fun_name.c_str(), fun, docstring ) ;
     }  
-                       
-    template <typename FROM, typename TO>
-    void converter( const char* /* from */ , const char* to, TO (FROM::*fun)(), const char* docstring = 0 ){
-        Rcpp::Module* scope = ::getCurrentScope() ;
-        class_<FROM>().convert_to( to, fun, docstring ) ;
-    }
+       
+    // commented out as there is no convert_to in class_
+    // 
+    // template <typename FROM, typename TO>
+    // void converter( const char* /* from */ , const char* to, TO (FROM::*fun)(), const char* docstring = 0 ){
+    //     class_<FROM>().convert_to( to, fun, docstring ) ;
+    // }
     
     
     class CppClass : public S4{
