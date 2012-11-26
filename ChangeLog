@@ -1,3 +1,12 @@
+2012-11-26 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/Module.h: comment out the unused and unuseable converter
+        overload. 
+        * include/Rcpp/sugar/functions/pmin.h: be consistent about how the 
+        pmin_op helper struct is defined (always a struct).
+        * include/Rcpp/sugar/functions/pmax.h: same for pmax
+        * include/Rcpp/stats/random/rbeta.h: fixed constructor issue
+        
 2012-11-25  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: use echo = TRUE for sourceCpp R code chunks

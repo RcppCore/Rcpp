@@ -28,7 +28,7 @@ namespace stats{
     template <bool seed>
     class BetaGenerator : public Generator<seed,double>{
     public: 
-        BetaGenerator(double a_, double b_) : a(a), b(b_){}
+        BetaGenerator(double a_, double b_) : a(a_), b(b_){}
         
         inline double operator()() const {
             return ::Rf_rbeta(a, b) ;    
