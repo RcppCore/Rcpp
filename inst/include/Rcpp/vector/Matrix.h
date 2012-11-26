@@ -131,7 +131,7 @@ public:
                                                                   ) ;
     }
         
-    inline Proxy operator()( const size_t& i, const size_t& j) const {
+    inline const_Proxy operator()( const size_t& i, const size_t& j) const {
         return static_cast< const Vector<RTYPE>* >( this )->operator[]( 
                                                                        offset( i, j )
                                                                         ) ;
