@@ -393,19 +393,19 @@ public:
     inline const_iterator end() const{ return cache.get_const() + size() ; }
 	
     inline Proxy operator[]( int i ){ return cache.ref(i) ; }
-    inline Proxy operator[]( int i ) const { return cache.ref(i) ; }
+    inline const_Proxy operator[]( int i ) const { return cache.ref(i) ; }
+    
     inline Proxy operator()( const size_t& i) {
         return cache.ref( offset(i) ) ;
     }
-    // TODO: should it be const_Proxy
-    inline Proxy operator()( const size_t& i) const {
+    inline const_Proxy operator()( const size_t& i) const {
         return cache.ref( offset(i) ) ;
     }
+    
     inline Proxy operator()( const size_t& i, const size_t& j) {
         return cache.ref( offset(i,j) ) ;
     }
-    // TODO: should it be const_Proxy
-    inline Proxy operator()( const size_t& i, const size_t& j) const {
+    inline const_Proxy operator()( const size_t& i, const size_t& j) const {
         return cache.ref( offset(i,j) ) ;
     }
 	

@@ -25,7 +25,7 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, bool LHS_NA, bool RHS_NA> class pmin_op ; 
+template <int RTYPE, bool LHS_NA, bool RHS_NA> struct pmin_op ; 
 
 // specializations for double. 
 // we use the fact that NA < x is false
