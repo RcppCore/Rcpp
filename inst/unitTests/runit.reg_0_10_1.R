@@ -18,7 +18,7 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .setUp <- function(){
-    sourceCpp( system.file( "unitTests/cpp/reg_tests_0_10_1.cpp" ) )   
+    sourceCpp( system.file( "unitTests/cpp/reg_tests_0_10_1.cpp", package = "Rcpp" ) )   
 }
 
 test.DataFrame.nrows <- function(){
