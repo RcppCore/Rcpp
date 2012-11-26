@@ -29,3 +29,37 @@ test.RangeIndexer <- function(){
     x <- rnorm(10)
     checkEquals( RangeIndexer(x), max(x[1:5]) )    
 }
+
+test.self_match <- function(){
+    x <- sample( letters, 1000, replace = TRUE )
+    checkEquals( test_self_match(x), match(x,unique(x)) )    
+}
+
+test.table <- function(){
+    x <- sample( letters, 1000, replace = TRUE )
+    checkTrue( all( test_table(x) == table(x) ) )
+    checkTrue( all( names(test_table(x)) == names(table(x)) ) )
+}
+
+test.duplicated <- function(){
+    x <- sample( letters, 1000, replace = TRUE )
+    checkEquals( test_duplicated(x), duplicated(x) )
+}
+
+test.setdiff <- function(){
+    checkEquals( test_setdiff( 1:10, 1:5 ), setdiff( 1:10, 1:5 ) )
+}
+test.union <- function(){
+    checkEquals( test_union( 1:10, 1:5 ), union( 1:10, 1:5 ) )
+}
+test.intersect <- function(){
+    checkEquals( test_intersect( 1:10, 1:5 ), intersect( 1:10, 1:5 ) )
+}
+
+test.AreMacrosDefined <- function(){
+    checkTrue( Rcpp:::areMacrosDefined( "__cplusplus" ) )    
+}
+
+
+
+
