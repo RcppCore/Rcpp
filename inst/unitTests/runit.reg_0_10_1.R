@@ -27,7 +27,7 @@ test.DataFrame.nrows <- function(){
 
 test.RangeIndexer <- function(){
     x <- rnorm(10)
-    checkEquals( RangeIndexer(x), max(x[1:5]) )    
+    checkEquals( RangeIndexer_sugar(x), max(x[1:5]) )    
 }
 
 test.self_match <- function(){
