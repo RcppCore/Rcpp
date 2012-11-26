@@ -139,6 +139,12 @@ public:
     	import_expression<VEC>( other.get_ref() , n ) ;
     }
     
+    // should eally onlu be used for LogicalVector. 
+    template <bool NA, typename T>
+    Vector( const sugar::SingleLogicalResult<NA,T>& obj ) : RObject() {
+    	RObject::setSEXP( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>( obj ) .get_sexp() ) ) ;
+    }
+    
     
     
 private:

@@ -6,6 +6,10 @@
         pmin_op helper struct is defined (always a struct).
         * include/Rcpp/sugar/functions/pmax.h: same for pmax
         * include/Rcpp/stats/random/rbeta.h: fixed constructor issue
+        * unitTests/runit.sugar.R: rework to use sourceCpp instead of inline
+        * include/Rcpp/vector/Vector.h: added ctor to deal with
+        SingleLogicalResult
+        * include/Rcpp/vector/Matrix.h: another const correctness fix
         
 2012-11-25  JJ Allaire <jj@rstudio.org>
 
@@ -65,7 +69,7 @@
         * include/Rcpp/sugar/functions/mapply/mapply_3.h: more flexible
         * include/Rcpp/vector/Vector.h: More efficient assign_object, which
 	is used in the assignment operator
-        * include/Rcpp/sugar/functions/clip.h: added clip function
+        * include/Rcpp/sugar/functions/clamp.h: added clamp function
 
 2012-11-20  JJ Allaire <jj@rstudio.org>
 

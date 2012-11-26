@@ -66,12 +66,11 @@ public:
 		return Rcpp::traits::is_na<LGLSXP>( result ) ;
 	}
 	
-	operator SEXP(){
-		apply() ;
-		return Rf_ScalarLogical( result ) ;
+	inline operator SEXP(){
+		return get_sexp() ;
 	}
 	
-	operator bool(){
+	inline operator bool(){
 		conversion_to_bool_is_forbidden<!NA> x ;
 		x.touch() ;
 		return is_true() ;
@@ -82,6 +81,11 @@ public:
 	inline int get(){
 		apply();
 		return result;
+	}
+	
+	inline SEXP get_sexp(){
+	    apply() ;
+	    return Rf_ScalarLogical( result ) ;
 	}
 	
 protected:
