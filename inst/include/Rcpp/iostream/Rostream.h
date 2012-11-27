@@ -38,7 +38,12 @@ namespace Rcpp {
             std::ostream( new Rstreambuf(output) ), 
             buf( static_cast<Rstreambuf*>( rdbuf() ) )
         {}
-        ~Rostream(){ delete buf ; }
+        ~Rostream() { 
+            if (buf != NULL) {
+                delete buf; 
+                buf = NULL;
+            }
+        }
     };
     
     // declare global variable

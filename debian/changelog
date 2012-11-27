@@ -1,8 +1,11 @@
 rcpp (0.10.1-1) unstable; urgency=low
 
   * New release
+  
+  * inst/include/Rcpp/iostream/Rostream.h: Additional fix that didn't make
+    into 0.10.1
 
- -- Dirk Eddelbuettel <edd@debian.org>  Mon, 26 Nov 2012 18:39:55 -0600
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 27 Nov 2012 08:20:54 -0600
 
 rcpp (0.10.0-1) unstable; urgency=low
 
