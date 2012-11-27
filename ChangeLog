@@ -1,3 +1,7 @@
+2012-11-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/iostream/Rostream.h: Check before deleting buf
+
 2012-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.10.1

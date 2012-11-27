@@ -2,6 +2,15 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.10.2 (future)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Added additional check in Rstreambuf deletetion
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.10.1 (2012-11-26)}{
     \itemize{
         \item Changes in Rcpp sugar: 
