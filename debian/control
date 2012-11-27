@@ -36,7 +36,14 @@ Description: GNU R package for Seamless R and C++ Integration
  to use than the equivalent low-level loop code. The "Rcpp-sugar" vignette
  gives an overview of the feature.
  .
- Several examples are included, and over 860 unit tests in over 380 unit
+ Rcpp attributes provide a high-level syntax for declaring C++
+ functions as callable from R and automatically generating the code
+ required to invoke them.  Attributes are intended to facilitate both
+ interactive use of C++ within R sessions as well as to support R
+ package development. Attributes are built on top of Rcpp modules and
+ their implementation is based on previous work in the inline package.
+ .
+ Many examples are included, and over 870 unit tests in over 390 unit
  test functions provide additional usage examples.
  .
  An earlier version of Rcpp, containing what we now call the 'classic Rcpp
