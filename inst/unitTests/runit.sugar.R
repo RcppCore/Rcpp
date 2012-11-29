@@ -662,4 +662,37 @@ test.sugar.signif <- function() {
     checkEquals( fx(x, 3), signif(x, 3) )
 }
 
+test.RangeIndexer <- function(){
+    x <- rnorm(10)
+    checkEquals( runit_RangeIndexer(x), max(x[1:5]) )    
+}
+
+test.self_match <- function(){
+    x <- sample( letters, 1000, replace = TRUE )
+    checkEquals( runit_self_match(x), match(x,unique(x)) )    
+}
+
+test.table <- function(){
+    x <- sample( letters, 1000, replace = TRUE )
+    checkTrue( all( runit_table(x) == table(x) ) )
+    checkTrue( all( names(runit_table(x)) == names(table(x)) ) )
+}
+
+test.duplicated <- function(){
+    x <- sample( letters, 1000, replace = TRUE )
+    checkEquals( runit_duplicated(x), duplicated(x) )
+}
+
+test.setdiff <- function(){
+    checkEquals( runit_setdiff( 1:10, 1:5 ), setdiff( 1:10, 1:5 ) )
+}
+
+test.union <- function(){
+    checkEquals( runit_union( 1:10, 1:5 ), union( 1:10, 1:5 ) )
+}
+
+test.intersect <- function(){
+    checkEquals( runit_intersect( 1:10, 1:5 ), intersect( 1:10, 1:5 ) )
+}
+
 }

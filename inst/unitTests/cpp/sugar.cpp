@@ -541,3 +541,37 @@ NumericVector runit_signif( NumericVector xx, int d ){
     return res ;
 }
 
+// [[Rcpp::export]]
+double runit_RangeIndexer( NumericVector x ){
+    return max( x[ seq(0, 4) ] ) ;    
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_self_match( CharacterVector x){
+    return self_match( x ) ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_table( CharacterVector x){
+    return table( x ) ;
+}
+
+// [[Rcpp::export]]
+LogicalVector runit_duplicated( CharacterVector x){
+    return duplicated( x ) ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_union( IntegerVector x, IntegerVector y){
+    return union_( x, y) ;
+}
+// [[Rcpp::export]]
+IntegerVector runit_setdiff( IntegerVector x, IntegerVector y){
+    return setdiff( x, y) ;
+}
+// [[Rcpp::export]]
+IntegerVector runit_intersect( IntegerVector x, IntegerVector y){
+    return intersect( x, y ) ;
+}
+
+
