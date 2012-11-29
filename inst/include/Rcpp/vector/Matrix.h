@@ -121,7 +121,7 @@ public:
         return static_cast< Vector<RTYPE>* >( this )->operator[]( i ) ;
     }
     
-    inline Proxy operator[]( int i ) const {
+    inline const_Proxy operator[]( int i ) const {
         return static_cast< const Vector<RTYPE>* >( this )->operator[]( i ) ;
     }
     
