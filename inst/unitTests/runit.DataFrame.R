@@ -22,142 +22,65 @@
 
 if (.runThisTest) {
 
-definitions <- function(){
-    list("FromSEXP"=list(
-                  signature(x="ANY"),
-                  'DataFrame df(x) ;
-				   return df;')
-
-                  ,"index_byName"=list(
-                   signature(x='ANY', y='character'),
-                   'DataFrame df(x);
-        	        std::string s = as<std::string>(y);
-	                return df[s];')
-
-                  ,"index_byPosition"=list(
-                   signature(x='ANY', y='integer'),
-                   'DataFrame df(x);
-			        int i = as<int>(y);
-					return df[i]; ')
-
-                  ,"string_element"=list(
-                   signature(x='ANY'),
-                   'DataFrame df(x);
-			        CharacterVector b = df[1];
-			        std::string s;
-			        s = b[1];
-			        return wrap(s); ')
-
-                  ,"createOne"=list(
-                   signature(),
-                   'IntegerVector v = IntegerVector::create(1,2,3);
-			        return DataFrame::create(Named("a")=v); ')
-
-                  ,"createTwo"=list(
-                   signature(),
-                   'IntegerVector v = IntegerVector::create(1,2,3);
-			        std::vector<std::string> s(3);
-			        s[0] = "a";
-			        s[1] = "b";
-			        s[2] = "c";
-					return DataFrame::create(Named("a")=v, Named("b")=s); ')
-
-                  ,"SlotProxy"=list(
-                   signature(x="ANY", y="character"),
-                   '
-                   S4 o(x) ;
-                   std::string yy = as<std::string>( y ) ;
-					return DataFrame( o.slot( yy ) ) ;
-					')
-
-                  ,"AttributeProxy"=list(
-                   signature(x="ANY", y="character"),
-                   'List o(x) ;
-					return DataFrame( o.attr( as<std::string>(y) )) ; ')
-
-                  ,"createTwoStringsAsFactors"=list(
-                   signature(),
-                   'IntegerVector v = IntegerVector::create(1,2,3);
-			        std::vector<std::string> s(3);
-			        s[0] = "a";
-			        s[1] = "b";
-			        s[2] = "c";
-					return DataFrame::create(
-						_["a"] = v,
-						_["b"] = s,
-						_["stringsAsFactors"] = false ); ')
-
-                  )
-
-}
-
 .setUp <- function(){
 	suppressMessages( require( datasets ) )
 	data( iris )
-    tests <- ".Rcpp.DataFrame"
-    if( ! exists(tests, globalenv() )) {
-        fun <- Rcpp:::compile_unit_tests( definitions() )
-        assign( tests, fun, globalenv() )
-    }
+    sourceCpp( system.file( "unitTests/cpp/DataFrame.cpp" , package = "Rcpp" ) )
 }
 
 test.DataFrame.FromSEXP <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
-    fun <- .Rcpp.DataFrame$FromSEXP
-    checkEquals( fun(DF), DF, msg = "DataFrame pass-through")
+    checkEquals( FromSEXP(DF), DF, msg = "DataFrame pass-through")
 }
 
 test.DataFrame.index.byName <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
-    fun <- .Rcpp.DataFrame$index_byName
-    checkEquals( fun(DF, "a"), DF$a, msg = "DataFrame column by name 'a'")
-    checkEquals( fun(DF, "b"), DF$b, msg = "DataFrame column by name 'b'")
+    checkEquals( index_byName(DF, "a"), DF$a, msg = "DataFrame column by name 'a'")
+    checkEquals( index_byName(DF, "b"), DF$b, msg = "DataFrame column by name 'b'")
 }
 
 test.DataFrame.index.byPosition <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
-    fun <- .Rcpp.DataFrame$index_byPosition
-    checkEquals( fun(DF, 0), DF$a, msg = "DataFrame column by position 0")
-    checkEquals( fun(DF, 1), DF$b, msg = "DataFrame column by position 1")
+    checkEquals( index_byPosition(DF, 0), DF$a, msg = "DataFrame column by position 0")
+    checkEquals( index_byPosition(DF, 1), DF$b, msg = "DataFrame column by position 1")
 }
 
 test.DataFrame.string.element <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors=FALSE)
-    fun <- .Rcpp.DataFrame$string_element
-    checkEquals( fun(DF), DF[2,"b"], msg = "DataFrame string element")
+    checkEquals( string_element(DF), DF[2,"b"], msg = "DataFrame string element")
 }
 
 test.DataFrame.CreateOne <- function() {
     DF <- data.frame(a=1:3)
-    fun <- .Rcpp.DataFrame$createOne
-    checkEquals( fun(), DF, msg = "DataFrame create1")
+    checkEquals( createOne(), DF, msg = "DataFrame create1")
 }
 
 test.DataFrame.CreateTwo <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
-    fun <- .Rcpp.DataFrame$createTwo
-    checkEquals( fun(), DF, msg = "DataFrame create2")
+    checkEquals( createTwo(), DF, msg = "DataFrame create2")
 }
 
 test.DataFrame.SlotProxy <- function(){
 	setClass("track", representation(x="data.frame", y = "function"))
 	tr1 <- new( "track", x = iris, y = rnorm )
-    fun <- .Rcpp.DataFrame$SlotProxy
-	checkTrue( identical( fun(tr1, "x"), iris ), msg = "DataFrame( SlotProxy )" )
-	checkException( fun(tr1, "y"), msg = "DataFrame( SlotProxy ) -> exception" )
+    checkTrue( identical( SlotProxy(tr1, "x"), iris ), msg = "DataFrame( SlotProxy )" )
+	checkException( SlotProxy(tr1, "y"), msg = "DataFrame( SlotProxy ) -> exception" )
 }
 
 test.DataFrame.AttributeProxy <- function(){
 	tr1 <- structure( NULL, x = iris, y = rnorm )
-    fun <- .Rcpp.DataFrame$AttributeProxy
-	checkTrue( identical( fun(tr1, "x"), iris) , msg = "DataFrame( AttributeProxy )" )
-	checkException( fun(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
+    checkTrue( identical( AttributeProxy(tr1, "x"), iris) , msg = "DataFrame( AttributeProxy )" )
+	checkException( AttributeProxy(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
 }
 
 test.DataFrame.CreateTwo.stringsAsFactors <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors = FALSE )
-    fun <- .Rcpp.DataFrame$createTwoStringsAsFactors
-    checkEquals( fun(), DF, msg = "DataFrame create2 stringsAsFactors = false")
+    checkEquals( createTwoStringsAsFactors(), DF, msg = "DataFrame create2 stringsAsFactors = false")
 }
+
+test.DataFrame.nrows <- function(){
+    checkEquals( DataFrame_nrows( iris ), nrow(iris) )  
+}
+
 
 }
