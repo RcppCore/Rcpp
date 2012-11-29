@@ -214,4 +214,8 @@ test.has.iterator <- function(){
 
 }
 
+test.AreMacrosDefined <- function(){
+    checkTrue( Rcpp:::areMacrosDefined( "__cplusplus" ) )    
+}
+
 }
