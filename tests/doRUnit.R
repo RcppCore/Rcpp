@@ -41,8 +41,8 @@ if (require("RUnit", quietly = TRUE)) {
 
     pkg <- "Rcpp"                           # code below for Rcpp
     require(pkg, character.only=TRUE)
-    path <- system.file("unitTests", package = pkg)
-    stopifnot(file.exists(path), file.info(path.expand(path))$isdir)
+    pathRcppTests <<- system.file("unitTests", package = pkg)
+    stopifnot(file.exists(pathRcppTests), file.info(path.expand(pathRcppTests))$isdir)
 
     ## without this, we get unit test failures
     Sys.setenv( R_TESTS = "" )
@@ -58,7 +58,7 @@ if (require("RUnit", quietly = TRUE)) {
 
     Rcpp.unit.test.output.dir <- getwd()
 
-    source(file.path(path, "runTests.R"), echo = TRUE)
+    source(file.path(pathRcppTests, "runTests.R"), echo = TRUE)
 
 } else {
     print("package RUnit not available, cannot run unit tests")
