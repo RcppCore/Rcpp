@@ -22,8 +22,9 @@
 
 if (.runThisTest) {
 
-.setUp <- function(){
-    sourceCpp( system.file( "unitTests/cpp/sugar.cpp", package = "Rcpp") )    
+.setUp <- function() {
+    #sourceCpp( system.file( "unitTests/cpp/sugar.cpp", package = "Rcpp") )
+    sourceCpp(file.path(pathRcppTests, "cpp/sugar.cpp"))
 }
 
 test.sugar.abs <- function( ){
@@ -664,12 +665,12 @@ test.sugar.signif <- function() {
 
 test.RangeIndexer <- function(){
     x <- rnorm(10)
-    checkEquals( runit_RangeIndexer(x), max(x[1:5]) )    
+    checkEquals( runit_RangeIndexer(x), max(x[1:5]) )
 }
 
 test.self_match <- function(){
     x <- sample( letters, 1000, replace = TRUE )
-    checkEquals( runit_self_match(x), match(x,unique(x)) )    
+    checkEquals( runit_self_match(x), match(x,unique(x)) )
 }
 
 test.table <- function(){
