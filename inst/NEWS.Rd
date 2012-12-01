@@ -6,7 +6,10 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Added additional check in Rstreambuf deletetion
+      \item Added additional check in \code{Rstreambuf} deletetion
+      \item Added support for \code{clang++} when using \code{libc++},
+      and for anc \code{icpc} in \code{std=c++11} mode, thanks to a
+      patch by Yan Zhou 
     }
   }
 }

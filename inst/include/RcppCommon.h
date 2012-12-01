@@ -107,14 +107,33 @@ namespace Rcpp{
 //     #endif
 // #endif
 
+// This definition was contributed by Yan Zhou
+#ifdef __clang__
+    #if !__has_include(<tr1/unordered_map>)
+        #undef HAS_TR1
+        #undef HAS_TR1_UNORDERED_MAP
+    #endif
+    #if !__has_include(<tr1/unordered_set>)
+        #undef HAS_TR1
+        #undef HAS_TR1_UNORDERED_SET
+    #endif
+    #if __has_feature(cxx_variadic_templates)
+        #define HAS_VARIADIC_TEMPLATES
+    #endif
+#endif
+
 #ifdef __INTEL_COMPILER
     // This is based on an email by Alexey Stukalov who tested 
     // Intel Compiler 12.0 and states that is does support Cxx0x 
     // or even TR1 (by default; maybe there are options?)
+    // Extended further via patch in email by Yan Zhou
     #undef HAS_VARIADIC_TEMPLATES
+    #include <cmath>
+    #ifndef __GLIBCXX__
     #undef HAS_TR1
     #undef HAS_TR1_UNORDERED_MAP
     #undef HAS_TR1_UNORDERED_SET
+    #endif
 #endif
 
 
@@ -147,6 +166,21 @@ namespace Rcpp{
 
 #ifdef HAS_TR1_UNORDERED_SET
 #include <tr1/unordered_set>
+#endif
+
+
+#if __cplusplus >= 201103L
+    #if defined(__GLIBCXX__) && __GLIBCXX__ > 20090421
+    #include <unordered_map>
+    #include <unordered_set>
+    #elif defined(__clang__)
+        #if __has_include(<unordered_map>)
+        #include <unordered_map>
+        #endif
+        #if __has_include(<unordered_set>)
+        #include <unordered_set>
+        #endif
+    #endif
 #endif
 
 std::string demangle( const std::string& name) ;
