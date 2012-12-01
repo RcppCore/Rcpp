@@ -1,3 +1,8 @@
+2012-12-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/RcppCommon.h: Applied patch by Yan Zhou to add support
+	for clang++ with libc++, and Intel's icpc when std=c++11
+
 2012-11-29 Romain Francois <romain@r-enthusiasts.com>
 
         * unitTests/runit.DataFrame.R: using sourceCpp
