@@ -18,12 +18,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+.runThisTest <- FALSE ## Sys.getenv("RunAllRcppTests") == "yes"
 
 if (.runThisTest) {
 
 .setUp <- function() {
-    sourceCpp( system.file( "unitTests/cpp/Vector.cpp", package = "Rcpp" ) )
+    #sourceCpp( system.file( "unitTests/cpp/Vector.cpp", package = "Rcpp" ) )
+    sourceCpp(file.path(pathRcppTests, "cpp/Vector.cpp"))
 }
 
 test.RawVector <- function(){

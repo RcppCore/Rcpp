@@ -25,7 +25,8 @@ if (.runThisTest) {
 .setUp <- function(){
 	suppressMessages( require( datasets ) )
 	data( iris )
-    sourceCpp( system.file( "unitTests/cpp/DataFrame.cpp" , package = "Rcpp" ) )
+    #sourceCpp( system.file( "unitTests/cpp/DataFrame.cpp" , package = "Rcpp" ) )
+    sourceCpp(file.path(pathRcppTests, "cpp/DataFrame.cpp"))
 }
 
 test.DataFrame.FromSEXP <- function() {
@@ -79,7 +80,7 @@ test.DataFrame.CreateTwo.stringsAsFactors <- function() {
 }
 
 test.DataFrame.nrows <- function(){
-    checkEquals( DataFrame_nrows( iris ), nrow(iris) )  
+    checkEquals( DataFrame_nrows( iris ), nrow(iris) )
 }
 
 
