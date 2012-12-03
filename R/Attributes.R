@@ -618,3 +618,32 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     gsub("\\s", "", linkingTo)
 }
 
+# check if R development tools are installed (cache successful result)
+.hasDevelTools <- FALSE
+.checkDevelTools <- function() {  
+    if (!.hasDevelTools) {     
+        # create temp source file
+        tempFile <- file.path(tempdir(), "foo.c")
+        cat("void foo() {}\n", file = tempFile)
+        on.exit(unlink(tempFile))
+        
+        # set working directory to tempdir (revert on exit)
+        oldDir <- setwd(tempdir())
+        on.exit(setwd(oldDir), add = TRUE)
+        
+        # attempt the compilation and note whether we succeed
+        cmd <- paste(R.home(component="bin"), .Platform$file.sep, "R ",
+                     "CMD SHLIB foo.c", sep = "") 
+        result <- suppressWarnings(system(cmd, intern = TRUE))
+        assignInMyNamespace(".hasDevelTools", is.null(attr(result, "status")))
+        
+        # if we build successfully then remove the shared library
+        if (.hasDevelTools) {
+            lib <- file.path(tempdir(), 
+                             paste("foo", .Platform$dynlib.ext, sep=''))
+            unlink(lib)
+        }
+    }
+    .hasDevelTools
+}
+
