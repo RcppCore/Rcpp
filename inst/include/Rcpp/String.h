@@ -98,7 +98,7 @@ namespace Rcpp {
         inline String& operator=( const std::string& s){  buffer = s ; valid = false ; buffer_ready = true ; return *this ; }                     
         inline String& operator=( const char* s){ buffer = s ; valid = false ; buffer_ready = true ; return *this ; }                             
         inline String& operator=( const StringProxy& proxy){ data = proxy.get() ; valid = true ; buffer_ready=false ; return *this ; }  
-        inline String& operator=( const String& other ){ data = other.data ; valid = true ; buffer_ready = false ; return *this ; }       
+        inline String& operator=( const String& other ){ data = other.get_sexp() ; valid = true ; buffer_ready = false ; return *this ; }       
         
         inline String& operator+=( const std::string& s){ 
             RCPP_STRING_DEBUG( "String::operator+=( std::string )" ) ;
@@ -210,6 +210,38 @@ namespace Rcpp {
             return replace_all( s.get_cstring(), news.get_cstring() ) ;
         }
         
+        inline String& push_back( const char* s){
+            if( is_na() ) return *this ;
+            setBuffer() ; valid = false ; buffer += s ;
+            return *this ;
+        }
+        inline String& push_back( const std::string& s){
+            return push_back( s.c_str() ) ;
+        }
+        inline String& push_back( const Rcpp::String& s){
+            if( is_na() ) return *this ;
+            if( s.is_na() ){ set_na(); return *this ; }
+            return push_back( s.get_cstring() ) ;
+        }
+        
+        inline String& push_front( const char* s){
+            if( is_na() ) return *this ;
+            setBuffer() ; valid = false ; buffer += s ;
+            return *this ;
+        }
+        inline String& push_front( const std::string& s){
+            return push_front( s.c_str() ) ;
+        }
+        inline String& push_front( const Rcpp::String& s){
+            if( is_na() ) return *this ;
+            if( s.is_na() ){ set_na(); return *this ; }
+            return push_front( s.get_cstring() ) ;
+        }
+        
+        
+        inline void set_na(){
+            data = NA_STRING ; valid = true; buffer_ready = false ;    
+        }
         
         
         inline SEXP get_sexp() const {
