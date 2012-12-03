@@ -47,12 +47,12 @@ CharacterVector test_sapply_string( CharacterVector text, CharacterVector old , 
 }  
 
 // [[Rcpp::export]]
-List test_compare_Strings( String a, String b ){
+List test_compare_Strings( String aa, String bb ){
     return List::create(
-        _["a  < b" ] = a < b, 
-        _["a  > b" ] = a > b, 
-        _["a == b"]  = a == b,
-        _["a == a"]  = a == a
+        _["a  < b" ] = aa < bb, 
+        _["a  > b" ] = aa > bb, 
+        _["a == b"]  = aa == bb,
+        _["a == a"]  = aa == aa
         
         ) ;
 }
