@@ -634,7 +634,9 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         # attempt the compilation and note whether we succeed
         cmd <- paste(R.home(component="bin"), .Platform$file.sep, "R ",
                      "CMD SHLIB foo.c", sep = "") 
-        result <- suppressWarnings(system(cmd, intern = TRUE))
+        result <- suppressWarnings(system(cmd,
+                                          ignore.stderr = TRUE, 
+                                          intern = TRUE))
         assignInMyNamespace(".hasDevelTools", is.null(attr(result, "status")))
         
         # if we build successfully then remove the shared library
