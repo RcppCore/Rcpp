@@ -262,15 +262,15 @@ namespace Rcpp {
             return buffer_ready ? buffer.c_str() : CHAR(data) ;    
         }
         
-        bool operator<( const Rcpp::String& other ){
+        bool operator<( const Rcpp::String& other ) const {
             return strcmp( get_cstring(), other.get_cstring() ) < 0;   
         }
         
-        bool operator==( const Rcpp::String& other){
+        bool operator==( const Rcpp::String& other) const {
             return get_sexp() == other.get_sexp() ;   
         }
         
-        bool operator>( const Rcpp::String& other ){
+        bool operator>( const Rcpp::String& other ) const {
             return strcmp( get_cstring(), other.get_cstring() ) > 0;   
         }
         
