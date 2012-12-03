@@ -130,6 +130,7 @@ END_RCPP
 }
 
 extern "C" SEXP Module__invoke( SEXP args){
+BEGIN_RCPP
 	SEXP p = CDR(args) ;
 	XP_Module module( CAR(p) ) ; p = CDR(p) ;
 	std::string fun = Rcpp::as<std::string>( CAR(p) ) ; p = CDR(p) ;
@@ -142,6 +143,7 @@ extern "C" SEXP Module__invoke( SEXP args){
    		p = CDR(p) ;
    	}
    	return module->invoke( fun, cargs, nargs ) ;
+END_RCPP
 }
 
 extern "C" SEXP class__newInstance(SEXP args){
@@ -277,21 +279,19 @@ namespace Rcpp{
 	}
 	
 	SEXP Module::invoke( const std::string& name_, SEXP* args, int nargs){
-		BEGIN_RCPP
-			MAP::iterator it = functions.find( name_ );
-			if( it == functions.end() ){
-				throw std::range_error( "no such function" ) ; 
-			}
-			CppFunction* fun = it->second ;
-			if( fun->nargs() > nargs ){
-				throw std::range_error( "incorrect number of arguments" ) ; 	
-			}
-			 
-			return Rcpp::List::create( 
-				Rcpp::Named("result") = fun->operator()( args ), 
-				Rcpp::Named("void")   = fun->is_void() 
-			) ;
-		END_RCPP
+		MAP::iterator it = functions.find( name_ );
+		if( it == functions.end() ){
+			throw std::range_error( "no such function" ) ; 
+		}
+		CppFunction* fun = it->second ;
+		if( fun->nargs() > nargs ){
+			throw std::range_error( "incorrect number of arguments" ) ; 	
+		}
+		 
+		return Rcpp::List::create( 
+			Rcpp::Named("result") = fun->operator()( args ), 
+			Rcpp::Named("void")   = fun->is_void() 
+		) ;
 	}                                                                                  
 	
 	SEXP Module::get_function( const std::string& name ){

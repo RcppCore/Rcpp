@@ -44,10 +44,14 @@ public:
 	
 	typedef typename Rcpp::traits::Extractor< RTYPE, NA, T>::type EXT ;
 	
-	Sapply( const VEC& vec_, Function fun_ ) : vec(vec_.get_ref()), fun(fun_){}
+	Sapply( const VEC& vec_, Function fun_ ) : vec(vec_.get_ref()), fun(fun_){
+	    RCPP_DEBUG_1( "Sapply With Converter = %s", DEMANGLE(Sapply) )
+	    RCPP_DEBUG_1( "Sapply Converter = %s", DEMANGLE(converter_type) ) 
+	}
 	
 	inline STORAGE operator[]( int i ) const {
-		return converter_type::get( fun( vec[i] ) );
+		STORAGE res = converter_type::get( fun( vec[i] ) );
+		return res ;
 	}
 	inline int size() const { return vec.size() ; }
 	         
@@ -76,7 +80,9 @@ public:
 	
 	typedef typename Rcpp::traits::Extractor< RTYPE, NA, T>::type EXT ;
 	
-	Sapply( const VEC& vec_, Function fun_ ) : vec(vec_.get_ref()), fun(fun_){}
+	Sapply( const VEC& vec_, Function fun_ ) : vec(vec_.get_ref()), fun(fun_){
+	    RCPP_DEBUG_1( "Sapply  = %s", DEMANGLE(Sapply) )
+	}
 	
 	inline STORAGE operator[]( int i ) const {
 		return fun( vec[i] ) ;

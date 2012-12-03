@@ -143,19 +143,18 @@ inline int integer_width( int n ){
 }
 
 #define NB 1000
-template <> SEXP r_coerce<INTSXP ,STRSXP>(int from){
+template <> const char* coerce_to_string<INTSXP>(int from){
     static char buffer[NB] ;
-    if( from == NA_INTEGER ) return NA_STRING ;
     snprintf( buffer, NB, "%*d", integer_width(from), from );
-    return Rf_mkChar(buffer) ;
+    return buffer ;
 }
-template <> SEXP r_coerce<LGLSXP ,STRSXP>(int from){
-    return from == NA_LOGICAL ? NA_STRING : (from == 0 ? Rf_mkChar("FALSE") : Rf_mkChar("TRUE") ) ;    
+template <> const char* coerce_to_string<LGLSXP>(int from){
+    return from == 0 ? "FALSE" : "TRUE" ;    
 }
-template <> SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from){
-    char buff[3];
+template <> const char* coerce_to_string<RAWSXP>(Rbyte from){
+    static char buff[3];
     ::sprintf(buff, "%02x", from);
-    return Rf_mkChar( buff ) ;    
+    return buff ;    
 }
 
 
@@ -177,21 +176,17 @@ static const char* dropTrailing0(char *s, char cdec) {
     return s;
 }
 
-template <> SEXP r_coerce<REALSXP,STRSXP>(double x){
-    if( Rcpp::traits::is_na<REALSXP>( x ) ) return NA_STRING ;
-    
+template <> const char* coerce_to_string<REALSXP>(double x){
     int w,d,e ;
     Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
-	return Rf_mkChar(dropTrailing0(tmp, '.'));
+	return dropTrailing0(tmp, '.');
         
 }
-template <> SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex x){
-    if( Rcpp::traits::is_na<CPLXSXP>(x) ) return NA_STRING ;
-    
+template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
     int wr, dr, er, wi, di, ei;
     Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
-    return Rf_mkChar( Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' ));
+    return Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
 }
 
 

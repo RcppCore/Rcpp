@@ -9,7 +9,9 @@
       \item Added additional check in \code{Rstreambuf} deletetion
       \item Added support for \code{clang++} when using \code{libc++},
       and for anc \code{icpc} in \code{std=c++11} mode, thanks to a
-      patch by Yan Zhou 
+      patch by Yan Zhou
+      \item New class \code{Rcpp::String} to facilitate working with a single
+      element of a character vector
     }
   }
 }
