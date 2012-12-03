@@ -69,14 +69,20 @@ template <> Rcomplex r_coerce<RAWSXP,CPLXSXP>(Rbyte from);
 template <> Rcomplex r_coerce<LGLSXP,CPLXSXP>(int from) ;
 
 // -> STRSXP
+template <int RTYPE> 
+const char* coerce_to_string( typename ::Rcpp::traits::storage_type<RTYPE>::type from ) ;
+template <> const char* coerce_to_string<CPLXSXP>(Rcomplex from) ;
+template <> const char* coerce_to_string<REALSXP>(double from) ; 
+template <> const char* coerce_to_string<INTSXP >(int from) ;
+template <> const char* coerce_to_string<RAWSXP >(Rbyte from) ;
+template <> const char* coerce_to_string<LGLSXP >(int from) ;
+	
 template <> inline SEXP r_coerce<STRSXP ,STRSXP>(SEXP from){ return from ; }
-template <> SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex from) ;
-template <> SEXP r_coerce<REALSXP,STRSXP>(double from) ;
-template <> SEXP r_coerce<INTSXP ,STRSXP>(int from);
-template <> SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from);
-template <> SEXP r_coerce<LGLSXP ,STRSXP>(int from) ;
-
-
+template <> inline SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex from) { return Rcpp::traits::is_na<CPLXSXP>(from) ? NA_STRING : Rf_mkChar( coerce_to_string<CPLXSXP>( from ) ) ; }
+template <> inline SEXP r_coerce<REALSXP,STRSXP>(double from){ return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ; }
+template <> inline SEXP r_coerce<INTSXP ,STRSXP>(int from){ return Rcpp::traits::is_na<INTSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<INTSXP>( from ) ) ; }
+template <> inline SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from){ return Rf_mkChar( coerce_to_string<RAWSXP>(from)); }
+template <> inline SEXP r_coerce<LGLSXP ,STRSXP>(int from){ return Rcpp::traits::is_na<LGLSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<LGLSXP>(from)); }
 
 } // internal
 } // Rcpp

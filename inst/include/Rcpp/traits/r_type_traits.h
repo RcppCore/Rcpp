@@ -75,6 +75,8 @@ struct r_type_module_object_tag{} ;
  */ 
 struct r_type_enum_tag{} ;
 
+struct r_type_RcppString_tag{}; 
+
 /**
  * R type trait. Helps wrap.
  */

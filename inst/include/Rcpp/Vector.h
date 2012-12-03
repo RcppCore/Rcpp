@@ -62,7 +62,11 @@ template <int RTYPE> class SubMatrix ;
 
 #include <Rcpp/vector/instantiation.h>
 #include <Rcpp/vector/string_proxy.h>
+}
 
+#include <Rcpp/String.h>
+
+namespace Rcpp{
 #include <Rcpp/vector/LazyVector.h>
 
 #include <Rcpp/vector/CharacterVectorExtractionIterator.h>
