@@ -134,6 +134,7 @@ public:
     
     template <bool NA, typename VEC>
     Vector( const VectorBase<RTYPE,NA,VEC>& other ) : RObject() {
+    	RCPP_DEBUG_4( "Vector<%d>( VectorBase<%d,%d,%s> )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
     	int n = other.size() ;
     	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
     	import_expression<VEC>( other.get_ref() , n ) ;

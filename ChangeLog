@@ -1,3 +1,22 @@
+2012-12-03 Romain Francois <romain@r-enthusiasts.com>
+
+        * src/Module.cpp: move BEGIN_RCPP/END_RCPP to Module__invoke
+        * src/coerce.cpp: added coerce_to_string implementations
+        * include/RcppCommon.h : nicer formatting for RCPP_DEBUG_*, now up to 
+        RCPP_DEBUG_5
+        * include/Rcpp/vector/Vector.h: debugging
+        * include/Rcpp/String.h: The String class
+        * include/Rcpp/as.h: support for String
+        * include/Rcpp/vector/converter.h : support for String
+        * include/Rcpp/vector/string_proxy.h: support for String
+        * include/Rcpp/internal/wrap.h : support for String
+        * include/Rcpp/internal/r_coerce.h: support for String
+        * include/Rcpp/sugar/functions/sapply.h: debugging
+        * include/Rcpp/traits/wrap_type_traits.h: support for String
+        * include/Rcpp/traits/r_type_traits.h: support for String
+        * unitTests/cpp/String.cpp : unit tests for String
+        * unitTests/runit.String.R: unit test for String
+
 2012-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: Applied patch by Yan Zhou to add support

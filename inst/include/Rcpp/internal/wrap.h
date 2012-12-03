@@ -387,6 +387,7 @@ inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_string
 	return x; 
 }
 
+
 /**
  * called when T is a primitive type : int, bool, double, std::string, etc ...
  * This uses the Rcpp::traits::r_type_traits on the type T to perform
@@ -805,6 +806,8 @@ template <typename T>
 inline SEXP wrap(const T& object){
 	return internal::wrap_dispatch( object, typename ::Rcpp::traits::wrap_type_traits<T>::wrap_category() ) ;
 }
+
+template <> inline SEXP wrap<Rcpp::String>( const Rcpp::String& object) ;
 
 template <typename T>
 inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::void_wrap_tag ){
