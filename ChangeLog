@@ -16,6 +16,7 @@
         * include/Rcpp/traits/r_type_traits.h: support for String
         * unitTests/cpp/String.cpp : unit tests for String
         * unitTests/runit.String.R: unit test for String
+        * include/Rcpp/sugar/sets.h: support for String
 
 2012-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
