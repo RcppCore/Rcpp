@@ -44,7 +44,9 @@ void set_vector_elt(SEXP x, int i, SEXP value){
     SET_VECTOR_ELT(x, i, value ) ;
 }
 SEXP* get_vector_ptr(SEXP x){ return VECTOR_PTR(x) ; }
+void* dataptr(SEXP x){ return DATAPTR(x); }
 
 // when we already know x is a CHARSXP
 const char* char_nocheck( SEXP x ){ return CHAR(x); }
+
 
