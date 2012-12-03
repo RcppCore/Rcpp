@@ -1,3 +1,8 @@
+2012-12-03  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: added function to check whether R development
+        tools are currently installed
+
 2012-12-03 Romain Francois <romain@r-enthusiasts.com>
 
         * src/Module.cpp: move BEGIN_RCPP/END_RCPP to Module__invoke
