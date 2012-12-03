@@ -27,10 +27,8 @@ extern "C" {
 #endif    
 
     typedef struct hash {
-      int m, k, els, type;
+      int m, k  ;
       void *src;
-      SEXP parent;
-      struct hash *next;
       int ix[1];
     } hash_t;
 

@@ -41,7 +41,6 @@ hash_t *new_hash(void *src, int len) {
 
 /* free the hash table (and all chained hash tables as well) */
 void free_hash(hash_t *h) {
-  if (h->next) free_hash(h->next);
   free(h);
 }
 
@@ -154,46 +153,5 @@ int get_hash_ptr(hash_t *h, void *val_ptr) {
     if (addr == h->m) addr = 0;
   }
   return NA_INTEGER;
-}
-
-/* the only externally visible function to be called from R */
-SEXP simon_fmatch(SEXP x, SEXP y) {
-  SEXPTYPE type = TYPEOF(y) ;
-  
-  hash_t* h = new_hash(DATAPTR(y), LENGTH(y));
-  h->type = type;
-  h->parent = y;
-
-  int i, n = LENGTH(y);
-  if (type == INTSXP)
-	for(i = 0; i < n; i++)
-	  add_hash_int(h, i);
-  else if (type == REALSXP)
-	for(i = 0; i < n; i++)
-	  add_hash_real(h, i);
-  else
-	for(i = 0; i < n; i++)
-	  add_hash_ptr(h, i);
-    
-  n = LENGTH(x) ;
-    SEXP r = allocVector(INTSXP, n);
-    int *v = INTEGER(r);
-    if (type == INTSXP) {
-      int *k = INTEGER(x);
-      for (i = 0; i < n; i++)
-	  v[i] = get_hash_int(h, k[i]);
-    } else if (type == REALSXP) {
-      double *k = REAL(x);
-      for (i = 0; i < n; i++)
-	  v[i] = get_hash_real(h, k[i]);
-    } else {
-      SEXP *k = (SEXP*) DATAPTR(x);
-      for (i = 0; i < n; i++)
-	  v[i] = get_hash_ptr(h, k[i]);
-    }
-  
-    free_hash( h ) ;
-    return r;
-  
 }
 
