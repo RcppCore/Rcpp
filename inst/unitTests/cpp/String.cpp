@@ -25,9 +25,7 @@ class StringConv{
 public:
     typedef String result_type ;
     StringConv( CharacterVector old_, CharacterVector new__): 
-        nr(old_.size()), old(old_), new_(new__)
-    {
-    }
+        nr(old_.size()), old(old_), new_(new__){}
     
     String operator()(String text) const {
         for( int i=0; i<nr; i++){
