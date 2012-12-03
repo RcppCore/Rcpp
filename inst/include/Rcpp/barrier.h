@@ -32,5 +32,6 @@ SEXP get_vector_elt(SEXP, int) ;
 void set_vector_elt(SEXP, int, SEXP ) ;
 SEXP* get_vector_ptr(SEXP) ;
 const char* char_nocheck( SEXP ) ;
+void* dataptr(SEXP) ;
 
 #endif
