@@ -47,7 +47,9 @@ class In {
     HASH hash ;
     
 public:
-    In( const TABLE_T& table) : vec(table), hash(vec){}
+    In( const TABLE_T& table) : vec(table), hash(vec){
+        hash.fill() ;
+    }
     
     template <typename T>
     LogicalVector get( const T& x) const {
