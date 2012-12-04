@@ -16,8 +16,10 @@
         using new IndexHash
         * include/Rcpp/sugar/functions/unique.h: more efficient version of 
         unique and in using IndexHash
-        * include/Rcpp/sugar/functions/duplictated.h: more efficient version of 
+        * include/Rcpp/sugar/functions/duplicated.h: more efficient version of 
         duplicated and in using IndexHash
+        * include/Rcpp/sugar/functions/self_match.h: more efficient version of 
+        self_match and in using IndexHash
         * include/Rcpp/vector/Vector.h: more efficiently create Vector from 
         sugar expression that are already vectors, i.e. grab the SEXP
         
