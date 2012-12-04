@@ -55,8 +55,8 @@ namespace Rcpp{
             return lookup__impl(vec.begin(), vec.size() ) ;
         }
         
-        bool contains(STORAGE val) const {
-            return get_index(val) == NA_INTEGER ;    
+        inline bool contains(STORAGE val) const {
+            return get_index(val) != NA_INTEGER ;    
         }
         
         inline int size() const {
