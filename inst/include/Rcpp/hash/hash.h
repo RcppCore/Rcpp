@@ -37,13 +37,24 @@ namespace Rcpp{
         typedef typename traits::storage_type<RTYPE>::type STORAGE ;
         typedef Vector<RTYPE> VECTOR ;
               
-        IndexHash( SEXP table ) : m(2), k(1), src( (STORAGE*)dataptr(table) ), data(), size_(0) {
-            int n =  Rf_length(table) ;
+        IndexHash( SEXP table ) : n(Rf_length(table)), m(2), k(1), src( (STORAGE*)dataptr(table) ), data(), size_(0) {
             int desired = n*2 ;
             while( m < desired ){ m *= 2 ; k++ ; }
             data.resize( m ) ;
-            for( int i=0; i<n; i++) add_value(i) ;    
         }
+        
+        inline IndexHash& fill(){
+            for( int i=0; i<n; i++) add_value(i) ;
+            return *this ;
+        }
+        
+        inline LogicalVector fill_and_get_duplicated() { 
+            LogicalVector result = no_init(n) ;
+            int* res = LOGICAL(result) ;
+            for( int i=0; i<n; i++) res[i] = ! add_value(i) ;
+            return result ;
+        }
+    
         
         template <typename T>
         inline SEXP lookup(const T& vec) const {
@@ -71,8 +82,7 @@ namespace Rcpp{
             return res ;
         }
         
-    private:
-        int m, k ;
+        int n, m, k ;
         STORAGE* src ;
         std::vector<int> data ;
         int size_ ;
@@ -85,7 +95,7 @@ namespace Rcpp{
             return res ;
         }
         
-        void add_value(int i){
+        bool add_value(int i){
             STORAGE val = src[i++] ;
             int addr = get_addr(val) ;
             while (data[addr] && src[data[addr] - 1] != val) {
@@ -95,7 +105,9 @@ namespace Rcpp{
             if (!data[addr]){
               data[addr] = i ;
               size_++ ;
+              return true ;
             }
+            return false;
         }
         
         /* NOTE: we are returning a 1-based index ! */

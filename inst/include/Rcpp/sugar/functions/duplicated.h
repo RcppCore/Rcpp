@@ -23,46 +23,12 @@
 #define Rcpp__sugar__duplicated_h
           
 namespace Rcpp{
-namespace sugar{
-
-template <typename SET, typename STORAGE>
-class DuplicatedInserter {
-public:
-    DuplicatedInserter( SET& set_ ) : set(set_) {}
-    
-    inline int operator()( STORAGE value ){
-        if( set.count(value) ) return TRUE ;
-        set.insert(value);
-        return FALSE ;
-    }
-    
-private:
-    SET& set ;
-} ; 
-
-template <int RTYPE, typename TABLE_T>        
-class Duplicated {
-public:
-    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-    
-    Duplicated( const TABLE_T& table ): set(), result(table.size()) {
-        std::transform( table.begin(), table.end(), result.begin(), Inserter(set) ) ;
-    }
-    
-    inline operator LogicalVector() const { return result ; }
-    
-private:
-    typedef RCPP_UNORDERED_SET<STORAGE> SET ;
-    typedef DuplicatedInserter<SET,STORAGE> Inserter ;
-    SET set ; 
-    LogicalVector result ;
-}; 
-  
-} // sugar
 
 template <int RTYPE, bool NA, typename T>
 inline LogicalVector duplicated( const VectorBase<RTYPE,NA,T>& x ){
-    return sugar::Duplicated<RTYPE,T>(x.get_ref()) ;
+    Vector<RTYPE> vec(x) ;
+    sugar::IndexHash<RTYPE> hash(vec) ;
+    return hash.fill_and_get_duplicated() ;
 }
 
 
