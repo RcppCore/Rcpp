@@ -21,6 +21,7 @@
         \item More efficient version of \code{unique} base on \code{IndexHash}
         \item More efficient version of \code{in} base on \code{IndexHash}
         \item More efficient version of \code{duplicated} base on \code{IndexHash}
+        \item More efficient version of \code{self_match} base on \code{IndexHash}
     }
   }
 }
