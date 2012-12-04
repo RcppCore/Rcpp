@@ -37,7 +37,7 @@ namespace Rcpp{
         typedef typename traits::storage_type<RTYPE>::type STORAGE ;
         typedef Vector<RTYPE> VECTOR ;
               
-        IndexHash( SEXP table ) : m(2), k(1), src( (STORAGE*)dataptr(table) ), data() {
+        IndexHash( SEXP table ) : m(2), k(1), src( (STORAGE*)dataptr(table) ), data(), size_(0) {
             int n =  Rf_length(table) ;
             int desired = n*2 ;
             while( m < desired ){ m *= 2 ; k++ ; }
@@ -46,23 +46,39 @@ namespace Rcpp{
         }
         
         template <typename T>
-        inline SEXP lookup(const T& vec){
+        inline SEXP lookup(const T& vec) const {
             return lookup__impl(vec, vec.size() ) ;
         }
         
         // use the pointers for actual (non sugar expression vectors)
-        inline SEXP lookup(const VECTOR& vec){
+        inline SEXP lookup(const VECTOR& vec) const {
             return lookup__impl(vec.begin(), vec.size() ) ;
         }
         
+        bool contains(STORAGE val) const {
+            return get_index(val) == NA_INTEGER ;    
+        }
+        
+        inline int size() const {
+            return size_ ;
+        }
+        
+        inline Vector<RTYPE> keys() const{
+            Vector<RTYPE> res = no_init(size_) ;
+            for( int i=0, j=0; j<size_; i++){
+                if( data[i] ) res[j++] = src[data[i]] ;
+            }
+            return res ;
+        }
         
     private:
         int m, k ;
         STORAGE* src ;
         std::vector<int> data ;
+        int size_ ;
         
         template <typename T>
-        SEXP lookup__impl(const T& vec, int n){
+        SEXP lookup__impl(const T& vec, int n) const {
             SEXP res = Rf_allocVector(INTSXP, n) ;
             int *v = INTEGER(res) ;
             for( int i=0; i<n; i++) v[i] = get_index( vec[i] ) ;    
@@ -76,12 +92,14 @@ namespace Rcpp{
               addr++;
               if (addr == m) addr = 0;
             }
-            if (!data[addr])
+            if (!data[addr]){
               data[addr] = i ;
+              size_++ ;
+            }
         }
         
         /* NOTE: we are returning a 1-based index ! */
-        int get_index(STORAGE value){
+        int get_index(STORAGE value) const {
             int addr = get_addr(value) ;
             while (data[addr]) {
               if (src[data[addr] - 1] == value)
@@ -93,15 +111,15 @@ namespace Rcpp{
         }
         
         // defined below
-        int get_addr(STORAGE value) ;
+        int get_addr(STORAGE value) const ;
     } ;
         
     template <>
-    inline int IndexHash<INTSXP>::get_addr(int value){
+    inline int IndexHash<INTSXP>::get_addr(int value) const {
         return RCPP_HASH(value) ;
     }
     template <>
-    inline int IndexHash<REALSXP>::get_addr(double val){
+    inline int IndexHash<REALSXP>::get_addr(double val) const {
       int addr;
       union dint_u {
           double d;
@@ -118,7 +136,7 @@ namespace Rcpp{
     }
     
     template <>
-    inline int IndexHash<STRSXP>::get_addr(SEXP value){
+    inline int IndexHash<STRSXP>::get_addr(SEXP value) const {
         intptr_t val = (intptr_t) value;
         int addr;
         #if (defined _LP64) || (defined __LP64__) || (defined WIN64)
