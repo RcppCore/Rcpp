@@ -1,7 +1,9 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// hash.h: Rcpp R/C++ interface class library -- hashing 
+// hash.h: Rcpp R/C++ interface class library -- hashing utility, inspired 
+// from Simon's fastmatch package
 //
+// Copyright (C) 2010, 2011  Simon Urbanek
 // Copyright (C) 2012  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -22,19 +24,12 @@
 #ifndef RCPP__HASH__HASH_H
 #define RCPP__HASH__HASH_H
 
-#include <Rcpp/hash/hash_impl.h>
-
 namespace Rcpp{
     namespace sugar{ 
-    template <typename T> void add_hash_value( hash_t *h, int i) ;
-    template <> inline void add_hash_value<int>( hash_t* h, int i ){ add_hash_int(h,i) ;}
-    template <> inline void add_hash_value<double>( hash_t* h, int i ){ add_hash_real(h,i) ;}
-    template <> inline void add_hash_value<SEXP>( hash_t* h, int i ){ add_hash_ptr(h,i) ;}
-    
-    template <typename T> int get_hash_value( hash_t *h, T val) ;
-    template <> inline int get_hash_value<int>( hash_t *h, int val){ return get_hash_int(h, val) ; }
-    template <> inline int get_hash_value<double>( hash_t *h, double val){ return get_hash_real(h, val); }
-    template <> inline int get_hash_value<SEXP>( hash_t *h, SEXP val){ return get_hash_ptr(h, val) ; }
+      
+    #ifndef RCPP_HASH    
+    #define RCPP_HASH(X) (3141592653U * ((unsigned int)(X)) >> (32 - k))
+    #endif
     
     template <int RTYPE>
     class IndexHash {
@@ -42,45 +37,98 @@ namespace Rcpp{
         typedef typename traits::storage_type<RTYPE>::type STORAGE ;
         typedef Vector<RTYPE> VECTOR ;
               
-        IndexHash( SEXP table ) : h(0) {
-            int n =  LENGTH(table) ;
-            h = new_hash( dataptr(table), n ) ;
-            for( int i=0; i<n; i++){
-               add_hash_value<STORAGE>( h, i) ;     
-            }    
-        }
-        ~IndexHash(){ 
-            if(h) {
-                free_hash(h);
-                h = 0 ;
-            }
+        IndexHash( SEXP table ) : m(2), k(1), src( (STORAGE*)dataptr(table) ), data() {
+            int n =  Rf_length(table) ;
+            int desired = n*2 ;
+            while( m < desired ){ m *= 2 ; k++ ; }
+            data.resize( m ) ;
+            for( int i=0; i<n; i++) add_value(i) ;    
         }
         
         template <typename T>
-        SEXP lookup(const T& vec){
-            int n = vec.size() ;
+        inline SEXP lookup(const T& vec){
+            return lookup__impl(vec, vec.size() ) ;
+        }
+        
+        // use the pointers for actual (non sugar expression vectors)
+        inline SEXP lookup(const VECTOR& vec){
+            return lookup__impl(vec.begin(), vec.size() ) ;
+        }
+        
+        
+    private:
+        int m, k ;
+        STORAGE* src ;
+        std::vector<int> data ;
+        
+        template <typename T>
+        SEXP lookup__impl(const T& vec, int n){
             SEXP res = Rf_allocVector(INTSXP, n) ;
             int *v = INTEGER(res) ;
-            for( int i=0; i<n; i++){
-                v[i] = get_hash_value<STORAGE>( h, vec[i] ) ;    
-            }
+            for( int i=0; i<n; i++) v[i] = get_index( vec[i] ) ;    
             return res ;
         }
         
-        SEXP lookup(const VECTOR& vec){
-            int n = vec.size() ;
-            SEXP res = Rf_allocVector(INTSXP, n) ;
-            int *v = INTEGER(res) ;
-            STORAGE* p_vec = vec.begin() ;
-            for( int i=0; i<n; i++){
-                v[i] = get_hash_value<STORAGE>( h, p_vec[i] ) ;    
+        void add_value(int i){
+            STORAGE val = src[i++] ;
+            int addr = get_addr(val) ;
+            while (data[addr] && src[data[addr] - 1] != val) {
+              addr++;
+              if (addr == m) addr = 0;
             }
-            return res ;
+            if (!data[addr])
+              data[addr] = i ;
         }
         
-    private:    
-        hash_t* h ;
+        /* NOTE: we are returning a 1-based index ! */
+        int get_index(STORAGE value){
+            int addr = get_addr(value) ;
+            while (data[addr]) {
+              if (src[data[addr] - 1] == value)
+                return data[addr];
+              addr++;
+              if (addr == m) addr = 0;
+            }
+            return NA_INTEGER;
+        }
+        
+        // defined below
+        int get_addr(STORAGE value) ;
     } ;
+        
+    template <>
+    inline int IndexHash<INTSXP>::get_addr(int value){
+        return RCPP_HASH(value) ;
+    }
+    template <>
+    inline int IndexHash<REALSXP>::get_addr(double val){
+      int addr;
+      union dint_u {
+          double d;
+          unsigned int u[2];
+        };
+      union dint_u val_u;
+      /* double is a bit tricky - we nave to normalize 0.0, NA and NaN */
+      if (val == 0.0) val = 0.0;
+      if (R_IsNA(val)) val = NA_REAL;
+      else if (R_IsNaN(val)) val = R_NaN;
+      val_u.d = val;
+      addr = RCPP_HASH(val_u.u[0] + val_u.u[1]);
+      return addr ;
+    }
+    
+    template <>
+    inline int IndexHash<STRSXP>::get_addr(SEXP value){
+        intptr_t val = (intptr_t) value;
+        int addr;
+        #if (defined _LP64) || (defined __LP64__) || (defined WIN64)
+          addr = RCPP_HASH((val & 0xffffffff) ^ (val >> 32));
+        #else
+          addr = RCPP_HASH(val);
+        #endif
+        return addr ;
+    }
+
     
 } // sugar
 } // Rcpp
