@@ -604,7 +604,6 @@ namespace attributes {
             if ((argStream >> num)) {
                 
                 // L suffix means return the value literally
-                bool isInteger = false;
                 if (!argStream.eof()) {
                     std::string suffix;
                     argStream >> suffix;
