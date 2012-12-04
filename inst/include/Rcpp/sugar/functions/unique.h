@@ -25,35 +25,35 @@
 namespace Rcpp{
 namespace sugar{
 
-template <typename SET, typename STORAGE>
+template <typename HASH>
 class InSet {
+    typedef typename HASH::STORAGE STORAGE ;
+    
 public:
-    InSet( const SET& hash_ ) : hash(hash_), end(hash_.end()){}
+    InSet( const HASH& hash_ ) : hash(hash_){}
     
     inline int operator()(STORAGE value){
-        return hash.find(value) != end ;    
+        return hash.contains(value) ;    
     }
     
 private:
-    const SET& hash ;
-    typename SET::const_iterator end ;
+    const HASH& hash ;
 } ;
 
 template <int RTYPE, typename TABLE_T>
 class In {
+    Vector<RTYPE> vec ;
+    typedef sugar::IndexHash<RTYPE> HASH ;
+    HASH hash ;
+    
 public:
-    In( const TABLE_T& table) : hash( get_const_begin(table), get_const_end(table) ){}
+    In( const TABLE_T& table) : vec(table), hash(vec){}
     
     template <typename T>
     LogicalVector get( const T& x) const {
-        return LogicalVector( x.begin(), x.end(), InSet<SET,STORAGE>(hash) ) ;
+        return LogicalVector( x.begin(), x.end(), InSet<HASH>(hash) ) ;
     }
-    
-private:
-    typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-    typedef typename RCPP_UNORDERED_SET<STORAGE> SET ;
-    SET hash ;
-    
+
 } ;
 
 
@@ -72,8 +72,8 @@ inline Vector<RTYPE> sort_unique( const VectorBase<RTYPE,NA,T>& t ){
 
 template <int RTYPE, bool NA, typename T, bool RHS_NA, typename RHS_T>
 inline LogicalVector in( const VectorBase<RTYPE,NA,T>& x, const VectorBase<RTYPE,RHS_NA,RHS_T>& table ){
-    sugar::In<RTYPE,RHS_T> obj(table.get_ref()) ;
-    return obj.get( x.get_ref() );
+    typedef VectorBase<RTYPE,RHS_NA,RHS_T> TABLE_T ;
+    return sugar::In<RTYPE, TABLE_T>(table).get( x.get_ref() ) ;
 }
 
 
