@@ -264,7 +264,7 @@ public:
         RObject::setSEXP( internal::vector_from_string<RTYPE>(st) );
     }
 	
-#ifdef HAS_INIT_LISTS
+#ifdef HAS_CXX0X_INITIALIZER_LIST
     Vector( std::initializer_list<init_type> list ) : RObject(){
         assign( list.begin() , list.end() ) ;
     }

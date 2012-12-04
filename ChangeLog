@@ -1,10 +1,24 @@
 2012-12-04 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/hash/hash.h: new implementation of IndexHash, based on 
-        Simon's fastmatch package
+        * include/Rcpp/hash/hash.h: new implementation of IndexHash, based on
+	Simon's fastmatch package
         * include/Rcpp/hash/hash_impl.h: low level implementation details
         * include/Rcpp/sugar/functions/match.h: using new IndexHash
         * src/fastmatch.c : largely inspired from Simon's fastmatch
+
+2012-12-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/RcppCommon.h: Applied patch kindly contributed by Yan
+	Zhou which provides a number of more refined definition for support
+	of both the C++11 standard and different compilers
+	* inst/include/Rcpp/internal/wrap.h: Idem
+	* inst/include/Rcpp/sugar/sugar.h: Idem
+	* inst/include/Rcpp/traits/comparator_type.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/unitTests/runit.wrap.R: Idem
+	* src/RcppCommon.cpp: Idem
+
+	* DESCRIPTION: Increase minor dev. version once more
 
 2012-12-03  JJ Allaire <jj@rstudio.org>
 
@@ -15,8 +29,8 @@
 
         * src/Module.cpp: move BEGIN_RCPP/END_RCPP to Module__invoke
         * src/coerce.cpp: added coerce_to_string implementations
-        * include/RcppCommon.h : nicer formatting for RCPP_DEBUG_*, now up to 
-        RCPP_DEBUG_5
+        * include/RcppCommon.h : nicer formatting for RCPP_DEBUG_*, now up to
+	RCPP_DEBUG_5
         * include/Rcpp/vector/Vector.h: debugging
         * include/Rcpp/String.h: The String class
         * include/Rcpp/as.h: support for String
@@ -30,7 +44,7 @@
         * unitTests/cpp/String.cpp : unit tests for String
         * unitTests/runit.String.R: unit test for String
         * include/Rcpp/sugar/sets.h: support for String
-        
+
 2012-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: Applied patch by Yan Zhou to add support

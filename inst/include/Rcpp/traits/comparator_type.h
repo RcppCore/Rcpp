@@ -28,7 +28,7 @@ namespace traits{
    
 class StringCompare {
 public:
-    inline bool operator()( SEXP x, SEXP y){
+    inline bool operator()( SEXP x, SEXP y) const {
         return strcmp( char_nocheck(x), char_nocheck(y) ) < 0 ; 
     }
 } ;

@@ -68,22 +68,6 @@ namespace Rcpp{
 
 #ifdef __GNUC__
     #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-    #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        #define HAS_CXX0X
-        #if GCC_VERSION >= 40300
-            #define HAS_VARIADIC_TEMPLATES
-        #endif
-        #if GCC_VERSION >= 40400
-            #define HAS_INIT_LISTS
-        #endif
-    #endif
-    // FIXME: [romain] I did not actually check, tr1::unordered_map was 
-    // probably introduced before GCC 4.2.1
-    #if GCC_VERSION >= 40201
-        #define HAS_TR1
-        #define HAS_TR1_UNORDERED_MAP
-        #define HAS_TR1_UNORDERED_SET
-    #endif
     // g++ 4.5 does not seem to like some of the fast indexing
     #if GCC_VERSION >= 40500
         #define IS_GCC_450_OR_LATER
@@ -97,45 +81,83 @@ namespace Rcpp{
     #endif
 #endif
 
-// #ifdef __clang__
-//     #define CLANG_VERSION (__clang_major__ * 10000 + __clang_minor__ * 100 + __clang_patchlevel__)
-//     #if CLANG_VERSION < 30000
-//         #define IS_EARLIER_THAN_CLANG_300
-//     #endif
-//     #if CLANG_VERSION >= 30000
-//         #define IS_CLANG_300_OR_LATER
-//     #endif
-// #endif
-
-// This definition was contributed by Yan Zhou
-#ifdef __clang__
-    #if !__has_include(<tr1/unordered_map>)
-        #undef HAS_TR1
-        #undef HAS_TR1_UNORDERED_MAP
+// Check C++0x features
+#if defined(__INTEL_COMPILER)
+    #if __cplusplus >= 201103L
+        #define HAS_CXX0X_FLAG
+        #if __INTEL_COMPILER >= 1210
+            // #define HAS_VARIADIC_TEMPLATES
+        #endif
+        #if __INTEL_COMPILER >= 1100
+            #define HAS_STATIC_ASSERT
+        #endif
     #endif
-    #if !__has_include(<tr1/unordered_set>)
-        #undef HAS_TR1
-        #undef HAS_TR1_UNORDERED_SET
+#elif defined(__clang__)
+    #if __cplusplus >= 201103L
+        #define HAS_CXX0X_FLAG
+        #if __has_feature(cxx_variadic_templates)
+            // #define HAS_VARIADIC_TEMPLATES
+        #endif
+        #if __has_feature(cxx_static_assert)
+            #define HAS_STATIC_ASSERT
+        #endif
     #endif
-    #if __has_feature(cxx_variadic_templates)
-        #define HAS_VARIADIC_TEMPLATES
-    #endif
-#endif
-
-#ifdef __INTEL_COMPILER
-    // This is based on an email by Alexey Stukalov who tested 
-    // Intel Compiler 12.0 and states that is does support Cxx0x 
-    // or even TR1 (by default; maybe there are options?)
-    // Extended further via patch in email by Yan Zhou
-    #undef HAS_VARIADIC_TEMPLATES
-    #include <cmath>
-    #ifndef __GLIBCXX__
-    #undef HAS_TR1
-    #undef HAS_TR1_UNORDERED_MAP
-    #undef HAS_TR1_UNORDERED_SET
+#elif defined(__GNUC__)
+    #ifdef __GXX_EXPERIMENTAL_CXX0X__
+        // #define HAS_CXX0X_FLAG
+        #if GCC_VERSION >= 40300
+            // #define HAS_VARIADIC_TEMPLATES
+            #define HAS_STATIC_ASSERT
+        #endif
     #endif
 #endif
 
+// Check C++0x headers
+#include <cmath>
+#if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
+    #if defined(__GLIBCXX__) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+        #if __GLIBCXX__ >= 20090421 // GCC 4.4.0
+            #define HAS_CXX0X_UNORDERED_MAP
+            #define HAS_CXX0X_UNORDERED_SET
+            #define HAS_CXX0X_INITIALIZER_LIST
+        #endif
+    #endif
+#elif defined(__clang__)
+    #if __cplusplus >= 201103L
+        #if __has_include(<unordered_map>)
+            #define HAS_CXX0X_UNORDERED_MAP
+        #endif
+        #if __has_include(<unordered_set>)
+            #define HAS_CXX0X_UNORDERED_SET
+        #endif
+        #if __has_include(<initializer_list>)
+            #define HAS_CXX0X_INITIALIZER_LIST
+        #endif
+    #endif
+#endif
+
+// Check TR1 Headers
+#if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
+    #if defined(__GLIBCXX__)
+        #if __GLIBCXX__ >= 20070719 // GCC 4.2.1
+            #define HAS_TR1_UNORDERED_MAP
+            #define HAS_TR1_UNORDERED_SET
+        #endif
+    #endif
+#elif defined(__clang__)
+    #if __cplusplus >= 201103L
+        #if __has_include(<tr1/unordered_map>)
+            #define HAS_TR1_UNORDERED_MAP
+        #endif
+        #if __has_include(<tr1/unordered_set>)
+            #define HAS_TR1_UNORDERED_SET
+        #endif
+    #endif
+#endif
+
+#if defined(HAS_TR1_UNORDERED_MAP) && defined(HAS_TR1_UNORDERED_SET)
+#define HAS_TR1
+#endif
 
 #include <iterator>
 #include <exception>
@@ -156,30 +178,40 @@ namespace Rcpp{
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 
-#ifdef HAS_INIT_LISTS
+// Conditionally include headers
+#ifdef HAS_CXX0X_INITIALIZER_LIST
 #include <initializer_list>
 #endif
 
-#ifdef HAS_TR1_UNORDERED_MAP
-#include <tr1/unordered_map>
-#endif
-
-#ifdef HAS_TR1_UNORDERED_SET
-#include <tr1/unordered_set>
-#endif
-
-
-#if __cplusplus >= 201103L
-    #if defined(__GLIBCXX__) && __GLIBCXX__ > 20090421
-    #include <unordered_map>
-    #include <unordered_set>
-    #elif defined(__clang__)
-        #if __has_include(<unordered_map>)
+#ifdef HAS_CXX0X_FLAG
+    #if defined(HAS_CXX0X_UNORDERED_MAP)
         #include <unordered_map>
-        #endif
-        #if __has_include(<unordered_set>)
+        #define RCPP_UNORDERED_MAP std::unordered_map
+    #else
+        #include <map>
+        #define RCPP_UNORDERED_MAP std::map
+    #endif
+    #if defined(HAS_CXX0X_UNORDERED_SET)
         #include <unordered_set>
-        #endif
+        #define RCPP_UNORDERED_SET std::unordered_set
+    #else
+        #include <set>
+        #define RCPP_UNORDERED_SET std::set
+    #endif
+#else
+    #if defined(HAS_TR1_UNORDERED_MAP)
+        #include <tr1/unordered_map>
+        #define RCPP_UNORDERED_MAP std::tr1::unordered_map
+    #else
+        #include <map>
+        #define RCPP_UNORDERED_MAP std::map
+    #endif
+    #if defined(HAS_TR1_UNORDERED_SET)
+        #include <tr1/unordered_set>
+        #define RCPP_UNORDERED_SET std::tr1::unordered_set
+    #else
+        #include <set>
+        #define RCPP_UNORDERED_SET std::set
     #endif
 #endif
 
