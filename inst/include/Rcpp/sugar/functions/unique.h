@@ -65,7 +65,8 @@ template <int RTYPE, bool NA, typename T>
 inline Vector<RTYPE> unique( const VectorBase<RTYPE,NA,T>& t ){
 	Vector<RTYPE> vec(t) ;
 	sugar::IndexHash<RTYPE> hash(vec) ; 
-    return hash.keys() ;
+	hash.fill() ;
+	return hash.keys() ;
 }
 template <int RTYPE, bool NA, typename T>
 inline Vector<RTYPE> sort_unique( const VectorBase<RTYPE,NA,T>& t ){
