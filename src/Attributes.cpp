@@ -278,8 +278,8 @@ namespace {
             }
             
             // add arguments
-            if (!args.empty())
-                ostr << ", " << args;
+            for (size_t i = 0; i<arguments.size(); i++) 
+                ostr << ", " << arguments[i].name();   
             ostr << ")";
             if (function.type().isVoid())
                 ostr << ")";
