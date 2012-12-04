@@ -2,10 +2,8 @@
 
         * include/Rcpp/hash/hash.h: new implementation of IndexHash, based on
 	Simon's fastmatch package
-        * include/Rcpp/hash/hash_impl.h: low level implementation details
         * include/Rcpp/sugar/functions/match.h: using new IndexHash
-        * src/fastmatch.c : largely inspired from Simon's fastmatch
-
+        
 2012-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: Applied patch kindly contributed by Yan
