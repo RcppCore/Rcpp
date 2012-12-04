@@ -36,7 +36,7 @@ SEXP capabilities(){
 #else
 	LOGICAL(cap)[0] = FALSE ;
 #endif
-#ifdef HAS_INIT_LISTS
+#ifdef HAS_CXX0X_INITIALIZER_LIST
 	LOGICAL(cap)[1] = TRUE ;
 #else
 	LOGICAL(cap)[1] = FALSE ;

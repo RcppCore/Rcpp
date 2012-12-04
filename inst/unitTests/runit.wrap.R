@@ -142,7 +142,7 @@ definitions <- function(){
         ## definition of all the tr1 functions at once, appended to existing list
         g <- list("unordered_map_string_int"=list(
                   signature(),
-                  'std::tr1::unordered_map< std::string, int > m ;
+                  'RCPP_UNORDERED_MAP< std::string, int > m ;
 	           m["b"] = 100;
   	           m["a"] = 200;
   	           m["c"] = 300;
@@ -150,7 +150,7 @@ definitions <- function(){
 
                   ,"unordered_map_string_double"=list(
                    signature(),
-                   'std::tr1::unordered_map<std::string,double> m ;
+                   'RCPP_UNORDERED_MAP<std::string,double> m ;
 	            m["b"] = 100;
   	            m["a"] = 200;
   	            m["c"] = 300;
@@ -158,7 +158,7 @@ definitions <- function(){
 
                   ,"unordered_map_string_bool"=list(
                    signature(),
-                   'std::tr1::unordered_map<std::string,bool> m ;
+                   'RCPP_UNORDERED_MAP<std::string,bool> m ;
             	    m["b"] = true;
               	    m["a"] = false;
               	    m["c"] = true;
@@ -167,7 +167,7 @@ definitions <- function(){
 
                   ,"unordered_map_string_Rbyte"=list(
                    signature(),
-                   'std::tr1::unordered_map<std::string,Rbyte> m ;
+                   'RCPP_UNORDERED_MAP<std::string,Rbyte> m ;
 	            m["b"] = (Rbyte)0;
   	            m["a"] = (Rbyte)1;
   	            m["c"] = (Rbyte)2;
@@ -175,7 +175,7 @@ definitions <- function(){
 
                   ,"unordered_map_string_string"=list(
                    signature(),
-                   'std::tr1::unordered_map<std::string,std::string> m ;
+                   'RCPP_UNORDERED_MAP<std::string,std::string> m ;
 	            m["b"] = "foo" ;
   	            m["a"] = "bar" ;
   	            m["c"] = "bling" ;
@@ -184,7 +184,7 @@ definitions <- function(){
 
                   ,"unordered_map_string_generic"=list(
                    signature(),
-                   'std::tr1::unordered_map< std::string,std::vector<int> > m ;
+                   'RCPP_UNORDERED_MAP< std::string,std::vector<int> > m ;
 	            std::vector<int> b; b.push_back(1); b.push_back(2); m["b"] = b ;
   	            std::vector<int> a; a.push_back(1); a.push_back(2); a.push_back(2); m["a"] = a;
   	            std::vector<int> c; c.push_back(1); c.push_back(2); c.push_back(2); c.push_back(2); m["c"] = c;

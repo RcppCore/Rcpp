@@ -427,7 +427,7 @@ inline SEXP wrap_dispatch_unknown( const T& object, ::Rcpp::traits::true_type ){
 template <typename T>
 inline SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::false_type){
 	// here we know that T is not convertible to SEXP
-#ifdef HAS_CXX0X
+#ifdef HAS_STATIC_ASSERT
 	static_assert( !sizeof(T), "cannot convert type to SEXP" ) ;
 #else
 	// leave the cryptic message
