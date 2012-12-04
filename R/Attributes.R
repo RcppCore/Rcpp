@@ -136,10 +136,9 @@ sourceCpp <- function(file = "",
         removeObjs <- exports[exports %in% ls(envir = env, all.names = T)]
         remove(list = removeObjs, envir = env)
         
-        # load the module and populate the target environment
-        dll <- dyn.load(context$dynlibPath)
-        populate(Module(context$moduleName, PACKAGE = dll, mustStart = TRUE), 
-                 env)
+        # source the R script
+        scriptPath <- file.path(context$buildDirectory, context$rSourceFilename) 
+        source(scriptPath, local = env)
     } else if (getOption("rcpp.warnNoExports", default=TRUE)) {
         warning("No Rcpp::export attributes found in source")
     }
@@ -308,15 +307,20 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 # Print verbose output
 .printVerboseOutput <- function(context) {
     
-    cat("\nGenerated Rcpp module declaration:",
-        "\n--------------------------------------------------------\n\n")
+    cat("\nGenerated extern \"C\" functions",
+        "\n--------------------------------------------------------\n")
     cat(context$generatedCpp, sep="")
     
-    cat("\nBuilding shared library", 
+    cat("\nGenerated R .Call bindings",
+        "\n-------------------------------------------------------\n\n")
+    cat(readLines(file.path(context$buildDirectory, 
+                            context$rSourceFilename)), 
+        sep="\n")
+    
+    cat("Building shared library", 
         "\n--------------------------------------------------------\n",
         "\nDIR: ", context$buildDirectory, "\n\n", sep="")
 }
-
 
 # Add LinkingTo dependencies if the sourceFile is in a package
 .getSourceCppDependencies <- function(depends, sourceFile) {
