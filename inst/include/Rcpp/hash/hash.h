@@ -54,6 +54,13 @@ namespace Rcpp{
             for( int i=0; i<n; i++) res[i] = ! add_value(i) ;
             return result ;
         }
+        
+        inline IntegerVector fill_and_self_match(){
+            IntegerVector result = no_init(n) ;
+            int* res = INTEGER(result) ;
+            for( int i=0; i<n; i++) res[i] = add_value_get_index(i) ;
+            return result ;    
+        }
     
         
         template <typename T>
@@ -108,6 +115,21 @@ namespace Rcpp{
               return true ;
             }
             return false;
+        }
+        
+        int add_value_get_index(int i){
+            STORAGE val = src[i++] ;
+            int addr = get_addr(val) ;
+            while (data[addr] && src[data[addr] - 1] != val) {
+              addr++;
+              if (addr == m) addr = 0;
+            }
+            if (!data[addr]){
+              data[addr] = i ;
+              size_++ ;
+              return i ;
+            }
+            return data[addr] ;
         }
         
         /* NOTE: we are returning a 1-based index ! */
