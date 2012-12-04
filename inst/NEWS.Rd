@@ -20,6 +20,7 @@
         \item More efficient version of \code{match} based on \code{IndexHash}
         \item More efficient version of \code{unique} base on \code{IndexHash}
         \item More efficient version of \code{in} base on \code{IndexHash}
+        \item More efficient version of \code{duplicated} base on \code{IndexHash}
     }
   }
 }
