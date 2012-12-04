@@ -134,10 +134,7 @@ public:
     
     template <bool NA, typename VEC>
     Vector( const VectorBase<RTYPE,NA,VEC>& other ) : RObject() {
-    	RCPP_DEBUG_4( "Vector<%d>( VectorBase<%d,%d,%s> )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
-    	int n = other.size() ;
-    	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
-    	import_expression<VEC>( other.get_ref() , n ) ;
+    	import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
     
     // should eally onlu be used for LogicalVector. 
@@ -146,10 +143,25 @@ public:
     	RObject::setSEXP( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>( obj ) .get_sexp() ) ) ;
     }
     
-    
-    
 private:
 	  
+    // we are importing a real sugar expression, i.e. not a vector
+    template <bool NA, typename VEC>
+    inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::false_type ){
+        RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, false_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
+    	int n = other.size() ;
+    	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
+    	import_expression<VEC>( other.get_ref() , n ) ;
+    }   
+    
+    // we are imoprtung a sugar expression that actually is a vector
+    template <bool NA, typename VEC>
+    inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::true_type ){
+        RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, true_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
+    	RObject::setSEXP( other.get_ref() ) ;
+    }   
+    
+    
     // TODO: do some dispatch when VEC == Vector so that we use std::copy
     template <typename T>
     inline void import_expression( const T& other, int n ){

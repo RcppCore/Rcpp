@@ -12,6 +12,13 @@
       patch by Yan Zhou
       \item New class \code{Rcpp::String} to facilitate working with a single
       element of a character vector
+      \item utility class sugar::IndexHash inspired from Simon Urbanek's fastmatch
+      package
+    }
+    \item Changes in Rcpp sugar:
+    \itemize{
+        \item More efficient version of \code{match} based on \code{IndexHash}
+        \item More efficient version of \code{unique} base on \code{IndexHash}
     }
   }
 }

@@ -3,6 +3,8 @@
         * include/Rcpp/hash/hash.h: new implementation of IndexHash, based on
 	Simon's fastmatch package
         * include/Rcpp/sugar/functions/match.h: using new IndexHash
+        * include/Rcpp/vector/Vector.h: more efficiently create Vector from 
+        sugar expression that are already vectors, i.e. grab the SEXP
         
 2012-12-03  Dirk Eddelbuettel  <edd@debian.org>
 

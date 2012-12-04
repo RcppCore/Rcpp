@@ -25,71 +25,6 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, typename T>
-class Unique {
-public:
-    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-    
-    Unique( const T& vec ) : set( vec.begin(), vec.end() ) {}
-    
-    Vector<RTYPE> get( ) {
-        return Vector<RTYPE>( set.begin(), set.end() ) ;
-    }
-    Vector<RTYPE> get_sorted( ) {
-        return Vector<RTYPE>( set.begin(), set.end() ).sort() ;
-    }
-    
-private:
-    
-    RCPP_UNORDERED_SET<STORAGE> set ;
-    
-} ;
-   
-// for a character expression
-template <typename T>
-class Unique<STRSXP,T> {
-public:
-    Unique( const T& vec ) : set() {
-        std::string buffer ;
-        int n = vec.size() ;
-        for( int i=0; i<n; i++){
-            buffer = vec[i] ;
-            set.insert( buffer ) ;
-        }
-    }
-    
-    CharacterVector get( ) {
-        return CharacterVector( set.begin(), set.end() ) ;
-    }
-    CharacterVector get_sorted( ) {
-        return CharacterVector( set.begin(), set.end() ).sort() ;
-    }
-    
-private:
-    
-    RCPP_UNORDERED_SET<std::string> set ;
-   
-} ;
-
-// for a character vector
-template <>
-class Unique<STRSXP,CharacterVector> {
-public:
-    Unique( const CharacterVector& vec ) : set( vec.begin(), vec.end() ) {}
-    
-    CharacterVector get( ) {
-        return CharacterVector( set.begin(), set.end() ) ;
-    }
-    
-    CharacterVector get_sorted( ) {
-        return CharacterVector( set.begin(), set.end() ).sort() ;
-    }
-private:
-    
-    RCPP_UNORDERED_SET<SEXP> set ;
-   
-} ;
-
 template <typename SET, typename STORAGE>
 class InSet {
 public:
@@ -126,11 +61,13 @@ private:
 
 template <int RTYPE, bool NA, typename T>
 inline Vector<RTYPE> unique( const VectorBase<RTYPE,NA,T>& t ){
-	return sugar::Unique<RTYPE,T>( t.get_ref() ).get() ;
+	Vector<RTYPE> vec(t) ;
+	sugar::IndexHash<RTYPE> hash(vec) ; 
+    return hash.keys() ;
 }
 template <int RTYPE, bool NA, typename T>
 inline Vector<RTYPE> sort_unique( const VectorBase<RTYPE,NA,T>& t ){
-	return sugar::Unique<RTYPE,T>( t.get_ref() ).get_sorted() ;
+	return unique<RTYPE,NA,T>( t ).sort() ;
 }
 
 template <int RTYPE, bool NA, typename T, bool RHS_NA, typename RHS_T>
