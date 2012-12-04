@@ -74,6 +74,8 @@ sourceCpp <- function(file = "",
         
         # on.exit handler calls hook and restores environment and working dir
         on.exit({
+            if (!succeeded)
+                .showBuildFailureDiagnostics()
             .callBuildCompleteHook(succeeded, output)
             setwd(cwd)
             .restoreEnvironment(envRestore)
@@ -618,9 +620,38 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     gsub("\\s", "", linkingTo)
 }
 
+# show diagnostics for failed builds
+.showBuildFailureDiagnostics <- function() {
+    
+    # RStudio does it's own diagnostics so only do this for other environments
+    if (nzchar(Sys.getenv("RSTUDIO")))
+        return();
+        
+    # if we can't call R CMD SHLIB then notify the user they should 
+    # install the appropriate development tools
+    if (!.checkDevelTools()) {
+        msg <- paste("The tools required to build C/C++ code for R",
+                     "are not currently installed.")
+        sysName <- Sys.info()[['sysname']]
+        if (identical(sysName, "Windows")) {
+            msg <- paste(msg, "Please download and install the appropriate",
+                              "version of Rtools before proceeding:\n\n",
+                              "http://cran.r-project.org/bin/windows/Rtools/");
+        } else if (identical(sysName, "Darwin")) {
+            msg <- paste(msg, "Please install Command Line Tools for XCode",
+                              "(or equivalent).")
+        } else {
+            msg <- paste(msg, "Please install GNU software development tools",
+                              "including a C/C++ compiler.")
+        }
+        message(msg)
+    }
+}
+
 # check if R development tools are installed (cache successful result)
 .hasDevelTools <- FALSE
 .checkDevelTools <- function() {  
+    
     if (!.hasDevelTools) {     
         # create temp source file
         tempFile <- file.path(tempdir(), "foo.c")
