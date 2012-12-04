@@ -1,3 +1,13 @@
+2012-12-04  JJ Allaire <jj@rstudio.org>
+
+        * src/Attributes.cpp: move generators into their own source file
+        * src/AttributesGen.cpp: move generators into their own source file
+        * src/AttributesGen.h: move generators into their own source file
+        * src/AttributesParser.cpp: move generators into their own source file
+        * src/AttributesParser.h: move generators into their own source file
+        * src/AttributesTypes.h: new header for attributes types
+        * src/AttributesUtil.h: new header for attributes utilities
+
 2012-12-04 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/hash/hash.h: new implementation of IndexHash, based on

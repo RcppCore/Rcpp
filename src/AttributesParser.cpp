@@ -20,62 +20,70 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "AttributesParser.h"
+#include "AttributesUtil.h"
+
 
 #include <iostream>
 #include <fstream>
 #include <cstring>
 
-namespace {
-     
-    // Known whitespace chars
-    const char * const kWhitespaceChars = " \f\n\r\t\v";
-      
-    // Query whether a character is whitespace
-    bool isWhitespace(char ch) {
-        return std::strchr(kWhitespaceChars, ch) != NULL;
-    }
-    
-    // Trim a string
-    void trimWhitespace(std::string* pStr) {   
-        
-        // skip empty case
-        if (pStr->empty())
-            return;
-        
-        // trim right
-        std::string::size_type pos = pStr->find_last_not_of(kWhitespaceChars);
-        if (pos != std::string::npos)
-            pStr->erase(pos + 1);    
-            
-        // trim left
-        pos = pStr->find_first_not_of(kWhitespaceChars);
-        pStr->erase(0, pos);
-    }
-    
-    // Strip balanced quotes from around a string (assumes already trimmed)
-    void stripQuotes(std::string* pStr) {
-        if (pStr->length() < 2)
-            return;       
-        char quote = *(pStr->begin());
-        if ( (quote == '\'' || quote == '\"') && (*(pStr->rbegin()) == quote) )
-            *pStr = pStr->substr(1, pStr->length()-2);
-    }
-    
-    Rcpp::List regexMatches(Rcpp::CharacterVector lines, 
-                            const std::string& regex)
-    {
-        Rcpp::Environment base("package:base");
-        Rcpp::Function regexec = base["regexec"];
-        Rcpp::Function regmatches = base["regmatches"];
-        Rcpp::RObject result =  regexec(regex, lines);
-        Rcpp::List matches = regmatches(lines, result);
-        return matches;
-    }
-
-} // anonymous namespace
+#include <Rcpp.h>
 
 namespace Rcpp {
-namespace attributes_parser {
+namespace attributes {
+    
+    namespace {
+        
+        Rcpp::List regexMatches(Rcpp::CharacterVector lines, 
+                                const std::string& regex)
+        {
+            Rcpp::Environment base("package:base");
+            Rcpp::Function regexec = base["regexec"];
+            Rcpp::Function regmatches = base["regmatches"];
+            Rcpp::RObject result =  regexec(regex, lines);
+            Rcpp::List matches = regmatches(lines, result);
+            return matches;
+        }
+        
+        // Parse embedded R code chunks from a file (receives the lines of the 
+        // file as a CharcterVector for using with regexec and as a standard
+        // stl vector for traversal/insepection)
+        std::vector<std::string> parseEmbeddedR(
+                                        Rcpp::CharacterVector linesVector,
+                                        const std::deque<std::string>& lines) {
+            Rcpp::List matches = regexMatches(linesVector, 
+                                              "^\\s*/\\*{3,}\\s+[Rr]\\s*$");
+            bool withinRBlock = false;
+            CommentState commentState;
+            std::vector<std::string> embeddedR;
+                    
+            for (int i = 0; i<matches.size(); i++) {   
+             
+                // track comment state
+                std::string line = lines[i];
+                commentState.submitLine(line);
+             
+                // is this a line that begins an R code block?
+                const Rcpp::CharacterVector match = matches[i];
+                bool beginRBlock = match.size() > 0;
+                 
+                // check state and do the right thing
+                if (beginRBlock) {
+                    withinRBlock = true;
+                } 
+                else if (withinRBlock) {
+                    if (commentState.inComment())
+                        embeddedR.push_back(line);
+                    else
+                        withinRBlock = false;
+                }
+            }
+              
+            return embeddedR;
+        }
+        
+    } // anonymous namespace
+    
     
     // Generate a type signature for the function with the provided name
     // (type signature == function pointer declaration)
@@ -213,7 +221,8 @@ namespace attributes_parser {
     const char * const kInterfaceCpp = "cpp";
       
     // Parse the attributes from a source file
-    SourceFileAttributes::SourceFileAttributes(const std::string& sourceFile)
+    SourceFileAttributesParser::SourceFileAttributesParser
+                                            (const std::string& sourceFile)
         : sourceFile_(sourceFile)
     { 
         // First read the entire file into a std::stringstream so we can check
@@ -288,7 +297,7 @@ namespace attributes_parser {
     }
    
     // Parse an attribute from the vector returned by regmatches
-    Attribute SourceFileAttributes::parseAttribute(
+    Attribute SourceFileAttributesParser::parseAttribute(
                                     const std::vector<std::string>& match,
                                     int lineNumber) {
             
@@ -306,7 +315,7 @@ namespace attributes_parser {
         std::string paramsText = match[2];
         if (!paramsText.empty()) {
             
-            // we know from the regex that it's enclosed in parens so remove them
+            // we know from the regex that it's enclosed in parens so remove
             // trim before we do this just in case someone updates the regex
             // to allow for whitespace around the call
             trimWhitespace(&paramsText);
@@ -356,7 +365,7 @@ namespace attributes_parser {
     }
     
     // Parse attribute parameters 
-    std::vector<Param> SourceFileAttributes::parseParameters(
+    std::vector<Param> SourceFileAttributesParser::parseParameters(
                                                     const std::string& input) {
     
         const std::string delimiters(" ,");
@@ -378,7 +387,7 @@ namespace attributes_parser {
     }
 
     // Parse a function from the specified spot in the source file
-    Function SourceFileAttributes::parseFunction(size_t lineNumber) {
+    Function SourceFileAttributesParser::parseFunction(size_t lineNumber) {
         
         // Establish the text to parse for the signature 
         std::string signature = parseSignature(lineNumber);
@@ -500,7 +509,7 @@ namespace attributes_parser {
     
     
     // Parse the text of a function signature from the specified line
-    std::string SourceFileAttributes::parseSignature(size_t lineNumber) {
+    std::string SourceFileAttributesParser::parseSignature(size_t lineNumber) {
         
         // Look for the next {
         std::string signature;
@@ -525,7 +534,7 @@ namespace attributes_parser {
     // Parse arguments from function signature. This is tricky because commas
     // are used to delimit arguments but are also valid inside template type
     // qualifiers.
-    std::vector<std::string> SourceFileAttributes::parseArguments(
+    std::vector<std::string> SourceFileAttributesParser::parseArguments(
                                                 const std::string& argText) {
         
         int templateCount = 0;
@@ -576,7 +585,7 @@ namespace attributes_parser {
         return args;
     }
     
-    Type SourceFileAttributes::parseType(const std::string& text) {
+    Type SourceFileAttributesParser::parseType(const std::string& text) {
         
         const std::string constQualifier("const");
         const std::string referenceQualifier("&");
@@ -612,54 +621,18 @@ namespace attributes_parser {
         return Type(type, isConst, isReference);
     }
     
-     // Parse embedded R code chunks from a file (receives the lines of the 
-    // file as a CharcterVector for using with regexec and as a standard
-    // stl vector for traversal/insepection)
-    std::vector<std::string> SourceFileAttributes::parseEmbeddedR(
-                                    Rcpp::CharacterVector linesVector,
-                                    const std::deque<std::string>& lines) {
-        Rcpp::List matches = regexMatches(linesVector, 
-                                          "^\\s*/\\*{3,}\\s+[Rr]\\s*$");
-        bool withinRBlock = false;
-        CommentState commentState;
-        std::vector<std::string> embeddedR;
-                
-        for (int i = 0; i<matches.size(); i++) {   
-         
-            // track comment state
-            std::string line = lines[i];
-            commentState.submitLine(line);
-         
-            // is this a line that begins an R code block?
-            const Rcpp::CharacterVector match = matches[i];
-            bool beginRBlock = match.size() > 0;
-             
-            // check state and do the right thing
-            if (beginRBlock) {
-                withinRBlock = true;
-            } 
-            else if (withinRBlock) {
-                if (commentState.inComment())
-                    embeddedR.push_back(line);
-                else
-                    withinRBlock = false;
-            }
-        }
-          
-        return embeddedR;
-    }
-      
-    
     // Validation helpers
     
-    bool SourceFileAttributes::isKnownAttribute(const std::string& name) const {
+    bool SourceFileAttributesParser::isKnownAttribute(const std::string& name) 
+                                                                        const {
         return name == kExportAttribute || 
                name == kDependsAttribute ||
                name == kInterfacesAttribute;
     }
 
     // Print an attribute parsing related warning
-    void SourceFileAttributes::attributeWarning(const std::string& message, 
+    void SourceFileAttributesParser::attributeWarning(
+                                                const std::string& message, 
                                                 const std::string& attribute,
                                                 size_t lineNumber) {
         
@@ -677,36 +650,40 @@ namespace attributes_parser {
         warning(ostr.str(), Rcpp::Named("call.") = false);
     }
     
-    void SourceFileAttributes::attributeWarning(const std::string& message, 
+    void SourceFileAttributesParser::attributeWarning(
+                                            const std::string& message, 
                                             size_t lineNumber) {
         attributeWarning(message, "", lineNumber);
     }
     
-    void SourceFileAttributes::rcppExportWarning(const std::string& message, 
+    void SourceFileAttributesParser::rcppExportWarning(
+                                             const std::string& message, 
                                              size_t lineNumber) {
         attributeWarning(message, "Rcpp::export", lineNumber);
     }
 
-    void SourceFileAttributes::rcppExportNoFunctionFoundWarning(size_t lineNumber) {
+    void SourceFileAttributesParser::rcppExportNoFunctionFoundWarning(
+                                                          size_t lineNumber) {
         rcppExportWarning("No function found", lineNumber);
     }
 
-    void SourceFileAttributes::rcppExportInvalidParameterWarning(
+    void SourceFileAttributesParser::rcppExportInvalidParameterWarning(
                                                     const std::string& param, 
                                                     size_t lineNumber) {
         rcppExportWarning("Invalid parameter: "
                           "'" + param + "'", lineNumber);
     }
     
-    void SourceFileAttributes::rcppInterfacesWarning(const std::string& message,
-                                                     size_t lineNumber) {
+    void SourceFileAttributesParser::rcppInterfacesWarning(
+                                                    const std::string& message,
+                                                    size_t lineNumber) {
         attributeWarning(message + " (valid interfaces are 'r' and 'cpp')", 
                         "Rcpp::interfaces", lineNumber);                                                     
     }
     
 
     // Track /* */ comment state     
-    void SourceFileAttributes::CommentState::submitLine(const std::string& line) {
+    void CommentState::submitLine(const std::string& line) {
         std::size_t pos = 0;
         while (pos != std::string::npos) {
             std::string token = inComment() ? "*/" : "/*";
@@ -718,6 +695,6 @@ namespace attributes_parser {
         }    
     }
   
-} // namespace attributes_parser
+} // namespace attributes
 } // namespace Rcpp
 
