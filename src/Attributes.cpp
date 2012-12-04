@@ -114,11 +114,206 @@ namespace attributes {
             *pStr = pStr->substr(1, pStr->length()-2);
     }
     
+    // is the passed string quoted?
+    bool isQuoted(const std::string& str) {
+        if (str.length() < 2)
+            return false;
+        char quote = *(str.begin());
+        return (quote == '\'' || quote == '\"') && (*(str.rbegin()) == quote);
+    }
+    
+    // show a warning message
+    void showWarning(const std::string& msg) {
+        Rcpp::Function warning = Rcpp::Environment::base_env()["warning"];     
+        warning(msg, Rcpp::Named("call.") = false);
+    }
+    
 } // namespace attributes
 } // namespace Rcpp
 
 
 using namespace Rcpp::attributes;
+
+// Generator helpers
+namespace {
+    
+    // Generate the C++ code required to make [[Rcpp::export]] functions
+    // available as C symbols with SEXP parameters and return
+    std::string generateCpp(const SourceFileAttributes& attributes,
+                            bool includePrototype,
+                            const std::string& contextId) {
+      
+        // source code we will build up
+        std::ostringstream ostr;    
+      
+        // process each attribute
+        for(std::vector<Attribute>::const_iterator 
+            it = attributes.begin(); it != attributes.end(); ++it) {
+            
+            // alias the attribute and function (bail if not export)
+            const Attribute& attribute = *it;
+            if (!attribute.isExportedFunction())
+                continue;
+            const Function& function = attribute.function();
+                      
+            // include prototype if requested
+            if (includePrototype) {
+                ostr << "// " << function.name() << std::endl;
+                ostr << function << ";";
+            }
+               
+            // write the SEXP-based function
+            ostr << std::endl << "RcppExport SEXP ";
+            if (!contextId.empty())
+                ostr << contextId << "_";
+            ostr << function.name() << "(";
+            const std::vector<Argument>& arguments = function.arguments();
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                ostr << "SEXP " << argument.name() << "SEXP";
+                if (i != (arguments.size()-1))
+                    ostr << ", ";
+            }
+            ostr << ") {" << std::endl;
+            ostr << "BEGIN_RCPP" << std::endl;
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                
+                // Rcpp::as to c++ type
+                ostr << "    " << argument.type().name() << " " << argument.name() 
+                     << " = " << "Rcpp::as<"  << argument.type().name() << " >(" 
+                     << argument.name() << "SEXP);" << std::endl;
+            }
+            
+            ostr << "    ";
+            if (!function.type().isVoid())
+                ostr << function.type() << " result = ";
+            ostr << function.name() << "(";
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                ostr << argument.name();
+                if (i != (arguments.size()-1))
+                    ostr << ", ";
+            }
+            ostr << ");" << std::endl;
+            
+            std::string res = function.type().isVoid() ? "R_NilValue" : 
+                                                         "Rcpp::wrap(result)";
+            ostr << "    return " << res << ";" << std::endl;
+            ostr << "END_RCPP" << std::endl;
+            ostr << "}" << std::endl;
+        }
+        
+        return ostr.str();
+    }
+        
+    // Generate R functions from the passed attributes
+    std::string generateRFunctions(const SourceFileAttributes& attributes,
+                                   const std::string& contextId,
+                                   const std::string& dllInfo = std::string()) {
+     
+        // source code we will build up
+        std::ostringstream ostr;
+         
+        // process each attribute
+        for(std::vector<Attribute>::const_iterator 
+            it = attributes.begin(); it != attributes.end(); ++it) {
+            
+            // alias the attribute and function (bail if not export)
+            const Attribute& attribute = *it;
+            if (!attribute.isExportedFunction())
+                continue;
+            const Function& function = attribute.function();
+                
+            // print roxygen lines
+            for (size_t i=0; i<attribute.roxygen().size(); i++)
+                ostr << attribute.roxygen()[i] << std::endl;
+                    
+            // build the parameter list 
+            std::ostringstream argsOstr;
+            const std::vector<Argument>& arguments = function.arguments();
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                argsOstr << argument.name();
+                if (!argument.defaultValue().empty()) {
+                    std::string rArg = cppArgToRArg(argument.type().name(), 
+                                                    argument.defaultValue());
+                    if (!rArg.empty()) {
+                        argsOstr << " = " << rArg;
+                    } else {
+                        showWarning("Unable to parse C++ default value '" +
+                                    argument.defaultValue() + "' for argument "+
+                                    argument.name() + " of function " +
+                                    function.name());
+                    }
+                }
+                   
+                if (i != (arguments.size()-1))
+                    argsOstr << ", ";
+            }
+            std::string args = argsOstr.str();
+            
+            // determine the function name
+            std::string name = attribute.exportedName();
+                
+            // write the function - use contextId to ensure symbol uniqueness
+            ostr << name << " <- function(" << args << ") {" 
+                 << std::endl;
+            ostr << "    ";
+            if (function.type().isVoid())
+                ostr << "invisible(";
+            ostr << ".Call(";
+            
+            // Two .Call styles are suppported -- if dllInfo is provided then
+            // do a direct call to getNativeSymbolInfo; otherwise we assume that
+            // the contextId is a package name and use the PACKAGE argument
+            if (!dllInfo.empty()) {
+                ostr << "getNativeSymbolInfo('"
+                     <<  contextId << "_" << function.name() 
+                     << "', " << dllInfo << ")";
+            } 
+            else {
+                ostr << "'" << contextId << "_" << function.name() << "', "
+                     << "PACKAGE = '" << contextId << "'";
+            }
+            
+            // add arguments
+            if (!args.empty())
+                ostr << ", " << args;
+            ostr << ")";
+            if (function.type().isVoid())
+                ostr << ")";
+            ostr << std::endl;
+        
+            ostr << "}" << std::endl << std::endl;
+        }
+        
+        return ostr.str();                                
+    }
+    
+    // Generate the R code used to .Call the exported C symbols
+    std::string generateR(const SourceFileAttributes& attributes,
+                          const std::string& contextId,
+                          const std::string& dynlibPath) {
+            
+        // source code we will build up
+        std::ostringstream ostr;
+        
+        // DLLInfo - hide using . and ensure uniqueness using contextId
+        std::string dllInfo = "`." + contextId + "_DLLInfo`";
+        ostr << dllInfo << " <- dyn.load('" << dynlibPath << "')" 
+             << std::endl << std::endl;
+        
+        // Generate R functions and return
+        ostr << generateRFunctions(attributes, contextId, dllInfo);
+        return ostr.str();
+    }
+    
+    
+    
+} // anonymous namespace
+
+
 
 // Implementation helpers for sourceCppContext
 namespace {
@@ -152,11 +347,11 @@ namespace {
             Rcpp::Function dircreate = Rcpp::Environment::base_env()["dir.create"];
             dircreate(buildDirectory_);
             
-            // generate a random module name
+            // generate a random context id
             Rcpp::Function sample = Rcpp::Environment::base_env()["sample"];
             std::ostringstream ostr;
             ostr << "sourceCpp_" << Rcpp::as<int>(sample(100000, 1));
-            moduleName_ = ostr.str();
+            contextId_ = ostr.str();
             
             // regenerate the source code
             regenerateSource();
@@ -189,25 +384,25 @@ namespace {
             // parse attributes
             SourceFileAttributesParser sourceAttributes(cppSourcePath_);
         
-            // generate RCPP module
-            generatedCpp_.clear();
-            if (!sourceAttributes.empty()) {
-                std::ostringstream ostr;
-                ostr << "#include <Rcpp.h>" << std::endl;
-                ostr << "RCPP_MODULE(" << moduleName()  << ") {" << std::endl;
-                generateCppModuleFunctions(ostr, sourceAttributes, false);
-                ostr << "}" << std::endl;
-                generatedCpp_ = ostr.str();
-            }
-            
-            // open source file and append module
+            // generate cpp for attributes and append them 
+            generatedCpp_ = generateCpp(sourceAttributes, false, contextId_);
             std::ofstream cppOfs(generatedCppSourcePath().c_str(), 
                                  std::ofstream::out | std::ofstream::app);
             if (cppOfs.fail())
                 throw Rcpp::file_io_error(generatedCppSourcePath());
-            cppOfs << std::endl;
             cppOfs << generatedCpp_;
             cppOfs.close();
+        
+            // generate R for attributes and write it into the build directory
+            std::string rCode = generateR(sourceAttributes, 
+                                          contextId_, 
+                                          dynlibPath());
+            std::ofstream rOfs(generatedRSourcePath().c_str(), 
+                               std::ofstream::out | std::ofstream::trunc);
+             if (cppOfs.fail())
+                throw Rcpp::file_io_error(generatedRSourcePath());
+            rOfs << rCode;
+            rOfs.close();
                
             // discover exported functions, and dependencies
             exportedFunctions_.clear();
@@ -227,8 +422,8 @@ namespace {
             embeddedR_ = sourceAttributes.embeddedR();
         }
         
-        const std::string& moduleName() const {
-            return moduleName_;
+        const std::string& contextId() const {
+            return contextId_;
         }
         
         const std::string& cppSourcePath() const {
@@ -246,9 +441,13 @@ namespace {
         std::string cppSourceFilename() const {
             return cppSourceFilename_;
         }
+        
+        std::string rSourceFilename() const {
+            return cppSourceFilename() + ".R";    
+        }
          
         std::string dynlibFilename() const {
-            return moduleName() + dynlibExt_;
+            return contextId() + dynlibExt_;
         }
         
         std::string dynlibPath() const {
@@ -269,11 +468,15 @@ namespace {
            return buildDirectory_ + fileSep_ + cppSourceFilename(); 
         }
         
+         std::string generatedRSourcePath() const {
+           return buildDirectory_ + fileSep_ + rSourceFilename(); 
+        }
+        
     private:
         std::string cppSourcePath_;
         std::string generatedCpp_;
         std::string cppSourceFilename_;
-        std::string moduleName_;
+        std::string contextId_;
         std::string buildDirectory_;
         std::string fileSep_;
         std::string dynlibExt_;
@@ -386,13 +589,14 @@ BEGIN_RCPP
     // return context as a list
     using namespace Rcpp;
     return List::create(
-        _["moduleName"] = pDynlib->moduleName(),
+        _["contextId"] = pDynlib->contextId(),
         _["cppSourcePath"] = pDynlib->cppSourcePath(),
         _["buildRequired"] = buildRequired,
         _["buildDirectory"] = pDynlib->buildDirectory(),
         _["generatedCpp"] = pDynlib->generatedCpp(),
         _["exportedFunctions"] = pDynlib->exportedFunctions(),
         _["cppSourceFilename"] = pDynlib->cppSourceFilename(),
+        _["rSourceFilename"] = pDynlib->rSourceFilename(),
         _["dynlibFilename"] = pDynlib->dynlibFilename(),
         _["dynlibPath"] = pDynlib->dynlibPath(),
         _["depends"] = pDynlib->depends(),

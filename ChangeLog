@@ -1,7 +1,10 @@
 2012-12-04  JJ Allaire <jj@rstudio.org>
 
-        * src/Attributes.cpp: move generators into their own source file
-        * src/AttributesGen.cpp: move generators into their own source file
+        * R/Attributes.R: use simple code generation for sourceCpp
+        * src/Attributes.cpp: move generators into their own source file;
+        use simple code generation for sourceCpp
+        * src/AttributesGen.cpp: move generators into their own source file;
+        add C++ default argument parsing
         * src/AttributesGen.h: move generators into their own source file
         * src/AttributesParser.cpp: move generators into their own source file
         * src/AttributesParser.h: move generators into their own source file

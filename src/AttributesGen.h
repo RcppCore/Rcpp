@@ -224,7 +224,11 @@ namespace attributes {
     void generateCppModuleFunctions(std::ostream& ostr,
                                     const SourceFileAttributes& attributes,
                                     bool verbose);
-
+     
+    // Convert a C++ argument to an R argument
+    std::string cppArgToRArg(const std::string& type,
+                             const std::string& cppArg);
+                                    
 } // namespace attributes
 } // namespace Rcpp
 

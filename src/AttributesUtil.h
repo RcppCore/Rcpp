@@ -62,6 +62,12 @@ namespace attributes {
     // Strip balanced quotes from around a string (assumes already trimmed)
     void stripQuotes(std::string* pStr); 
     
+    // is the passed string quoted?
+    bool isQuoted(const std::string& str);
+    
+    // show a warning message
+    void showWarning(const std::string& msg);
+    
 } // namespace attributes
 } // namespace Rcpp
 

@@ -646,8 +646,7 @@ namespace attributes {
             ostr << " for " << attribute << " attribute"; 
         ostr << " at " << file << ":" << lineNumber;
              
-        Rcpp::Function warning = Rcpp::Environment::base_env()["warning"];     
-        warning(ostr.str(), Rcpp::Named("call.") = false);
+        showWarning(ostr.str());
     }
     
     void SourceFileAttributesParser::attributeWarning(

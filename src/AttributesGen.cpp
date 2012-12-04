@@ -593,5 +593,135 @@ namespace attributes {
         }
     }
     
+    namespace {
+        // convert a C++ numeric argument to an R argument value 
+        // (returns empty string if no conversion is possible)
+        std::string cppNumericArgToRArg(const std::string& type,
+                                        const std::string& cppArg) {
+            // check for a number
+            double num;
+            std::stringstream argStream(cppArg);
+            if ((argStream >> num)) {
+                
+                // L suffix means return the value literally
+                bool isInteger = false;
+                if (!argStream.eof()) {
+                    std::string suffix;
+                    argStream >> suffix;
+                    if (argStream.eof() && suffix == "L")
+                        return cppArg;
+                }
+                
+                // no decimal and the type isn't explicitly double or 
+                // float means integer
+                if (cppArg.find('.') == std::string::npos &&
+                    type != "double" && type != "float")
+                    return cppArg + "L";
+                 
+                // otherwise return arg literally
+                else
+                    return cppArg;
+            }   
+            else {
+                return std::string();
+            }
+        }
+        
+        // convert a C++ ::create style argument value to an R argument
+        // value (returns empty string if no conversion is possible)
+        std::string cppCreateArgToRArg(const std::string& cppArg) {
+            
+            std::string create = "::create";
+            size_t createLoc = cppArg.find(create);
+            if (createLoc == std::string::npos ||
+                ((createLoc + create.length()) >= cppArg.size())) {
+                return std::string();
+            }
+                
+            std::string type = cppArg.substr(0, createLoc);
+            std::string rcppScope = "Rcpp::";
+            size_t rcppLoc = type.find(rcppScope);
+            if (rcppLoc == 0 && type.size() > rcppScope.length())
+                type = type.substr(rcppScope.length());
+            
+            std::string args = cppArg.substr(createLoc + create.length());
+            if (type == "CharacterVector")
+                return "character" + args;
+            else if (type == "IntegerVector")
+                return "integer" + args;
+            else if (type == "NumericVector")
+                return "numeric" + args;
+            else    
+                return std::string();
+        }
+        
+        // convert a C++ Matrix to an R argument (returns emtpy string
+        // if no conversion possible)
+        std::string cppMatrixArgToRArg(const std::string& cppArg) {
+            
+            // look for Matrix
+            std::string matrix = "Matrix";
+            size_t matrixLoc = cppArg.find(matrix);
+            if (matrixLoc == std::string::npos ||
+                ((matrixLoc + matrix.length()) >= cppArg.size())) {
+                return std::string();
+            }
+            
+            std::string args = cppArg.substr(matrixLoc + matrix.length());
+            return "matrix" + args;
+        }
+        
+        // convert a C++ literal to an R argument (returns emtpy string
+        // if no conversion possible)
+        std::string cppLiteralArgToRArg(const std::string& cppArg) {
+            if (cppArg == "true")
+                return "TRUE";
+            else if (cppArg == "false")
+                return "FALSE";
+            else if (cppArg == "R_NilValue")
+                return "NULL";
+            else if (cppArg == "NA_STRING" || cppArg == "NA_INTEGER" ||
+                     cppArg == "NA_LOGICAL" || cppArg == "NA_REAL") {
+                return "NA";
+            }
+            else
+                return std::string();
+        }
+    } // anonymous namespace
+    
+    // convert a C++ argument value to an R argument value (returns empty
+    // string if no conversion is possible)
+    std::string cppArgToRArg(const std::string& type,
+                             const std::string& cppArg) {
+        
+        // try for quoted string
+        if (isQuoted(cppArg))
+            return cppArg;
+        
+        // try for literal
+        std::string rArg = cppLiteralArgToRArg(cppArg);
+        if (!rArg.empty())
+            return rArg;
+        
+        // try for a create arg
+        rArg = cppCreateArgToRArg(cppArg);
+        if (!rArg.empty())
+            return rArg;
+            
+        // try for a matrix arg
+        rArg = cppMatrixArgToRArg(cppArg);
+        if (!rArg.empty())
+            return rArg;
+            
+        // try for a numeric arg
+        rArg = cppNumericArgToRArg(type, cppArg);
+        if (!rArg.empty())
+            return rArg;
+            
+        // couldn't parse the arg
+        return std::string();
+    }
+    
+    
 } // namespace attributes
 } // namespace Rcpp
