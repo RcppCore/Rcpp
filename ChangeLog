@@ -1,3 +1,10 @@
+2012-12-05  JJ Allaire <jj@rstudio.org>
+
+        * src/Attributes.cpp: use code generation for compileAttributes
+        * src/AttributesGen.cpp: use code generation for compileAttributes
+        * src/AttributesGen.h: use code generation for compileAttributes
+        * src/Module.cpp: fix typo in GetCppCallable
+
 2012-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/hash/hash.h: Added include inttypes.h for intptr_t

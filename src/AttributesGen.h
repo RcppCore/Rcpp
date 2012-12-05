@@ -53,8 +53,8 @@ namespace attributes {
         
         // Abstract interface for code generation
         virtual void writeBegin() = 0;
-        virtual void writeFunctions(const SourceFileAttributes& attributes,
-                                    bool verbose) = 0;
+        void writeFunctions(const SourceFileAttributes& attributes,
+                            bool verbose); // see doWriteFunctions below
         virtual void writeEnd() = 0;
         
         virtual bool commit(const std::vector<std::string>& includes) = 0;
@@ -74,20 +74,32 @@ namespace attributes {
             return codeStream_;
         }
         
-        // Shared knowledge about the special export validation function
+        bool hasCppInterface() const {
+            return hasCppInterface_;
+        }
+        
+        // Shared knowledge about function namees
         std::string exportValidationFunction() {
-            return "validateExported";
+            return "RcppExport_validate";
         } 
         std::string exportValidationFunctionRegisteredName() {
-            return "RcppExports_" + exportValidationFunction();
+            return package() + "_" + exportValidationFunction();
+        } 
+        std::string registerCCallableExportedName() {
+            return package() + "_RcppExport_registerCCallable";
         }
-    
+
         // Commit the stream -- is a no-op if the existing code is identical
         // to the generated code. Returns true if data was written and false
         // if it wasn't (throws exception on io error)
         bool commit(const std::string& preamble = std::string()); 
         
     private:
+    
+        // Private virtual for doWriteFunctions so the base class 
+        // can always intercept writeFunctions
+        virtual void doWriteFunctions(const SourceFileAttributes& attributes,
+                                      bool verbose) = 0;
     
         // Check whether it's safe to overwrite this file (i.e. whether we 
         // generated the file in the first place)
@@ -108,6 +120,7 @@ namespace attributes {
         std::string commentPrefix_;
         std::string existingCode_;
         std::ostringstream codeStream_;
+        bool hasCppInterface_;
     };
     
     // Class which manages generating RcppExports.cpp
@@ -117,15 +130,20 @@ namespace attributes {
                                      const std::string& package,
                                      const std::string& fileSep);
          
-        virtual void writeBegin(); 
-        virtual void writeFunctions(const SourceFileAttributes& attributes,
-                                    bool verbose);
-        virtual void writeEnd(); 
+        virtual void writeBegin() {}; 
+        virtual void writeEnd();
         virtual bool commit(const std::vector<std::string>& includes); 
         
     private:
-        std::vector<std::string> prototypes_;
-        std::vector<std::string> signatures_;
+        virtual void doWriteFunctions(const SourceFileAttributes& attributes,
+                                      bool verbose);
+                                    
+        std::string registerCCallable(size_t indent,
+                                      const std::string& exportedName,
+                                      const std::string& name) const;
+        
+    private:
+        std::vector<Attribute> cppExports_;
     };
        
     // Class which manages generating PackageName_RcppExports.h header file
@@ -136,18 +154,17 @@ namespace attributes {
                                    const std::string& fileSep);
          
         virtual void writeBegin(); 
-        virtual void writeFunctions(const SourceFileAttributes& attributes,
-                                    bool verbose);
         virtual void writeEnd(); 
         virtual bool commit(const std::vector<std::string>& includes); 
         
     private:
-        std::string getCppCallable(const std::string& function) const; 
+        virtual void doWriteFunctions(const SourceFileAttributes& attributes,
+                                      bool verbose);
+        std::string getCCallable(const std::string& function) const; 
         std::string getHeaderGuard() const; 
         
     private:
         std::string includeDir_;
-        bool hasCppInterface_;
     };
     
     // Class which manages generating PackageName_RcppExports.h header file
@@ -158,17 +175,16 @@ namespace attributes {
                                    const std::string& fileSep);
             
         virtual void writeBegin() {}
-        virtual void writeFunctions(const SourceFileAttributes& attributes,
-                                    bool verbose); 
         virtual void writeEnd(); 
         virtual bool commit(const std::vector<std::string>& includes); 
         
     private:
+        virtual void doWriteFunctions(const SourceFileAttributes& attributes,
+                                      bool verbose) {}
         std::string getHeaderGuard() const; 
         
     private:
         std::string includeDir_;
-        bool hasCppInterface_;
     };
     
     
@@ -180,13 +196,13 @@ namespace attributes {
                           const std::string& fileSep);
         
         virtual void writeBegin() {}
-        virtual void writeFunctions(const SourceFileAttributes& attributes,
-                                    bool verbose); 
         virtual void writeEnd(); 
         virtual bool commit(const std::vector<std::string>& includes); 
         
     private:
-        std::vector<std::string> rExports_;
+        virtual void doWriteFunctions(const SourceFileAttributes& attributes,
+                                      bool verbose);
+
     };
     
     // Class to manage and dispatch to a list of generators
@@ -220,14 +236,17 @@ namespace attributes {
         std::vector<ExportsGenerator*> generators_;
     };
     
-    // Generate function entries for passed attributes
-    void generateCppModuleFunctions(std::ostream& ostr,
-                                    const SourceFileAttributes& attributes,
-                                    bool verbose);
-     
-    // Convert a C++ argument to an R argument
-    std::string cppArgToRArg(const std::string& type,
-                             const std::string& cppArg);
+    // Standalone generation helpers (used by sourceCpp)
+    
+    void generateCpp(std::ostream& ostr,
+                     const SourceFileAttributes& attributes,
+                     bool includePrototype,
+                     const std::string& contextId); 
+                     
+    void generateRFunctions(std::ostream& ostr,
+                            const SourceFileAttributes& attributes,
+                            const std::string& contextId,
+                            const std::string& dllInfo = std::string());
                                     
 } // namespace attributes
 } // namespace Rcpp

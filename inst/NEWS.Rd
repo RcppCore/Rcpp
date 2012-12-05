@@ -23,6 +23,13 @@
         \item More efficient version of \code{duplicated} base on \code{IndexHash}
         \item More efficient version of \code{self_match} base on \code{IndexHash}
     }
+    \item Changes in Rcpp attributes: 
+        \itemize{
+            \item Use code generation rather than modules to implement
+            \code{sourceCpp} and \code{compileAttributes} (eliminates 
+            problem with exceptions not being able to cross shared library
+            boundaries on Windows)
+        }
   }
 }
 

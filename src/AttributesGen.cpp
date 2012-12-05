@@ -30,48 +30,18 @@
 namespace Rcpp {
 namespace attributes {
     
+    // constants
     namespace {
         const char * const kRcppExportsSuffix = "_RcppExports.h";
-        
-        // Generate placeholder function declaration (for roxygen)
-        void generateRoxygenPlaceholder(std::ostream& ostr,
-                                        const Attribute& attrib) {
-            
-            ostr << attrib.exportedName() << "<- function(";
-            const std::vector<Argument>& args = attrib.function().arguments();
-            for (std::size_t i=0; i<args.size(); i++) {
-                ostr << args[i].name();
-                if (i != (args.size()-1))
-                    ostr << ", ";
-            }
-            ostr << ") {}" << std::endl;
-        }
-        
-        // Generate roxygen
-        void generateRoxygen(std::ostream& ostr, 
-                             const SourceFileAttributes& attributes) {
-            
-            for(SourceFileAttributes::const_iterator 
-                    it = attributes.begin(); it != attributes.end(); ++it) {
-             
-                if (it->isExportedFunction() && !it->roxygen().empty()) {
-                    ostr << std::endl;
-                    for (std::size_t i=0; i<it->roxygen().size(); i++)
-                        ostr << it->roxygen()[i] << std::endl;
-                    generateRoxygenPlaceholder(ostr, *it);
-                    ostr << std::endl;
-                } 
-            }
-        }
-        
-    } // anonymous namespace
+    } 
     
     ExportsGenerator::ExportsGenerator(const std::string& targetFile, 
                                        const std::string& package,
                                        const std::string& commentPrefix)
         : targetFile_(targetFile), 
           package_(package),
-          commentPrefix_(commentPrefix) {
+          commentPrefix_(commentPrefix),
+          hasCppInterface_(false) {
         
         // read the existing target file if it exists
         if (FileInfo(targetFile_).exists()) {
@@ -86,6 +56,16 @@ namespace attributes {
         // see if this is safe to overwite and throw if it isn't
         if (!isSafeToOverwrite())
             throw Rcpp::file_exists(targetFile_);
+    }
+    
+    void ExportsGenerator::writeFunctions(
+                                const SourceFileAttributes& attributes,
+                                bool verbose) {
+        
+        if (attributes.hasInterface(kInterfaceCpp))
+            hasCppInterface_ = true;
+            
+        doWriteFunctions(attributes, verbose);                                
     }
     
     // Commit the stream -- is a no-op if the existing code is identical
@@ -143,55 +123,104 @@ namespace attributes {
             "//") 
     {
     }
-    
-    void CppExportsGenerator::writeBegin() {
-        ostr() << "RCPP_MODULE(" << package() << "_RcppExports) {" 
-                << std::endl;
-    }
-    
-    void CppExportsGenerator::writeFunctions(
+       
+    void CppExportsGenerator::doWriteFunctions(
                                  const SourceFileAttributes& attributes,
                                  bool verbose) {
-        // verbose output if requested
-        if (verbose) {
-            Rcpp::Rcout << "Exports from " << attributes.sourceFile() << ":" 
-                        << std::endl;
-        }
-    
-        // generate functions
-        generateCppModuleFunctions(ostr(), attributes, verbose);
         
-        // track prototypes/signatures for inclusion in the preamble
-        for (std::vector<Attribute>::const_iterator 
-            it = attributes.begin(); it != attributes.end(); ++it) {
-            if (it->isExportedFunction()) {
-                
-                // prototypes
-                std::ostringstream ostr;
-                ostr << it->function();
-                prototypes_.push_back(ostr.str());   
-                
-                // signatures
-                if (!it->function().isHidden()) {
-                    signatures_.push_back(
-                        it->function().signature(it->exportedName()));
+        // generate functions
+        generateCpp(ostr(), attributes, true, package());
+         
+        // track cppExports and signatures (we use these at the end to
+        // generate the ValidateSignature and RegisterCCallable functions)
+        if (attributes.hasInterface(kInterfaceCpp)) {
+            for (SourceFileAttributes::const_iterator 
+                       it = attributes.begin(); it != attributes.end(); ++it) {
+                if (it->isExportedFunction()) {
+                    // add it to the list if it's not hidden
+                    Function fun = it->function().renamedTo(it->exportedName());
+                    if (!fun.isHidden())
+                        cppExports_.push_back(*it);
                 }
             }
         }
      
         // verbose if requested
-        if (verbose)
-            Rcpp::Rcout << std::endl;                           
+        if (verbose) {
+            Rcpp::Rcout << "Exports from " << attributes.sourceFile() << ":" 
+                        << std::endl;
+            for (std::vector<Attribute>::const_iterator 
+                    it = attributes.begin(); it != attributes.end(); ++it) {
+                if (it->isExportedFunction())
+                    Rcpp::Rcout << "   " << it->function() << std::endl; 
+            }
+            Rcpp::Rcout << std::endl;   
+        }
     }
-
-    void CppExportsGenerator::writeEnd() {
-        
-        // add our export validation helper
-        ostr() << "    Rcpp::function(\"" 
-               << exportValidationFunctionRegisteredName() << "\", &" 
-               << exportValidationFunction() << ");" << std::endl;
-
-        ostr() << "}" << std::endl;   
+    
+    void CppExportsGenerator::writeEnd()
+    {
+        // generate a function that can be used to validate exported
+        // functions and their signatures prior to looking up with
+        // GetCppCallable (otherwise inconsistent signatures between
+        // client and library would cause a crash)
+        if (hasCppInterface()) {
+            
+            ostr() << std::endl;
+            ostr() << "// validate"
+                   << " (ensure exported C++ functions exist before "
+                   << "calling them)" << std::endl;
+            ostr() << "static int " << exportValidationFunctionRegisteredName()
+                   << "(const char* sig) { " << std::endl;
+            ostr() << "    static std::set<std::string> signatures;" 
+                   << std::endl;
+            ostr() << "    if (signatures.empty()) {" << std::endl;
+            
+            for (std::size_t i=0;i<cppExports_.size(); i++) {
+                const Attribute& attr = cppExports_[i];
+                ostr() << "        signatures.insert(\"" 
+                       << attr.function().signature(attr.exportedName())
+                       << "\");" << std::endl;
+            }
+            ostr() << "    }" << std::endl;
+            ostr() << "    return signatures.find(sig) != signatures.end();"
+                   << std::endl;
+            ostr() << "}" << std::endl;   
+            
+            // generate a function that will register all of our C++ 
+            // exports as C-callable from other packages
+            ostr() << std::endl;
+            ostr() << "// registerCCallable (register entry points for "
+                      "exported C++ functions)" << std::endl;
+            ostr() << "RcppExport SEXP " << registerCCallableExportedName()
+                   << "() { " << std::endl;
+            for (std::size_t i=0;i<cppExports_.size(); i++) {
+                const Attribute& attr = cppExports_[i];
+                std::string name = package() + "_" + attr.exportedName();
+                ostr() << registerCCallable(4, 
+                                            attr.exportedName(),
+                                            attr.function().name());
+                ostr() << std::endl;
+            }
+            ostr() << registerCCallable(4, 
+                                        exportValidationFunction(),
+                                        exportValidationFunction());
+            ostr() << std::endl;
+            ostr() << "    return R_NilValue;" << std::endl;
+            ostr() << "}" << std::endl;
+         }
+    }
+    
+    std::string CppExportsGenerator::registerCCallable(
+                                        size_t indent,
+                                        const std::string& exportedName,
+                                        const std::string& name) const {
+        std::ostringstream ostr;
+        std::string indentStr(indent, ' ');
+        ostr <<  indentStr << "R_RegisterCCallable(\"" << package() << "\", "
+              << "\"" << package() << "_" << exportedName << "\", "
+              << "(DL_FUNC)" << package() << "_" << name << ");";  
+        return ostr.str();                  
     }
     
     bool CppExportsGenerator::commit(const std::vector<std::string>& includes) {
@@ -209,31 +238,6 @@ namespace attributes {
         // always bring in Rcpp
         ostr << "using namespace Rcpp;" << std::endl << std::endl;
         
-        // prototypes
-        if (!prototypes_.empty()) {
-            for (std::size_t i=0;i<prototypes_.size(); i++)
-                ostr << prototypes_[i] << ";" << std::endl;
-            ostr << std::endl;
-        }
-        
-        // generate a function that can be used to validate exported
-        // functions and their signatures prior to looking up with
-        // GetCppCallable (otherwise inconsistent signatures between
-        // client and library would cause a crash)
-        ostr << "static bool " << exportValidationFunction() 
-             << "(const std::string& sig)" << " {" << std::endl;
-        ostr << "    static std::set<std::string> signatures;" 
-             << std::endl;
-        ostr << "    if (signatures.empty()) {" << std::endl;
-        for (std::size_t i=0;i<signatures_.size(); i++) {
-            ostr << "        signatures.insert(\"" << signatures_[i] 
-                 << "\");" << std::endl;
-        }
-        ostr << "    }" << std::endl;
-        ostr << "    return signatures.find(sig) != signatures.end();"
-             << std::endl;
-        ostr << "}" << std::endl << std::endl;
-        
         // commit with preamble
         return ExportsGenerator::commit(ostr.str());                  
     }
@@ -249,7 +253,6 @@ namespace attributes {
             "//")
     {
         includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
-        hasCppInterface_ = false; 
     }
         
     void CppExportsIncludeGenerator::writeBegin() {
@@ -269,32 +272,45 @@ namespace attributes {
         // an anonymous namespace will hide it from callers and give
         // it per-translation unit linkage
         ostr() << "    namespace {" << std::endl;
-        ostr() << "        void " << exportValidationFunction()  
-               << "(const std::string& sig) {" << std::endl;
-        std::string ptrName = "p_" + exportValidationFunction();
-        ostr() << "            static bool(" << "*" << ptrName 
-               << ")(const std::string&) = "
-               << getCppCallable(exportValidationFunctionRegisteredName())
+        ostr() << "        void validateSignature(const char* sig) {" 
+               << std::endl;
+        ostr() << "            Rcpp::Function require = "
+               << "Rcpp::Environment::base_env()[\"require\"];"
+               << std::endl;
+        ostr() << "            require(\"" << package() << "\", "
+               << "Rcpp::Named(\"quietly\") = true);"
+               << std::endl;
+        
+        std::string validate = "validate";
+        std::string fnType = "Ptr_" + validate;
+        ostr() << "            typedef int(*" << fnType << ")(const char*);"
+               << std::endl;
+               
+        std::string ptrName = "p_" + validate;
+        ostr() << "            static " << fnType << " " << ptrName << " = "
+               << "(" << fnType << ")" << std::endl
+               << "                " 
+               << getCCallable(exportValidationFunctionRegisteredName())
                << ";" << std::endl;
-        ostr() << "            if (!" << ptrName << "(sig))" << std::endl;
-        ostr() << "                throw Rcpp::function_not_exported(\""
-               << "Function '\" + sig + \"' not found in " << package()
+        ostr() << "            if (!" << ptrName << "(sig)) {" << std::endl;
+        ostr() << "                throw Rcpp::function_not_exported("
+               << std::endl
+               << "                    "
+               << "\"C++ function with signature '\" + std::string(sig) + \"' not found in " << package()
                << "\");" << std::endl;
+        ostr() << "            }" << std::endl;
         ostr() << "        }" << std::endl;
         
         ostr() << "    }" << std::endl << std::endl;
     }
         
-    void CppExportsIncludeGenerator::writeFunctions(
+    void CppExportsIncludeGenerator::doWriteFunctions(
                                     const SourceFileAttributes& attributes,
                                     bool verbose) {
                                     
         // don't write anything if there is no C++ interface
         if (!attributes.hasInterface(kInterfaceCpp)) 
             return;
-        
-        // there is a C++ interface so set flag indicating so
-        hasCppInterface_ = true;
                                     
         for(std::vector<Attribute>::const_iterator 
             it = attributes.begin(); it != attributes.end(); ++it) {
@@ -311,28 +327,45 @@ namespace attributes {
                 ostr() << "    inline " << function << " {" 
                         << std::endl;
                 
+                std::string fnType = "Ptr_" + function.name();
+                ostr() << "        typedef SEXP(*" << fnType << ")(";
+                for (size_t i=0; i<function.arguments().size(); i++) {
+                    ostr() << "SEXP";
+                    if (i != (function.arguments().size()-1))
+                        ostr() << ",";
+                }
+                ostr() << ");" << std::endl;
+                
                 std::string ptrName = "p_" + function.name();
-                ostr() << "        static " << function.signature(ptrName);
-                ostr() << " = NULL;" << std::endl;
+                ostr() << "        static " << fnType << " " 
+                       << ptrName << " = NULL;" 
+                       << std::endl;   
                 ostr() << "        if (" << ptrName << " == NULL) {" 
                        << std::endl;
-                ostr() << "            " << exportValidationFunction()
+                ostr() << "            validateSignature"
                        << "(\"" << function.signature() << "\");" 
                        << std::endl;
-                ostr() << "            " << ptrName << " = " 
-                       << getCppCallable(function.name()) << ";" 
+                ostr() << "            " << ptrName << " = "
+                       << "(" << fnType << ")"
+                       << getCCallable(package() + "_" + function.name()) << ";" 
                        << std::endl;
                 ostr() << "        }" << std::endl;
-                ostr() << "        return " << ptrName  << "(";
+                
+                ostr() << "        SEXP resultSEXP = " << ptrName << "(";
+                
                 
                 const std::vector<Argument>& args = function.arguments();
                 for (std::size_t i = 0; i<args.size(); i++) {
-                    ostr() << args[i].name();
+                    ostr() << "Rcpp::wrap(" << args[i].name() << ")";
                     if (i != (args.size()-1))
-                        ostr() << ",";
+                        ostr() << ", ";
                 }
                        
                 ostr() << ");" << std::endl;
+                
+                ostr() << "        return Rcpp::as<" << function.type() << " >"
+                       << "(resultSEXP);" << std::endl;
+                
                 ostr() << "    }" << std::endl << std::endl;
             } 
         }                           
@@ -347,7 +380,7 @@ namespace attributes {
     bool CppExportsIncludeGenerator::commit(
                                     const std::vector<std::string>& includes) {
         
-        if (hasCppInterface_) {
+        if (hasCppInterface()) {
             
             // create the include dir if necessary
             createDirectory(includeDir_);
@@ -375,18 +408,17 @@ namespace attributes {
         }
     }
         
-    std::string CppExportsIncludeGenerator::getCppCallable(
+    std::string CppExportsIncludeGenerator::getCCallable(
                                         const std::string& function) const {
         std::ostringstream ostr;
-        ostr << "Rcpp::GetCppCallable"
+        ostr << "R_GetCCallable"
              << "(\"" << package() << "\", "
-             << "\"" << package() + "_RcppExports\", "
              << "\"" << function << "\")";
         return ostr.str();
     }
     
     std::string CppExportsIncludeGenerator::getHeaderGuard() const {
-        return package() + "__RcppExports_h__";
+        return "__" + package() + "_RcppExports_h__";
     }
     
     CppPackageIncludeGenerator::CppPackageIncludeGenerator(
@@ -400,19 +432,10 @@ namespace attributes {
             "//")
     {
         includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
-        hasCppInterface_ = false; 
-    }
-    
-    void CppPackageIncludeGenerator::writeFunctions(
-                                    const SourceFileAttributes& attributes,
-                                    bool verbose) {     
-        // See if there is a C++ interface exported by any attributes
-        if (attributes.hasInterface(kInterfaceCpp)) 
-            hasCppInterface_ = true;  
     }
     
     void CppPackageIncludeGenerator::writeEnd() {
-        if (hasCppInterface_) {
+        if (hasCppInterface()) {
             // header guard
             std::string guard = getHeaderGuard();
             ostr() << "#ifndef " << guard << std::endl;
@@ -429,7 +452,7 @@ namespace attributes {
     bool CppPackageIncludeGenerator::commit(
                                 const std::vector<std::string>& includes) {
         
-        if (hasCppInterface_) {
+        if (hasCppInterface()) {
             
             // create the include dir if necessary
             createDirectory(includeDir_);
@@ -456,43 +479,25 @@ namespace attributes {
     {
     }
     
-    void RExportsGenerator::writeFunctions(
+    void RExportsGenerator::doWriteFunctions(
                                     const SourceFileAttributes& attributes,
                                     bool verbose) {
-                                    
-        // add to exported functions if we have an R interface
         if (attributes.hasInterface(kInterfaceR)) {
             
-            // track exported functions
-            for (std::vector<Attribute>::const_iterator 
-                 it = attributes.begin(); it != attributes.end(); ++it) {
-                if (it->isExportedFunction()) {
-                    rExports_.push_back(it->exportedName());
-                }
-            }
-            
-            // generate roxygen 
-            generateRoxygen(ostr(), attributes);      
+            // generate R functions
+            generateRFunctions(ostr(), attributes, package());
         }                      
     }
     
     void RExportsGenerator::writeEnd() { 
-        
-        ostr() << "Rcpp::loadModule(\"" << package() << "_RcppExports\", ";
-        if (rExports_.size() > 0) {
-            ostr() << std::endl;
-            ostr() << "    what = c(";
-            for (size_t i=0; i<rExports_.size(); i++) {
-                if (i != 0)
-                    ostr() << "             ";
-                ostr() << "\"" << rExports_[i] << "\"";
-                if (i != (rExports_.size()-1))
-                    ostr() << "," << std::endl;
-            }
-            ostr() << "))" << std::endl;
-        }
-        else {
-            ostr() << "what = character())";
+        if (hasCppInterface()) {
+             // register all C-callable functions
+            ostr() << "# Register entry points for exported C++ functions"
+                   << std::endl;
+            ostr() << "methods::setLoadAction(function(ns) {" << std::endl;
+            ostr() << "    .Call('" << registerCCallableExportedName()
+                   << "', PACKAGE = '" << package() << "')" 
+                   << std::endl << "})" << std::endl;
         }
     }
     
@@ -554,46 +559,10 @@ namespace attributes {
         return removed;
     }
     
-     // Generate function entries for passed attributes
-    void generateCppModuleFunctions(std::ostream& ostr,
-                                    const SourceFileAttributes& attributes,
-                                    bool verbose)
-    {
-        for(std::vector<Attribute>::const_iterator 
-                it = attributes.begin(); it != attributes.end(); ++it) {
-            
-            // verify this is an exported function 
-            if (it->isExportedFunction()) {
-                     
-                // verbose output
-                const Function& function = it->function();
-                if (verbose)
-                    Rcpp::Rcout << "  " << function << std::endl;
-              
-                // add module function export
-                ostr << "    Rcpp::function(\"" << it->exportedName() << "\", &"
-                     << function.name();
-                     
-                    // add information on arguments
-                    const std::vector<Argument>& args = 
-                                        it->function().arguments();
-                    ostr << ", Rcpp::List::create("; 
-                    for (size_t i=0; i<args.size(); i++) {
-                        const Argument& arg = args[i];
-                        ostr << "Rcpp::Named(\"" << arg.name() << "\")";
-                        if (!arg.defaultValue().empty())
-                            ostr << " = " << arg.defaultValue();
-                        if (i != (args.size()-1))
-                            ostr << ", ";
-                    }
-                    ostr << ")"; 
-                    ostr << ");" << std::endl;
-                      
-            } 
-        }
-    }
     
+    // Helpers for converting C++  default arguments to R default arguments
     namespace {
+        
         // convert a C++ numeric argument to an R argument value 
         // (returns empty string if no conversion is possible)
         std::string cppNumericArgToRArg(const std::string& type,
@@ -686,41 +655,189 @@ namespace attributes {
             else
                 return std::string();
         }
+        
+        // convert a C++ argument value to an R argument value (returns empty
+        // string if no conversion is possible)
+        std::string cppArgToRArg(const std::string& type,
+                                 const std::string& cppArg) {
+            
+            // try for quoted string
+            if (isQuoted(cppArg))
+                return cppArg;
+            
+            // try for literal
+            std::string rArg = cppLiteralArgToRArg(cppArg);
+            if (!rArg.empty())
+                return rArg;
+            
+            // try for a create arg
+            rArg = cppCreateArgToRArg(cppArg);
+            if (!rArg.empty())
+                return rArg;
+                
+            // try for a matrix arg
+            rArg = cppMatrixArgToRArg(cppArg);
+            if (!rArg.empty())
+                return rArg;
+                
+            // try for a numeric arg
+            rArg = cppNumericArgToRArg(type, cppArg);
+            if (!rArg.empty())
+                return rArg;
+                
+            // couldn't parse the arg
+            return std::string();
+        }
+    
     } // anonymous namespace
     
-    // convert a C++ argument value to an R argument value (returns empty
-    // string if no conversion is possible)
-    std::string cppArgToRArg(const std::string& type,
-                             const std::string& cppArg) {
-        
-        // try for quoted string
-        if (isQuoted(cppArg))
-            return cppArg;
-        
-        // try for literal
-        std::string rArg = cppLiteralArgToRArg(cppArg);
-        if (!rArg.empty())
-            return rArg;
-        
-        // try for a create arg
-        rArg = cppCreateArgToRArg(cppArg);
-        if (!rArg.empty())
-            return rArg;
-            
-        // try for a matrix arg
-        rArg = cppMatrixArgToRArg(cppArg);
-        if (!rArg.empty())
-            return rArg;
-            
-        // try for a numeric arg
-        rArg = cppNumericArgToRArg(type, cppArg);
-        if (!rArg.empty())
-            return rArg;
-            
-        // couldn't parse the arg
-        return std::string();
-    }
     
+    // Generate the C++ code required to make [[Rcpp::export]] functions
+    // available as C symbols with SEXP parameters and return
+    void generateCpp(std::ostream& ostr,
+                     const SourceFileAttributes& attributes,
+                     bool includePrototype,
+                     const std::string& contextId) {
+      
+        // process each attribute
+        for(std::vector<Attribute>::const_iterator 
+            it = attributes.begin(); it != attributes.end(); ++it) {
+            
+            // alias the attribute and function (bail if not export)
+            const Attribute& attribute = *it;
+            if (!attribute.isExportedFunction())
+                continue;
+            const Function& function = attribute.function();
+                      
+            // include prototype if requested
+            if (includePrototype) {
+                ostr << "// " << function.name() << std::endl;
+                ostr << function << ";";
+            }
+               
+            // write the SEXP-based function
+            ostr << std::endl << "RcppExport SEXP ";
+            if (!contextId.empty())
+                ostr << contextId << "_";
+            ostr << function.name() << "(";
+            const std::vector<Argument>& arguments = function.arguments();
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                ostr << "SEXP " << argument.name() << "SEXP";
+                if (i != (arguments.size()-1))
+                    ostr << ", ";
+            }
+            ostr << ") {" << std::endl;
+            ostr << "BEGIN_RCPP" << std::endl;
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                
+                // Rcpp::as to c++ type
+                ostr << "    " << argument.type().name() << " " << argument.name() 
+                     << " = " << "Rcpp::as<"  << argument.type().name() << " >(" 
+                     << argument.name() << "SEXP);" << std::endl;
+            }
+            
+            ostr << "    ";
+            if (!function.type().isVoid())
+                ostr << function.type() << " result = ";
+            ostr << function.name() << "(";
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                ostr << argument.name();
+                if (i != (arguments.size()-1))
+                    ostr << ", ";
+            }
+            ostr << ");" << std::endl;
+            
+            std::string res = function.type().isVoid() ? "R_NilValue" : 
+                                                         "Rcpp::wrap(result)";
+            ostr << "    return " << res << ";" << std::endl;
+            ostr << "END_RCPP" << std::endl;
+            ostr << "}" << std::endl;
+        }
+    }
+        
+    // Generate R functions from the passed attributes
+    void generateRFunctions(std::ostream& ostr,
+                            const SourceFileAttributes& attributes,
+                            const std::string& contextId,
+                            const std::string& dllInfo) {
+         
+        // process each attribute
+        for(std::vector<Attribute>::const_iterator 
+            it = attributes.begin(); it != attributes.end(); ++it) {
+            
+            // alias the attribute and function (bail if not export)
+            const Attribute& attribute = *it;
+            if (!attribute.isExportedFunction())
+                continue;
+            const Function& function = attribute.function();
+                
+            // print roxygen lines
+            for (size_t i=0; i<attribute.roxygen().size(); i++)
+                ostr << attribute.roxygen()[i] << std::endl;
+                    
+            // build the parameter list 
+            std::ostringstream argsOstr;
+            const std::vector<Argument>& arguments = function.arguments();
+            for (size_t i = 0; i<arguments.size(); i++) {
+                const Argument& argument = arguments[i];
+                argsOstr << argument.name();
+                if (!argument.defaultValue().empty()) {
+                    std::string rArg = cppArgToRArg(argument.type().name(), 
+                                                    argument.defaultValue());
+                    if (!rArg.empty()) {
+                        argsOstr << " = " << rArg;
+                    } else {
+                        showWarning("Unable to parse C++ default value '" +
+                                    argument.defaultValue() + "' for argument "+
+                                    argument.name() + " of function " +
+                                    function.name());
+                    }
+                }
+                   
+                if (i != (arguments.size()-1))
+                    argsOstr << ", ";
+            }
+            std::string args = argsOstr.str();
+            
+            // determine the function name
+            std::string name = attribute.exportedName();
+                
+            // write the function - use contextId to ensure symbol uniqueness
+            ostr << name << " <- function(" << args << ") {" 
+                 << std::endl;
+            ostr << "    ";
+            if (function.type().isVoid())
+                ostr << "invisible(";
+            ostr << ".Call(";
+            
+            // Two .Call styles are suppported -- if dllInfo is provided then
+            // do a direct call to getNativeSymbolInfo; otherwise we assume that
+            // the contextId is a package name and use the PACKAGE argument
+            if (!dllInfo.empty()) {
+                ostr << "getNativeSymbolInfo('"
+                     <<  contextId << "_" << function.name() 
+                     << "', " << dllInfo << ")";
+            } 
+            else {
+                ostr << "'" << contextId << "_" << function.name() << "', "
+                     << "PACKAGE = '" << contextId << "'";
+            }
+            
+            // add arguments
+            for (size_t i = 0; i<arguments.size(); i++)
+                ostr << ", " << arguments[i].name();
+            ostr << ")";
+            if (function.type().isVoid())
+                ostr << ")";
+            ostr << std::endl;
+        
+            ostr << "}" << std::endl << std::endl;
+        }                            
+    }
+   
     
 } // namespace attributes
 } // namespace Rcpp
