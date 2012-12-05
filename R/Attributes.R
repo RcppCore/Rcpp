@@ -653,19 +653,37 @@ sourceCppFunction <- function(func, dll, symbol) {
     # if we can't call R CMD SHLIB then notify the user they should 
     # install the appropriate development tools
     if (!.checkDevelTools()) {
-        msg <- paste("The tools required to build C/C++ code for R",
-                     "are not currently installed.")
+        msg <- paste("\nWARNING: The tools required to build C++ code for R ",
+                     "were not found.\n\n", sep="")
         sysName <- Sys.info()[['sysname']]
         if (identical(sysName, "Windows")) {
-            msg <- paste(msg, "Please download and install the appropriate",
-                              "version of Rtools before proceeding:\n\n",
-                              "http://cran.r-project.org/bin/windows/Rtools/");
+          
+            # different message depending on whether Rtools is installed
+            key <- NULL
+            try(key <- utils::readRegistry("SOFTWARE\\R-core\\Rtools", 
+                                           hive = "HLM", 
+                                           view = "32-bit"), 
+                silent = TRUE)
+            
+            if (!is.null(key) && !is.null(key$`Current Version`)) {
+                msg <- paste(msg, "Rtools appears to be installed however you ",
+                             "may not have updated the PATH.\n",
+                             "Please run the Rtools installer and follow ",
+                             "the instructions for updating\n",
+                             "the system PATH during installation.\n", 
+                             sep="")
+            } else {
+                msg <- paste(msg, "Please download and install the appropriate ",
+                             "version of Rtools:\n\n",
+                             "http://cran.r-project.org/bin/windows/Rtools/\n",
+                             sep="");
+            }
         } else if (identical(sysName, "Darwin")) {
-            msg <- paste(msg, "Please install Command Line Tools for XCode",
-                              "(or equivalent).")
+            msg <- paste(msg, "Please install Command Line Tools for XCode ",
+                         "(or equivalent).\n", sep="")
         } else {
-            msg <- paste(msg, "Please install GNU software development tools",
-                              "including a C/C++ compiler.")
+            msg <- paste(msg, "Please install GNU development tools ",
+                         "including a C++ compiler.\n", sep="")
         }
         message(msg)
     }
