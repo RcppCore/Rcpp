@@ -2,7 +2,7 @@
 //
 // cache.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,6 +30,9 @@ namespace internal{
 }    
 }
 
-extern "C" SEXP rcpp_init_cached_functions(SEXP) ;
+extern "C" {
+    SEXP rcpp_init_cached_functions(SEXP) ;
+    int* get_cache( int ) ;
+}
 
 #endif

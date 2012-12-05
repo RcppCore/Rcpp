@@ -24,6 +24,20 @@
 #ifndef RCPP__HASH__INDEX_HASH_H
 #define RCPP__HASH__INDEX_HASH_H
 
+#if ( defined(HASH_PROFILE) && defined(__APPLE__) ) 
+    // only mac version for now
+    #include <mach/mach_time.h>
+    #define ABSOLUTE_TIME mach_absolute_time
+    #define RCPP_PROFILE_TIC start = ABSOLUTE_TIME() ;
+    #define RCPP_PROFILE_TOC end   = ABSOLUTE_TIME() ;
+    #define RCPP_PROFILE_RECORD(name) profile_data[#name] = end - start ;
+#else
+    #define RCPP_PROFILE_TIC
+    #define RCPP_PROFILE_TOC
+    #define RCPP_PROFILE_RECORD(name)
+#endif
+#define RCPP_USE_CACHE_HASH
+
 namespace Rcpp{
     namespace sugar{ 
       
@@ -37,14 +51,33 @@ namespace Rcpp{
         typedef typename traits::storage_type<RTYPE>::type STORAGE ;
         typedef Vector<RTYPE> VECTOR ;
               
-        IndexHash( SEXP table ) : n(Rf_length(table)), m(2), k(1), src( (STORAGE*)dataptr(table) ), data(), size_(0) {
+        IndexHash( SEXP table ) : n(Rf_length(table)), m(2), k(1), src( (STORAGE*)dataptr(table) ), size_(0)
+            , data()
+        #ifdef HASH_PROFILE
+            , profile_data()
+        #endif
+        {
+            RCPP_PROFILE_TIC
             int desired = n*2 ;
             while( m < desired ){ m *= 2 ; k++ ; }
-            data.resize( m ) ;
+            #ifdef RCPP_USE_CACHE_HASH
+                data = get_cache(m) ;
+            #else
+                data.resize( m ) ;
+            #endif
+            RCPP_PROFILE_TOC
+            RCPP_PROFILE_RECORD(ctor_body)
+            
         }
         
         inline IndexHash& fill(){
+            RCPP_PROFILE_TIC
+            
             for( int i=0; i<n; i++) add_value(i) ;
+            
+            RCPP_PROFILE_TOC
+            RCPP_PROFILE_RECORD(fill)
+            
             return *this ;
         }
         
@@ -84,16 +117,48 @@ namespace Rcpp{
         
         int n, m, k ;
         STORAGE* src ;
-        std::vector<int> data ;
         int size_ ;
+        #ifdef RCPP_USE_CACHE_HASH
+            int* data ;
+        #else 
+            std::vector<int> data ;
+        #endif
+        
+        #ifdef HASH_PROFILE
+        mutable std::map<std::string,int> profile_data ;
+        mutable uint64_t start ;
+        mutable uint64_t end ;
+        #endif
         
         template <typename T>
         SEXP lookup__impl(const T& vec, int n) const {
+            RCPP_PROFILE_TIC
+            
             SEXP res = Rf_allocVector(INTSXP, n) ;
+            
+            RCPP_PROFILE_TOC
+            RCPP_PROFILE_RECORD(allocVector)
+                          
             int *v = INTEGER(res) ;
-            for( int i=0; i<n; i++) v[i] = get_index( vec[i] ) ;    
+            
+            RCPP_PROFILE_TIC
+            
+            for( int i=0; i<n; i++) v[i] = get_index( vec[i] ) ;
+            
+            RCPP_PROFILE_TOC
+            RCPP_PROFILE_RECORD(lookup)
+            
             return res ;
         }
+        
+        SEXP get_profile_data(){
+        #ifdef HASH_PROFILE
+            return wrap( profile_data ) ;
+        #else
+            return R_NilValue ;
+        #endif
+        }
+        
         
         bool add_value(int i){
             RCPP_DEBUG_2( "%s::add_value(%d)", DEMANGLE(IndexHash), i )
@@ -112,7 +177,7 @@ namespace Rcpp{
         }
         
         /* NOTE: we are returning a 1-based index ! */
-        int get_index(STORAGE value) const {
+        inline int get_index(STORAGE value) const {
             int addr = get_addr(value) ;
             while (data[addr]) {
               if (src[data[addr] - 1] == value)
