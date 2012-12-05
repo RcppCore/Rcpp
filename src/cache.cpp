@@ -19,10 +19,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <Rcpp.h>
+#define USE_RINTERNALS 1
+#include <Rinternals.h>
+#include <Rcpp/routines.h>
+#include <Rcpp/cache.h>
+#include <algorithm>
 
 static bool Rcpp_cache_know = false ;
 static SEXP Rcpp_cache = R_NilValue ;
+
+#define RCPP_HASH_CACHE_INDEX 4
+#define RCPP_CACHE_SIZE 5
+
+#ifndef RCPP_HASH_CACHE_INITIAL_SIZE
+#define RCPP_HASH_CACHE_INITIAL_SIZE 1024
+#endif 
 
 SEXP reset_current_error__(SEXP) ;
 
@@ -37,6 +48,7 @@ namespace Rcpp {
 // only used for debugging
 SEXP get_rcpp_cache() {
     if( ! Rcpp_cache_know ){
+        
         SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
         SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
         
@@ -50,11 +62,12 @@ SEXP get_rcpp_cache() {
 SEXP init_Rcpp_cache(){   
     SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
     SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
-    SEXP cache = PROTECT( Rf_allocVector( VECSXP, 10 ) );
+    SEXP cache = PROTECT( Rf_allocVector( VECSXP, RCPP_CACHE_SIZE ) );
     
     // the Rcpp namespace
 	SET_VECTOR_ELT( cache, 0, RCPP ) ;
 	reset_current_error__(cache) ;
+	SET_VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX, Rf_allocVector(INTSXP, RCPP_HASH_CACHE_INITIAL_SIZE) ) ;
 	
 	Rf_defineVar( Rf_install(".rcpp_cache"), cache, RCPP );
     
@@ -114,5 +127,19 @@ SEXP rcpp_set_stack_trace(SEXP e){
 
 SEXP rcpp_get_stack_trace(){
     return VECTOR_ELT( get_rcpp_cache(), 3 ) ;
+}
+
+int* get_cache( int m){
+    SEXP cache = get_rcpp_cache() ;
+    SEXP hash_cache = VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX) ;
+    int n = Rf_length(hash_cache) ;
+    if( m > n ){
+        hash_cache = PROTECT( Rf_allocVector( INTSXP, m) ) ;
+        SET_VECTOR_ELT(cache,RCPP_HASH_CACHE_INDEX, hash_cache); 
+        UNPROTECT(1) ;
+    }
+    int *res = INTEGER(hash_cache) ;
+    std::fill(res, res+m, 0 ) ;
+    return res ;
 }
 
