@@ -3,6 +3,10 @@
         * src/cache.cpp: added get_cache
         * include/Rcpp/hash/IndexHash.h: use a cached integer vector for
         the hash table payload. The cache vector increases as needed. 
+        * include/Rcpp/iostream/Rostream.h: make Rostream a template
+        * include/Rcpp/iostream/Rstreambuf.h: make Rstreambuf a template
+        * src/AttributesGen.cpp : include exceptions.h which was included 
+        implicitely by Rostream.h before
         
 2012-12-05  JJ Allaire <jj@rstudio.org>
 

@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// Rostream.h: Rcpp R/C++ interface class library -- stream buffer
+// Rstreambuf.h: Rcpp R/C++ interface class library -- stream buffer
 //
 // Copyright (C) 2011 - 2012    Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
 //
@@ -19,31 +19,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef __RSTREAMBUF_H__
-#define __RSTREAMBUF_H__
+#ifndef RCPP__IOSTREAM__RSTREAMBUF_H
+#define RCPP__IOSTREAM__RSTREAMBUF_H
 
 #include <streambuf>
-#include <RcppCommon.h>
 
 // modified from 
 // http://stackoverflow.com/questions/243696/correctly-over-loading-a-stringbuf-to-replace-cout-in-a-matlab-mex-file
 
 namespace Rcpp {
 
+    template <bool OUTPUT>
     class Rstreambuf : public std::streambuf {
     public:
-        Rstreambuf(bool output_): output(output_){}
-		
+        Rstreambuf(){}
+    	
     protected:
         virtual std::streamsize xsputn(const char *s, std::streamsize n );
         
         virtual int overflow(int c = EOF );
         
-        virtual int sync() ;
-    private:
-        bool output ;
-  };
+        virtual int sync()  ;
+    };
 
+  
 }
 
 #endif

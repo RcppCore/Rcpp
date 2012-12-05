@@ -2,7 +2,7 @@
 //
 // Rostream.cpp: Rcpp R/C++ interface class library -- output stream
 //
-// Copyright (C) 2011           Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+// Copyright (C) 2011 - 2012    Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
 //
 // This file is part of Rcpp.
 //
@@ -19,10 +19,42 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppCommon.h>
+#include <Rcpp/iostream/Rstreambuf.h>
 #include <Rcpp/iostream/Rostream.h>
+#include <R.h>
+
+namespace Rcpp{
+  template <> inline std::streamsize Rstreambuf<true>::xsputn(const char *s, std::streamsize num ) {
+      Rprintf( "%.*s", num, s ) ;
+      return num ;
+  }
+  template <> inline std::streamsize Rstreambuf<false>::xsputn(const char *s, std::streamsize num ) {
+      REprintf( "%.*s", num, s ) ; 
+      return num ;
+  }
+
+  template <> inline int Rstreambuf<true>::overflow(int c ) {
+    if (c != EOF) Rprintf( "%.1s", &c ) ;
+    return c ;
+  }
+  template <> inline int Rstreambuf<false>::overflow(int c ) {
+    if (c != EOF) REprintf( "%.1s", &c ) ;
+    return c ;
+  }
+      
+  template <> inline int Rstreambuf<true>::sync(){
+      ::R_FlushConsole() ;
+      return 0 ;
+  }
+  template <> inline int Rstreambuf<false>::sync(){
+      ::R_FlushConsole() ;
+      return 0 ;
+  }
+  
+  
+}
 
 // define global variable Rcout
-Rcpp::Rostream Rcpp::Rcout(true);
-Rcpp::Rostream Rcpp::Rcerr(false);
+Rcpp::Rostream<true>  Rcpp::Rcout;
+Rcpp::Rostream<false> Rcpp::Rcerr;
 

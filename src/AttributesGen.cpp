@@ -26,6 +26,7 @@
 #include <fstream>
 
 #include <Rcpp/iostream/Rostream.h>
+#include <Rcpp/exceptions.h>
 
 namespace Rcpp {
 namespace attributes {
