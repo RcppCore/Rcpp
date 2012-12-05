@@ -22,6 +22,8 @@
 #ifndef RCPP__IOSTREAM__RSTREAMBUF_H
 #define RCPP__IOSTREAM__RSTREAMBUF_H
 
+#include <cstdio>
+
 #include <streambuf>
 
 // modified from 
