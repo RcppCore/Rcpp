@@ -29,6 +29,8 @@
             \code{sourceCpp} and \code{compileAttributes} (eliminates 
             problem with exceptions not being able to cross shared library
             boundaries on Windows)
+            \item Functions exported by \code{sourceCpp} now directly
+            hookup to the external symbol pointer 
         }
   }
 }

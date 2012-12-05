@@ -304,6 +304,25 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 }
 
 
+# Take an empty function body and connect it to the specified external symbol
+sourceCppFunction <- function(func, dll, symbol) {
+    
+    args <- names(formals(func))
+    
+    body <- quote( .Call( EXTERNALNAME, ARG ) )[ c(1:2, rep(3, length(args))) ]
+    
+    for (i in seq(along = args)) 
+        body[[i+2]] <- as.symbol(args[i])
+    
+    body[[1L]] <- .Call
+    body[[2L]] <- getNativeSymbolInfo(symbol, dll)$address
+    
+    body(func) <- body
+    
+    func
+}
+
+
 # Print verbose output
 .printVerboseOutput <- function(context) {
     
