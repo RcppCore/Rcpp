@@ -254,7 +254,7 @@ namespace attributes {
             // Scan for attributes 
             CommentState commentState;
             Rcpp::List matches = regexMatches(lines_, 
-                "^\\s*//\\s+\\[\\[Rcpp::(\\w+)(\\(.*?\\))?\\]\\]\\s*$");
+                "^\\s*//\\s*\\[\\[Rcpp::(\\w+)(\\(.*?\\))?\\]\\]\\s*$");
             for (int i = 0; i<matches.size(); i++) {   
                 
                 // track whether we are in a comment and bail if we are in one
