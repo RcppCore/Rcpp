@@ -698,7 +698,9 @@ namespace attributes {
                      const SourceFileAttributes& attributes,
                      bool includePrototype,
                      const std::string& contextId) {
-      
+        
+        // always include Rcpp.h in case the user didn't
+        ostr << "#include <Rcpp.h>" << std::endl;
         // process each attribute
         for(std::vector<Attribute>::const_iterator 
             it = attributes.begin(); it != attributes.end(); ++it) {
