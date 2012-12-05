@@ -79,17 +79,6 @@ SEXP capabilities(){
 	return cap ;
 }
 
-
-/* this is mainly here so that variadic template errors show up 
-   at compile time */
-SEXP test_named(){
-#ifdef HAS_VARIADIC_TEMPLATES
-	return Rcpp::Language( "foobar", Rcpp::Named("foo", 2 ), 2, Rcpp::Named("bar", 10) ) ;
-#else
-	return R_NilValue ;
-#endif
-}
-
 const char * sexp_to_name(int sexp_type) {
     switch (sexp_type) {
     case NILSXP:	return "NILSXP";
