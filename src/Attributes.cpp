@@ -219,12 +219,19 @@ namespace {
                                std::ofstream::out | std::ofstream::trunc);
             if (rOfs.fail())
                 throw Rcpp::file_io_error(generatedRSourcePath());
+                
             // DLLInfo - hide using . and ensure uniqueness using contextId
             std::string dllInfo = "`." + contextId_ + "_DLLInfo`";
             rOfs << dllInfo << " <- dyn.load('" << dynlibPath() << "')" 
                  << std::endl << std::endl;
+                 
             // Generate R functions 
-            generateRFunctions(rOfs, sourceAttributes, contextId_, dllInfo);
+            generateR(rOfs, sourceAttributes, dllInfo);
+            
+            // remove the DLLInfo
+            rOfs << std::endl << "rm(" << dllInfo << ")" 
+                 << std::endl;
+     
             rOfs.close();
                
             // discover exported functions, and dependencies
@@ -293,6 +300,31 @@ namespace {
         
          std::string generatedRSourcePath() const {
            return buildDirectory_ + fileSep_ + rSourceFilename(); 
+        }
+        
+        void generateR(std::ostream& ostr, 
+                       const SourceFileAttributes& attributes, 
+                       const std::string& dllInfo) const
+        {
+            // process each attribute
+            for(std::vector<Attribute>::const_iterator 
+                it = attributes.begin(); it != attributes.end(); ++it) {
+                
+                // alias the attribute and function (bail if not export)
+                const Attribute& attribute = *it;
+                if (!attribute.isExportedFunction())
+                    continue;
+                const Function& function = attribute.function();
+        
+                // export the function
+                ostr <<  attribute.exportedName()
+                     << " <- Rcpp:::sourceCppFunction("
+                     << "function(" << generateRArgList(function) << ") {}, " 
+                     << dllInfo << ", " 
+                     << "'" << contextId_ + "_" + function.name() 
+                     << "')" << std::endl;
+            }        
+                           
         }
         
     private:

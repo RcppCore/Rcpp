@@ -238,16 +238,13 @@ namespace attributes {
     
     // Standalone generation helpers (used by sourceCpp)
     
+    std::string generateRArgList(const Function& function);
+      
     void generateCpp(std::ostream& ostr,
                      const SourceFileAttributes& attributes,
                      bool includePrototype,
                      const std::string& contextId); 
-                     
-    void generateRFunctions(std::ostream& ostr,
-                            const SourceFileAttributes& attributes,
-                            const std::string& contextId,
-                            const std::string& dllInfo = std::string());
-                                    
+
 } // namespace attributes
 } // namespace Rcpp
 

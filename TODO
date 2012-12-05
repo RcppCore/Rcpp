@@ -93,7 +93,7 @@ Attributes
      
     o   Add unit tests 
 
-    o   Add docstring parameter to Rcpp::export attribute
+    o   Evaluate whether to do anything with RNGScope 
 
     o   Rcpp.package.skeleton should look for Rcpp::depends in cpp_files
         and call inline plugins, etc. as necessary to create a package
