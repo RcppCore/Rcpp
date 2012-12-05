@@ -22,6 +22,8 @@
 #ifndef Rcpp__exceptions__h
 #define Rcpp__exceptions__h
 
+#include <sstream>
+
 namespace Rcpp{
 
 class exception : public std::exception {

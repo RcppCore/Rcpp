@@ -2,7 +2,7 @@
 //
 // RObject.h: Rcpp R/C++ interface class library -- general R object wrapper
 //
-// Copyright (C) 2009 - 2011    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,29 +22,15 @@
 #ifndef Rcpp_RObject_h
 #define Rcpp_RObject_h
 
-#include <RcppCommon.h>
+#define R_NO_REMAP
+#include <R.h>
+#include <Rcpp/macros/debug.h>
+#include <Rinternals.h>
+#include <vector>
+#include <string>
 
 namespace Rcpp{ 
 
-    namespace internal{
-     
-        class SEXPstack {
-        public:
-            SEXPstack() ;
-            void preserve( SEXP ) ;
-            void release( SEXP ) ;
-        private:
-            SEXP stack ;
-            SEXP* data ;
-            int len, top ;
-            
-            void grow( ) ;
-        } ;
-    
-    }
-    
-    
-    
     class RObject {
     public:
         
@@ -137,19 +123,16 @@ namespace Rcpp{
              *
              * @param rhs wrappable object
              */
-            template <typename T> AttributeProxy& operator=(const T& rhs){
-                set( wrap(rhs) ) ;
-                return *this ;
-            }
+            template <typename T> AttributeProxy& operator=(const T& rhs) ; 
                 
             /**
              * rhs use. Retrieves the current value for the target
              * attribute and structure it as a T object using as
              */
-            template <typename T> operator T() const {
-                return as<T>(get()) ;
-            }
-                
+            template <typename T> operator T() const ;
+            
+            inline operator SEXP() const { return get() ; }
+            
         private:
             const RObject& parent; 
             std::string attr_name ;
@@ -187,20 +170,16 @@ namespace Rcpp{
              *
              * @param rhs wrappable object
              */
-            template <typename T> SlotProxy& operator=(const T& rhs){
-                set( wrap(rhs) ) ;
-                return *this ;
-            }
+            template <typename T> SlotProxy& operator=(const T& rhs) ;
                 
             /**
              * rhs use. Retrieves the current value of the slot
              * and structures it as a T object. This only works 
              * when as<T> makes sense
              */ 
-            template <typename T> operator T() const {
-                return as<T>(get()) ;
-            }
-                
+            template <typename T> operator T() const ;
+            inline operator SEXP() const { return get() ; }
+            
         private:
             const RObject& parent; 
             std::string slot_name ;
@@ -284,15 +263,11 @@ namespace Rcpp{
     
     private:
 
-        //    static internal::SEXPstack PPstack ;
-        //    void preserve(){ if( m_sexp != R_NilValue ) PPstack.preserve(m_sexp) ; } 
-        //    void release() { if( m_sexp != R_NilValue ) PPstack.release(m_sexp) ; }
-
         void preserve(){ if( m_sexp != R_NilValue ) R_PreserveObject(m_sexp) ; }
         void release() { if( m_sexp != R_NilValue ) R_ReleaseObject(m_sexp) ; } 
     
-        virtual void update() {
-            RCPP_DEBUG_1( "RObject::update(SEXP = <%p> )", m_sexp ) ; 
+        virtual void update(){
+            RCPP_DEBUG_1( "RObject::update(SEXP = <%p> )", m_sexp ) 
         } ;
     
     };
