@@ -19,24 +19,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef __ROSTREAM_H__
-#define __ROSTREAM_H__
-
-#include <iomanip>				// USES setw
-
-#include "Rstreambuf.h"         		// to permit direct inclusion of Rostream header
+#ifndef RCPP__IOSTREAM__ROSTREAM_H
+#define RCPP__IOSTREAM__ROSTREAM_H
 
 // modified from 
 // http://stackoverflow.com/questions/243696/correctly-over-loading-a-stringbuf-to-replace-cout-in-a-matlab-mex-file
 
-namespace Rcpp {
+#include <Rcpp/iostream/Rstreambuf.h>
+#include <iostream>
 
+namespace Rcpp {   
+
+    template <bool OUTPUT>
     class Rostream : public std::ostream {
-        Rstreambuf* buf ;
+        typedef Rstreambuf<OUTPUT> Buffer ; 
+        Buffer* buf ;
     public:
-        Rostream(bool output) : 
-            std::ostream( new Rstreambuf(output) ), 
-            buf( static_cast<Rstreambuf*>( rdbuf() ) )
+        Rostream() : 
+            std::ostream( new Buffer ), 
+            buf( static_cast<Buffer*>( rdbuf() ) )
         {}
         ~Rostream() { 
             if (buf != NULL) {
@@ -47,10 +48,10 @@ namespace Rcpp {
     };
     
     // declare global variable
-    extern Rostream Rcout;
+    extern Rostream<true> Rcout;
 
     // declare global variable
-    extern Rostream Rcerr;
+    extern Rostream<false> Rcerr;
 }
 
 #endif
