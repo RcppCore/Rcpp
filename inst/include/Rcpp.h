@@ -75,4 +75,6 @@
 // 'see' all versions of wrap
 #include <Rcpp/internal/wrap_end.h>
 
+#include <Rcpp/api/meat/meat.h>
+
 #endif

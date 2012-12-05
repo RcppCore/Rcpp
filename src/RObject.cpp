@@ -2,7 +2,7 @@
 //
 // RObject.cpp: Rcpp R/C++ interface class library -- R Object support
 //
-// Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,48 +19,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppCommon.h>
 #include <Rcpp/RObject.h>
+#include <Rcpp/exceptions.h>
 
 namespace Rcpp {
-    namespace internal{
-
-        SEXPstack::SEXPstack() : 
-            stack( Rf_allocVector(VECSXP,1000) ), 
-            data( get_vector_ptr(stack) ), 
-            len( 1000 ), 
-            top( 0 )
-        {
-            R_PreserveObject( stack ) ;  
-        }
-    
-        void SEXPstack::preserve( SEXP object){
-            if( top == len-1) grow() ;
-            SET_VECTOR_ELT( stack, top++, object ) ;
-        }
-    
-        void SEXPstack::release( SEXP object ){
-            int n = top - 1 ;
-            while( n > -1 && data[n] != object ) n-- ;
-            while( n < top - 1 ){ 
-                data[n] = data[n+1] ; 
-                n++ ;
-            }
-            data[--top] = R_NilValue ;
-        }
-    
-        void SEXPstack::grow( ){
-            int newsize = len * 2 ;
-            SEXP x = PROTECT( Rf_allocVector( VECSXP, newsize ) ) ;
-            SEXP* x_data = get_vector_ptr( x) ;
-            std::copy( data, data + len, x_data ) ;
-            stack = x ;
-            UNPROTECT(1);
-            data = x_data ;
-        }
-    }
-
-    // internal::SEXPstack RObject::PPstack ;    
     
     void RObject::setSEXP(SEXP x){
         RCPP_DEBUG_1( "RObject::setSEXP(SEXP = <%p> )", x ) ; 

@@ -21,6 +21,15 @@
 
 #include <Rcpp.h>
 
+#include <string>
+
+const char* short_file_name(const char* file){
+    std::string f(file) ;
+    size_t index = f.find("/include/") ;
+    if( index != std::string::npos ){ f = f.substr( index + 9 ) ;}
+    return f.c_str() ;
+}
+
 #if defined(__GNUC__)
 #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__)
 // Simpler version for Windows and *BSD 
