@@ -205,6 +205,9 @@ namespace {
         
             // generate cpp for attributes and append them 
             std::ostringstream ostr;
+            // always include Rcpp.h in case the user didn't
+            ostr << std::endl << std::endl;
+            ostr << "#include <Rcpp.h>" << std::endl;
             generateCpp(ostr, sourceAttributes, false, contextId_);
             generatedCpp_ = ostr.str();
             std::ofstream cppOfs(generatedCppSourcePath().c_str(), 
