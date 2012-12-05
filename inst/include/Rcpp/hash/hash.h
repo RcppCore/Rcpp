@@ -22,6 +22,8 @@
 #ifndef RCPP__HASH__HASH_H
 #define RCPP__HASH__HASH_H
 
+#include <inttypes.h>			// needed with g++-4.7 to declare intptr_t
+
 #include <Rcpp/hash/IndexHash.h>
 #include <Rcpp/hash/SelfHash.h>
 
