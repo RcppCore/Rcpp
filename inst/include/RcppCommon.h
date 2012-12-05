@@ -301,41 +301,7 @@ namespace Rcpp{
 
 } // namespace Rcpp
 
-// simple logging help
-#ifndef RCPP_DEBUG_LEVEL
-#define RCPP_DEBUG_LEVEL 0
-#endif
-
-#ifndef logTxt
-    #if RCPP_DEBUG_LEVEL > 0
-        #define logTxt(x) ::logTxtFunction(__FILE__, __LINE__, x);
-    #else
-        #define logTxt(x)
-    #endif
-#endif
-
-inline const char* short_file_name(const char* file){
-    std::string f(file) ;
-    size_t index = f.find("/include/") ;
-    if( index != std::string::npos ){ f = f.substr( index + 9 ) ;}
-    return f.c_str() ;
-}
-
-#if RCPP_DEBUG_LEVEL > 0
-    #define RCPP_DEBUG( MSG ) Rprintf( "%40s:%4d %s\n" , short_file_name(__FILE__), __LINE__, MSG ) ;
-    #define RCPP_DEBUG_1( fmt, MSG ) Rprintf( "%40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, MSG ) ;
-    #define RCPP_DEBUG_2( fmt, M1, M2 ) Rprintf( "%40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2 ) ;
-    #define RCPP_DEBUG_3( fmt, M1, M2, M3 ) Rprintf( "%40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2, M3) ;
-    #define RCPP_DEBUG_4( fmt, M1, M2, M3, M4 ) Rprintf( "%40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2, M3, M4) ;
-    #define RCPP_DEBUG_5( fmt, M1, M2, M3, M4, M5 ) Rprintf( "%40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2, M3, M4, M5) ;
-#else
-    #define RCPP_DEBUG( MSG )
-    #define RCPP_DEBUG_1( fmt, MSG )
-    #define RCPP_DEBUG_2( fmt, M1, M2 )
-    #define RCPP_DEBUG_3( fmt, M1, M2, M3 )
-    #define RCPP_DEBUG_4( fmt, M1, M2, M3, M4 )
-    #define RCPP_DEBUG_5( fmt, M1, M2, M3, M4, M5 )
-#endif
+#include <Rcpp/macros/debug.h>
 
 SEXP stack_trace( const char *file, int line) ;
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
