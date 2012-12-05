@@ -275,7 +275,7 @@ RcppExport inline SEXP canUseCXX0X(){ return Rf_ScalarLogical( TRUE ); }
 RcppExport inline SEXP canUseCXX0X(){ return Rf_ScalarLogical( FALSE ); }
 #endif
 
-RcppExport SEXP test_named() ;
+
 RcppExport SEXP capabilities() ;
 
 const char * sexp_to_name(int sexp_type); 
