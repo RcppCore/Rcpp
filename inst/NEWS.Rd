@@ -30,7 +30,9 @@
             problem with exceptions not being able to cross shared library
             boundaries on Windows)
             \item Functions exported by \code{sourceCpp} now directly
-            hookup to the external symbol pointer 
+            hookup to the external symbol pointer
+            \item Diagnostics are printed to the console if \code{sourceCpp}
+            fails and R development tools are not installed
         }
   }
 }

@@ -336,7 +336,7 @@ sourceCppFunction <- function(func, dll, symbol) {
                             context$rSourceFilename)), 
         sep="\n")
     
-    cat("Building shared library", 
+    cat("\nBuilding shared library", 
         "\n--------------------------------------------------------\n",
         "\nDIR: ", context$buildDirectory, "\n\n", sep="")
 }
