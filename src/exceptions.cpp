@@ -23,6 +23,7 @@
 #define R_NO_REMAP
 #include <Rinternals.h>
 #include <Rcpp/exceptions.h>
+#include <stdlib.h>
 
 namespace Rcpp{
     
