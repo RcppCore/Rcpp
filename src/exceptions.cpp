@@ -21,7 +21,6 @@
 
 // #include <Rcpp.h>
 #define R_NO_REMAP
-#include <R.h>
 #include <Rinternals.h>
 #include <Rcpp/exceptions.h>
 
