@@ -20,57 +20,66 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <Rcpp/grow.h>
 #include <Rcpp/DottedPair.h>
 
 namespace Rcpp {
-
+    
+    SEXP grow( SEXP head, SEXP tail ){
+        SEXP x = PROTECT( head ) ;
+	    SEXP res = PROTECT( Rf_cons( x, tail ) ) ;
+	    UNPROTECT(2) ;
+	    return res ;    
+    }
+    SEXP grow( const char* head, SEXP tail ) {
+        return grow( Rf_mkString(head), tail ) ; 
+    }
+    
+    
     DottedPair::~DottedPair(){}
     DottedPair::DottedPair() : RObject(){}
         
     DottedPair& DottedPair::operator=(const DottedPair& other){
-	setSEXP( other.asSexp() ) ;
-	return *this ;
+        setSEXP( other.asSexp() ) ;
+        return *this ;
     }
         
     void DottedPair::remove( const size_t& index ) {
-	if( static_cast<R_len_t>(index) >= Rf_length(m_sexp) ) throw index_out_of_bounds() ;
-	if( index == 0 ){
-	    setSEXP( CDR( m_sexp) ) ;
-	} else{
-	    SEXP x = m_sexp ;
-	    size_t i=1;
-	    while( i<index ){ x = CDR(x) ; i++; }
-	    SETCDR( x, CDDR(x) ) ;
-	}
+        if( static_cast<R_len_t>(index) >= Rf_length(m_sexp) ) throw index_out_of_bounds() ;
+        if( index == 0 ){
+            setSEXP( CDR( m_sexp) ) ;
+        } else{
+            SEXP x = m_sexp ;
+            size_t i=1;
+            while( i<index ){ x = CDR(x) ; i++; }
+            SETCDR( x, CDDR(x) ) ;
+        }
     }
         
     DottedPair::Proxy::Proxy( DottedPair& v, const size_t& index_ ) : node(){
-	if( static_cast<R_len_t>(index_) >= v.length() ) throw index_out_of_bounds() ;
-	SEXP x = v ; /* implicit conversion */
-	size_t i = 0 ;
-	while( i<index_) {
-	    x = CDR(x) ;
-	    ++i ;
-	}
-	node = x ;
+        if( static_cast<R_len_t>(index_) >= v.length() ) throw index_out_of_bounds() ;
+        SEXP x = v ; /* implicit conversion */
+        size_t i = 0 ;
+        while( i<index_) {
+            x = CDR(x) ;
+            ++i ;
+        }
+        node = x ;
     }
         
     DottedPair::Proxy& DottedPair::Proxy::operator=(const Proxy& rhs){
-	SEXP y = rhs ; /* implicit conversion */
-	SETCAR( node, y ) ;
-	return *this ;
+        return set(rhs) ;
     }
         
     DottedPair::Proxy& DottedPair::Proxy::operator=(SEXP rhs){
-	SETCAR( node, rhs) ;
-	return *this ;
+        return set(rhs) ;
     }
         
     const DottedPair::Proxy DottedPair::operator[]( int i ) const {
-	return Proxy( const_cast<DottedPair&>(*this), i) ;
+        return Proxy( const_cast<DottedPair&>(*this), i) ;
     }
     DottedPair::Proxy DottedPair::operator[]( int i ) {
-	return Proxy( *this, i );
+        return Proxy( *this, i );
     }
         
         

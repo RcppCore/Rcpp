@@ -19,9 +19,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_backward_h
-#define Rcpp_api_meat_backward_h
+#ifndef Rcpp_api_meat_meat_h
+#define Rcpp_api_meat_meat_h
 
 #include <Rcpp/api/meat/RObject.h>
+#include <Rcpp/api/meat/DottedPair.h>
+#include <Rcpp/api/meat/grow.h>
 
 #endif

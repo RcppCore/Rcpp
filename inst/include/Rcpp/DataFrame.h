@@ -23,6 +23,7 @@
 #define Rcpp__DataFrame_h
 
 #include <RcppCommon.h>
+#include <Rcpp/r_cast.h>
 #include <Rcpp/Vector.h>
 
 namespace Rcpp{

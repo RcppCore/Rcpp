@@ -28,7 +28,6 @@
 #include <Rcpp/RObject.h>
 
 namespace Rcpp{ 
-
     class Promise : public RObject {     
     public:
 
