@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// backward.h: Rcpp R/C++ interface class library -- 
+// Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,13 +19,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_meat_h
-#define Rcpp_api_meat_meat_h
-
-#include <Rcpp/api/meat/RObject.h>
-#include <Rcpp/api/meat/Environment.h>
-#include <Rcpp/api/meat/DottedPair.h>
-#include <Rcpp/api/meat/Vector.h>
-#include <Rcpp/api/meat/Matrix.h>
-
+#ifndef Rcpp__vector__no_init_h
+#define Rcpp__vector__no_init_h
+  
+namespace Rcpp{
+    
+class no_init {
+public:
+    no_init(int size_): size(size_){}
+    inline int get() const { return size; }
+    
+    template <int RTYPE>
+    operator Vector<RTYPE>(){ return Rf_allocVector(RTYPE, size) ; }
+    
+private:
+    int size ;
+} ;
+  
+}
 #endif

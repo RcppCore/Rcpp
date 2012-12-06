@@ -22,6 +22,8 @@
 #ifndef Rcpp__vector__Matrix_h
 #define Rcpp__vector__Matrix_h
 
+class Dimension ;
+
 template <int RTYPE> 
 class Matrix : public Vector<RTYPE>, public MatrixBase<RTYPE,true, Matrix<RTYPE> > {
 public:
@@ -45,26 +47,14 @@ public:
         nrows = VECTOR::dims()[0] ;
     }
         
-    Matrix( const Dimension& dims) : VECTOR(), nrows(dims[0]) {
-        if( dims.size() != 2 ) throw not_compatible("not a matrix") ;
-        VECTOR::setSEXP( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ) ;
-        VECTOR::init() ;
-    }
+    Matrix( const Dimension& dims)  ;
         
-    Matrix( const int& nrows_, const int& ncols) : 
-        VECTOR( Dimension( nrows_, ncols ) ), 
-        nrows(nrows_)
-    {}
+    Matrix( const int& nrows_, const int& ncols)  ;
         
     template <typename Iterator>
-    Matrix( const int& nrows_, const int& ncols, Iterator start ) : 
-        VECTOR( start, start + (nrows_*ncols) ),
-        nrows(nrows_)
-    {
-        VECTOR::attr( "dim" ) = Dimension( nrows, ncols ) ; 
-    }
+    Matrix( const int& nrows_, const int& ncols, Iterator start ) ;
         
-    Matrix( const int& n) : VECTOR( Dimension( n, n ) ), nrows(n) {}
+    Matrix( const int& n) ; 
         
     Matrix( const Matrix& other) : VECTOR(), nrows(other.nrows) {
         SEXP x = other.asSexp() ;

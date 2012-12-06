@@ -22,17 +22,10 @@
 #ifndef Rcpp__vector__Vector_h
 #define Rcpp__vector__Vector_h
 
-class no_init {
-public:
-    no_init(int size_): size(size_){}
-    inline int get() const { return size; }
-    
-    template <int RTYPE>
-    operator Vector<RTYPE>(){ return Rf_allocVector(RTYPE, size) ; }
-    
-private:
-    int size ;
-} ;
+// forward declarations
+class Dimension ;
+
+template <bool NA,typename T> class SingleLogicalResult ;
 
 template <int RTYPE>
 class Vector :
@@ -51,67 +44,61 @@ public:
     typedef typename traits::r_vector_element_converter<RTYPE>::type converter_type ;
     typedef typename traits::storage_type<RTYPE>::type stored_type ;
 	
-    Vector() : RObject() {
-        RCPP_DEBUG( "Vector()" ) ;
-        RObject::setSEXP( Rf_allocVector( RTYPE, 0 ) ) ;
-        init() ;
-    } ;
-    ~Vector(){
-    	RCPP_DEBUG( "~Vector()" ) ;
-    };
+    /** 
+     * Default constructor. Creates a vector of the appropriate type
+     * and 0 length
+     */
+    Vector() ;
     
-    Vector( const Vector& other) : RObject() {
-        set_sexp( other.asSexp() ) ;
-    }
+    /**
+     * Destructor. Prints some information id debugging is enabled
+     */
+    ~Vector() ;
+    
+    /**
+     * copy constructor. shallow copy of the SEXP
+     */
+    Vector( const Vector& other) ;
 	
-    Vector& operator=( const Vector& other ){
-        set_sexp( other.asSexp() ) ;
-        return *this ;
-    }
+    /**
+     * Assignment operator. Grab the SEXP of the other vector
+     */
+    Vector& operator=( const Vector& other ) ;
 	
+    Vector( SEXP x ) : RObject() {
+    	RCPP_DEBUG_2( "Vector<%d>( SEXP = <%p> )", RTYPE, x)
+    	RObject::setSEXP( r_cast<RTYPE>( x ) ) ;
+    }
+    Vector( const int& size )  ;
+    Vector( const Dimension& dims)  ;
+    template <typename U> Vector( const Dimension& dims, const U& u) ;
+    template <bool NA, typename VEC> Vector( const VectorBase<RTYPE,NA,VEC>& other )  ;
+    
     Vector( const RObject::SlotProxy& proxy ) {
         RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
     }
-	
+    
     Vector( const RObject::AttributeProxy& proxy ) {
         RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
     }
 		
-    template <typename T>
-    Vector& operator=( const T& x){
-        assign_object( x, typename traits::is_sugar_expression<T>::type() ) ;
-        return *this ;
-    }
+    template <typename T> Vector& operator=( const T& x) ;
 	
+    // only defined for LogicalVectors
+    template <bool NA, typename T> Vector( const sugar::SingleLogicalResult<NA,T>& obj ) ;  ;
+    
     static inline stored_type get_na() { return traits::get_na<RTYPE>(); }
     static inline bool is_na( stored_type x){ return traits::is_na<RTYPE>(x); }
     
 private:
     
-    template <typename T>
-    inline void assign_sugar_expression( const T& x ){
-        int n = size() ;
-        if( n == x.size() ){
-            // just copy the data 
-            import_expression<T>(x, n ) ;
-        } else{
-            // different size, so we change the memory
-            set_sexp( r_cast<RTYPE>( wrap(x) ) ); 
-        }
-    }
+    template <typename T> inline void assign_sugar_expression( const T& x ) ;
     
     // sugar
-    template <typename T>
-    inline void assign_object( const T& x, traits::true_type ){
-        assign_sugar_expression( x.get_ref() ) ;
-    }
+    template <typename T> inline void assign_object( const T& x, traits::true_type )  ;
     
     // anything else
-    template <typename T>
-    inline void assign_object( const T& x, traits::false_type ){
-        // TODO: maybe we already have the memory to host the results
-        set_sexp( r_cast<RTYPE>( wrap(x) ) ) ;
-    }
+    template <typename T> inline void assign_object( const T& x, traits::false_type ) ;
     
 public:
 	
@@ -120,28 +107,6 @@ public:
         return internal::ListInitialization<iterator,init_type>( start + 1 ) ; ;
     }
 	
-    Vector( SEXP x ) : RObject() {
-    	RCPP_DEBUG_2( "Vector<%d>( SEXP = <%p> )", RTYPE, x) ;
-    	RObject::setSEXP( r_cast<RTYPE>( x ) ) ;
-    	RCPP_DEBUG( "===========" ) ;
-    }
-    
-    Vector( const int& size ) : RObject()  {
-    	RCPP_DEBUG_2( "Vector<%d>( int = %d )", RTYPE, size ) ;
-    	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
-        init() ;
-    }
-    
-    template <bool NA, typename VEC>
-    Vector( const VectorBase<RTYPE,NA,VEC>& other ) : RObject() {
-    	import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
-    }
-    
-    // should eally onlu be used for LogicalVector. 
-    template <bool NA, typename T>
-    Vector( const sugar::SingleLogicalResult<NA,T>& obj ) : RObject() {
-    	RObject::setSEXP( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>( obj ) .get_sexp() ) ) ;
-    }
     
 private:
 	  
@@ -227,24 +192,6 @@ public:
     	while( first != last ) *first++ = gen(u1,u2,u3) ;
     }
 
-    Vector( const Dimension& dims) : RObject() {
-    	RObject::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
-        init() ;
-        if( dims.size() > 1 ){
-            RObject::attr( "dim" ) = dims;
-        }
-    }
-    
-    template <typename U>
-    Vector( const Dimension& dims, const U& u) : RObject() {
-    	RObject::setSEXP( Rf_allocVector( RTYPE, dims.prod() ) ) ;
-        fill(u) ;
-        if( dims.size() > 1 ){
-            RObject::attr( "dim" ) = dims;
-        }
-    }
-    
-   
     template <typename InputIterator>
     Vector( InputIterator first, InputIterator last) : RObject( ){
         int n = std::distance(first, last) ;
@@ -525,7 +472,7 @@ public:
     }
 	
     void update_vector(){
-        RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector), reinterpret_cast<void*>( RObject::asSexp() ) ) ;
+        RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector), reinterpret_cast<void*>( RObject::asSexp() ) )
         cache.update(*this) ;
     }
 		

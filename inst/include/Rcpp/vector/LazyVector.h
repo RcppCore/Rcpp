@@ -2,7 +2,7 @@
 //
 // LazyVector.h: Rcpp R/C++ interface class library -- lazy vectors
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,7 @@
 #ifndef Rcpp__vector__LazyVector_h
 #define Rcpp__vector__LazyVector_h
 
+namespace Rcpp{
 namespace internal{
         
 template <typename VECTOR>
@@ -65,5 +66,5 @@ private:
 
         
 } // internal
-
+} // Rcpp 
 #endif
