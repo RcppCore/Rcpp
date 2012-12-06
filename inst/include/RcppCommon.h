@@ -215,9 +215,6 @@ namespace Rcpp{
     #endif
 #endif
 
-std::string demangle( const std::string& name) ;
-#define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str() 
-
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
 #define R_NO_REMAP
 #include <R.h>
@@ -258,11 +255,6 @@ namespace Rcpp{
 
 extern "C" SEXP rcpp_call_test(SEXP x) ;
 
-/* in exceptions.cpp */
-void forward_uncaught_exceptions_to_r() ;
-void forward_exception_to_r( const std::exception& ) ;
-RcppExport SEXP initUncaughtExceptionHandler() ; 
-
 /* just testing variadic templates */
 #ifdef HAS_VARIADIC_TEMPLATES
 template<typename... Args>
@@ -300,8 +292,6 @@ namespace Rcpp{
 
 #include <Rcpp/macros/debug.h>
 
-SEXP stack_trace( const char *file, int line) ;
-#define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 #define Rcpp_error(MESSAGE) throw Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
 
 namespace Rcpp {

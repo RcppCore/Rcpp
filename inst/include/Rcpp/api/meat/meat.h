@@ -24,6 +24,5 @@
 
 #include <Rcpp/api/meat/RObject.h>
 #include <Rcpp/api/meat/DottedPair.h>
-#include <Rcpp/api/meat/grow.h>
 
 #endif

@@ -19,9 +19,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <Rcpp.h>
+// #include <Rcpp.h>
+#define R_NO_REMAP
+#include <R.h>
+#include <Rinternals.h>
+#include <Rcpp/exceptions.h>
 
 namespace Rcpp{
+    
     exception::exception(const char* message_) : message(message_) {}
     exception::exception( const char* message_, const char* file, int line) : message(message_){
 	rcpp_set_stack_trace( stack_trace(file,line) ) ;
@@ -32,7 +37,6 @@ namespace Rcpp{
     const char* __CLASS__::what() const throw(){ return message.c_str(); }
 
     RCPP_EXCEPTION_WHAT(exception)
-
     RCPP_EXCEPTION_WHAT(not_compatible)
     RCPP_EXCEPTION_WHAT(S4_creation_error)
     RCPP_EXCEPTION_WHAT(reference_creation_error)
@@ -189,10 +193,4 @@ std::string demangle( const std::string& name ){
 	return name ;	
 }
 #endif
-SEXP initUncaughtExceptionHandler(){
-    /* FIXME: we might want to restore the original handler as the package
-              gets unloaded */
-    std::set_terminate(forward_uncaught_exceptions_to_r);
-    return R_NilValue ;
-}
 
