@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// backward.h: Rcpp R/C++ interface class library -- 
+// Environment.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
 //
@@ -19,11 +19,28 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_meat_h
-#define Rcpp_api_meat_meat_h
+#ifndef Rcpp_api_meat_Environment_h
+#define Rcpp_api_meat_Environment_h
 
-#include <Rcpp/api/meat/RObject.h>
-#include <Rcpp/api/meat/Environment.h>
-#include <Rcpp/api/meat/DottedPair.h>
+namespace Rcpp{ 
+
+template <typename WRAPPABLE>
+bool Environment::assign( const std::string& name, const WRAPPABLE& x) const {
+    return assign( name, wrap( x ) ) ;
+}
+
+template <typename T> 
+Environment::Binding::operator T() const{
+    SEXP x = env.get(name) ;
+    return as<T>(x) ;
+}  
+    
+template <typename WRAPPABLE>
+Environment::Binding& Environment::Binding::operator=(const WRAPPABLE& rhs){
+    env.assign( name, rhs ) ;
+    return *this ;
+}
+    
+} // namespace Rcpp
 
 #endif
