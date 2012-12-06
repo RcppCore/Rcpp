@@ -1,10 +1,19 @@
 2012-12-06  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: revert DOS newlines
-        * src/Attributes.cpp: revert DOS newlines; define RCPP_NO_SUGAR
-        * src/AttributesGen.cpp: revert DOS newlines
+        * R/Attributes.R: revert DOS newlines; use new shared library name
+        for each rebuild in sourceCpp
+        * src/Attributes.cpp: revert DOS newlines; define RCPP_NO_SUGAR;
+        use new shared library name for each rebuild in sourceCpp
+        * src/AttributesGen.cpp: revert DOS newlines; convert 'try-error'
+        to exception for C++ interfaces
+        * src/AttributesGen.h: 'try-error' to exception for C++ interfaces
         * src/AttributesParser.cpp: revert DOS newlines; define RCPP_NO_SUGAR
+        * src/RcppCommon.cpp: conversion from exeption to 'try-error'
+        * include/Rcpp/exceptions.h: conversion from exeption to 'try-error'
+        * include/Rcpp/preprocessor.h: add END_RCPP_RETURN_ERROR macro
+        to convert exceptions to 'try-error' objects
         * include/Rcpp/iostream/Rstreambuf.h: revert DOS newlines
+        * DESCRIPTION: bump version to 0.10.1.5
   
 2012-12-06  Dirk Eddelbuettel  <edd@debian.org>
 

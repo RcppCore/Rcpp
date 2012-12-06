@@ -34,6 +34,7 @@ namespace attributes {
     // constants
     namespace {
         const char * const kRcppExportsSuffix = "_RcppExports.h";
+        const char * const kTrySuffix = "_try";
     } 
     
     ExportsGenerator::ExportsGenerator(const std::string& targetFile, 
@@ -130,7 +131,11 @@ namespace attributes {
                                  bool verbose) {
         
         // generate functions
-        generateCpp(ostr(), attributes, true, package());
+        generateCpp(ostr(), 
+                    attributes, 
+                    true, 
+                    attributes.hasInterface(kInterfaceCpp),
+                    package());
          
         // track cppExports and signatures (we use these at the end to
         // generate the ValidateSignature and RegisterCCallable functions)
@@ -198,9 +203,10 @@ namespace attributes {
             for (std::size_t i=0;i<cppExports_.size(); i++) {
                 const Attribute& attr = cppExports_[i];
                 std::string name = package() + "_" + attr.exportedName();
-                ostr() << registerCCallable(4, 
-                                            attr.exportedName(),
-                                            attr.function().name());
+                ostr() << registerCCallable(
+                              4, 
+                              attr.exportedName(),
+                              attr.function().name() + kTrySuffix);
                 ostr() << std::endl;
             }
             ostr() << registerCCallable(4, 
@@ -352,8 +358,7 @@ namespace attributes {
                        << std::endl;
                 ostr() << "        }" << std::endl;
                 
-                ostr() << "        SEXP resultSEXP = " << ptrName << "(";
-                
+                ostr() << "        RObject result = " << ptrName << "(";
                 
                 const std::vector<Argument>& args = function.arguments();
                 for (std::size_t i = 0; i<args.size(); i++) {
@@ -364,8 +369,13 @@ namespace attributes {
                        
                 ostr() << ");" << std::endl;
                 
+                ostr() << "        if (result.inherits(\"try-error\"))" 
+                       << std::endl
+                       << "            throw Rcpp::exception(as<std::string>("
+                       << "result).c_str());"
+                       << std::endl;
                 ostr() << "        return Rcpp::as<" << function.type() << " >"
-                       << "(resultSEXP);" << std::endl;
+                       << "(result);" << std::endl;
                 
                 ostr() << "    }" << std::endl << std::endl;
             } 
@@ -762,6 +772,7 @@ namespace attributes {
     void generateCpp(std::ostream& ostr,
                      const SourceFileAttributes& attributes,
                      bool includePrototype,
+                     bool cppInterface,
                      const std::string& contextId) {
         
         // process each attribute
@@ -780,19 +791,26 @@ namespace attributes {
                 ostr << function << ";";
             }
                
-            // write the SEXP-based function
-            ostr << std::endl << "RcppExport SEXP ";
-            if (!contextId.empty())
-                ostr << contextId << "_";
-            ostr << function.name() << "(";
+            // write the C++ callable SEXP-based function (this version
+            // returns errors via "try-error")
+            ostr << std::endl;
+            ostr << (cppInterface ? "static" : "RcppExport"); 
+            ostr << " SEXP ";
+            std::string funcName = contextId + "_" + function.name();
+            ostr << funcName;
+            if (cppInterface)
+                ostr << kTrySuffix;
+            ostr << "(";
+            std::ostringstream ostrArgs;
             const std::vector<Argument>& arguments = function.arguments();
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
-                ostr << "SEXP " << argument.name() << "SEXP";
+                ostrArgs << "SEXP " << argument.name() << "SEXP";
                 if (i != (arguments.size()-1))
-                    ostr << ", ";
+                    ostrArgs << ", ";
             }
-            ostr << ") {" << std::endl;
+            std::string args = ostrArgs.str();
+            ostr << args << ") {" << std::endl;
             ostr << "BEGIN_RCPP" << std::endl;
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
@@ -818,8 +836,32 @@ namespace attributes {
             std::string res = function.type().isVoid() ? "R_NilValue" : 
                                                          "Rcpp::wrap(result)";
             ostr << "    return " << res << ";" << std::endl;
-            ostr << "END_RCPP" << std::endl;
+            ostr << (cppInterface ? "END_RCPP_RETURN_ERROR" : "END_RCPP")
+                 << std::endl;
             ostr << "}" << std::endl;
+            
+            // Now write an R wrapper that returns error via Rf_error
+            if (cppInterface) {
+                ostr << "RcppExport SEXP " << funcName << "(" << args << ") {"
+                     << std::endl;
+                ostr << "    SEXP result = PROTECT(" << funcName 
+                     << kTrySuffix << "(";
+                for (size_t i = 0; i<arguments.size(); i++) {
+                    const Argument& argument = arguments[i];
+                    ostr << argument.name() << "SEXP";
+                    if (i != (arguments.size()-1))
+                        ostr << ", ";
+                }
+                ostr << "));" << std::endl;
+                ostr << "    "
+                     << "Rboolean isError = Rf_inherits(result, \"try-error\");"
+                     << std::endl;
+                ostr << "    UNPROTECT(1);" << std::endl
+                     << "    if (isError)" << std::endl
+                     << "        Rf_error(CHAR(Rf_asChar(result)));" << std::endl
+                     << "    return result;" << std::endl
+                     << "}" << std::endl;
+            }
         }
     }
     
