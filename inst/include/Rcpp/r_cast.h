@@ -2,7 +2,7 @@
 //
 // rcast.h: Rcpp R/C++ interface class library -- cast from one SEXP type to another
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,6 +26,9 @@
 
 namespace Rcpp{
     namespace internal {
+        
+        /* defined in Evaluator.cpp */
+        SEXP convert_using_rfunction(SEXP x, const char* const fun);
         
         // r_true_cast is only meant to be used when the target SEXP type
         // is different from the SEXP type of x 

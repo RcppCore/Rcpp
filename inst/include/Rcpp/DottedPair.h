@@ -2,7 +2,7 @@
 //
 // DottedPair.h: Rcpp R/C++ interface class library -- dotted pair list template
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,12 +23,7 @@
 #define Rcpp_DottedPair_h
 
 #include <RcppCommon.h>
-#include <Rcpp/exceptions.h>
-
-#include <Rcpp/Symbol.h>
-#include <Rcpp/grow.h>
 #include <Rcpp/Named.h>
-
 #include <Rcpp/RObject.h>
 
 namespace Rcpp{ 
@@ -64,20 +59,7 @@ template<typename... Args>
 	 * are treated specially
 	 */
 	template <typename T>
-	void push_back( const T& object){
-		if( isNULL() ){
-			setSEXP( grow( object, m_sexp ) ) ;
-		} else {
-			SEXP x = m_sexp ;
-			/* traverse the pairlist */
-			while( !Rf_isNull(CDR(x)) ){
-				x = CDR(x) ;
-			}
-			SEXP tail = PROTECT( pairlist( object ) ); 
-			SETCDR( x, tail ) ;
-			UNPROTECT(1) ;
-		}
-	}
+	void push_back( const T& object) ;
 
 	/**
 	 * wraps an object and add it in front of the pairlist. 
@@ -86,9 +68,7 @@ template<typename... Args>
 	 * of the wrap functions, or an object of class Named
 	 */
 	template <typename T>
-	void push_front( const T& object){
-		setSEXP( grow(object, m_sexp) ) ;
-	}
+	void push_front( const T& object) ;
 
 	/**
 	 * insert an object at the given position, pushing other objects
@@ -98,27 +78,7 @@ template<typename... Args>
 	 * @param object object to wrap
 	 */
 	template <typename T>
-	void insert( const size_t& index, const T& object) {
-		if( index == 0 ) {
-			push_front( object ) ;
-		} else{
-		    // tautological comparison flagged by clang++
-//			if( index <  0 ) throw index_out_of_bounds() ;
-			if( isNULL( ) ) throw index_out_of_bounds() ;
-			
-			if( static_cast<R_len_t>(index) > ::Rf_length(m_sexp) ) throw index_out_of_bounds() ;
-			
-			size_t i=1;
-			SEXP x = m_sexp ;
-			while( i < index ){
-				x = CDR(x) ;
-				i++; 
-			}
-			SEXP tail = PROTECT( grow( object, CDR(x) ) ) ; 
-			SETCDR( x, tail ) ;
-			UNPROTECT(1) ;
-		}
-	}
+	void insert( const size_t& index, const T& object) ;
 	
 	/**
 	 * replaces an element of the list
@@ -127,22 +87,10 @@ template<typename... Args>
 	 * @param object object that can be wrapped
 	 */
 	template <typename T>
-	void replace( const int& index, const T& object ) {
- 	        if( static_cast<R_len_t>(index) >= ::Rf_length(m_sexp) ) throw index_out_of_bounds() ;
-		
-		/* pretend we do a pairlist so that we get Named to work for us */
-		SEXP x = PROTECT(pairlist( object ));
-		SEXP y = m_sexp ;
-		int i=0;
-		while( i<index ){ y = CDR(y) ; i++; }
-		
-		SETCAR( y, CAR(x) );
-		SET_TAG( y, TAG(x) );
-		UNPROTECT(1) ;
-	}
+	void replace( const int& index, const T& object ) ;
 
-        inline R_len_t length() const { return ::Rf_length(m_sexp) ; }
-        inline R_len_t size() const { return ::Rf_length(m_sexp) ; }
+    inline R_len_t length() const { return ::Rf_length(m_sexp) ; }
+    inline R_len_t size() const { return ::Rf_length(m_sexp) ; }
 	
 	/**
 	 * Remove the element at the given position
@@ -160,21 +108,21 @@ template<typename... Args>
 		Proxy& operator=(SEXP rhs) ;
 		
 		template <typename T>
-		Proxy& operator=(const T& rhs){
-			SETCAR( node, wrap(rhs) ) ;
-			return *this ;
-		}
+		Proxy& operator=(const T& rhs) ;
 		
 		template <typename U>
-		Proxy& operator=(const traits::named_object<U>& rhs){
-			SETCAR( node, rhs.object ) ;
-			SEXP rhsNameSym = ::Rf_install( rhs.name.c_str() ); // cannot be gc()ed once in symbol table
-			SET_TAG( node, rhsNameSym ) ;
-			return *this ;
-		}
+		Proxy& operator=(const traits::named_object<U>& rhs) ;
 		
-		template <typename T> operator T() const {
-			return as<T>( CAR(node) ) ;
+		template <typename T> operator T() const ;
+		
+		inline SEXP get() const { return CAR(node); }
+		inline operator SEXP() const { return get() ; }
+		inline Proxy& set(SEXP x){ SETCAR( node, x ) ; return *this ;} 
+		inline Proxy& set(SEXP x, const char* name){
+            SETCAR( node, x ) ;
+            SEXP rhsNameSym = ::Rf_install( name ); // cannot be gc()ed once in symbol table
+            SET_TAG( node, rhsNameSym ) ;
+            return *this ;
 		}
 		
 	private:

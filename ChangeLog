@@ -14,6 +14,8 @@
         of templates using as and wrap
         * include/RcppCommon.h: removed unused test_named
         * src/RcppCommon.cpp: removed unused test_named
+        * src/r_cast.cpp: less includes
+        * src/posixt.cpp: less includes
         
 2012-12-05  JJ Allaire <jj@rstudio.org>
 

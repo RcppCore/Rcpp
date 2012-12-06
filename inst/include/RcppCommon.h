@@ -286,9 +286,6 @@ namespace Rcpp{
     /* internal namespace for things not intended to be used by the user */
     namespace internal{     
         
-        /* defined in Evaluator.cpp */
-        SEXP convert_using_rfunction(SEXP x, const char* const fun);
-        
         SEXP try_catch( SEXP expr, SEXP env );
         SEXP try_catch( SEXP expr );
         
@@ -391,9 +388,6 @@ namespace Rcpp{
 #include <Rcpp/internal/ListInitialization.h>
 #include <Rcpp/internal/Proxy_Iterator.h>
 #include <Rcpp/internal/SEXP_Iterator.h>
-
-RcppExport SEXP RcppXPtrExample_create_external_pointer() ;
-RcppExport SEXP RcppXPtrExample_get_external_pointer(SEXP ); 
 
 #include <Rcpp/preprocessor.h>
 #include <Rcpp/algo.h>
