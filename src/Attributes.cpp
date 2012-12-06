@@ -168,10 +168,7 @@ namespace {
             dircreate(buildDirectory_);
             
             // generate a random context id
-            Rcpp::Function sample = Rcpp::Environment::base_env()["sample"];
-            std::ostringstream ostr;
-            ostr << "sourceCpp_" << Rcpp::as<int>(sample(100000, 1));
-            contextId_ = ostr.str();
+            contextId_ = "sourceCpp_" + createRandomizer();
             
             // regenerate the source code
             regenerateSource();
@@ -197,6 +194,10 @@ namespace {
         
         void regenerateSource() {
             
+            // create new dynlib filename
+            previousDynlibFilename_ = dynlibFilename_;
+            dynlibFilename_ = "sourceCpp_" + createRandomizer() + dynlibExt_;
+            
             // copy the source file to the build dir
             Rcpp::Function filecopy = Rcpp::Environment::base_env()["file.copy"];
             filecopy(cppSourcePath_, generatedCppSourcePath(), true);
@@ -209,7 +210,7 @@ namespace {
             // always include Rcpp.h in case the user didn't
             ostr << std::endl << std::endl;
             ostr << "#include <Rcpp.h>" << std::endl;
-            generateCpp(ostr, sourceAttributes, false, contextId_);
+            generateCpp(ostr, sourceAttributes, false, false, contextId_);
             generatedCpp_ = ostr.str();
             std::ofstream cppOfs(generatedCppSourcePath().c_str(), 
                                  std::ofstream::out | std::ofstream::app);
@@ -281,11 +282,18 @@ namespace {
         }
          
         std::string dynlibFilename() const {
-            return contextId() + dynlibExt_;
+            return dynlibFilename_;
         }
         
         std::string dynlibPath() const {
             return buildDirectory_ + fileSep_ + dynlibFilename();
+        }
+        
+        std::string previousDynlibPath() const {
+            if (!previousDynlibFilename_.empty())
+                return buildDirectory_ + fileSep_ + previousDynlibFilename_;
+            else
+                return std::string();
         }
        
         const std::vector<std::string>& exportedFunctions() const {
@@ -331,6 +339,13 @@ namespace {
                            
         }
         
+        std::string createRandomizer() {
+            Rcpp::Function sample = Rcpp::Environment::base_env()["sample"];
+            std::ostringstream ostr;
+            ostr << Rcpp::as<int>(sample(100000, 1));
+            return ostr.str();
+        }
+        
     private:
         std::string cppSourcePath_;
         std::string generatedCpp_;
@@ -338,6 +353,8 @@ namespace {
         std::string contextId_;
         std::string buildDirectory_;
         std::string fileSep_;
+        std::string dynlibFilename_;
+        std::string previousDynlibFilename_;
         std::string dynlibExt_;
         std::vector<std::string> exportedFunctions_;
         std::vector<std::string> depends_;
@@ -458,6 +475,7 @@ BEGIN_RCPP
         _["rSourceFilename"] = pDynlib->rSourceFilename(),
         _["dynlibFilename"] = pDynlib->dynlibFilename(),
         _["dynlibPath"] = pDynlib->dynlibPath(),
+        _["previousDynlibPath"] = pDynlib->previousDynlibPath(),
         _["depends"] = pDynlib->depends(),
         _["embeddedR"] = pDynlib->embeddedR());
 END_RCPP

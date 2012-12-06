@@ -239,10 +239,11 @@ namespace attributes {
     // Standalone generation helpers (used by sourceCpp)
     
     std::string generateRArgList(const Function& function);
-      
+    
     void generateCpp(std::ostream& ostr,
                      const SourceFileAttributes& attributes,
                      bool includePrototype,
+                     bool cppInterface,
                      const std::string& contextId); 
 
 } // namespace attributes

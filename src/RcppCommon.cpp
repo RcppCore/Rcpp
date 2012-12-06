@@ -168,3 +168,26 @@ SEXP as_character_externalptr(SEXP xp){
 	return Rcpp::wrap( (const char*)buffer ) ;
 }
 
+SEXP exception_to_try_error( const std::exception& ex ){
+    return string_to_try_error(ex.what());
+}
+
+SEXP string_to_try_error( const std::string& str){
+
+    using namespace Rcpp;
+	
+    // form simple error condition based on a string
+    SEXP rcppNS = PROTECT(R_FindNamespace(Rf_mkString("Rcpp")));
+    SEXP simpleErrorExpr = PROTECT(::Rcpp_lcons(::Rf_install("simpleError"),
+                                            pairlist(str, R_NilValue)));
+    SEXP simpleError = PROTECT(Rf_eval(simpleErrorExpr, rcppNS));
+	
+    // create the try-error structure
+    SEXP structureExpr = PROTECT(::Rcpp_lcons(::Rf_install("structure"), 
+        pairlist(str, _["class"] = "try-error", _["condition"] = simpleError)));
+    SEXP tryError = PROTECT(Rf_eval(structureExpr, rcppNS));
+	
+    // unprotect and return
+    UNPROTECT(5);
+    return tryError;
+}
