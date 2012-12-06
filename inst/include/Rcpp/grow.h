@@ -28,7 +28,8 @@
 namespace Rcpp {
 
     inline SEXP pairlist() { return R_NilValue ; }
-
+    SEXP grow( SEXP head, SEXP tail ) ; 
+    
     namespace internal{
      
         template <typename T>
@@ -56,8 +57,6 @@ namespace Rcpp {
     SEXP grow(const T& head, SEXP tail) {
         return internal::grow__dispatch( typename traits::is_named<T>::type(), head, tail );
     }
-    
-    SEXP grow( SEXP head, SEXP tail ) ; 
     
 #ifdef HAS_VARIADIC_TEMPLATES
 
