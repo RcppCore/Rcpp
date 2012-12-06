@@ -2,7 +2,7 @@
 //
 // complex.cpp : Rcpp R/C++ interface class library -- complex binary operators
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,7 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <RcppCommon.h>
+#include <R_ext/Complex.h>
+#include <Rcpp/complex.h>
 
 Rcomplex operator*( const Rcomplex& lhs, const Rcomplex& rhs){          
     Rcomplex y ;
