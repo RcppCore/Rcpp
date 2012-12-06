@@ -4,6 +4,8 @@
         * src/exceptions.cpp: include config so that it knows that Rcpp can 
         demangle
         * unitTests/runit.environments.R: using sourceCpp
+        * src/Environment.cpp: less includes
+        * src/Evaluator.cpp: less includes
 
 2012-12-05 Romain Francois <romain@r-enthusiasts.com>
 

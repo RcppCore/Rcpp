@@ -22,12 +22,6 @@
 #ifndef Rcpp_Environment_h
 #define Rcpp_Environment_h
 
-#include <RcppCommon.h>
-#include <Rcpp/exceptions.h>
-#include <Rcpp/Evaluator.h>
-#include <Rcpp/Symbol.h>
-#include <Rcpp/Language.h>
-
 #include <Rcpp/RObject.h>
 
 namespace Rcpp{ 

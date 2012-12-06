@@ -219,7 +219,7 @@ namespace Rcpp{
 #define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
-#include <R_ext/Callbacks.h>
+// #include <R_ext/Callbacks.h>
 #include <R_ext/Complex.h>
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>

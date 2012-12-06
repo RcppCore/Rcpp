@@ -51,7 +51,11 @@ namespace internal{
     }
         
     template <int RTYPE> class eval_methods {} ;
-    template <> class eval_methods<EXPRSXP> ;
-        
+    template <> class eval_methods<EXPRSXP> {
+    public:
+        SEXP eval() ;
+        SEXP eval(SEXP) ;
+    } ;
+      
 }
 #endif
