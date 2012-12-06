@@ -2,7 +2,7 @@
 //
 // exceptions.h: Rcpp R/C++ interface class library -- exceptions
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,13 @@
 #ifndef Rcpp__exceptions__h
 #define Rcpp__exceptions__h
 
+#define R_NO_REMAP
+#include <Rinternals.h>
 #include <sstream>
+#include <Rcpp/routines.h>
+
+SEXP stack_trace( const char *file, int line) ;
+#define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 
 namespace Rcpp{
 
@@ -120,5 +126,11 @@ RCPP_EXCEPTION_CLASS(eval_error, message )
 #undef RCPP_SIMPLE_EXCEPTION_CLASS
 
 } // namesapce Rcpp
+
+void forward_uncaught_exceptions_to_r() ;
+void forward_exception_to_r( const std::exception& ) ;
+
+std::string demangle( const std::string& name) ;
+#define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str() 
 
 #endif
