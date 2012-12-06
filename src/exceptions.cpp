@@ -19,7 +19,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-// #include <Rcpp.h>
+#include <Rcpp/config.h>
 #define R_NO_REMAP
 #include <Rinternals.h>
 #include <Rcpp/exceptions.h>

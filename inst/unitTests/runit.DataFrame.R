@@ -25,7 +25,6 @@ if (.runThisTest) {
 .setUp <- function(){
 	suppressMessages( require( datasets ) )
 	data( iris )
-    #sourceCpp( system.file( "unitTests/cpp/DataFrame.cpp" , package = "Rcpp" ) )
     sourceCpp(file.path(pathRcppTests, "cpp/DataFrame.cpp"))
 }
 
