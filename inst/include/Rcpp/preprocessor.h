@@ -59,6 +59,10 @@ namespace internal{
 #define END_RCPP VOID_END_RCPP return R_NilValue;
 #endif
 
+#ifndef END_RCPP_RETURN_ERROR
+#define END_RCPP_RETURN_ERROR } catch( std::exception& __ex__ ){ return exception_to_try_error( __ex__ ) ; } catch(...){ return string_to_try_error( "c++ exception (unknown reason)" ) ; } return R_NilValue;
+#endif
+
 #include <Rcpp/preprocessor_generated.h>
 // from boost preprocessor library
 #include <Rcpp/preprocessor/cat.hpp>
