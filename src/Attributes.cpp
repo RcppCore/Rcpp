@@ -28,6 +28,7 @@
 #include <map>
 #include <algorithm>
 
+#define RCPP_NO_SUGAR
 #include <Rcpp.h>
 
 #include "AttributesGen.h"
