@@ -19,7 +19,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <Rcpp/Vector.h>
 #include <Rcpp/Evaluator.h>
+#include <Rcpp/Environment.h>
+#include <Rcpp/routines.h>
+#include <Rcpp/exceptions.h>
 
 namespace Rcpp {
 
@@ -85,6 +89,20 @@ namespace Rcpp {
             return Evaluator::run(expr) ;
         }
     
+        SEXP eval_methods<EXPRSXP>::eval(){
+            SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
+            SEXP evalSym = Rf_install( "eval" );
+            return try_catch( Rf_lang2( evalSym, xp ) ) ;
+        }
+        
+        SEXP eval_methods<EXPRSXP>::eval( SEXP env ){
+            SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
+            SEXP evalSym = Rf_install( "eval" );
+            return try_catch( Rf_lang3( evalSym, xp, env ) ) ;
+        }
+	
+	
     } // namespace internal
+    
     
 } // namespace Rcpp
