@@ -229,15 +229,6 @@ namespace traits {
 	struct r_vector_const_proxy{
 		typedef const typename storage_type<RTYPE>::type& type ;
 	} ;                                            
-	// template<> struct r_vector_const_proxy<STRSXP> {
-	// 	typedef ::Rcpp::internal::string_proxy<STRSXP> type ;
-	// } ;
-	// template<> struct r_vector_const_proxy<EXPRSXP> {
-	// 	typedef ::Rcpp::internal::generic_proxy<EXPRSXP> type ;
-	// } ;
-	// template<> struct r_vector_const_proxy<VECSXP> {
-	// 	typedef ::Rcpp::internal::generic_proxy<VECSXP> type ;
-	// } ;
 
 	template <int RTYPE>
 	struct r_vector_iterator {
@@ -254,15 +245,6 @@ namespace traits {
 	template<> struct r_vector_iterator<VECSXP> : proxy_based_iterator<VECSXP>{} ;
 	template<> struct r_vector_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
 	template<> struct r_vector_iterator<STRSXP> : proxy_based_iterator<STRSXP>{} ;
-
-	// template <int RTYPE> struct proxy_based_const_iterator{
-	// 	typedef ::Rcpp::internal::SEXP_Iterator<RTYPE, Vector<RTYPE> > type ;
-	// } ;
-	// template<> struct r_vector_const_iterator<VECSXP> : proxy_based_const_iterator<VECSXP>{} ;
-	// template<> struct r_vector_const_iterator<EXPRSXP> : proxy_based_const_iterator<EXPRSXP>{} ;
-	// template<> struct r_vector_const_iterator<STRSXP> {
-	//     typedef CharacterVectorExtractionIterator type ;
-	// } ;
 
 }  // traits
 

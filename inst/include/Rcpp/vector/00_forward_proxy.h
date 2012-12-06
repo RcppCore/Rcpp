@@ -22,9 +22,6 @@
 #ifndef Rcpp__vector__forward_proxy_h
 #define Rcpp__vector__forward_proxy_h
 
-// const iterator for CharacterVector
-class CharacterVectorExtractionIterator ;
-
 namespace internal{
 	template <int RTYPE> class string_proxy ;
 	template <int RTYPE> class generic_proxy ;
