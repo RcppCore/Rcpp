@@ -19,15 +19,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "AttributesParser.h"
-#include "AttributesUtil.h"
-
 
 #include <iostream>
 #include <fstream>
 #include <cstring>
 
+#define RCPP_NO_SUGAR
 #include <Rcpp.h>
+
+#include "AttributesParser.h"
+#include "AttributesUtil.h"
 
 namespace Rcpp {
 namespace attributes {
