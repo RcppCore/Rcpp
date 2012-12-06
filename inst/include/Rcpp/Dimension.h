@@ -2,7 +2,7 @@
 //
 // Dimension.h: Rcpp R/C++ interface class library -- dimensions
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,32 +22,34 @@
 #ifndef Rcpp_Dimension_h
 #define Rcpp_Dimension_h
 
-#include <RcppCommon.h>
+#define R_NO_REMAP
+#include <Rinternals.h>
+#include <vector>
  
 namespace Rcpp{ 
 
     class Dimension {
     public:
-	typedef std::vector<int>::reference reference ;
-	typedef std::vector<int>::const_reference const_reference ;
-	
-	Dimension() ;
-	Dimension(SEXP dims);
-	Dimension( const Dimension& other ) ;
-	Dimension& operator=( const Dimension& other ) ;
-	Dimension(const size_t& n1) ;
-	Dimension(const size_t& n1, const size_t& n2) ;
-	Dimension(const size_t& n1, const size_t& n2, const size_t& n3) ;
-	operator SEXP() const ;
-	
-	int size() const ;
-	int prod() const ;
-	
-	reference operator[](int i);
-	const_reference operator[](int i) const;
-	
-    private:
-	std::vector<int> dims;
+	    typedef std::vector<int>::reference reference ;
+	    typedef std::vector<int>::const_reference const_reference ;
+	    
+	    Dimension() ;
+	    Dimension(SEXP dims);
+	    Dimension( const Dimension& other ) ;
+	    Dimension& operator=( const Dimension& other ) ;
+	    Dimension(const size_t& n1) ;
+	    Dimension(const size_t& n1, const size_t& n2) ;
+	    Dimension(const size_t& n1, const size_t& n2, const size_t& n3) ;
+	    operator SEXP() const ;
+	    
+	    int size() const ;
+	    int prod() const ;
+	    
+	    reference operator[](int i);
+	    const_reference operator[](int i) const;
+	    
+        private:
+	    std::vector<int> dims;
     };
 
 }

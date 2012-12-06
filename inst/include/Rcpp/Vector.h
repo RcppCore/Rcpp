@@ -27,7 +27,6 @@
 #include <Rcpp/exceptions.h>
 #include <Rcpp/RObject.h>
 #include <Rcpp/r_cast.h>
-#include <Rcpp/Dimension.h>
 
 namespace Rcpp{
     namespace traits{
@@ -38,6 +37,9 @@ namespace Rcpp{
 namespace Rcpp{
 
 #include <Rcpp/vector/00_forward_Vector.h>
+}
+#include <Rcpp/vector/no_init.h>
+namespace Rcpp{
 #include <Rcpp/vector/00_forward_proxy.h>
 #include <Rcpp/vector/00_forward_eval_methods.h>
 
@@ -64,14 +66,7 @@ template <int RTYPE> class SubMatrix ;
 }
 
 #include <Rcpp/String.h>
-
-namespace Rcpp{
 #include <Rcpp/vector/LazyVector.h>
-
-#include <Rcpp/vector/CharacterVectorExtractionIterator.h>
-
-}  // Rcpp
-
 #include <Rcpp/vector/swap.h>
 
 #endif 
