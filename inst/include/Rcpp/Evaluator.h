@@ -2,7 +2,7 @@
 //
 // Evaluator.h: Rcpp R/C++ interface class library -- protected evaluation
 //
-// Copyright (C) 2009 - 2011    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,8 +22,8 @@
 #ifndef Rcpp_Evaluator_h
 #define Rcpp_Evaluator_h
 
-#include <RcppCommon.h>
-#include <Rcpp/Environment.h>
+#define R_NO_REMAP
+#include <Rinternals.h>
 
 namespace Rcpp{ 
 

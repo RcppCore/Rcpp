@@ -52,7 +52,6 @@ template <int RTYPE> class SubMatrix ;
 #include <Rcpp/vector/Vector.h>
 
 #include <Rcpp/vector/proxy.h>
-#include <Rcpp/vector/eval_methods.h>
 #include <Rcpp/vector/traits.h>
 
 #include <Rcpp/vector/Matrix.h>
