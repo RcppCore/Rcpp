@@ -1,3 +1,7 @@
+2012-12-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/exceptions.cpp: Added include of cstdlib to compile 
+
 2012-12-06 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/Environment.h: meat for Environment
