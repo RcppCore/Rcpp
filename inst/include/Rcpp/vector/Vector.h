@@ -92,7 +92,7 @@ public:
     template <typename U> Vector( const Dimension& dims, const U& u) ;
     template <bool NA, typename VEC> Vector( const VectorBase<RTYPE,NA,VEC>& other )  ;
     template <typename U> Vector( const int& size, const U& u) ;
-    template <bool NA, typename T> Vector( const sugar::SingleLogicalResult<NA,T>& obj ) ;  ;
+    template <bool NA, typename T> Vector( const sugar::SingleLogicalResult<NA,T>& obj ) ;
     
     template <typename U1>
     Vector( const int& siz, stored_type (*gen)(U1), const U1& u1) ;

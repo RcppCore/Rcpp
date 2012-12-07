@@ -29,7 +29,7 @@ namespace Rcpp{
         RCPP_DEBUG( "Vector()" ) ;
         RObject::setSEXP( Rf_allocVector( RTYPE, 0 ) ) ;
         init() ;
-    } ;
+    }
     
     template <int RTYPE>
     Vector<RTYPE>::~Vector(){
