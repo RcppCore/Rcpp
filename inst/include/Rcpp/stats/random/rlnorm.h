@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-	    template <bool seed>
-		class LNormGenerator : public Generator<seed,double> {
+	    
+		class LNormGenerator : public Generator<double> {
 		public:
 	
 			LNormGenerator( double meanlog_ = 0.0 , double sdlog_ = 1.0 ) : 
@@ -41,8 +41,8 @@ namespace Rcpp {
 			double sdlog ;
 		} ;
 
-		template <bool seed>
-		class LNormGenerator_1 : public Generator<seed,double> {
+		
+		class LNormGenerator_1 : public Generator<double> {
 		public:
 	
 			LNormGenerator_1( double meanlog_ = 0.0 ) : 
@@ -56,8 +56,8 @@ namespace Rcpp {
 			double meanlog ;
 		} ;
 
-		template <bool seed>
-		class LNormGenerator_0 : public Generator<seed,double> {
+		
+		class LNormGenerator_0 : public Generator<double> {
 		public:
 	
 			LNormGenerator_0( ) {}
@@ -69,42 +69,6 @@ namespace Rcpp {
 		} ;
 
 	} // stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rlnorm( int n, double meanlog, double sdlog ){
-		if (ISNAN(meanlog) || !R_FINITE(sdlog) || sdlog < 0.){
-			// TODO: R also throws a warning in that case, should we ?
-			return NumericVector( n, R_NaN ) ;
-		}  else if (sdlog == 0. || !R_FINITE(meanlog)){
-			return NumericVector( n, ::exp( meanlog ) ) ;
-		} else {
-			return NumericVector( n, stats::LNormGenerator<false>( meanlog, sdlog ) ); 
-		}
-	}
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rlnorm( int n, double meanlog /*, double sdlog = 1.0 */){
-		if (ISNAN(meanlog) ){
-			// TODO: R also throws a warning in that case, should we ?
-			return NumericVector( n, R_NaN ) ;
-		}  else if ( !R_FINITE(meanlog)){
-			return NumericVector( n, ::exp( meanlog ) ) ;
-		} else {
-			return NumericVector( n, stats::LNormGenerator_1<false>( meanlog ) ); 
-		}
-	}
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rlnorm( int n /*, double meanlog [=0.], double sdlog = 1.0 */){
-		return NumericVector( n, stats::LNormGenerator_0<false>( ) ); 
-	}
-
 
 } // Rcpp
 

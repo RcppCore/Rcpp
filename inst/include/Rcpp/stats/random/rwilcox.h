@@ -24,8 +24,8 @@
 
 namespace Rcpp {
     namespace stats {
-        template <bool seed>
-        class WilcoxGenerator : public Generator<seed,double>{
+        
+        class WilcoxGenerator : public Generator<double>{
         public:
             WilcoxGenerator( double mm_, double nn_) : mm(mm_), nn(nn_){} 
             inline double operator()() const { return ::Rf_rwilcox(mm,nn); }
@@ -33,13 +33,6 @@ namespace Rcpp {
             double mm, nn ;
         } ;
     } // stats    
-    
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rwilcox( int n, double mm, double nn ){
-		return NumericVector( n, stats::WilcoxGenerator<false>(mm, nn) ) ;
-	}
 
 } // Rcpp
 

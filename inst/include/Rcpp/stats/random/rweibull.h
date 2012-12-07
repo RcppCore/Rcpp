@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		template <bool seed>
-		class WeibullGenerator : public ::Rcpp::Generator<seed,double> {
+		
+		class WeibullGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
 			WeibullGenerator( double shape_, double scale_ ) : 
@@ -40,8 +40,8 @@ namespace Rcpp {
 			double shape_inv, scale ; 
 		} ;
 		
-		template <bool seed>
-		class WeibullGenerator__scale1 : public ::Rcpp::Generator<seed,double> {
+		
+		class WeibullGenerator__scale1 : public ::Rcpp::Generator<double> {
 		public:
 	
 			WeibullGenerator__scale1( double shape_ ) : 
@@ -56,24 +56,6 @@ namespace Rcpp {
 		} ;
 	} // stats
 
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rweibull( int n, double shape, double scale ){
-		if (!R_FINITE(shape) || !R_FINITE(scale) || shape <= 0. || scale <= 0.) {
-			if(scale == 0.) return NumericVector(n, 0.);
-			/* else */
-			return NumericVector(n, R_NaN);
-		}
-		return NumericVector( n, stats::WeibullGenerator<false>( shape, scale ) ) ;
-	}
-
-	inline NumericVector rweibull( int n, double shape /* scale = 1 */ ){
-		if (!R_FINITE(shape) || shape <= 0. ) {
-			return NumericVector(n, R_NaN);
-		}
-		return NumericVector( n, stats::WeibullGenerator__scale1<false>( shape ) ) ;
-	}
 } // Rcpp
 
 #endif

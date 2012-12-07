@@ -60,20 +60,13 @@ public:
      */
     Vector( const Vector& other) ;
 	
-    /**
-     * Assignment operator. Grab the SEXP of the other vector
-     */
-    Vector& operator=( const Vector& other ) ;
-	
+    
+    // we can't define these 3 in meat for some reason
+    // maybe because of the typedef in instantiation.h
     Vector( SEXP x ) : RObject() {
     	RCPP_DEBUG_2( "Vector<%d>( SEXP = <%p> )", RTYPE, x)
     	RObject::setSEXP( r_cast<RTYPE>( x ) ) ;
     }
-    Vector( const int& size )  ;
-    Vector( const Dimension& dims)  ;
-    template <typename U> Vector( const Dimension& dims, const U& u) ;
-    template <bool NA, typename VEC> Vector( const VectorBase<RTYPE,NA,VEC>& other )  ;
-    
     Vector( const RObject::SlotProxy& proxy ) {
         RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
     }
@@ -81,15 +74,69 @@ public:
     Vector( const RObject::AttributeProxy& proxy ) {
         RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
     }
-		
-    template <typename T> Vector& operator=( const T& x) ;
-	
-    // only defined for LogicalVectors
+    Vector( const int& size, const stored_type& u ){
+        RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
+        fill( u ) ;
+    }
+    Vector( const std::string& st ) : RObject(){
+        RObject::setSEXP( internal::vector_from_string<RTYPE>(st) );
+    }
+	Vector( const int& siz, stored_type (*gen)(void) ){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+        iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen() ;
+    }
+    
+    Vector( const int& size )  ;
+    Vector( const Dimension& dims)  ;
+    template <typename U> Vector( const Dimension& dims, const U& u) ;
+    template <bool NA, typename VEC> Vector( const VectorBase<RTYPE,NA,VEC>& other )  ;
+    template <typename U> Vector( const int& size, const U& u) ;
     template <bool NA, typename T> Vector( const sugar::SingleLogicalResult<NA,T>& obj ) ;  ;
+    
+    template <typename U1>
+    Vector( const int& siz, stored_type (*gen)(U1), const U1& u1) ;
+    
+    template <typename U1, typename U2>
+    Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2) ;
+
+    template <typename U1, typename U2, typename U3>
+    Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) ;
+
+    template <typename InputIterator>
+    Vector( InputIterator first, InputIterator last) ;
+
+    template <typename InputIterator>
+    Vector( InputIterator first, InputIterator last, int n)  ;
+
+    template <typename InputIterator, typename Func>
+    Vector( InputIterator first, InputIterator last, Func func)  ;
+    
+    template <typename InputIterator, typename Func>
+    Vector( InputIterator first, InputIterator last, Func func, int n) ;
+
+#ifdef HAS_CXX0X_INITIALIZER_LIST
+    Vector( std::initializer_list<init_type> list ) : RObject(){
+        assign( list.begin() , list.end() ) ;
+    }
+#endif
+	
+
+	/**
+     * Assignment operator. Grab the SEXP of the other vector
+     */
+    Vector& operator=( const Vector& other ) ;
+	template <typename T> Vector& operator=( const T& x) ;
+	
     
     static inline stored_type get_na() { return traits::get_na<RTYPE>(); }
     static inline bool is_na( stored_type x){ return traits::is_na<RTYPE>(x); }
     
+    internal::ListInitialization<iterator,init_type> operator=( init_type x){
+        iterator start = begin() ; *start = x; 
+        return internal::ListInitialization<iterator,init_type>( start + 1 ) ; ;
+    }
+
 private:
     
     template <typename T> inline void assign_sugar_expression( const T& x ) ;
@@ -99,136 +146,32 @@ private:
     
     // anything else
     template <typename T> inline void assign_object( const T& x, traits::false_type ) ;
-    
-public:
-	
-    internal::ListInitialization<iterator,init_type> operator=( init_type x){
-        iterator start = begin() ; *start = x; 
-        return internal::ListInitialization<iterator,init_type>( start + 1 ) ; ;
-    }
-	
-    
-private:
-	  
+    	  
     // we are importing a real sugar expression, i.e. not a vector
     template <bool NA, typename VEC>
-    inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::false_type ){
-        RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, false_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
-    	int n = other.size() ;
-    	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
-    	import_expression<VEC>( other.get_ref() , n ) ;
-    }   
+    inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::false_type ) ;
     
-    // we are imoprtung a sugar expression that actually is a vector
+    // we are importing a sugar expression that actually is a vector
     template <bool NA, typename VEC>
-    inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::true_type ){
-        RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, true_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
-    	RObject::setSEXP( other.get_ref() ) ;
-    }   
+    inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::true_type ) ;
     
-    
-    // TODO: do some dispatch when VEC == Vector so that we use std::copy
-    template <typename T>
-    inline void import_expression( const T& other, int n ){
-        iterator start = begin() ; 
-        RCPP_LOOP_UNROLL(start,other)
-    }
     
     template <typename T>
-    inline void fill_or_generate( const T& t){
-    	fill_or_generate__impl( t, typename traits::is_generator<T>::type() ) ;
-    }
+    inline void import_expression( const T& other, int n ) ;
     
     template <typename T>
-    inline void fill_or_generate__impl( const T& gen, traits::true_type){
-    	iterator first = begin() ;
-    	iterator last = end() ;
-    	while( first != last ) *first++ = gen() ;
-    }
+    inline void fill_or_generate( const T& t) ;
     
     template <typename T>
-    inline void fill_or_generate__impl( const T& t, traits::false_type){
-    	fill(t) ;
-    }
+    inline void fill_or_generate__impl( const T& gen, traits::true_type) ;
+    
+    template <typename T>
+    inline void fill_or_generate__impl( const T& t, traits::false_type) ;
     
 	
 public:
     
-    template <typename U>
-    Vector( const int& size, const U& u){
-    	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
-        fill_or_generate( u ) ;	
-    }
     
-    Vector( const int& size, const stored_type& u ){
-        RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
-        fill( u ) ;
-    }
-    
-    Vector( const int& siz, stored_type (*gen)(void) ){
-    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
-        iterator first = begin(), last = end() ;
-    	while( first != last ) *first++ = gen() ;
-    }
-    
-    template <typename U1>
-    Vector( const int& siz, stored_type (*gen)(U1), const U1& u1){
-    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
-        iterator first = begin(), last = end() ;
-    	while( first != last ) *first++ = gen(u1) ;
-    }
-    
-    template <typename U1, typename U2>
-    Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2){
-    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
-        iterator first = begin(), last = end() ;
-    	while( first != last ) *first++ = gen(u1,u2) ;
-    }
-
-    template <typename U1, typename U2, typename U3>
-    Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3){
-    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
-        iterator first = begin(), last = end() ;
-    	while( first != last ) *first++ = gen(u1,u2,u3) ;
-    }
-
-    template <typename InputIterator>
-    Vector( InputIterator first, InputIterator last) : RObject( ){
-        int n = std::distance(first, last) ;
-        RObject::setSEXP( Rf_allocVector(RTYPE, n) ) ;
-        std::copy( first, last, begin() ) ; 
-    }
-
-    template <typename InputIterator>
-    Vector( InputIterator first, InputIterator last, int n) : RObject( ){
-        RObject::setSEXP( Rf_allocVector(RTYPE, n) ) ;
-        std::copy( first, last, begin() ) ; 
-    }
-
-    template <typename InputIterator, typename Func>
-    Vector( InputIterator first, InputIterator last, Func func) : 
-        RObject( )
-    {
-        RObject::setSEXP( Rf_allocVector( RTYPE, std::distance(first,last) ) ) ;
-        std::transform( first, last, begin(), func) ;
-    }
-    
-    template <typename InputIterator, typename Func>
-    Vector( InputIterator first, InputIterator last, Func func, int n) : RObject(  ){
-        RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
-        std::transform( first, last, begin(), func) ;
-    }
-
-    Vector( const std::string& st ) : RObject(){
-        RObject::setSEXP( internal::vector_from_string<RTYPE>(st) );
-    }
-	
-#ifdef HAS_CXX0X_INITIALIZER_LIST
-    Vector( std::initializer_list<init_type> list ) : RObject(){
-        assign( list.begin() , list.end() ) ;
-    }
-#endif
-	
     /**
      * the length of the vector, uses Rf_length
      */

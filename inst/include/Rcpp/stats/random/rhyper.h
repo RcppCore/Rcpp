@@ -24,8 +24,8 @@
 
 namespace Rcpp {
     namespace stats {
-        template <bool seed>
-        class HyperGenerator : public Generator<seed,double>{
+        
+        class HyperGenerator : public Generator<double>{
         public:
             HyperGenerator( double nn1_, double nn2_, double kk_) : 
                 nn1(nn1_), nn2(nn2_), kk(kk_){}
@@ -35,13 +35,6 @@ namespace Rcpp {
         } ;
     }
     
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rhyper( int n, double nn1, double nn2, double kk ){
-		return NumericVector( n, stats::HyperGenerator<false>( nn1, nn2, kk ) ) ;
-	}
-
 } // Rcpp
 
 #endif

@@ -25,8 +25,7 @@
 namespace Rcpp {
 namespace stats{
     
-    template <bool seed>
-    class BetaGenerator : public Generator<seed,double>{
+    class BetaGenerator : public Generator<double>{
     public: 
         BetaGenerator(double a_, double b_) : a(a_), b(b_){}
         
@@ -38,13 +37,6 @@ namespace stats{
     } ;
     
 } // namespace stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rbeta( int n, double a, double b ){
-		return NumericVector( n, stats::BetaGenerator<false>(a, b ) ) ;
-	}
 
 } // Rcpp
 

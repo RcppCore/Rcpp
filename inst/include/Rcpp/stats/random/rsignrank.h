@@ -25,8 +25,8 @@
 namespace Rcpp {
     namespace stats{
     
-        template <bool seed>
-		class SignRankGenerator : public Generator<seed,double>{
+        
+		class SignRankGenerator : public Generator<double>{
 		public:
 		    SignRankGenerator(double nn_) : nn(nn_){}
 		    inline double operator()() const { return ::Rf_rsignrank(nn) ; }
@@ -34,13 +34,6 @@ namespace Rcpp {
 		    double nn ;
 		} ;
     } // stats
-    
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rsignrank( int n, double nn ){
-		return NumericVector( n, stats::SignRankGenerator<false>(nn) ) ;
-	}
 
 } // Rcpp
 

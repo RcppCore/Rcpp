@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-	    template <bool seed>
-		class TGenerator : public ::Rcpp::Generator<seed,double> {
+	    
+		class TGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
 			TGenerator( double df_ ) : df(df_), df_2(df_/2.0) {}
@@ -46,22 +46,6 @@ namespace Rcpp {
 			double df, df_2 ;
 		} ;
 	} // stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rt( int n, double df ){
-		// special case
-		if (ISNAN(df) || df <= 0.0)
-			return NumericVector( n, R_NaN ) ;
-	
-		// just generating a N(0,1)
-		if(!R_FINITE(df))
-			return NumericVector( n, stats::NormGenerator__mean0__sd1<false>() ) ;
-	
-		// general case
-		return NumericVector( n, stats::TGenerator<false>( df ) ) ;
-	}
 
 } // Rcpp
 
