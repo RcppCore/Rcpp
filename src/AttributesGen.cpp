@@ -357,8 +357,8 @@ namespace attributes {
                        << getCCallable(package() + "_" + function.name()) << ";" 
                        << std::endl;
                 ostr() << "        }" << std::endl;
-                
-                ostr() << "        RObject result = " << ptrName << "(";
+                ostr() << "        RNGScope __rngScope;" << std::endl;
+                ostr() << "        RObject __result = " << ptrName << "(";
                 
                 const std::vector<Argument>& args = function.arguments();
                 for (std::size_t i = 0; i<args.size(); i++) {
@@ -369,13 +369,13 @@ namespace attributes {
                        
                 ostr() << ");" << std::endl;
                 
-                ostr() << "        if (result.inherits(\"try-error\"))" 
+                ostr() << "        if (__result.inherits(\"try-error\"))" 
                        << std::endl
                        << "            throw Rcpp::exception(as<std::string>("
-                       << "result).c_str());"
+                       << "__result).c_str());"
                        << std::endl;
                 ostr() << "        return Rcpp::as<" << function.type() << " >"
-                       << "(result);" << std::endl;
+                       << "(__result);" << std::endl;
                 
                 ostr() << "    }" << std::endl << std::endl;
             } 
@@ -812,6 +812,8 @@ namespace attributes {
             std::string args = ostrArgs.str();
             ostr << args << ") {" << std::endl;
             ostr << "BEGIN_RCPP" << std::endl;
+            if (!cppInterface)
+                ostr << "    Rcpp::RNGScope __rngScope;" << std::endl;
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
                 
@@ -823,7 +825,7 @@ namespace attributes {
             
             ostr << "    ";
             if (!function.type().isVoid())
-                ostr << function.type() << " result = ";
+                ostr << function.type() << " __result = ";
             ostr << function.name() << "(";
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
@@ -834,7 +836,7 @@ namespace attributes {
             ostr << ");" << std::endl;
             
             std::string res = function.type().isVoid() ? "R_NilValue" : 
-                                                         "Rcpp::wrap(result)";
+                                                         "Rcpp::wrap(__result)";
             ostr << "    return " << res << ";" << std::endl;
             ostr << (cppInterface ? "END_RCPP_RETURN_ERROR" : "END_RCPP")
                  << std::endl;
@@ -844,7 +846,8 @@ namespace attributes {
             if (cppInterface) {
                 ostr << "RcppExport SEXP " << funcName << "(" << args << ") {"
                      << std::endl;
-                ostr << "    SEXP result = PROTECT(" << funcName 
+                ostr << "    Rcpp::RNGScope __rngScope;" << std::endl;
+                ostr << "    SEXP __result = PROTECT(" << funcName 
                      << kTrySuffix << "(";
                 for (size_t i = 0; i<arguments.size(); i++) {
                     const Argument& argument = arguments[i];
@@ -854,12 +857,12 @@ namespace attributes {
                 }
                 ostr << "));" << std::endl;
                 ostr << "    "
-                     << "Rboolean isError = Rf_inherits(result, \"try-error\");"
+                     << "Rboolean __isError = Rf_inherits(__result, \"try-error\");"
                      << std::endl;
                 ostr << "    UNPROTECT(1);" << std::endl
-                     << "    if (isError)" << std::endl
-                     << "        Rf_error(CHAR(Rf_asChar(result)));" << std::endl
-                     << "    return result;" << std::endl
+                     << "    if (__isError)" << std::endl
+                     << "        Rf_error(CHAR(Rf_asChar(__result)));" << std::endl
+                     << "    return __result;" << std::endl
                      << "}" << std::endl;
             }
         }
