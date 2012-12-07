@@ -93,7 +93,8 @@ Attributes
      
     o   Add unit tests 
 
-    o   Evaluate whether to do anything with RNGScope 
+    o   Add random = false parameter to Rcpp::export once we support parsing
+        key/value pairs in attribute parameters
 
     o   Rcpp.package.skeleton should look for Rcpp::depends in cpp_files
         and call inline plugins, etc. as necessary to create a package
