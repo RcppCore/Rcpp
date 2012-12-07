@@ -25,8 +25,8 @@
 namespace Rcpp {
     namespace stats{
         
-        template <bool seed>
-    	class PoissonGenerator : public Generator<seed,double>{
+        
+    	class PoissonGenerator : public Generator<double>{
     	public:
     	    PoissonGenerator( double mu_ ) : mu(mu_){}  
     	    inline double operator()() const { return ::Rf_rpois(mu); }
@@ -34,13 +34,6 @@ namespace Rcpp {
     	    double mu ;
     	} ;
     }  // stats
-    
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rpois( int n, double mu ){
-		return NumericVector( n, stats::PoissonGenerator<false>(mu) ) ;
-	}
 
 } // Rcpp
 

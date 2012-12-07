@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-	    template <bool seed>
-		class ExpGenerator : public ::Rcpp::Generator<seed,double> {
+	    
+		class ExpGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
 			ExpGenerator( double scale_ ) : scale(scale_) {}
@@ -39,30 +39,14 @@ namespace Rcpp {
 			double scale ;
 		} ;
 		
-		template <bool seed>
-		class ExpGenerator__rate1 : public Generator<seed,double>{
+		
+		class ExpGenerator__rate1 : public Generator<double>{
 		public:
 		    ExpGenerator__rate1(){}
 		    inline double operator()() const { return exp_rand() ; }
 		} ;
 
 	} // stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rexp( int n, double rate ){
-		double scale = 1.0 / rate ;
-		if (!R_FINITE(scale) || scale <= 0.0) {
-			if(scale == 0.) return NumericVector( n, 0.0 ) ;
-			/* else */
-			return NumericVector( n, R_NaN ) ;
-		}
-		return NumericVector( n, stats::ExpGenerator<false>( scale ) ) ;
-	}
-	inline NumericVector rexp( int n /* , rate = 1 */ ){
-		return NumericVector( n, stats::ExpGenerator__rate1<false>() ) ;
-	}
 
 }
 

@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-	    template <bool seed>
-		class FGenerator_Finite_Finite : public ::Rcpp::Generator<seed,double> {
+	    
+		class FGenerator_Finite_Finite : public ::Rcpp::Generator<double> {
 		public:
 	
 			FGenerator_Finite_Finite( double n1_, double n2_ ) : 
@@ -42,8 +42,8 @@ namespace Rcpp {
 			double n1, n2, n1__2, n2__2, ratio ;
 		} ;
 
-		template <bool seed>
-		class FGenerator_NotFinite_Finite : public ::Rcpp::Generator<seed,double> {
+		
+		class FGenerator_NotFinite_Finite : public ::Rcpp::Generator<double> {
 		public:
 	
 			FGenerator_NotFinite_Finite( double n2_ ) : n2( n2_), n2__2(n2_ / 2.0 ) {}
@@ -57,8 +57,8 @@ namespace Rcpp {
 			double n2, n2__2 ;
 		} ;
 
-		template <bool seed>
-		class FGenerator_Finite_NotFinite : public ::Rcpp::Generator<seed,double> {
+		
+		class FGenerator_Finite_NotFinite : public ::Rcpp::Generator<double> {
 		public:
 	
 			FGenerator_Finite_NotFinite( double n1_ ) : n1(n1_), n1__2(n1_ / 2.0 ) {}
@@ -73,23 +73,6 @@ namespace Rcpp {
 		} ;
 
 	} // stats 
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rf( int n, double n1, double n2 ){
-		if (ISNAN(n1) || ISNAN(n2) || n1 <= 0. || n2 <= 0.)
-			return NumericVector( n, R_NaN ) ;
-		if( R_FINITE( n1 ) && R_FINITE( n2 ) ){
-			return NumericVector( n, stats::FGenerator_Finite_Finite<false>( n1, n2 ) ) ;
-		} else if( ! R_FINITE( n1 ) && ! R_FINITE( n2 ) ){
-			return NumericVector( n, 1.0 ) ;
-		} else if( ! R_FINITE( n1 ) ) {
-			return NumericVector( n, stats::FGenerator_NotFinite_Finite<false>( n2 ) ) ;
-		} else {
-			return NumericVector( n, stats::FGenerator_Finite_NotFinite<false>( n1 ) ) ;	
-		}
-	}
 
 } // Rcpp
 
