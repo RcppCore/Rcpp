@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-	    template <bool seed>
-		class NormGenerator : public Generator<seed,double> {
+	    
+		class NormGenerator : public Generator<double> {
 		public:
 	
 			NormGenerator( double mean_ = 0.0 , double sd_ = 1.0 ) : 
@@ -42,8 +42,8 @@ namespace Rcpp {
 		} ;
 
 
-		template <bool seed>
-		class NormGenerator__sd1 : public Generator<seed,double> {
+		
+		class NormGenerator__sd1 : public Generator<double> {
 		public:
 	
 			NormGenerator__sd1( double mean_ = 0.0 ) : mean(mean_) {}
@@ -57,8 +57,8 @@ namespace Rcpp {
 		} ;
 
 
-		template <bool seed>
-		class NormGenerator__mean0 : public Generator<seed,double> {
+		
+		class NormGenerator__mean0 : public Generator<double> {
 		public:
 	
 			NormGenerator__mean0( double sd_ = 1.0 ) : sd(sd_) {}
@@ -71,8 +71,8 @@ namespace Rcpp {
 			double sd ;
 		} ;
 
-		template <bool seed>
-		class NormGenerator__mean0__sd1 : public Generator<seed,double> {
+		
+		class NormGenerator__mean0__sd1 : public Generator<double> {
 		public:
 	
 			NormGenerator__mean0__sd1( ) {}
@@ -85,57 +85,8 @@ namespace Rcpp {
 		
 	} // stats
 
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rnorm( int n, double mean, double sd){
-		if (ISNAN(mean) || !R_FINITE(sd) || sd < 0.){
-			// TODO: R also throws a warning in that case, should we ?
-			return NumericVector( n, R_NaN ) ;
-		}  else if (sd == 0. || !R_FINITE(mean)){
-			return NumericVector( n, mean ) ;
-		} else {
-			bool sd1 = sd == 1.0 ; 
-			bool mean0 = mean == 0.0 ;
-			if( sd1 && mean0 ){
-				return NumericVector( n, stats::NormGenerator__mean0__sd1<false>() ) ;
-			} else if( sd1 ){
-				return NumericVector( n, stats::NormGenerator__sd1<false>( mean ) );
-			} else if( mean0 ){
-				return NumericVector( n, stats::NormGenerator__mean0<false>( sd ) );
-			} else {
-				// general case
-				return NumericVector( n, stats::NormGenerator<false>( mean, sd ) );
-			}
-		}
-	}
 
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rnorm( int n, double mean /*, double sd [=1.0] */ ){
-		if (ISNAN(mean) ){
-			// TODO: R also throws a warning in that case, should we ?
-			return NumericVector( n, R_NaN ) ;
-		}  else if ( !R_FINITE(mean)){
-			return NumericVector( n, mean ) ;
-		} else {
-			bool mean0 = mean == 0.0 ;
-			if( mean0 ){
-				return NumericVector( n, stats::NormGenerator__mean0__sd1<false>() ) ;
-			} else {
-				return NumericVector( n, stats::NormGenerator__sd1<false>( mean ) );
-			}
-		}
-	}
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rnorm( int n /*, double mean [=0.0], double sd [=1.0] */ ){
-		return NumericVector( n, stats::NormGenerator<false>() ) ;
-	}
-
+	
 } // Rcpp
 
 #endif

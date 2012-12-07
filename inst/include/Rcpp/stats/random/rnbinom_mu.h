@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-	    template <bool seed>
-		class NBinomGenerator_Mu : public ::Rcpp::Generator<seed,double> {
+	    
+		class NBinomGenerator_Mu : public ::Rcpp::Generator<double> {
 		public:
 	
 			NBinomGenerator_Mu( double siz_, double mu_ ) : 
@@ -41,16 +41,6 @@ namespace Rcpp {
 			double lambda ;
 		} ;
 	} // stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rnbinom_mu( int n, double siz, double mu ){
-		if(!R_FINITE(siz) || !R_FINITE(mu) || siz <= 0 || mu < 0)
-			return NumericVector( n, R_NaN ) ;
-    
-		return NumericVector( n, stats::NBinomGenerator_Mu<false>( siz, mu ) ) ;
-	}
 
 } // Rcpp
 

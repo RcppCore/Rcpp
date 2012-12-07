@@ -74,6 +74,67 @@ namespace Rcpp{
     }
     
     template <int RTYPE>
+    template <typename U>
+    Vector<RTYPE>::Vector( const int& size, const U& u){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
+        fill_or_generate( u ) ;	
+    }
+    
+    template <int RTYPE>
+    template <typename U1>
+    Vector<RTYPE>::Vector( const int& siz, stored_type (*gen)(U1), const U1& u1){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+        iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen(u1) ;
+    }
+    
+    template <int RTYPE>
+    template <typename U1, typename U2>
+    Vector<RTYPE>::Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+        iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen(u1,u2) ;
+    }
+
+    template <int RTYPE>
+    template <typename U1, typename U2, typename U3>
+    Vector<RTYPE>::Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3){
+    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+        iterator first = begin(), last = end() ;
+    	while( first != last ) *first++ = gen(u1,u2,u3) ;
+    }
+
+    template <int RTYPE>
+    template <typename InputIterator>
+    Vector<RTYPE>::Vector( InputIterator first, InputIterator last) : RObject( ){
+        int n = std::distance(first, last) ;
+        RObject::setSEXP( Rf_allocVector(RTYPE, n) ) ;
+        std::copy( first, last, begin() ) ; 
+    }
+
+    template <int RTYPE>
+    template <typename InputIterator>
+    Vector<RTYPE>::Vector( InputIterator first, InputIterator last, int n) : RObject( ){
+        RObject::setSEXP( Rf_allocVector(RTYPE, n) ) ;
+        std::copy( first, last, begin() ) ; 
+    }
+
+    template <int RTYPE>
+    template <typename InputIterator, typename Func>
+    Vector<RTYPE>::Vector( InputIterator first, InputIterator last, Func func) : RObject( ){
+        RObject::setSEXP( Rf_allocVector( RTYPE, std::distance(first,last) ) ) ;
+        std::transform( first, last, begin(), func) ;
+    }
+    
+    template <int RTYPE>
+    template <typename InputIterator, typename Func>
+    Vector<RTYPE>::Vector( InputIterator first, InputIterator last, Func func, int n) : RObject(  ){
+        RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
+        std::transform( first, last, begin(), func) ;
+    }
+
+    
+    template <int RTYPE>
     template <bool NA, typename VEC>
     Vector<RTYPE>::Vector( const VectorBase<RTYPE,NA,VEC>& other ) : RObject() {
     	import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
@@ -119,6 +180,49 @@ namespace Rcpp{
     inline void Vector<RTYPE>::assign_object( const T& x, traits::false_type ){
         // TODO: maybe we already have the memory to host the results
         RObject::setSEXP( r_cast<RTYPE>( wrap(x) ) ) ;
+    }
+    
+    template <int RTYPE>
+    template <bool NA, typename VEC>
+    inline void Vector<RTYPE>::import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::false_type ){
+        RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, false_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
+    	int n = other.size() ;
+    	RObject::setSEXP( Rf_allocVector( RTYPE, n ) ) ;
+    	import_expression<VEC>( other.get_ref() , n ) ;
+    }   
+    
+    template <int RTYPE>
+    template <bool NA, typename VEC>
+    inline void Vector<RTYPE>::import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::true_type ){
+        RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, true_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
+    	RObject::setSEXP( other.get_ref() ) ;
+    }   
+
+    template <int RTYPE>
+    template <typename T>
+    inline void Vector<RTYPE>::import_expression( const T& other, int n ){
+        iterator start = begin() ; 
+        RCPP_LOOP_UNROLL(start,other)
+    }
+    
+    template <int RTYPE>
+    template <typename T>
+    inline void Vector<RTYPE>::fill_or_generate( const T& t){
+    	fill_or_generate__impl( t, typename traits::is_generator<T>::type() ) ;
+    }
+    
+    template <int RTYPE>
+    template <typename T>
+    inline void Vector<RTYPE>::fill_or_generate__impl( const T& gen, traits::true_type){
+    	iterator first = begin() ;
+    	iterator last = end() ;
+    	while( first != last ) *first++ = gen() ;
+    }
+    
+    template <int RTYPE>
+    template <typename T>
+    inline void Vector<RTYPE>::fill_or_generate__impl( const T& t, traits::false_type){
+    	fill(t) ;
     }
     
     

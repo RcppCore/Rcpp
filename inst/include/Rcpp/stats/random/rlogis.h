@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 	    
-	    template <bool seed>
-		class LogisGenerator : public ::Rcpp::Generator<seed,double> {
+	    
+		class LogisGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
 			LogisGenerator( double location_, double scale_ ) : 
@@ -42,8 +42,8 @@ namespace Rcpp {
 			double scale ;
 		} ;
 
-		template <bool seed>
-		class LogisGenerator_1 : public ::Rcpp::Generator<seed,double> {
+		
+		class LogisGenerator_1 : public ::Rcpp::Generator<double> {
 		public:
 	
 			LogisGenerator_1( double location_) : 
@@ -58,8 +58,8 @@ namespace Rcpp {
 			double location ;
 		} ;
 
-		template <bool seed>
-		class LogisGenerator_0 : public ::Rcpp::Generator<seed,double> {
+		
+		class LogisGenerator_0 : public ::Rcpp::Generator<double> {
 		public:
 	
 			LogisGenerator_0() {}
@@ -72,39 +72,6 @@ namespace Rcpp {
 		} ;
 
 	} // stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rlogis( int n, double location, double scale ){
-		if (ISNAN(location) || !R_FINITE(scale))
-			return NumericVector( n, R_NaN ) ;
-
-		if (scale == 0. || !R_FINITE(location))
-			return NumericVector( n, location );
-    
-		return NumericVector( n, stats::LogisGenerator<false>( location, scale ) ) ;
-	}
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rlogis( int n, double location /*, double scale =1.0 */ ){
-		if (ISNAN(location) )
-			return NumericVector( n, R_NaN ) ;
-
-		if (!R_FINITE(location))
-			return NumericVector( n, location );
-    
-		return NumericVector( n, stats::LogisGenerator_1<false>( location ) ) ;
-	}
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rlogis( int n /*, double location [=0.0], double scale =1.0 */ ){
-		return NumericVector( n, stats::LogisGenerator_0<false>() ) ;
-	}
 
 } // Rcpp
 

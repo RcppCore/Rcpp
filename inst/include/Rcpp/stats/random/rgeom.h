@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-	    template <bool seed>
-		class GeomGenerator : public ::Rcpp::Generator<seed,double> {
+	    
+		class GeomGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
 			GeomGenerator( double p ) : lambda( (1-p)/p  ) {}
@@ -39,15 +39,6 @@ namespace Rcpp {
 			double lambda ;
 		} ;
 	} // stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rgeom( int n, double p ){
-		if (!R_FINITE(p) || p <= 0 || p > 1) 
-			return NumericVector( n, R_NaN );
-		return NumericVector( n, stats::GeomGenerator<false>( p ) ) ;
-	}
 
 } // Rcpp
 

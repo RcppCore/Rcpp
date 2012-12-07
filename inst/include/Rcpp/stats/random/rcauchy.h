@@ -25,8 +25,7 @@
 namespace Rcpp {
 namespace stats {
 
-template <bool seed>
-class CauchyGenerator : public ::Rcpp::Generator<seed,double> {
+class CauchyGenerator : public ::Rcpp::Generator<double> {
 public:
 	
 	CauchyGenerator( double location_, double scale_) : 
@@ -40,8 +39,7 @@ private:
 	double location, scale ;
 } ;
 
-template <bool seed>
-class CauchyGenerator_1 : public ::Rcpp::Generator<seed,double> {
+class CauchyGenerator_1 : public ::Rcpp::Generator<double> {
 public:
 	
 	CauchyGenerator_1( double location_) : 
@@ -55,8 +53,7 @@ private:
 	double location ;
 } ;
 
-template <bool seed>
-class CauchyGenerator_0 : public ::Rcpp::Generator<false,double> {
+class CauchyGenerator_0 : public ::Rcpp::Generator<double> {
 public:
 	
 	CauchyGenerator_0(){}
@@ -68,41 +65,6 @@ public:
 } ;
 
 } // stats
-
-// perhaps this should go to a cpp file
-
-// Please make sure you to read Section 6.3 of "Writing R Extensions"
-// about the need to call GetRNGstate() and PutRNGstate() when using 
-// the random number generators provided by R.
-inline NumericVector rcauchy( int n, double location, double scale ){
-	if (ISNAN(location) || !R_FINITE(scale) || scale < 0)
-		return NumericVector( n, R_NaN ) ;
-	
-    if (scale == 0. || !R_FINITE(location))
-    	return NumericVector( n, location ) ;
-    
-	return NumericVector( n, stats::CauchyGenerator<false>( location, scale ) ) ;
-}
-
-// Please make sure you to read Section 6.3 of "Writing R Extensions"
-// about the need to call GetRNGstate() and PutRNGstate() when using 
-// the random number generators provided by R.
-inline NumericVector rcauchy( int n, double location /* , double scale [=1.0] */ ){
-	if (ISNAN(location))
-		return NumericVector( n, R_NaN ) ;
-	
-    if (!R_FINITE(location))
-    	return NumericVector( n, location ) ;
-    
-	return NumericVector( n, stats::CauchyGenerator_1<false>( location ) ) ;
-}
-
-// Please make sure you to read Section 6.3 of "Writing R Extensions"
-// about the need to call GetRNGstate() and PutRNGstate() when using 
-// the random number generators provided by R.
-inline NumericVector rcauchy( int n /*, double location [=0.0] , double scale [=1.0] */ ){
-	return NumericVector( n, stats::CauchyGenerator_0<false>() ) ;
-}
 
 } // Rcpp
 

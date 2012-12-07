@@ -25,8 +25,8 @@
 namespace Rcpp {
 	namespace stats {
 
-		template <bool seed>
-		class NChisqGenerator : public ::Rcpp::Generator<seed,double> {
+		
+		class NChisqGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
 			NChisqGenerator( double df_, double lambda_ ) : 
@@ -49,28 +49,6 @@ namespace Rcpp {
 			double lambda_2 ;
 		} ;
 	} // stats
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rnchisq( int n, double df, double lambda ){
-		if (!R_FINITE(df) || !R_FINITE(lambda) || df < 0. || lambda < 0.) 
-			return NumericVector(n, R_NaN) ;
-		if( lambda == 0.0 ){
-			// using the central generator, see rchisq.h
-			return NumericVector( n, stats::ChisqGenerator<false>( df ) ) ;
-		}
-		return NumericVector( n, stats::NChisqGenerator<false>( df, lambda ) ) ;
-	}
-
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rnchisq( int n, double df /*, double lambda = 0.0 */ ){
-		if (!R_FINITE(df) || df < 0. ) 
-			return NumericVector(n, R_NaN) ;
-		return NumericVector( n, stats::ChisqGenerator<false>( df ) ) ;
-	}
 
 } // Rcpp
 

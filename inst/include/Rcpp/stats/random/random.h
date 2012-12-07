@@ -22,26 +22,60 @@
 #ifndef Rcpp__stats__random_random_h
 #define Rcpp__stats__random_random_h
 
-#include <Rcpp/stats/random/rnorm.h>
-#include <Rcpp/stats/random/runif.h>
-#include <Rcpp/stats/random/rgamma.h>
-#include <Rcpp/stats/random/rbeta.h>
-#include <Rcpp/stats/random/rlnorm.h>
-#include <Rcpp/stats/random/rchisq.h>
-#include <Rcpp/stats/random/rnchisq.h>
-#include <Rcpp/stats/random/rf.h>
-#include <Rcpp/stats/random/rt.h>
-#include <Rcpp/stats/random/rbinom.h>
-#include <Rcpp/stats/random/rcauchy.h>
-#include <Rcpp/stats/random/rexp.h>
-#include <Rcpp/stats/random/rgeom.h>
-#include <Rcpp/stats/random/rnbinom.h>
-#include <Rcpp/stats/random/rnbinom_mu.h>
-#include <Rcpp/stats/random/rpois.h>
-#include <Rcpp/stats/random/rweibull.h>
-#include <Rcpp/stats/random/rlogis.h>
-#include <Rcpp/stats/random/rwilcox.h>
-#include <Rcpp/stats/random/rsignrank.h>
-#include <Rcpp/stats/random/rhyper.h>
+namespace Rcpp{ 
+    
+NumericVector rbeta( int n, double a, double b ) ;
+NumericVector rbinom( int n, double nin, double pp ) ;
+NumericVector rcauchy( int n, double location, double scale ) ;
+NumericVector rcauchy( int n, double location /* , double scale [=1.0] */ ) ;
+NumericVector rcauchy( int n /*, double location [=0.0] , double scale [=1.0] */ ) ;
+NumericVector rchisq( int n, double df ) ;
+NumericVector rexp( int n, double rate ) ;
+NumericVector rexp( int n /* , rate = 1 */ ) ;
+NumericVector rf( int n, double n1, double n2 ) ;
+NumericVector rgamma( int n, double a, double scale ) ;
+NumericVector rgamma( int n, double a /* scale = 1.0 */ ) ;
+NumericVector rgeom( int n, double p ) ;
+NumericVector rhyper( int n, double nn1, double nn2, double kk ) ;
+NumericVector rlnorm( int n, double meanlog, double sdlog ) ;
+NumericVector rlnorm( int n, double meanlog /*, double sdlog = 1.0 */) ;
+NumericVector rlnorm( int n /*, double meanlog [=0.], double sdlog = 1.0 */) ;
+NumericVector rlogis( int n, double location, double scale ) ;
+NumericVector rlogis( int n, double location /*, double scale =1.0 */ ) ;
+NumericVector rlogis( int n /*, double location [=0.0], double scale =1.0 */ ) ;
+NumericVector rnbinom( int n, double siz, double prob ) ;
+NumericVector rnbinom_mu( int n, double siz, double mu ) ;
+NumericVector rnchisq( int n, double df, double lambda ) ;
+NumericVector rnchisq( int n, double df /*, double lambda = 0.0 */ ) ;
+NumericVector rnorm( int n, double mean, double sd) ;
+NumericVector rnorm( int n, double mean /*, double sd [=1.0] */ ) ;
+NumericVector rnorm( int n /*, double mean [=0.0], double sd [=1.0] */ ) ;
+NumericVector rpois( int n, double mu ) ;
+NumericVector rsignrank( int n, double nn ) ;
+NumericVector rt( int n, double df ) ;
+NumericVector runif( int n, double min, double max ) ;
+NumericVector runif( int n, double min /*, double max = 1.0 */ ) ;
+NumericVector runif( int n /*, double min = 0.0, double max = 1.0 */ ) ;
+NumericVector rweibull( int n, double shape, double scale ) ;
+NumericVector rweibull( int n, double shape /* scale = 1 */ ) ;
+NumericVector rwilcox( int n, double mm, double nn ) ;
 
+namespace internal {
+    void enterRNGScope();
+    void exitRNGScope();
+}
+
+class RNGScope{
+public:
+	RNGScope(){ internal::enterRNGScope(); }
+	~RNGScope(){ internal::exitRNGScope(); }	
+} ;
+
+template <typename T>
+class Generator : public RNGScope {
+public:
+	typedef T r_generator ;
+} ;
+
+}
 #endif

@@ -25,8 +25,7 @@
 namespace Rcpp {
 namespace stats {
     
-    template <bool seed> 
-    class BinomGenerator : public Generator<seed,double>{
+    class BinomGenerator : public Generator<double>{
     public:
         BinomGenerator( double nin_, double pp_ ) : nin(nin_), pp(pp_){}
         inline double operator()() const{
@@ -38,14 +37,6 @@ namespace stats {
     
 }  // stats
     
-    
-	// Please make sure you to read Section 6.3 of "Writing R Extensions"
-	// about the need to call GetRNGstate() and PutRNGstate() when using 
-	// the random number generators provided by R.
-	inline NumericVector rbinom( int n, double nin, double pp ){
-		return NumericVector( n, stats::BinomGenerator<false>(nin, pp) ) ;
-	}
-
 } // Rcpp
 
 #endif
