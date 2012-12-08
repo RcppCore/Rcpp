@@ -2,7 +2,7 @@
 //
 // S4.cpp: Rcpp R/C++ interface class library -- S4 objects
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,7 +21,6 @@
 
 #include <Rcpp/Reference.h>
 #include <Rcpp/exceptions.h>
-#include <Rcpp/Vector.h>
 
 namespace Rcpp {
 

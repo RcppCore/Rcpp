@@ -28,7 +28,8 @@
 #include <Rcpp/Date.h>
 #include <Rcpp/Function.h>
 #include <time.h>		// for gmtime
-
+#include <Rcpp/internal/posixt.h>
+ 
 namespace Rcpp {
 
     static struct tm * gmtime_(const time_t * const timep); 	// see below
@@ -168,6 +169,32 @@ namespace Rcpp {
     bool  operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
     bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
 
+    namespace internal{
+    
+        SEXP getPosixClasses(){
+        	SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
+        	SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
+        	SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
+        	UNPROTECT(1) ;
+        	return datetimeclass ;
+        }
+        
+        SEXP new_posixt_object( double d){
+        	SEXP x = PROTECT( Rf_ScalarReal( d ) ) ;
+        	Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() ); 
+        	UNPROTECT(1); 
+        	return x ;	
+        }
+        
+        SEXP new_date_object( double d){
+        	SEXP x = PROTECT(Rf_ScalarReal( d ) ) ;
+        	Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date")); 
+        	UNPROTECT(1);
+        	return x;
+        }
+
+    }
+    
     template <> SEXP wrap(const Date &date) {
 	return internal::new_date_object( date.getDate() ) ;
     }
