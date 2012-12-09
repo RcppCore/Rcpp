@@ -219,7 +219,6 @@ namespace Rcpp{
 #define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
-// #include <R_ext/Callbacks.h>
 #include <R_ext/Complex.h>
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>
@@ -239,8 +238,6 @@ inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
 #include <Rcpp/barrier.h>
 
 #define RcppExport extern "C"
-
-#include <Rcpp/internal/posixt.h>
 
 RcppExport void init_Rcpp_routines(DllInfo*) ;
 

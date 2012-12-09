@@ -36,7 +36,8 @@
 
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
 
-#define RCPP_VERSION Rcpp_Version(0,10,2)
+// 0.10.1.02 for devel version
+#define RCPP_VERSION Rcpp_Version(0,10,1.02)
                                                                                                                 
 #endif
 
