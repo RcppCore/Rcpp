@@ -4,6 +4,7 @@
         * src/barrier.cpp: merge with cache.cpp to reduce compile time
         * include/Rcpp/exceptions.h: drop forward_uncaught_exceptions_to_r
         * src/exceptions.cpp: drop forward_uncaught_exceptions_to_r
+        * src/Date.cpp: merge all Date related files
         
 2012-12-08 Romain Francois <romain@r-enthusiasts.com>
 

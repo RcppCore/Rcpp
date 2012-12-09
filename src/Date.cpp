@@ -1,6 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+// jedit: :folding=explicit:
 //
-// Date.h: Rcpp R/C++ interface class library -- Date type
+// Date.cpp: Rcpp R/C++ interface class library -- Date type
 //
 // Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //
@@ -25,16 +26,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <Rcpp/Datetime.h>
 #include <Rcpp/Date.h>
+#include <Rcpp/DatetimeVector.h>
+#include <Rcpp/DateVector.h>
+
 #include <Rcpp/Function.h>
+#include <Rmath.h> 		// for Rf_fround
 #include <time.h>		// for gmtime
-#include <Rcpp/internal/posixt.h>
  
 namespace Rcpp {
 
     static struct tm * gmtime_(const time_t * const timep); 	// see below
 
-
+    // {{{ Date
     const unsigned int Date::QLtoJan1970Offset = 25569;  	// Offset between R / Unix epoch date and the QL base date
     const unsigned int Date::baseYear = 1900;			// because we hate macros
 
@@ -198,9 +203,209 @@ namespace Rcpp {
     template <> SEXP wrap(const Date &date) {
 	return internal::new_date_object( date.getDate() ) ;
     }
+    // }}}
+
+    // {{{ Datetime
+    Datetime::Datetime() {
+		m_dt = 0; 
+		update_tm();
+    }
+
+    Datetime::Datetime(SEXP d) {
+		m_dt = Rcpp::as<double>(d); 
+		update_tm();
+    }
+
+    Datetime::Datetime(const double &dt) {
+		m_dt = dt;
+		update_tm();
+    }
+
+    Datetime::Datetime(const std::string &s, const std::string &fmt) {
+		Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
+		Rcpp::Function asPOSIXct("as.POSIXct");	// and we need to convert to POSIXct
+		m_dt = Rcpp::as<double>(asPOSIXct(strptime(s, fmt)));
+		update_tm();
+    }
+
+    Datetime::Datetime(const Datetime &copy) {
+		m_dt = copy.m_dt;
+		m_us = copy.m_us;
+		m_tm = copy.m_tm;
+    }
+
+    Datetime & Datetime::operator=(const Datetime & newdt) {
+		if (this != &newdt) {
+			m_dt = newdt.m_dt;
+			m_us = newdt.m_us;
+			m_tm = newdt.m_tm;
+		}
+		return *this;
+    }
+
+    void Datetime::update_tm() {
+        if (R_FINITE(m_dt)) {
+			time_t t = static_cast<time_t>(floor(m_dt));	
+			m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
+			// m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
+			m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
+        } else {
+			m_dt = NA_REAL;			// NaN and Inf need it set
+            m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
+            m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
+			m_us = NA_INTEGER;
+        }
+	}
+
+    Datetime operator+(const Datetime &datetime, double offset) {
+		Datetime newdt(datetime.m_dt);
+		newdt.m_dt += offset;
+		time_t t = static_cast<time_t>(floor(newdt.m_dt));	
+		newdt.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's dat		
+		newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));	
+		return newdt;
+    }
+
+    double  operator-(const Datetime& d1, const Datetime& d2) { return d2.m_dt - d1.m_dt; }
+    bool    operator<(const Datetime &d1, const Datetime& d2) { return d1.m_dt < d2.m_dt; }
+    bool    operator>(const Datetime &d1, const Datetime& d2) { return d1.m_dt > d2.m_dt; }
+    bool    operator==(const Datetime &d1, const Datetime& d2) { return d1.m_dt == d2.m_dt; }
+    bool    operator>=(const Datetime &d1, const Datetime& d2) { return d1.m_dt >= d2.m_dt; }
+    bool    operator<=(const Datetime &d1, const Datetime& d2) { return d1.m_dt <= d2.m_dt; }
+    bool    operator!=(const Datetime &d1, const Datetime& d2) { return d1.m_dt != d2.m_dt; }
+
+    template<> SEXP wrap_extra_steps<Rcpp::Datetime>( SEXP x ){
+		Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses() ); 
+		return x ;
+    }
+	
+    template <> SEXP wrap(const Datetime &date) {
+		return internal::new_posixt_object( date.getFractionalTimestamp() ) ;
+    }
+    // }}}    
+
+    // {{{ DatetimeVector
+        DatetimeVector::DatetimeVector(SEXP vec) : v()  {
+        int i;
+        if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
+            throw std::range_error("DatetimeVector: invalid numeric vector in constructor");
+        int len = Rf_length(vec);
+        if (len == 0)
+            throw std::range_error("DatetimeVector: null vector in constructor");
+        v.resize(len);
+        for (i = 0; i < len; i++)
+            v[i] = Datetime( static_cast<double>(REAL(vec)[i]));
+    }
 
 
+    DatetimeVector::DatetimeVector(int n) : v(n) {}
 
+    const Datetime & DatetimeVector::operator()(int i) const {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    Datetime & DatetimeVector::operator()(int i) {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    const Datetime & DatetimeVector::operator[](int i) const {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    Datetime & DatetimeVector::operator[](int i) {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    int DatetimeVector::size() const { 
+        return v.size(); 
+    }
+
+    std::vector<Datetime> DatetimeVector::getDatetimes() const {
+        return v;
+    }
+    // }}}
+    
+    // {{{ DateVector
+        DateVector::DateVector(SEXP vec) : v()  {
+        int i;
+        if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
+            throw std::range_error("DateVector: invalid numeric vector in constructor");
+        int len = Rf_length(vec);
+        if (len == 0)
+            throw std::range_error("DateVector: null vector in constructor");
+        v.resize(len);
+        for (i = 0; i < len; i++)
+            v[i] = Date( static_cast<double>(REAL(vec)[i]));
+    }
+
+
+    DateVector::DateVector(int n) : v(n){}
+
+    const Date & DateVector::operator()(int i) const {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DateVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    Date & DateVector::operator()(int i) {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DateVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    const Date & DateVector::operator[](int i) const {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    Date & DateVector::operator[](int i) {
+        if (i < 0 || i >= static_cast<int>(v.size())) {
+            std::ostringstream oss;
+            oss << "DatetimeVector: subscript out of range: " << i;
+            throw std::range_error(oss.str());
+        }
+        return v[i];
+    }
+
+    int DateVector::size() const { 
+        return v.size(); 
+    }
+
+    std::vector<Date> DateVector::getDates() const {
+        return v;
+    }
+    // }}}    
+    
 #include "sys/types.h"	/* for time_t */
 #include "string.h"
 #include "limits.h"	/* for CHAR_BIT et al. */
