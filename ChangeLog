@@ -1,3 +1,8 @@
+2012-12-09 Romain Francois <romain@r-enthusiasts.com>
+
+        * src/api.cpp: merge many .cpp files here to reduce compile time
+        * src/barrier.cpp: merge with cache.cpp to reduce compile time
+        
 2012-12-08 Romain Francois <romain@r-enthusiasts.com>
 
         * src/Timer.cpp: implementation of Timer
