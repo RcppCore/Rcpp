@@ -127,7 +127,6 @@ RCPP_EXCEPTION_CLASS(eval_error, message )
 
 } // namesapce Rcpp
 
-void forward_uncaught_exceptions_to_r() ;
 void forward_exception_to_r( const std::exception& ) ;
 SEXP exception_to_try_error( const std::exception& ) ;
 SEXP string_to_try_error( const std::string& ) ;
