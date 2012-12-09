@@ -1,0 +1,1095 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+// jedit: :folding=explicit:
+//
+// api.cpp: Rcpp R/C++ interface class library -- Rcpp api
+//
+// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+//
+// This file is part of Rcpp.
+//
+// Rcpp is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// (at your option) any later version.
+//
+// Rcpp is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+#include <Rcpp.h>
+
+// for R_ObjectTable
+#include <R_ext/Callbacks.h>
+
+// {{{ Rcpp api classes
+namespace Rcpp {
+
+    // {{{ Rostream
+    template <> inline std::streamsize Rstreambuf<true>::xsputn(const char *s, std::streamsize num ) {
+        Rprintf( "%.*s", num, s ) ;
+        return num ;
+    }
+    template <> inline std::streamsize Rstreambuf<false>::xsputn(const char *s, std::streamsize num ) {
+        REprintf( "%.*s", num, s ) ; 
+        return num ;
+    }
+    
+    template <> inline int Rstreambuf<true>::overflow(int c ) {
+      if (c != EOF) Rprintf( "%.1s", &c ) ;
+      return c ;
+    }
+    template <> inline int Rstreambuf<false>::overflow(int c ) {
+      if (c != EOF) REprintf( "%.1s", &c ) ;
+      return c ;
+    }
+        
+    template <> inline int Rstreambuf<true>::sync(){
+        ::R_FlushConsole() ;
+        return 0 ;
+    }
+    template <> inline int Rstreambuf<false>::sync(){
+        ::R_FlushConsole() ;
+        return 0 ;
+    }
+    Rostream<true>  Rcout;
+    Rostream<false> Rcerr;
+    // }}}
+    
+    // {{{ Evaluator
+    SEXP Evaluator::run(SEXP expr, SEXP env) {
+        PROTECT(expr);
+
+        reset_current_error() ; 
+
+        Environment RCPP = Environment::Rcpp_namespace(); 
+        static SEXP tryCatchSym = NULL, evalqSym, getCurrentErrorMessageSym; //, errorOccuredSym;
+        if (!tryCatchSym) {
+            tryCatchSym               = ::Rf_install("tryCatch");
+            evalqSym                  = ::Rf_install("evalq");
+            //errorOccuredSym           = ::Rf_install("errorOccured");
+            getCurrentErrorMessageSym = ::Rf_install("getCurrentErrorMessage");
+        }
+
+        SEXP call = PROTECT( Rf_lang3( 
+            tryCatchSym, 
+            Rf_lang3( evalqSym, expr, env ),
+            Rf_install( ".rcpp_error_recorder" )
+        ) ) ;
+        SET_TAG( CDDR(call), Rf_install( "error" ) ) ;
+        /* call the tryCatch call */
+        SEXP res  = PROTECT(::Rf_eval( call, RCPP ) );
+        
+        /* was there an error ? */
+        int error = INTEGER( rcpp_get_error_occured())[0] ;
+        
+        UNPROTECT(3) ;
+        
+        if( error ) {
+            std::string message(CHAR(::Rf_asChar(PROTECT(::Rf_eval(PROTECT(::Rf_lang1(getCurrentErrorMessageSym)), RCPP)))));
+            UNPROTECT( 2 ) ;
+            throw eval_error(message) ;
+        }
+
+        return res ;
+    }
+
+    SEXP Evaluator::run( SEXP expr) {
+        return run(expr, R_GlobalEnv );
+    }
+    // }}}
+    
+    // {{{ RObject
+        void RObject::setSEXP(SEXP x){
+        RCPP_DEBUG_1( "RObject::setSEXP(SEXP = <%p> )", x ) ; 
+    
+        /* if we are setting to the same SEXP as we already have, do nothing */
+        if( x != m_sexp ){
+                
+            /* the previous SEXP was not NULL, so release it */
+            release() ;
+                
+            /* set the SEXP */
+            m_sexp = x ;
+                
+            /* the new SEXP is not NULL, so preserve it */
+            preserve() ;
+                        
+            update() ;
+        }
+    }
+
+    /* copy constructor */
+    RObject::RObject( const RObject& other ){
+        SEXP x = other.asSexp() ;       
+        setSEXP( x ) ; 
+    }
+
+    RObject& RObject::operator=( const RObject& other){
+        SEXP x = other.asSexp() ;       
+        setSEXP( x ) ; 
+        return *this ;
+    }
+
+    RObject& RObject::operator=( SEXP other ){
+        setSEXP( other ) ; 
+        return *this ;
+    }
+
+    RObject::~RObject() {
+        release() ;
+        logTxt("~RObject");
+    }
+
+    std::vector<std::string> RObject::attributeNames() const {
+        /* inspired from do_attributes@attrib.c */
+        
+        std::vector<std::string> v ;
+        SEXP attrs = ATTRIB(m_sexp);
+        while( attrs != R_NilValue ){
+            v.push_back( std::string(CHAR(PRINTNAME(TAG(attrs)))) ) ;
+            attrs = CDR( attrs ) ;
+        }
+        return v ;
+    }
+
+    bool RObject::hasAttribute( const std::string& attr) const {
+        SEXP attrs = ATTRIB(m_sexp);
+        while( attrs != R_NilValue ){
+            if( attr == CHAR(PRINTNAME(TAG(attrs))) ){
+                return true ;
+            }
+            attrs = CDR( attrs ) ;
+        }
+        return false; /* give up */
+    }
+
+    RObject::SlotProxy::SlotProxy( const RObject& v, const std::string& name) : 
+        parent(v), slot_name(name)
+    {
+        SEXP nameSym = Rf_install(name.c_str());            // cannot be gc()'ed  once in symbol table
+        if( !R_has_slot( v, nameSym) ){
+            throw no_such_slot() ; 
+        }
+    }
+
+    RObject::SlotProxy& RObject::SlotProxy::operator=(const SlotProxy& rhs){
+        set( rhs.get() ) ;
+        return *this ;
+    }
+
+
+    SEXP RObject::SlotProxy::get() const {
+        SEXP slotSym = Rf_install( slot_name.c_str() );     // cannot be gc()'ed  once in symbol table
+        return R_do_slot( parent, slotSym ) ;       
+    }
+
+    void RObject::SlotProxy::set( SEXP x) const {
+        SEXP slotnameSym = Rf_install( slot_name.c_str() ); // cannot be gc()'ed  once in symbol table
+        // the SEXP might change (.Data)
+        SEXP new_obj = PROTECT( R_do_slot_assign(parent, slotnameSym, x) ) ;
+        const_cast<RObject&>(parent).setSEXP( new_obj ) ;
+        UNPROTECT(1) ;
+    }
+
+    SEXP RObject::AttributeProxy::get() const {
+        SEXP attrnameSym = Rf_install( attr_name.c_str() ); // cannot be gc()'ed  once in symbol table
+        return Rf_getAttrib( parent, attrnameSym ) ;
+    }
+
+    void RObject::AttributeProxy::set(SEXP x) const{
+        SEXP attrnameSym = Rf_install( attr_name.c_str() ); // cannot be gc()'ed  once in symbol table
+#if RCPP_DEBUG_LEVEL > 0
+        RCPP_DEBUG_1( "RObject::AttributeProxy::set() before = <%p>", parent.asSexp() ) ;
+        SEXP res = Rf_setAttrib( parent, attrnameSym, x ) ;
+        RCPP_DEBUG_1( "RObject::AttributeProxy::set() after  = <%p>", res ) ;
+#else
+        Rf_setAttrib( parent, attrnameSym, x ) ;
+#endif
+    }
+
+    RObject::AttributeProxy::AttributeProxy( const RObject& v, const std::string& name) :
+        parent(v), attr_name(name) {}
+
+    RObject::AttributeProxy& RObject::AttributeProxy::operator=(const AttributeProxy& rhs){
+        set( rhs.get() ) ;
+        return *this ;
+    }
+
+    RObject::AttributeProxy RObject::attr( const std::string& name) const{
+        return AttributeProxy( *this, name)  ;
+    }
+
+    /* S4 */
+
+    bool RObject::hasSlot(const std::string& name) const {
+        if( !Rf_isS4(m_sexp) ) throw not_s4() ;
+        return R_has_slot( m_sexp, Rf_mkString(name.c_str()) ) ;
+    }
+
+    RObject::SlotProxy RObject::slot(const std::string& name) const {
+        if( !Rf_isS4(m_sexp) ) throw not_s4() ;
+        return SlotProxy( *this, name ) ;
+    }
+    // }}}
+  
+    // {{{ Function
+    Function::Function(SEXP x) : RObject( ){
+        switch( TYPEOF(x) ){
+        case CLOSXP:
+        case SPECIALSXP:
+        case BUILTINSXP:
+            setSEXP(x); 
+            break; 
+        default:
+            throw not_compatible("cannot convert to function") ;
+        }
+    }
+	
+    Function::Function(const std::string& name) : RObject() {
+        SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
+        SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
+        setSEXP( x ) ;
+        UNPROTECT(1) ;
+    }
+	
+    Function::Function(const Function& other) : RObject(){
+        setSEXP( other.asSexp() );
+    }
+	
+    Function& Function::operator=(const Function& other){
+        setSEXP( other.asSexp() );
+        return *this ;
+    }
+	
+    Function::~Function(){}	
+	
+    SEXP Function::environment() const {
+        if( TYPEOF(m_sexp) != CLOSXP ) {
+            throw not_a_closure() ;
+        }
+        return CLOENV(m_sexp) ;
+    }
+	
+    SEXP Function::body() const {
+        return BODY( m_sexp ) ;
+    }
+
+    // }}}
+    
+    // {{{ DottedPair
+        SEXP grow( SEXP head, SEXP tail ){
+        SEXP x = PROTECT( head ) ;
+	    SEXP res = PROTECT( Rf_cons( x, tail ) ) ;
+	    UNPROTECT(2) ;
+	    return res ;    
+    }
+    SEXP grow( const char* head, SEXP tail ) {
+        return grow( Rf_mkString(head), tail ) ; 
+    }
+    
+    
+    DottedPair::~DottedPair(){}
+    DottedPair::DottedPair() : RObject(){}
+        
+    DottedPair& DottedPair::operator=(const DottedPair& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+        
+    void DottedPair::remove( const size_t& index ) {
+        if( static_cast<R_len_t>(index) >= Rf_length(m_sexp) ) throw index_out_of_bounds() ;
+        if( index == 0 ){
+            setSEXP( CDR( m_sexp) ) ;
+        } else{
+            SEXP x = m_sexp ;
+            size_t i=1;
+            while( i<index ){ x = CDR(x) ; i++; }
+            SETCDR( x, CDDR(x) ) ;
+        }
+    }
+        
+    DottedPair::Proxy::Proxy( DottedPair& v, const size_t& index_ ) : node(){
+        if( static_cast<R_len_t>(index_) >= v.length() ) throw index_out_of_bounds() ;
+        SEXP x = v ; /* implicit conversion */
+        size_t i = 0 ;
+        while( i<index_) {
+            x = CDR(x) ;
+            ++i ;
+        }
+        node = x ;
+    }
+        
+    DottedPair::Proxy& DottedPair::Proxy::operator=(const Proxy& rhs){
+        return set(rhs) ;
+    }
+        
+    DottedPair::Proxy& DottedPair::Proxy::operator=(SEXP rhs){
+        return set(rhs) ;
+    }
+        
+    const DottedPair::Proxy DottedPair::operator[]( int i ) const {
+        return Proxy( const_cast<DottedPair&>(*this), i) ;
+    }
+    DottedPair::Proxy DottedPair::operator[]( int i ) {
+        return Proxy( *this, i );
+    }
+    // }}}
+    
+    // {{{ Promise
+    Promise::Promise(SEXP x) : RObject(){
+        if( TYPEOF(x) == PROMSXP ){
+            setSEXP( x ) ;
+        } else{
+            throw not_compatible("not a promise") ;
+        }
+    }
+
+    Promise::Promise(const Promise& other) : RObject() {
+        setSEXP( other.asSexp() );
+    }
+	
+    Promise& Promise::operator=(const Promise& other){
+        setSEXP( other.asSexp() );
+        return *this ;
+    }
+	
+    int Promise::seen() const {
+        return PRSEEN(m_sexp);
+    }
+
+    SEXP Promise::value() const {
+        SEXP val = PRVALUE(m_sexp) ; 
+        if( val == R_UnboundValue ) throw unevaluated_promise() ;
+        return val ;
+    }
+	
+    bool Promise::was_evaluated() const {
+        return PRVALUE(m_sexp) != R_UnboundValue ;
+    }
+
+    Environment Promise::environment() const {
+        return Environment(PRENV(m_sexp)) ;
+    }
+
+    ExpressionVector Promise::expression() const {
+        return ExpressionVector(PRCODE(m_sexp)) ;
+    }
+
+    // }}}
+    
+    // {{{ Pairlist
+    Pairlist::Pairlist() : DottedPair() {}
+    Pairlist::Pairlist( SEXP x ) : DottedPair(){
+        setSEXP( r_cast<LISTSXP>(x) );
+    }
+    Pairlist::~Pairlist(){}
+    Pairlist::Pairlist( const Pairlist& other): DottedPair(){
+        setSEXP( other.asSexp() ) ;
+    }
+    Pairlist& Pairlist::operator=(const Pairlist& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+    // }}}
+    
+    // {{{ WeakReference
+    WeakReference::WeakReference( SEXP x) : RObject(){
+        if( TYPEOF(x) == WEAKREFSXP ){
+            setSEXP(x) ; 
+        } else{
+            throw not_compatible( "not a weak reference" ) ;
+        }
+    }
+        
+    SEXP WeakReference::key() {
+        return R_WeakRefKey(m_sexp) ;
+    }
+        
+    SEXP WeakReference::value() {
+        return R_WeakRefValue(m_sexp);
+    }
+        
+    WeakReference::WeakReference( const WeakReference& other ) : RObject( other.asSexp() ){}
+        
+    WeakReference& WeakReference::operator=(const WeakReference& other){
+        setSEXP( other.asSexp() );
+        return *this;
+    }
+    // }}}
+    
+    // {{{ Symbol
+    Symbol::Symbol( SEXP x ) : RObject() {
+        if( x != R_NilValue ){
+            int type = TYPEOF(x) ;
+            switch( type ){
+            case SYMSXP:
+                setSEXP( x ) ;
+                break; /* nothing to do */
+            case CHARSXP: {
+                SEXP charSym = Rf_install(CHAR(x));     // cannot be gc()'ed  once in symbol table
+                setSEXP( charSym ) ;
+                break ;
+            }
+            case STRSXP: {
+                /* FIXME: check that there is at least one element */
+                SEXP charSym = Rf_install( CHAR(STRING_ELT(x, 0 )) ); // cannot be gc()'ed  once in symbol table
+                setSEXP( charSym );
+                break ;
+            }
+            default:
+                throw not_compatible("cannot convert to symbol (SYMSXP)") ;
+            }
+        } 
+    }
+        
+    Symbol::Symbol(const std::string& symbol): RObject(){
+        SEXP charSym = Rf_install(symbol.c_str());      // cannot be gc()'ed  once in symbol table
+        setSEXP( charSym );
+    }
+        
+    Symbol::Symbol( const Symbol& other) : RObject() {
+        setSEXP( other.asSexp() );
+    }
+        
+    Symbol& Symbol::operator=(const Symbol& other){
+        setSEXP( other.asSexp() );
+        return *this;
+    }
+        
+    Symbol::~Symbol(){}
+    // }}}    
+    
+    // {{{ Language
+    Language::Language() : DottedPair() {}
+        
+    Language::Language( SEXP x ) : DottedPair(){
+        setSEXP( r_cast<LANGSXP>(x) ) ;
+    }
+        
+    Language::Language( const Language& other): DottedPair(){
+        setSEXP( other.asSexp() ) ;
+    }
+        
+    Language& Language::operator=(const Language& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+        
+    Language::Language( const std::string& symbol ): DottedPair() {
+        setSEXP( Rf_lang1( Symbol(symbol) ) );
+    }
+        
+    Language::Language( const Symbol& symbol ): DottedPair() {
+        setSEXP( Rf_lang1( symbol ) ) ;
+    }
+        
+    Language::Language( const Function& function): DottedPair() {
+        setSEXP( Rf_lang1( function ) ) ;               
+    }
+        
+    Language::~Language(){}
+
+    void Language::setSymbol( const std::string& symbol){
+        setSymbol( Symbol( symbol ) ) ;
+    }
+        
+    void Language::setSymbol( const Symbol& symbol){
+        SETCAR( m_sexp, symbol ) ;
+        SET_TAG(m_sexp, R_NilValue);/* probably not necessary */
+    }
+        
+    void Language::setFunction( const Function& function){
+        SETCAR( m_sexp, function );
+        SET_TAG(m_sexp, R_NilValue); /* probably not necessary */
+    }
+        
+    void Language::update(){ 
+        SET_TYPEOF( m_sexp, LANGSXP ) ;
+        SET_TAG( m_sexp, R_NilValue ) ;
+    }
+        
+    SEXP Language::eval() {
+        return eval( R_GlobalEnv ) ;
+    }
+        
+    SEXP Language::eval( SEXP env ) {
+        return internal::try_catch( m_sexp, env );
+    }
+    
+    SEXP Language::fast_eval(){
+        return Rf_eval( m_sexp, R_GlobalEnv ) ;    
+    }
+    SEXP Language::fast_eval(SEXP env ){
+        return Rf_eval( m_sexp, env ) ;
+    }
+    // }}}
+    
+    // {{{ Dimension
+    Dimension::Dimension() : dims(){}
+        
+    Dimension::Dimension(SEXP x): dims(){
+        dims = as< std::vector<int> >(x) ;
+    }
+        
+    Dimension::Dimension( const Dimension& other ) : dims(){
+        dims = other.dims ; /* copy */
+    }
+        
+    Dimension& Dimension::operator=(const Dimension& other){
+        dims = other.dims ; /* copy */
+        return *this ;
+    }
+        
+    Dimension::Dimension(const size_t& n1) : dims(1){
+        dims[0] = n1 ;
+    }
+        
+    Dimension::Dimension(const size_t& n1, const size_t& n2) : dims(2){
+        dims[0] = n1 ;
+        dims[1] = n2 ;
+    }
+        
+    Dimension::Dimension(const size_t& n1, const size_t& n2, const size_t& n3) : dims(3){
+        dims[0] = n1 ;
+        dims[1] = n2 ;
+        dims[2] = n3 ;
+    }
+        
+    Dimension::operator SEXP() const {
+        return wrap( dims.begin(), dims.end() ) ;
+    }
+        
+    int Dimension::size() const {
+        return static_cast<int>( dims.size() ) ;
+    }
+        
+    int Dimension::prod() const {
+        return std::accumulate( dims.begin(), dims.end(), 1, std::multiplies<int>() ) ;
+    }
+        
+    Dimension::reference Dimension::operator[](int i) {
+        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
+        return dims.at(i) ;
+    }
+
+    Dimension::const_reference Dimension::operator[](int i) const {
+        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
+        return dims.at(i) ;
+    }    
+    // }}}
+    
+    // {{{ Formula
+    Formula::Formula() : Language(){}
+        
+    Formula::Formula(SEXP x) : Language(){
+        switch( TYPEOF( x ) ){
+        case LANGSXP:
+            if( ::Rf_inherits( x, "formula") ){
+                setSEXP( x );
+            } else{
+                SEXP y = internal::convert_using_rfunction( x, "as.formula") ;
+                setSEXP( y ) ;
+            }
+            break;
+        case EXPRSXP:
+        case VECSXP:
+            /* lists or expression, try the first one */
+            if( ::Rf_length(x) > 0 ){
+                SEXP y = VECTOR_ELT( x, 0 ) ;
+                if( ::Rf_inherits( y, "formula" ) ){
+                    setSEXP( y ) ;  
+                } else{
+                    SEXP z = internal::convert_using_rfunction( y, "as.formula") ;
+                    setSEXP( z ) ;
+                }
+            } else{
+                throw not_compatible( "cannot create formula from empty list or expression" ) ; 
+            }
+            break;
+        default:
+            SEXP y = internal::convert_using_rfunction( x, "as.formula") ;
+            setSEXP( y ) ;
+        }
+    }
+        
+    Formula::Formula( const std::string& code) : Language() {
+        setSEXP( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") );       
+    }
+        
+    Formula::Formula( const Formula& other ) : Language( other.asSexp() ){}
+        
+    Formula& Formula::operator=( const Formula& other ){
+        setSEXP( other.asSexp() );
+        return *this ;
+    }
+ 
+    // }}}
+    
+    // {{{ S4
+        S4::S4() : RObject(){}
+        
+    S4::S4(SEXP x) : RObject(){
+        set( x) ;
+    }
+        
+    S4::S4( const S4& other) : RObject(){
+        setSEXP( other.asSexp() ) ;     
+    }
+        
+    S4::S4( const RObject::SlotProxy& proxy ) : RObject() {
+        set( proxy ) ;
+    }
+    S4::S4( const RObject::AttributeProxy& proxy ) : RObject() {
+        set( proxy ) ;
+    }
+        
+    S4& S4::operator=( const S4& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+        
+    S4& S4::operator=( SEXP other ) {
+        set( other ) ;
+        return *this ;
+    }
+        
+    S4::S4( const std::string& klass ) {
+        SEXP oo = PROTECT( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) ) ;
+        if (!Rf_inherits(oo, klass.c_str())) {
+            UNPROTECT( 1) ;
+            throw S4_creation_error( klass ) ;
+        }
+        setSEXP( oo ) ;
+        UNPROTECT( 1) ; /* oo */
+    }
+        
+    bool S4::is( const std::string& clazz ) {
+        CharacterVector cl = attr("class");
+                
+        // simple test for exact match
+        if( ! clazz.compare( cl[0] ) ) return true ;
+                
+        try{
+            SEXP containsSym = ::Rf_install("contains");
+            CharacterVector res(::Rf_getAttrib(
+                                    ::R_do_slot(::R_getClassDef(CHAR(::Rf_asChar(as<SEXP>(cl)))),
+                                                containsSym),
+                                    R_NamesSymbol));
+
+            // 
+            // mimic the R call: 
+            // names( slot( getClassDef( cl ), "contains" ) )
+            // 
+            // SEXP slotSym = Rf_install( "slot" ), // cannot cause gc() once in symbol table
+            //     getClassDefSym = Rf_install( "getClassDef" );
+            // CharacterVector res = internal::try_catch(Rf_lang2(R_NamesSymbol,
+            //                                                    Rf_lang3(slotSym,
+            //                                                             Rf_lang2( getClassDefSym, cl ), 
+            //                                                             Rf_mkString( "contains" )))) ;
+            return any( res.begin(), res.end(), clazz.c_str() ) ;
+        } catch( ... ){
+            // we catch eval_error and also not_compatible when 
+            // contains is NULL
+        }
+        return false ;
+                
+    }
+        
+    void S4::set( SEXP x) {
+        if( ! ::Rf_isS4(x) ){
+            throw not_s4() ;
+        } else{
+            setSEXP( x) ;
+        }
+    }
+    // }}}
+    
+    // {{{ Reference 
+        Reference::Reference() : S4(){}
+    
+    Reference::Reference(SEXP x) : S4(){
+        set( x) ;
+    }
+    
+    Reference::Reference( const Reference& other) : S4(){
+        setSEXP( other.asSexp() ) ; 
+    }
+    
+    Reference::Reference( const RObject::SlotProxy& proxy ) : S4() {
+        set( proxy ) ;
+    }
+    Reference::Reference( const RObject::AttributeProxy& proxy ) : S4() {
+        set( proxy ) ;
+    }
+    
+    Reference& Reference::operator=( const Reference& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+    
+    Reference& Reference::operator=( SEXP other ) {
+        set( other ) ;
+        return *this ;
+    }
+    
+    Reference::Reference( const std::string& klass ) : S4(){
+        // using callback to R as apparently R_do_new_object always makes the same environment
+        SEXP newSym = Rf_install("new");
+        SEXP call = PROTECT( Rf_lang2( newSym, Rf_mkString( klass.c_str() ) ) ) ;
+        setSEXP( Rcpp::internal::try_catch( call ) ) ;
+        UNPROTECT(1) ; // call
+    }
+    
+    void Reference::set( SEXP x) {
+        // TODO: check that x is of a reference class
+        if( ! ::Rf_isS4(x) ){
+            throw not_reference() ;
+        } else{
+            setSEXP( x) ;
+        }
+    }
+    
+    Reference::FieldProxy::FieldProxy( const Reference& v, const std::string& name) : 
+        parent(v), field_name(name) {}
+
+    Reference::FieldProxy& Reference::FieldProxy::operator=(const FieldProxy& rhs){
+        set( rhs.get() ) ;
+        return *this ;
+    }
+    
+    
+    SEXP Reference::FieldProxy::get() const {
+        // TODO: get the field  
+        
+        SEXP call = PROTECT( Rf_lang3( 
+									  R_DollarSymbol, 
+									  const_cast<Reference&>(parent).asSexp(), 
+									  Rf_mkString( field_name.c_str() )
+									   ) ) ;
+        return Rcpp::internal::try_catch( call ) ;
+        UNPROTECT(1) ;
+    }
+    
+    void Reference::FieldProxy::set( SEXP x) const {
+        PROTECT(x);
+        SEXP dollarGetsSym = Rf_install( "$<-");
+        SEXP call = PROTECT( Rf_lang4( 
+									  dollarGetsSym,
+									  const_cast<Reference&>(parent).asSexp(), 
+									  Rf_mkString( field_name.c_str() ), 
+									  x
+									   ) ) ;
+        const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) ); 
+        UNPROTECT(2) ;
+    }
+
+    Reference::FieldProxy Reference::field( const std::string& name) const {
+        return FieldProxy( *this, name );
+    }
+    // }}}
+ 
+    // {{{ Environment
+    Environment::Environment() : RObject(R_GlobalEnv){}
+
+    Environment::Environment(SEXP x) : RObject(x){
+        if( ! Rf_isEnvironment(x) ) {
+            /* not an environment, but maybe convertible to one using as.environment, try that */
+            SEXP res ;
+            try {
+                SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
+                res = Evaluator::run( Rf_lang2(asEnvironmentSym, x ) ) ;
+            } catch( const eval_error& ex){
+                throw not_compatible( "cannot convert to environment"  ) ; 
+            }
+            setSEXP( res ) ;
+        }
+    }
+
+    Environment::Environment( const std::string& name) : RObject(R_EmptyEnv){
+        /* similar to matchEnvir@envir.c */
+        if( name == ".GlobalEnv" ) {
+            setSEXP( R_GlobalEnv ) ;
+        } else if( name == "package:base" ){
+            setSEXP( R_BaseEnv ) ;
+        } else{
+            SEXP res = R_NilValue ;
+            try{
+                SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
+                res = Evaluator::run(Rf_lang2( asEnvironmentSym, Rf_mkString(name.c_str()) ) ) ;
+            } catch( const eval_error& ex){
+                throw no_such_env(name) ;
+            }
+            setSEXP( res ) ;
+        }
+    }
+    
+    Environment::Environment(int pos) : RObject(R_GlobalEnv){
+        SEXP res ;
+        try{
+            SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
+            res =  Evaluator::run( Rf_lang2( asEnvironmentSym, Rf_ScalarInteger(pos) ) ) ;
+        } catch( const eval_error& ex){
+            throw no_such_env(pos) ;
+        }
+        setSEXP( res ) ;
+    }
+    
+    Environment::Environment( const Environment& other ) {
+        setSEXP( other.asSexp() ) ; 
+    }
+    
+    Environment& Environment::operator=(const Environment& other) {
+        setSEXP( other.asSexp() ) ; 
+        return *this ;
+    }
+    
+    Environment::~Environment(){
+        logTxt( "~Environment" ) ;
+    }
+        
+    SEXP Environment::ls( bool all = true) const {
+        if( is_user_database() ){
+            R_ObjectTable *tb = (R_ObjectTable*)
+                R_ExternalPtrAddr(HASHTAB(m_sexp));
+            return tb->objects(tb) ;
+        } else{
+            Rboolean get_all = all ? TRUE : FALSE ;
+            return R_lsInternal( m_sexp, get_all ) ;
+        }
+        return R_NilValue ;
+    }
+    
+    SEXP Environment::get( const std::string& name) const {
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        SEXP res = Rf_findVarInFrame( m_sexp, nameSym ) ;
+        
+        if( res == R_UnboundValue ) return R_NilValue ;
+        
+        /* We need to evaluate if it is a promise */
+        if( TYPEOF(res) == PROMSXP){
+            res = Rf_eval( res, m_sexp ) ;
+        }
+        return res ;
+    }
+    
+    SEXP Environment::find( const std::string& name) const {
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        SEXP res = Rf_findVar( nameSym, m_sexp ) ;
+        
+        if( res == R_UnboundValue ) throw binding_not_found(name) ;
+        
+        /* We need to evaluate if it is a promise */
+        if( TYPEOF(res) == PROMSXP){
+            res = Rf_eval( res, m_sexp ) ;
+        }
+        return res ;
+    }
+    
+    bool Environment::exists( const std::string& name) const{
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        SEXP res = Rf_findVarInFrame( m_sexp, nameSym  ) ;
+        return res != R_UnboundValue ;
+    }
+    
+    bool Environment::assign( const std::string& name, SEXP x = R_NilValue) const {
+        if( exists( name) && bindingIsLocked(name) ) throw binding_is_locked(name) ;
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        Rf_defineVar( nameSym, x, m_sexp );
+        return true ;
+    }
+    
+    bool Environment::remove( const std::string& name) {
+        if( exists(name) ){
+            if( bindingIsLocked(name) ){
+                throw binding_is_locked(name) ;
+            } else{
+                /* unless we want to copy all of do_remove, 
+                   we have to go back to R to do this operation */
+                SEXP internalSym = Rf_install( ".Internal" );
+                SEXP removeSym = Rf_install( "remove" );
+                SEXP call = PROTECT( Rf_lang2(internalSym, Rf_lang4(removeSym, Rf_mkString(name.c_str()), 
+                                                                    m_sexp, Rf_ScalarLogical( FALSE ))) );
+                Rf_eval( call, R_GlobalEnv ) ;
+                UNPROTECT(1) ;
+            }
+        } else{
+            throw no_such_binding(name) ;
+        }
+        return true; // to make g++ -Wall happy
+    }
+    
+    bool Environment::isLocked() const{
+        return R_EnvironmentIsLocked(m_sexp);
+    }
+    
+    bool Environment::bindingIsActive(const std::string& name) const {
+        if( !exists( name) ) throw no_such_binding(name) ;
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        return R_BindingIsActive(nameSym, m_sexp) ;
+    }
+    
+    bool Environment::bindingIsLocked(const std::string& name) const {
+        if( !exists( name) ) throw no_such_binding(name) ;
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        return R_BindingIsLocked(nameSym, m_sexp) ;
+    }
+    
+    void Environment::lock( bool bindings = false ) {
+        R_LockEnvironment( m_sexp, bindings ? TRUE: FALSE ) ;
+    }
+    
+    void Environment::lockBinding(const std::string& name) {
+        if( !exists( name) ) throw no_such_binding(name) ;
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        R_LockBinding( nameSym, m_sexp ); 
+    }
+    
+    void Environment::unlockBinding(const std::string& name) {
+        if( !exists( name) ) throw no_such_binding(name) ;
+        SEXP nameSym = Rf_install(name.c_str());        // cannot be gc()'ed  once in symbol table
+        R_unLockBinding( nameSym, m_sexp );
+    }
+    
+    bool Environment::is_user_database() const {
+        return OBJECT(m_sexp) && Rf_inherits(m_sexp, "UserDefinedDatabase") ;
+    }
+    
+    /* static */
+    
+    Environment Environment::global_env() {
+        return Environment(R_GlobalEnv) ;
+    }
+    
+    Environment Environment::empty_env() {
+        return Environment(R_EmptyEnv) ;
+    }
+    
+    Environment Environment::base_env() {
+        return Environment(R_BaseEnv) ;
+    }
+    
+    Environment Environment::base_namespace() {
+        return Environment(R_BaseNamespace) ;
+    }
+    
+    Environment Environment::namespace_env(const std::string& package) {
+        
+        SEXP env = R_NilValue ;
+        try{
+            SEXP getNamespaceSym = Rf_install("getNamespace");
+            env = Evaluator::run( Rf_lang2(getNamespaceSym, Rf_mkString(package.c_str()) ) ) ;
+        } catch( const eval_error& ex){
+            throw no_such_namespace( package  ) ; 
+        }
+        return Environment( env ) ;
+    }
+    
+    Environment Environment::parent() const {
+        return Environment( ENCLOS(m_sexp) ) ; 
+    }
+    
+    Environment::Binding::Binding( Environment& env_, const std::string& name_): 
+        env(env_), name(name_){}
+    
+    bool Environment::Binding::active() const{
+        return env.bindingIsActive( name ) ; 
+    }
+    
+    bool Environment::Binding::exists() const{
+        return env.exists( name ) ; 
+    }
+    
+    bool Environment::Binding::locked() const{
+        return env.bindingIsLocked( name ) ; 
+    }
+    
+    void Environment::Binding::lock() {
+        env.lockBinding( name ) ;
+    }
+    
+    void Environment::Binding::unlock() {
+        env.unlockBinding( name ) ;
+    }
+    
+    Environment::Binding& Environment::Binding::operator=( SEXP rhs ){
+        env.assign( name, rhs ) ;
+        return *this ;
+    }
+    
+    Environment::Binding& Environment::Binding::operator=( const Binding& rhs){
+        env.assign( name, rhs.env.get(rhs.name) ) ;
+        return *this ;
+    }
+
+    const Environment::Binding Environment::operator[]( const std::string& name) const{
+        return Binding( const_cast<Environment&>(*this), name );
+    }
+    
+    Environment::Binding Environment::operator[]( const std::string& name) {
+        return Binding( *this, name ) ;
+    }
+    
+    Environment Environment::Rcpp_namespace() {
+        return Rcpp::internal::get_Rcpp_namespace() ;
+    }
+    
+    Environment Environment::new_child(bool hashed) {
+        SEXP newEnvSym = Rf_install("new.env");
+        return Environment( Evaluator::run(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), m_sexp )) );
+    }
+    // }}}    
+    
+} // namespace Rcpp
+// }}}
+
+// {{{ Rcomplex support
+Rcomplex operator*( const Rcomplex& lhs, const Rcomplex& rhs){          
+    Rcomplex y ;
+    y.r = lhs.r * rhs.r - lhs.i * rhs.i ;
+    y.i = lhs.r * rhs.i + rhs.r * lhs.i ;
+    return y ;
+}
+Rcomplex operator+( const Rcomplex& lhs, const Rcomplex& rhs){
+    Rcomplex y ;
+    y.r = lhs.r + rhs.r ;
+    y.i = lhs.i + rhs.i ;
+    return y ;
+}
+
+Rcomplex operator-( const Rcomplex& lhs, const Rcomplex& rhs){
+    Rcomplex y ;
+    y.r = lhs.r - rhs.r ;
+    y.i = lhs.i - rhs.i ;
+    return y ;
+}
+   
+Rcomplex operator/( const Rcomplex& a, const Rcomplex& b){
+
+	Rcomplex c ;
+    double ratio, den;
+    double abr, abi;
+
+    if( (abr = b.r) < 0)
+	abr = - abr;
+    if( (abi = b.i) < 0)
+	abi = - abi;
+    if( abr <= abi ) {
+	ratio = b.r / b.i ;
+	den = b.i * (1 + ratio*ratio);
+	c.r = (a.r*ratio + a.i) / den;
+	c.i = (a.i*ratio - a.r) / den;
+    }
+    else {
+	ratio = b.i / b.r ;
+	den = b.r * (1 + ratio*ratio);
+	c.r = (a.r + a.i*ratio) / den;
+	c.i = (a.i - a.r*ratio) / den;
+    }
+    return c ;
+}
+// }}}
+
