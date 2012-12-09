@@ -31,6 +31,7 @@
 
 #include <Rcpp/RObject.h>
 
+#include <Rcpp/Promise.h>
 #include <Rcpp/S4.h>
 #include <Rcpp/Reference.h>
 #include <Rcpp/clone.h>

@@ -154,6 +154,35 @@ namespace internal{
 		RCPP_RETURN_VECTOR( rcpp_call_test, x );
 	}
 	
+	SEXP convert_using_rfunction(SEXP x, const char* const fun) {
+        SEXP res = R_NilValue ;
+        try{
+            SEXP funSym = Rf_install(fun);
+            res = Evaluator::run( Rf_lang2( funSym, x ) ) ;
+        } catch( eval_error& e){
+            throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
+        }
+        return res;
+    }
+    
+    SEXP try_catch( SEXP expr, SEXP env ) {
+        return Evaluator::run(expr, env) ;
+    }
+    SEXP try_catch( SEXP expr ) {
+        return Evaluator::run(expr) ;
+    }
+    
+    SEXP eval_methods<EXPRSXP>::eval(){
+        SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
+        SEXP evalSym = Rf_install( "eval" );
+        return try_catch( Rf_lang2( evalSym, xp ) ) ;
+    }
+    
+    SEXP eval_methods<EXPRSXP>::eval( SEXP env ){
+        SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
+        SEXP evalSym = Rf_install( "eval" );
+        return try_catch( Rf_lang3( evalSym, xp, env ) ) ;
+    }
 	
 } // internal
 } // Rcpp

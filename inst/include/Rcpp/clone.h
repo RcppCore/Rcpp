@@ -2,7 +2,7 @@
 //
 // clone.h: Rcpp R/C++ interface class library -- clone RObject's
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -34,11 +34,6 @@ template <typename T> T clone(const T& object) {
     SEXP x = const_cast<T&>(object) ;
     return T( Rf_duplicate( x ) ) ; 
 }
-#if 0
-template<> inline SEXP clone(SEXP object){
-    return ::Rf_duplicate( object ) ;
-}
-#endif
 
 } // namespace Rcpp
 
