@@ -1503,7 +1503,7 @@ namespace Rcpp{
 	NumericVector rwilcox( int n, double mm, double nn ){
 		return NumericVector( n, stats::WilcoxGenerator(mm, nn) ) ;
 	}
-
+}
 // }}}
 
 
