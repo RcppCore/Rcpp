@@ -105,51 +105,6 @@ std::string demangle( const std::string& name ){
     return real_class ;
 }
 
-/* much inspired from the __verbose_terminate_handler of the GCC */
-void forward_uncaught_exceptions_to_r(){
-	
-    std::string exception_class ;
-    bool has_exception_class = false;
-    std::string exception_what ;
-    
-    // Make sure there was an exception; terminate is also called for an
-    // attempt to rethrow when there is no suitable exception.
-    std::type_info *t = abi::__cxa_current_exception_type();
-    if (t){
-    	has_exception_class = true ;
-    	const char *name = t->name() ;
-    	// now we need to demangle "name"
-    	
-    	{
-	    int status = -1;
-	    char *dem = 0;
-	    dem = abi::__cxa_demangle(name, 0, 0, &status);
-	    if( status == 0){
-		exception_class = dem ; /* great we can use the demangled name */
-		free(dem);
-	    } else{
-		exception_class = name ; /* just using the mangled name */
-	    }
-    	}
-    }
-	
-    // If the exception is derived from std::exception, we can give more
-    // information.
-    try {              
-    	__throw_exception_again;
-    } catch (std::exception &exc) { 
-    	exception_what = exc.what() ;
-    } catch (...) { 
-    	exception_what = "unrecognized exception" ;
-    }
-    
-    SEXP cppExceptSym = Rf_install("cpp_exception"); 	// cannot cause a gc() once in symbol table
-    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym,
-					  Rf_mkString(exception_what.c_str()), 
-					  has_exception_class ? Rf_mkString(exception_class.c_str()) : R_NilValue)); 
-    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); // Should not return
-    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
-}
 void forward_exception_to_r( const std::exception& ex){
     std::string exception_class ;
     std::string exception_what  = ex.what();
@@ -174,15 +129,6 @@ void forward_exception_to_r( const std::exception& ex){
     UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
 }
 #else
-void forward_uncaught_exceptions_to_r(){
-    SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
-    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym,
-					  Rf_mkString("exception : we don't know how to get the exception"
-						      "message with your compiler, patches welcome"), 
-					  R_NilValue)); 
-    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); 	 // Should not return 
-    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
-}
 void forward_exception_to_r( const std::exception& ex){
     SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
     SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym, Rf_mkString(ex.what()), R_NilValue)); 
