@@ -98,15 +98,7 @@ namespace Rcpp{
         SEXP try_catch( SEXP expr );
         
     } // namespace internal 
-    
-    inline bool Rboolean_to_bool( int x){ return x == TRUE ; }
-    inline bool int_to_bool(int x){ return x != 0 ; }
-    inline bool double_to_bool(double x){ return x != 0.0 ; }
-    inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
-
 } // namespace Rcpp
-
-#define Rcpp_error(MESSAGE) throw Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
 
 namespace Rcpp {
 	  inline void stop(const std::string& message) { throw Rcpp::exception(message.c_str()); }
@@ -150,7 +142,6 @@ namespace Rcpp{
 #include <Rcpp/sugar/sugar_forward.h>
 
 #include <Rcpp/cache.h>
-
 
 // "Rcout" iostream class contributed by Jelmer Ypma
 #include <Rcpp/iostream/Rstreambuf.h>
