@@ -32,11 +32,10 @@
 #elif defined(sun) || defined(__sun) || defined(_AIX)
     #include <sys/time.h>
 #else /* Unsupported OS */
-    #error "Rcpp::Benchmark::Timer not supported by your OS."
+    #error "Rcpp::Timer not supported by your OS."
 #endif
 
 namespace Rcpp{
-namespace Benchmark{
      
       
 #if defined(_WIN32)   
@@ -117,6 +116,5 @@ namespace Benchmark{
         out.attr( "names" ) = names ;
         return out ;
     }
-}
 }
 
