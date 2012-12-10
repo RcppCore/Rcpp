@@ -19,14 +19,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_meat_h
-#define Rcpp_api_meat_meat_h
+#ifndef Rcpp_api_meat_Reference_h
+#define Rcpp_api_meat_Reference_h
 
-#include <Rcpp/api/meat/RObject.h>
-#include <Rcpp/api/meat/Environment.h>
-#include <Rcpp/api/meat/DottedPair.h>
-#include <Rcpp/api/meat/Vector.h>
-#include <Rcpp/api/meat/Matrix.h>
-#include <Rcpp/api/meat/Reference.h>
+namespace Rcpp{
 
+    template <typename T>
+    Reference::FieldProxy& Reference::FieldProxy::operator=( const T& rhs){
+         set( wrap(rhs) ) ;
+         return *this ;
+    }
+    
+    template <typename T>
+    Reference::FieldProxy::operator T() const {
+        return as<T>(get());    
+    }
+    
+    template <typename T>
+    Reference::ConstFieldProxy::operator T() const {
+        return as<T>(get());    
+    }
+    
+}
 #endif
