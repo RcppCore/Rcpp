@@ -31,7 +31,6 @@ namespace internal{
 }
 
 extern "C" {
-    SEXP rcpp_init_cached_functions(SEXP) ;
     int* get_cache( int ) ;
 }
 
