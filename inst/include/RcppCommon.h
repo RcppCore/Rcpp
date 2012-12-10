@@ -91,20 +91,6 @@ inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
 #include <Rcpp/exceptions.h>
 
 namespace Rcpp{
-    /* internal namespace for things not intended to be used by the user */
-    namespace internal{     
-        
-        SEXP try_catch( SEXP expr, SEXP env );
-        SEXP try_catch( SEXP expr );
-        
-    } // namespace internal 
-} // namespace Rcpp
-
-namespace Rcpp {
-	  inline void stop(const std::string& message) { throw Rcpp::exception(message.c_str()); }
-} // namespace Rcpp
-
-namespace Rcpp{
     template <typename T> class object ;
     class String ;
 	namespace internal{
