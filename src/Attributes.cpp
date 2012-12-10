@@ -26,6 +26,7 @@
 #include <fstream>
 #include <cstring>
 #include <map>
+#include <set>
 #include <algorithm>
 
 #define RCPP_NO_SUGAR
@@ -485,6 +486,7 @@ END_RCPP
 // RcppExports.cpp and RcppExports.R
 RcppExport SEXP compileAttributes(SEXP sPackageDir, 
                                   SEXP sPackageName,
+                                  SEXP sDepends,
                                   SEXP sCppFiles,
                                   SEXP sCppFileBasenames,
                                   SEXP sIncludes,
@@ -494,6 +496,14 @@ BEGIN_RCPP
     // arguments
     std::string packageDir = Rcpp::as<std::string>(sPackageDir);
     std::string packageName = Rcpp::as<std::string>(sPackageName);
+    
+    Rcpp::CharacterVector vDepends = Rcpp::as<Rcpp::CharacterVector>(sDepends);   
+    std::set<std::string> depends;
+    for (Rcpp::CharacterVector::iterator 
+                        it = vDepends.begin(); it != vDepends.end(); ++it) {
+        depends.insert(std::string(*it));
+    }
+
     std::vector<std::string> cppFiles = 
                     Rcpp::as<std::vector<std::string> >(sCppFiles);
     std::vector<std::string> cppFileBasenames = 
@@ -537,6 +547,7 @@ BEGIN_RCPP
      
     // Parse attributes from each file and generate code as required. 
     bool haveAttributes = false;
+    std::set<std::string> dependsAttribs;
     for (std::size_t i=0; i<cppFiles.size(); i++) {
         
         // parse attributes (continue if there are none)
@@ -550,6 +561,15 @@ BEGIN_RCPP
                
         // write functions
         generators.writeFunctions(attributes, verbose);
+        
+        // track depends
+        for (SourceFileAttributesParser::const_iterator 
+                     it = attributes.begin(); it != attributes.end(); ++it) {
+            if (it->name() == kDependsAttribute) {
+                for (size_t i = 0; i<it->params().size(); ++i)
+                    dependsAttribs.insert(it->params()[i].name());
+            }   
+        }
     }
     
     // write end
@@ -561,7 +581,26 @@ BEGIN_RCPP
         updated = generators.commit(includes);  
     else
         updated = generators.remove();
-                                                                                                                   
+           
+    // print warning if there are depends attributes that don't have 
+    // corresponding entries in the DESCRIPTION file
+    std::vector<std::string> diff;
+    std::set_difference(dependsAttribs.begin(), dependsAttribs.end(),
+                        depends.begin(), depends.end(), 
+                        std::back_inserter(diff));
+    if (!diff.empty()) {
+        std::string msg = 
+           "The following packages are referenced using Rcpp::depends "
+           "attributes however are not listed in the Depends and LinkingTo "
+           "fields of the package DESCRIPTION file: ";
+        for (size_t i=0; i<diff.size(); i++) {
+            msg += diff[i];
+            if (i != (diff.size()-1))
+                msg += ", ";
+        }
+        showWarning(msg);
+    }
+           
     // verbose output
     if (verbose) {
         for (size_t i=0; i<updated.size(); i++)
