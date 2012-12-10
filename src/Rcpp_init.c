@@ -33,11 +33,6 @@
 // TODO: check that having this static does not mess up with 
 //       RInside, and move it within init_Rcpp_routines otherwise
 static R_CallMethodDef callEntries[]  = {
-    CALLDEF(as_character_externalptr,1),
-    
-    CALLDEF(CppField__get,3),
-    CALLDEF(CppField__set,4),
-    
     CALLDEF(Class__name,1),
     CALLDEF(Class__has_default_constructor,1),
     
@@ -65,7 +60,13 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(rcpp_set_stack_trace,1), 
     CALLDEF(rcpp_get_stack_trace,0),
     
-    // functions that are not defined in Rcpp.h
+    
+    
+    CALLDEF(as_character_externalptr,1),
+    
+    CALLDEF(CppField__get,3),
+    CALLDEF(CppField__set,4),
+    
     CALLDEF(rcpp_capabilities,0),
     CALLDEF(rcpp_can_use_cxx0x,0),
     CALLDEF(rcpp_call_test,1),

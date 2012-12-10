@@ -36,9 +36,17 @@
 extern "C" {
 #endif
 
+    CALLFUN_1(as_character_externalptr) ;
+
+    CALLFUN_3(CppField__get);
+    CALLFUN_4(CppField__set);
+
     CALLFUN_0(rcpp_capabilities) ;
     CALLFUN_0(rcpp_can_use_cxx0x) ;
     CALLFUN_1(rcpp_call_test) ;
+
+    void init_Rcpp_routines(DllInfo*) ;
+    const char * sexp_to_name(int sexp_type); 
 
 #ifdef __cplusplus
 }

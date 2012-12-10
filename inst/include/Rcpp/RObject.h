@@ -24,7 +24,7 @@
 
 #define R_NO_REMAP
 #include <R.h>
-#include <Rcpp/macros/debug.h>
+#include <Rcpp/macros/macros.h>
 #include <Rinternals.h>
 #include <vector>
 #include <string>

@@ -26,7 +26,7 @@
 #include <Rcpp/platform/compiler.h>
 
 #include <Rcpp/config.h>
-#include <Rcpp/macros/unroll.h>
+#include <Rcpp/macros/macros.h>
 
 void logTxtFunction(const char* file, const int line, const char* expression ) ;
 
@@ -77,7 +77,6 @@ namespace Rcpp{
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
-#define RCPP_GET_NAMES(x)       Rf_getAttrib(x, R_NamesSymbol)
 
 inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
     PROTECT(car) ;
@@ -92,10 +91,6 @@ inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
 #include <Rcpp/barrier.h>
 
 #define RcppExport extern "C"
-
-RcppExport void init_Rcpp_routines(DllInfo*) ;
-
-const char * sexp_to_name(int sexp_type); 
 
 #include <Rcpp/exceptions.h>
 
@@ -114,8 +109,6 @@ namespace Rcpp{
     inline bool Rbyte_to_bool(Rbyte x){ return x != static_cast<Rbyte>(0) ; }
 
 } // namespace Rcpp
-
-#include <Rcpp/macros/debug.h>
 
 #define Rcpp_error(MESSAGE) throw Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
 

@@ -36,10 +36,6 @@
 extern "C" {
 #endif
 
-CALLFUN_1(as_character_externalptr) ;
-
-CALLFUN_3(CppField__get);
-CALLFUN_4(CppField__set);
 CALLFUN_1(Class__name);
 CALLFUN_1(Class__has_default_constructor) ;
 CALLFUN_1(CppClass__complete);
