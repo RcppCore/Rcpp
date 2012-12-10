@@ -9,8 +9,6 @@ Current active misfeatures
 
 Documentation
 
-    o   Add a vignette about Rcpp sugar [in progress]
-    
     o	Finish the quickref vignette
     
     o	Maybe a vignette about stats functions
@@ -23,6 +21,8 @@ API
 
     o   Fast indexing and g++ 4.5.0 or later: open issue of why this compiler
         gets upset when the previous version(s) coped just fine
+        
+    o   Vector::resize    
 
 Modules 
         
@@ -44,8 +44,6 @@ Syntactic sugar
 	
     o	Vector * Matrix, Matrix * Matrix
 
-    o   duplicated
-    
     o   operator% 
     
     o   operator/ needs to handle the case of division by 0
