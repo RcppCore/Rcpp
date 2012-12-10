@@ -1,5 +1,9 @@
 2012-12-10  JJ Allaire <jj@rstudio.org>
 
+        * R/Attributes.R: warn when depends attribute is not matched with
+        required entries in package description
+        * src/Attributes.cpp: warn when depends attribute is not matched with
+        required entries in package description
         * src/AttributesGen.cpp: prune unnecessary includes from RcppExports
         * src/Timer.cpp: fix timer build issues on windows
 
