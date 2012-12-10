@@ -23,7 +23,7 @@
 #define Rcpp__DataFrame_h
 
 #include <Rcpp/RObject.h>
-#include <Rcpp/vector/00_forward_vector.h>
+#include <Rcpp/vector/00_forward_Vector.h>
 
 namespace Rcpp{
         
