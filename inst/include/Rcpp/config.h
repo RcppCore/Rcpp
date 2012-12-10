@@ -22,18 +22,6 @@
 #ifndef RCPP__CONFIG_H
 #define RCPP__CONFIG_H
 
-#ifdef __GNUC__
-  // from http://sourceforge.net/apps/mediawiki/predef/index.php?title=Operating_Systems#MacOS
-  #ifdef __APPLE__ 
-    #include <Availability.h>
-    #ifndef __MAC_10_8
-        #define RCPP_HAS_DEMANGLING
-    #endif
-  #else
-      #define RCPP_HAS_DEMANGLING
-  #endif
-#endif
-
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
 
 // 0.10.1.02 for devel version

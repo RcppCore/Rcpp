@@ -23,6 +23,7 @@
 #include <R_ext/Rdynload.h>
 
 #include <Rcpp/routines.h>
+#include "internal.h"
 
 // borrowed from Matrix
 #define CALLDEF(name, n)  {#name, (DL_FUNC) &name, n}
@@ -64,6 +65,10 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(rcpp_set_stack_trace,1), 
     CALLDEF(rcpp_get_stack_trace,0),
     
+    // functions that are not defined in Rcpp.h
+    CALLDEF(rcpp_capabilities,0),
+    CALLDEF(rcpp_can_use_cxx0x,0),
+    CALLDEF(rcpp_call_test,1),
     {NULL, NULL, 0}
 }; 
 

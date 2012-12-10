@@ -22,8 +22,11 @@
 
 #include <Rcpp.h>
 
+#include "internal.h" 
+
 // for R_ObjectTable
 #include <R_ext/Callbacks.h>
+#include <R_ext/PrtUtil.h>
 
 // {{{ Rcpp api classes
 namespace Rcpp {
@@ -141,7 +144,7 @@ namespace Rcpp {
 
     RObject::~RObject() {
         release() ;
-        logTxt("~RObject");
+        RCPP_DEBUG("~RObject")
     }
 
     std::vector<std::string> RObject::attributeNames() const {
@@ -848,7 +851,7 @@ namespace Rcpp {
     }
     
     Environment::~Environment(){
-        logTxt( "~Environment" ) ;
+        RCPP_DEBUG( "~Environment" )
     }
         
     SEXP Environment::ls( bool all = true) const {
@@ -1091,6 +1094,458 @@ Rcomplex operator/( const Rcomplex& a, const Rcomplex& b){
     }
     return c ;
 }
+// }}}
+
+// {{{ utilities (from RcppCommon.cpp)
+void logTxtFunction(const char* file, const int line, const char* expression) {
+    Rprintf("%s:%d %s\n", file, line, expression);
+}
+
+SEXP rcpp_can_use_cxx0x(){ 
+#ifdef HAS_VARIADIC_TEMPLATES
+    return Rf_ScalarLogical( TRUE );
+#else
+    return Rf_ScalarLogical( FALSE );
+#endif
+}
+
+SEXP rcpp_capabilities(){
+	SEXP cap = PROTECT( Rf_allocVector( LGLSXP, 8) ) ;
+	SEXP names = PROTECT( Rf_allocVector( STRSXP, 8 ) ) ;
+#ifdef HAS_VARIADIC_TEMPLATES
+	LOGICAL(cap)[0] = TRUE ;
+#else
+	LOGICAL(cap)[0] = FALSE ;
+#endif
+#ifdef HAS_CXX0X_INITIALIZER_LIST
+	LOGICAL(cap)[1] = TRUE ;
+#else
+	LOGICAL(cap)[1] = FALSE ;
+#endif
+	/* exceptions are always supported */
+	LOGICAL(cap)[2] = TRUE ;
+
+#ifdef HAS_TR1_UNORDERED_MAP
+	LOGICAL(cap)[3] = TRUE ;
+#else
+	LOGICAL(cap)[3] = FALSE ;
+#endif
+
+#ifdef HAS_TR1_UNORDERED_SET
+	LOGICAL(cap)[4] = TRUE ;
+#else
+	LOGICAL(cap)[4] = FALSE ;
+#endif
+
+	LOGICAL(cap)[5] = TRUE ;
+
+#ifdef RCPP_HAS_DEMANGLING
+	LOGICAL(cap)[6] = TRUE ;
+#else
+	LOGICAL(cap)[6] = FALSE ;
+#endif
+
+	LOGICAL(cap)[7] = FALSE ;
+
+	SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
+	SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
+	SET_STRING_ELT(names, 2, Rf_mkChar("exception handling") ) ;
+	SET_STRING_ELT(names, 3, Rf_mkChar("tr1 unordered maps") ) ;
+	SET_STRING_ELT(names, 4, Rf_mkChar("tr1 unordered sets") ) ;
+	SET_STRING_ELT(names, 5, Rf_mkChar("Rcpp modules") ) ;
+	SET_STRING_ELT(names, 6, Rf_mkChar("demangling") ) ;
+	SET_STRING_ELT(names, 7, Rf_mkChar("classic api") ) ;
+	Rf_setAttrib( cap, R_NamesSymbol, names ) ;
+	UNPROTECT(2) ;
+	return cap ;
+}
+
+const char * sexp_to_name(int sexp_type) {
+    switch (sexp_type) {
+    case NILSXP:	return "NILSXP";
+    case SYMSXP:	return "SYMSXP";
+    case RAWSXP:	return "RAWSXP";
+    case LISTSXP:	return "LISTSXP";
+    case CLOSXP:	return "CLOSXP";
+    case ENVSXP:	return "ENVSXP";
+    case PROMSXP:	return "PROMSXP";
+    case LANGSXP:	return "LANGSXP";
+    case SPECIALSXP:	return "SPECIALSXP";
+    case BUILTINSXP:	return "BUILTINSXP";
+    case CHARSXP:	return "CHARSXP";
+    case LGLSXP:	return "LGLSXP";
+    case INTSXP:	return "INTSXP";
+    case REALSXP:	return "REALSXP";
+    case CPLXSXP:	return "CPLXSXP";
+    case STRSXP:	return "STRSXP";
+    case DOTSXP:	return "DOTSXP";
+    case ANYSXP:	return "ANYSXP";
+    case VECSXP:	return "VECSXP";
+    case EXPRSXP:	return "EXPRSXP";
+    case BCODESXP:	return "BCODESXP";
+    case EXTPTRSXP:	return "EXTPTRSXP";
+    case WEAKREFSXP:	return "WEAKREFSXP";
+    case S4SXP:		return "S4SXP";
+    default:
+	return "<unknown>";
+    }
+}
+
+namespace Rcpp{
+namespace internal{
+
+	template<> int* r_vector_start<INTSXP>(SEXP x){ return INTEGER(x) ; }
+	template<> int* r_vector_start<LGLSXP>(SEXP x){ return LOGICAL(x) ; }
+	template<> double* r_vector_start<REALSXP>(SEXP x){ return REAL(x) ; }
+	template<> Rbyte* r_vector_start<RAWSXP>(SEXP x){ return RAW(x) ; }
+	template<> Rcomplex* r_vector_start<CPLXSXP>(SEXP x){ return COMPLEX(x) ; }
+	
+	template<> void r_init_vector<VECSXP>(SEXP x){}
+	template<> void r_init_vector<EXPRSXP>(SEXP x){}
+	template<> void r_init_vector<STRSXP>(SEXP x){}
+
+	template<> Rcomplex get_zero<CPLXSXP,Rcomplex>(){
+		Rcomplex x ;
+		x.r = 0.0 ;
+		x.i = 0.0 ;
+		return x ;
+	}
+
+	template<> Rcomplex caster<std::complex<double>, Rcomplex>( std::complex<double> from){
+		Rcomplex cx ;
+		cx.r = from.real() ; 
+		cx.i = from.imag() ;
+		return cx ;
+	}
+	template<> Rcomplex caster<std::complex<float>, Rcomplex>( std::complex<float> from){
+		Rcomplex cx ;
+		cx.r = static_cast<double>( from.real() ); 
+		cx.i = static_cast<double>( from.imag() );
+		return cx ;
+	}
+
+	template<> std::complex<double> caster<Rcomplex,std::complex<double> >( Rcomplex from){
+		return std::complex<double>(from.r, from.i ) ;
+	}
+	template<> std::complex<float> caster<Rcomplex,std::complex<float> >( Rcomplex from){
+		return std::complex<float>(static_cast<float>(from.r), static_cast<float>(from.i) ) ;
+	}
+
+	// TODO: move these two things in testing
+	template <typename T> int rcpp_call_test(T t){
+        return T::r_type::value ;
+    }
+    int rcpp_call_test_(SEXP x){
+		RCPP_RETURN_VECTOR( rcpp_call_test, x );
+	}
+	
+	SEXP convert_using_rfunction(SEXP x, const char* const fun) {
+        SEXP res = R_NilValue ;
+        try{
+            SEXP funSym = Rf_install(fun);
+            res = Evaluator::run( Rf_lang2( funSym, x ) ) ;
+        } catch( eval_error& e){
+            throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
+        }
+        return res;
+    }
+    
+    SEXP try_catch( SEXP expr, SEXP env ) {
+        return Evaluator::run(expr, env) ;
+    }
+    SEXP try_catch( SEXP expr ) {
+        return Evaluator::run(expr) ;
+    }
+    
+    SEXP eval_methods<EXPRSXP>::eval(){
+        SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
+        SEXP evalSym = Rf_install( "eval" );
+        return try_catch( Rf_lang2( evalSym, xp ) ) ;
+    }
+    
+    SEXP eval_methods<EXPRSXP>::eval( SEXP env ){
+        SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
+        SEXP evalSym = Rf_install( "eval" );
+        return try_catch( Rf_lang3( evalSym, xp, env ) ) ;
+    }
+	
+} // internal
+} // Rcpp
+
+SEXP rcpp_call_test(SEXP x){
+	return Rf_ScalarInteger( ::Rcpp::internal::rcpp_call_test_(x) ) ;
+}
+
+SEXP as_character_externalptr(SEXP xp){
+	char buffer[20] ;
+	sprintf( buffer, "%p", (void*)EXTPTR_PTR(xp) ) ;
+	return Rcpp::wrap( (const char*)buffer ) ;
+}
+
+SEXP exception_to_try_error( const std::exception& ex ){
+    return string_to_try_error(ex.what());
+}
+
+SEXP string_to_try_error( const std::string& str){
+
+    using namespace Rcpp;
+	
+    // form simple error condition based on a string
+    SEXP rcppNS = PROTECT(R_FindNamespace(Rf_mkString("Rcpp")));
+    SEXP simpleErrorExpr = PROTECT(::Rcpp_lcons(::Rf_install("simpleError"),
+                                            pairlist(str, R_NilValue)));
+    SEXP simpleError = PROTECT(Rf_eval(simpleErrorExpr, rcppNS));
+	
+    // create the try-error structure
+    SEXP structureExpr = PROTECT(::Rcpp_lcons(::Rf_install("structure"), 
+        pairlist(str, _["class"] = "try-error", _["condition"] = simpleError)));
+    SEXP tryError = PROTECT(Rf_eval(structureExpr, rcppNS));
+	
+    // unprotect and return
+    UNPROTECT(5);
+    return tryError;
+}
+
+const char* short_file_name(const char* file){
+    std::string f(file) ;
+    size_t index = f.find("/include/") ;
+    if( index != std::string::npos ){ f = f.substr( index + 9 ) ;}
+    return f.c_str() ;
+}
+
+#if defined(__GNUC__)
+#if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__)
+// Simpler version for Windows and *BSD 
+SEXP stack_trace( const char* file, int line ){
+    Rcpp::List trace = Rcpp::List::create( 
+    	Rcpp::Named( "file"  ) = file, 
+    	Rcpp::Named( "line"  ) = line, 
+    	Rcpp::Named( "stack" ) = "C++ stack not available on this system" ) ;
+    trace.attr("class") = "Rcpp_stack_trace" ;
+    return trace ;
+}
+#else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__)
+#include <execinfo.h>
+#include <cxxabi.h>
+
+static std::string demangler_one( const char* input){
+    static std::string buffer ;
+    buffer = input ;
+    buffer.resize( buffer.find_last_of( '+' ) - 1 ) ;
+    buffer.erase(
+        buffer.begin(), 
+        buffer.begin() + buffer.find_last_of( ' ' ) + 1
+    ) ;
+    return demangle( buffer) ;
+}
+
+/* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */ 
+SEXP stack_trace( const char *file, int line) {
+    const size_t max_depth = 100;
+    size_t stack_depth;
+    void *stack_addrs[max_depth];
+    char **stack_strings;
+
+    stack_depth = backtrace(stack_addrs, max_depth);
+    stack_strings = backtrace_symbols(stack_addrs, stack_depth);
+
+    std::string current_line ;
+    
+    Rcpp::CharacterVector res( stack_depth - 1) ;
+    std::transform( 
+    	stack_strings + 1, stack_strings + stack_depth, 
+    	res.begin(), 
+    	demangler_one 
+    	) ;
+    free(stack_strings); // malloc()ed by backtrace_symbols
+    
+    Rcpp::List trace = Rcpp::List::create( 
+    	Rcpp::Named( "file"  ) = file, 
+    	Rcpp::Named( "line"  ) = line, 
+    	Rcpp::Named( "stack" ) = res ) ;
+    trace.attr("class") = "Rcpp_stack_trace" ;
+    return trace ;
+}
+#endif 
+#else /* !defined( __GNUC__ ) */
+SEXP stack_trace( const char *file, int line) {
+	return R_NilValue ;
+}
+#endif   
+// }}}
+
+// {{{ coercion
+
+namespace Rcpp{ 
+namespace internal{
+
+template <> int r_coerce<INTSXP,INTSXP>(int from) { return from ; }
+template <> int r_coerce<LGLSXP,LGLSXP>(int from) { return from ; }
+template <> double r_coerce<REALSXP,REALSXP>(double from) { return from ; }
+template <> Rcomplex r_coerce<CPLXSXP,CPLXSXP>(Rcomplex from) { return from ; }
+template <> Rbyte r_coerce<RAWSXP,RAWSXP>(Rbyte from) { return from ; }
+
+// -> INTSXP
+template <> int r_coerce<LGLSXP,INTSXP>(int from){
+	return (from==NA_LOGICAL) ? NA_INTEGER : from ;
+}
+template <> int r_coerce<REALSXP,INTSXP>(double from){
+	if (ISNAN(from)) return NA_INTEGER;
+	else if (from > INT_MAX || from <= INT_MIN ) {
+		return NA_INTEGER;
+	}
+	return static_cast<int>(from);
+
+}
+template <> int r_coerce<CPLXSXP,INTSXP>(Rcomplex from){
+	return r_coerce<REALSXP,INTSXP>(from.r) ;
+}
+template <> int r_coerce<RAWSXP,INTSXP>(Rbyte from){
+	return static_cast<int>(from);
+}
+
+// -> REALSXP
+template <> double r_coerce<LGLSXP,REALSXP>(int from){
+	return from == NA_LOGICAL ? NA_REAL : static_cast<double>(from) ;
+}
+template <> double r_coerce<INTSXP,REALSXP>(int from){
+	return from == NA_INTEGER ? NA_REAL : static_cast<double>(from) ; 
+}
+template <> double r_coerce<CPLXSXP,REALSXP>(Rcomplex from){
+	return from.r ;
+}
+template <> double r_coerce<RAWSXP,REALSXP>(Rbyte from){
+	return static_cast<double>(from) ;
+}
+
+// -> LGLSXP
+template <> int r_coerce<REALSXP,LGLSXP>(double from){
+	return ( from == NA_REAL ) ? NA_LOGICAL : (from!=0.0);
+}
+template <> int r_coerce<INTSXP,LGLSXP>(int from){
+	return ( from == NA_INTEGER ) ? NA_LOGICAL : (from!=0);
+}
+template <> int r_coerce<CPLXSXP,LGLSXP>(Rcomplex from){
+	if( from.r == NA_REAL ) return NA_LOGICAL ;
+	if( from.r == 0.0 || from.i == 0.0 ) return FALSE ;
+	return TRUE ;
+}
+template <> int r_coerce<RAWSXP,LGLSXP>(Rbyte from){
+	if( from != static_cast<Rbyte>(0) ) return TRUE ;
+	return FALSE ;
+}
+
+// -> RAWSXP
+template <> Rbyte r_coerce<REALSXP,RAWSXP>(double from){
+	if( from == NA_REAL) return static_cast<Rbyte>(0) ; 
+	return r_coerce<INTSXP,RAWSXP>(static_cast<int>(from)) ;
+}
+template <> Rbyte r_coerce<INTSXP,RAWSXP>(int from){
+	return (from < 0 || from > 255) ? static_cast<Rbyte>(0) : static_cast<Rbyte>(from) ;
+}
+template <> Rbyte r_coerce<CPLXSXP,RAWSXP>(Rcomplex from){
+	return r_coerce<REALSXP,RAWSXP>(from.r) ;
+}
+template <> Rbyte r_coerce<LGLSXP,RAWSXP>(int from){
+	return static_cast<Rbyte>(from == TRUE) ;
+}
+
+// -> CPLXSXP
+template <> Rcomplex r_coerce<REALSXP,CPLXSXP>(double from){
+	Rcomplex c ;
+	if( from == NA_REAL ){
+		c.r = NA_REAL; 
+		c.i = NA_REAL;
+	} else{
+		c.r = from ;
+		c.i = 0.0 ;
+	}
+	return c ;
+}
+template <> Rcomplex r_coerce<INTSXP,CPLXSXP>(int from){
+	Rcomplex c ;
+	if( from == NA_INTEGER ){
+		c.r = NA_REAL; 
+		c.i = NA_REAL;
+	} else{
+		c.r = static_cast<double>(from) ;
+		c.i = 0.0 ;
+	}
+	return c ;
+}
+template <> Rcomplex r_coerce<RAWSXP,CPLXSXP>(Rbyte from){
+	Rcomplex c ;
+	c.r = static_cast<double>(from);
+	c.i = 0.0 ;
+	return c ;
+}
+template <> Rcomplex r_coerce<LGLSXP,CPLXSXP>(int from){
+	Rcomplex c ;
+	if( from == TRUE ){
+		c.r = 1.0 ; c.i = 0.0 ;
+	} else if( from == FALSE ){
+		c.r = c.i = 0.0 ;
+	} else { /* NA */
+		c.r = c.i = NA_REAL;
+	}
+	return c ;
+}
+
+inline int integer_width( int n ){
+    return n < 0 ? ( (int) ( ::log10( -n+0.5) + 2 ) ) : ( (int) ( ::log10( n+0.5) + 1 ) ) ;    
+}
+
+#define NB 1000
+template <> const char* coerce_to_string<INTSXP>(int from){
+    static char buffer[NB] ;
+    snprintf( buffer, NB, "%*d", integer_width(from), from );
+    return buffer ;
+}
+template <> const char* coerce_to_string<LGLSXP>(int from){
+    return from == 0 ? "FALSE" : "TRUE" ;    
+}
+template <> const char* coerce_to_string<RAWSXP>(Rbyte from){
+    static char buff[3];
+    ::sprintf(buff, "%02x", from);
+    return buff ;    
+}
+
+
+static const char* dropTrailing0(char *s, char cdec) {
+    /* Note that  's'  is modified */
+    char *p = s;
+    for (p = s; *p; p++) {
+	if(*p == cdec) {
+	    char *replace = p++;
+	    while ('0' <= *p  &&  *p <= '9')
+		if(*(p++) != '0')
+		    replace = p;
+	    if(replace != p)
+		while((*(replace++) = *(p++)))
+		    ;
+	    break;
+	}
+    }
+    return s;
+}
+
+template <> const char* coerce_to_string<REALSXP>(double x){
+    int w,d,e ;
+    Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
+    char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
+	return dropTrailing0(tmp, '.');
+        
+}
+template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
+    int wr, dr, er, wi, di, ei;
+    Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
+    return Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
+}
+
+
+} // internal
+} // Rcpp
+
 // }}}
 
 // {{{ r_cast support
