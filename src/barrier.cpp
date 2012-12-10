@@ -22,7 +22,7 @@
 #define USE_RINTERNALS
 #include <Rinternals.h>
 #include <Rcpp/barrier.h>
-#include <Rcpp/routines.h>
+#include "internal.h"
 #include <Rcpp/cache.h>
 #include <algorithm>
 

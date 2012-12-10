@@ -25,7 +25,6 @@
 #define R_NO_REMAP
 #include <Rinternals.h>
 #include <sstream>
-#include <Rcpp/routines.h>
 
 SEXP stack_trace( const char *file, int line) ;
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
