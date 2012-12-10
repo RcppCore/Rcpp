@@ -23,8 +23,6 @@
 #ifndef Rcpp__traits__is_const__h
 #define Rcpp__traits__is_const__h
 
-#include <Rcpp/traits/integral_constant.h>
-
 namespace Rcpp{ namespace traits {
 	
   /// @brief  type properties [4.5.3].

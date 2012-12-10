@@ -22,6 +22,8 @@
 #ifndef Rcpp__as__h
 #define Rcpp__as__h
 
+#include <Rcpp/internal/Exporter.h>
+
 namespace Rcpp{
 
     namespace internal{

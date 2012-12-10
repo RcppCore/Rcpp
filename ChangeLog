@@ -6,6 +6,8 @@
         * src/internal.h: new header to host function declarations for 
         routines that are not exported into Rcpp.h
         * src/Rcpp_init.c: export capabilities (renamed rcpp_capabilities)
+        * include/Rcpp/traits/traits.h: master file for all traits includes
+        * include/Rcpp/macros/macros.h: master file for all macros includes
         
 2012-12-09 Romain Francois <romain@r-enthusiasts.com>
 
