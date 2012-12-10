@@ -27,14 +27,6 @@
 #define RCPP_DEBUG_LEVEL 0
 #endif
 
-#ifndef logTxt
-    #if RCPP_DEBUG_LEVEL > 0
-        #define logTxt(x) ::logTxtFunction(__FILE__, __LINE__, x);
-    #else
-        #define logTxt(x)
-    #endif
-#endif
-
 const char* short_file_name(const char* file) ;
 
 #if RCPP_DEBUG_LEVEL > 0

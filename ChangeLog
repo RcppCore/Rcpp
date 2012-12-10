@@ -4,7 +4,7 @@
         and debugging.cpp content
         * include/platform/compiler.h: put here compiler specific deduction things
         * src/internal.h: new header to host function declarations for 
-        routines that are not exported into Rcpp.h (capabilities, ...)
+        routines that are not exported into Rcpp.h
         * src/Rcpp_init.c: export capabilities (renamed rcpp_capabilities)
         
 2012-12-09 Romain Francois <romain@r-enthusiasts.com>

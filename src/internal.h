@@ -22,12 +22,15 @@
 #ifndef Rcpp_internal_h
 #define Rcpp_internal_h
 
+#include <R_ext/Rdynload.h>
+
 #define CALLFUN_0(name) SEXP name()
 #define CALLFUN_1(name) SEXP name(SEXP)
 #define CALLFUN_2(name) SEXP name(SEXP,SEXP)
 #define CALLFUN_3(name) SEXP name(SEXP,SEXP,SEXP)
 #define CALLFUN_4(name) SEXP name(SEXP,SEXP,SEXP,SEXP)
 #define CALLFUN_5(name) SEXP name(SEXP,SEXP,SEXP,SEXP,SEXP)
+#define EXTFUN(name) SEXP name(SEXP)
 
 // this file contains declarations of functions that are not 
 // exported via Rcpp.h but are needed to make Rcpp work internally
@@ -38,6 +41,34 @@ extern "C" {
 
     CALLFUN_1(as_character_externalptr) ;
 
+    CALLFUN_1(Class__name);
+    CALLFUN_1(Class__has_default_constructor) ;
+
+    CALLFUN_1(CppClass__complete);
+    CALLFUN_1(CppClass__methods);
+    
+    CALLFUN_1(Module__classes_info) ;
+    CALLFUN_1(Module__complete) ;
+    CALLFUN_1(Module__functions_arity);
+    CALLFUN_1(Module__functions_names);
+    CALLFUN_2(Module__get_class);
+    CALLFUN_2(Module__has_class);
+    CALLFUN_2(Module__has_function);
+    CALLFUN_2(Module__get_function);
+    CALLFUN_1(Module__name);
+    CALLFUN_2(CppObject__finalize);
+    
+    CALLFUN_0(get_rcpp_cache);
+    CALLFUN_0(init_Rcpp_cache);
+    CALLFUN_0(reset_current_error);
+    CALLFUN_1(rcpp_error_recorder);
+    CALLFUN_1(rcpp_set_current_error);
+    CALLFUN_0(rcpp_get_current_error);
+    CALLFUN_1(rcpp_set_error_occured);
+    CALLFUN_0(rcpp_get_error_occured);
+    CALLFUN_1(rcpp_set_stack_trace);
+    CALLFUN_0(rcpp_get_stack_trace);
+    
     CALLFUN_3(CppField__get);
     CALLFUN_4(CppField__set);
 
@@ -45,6 +76,15 @@ extern "C" {
     CALLFUN_0(rcpp_can_use_cxx0x) ;
     CALLFUN_1(rcpp_call_test) ;
 
+    /* .External functions */
+    EXTFUN(CppMethod__invoke) ;
+    EXTFUN(CppMethod__invoke_void) ;
+    EXTFUN(CppMethod__invoke_notvoid) ;
+    EXTFUN(InternalFunction_invoke) ;
+    EXTFUN(Module__invoke) ;
+    EXTFUN(class__newInstance) ;
+    EXTFUN(class__dummyInstance) ;
+    
     void init_Rcpp_routines(DllInfo*) ;
     const char * sexp_to_name(int sexp_type); 
 
