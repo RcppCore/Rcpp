@@ -270,8 +270,10 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     descFile <- file.path(pkgdir,"DESCRIPTION")
     if (!file.exists(descFile))
         stop("pkgdir must refer to the directory containing an R package")
-    DESCRIPTION <- read.dcf(descFile, all = TRUE)
-    pkgname <- DESCRIPTION$Package
+    
+    pkgInfo <- tools:::.split_description(tools:::.read_description(descFile))
+    pkgname <- as.character(pkgInfo$DESCRIPTION["Package"])
+    depends <- unique(names(pkgInfo$Depends))
     
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
@@ -295,11 +297,12 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     
     # generate the includes list based on LinkingTo. Specify plugins-only
     # because we only need as/wrap declarations
-    includes <- .linkingToIncludes(DESCRIPTION$LinkingTo, TRUE)
+    linkingTo <- as.character(pkgInfo$DESCRIPTION["LinkingTo"])
+    includes <- .linkingToIncludes(linkingTo, TRUE)
     
     # generate exports
     invisible(.Call("compileAttributes", PACKAGE="Rcpp", 
-                    pkgdir, pkgname, cppFiles, cppFileBasenames, 
+                    pkgdir, pkgname, depends, cppFiles, cppFileBasenames, 
                     includes, verbose, .Platform))
 }
 
