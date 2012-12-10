@@ -61,8 +61,6 @@ namespace Rcpp{
          */
         Reference( const std::string& klass ) ;
 
-        
-        // TODO: perhaps I should move this to RObject (do the same as SlotProxy, etc ...)
         /**
          * Proxy for objects slots. 
          */
@@ -74,7 +72,7 @@ namespace Rcpp{
              * @param v parent object of which we get/set a field
              * @param name field name
              */
-            FieldProxy( const Reference& v, const std::string& name) ;
+            FieldProxy( Reference& v, const std::string& name) ;
 
             /**
              * lhs use. Assigns the target slot using the current 
@@ -89,30 +87,54 @@ namespace Rcpp{
              *
              * @param rhs wrappable object
              */
-            template <typename T> FieldProxy& operator=(const T& rhs){
-                set( wrap(rhs) ) ;
-                return *this ;
-            }
+            template <typename T> FieldProxy& operator=(const T& rhs) ;
                 
             /**
              * rhs use. Retrieves the current value of the slot
              * and structures it as a T object. This only works 
              * when as<T> makes sense
              */ 
-            template <typename T> operator T() const {
-                return as<T>(get()) ;
-            }
+            template <typename T> operator T() const  ;
+                
+        private:
+            Reference& parent; 
+            std::string field_name ;
+                
+            SEXP get() const ;
+            void set(SEXP x ) ;
+        } ;
+        friend class FieldProxy ;   
+        
+        /**
+         * Proxy for objects slots. 
+         */
+        class ConstFieldProxy {
+        public:
+            /**
+             * Creates a field proxy. 
+             *
+             * @param v parent object of which we get/set a field
+             * @param name field name
+             */
+            ConstFieldProxy( const Reference& v, const std::string& name) ;
+
+            /**
+             * rhs use. Retrieves the current value of the slot
+             * and structures it as a T object. This only works 
+             * when as<T> makes sense
+             */ 
+            template <typename T> operator T() const  ;
                 
         private:
             const Reference& parent; 
             std::string field_name ;
                 
             SEXP get() const ;
-            void set(SEXP x ) const;
         } ;
-        friend class FieldProxy ;   
-                
-        FieldProxy field( const std::string& name) const  ;
+        friend class ConstFieldProxy ;   
+        
+        FieldProxy field( const std::string& name)  ;
+        ConstFieldProxy field( const std::string& name) const ;
     
     
     private:

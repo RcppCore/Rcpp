@@ -756,7 +756,7 @@ namespace Rcpp {
         }
     }
     
-    Reference::FieldProxy::FieldProxy( const Reference& v, const std::string& name) : 
+    Reference::FieldProxy::FieldProxy( Reference& v, const std::string& name) : 
         parent(v), field_name(name) {}
 
     Reference::FieldProxy& Reference::FieldProxy::operator=(const FieldProxy& rhs){
@@ -766,8 +766,40 @@ namespace Rcpp {
     
     
     SEXP Reference::FieldProxy::get() const {
-        // TODO: get the field  
-        
+        SEXP call = PROTECT( Rf_lang3( 
+									  R_DollarSymbol, 
+									  parent.asSexp(), 
+									  Rf_mkString( field_name.c_str() )
+									   ) ) ;
+        return Rcpp::internal::try_catch( call ) ;
+        UNPROTECT(1) ;
+    }
+    
+    void Reference::FieldProxy::set( SEXP x) {
+        PROTECT(x);
+        SEXP dollarGetsSym = Rf_install( "$<-");
+        SEXP call = PROTECT( Rf_lang4( 
+									  dollarGetsSym,
+									  parent.asSexp(), 
+									  Rf_mkString( field_name.c_str() ), 
+									  x
+									   ) ) ;
+        parent.setSEXP( Rf_eval( call, R_GlobalEnv ) ); 
+        UNPROTECT(2) ;
+    }
+
+    Reference::FieldProxy Reference::field( const std::string& name) {
+        return FieldProxy( *this, name );
+    }
+    
+    Reference::ConstFieldProxy Reference::field( const std::string& name) const {
+        return ConstFieldProxy( *this, name );
+    }
+    
+    Reference::ConstFieldProxy::ConstFieldProxy( const Reference& v, const std::string& name) : 
+        parent(v), field_name(name) {}
+
+    SEXP Reference::ConstFieldProxy::get() const {
         SEXP call = PROTECT( Rf_lang3( 
 									  R_DollarSymbol, 
 									  const_cast<Reference&>(parent).asSexp(), 
@@ -777,22 +809,6 @@ namespace Rcpp {
         UNPROTECT(1) ;
     }
     
-    void Reference::FieldProxy::set( SEXP x) const {
-        PROTECT(x);
-        SEXP dollarGetsSym = Rf_install( "$<-");
-        SEXP call = PROTECT( Rf_lang4( 
-									  dollarGetsSym,
-									  const_cast<Reference&>(parent).asSexp(), 
-									  Rf_mkString( field_name.c_str() ), 
-									  x
-									   ) ) ;
-        const_cast<Reference&>(parent).setSEXP( Rf_eval( call, R_GlobalEnv ) ); 
-        UNPROTECT(2) ;
-    }
-
-    Reference::FieldProxy Reference::field( const std::string& name) const {
-        return FieldProxy( *this, name );
-    }
     // }}}
  
     // {{{ Environment
