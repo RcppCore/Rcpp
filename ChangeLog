@@ -13,6 +13,7 @@
         * include/Rcpp/traits/traits.h: master file for all traits includes
         * include/Rcpp/macros/macros.h: master file for all macros includes
         * include/Rcpp/DataFrame.h: just have declaration for DataFrame
+        * include/Rcpp/Benchmark/Timer.h: move it into the Rcpp:: namespace
         
 2012-12-09 Romain Francois <romain@r-enthusiasts.com>
 

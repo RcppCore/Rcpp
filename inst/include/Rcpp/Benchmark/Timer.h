@@ -19,6 +19,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef RCPP_BENCHMARH_TIMER_H
+#define RCPP_BENCHMARH_TIMER_H
+
 #include <stdint.h>
 #include <vector>
 #include <string>
@@ -27,7 +30,6 @@
 #include <Rinternals.h>
 
 namespace Rcpp{
-namespace Benchmark{
 
     typedef uint64_t nanotime_t;
     nanotime_t get_nanotime(void); 
@@ -50,5 +52,6 @@ namespace Benchmark{
     } ;
     
 }
-}
+
+#endif
 
