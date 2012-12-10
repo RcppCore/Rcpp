@@ -238,8 +238,10 @@ namespace attributes {
             for (std::size_t i=0;i<includes.size(); i++)
                 ostr << includes[i] << std::endl;
         }
-        ostr << "#include <string>" << std::endl;
-        ostr << "#include <set>" << std::endl;
+        if (hasCppInterface()) {
+            ostr << "#include <string>" << std::endl;
+            ostr << "#include <set>" << std::endl;
+        }
         ostr << std::endl;
         
         // always bring in Rcpp
