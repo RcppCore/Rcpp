@@ -122,6 +122,7 @@ namespace Rcpp{
 #include <Rcpp/internal/ListInitialization.h>
 #include <Rcpp/internal/Proxy_Iterator.h>
 #include <Rcpp/internal/SEXP_Iterator.h>
+#include <Rcpp/internal/converter.h>
 
 #include <Rcpp/algo.h>
 
@@ -132,28 +133,5 @@ namespace Rcpp{
 // "Rcout" iostream class contributed by Jelmer Ypma
 #include <Rcpp/iostream/Rstreambuf.h>
 #include <Rcpp/iostream/Rostream.h>
-
-namespace Rcpp{
-namespace internal{	
-	class converter {
-	public:
-		converter( ) : x(R_NilValue){} ;
-		converter( SEXP x_) : x(x_){} ;
-		converter( const converter& other) : x(other.x){}
-		converter& operator=( const converter& other){
-			x = other.x ;
-			return *this ;
-		}
-		~converter(){}
-	
-		template <typename T> operator T(){
-			return ::Rcpp::as<T>( x ) ;	
-		}
-	private:
-		SEXP x ;
-		
-	} ;
-} // namespace internal
-} // namespace Rcpp
 
 #endif
