@@ -14,8 +14,6 @@
 # ifndef RCPP_PREPROCESSOR_CAT_HPP
 # define RCPP_PREPROCESSOR_CAT_HPP
 #
-# include <Rcpp/preprocessor/config.hpp>
-#
 # /* RCPP_PP_CAT */
 #
 # if ~RCPP_PP_CONFIG_FLAGS() & RCPP_PP_CONFIG_MWCC()

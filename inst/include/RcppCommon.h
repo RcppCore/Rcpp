@@ -24,9 +24,17 @@
 #define RcppCommon_h
 
 #include <Rcpp/platform/compiler.h>
-
 #include <Rcpp/config.h>
 #include <Rcpp/macros/macros.h>
+
+// include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
+#define R_NO_REMAP
+#include <R.h>
+#include <Rinternals.h>
+#include <R_ext/Complex.h>
+#include <R_ext/Parse.h>
+#include <R_ext/Rdynload.h>
+#include <Rversion.h>
 
 /**
  * \brief Rcpp API
@@ -67,14 +75,6 @@ namespace Rcpp{
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 
-// include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
-#define R_NO_REMAP
-#include <R.h>
-#include <Rinternals.h>
-#include <R_ext/Complex.h>
-#include <R_ext/Parse.h>
-#include <R_ext/Rdynload.h>
-#include <Rversion.h>
 
 inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
     PROTECT(car) ;
@@ -179,7 +179,6 @@ namespace Rcpp{
 #include <Rcpp/internal/Proxy_Iterator.h>
 #include <Rcpp/internal/SEXP_Iterator.h>
 
-#include <Rcpp/preprocessor.h>
 #include <Rcpp/algo.h>
 
 #include <Rcpp/sugar/sugar_forward.h>
@@ -189,5 +188,28 @@ namespace Rcpp{
 // "Rcout" iostream class contributed by Jelmer Ypma
 #include <Rcpp/iostream/Rstreambuf.h>
 #include <Rcpp/iostream/Rostream.h>
+
+namespace Rcpp{
+namespace internal{	
+	class converter {
+	public:
+		converter( ) : x(R_NilValue){} ;
+		converter( SEXP x_) : x(x_){} ;
+		converter( const converter& other) : x(other.x){}
+		converter& operator=( const converter& other){
+			x = other.x ;
+			return *this ;
+		}
+		~converter(){}
+	
+		template <typename T> operator T(){
+			return ::Rcpp::as<T>( x ) ;	
+		}
+	private:
+		SEXP x ;
+		
+	} ;
+} // namespace internal
+} // namespace Rcpp
 
 #endif
