@@ -20,9 +20,6 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 #include <R.h>
 #include <Rinternals.h>
-#include <R_ext/Rdynload.h>
-
-#include <Rcpp/routines.h>
 #include "internal.h"
 
 // borrowed from Matrix

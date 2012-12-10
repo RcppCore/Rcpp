@@ -1097,10 +1097,6 @@ Rcomplex operator/( const Rcomplex& a, const Rcomplex& b){
 // }}}
 
 // {{{ utilities (from RcppCommon.cpp)
-void logTxtFunction(const char* file, const int line, const char* expression) {
-    Rprintf("%s:%d %s\n", file, line, expression);
-}
-
 SEXP rcpp_can_use_cxx0x(){ 
 #ifdef HAS_VARIADIC_TEMPLATES
     return Rf_ScalarLogical( TRUE );

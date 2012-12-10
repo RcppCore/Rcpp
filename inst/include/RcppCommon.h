@@ -28,8 +28,6 @@
 #include <Rcpp/config.h>
 #include <Rcpp/macros/macros.h>
 
-void logTxtFunction(const char* file, const int line, const char* expression ) ;
-
 /**
  * \brief Rcpp API
  */
@@ -186,7 +184,6 @@ namespace Rcpp{
 
 #include <Rcpp/sugar/sugar_forward.h>
 
-#include <Rcpp/routines.h>
 #include <Rcpp/cache.h>
 
 // "Rcout" iostream class contributed by Jelmer Ypma

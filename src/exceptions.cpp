@@ -24,6 +24,7 @@
 #include <Rinternals.h>
 #include <Rcpp/exceptions.h>
 #include <cstdlib>
+#include "internal.h"
 
 namespace Rcpp{
     
