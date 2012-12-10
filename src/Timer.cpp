@@ -22,14 +22,25 @@
 #include <Rcpp.h>
 #include <Rcpp/Benchmark/Timer.h>
 
+#if defined(_WIN32) 
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#elif defined(__MACH__) || defined(__APPLE__)
+    #include <mach/mach_time.h>
+#elif defined(linux) || defined(__linux)
+    #include <time.h>
+#elif defined(sun) || defined(__sun) || defined(_AIX)
+    #include <sys/time.h>
+#else /* Unsupported OS */
+    #error "Rcpp::Benchmark::Timer not supported by your OS."
+#endif
+
 namespace Rcpp{
 namespace Benchmark{
      
       
-#if defined(WIN32) 
-  
-    #include <windows.h>
-    
+#if defined(_WIN32)   
+
     nanotime_t get_nanotime(void) {
         LARGE_INTEGER time_var, frequency;
         QueryPerformanceCounter(&time_var);
@@ -41,7 +52,6 @@ namespace Benchmark{
 
 #elif defined(__MACH__) || defined(__APPLE__)
      
-    #include <mach/mach_time.h>
     nanotime_t get_nanotime(void) {
         nanotime_t time;
         mach_timebase_info_data_t info;
@@ -54,7 +64,6 @@ namespace Benchmark{
     }
 #elif defined(linux) || defined(__linux)
 
-    #include <time.h>
     static const nanotime_t nanoseconds_in_second = 1000000000LL;
     
     nanotime_t get_nanotime(void) {
@@ -76,8 +85,6 @@ namespace Benchmark{
 
 #elif defined(sun) || defined(__sun) || defined(_AIX)
 
-    #include <sys/time.h>
-    
     /* short an sweet! */
     nanotime_t get_nanotime(void) {
         return gethrtime();
