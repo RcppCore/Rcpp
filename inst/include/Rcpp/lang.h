@@ -25,7 +25,12 @@
 #define Rcpp_list1 Rf_list1
 #define Rcpp_lang1 Rf_lang1
 
-
+inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
+    PROTECT(car) ;
+    car = Rf_lcons( car, cdr ) ; 
+    UNPROTECT(1) ;
+    return car ;
+}
 
 inline SEXP Rcpp_list2( SEXP x0, SEXP x1 )
 {
