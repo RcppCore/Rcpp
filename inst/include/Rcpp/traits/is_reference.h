@@ -23,8 +23,6 @@
 #ifndef Rcpp__traits__is_reference__h
 #define Rcpp__traits__is_reference__h
 
-#include <Rcpp/traits/integral_constant.h>
-
 namespace Rcpp{ namespace traits {
 	
   template<typename>

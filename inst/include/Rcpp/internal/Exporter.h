@@ -20,8 +20,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
    
-#ifndef Rcpp__traits__exporter__h
-#define Rcpp__traits__exporter__h
+#ifndef Rcpp__internal__exporter__h
+#define Rcpp__internal__exporter__h
 
 namespace Rcpp{
     namespace traits{

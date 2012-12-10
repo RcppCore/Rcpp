@@ -3,7 +3,7 @@
 //
 // is_reference.h: Rcpp R/C++ interface class library -- identifies if a type is a reference
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,9 +22,6 @@
    
 #ifndef Rcpp__traits__remove_const_and_reference__h
 #define Rcpp__traits__remove_const_and_reference__h
-
-#include <Rcpp/traits/remove_const.h>
-#include <Rcpp/traits/remove_reference.h>
 
 namespace Rcpp{ namespace traits {
 	
