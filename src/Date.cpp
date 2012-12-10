@@ -34,7 +34,8 @@
 #include <Rcpp/Function.h>
 #include <Rmath.h> 		// for Rf_fround
 #include <time.h>		// for gmtime
- 
+#include <Rcpp/exceptions.h>
+
 namespace Rcpp {
 
     static struct tm * gmtime_(const time_t * const timep); 	// see below

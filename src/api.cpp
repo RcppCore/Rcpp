@@ -1325,18 +1325,15 @@ SEXP string_to_try_error( const std::string& str){
     using namespace Rcpp;
 	
     // form simple error condition based on a string
-    SEXP rcppNS = PROTECT(R_FindNamespace(Rf_mkString("Rcpp")));
-    SEXP simpleErrorExpr = PROTECT(::Rcpp_lcons(::Rf_install("simpleError"),
-                                            pairlist(str, R_NilValue)));
-    SEXP simpleError = PROTECT(Rf_eval(simpleErrorExpr, rcppNS));
+    SEXP simpleErrorExpr = PROTECT(::Rf_lang2(::Rf_install("simpleError"), Rf_mkString(str.c_str())));
+    SEXP simpleError = PROTECT(Rf_eval(simpleErrorExpr, R_GlobalEnv));
 	
-    // create the try-error structure
-    SEXP structureExpr = PROTECT(::Rcpp_lcons(::Rf_install("structure"), 
-        pairlist(str, _["class"] = "try-error", _["condition"] = simpleError)));
-    SEXP tryError = PROTECT(Rf_eval(structureExpr, rcppNS));
-	
+    SEXP tryError = PROTECT( Rf_mkString( str.c_str() ) ) ;
+    Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ; 
+    Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ; 
+    
     // unprotect and return
-    UNPROTECT(5);
+    UNPROTECT(3);
     return tryError;
 }
 
