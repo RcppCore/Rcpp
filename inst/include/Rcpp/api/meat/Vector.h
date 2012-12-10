@@ -225,6 +225,490 @@ namespace Rcpp{
     	fill(t) ;
     }
     
+    template <int RTYPE>
+    typename Vector<RTYPE>::iterator Vector<RTYPE>::erase_single__impl( iterator position ){
+        if( position < begin() || position >= end() ) throw index_out_of_bounds( ) ;
+        int n = size() ;
+        Vector target( n - 1 ) ;
+        iterator target_it(target.begin()) ;
+        iterator it(begin()) ;
+        iterator this_end(end()) ;
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        if( names == R_NilValue ){
+            for( ; it < position; ++it, ++target_it){
+                *target_it = *it;
+            }
+            iterator result(target_it) ;
+            ++it ;
+            for( ; it < this_end ; ++it, ++target_it){
+                *target_it = *it;
+            }
+            set_sexp( target.asSexp() ) ;
+            return result ;
+        } else {
+            SEXP newnames = PROTECT(::Rf_allocVector( STRSXP, n-1 ));
+            int i= 0 ;
+            for( ; it < position; ++it, ++target_it,i++){
+                *target_it = *it;
+                SET_STRING_ELT( newnames, i , STRING_ELT(names,i) ) ;
+            }
+            iterator result(target_it) ;
+            ++it ;
+            i++ ;
+            for( ; it < this_end ; ++it, ++target_it, i++){
+                *target_it = *it;
+                SET_STRING_ELT( newnames, i-1, STRING_ELT(names,i) ) ;
+            }
+            target.attr( "names" ) = newnames ;
+            UNPROTECT(1) ; /* newnames */
+            set_sexp( target.asSexp() ) ;
+            return result ;
+        }
+    }
+    
+    template <int RTYPE>
+    typename Vector<RTYPE>::iterator Vector<RTYPE>::erase_range__impl( iterator first, iterator last ){
+        if( first > last ) throw std::range_error("invalid range") ;
+        if( last >= end() || first < begin() ) throw index_out_of_bounds() ;
+		
+        iterator it = begin() ;
+        iterator this_end = end() ;
+        int nremoved = std::distance(first,last)+1 ;
+        int target_size = size() - nremoved  ;
+        Vector target( target_size ) ;
+        iterator target_it = target.begin() ;
+		
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        iterator result ;
+        if( names == R_NilValue ){
+            for( ; it < first; ++it, ++target_it ){
+                *target_it = *it ;
+            }
+            result = it ;
+            for( it = last +1 ; it < this_end; ++it, ++target_it ){
+                *target_it = *it ;
+            }
+        } else{
+            SEXP newnames = PROTECT( ::Rf_allocVector(STRSXP, target_size) ) ;
+            int i= 0 ;
+            for( ; it < first; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) );
+            }
+            result = it ;
+            for( it = last +1 ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i + nremoved ) );
+            }
+            target.attr("names" ) = newnames ;
+            UNPROTECT(1) ; /* newnames */
+        }
+        set_sexp(target.asSexp() );
+        return result ;
+    }
+    
+ 
+    template <int RTYPE>
+    void Vector<RTYPE>::push_back__impl(const stored_type& object, traits::false_type){
+        int n = size() ;
+        Vector target( n + 1 ) ;
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        iterator target_it( target.begin() ) ;
+        iterator it(begin()) ;
+        iterator this_end(end());
+        if( names == R_NilValue ){
+            for( ; it < this_end; ++it, ++target_it ){
+                *target_it = *it ;
+            }
+        } else {
+            SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n + 1) ) ;
+            int i = 0 ;
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) ) ;
+            }
+            SET_STRING_ELT( newnames, i, Rf_mkChar("") ) ;
+            target.attr("names") = newnames ;
+            UNPROTECT(1) ; /* newnames */
+        }
+        *target_it = object;
+        set_sexp( target.asSexp() ) ;
+    }	
+    
+    template <int RTYPE>
+    void Vector<RTYPE>::push_back__impl(const stored_type& object, traits::true_type){
+        SEXP object_sexp = PROTECT( object ) ;
+        int n = size() ;
+        Vector target( n + 1 ) ;
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        iterator target_it( target.begin() ) ;
+        iterator it(begin()) ;
+        iterator this_end(end());
+        if( names == R_NilValue ){
+            for( ; it < this_end; ++it, ++target_it ){
+                *target_it = *it ;
+            }
+        } else {
+            SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n + 1) ) ;
+            int i = 0 ;
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) ) ;
+            }
+            SET_STRING_ELT( newnames, i, Rf_mkChar("") ) ;
+            target.attr("names") = newnames ;
+            UNPROTECT(1) ; /* newnames */
+        }
+        *target_it = object_sexp;
+        set_sexp( target.asSexp() ) ;
+        UNPROTECT(1) ;
+    }	
+    	
+    template <int RTYPE>
+    void Vector<RTYPE>::push_back_name__impl(const stored_type& object, const std::string& name, traits::false_type ){
+        int n = size() ;
+        Vector target( n + 1 ) ;
+        iterator target_it( target.begin() ) ;
+        iterator it(begin()) ;
+        iterator this_end(end());
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n+1 ) ) ;
+        int i=0;
+        if( names == R_NilValue ){
+            SEXP dummy = PROTECT( Rf_mkChar("") );
+            for( ; it < this_end; ++it, ++target_it,i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i , dummy );
+            }
+            UNPROTECT(1) ; /* dummy */
+        } else {
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) ) ;
+            }
+        }
+        SET_STRING_ELT( newnames, i, Rf_mkChar( name.c_str() ) );
+        target.attr("names") = newnames ;
+    		
+        *target_it = object;
+        UNPROTECT(1) ; /* newnames, */
+        set_sexp( target.asSexp() ) ;
+    }
+    	
+    template <int RTYPE>
+    void Vector<RTYPE>::push_back_name__impl(const stored_type& object, const std::string& name, traits::true_type ){
+        SEXP object_sexp = PROTECT( object ) ;
+        int n = size() ;
+        Vector target( n + 1 ) ;
+        iterator target_it( target.begin() ) ;
+        iterator it(begin()) ;
+        iterator this_end(end());
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n+1 ) ) ;
+        int i=0;
+        if( names == R_NilValue ){
+            SEXP dummy = PROTECT( Rf_mkChar("") );
+            for( ; it < this_end; ++it, ++target_it,i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i , dummy );
+            }
+            UNPROTECT(1) ; /* dummy */
+        } else {
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) ) ;
+            }
+        }
+        SET_STRING_ELT( newnames, i, Rf_mkChar( name.c_str() ) );
+        target.attr("names") = newnames ;
+    		
+        *target_it = object_sexp;
+        UNPROTECT(2) ; /* newnames, object_sexp */
+        set_sexp( target.asSexp() ) ;
+    }
+    	
+    template <int RTYPE>
+    void Vector<RTYPE>::push_front__impl(const stored_type& object, traits::false_type ){
+        int n = size() ;
+        Vector target( n+1);
+        iterator target_it(target.begin());
+        iterator it(begin());
+        iterator this_end(end());
+        *target_it = object ;
+        ++target_it ;
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        if( names == R_NilValue ){
+            for( ; it<this_end; ++it, ++target_it){
+                *target_it = *it ;
+            }
+        } else{
+            SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n + 1) );
+            int i=1 ;
+            SET_STRING_ELT( newnames, 0, Rf_mkChar("") ) ;
+            for( ; it<this_end; ++it, ++target_it, i++){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i-1 ) ) ;
+            }
+            target.attr("names") = newnames ;
+            UNPROTECT(1) ; /* newnames */
+        }
+        set_sexp( target.asSexp() ) ;
+    }
+    	
+    template <int RTYPE>
+    void Vector<RTYPE>::push_front__impl(const stored_type& object, traits::true_type ){
+        SEXP object_sexp = PROTECT( object ) ;
+        int n = size() ;
+        Vector target( n+1);
+        iterator target_it(target.begin());
+        iterator it(begin());
+        iterator this_end(end());
+        *target_it = object_sexp ;
+        UNPROTECT(1); /* object_sexp */
+        ++target_it ;
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        if( names == R_NilValue ){
+            for( ; it<this_end; ++it, ++target_it){
+                *target_it = *it ;
+            }
+        } else{
+            SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n + 1) );
+            int i=1 ;
+            SET_STRING_ELT( newnames, 0, Rf_mkChar("") ) ;
+            for( ; it<this_end; ++it, ++target_it, i++){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i-1 ) ) ;
+            }
+            target.attr("names") = newnames ;
+            UNPROTECT(1) ; /* newnames */
+        }
+        set_sexp( target.asSexp() ) ;
+    }
+    	
+    template <int RTYPE>
+    void Vector<RTYPE>::push_front_name__impl(const stored_type& object, const std::string& name, traits::false_type ){
+        int n = size() ;
+        Vector target( n + 1 ) ;
+        iterator target_it( target.begin() ) ;
+        iterator it(begin()) ;
+        iterator this_end(end());
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n+1 ) ) ;
+        int i=1;
+        SET_STRING_ELT( newnames, 0, Rf_mkChar( name.c_str() ) );
+        *target_it = object;
+        ++target_it ;
+    		
+        if( names == R_NilValue ){
+            SEXP dummy = PROTECT( Rf_mkChar("") );
+            for( ; it < this_end; ++it, ++target_it,i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i , dummy );
+            }
+            UNPROTECT(1) ; /* dummy */
+        } else {
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i-1 ) ) ;
+            }
+        }
+        target.attr("names") = newnames ;
+    		
+        UNPROTECT(1) ; /* newnames, */
+        set_sexp( target.asSexp() ) ;
+    }
+    	
+    template <int RTYPE>
+    void Vector<RTYPE>::push_front_name__impl(const stored_type& object, const std::string& name, traits::true_type ){
+        SEXP object_sexp = PROTECT(object) ;
+        int n = size() ;
+        Vector target( n + 1 ) ;
+        iterator target_it( target.begin() ) ;
+        iterator it(begin()) ;
+        iterator this_end(end());
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n+1 ) ) ;
+        int i=1;
+        SET_STRING_ELT( newnames, 0, Rf_mkChar( name.c_str() ) );
+        *target_it = object_sexp;
+        ++target_it ;
+    		
+        if( names == R_NilValue ){
+            SEXP dummy = PROTECT( Rf_mkChar("") );
+            for( ; it < this_end; ++it, ++target_it,i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i , dummy );
+            }
+            UNPROTECT(1) ; /* dummy */
+        } else {
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i-1 ) ) ;
+            }
+        }
+        target.attr("names") = newnames ;
+    		
+        UNPROTECT(2) ; /* newnames, object_sexp */
+        set_sexp( target.asSexp() ) ;
+    }
+    	
+    template <int RTYPE>
+    typename Vector<RTYPE>::iterator Vector<RTYPE>::insert__impl( iterator position, const stored_type& object, traits::false_type){
+        int n = size() ;
+        Vector target( n+1 ) ;
+        iterator target_it = target.begin();
+        iterator it = begin() ;
+        iterator this_end = end() ;
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        iterator result ;
+        if( names == R_NilValue ){
+            for( ; it < position; ++it, ++target_it){
+                *target_it = *it ;
+            }
+            result = target_it;
+            *target_it = object ; 
+            ++target_it ;
+            for( ; it < this_end; ++it, ++target_it ){
+                *target_it = *it ;
+            }
+        } else{
+            SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n + 1 ) ) ;
+            int i=0;
+            for( ; it < position; ++it, ++target_it, i++){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) ) ;
+            }
+            result = target_it;
+            *target_it = object ;
+            SET_STRING_ELT( newnames, i, ::Rf_mkChar("") ) ;
+            i++ ;
+            ++target_it ;
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i - 1) ) ;
+            }
+            target.attr( "names" ) = newnames ;
+            UNPROTECT(1) ; /* newmanes */
+        }
+        set_sexp( target.asSexp() );
+        return result ;
+    }
+    
+    template <int RTYPE>
+    typename Vector<RTYPE>::iterator Vector<RTYPE>::insert__impl( iterator position, const stored_type& object, traits::true_type){
+        PROTECT( object ) ;
+        int n = size() ;
+        Vector target( n+1 ) ;
+        iterator target_it = target.begin();
+        iterator it = begin() ;
+        iterator this_end = end() ;
+        SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
+        iterator result ;
+        if( names == R_NilValue ){
+            for( ; it < position; ++it, ++target_it){
+                *target_it = *it ;
+            }
+            result = target_it;
+            *target_it = object ; 
+            ++target_it ;
+            for( ; it < this_end; ++it, ++target_it ){
+                *target_it = *it ;
+            }
+        } else{
+            SEXP newnames = PROTECT( ::Rf_allocVector( STRSXP, n + 1 ) ) ;
+            int i=0;
+            for( ; it < position; ++it, ++target_it, i++){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) ) ;
+            }
+            result = target_it;
+            *target_it = object ;
+            SET_STRING_ELT( newnames, i, ::Rf_mkChar("") ) ;
+            i++ ;
+            ++target_it ;
+            for( ; it < this_end; ++it, ++target_it, i++ ){
+                *target_it = *it ;
+                SET_STRING_ELT( newnames, i, STRING_ELT(names, i - 1) ) ;
+            }
+            target.attr( "names" ) = newnames ;
+            UNPROTECT(1) ; /* newmanes */
+        }
+        set_sexp( target.asSexp() );
+        UNPROTECT(1); /* object */
+        return result ;
+    }
+	
+    template <int RTYPE>
+    template <typename EXPR_VEC>
+    Vector<RTYPE>& Vector<RTYPE>::operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ){
+        const EXPR_VEC& ref = rhs.get_ref() ;
+        iterator start = begin() ;
+        int n = size() ;
+        // TODO: maybe unroll this
+        stored_type tmp ;
+        for( int i=0; i<n; i++){
+            Proxy left = start[i] ;
+            if( ! traits::is_na<RTYPE>( left ) ){
+                tmp = ref[i] ;
+                left = traits::is_na<RTYPE>( tmp ) ? tmp : ( left + tmp ) ;
+            }
+        }
+        return *this ;  
+    }
+    
+    template <int RTYPE>
+    template <typename EXPR_VEC>
+    Vector<RTYPE>& Vector<RTYPE>::operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ){
+        const EXPR_VEC& ref = rhs.get_ref() ;
+        iterator start = begin() ;
+        int n = size() ;
+        stored_type tmp ;
+        for( int i=0; i<n; i++){
+            if( ! traits::is_na<RTYPE>(start[i]) ){
+                start[i] += ref[i] ;
+            }
+        }
+        return *this ;  
+    }
+    
+    template <>
+    template <typename EXPR_VEC>
+    Vector<REALSXP>& Vector<REALSXP>::operator+=( const VectorBase<REALSXP,false,EXPR_VEC>& rhs ){
+        const EXPR_VEC& vec = rhs.get_ref() ;
+        int n = size() ;
+        iterator start = begin() ;
+        for( int i=0; i<n; i++){
+            start[i] += vec[i] ;        
+        }
+        return *this ;
+    }
+    
+    template <>
+    template <typename EXPR_VEC>
+    Vector<REALSXP>& Vector<REALSXP>::operator+=( const VectorBase<REALSXP,true,EXPR_VEC>& rhs ){
+        const EXPR_VEC& vec = rhs.get_ref() ;
+        int n = size() ;
+        iterator start = begin() ;
+        for( int i=0; i<n; i++){
+            start[i] += vec[i] ;        
+        }
+        return *this ;
+    }
+    
+    
+    template <int RTYPE>
+    bool Vector<RTYPE>::containsElementNamed( const char* target ) const {
+        SEXP names = RCPP_GET_NAMES(m_sexp) ; 
+        if( Rf_isNull(names) ) return false ;
+        int n = Rf_length(names) ;
+        for( int i=0; i<n; i++){
+            if( !strcmp( target, CHAR(STRING_ELT(names, i)) ) ) 
+                return true ;   
+        }
+        return false ;
+    }
+     
+    
     
 } // namespace Rcpp
 
