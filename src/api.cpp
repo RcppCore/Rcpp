@@ -1046,6 +1046,44 @@ namespace Rcpp {
     }
     // }}}    
     
+    // {{{ DataFrame
+    namespace internal{
+        inline SEXP empty_data_frame(){
+            SEXP dataFrameSym = ::Rf_install( "data.frame"); // cannot be gc()ed once in symbol table
+            return ::Rf_eval( ::Rf_lang1( dataFrameSym ), R_GlobalEnv ) ;       
+        }
+    }
+    
+    DataFrame::DataFrame(): List( internal::empty_data_frame() ){}
+    DataFrame::DataFrame(SEXP x) : List(){
+        set(x) ;
+    }  
+    DataFrame::DataFrame( const DataFrame& other): List(other.asSexp()) {}
+    DataFrame::DataFrame( const RObject::SlotProxy& proxy ) { set(proxy); }
+    DataFrame::DataFrame( const RObject::AttributeProxy& proxy ) { set(proxy); }
+              
+    DataFrame& DataFrame::operator=( DataFrame& other){
+        setSEXP( other.asSexp() ) ;
+        return *this ;
+    }
+            
+    DataFrame& DataFrame::operator=( SEXP x) {
+        set(x) ;
+        return *this ;
+    }
+    DataFrame::~DataFrame(){}     
+    void DataFrame::set(SEXP x) {
+        if( ::Rf_inherits( x, "data.frame" )){
+            setSEXP( x ) ;
+        } else{
+            SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
+            setSEXP( y ) ;
+        }
+    } 
+    int DataFrame::nrows() const { return Rf_length( VECTOR_ELT(m_sexp, 0) ); }
+        
+    // }}}
+    
 } // namespace Rcpp
 // }}}
 

@@ -22,59 +22,32 @@
 #ifndef Rcpp__DataFrame_h
 #define Rcpp__DataFrame_h
 
-#include <RcppCommon.h>
-#include <Rcpp/r_cast.h>
-#include <Rcpp/Vector.h>
+#include <Rcpp/RObject.h>
+#include <Rcpp/vector/00_forward_vector.h>
 
 namespace Rcpp{
         
-    namespace internal{
-        inline SEXP empty_data_frame(){
-            SEXP dataFrameSym = ::Rf_install( "data.frame"); // cannot be gc()ed once in symbol table
-            return ::Rf_eval( ::Rf_lang1( dataFrameSym ), R_GlobalEnv ) ;       
-        }
-    }
-        
-    class DataFrame : public List {
+    class DataFrame : public Vector<VECSXP> {
     public:     
-        DataFrame(): List( internal::empty_data_frame() ){}
+        DataFrame() ;
+        DataFrame(SEXP x) ;
+        DataFrame( const DataFrame& other) ;
+        DataFrame( const RObject::SlotProxy& proxy ) ;
+        DataFrame( const RObject::AttributeProxy& proxy ) ;
                 
-        DataFrame(SEXP x) : List(){
-            set(x) ;
-        }
+        DataFrame& operator=( DataFrame& other) ;
+        DataFrame& operator=( SEXP x)  ;
                 
-        DataFrame( const DataFrame& other): List(other.asSexp()) {}
-                
-        DataFrame( const RObject::SlotProxy& proxy ) { set(proxy); }
-        DataFrame( const RObject::AttributeProxy& proxy ) { set(proxy); }
-                
-        DataFrame& operator=( DataFrame& other){
-            setSEXP( other.asSexp() ) ;
-            return *this ;
-        }
-                
-        DataFrame& operator=( SEXP x) {
-            set(x) ;
-            return *this ;
-        }
-                
-        ~DataFrame(){}
+        ~DataFrame() ;
 
-        static DataFrame create(){ return DataFrame() ; }
-                
-        int nrows(){ return Rf_length( VECTOR_ELT(m_sexp, 0) ); }
+        int nrows() const ;
         
-#include <Rcpp/DataFrame_generated.h>           
+        static DataFrame create(){ return DataFrame() ; }
+
+#include <Rcpp/generated/DataFrame_generated.h>           
 
     private:
-        void set(SEXP x) {
-            if( ::Rf_inherits( x, "data.frame" )){
-                setSEXP( x ) ;
-            } else{
-                SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
-                setSEXP( y ) ;
-            }
-        }
+        void set(SEXP x) ;
         
     } ;
         
