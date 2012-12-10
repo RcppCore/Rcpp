@@ -23,23 +23,7 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
-#undef GOOD_COMPILER_FOR_RCPP
-#ifdef __GNUC__
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-#ifdef __SUNPRO_CC
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-#ifdef __clang__
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-#ifdef __INTEL_COMPILER
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-
-#ifndef GOOD_COMPILER_FOR_RCPP
-# error "This compiler is not supported"
-#endif
+#include <Rcpp/platform/compiler.h>
 
 #include <Rcpp/config.h>
 #include <Rcpp/macros/unroll.h>
@@ -66,99 +50,6 @@ namespace Rcpp{
 
 #include <Rcpp/module/macros.h>
 
-#ifdef __GNUC__
-    #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-    // g++ 4.5 does not seem to like some of the fast indexing
-    #if GCC_VERSION >= 40500
-        #define IS_GCC_450_OR_LATER
-    #endif
-    // g++ 4.6 switches from exception_defines.h to bits/exception_defines.h
-    #if GCC_VERSION < 40600
-        #define IS_EARLIER_THAN_GCC_460
-    #endif
-    #if GCC_VERSION >= 40600
-        #define IS_GCC_460_OR_LATER
-    #endif
-#endif
-
-// Check C++0x features
-#if defined(__INTEL_COMPILER)
-    #if __cplusplus >= 201103L
-        #define HAS_CXX0X_FLAG
-        #if __INTEL_COMPILER >= 1210
-            // #define HAS_VARIADIC_TEMPLATES
-        #endif
-        #if __INTEL_COMPILER >= 1100
-            #define HAS_STATIC_ASSERT
-        #endif
-    #endif
-#elif defined(__clang__)
-    #if __cplusplus >= 201103L
-        #define HAS_CXX0X_FLAG
-        #if __has_feature(cxx_variadic_templates)
-            // #define HAS_VARIADIC_TEMPLATES
-        #endif
-        #if __has_feature(cxx_static_assert)
-            #define HAS_STATIC_ASSERT
-        #endif
-    #endif
-#elif defined(__GNUC__)
-    #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        // #define HAS_CXX0X_FLAG
-        #if GCC_VERSION >= 40300
-            // #define HAS_VARIADIC_TEMPLATES
-            #define HAS_STATIC_ASSERT
-        #endif
-    #endif
-#endif
-
-// Check C++0x headers
-#include <cmath>
-#if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
-    #if defined(__GLIBCXX__) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-        #if __GLIBCXX__ >= 20090421 // GCC 4.4.0
-            #define HAS_CXX0X_UNORDERED_MAP
-            #define HAS_CXX0X_UNORDERED_SET
-            #define HAS_CXX0X_INITIALIZER_LIST
-        #endif
-    #endif
-#elif defined(__clang__)
-    #if __cplusplus >= 201103L
-        #if __has_include(<unordered_map>)
-            #define HAS_CXX0X_UNORDERED_MAP
-        #endif
-        #if __has_include(<unordered_set>)
-            #define HAS_CXX0X_UNORDERED_SET
-        #endif
-        #if __has_include(<initializer_list>)
-            #define HAS_CXX0X_INITIALIZER_LIST
-        #endif
-    #endif
-#endif
-
-// Check TR1 Headers
-#if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
-    #if defined(__GLIBCXX__)
-        #if __GLIBCXX__ >= 20070719 // GCC 4.2.1
-            #define HAS_TR1_UNORDERED_MAP
-            #define HAS_TR1_UNORDERED_SET
-        #endif
-    #endif
-#elif defined(__clang__)
-    #if __cplusplus >= 201103L
-        #if __has_include(<tr1/unordered_map>)
-            #define HAS_TR1_UNORDERED_MAP
-        #endif
-        #if __has_include(<tr1/unordered_set>)
-            #define HAS_TR1_UNORDERED_SET
-        #endif
-    #endif
-#endif
-
-#if defined(HAS_TR1_UNORDERED_MAP) && defined(HAS_TR1_UNORDERED_SET)
-#define HAS_TR1
-#endif
-
 #include <iterator>
 #include <exception>
 #include <iostream>
@@ -177,43 +68,6 @@ namespace Rcpp{
 #include <limits>
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
-
-// Conditionally include headers
-#ifdef HAS_CXX0X_INITIALIZER_LIST
-#include <initializer_list>
-#endif
-
-#ifdef HAS_CXX0X_FLAG
-    #if defined(HAS_CXX0X_UNORDERED_MAP)
-        #include <unordered_map>
-        #define RCPP_UNORDERED_MAP std::unordered_map
-    #else
-        #include <map>
-        #define RCPP_UNORDERED_MAP std::map
-    #endif
-    #if defined(HAS_CXX0X_UNORDERED_SET)
-        #include <unordered_set>
-        #define RCPP_UNORDERED_SET std::unordered_set
-    #else
-        #include <set>
-        #define RCPP_UNORDERED_SET std::set
-    #endif
-#else
-    #if defined(HAS_TR1_UNORDERED_MAP)
-        #include <tr1/unordered_map>
-        #define RCPP_UNORDERED_MAP std::tr1::unordered_map
-    #else
-        #include <map>
-        #define RCPP_UNORDERED_MAP std::map
-    #endif
-    #if defined(HAS_TR1_UNORDERED_SET)
-        #include <tr1/unordered_set>
-        #define RCPP_UNORDERED_SET std::tr1::unordered_set
-    #else
-        #include <set>
-        #define RCPP_UNORDERED_SET std::set
-    #endif
-#endif
 
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
 #define R_NO_REMAP
@@ -240,32 +94,6 @@ inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
 #define RcppExport extern "C"
 
 RcppExport void init_Rcpp_routines(DllInfo*) ;
-
-namespace Rcpp{
-    namespace internal{
-        template <typename T> int rcpp_call_test(T t){
-            return T::r_type::value ;
-        }
-        int rcpp_call_test_(SEXP) ;
-    }
-}
-
-extern "C" SEXP rcpp_call_test(SEXP x) ;
-
-/* just testing variadic templates */
-#ifdef HAS_VARIADIC_TEMPLATES
-template<typename... Args>
-int variadic_length( const Args&... args) { return sizeof...(Args) ; }
-#endif
-
-#ifdef HAS_VARIADIC_TEMPLATES
-RcppExport inline SEXP canUseCXX0X(){ return Rf_ScalarLogical( TRUE ); }
-#else
-RcppExport inline SEXP canUseCXX0X(){ return Rf_ScalarLogical( FALSE ); }
-#endif
-
-
-RcppExport SEXP capabilities() ;
 
 const char * sexp_to_name(int sexp_type); 
 
@@ -294,20 +122,6 @@ namespace Rcpp{
 namespace Rcpp {
 	  inline void stop(const std::string& message) { throw Rcpp::exception(message.c_str()); }
 } // namespace Rcpp
-
-#if RCPP_DEBUG_LEVEL > 0
-    #include <typeinfo>
-#endif
-
-#ifdef __GNUC__
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
-#ifdef LONG_LONG_MAX
-    __extension__ typedef long long int rcpp_long_long_type;
-    __extension__ typedef unsigned long long int rcpp_ulong_long_type;
-    #define RCPP_HAS_LONG_LONG_TYPES
-#endif
-#endif
-#endif
 
 namespace Rcpp{
     template <typename T> class object ;
