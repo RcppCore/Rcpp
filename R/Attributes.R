@@ -459,6 +459,15 @@ sourceCppFunction <- function(func, dll, symbol) {
     # add cygwin message muffler
     buildEnv$CYGWIN = "nodosfilewarning"
     
+    # on windows see if we need to add Rtools to the path
+    # (don't do this for RStudio since it has it's own handling)
+    if (identical(Sys.info()[['sysname']], "Windows") &&
+        !nzchar(Sys.getenv("RSTUDIO"))) {
+        path <- .pathWithRtools()
+        if (!is.null(path))
+            buildEnv$PATH <- path
+    }
+    
     # create restore list
     restore <- list()
     for (name in names(buildEnv))
@@ -470,6 +479,49 @@ sourceCppFunction <- function(func, dll, symbol) {
     # return restore list
     return (restore)
 }
+
+
+# If we don't have the GNU toolchain already on the path then see if 
+# we can find Rtools and add it to the path
+.pathWithRtools <- function() {
+    
+    # Only proceed if we don't have the required tools on the path
+    hasRtools <- nzchar(Sys.which("ls.exe")) && nzchar(Sys.which("gcc.exe"))
+    if (!hasRtools) {
+        
+        # Read the Rtools registry key
+        key <- NULL
+        try(key <- utils::readRegistry("SOFTWARE\\R-core\\Rtools",
+                                       hive = "HLM", view = "32-bit"), 
+            silent = TRUE)
+        
+        # If we found the key examine it
+        if (!is.null(key)) {
+            
+            # Check version -- we only support 2.15 and 2.16 right now
+            ver <- key$`Current Version`
+            if (identical("2.15", ver) || identical("2.16", ver)) {
+                
+                # See if the InstallPath leads to the expected directories
+                rToolsPath <- key$`InstallPath`
+                if (!is.null(rToolsPath)) {
+                    
+                    # Return modified PATH if execpted directories exist
+                    binPath <- file.path(rToolsPath, "bin", fsep="\\")
+                    gccPath <- file.path(rToolsPath, "gcc-4.6.3", "bin", fsep="\\")
+                    if (file.exists(binPath) && file.exists(gccPath))
+                        return(paste(binPath, 
+                                     gccPath, 
+                                     Sys.getenv("PATH"), 
+                                     sep=.Platform$path.sep))
+                }  
+            }
+        }
+    }
+    
+    return(NULL)
+}
+
 
 # Build CLINK_CPPFLAGS from include directories of LinkingTo packages
 .buildClinkCppFlags <- function(linkingToPackages) {
@@ -660,27 +712,11 @@ sourceCppFunction <- function(func, dll, symbol) {
                      "were not found.\n\n", sep="")
         sysName <- Sys.info()[['sysname']]
         if (identical(sysName, "Windows")) {
-          
-            # different message depending on whether Rtools is installed
-            key <- NULL
-            try(key <- utils::readRegistry("SOFTWARE\\R-core\\Rtools", 
-                                           hive = "HLM", 
-                                           view = "32-bit"), 
-                silent = TRUE)
+            msg <- paste(msg, "Please download and install the appropriate ",
+                              "version of Rtools:\n\n",
+                              "http://cran.r-project.org/bin/windows/Rtools/\n",
+                              sep="");
             
-            if (!is.null(key) && !is.null(key$`Current Version`)) {
-                msg <- paste(msg, "Rtools appears to be installed however you ",
-                             "may not have updated the PATH.\n",
-                             "Please run the Rtools installer and follow ",
-                             "the instructions for updating\n",
-                             "the system PATH during installation.\n", 
-                             sep="")
-            } else {
-                msg <- paste(msg, "Please download and install the appropriate ",
-                             "version of Rtools:\n\n",
-                             "http://cran.r-project.org/bin/windows/Rtools/\n",
-                             sep="");
-            }
         } else if (identical(sysName, "Darwin")) {
             msg <- paste(msg, "Please install Command Line Tools for XCode ",
                          "(or equivalent).\n", sep="")
