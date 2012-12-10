@@ -54,8 +54,6 @@ namespace Rcpp{
     } // internal 
 } // Rcpp
 
-#include <Rcpp/module/macros.h>
-
 #include <iterator>
 #include <exception>
 #include <iostream>
@@ -122,39 +120,8 @@ namespace Rcpp{
 	}
 }	
 
-// DO NOT CHANGE THE ORDER OF THESE INCLUDES
-#include <Rcpp/traits/integral_constant.h>
-#include <Rcpp/traits/same_type.h>
-#include <Rcpp/traits/named_object.h>
+#include <Rcpp/traits/traits.h>
 #include <Rcpp/Named.h>
-#include <Rcpp/traits/is_convertible.h>
-#include <Rcpp/traits/has_iterator.h>
-#include <Rcpp/traits/expands_to_logical.h>
-#include <Rcpp/traits/matrix_interface.h>
-#include <Rcpp/traits/is_sugar_expression.h>
-#include <Rcpp/traits/is_eigen_base.h>
-#include <Rcpp/traits/has_na.h>
-#include <Rcpp/traits/storage_type.h>
-#include <Rcpp/traits/r_sexptype_traits.h>
-#include <Rcpp/traits/storage_type.h>
-#include <Rcpp/traits/comparator_type.h>
-#include <Rcpp/traits/r_type_traits.h>
-#include <Rcpp/traits/un_pointer.h>
-#include <Rcpp/traits/is_pointer.h>
-#include <Rcpp/traits/wrap_type_traits.h>
-#include <Rcpp/traits/module_wrap_traits.h>
-#include <Rcpp/traits/is_na.h>
-#include <Rcpp/traits/if_.h>
-#include <Rcpp/traits/get_na.h>
-#include <Rcpp/traits/is_trivial.h>
-#include <Rcpp/traits/init_type.h>
-
-#include <Rcpp/traits/is_const.h>
-#include <Rcpp/traits/is_reference.h>
-#include <Rcpp/traits/remove_const.h>
-#include <Rcpp/traits/remove_reference.h>
-#include <Rcpp/traits/remove_const_and_reference.h>
-#include <Rcpp/traits/result_of.h>
 
 #include <Rcpp/internal/caster.h>
 #include <Rcpp/internal/r_vector.h>
@@ -166,7 +133,6 @@ namespace Rcpp{
 #include <Rcpp/Datetime_forward.h>
 
 #include <Rcpp/internal/export.h>
-#include <Rcpp/traits/Exporter.h>
 #include <Rcpp/internal/r_coerce.h>
 #include <Rcpp/as.h>
 
@@ -184,6 +150,7 @@ namespace Rcpp{
 #include <Rcpp/sugar/sugar_forward.h>
 
 #include <Rcpp/cache.h>
+
 
 // "Rcout" iostream class contributed by Jelmer Ypma
 #include <Rcpp/iostream/Rstreambuf.h>
