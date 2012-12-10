@@ -74,12 +74,6 @@ namespace Rcpp{
 #include <Rcpp/sprintf.h>
 
 
-inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
-    PROTECT(car) ;
-    car = Rf_lcons( car, cdr ) ; 
-    UNPROTECT(1) ;
-    return car ;
-}
 #include <Rcpp/lang.h>
 
 #include <Rcpp/complex.h>
