@@ -1,7 +1,12 @@
 2012-12-10 Romain Francois <romain@r-enthusiasts.com>
 
-        * src/api.cpp: import r_cast.cpp content
-
+        * src/api.cpp: import r_cast.cpp, coerce.cpp, RcppCommon.cpp
+        and debugging.cpp content
+        * include/platform/compiler.h: put here compiler specific deduction things
+        * src/internal.h: new header to host function declarations for 
+        routines that are not exported into Rcpp.h (capabilities, ...)
+        * src/Rcpp_init.c: export capabilities (renamed rcpp_capabilities)
+        
 2012-12-09 Romain Francois <romain@r-enthusiasts.com>
 
         * src/api.cpp: merge many .cpp files here to reduce compile time
