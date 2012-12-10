@@ -42,6 +42,8 @@
 #define END_RCPP_RETURN_ERROR } catch( std::exception& __ex__ ){ return exception_to_try_error( __ex__ ) ; } catch(...){ return string_to_try_error( "c++ exception (unknown reason)" ) ; } return R_NilValue;
 #endif
 
+#define Rcpp_error(MESSAGE) throw Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
+
 #include <Rcpp/macros/debug.h>
 #include <Rcpp/macros/unroll.h>
 #include <Rcpp/macros/dispatch.h>
