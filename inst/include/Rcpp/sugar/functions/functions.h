@@ -68,4 +68,6 @@
 #include <Rcpp/sugar/functions/self_match.h>
 #include <Rcpp/sugar/functions/setdiff.h>
 
+#include <Rcpp/sugar/functions/strings/strings.h>
+
 #endif

@@ -82,7 +82,7 @@ public:
         bool operator<=( const iterator& other ) { return index <= other.index ; }
         bool operator>=( const iterator& other ) { return index >= other.index ; }
                 
-        inline reference operator[]( int i){
+        inline reference operator[]( int i) const {
             return row[ index + i ] ;
         }
                 
