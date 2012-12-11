@@ -119,6 +119,15 @@ namespace Rcpp {
             setBuffer() ; buffer += other ; valid = false ;
             return *this ;
         }       
+        inline String& operator+=( const StringProxy& proxy){ 
+            RCPP_STRING_DEBUG( "String::operator+=( const StringProxy& )" ) ;
+            if( is_na() ) return *this ;
+            SEXP proxy_sexp = proxy ;
+            if( proxy_sexp == NA_STRING ) { data = NA_STRING ; valid = true; buffer_ready = false ; return *this ;}
+            setBuffer() ; buffer += CHAR(proxy_sexp) ; valid = false ;
+            RCPP_STRING_DEBUG_1( "String::operator+=( const StringProxy& ), buffer = %s", buffer.c_str() ) ;
+            return *this ;
+        }  
         
         // inline String& operator+=( int x     ){ data += char_nocheck(internal::r_coerce<INTSXP ,STRSXP>( x ) ) ; return *this ; }
         // inline String& operator+=( double x  ){ data += char_nocheck(internal::r_coerce<REALSXP,STRSXP>( x ) ) ; return *this ; }
@@ -126,7 +135,6 @@ namespace Rcpp {
         // inline String& operator+=( bool x    ){ data += char_nocheck(internal::r_coerce<LGLSXP ,STRSXP>( x ) ) ; return *this ; }
         // inline String& operator+=( Rcomplex x){ data += char_nocheck(internal::r_coerce<CPLXSXP,STRSXP>( x ) ) ; return *this ; }
         // inline String& operator+=( SEXP x){ data += CHAR(x) ; return *this ; }                              
-        // inline String& operator+=( const StringProxy& proxy){ data += CHAR(proxy.get()) ; return *this ; }  
         
         
         inline String& replace_first( const char* s, const char* news ){

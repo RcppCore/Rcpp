@@ -75,9 +75,7 @@ namespace Rcpp{
 
 
 #include <Rcpp/lang.h>
-
 #include <Rcpp/complex.h>
-
 #include <Rcpp/barrier.h>
 
 #define RcppExport extern "C"
@@ -99,10 +97,7 @@ namespace Rcpp{
 #include <Rcpp/internal/r_vector.h>
 #include <Rcpp/r_cast.h>
 
-#include <Rcpp/internal/wrap_forward.h>
-
-#include <Rcpp/Date_forward.h>
-#include <Rcpp/Datetime_forward.h>
+#include <Rcpp/api/bones/bones.h>
 
 #include <Rcpp/internal/export.h>
 #include <Rcpp/internal/r_coerce.h>
