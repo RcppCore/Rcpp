@@ -15,6 +15,8 @@
       \item utility class sugar::IndexHash inspired from Simon Urbanek's fastmatch
       package
       \item Implementation of the equality operator between two Rcomplex
+      \item \code{RNGScope} now has an internal counter that enables it
+      to be safely used multiple times in the same stack frame.
     }
     \item Changes in Rcpp sugar:
     \itemize{
@@ -26,16 +28,23 @@
         \item New function \code{collapse} that implements paste(., collapse= "" )
     }
     \item Changes in Rcpp attributes: 
-        \itemize{
-            \item Use code generation rather than modules to implement
-            \code{sourceCpp} and \code{compileAttributes} (eliminates 
-            problem with exceptions not being able to cross shared library
-            boundaries on Windows)
-            \item Functions exported by \code{sourceCpp} now directly
-            hookup to the external symbol pointer
-            \item Diagnostics are printed to the console if \code{sourceCpp}
-            fails and R development tools are not installed
-        }
+    \itemize{
+        \item Use code generation rather than modules to implement
+        \code{sourceCpp} and \code{compileAttributes} (eliminates 
+        problem with exceptions not being able to cross shared library
+        boundaries on Windows)
+        \item Exported functions now automatically establish an \code{RNGScope}
+        \item Functions exported by \code{sourceCpp} now directly
+        reference the external function pointer rather than rely on 
+        dynlib lookup
+        \item On Windows, Rtools is automatically added to the PATH
+        during \code{sourceCpp} compilations
+        \item Diagnostics are printed to the console if \code{sourceCpp}
+        fails and C++ development tools are not installed
+        \item A warning is printed if when \code{compileAttributes} detects
+        \code{Rcpp::depends} attributes in source files that are not 
+        matched by Depends/LinkingTo entries in the package DESCRIPTION
+    }
   }
 }
 
