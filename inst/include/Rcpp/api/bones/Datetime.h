@@ -2,7 +2,7 @@
 //
 // Datetime_forward.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,8 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__Datetime_forward_h
-#define Rcpp__Datetime_forward_h
+#ifndef Rcpp__api__bones__Datetime_h
+#define Rcpp__api__bones__Datetime_h
 
 namespace Rcpp {
 	class Datetime ;

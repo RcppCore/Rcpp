@@ -1,9 +1,9 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// wrap.h: Rcpp R/C++ interface class library -- wrap implementations
+// wrap_extra_steps.h: Rcpp R/C++ interface class library -- wrap forward decl
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -20,10 +20,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_internal_wrap_forward_h
-#define Rcpp_internal_wrap_forward_h
-
-#include <iterator>
+#ifndef Rcpp__api__bones__wrap_extra_steps_h
+#define Rcpp__api__bones__wrap_extra_steps_h
 
 namespace Rcpp{
 	
