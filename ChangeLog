@@ -10,6 +10,7 @@
         implementing paste( . , collapse = "" )
         * include/Rcpp/complex.h: operator==( Rcomplex, Rcomplex )
         * src/api.cpp: implementation of operator==(Rcomplex, Rcomplex)
+        * include/Rcpp/vector/Vector.h: added const version of operator[](string)
 
 2012-12-10  JJ Allaire <jj@rstudio.org>
 
