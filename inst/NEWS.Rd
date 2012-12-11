@@ -14,6 +14,7 @@
       element of a character vector
       \item utility class sugar::IndexHash inspired from Simon Urbanek's fastmatch
       package
+      \item Implementation of the equality operator between two Rcomplex
     }
     \item Changes in Rcpp sugar:
     \itemize{

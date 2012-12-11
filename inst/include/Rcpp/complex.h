@@ -26,5 +26,6 @@ Rcomplex operator*( const Rcomplex& lhs, const Rcomplex& rhs) ;
 Rcomplex operator+( const Rcomplex& lhs, const Rcomplex& rhs) ;
 Rcomplex operator-( const Rcomplex& lhs, const Rcomplex& rhs) ;
 Rcomplex operator/( const Rcomplex& a, const Rcomplex& b) ;
+bool operator==( const Rcomplex& a, const Rcomplex& b) ;
 
 #endif
