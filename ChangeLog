@@ -9,6 +9,7 @@
         * src/AttributesParser.cpp: consolidate attributes into single file
         * src/AttributesTypes.h: consolidate attributes into single file
         * src/AttributesUtil.h: consolidate attributes into single file
+        * inst/NEWS.Rd: additional notes on changes to attributes
 
 2012-12-11 Romain Francois <romain@r-enthusiasts.com>
 
