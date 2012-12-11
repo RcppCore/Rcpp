@@ -96,7 +96,14 @@ Attributes
 
     o   Rcpp.package.skeleton should look for Rcpp::depends in cpp_files
         and call inline plugins, etc. as necessary to create a package
-        that can build the cpp file(s)
+        that can build the cpp file(s). Note that packages exporting plugins
+        (e.g. Eigen, Armadillo) don't currently provide custom Makevars
+        so this won't quite work for those packages.
+
+    o   Detect useDynLib .registration = TRUE and in that case emit .Call
+        wrappers as symbols rather than strings w/ PACKAGE =
+
+    o   Solution for the problem of sharing/propagating typedefs to RcppExports 
 
     o   Allow sourceCpp to build an entire directory
 
