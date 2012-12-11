@@ -273,6 +273,13 @@ public:
         return NameProxy( *this, name ) ;
     }
 	
+    inline NameProxy operator[]( const std::string& name ) const {
+        return NameProxy( const_cast<Vector&>(*this), name ) ;
+    }
+    inline NameProxy operator()( const std::string& name ) const {
+        return NameProxy( const_cast<Vector&>(*this), name ) ;
+    }
+	
     Vector& sort(){
         std::sort( 
             internal::r_vector_start<RTYPE>(m_sexp), 
