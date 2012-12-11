@@ -84,9 +84,8 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
   functions as callable from \proglang{R} and automatically generating the code
   required to invoke them. Attributes are intended to facilitate both interactive use
   of \proglang{C++} within \proglang{R} sessions as well as to support \proglang{R}
-  package development. Attributes are built on top of \pkg{Rcpp} modules
-  and their implementation is based on previous work in the \pkg{inline}
-  package \citep{CRAN:inline}.
+  package development. The implementation of attributes  is based on previous 
+  work in the \pkg{inline} package \citep{CRAN:inline}.
 }
 
 
@@ -128,8 +127,9 @@ functions include:
 \end{itemize}
 
 Attributes can also be used for package development via the
-\texttt{compileAttributes} function, which generates an \pkg{Rcpp} module for
-all exported functions within a package.
+\texttt{compileAttributes} function, which automatically generates
+\texttt{extern "C"} and \texttt{.Call} wrappers for \proglang{C++} 
+functions within pacakges.
 
 \section{Using Attributes}
 
@@ -254,12 +254,12 @@ the following C++ function:
 Will be exported to R as:
 
 % \begin{verbatim}
-% function (file, colNames = character(0), commentChar = "#", header = TRUE)
+% function (file, colNames = character(), commentChar = "#", header = TRUE)
 % \end{verbatim}
 \begin{kframe}
 \noindent
 \ttfamily
-\hlstd{}\hlkwa{function\ }\hlstd{}\hlopt{(}\hlstd{file}\hlopt{,\ }\hlstd{cols\ }\hlopt{=\ }\hlstd{}\hlkwd{character}\hlstd{}\hlopt{(}\hlstd{}\hlnum{0}\hlstd{}\hlopt{),\ }\hlstd{comment\ }\hlopt{=\ }\hlstd{}\hlstr{"\#"}\hlstd{}\hlopt{,\ }\hlstd{header\ }\hlopt{=\ }\hlstd{}\hlkwb{TRUE}\hlstd{}\hlopt{)\ }\hlstd{}\hspace*{\fill}
+\hlstd{}\hlkwa{function\ }\hlstd{}\hlopt{(}\hlstd{file}\hlopt{,\ }\hlstd{cols\ }\hlopt{=\ }\hlstd{}\hlkwd{character}\hlstd{}\hlopt{(),\ }\hlstd{comment\ }\hlopt{=\ }\hlstd{}\hlstr{"\#"}\hlstd{}\hlopt{,\ }\hlstd{header\ }\hlopt{=\ }\hlstd{}\hlkwb{TRUE}\hlstd{}\hlopt{)\ }\hlstd{}\hspace*{\fill}
 \mbox{}
 \normalfont
 \normalsize
@@ -268,6 +268,30 @@ Will be exported to R as:
 Note that C++ rules for default arguments still apply: they must occur 
 consecutively at the end of the function signature and (unlike R) can't rely
 on the values of other arguments.
+
+Not all \proglang{C++} defualt argument values can be parsed into their
+\proglang{R} equivalents, however the most common cases are supported, including:
+
+\begin{itemize}
+\item
+   String literals delimited by quotes (e.g. \texttt{"foo"})
+\item 
+   Decimal numeric values (e.g. \texttt{10} or \texttt{4.5})
+\item
+   Pre-defined constants including \texttt{true}, \texttt{false}, 
+   \texttt{R\_NilValue}, \texttt{NA\_STRING}, \texttt{NA\_INTEGER},
+   \texttt{NA\_REAL}, and \texttt{NA\_LOGICAL}.
+\item
+   Selected vector types (\texttt{CharacterVector}, \texttt{IntegerVector}, 
+   and \texttt{NumericVector}) instantiated using the \texttt{::create}
+   static member function.
+\item 
+  \texttt{Matrix} types instantiated using the \texttt{rows}, 
+  \texttt{cols} constructor.
+\end{itemize}
+
+
+\pagebreak
 
 \subsection{Signaling Errors}
 
@@ -349,8 +373,7 @@ Multiple \proglang{R} code chunks can be included in a \proglang{C++} file. The
 \texttt{sourceCpp} function will first compile the \proglang{C++} code into a
 shared library and then source the embedded \proglang{R} code.
 
-
-
+\pagebreak
 
 \subsection{Modifying Function Names}
 
@@ -392,6 +415,22 @@ requirements to be correctly handled:
    \texttt{DataFrame} is okay as a type name but \texttt{std::string} must be
    specified fully).  
 \end{itemize}
+
+\subsection{Random Number Generation}
+
+\proglang{R} functions implemented in \proglang{C} or \proglang{C++} need
+to be careful to surround use of internal random number geneneration routines 
+(e.g. \texttt{unif\_rand}) with calls to \texttt{GetRNGstate} and 
+\texttt{PutRNGstate}. 
+
+Within \pkg{Rcpp}, this is typically done using the \texttt{RNGScope} class. 
+However, this is not necessary for \proglang{C++} functions exported using 
+attributes because an \texttt{RNGScope} is established for them automatically.
+Note that \pkg{Rcpp} implements \texttt{RNGScope} using a counter, so it's
+still safe to execute code that may establish it's own \texttt{RNGScope} (such
+as the \pkg{Rcpp} sugar functions that deal with random number generation).
+
+\pagebreak
 
 \subsection{Importing Dependencies}
 
@@ -475,6 +514,12 @@ either by using multiple \texttt{Rcpp::depends} attributes or with syntax like t
 
 Dependencies are discovered both by scanning for package include directories
 and by invoking \pkg{inline} plugins if they are available for a package.
+
+Note that while the \texttt{Rcpp::depends} attribute establishes dependencies
+for \texttt{sourceCpp}, it's important to note that if you include the same
+source file in an \proglang{R} package these dependencies must still be 
+listed in the \texttt{Depends} and \texttt{LinkingTo} fields of the package
+\texttt{DESCRIPTION} file.
 
 
 \subsection{Including C++ Inline}
@@ -591,50 +636,6 @@ with \texttt{sourceCpp} you can use the \texttt{cpp\_files} parameter:
 \normalsize
 \end{kframe}
 
-\subsection{Exporting R Functions}
-
-Within interactive sessions you call the \texttt{sourceCpp} function
-on individual files to export \proglang{C++} functions into the global 
-environment. However, for packages you call a single utility function to
-export all \proglang{C++} functions within the package.
-
-     The \texttt{compileAttributes} function scans the source files within a package
-for export attributes and generates code as required. For example, executing
-this from within the package working directory:
-
-% \begin{verbatim}
-% > compileAttributes()
-% \end{verbatim}
-
-\begin{kframe}
-\noindent
-\ttfamily
-\hlstd{}\hlopt{>\ }\hlstd{}\hlkwd{compileAttributes}\hlstd{}\hlopt{()}\hlstd{}\hspace*{\fill}
-\mbox{}
-\normalfont
-\normalsize
-\end{kframe}
-
-Results in the generation of the following two source files:
-
-\begin{itemize}
-\item
-  \texttt{src/RcppExports.cpp} -- An \pkg{Rcpp} module that exports the functions
-\item
-  \texttt{R/RcppExports.R} -- The \proglang{R} code required to load the
-  \pkg{Rcpp} module
-\end{itemize}
-
-You should re-run \texttt{compileAttributes} whenever functions are added, 
-removed, or have their signatures changed.
-
-The \texttt{compileAttributes} function deals only with exporting
-\proglang{C++} functions to \proglang{R}. If you want the functions to 
-additionally be publicly available from your package's namespace another 
-step may be required. Specifically, if your package \texttt{NAMESPACE} file 
-does not use a pattern to export functions then you should add an explicit
-entry to \texttt{NAMESPACE} for each R function you want publicly available.
-
 \subsection{Specifying Dependencies}
 
 Once you've migrated \proglang{C++} code into a package, the dependencies for
@@ -659,6 +660,51 @@ LinkingTo:\ Rcpp,\ RcppArmadillo}\hspace*{\fill}
 \normalfont
 \normalsize
 \end{kframe}
+
+\subsection{Exporting R Functions}
+
+Within interactive sessions you call the \texttt{sourceCpp} function
+on individual files to export \proglang{C++} functions into the global 
+environment. However, for packages you call a single utility function to
+export all \proglang{C++} functions within the package.
+
+The \texttt{compileAttributes} function scans the source files within a package
+for export attributes and generates code as required. For example, executing
+this from within the package working directory:
+
+% \begin{verbatim}
+% > compileAttributes()
+% \end{verbatim}
+
+\begin{kframe}
+\noindent
+\ttfamily
+\hlstd{}\hlopt{>\ }\hlstd{}\hlkwd{compileAttributes}\hlstd{}\hlopt{()}\hlstd{}\hspace*{\fill}
+\mbox{}
+\normalfont
+\normalsize
+\end{kframe}
+
+Results in the generation of the following two source files:
+
+\begin{itemize}
+\item
+  \texttt{src/RcppExports.cpp} -- The \texttt{extern "C"} wrappers required
+  to call exported \proglang{C++} functions within the package.
+\item
+  \texttt{R/RcppExports.R} -- The \texttt{.Call} wrappers required to call
+  the \texttt{extern "C"} functions defined in \texttt{RcppExports.cpp}.
+\end{itemize}
+
+You should re-run \texttt{compileAttributes} whenever functions are added, 
+removed, or have their signatures changed.
+
+The \texttt{compileAttributes} function deals only with exporting
+\proglang{C++} functions to \proglang{R}. If you want the functions to 
+additionally be publicly available from your package's namespace another 
+step may be required. Specifically, if your package \texttt{NAMESPACE} file 
+does not use a pattern to export functions then you should add an explicit
+entry to \texttt{NAMESPACE} for each R function you want publicly available.
 
 \subsection{Roxygen Comments}
 
@@ -714,18 +760,6 @@ Results in the following code in the generated \proglang{R} source file:
 \normalfont
 \normalsize
 \end{kframe}
-
-Two notes about the R functions written to \texttt{RcppExports.R} for use with
-roxygen:
-\begin{enumerate}
-\item The generated R functions have an empty body. This is because they are 
-only present for binding to roxygen comments. A call to \texttt{Rcpp::loadModule}
-will replace the empty definitions with the appropriate \proglang{C++} functions.
-\item The functions do not include argument defaults since they are 
-not known at the time of generation. If you have argument defaults that you'd
-like included in the Rd usage section you can do this by adding an explicit
-\texttt{@usage} roxygen tag.
-\end{enumerate}
 
 \subsection{Providing a C++ Interface}
 
@@ -869,32 +903,6 @@ in the \texttt{src} directory of your package):
 Note that the R package build system does not automatically force a rebuild
 when headers in \texttt{inst/include} change, so you should be sure to perform a
 full rebuild of the package after making changes to these headers.
-
-\subsubsection{Binary Compatibility}
-
-An additional consideration related to exposing \proglang{C++} types from a 
-package is binary compatibility. If a user of your package compiles against 
-one version of the package and then runs against another version the binary
-layout of \proglang{C++} types used must remain stable in order for things to work
-correctly. Note that this is an issue that affects all \proglang{C++} interfaces
-exposed by shared libraries and is not specific to \proglang{R} packages or 
-\pkg{Rcpp}. A summary of the issues presented can be found in
-`\textsl{Binary Compatibility Issues with C++}' \citep{KDE-TechBase:2012}.
-
-Note that if your package is used within a \proglang{C++} source file compiled with
-\texttt{sourceCpp} then binary compatibility is not a concern (because the 
-compilation is always synchronized with the currently installed version of your
-package). Also, packages published on \texttt{CRAN} are automatically rebuilt when a
-package they depend on via \texttt{LinkingTo} is updated, so users with updated
-versions of all packages will similarly not have binary compatibility problems.
-
-However, even when installing from \texttt{CRAN} it's possible for users to
-have the latest version of one package but not of another. If you want to
-minimize binary compatibility problems even in the face of out-of-sync package
-versions then it's strongly recommended that you use only use built-in
-\proglang{C++} types and \pkg{Rcpp} wrapper types in your interfaces. 
-
-\pagebreak
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}
