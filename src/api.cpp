@@ -1148,6 +1148,9 @@ Rcomplex operator/( const Rcomplex& a, const Rcomplex& b){
     }
     return c ;
 }
+bool operator==( const Rcomplex& a, const Rcomplex& b){
+    return a.r == b.r && a.i == b.i ;    
+}
 // }}}
 
 // {{{ utilities (from RcppCommon.cpp)
