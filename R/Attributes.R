@@ -111,6 +111,10 @@ sourceCpp <- function(file = "",
                 cat(result, "\n")
                 succeeded <- FALSE
                 stop("Error ", status, " occurred building shared library.")
+            } else if (!file.exists(context$dynlibFilename)) {
+                cat(result, "\n")
+                succeeded <- FALSE
+                stop("Error occurred building shared library.")
             } else {
                 succeeded <- TRUE
             }
@@ -333,7 +337,7 @@ sourceCppFunction <- function(func, dll, symbol) {
         "\n--------------------------------------------------------\n")
     cat(context$generatedCpp, sep="")
     
-    cat("\nGenerated R .Call bindings",
+    cat("\nGenerated R functions",
         "\n-------------------------------------------------------\n\n")
     cat(readLines(file.path(context$buildDirectory, 
                             context$rSourceFilename)), 
