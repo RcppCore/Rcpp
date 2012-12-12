@@ -2,7 +2,7 @@
 //
 // Symbol.h: Rcpp R/C++ interface class library -- access R environments
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -52,7 +52,9 @@ namespace Rcpp{
          */ 
         ~Symbol() ;
 
-        inline const char* c_str(){ return CHAR(PRINTNAME(m_sexp)) ; }
+        inline const char* c_str() const { return CHAR(PRINTNAME(m_sexp)) ; }
+        
+        inline bool operator==(const char* other) const { return ! strcmp(other, c_str() ); }
     };
 
 } // namespace Rcpp
