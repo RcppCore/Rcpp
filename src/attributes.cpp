@@ -94,11 +94,11 @@ namespace Rcpp {
 namespace attributes {
      
     // Known attribute names & parameters
-    extern const char * const kExportAttribute;
-    extern const char * const kDependsAttribute;
-    extern const char * const kInterfacesAttribute;
-    extern const char * const kInterfaceR;
-    extern const char * const kInterfaceCpp; 
+    const char * const kExportAttribute = "export";
+    const char * const kDependsAttribute = "depends";
+    const char * const kInterfacesAttribute = "interfaces";
+    const char * const kInterfaceR = "r";
+    const char * const kInterfaceCpp = "cpp";
      
     // Type info
     class Type {
@@ -777,13 +777,6 @@ namespace attributes {
         }
         return os;
     }
-    
-    // Known attribute names
-    const char * const kExportAttribute = "export";
-    const char * const kDependsAttribute = "depends";
-    const char * const kInterfacesAttribute = "interfaces";
-    const char * const kInterfaceR = "r";
-    const char * const kInterfaceCpp = "cpp";
       
     // Parse the attributes from a source file
     SourceFileAttributesParser::SourceFileAttributesParser
