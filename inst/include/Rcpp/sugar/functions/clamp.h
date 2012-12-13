@@ -32,7 +32,7 @@ struct clamp_operator{
     clamp_operator(STORAGE lhs_, STORAGE rhs_ ) : lhs(lhs_), rhs(rhs_){}
     
     inline STORAGE operator()(STORAGE x) const {
-        return lhs < x ? lhs : (x < rhs ? x : rhs ) ;
+        return x < lhs ? lhs : (x > rhs ? rhs : x ) ;
     }
     STORAGE lhs, rhs ;    
 } ;
@@ -43,7 +43,7 @@ struct clamp_operator<REALSXP,true> {
     
     inline double operator()(double x) const {
         if( Rcpp::traits::is_na<REALSXP>(x) )  return x ;
-        return lhs < x ? lhs : (x < rhs ? x : rhs ) ;
+        return x < lhs ? lhs : (x > rhs ? rhs : x ) ;
     }
     double lhs, rhs ;    
 } ;

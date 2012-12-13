@@ -696,4 +696,12 @@ test.intersect <- function(){
     checkEquals( runit_intersect( 1:10, 1:5 ), intersect( 1:10, 1:5 ) )
 }
 
+test.clamp <- function(){
+    r_clamp <- function(a, x, b) pmax(a, pmin(x, b) )
+    checkEquals( 
+        runit_clamp( -1, seq(-3,3, length=100), 1 ), 
+        r_clamp( -1, seq(-3,3, length=100), 1 )
+    )
+}
+
 }
