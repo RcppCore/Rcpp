@@ -36,7 +36,8 @@ sourceCpp <- function(file = "",
     file <- normalizePath(file, winslash = "/")
      
     # get the context (does code generation as necessary)
-    context <- .Call("sourceCppContext", PACKAGE="Rcpp", file, code, .Platform)
+    context <- .Call("sourceCppContext", PACKAGE="Rcpp", 
+                     file, code, rebuild, .Platform)
     
     # perform a build if necessary
     if (context$buildRequired || rebuild) {
