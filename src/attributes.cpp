@@ -2511,11 +2511,13 @@ namespace {
 
 // Create temporary build directory, generate code as necessary, and return
 // the context required for the sourceCpp function to complete it's work
-RcppExport SEXP sourceCppContext(SEXP sFile, SEXP sCode, SEXP sPlatform) {
+RcppExport SEXP sourceCppContext(SEXP sFile, SEXP sCode, 
+                                 SEXP sRebuild, SEXP sPlatform) {
 BEGIN_RCPP
     // parameters
     std::string file = Rcpp::as<std::string>(sFile);
     std::string code = sCode != R_NilValue ? Rcpp::as<std::string>(sCode) : "";
+    bool rebuild = Rcpp::as<bool>(sRebuild);
     Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
     
     // get dynlib (using cache if possible)
@@ -2537,7 +2539,7 @@ BEGIN_RCPP
     }    
         
     // if the cached dynlib is dirty then regenerate the source
-    else if (pDynlib->isSourceDirty()) {
+    else if (rebuild || pDynlib->isSourceDirty()) {
         buildRequired = true;    
         pDynlib->regenerateSource();
     }
