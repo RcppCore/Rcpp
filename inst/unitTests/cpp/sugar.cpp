@@ -574,4 +574,8 @@ IntegerVector runit_intersect( IntegerVector x, IntegerVector y){
     return intersect( x, y ) ;
 }
 
+// [[Rcpp::export]]
+NumericVector runit_clamp( double a, NumericVector x, double b){
+    return clamp( a, x, b ) ;
+}
 
