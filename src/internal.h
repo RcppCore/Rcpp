@@ -63,10 +63,8 @@ extern "C" {
     
     CALLFUN_0(reset_current_error);
     CALLFUN_1(rcpp_error_recorder);
-    CALLFUN_1(rcpp_set_current_error);
     CALLFUN_0(rcpp_get_current_error);
-    CALLFUN_1(rcpp_set_error_occured);
-    CALLFUN_0(rcpp_get_error_occured);
+    int error_occured() ;
     CALLFUN_1(rcpp_set_stack_trace);
     CALLFUN_0(rcpp_get_stack_trace);
     

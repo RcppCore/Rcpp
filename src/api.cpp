@@ -87,12 +87,9 @@ namespace Rcpp {
         /* call the tryCatch call */
         SEXP res  = PROTECT(::Rf_eval( call, RCPP ) );
         
-        /* was there an error ? */
-        int error = INTEGER( rcpp_get_error_occured())[0] ;
-        
         UNPROTECT(3) ;
         
-        if( error ) {
+        if( error_occured() ) {
             SEXP current_error        = PROTECT( rcpp_get_current_error() ) ;
             SEXP conditionMessageCall = PROTECT(::Rf_lang2(conditionMessageSym, current_error)) ;
             SEXP condition_message    = PROTECT(::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
