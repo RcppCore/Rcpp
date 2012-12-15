@@ -106,7 +106,7 @@ namespace Rcpp {
     // }}}
     
     // {{{ RObject
-        void RObject::setSEXP(SEXP x){
+    void RObject::setSEXP(SEXP x){
         RCPP_DEBUG_1( "RObject::setSEXP(SEXP = <%p> )", x ) ; 
     
         /* if we are setting to the same SEXP as we already have, do nothing */
@@ -1151,6 +1151,30 @@ Rcomplex operator/( const Rcomplex& a, const Rcomplex& b){
 bool operator==( const Rcomplex& a, const Rcomplex& b){
     return a.r == b.r && a.i == b.i ;    
 }
+// }}}
+
+// {{{ demangling
+#ifdef RCPP_HAS_DEMANGLING
+#include <cxxabi.h>
+
+std::string demangle( const std::string& name ){
+    std::string real_class ;
+    int status =-1 ;
+    char *dem = 0;
+    dem = abi::__cxa_demangle(name.c_str(), 0, 0, &status);
+    if( status == 0 ){
+        real_class = dem ;
+        free(dem);
+    } else {
+        real_class = name ;
+    }
+    return real_class ;
+}
+#else
+std::string demangle( const std::string& name ){
+	return name ;	
+}
+#endif
 // }}}
 
 // {{{ utilities (from RcppCommon.cpp)
