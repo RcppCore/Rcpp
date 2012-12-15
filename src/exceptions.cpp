@@ -67,77 +67,60 @@ const char* __CLASS__::what() const throw(){ return __MESSAGE__ ; }
 
 #undef RCPP_SIMPLE_EXCEPTION_WHAT
 }
-
-// for now, the fancy exception handling is only available in GCC, 
-// simply because we've not investigated if it is available in other 
-// compilers 
-#ifdef RCPP_HAS_DEMANGLING
-#include <typeinfo>
-#if defined(__GNUC__) && !defined(__clang__)
-  #ifdef IS_EARLIER_THAN_GCC_460
-    #include <exception_defines.h>
-  #endif
-  #ifdef IS_GCC_460_OR_LATER
-    #include <bits/exception_defines.h>
-  #endif
-#endif
-#ifdef __clang__
-  #if __has_include(<exception_defines.h>)
-    #include <exception_defines.h>
-  #elif  __has_include(<bits/exception_defines.h>)
-    #include <bits/exception_defines.h>
-  #else
-    #error clang could not find <exception_defines.h>
-  #endif
-#endif
-#include <cxxabi.h>
-
-std::string demangle( const std::string& name ){
-    std::string real_class ;
-    int status =-1 ;
-    char *dem = 0;
-    dem = abi::__cxa_demangle(name.c_str(), 0, 0, &status);
-    if( status == 0 ){
-	real_class = dem ;
-	free(dem);
-    } else {
-	real_class = name ;
-    }
-    return real_class ;
+        
+SEXP get_last_call(){
+    SEXP sys_calls_symbol = Rf_install( "sys.calls" ) ;
+    SEXP sys_calls_expr = PROTECT( Rf_lang1(sys_calls_symbol) ) ;   
+    SEXP calls = PROTECT( Rf_eval( sys_calls_expr, R_GlobalEnv ) ) ;
+    SEXP res = calls ;
+    while( !Rf_isNull(CDR(res)) ) res = CDR(res); 
+    UNPROTECT(2);
+    return CAR(res) ;
 }
 
+SEXP get_exception_classes( const std::string& ex_class) {
+    SEXP res = PROTECT( Rf_allocVector( STRSXP, 4 ) );
+    SET_STRING_ELT( res, 0, Rf_mkChar( ex_class.c_str() ) ) ;
+    SET_STRING_ELT( res, 1, Rf_mkChar( "C++Error" ) ) ;
+    SET_STRING_ELT( res, 2, Rf_mkChar( "error" ) ) ;
+    SET_STRING_ELT( res, 3, Rf_mkChar( "condition" ) ) ;
+    UNPROTECT(1) ;
+    return res;
+}
+
+SEXP make_condition(const std::string& ex_msg, SEXP call, SEXP cppstack, SEXP classes){
+    SEXP res = PROTECT( Rf_allocVector( VECSXP, 3 ) ) ;
+    SEXP message = PROTECT( Rf_mkString( ex_msg.c_str() ) ) ;
+    SET_VECTOR_ELT( res, 0, message ) ;
+    SET_VECTOR_ELT( res, 1, call ) ;
+    SET_VECTOR_ELT( res, 2, cppstack ) ;
+    SEXP names = PROTECT( Rf_allocVector( STRSXP, 3 ) ) ;
+    SET_STRING_ELT( names, 0, Rf_mkChar( "message" ) ) ;
+    SET_STRING_ELT( names, 1, Rf_mkChar( "call" ) ) ;
+    SET_STRING_ELT( names, 2, Rf_mkChar( "cppstack" ) ) ;
+    Rf_setAttrib( res, R_NamesSymbol, names ) ;
+    Rf_setAttrib( res, R_ClassSymbol, classes ) ;
+    UNPROTECT(3) ;
+    return res ;
+}
+
+SEXP exception_to_r_condition( const std::exception& ex){
+    std::string ex_class = demangle( typeid(ex).name() ) ;
+    std::string ex_msg   = ex.what() ; 
+    
+    SEXP cppstack = PROTECT( rcpp_get_stack_trace() ) ;
+    SEXP call = PROTECT( get_last_call() ) ;
+    SEXP classes = PROTECT( get_exception_classes(ex_class) ) ;
+    SEXP condition = PROTECT( make_condition( ex_msg, call, cppstack, classes ) ) ; 
+    rcpp_set_stack_trace( R_NilValue ) ;
+    UNPROTECT(4) ;
+    return condition ;
+}
 void forward_exception_to_r( const std::exception& ex){
-    std::string exception_class ;
-    std::string exception_what  = ex.what();
-    const char *name = typeid(ex).name() ;
-    // now we need to demangle "name"
-    {
-	int status = -1;
-	char *dem = 0;
-	dem = abi::__cxa_demangle(name, 0, 0, &status);
-	if( status == 0){
-	    exception_class = dem ; /* great we can use the demangled name */
-	    free(dem);
-	} else{
-	    exception_class = name ; /* just using the mangled name */
-	}
-    }
-    SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
-    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym,
-					  Rf_mkString(exception_what.c_str()), 
-					  Rf_mkString(exception_class.c_str())));
-    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); // Should not return
-    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
+    SEXP condition = PROTECT(exception_to_r_condition(ex)) ;
+    SEXP stop_sym  = Rf_install( "stop" ) ;
+    SEXP expr = PROTECT( Rf_lang2( stop_sym , condition ) );
+    UNPROTECT(2) ;
+    Rf_eval( expr, R_GlobalEnv ) ;
 }
-#else
-void forward_exception_to_r( const std::exception& ex){
-    SEXP cppExceptSym = Rf_install("cpp_exception"); // cannot cause a gc() once in symbol table
-    SEXP cppExceptExpr = PROTECT(Rf_lang3(cppExceptSym, Rf_mkString(ex.what()), R_NilValue)); 
-    Rf_eval(cppExceptExpr, R_FindNamespace(Rf_mkString("Rcpp"))); 	 // Should not return
-    UNPROTECT(1);    // in case someone replaces the definition of "cpp_exception" such that it does return
-}
-std::string demangle( const std::string& name ){
-	return name ;	
-}
-#endif
 

@@ -1,3 +1,9 @@
+2012-12-15 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/exceptions.h: added exception_to_r_condition
+        * exceptions.cpp: new implementation of forward_exception_to_r that 
+        directly calls stop rather than a function in Rcpp
+        
 2012-12-14 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/functions/clamp.h: clamp was pretty wrong
