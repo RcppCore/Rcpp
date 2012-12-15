@@ -50,15 +50,6 @@ static R_CallMethodDef callEntries[]  = {
     
     CALLDEF(get_rcpp_cache,0),
     CALLDEF(rcpp_error_recorder,1),
-    CALLDEF(rcpp_set_current_error,1),
-    CALLDEF(rcpp_get_current_error,0),
-    CALLDEF(rcpp_set_error_occured,1), 
-    CALLDEF(rcpp_get_error_occured,0),
-    CALLDEF(rcpp_set_stack_trace,1), 
-    CALLDEF(rcpp_get_stack_trace,0),
-    
-    
-    
     CALLDEF(as_character_externalptr,1),
     
     CALLDEF(CppField__get,3),
