@@ -3,6 +3,9 @@
         * include/Rcpp/exceptions.h: added exception_to_r_condition
         * exceptions.cpp: new implementation of forward_exception_to_r that 
         directly calls stop rather than a function in Rcpp
+        * R/exceptions.R: remove code rendered useless
+        * src/Rcpp_init.c: less exports
+        * src/api.cpp: less going back to the R side
         
 2012-12-14 Romain Francois <romain@r-enthusiasts.com>
 
