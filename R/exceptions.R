@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.rcpp_cache <- NULL
 cpp_exception <- function( message = "C++ exception", class = NULL, cppstack = rcpp_get_current_stack_trace() ){
     callstack <- sys.calls()
     ncalls <- length(callstack)

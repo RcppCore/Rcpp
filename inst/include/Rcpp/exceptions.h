@@ -128,6 +128,7 @@ RCPP_EXCEPTION_CLASS(eval_error, message )
 
 void forward_exception_to_r( const std::exception& ) ;
 SEXP exception_to_try_error( const std::exception& ) ;
+SEXP exception_to_r_condition( const std::exception& ) ;
 SEXP string_to_try_error( const std::string& ) ;
 
 std::string demangle( const std::string& name) ;
