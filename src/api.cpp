@@ -69,20 +69,21 @@ namespace Rcpp {
         reset_current_error() ; 
 
         Environment RCPP = Environment::Rcpp_namespace(); 
-        static SEXP tryCatchSym = NULL, evalqSym, getCurrentErrorMessageSym; //, errorOccuredSym;
+        static SEXP tryCatchSym = NULL, evalqSym, conditionMessageSym, errorRecorderSym, errorSym ;
         if (!tryCatchSym) {
             tryCatchSym               = ::Rf_install("tryCatch");
             evalqSym                  = ::Rf_install("evalq");
-            //errorOccuredSym           = ::Rf_install("errorOccured");
-            getCurrentErrorMessageSym = ::Rf_install("getCurrentErrorMessage");
+            conditionMessageSym       = ::Rf_install("conditionMessage");
+            errorRecorderSym          = ::Rf_install(".rcpp_error_recorder");
+            errorSym                  = ::Rf_install("error");
         }
 
         SEXP call = PROTECT( Rf_lang3( 
             tryCatchSym, 
             Rf_lang3( evalqSym, expr, env ),
-            Rf_install( ".rcpp_error_recorder" )
+            errorRecorderSym
         ) ) ;
-        SET_TAG( CDDR(call), Rf_install( "error" ) ) ;
+        SET_TAG( CDDR(call), errorSym ) ;
         /* call the tryCatch call */
         SEXP res  = PROTECT(::Rf_eval( call, RCPP ) );
         
@@ -92,8 +93,11 @@ namespace Rcpp {
         UNPROTECT(3) ;
         
         if( error ) {
-            std::string message(CHAR(::Rf_asChar(PROTECT(::Rf_eval(PROTECT(::Rf_lang1(getCurrentErrorMessageSym)), RCPP)))));
-            UNPROTECT( 2 ) ;
+            SEXP current_error        = PROTECT( rcpp_get_current_error() ) ;
+            SEXP conditionMessageCall = PROTECT(::Rf_lang2(conditionMessageSym, current_error)) ;
+            SEXP condition_message    = PROTECT(::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
+            std::string message(CHAR(::Rf_asChar(condition_message)));
+            UNPROTECT( 3 ) ;
             throw eval_error(message) ;
         }
 
