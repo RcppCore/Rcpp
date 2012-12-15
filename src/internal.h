@@ -60,6 +60,7 @@ extern "C" {
     
     CALLFUN_0(get_rcpp_cache);
     CALLFUN_0(init_Rcpp_cache);
+    
     CALLFUN_0(reset_current_error);
     CALLFUN_1(rcpp_error_recorder);
     CALLFUN_1(rcpp_set_current_error);
@@ -74,8 +75,7 @@ extern "C" {
 
     CALLFUN_0(rcpp_capabilities) ;
     CALLFUN_0(rcpp_can_use_cxx0x) ;
-    CALLFUN_1(rcpp_call_test) ;
-
+    
     /* .External functions */
     EXTFUN(CppMethod__invoke) ;
     EXTFUN(CppMethod__invoke_void) ;

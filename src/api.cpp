@@ -1312,14 +1312,6 @@ namespace internal{
 		return std::complex<float>(static_cast<float>(from.r), static_cast<float>(from.i) ) ;
 	}
 
-	// TODO: move these two things in testing
-	template <typename T> int rcpp_call_test(T t){
-        return T::r_type::value ;
-    }
-    int rcpp_call_test_(SEXP x){
-		RCPP_RETURN_VECTOR( rcpp_call_test, x );
-	}
-	
 	SEXP convert_using_rfunction(SEXP x, const char* const fun) {
         SEXP res = R_NilValue ;
         try{
@@ -1352,10 +1344,6 @@ namespace internal{
 	
 } // internal
 } // Rcpp
-
-SEXP rcpp_call_test(SEXP x){
-	return Rf_ScalarInteger( ::Rcpp::internal::rcpp_call_test_(x) ) ;
-}
 
 SEXP as_character_externalptr(SEXP xp){
 	char buffer[20] ;
