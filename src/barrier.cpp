@@ -62,14 +62,6 @@ static SEXP Rcpp_cache = R_NilValue ;
 #define RCPP_HASH_CACHE_INITIAL_SIZE 1024
 #endif 
 
-namespace Rcpp {
-    namespace internal {   
-		SEXP get_Rcpp_namespace(){ 
-			return VECTOR_ELT( Rcpp_cache , 0 ) ;
-		}
-	}
-}
-
 // only used for debugging
 SEXP get_rcpp_cache() {
     if( ! Rcpp_cache_know ){
@@ -82,6 +74,14 @@ SEXP get_rcpp_cache() {
         UNPROTECT(1) ;
     }
     return Rcpp_cache ;
+}
+
+namespace Rcpp {
+    namespace internal {   
+		SEXP get_Rcpp_namespace(){ 
+			return VECTOR_ELT( get_rcpp_cache() , 0 ) ;
+		}
+	}
 }
 
 SEXP set_error_occured(SEXP cache, SEXP e){
