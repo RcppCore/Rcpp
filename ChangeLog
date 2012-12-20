@@ -1,12 +1,17 @@
+2012-12-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/unitTests/Rcpp-unitTests.R: added one more variable so
+	that unitTest vignette can be built against new sourceCpp based files
+
 2012-12-15 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/exceptions.h: added exception_to_r_condition
-        * exceptions.cpp: new implementation of forward_exception_to_r that 
-        directly calls stop rather than a function in Rcpp
+        * exceptions.cpp: new implementation of forward_exception_to_r that
+	directly calls stop rather than a function in Rcpp
         * R/exceptions.R: remove code rendered useless
         * src/Rcpp_init.c: less exports
         * src/api.cpp: less going back to the R side
-        
+
 2012-12-14 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/functions/clamp.h: clamp was pretty wrong
@@ -16,17 +21,19 @@
 2012-12-12  JJ Allaire <jj@rstudio.org>
 
         * src/Attributes.R: always generate new dynlib file for rebuild=TRUE
-        * src/attributes.cpp: set svn:eol-style to native; always generate 
-        new dynlib file for rebuild=TRUE; don't declare attributes constant
-        strings extern
+        * src/attributes.cpp: set svn:eol-style to native; always generate
+	new dynlib file for rebuild=TRUE; don't declare attributes constant
+	strings extern
 
 2012-12-12 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/Symbol.h: c_str becomes const and added Symbol::operator==(const char* )
+        * include/Rcpp/Symbol.h: c_str becomes const and added
+	Symbol::operator==(const char* )
 
 2012-12-11  JJ Allaire <jj@rstudio.org>
-      
-        * R/Attributes.R: always print output when shared library is not created
+
+        * R/Attributes.R: always print output when shared library is not
+	created
         * src/attributes.cpp: consolidate attributes into single file
         * src/Attributes.cpp: consolidate attributes into single file
         * src/AttributesGen.h: consolidate attributes into single file
@@ -36,15 +43,15 @@
         * src/AttributesTypes.h: consolidate attributes into single file
         * src/AttributesUtil.h: consolidate attributes into single file
         * inst/NEWS.Rd: additional notes on changes to attributes
-        * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: update for changes 
-        to attributes in 0.10.2
+        * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: update for changes to
+	attributes in 0.10.2
 
 2012-12-11 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/String.h: missing operator +=( const StringProxy& )
         * include/Rcpp/sugar/functions/strings/strings.h : string sugar functions
-        * include/Rcpp/sugar/functions/strings/collapse.h : collapse function, 
-        implementing paste( . , collapse = "" )
+        * include/Rcpp/sugar/functions/strings/collapse.h : collapse
+	function, implementing paste( . , collapse = "" )
         * include/Rcpp/complex.h: operator==( Rcomplex, Rcomplex )
         * src/api.cpp: implementation of operator==(Rcomplex, Rcomplex)
         * include/Rcpp/vector/Vector.h: added const version of operator[](string)
@@ -52,8 +59,8 @@
 2012-12-10  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: warn when depends attribute is not matched with
-        required entries in package description; add Rtools to PATH for 
-        duration of sourceCpp
+	required entries in package description; add Rtools to PATH for
+	duration of sourceCpp
         * src/Attributes.cpp: warn when depends attribute is not matched with
         required entries in package description
         * src/AttributesGen.cpp: prune unnecessary includes from RcppExports
@@ -64,17 +71,17 @@
         * src/api.cpp: import r_cast.cpp, coerce.cpp, RcppCommon.cpp
         and debugging.cpp content
         * include/platform/compiler.h: put here compiler specific deduction things
-        * src/internal.h: new header to host function declarations for 
-        routines that are not exported into Rcpp.h
+        * src/internal.h: new header to host function declarations for
+	routines that are not exported into Rcpp.h
         * src/Rcpp_init.c: export capabilities (renamed rcpp_capabilities)
         * include/Rcpp/traits/traits.h: master file for all traits includes
         * include/Rcpp/macros/macros.h: master file for all macros includes
         * include/Rcpp/DataFrame.h: just have declaration for DataFrame
         * include/Rcpp/Benchmark/Timer.h: move it into the Rcpp:: namespace
         * include/Rcpp/cache.h: clean
-        * include/Rcpp/Reference.h : field was declared const and should not be. 
-        added a ConstFieldProxy class for read only use
-        
+        * include/Rcpp/Reference.h : field was declared const and should not
+	be.  added a ConstFieldProxy class for read only use
+
 2012-12-09 Romain Francois <romain@r-enthusiasts.com>
 
         * src/api.cpp: merge many .cpp files here to reduce compile time
@@ -82,7 +89,7 @@
         * include/Rcpp/exceptions.h: drop forward_uncaught_exceptions_to_r
         * src/exceptions.cpp: drop forward_uncaught_exceptions_to_r
         * src/Date.cpp: merge all Date related files
-        
+
 2012-12-08 Romain Francois <romain@r-enthusiasts.com>
 
         * src/Timer.cpp: implementation of Timer
@@ -99,11 +106,11 @@
 2012-12-07 Romain Francois <romain@r-enthusiasts.com>
 
         * src/random.cpp: instantiations of random generators here
-        * include/Rcpp/stats/random/random.h: only have declarations of 
-        random generators here. Rework the Generator template so that 
-        it inherits RNGScope to provide automatic calls to GetRNGstate
-        and PutRNGstate
-        
+        * include/Rcpp/stats/random/random.h: only have declarations of
+	random generators here. Rework the Generator template so that it
+	inherits RNGScope to provide automatic calls to GetRNGstate and
+	PutRNGstate
+
 2012-12-06  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: revert DOS newlines; use new shared library name
@@ -120,16 +127,16 @@
         to convert exceptions to 'try-error' objects
         * include/Rcpp/iostream/Rstreambuf.h: revert DOS newlines
         * DESCRIPTION: bump version to 0.10.1.5
-  
+
 2012-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/exceptions.cpp: Added include of cstdlib to compile 
+	* src/exceptions.cpp: Added include of cstdlib to compile
 
 2012-12-06 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/Environment.h: meat for Environment
-        * src/exceptions.cpp: include config so that it knows that Rcpp can 
-        demangle
+        * src/exceptions.cpp: include config so that it knows that Rcpp can
+	demangle
         * unitTests/runit.environments.R: using sourceCpp
         * src/Environment.cpp: less includes
         * src/Evaluator.cpp: less includes
@@ -137,12 +144,12 @@
 2012-12-05 Romain Francois <romain@r-enthusiasts.com>
 
         * src/cache.cpp: added get_cache
-        * include/Rcpp/hash/IndexHash.h: use a cached integer vector for
-        the hash table payload. The cache vector increases as needed. 
+        * include/Rcpp/hash/IndexHash.h: use a cached integer vector for the
+	hash table payload. The cache vector increases as needed.
         * include/Rcpp/iostream/Rostream.h: make Rostream a template
         * include/Rcpp/iostream/Rstreambuf.h: make Rstreambuf a template
-        * src/AttributesGen.cpp : include exceptions.h which was included 
-        implicitely by Rostream.h before
+        * src/AttributesGen.cpp : include exceptions.h which was included
+	implicitely by Rostream.h before
         * include/Rcpp/macros/debug.h : factor out the debugging macros
         * include/Rcpp/api/meat/RObject.h : only declare templates that use
         as and wrap. they are implemented later in the meat directory
@@ -152,7 +159,7 @@
         * src/RcppCommon.cpp: removed unused test_named
         * src/r_cast.cpp: less includes
         * src/posixt.cpp: less includes
-        
+
 2012-12-05  JJ Allaire <jj@rstudio.org>
 
         * src/Attributes.R: direct hookup of external ptr in sourceCpp
