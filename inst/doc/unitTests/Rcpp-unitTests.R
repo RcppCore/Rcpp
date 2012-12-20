@@ -21,6 +21,7 @@ if( file.exists( "unitTests-results" ) ){ unlink("unitTests-results", recursive 
 dir.create( "unitTests-results" )
 
 path <- system.file("unitTests", package = pkg)
+pathRcppTests <<- system.file("unitTests", package = pkg)
 testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
 tests <- runTestSuite(testSuite)
 err <- getErrors(tests)
