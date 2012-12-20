@@ -24,8 +24,8 @@
 
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
 
-// 0.10.1.02 for devel version
-#define RCPP_VERSION Rcpp_Version(0,10,1.02)
+// All three digits have to be integers for g++-4.7 or later
+#define RCPP_VERSION Rcpp_Version(0,10,2)
                                                                                                                 
 #endif
 
