@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// config.h: Rcpp R/C++ interface class library -- Rcpp configuration of optional features
+// config.h: Rcpp R/C++ interface class library -- Rcpp configuration
 //
 // Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
 //

@@ -2,21 +2,24 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.10.2 (future)}{
+\section{Changes in Rcpp version 0.10.2 (2012-12-21)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item Source and header files were reorganized and consolidated so
+      that compile time are now significantly lower 
       \item Added additional check in \code{Rstreambuf} deletetion
       \item Added support for \code{clang++} when using \code{libc++},
       and for anc \code{icpc} in \code{std=c++11} mode, thanks to a
       patch by Yan Zhou
       \item New class \code{Rcpp::String} to facilitate working with a single
       element of a character vector
-      \item utility class sugar::IndexHash inspired from Simon Urbanek's fastmatch
-      package
+      \item New utility class sugar::IndexHash inspired from Simon
+      Urbanek's fastmatch package
       \item Implementation of the equality operator between two Rcomplex
       \item \code{RNGScope} now has an internal counter that enables it
       to be safely used multiple times in the same stack frame.
+      \item New class \code{Rcpp::Timer} for benchmarking
     }
     \item Changes in Rcpp sugar:
     \itemize{
