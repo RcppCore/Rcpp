@@ -202,8 +202,11 @@ namespace Rcpp{
 
     template <typename Class>
     class S4_CppConstructor : public Rcpp::Reference {
-    public:             
-        S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name, std::string& buffer ) : Reference( "C++Constructor" ){
+    public:  
+        typedef XPtr<class_Base> XP_Class ;
+        
+        S4_CppConstructor( SignedConstructor<Class>* m, const XP_Class& class_xp, const std::string& class_name, std::string& buffer ) : Reference( "C++Constructor" ){
+            RCPP_DEBUG( "S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name, std::string& buffer" ) ;
             field( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
             field( "class_pointer" ) = class_xp ;
             field( "nargs" )         = m->nargs() ;
@@ -211,15 +214,28 @@ namespace Rcpp{
             field( "signature" )     = buffer ;
             field( "docstring" )     = m->docstring ;
         }
+        
+        S4_CppConstructor( const S4_CppConstructor& other) : Reference( other.asSexp() ) {}
+        S4_CppConstructor& operator=( const S4_CppConstructor& other){
+            setSEXP( other.asSexp() ); 
+            return *this ;
+        }
     } ;
 
     template <typename Class>
     class S4_CppOverloadedMethods : public Rcpp::Reference {
     public:    
+        typedef Rcpp::XPtr<class_Base> XP_Class ;
         typedef SignedMethod<Class> signed_method_class ;
         typedef std::vector<signed_method_class*> vec_signed_method ;
         
-        S4_CppOverloadedMethods( vec_signed_method* m, SEXP class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
+        // FIXME: is class_xp protected ?
+        S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
+            RCPP_DEBUG_2( "S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp = <%p>, const char* name = %s, std::string& buffer )", name, class_xp.asSexp() )
+            #if RCPP_DEBUG_LEVEL > 0
+                Rf_PrintValue( class_xp ) ;
+            #endif
+            
             int n = m->size() ;
             Rcpp::LogicalVector voidness(n), constness(n) ;
             Rcpp::CharacterVector docstrings(n), signatures(n) ;
@@ -244,6 +260,13 @@ namespace Rcpp{
             field( "signatures" )    = signatures ;
             field( "nargs" )         = nargs ;
             
+        }
+        S4_CppOverloadedMethods( const S4_CppOverloadedMethods& other){ 
+            setSEXP( other.asSexp() ) ;
+        }
+        S4_CppOverloadedMethods& operator=( const S4_CppOverloadedMethods& other){ 
+            setSEXP( other.asSexp() ) ;
+            return *this ;
         }
     } ;
 
@@ -306,13 +329,20 @@ namespace Rcpp{
 
     template <typename Class>
     class S4_field : public Rcpp::Reference {
-    public:             
-        S4_field( CppProperty<Class>* p, SEXP class_xp ) : Reference( "C++Field" ){
+    public:   
+        typedef XPtr<class_Base> XP_Class ;
+        S4_field( CppProperty<Class>* p, const XP_Class& class_xp ) : Reference( "C++Field" ){
+            RCPP_DEBUG( "S4_field( CppProperty<Class>* p, const XP_Class& class_xp )" )
             field( "read_only" )     = p->is_readonly() ;
             field( "cpp_class" )     = p->get_class();
             field( "pointer" )       = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
             field( "class_pointer" ) = class_xp ;
             field( "docstring" )     = p->docstring ;
+        }
+        S4_field( const S4_field& other) : Reference(other.asSexp()) {}
+        S4_field& operator=(const S4_field& other){
+            setSEXP(other.asSexp());
+            return *this ;
         }
     } ;
 
@@ -370,12 +400,18 @@ namespace Rcpp{
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
         CppClass( Module* p, class_Base* clazz, std::string& ) ;
         CppClass( SEXP x) ;
+        CppClass( const CppClass& ) ;
+        CppClass& operator=( const CppClass& ) ;
+        
     } ;
 
     class CppObject : public S4{
     public:
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
         CppObject( Module* p, class_Base*, SEXP xp ) ;
+        CppObject( const CppObject& ) ;
+        CppObject& operator=( const CppObject& ) ;
+        
     } ;
 
     class FunctionProxy{

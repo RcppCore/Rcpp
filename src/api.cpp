@@ -19,7 +19,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-
+  
 #include <Rcpp.h>
 
 #include "internal.h" 
@@ -30,6 +30,117 @@
 
 // {{{ Rcpp api classes
 namespace Rcpp {
+         
+    // {{{ SexpStack
+    static SEXP RCPP_PROTECTION_STACK = R_NilValue ;
+    static SEXP* RCPP_PROTECTION_STACK_PTR = 0 ;
+    
+    #define GET_TOP() TRUELENGTH(RCPP_PROTECTION_STACK)
+    #define SET_TOP(TOP) SET_TRUELENGTH(RCPP_PROTECTION_STACK, TOP)
+    
+    inline void init_ProtectionStack(){
+        if(RCPP_PROTECTION_STACK == R_NilValue){
+            RCPP_PROTECTION_STACK = get_Rcpp_protection_stack() ;
+            RCPP_PROTECTION_STACK_PTR = get_vector_ptr(RCPP_PROTECTION_STACK) ;
+        }
+    }
+    
+    SEXP Rcpp_PreserveObject(SEXP x){ 
+        if( x != R_NilValue ){
+            init_ProtectionStack();
+            int top = GET_TOP() ;
+            RCPP_DEBUG_2( "Rcpp_PreserveObject( <%p>), top = %d", x, top )
+            top++ ; 
+            // RCPP_PROTECTION_STACK_PTR[top] = x ;
+            set_vector_elt( RCPP_PROTECTION_STACK, top, x ) ;
+            SET_TOP(top) ;
+        }
+        #if RCPP_DEBUG_LEVEL > 1 
+        Rcpp_Stack_Debug() ;
+        #endif
+        return x ;
+    }
+    void Rcpp_ReleaseObject(SEXP x){
+        if( x != R_NilValue ){
+            init_ProtectionStack();
+            
+            int top = GET_TOP();
+            RCPP_DEBUG_2( "Rcpp_ReleaseObject( <%p>),  top = %d )", x, top )
+        
+            if( x == RCPP_PROTECTION_STACK_PTR[top] ) {
+                RCPP_PROTECTION_STACK_PTR[top] = R_NilValue ;
+                top-- ;
+                SET_TOP(top) ;
+            } else {
+                int i = top ;
+                for( ; i>=0; i--){
+                    if( x == RCPP_PROTECTION_STACK_PTR[i] ){
+                        // swap position i and top
+                        // perhaps should bubble down instead
+                        
+                        RCPP_PROTECTION_STACK_PTR[i] = RCPP_PROTECTION_STACK_PTR[top] ;
+                        RCPP_PROTECTION_STACK_PTR[top] = R_NilValue ;
+                        top-- ;
+                
+                        SET_TOP(top) ;
+                        break ;
+                    }
+                }
+                #if RCPP_DEBUG_LEVEL > 0
+                if( i < 0 ) RCPP_DEBUG_2( "!!!! STACK ERROR, did not find SEXP <%p> (i=%d)", x, i ) ;
+                #endif  
+            }
+            #if RCPP_DEBUG_LEVEL > 1 
+            Rcpp_Stack_Debug() ;
+            #endif
+        }
+    }
+    SEXP Rcpp_ReplaceObject(SEXP x, SEXP y){
+        if( x == R_NilValue ){
+            Rcpp_PreserveObject( y ) ;    
+        } else if( y == R_NilValue ){
+            Rcpp_ReleaseObject( x ) ;
+        } else {
+            init_ProtectionStack();
+            
+            int top = GET_TOP(); 
+            RCPP_DEBUG_3( "Rcpp_ReplaceObject( <%p> , <%p> ),  top = %d )", x, y, top )
+            int i = top ;
+            for( ; i>= 0; i--){
+                if( x == RCPP_PROTECTION_STACK_PTR[i] ){
+                    set_vector_elt( RCPP_PROTECTION_STACK, i, y) ;
+                    break ;
+                }
+            }
+            #if RCPP_DEBUG_LEVEL > 0
+            if( i < 0 ) RCPP_DEBUG_1( "STACK ERROR, did not find SEXP <%p>", x ) ;
+            #endif
+            
+            #if RCPP_DEBUG_LEVEL > 1 
+            Rcpp_Stack_Debug() ;
+            #endif
+        
+        }
+        return y ;
+    }                                                                                          
+
+    void Rcpp_Stack_Debug(){
+        init_ProtectionStack();
+        int top = GET_TOP() ;
+        if( top == -1 ){
+            Rprintf( "Rcpp_Stack_Debug [<<%p>>] : empty stack\n", RCPP_PROTECTION_STACK )    ;
+        } else {                      
+            int n = top + 1  ;
+            Rprintf( "Rcpp_Stack_Debug, %d objects on stack [<<%p>>]\n", n, RCPP_PROTECTION_STACK  )    ;
+            for( int i=0; i<n;i++){
+                SEXP ptr = RCPP_PROTECTION_STACK_PTR[i] ;
+                Rprintf( "[%4d] TYPE = %s, pointer = <%p>\n", i, sexp_to_name(TYPEOF(ptr)), ptr ) ;    
+            }
+        }
+    }
+    // }}}
+    
+                          
 
     // {{{ Rostream
     template <> inline std::streamsize Rstreambuf<true>::xsputn(const char *s, std::streamsize num ) {
@@ -108,33 +219,21 @@ namespace Rcpp {
     
     // {{{ RObject
     void RObject::setSEXP(SEXP x){
-        RCPP_DEBUG_1( "RObject::setSEXP(SEXP = <%p> )", x ) ; 
+        RCPP_DEBUG_2( "RObject::setSEXP(SEXP = <%p>, TYPEOF=%s )", x, sexp_to_name(TYPEOF(x)) ) 
     
-        /* if we are setting to the same SEXP as we already have, do nothing */
-        if( x != m_sexp ){
-                
-            /* the previous SEXP was not NULL, so release it */
-            release() ;
-                
-            /* set the SEXP */
-            m_sexp = x ;
-                
-            /* the new SEXP is not NULL, so preserve it */
-            preserve() ;
-                        
-            update() ;
-        }
+        // replace the currently protected SEXP by the new one
+        m_sexp = Rcpp_ReplaceObject(m_sexp, x) ;
+        
     }
+
+    RObject::RObject() : m_sexp(R_NilValue) {} ; 
+    RObject::RObject(SEXP x)  : m_sexp(Rcpp_PreserveObject(x)){}
 
     /* copy constructor */
-    RObject::RObject( const RObject& other ){
-        SEXP x = other.asSexp() ;       
-        setSEXP( x ) ; 
-    }
+    RObject::RObject( const RObject& other ) : m_sexp( Rcpp_PreserveObject(other.asSexp() ) ) {}
 
     RObject& RObject::operator=( const RObject& other){
-        SEXP x = other.asSexp() ;       
-        setSEXP( x ) ; 
+        setSEXP( other.asSexp() ) ; 
         return *this ;
     }
 
@@ -144,8 +243,8 @@ namespace Rcpp {
     }
 
     RObject::~RObject() {
-        release() ;
-        RCPP_DEBUG("~RObject")
+        RCPP_DEBUG_1("~RObject(<%p>)", m_sexp)
+        Rcpp_ReleaseObject(m_sexp) ;
     }
 
     std::vector<std::string> RObject::attributeNames() const {
@@ -191,6 +290,7 @@ namespace Rcpp {
         return R_do_slot( parent, slotSym ) ;       
     }
 
+    // TODO: this should not be const
     void RObject::SlotProxy::set( SEXP x) const {
         SEXP slotnameSym = Rf_install( slot_name.c_str() ); // cannot be gc()'ed  once in symbol table
         // the SEXP might change (.Data)
@@ -204,6 +304,7 @@ namespace Rcpp {
         return Rf_getAttrib( parent, attrnameSym ) ;
     }
 
+    // TODO: this should not be const
     void RObject::AttributeProxy::set(SEXP x) const{
         SEXP attrnameSym = Rf_install( attr_name.c_str() ); // cannot be gc()'ed  once in symbol table
 #if RCPP_DEBUG_LEVEL > 0
@@ -256,13 +357,11 @@ namespace Rcpp {
     Function::Function(const std::string& name) : RObject() {
         SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
         SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
-        setSEXP( x ) ;
+        setSEXP(x) ;
         UNPROTECT(1) ;
     }
 	
-    Function::Function(const Function& other) : RObject(){
-        setSEXP( other.asSexp() );
-    }
+    Function::Function(const Function& other) : RObject( other.asSexp() ){}
 	
     Function& Function::operator=(const Function& other){
         setSEXP( other.asSexp() );
@@ -344,17 +443,12 @@ namespace Rcpp {
     // }}}
     
     // {{{ Promise
-    Promise::Promise(SEXP x) : RObject(){
-        if( TYPEOF(x) == PROMSXP ){
-            setSEXP( x ) ;
-        } else{
+    Promise::Promise(SEXP x) : RObject(x){
+        if( TYPEOF(x) != PROMSXP )
             throw not_compatible("not a promise") ;
-        }
     }
 
-    Promise::Promise(const Promise& other) : RObject() {
-        setSEXP( other.asSexp() );
-    }
+    Promise::Promise(const Promise& other) : RObject(other.asSexp()) {}
 	
     Promise& Promise::operator=(const Promise& other){
         setSEXP( other.asSexp() );
@@ -387,13 +481,9 @@ namespace Rcpp {
     
     // {{{ Pairlist
     Pairlist::Pairlist() : DottedPair() {}
-    Pairlist::Pairlist( SEXP x ) : DottedPair(){
-        setSEXP( r_cast<LISTSXP>(x) );
-    }
+    Pairlist::Pairlist( SEXP x ) : DottedPair( r_cast<LISTSXP>(x) ){}
     Pairlist::~Pairlist(){}
-    Pairlist::Pairlist( const Pairlist& other): DottedPair(){
-        setSEXP( other.asSexp() ) ;
-    }
+    Pairlist::Pairlist( const Pairlist& other): DottedPair(other.asSexp()){}
     Pairlist& Pairlist::operator=(const Pairlist& other){
         setSEXP( other.asSexp() ) ;
         return *this ;
@@ -401,12 +491,9 @@ namespace Rcpp {
     // }}}
     
     // {{{ WeakReference
-    WeakReference::WeakReference( SEXP x) : RObject(){
-        if( TYPEOF(x) == WEAKREFSXP ){
-            setSEXP(x) ; 
-        } else{
+    WeakReference::WeakReference( SEXP x) : RObject(x){
+        if( TYPEOF(x) != WEAKREFSXP )
             throw not_compatible( "not a weak reference" ) ;
-        }
     }
         
     SEXP WeakReference::key() {
@@ -450,14 +537,9 @@ namespace Rcpp {
         } 
     }
         
-    Symbol::Symbol(const std::string& symbol): RObject(){
-        SEXP charSym = Rf_install(symbol.c_str());      // cannot be gc()'ed  once in symbol table
-        setSEXP( charSym );
-    }
+    Symbol::Symbol(const std::string& symbol): RObject( Rf_install(symbol.c_str()) ){}
         
-    Symbol::Symbol( const Symbol& other) : RObject() {
-        setSEXP( other.asSexp() );
-    }
+    Symbol::Symbol( const Symbol& other) : RObject( other.asSexp() ) {}
         
     Symbol& Symbol::operator=(const Symbol& other){
         setSEXP( other.asSexp() );
@@ -470,29 +552,29 @@ namespace Rcpp {
     // {{{ Language
     Language::Language() : DottedPair() {}
         
-    Language::Language( SEXP x ) : DottedPair(){
-        setSEXP( r_cast<LANGSXP>(x) ) ;
+    Language::Language( SEXP x ) : DottedPair( x ){
+        if( TYPEOF(x) != LANGSXP ){
+            set_sexp( r_cast<LANGSXP>(x) ) ;  
+        }
     }
         
-    Language::Language( const Language& other): DottedPair(){
-        setSEXP( other.asSexp() ) ;
-    }
+    Language::Language( const Language& other): DottedPair( other.asSexp() ){}
         
     Language& Language::operator=(const Language& other){
-        setSEXP( other.asSexp() ) ;
+        set_sexp( other.asSexp() ) ;
         return *this ;
     }
         
-    Language::Language( const std::string& symbol ): DottedPair() {
-        setSEXP( Rf_lang1( Symbol(symbol) ) );
+    Language::Language( const std::string& symbol ): DottedPair( Rf_lang1( Rf_install(symbol.c_str()) ) ) { 
+       update_language_object() ; 
     }
         
-    Language::Language( const Symbol& symbol ): DottedPair() {
-        setSEXP( Rf_lang1( symbol ) ) ;
+    Language::Language( const Symbol& symbol ): DottedPair( Rf_lang1( symbol ) ) {
+        update_language_object() ; 
     }
         
-    Language::Language( const Function& function): DottedPair() {
-        setSEXP( Rf_lang1( function ) ) ;               
+    Language::Language( const Function& function): DottedPair( Rf_lang1( function ) ) {
+        update_language_object() ;
     }
         
     Language::~Language(){}
@@ -511,9 +593,14 @@ namespace Rcpp {
         SET_TAG(m_sexp, R_NilValue); /* probably not necessary */
     }
         
-    void Language::update(){ 
+    void Language::update_language_object(){ 
         SET_TYPEOF( m_sexp, LANGSXP ) ;
         SET_TAG( m_sexp, R_NilValue ) ;
+    }
+    
+    void Language::set_sexp(SEXP x){
+        setSEXP(x) ;
+        update_language_object() ;
     }
         
     SEXP Language::eval() {
@@ -587,16 +674,19 @@ namespace Rcpp {
     // }}}
     
     // {{{ Formula
+    void Formula::set_sexp( SEXP x){
+        setSEXP(x);
+        Language::update_language_object() ;
+    }
     Formula::Formula() : Language(){}
         
     Formula::Formula(SEXP x) : Language(){
         switch( TYPEOF( x ) ){
         case LANGSXP:
             if( ::Rf_inherits( x, "formula") ){
-                setSEXP( x );
+                set_sexp( x );
             } else{
-                SEXP y = internal::convert_using_rfunction( x, "as.formula") ;
-                setSEXP( y ) ;
+                set_sexp( internal::convert_using_rfunction( x, "as.formula") ) ;
             }
             break;
         case EXPRSXP:
@@ -605,24 +695,23 @@ namespace Rcpp {
             if( ::Rf_length(x) > 0 ){
                 SEXP y = VECTOR_ELT( x, 0 ) ;
                 if( ::Rf_inherits( y, "formula" ) ){
-                    setSEXP( y ) ;  
+                    set_sexp( y ) ;  
                 } else{
                     SEXP z = internal::convert_using_rfunction( y, "as.formula") ;
-                    setSEXP( z ) ;
+                    set_sexp( z ) ;
                 }
             } else{
                 throw not_compatible( "cannot create formula from empty list or expression" ) ; 
             }
             break;
         default:
-            SEXP y = internal::convert_using_rfunction( x, "as.formula") ;
-            setSEXP( y ) ;
+            set_sexp( internal::convert_using_rfunction( x, "as.formula") ) ;
         }
     }
         
-    Formula::Formula( const std::string& code) : Language() {
-        setSEXP( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") );       
-    }
+    Formula::Formula( const std::string& code) : 
+        Language( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") ) 
+    {}
         
     Formula::Formula( const Formula& other ) : Language( other.asSexp() ){}
         
@@ -634,41 +723,34 @@ namespace Rcpp {
     // }}}
     
     // {{{ S4
-        S4::S4() : RObject(){}
+    S4::S4() : RObject(){}
         
-    S4::S4(SEXP x) : RObject(){
-        set( x) ;
+    S4::S4(SEXP x) : RObject(x){
+        if( ! ::Rf_isS4(x) ) throw not_s4() ;
     }
         
-    S4::S4( const S4& other) : RObject(){
-        setSEXP( other.asSexp() ) ;     
-    }
+    S4::S4( const S4& other) : RObject(other.asSexp()){}
         
     S4::S4( const RObject::SlotProxy& proxy ) : RObject() {
-        set( proxy ) ;
+        set_sexp( proxy ) ;
     }
     S4::S4( const RObject::AttributeProxy& proxy ) : RObject() {
-        set( proxy ) ;
+        set_sexp( proxy ) ;
     }
         
     S4& S4::operator=( const S4& other){
-        setSEXP( other.asSexp() ) ;
+        set_sexp( other.asSexp() ) ;
         return *this ;
     }
         
     S4& S4::operator=( SEXP other ) {
-        set( other ) ;
+        set_sexp( other ) ;
         return *this ;
     }
         
-    S4::S4( const std::string& klass ) {
-        SEXP oo = PROTECT( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) ) ;
-        if (!Rf_inherits(oo, klass.c_str())) {
-            UNPROTECT( 1) ;
+    S4::S4( const std::string& klass ) : RObject( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) ) {
+        if (!Rf_inherits(m_sexp, klass.c_str()))
             throw S4_creation_error( klass ) ;
-        }
-        setSEXP( oo ) ;
-        UNPROTECT( 1) ; /* oo */
     }
         
     bool S4::is( const std::string& clazz ) {
@@ -703,7 +785,7 @@ namespace Rcpp {
                 
     }
         
-    void S4::set( SEXP x) {
+    void S4::set_sexp( SEXP x) {
         if( ! ::Rf_isS4(x) ){
             throw not_s4() ;
         } else{
@@ -713,30 +795,28 @@ namespace Rcpp {
     // }}}
     
     // {{{ Reference 
-        Reference::Reference() : S4(){}
+    Reference::Reference() : S4(){}
     
-    Reference::Reference(SEXP x) : S4(){
-        set( x) ;
+    Reference::Reference(SEXP x) : S4(x){
+        check() ;
     }
     
-    Reference::Reference( const Reference& other) : S4(){
-        setSEXP( other.asSexp() ) ; 
-    }
+    Reference::Reference( const Reference& other) : S4( other.asSexp() ){}
     
     Reference::Reference( const RObject::SlotProxy& proxy ) : S4() {
-        set( proxy ) ;
+        set_sexp( proxy ) ;
     }
     Reference::Reference( const RObject::AttributeProxy& proxy ) : S4() {
-        set( proxy ) ;
+        set_sexp( proxy ) ;
     }
     
     Reference& Reference::operator=( const Reference& other){
-        setSEXP( other.asSexp() ) ;
+        set_sexp( other.asSexp() ) ;
         return *this ;
     }
     
     Reference& Reference::operator=( SEXP other ) {
-        set( other ) ;
+        set_sexp( other ) ;
         return *this ;
     }
     
@@ -744,18 +824,19 @@ namespace Rcpp {
         // using callback to R as apparently R_do_new_object always makes the same environment
         SEXP newSym = Rf_install("new");
         SEXP call = PROTECT( Rf_lang2( newSym, Rf_mkString( klass.c_str() ) ) ) ;
-        setSEXP( Rcpp::internal::try_catch( call ) ) ;
+        set_sexp( Rcpp::internal::try_catch( call ) ) ;
         UNPROTECT(1) ; // call
     }
     
-    void Reference::set( SEXP x) {
-        // TODO: check that x is of a reference class
-        if( ! ::Rf_isS4(x) ){
-            throw not_reference() ;
-        } else{
-            setSEXP( x) ;
-        }
+    void Reference::set_sexp( SEXP x) {
+        setSEXP( x) ;
+        check();
     }
+    void Reference::check( ) {
+        // TODO: check that x is of a reference class
+        if( ! ::Rf_isS4(m_sexp) ) throw not_reference() ;
+    }
+    
     
     Reference::FieldProxy::FieldProxy( Reference& v, const std::string& name) : 
         parent(v), field_name(name) {}
@@ -772,21 +853,22 @@ namespace Rcpp {
 									  parent.asSexp(), 
 									  Rf_mkString( field_name.c_str() )
 									   ) ) ;
-        return Rcpp::internal::try_catch( call ) ;
         UNPROTECT(1) ;
+        return Rcpp::internal::try_catch( call ) ;
     }
     
     void Reference::FieldProxy::set( SEXP x) {
         PROTECT(x);
         SEXP dollarGetsSym = Rf_install( "$<-");
+        SEXP name = PROTECT( Rf_mkString( field_name.c_str() ) ) ;
         SEXP call = PROTECT( Rf_lang4( 
 									  dollarGetsSym,
 									  parent.asSexp(), 
-									  Rf_mkString( field_name.c_str() ), 
+									  name , 
 									  x
 									   ) ) ;
-        parent.setSEXP( Rf_eval( call, R_GlobalEnv ) ); 
-        UNPROTECT(2) ;
+        parent.set_sexp( Rf_eval( call, R_GlobalEnv ) ); 
+        UNPROTECT(3) ;
     }
 
     Reference::FieldProxy Reference::field( const std::string& name) {
@@ -858,9 +940,7 @@ namespace Rcpp {
         setSEXP( res ) ;
     }
     
-    Environment::Environment( const Environment& other ) {
-        setSEXP( other.asSexp() ) ; 
-    }
+    Environment::Environment( const Environment& other ) : RObject( other.asSexp() ){}
     
     Environment& Environment::operator=(const Environment& other) {
         setSEXP( other.asSexp() ) ; 
@@ -1072,30 +1152,31 @@ namespace Rcpp {
     }
     
     DataFrame::DataFrame(): List( internal::empty_data_frame() ){}
-    DataFrame::DataFrame(SEXP x) : List(){
-        set(x) ;
+    DataFrame::DataFrame(SEXP x) : List(x){
+        set_sexp(x) ;
     }  
     DataFrame::DataFrame( const DataFrame& other): List(other.asSexp()) {}
-    DataFrame::DataFrame( const RObject::SlotProxy& proxy ) { set(proxy); }
-    DataFrame::DataFrame( const RObject::AttributeProxy& proxy ) { set(proxy); }
+    DataFrame::DataFrame( const RObject::SlotProxy& proxy ) { set_sexp(proxy); }
+    DataFrame::DataFrame( const RObject::AttributeProxy& proxy ) { set_sexp(proxy); }
               
-    DataFrame& DataFrame::operator=( DataFrame& other){
-        setSEXP( other.asSexp() ) ;
+    DataFrame& DataFrame::operator=( DataFrame& other) {
+        set_sexp( other.asSexp() ) ;
         return *this ;
     }
             
     DataFrame& DataFrame::operator=( SEXP x) {
-        set(x) ;
+        set_sexp(x) ;
         return *this ;
     }
     DataFrame::~DataFrame(){}     
-    void DataFrame::set(SEXP x) {
+    void DataFrame::set_sexp(SEXP x) {
         if( ::Rf_inherits( x, "data.frame" )){
             setSEXP( x ) ;
         } else{
             SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
             setSEXP( y ) ;
         }
+        List::update_vector() ;
     } 
     int DataFrame::nrows() const { return Rf_length( VECTOR_ELT(m_sexp, 0) ); }
         

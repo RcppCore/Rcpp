@@ -2,7 +2,7 @@
 //
 // InternalFunction.h: Rcpp R/C++ interface class library -- exposing C++ functions
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -39,8 +39,6 @@ public:
 		
 private:
 	
-	// TODO: we can probably make this more efficient
-	//       by caching the Rcpp namespace or the function
 	inline void set( SEXP xp){
 		Environment RCPP = Environment::Rcpp_namespace() ;
 		Function intf = RCPP["internal_function"] ;

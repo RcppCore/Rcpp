@@ -15,10 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-# not used, but this keeps packages that import the class happy
-# e.g. highlight 
-setClass( "C++ObjectS3" ) 
-
 # anticipating a change in R 2.16.0
 setClass( "refClassGeneratorFunction" )
 setClassUnion("refGenerator", c("refObjectGenerator", "refClassGeneratorFunction")) 
@@ -84,16 +80,7 @@ setClass( "C++Class",
 	), 
 	contains = "character"
 	)
-setClass( "C++ClassRepresentation", 
-    representation( 
-        pointer         = "externalptr", 
-        generator       = "refGenerator", 
-        cpp_fields      = "list", 
-        cpp_methods     = "list", 
-        cpp_constructor = "list"
-    ), 
-    contains = "classRepresentation" )
-
+	
 setClass( "C++Object")
 
 setClass( "C++Function", 

@@ -215,6 +215,7 @@
         
         
         self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes, const char* docstring = 0){
+            RCPP_DEBUG_1( "AddMethod( %s, method_class* m, ValidMethod valid = &yes, const char* docstring = 0", name_ )
             typename map_vec_signed_method::iterator it = class_pointer->vec_methods.find( name_ ) ; 
             if( it == class_pointer->vec_methods.end() ){
                 it = class_pointer->vec_methods.insert( vec_signed_method_pair( name_, new vec_signed_method() ) ).first ;
@@ -382,7 +383,7 @@
                 }
         
         
-        Rcpp::List fields( SEXP class_xp ){
+        Rcpp::List fields( const XP_Class& class_xp ){
             int n = properties.size() ;
             Rcpp::CharacterVector pnames(n) ;
             Rcpp::List out(n) ;
@@ -395,7 +396,11 @@
             return out ;
         }
 
-        Rcpp::List getMethods( SEXP class_xp, std::string& buffer){
+        Rcpp::List getMethods( const XP_Class& class_xp, std::string& buffer){
+            RCPP_DEBUG( "Rcpp::List getMethods( const XP_Class& class_xp, std::string& buffer" )
+            #if RCPP_DEBUG_LEVEL > 0
+                Rf_PrintValue( class_xp ) ;
+            #endif
             int n = vec_methods.size() ;
             Rcpp::CharacterVector mnames(n) ;
             Rcpp::List res(n) ;
@@ -410,7 +415,7 @@
             return res ;
         }
         
-        Rcpp::List getConstructors( SEXP class_xp, std::string& buffer){
+        Rcpp::List getConstructors( const XP_Class& class_xp, std::string& buffer){
             int n = constructors.size() ;
             Rcpp::List out(n) ;
             typename vec_signed_constructor::iterator it = constructors.begin( ) ;

@@ -23,13 +23,15 @@
 
 class class_Base {
 public:
+    typedef Rcpp::XPtr<class_Base> XP_Class ;
+    
     class_Base() : name(), docstring(), enums(), parents() {} ;
     class_Base(const char* name_, const char* doc) : 
         name(name_), docstring( doc == 0 ? "" : doc ), enums(), parents() {} ;
     
-    virtual Rcpp::List fields(SEXP){ return Rcpp::List(0); }
-    virtual Rcpp::List getMethods(SEXP, std::string&){ return Rcpp::List(0); }
-    virtual Rcpp::List getConstructors(SEXP, std::string&){ return Rcpp::List(0); }
+    virtual Rcpp::List fields(const XP_Class& ){ return Rcpp::List(0); }
+    virtual Rcpp::List getMethods(const XP_Class&, std::string&){ return Rcpp::List(0); }
+    virtual Rcpp::List getConstructors(const XP_Class&, std::string&){ return Rcpp::List(0); }
     
     virtual void run_finalizer(SEXP){ }
     

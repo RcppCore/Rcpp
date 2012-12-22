@@ -25,18 +25,11 @@
 namespace Rcpp{ 
 
     template <int RTYPE>
-    Matrix<RTYPE>::Matrix(SEXP x) : VECTOR(), nrows(0) {
-        if( ! ::Rf_isMatrix(x) ) throw not_compatible("not a matrix") ;
-        SEXP y = r_cast<RTYPE>( x ) ;
-        VECTOR::setSEXP( y );
-        nrows = VECTOR::dims()[0] ;
-    }
-     
+    Matrix<RTYPE>::Matrix(SEXP x) : VECTOR( r_cast<RTYPE>( x ) ), nrows( VECTOR::dims()[0] ) {}
     
     template <int RTYPE>
-    Matrix<RTYPE>::Matrix( const Dimension& dims) : VECTOR(), nrows(dims[0]) {
+    Matrix<RTYPE>::Matrix( const Dimension& dims) : VECTOR( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ), nrows(dims[0]) {
         if( dims.size() != 2 ) throw not_compatible("not a matrix") ;
-        VECTOR::setSEXP( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ) ;
         VECTOR::init() ;
     }
     
@@ -59,25 +52,19 @@ namespace Rcpp{
     Matrix<RTYPE>::Matrix( const int& n) : VECTOR( Dimension( n, n ) ), nrows(n) {}
     
     template <int RTYPE>
-    Matrix<RTYPE>::Matrix( const Matrix& other) : VECTOR(), nrows(other.nrows) {
-        SEXP x = other.asSexp() ;
-        if( ! ::Rf_isMatrix(x) ) throw not_compatible("not a matrix") ;
-        VECTOR::setSEXP( x ) ;
-    }
+    Matrix<RTYPE>::Matrix( const Matrix& other) : VECTOR( other.asSexp() ), nrows(other.nrows) {}
     
     template <int RTYPE>
     template <bool NA, typename MAT>
-    Matrix<RTYPE>::Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR(), nrows(other.nrow()) {
-        int nc = other.ncol() ;
-        RObject::setSEXP( Rf_allocMatrix( RTYPE, nrows, nc ) ) ;
-        import_matrix_expression<NA,MAT>( other, nrows, nc ) ;
+    Matrix<RTYPE>::Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR( Rf_allocMatrix( RTYPE, other.nrow(), other.ncol() ) ), nrows(other.nrow()) {
+        import_matrix_expression<NA,MAT>( other, nrows, ncol() ) ;
     }
     
     template <int RTYPE>
     Matrix<RTYPE>& Matrix<RTYPE>::operator=(const Matrix& other) {
         SEXP x = other.asSexp() ;
         if( ! ::Rf_isMatrix(x) ) not_compatible("not a matrix") ;
-        VECTOR::setSEXP( x ) ;
+        VECTOR::set_sexp( x ) ;
         nrows = other.nrows ;
         return *this ;
     }

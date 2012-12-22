@@ -3,11 +3,10 @@ useDynLib(Rcpp, .registration = TRUE)
 import( methods )
 importFrom( utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription )
 
-exportClasses( Module, "C++ObjectS3", "C++Field", 
+exportClasses( Module, "C++Field", 
     "C++OverloadedMethods", 
     "C++Constructor", 
-    "C++Class", "C++Object", "C++Function", 
-    "C++ClassRepresentation"
+    "C++Class", "C++Object", "C++Function"
     )
 
 S3method( .DollarNames, "C++Object" )

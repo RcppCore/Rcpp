@@ -23,6 +23,8 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
+// #define RCPP_DEBUG_LEVEL 0 
+
 #include <Rcpp/platform/compiler.h>
 #include <Rcpp/config.h>
 #include <Rcpp/macros/macros.h>

@@ -57,10 +57,10 @@ public:
      * @param xp external pointer to wrap
      */
     explicit XPtr(SEXP m_sexp, SEXP tag = R_NilValue, SEXP prot = R_NilValue) : RObject(m_sexp){
-	if( TYPEOF(m_sexp) != EXTPTRSXP )
-	    throw ::Rcpp::not_compatible( "expecting an external pointer" ) ;
-    	R_SetExternalPtrTag( m_sexp, tag ) ;
-    	R_SetExternalPtrProtected( m_sexp, prot ) ;
+        if( TYPEOF(m_sexp) != EXTPTRSXP )
+            throw ::Rcpp::not_compatible( "expecting an external pointer" ) ;
+        R_SetExternalPtrTag( m_sexp, tag ) ;
+        R_SetExternalPtrProtected( m_sexp, prot ) ;
     } ;
 		
     /**
@@ -74,13 +74,18 @@ public:
      *        so you need to make sure the pointer can be "delete" d
      *        this way (has to be a C++ object)
      */
-     explicit XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue){
-         setSEXP( R_MakeExternalPtr( (void*)p , tag, prot) ) ;
+    explicit XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue){
+        RCPP_DEBUG( "XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue)" )
+        SEXP x = PROTECT( R_MakeExternalPtr( (void*)p , tag, prot) ) ; 
+        #if RCPP_DEBUG_LEVEL > 0
+        Rf_PrintValue( x ) ;
+        #endif
+        setSEXP( x ) ;
+        UNPROTECT(1); 
         if( set_delete_finalizer ){
-    	setDeleteFinalizer() ;
+            setDeleteFinalizer() ;
         }
-    
-     }
+    }
 
     XPtr( const XPtr& other ) : RObject( other.asSexp() ) {}
     
