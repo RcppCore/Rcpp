@@ -36,6 +36,12 @@
 // exported via Rcpp.h but are needed to make Rcpp work internally
 
 #ifdef __cplusplus
+SEXP get_Rcpp_protection_stack() ;
+namespace Rcpp{
+    SEXP Rcpp_PreserveObject(SEXP x) ;
+    void Rcpp_ReleaseObject(SEXP x) ;
+    SEXP Rcpp_ReplaceObject(SEXP x, SEXP y) ;
+}
 extern "C" {
 #endif
 
@@ -85,7 +91,7 @@ extern "C" {
     
     void init_Rcpp_routines(DllInfo*) ;
     const char * sexp_to_name(int sexp_type); 
-
+    
 #ifdef __cplusplus
 }
 #endif

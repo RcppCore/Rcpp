@@ -47,7 +47,7 @@ namespace Rcpp{
 #include <Rcpp/generated/DataFrame_generated.h>           
 
     private:
-        void set(SEXP x) ;
+        void set_sexp(SEXP x) ;
         
     } ;
         

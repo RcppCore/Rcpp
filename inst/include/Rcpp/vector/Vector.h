@@ -65,28 +65,33 @@ public:
     
     // we can't define these 3 in meat for some reason
     // maybe because of the typedef in instantiation.h
-    Vector( SEXP x ) : RObject() {
+    Vector( SEXP x ) : RObject( r_cast<RTYPE>( x ) ) {
     	RCPP_DEBUG_2( "Vector<%d>( SEXP = <%p> )", RTYPE, x)
-    	RObject::setSEXP( r_cast<RTYPE>( x ) ) ;
+    	update_vector() ;
     }
-    Vector( const RObject::SlotProxy& proxy ) {
-        RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
+    Vector( const RObject::SlotProxy& proxy ) : RObject( r_cast<RTYPE>( (SEXP)proxy ) ) {
+       RCPP_DEBUG_2( "Vector<%d>( const RObject::SlotProxy& proxy = <%p> )", RTYPE, m_sexp)
+       update_vector() ;
     }
     
-    Vector( const RObject::AttributeProxy& proxy ) {
-        RObject::setSEXP( r_cast<RTYPE>( (SEXP)proxy ) ) ;
+    Vector( const RObject::AttributeProxy& proxy ) : RObject( r_cast<RTYPE>( (SEXP)proxy ) ) {
+       RCPP_DEBUG_2( "Vector<%d>( const RObject::AttributeProxy& proxy = <%p> )", RTYPE, m_sexp)
+       update_vector() ;
     }
-    Vector( const int& size, const stored_type& u ){
-        RObject::setSEXP( Rf_allocVector( RTYPE, size) ) ;
+    Vector( const int& size, const stored_type& u ) : RObject( Rf_allocVector( RTYPE, size) ) {
+        RCPP_DEBUG_2( "Vector<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
+        update_vector() ;
         fill( u ) ;
     }
-    Vector( const std::string& st ) : RObject(){
-        RObject::setSEXP( internal::vector_from_string<RTYPE>(st) );
+    Vector( const std::string& st ) : RObject( internal::vector_from_string<RTYPE>(st) ){
+        RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
+        update_vector();
     }
-	Vector( const int& siz, stored_type (*gen)(void) ){
-    	RObject::setSEXP( Rf_allocVector( RTYPE, siz) ) ;
+	Vector( const int& siz, stored_type (*gen)(void) ) : RObject(Rf_allocVector( RTYPE, siz)) {
+        RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
+        update_vector() ;
         iterator first = begin(), last = end() ;
-    	while( first != last ) *first++ = gen() ;
+        while( first != last ) *first++ = gen() ;
     }
     
     Vector( const int& size )  ;
@@ -457,11 +462,6 @@ private:
     iterator erase_single__impl( iterator position ) ;
 	
     iterator erase_range__impl( iterator first, iterator last ) ;
-
-    virtual void update(){
-        RCPP_DEBUG_2( "Vector<%d>::update( SEXP = <%p> )", RTYPE, RObject::asSexp() ) ;
-        update_vector() ;
-    }
 
     template <typename T> inline void assign_sugar_expression( const T& x ) ;
     

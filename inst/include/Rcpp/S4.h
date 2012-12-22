@@ -72,7 +72,7 @@ namespace Rcpp{
         bool is( const std::string& clazz) ;
         
     private:
-        void set( SEXP x) ;
+        void set_sexp( SEXP x) ;
     } ;
 
 } // namespace Rcpp

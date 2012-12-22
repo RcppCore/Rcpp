@@ -100,11 +100,11 @@ namespace Rcpp{
 #ifdef HAS_VARIADIC_TEMPLATES
         template<typename... Args> 
         Language( const std::string& symbol, const Args&... args) : DottedPair(Rf_install(symbol.c_str()), args...) {
-            update() ;
+            update_language_object() ;
         }
         template<typename... Args> 
         Language( const Function& function, const Args&... args) : DottedPair(function, args...) {
-            update() ;
+            update_language_object() ;
         }
 #else
 
@@ -142,9 +142,12 @@ namespace Rcpp{
         
         ~Language() ;
 
-    private:
-        virtual void update() ; 
+    protected:
+        void update_language_object() ; 
 
+    private:
+        void set_sexp(SEXP x) ;
+        
     };
 
     template <typename OUT=SEXP>

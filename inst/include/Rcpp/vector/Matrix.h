@@ -107,11 +107,11 @@ private:
     
     inline int offset( int i, int j) const { return i + nrows * j ; }
     
-    virtual void update(){
-        RCPP_DEBUG_1( "%s::update", DEMANGLE(Matrix) ) ;
+    void update_matrix(){
+        RCPP_DEBUG_1( "%s::update_matrix", DEMANGLE(Matrix) ) ;
         VECTOR::update_vector() ;
     }
-        
+    
     template <typename U>
     void fill_diag__dispatch( traits::false_type, const U& u) ;
         

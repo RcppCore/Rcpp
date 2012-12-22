@@ -37,14 +37,14 @@ namespace Rcpp{
         /**
          * default constructor. uses R_NilValue
          */ 
-        RObject() : m_sexp(R_NilValue) {} ; 
+        RObject() ; 
 
         /**
          * wraps a SEXP. The SEXP is automatically protected from garbage 
          * collection by this object and the protection vanishes when this 
          * object is destroyed
          */
-        RObject(SEXP x) : m_sexp(R_NilValue) { setSEXP(x) ; };
+        RObject(SEXP x) ;
 
         /**
          * Copy constructor. set this SEXP to the SEXP of the copied object
@@ -246,7 +246,7 @@ namespace Rcpp{
          */
         SlotProxy slot(const std::string& name) const ;
     
-    protected:
+    protected:                                  
 
         /**
          * sets the SEXP wrapped by this object
@@ -260,15 +260,6 @@ namespace Rcpp{
          * to change it, use setSEXP
          */
         SEXP m_sexp ;
-    
-    private:
-
-        void preserve(){ if( m_sexp != R_NilValue ) R_PreserveObject(m_sexp) ; }
-        void release() { if( m_sexp != R_NilValue ) R_ReleaseObject(m_sexp) ; } 
-    
-        virtual void update(){
-            RCPP_DEBUG_1( "RObject::update(SEXP = <%p> )", m_sexp ) 
-        } ;
     
     };
 

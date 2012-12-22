@@ -54,10 +54,9 @@ private:
 } ;
 
 template <int RTYPE>
-Matrix<RTYPE>::Matrix( const SubMatrix<RTYPE>& sub ) : nrows(sub.nrow()) {
+Matrix<RTYPE>::Matrix( const SubMatrix<RTYPE>& sub ) : VECTOR( Rf_allocMatrix( RTYPE, sub.nrow(), sub.ncol() )), nrows(sub.nrow()) {
     int nc = sub.ncol() ;
-    VECTOR::setSEXP( Rf_allocMatrix( RTYPE, nrows, nc ) ) ;
-	iterator start = VECTOR::begin() ;
+    iterator start = VECTOR::begin() ;
 	iterator rhs_it ;
 	for( int j=0; j<nc; j++){
 	    rhs_it = sub.column_iterator(j) ;
@@ -72,7 +71,7 @@ Matrix<RTYPE>& Matrix<RTYPE>::operator=( const SubMatrix<RTYPE>& sub ){
     int nc = sub.ncol(), nr = sub.nrow() ;
     if( nc != nrow() || nr != ncol() ){
         nrows = nr ;
-        VECTOR::setSEXP( Rf_allocMatrix( RTYPE, nr, nc ) ) ;
+        VECTOR::set_sexp( Rf_allocMatrix( RTYPE, nr, nc ) ) ;
 	}
 	iterator start = VECTOR::begin() ;
 	iterator rhs_it ;
