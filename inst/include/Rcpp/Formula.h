@@ -2,7 +2,7 @@
 //
 // Formula.h: Rcpp R/C++ interface class library -- formula
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -38,6 +38,9 @@ namespace Rcpp{
         explicit Formula( const std::string& code ); 
 
         Formula& operator=(const Formula& other) ;
+        
+    private:
+        void set_sexp(SEXP x) ;
         
     } ; 
 

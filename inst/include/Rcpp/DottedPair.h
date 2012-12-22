@@ -33,9 +33,9 @@ public:
 
 	DottedPair() ;
 	
-	DottedPair( const DottedPair& other) : RObject(){
-		setSEXP( other.asSexp() ) ;
-	}
+	DottedPair(SEXP x) : RObject(x){} 
+	
+	DottedPair( const DottedPair& other) : RObject(other.asSexp()){}
 	
 	DottedPair& operator=( const DottedPair& other) ; 
 	

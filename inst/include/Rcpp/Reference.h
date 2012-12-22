@@ -138,7 +138,8 @@ namespace Rcpp{
     
     
     private:
-        void set( SEXP x) ;        
+        void set_sexp( SEXP x) ;
+        void check() ;        
     } ;
 
 } // namespace Rcpp
