@@ -107,6 +107,8 @@ Attributes
 
     o   Allow sourceCpp to build an entire directory
 
+    o   Functions with void return should return invisibly
+
 Testing
 
     o	all r* functions : rnorm, etc ...
