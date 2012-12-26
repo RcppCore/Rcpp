@@ -2410,6 +2410,7 @@ namespace {
                 ostr <<  attribute.exportedName()
                      << " <- Rcpp:::sourceCppFunction("
                      << "function(" << generateRArgList(function) << ") {}, " 
+                     << (function.type().isVoid() ? "TRUE" : "FALSE") << ", "
                      << dllInfo << ", " 
                      << "'" << contextId_ + "_" + function.name() 
                      << "')" << std::endl;
