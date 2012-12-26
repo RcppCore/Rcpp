@@ -313,7 +313,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 
 # Take an empty function body and connect it to the specified external symbol
-sourceCppFunction <- function(func, dll, symbol) {
+sourceCppFunction <- function(func, isVoid, dll, symbol) {
     
     args <- names(formals(func))
     
@@ -324,6 +324,9 @@ sourceCppFunction <- function(func, dll, symbol) {
     
     body[[1L]] <- .Call
     body[[2L]] <- getNativeSymbolInfo(symbol, dll)$address
+    
+    if (isVoid)
+        body <- call("invisible", body)
     
     body(func) <- body
     
