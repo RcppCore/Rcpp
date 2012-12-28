@@ -27,7 +27,7 @@
     #include <windows.h>
 #elif defined(__MACH__) || defined(__APPLE__)
     #include <mach/mach_time.h>
-#elif defined(linux) || defined(__linux)
+#elif defined(linux) || defined(__linux) || defined(__FreeBSD__)
     #include <time.h>
 #elif defined(sun) || defined(__sun) || defined(_AIX)
     #include <sys/time.h>
@@ -61,7 +61,7 @@ namespace Rcpp{
         /* Convert to nanoseconds */
         return time * (info.numer / info.denom);
     }
-#elif defined(linux) || defined(__linux)
+#elif defined(linux) || defined(__linux) || defined(__FreeBSD__)
 
     static const nanotime_t nanoseconds_in_second = 1000000000LL;
     
