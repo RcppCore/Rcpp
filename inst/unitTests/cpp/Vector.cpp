@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// DataFrame.cpp: Rcpp R/C++ interface class library -- DataFrame unit tests
+// Vector.cpp: Rcpp R/C++ interface class library -- Vector unit tests
 //
 // Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
 //
