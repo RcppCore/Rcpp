@@ -24,4 +24,4 @@ Luke Tierney            for helpful discussions on R internals
 Simon Urbanek           for help on OS X build issues and with R internals
 Ken Williams            for additional OS X testing
 Jelmer Ypma             for contributing the Rcout iostreams class patch
-Yan Zhou		for patched improve C++11 and compiler support 
+Yan Zhou		for patches improving C++11 and compiler support 
