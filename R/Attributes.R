@@ -279,6 +279,8 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     pkgInfo <- tools:::.split_description(tools:::.read_description(descFile))
     pkgname <- as.character(pkgInfo$DESCRIPTION["Package"])
     depends <- unique(names(pkgInfo$Depends))
+    if (is.null(depends))
+        depends <- character()
     
     # determine source directory
     srcDir <- file.path(pkgdir, "src")

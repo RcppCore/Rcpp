@@ -1,3 +1,7 @@
+2014-01-04  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: null check on pkginfo depends field
+
 2013-01-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Timer.cpp (Rcpp): Applied refinement of previously applied
