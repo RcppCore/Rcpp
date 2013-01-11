@@ -57,7 +57,7 @@ sourceCpp <- function(file = "",
         .validatePackages(depends, context$cppSourceFilename)
         
         # temporarily modify environment for the build
-        envRestore <- .setupBuildEnvironment(depends, file)
+        envRestore <- .setupBuildEnvironment(depends, context$plugins, file)
         
         # temporarily setwd to build directory
         cwd <- getwd()
