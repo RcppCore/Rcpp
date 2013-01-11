@@ -1,6 +1,7 @@
 2014-01-11  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: initial support for Rcpp::plugins attribute
+        * R/Attributes.R: initial support for Rcpp::plugins attribute; add
+        built-in cpp11 plugin
         * src/attributes.cpp: initial support for Rcpp::plugins attribute
 
 2014-01-04  JJ Allaire <jj@rstudio.org>
