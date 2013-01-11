@@ -314,6 +314,10 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 }
 
 
+# built-in C++11 plugin
+cpp11 <- function() list(env = list(PKG_CXXFLAGS ="-std=c++11"))
+
+
 # Take an empty function body and connect it to the specified external symbol
 sourceCppFunction <- function(func, isVoid, dll, symbol) {
     
