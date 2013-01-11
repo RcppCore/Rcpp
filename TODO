@@ -114,6 +114,15 @@ Attributes
 
     o   Allow sourceCpp to build an entire directory
 
+    o   Warn user if Rpp library or source file has spaces in it's path
+
+    o   Some mechanism for custom compliation flags and dependencies that
+        don't require a pacakge (e.g. calling inline plugins directly, 
+        setting cxxflags directly, import via pkgconfig, etc.)
+
+    o   Use source directory as build working directory so that a) error
+        messages refer to the correct file; and b) local includes work
+
 Testing
 
     o	all r* functions : rnorm, etc ...
