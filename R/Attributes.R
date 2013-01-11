@@ -398,11 +398,44 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 # Setup the build environment based on the specified dependencies. Returns an
 # opaque object that can be passed to .restoreEnvironment to reverse whatever
 # changes that were made
-.setupBuildEnvironment <- function(depends, sourceFile) {
+.setupBuildEnvironment <- function(depends, plugins, sourceFile) {
     
     # discover dependencies
     buildEnv <- list()
     linkingToPackages <- c("Rcpp")
+    
+    # update dependencies from a plugin
+    setDependenciesFromPlugin <- function(plugin) {
+        
+        # get the plugin settings 
+        settings <- plugin()
+        
+        # merge environment variables
+        pluginEnv <- settings$env
+        for (name in names(pluginEnv)) {
+            # if it doesn't exist already just set it
+            if (is.null(buildEnv[[name]])) {
+                buildEnv[[name]] <<- pluginEnv[[name]]
+            }
+            # if it's not identical then append
+            else if (!identical(buildEnv[[name]],
+                                pluginEnv[[name]])) {
+                buildEnv[[name]] <<- paste(buildEnv[[name]], 
+                                          pluginEnv[[name]]);
+            }
+            else {
+                # it already exists and it's the same value, this 
+                # likely means it's a flag-type variable so we 
+                # do nothing rather than appending it
+            }   
+        }
+        
+        # capture any LinkingTo elements defined by the plugin
+        linkingToPackages <<- unique(c(linkingToPackages, 
+                                      settings$LinkingTo))
+    }
+    
+    # add packages to linkingTo and introspect for plugins
     for (package in depends) {
         
         # add a LinkingTo for this package
@@ -410,37 +443,19 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         
         # see if the package exports a plugin
         plugin <- .getInlinePlugin(package)
-        if (!is.null(plugin)) {
-            
-            # get the plugin settings 
-            settings <- plugin()
-            
-            # merge environment variables
-            pluginEnv <- settings$env
-            for (name in names(pluginEnv)) {
-                # if it doesn't exist already just set it
-                if (is.null(buildEnv[[name]])) {
-                    buildEnv[[name]] <- pluginEnv[[name]]
-                }
-                # if it's not identical then append
-                else if (!identical(buildEnv[[name]],
-                                    pluginEnv[[name]])) {
-                    buildEnv[[name]] <- paste(buildEnv[[name]], 
-                                              pluginEnv[[name]]);
-                }
-                else {
-                    # it already exists and it's the same value, this 
-                    # likely means it's a flag-type variable so we 
-                    # do nothing rather than appending it
-                }   
-            }
-            
-            # capture any LinkingTo elements defined by the plugin
-            linkingToPackages <- unique(c(linkingToPackages, 
-                                          settings$LinkingTo))
-        }
+        if (!is.null(plugin))
+           setDependenciesFromPlugin(plugin) 
     }
     
+    # process plugins
+    for (pluginName in plugins) {
+        plugin <- tryCatch(eval(parse(text=pluginName)), 
+                           error = function(e) NULL)
+        if (!is.function(plugin))
+            stop("Inline plugin '", pluginName, "' could not be found.")
+        setDependenciesFromPlugin(plugin)
+    }
+     
     # if there is no buildEnv from a plugin then use the Rcpp plugin
     if (length(buildEnv) == 0) {
         buildEnv <- Rcpp:::inlineCxxPlugin()$env

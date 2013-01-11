@@ -96,6 +96,7 @@ namespace attributes {
     // Known attribute names & parameters
     const char * const kExportAttribute = "export";
     const char * const kDependsAttribute = "depends";
+    const char * const kPluginsAttribute = "plugins";
     const char * const kInterfacesAttribute = "interfaces";
     const char * const kInterfaceR = "r";
     const char * const kInterfaceCpp = "cpp";
@@ -1185,6 +1186,7 @@ namespace attributes {
                                                                         const {
         return name == kExportAttribute || 
                name == kDependsAttribute ||
+               name == kPluginsAttribute ||
                name == kInterfacesAttribute;
     }
 
@@ -2320,15 +2322,22 @@ namespace {
             // discover exported functions, and dependencies
             exportedFunctions_.clear();
             depends_.clear();
+            plugins_.clear();
             for (SourceFileAttributesParser::const_iterator 
               it = sourceAttributes.begin(); it != sourceAttributes.end(); ++it) {
+                 
                  if (it->name() == kExportAttribute && !it->function().empty()) 
                     exportedFunctions_.push_back(it->exportedName());
                 
                  else if (it->name() == kDependsAttribute) {
                      for (size_t i = 0; i<it->params().size(); ++i)
                         depends_.push_back(it->params()[i].name());
-                 }   
+                 }
+                 
+                 else if (it->name() == kPluginsAttribute) {
+                     for (size_t i = 0; i<it->params().size(); ++i)
+                        plugins_.push_back(it->params()[i].name());
+                 }
             }
             
             // capture embededded R
@@ -2379,6 +2388,8 @@ namespace {
         }
         
         const std::vector<std::string>& depends() const { return depends_; };
+        
+        const std::vector<std::string>& plugins() const { return plugins_; };
         
         const std::vector<std::string>& embeddedR() const { return embeddedR_; }
           
@@ -2437,6 +2448,7 @@ namespace {
         std::string dynlibExt_;
         std::vector<std::string> exportedFunctions_;
         std::vector<std::string> depends_;
+        std::vector<std::string> plugins_;
         std::vector<std::string> embeddedR_;
     };
     
@@ -2558,6 +2570,7 @@ BEGIN_RCPP
         _["dynlibPath"] = pDynlib->dynlibPath(),
         _["previousDynlibPath"] = pDynlib->previousDynlibPath(),
         _["depends"] = pDynlib->depends(),
+        _["plugins"] = pDynlib->plugins(),
         _["embeddedR"] = pDynlib->embeddedR());
 END_RCPP
 }
