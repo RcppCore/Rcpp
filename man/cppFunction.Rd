@@ -7,8 +7,8 @@ Define an R Function with a C++ Implementation
 Dynamically define an R function with C++ source code. Compiles and links a shared library with bindings to the C++ function then defines an R function that uses \code{.Call} to invoke the library.
 }
 \usage{
-cppFunction(code, depends = character(), includes = character(), 
-            env = parent.frame(), rebuild = FALSE, 
+cppFunction(code, depends = character(), plugins = character(),
+            includes = character(), env = parent.frame(), rebuild = FALSE, 
             showOutput = verbose, verbose = getOption("verbose"))
 }
 
@@ -19,6 +19,9 @@ cppFunction(code, depends = character(), includes = character(),
   \item{depends}{
     Character vector of packages that the compilation depends on. Each package listed will first be queried for an \link[inline:plugins]{inline plugin} to determine header files to include. If no plugin is defined for the package then a header file based the package's name (e.g. \code{PkgName.hpp}) will be included.
 }
+  \item{plugins}{
+    Character vector of \link[inline:plugins]{inline plugins} to use for the compliation.
+  }
   \item{includes}{
     Character vector of user includes (inserted after the includes provided by \code{depends}).
 }
@@ -81,5 +84,12 @@ cppFunction(depends = "RcppArmadillo",
             Named("stderr")       = stderrest
         );
     }')
+    
+cppFunction(plugins=c("cpp11"), '
+    int useCpp11() {
+        auto x = 10;
+        return x;
+    }')
+    
 }
 }

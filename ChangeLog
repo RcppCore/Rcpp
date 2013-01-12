@@ -1,3 +1,13 @@
+2014-01-12  JJ Allaire <jj@rstudio.org>
+
+        * DESCRIPTION: bump version to 0.10.2.2
+        * NAMESPACE: add registerPlugin function
+        * R/Attributes.R: add registerPlugin function; add plugins parameter
+        to cppFunction
+        * man/cppFunction.Rd: documentation updates
+        * man/pluginsAttribute.Rd: documentation updates
+        * man/registerPlugin: documentation updates
+
 2014-01-11  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: initial support for Rcpp::plugins attribute; add
