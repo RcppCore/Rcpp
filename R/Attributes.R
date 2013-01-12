@@ -161,13 +161,14 @@ sourceCpp <- function(file = "",
 # Define a single C++ function
 cppFunction <- function(code, 
                         depends = character(),
+                        plugins = character(),
                         includes = character(),
                         env = parent.frame(),
                         rebuild = FALSE,
                         showOutput = verbose,
                         verbose = getOption("verbose")) {
     
-    # generate required scaffolding
+    # process depends
     if (!is.null(depends) && length(depends) > 0) {
         depends <- paste(depends, sep=", ")
         scaffolding <- paste("// [[Rcpp::depends(", depends, ")]]", sep="")
@@ -177,6 +178,15 @@ cppFunction <- function(code,
     else {
         scaffolding <- "#include <Rcpp.h>"
     }
+    
+    # process plugins
+    if (!is.null(plugins) && length(plugins) > 0) {
+        plugins <- paste(plugins, sep=", ")
+        pluginsAttrib <- paste("// [[Rcpp::plugins(", plugins, ")]]", sep="")
+        scaffolding <- c(scaffolding, pluginsAttrib)
+    }
+    
+    # remainder of scaffolding
     scaffolding <- c(scaffolding, 
                      "",
                      "using namespace Rcpp;", 
@@ -313,9 +323,18 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
                     includes, verbose, .Platform))
 }
 
+# setup plugins environment
+.plugins <- new.env()
 
 # built-in C++11 plugin
-cpp11 <- function() list(env = list(PKG_CXXFLAGS ="-std=c++11"))
+.plugins[["cpp11"]] <- function() {
+    list(env = list(PKG_CXXFLAGS ="-std=c++11"))
+}
+
+# register a plugin
+registerPlugin <- function(name, plugin) {
+    .plugins[[name]] <- plugin    
+}
 
 
 # Take an empty function body and connect it to the specified external symbol
@@ -453,13 +472,12 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     
     # process plugins
     for (pluginName in plugins) {
-        plugin <- tryCatch(eval(parse(text=pluginName)), 
-                           error = function(e) NULL)
-        if (!is.function(plugin))
+        plugin <- .plugins[[pluginName]]
+        if (is.null(plugin))
             stop("Inline plugin '", pluginName, "' could not be found.")
         setDependenciesFromPlugin(plugin)
     }
-     
+    
     # if there is no buildEnv from a plugin then use the Rcpp plugin
     if (length(buildEnv) == 0) {
         buildEnv <- Rcpp:::inlineCxxPlugin()$env
