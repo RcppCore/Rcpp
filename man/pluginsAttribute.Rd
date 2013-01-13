@@ -18,9 +18,18 @@ The \code{Rcpp::plugins} attribute is added to a C++ source file to specify the
 }
 
 \details{
-    Note that plugins must be registered using the \code{\link{registerPlugin}}
-    function. \pkg{Rcpp} also includes a built-in \code{cpp11} plugin that
-    adds the flag required to enable \code{C++11} features in the compiler.
+Plugins must be registered using the \code{\link{registerPlugin}}
+function. 
+
+When included within a \code{\link{sourceCpp}} translation unit,
+the configuration-related fields of the plugin (e.g. \code{env} and 
+\code{LinkingTo}) are utilized, however the code-generation fields
+(e.g. \code{includes} and \code{body}) are not.
+
+}
+\note{
+\pkg{Rcpp} includes a built-in \code{cpp11} plugin that
+adds the flags required to enable \code{C++11} features in the compiler.
 }
 
 \seealso{
