@@ -114,9 +114,6 @@ Attributes
 
     o   Allow sourceCpp to build an entire directory
 
-    o   Use source directory as build working directory so that a) error
-        messages refer to the correct file; and b) local includes work
-
 Testing
 
     o	all r* functions : rnorm, etc ...

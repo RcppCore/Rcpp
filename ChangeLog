@@ -2,8 +2,8 @@
 
         * R/Attributes.R: use plugin includes in cppFunction; stop with 
         explicit error on Windows then the Rcpl libPath or sourceCpp
-        target file contains spaces in it's path
-       
+        target file contains spaces in it's path; add source file directory
+        as an include path for sourceCpp
         * man/pluginsAttribute.Rd: clarify which fields of plugin are
         used by sourceCpp
 
