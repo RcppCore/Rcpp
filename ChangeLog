@@ -3,7 +3,8 @@
         * R/Attributes.R: use plugin includes in cppFunction; stop with 
         explicit error on Windows then the Rcpl libPath or sourceCpp
         target file contains spaces in it's path; add source file directory
-        as an include path for sourceCpp
+        as an include path for sourceCpp; special handling for sourceCpp
+        include paths on windows
         * man/pluginsAttribute.Rd: clarify which fields of plugin are
         used by sourceCpp
 
@@ -1033,7 +1034,7 @@
 2012-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Expanded R CMD SHLIB discussion
-	after suggested changes from Søren Højsgaard; also expanded compiler
+	after suggested changes from SC8ren HC8jsgaard; also expanded compiler
 	section a little mentioning clang/clang++ and icc.
 
 2012-05-02  Dirk Eddelbuettel  <edd@debian.org>
@@ -1727,8 +1728,8 @@
 2010-12-13  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/include/Rcpp/vector/string_proxy.h: List::Proxy did not
-	convert bool correctly, reported on Rcpp-devel by Daniel Sabanés
-	Bové <daniel.sabanesbove@ifspm.uzh.ch>
+	convert bool correctly, reported on Rcpp-devel by Daniel SabanC)s
+	BovC) <daniel.sabanesbove@ifspm.uzh.ch>
 
 2010-12-12  Romain Francois <romain@r-enthusiasts.com>
 
