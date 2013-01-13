@@ -1,3 +1,7 @@
+2014-01-13  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: use plugin includes in cppFunction
+
 2014-01-12  JJ Allaire <jj@rstudio.org>
 
         * DESCRIPTION: bump version to 0.10.2.2

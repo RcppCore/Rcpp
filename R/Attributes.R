@@ -173,7 +173,7 @@ cppFunction <- function(code,
         depends <- paste(depends, sep=", ")
         scaffolding <- paste("// [[Rcpp::depends(", depends, ")]]", sep="")
         scaffolding <- c(scaffolding, "", .linkingToIncludes(depends, FALSE), 
-                         recursive=T)
+                         recursive=TRUE)
     }
     else {
         scaffolding <- "#include <Rcpp.h>"
@@ -184,6 +184,13 @@ cppFunction <- function(code,
         plugins <- paste(plugins, sep=", ")
         pluginsAttrib <- paste("// [[Rcpp::plugins(", plugins, ")]]", sep="")
         scaffolding <- c(scaffolding, pluginsAttrib)
+        
+        # append plugin includes
+        for (pluginName in plugins) {
+            plugin <- .plugins[[pluginName]]
+            settings <- plugin()
+            scaffolding <- c(scaffolding, settings$includes, recursive=TRUE)
+        }
     }
     
     # remainder of scaffolding
