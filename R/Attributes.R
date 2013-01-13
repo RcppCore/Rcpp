@@ -34,6 +34,20 @@ sourceCpp <- function(file = "",
     
     # resolve the file path
     file <- normalizePath(file, winslash = "/")
+    
+    # validate that there are no spaces in the path on windows
+    if (.Platform$OS.type == "windows") {
+        if (grepl(' ', path.package("Rcpp"), fixed=TRUE)) {
+            stop("Rcpp is installed within a package library that has spaces ",
+                 "in it's path (", path.package("Rcpp"), "). Rcpp cannot be ",
+                 "built against in this configuration. Please re-install ",
+                 "Rcpp in a package library without spaces in it's path.")
+        }
+        if (grepl(' ', basename(file), fixed=TRUE)) {
+            stop("The filename '", basename(file), "' contains spaces. This ",
+                 "is not permitted.")
+        }
+    }
      
     # get the context (does code generation as necessary)
     context <- .Call("sourceCppContext", PACKAGE="Rcpp", 

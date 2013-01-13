@@ -114,8 +114,6 @@ Attributes
 
     o   Allow sourceCpp to build an entire directory
 
-    o   Warn user if Rpp library or source file has spaces in it's path
-
     o   Use source directory as build working directory so that a) error
         messages refer to the correct file; and b) local includes work
 

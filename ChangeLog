@@ -1,6 +1,9 @@
 2014-01-13  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: use plugin includes in cppFunction
+        * R/Attributes.R: use plugin includes in cppFunction; stop with 
+        explicit error on Windows then the Rcpl libPath or sourceCpp
+        target file contains spaces in it's path
+       
         * man/pluginsAttribute.Rd: clarify which fields of plugin are
         used by sourceCpp
 
