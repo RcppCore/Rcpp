@@ -37,9 +37,9 @@ sourceCpp <- function(file = "",
     
     # validate that there are no spaces in the path on windows
     if (.Platform$OS.type == "windows") {
-        if (grepl(' ', path.package("Rcpp"), fixed=TRUE)) {
+        if (grepl(' ', find.package("Rcpp"), fixed=TRUE)) {
             stop("Rcpp is installed within a package library that has spaces ",
-                 "in it's path (", path.package("Rcpp"), "). Rcpp cannot be ",
+                 "in it's path (", find.package("Rcpp"), "). Rcpp cannot be ",
                  "built against in this configuration. Please re-install ",
                  "Rcpp in a package library without spaces in it's path.")
         }
@@ -439,6 +439,20 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
              error = function(e) NULL) 
 }
 
+# Function to normalize build paths for passing to gcc on the command line
+# Leave them alone for posix (they'll be quoted). For Windows, mirror the
+# behavior of the R package build system by taking the fully resolved
+# absolute path (as a short path name) then convert backslashes to forward
+# slashes.
+.asBuildPath <- function(path) {
+    if (.Platform$OS.type == "windows") {
+        path <- normalizePath(path)
+        path <- utils::shortPathName(path)
+        path <- gsub("\\\\", "/", path)
+    }
+    return(path)
+}
+
 # Setup the build environment based on the specified dependencies. Returns an
 # opaque object that can be passed to .restoreEnvironment to reverse whatever
 # changes that were made
@@ -515,9 +529,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     buildEnv$CLINK_CPPFLAGS <- .buildClinkCppFlags(linkingToPackages)
     
     # add source file's directory to the compilation
-    srcDir <- dirname(sourceFile)
-    if (.Platform$OS.type == "windows")
-        srcDir <- utils::shortPathName(srcDir)
+    srcDir <- .asBuildPath(dirname(sourceFile))
     buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS, 
                                      paste0('-I"', srcDir, '"'), 
                                      collapse=" ")
@@ -525,6 +537,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # if the source file is in a package then add inst/include
     if (.isPackageSourceFile(sourceFile)) {
         incDir <- file.path(dirname(sourceFile), "..", "inst", "include")
+        incDir <- .asBuildPath(incDir)
         buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS, 
                                          paste0('-I"', incDir, '"'), 
                                          collapse=" ")
