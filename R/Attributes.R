@@ -514,13 +514,19 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # set CLINK_CPPFLAGS based on the LinkingTo dependencies
     buildEnv$CLINK_CPPFLAGS <- .buildClinkCppFlags(linkingToPackages)
     
-    # if the source file is in a package then add standard package
-    # include directories
+    # add source file's directory to the compilation
+    srcDir <- dirname(sourceFile)
+    if (.Platform$OS.type == "windows")
+        srcDir <- utils::shortPathName(srcDir)
+    buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS, 
+                                     paste0('-I"', srcDir, '"'), 
+                                     collapse=" ")
+    
+    # if the source file is in a package then add inst/include
     if (.isPackageSourceFile(sourceFile)) {
-        srcDir <- dirname(sourceFile)
         incDir <- file.path(dirname(sourceFile), "..", "inst", "include")
         buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS, 
-                                         paste0('-I"', c(srcDir, incDir), '"'), 
+                                         paste0('-I"', incDir, '"'), 
                                          collapse=" ")
     }
 
