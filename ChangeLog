@@ -3,6 +3,7 @@
         * R/Attributes.R: handle build paths with spaces on windows
         * R/RcppLdpath.R: handle build paths with spaces on windows
         * R/tools.R: handle build paths with spaces on windows
+        * src/Timer.cpp: fix OSX build (remove __MACH__ define check)
         * R/: set svn eol-style native for source files
         * src/: set svn eol-style native for source files 
         * inst/include/: set svn eol-style native for source files 
