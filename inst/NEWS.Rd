@@ -2,6 +2,30 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp 0.10.3 (future)}{
+  \itemize{
+    \item Changes in R code:
+    \itemize{
+      \item Prevent build failures when Rcpp is installed in a library
+      path with spaces on Windows (transform paths in the same manner
+      that R does before passing them to the build system).
+    }
+    \item Changes in Rcpp attributes: 
+    \itemize{
+        \item Add the directory containing the target file as an
+        include directory for \code{sourceCpp} compilations.
+        \item Added \code{Rcpp::plugins} attribute for binding 
+        directly to inline plugins. Plugins can be registered using
+        the new \code{registerPlugin} function.
+        \item Added built-in \code{cpp11} plugin for specifying
+        the use of C++11 in a translation unit
+        \item Stop with an error if the file name passed to 
+        \code{sourceCpp} has spaces in it
+        \item Return invisibly from void functions
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.10.2 (2012-12-21)}{
   \itemize{
     \item Changes in Rcpp API:
