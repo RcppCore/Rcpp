@@ -25,7 +25,7 @@
 #if defined(_WIN32) 
     #define WIN32_LEAN_AND_MEAN
     #include <windows.h>
-#elif defined(__APPLE__) && defined(__MACH___)
+#elif defined(__APPLE__)
     #include <mach/mach_time.h>
 #elif defined(linux) || defined(__linux) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__GLIBC__) || defined(__GNU__)
     #include <time.h>
@@ -49,7 +49,7 @@ namespace Rcpp{
         return 1.0e9 * time_var.QuadPart / frequency.QuadPart;
     }
 
-#elif defined(__APPLE__) && defined(__MACH__)
+#elif defined(__APPLE__)
      
     nanotime_t get_nanotime(void) {
         nanotime_t time;
