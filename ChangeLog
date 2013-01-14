@@ -1,5 +1,6 @@
 2014-01-14  JJ Allaire <jj@rstudio.org>
 
+        * DESCRIPTION: bump version to 0.10.2.3
         * R/Attributes.R: handle build paths with spaces on windows
         * R/RcppLdpath.R: handle build paths with spaces on windows
         * R/tools.R: handle build paths with spaces on windows
