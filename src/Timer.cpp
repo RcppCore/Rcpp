@@ -64,7 +64,7 @@ namespace Rcpp{
 
 #elif defined(linux) || defined(__linux) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__GLIBC__) || defined(__GNU__)
 
-    static const nanotime_t nanoseconds_in_second = 1000000000LL;
+    static const nanotime_t nanoseconds_in_second = static_cast<nanotime_t>(1000000000.0);
     
     nanotime_t get_nanotime(void) {
         struct timespec time_var;
