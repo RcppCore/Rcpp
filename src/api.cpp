@@ -226,7 +226,7 @@ namespace Rcpp {
         
     }
 
-    RObject::RObject() : m_sexp(R_NilValue) {} ; 
+    RObject::RObject() : m_sexp(R_NilValue) {}  
     RObject::RObject(SEXP x)  : m_sexp(Rcpp_PreserveObject(x)){}
 
     /* copy constructor */
@@ -1673,18 +1673,18 @@ static const char* dropTrailing0(char *s, char cdec) {
     return s;
 }
 
-template <> const char* coerce_to_string<REALSXP>(double x){
-    int w,d,e ;
-    Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
-    char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
-	return dropTrailing0(tmp, '.');
+// template <> const char* coerce_to_string<REALSXP>(double x){
+//     int w,d,e ;
+//     Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
+//     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
+// 	return dropTrailing0(tmp, '.');
         
-}
-template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
-    int wr, dr, er, wi, di, ei;
-    Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
-    return Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
-}
+// }
+// template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
+//     int wr, dr, er, wi, di, ei;
+//     Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
+//     return Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
+// }
 
 
 } // internal

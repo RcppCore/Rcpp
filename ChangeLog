@@ -1,3 +1,14 @@
+2013-01-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/api.cpp (Rcpp): Commented-out coerce_to_string() for real and
+	complex arguments as R-devel (as of today) dislikes use of non-API
+	functions Rf_EncodeComplex’, ‘Rf_EncodeReal’, ‘Rf_formatComplex’ 
+
+	* .Rbuildignore: Added inst/include/Rcpp/preprocessor and
+	sugar/functions/impl which are currently empty directories
+
+	* src/Timer.cpp (Rcpp): Avoid a 'long long' warning from a const
+
 2014-01-15  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: don't add source directory as an include path for
