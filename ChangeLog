@@ -1,3 +1,7 @@
+2014-01-15  JJ Allaire <jj@rstudio.org>
+
+        ** R/RcppLdpath.R: don't quote paths on windows
+
 2014-01-14  JJ Allaire <jj@rstudio.org>
 
         * DESCRIPTION: bump version to 0.10.2.3
