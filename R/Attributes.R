@@ -507,22 +507,19 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     
     # set CLINK_CPPFLAGS based on the LinkingTo dependencies
     buildEnv$CLINK_CPPFLAGS <- .buildClinkCppFlags(linkingToPackages)
-    
-    # add source file's directory to the compilation
-    srcDir <- asBuildPath(dirname(sourceFile))
-    buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS, 
-                                     paste0('-I"', srcDir, '"'), 
-                                     collapse=" ")
-    
-    # if the source file is in a package then add inst/include
+     
+    # if the source file is in a package then add src and inst/include
     if (.isPackageSourceFile(sourceFile)) {
+        srcDir <- dirname(sourceFile)
+        srcDir <- asBuildPath(srcDir)
         incDir <- file.path(dirname(sourceFile), "..", "inst", "include")
         incDir <- asBuildPath(incDir)
+        dirFlags <- paste0('-I"', c(srcDir, incDir), '"', collapse=" ")
         buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS, 
-                                         paste0('-I"', incDir, '"'), 
+                                         dirFlags, 
                                          collapse=" ")
     }
-
+    
     # add cygwin message muffler
     buildEnv$CYGWIN = "nodosfilewarning"
     

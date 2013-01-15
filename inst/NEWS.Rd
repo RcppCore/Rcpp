@@ -12,8 +12,6 @@
     }
     \item Changes in Rcpp attributes: 
     \itemize{
-        \item Add the directory containing the target file as an
-        include directory for \code{sourceCpp} compilations.
         \item Added \code{Rcpp::plugins} attribute for binding 
         directly to inline plugins. Plugins can be registered using
         the new \code{registerPlugin} function.
