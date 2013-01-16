@@ -76,7 +76,7 @@
         * R/Attributes.R: return invisibly from void functions
         * src/attributes.cpp: return invisibly from void functions
 
-2012-12-20 Romain Francois <romain@r-enthusiasts.com>
+2012-12-21 Romain Francois <romain@r-enthusiasts.com>
 
         * NAMESPACE : remove C++ObjectS3 and C++ClassRepresentation classes
         * R/00_classes.R: remove unused S4 classes
