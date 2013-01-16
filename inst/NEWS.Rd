@@ -21,6 +21,11 @@
         \code{sourceCpp} has spaces in it
         \item Return invisibly from void functions
     }
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Platform-dependent code in Timer.cpp now recognises a few
+      more BSD variants thanks to contributed defined() test suggestions
+    }
   }
 }
 
