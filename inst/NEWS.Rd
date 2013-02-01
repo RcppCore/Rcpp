@@ -23,6 +23,11 @@
     }
     \item Changes in Rcpp API:
     \itemize{
+      \item The very central use of R API R_PreserveObject and 
+      R_ReleaseObject has been replaced by a new system based on the 
+      functions Rcpp_PreserveObject, Rcpp_ReleaseObject and Rcpp_ReplaceObject
+      which shows better performance and is implemented using a generic vector
+      treated as a stack instead of a pairlist in the R implementation
       \item Platform-dependent code in Timer.cpp now recognises a few
       more BSD variants thanks to contributed defined() test suggestions
     }
