@@ -2,7 +2,8 @@
 //
 // as.h: Rcpp R/C++ interface class library -- convert SEXP to C++ objects
 //
-// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013    Rice University
 //
 // This file is part of Rcpp.
 //
@@ -43,13 +44,21 @@ namespace Rcpp{
         }
         
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_tag ) {
-            if( ! ::Rf_isString(x) ){
+            if( ! ::Rf_isString(x) )
                 throw ::Rcpp::not_compatible( "expecting a string" ) ;
-            }
-            if (Rf_length(x) != 1) {
+            if (Rf_length(x) != 1)
                 throw ::Rcpp::not_compatible( "expecting a single value");
-            }
             return T( CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ) ;
+        }
+        
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_wstring_tag ) {
+            if( ! ::Rf_isString(x) )
+                throw ::Rcpp::not_compatible( "expecting a string" ) ;
+            if (Rf_length(x) != 1)
+                throw ::Rcpp::not_compatible( "expecting a single value");
+            const char* y = CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ;
+            // TODO: deal about encoding
+            return std::wstring( y, y+strlen(y)) ;
         }
         
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_RcppString_tag ) {
