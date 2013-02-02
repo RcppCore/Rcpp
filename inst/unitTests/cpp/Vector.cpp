@@ -2,7 +2,7 @@
 //
 // Vector.cpp: Rcpp R/C++ interface class library -- Vector unit tests
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -454,6 +454,32 @@ CharacterVector character_matrix_indexing_lhs( CharacterVector m ){
     }
     return m ;
 }
+
+// [[Rcpp::export]]
+CharacterVector character_matrix_row_iteration_incr( CharacterMatrix m ){
+    std::string pasted_row;
+    CharacterMatrix::Row row(m(1, _));
+    CharacterMatrix::Row::iterator i_row(row.begin());
+    for( size_t i=0 ; i<4; i++){
+        pasted_row += *i_row++;
+    }
+    return wrap( pasted_row ) ;
+}
+
+// [[Rcpp::export]]
+CharacterVector character_matrix_row_iteration_decr( CharacterMatrix m ){
+    std::string pasted_row;
+    CharacterMatrix::Row row(m(1, _));
+    CharacterMatrix::Row::iterator i_row(row.end());
+    i_row--; // Step back from 'one past the end' to 'last element'.
+    // Only copy the last three elements, to avoid creating an invalid
+    // 'one before the beginning' iterator:
+    for( size_t i=0 ; i<3; i++){
+        pasted_row += *i_row--;
+    }
+    return wrap( pasted_row ) ;
+}
+
 
 // [[Rcpp::export]]
 CharacterVector character_assign1(){

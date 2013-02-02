@@ -1655,23 +1655,23 @@ template <> const char* coerce_to_string<RAWSXP>(Rbyte from){
 }
 
 
-static const char* dropTrailing0(char *s, char cdec) {
-    /* Note that  's'  is modified */
-    char *p = s;
-    for (p = s; *p; p++) {
-	if(*p == cdec) {
-	    char *replace = p++;
-	    while ('0' <= *p  &&  *p <= '9')
-		if(*(p++) != '0')
-		    replace = p;
-	    if(replace != p)
-		while((*(replace++) = *(p++)))
-		    ;
-	    break;
-	}
-    }
-    return s;
-}
+// static const char* dropTrailing0(char *s, char cdec) {
+//     /* Note that  's'  is modified */
+//     char *p = s;
+//     for (p = s; *p; p++) {
+// 	if(*p == cdec) {
+// 	    char *replace = p++;
+// 	    while ('0' <= *p  &&  *p <= '9')
+// 		if(*(p++) != '0')
+// 		    replace = p;
+// 	    if(replace != p)
+// 		while((*(replace++) = *(p++)))
+// 		    ;
+// 	    break;
+// 	}
+//     }
+//     return s;
+// }
 
 // template <> const char* coerce_to_string<REALSXP>(double x){
 //     int w,d,e ;
