@@ -8,7 +8,8 @@
         * include/Rcpp/vector/VectorBase.h : correct operators ++ and --
         * unitTests/cpp/Vector.cpp: new unit tests 
         * unitTests/runit.Vector.R: new unit tests
-        * src/api.cpp: comment dropTrailing0 which is not used anymore 
+        * src/api.cpp: comment dropTrailing0 which is not used anymore
+        * include/Rcpp/as.h: support for as<wstring>
 
 2013-01-15  Dirk Eddelbuettel  <edd@debian.org>
 
