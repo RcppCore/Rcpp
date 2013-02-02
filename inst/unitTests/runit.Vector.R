@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -424,6 +424,16 @@ test.CharacterVector.matrix.indexing <- function() {
 
     fun <- character_matrix_indexing_lhs
     checkEquals( diag(fun(x)), rep("foo", 4) , msg = "matrix indexing lhs" )
+}
+
+test.CharacterVector.matrix.row.iteration <- function() {
+    x <- matrix(letters[1:16], nrow = 4)
+
+    fun <- character_matrix_row_iteration_incr
+    checkEquals( fun(x), "bfjn", msg = "matrix row iteration post-incr" )
+
+    fun <- character_matrix_row_iteration_decr
+    checkEquals( fun(x), "njf", msg = "matrix row iteration post-decr" )
 }
 
 test.CharacterVector.assign <- function(){

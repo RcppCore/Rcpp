@@ -2,7 +2,7 @@
 //
 // VectorBase.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -63,18 +63,20 @@ public:
 			index++ ;
 			return *this ;
 		}
-		inline iterator& operator++(int){
-			index++;
-			return *this ;
+		inline iterator operator++(int){
+			iterator orig(*this); 
+		    ++(*this) ;
+			return orig ;
 		}
 		
 		inline iterator& operator--(){
 			index-- ;
 			return *this ;
 		}
-		inline iterator& operator--(int){
-			index--; 
-			return *this ;
+		inline iterator operator--(int){
+			iterator orig(*this); 
+		    --(*this) ;
+			return orig ;
 		}
 		                    
 		inline iterator operator+(difference_type n) const {

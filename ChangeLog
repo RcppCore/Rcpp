@@ -1,3 +1,15 @@
+2013-02-02 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/MatrixRow.h: correct operator++(int) and operator--(int)
+        * include/Rcpp/internal/Proxy_Iterator.h: correct operators ++ and --
+        * include/Rcpp/sugar/Range.h: correct operators ++ and --
+        * include/Rcpp/sugar/tools/iterator.h: correct operators ++ and --
+        * include/Rcpp/vector/MatrixBase.h : correct operators ++ and --
+        * include/Rcpp/vector/VectorBase.h : correct operators ++ and --
+        * unitTests/cpp/Vector.cpp: new unit tests 
+        * unitTests/runit.Vector.R: new unit tests
+        * src/api.cpp: comment dropTrailing0 which is not used anymore 
+
 2013-01-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp (Rcpp): Commented-out coerce_to_string() for real and
