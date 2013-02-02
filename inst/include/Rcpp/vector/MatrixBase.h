@@ -2,7 +2,7 @@
 //
 // MatrixBase.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -72,13 +72,10 @@ namespace Rcpp{
                 }
                 return *this ;
             }
-            inline iterator& operator++(int){
-                i++ ;
-                if( i == nr ){
-                    j++ ;
-                    i=0 ;
-                }
-                return *this ;
+            inline iterator operator++(int){
+                iterator orig(*this) ;
+                ++(*this) ;
+                return orig ;
             }
                 
             inline iterator& operator--(){
@@ -89,13 +86,10 @@ namespace Rcpp{
                 }
                 return *this ;
             }
-            inline iterator& operator--(int){
-                i-- ;
-                if( i == -1 ){
-                    j-- ;
-                    i = nr - 1 ;
-                }
-                return *this ;
+            inline iterator operator--(int){
+                iterator orig(*this) ;
+                --(*this) ;
+                return orig ;
             }
                                     
             inline iterator operator+(difference_type n) const {
@@ -115,9 +109,6 @@ namespace Rcpp{
             }
 
             inline reference operator*() {
-                //  TODO: it might be better to call object( i, j )
-                //        as in many cases the sugar expression 
-                //        is faster with two indexes
                 return object(i,j) ;
             }
             inline pointer operator->(){

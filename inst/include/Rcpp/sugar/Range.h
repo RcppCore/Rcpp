@@ -2,7 +2,7 @@
 //
 // Range.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -44,18 +44,20 @@ namespace Rcpp{
             start++ ; end_++ ;
             return *this ;
         }
-        Range& operator++(int) {
-            start++ ; end_++ ;
-            return *this ;
+        Range operator++(int) {
+            Range orig(*this) ;
+            ++(*this);
+            return orig ;
         }
                 
         Range& operator--() {
             start-- ; end_-- ;
             return *this ;
         }
-        Range& operator--(int) {
-            start-- ; end_-- ;
-            return *this ;
+        Range operator--(int) {
+            Range orig(*this) ;
+            --(*this);
+            return orig ;
         }
                 
         Range& operator+=(int n) {

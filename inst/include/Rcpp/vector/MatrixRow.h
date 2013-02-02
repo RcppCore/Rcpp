@@ -2,7 +2,7 @@
 //
 // MatrixRow.h: Rcpp R/C++ interface class library -- matrices row
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -40,25 +40,28 @@ public:
         typedef typename std::iterator_traits<vector_iterator>::pointer pointer ;
         
         typedef std::random_access_iterator_tag iterator_category ;
-                
+            
+        iterator( const iterator& other) : row(other.row), index(other.index){}
         iterator( MatrixRow& row_, int index_ ) : row(row_), index(index_){}
                 
         iterator& operator++(){ 
             index++;
             return *this ;
         }
-        iterator& operator++(int) { 
-            index++;
-            return *this ;
+        iterator operator++(int) { 
+            iterator orig(*this); 
+            index++ ;
+            return orig ;
         }
         
         iterator& operator--(){ 
             index-- ;
             return *this ;
         } 
-        iterator& operator--(int){ 
+        iterator operator--(int){ 
+            iterator orig(*this); 
             index-- ;
-            return *this ;
+            return orig ;
         }
                                     
         iterator operator+(difference_type n) const { return iterator( row, index + n ) ; }

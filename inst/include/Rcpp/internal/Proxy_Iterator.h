@@ -3,7 +3,7 @@
 //
 // Proxy_Iterator.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -48,18 +48,20 @@ public:
 			proxy.move(1) ;
 			return *this ;
 		}
-		inline Proxy_Iterator& operator++(int){
-			proxy.move(1) ;
-			return *this ;
+		inline Proxy_Iterator operator++(int){
+			Proxy_Iterator orig(*this) ;
+			++(*this) ;
+			return orig ;
 		}
 		
 		inline Proxy_Iterator& operator--(){
 			proxy.move(-1) ;
 			return *this ;
 		}
-		inline Proxy_Iterator& operator--(int){
-			proxy.move(-1) ;
-			return *this ;
+		inline Proxy_Iterator operator--(int){
+			Proxy_Iterator orig(*this) ;
+			--(*this) ;
+			return orig ;
 		}
 		                    
 		inline Proxy_Iterator operator+(difference_type n) const {
