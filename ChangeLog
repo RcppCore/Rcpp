@@ -1,3 +1,11 @@
+2013-02-03 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/traits/wrap_type_traits.h : support for wrap( wstring )
+        * include/Rcpp/internal/export.h : exporting wstring and containers of wstring
+        * include/Rcpp/internal/wrap.h : support for wrap( wstring ) and containers of wstring
+        * include/RcppCommon.h : definition of charsexp_from_wstring
+        * src/api.cpp: implementation of charsexp_from_wstring
+
 2013-02-02 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/MatrixRow.h: correct operator++(int) and operator--(int)
@@ -10,6 +18,7 @@
         * unitTests/runit.Vector.R: new unit tests
         * src/api.cpp: comment dropTrailing0 which is not used anymore
         * include/Rcpp/as.h: support for as<wstring>
+        * include/Rcpp/internal/export.h: more support for wstring
 
 2013-01-15  Dirk Eddelbuettel  <edd@debian.org>
 
