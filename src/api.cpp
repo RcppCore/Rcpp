@@ -3,7 +3,7 @@
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -1654,6 +1654,11 @@ template <> const char* coerce_to_string<RAWSXP>(Rbyte from){
     return buff ;    
 }
 
+SEXP charsexp_from_wstring( const std::wstring& s){
+    static char buffer[MAXELTSIZE];
+    wcstombs( buffer, s.data(), MAXELTSIZE ) ;
+    return Rf_mkChar(buffer) ;    
+}
 
 // static const char* dropTrailing0(char *s, char cdec) {
 //     /* Note that  's'  is modified */

@@ -3,7 +3,7 @@
 //
 // wrap_type_traits.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -74,8 +74,10 @@ template <> struct wrap_type_traits<Rcomplex> { typedef wrap_type_primitive_tag 
 template <> struct wrap_type_traits<unsigned int> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<bool> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<std::string> { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits<std::wstring> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<Rcpp::String> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<char> { typedef wrap_type_primitive_tag wrap_category; } ;
+template <> struct wrap_type_traits<wchar_t> { typedef wrap_type_primitive_tag wrap_category; } ;
 
 template <> struct wrap_type_traits<float> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits< std::complex<float> > { typedef wrap_type_primitive_tag wrap_category; } ;

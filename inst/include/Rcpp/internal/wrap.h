@@ -3,7 +3,8 @@
 //
 // wrap.h: Rcpp R/C++ interface class library -- wrap implementations
 //
-// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013  Rice University
 //
 // This file is part of Rcpp.
 //
@@ -172,6 +173,28 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	UNPROTECT(1) ;
 	return x ;
 }
+
+/**
+ * Range based wrap implementation for iterators over std::wstring
+ * 
+ * This produces an unnamed character vector
+ */
+template<typename InputIterator, typename T>
+inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_wstring_tag ){
+	size_t size = std::distance( first, last ) ;
+	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
+	size_t i = 0 ;
+	std::wstring buffer ;
+	while( i < size ){
+		buffer = *first ;
+		SET_STRING_ELT( x, i, charsexp_from_wstring(buffer) ) ;
+		i++ ;
+		++first ;
+	}
+	UNPROTECT(1) ;
+	return x ;
+}
+
 // }}}
 
 // {{{ named range wrap
@@ -386,6 +409,20 @@ inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_string
 	UNPROTECT(1) ;
 	return x; 
 }
+/**
+ * primitive wrap for types that can be converted implicitely to std::wstring
+ * 
+ * This produces a character vector of length 1 containing the std::wstring
+ */
+template <typename T>
+inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_wstring_tag){
+	SEXP x = PROTECT( ::Rf_allocVector( STRSXP, 1) ) ;
+	SET_STRING_ELT( x, 0, charsexp_from_wstring(object) ) ;
+	UNPROTECT(1) ;
+	return x; 
+}
+
+
 
 
 /**
@@ -515,6 +552,24 @@ inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r
 	UNPROTECT(2) ;
 	return res ;
 }
+template <typename T>
+inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r_type_wstring_tag ){
+	int nr = object.nrow(), nc = object.ncol() ;
+	SEXP res = PROTECT( Rf_allocVector( STRSXP, nr*nc ) ) ;
+	
+	int k=0 ;
+	for( int j=0; j<nc; j++)
+		for( int i=0; i<nr; i++, k++)
+			SET_STRING_ELT( res, k, charsexp_from_wstring(object(i,j)) ) ;
+	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
+	INTEGER(dim)[0] = nr ;
+	INTEGER(dim)[1] = nc ;
+	Rf_setAttrib( res, R_DimSymbol , dim ) ;
+	UNPROTECT(2) ;
+	return res ;
+}
+
+
 
 template <typename T>
 inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r_type_generic_tag ){
@@ -605,6 +660,18 @@ inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_typ
 	for( int i=0; i<size; i++){
 		buf = object.get(i) ;
 		SET_STRING_ELT( x, i, Rf_mkChar( buf.c_str() ) ) ;
+	}
+	UNPROTECT(1) ;
+	return x ;
+}
+template <typename T, typename elem_type>
+inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_wstring_tag ){
+	int size = object.size() ;
+	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) );
+	std::wstring buf ;
+	for( int i=0; i<size; i++){
+		buf = object.get(i) ;
+		SET_STRING_ELT( x, i, charsexp_from_wstring(buf) ) ;
 	}
 	UNPROTECT(1) ;
 	return x ;
@@ -740,6 +807,24 @@ inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::
 	UNPROTECT(2); /* out, dims */
 	return out ;
 }
+template <typename value_type, typename InputIterator> 
+inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::r_type_wstring_tag ){
+	SEXP out = PROTECT( ::Rf_allocVector( STRSXP, nrow * ncol) );
+	int i=0, j=0 ;
+	std::wstring buffer ;
+	for( j=0; j<ncol; j++){
+		for( i=0; i<nrow; i++, ++first ){
+			buffer = *first ;
+			SET_STRING_ELT( out, j + ncol*i, charsexp_from_wstring(buffer) ) ;
+		}
+	}
+	SEXP dims = PROTECT( ::Rf_allocVector( INTSXP, 2) ); 
+	INTEGER(dims)[0] = nrow; 
+	INTEGER(dims)[1] = ncol; 
+	::Rf_setAttrib( out, R_DimSymbol, dims) ;
+	UNPROTECT(2); /* out, dims */
+	return out ;
+}
 
 template <typename value_type, typename InputIterator> 
 inline SEXP primitive_rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::false_type ){
@@ -804,6 +889,7 @@ inline SEXP rowmajor_wrap(InputIterator first, int nrow, int ncol){
  */
 template <typename T> 
 inline SEXP wrap(const T& object){
+	RCPP_DEBUG_1( "inline SEXP wrap<%s>(const T& object)", DEMANGLE(T) ) 
 	return internal::wrap_dispatch( object, typename ::Rcpp::traits::wrap_type_traits<T>::wrap_category() ) ;
 }
 

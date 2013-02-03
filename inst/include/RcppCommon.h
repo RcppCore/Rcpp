@@ -3,7 +3,7 @@
 // RcppCommon.h: Rcpp R/C++ interface class library -- common include and defines statements
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,6 +30,7 @@
 #include <Rcpp/macros/macros.h>
 
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
+#define MAXELTSIZE 8192
 #define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
@@ -89,6 +90,8 @@ namespace Rcpp{
     class String ;
 	namespace internal{
 		template <typename Class> SEXP make_new_object( Class* ptr ) ;	
+		
+		SEXP charsexp_from_wstring( const std::wstring& s) ;
 	}
 }	
 
