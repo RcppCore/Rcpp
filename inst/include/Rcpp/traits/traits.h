@@ -26,6 +26,7 @@
 #include <Rcpp/traits/integral_constant.h>
 #include <Rcpp/traits/same_type.h>
 #include <Rcpp/traits/is_wide_string.h>
+#include <Rcpp/traits/char_type.h>
 #include <Rcpp/traits/named_object.h>
 #include <Rcpp/traits/is_convertible.h>
 #include <Rcpp/traits/has_iterator.h>

@@ -43,22 +43,26 @@ namespace Rcpp{
             return primitive_as<T>(x) ;
         }
         
-        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_tag ) {
+        inline const char* check_single_string( SEXP x){
             if( ! ::Rf_isString(x) )
                 throw ::Rcpp::not_compatible( "expecting a string" ) ;
             if (Rf_length(x) != 1)
                 throw ::Rcpp::not_compatible( "expecting a single value");
-            return T( CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ) ;
+            return CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ;
         }
         
-        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_wstring_tag ) {
-            if( ! ::Rf_isString(x) )
-                throw ::Rcpp::not_compatible( "expecting a string" ) ;
-            if (Rf_length(x) != 1)
-                throw ::Rcpp::not_compatible( "expecting a single value");
-            const char* y = CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ;
-            // TODO: deal about encoding
+        
+        template <typename T> T as_string( SEXP x, Rcpp::traits::true_type){
+            const char* y = check_single_string(x) ;
             return std::wstring( y, y+strlen(y)) ;
+        }
+        
+        template <typename T> T as_string( SEXP x, Rcpp::traits::false_type){
+            return check_single_string(x) ;
+        }
+        
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_tag ) {
+            return as_string<T>( x, typename Rcpp::traits::is_wide_string<T>::type() );
         }
         
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_RcppString_tag ) {

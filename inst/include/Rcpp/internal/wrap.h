@@ -204,25 +204,6 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	return x ;
 }
 
-/**
- * Range based wrap implementation for iterators over std::wstring
- * 
- * This produces an unnamed character vector
- */
-template<typename InputIterator, typename T>
-inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_wstring_tag ){
-	size_t size = std::distance( first, last ) ;
-	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-	size_t i = 0 ;
-	while( i < size ){
-		SET_STRING_ELT( x, i, make_charsexp(*first) ) ;
-		i++ ;
-		++first ;
-	}
-	UNPROTECT(1) ;
-	return x ;
-}
-
 // }}}
 
 // {{{ named range wrap
@@ -332,8 +313,9 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	return x ;
 }
 
+
 /**
- * Range based wrap for iterators over std::pair<const std::string, std::string>
+ * Range based wrap for iterators over std::pair<const std::(w)?string, std::(w)?string>
  *
  * This is mainly used for wrapping map<string,string> and friends 
  * which happens to produce iterators over pair<const string, string>
@@ -347,50 +329,15 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	size_t size = std::distance( first, last ) ;
 	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
 	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-	size_t i = 0 ;
-	while( i < size ){
+	for( size_t i = 0; i < size ; i++, ++first){
 		SET_STRING_ELT( x, i, make_charsexp( first->second ) ) ;
-		
 		SET_STRING_ELT( names, i, make_charsexp( first->first) ) ;
-		
-		i++ ;
-		++first ;
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ; /* x, names */
 	return x ;
-}
-/**
- * Range based wrap for iterators over std::pair<const std::string, std::wstring>
- *
- * This is mainly used for wrapping map<string,wstring> and friends 
- * which happens to produce iterators over pair<const string, wstring>
- *
- * This produces a character vector containing copies of the 
- * string iterated over. The names of the vector is set to the keys
- * of the pair
- */
-template<typename InputIterator, typename T>
-inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_pairstring_wstring_tag ){
-	size_t size = std::distance( first, last ) ;
-	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-	SEXP names = PROTECT( Rf_allocVector( STRSXP, size ) ) ;
-	size_t i = 0 ;
-	while( i < size ){
-		// a wstring
-		SET_STRING_ELT( x, i, make_charsexp(first->second) ) ;
-		
-		// a string
-		SET_STRING_ELT( names, i, make_charsexp(first->first) ) ;
-		
-		i++ ;
-		++first ;
-	}
-	::Rf_setAttrib( x, R_NamesSymbol, names ) ;
-	UNPROTECT(2) ; /* x, names */
-	return x ;
-}
 
+}
 // }}}
 
 /**
@@ -453,33 +400,17 @@ inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_primit
 }
 
 /**
- * primitive wrap for types that can be converted implicitely to std::string
+ * primitive wrap for types that can be converted implicitely to std::string or std::wstring
  * 
- * This produces a character vector of length 1 containing the std::string
+ * This produces a character vector of length 1 containing the std::string or wstring
  */
 template <typename T>
 inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_string_tag){
-	SEXP x = PROTECT( ::Rf_allocVector( STRSXP, 1) ) ;
-	std::string y = object ; /* give a chance to implicit conversion */
-	SET_STRING_ELT( x, 0, make_charsexp(y) ) ;
-	UNPROTECT(1) ;
-	return x; 
-}
-
-/**
- * primitive wrap for types that can be converted implicitely to std::wstring
- * 
- * This produces a character vector of length 1 containing the std::wstring
- */
-template <typename T>
-inline SEXP primitive_wrap__impl( const T& object, ::Rcpp::traits::r_type_wstring_tag){
 	SEXP x = PROTECT( ::Rf_allocVector( STRSXP, 1) ) ;
 	SET_STRING_ELT( x, 0, make_charsexp(object) ) ;
 	UNPROTECT(1) ;
 	return x; 
 }
-
-
 
 
 /**
@@ -609,24 +540,6 @@ inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r
 	UNPROTECT(2) ;
 	return res ;
 }
-template <typename T>
-inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r_type_wstring_tag ){
-	int nr = object.nrow(), nc = object.ncol() ;
-	SEXP res = PROTECT( Rf_allocVector( STRSXP, nr*nc ) ) ;
-	
-	int k=0 ;
-	for( int j=0; j<nc; j++)
-		for( int i=0; i<nr; i++, k++)
-			SET_STRING_ELT( res, k, make_charsexp(object(i,j)) ) ;
-	SEXP dim = PROTECT( Rf_allocVector( INTSXP, 2) ) ;
-	INTEGER(dim)[0] = nr ;
-	INTEGER(dim)[1] = nc ;
-	Rf_setAttrib( res, R_DimSymbol , dim ) ;
-	UNPROTECT(2) ;
-	return res ;
-}
-
-
 
 template <typename T>
 inline SEXP wrap_dispatch_matrix_not_logical( const T& object, ::Rcpp::traits::r_type_generic_tag ){
@@ -711,16 +624,6 @@ inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_typ
 
 template <typename T, typename elem_type>
 inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_string_tag ){
-	int size = object.size() ;
-	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) );
-	for( int i=0; i<size; i++){
-		SET_STRING_ELT( x, i, make_charsexp(object.get(i)) ) ;
-	}
-	UNPROTECT(1) ;
-	return x ;
-}
-template <typename T, typename elem_type>
-inline SEXP wrap_dispatch_importer__impl( const T& object, ::Rcpp::traits::r_type_wstring_tag ){
 	int size = object.size() ;
 	SEXP x = PROTECT( Rf_allocVector( STRSXP, size ) );
 	for( int i=0; i<size; i++){
@@ -844,22 +747,6 @@ inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::
 
 template <typename value_type, typename InputIterator> 
 inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::r_type_string_tag ){
-	SEXP out = PROTECT( ::Rf_allocVector( STRSXP, nrow * ncol) );
-	int i=0, j=0 ;
-	for( j=0; j<ncol; j++){
-		for( i=0; i<nrow; i++, ++first ){
-			SET_STRING_ELT( out, j + ncol*i, make_charsexp(*first) ) ;
-		}
-	}
-	SEXP dims = PROTECT( ::Rf_allocVector( INTSXP, 2) ); 
-	INTEGER(dims)[0] = nrow; 
-	INTEGER(dims)[1] = ncol; 
-	::Rf_setAttrib( out, R_DimSymbol, dims) ;
-	UNPROTECT(2); /* out, dims */
-	return out ;
-}
-template <typename value_type, typename InputIterator> 
-inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::Rcpp::traits::r_type_wstring_tag ){
 	SEXP out = PROTECT( ::Rf_allocVector( STRSXP, nrow * ncol) );
 	int i=0, j=0 ;
 	for( j=0; j<ncol; j++){
