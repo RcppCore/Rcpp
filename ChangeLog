@@ -11,6 +11,8 @@
         * include/Rcpp/traits/char_type.h : new trait to help the wstring support
         * include/Rcpp/String.h : added some support for wstring 
         * include/Rcpp/vector/string_proxy.h : adapt to add wstring support 
+        * unitTests/runit.wstring.R : unit tests for wstring support
+        * unitTests/cpp/wstring.cpp : unit tests for wstring support
         
 2013-02-03 Romain Francois <romain@r-enthusiasts.com>
 
