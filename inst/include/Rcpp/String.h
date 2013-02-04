@@ -384,7 +384,12 @@ namespace Rcpp {
             RCPP_DEBUG( "string_element_converter::get< Rcpp::String >()" )
 		     return input.get_sexp() ;   
 		}
-		
+        
+        template <>
+        inline SEXP make_charsexp<Rcpp::String>( const Rcpp::String& s){
+            return s.get_sexp() ;    
+        }
+        
 	}
     
 	template <>
@@ -397,6 +402,7 @@ namespace Rcpp {
     	return res ;
     }
 
+    
 } // Rcpp 
 
 #endif 

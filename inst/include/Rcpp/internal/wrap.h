@@ -71,6 +71,8 @@ namespace internal{
 	inline SEXP make_charsexp( const T& s) {
 		return make_charsexp__impl<T>( s, typename Rcpp::traits::is_wide_string<T>::type() ) ;
 	}
+	template <>
+	inline SEXP make_charsexp<Rcpp::String>( const Rcpp::String& );
 	
 	template <typename InputIterator> SEXP range_wrap(InputIterator first, InputIterator last) ;
 	template <typename InputIterator> SEXP rowmajor_wrap(InputIterator first, int nrow, int ncol) ;

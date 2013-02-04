@@ -2,7 +2,8 @@
 //
 // string_proxy.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 Rice University
 //
 // This file is part of Rcpp.
 //
@@ -67,13 +68,19 @@ namespace internal{
 		 *
 		 * @param rhs new content for the element referred by this proxy
 		 */
-		string_proxy& operator=(const std::string& rhs){
-			set( Rf_mkChar( rhs.c_str() ) ) ;
+		template <typename T>
+		string_proxy& operator=(const std::basic_string<T>& rhs){
+			set( rhs ) ;
 			return *this ;
 		}
 		
 		string_proxy& operator=(const char* rhs){
 			set( Rf_mkChar( rhs ) ) ;
+			return *this ;	
+		}
+		
+		string_proxy& operator=(const wchar_t* rhs){
+			set( internal::make_charsexp( rhs ) ) ;
 			return *this ;	
 		}
 		
@@ -89,26 +96,17 @@ namespace internal{
 			index  = other.index ;
 		}
 		
-		/**
-		 * lhs use. Adds the content of the rhs proxy to the 
-		 * element this proxy refers to.
-		 */
-		string_proxy& operator+=(const string_proxy& rhs){
-			buffer = CHAR(STRING_ELT(*parent,index)) ;
-			buffer += CHAR(STRING_ELT( *(rhs.parent), rhs.index)) ;
-			SET_STRING_ELT( *parent, index, Rf_mkChar(buffer.c_str()) ) ;
-			return *this ;
-		}
-		
-		/**
-		 * lhs use. Adds the string to the element this proxy refers to
-		 */
-		string_proxy& operator+=(const std::string& rhs){
-			buffer = CHAR(STRING_ELT(*parent,index)) ;
-			buffer += rhs ;
-			SET_STRING_ELT( *parent, index, Rf_mkChar(buffer.c_str()) ) ;
-			return *this ;
-		} 	 
+        /**
+         * lhs use. Adds the content of the rhs proxy to the 
+         * element this proxy refers to.
+         */
+        template <typename T>
+        string_proxy& operator+=(const T& rhs){
+        	String tmp = get() ;
+        	tmp += rhs ;
+        	set( tmp ) ;
+        	return *this ;
+        }
 		
 		/**
 		 * rhs use. Retrieves the current value of the 
@@ -151,11 +149,12 @@ namespace internal{
 		inline SEXP get() const {
 			return STRING_ELT( *parent, index ) ;
 		}
+		template <typename T>
+		inline void set( const T& x ){
+			set( internal::make_charsexp(x) ) ;
+		}
 		inline void set(SEXP x){
 			SET_STRING_ELT( *parent, index, x ) ;
-		}
-		inline void set( const std::string& x ){
-			set( ::Rf_mkChar(x.c_str()) ) ;
 		}
 		
 		inline iterator begin() const { return CHAR( STRING_ELT( *parent, index ) ) ; }
