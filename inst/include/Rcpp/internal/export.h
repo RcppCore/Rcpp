@@ -27,6 +27,24 @@
 namespace Rcpp{
     namespace internal{
 
+    	
+		template <typename T>
+		std::wstring as_string_elt__impl( SEXP x, R_len_t i, Rcpp::traits::true_type ){
+			const char* y = char_get_string_elt( x, i ) ;
+			return std::wstring(y, y+strlen(y) ) ;
+		}
+		
+		template <typename T>
+		std::string as_string_elt__impl( SEXP x, R_len_t i, Rcpp::traits::false_type ){
+			return char_get_string_elt( x, i ) ;
+		}
+    	
+		template <typename T>
+		const std::basic_string< typename Rcpp::traits::char_type<T>::type > 
+		as_string_elt( SEXP x, R_len_t i ){
+			return as_string_elt__impl<T>( x, i, typename Rcpp::traits::is_wide_string<T>::type() ) ;
+		}
+    	
         /* iterating */
         
         template <typename InputIterator, typename value_type>
@@ -63,18 +81,7 @@ namespace Rcpp{
 			if( ! ::Rf_isString( x) ) throw ::Rcpp::not_compatible( "expecting a string vector" ) ;
 			R_len_t n = ::Rf_length(x) ;
 			for( R_len_t i=0; i<n; i++, ++first ){
-				*first = CHAR( STRING_ELT(x, i )) ;
-			}
-		}
-        
-		// InputIterator is an iterator over std::wstring
-		template <typename InputIterator, typename value_type>
-		void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_wstring_tag ) {
-			if( ! ::Rf_isString( x) ) throw ::Rcpp::not_compatible( "expecting a string vector" ) ;
-			R_len_t n = ::Rf_length(x) ;
-			for( R_len_t i=0; i<n; i++, ++first ){
-				const char* st = CHAR( STRING_ELT(x, i )) ;
-				*first = std::wstring( st, st + strlen(st) ) ;
+				*first = as_string_elt<typename std::iterator_traits<InputIterator>::value_type> ( x, i ) ;
 			}
 		}
         
@@ -130,21 +137,10 @@ namespace Rcpp{
 			if( ! ::Rf_isString( x) ) throw Rcpp::not_compatible( "expecting a string vector" ) ;
 			R_len_t n = ::Rf_length(x) ;
 			for( R_len_t i=0; i<n; i++ ){
-				res[i] = CHAR( STRING_ELT(x, i )) ;
+				res[i] = as_string_elt< value_type >( x, i) ;
 			}
 		}
-        
-		// T is an array of wstring
-		template <typename T, typename value_type>
-		void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_wstring_tag ) {
-			if( ! ::Rf_isString( x) ) throw Rcpp::not_compatible( "expecting a string vector" ) ;
-			R_len_t n = ::Rf_length(x) ;
-			for( R_len_t i=0; i<n; i++ ){
-				const char* st = CHAR( STRING_ELT(x, i )) ;
-				res[i] = std::wstring( st, st+strlen(st)) ;
-			}
-		}
-        
+       
 		template <typename T, typename value_type>
 		void export_indexing( SEXP x, T& res ) {
 			export_indexing__dispatch<T,value_type>( 
