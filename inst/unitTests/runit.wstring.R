@@ -40,4 +40,12 @@ test.wstring_param <- function(){
     checkEquals( wstring_param( "foo", "bar" ), "foobar" )    
 }
 
+test.wrap_vector_wstring <- function(){
+    checkEquals( wrap_vector_wstring( ), c("foo", "bar" ) )    
+}
+
+test.as_vector_wstring <- function(){
+    checkEquals( as_vector_wstring(letters), paste( letters, "€", sep = "" ) )
+}
+
 }
