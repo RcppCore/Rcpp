@@ -90,8 +90,6 @@ namespace Rcpp{
     class String ;
 	namespace internal{
 		template <typename Class> SEXP make_new_object( Class* ptr ) ;	
-		
-		SEXP charsexp_from_wstring( const std::wstring& s) ;
 	}
 }	
 

@@ -1654,10 +1654,9 @@ template <> const char* coerce_to_string<RAWSXP>(Rbyte from){
     return buff ;    
 }
 
-SEXP charsexp_from_wstring( const std::wstring& s){
+char* get_string_buffer(){
     static char buffer[MAXELTSIZE];
-    wcstombs( buffer, s.data(), MAXELTSIZE ) ;
-    return Rf_mkChar(buffer) ;    
+    return buffer ;    
 }
 
 // static const char* dropTrailing0(char *s, char cdec) {
