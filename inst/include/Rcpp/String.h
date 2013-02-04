@@ -2,8 +2,8 @@
 //
 // String.h: Rcpp R/C++ interface class library -- single string
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2012 Rice University
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Rice University
 //
 // This file is part of Rcpp.
 //
@@ -77,10 +77,19 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "String(const std::string& )" ) ;
         }
         
+        String( const std::wstring& s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false) {
+            RCPP_STRING_DEBUG( "String(const std::wstring& )" ) ;
+        }
+        
         /** from a const char* */
         String( const char* s) : buffer(s), valid(false), buffer_ready(true){
             RCPP_STRING_DEBUG( "String(const char*)" ) ;
         }
+        
+        String( const wchar_t* s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false) {
+            RCPP_STRING_DEBUG( "String(const wchar_t* s)" ) ;
+        }
+        
         
         /** constructors from R primitives */
         String( int x ) : data( internal::r_coerce<INTSXP,STRSXP>(x) ), valid(true), buffer_ready(false) {}
@@ -96,10 +105,24 @@ namespace Rcpp {
         inline String& operator=( bool x    ){ data = internal::r_coerce<LGLSXP ,STRSXP>( x ) ; valid = true ; buffer_ready = false ; return *this ; }
         inline String& operator=( Rcomplex x){ data = internal::r_coerce<CPLXSXP,STRSXP>( x ) ; valid = true ; buffer_ready = false ; return *this ; }
         inline String& operator=( SEXP x){ data = x ; valid = true ; buffer_ready = false ; return *this ; }                              
-        inline String& operator=( const std::string& s){  buffer = s ; valid = false ; buffer_ready = true ; return *this ; }                     
-        inline String& operator=( const char* s){ buffer = s ; valid = false ; buffer_ready = true ; return *this ; }                             
         inline String& operator=( const StringProxy& proxy){ data = proxy.get() ; valid = true ; buffer_ready=false ; return *this ; }  
         inline String& operator=( const String& other ){ data = other.get_sexp() ; valid = true ; buffer_ready = false ; return *this ; }       
+        inline String& operator=( const std::string& s){  buffer = s ; valid = false ; buffer_ready = true ; return *this ; }                     
+        inline String& operator=( const char* s){ buffer = s ; valid = false ; buffer_ready = true ; return *this ; }                             
+        
+    private:
+        template <typename T>
+        inline String& assign_wide_string( const T& s){
+            data = internal::make_charsexp( s ) ;
+            valid = true ; 
+            buffer_ready = false ; 
+            return *this ;    
+        }
+        
+    public:
+        inline String& operator=( const std::wstring& s){  return assign_wide_string(s) ; }                     
+        inline String& operator=( const wchar_t* s){ return assign_wide_string(s) ; }
+        
         
         inline String& operator+=( const std::string& s){ 
             RCPP_STRING_DEBUG( "String::operator+=( std::string )" ) ;
@@ -112,7 +135,27 @@ namespace Rcpp {
             if( is_na() ) return *this ;
             setBuffer() ; buffer += s ; valid = false ;
             return *this ;
-        }                             
+        }  
+     private:    
+         template <typename T>
+         inline String& append_wide_string( const T& s){
+            RCPP_STRING_DEBUG_1( "String::operator+=( %s )", DEMANGLE(T) ) ;
+            setData() ;
+            if( is_na() ) return *this ;
+            const char* buf = CHAR( data );
+            std::wstring tmp( buf, buf + strlen(buf ) ) ;
+            tmp += s ;
+            data = internal::make_charsexp( tmp ) ;
+            valid = true ;
+            buffer_ready = false ;
+            return *this ;
+         }
+         
+     public:
+        
+         inline String& operator+=( const std::wstring& s){ return append_wide_string( s ); }
+         inline String& operator+=( const wchar_t* s){ return append_wide_string( s ); }
+         
         inline String& operator+=( const String& other ){ 
             RCPP_STRING_DEBUG( "String::operator+=( const char*)" ) ;
             if( is_na() ) return *this ;
@@ -270,6 +313,12 @@ namespace Rcpp {
         inline operator std::string() const { 
             return get_cstring() ;
         }
+        
+        inline operator std::wstring() const { 
+            const char* s = get_cstring() ;
+            return std::wstring( s, s + strlen(s) );
+        }
+        
         
         inline const char* get_cstring() const {
             return buffer_ready ? buffer.c_str() : CHAR(data) ;    
