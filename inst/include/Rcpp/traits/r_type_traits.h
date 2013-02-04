@@ -62,6 +62,11 @@ struct r_type_pairstring_primitive_tag{} ;
 struct r_type_pairstring_string_tag{} ;
 
 /**
+ * Identifies that the associated type is pair<const std::string,std::wstring>
+ */
+struct r_type_pairstring_wstring_tag{} ;
+
+/**
  * Indentifies pair<const std::string,T>
  */
 struct r_type_pairstring_generic_tag{} ;
@@ -105,7 +110,9 @@ template<> struct r_type_traits< std::pair<const std::string,Rbyte> >{ typedef r
 template<> struct r_type_traits< std::pair<const std::string,Rcomplex> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,bool> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,std::string> >{ typedef r_type_pairstring_string_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,std::wstring> >{ typedef r_type_pairstring_wstring_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,char> >{ typedef r_type_pairstring_string_tag r_category ; } ;
+template<> struct r_type_traits< std::pair<const std::string,wchar_t> >{ typedef r_type_pairstring_wstring_tag r_category ; } ;
 
 template<> struct r_type_traits< std::pair<const std::string,unsigned int> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
 template<> struct r_type_traits< std::pair<const std::string,float> >{ typedef r_type_pairstring_primitive_tag r_category ; } ;
