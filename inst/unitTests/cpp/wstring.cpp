@@ -25,3 +25,19 @@ String wstring_param(const std::wstring& s1, const std::wstring& s2){
     return s ;
 }
 
+// [[Rcpp::export]]
+std::vector<std::wstring> wrap_vector_wstring(){
+    std::vector<std::wstring> res(2 ); 
+    res[0] = L"foo" ;
+    res[1] = L"bar" ;
+    return res;
+}
+
+// [[Rcpp::export]]
+std::vector<std::wstring> as_vector_wstring( std::vector<std::wstring> x){
+    for( size_t i=0; i<x.size(); i++){
+        x[i] += L"€" ;    
+    }
+    return x ;        
+}
+
