@@ -1245,9 +1245,21 @@ namespace attributes {
     void CommentState::submitLine(const std::string& line) {
         std::size_t pos = 0;
         while (pos != std::string::npos) {
+            
+            // check for a // which would invalidate any other token found
+            std::size_t lineCommentPos = line.find("//", pos);
+            
+            // look for the next token
             std::string token = inComment() ? "*/" : "/*";
             pos = line.find(token, pos);
+            
+            // process the comment token if found
             if (pos != std::string::npos) {
+                
+                // break if the line comment precedes the comment token
+                if (lineCommentPos != std::string::npos && lineCommentPos < pos)
+                    break;
+                
                 inComment_ = !inComment_;
                 pos += token.size();
             }
