@@ -28,7 +28,8 @@ if (.runThisTest) {
 }
 
 test.CharacterVector_wstring <- function(){
-    res <- CharacterVector_wstring()
+    res <- CharacterVector_wstring()  
+    print(res)
     checkEquals( res, c("foobar", "foobar" ) )
 }
 
