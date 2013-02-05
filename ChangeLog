@@ -1,3 +1,8 @@
+2013-02-05 JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp : ensure that line comments invalidate block
+        comments when parsing for attributes
+
 2013-02-04 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/r_type_traits.h : make the r_type_pairstring_string_tag tag

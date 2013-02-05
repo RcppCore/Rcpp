@@ -20,6 +20,8 @@
         \item Stop with an error if the file name passed to 
         \code{sourceCpp} has spaces in it
         \item Return invisibly from void functions
+        \item Ensure that line comments invalidate block comments when
+        parsing for attributes
     }
     \item Changes in Rcpp API:
     \itemize{
