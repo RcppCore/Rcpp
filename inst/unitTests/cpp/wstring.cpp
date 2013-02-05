@@ -6,7 +6,7 @@ CharacterVector CharacterVector_wstring( ){
     CharacterVector res(2) ;
     res[0] = L"foo" ;
     res[0] += L"bar" ;
-    
+              
     res[1] = std::wstring( L"foo" ) ;
     res[1] += std::wstring( L"bar" ) ;
          
