@@ -1,3 +1,8 @@
+2013-02-05 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/string_proxy.h : more wstring support 
+        * include/Rcpp/XPtr.h : more debugging
+        
 2013-02-05 JJ Allaire <jj@rstudio.org>
 
         * src/attributes.cpp : ensure that line comments invalidate block

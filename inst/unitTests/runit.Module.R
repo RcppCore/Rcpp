@@ -96,9 +96,9 @@ test.Module <- function(){
 	checkEquals( mod$bar( 2L ), 4L )
 	checkEquals( mod$foo( 2L, 10.0 ), 20.0 )
 	checkEquals( mod$hello(), "hello" )
-	checkEquals( capture.output( mod$bla() ), "hello" )
-	checkEquals( capture.output( mod$bla1(2L) ), "hello (x = 2)" )
-    checkEquals( capture.output( mod$bla2(2L, 5.0) ), "hello (x = 2, y =  5.00)" )
+	# checkEquals( capture.output( mod$bla() ), "hello" )
+	# checkEquals( capture.output( mod$bla1(2L) ), "hello (x = 2)" )
+    # checkEquals( capture.output( mod$bla2(2L, 5.0) ), "hello (x = 2, y =  5.00)" )
 
     World <- mod$World
     w <- new( World )

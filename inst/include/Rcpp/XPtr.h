@@ -30,6 +30,7 @@ template <typename T>
 void delete_finalizer(SEXP p){
     if( TYPEOF(p) == EXTPTRSXP ){
 	T* ptr = (T*) R_ExternalPtrAddr(p) ;
+	RCPP_DEBUG_3( "delete_finalizer<%s>(SEXP p = <%p>). ptr = %p", DEMANGLE(T), p, ptr  )
 	delete ptr ;
     }
 }
@@ -75,7 +76,7 @@ public:
      *        this way (has to be a C++ object)
      */
     explicit XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue){
-        RCPP_DEBUG( "XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue)" )
+        RCPP_DEBUG_2( "XPtr(T* p = <%p>, bool set_delete_finalizer = %s, SEXP tag = R_NilValue, SEXP prot = R_NilValue)", p, ( set_delete_finalizer ? "true" : "false" ) )
         SEXP x = PROTECT( R_MakeExternalPtr( (void*)p , tag, prot) ) ; 
         #if RCPP_DEBUG_LEVEL > 0
         Rf_PrintValue( x ) ;
