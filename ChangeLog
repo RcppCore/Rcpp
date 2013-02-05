@@ -1,7 +1,8 @@
 2013-02-05 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/string_proxy.h : more wstring support 
-        * include/Rcpp/XPtr.h : more debugging
+        * include/Rcpp/XPtr.h : more debugging. removed delete_finalizer which is 
+        no longer used
         
 2013-02-05 JJ Allaire <jj@rstudio.org>
 
