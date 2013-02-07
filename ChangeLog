@@ -1,3 +1,7 @@
+2013-02-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/THANKS: Adding Ben North for the help / bug report on iterators
+
 2013-02-05 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/string_proxy.h : more wstring support 
