@@ -44,6 +44,7 @@ namespace Rcpp{
         }
         
         inline const char* check_single_string( SEXP x){
+            if( TYPEOF(x) == CHARSXP ) return CHAR( x ) ;
             if( ! ::Rf_isString(x) )
                 throw ::Rcpp::not_compatible( "expecting a string" ) ;
             if (Rf_length(x) != 1)

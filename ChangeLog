@@ -1,3 +1,7 @@
+2013-02-08 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/as.h: re-enable as<std::string>(  CharacterVector[int] ) 
+
 2013-02-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/THANKS: Adding Ben North for the help / bug report on iterators
