@@ -114,6 +114,12 @@ Attributes
 
     o   Allow sourceCpp to build an entire directory
 
+    o   Consider allowing local includes in sourceCpp (but compilation cache
+        must pay mind to any local includes)
+
+    o   Support persistence of sourceCpp created functions across sessions
+        (either via long-lived temp dir or via environment persistence)
+
 Testing
 
     o	all r* functions : rnorm, etc ...
