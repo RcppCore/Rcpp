@@ -34,14 +34,16 @@ namespace Rcpp {
     // {{{ SexpStack
     static SEXP RCPP_PROTECTION_STACK = R_NilValue ;
     static SEXP* RCPP_PROTECTION_STACK_PTR = 0 ;
+    static bool RCPP_PROTECTION_STACK_READY = false ;
     
     #define GET_TOP() TRUELENGTH(RCPP_PROTECTION_STACK)
     #define SET_TOP(TOP) SET_TRUELENGTH(RCPP_PROTECTION_STACK, TOP)
     
     inline void init_ProtectionStack(){
-        if(RCPP_PROTECTION_STACK == R_NilValue){
+        if(!RCPP_PROTECTION_STACK_READY){
             RCPP_PROTECTION_STACK = get_Rcpp_protection_stack() ;
             RCPP_PROTECTION_STACK_PTR = get_vector_ptr(RCPP_PROTECTION_STACK) ;
+            RCPP_PROTECTION_STACK_READY = true ;
         }
     }
     

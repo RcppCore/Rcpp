@@ -1,3 +1,7 @@
+2013-02-12 Romain Francois <romain@r-enthusiasts.com>
+
+        * src/api.cpp : More careful about RCPP_PROTECTION_STACK init
+
 2013-02-08 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/as.h: re-enable as<std::string>(  CharacterVector[int] ) 
