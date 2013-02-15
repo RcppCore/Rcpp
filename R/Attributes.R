@@ -438,9 +438,31 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 # changes that were made
 .setupBuildEnvironment <- function(depends, plugins, sourceFile) {
     
-    # discover dependencies
+    # setup 
     buildEnv <- list()
     linkingToPackages <- c("Rcpp")
+    
+    # merge values into the buildEnv
+    mergeIntoBuildEnv <- function(name, value) {
+        
+        # protect against null or empty string
+        if (is.null(value) || !nzchar(value))
+            return;
+        
+        # if it doesn't exist already just set it
+        if (is.null(buildEnv[[name]])) {
+            buildEnv[[name]] <<- value
+        }
+        # if it's not identical then append
+        else if (!identical(buildEnv[[name]], value)) {
+            buildEnv[[name]] <<- paste(buildEnv[[name]], value);
+        }
+        else {
+            # it already exists and it's the same value, this 
+            # likely means it's a flag-type variable so we 
+            # do nothing rather than appending it
+        }   
+    }
     
     # update dependencies from a plugin
     setDependenciesFromPlugin <- function(plugin) {
@@ -451,21 +473,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         # merge environment variables
         pluginEnv <- settings$env
         for (name in names(pluginEnv)) {
-            # if it doesn't exist already just set it
-            if (is.null(buildEnv[[name]])) {
-                buildEnv[[name]] <<- pluginEnv[[name]]
-            }
-            # if it's not identical then append
-            else if (!identical(buildEnv[[name]],
-                                pluginEnv[[name]])) {
-                buildEnv[[name]] <<- paste(buildEnv[[name]], 
-                                          pluginEnv[[name]]);
-            }
-            else {
-                # it already exists and it's the same value, this 
-                # likely means it's a flag-type variable so we 
-                # do nothing rather than appending it
-            }   
+            mergeIntoBuildEnv(name, pluginEnv[[name]])
         }
         
         # capture any LinkingTo elements defined by the plugin
@@ -519,6 +527,10 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
                                          dirFlags, 
                                          collapse=" ")
     }
+    
+    # merge existing environment variables
+    for (name in names(buildEnv))
+        mergeIntoBuildEnv(name, Sys.getenv(name))
     
     # add cygwin message muffler
     buildEnv$CYGWIN = "nodosfilewarning"

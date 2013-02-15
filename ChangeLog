@@ -1,3 +1,8 @@
+2013-02-15 JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: Merge existing values of build related
+        environment variables for sourceCpp
+
 2013-02-12 Romain Francois <romain@r-enthusiasts.com>
 
         * src/api.cpp : More careful about RCPP_PROTECTION_STACK init
