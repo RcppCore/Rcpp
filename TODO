@@ -120,6 +120,9 @@ Attributes
     o   Support persistence of sourceCpp created functions across sessions
         (either via long-lived temp dir or via environment persistence)
 
+    o   Additional high-level mechanism for specifying additional build
+        configuration (perhaps cxxflags and libs attributes)
+
 Testing
 
     o	all r* functions : rnorm, etc ...

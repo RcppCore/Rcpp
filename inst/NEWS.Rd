@@ -17,6 +17,8 @@
         the new \code{registerPlugin} function.
         \item Added built-in \code{cpp11} plugin for specifying
         the use of C++11 in a translation unit
+        \item Merge existing values of build related environment 
+        variables for sourceCpp
         \item Stop with an error if the file name passed to 
         \code{sourceCpp} has spaces in it
         \item Return invisibly from void functions
