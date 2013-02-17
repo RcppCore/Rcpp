@@ -34,6 +34,9 @@
       treated as a stack instead of a pairlist in the R implementation
       \item Platform-dependent code in Timer.cpp now recognises a few
       more BSD variants thanks to contributed defined() test suggestions
+      \item support for wide character strings has been added throughout the 
+      API. In particular String, CharacterVector, wrap and as are aware of 
+      wide character strings
     }
   }
 }
