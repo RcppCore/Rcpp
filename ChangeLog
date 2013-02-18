@@ -1,8 +1,8 @@
 2013-02-18 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/vector/string_proxy.h : only declare operator+= 
-        * include/Rcpp/String.h : define string_proxy::operator+=, now that 
-        String is defined. 
+        * include/Rcpp/vector/string_proxy.h : only declare operator+=
+        * include/Rcpp/String.h : define string_proxy::operator+=, now that
+        String is defined.
 
 2013-02-15 JJ Allaire <jj@rstudio.org>
 
@@ -15,18 +15,17 @@
 
 2013-02-08 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/as.h: re-enable as<std::string>(  CharacterVector[int] ) 
-
+        * include/Rcpp/as.h: re-enable as<std::string>(CharacterVector[int])
 2013-02-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/THANKS: Adding Ben North for the help / bug report on iterators
 
 2013-02-05 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/vector/string_proxy.h : more wstring support 
-        * include/Rcpp/XPtr.h : more debugging. removed delete_finalizer which is 
-        no longer used
-        
+        * include/Rcpp/vector/string_proxy.h : more wstring support
+        * include/Rcpp/XPtr.h : more debugging. removed delete_finalizer
+	which is no longer used
+
 2013-02-05 JJ Allaire <jj@rstudio.org>
 
         * src/attributes.cpp : ensure that line comments invalidate block
@@ -34,37 +33,42 @@
 
 2013-02-04 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/traits/r_type_traits.h : make the r_type_pairstring_string_tag tag
-        more general, handling wstring as well as string
-        * include/Rcpp/internal/wrap.h : using make_charsexp, a more generic version
-        of charsexp_from_wstring.
+        * include/Rcpp/traits/r_type_traits.h : make the
+	r_type_pairstring_string_tag tag more general, handling wstring as
+	well as string
+        * include/Rcpp/internal/wrap.h : using make_charsexp, a more generic
+	version of charsexp_from_wstring.
         * include/Rcpp/as.h : more support fot wstring
         * include/Rcpp/internal/wrap.h : rework the support of wstring
-        * include/Rcpp/internal/export.h : added as_string_elt to rework the support
-        of wstring 
-        * include/Rcpp/traits/char_type.h : new trait to help the wstring support
-        * include/Rcpp/String.h : added some support for wstring 
-        * include/Rcpp/vector/string_proxy.h : adapt to add wstring support 
+        * include/Rcpp/internal/export.h : added as_string_elt to rework the
+	support of wstring
+        * include/Rcpp/traits/char_type.h : new trait to help the wstring
+	support
+        * include/Rcpp/String.h : added some support for wstring
+        * include/Rcpp/vector/string_proxy.h : adapt to add wstring support
         * unitTests/runit.wstring.R : unit tests for wstring support
         * unitTests/cpp/wstring.cpp : unit tests for wstring support
-        
+
 2013-02-03 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/wrap_type_traits.h : support for wrap( wstring )
-        * include/Rcpp/internal/export.h : exporting wstring and containers of wstring
-        * include/Rcpp/internal/wrap.h : support for wrap( wstring ) and containers of wstring
+        * include/Rcpp/internal/export.h : exporting wstring and containers
+	of wstring
+        * include/Rcpp/internal/wrap.h : support for wrap( wstring ) and
+	containers of wstring
         * include/RcppCommon.h : definition of charsexp_from_wstring
         * src/api.cpp: implementation of charsexp_from_wstring
 
 2013-02-02 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/vector/MatrixRow.h: correct operator++(int) and operator--(int)
+        * include/Rcpp/vector/MatrixRow.h: correct operator++(int) and
+	operator--(int)
         * include/Rcpp/internal/Proxy_Iterator.h: correct operators ++ and --
         * include/Rcpp/sugar/Range.h: correct operators ++ and --
         * include/Rcpp/sugar/tools/iterator.h: correct operators ++ and --
         * include/Rcpp/vector/MatrixBase.h : correct operators ++ and --
         * include/Rcpp/vector/VectorBase.h : correct operators ++ and --
-        * unitTests/cpp/Vector.cpp: new unit tests 
+        * unitTests/cpp/Vector.cpp: new unit tests
         * unitTests/runit.Vector.R: new unit tests
         * src/api.cpp: comment dropTrailing0 which is not used anymore
         * include/Rcpp/as.h: support for as<wstring>
@@ -74,7 +78,7 @@
 
 	* src/api.cpp (Rcpp): Commented-out coerce_to_string() for real and
 	complex arguments as R-devel (as of today) dislikes use of non-API
-	functions Rf_EncodeComplex’, ‘Rf_EncodeReal’, ‘Rf_formatComplex’ 
+	functions Rf_EncodeComplex’, ‘Rf_EncodeReal’, ‘Rf_formatComplex’
 
 	* .Rbuildignore: Added inst/include/Rcpp/preprocessor and
 	sugar/functions/impl which are currently empty directories
@@ -95,16 +99,16 @@
         * R/tools.R: handle build paths with spaces on windows
         * src/Timer.cpp: fix OSX build (remove __MACH__ define check)
         * R/: set svn eol-style native for source files
-        * src/: set svn eol-style native for source files 
-        * inst/include/: set svn eol-style native for source files 
+        * src/: set svn eol-style native for source files
+        * inst/include/: set svn eol-style native for source files
 
 2014-01-13  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: use plugin includes in cppFunction; stop with 
-        explicit error on Windows then the Rcpl libPath or sourceCpp
-        target file contains spaces in it's path; add source file directory
-        as an include path for sourceCpp; special handling for sourceCpp
-        include paths on windows
+        * R/Attributes.R: use plugin includes in cppFunction; stop with
+	explicit error on Windows then the Rcpl libPath or sourceCpp target
+	file contains spaces in it's path; add source file directory as an
+	include path for sourceCpp; special handling for sourceCpp include
+	paths on windows
         * man/pluginsAttribute.Rd: clarify which fields of plugin are
         used by sourceCpp
 
