@@ -1,3 +1,9 @@
+2013-02-18 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/string_proxy.h : only declare operator+= 
+        * include/Rcpp/String.h : define string_proxy::operator+=, now that 
+        String is defined. 
+
 2013-02-15 JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: Merge existing values of build related

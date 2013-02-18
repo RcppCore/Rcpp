@@ -101,12 +101,7 @@ namespace internal{
          * element this proxy refers to.
          */
         template <typename T>
-        string_proxy& operator+=(const T& rhs){
-        	String tmp = get() ;
-        	tmp += rhs ;
-        	set( tmp ) ;
-        	return *this ;
-        }
+        string_proxy& operator+=(const T& rhs) ;
 		
 		/**
 		 * rhs use. Retrieves the current value of the 
