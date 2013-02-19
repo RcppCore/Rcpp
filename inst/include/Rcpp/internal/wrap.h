@@ -435,6 +435,7 @@ inline SEXP primitive_wrap(const T& object){
  */
 template <typename T>
 inline SEXP wrap_dispatch_unknown( const T& object, ::Rcpp::traits::true_type ){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown<%s>(., false  )", DEMANGLE(T) )
 	// here we know (or assume) that T is convertible to SEXP
 	SEXP x = object ;
 	return x ;
@@ -453,7 +454,8 @@ inline SEXP wrap_dispatch_unknown( const T& object, ::Rcpp::traits::true_type ){
  */
 template <typename T>
 inline SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::false_type){
-	// here we know that T is not convertible to SEXP
+RCPP_DEBUG_1( "wrap_dispatch_unknown_iterable<%s>(., false  )", DEMANGLE(T) )
+		// here we know that T is not convertible to SEXP
 #ifdef HAS_STATIC_ASSERT
 	static_assert( !sizeof(T), "cannot convert type to SEXP" ) ;
 #else
@@ -466,6 +468,7 @@ inline SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::fals
 
 template <typename T>
 inline SEXP wrap_dispatch_unknown_iterable__logical( const T& object, ::Rcpp::traits::true_type){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown_iterable__logical<%s>(., true  )", DEMANGLE(T) )
 	size_t size = object.size() ;
 	SEXP x = PROTECT( Rf_allocVector( LGLSXP, size ) );
 	std::copy( object.begin(), object.end(), LOGICAL(x) ) ; 
@@ -474,13 +477,23 @@ inline SEXP wrap_dispatch_unknown_iterable__logical( const T& object, ::Rcpp::tr
 }
 
 template <typename T>
-inline SEXP wrap_dispatch_unknown_iterable__logical( const T& object, ::Rcpp::traits::false_type){
+inline SEXP wrap_range_sugar_expression( const T& object, Rcpp::traits::false_type){
+	RCPP_DEBUG_1( "wrap_range_sugar_expression<%s>(., false  )", DEMANGLE(T) )
 	return range_wrap( object.begin(), object.end() ) ;
+}
+template <typename T>
+inline SEXP wrap_range_sugar_expression( const T& object, Rcpp::traits::true_type) ; 
+
+template <typename T>
+inline SEXP wrap_dispatch_unknown_iterable__logical( const T& object, ::Rcpp::traits::false_type){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown_iterable__logical<%s>(., false  )", DEMANGLE(T) )
+	return wrap_range_sugar_expression( object, typename Rcpp::traits::is_sugar_expression<T>::type() ) ;
 }
 
 
 template <typename T>
 inline SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, ::Rcpp::traits::false_type ){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown_iterable__matrix_interface<%s>(., false  )", DEMANGLE(T) )
 	return wrap_dispatch_unknown_iterable__logical( object, 
 			typename ::Rcpp::traits::expands_to_logical<T>::type() );
 }
@@ -567,6 +580,7 @@ inline SEXP wrap_dispatch_matrix_logical( const T& object, ::Rcpp::traits::false
 
 template <typename T>
 inline SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, ::Rcpp::traits::true_type ){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown_iterable__matrix_interface<%s>(., true  )", DEMANGLE(T) )
 	return wrap_dispatch_matrix_logical( object, typename ::Rcpp::traits::expands_to_logical<T>::type() ) ;
 }
 
@@ -585,6 +599,7 @@ inline SEXP wrap_dispatch_unknown_iterable__matrix_interface( const T& object, :
  */
 template <typename T>
 inline SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::true_type){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown_iterable<%s>(., true  )", DEMANGLE(T) )
 	return wrap_dispatch_unknown_iterable__matrix_interface( object, 
 		typename ::Rcpp::traits::matrix_interface<T>::type() ) ;
 }
@@ -661,6 +676,7 @@ inline SEXP wrap_dispatch_importer( const T& object ){
  */
 template <typename T>
 inline SEXP wrap_dispatch_unknown( const T& object, ::Rcpp::traits::false_type){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown<%s>(., false  )", DEMANGLE(T) )
 	return wrap_dispatch_unknown_iterable( object, typename ::Rcpp::traits::has_iterator<T>::type() ) ;
 }
 // }}}
@@ -692,11 +708,13 @@ inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_enum_tag )
 
 template <typename T>
 inline SEXP wrap_dispatch_eigen( const T& object, ::Rcpp::traits::false_type){
+	RCPP_DEBUG_1( "wrap_dispatch_eigen<%s>(., false  )", DEMANGLE(T) )
 	return wrap_dispatch_unknown( object, typename ::Rcpp::traits::is_convertible<T,SEXP>::type() ) ;
 }
 
 template <typename T>
 inline SEXP wrap_dispatch_eigen( const T& object, ::Rcpp::traits::true_type){
+	RCPP_DEBUG_1( "wrap_dispatch_eigen<%s>(., true  )", DEMANGLE(T) )
 	return ::Rcpp::RcppEigen::eigen_wrap( object ) ;
 }
 
@@ -707,6 +725,7 @@ inline SEXP wrap_dispatch_eigen( const T& object, ::Rcpp::traits::true_type){
  */
 template <typename T> 
 inline SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::false_type){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown_importable<%s>(., false  )", DEMANGLE(T) )
 	return wrap_dispatch_eigen( object, typename traits::is_eigen_base<T>::type() ) ;
 }
 
@@ -715,6 +734,7 @@ inline SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::f
  */
 template <typename T> 
 inline SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::true_type){
+	RCPP_DEBUG_1( "wrap_dispatch_unknown_importable<%s>(., true  )", DEMANGLE(T) )
 	return wrap_dispatch_importer<T,typename T::r_import_type>( object ) ;
 }
 
@@ -725,6 +745,7 @@ inline SEXP wrap_dispatch_unknown_importable( const T& object, ::Rcpp::traits::t
  */
 template <typename T> 
 inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_unknown_tag ){
+	RCPP_DEBUG_1( "wrap_dispatch<%s>(., wrap_type_unknown_tag )", DEMANGLE(T) )
 	return wrap_dispatch_unknown_importable( object, typename ::Rcpp::traits::is_importer<T>::type() ) ;
 }
 	// }}}

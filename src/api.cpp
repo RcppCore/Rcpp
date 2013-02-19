@@ -1355,11 +1355,26 @@ const char * sexp_to_name(int sexp_type) {
 namespace Rcpp{
 namespace internal{
 
-	template<> int* r_vector_start<INTSXP>(SEXP x){ return INTEGER(x) ; }
-	template<> int* r_vector_start<LGLSXP>(SEXP x){ return LOGICAL(x) ; }
-	template<> double* r_vector_start<REALSXP>(SEXP x){ return REAL(x) ; }
-	template<> Rbyte* r_vector_start<RAWSXP>(SEXP x){ return RAW(x) ; }
-	template<> Rcomplex* r_vector_start<CPLXSXP>(SEXP x){ return COMPLEX(x) ; }
+	template<> int* r_vector_start<INTSXP>(SEXP x){ 
+	    RCPP_DEBUG_1( "r_vector_start<INTSXP>( SEXP = %p )", x )
+	    return INTEGER(x) ; 
+	}
+	template<> int* r_vector_start<LGLSXP>(SEXP x){ 
+	    RCPP_DEBUG_1( "r_vector_start<LGLSXP>( SEXP = %p )", x )
+	    return LOGICAL(x) ;
+	}
+	template<> double* r_vector_start<REALSXP>(SEXP x){ 
+	    RCPP_DEBUG_1( "r_vector_start<REALSXP>( SEXP = %p )", x )
+	    return REAL(x) ;
+	}
+	template<> Rbyte* r_vector_start<RAWSXP>(SEXP x){ 
+	    RCPP_DEBUG_1( "r_vector_start<RAWSXP>( SEXP = %p )", x )
+	    return RAW(x) ;
+	}
+	template<> Rcomplex* r_vector_start<CPLXSXP>(SEXP x){ 
+	    RCPP_DEBUG_1( "r_vector_start<CPLXSXP>( SEXP = %p )", x )
+	    return COMPLEX(x) ;
+	}
 	
 	template<> void r_init_vector<VECSXP>(SEXP x){}
 	template<> void r_init_vector<EXPRSXP>(SEXP x){}
