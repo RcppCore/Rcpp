@@ -439,6 +439,7 @@ protected:
         return INTEGER( ::Rf_getAttrib( RObject::m_sexp, R_DimSymbol ) ) ;
     }
     void init(){
+        RCPP_DEBUG_2( "VECTOR<%d>::init( SEXP = <%p> )", RTYPE, RObject::m_sexp )
         internal::r_init_vector<RTYPE>(RObject::m_sexp) ;
     }
 

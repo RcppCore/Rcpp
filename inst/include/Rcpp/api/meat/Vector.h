@@ -2,7 +2,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- Vector meat 
 //
-// Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -57,12 +57,12 @@ namespace Rcpp{
     
     template <int RTYPE>
     Vector<RTYPE>::Vector( const Dimension& dims ) : RObject( Rf_allocVector( RTYPE, dims.prod() ) ){
-        RCPP_DEBUG_3( "Vector<%d>( const Dimension& (%d) )   m_sexp = <%p>", RTYPE, dims.size(), m_sexp )
+        RCPP_DEBUG_3( "Vector<%s>( const Dimension& (%d) )   m_sexp = <%p>", sexp_to_name(RTYPE), dims.size(), m_sexp )
         update_vector();
         init() ;
         if( dims.size() > 1 ){
             RObject::attr( "dim" ) = dims;
-        }    
+        }
     }
     
     template <int RTYPE>
@@ -720,7 +720,16 @@ namespace Rcpp{
         return false ;
     }
      
+    namespace internal {
     
+        template <typename T>
+        inline SEXP wrap_range_sugar_expression( const T& object, Rcpp::traits::true_type) {
+        	RCPP_DEBUG_1( "wrap_range_sugar_expression<%s>(., true  )", DEMANGLE(T) )
+        	const int RTYPE = T::r_type::value ;
+        	return Rcpp::Vector<RTYPE>(object) ;
+        }
+
+    }
     
 } // namespace Rcpp
 

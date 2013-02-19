@@ -1,3 +1,11 @@
+2013-02-19 Romain Francois <romain@r-enthusiasts.com>
+
+        * src/api.cpp : more debugging
+        * include/RcppCommon.h : move sexp_to_name here. Used in some debugging
+        * include/Rcpp/vector/MatrixRow.h : fix const version of operator[]
+        * include/Rcpp/vector/Vector.h : more debugging
+        * include/Rcpp/internal/wrap.h : more debugging. more dispatch.  
+        
 2013-02-18 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/string_proxy.h : only declare operator+=
