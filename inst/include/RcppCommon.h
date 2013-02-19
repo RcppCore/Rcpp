@@ -23,7 +23,7 @@
 #ifndef RcppCommon_h
 #define RcppCommon_h
 
-// #define RCPP_DEBUG_LEVEL 0
+// #define RCPP_DEBUG_LEVEL 1
 
 #include <Rcpp/platform/compiler.h>
 #include <Rcpp/config.h>
@@ -38,6 +38,11 @@
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
+
+#ifdef __cplusplus
+extern "C" 
+#endif 
+const char * sexp_to_name(int sexp_type);
 
 /**
  * \brief Rcpp API
