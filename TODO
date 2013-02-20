@@ -123,6 +123,8 @@ Attributes
     o   Additional high-level mechanism for specifying additional build
         configuration (perhaps cxxflags and libs attributes)
 
+    o   Allow definition of Rcpp modules within sourceCpp code
+
 Testing
 
     o	all r* functions : rnorm, etc ...
