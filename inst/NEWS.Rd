@@ -19,6 +19,8 @@
         the use of C++11 in a translation unit
         \item Merge existing values of build related environment 
         variables for sourceCpp
+        \item Add global package include file to RcppExports.cpp
+        if it exists
         \item Stop with an error if the file name passed to 
         \code{sourceCpp} has spaces in it
         \item Return invisibly from void functions
