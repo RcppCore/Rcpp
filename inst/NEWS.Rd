@@ -12,6 +12,7 @@
     }
     \item Changes in Rcpp attributes: 
     \itemize{
+        \item Rcpp modules can now be used with \code{sourceCpp}
         \item Added \code{Rcpp::plugins} attribute for binding 
         directly to inline plugins. Plugins can be registered using
         the new \code{registerPlugin} function.
