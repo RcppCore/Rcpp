@@ -4,7 +4,8 @@
 Source C++ Code from a File or String
 }
 \description{
-\code{sourceCpp} parses the specified C++ file or source code and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute. A shared library is then built and its exported functions are made available as R functions in the specified environment.
+\code{sourceCpp} parses the specified C++ file or source code and looks for functions marked with the \code{\link[=exportAttribute]{Rcpp::export}} attribute
+and RCPP_MODULE declarations. A shared library is then built and its exported functions and Rcpp modules are made available in the specified environment.
 }
 \usage{
 sourceCpp(file = "", code = NULL, env = globalenv(), 
@@ -20,7 +21,7 @@ sourceCpp(file = "", code = NULL, env = globalenv(),
     A character string with source code. If supplied, the code is taken from this string instead of a file. 
 }
   \item{env}{
-    Environment where the R functions should be made available.
+    Environment where the R functions and modules should be made available.
 }
   \item{rebuild}{
     Force a rebuild of the shared library.
@@ -37,6 +38,8 @@ sourceCpp(file = "", code = NULL, env = globalenv(),
 
     Functions exported using \code{sourceCpp} must meet several conditions, including being defined in the global namespace and having return types that are compatible with \code{Rcpp::wrap} and parameter types that are compatible with \code{Rcpp::as}. See the \code{\link[=exportAttribute]{Rcpp::export}} documentation for more details.
     
+    Rcpp Modules will be automatically loaded into the specified environment using the \code{\link[=Module]{Module}} function. the name of the loaded module object will be the same as the name specified in the \code{RCPP_MODULE} declaration.
+    
     If the source file has compilation dependencies on other packages (e.g. \pkg{Matrix}, \pkg{RcppArmadillo}) then an \code{\link[=dependsAttribute]{Rcpp::depends}} attribute should be provided naming these dependencies. 
     
 	It's possible to embed chunks of R code within a C++ source file by including the R code within a block comment with the prefix of \code{/*** R}. For example:
@@ -50,11 +53,15 @@ fibonacci(10)
 */
 }
 
-	Multiple R code chunks can be included in a C++ file. All R code is sourced after the C++ functions within the file have been defined.  
+	Multiple R code chunks can be included in a C++ file. R code is sourced after the C++ compliation is completed so all functions and modules will be available to the R code.   
 }
 
 \value{
-    Returns (invisibly) a character vector with the names of the R functions that were sourced into the specified environment.
+    Returns (invisibly) a list with two elements: 
+    \tabular{ll}{
+        \code{functions} \tab Names of exported functions\cr
+        \code{modules} \tab Names of Rcpp modules\cr
+    }
 }
 
 \note{
@@ -64,7 +71,7 @@ fibonacci(10)
     
     If you are sourcing a C++ file from within the \code{src} directory of a package then the package's \code{LinkingTo} dependencies, \code{inst/include}, and \code{src} directories are automatically included in the compilation.
     
-    If no \code{Rcpp::export} attributes are found within the source file then a warning is printed to the console. You can disable this warning by setting the \code{rcpp.warnNoExports} option to \code{FALSE}.
+    If no \code{Rcpp::export} attributes or \code{RCPP_MODULE} declarations are found within the source file then a warning is printed to the console. You can disable this warning by setting the \code{rcpp.warnNoExports} option to \code{FALSE}.
 
 }
 

@@ -141,19 +141,21 @@ sourceCpp <- function(file = "",
                 "force a rebuild)\n\n", sep="")
     }
     
-    # load the module if we have exported functions (else there is no module)
-    if (length(context$exportedFunctions) > 0) {
+    # load the module if we have exported symbols
+    if (length(context$exportedFunctions) > 0 || length(context$modules) > 0) {
         
         # remove existing objects of the same name from the environment
-        exports <- context$exportedFunctions
+        exports <- c(context$exportedFunctions, context$modules)
         removeObjs <- exports[exports %in% ls(envir = env, all.names = T)]
         remove(list = removeObjs, envir = env)
         
         # source the R script
         scriptPath <- file.path(context$buildDirectory, context$rSourceFilename) 
         source(scriptPath, local = env)
+        
     } else if (getOption("rcpp.warnNoExports", default=TRUE)) {
-        warning("No Rcpp::export attributes found in source")
+        warning("No Rcpp::export attributes or RCPP_MODULE declarations ",
+                "found in source")
     }
     
     # source the embeddedR
@@ -162,8 +164,9 @@ sourceCpp <- function(file = "",
         source(file=srcConn, echo=TRUE)
     }
     
-    # return (invisibly) a list of exported functions
-    invisible(context$exportedFunctions)
+    # return (invisibly) a list containing exported functions and modules
+    invisible(list(functions = context$exportedFunctions,
+                   modules = context$modules))
 }
 
 # Define a single C++ function
@@ -233,12 +236,12 @@ cppFunction <- function(code,
                           verbose = verbose)
     
     # verify that a single function was exported and return it
-    if (length(exported) == 0)
+    if (length(exported$functions) == 0)
         stop("No function definition found")
-    else if (length(exported) > 1)
+    else if (length(exported$functions) > 1)
         stop("More than one function definition")
     else {
-        functionName <- exported[[1]]
+        functionName <- exported$functions[[1]]
         invisible(get(functionName, env))
     }
 }
