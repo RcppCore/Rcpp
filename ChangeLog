@@ -1,7 +1,9 @@
 2013-02-24 JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: add global package include file to RcppExports.cpp
-        if it exists
+        if it exists; handle Rcpp module definitions in sourceCpp
+        * src/attributes.cpp: handle Rcpp module definitions in sourceCpp
+        * man/sourceCpp.Rd: documentation updates
 
 2013-02-19 Romain Francois <romain@r-enthusiasts.com>
 
