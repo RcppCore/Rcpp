@@ -27,6 +27,8 @@
         \item Return invisibly from void functions
         \item Ensure that line comments invalidate block comments when
         parsing for attributes
+        \item Eliminated spurious empty hello world function definition
+        in Rcpp.package.skeleton
     }
     \item Changes in Rcpp API:
     \itemize{

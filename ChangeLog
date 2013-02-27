@@ -1,3 +1,8 @@
+2013-02-27 JJ Allaire <jj@rstudio.org>
+
+        * R/Rcpp.package.skeleton.R: eliminated spurious empty hello world
+        function definition in Rcpp.package.skeleton
+
 2013-02-24 JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: add global package include file to RcppExports.cpp
