@@ -38,7 +38,7 @@ Rcpp.package.skeleton <- function(
 	if( !length(list) ){
 		fake <- TRUE
 		assign( "Rcpp.fake.fun", function(){}, envir = env )
-		if( example_code ){
+		if( example_code && !isTRUE(attributes)){ 
 			assign( "rcpp_hello_world", function(){}, envir = env )
 			remove_hello_world <- TRUE
 		} else {
@@ -63,7 +63,7 @@ Rcpp.package.skeleton <- function(
 	call <- call[ c( 1L, which( names(call) %in% names(formals(package.skeleton)))) ]
 
 	if( fake ){
-		call[["list"]] <- c( if( isTRUE(example_code)) "rcpp_hello_world" , "Rcpp.fake.fun" )
+		call[["list"]] <- c( if( isTRUE(example_code) && !isTRUE(attributes)) "rcpp_hello_world" , "Rcpp.fake.fun" )
 	}
 
 	tryCatch( eval( call, envir = env ), error = function(e){
