@@ -13,6 +13,8 @@
     \item Changes in Rcpp attributes: 
     \itemize{
         \item Rcpp modules can now be used with \code{sourceCpp}
+        \item Standalone roxygen chunks (e.g. to document a class) are now
+        transposed into RcppExports.R
         \item Added \code{Rcpp::plugins} attribute for binding 
         directly to inline plugins. Plugins can be registered using
         the new \code{registerPlugin} function.

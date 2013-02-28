@@ -264,8 +264,10 @@ namespace attributes {
         virtual const_iterator end() const = 0;
         
         virtual const std::vector<std::string>& modules() const = 0;
-    
-        virtual bool hasAttributesOrModules() const = 0;  
+        
+        virtual const std::vector<std::vector<std::string> >& roxygenChunks() const = 0;
+                  
+        virtual bool hasGeneratorOutput() const = 0;  
     };
     
 
@@ -320,9 +322,15 @@ namespace attributes {
             return modules_;
         }
         
-        virtual bool hasAttributesOrModules() const 
+        virtual const std::vector<std::vector<std::string> >& roxygenChunks() const {
+            return roxygenChunks_;                                                    
+        }
+        
+        virtual bool hasGeneratorOutput() const 
         { 
-            return !attributes_.empty() || !modules_.empty(); 
+            return !attributes_.empty() || 
+                   !modules_.empty() ||
+                   !roxygenChunks_.empty(); 
         }
         
         virtual bool hasInterface(const std::string& name) const {
@@ -375,6 +383,7 @@ namespace attributes {
         std::vector<Attribute> attributes_;
         std::vector<std::string> modules_;
         std::vector<std::string> embeddedR_;
+        std::vector<std::vector<std::string> > roxygenChunks_; 
         std::vector<std::string> roxygenBuffer_;
     };
 
@@ -863,6 +872,12 @@ namespace attributes {
                     if (line.find("//'") == 0) {
                         std::string roxLine = "#" + line.substr(2);
                         roxygenBuffer_.push_back(roxLine);
+                    }
+                    
+                    // a non-roxygen line causes us to clear the roxygen buffer
+                    else if (!roxygenBuffer_.empty()) {
+                        roxygenChunks_.push_back(roxygenBuffer_);   
+                        roxygenBuffer_.clear();
                     }
                 } 
             }
@@ -1779,6 +1794,17 @@ namespace attributes {
                                         const SourceFileAttributes& attributes,
                                         bool verbose) {
         
+        // write standalone roxygen chunks
+        const std::vector<std::vector<std::string> >& roxygenChunks = 
+                                                    attributes.roxygenChunks();
+        for (std::size_t i = 0; i<roxygenChunks.size(); i++) {
+            const std::vector<std::string>& chunk = roxygenChunks[i];
+            for (std::size_t l = 0; l < chunk.size(); l++)
+                ostr() << chunk[l] << std::endl;
+            ostr() << "NULL" << std::endl << std::endl;
+        }
+        
+        // write exported functions
         if (attributes.hasInterface(kInterfaceR)) {    
             // process each attribute
             for(std::vector<Attribute>::const_iterator 
@@ -2717,10 +2743,10 @@ BEGIN_RCPP
     std::set<std::string> dependsAttribs;
     for (std::size_t i=0; i<cppFiles.size(); i++) {
         
-        // parse attributes (continue if there are none)
+        // parse file (continue if there is no generator output)
         std::string cppFile = cppFiles[i];
         SourceFileAttributesParser attributes(cppFile);
-        if (!attributes.hasAttributesOrModules())
+        if (!attributes.hasGeneratorOutput())
             continue;
             
         // confirm we have attributes
