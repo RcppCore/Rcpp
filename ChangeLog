@@ -15,6 +15,12 @@
         * src/attributes.cpp: handle Rcpp module definitions in sourceCpp
         * man/sourceCpp.Rd: documentation updates
 
+2013-02-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/platform/compiler.h: As deteced by Gong-Yi Liao,
+	we need to test for __LONG_LONG_MAX__ (defined in limits.h) and not
+	LONG_LONG_MAX (defined climits which we do not include)
+
 2013-02-19 Romain Francois <romain@r-enthusiasts.com>
 
         * src/api.cpp : more debugging
