@@ -183,7 +183,7 @@
 
 #ifdef __GNUC__
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
-#ifdef LONG_LONG_MAX
+#ifdef __LONG_LONG_MAX__
     __extension__ typedef long long int rcpp_long_long_type;
     __extension__ typedef unsigned long long int rcpp_ulong_long_type;
     #define RCPP_HAS_LONG_LONG_TYPES

@@ -10,6 +10,7 @@ Christian Gunning       for a documentation + unit tests patches and reporting b
 Rainer Hurling          for help debugging builds issues on FreeBSD
 Gregor Kastner          for noticing a bug in IntegerVector initialization
 Glenn Lawyer		for sending in documentation patches
+Gong-Yi Liao		for a corrected compile-time test for long long variables
 Uwe Ligges              for help with Windows (32 and 64 bit) build issues
 Tama Ma                 for a patch that extends Module constructors
 Karl Millar             for a patch helping with a non-g++ compiler
