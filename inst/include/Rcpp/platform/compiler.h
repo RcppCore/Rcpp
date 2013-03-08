@@ -90,7 +90,7 @@
 #include <cmath>
 #if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
     #if defined(__GLIBCXX__) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-        #if __GLIBCXX__ >= 20090421 // GCC 4.4.0
+        #if GCC_VERSION >= 40400
             #define HAS_CXX0X_UNORDERED_MAP
             #define HAS_CXX0X_UNORDERED_SET
             #define HAS_CXX0X_INITIALIZER_LIST
@@ -113,7 +113,7 @@
 // Check TR1 Headers
 #if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
     #if defined(__GLIBCXX__)
-        #if __GLIBCXX__ >= 20070719 // GCC 4.2.1
+        #if GCC_VERSION >= 40400
             #define HAS_TR1_UNORDERED_MAP
             #define HAS_TR1_UNORDERED_SET
         #endif
