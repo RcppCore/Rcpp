@@ -1,3 +1,8 @@
+2013-03-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/platform/compiler.h: Improved g++ version
+	detection with thanks to Yan Zhou
+
 2013-02-28 JJ Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: standalone roxygen chunks (e.g. to document
