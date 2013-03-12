@@ -1,3 +1,7 @@
+2013-03-12 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/Module.h: added virtual destructor to CppProperty
+
 2013-03-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/platform/compiler.h: Improved g++ version
