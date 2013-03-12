@@ -279,6 +279,7 @@ namespace Rcpp{
         typedef Rcpp::XPtr<Class> XP ;
                 
         CppProperty(const char* doc = 0) : docstring( doc == 0 ? "" : doc ) {} ;
+        virtual ~CppProperty(){} ;
         virtual SEXP get(Class* ) { throw std::range_error("cannot retrieve property"); }
         virtual void set(Class*, SEXP) { throw std::range_error("cannot set property"); }
         virtual bool is_readonly(){ return false; }
