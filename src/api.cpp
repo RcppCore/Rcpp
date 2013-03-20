@@ -48,6 +48,7 @@ namespace Rcpp {
     }
     
     SEXP Rcpp_PreserveObject(SEXP x){ 
+#if RCPP_USE_NEW_PRESERVE_RELEASE
         if( x != R_NilValue ){
             init_ProtectionStack();
             int top = GET_TOP() ;
@@ -60,9 +61,15 @@ namespace Rcpp {
         #if RCPP_DEBUG_LEVEL > 1 
         Rcpp_Stack_Debug() ;
         #endif
+#else
+        if( x != R_NilValue ) {
+            R_PreserveObject(x); 
+        }
+#endif
         return x ;
     }
     void Rcpp_ReleaseObject(SEXP x){
+#if RCPP_USE_NEW_PRESERVE_RELEASE
         if( x != R_NilValue ){
             init_ProtectionStack();
             
@@ -96,13 +103,20 @@ namespace Rcpp {
             Rcpp_Stack_Debug() ;
             #endif
         }
+#else
+        if (x != R_NilValue) {
+            R_ReleaseObject(x); 
+        }
+#endif
     }
+
     SEXP Rcpp_ReplaceObject(SEXP x, SEXP y){
         if( x == R_NilValue ){
             Rcpp_PreserveObject( y ) ;    
         } else if( y == R_NilValue ){
             Rcpp_ReleaseObject( x ) ;
         } else {
+#if RCPP_USE_NEW_PRESERVE_RELEASE
             init_ProtectionStack();
             
             int top = GET_TOP(); 
@@ -122,6 +136,7 @@ namespace Rcpp {
             Rcpp_Stack_Debug() ;
             #endif
         
+#endif
         }
         return y ;
     }                                                                                          
