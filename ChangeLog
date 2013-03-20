@@ -1,3 +1,7 @@
+2013-03-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/CITATION: Add information about forthcoming book
+
 2013-03-20 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_wide_string.h : fixes to re-enable wrap( vector<char> )
