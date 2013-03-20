@@ -18,4 +18,15 @@ citEntry(entry = "Article",
         "URL http://www.jstatsoft.org/v40/i08/.")
 )
 
+citEntry(entry = "Book",
+  title        = "Seamless {R} and {C++} Integration with {Rcpp}",
+  author       = personList(as.person("Dirk Eddelbuettel")),
+  publisher    = "Springer",
+  address      = "New York",
+  year         = 2013,
+  note         = "ISBN 978-1-4614-6867-7",
 
+  textVersion  = paste("Eddelbuettel, Dirk (2013)",
+                       "Seamless R and C++ Integration with Rcpp.",
+                       "Springer, New York. ISBN 978-1-4614-6867-7.")
+)
