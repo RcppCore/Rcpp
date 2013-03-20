@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp 0.10.3 (future)}{
+\section{Changes in Rcpp 0.10.3 (2013-xx-yy)}{
   \itemize{
     \item Changes in R code:
     \itemize{
@@ -41,7 +41,7 @@
       treated as a stack instead of a pairlist in the R implementation
       \item Platform-dependent code in Timer.cpp now recognises a few
       more BSD variants thanks to contributed defined() test suggestions
-      \item support for wide character strings has been added throughout the 
+      \item Support for wide character strings has been added throughout the 
       API. In particular String, CharacterVector, wrap and as are aware of 
       wide character strings
     }
