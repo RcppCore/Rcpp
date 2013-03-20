@@ -135,7 +135,18 @@ namespace Rcpp {
             #if RCPP_DEBUG_LEVEL > 1 
             Rcpp_Stack_Debug() ;
             #endif
-        
+#else        
+            // if we are setting to the same SEXP as we already have, do nothing 
+            if (x != y) {
+                
+                // the previous SEXP was not NULL, so release it 
+                Rcpp_ReleaseObject(x);
+                
+                // the new SEXP is not NULL, so preserve it 
+                Rcpp_PreserveObject(y);
+                        
+                //update();
+            }
 #endif
         }
         return y ;
