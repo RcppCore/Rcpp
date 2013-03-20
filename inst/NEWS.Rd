@@ -38,7 +38,10 @@
       R_ReleaseObject has been replaced by a new system based on the 
       functions Rcpp_PreserveObject, Rcpp_ReleaseObject and Rcpp_ReplaceObject
       which shows better performance and is implemented using a generic vector
-      treated as a stack instead of a pairlist in the R implementation
+      treated as a stack instead of a pairlist in the R
+      implementation.
+      \item As the preserve / release code is still a little rough at
+      the edges, a new #define is used (in config.h) to disable it for now.
       \item Platform-dependent code in Timer.cpp now recognises a few
       more BSD variants thanks to contributed defined() test suggestions
       \item Support for wide character strings has been added throughout the 

@@ -29,7 +29,7 @@
 
 // Rcpp 0.10.3 has initial support for new preserve/release semantics
 // This switch enables a rollback to the standard R preserve/release semantics
-#define RCPP_USE_NEW_PRESERVE_RELEASE 1
+#define RCPP_USE_NEW_PRESERVE_RELEASE 0
                                                                                                                 
 #endif
 
