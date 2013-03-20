@@ -1,3 +1,12 @@
+2013-03-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/config.h: Define RCPP_USE_NEW_PRESERVE_RELEASE
+	with default value of 0 to enable/disable new preserve/release code
+
+	* src/api.cpp: Bracket the new Rcpp object preserve / release code
+	with the new variable RCPP_USE_NEW_PRESERVE_RELEASE and fall back
+	to R behaviour if not set
+
 2013-03-12 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/Module.h: added virtual destructor to CppProperty
@@ -36,8 +45,8 @@
         * include/RcppCommon.h : move sexp_to_name here. Used in some debugging
         * include/Rcpp/vector/MatrixRow.h : fix const version of operator[]
         * include/Rcpp/vector/Vector.h : more debugging
-        * include/Rcpp/internal/wrap.h : more debugging. more dispatch.  
-        
+        * include/Rcpp/internal/wrap.h : more debugging. more dispatch. 
+
 2013-02-18 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/string_proxy.h : only declare operator+=
