@@ -33,6 +33,9 @@ namespace traits{
     template <> struct is_wide_string< const wchar_t* > : public true_type{} ;
     template <> struct is_wide_string< const char* > : public false_type{} ;
     
+    template <> struct is_wide_string< wchar_t > : public true_type{} ;
+    template <> struct is_wide_string< char > : public false_type{} ;
+    
 } // traits
 } // Rcpp
 

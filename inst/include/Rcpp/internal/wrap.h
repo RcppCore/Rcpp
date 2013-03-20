@@ -47,12 +47,23 @@ namespace internal{
 		wcstombs( buffer, data, MAXELTSIZE ) ;
 		return Rf_mkChar(buffer) ;
 	}
+	inline SEXP make_charsexp__impl__wstring( wchar_t data ){
+		wchar_t x[2] ; x[0] = data ; x[1] = '\0' ;
+		char* buffer = get_string_buffer() ;
+		wcstombs( buffer, x, MAXELTSIZE ) ;
+		return Rf_mkChar(buffer) ;
+	}
 	inline SEXP make_charsexp__impl__wstring( const std::wstring& st ){
 		return make_charsexp__impl__wstring( st.data()) ;	
 	}
 	inline SEXP make_charsexp__impl__cstring( const char* data ){
 		return Rf_mkChar( data ) ;
 	}
+	inline SEXP make_charsexp__impl__cstring( char data ){
+		char x[2]; x[0] = data ; x[1] = '\0' ;
+		return Rf_mkChar( x ) ;
+	}
+	
 	inline SEXP make_charsexp__impl__cstring( const std::string& st ){
 		return make_charsexp__impl__cstring( st.c_str() ) ;
 	}
