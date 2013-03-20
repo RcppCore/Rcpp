@@ -1,3 +1,9 @@
+2013-03-20 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/traits/is_wide_string.h : fixes to re-enable wrap( vector<char> )
+        and wrap( vector<wchar_t> ), needed to support package httpuv
+        * include/Rcpp/internal/wrap.h : same
+        
 2013-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/config.h: Define RCPP_USE_NEW_PRESERVE_RELEASE
