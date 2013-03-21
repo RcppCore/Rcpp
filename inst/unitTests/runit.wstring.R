@@ -28,25 +28,26 @@ if (.runThisTest) {
 }
 
 test.CharacterVector_wstring <- function(){
-    res <- CharacterVector_wstring()  
+    res <- CharacterVector_wstring()
     print(res)
     checkEquals( res, c("foobar", "foobar" ) )
 }
 
 test.wstring_return <- function(){
-    checkEquals( wstring_return(), "foo" )    
+    checkEquals( wstring_return(), "foo" )
 }
-  
+
 test.wstring_param <- function(){
-    checkEquals( wstring_param( "foo", "bar" ), "foobar" )    
+    checkEquals( wstring_param( "foo", "bar" ), "foobar" )
 }
 
 test.wrap_vector_wstring <- function(){
-    checkEquals( wrap_vector_wstring( ), c("foo", "bar" ) )    
+    checkEquals( wrap_vector_wstring( ), c("foo", "bar" ) )
 }
 
 test.as_vector_wstring <- function(){
-    checkEquals( as_vector_wstring(letters), paste( letters, "€", sep = "" ) )
+    ## the "€" did not survive on Windows, so trying its unicode equivalent
+    checkEquals( as_vector_wstring(letters), paste0( letters, "\u20ac" ) )
 }
 
 }
