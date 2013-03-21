@@ -1,3 +1,8 @@
+2013-03-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.wstring.R (test.as_vector_wstring): replace
+	the "€" symbol with its unicode equivalent "\u20ac"
+
 2013-03-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp.bib: Updated versions for several CRAN packages
