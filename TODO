@@ -112,6 +112,8 @@ Attributes
 
     o   Solution for the problem of sharing/propagating typedefs to RcppExports 
 
+    o   Allow use of 'inline' keyword on exported functions
+
     o   Allow sourceCpp to build an entire directory
 
     o   Consider allowing local includes in sourceCpp (but compilation cache
@@ -122,8 +124,6 @@ Attributes
 
     o   Additional high-level mechanism for specifying additional build
         configuration (perhaps cxxflags and libs attributes)
-
-    o   Allow definition of Rcpp modules within sourceCpp code
 
 Testing
 
