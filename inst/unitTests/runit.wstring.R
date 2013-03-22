@@ -24,12 +24,13 @@
 if (.runThisTest) {
 
 .setUp <- function(){
+    if (!exists("pathRcppTests")) pathRcppTests <- getwd()
     sourceCpp(file.path(pathRcppTests, "cpp/wstring.cpp"))
 }
 
 test.CharacterVector_wstring <- function(){
     res <- CharacterVector_wstring()
-    print(res)
+    #print(res)
     checkEquals( res, c("foobar", "foobar" ) )
 }
 
@@ -45,9 +46,9 @@ test.wrap_vector_wstring <- function(){
     checkEquals( wrap_vector_wstring( ), c("foo", "bar" ) )
 }
 
-test.as_vector_wstring <- function(){
-    ## the "€" did not survive on Windows, so trying its unicode equivalent
-    checkEquals( as_vector_wstring(letters), paste0( letters, "\u20ac" ) )
-}
+#test.as_vector_wstring <- function(){
+#    ## the "€" did not survive on Windows, so trying its unicode equivalent
+#    checkEquals( as_vector_wstring(letters), paste0( letters, "\u20ac" ) )
+#}
 
 }
