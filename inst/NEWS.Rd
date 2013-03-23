@@ -2,12 +2,12 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.10.2.8 (2013-03-21)}{
+\section{Changes in Rcpp version 0.10.3 (2013-03-23)}{
   \itemize{
     \item Changes in R code:
     \itemize{
-      \item Prevent build failures when Rcpp is installed in a library
-      path with spaces on Windows (transform paths in the same manner
+      \item Prevent build failures on Windowsn when Rcpp is installed 
+      in a library path with spaces (transform paths in the same manner
       that R does before passing them to the build system).
     }
     \item Changes in Rcpp attributes: 
@@ -39,9 +39,9 @@
       functions Rcpp_PreserveObject, Rcpp_ReleaseObject and Rcpp_ReplaceObject
       which shows better performance and is implemented using a generic vector
       treated as a stack instead of a pairlist in the R
-      implementation.
-      \item As the preserve / release code is still a little rough at
-      the edges, a new #define is used (in config.h) to disable it for now.
+      implementation. However, as this preserve / release code is still
+      a little rough at the edges, a new #define is used (in config.h)
+      to disable it for now. 
       \item Platform-dependent code in Timer.cpp now recognises a few
       more BSD variants thanks to contributed defined() test suggestions
       \item Support for wide character strings has been added throughout the 

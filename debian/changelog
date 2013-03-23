@@ -1,3 +1,11 @@
+rcpp (0.10.3-1) unstable; urgency=low
+
+  * New release
+
+  * src/Timer.cpp: Changed to permit *BSD builds 	(Closes: #697032)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 23 Mar 2013 07:42:26 -0500
+
 rcpp (0.10.2-1) unstable; urgency=low
 
   * New release
@@ -9,7 +17,7 @@ rcpp (0.10.1-1) unstable; urgency=low
   * New release
   
   * inst/include/Rcpp/iostream/Rostream.h: Additional fix that didn't make
-    into 0.10.1
+    it into 0.10.1
 
  -- Dirk Eddelbuettel <edd@debian.org>  Tue, 27 Nov 2012 08:20:54 -0600
 
