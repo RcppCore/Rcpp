@@ -1,3 +1,10 @@
+2013-03-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.10.3
+        * inst/NEWS.Rd: Release 0.10.3
+        * inst/include/Rcpp/config.h: Release 0.10.3
+        * debian/*: Similarly updated for new release to Debian
+
 2013-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.wstring.R (test.as_vector_wstring): replace
@@ -63,7 +70,7 @@
         * include/RcppCommon.h : move sexp_to_name here. Used in some debugging
         * include/Rcpp/vector/MatrixRow.h : fix const version of operator[]
         * include/Rcpp/vector/Vector.h : more debugging
-        * include/Rcpp/internal/wrap.h : more debugging. more dispatch. 
+        * include/Rcpp/internal/wrap.h : more debugging. more dispatch.
 
 2013-02-18 Romain Francois <romain@r-enthusiasts.com>
 
@@ -225,19 +232,19 @@
         * R/00_classes.R: remove unused S4 classes
         * src/internal.h: added Rcpp_PreserveObject, Rcpp_ReleaseObject and
         Rcpp_ReplaceObject as replacements to R_ versions. The back end of the Rcpp_
-        version is a list (generic vector) instead of a linked list and 
-        is faster 
+        version is a list (generic vector) instead of a linked list and
+        is faster
         * src/Module.cpp: more debugging
-        * src/barrier.cpp: added get_Rcpp_protection_stack used in the new 
+        * src/barrier.cpp: added get_Rcpp_protection_stack used in the new
         stack system for protecting/releasing objects in Rcpp
         * src/api.cpp: implemetation of Rcpp_PreserveObject, Rcpp_ReleaseObject
-        and Rcpp_ReplaceObject. RObject::setSEXP now uses the new system. 
+        and Rcpp_ReplaceObject. RObject::setSEXP now uses the new system.
         The RObject(SEXP) constructor now directly uses Rcpp_PreserveObject
         More debugging for the RObject class
         Changes in api classes to better use the new protection system
         * unitTests/cpp/language.cpp: hosting unit test in sourceCpp form
         * unitTests/runit.Language.R: update unit tests
-        * unitTests/runit.Module.client.package.R: remove code that has been 
+        * unitTests/runit.Module.client.package.R: remove code that has been
         commented for ages
         * include/Rcpp/DottedPair.h: better use of the RObject constructor
         * include/Rcpp/vector/Vector.h: better use of the RObject constructor
@@ -248,13 +255,13 @@
         * include/Rcpp/macros/debug.h: more debugging macros
         * include/Rcpp/module/class_Base.h: using classes instead of SEXP
         * include/Rcpp/module/class.h: using classes instead of SEXP
-        * include/Rcpp/generated/Language__ctors.h : using  update_language_object 
-        instead of the virtual update which has been removed. 
+        * include/Rcpp/generated/Language__ctors.h : using  update_language_object
+        instead of the virtual update which has been removed.
         * include/Rcpp/api/meat/Vector.h : using update_vector instead of the
         virtual update that has been removed, more debugging
         * include/Rcpp/api/meat/Matrix.h : more debugging, using update_matrix
         instead of the virtual update which has been removed
-        * include/Rcpp/Language.h : added update_language_object to 
+        * include/Rcpp/Language.h : added update_language_object to
         replace update which was virtual
         * include/Rcpp/RObject.h : only keep declarations here
 

@@ -1,6 +1,6 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.10.2.8
+Version: 0.10.3
 Date: $Date$
 Author: Dirk Eddelbuettel and Romain Francois, with contributions 
  by Douglas Bates, John Chambers and JJ Allaire
@@ -37,7 +37,7 @@ Description: The Rcpp package provides R functions as well as a C++ library
  package development. Attributes are built on top of Rcpp modules and
  their implementation is based on previous work in the inline package.
  .
- Many examples are included, and over 870 unit tests in over 390 unit
+ Many examples are included, and over 870 unit tests in over 400 unit
  test functions provide additional usage examples.
  .
  An earlier version of Rcpp, containing what we now call the 'classic Rcpp
