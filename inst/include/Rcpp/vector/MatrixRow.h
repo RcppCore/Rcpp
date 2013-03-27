@@ -164,8 +164,7 @@ private:
     int row ;
         
     inline int get_parent_index(int i) const { 
-        RCPP_DEBUG_4( "MatrixRow<%d>[%p]::get_parent_index(%d) = %d", RTYPE, this, i, i*parent_nrow)
-        Rprintf( "MatrixRow::get_parent_index(int = %d), parent_nrow = %d >> %d\n", i, parent_nrow, i*parent_nrow ) ;
+        RCPP_DEBUG_4( "MatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, i*parent_nrow )
         return i * parent_nrow ;
     } 
 } ;

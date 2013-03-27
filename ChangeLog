@@ -1,3 +1,8 @@
+2013-03-27 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/MatrixRow.h : removed unintended printed messaged
+        (reported on Rcpp-devel by Michaeal Love)
+        
 2013-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.10.3
