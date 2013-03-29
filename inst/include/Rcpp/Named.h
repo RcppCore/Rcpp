@@ -2,7 +2,7 @@
 //
 // Named.h: Rcpp R/C++ interface class library -- named object 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,8 +30,8 @@ public:
 	Argument( const std::string& name_) : name(name_){} 
 	
 	template<typename T>
-	inline traits::named_object<T> operator=( const T& t){
-		return traits::named_object<T>( name, t ) ;	
+	inline traits::named_object<SEXP> operator=( const T& t){
+		return traits::named_object<SEXP>( name, wrap(t) ) ;	
 	}
 	
 	std::string name ;	
@@ -41,8 +41,8 @@ inline Argument Named( const std::string& name){
 	return Argument( name );	
 }
 template <typename T>
-inline traits::named_object<T> Named( const std::string& name, const T& o){
-	return traits::named_object<T>( name, o );	
+inline traits::named_object<SEXP> Named( const std::string& name, const T& o){
+	return traits::named_object<SEXP>( name, wrap(o) );	
 }
 
 namespace internal{
