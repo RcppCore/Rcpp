@@ -2,7 +2,7 @@
 //
 // DottedPair.h: Rcpp R/C++ interface class library -- dotted pair list template
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -110,8 +110,7 @@ template<typename... Args>
 		template <typename T>
 		Proxy& operator=(const T& rhs) ;
 		
-		template <typename U>
-		Proxy& operator=(const traits::named_object<U>& rhs) ;
+		Proxy& operator=(const traits::named_object<SEXP>& rhs) ;
 		
 		template <typename T> operator T() const ;
 		

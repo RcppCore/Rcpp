@@ -2,7 +2,7 @@
 //
 // DottedPair.h: Rcpp R/C++ interface class library --  DottedPair meat
 //
-// Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -32,11 +32,6 @@ namespace Rcpp{
     template <typename T> 
     DottedPair::Proxy::operator T() const{ return as<T>(get()); } 
 
-    template <typename U>
-    DottedPair::Proxy& DottedPair::Proxy::operator=(const traits::named_object<U>& rhs){
-    	return set( rhs.object, rhs.name.c_str() ) ;
-    }
-		
     template <typename T>
 	void DottedPair::push_front( const T& object){
 		setSEXP( grow(object, m_sexp) ) ;
