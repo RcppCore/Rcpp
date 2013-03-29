@@ -3,7 +3,7 @@
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -1706,37 +1706,53 @@ char* get_string_buffer(){
     return buffer ;    
 }
 
-// static const char* dropTrailing0(char *s, char cdec) {
-//     /* Note that  's'  is modified */
-//     char *p = s;
-//     for (p = s; *p; p++) {
-// 	if(*p == cdec) {
-// 	    char *replace = p++;
-// 	    while ('0' <= *p  &&  *p <= '9')
-// 		if(*(p++) != '0')
-// 		    replace = p;
-// 	    if(replace != p)
-// 		while((*(replace++) = *(p++)))
-// 		    ;
-// 	    break;
-// 	}
-//     }
-//     return s;
-// }
+static const char* dropTrailing0(char *s, char cdec) {
+    /* Note that  's'  is modified */
+    char *p = s;
+    for (p = s; *p; p++) {
+	if(*p == cdec) {
+	    char *replace = p++;
+	    while ('0' <= *p  &&  *p <= '9')
+		if(*(p++) != '0')
+		    replace = p;
+	    if(replace != p)
+		while((*(replace++) = *(p++)))
+		    ;
+	    break;
+	}
+    }
+    return s;
+}
 
-// template <> const char* coerce_to_string<REALSXP>(double x){
-//     int w,d,e ;
-//     Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
-//     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
-// 	return dropTrailing0(tmp, '.');
-        
-// }
-// template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
-//     int wr, dr, er, wi, di, ei;
-//     Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
-//     return Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
-// }
+template <> const char* coerce_to_string<REALSXP>(double x){
+    int w,d,e ;
+    // cf src/main/format.c in R's sources:
+    //   The return values are
+    //     w : the required field width
+    //     d : use %w.df in fixed format, %#w.de in scientific format
+    //     e : use scientific format if != 0, value is number of exp digits - 1
+    //
+    //   nsmall specifies the minimum number of decimal digits in fixed format:
+    //   it is 0 except when called from do_format.
+    Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
+    // we are no longer allowed to use this:
+    //     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
+    // so approximate it poorly as
+    static char tmp[128];
+    snprintf(tmp, 127, "%*.*f", w, d, x);
+    return dropTrailing0(tmp, '.');
+}
 
+template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
+    int wr, dr, er, wi, di, ei;
+    Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
+    // we are no longer allowed to use this:
+    //     Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
+    // so approximate it poorly as
+    static char tmp[128];
+    snprintf(tmp, 127, "%*.*f+%*.*fi", wr, dr, x.r, wi, di, x.i);
+    return tmp;
+}
 
 } // internal
 } // Rcpp
