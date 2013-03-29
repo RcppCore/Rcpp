@@ -1,16 +1,23 @@
+2013-03-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/api.cpp (Rcpp): Re-enable coerce_to_string<>() for real and
+	complex types with Poor Man's Versions (TM) of Rf_EncodeReal and
+	Rf_EncodeComplex which the Powers That Be disallow from being used
+
 2013-03-29 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/named_object.h: only keep named_object<SEXP>
         * include/Rcpp/Named.h: Named generates named_object<SEXP>
         * include/Rcpp/api/meat/DottedPair.h: adapt to changes above
         * include/Rcpp/DottedPair.h: idem
-        * src/api.cpp: define DottedPair::Proxy::operator=( named_object<SEXP> )
+        * src/api.cpp: define DottedPair::Proxy::operator=(
+	named_object<SEXP> )
 
 2013-03-27 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/vector/MatrixRow.h : removed unintended printed messaged
-        (reported on Rcpp-devel by Michaeal Love)
-        
+        * include/Rcpp/vector/MatrixRow.h : removed unintended printed
+	messaged (reported on Rcpp-devel by Michaeal Love)
+
 2013-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.10.3
