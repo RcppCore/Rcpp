@@ -1,3 +1,11 @@
+2013-03-29 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/traits/named_object.h: only keep named_object<SEXP>
+        * include/Rcpp/Named.h: Named generates named_object<SEXP>
+        * include/Rcpp/api/meat/DottedPair.h: adapt to changes above
+        * include/Rcpp/DottedPair.h: idem
+        * src/api.cpp: define DottedPair::Proxy::operator=( named_object<SEXP> )
+
 2013-03-27 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/MatrixRow.h : removed unintended printed messaged
