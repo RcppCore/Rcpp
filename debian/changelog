@@ -1,3 +1,11 @@
+rcpp (0.10.3-2) unstable; urgency=low
+
+  * debian/control: Set Build-Depends: to current R version 
+  
+  * (Re-)building with R 3.0.0 (beta)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 30 Mar 2013 18:04:44 -0500
+
 rcpp (0.10.3-1) unstable; urgency=low
 
   * New release
