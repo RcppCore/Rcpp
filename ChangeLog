@@ -1,3 +1,9 @@
+2013-03-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* debian/control (Build-Depends): Modified for Debian-only rebuilds
+	under (rc version of upcoming) R 3.0.0 release
+	* debian/changelog: Entry for Debian build 0.10.3-2
+
 2013-03-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp (Rcpp): Re-enable coerce_to_string<>() for real and
