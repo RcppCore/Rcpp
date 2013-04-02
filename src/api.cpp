@@ -1208,6 +1208,38 @@ namespace Rcpp {
     } 
     int DataFrame::nrows() const { return Rf_length( VECTOR_ELT(m_sexp, 0) ); }
         
+    DataFrame DataFrame::from_list( Rcpp::List obj ){
+        bool use_default_strings_as_factors = true ;
+        bool strings_as_factors = true ;
+        int strings_as_factors_index = -1 ;
+        int n = obj.size() ;
+        CharacterVector names = obj.attr( "names" ) ;
+        if( !names.isNULL() ){
+            for( int i=0; i<n; i++){
+                if( names[i] == "stringsAsFactors" ){
+                    strings_as_factors_index = i ;
+                    use_default_strings_as_factors = false ;        
+                    if( !as<bool>(obj[i]) ) strings_as_factors = false ;
+                    break ;         
+                }
+            }
+        }
+        if( use_default_strings_as_factors ) 
+            return DataFrame(obj) ;
+        SEXP as_df_symb = Rf_install("as.data.frame");
+        SEXP strings_as_factors_symb = Rf_install("stringsAsFactors");
+        
+        obj.erase(strings_as_factors_index) ;
+        names.erase(strings_as_factors_index) ;
+        obj.attr( "names") = names ;
+        SEXP call  = PROTECT( Rf_lang3(as_df_symb, obj, wrap( strings_as_factors ) ) ) ;
+        SET_TAG( CDDR(call),  strings_as_factors_symb ) ;   
+        SEXP res = PROTECT( Evaluator::run( call ) ) ; 
+        DataFrame out( res ) ;
+        UNPROTECT(2) ;
+        return out ;
+    }
+    
     // }}}
     
 } // namespace Rcpp

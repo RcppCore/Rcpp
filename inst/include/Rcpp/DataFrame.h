@@ -2,7 +2,7 @@
 //
 // DataFrame.h: Rcpp R/C++ interface class library -- data frames
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -48,6 +48,7 @@ namespace Rcpp{
 
     private:
         void set_sexp(SEXP x) ;
+        static DataFrame from_list( Rcpp::List ) ;
         
     } ;
         
