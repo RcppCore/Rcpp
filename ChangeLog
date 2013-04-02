@@ -4,6 +4,10 @@
         uses List::create and then feeds to the DataFrame constructor, which 
         seems to work better than the previous approach of calling back to the 
         data.frame function in R
+        * include/Rcpp/DataFrame.h : private function from_list, to help 
+        the new implementation of DataFrame::create
+        * src/api.cpp : impl of DataFrame::from_list
+        
         
 2013-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
