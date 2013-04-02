@@ -1,3 +1,10 @@
+2013-04-02 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/generated/DataFrame_generated.h : DateFrame::create
+        uses List::create and then feeds to the DataFrame constructor, which 
+        seems to work better than the previous approach of calling back to the 
+        data.frame function in R
+        
 2013-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* debian/control (Build-Depends): Modified for Debian-only rebuilds
@@ -9,15 +16,6 @@
 	* src/api.cpp (Rcpp): Re-enable coerce_to_string<>() for real and
 	complex types with Poor Man's Versions (TM) of Rf_EncodeReal and
 	Rf_EncodeComplex which the Powers That Be disallow from being used
-
-2013-03-29 Romain Francois <romain@r-enthusiasts.com>
-
-        * include/Rcpp/traits/named_object.h: only keep named_object<SEXP>
-        * include/Rcpp/Named.h: Named generates named_object<SEXP>
-        * include/Rcpp/api/meat/DottedPair.h: adapt to changes above
-        * include/Rcpp/DottedPair.h: idem
-        * src/api.cpp: define DottedPair::Proxy::operator=(
-	named_object<SEXP> )
 
 2013-03-27 Romain Francois <romain@r-enthusiasts.com>
 
