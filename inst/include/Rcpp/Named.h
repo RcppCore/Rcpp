@@ -30,8 +30,8 @@ public:
 	Argument( const std::string& name_) : name(name_){} 
 	
 	template<typename T>
-	inline traits::named_object<SEXP> operator=( const T& t){
-		return traits::named_object<SEXP>( name, wrap(t) ) ;	
+	inline traits::named_object<T> operator=( const T& t){
+		return traits::named_object<T>( name, t ) ;	
 	}
 	
 	std::string name ;	
@@ -41,8 +41,8 @@ inline Argument Named( const std::string& name){
 	return Argument( name );	
 }
 template <typename T>
-inline traits::named_object<SEXP> Named( const std::string& name, const T& o){
-	return traits::named_object<SEXP>( name, wrap(o) );	
+inline traits::named_object<T> Named( const std::string& name, const T& o){
+	return traits::named_object<T>( name, o );	
 }
 
 namespace internal{

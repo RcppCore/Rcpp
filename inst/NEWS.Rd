@@ -2,6 +2,19 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+  \section{Changes in Rcpp version 0.10.4 (future)}{
+  \itemize{
+    \item Changes in R code:
+    \item Changes in Rcpp attributes: 
+    \item Changes in Rcpp API:
+    \itemize{
+        \item The \code{DataFrame::create} set of functions has been reworked
+        to just use \code{List::create} and feed to the \code{DataFrame}
+        constructor
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.10.3 (2013-03-23)}{
   \itemize{
     \item Changes in R code:

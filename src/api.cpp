@@ -454,10 +454,6 @@ namespace Rcpp {
         node = x ;
     }
      
-    DottedPair::Proxy& DottedPair::Proxy::operator=(const traits::named_object<SEXP>& rhs){
-    	return set( rhs.object, rhs.name.c_str() ) ;
-    }
-	
     DottedPair::Proxy& DottedPair::Proxy::operator=(const Proxy& rhs){
         return set(rhs) ;
     }

@@ -110,7 +110,8 @@ template<typename... Args>
 		template <typename T>
 		Proxy& operator=(const T& rhs) ;
 		
-		Proxy& operator=(const traits::named_object<SEXP>& rhs) ;
+		template <typename T>
+		Proxy& operator=(const traits::named_object<T>& rhs) ;
 		
 		template <typename T> operator T() const ;
 		

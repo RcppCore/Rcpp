@@ -2,7 +2,7 @@
 //
 // DataFrame_generated.h: Rcpp R/C++ interface class library -- data frames
 //
-// Copyright (C) 2010 - 2011  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,201 +26,121 @@
 
 template <typename T1>
 static DataFrame create( const T1& t1 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1 ) ) ;
 } 
 
 
 template <typename T1, typename T2>
 static DataFrame create( const T1& t1, const T2& t2 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17, const T18& t18 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18, typename T19>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17, const T18& t18, const T19& t19 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19 ) ) ;
 } 
 
 
 template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18, typename T19, typename T20>
 static DataFrame create( const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17, const T18& t18, const T19& t19, const T20& t20 ) {
-    try{
-        return DataFrame(internal::try_catch(::Rcpp_lcons( ::Rf_install( "data.frame"), pairlist( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20 ) )));
-    } catch( eval_error& __ex__){
-        throw not_compatible("error calling the data.frame function") ;
-    }
+    return DataFrame( List::create( t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20 ) ) ;
 } 
 
 #endif
