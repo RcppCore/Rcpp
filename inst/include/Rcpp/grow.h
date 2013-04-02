@@ -41,7 +41,7 @@ namespace Rcpp {
     	inline SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
     	    SEXP y = PROTECT( wrap( head.object) ) ;
     	    SEXP x = PROTECT( Rf_cons( y , tail) ) ;
-    	    SEXP headNameSym = ::Rf_install( head.name.c_str() ); // cannot be gc()ed once in symbol table
+    	    SEXP headNameSym = ::Rf_install( head.name.c_str() );
     	    SET_TAG( x, headNameSym ); 
     	    UNPROTECT(2); 
     	    return x; 	

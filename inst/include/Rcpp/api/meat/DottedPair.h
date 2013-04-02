@@ -38,6 +38,11 @@ namespace Rcpp{
 	}
 
 	template <typename T>
+	DottedPair::Proxy& DottedPair::Proxy::operator=(const traits::named_object<T>& rhs){
+    	return set( rhs.object, rhs.name.c_str() ) ;
+    }
+	
+	template <typename T>
 	void DottedPair::push_back( const T& object){
 		if( isNULL() ){
 			setSEXP( grow( object, m_sexp ) ) ;
