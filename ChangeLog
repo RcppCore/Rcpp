@@ -1,7 +1,7 @@
 2013-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Date.cpp (Rcpp): Corrected operator-() for Date and Datetime
-	objects to do what is more inline with C++ standard
+	* src/Date.cpp: Corrected operator-() for Date and Datetime objects
+	to behave more inline with C++ standard
 
 	* inst/include/Rcpp/Date.h: operator-() for Dates now returns a
 	double as the date itself is fractional double since epoch

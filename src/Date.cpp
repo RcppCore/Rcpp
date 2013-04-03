@@ -167,14 +167,7 @@ namespace Rcpp {
 	return newdate;
     }
 
-    // int operator-(const Date& d1, const Date& d2) { return d2.m_d - d1.m_d; }
-    double operator-(const Date& d1, const Date& d2) {
-        //Rprintf( "d1 = %lf\n", d1.m_d ) ;
-        //Rprintf( "d2 = %lf\n", d2.m_d ) ;
-        double diff =  d1.m_d - d2.m_d;
-        //Rprintf( "diff = %lf\n", diff );
-        return diff ;
-    }
+    double operator-(const Date& d1, const Date& d2) { return d1.m_d - d2.m_d; }
     bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
     bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
     bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; }
