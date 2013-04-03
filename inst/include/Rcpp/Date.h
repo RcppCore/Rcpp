@@ -2,7 +2,7 @@
 //
 // Date.h: Rcpp R/C++ interface class library -- dates
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -55,14 +55,14 @@ namespace Rcpp {
 		Date & operator=(const Date &newdate); 					// copy assignment operator 
 
 		// Minimal set of date operations.
-		friend Date  operator+(const Date &date, int offset);
-		friend int   operator-(const Date& date1, const Date& date2);
-		friend bool  operator<(const Date &date1, const Date& date2);
-		friend bool  operator>(const Date &date1, const Date& date2);
-		friend bool  operator==(const Date &date1, const Date& date2);
-		friend bool  operator>=(const Date &date1, const Date& date2);
-		friend bool  operator<=(const Date &date1, const Date& date2);
-		friend bool  operator!=(const Date &date1, const Date& date2);
+		friend Date   operator+(const Date &date, int offset);
+		friend double operator-(const Date& date1, const Date& date2);
+		friend bool   operator<(const Date &date1, const Date& date2);
+		friend bool   operator>(const Date &date1, const Date& date2);
+		friend bool   operator==(const Date &date1, const Date& date2);
+		friend bool   operator>=(const Date &date1, const Date& date2);
+		friend bool   operator<=(const Date &date1, const Date& date2);
+		friend bool   operator!=(const Date &date1, const Date& date2);
 
     private:
         double m_d;					// (fractional) day number, relative to epoch of Jan 1, 1970
