@@ -1,14 +1,25 @@
+2013-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Date.cpp (Rcpp): Corrected operator-() for Date and Datetime
+	objects to do what is more inline with C++ standard
+
+	* inst/include/Rcpp/Date.h: operator-() for Dates now returns a
+	double as the date itself is fractional double since epoch
+
+	* inst/unitTests/cpp/dates.cpp: New file with C++ portion of tests
+	factored out from R unit test file
+	* inst/unitTests/runit.Date.R: Rewritten for use with new C++ tests
+
 2013-04-02 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/generated/DataFrame_generated.h : DateFrame::create
-        uses List::create and then feeds to the DataFrame constructor, which 
-        seems to work better than the previous approach of calling back to the 
+        uses List::create and then feeds to the DataFrame constructor, which
+        seems to work better than the previous approach of calling back to the
         data.frame function in R
-        * include/Rcpp/DataFrame.h : private function from_list, to help 
+        * include/Rcpp/DataFrame.h : private function from_list, to help
         the new implementation of DataFrame::create
         * src/api.cpp : impl of DataFrame::from_list
-        
-        
+
 2013-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* debian/control (Build-Depends): Modified for Debian-only rebuilds
