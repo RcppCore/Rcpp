@@ -3,7 +3,7 @@
 //
 // Date.cpp: Rcpp R/C++ interface class library -- Date type
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 //
 //    The mktime00() as well as the gmtime_() replacement function are
 //    Copyright (C) 2000 - 2010  The R Development Core Team.
@@ -167,7 +167,14 @@ namespace Rcpp {
 	return newdate;
     }
 
-    int   operator-(const Date& d1, const Date& d2) { return d2.m_d - d1.m_d; }
+    // int operator-(const Date& d1, const Date& d2) { return d2.m_d - d1.m_d; }
+    double operator-(const Date& d1, const Date& d2) {
+        //Rprintf( "d1 = %lf\n", d1.m_d ) ;
+        //Rprintf( "d2 = %lf\n", d2.m_d ) ;
+        double diff =  d1.m_d - d2.m_d;
+        //Rprintf( "diff = %lf\n", diff );
+        return diff ;
+    }
     bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
     bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
     bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; }
@@ -267,7 +274,7 @@ namespace Rcpp {
 		return newdt;
     }
 
-    double  operator-(const Datetime& d1, const Datetime& d2) { return d2.m_dt - d1.m_dt; }
+    double  operator-(const Datetime& d1, const Datetime& d2) { return d1.m_dt - d2.m_dt; }
     bool    operator<(const Datetime &d1, const Datetime& d2) { return d1.m_dt < d2.m_dt; }
     bool    operator>(const Datetime &d1, const Datetime& d2) { return d1.m_dt > d2.m_dt; }
     bool    operator==(const Datetime &d1, const Datetime& d2) { return d1.m_dt == d2.m_dt; }

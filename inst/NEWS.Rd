@@ -8,11 +8,12 @@
     \item Changes in Rcpp attributes: 
     \item Changes in Rcpp API:
     \itemize{
-        \item The \code{DataFrame::create} set of functions has been reworked
-        to just use \code{List::create} and feed to the \code{DataFrame}
-        constructor
+      \item The \code{DataFrame::create} set of functions has been reworked
+      to just use \code{List::create} and feed to the \code{DataFrame}
+      constructor
+      \item The \code{operator-()} semantics for \code{Date} and
+      \code{Datetime} are now more inline with standard C++ behaviour.
     }
-  }
 }
 
 \section{Changes in Rcpp version 0.10.3 (2013-03-23)}{
