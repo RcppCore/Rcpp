@@ -125,6 +125,12 @@ Attributes
     o   Additional high-level mechanism for specifying additional build
         configuration (perhaps cxxflags and libs attributes)
 
+    o   Verify whether sourceCpp still needs to check for spaces in the path
+        of source file names on Windows
+
+    o   Consider adding -Wall and -Wpedantic for sourceCpp builds
+
+
 Testing
 
     o	all r* functions : rnorm, etc ...
