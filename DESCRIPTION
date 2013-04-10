@@ -48,7 +48,7 @@ Description: The Rcpp package provides R functions as well as a C++ library
 Depends: R (>= 2.15.1)
 Imports: methods
 Suggests: RUnit, inline, rbenchmark
-URL: http://dirk.eddelbuettel.com/code/rcpp.html, http://romainfrancois.blog.free.fr/index.php?category/R-package/Rcpp
+URL: http://www.rcpp.org, http://dirk.eddelbuettel.com/code/rcpp.html, http://blog.r-enthusiasts.com/tag/rcpp/
 License: GPL (>= 2)
 BugReports: http://r-forge.r-project.org/tracker/?atid=637&group_id=155&func=browse
 MailingList: Please send questions and comments regarding Rcpp to rcpp-devel@lists.r-forge.r-project.org
