@@ -1,3 +1,8 @@
+2013-04-14  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/traits/is_na.h: complex version did not work. 
+        added default for VECSXP and EXPRSXP versions
+
 2013-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Date.cpp: Corrected operator-() for Date and Datetime objects

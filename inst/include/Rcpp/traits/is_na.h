@@ -2,7 +2,7 @@
 //
 // is_na.h: Rcpp R/C++ interface class library -- vector operators
 //                                                                      
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,9 +25,11 @@
 namespace Rcpp{
 namespace traits{
 	
-	// no definition on purpose
+	// default to always false, applies to VECSXP, EXPRSXP and RAWSXP
 	template <int RTYPE> 
-	bool is_na( typename storage_type<RTYPE>::type ) ;
+	bool is_na( typename storage_type<RTYPE>::type ){
+	    return false ;    
+	}
 	
 	template <> 
 	inline bool is_na<INTSXP>( int x ){
@@ -41,11 +43,8 @@ namespace traits{
 	
 	template <> 
 	inline bool is_na<CPLXSXP>( Rcomplex x ){
-		return x.r == NA_REAL || x.i == NA_REAL;
+		return R_IsNA(x.r) || R_IsNA(x.i) ;
 	}
-	
-	template <>
-	inline bool is_na<RAWSXP>( Rbyte ){ return false; }
 	
 	template <>
 	inline bool is_na<STRSXP>( SEXP x ){ return x == NA_STRING ; }
