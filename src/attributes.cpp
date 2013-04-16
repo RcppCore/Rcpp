@@ -2,7 +2,7 @@
 //
 // attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
-// Copyright (C) 2012 JJ Allaire, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 JJ Allaire, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -1033,7 +1033,7 @@ namespace attributes {
                     // extract the type
                     std::string typeText;
                     while (++it != preambleText.rend())
-                        typeText.insert(0, 1, *it);    
+                        typeText.insert(0U, 1U, *it);    
                     type = parseType(typeText);
                     
                     // break (since we now have the name and the type)
@@ -1042,7 +1042,7 @@ namespace attributes {
                 else
                     continue;
             } else { 
-                name.insert(0, 1, ch);
+                name.insert(0U, 1U, ch);
             }
         }
         

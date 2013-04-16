@@ -151,11 +151,11 @@ namespace Rcpp{
         import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
     
-    template <>
+    template <int RTYPE>
     template <bool NA, typename T>
-    Vector<LGLSXP>::Vector( const sugar::SingleLogicalResult<NA,T>& obj ) : RObject(const_cast<sugar::SingleLogicalResult<NA,T>&>( obj ).get_sexp() ) {
+    Vector<RTYPE>::Vector( const sugar::SingleLogicalResult<NA,T>& obj ) : RObject( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>(obj).get_sexp() ) ) {
         update_vector() ;
-        RCPP_DEBUG_2( "Vector<%d>( const sugar::SingleLogicalResult<NA,T>& ) [T = %s]", LGLSXP, DEMANGLE(T) )
+        RCPP_DEBUG_2( "Vector<%d>( const sugar::SingleLogicalResult<NA,T>& ) [T = %s]", RTYPE, DEMANGLE(T) )
     }
     
     
