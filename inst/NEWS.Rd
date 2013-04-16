@@ -14,6 +14,11 @@
       \item The \code{operator-()} semantics for \code{Date} and
       \code{Datetime} are now more inline with standard C++ behaviour.
     }
+    \item Changes in sugar:
+    \itemize{
+        \item New function \code{na_omit} based on the stack overflow thread
+        http://stackoverflow.com/questions/15953768/templated-rcpp-function-to-erase-na-values
+    }
 }
 
 \section{Changes in Rcpp version 0.10.3 (2013-03-23)}{

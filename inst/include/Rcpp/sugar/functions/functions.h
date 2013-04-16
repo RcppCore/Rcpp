@@ -2,7 +2,7 @@
 //
 // functions.h: Rcpp R/C++ interface class library -- sugar functions
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -34,6 +34,7 @@
 #include <Rcpp/sugar/functions/any.h>
 #include <Rcpp/sugar/functions/all.h>
 #include <Rcpp/sugar/functions/is_na.h>
+#include <Rcpp/sugar/functions/na_omit.h>
 #include <Rcpp/sugar/functions/seq_along.h>
 #include <Rcpp/sugar/functions/sapply.h>
 #include <Rcpp/sugar/functions/mapply.h>

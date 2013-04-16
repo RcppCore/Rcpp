@@ -1,3 +1,8 @@
+2013-04-16  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/sugar/functions/na_omit.h : new function na_omit to remove
+        missing values from a vector. 
+
 2013-04-14  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_na.h: complex version did not work. 
