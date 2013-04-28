@@ -14,14 +14,16 @@
       \item The \code{operator-()} semantics for \code{Date} and
       \code{Datetime} are now more inline with standard C++ behaviour.
     }
-    \item Changes in sugar:
+    \item Changes in Rcpp sugar:
     \itemize{
-        \item New function \code{na_omit} based on the stack overflow thread
+        \item New function \code{na_omit} based on the StackOverflow thread
         http://stackoverflow.com/questions/15953768/templated-rcpp-function-to-erase-na-values
     }
-    \item Portability
+    \item Changes in Rcpp build tools:
     \itemize{
         \item Fix (from Martyn Plummer) for solaris in handling SingleLogicalResult.     
+	\item The \code{src/Makevars} file can now optionally ovveride the
+	path for \code{/usr/bin/install_name_tool} which is used on OS X.
     }
 }
 
