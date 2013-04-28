@@ -3,8 +3,8 @@
 # Makevars for Rcpp 
 #
 # Copyright (C) 2008 - 2009 Dirk Eddelbuettel <edd@debian.org>
-# Copyright (C) 2008        Simon Urbanek <simon.urbanek@r-project.org>
-# Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2008, 2013  Simon Urbanek <simon.urbanek@r-project.org>
+# Copyright (C) 2009 - 2013 Dirk Eddelbuettel and Romain Francois
 
 ## $(SHLIB) is the usual default target that is built automatically from all source 
 ## files in this directory. userLibrary is an additional target for the second library
@@ -31,7 +31,7 @@ userLibrary: 	$(USERLIB) $(USERLIBST)
 
 $(USERLIB): 	$(OBJECTS)
 		$(SHLIB_CXXLD) -o $(USERLIB) $(OBJECTS) $(SHLIB_CXXLDFLAGS) $(ALL_LIBS)
-		@if test -e "/usr/bin/install_name_tool"; then /usr/bin/install_name_tool -id $(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB) $(USERLIB); fi
+		@: $${INSTALL_NAME_TOOL=/usr/bin/install_name_tool}; if test -e "$$INSTALL_NAME_TOOL"; then "$$INSTALL_NAME_TOOL" -id '$(R_PACKAGE_DIR)/lib$(R_ARCH)/$(USERLIB)' '$(USERLIB)'; fi
 
 $(USERLIBST): 	$(OBJECTS)
 		$(AR) qc $(USERLIBST) $(OBJECTS)
