@@ -1,3 +1,8 @@
+2013-04-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/api.cpp (Rcpp): No longer use Rd_format(Real|Complex) which is
+	a very verboten R internal; formatting to string is now very bare bones
+
 2013-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Makevars: Improved use as well as a new possible overrride of

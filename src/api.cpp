@@ -1753,7 +1753,7 @@ static const char* dropTrailing0(char *s, char cdec) {
 }
 
 template <> const char* coerce_to_string<REALSXP>(double x){
-    int w,d,e ;
+    //int w,d,e ;
     // cf src/main/format.c in R's sources:
     //   The return values are
     //     w : the required field width
@@ -1762,23 +1762,25 @@ template <> const char* coerce_to_string<REALSXP>(double x){
     //
     //   nsmall specifies the minimum number of decimal digits in fixed format:
     //   it is 0 except when called from do_format.
-    Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
+    //Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
     // we are no longer allowed to use this:
     //     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
     // so approximate it poorly as
     static char tmp[128];
-    snprintf(tmp, 127, "%*.*f", w, d, x);
+    //snprintf(tmp, 127, "%*.*f", w, d, x);
+    snprintf(tmp, 127, "%f", x); // FIXME: barebones defaults
     return dropTrailing0(tmp, '.');
 }
 
 template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
-    int wr, dr, er, wi, di, ei;
-    Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
+    //int wr, dr, er, wi, di, ei;
+    //Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
     // we are no longer allowed to use this:
     //     Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
     // so approximate it poorly as
     static char tmp[128];
-    snprintf(tmp, 127, "%*.*f+%*.*fi", wr, dr, x.r, wi, di, x.i);
+    //snprintf(tmp, 127, "%*.*f+%*.*fi", wr, dr, x.r, wi, di, x.i);
+    snprintf(tmp, 127, "%*.*f+%*.*fi", x.r, x.i); // FIXEM: barebones default formatting
     return tmp;
 }
 
