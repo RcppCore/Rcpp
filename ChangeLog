@@ -1,13 +1,18 @@
+2013-04-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Makevars: Improved use as well as a new possible overrride of
+	/usr/bin/install_name_tool on OS X, once again contributed by Simon
+
 2013-04-16  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/functions/na_omit.h : new function na_omit to remove
-        missing values from a vector. 
+        missing values from a vector.
         * src/attributes.cpp : portability fix (from Martyn Plummer)
         * include/Rcpp/api/meat/Vector.h : portability fix (from Martyn Plummer)
-        
+
 2013-04-14  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/traits/is_na.h: complex version did not work. 
+        * include/Rcpp/traits/is_na.h: complex version did not work.
         added default for VECSXP and EXPRSXP versions
 
 2013-04-02  Dirk Eddelbuettel  <edd@debian.org>
