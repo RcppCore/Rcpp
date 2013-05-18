@@ -1,3 +1,10 @@
+2013-05-17  J.J. Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: prevent gc problems with RNGScope destructor
+        in attributes generated functions; don't include package header file
+        in generated cpp exports file
+        * src/api.cpp: use unsigned long for RNG scope counter
+
 2013-04-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp (Rcpp): No longer use Rd_format(Real|Complex) which is

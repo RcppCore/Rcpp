@@ -5,7 +5,13 @@
   \section{Changes in Rcpp version 0.10.4 (future)}{
   \itemize{
     \item Changes in R code:
-    \item Changes in Rcpp attributes: 
+    \item Changes in Rcpp attributes:
+    \itemize{
+      \item Fixed problem whereby the interaction between the gc and the 
+      RNGScope destructor could cause a crash.
+      \item Don't include package header file in generated C++ interface
+      header files.
+    }
     \item Changes in Rcpp API:
     \itemize{
       \item The \code{DataFrame::create} set of functions has been reworked
@@ -13,6 +19,7 @@
       constructor
       \item The \code{operator-()} semantics for \code{Date} and
       \code{Datetime} are now more inline with standard C++ behaviour.
+      \item RNGScope counter now uses unsigned long rather than int.
     }
     \item Changes in Rcpp sugar:
     \itemize{
