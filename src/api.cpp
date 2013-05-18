@@ -1942,7 +1942,7 @@ namespace Rcpp{
 namespace Rcpp{
     namespace internal{
         namespace {
-            int RNGScopeCounter = 0;
+            unsigned long RNGScopeCounter = 0;
         }
         
         void enterRNGScope() {       
