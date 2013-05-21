@@ -11,6 +11,8 @@
       RNGScope destructor could cause a crash.
       \item Don't include package header file in generated C++ interface
       header files.
+      \item Lookup plugins in \pkg{inline} package if they aren't found
+      within the \pkg{Rcpp} package.
     }
     \item Changes in Rcpp API:
     \itemize{
