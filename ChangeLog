@@ -1,3 +1,9 @@
+2013-05-21  J.J. Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: Lookup plugins in inline package if they aren't
+        found within the Rcpp package
+        * man/pluginsAttribute.Rd: Documentation updates.
+
 2013-05-17  J.J. Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: prevent gc problems with RNGScope destructor
