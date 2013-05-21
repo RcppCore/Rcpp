@@ -198,7 +198,7 @@ cppFunction <- function(code,
         
         # append plugin includes
         for (pluginName in plugins) {
-            plugin <- .plugins[[pluginName]]
+            plugin <- .findPlugin(pluginName)
             settings <- plugin()
             scaffolding <- c(scaffolding, settings$includes, recursive=TRUE)
         }
@@ -445,6 +445,25 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
              error = function(e) NULL) 
 }
 
+# Lookup a plugin (first in our package then in the inline package)
+.findPlugin <- function(pluginName) {
+    # lookup in our plugins
+    plugin <- .plugins[[pluginName]]
+    
+    # if necessary lookup in the inline package
+    if (is.null(plugin))
+        if (length(find.package("inline", quiet=TRUE)) > 0)
+            plugin <- inline:::plugins[[pluginName]]
+    
+    # error if plugin not found
+    if (is.null(plugin))
+        stop("Inline plugin '", pluginName, "' could not be found ",
+             "within either the Rcpp or inline package. You should be ",
+             "sure to call registerPlugin before using a plugin.")
+    
+    return(plugin)
+}
+
 # Setup the build environment based on the specified dependencies. Returns an
 # opaque object that can be passed to .restoreEnvironment to reverse whatever
 # changes that were made
@@ -507,9 +526,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     
     # process plugins
     for (pluginName in plugins) {
-        plugin <- .plugins[[pluginName]]
-        if (is.null(plugin))
-            stop("Inline plugin '", pluginName, "' could not be found.")
+        plugin <- .findPlugin(pluginName)
         setDependenciesFromPlugin(plugin)
     }
     
