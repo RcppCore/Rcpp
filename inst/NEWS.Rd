@@ -13,6 +13,8 @@
       header files.
       \item Lookup plugins in \pkg{inline} package if they aren't found
       within the \pkg{Rcpp} package.
+      \item Disallow compilation for files that don't have extensions 
+      supported by R CMD SHLIB
     }
     \item Changes in Rcpp API:
     \itemize{

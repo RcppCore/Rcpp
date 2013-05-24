@@ -35,6 +35,12 @@ sourceCpp <- function(file = "",
     # resolve the file path
     file <- normalizePath(file, winslash = "/")
     
+    # error if the file extension isn't one supported by R CMD SHLIB
+    if (! tools::file_ext(file) %in% c("cc", "cpp")) {
+        stop("The filename '", basename(file), "' does not have an ",
+             "extension of .cc or .cpp so cannot be compiled.")
+    }
+
     # validate that there are no spaces in the path on windows
     if (.Platform$OS.type == "windows") {
         if (grepl(' ', basename(file), fixed=TRUE)) {

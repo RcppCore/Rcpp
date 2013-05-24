@@ -1,3 +1,8 @@
+2013-05-24  J.J. Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: Disallow compilation for files that don't have
+        extensions supported by R CMD SHLIB
+
 2013-05-21  J.J. Allaire <jj@rstudio.org>
 
         * R/Attributes.R: Lookup plugins in inline package if they aren't
