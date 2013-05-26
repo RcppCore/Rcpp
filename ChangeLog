@@ -1,3 +1,7 @@
+2013-05-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/api.cpp: Minor tweak for internal formatting
+
 2013-05-24  J.J. Allaire <jj@rstudio.org>
 
         * R/Attributes.R: Disallow compilation for files that don't have
