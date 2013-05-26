@@ -1767,8 +1767,7 @@ template <> const char* coerce_to_string<REALSXP>(double x){
     //     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
     // so approximate it poorly as
     static char tmp[128];
-    //snprintf(tmp, 127, "%*.*f", w, d, x);
-    snprintf(tmp, 127, "%f", x); // FIXME: barebones defaults
+    snprintf(tmp, 127, "%f", x); 
     return dropTrailing0(tmp, '.');
 }
 
@@ -1778,10 +1777,13 @@ template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
     // we are no longer allowed to use this:
     //     Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
     // so approximate it poorly as
-    static char tmp[128];
+    static char tmp1[128], tmp2[128], tmp3[256];
     //snprintf(tmp, 127, "%*.*f+%*.*fi", wr, dr, x.r, wi, di, x.i);
-    snprintf(tmp, 127, "%*.*f+%*.*fi", x.r, x.i); // FIXEM: barebones default formatting
-    return tmp;
+    //snprintf(tmp, 127, "%f+%fi", x.r, x.i); // FIXEM: barebones default formatting
+    snprintf(tmp1, 127, "%f", x.r); 
+    snprintf(tmp2, 127, "%f", x.i); 
+    snprintf(tmp3, 255, "%s+%si", dropTrailing0(tmp1, '.'), dropTrailing0(tmp2, '.'));
+    return tmp3;
 }
 
 } // internal
