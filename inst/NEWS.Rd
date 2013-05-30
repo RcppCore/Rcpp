@@ -29,6 +29,8 @@
     \itemize{
       \item New function \code{na_omit} based on the StackOverflow thread
       http://stackoverflow.com/questions/15953768/templated-rcpp-function-to-erase-na-values
+      \item New function \code{is_finite} that reproduces the behavior of
+      R's \code{is.finite} function
     }
     \item Changes in Rcpp build tools:
     \itemize{

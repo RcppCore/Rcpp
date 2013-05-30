@@ -2,7 +2,7 @@
 //
 // all.h: Rcpp R/C++ interface class library -- all
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -67,7 +67,7 @@ public:
 		int n = object.size() ;
 		PARENT::set_true() ;
 		for( int i=0 ; i<n ; i++){
-			if( object[i] == TRUE ) {
+			if( object[i] == FALSE ) {
 				PARENT::set_false() ; 
 				return ;
 			}

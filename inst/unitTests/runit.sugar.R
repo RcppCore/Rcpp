@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #                     -*- mode: R; ess-indent-level: 4; indent-tabs-mode: nil; -*-
 #
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -264,6 +264,13 @@ test.sugar.ifelse <- function( ){
 test.sugar.isna <- function( ){
 	fx <- runit_isna
 	checkEquals( fx( 1:10) , rep(FALSE,10) )
+}
+
+test.sugar.isfinite <- function( ){
+	checkEquals( 
+	    runit_isfinite( c(1, NA, Inf, -Inf, NaN) ) , 
+	    c(TRUE, FALSE, FALSE, FALSE, FALSE)
+	)
 }
 
 test.sugar.isna.isna <- function( ){

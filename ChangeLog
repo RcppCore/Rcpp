@@ -1,3 +1,11 @@
+2013-05-30 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/sugar/functions/all.h : bug fixed for the NA=false case
+        * include/Rcpp/sugar/functions/is_na.h : header
+        * include/Rcpp/sugar/functions/is_finite.h : added sugar is_finite function
+        * include/Rcpp/traits/is_finite.h : added is_finite trait
+        * unitTests/runit.sugar.R : added test for is_finite
+        
 2013-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp: Minor tweak for internal formatting
