@@ -5,6 +5,10 @@
         * include/Rcpp/sugar/functions/is_finite.h : added sugar is_finite function
         * include/Rcpp/traits/is_finite.h : added is_finite trait
         * unitTests/runit.sugar.R : added test for is_finite
+        * unitTests/cpp/S4.cpp : new cpp file to host S4 unit tests
+        * unitTests/runit.S4.R : rework unit tests to use attributes
+        * unitTests/runit.Reference.R : unit tests for Rcpp::Reference
+        * unitTests/cpp/Reference.cpp : unit tests c++ code
         
 2013-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
