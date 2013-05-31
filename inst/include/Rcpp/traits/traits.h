@@ -3,7 +3,7 @@
 //
 // traits.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -47,6 +47,7 @@
 #include <Rcpp/traits/is_na.h>
 #include <Rcpp/traits/is_finite.h>
 #include <Rcpp/traits/is_infinite.h>
+#include <Rcpp/traits/is_nan.h>
 #include <Rcpp/traits/if_.h>
 #include <Rcpp/traits/get_na.h>
 #include <Rcpp/traits/is_trivial.h>

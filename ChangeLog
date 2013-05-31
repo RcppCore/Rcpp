@@ -1,9 +1,11 @@
 2013-05-31 Romain Francois <romain@r-enthusiasts.com>
 
-        * unitTests/runit.sugar.R : new test for is_infinite
-        * unitTests/cpp/sugar.cpp : new test for is_infinite
+        * unitTests/runit.sugar.R : new test for is_infinite and is_nan
+        * unitTests/cpp/sugar.cpp : new test for is_infinite and is_nan
         * include/Rcpp/sugar/functions/is_infinite.h : new function is_infinite
         * include/Rcpp/traits/is_infinite.h : new function is_infinite
+        * include/Rcpp/sugar/functions/is_nan.h : new function is_nan
+        * include/Rcpp/traits/is_nan.h : new function is_nan
         
 2013-05-30 Romain Francois <romain@r-enthusiasts.com>
 
