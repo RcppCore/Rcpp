@@ -282,6 +282,15 @@ test.sugar.isinfinite <- function( ){
 	)
 }
 
+
+test.sugar.isnan <- function( ){
+	checkEquals( 
+	    runit_isnan( c(1, NA, Inf, -Inf, NaN) ) , 
+	    c(FALSE, FALSE, FALSE, FALSE, TRUE), 
+	    msg = "is_nan"
+	)
+}
+
 test.sugar.isna.isna <- function( ){
 	fx <- runit_isna_isna
 	checkEquals( fx( c(1:5,NA,7:10) ) , rep(FALSE,10) )
