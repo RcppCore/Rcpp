@@ -29,13 +29,13 @@
     \itemize{
       \item New function \code{na_omit} based on the StackOverflow thread
       http://stackoverflow.com/questions/15953768/templated-rcpp-function-to-erase-na-values
-      \item New function \code{is_finite} that reproduces the behavior of
-      R's \code{is.finite} function
+      \item New function \code{is_finite} and \code{is_infinite} that reproduces 
+      the behavior of R's \code{is.finite} and \code{is.infinite} functions
     }
     \item Changes in Rcpp build tools:
     \itemize{
       \item Fix (from Martyn Plummer) for solaris in handling SingleLogicalResult.     
-      \item The \code{src/Makevars} file can now optionally ovveride the
+      \item The \code{src/Makevars} file can now optionally override the
       path for \code{/usr/bin/install_name_tool} which is used on OS X.
     }
   }
