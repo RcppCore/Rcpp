@@ -46,6 +46,7 @@
 #include <Rcpp/traits/module_wrap_traits.h>
 #include <Rcpp/traits/is_na.h>
 #include <Rcpp/traits/is_finite.h>
+#include <Rcpp/traits/is_infinite.h>
 #include <Rcpp/traits/if_.h>
 #include <Rcpp/traits/get_na.h>
 #include <Rcpp/traits/is_trivial.h>
