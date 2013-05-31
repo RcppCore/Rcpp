@@ -269,7 +269,16 @@ test.sugar.isna <- function( ){
 test.sugar.isfinite <- function( ){
 	checkEquals( 
 	    runit_isfinite( c(1, NA, Inf, -Inf, NaN) ) , 
-	    c(TRUE, FALSE, FALSE, FALSE, FALSE)
+	    c(TRUE, FALSE, FALSE, FALSE, FALSE), 
+	    msg = "is_finite"
+	)
+}
+
+test.sugar.isinfinite <- function( ){
+	checkEquals( 
+	    runit_isinfinite( c(1, NA, Inf, -Inf, NaN) ) , 
+	    c(FALSE, FALSE, TRUE, TRUE, FALSE), 
+	    msg = "is_infinite"
 	)
 }
 
