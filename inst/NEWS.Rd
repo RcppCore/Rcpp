@@ -24,6 +24,9 @@
       \item The \code{operator-()} semantics for \code{Date} and
       \code{Datetime} are now more inline with standard C++ behaviour.
       \item RNGScope counter now uses unsigned long rather than int.
+      \item \code{Vector<*>::erase(iterator, iterator)} was fixed. Now it does 
+      not remove the element pointed by last (similar to what is done on stl types
+      and what was intended initially). Reported on Rcpp-devel by Toni Giorgino. 
     }
     \item Changes in Rcpp sugar:
     \itemize{

@@ -285,7 +285,7 @@ namespace Rcpp{
 		
         iterator it = begin() ;
         iterator this_end = end() ;
-        int nremoved = std::distance(first,last)+1 ;
+        int nremoved = std::distance(first,last) ;
         int target_size = size() - nremoved  ;
         Vector target( target_size ) ;
         iterator target_it = target.begin() ;
@@ -297,7 +297,7 @@ namespace Rcpp{
                 *target_it = *it ;
             }
             result = it ;
-            for( it = last +1 ; it < this_end; ++it, ++target_it ){
+            for( it = last ; it < this_end; ++it, ++target_it ){
                 *target_it = *it ;
             }
         } else{
@@ -308,7 +308,7 @@ namespace Rcpp{
                 SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) );
             }
             result = it ;
-            for( it = last +1 ; it < this_end; ++it, ++target_it, i++ ){
+            for( it = last ; it < this_end; ++it, ++target_it, i++ ){
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i, STRING_ELT(names, i + nremoved ) );
             }
