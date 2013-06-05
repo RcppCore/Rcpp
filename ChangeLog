@@ -1,6 +1,7 @@
 2013-06-05 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/Vector.h : fixed Vector<>::erase(iterator, iterator)
+        and correct return value of erase
         * unitTests/cpp/Vector.cpp : added regression test for the above fix
         * unitTests/runit.Vector.R : added regression test for the above fix
         * include/Rcpp/module/class.h : removed useless typedef
