@@ -239,7 +239,7 @@ namespace Rcpp{
     
     template <int RTYPE>
     typename Vector<RTYPE>::iterator Vector<RTYPE>::erase_single__impl( iterator position ){
-        if( position < begin() || position >= end() ) throw index_out_of_bounds( ) ;
+        if( position < begin() || position > end() ) throw index_out_of_bounds( ) ;
         int n = size() ;
         Vector target( n - 1 ) ;
         iterator target_it(target.begin()) ;
@@ -281,7 +281,7 @@ namespace Rcpp{
     template <int RTYPE>
     typename Vector<RTYPE>::iterator Vector<RTYPE>::erase_range__impl( iterator first, iterator last ){
         if( first > last ) throw std::range_error("invalid range") ;
-        if( last >= end() || first < begin() ) throw index_out_of_bounds() ;
+        if( last > end() || first < begin() ) throw index_out_of_bounds() ;
 		
         iterator it = begin() ;
         iterator this_end = end() ;
@@ -296,7 +296,7 @@ namespace Rcpp{
             for( ; it < first; ++it, ++target_it ){
                 *target_it = *it ;
             }
-            result = it ;
+            result = target_it +1 ;
             for( it = last ; it < this_end; ++it, ++target_it ){
                 *target_it = *it ;
             }
@@ -307,7 +307,7 @@ namespace Rcpp{
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) );
             }
-            result = it ;
+            result = target_it + 1 ;
             for( it = last ; it < this_end; ++it, ++target_it, i++ ){
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i, STRING_ELT(names, i + nremoved ) );
