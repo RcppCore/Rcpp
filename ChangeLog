@@ -3,6 +3,7 @@
         * include/Rcpp/api/meat/Vector.h : fixed Vector<>::erase(iterator, iterator)
         * unitTests/cpp/Vector.cpp : added regression test for the above fix
         * unitTests/runit.Vector.R : added regression test for the above fix
+        * include/Rcpp/module/class.h : removed useless typedef
         
 2013-05-31 Romain Francois <romain@r-enthusiasts.com>
 
