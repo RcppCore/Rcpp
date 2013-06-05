@@ -2,7 +2,7 @@
 //
 // class.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -492,7 +492,6 @@
              
             
             // importing properties
-            typedef typename parent_class_::prop_class parent_prop_class ;
             typedef typename parent_class_::PROPERTY_MAP parent_PROPERTY_MAP ;
             typedef typename parent_PROPERTY_MAP::iterator parent_PROPERTY_MAP_iterator ;
             
