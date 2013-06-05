@@ -211,15 +211,25 @@ test.IntegerVector.erase <- function(){
     checkEquals( fun(x), target, msg = "IntegerVector erase" )
 }
 
+test.IntegerVector.erase.range <- function(){
+    x <- y <- 1:10
+    names(y) <- letters[1:10]
+    res <- integer_erase_range( x, y )
+    checkEquals( res[[1L]], c(1:5, 10L) , msg = "IntegerVector erase range unnamed" )
+
+    z <- y[-(6:9)]
+    checkEquals( res[[2L]], z , msg = "IntegerVector erase range named" )
+}
+
 test.IntegerVector.erase2 <- function(){
     fun <- integer_erase2
-    checkEquals( fun(1:4), c(1L, 4L), msg = "IntegerVector erase2" )
+    checkEquals( fun(1:4), c(1L, 3L, 4L), msg = "IntegerVector erase2" )
 
     x <- 1:4
     names(x) <- letters[1:4]
 
-    target <- c(1L, 4L)
-    names(target) <- c( "a", "d" )
+    target <- c(1L, 3L, 4L)
+    names(target) <- c( "a", "c", "d" )
 
     checkEquals( fun(x), target, msg = "IntegerVector erase2" )
 }
