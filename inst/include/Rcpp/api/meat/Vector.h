@@ -247,16 +247,16 @@ namespace Rcpp{
         iterator this_end(end()) ;
         SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
         if( names == R_NilValue ){
-            for( ; it < position; ++it, ++target_it){
+            int i=0; 
+            for( ; it < position; ++it, ++target_it, i++){
                 *target_it = *it;
             }
-            iterator result(target_it) ;
             ++it ;
             for( ; it < this_end ; ++it, ++target_it){
                 *target_it = *it;
             }
             set_sexp( target.asSexp() ) ;
-            return result ;
+            return begin()+i ;
         } else {
             SEXP newnames = PROTECT(::Rf_allocVector( STRSXP, n-1 ));
             int i= 0 ;
@@ -264,7 +264,7 @@ namespace Rcpp{
                 *target_it = *it;
                 SET_STRING_ELT( newnames, i , STRING_ELT(names,i) ) ;
             }
-            iterator result(target_it) ;
+            int result=i ;
             ++it ;
             i++ ;
             for( ; it < this_end ; ++it, ++target_it, i++){
@@ -274,7 +274,7 @@ namespace Rcpp{
             target.attr( "names" ) = newnames ;
             UNPROTECT(1) ; /* newnames */
             set_sexp( target.asSexp() ) ;
-            return result ;
+            return begin()+result ;
         }
     }
     
@@ -293,10 +293,11 @@ namespace Rcpp{
         SEXP names = RCPP_GET_NAMES(RObject::m_sexp) ;
         iterator result ;
         if( names == R_NilValue ){
-            for( ; it < first; ++it, ++target_it ){
+            int i=0; 
+            for( ; it < first; ++it, ++target_it, i++ ){
                 *target_it = *it ;
             }
-            result = target_it +1 ;
+            result = begin() + i + 1 ;
             for( it = last ; it < this_end; ++it, ++target_it ){
                 *target_it = *it ;
             }
@@ -307,7 +308,7 @@ namespace Rcpp{
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) );
             }
-            result = target_it + 1 ;
+            result = begin() + i + 1 ;
             for( it = last ; it < this_end; ++it, ++target_it, i++ ){
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i, STRING_ELT(names, i + nremoved ) );
