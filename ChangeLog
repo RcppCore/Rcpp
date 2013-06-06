@@ -1,3 +1,8 @@
+2013-06-06 Romain Francois <romain@r-enthusiasts.com>
+
+        * unitTests/cpp/Vector.cpp : more unit tests for erase
+        * unitTests/runit.Vector.R : more unit tests for erase
+        
 2013-06-05 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/Vector.h : fixed Vector<>::erase(iterator, iterator)
