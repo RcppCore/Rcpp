@@ -226,6 +226,33 @@ List integer_erase_range( IntegerVector x, IntegerVector y ){
 }
 
 // [[Rcpp::export]]
+List integer_erase_range_2( IntegerVector x, IntegerVector y ){
+    IntegerVector::iterator it = x.begin()+1 ;
+    while( it != x.end() ){
+        it = x.erase(it) ;    
+    }
+    it = y.begin() + 1 ;
+    while( it != y.end() ){
+        it = y.erase(it) ;    
+    }
+    return List::create( x, y ) ;
+}
+
+// [[Rcpp::export]]
+List List_erase_range_2( List x, List y ){
+    List::iterator it = x.begin()+1 ;
+    while( it != x.end() ){
+        it = x.erase(it) ;    
+    }
+    it = y.begin() + 1 ;
+    while( it != y.end() ){
+        it = y.erase(it) ;    
+    }
+    return List::create( x, y ) ;
+}
+
+
+// [[Rcpp::export]]
 IntegerVector integer_erase2( IntegerVector y ){
     y.erase(1,2) ;
     return y ;
