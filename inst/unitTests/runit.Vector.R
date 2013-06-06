@@ -221,9 +221,25 @@ test.IntegerVector.erase.range <- function(){
     checkEquals( res[[2L]], z , msg = "IntegerVector erase range named" )
 }
 
+test.IntegerVector.erase.range.2 <- function(){
+    x <- y <- 1:10
+    names(y) <- letters[1:10]
+    res <- integer_erase_range_2( x, y )
+    checkEquals( res[[1L]], 1L , msg = "IntegerVector erase range 2 unnamed" )
+    checkEquals( res[[2L]], c("a" = 1L ) , msg = "IntegerVector erase range 2 named" )
+}
+
+
+test.IntegerVector.erase.range.2 <- function(){
+    x <- y <- as.list(1:10)
+    names(y) <- letters[1:10]
+    res <- List_erase_range_2( x, y )
+    checkEquals( res[[1L]], list( 1L ) , msg = "List erase range 2 unnamed" )
+    checkEquals( res[[2L]], list("a" = 1L ) , msg = "List erase range 2 named" )
+}
+
 test.IntegerVector.erase2 <- function(){
-    fun <- integer_erase2
-    checkEquals( fun(1:4), c(1L, 3L, 4L), msg = "IntegerVector erase2" )
+    checkEquals( integer_erase2(1:4), c(1L, 3L, 4L), msg = "IntegerVector erase2" )
 
     x <- 1:4
     names(x) <- letters[1:4]
@@ -231,7 +247,7 @@ test.IntegerVector.erase2 <- function(){
     target <- c(1L, 3L, 4L)
     names(target) <- c( "a", "c", "d" )
 
-    checkEquals( fun(x), target, msg = "IntegerVector erase2" )
+    checkEquals( integer_erase2(x), target, msg = "IntegerVector erase2" )
 }
 
 test.IntegerVector.fill <- function(){
