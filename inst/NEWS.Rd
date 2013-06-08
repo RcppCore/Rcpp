@@ -22,24 +22,34 @@
       to just use \code{List::create} and feed to the \code{DataFrame}
       constructor
       \item The \code{operator-()} semantics for \code{Date} and
-      \code{Datetime} are now more inline with standard C++ behaviour.
+      \code{Datetime} are now more inline with standard C++ behaviour;
+      with thanks to Robin Girard for the report.
       \item RNGScope counter now uses unsigned long rather than int.
-      \item \code{Vector<*>::erase(iterator, iterator)} was fixed. Now it does 
-      not remove the element pointed by last (similar to what is done on stl types
-      and what was intended initially). Reported on Rcpp-devel by Toni Giorgino. 
+      \item \code{Vector<*>::erase(iterator, iterator)} was fixed. Now
+      it does not remove the element pointed by last (similar to what is
+      done on stl types and what was intended initially). Reported on
+      Rcpp-devel by Toni Giorgino.  
     }
     \item Changes in Rcpp sugar:
     \itemize{
       \item New function \code{na_omit} based on the StackOverflow thread
-      http://stackoverflow.com/questions/15953768/templated-rcpp-function-to-erase-na-values
-      \item New function \code{is_finite} and \code{is_infinite} that reproduces 
-      the behavior of R's \code{is.finite} and \code{is.infinite} functions
+      \url{http://stackoverflow.com/questions/15953768/}
+      \item New function \code{is_finite} and \code{is_infinite} that
+      reproduces the behavior of R's \code{is.finite} and
+      \code{is.infinite} functions 
     }
     \item Changes in Rcpp build tools:
     \itemize{
-      \item Fix (from Martyn Plummer) for solaris in handling SingleLogicalResult.     
+      \item Fix (from Martyn Plummer) for solaris in handling
+      SingleLogicalResult.      
       \item The \code{src/Makevars} file can now optionally override the
       path for \code{/usr/bin/install_name_tool} which is used on OS X.
+    }
+    \item Changes in Rcpp documentation:
+    \itemize{
+      \item Updated the bibliograph in \code{Rcpp.bib} (which is also
+      sourced by packages using Rcpp).
+      \item Updated the \code{THANKS} file.
     }
   }
 }

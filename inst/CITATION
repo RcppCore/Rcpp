@@ -12,7 +12,7 @@ citEntry(entry = "Article",
   url          = "http://www.jstatsoft.org/v40/i08/",
 
   textVersion  =
-  paste("Dirk Eddelbuettel, Romain Francois (2011).",
+  paste("Dirk Eddelbuettel and Romain Francois (2011).",
         "Rcpp: Seamless R and C++ Integration.",
         "Journal of Statistical Software, 40(8), 1-18.",
         "URL http://www.jstatsoft.org/v40/i08/.")

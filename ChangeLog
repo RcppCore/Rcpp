@@ -1,37 +1,44 @@
-2013-06-06 Romain Francois <romain@r-enthusiasts.com>
+2013-06-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Rcpp.bib: Updated entries
+
+2013-06-06  Romain Francois <romain@r-enthusiasts.com>
 
         * unitTests/cpp/Vector.cpp : more unit tests for erase
         * unitTests/runit.Vector.R : more unit tests for erase
-        
-2013-06-05 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/api/meat/Vector.h : fixed Vector<>::erase(iterator, iterator)
-        and correct return value of erase
+2013-06-05  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/api/meat/Vector.h : fixed Vector<>::erase(iterator,
+	iterator) and correct return value of erase
         * unitTests/cpp/Vector.cpp : added regression test for the above fix
         * unitTests/runit.Vector.R : added regression test for the above fix
         * include/Rcpp/module/class.h : removed useless typedef
-        
-2013-05-31 Romain Francois <romain@r-enthusiasts.com>
+
+2013-05-31  Romain Francois <romain@r-enthusiasts.com>
 
         * unitTests/runit.sugar.R : new test for is_infinite and is_nan
         * unitTests/cpp/sugar.cpp : new test for is_infinite and is_nan
-        * include/Rcpp/sugar/functions/is_infinite.h : new function is_infinite
+        * include/Rcpp/sugar/functions/is_infinite.h : new function
+	is_infinite
         * include/Rcpp/traits/is_infinite.h : new function is_infinite
         * include/Rcpp/sugar/functions/is_nan.h : new function is_nan
         * include/Rcpp/traits/is_nan.h : new function is_nan
-        
-2013-05-30 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/sugar/functions/all.h : bug fixed for the NA=false case
+2013-05-30  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/sugar/functions/all.h : bug fixed for the NA=false
+	case
         * include/Rcpp/sugar/functions/is_na.h : header
-        * include/Rcpp/sugar/functions/is_finite.h : added sugar is_finite function
+        * include/Rcpp/sugar/functions/is_finite.h : added sugar is_finite
+	function
         * include/Rcpp/traits/is_finite.h : added is_finite trait
         * unitTests/runit.sugar.R : added test for is_finite
         * unitTests/cpp/S4.cpp : new cpp file to host S4 unit tests
         * unitTests/runit.S4.R : rework unit tests to use attributes
         * unitTests/runit.Reference.R : unit tests for Rcpp::Reference
         * unitTests/cpp/Reference.cpp : unit tests c++ code
-        
+
 2013-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp: Minor tweak for internal formatting
@@ -50,14 +57,15 @@
 2013-05-17  J.J. Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: prevent gc problems with RNGScope destructor
-        in attributes generated functions; don't include package header file
-        in generated cpp exports file
+        in attributes generated functions; don't include package header
+        file in generated cpp exports file
         * src/api.cpp: use unsigned long for RNG scope counter
 
 2013-04-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp (Rcpp): No longer use Rd_format(Real|Complex) which is
-	a very verboten R internal; formatting to string is now very bare bones
+	a very verboten R internal; formatting to string is now very bare
+	bones
 
 2013-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -66,10 +74,11 @@
 
 2013-04-16  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/sugar/functions/na_omit.h : new function na_omit to remove
-        missing values from a vector.
+        * include/Rcpp/sugar/functions/na_omit.h : new function na_omit to
+	remove missing values from a vector.
         * src/attributes.cpp : portability fix (from Martyn Plummer)
-        * include/Rcpp/api/meat/Vector.h : portability fix (from Martyn Plummer)
+        * include/Rcpp/api/meat/Vector.h : portability fix (from Martyn
+	Plummer)
 
 2013-04-14  Romain Francois <romain@r-enthusiasts.com>
 
