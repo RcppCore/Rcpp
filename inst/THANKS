@@ -6,6 +6,8 @@ Dario Buttari           for a patch permitting compilation under Cygwin
 Darren Cook             for suggesting to remove exception specifiers
 Laurent Gautier         for helpful discussions on R internals
 Alistair Gee            for a patch making ColDatum more robust
+Toni Giorgino		for a bug report concerning erase(iter, iter)
+Robin Girard		for a pointing out that operator+ on Date types was wrong
 Christian Gunning       for a documentation + unit tests patches and reporting bugs
 Rainer Hurling          for help debugging builds issues on FreeBSD
 Gregor Kastner          for noticing a bug in IntegerVector initialization
