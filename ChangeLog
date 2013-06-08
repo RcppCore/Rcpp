@@ -2,6 +2,9 @@
 
 	* inst/doc/Rcpp.bib: Updated entries
 
+	* inst/doc/Rcpp-introduction.Rnw: Added pointer to 'Rcpp Attributes'
+	vignette, as well as to 'Rcpp Sugar' and 'Rcpp Modules' vignettes.
+
 2013-06-06  Romain Francois <romain@r-enthusiasts.com>
 
         * unitTests/cpp/Vector.cpp : more unit tests for erase
