@@ -72,13 +72,16 @@ require(inline)
 
 \subsection{How do I get started ?}
 
-Please execute the following command in \proglang{R}
+If you have \pkg{Rcpp} installed, please execute the following command in \proglang{R}
 
 <<eval=FALSE>>=
 vignette( "Rcpp-introduction" )
 @
 
 \noindent to access the vignette which provides a detailed introduction.
+
+If you do not have \pkg{Rcpp} installed, the document should also be available
+whereever you found this document, \textsl{i.e.,} on every mirror of CRAN site.
 
 \subsection{What do I need ?}
 
@@ -205,6 +208,8 @@ fx <- cxxfunction( signature(),
 The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
 useful as it shows how \pkg{inline} runs the show.
 
+Update: Also see question \ref{using-attributes} below about 'Rcpp
+Attributes' \citep{CRAN:Rcpp:Attributes}.
 
 \subsection{How do I convert my prototyped code to a package ?}
 \label{from-inline-to-package}
@@ -366,6 +371,17 @@ but the projects are unrelated.
 CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
 but they do it in very different ways.
 
+\subsection{How do I quickly prototype my code using Attributes?}
+\label{using-attributes}
+
+\pkg{Rcpp} version 0.10.0 and later offer a new feature 'Rcpp Attributes'
+which is described in detail in its own vignette
+\citep{CRAN:Rcpp:Attributes}.  In short, it offers functions \code{evalCpp},
+\code{cppFunction} and \code{sourceCpp} which extend the functionality of the
+\code{cxxfunction} function.
+
+
+
 \section{Examples}
 
 The following questions were asked on the \texttt{rcpp-devel} mailing list,
@@ -404,6 +420,8 @@ fun <- cxxfunction(signature(xs="numeric", is="integer"),
 fun(2.2, 3L)
 @
 
+Update: Also see question \ref{using-attributes} above about 'Rcpp
+Attributes' \citep{CRAN:Rcpp:Attributes} and its \code{sourceCpp} function.
 
 \subsection{Can I do matrix algebra with \pkg{Rcpp} ?}
 
