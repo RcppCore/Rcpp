@@ -107,7 +107,9 @@ at \url{http://CRAN.R-project.org/package=Rcpp}.
   This vignette corresponds to the paper published in the \textsl{Journal of
     Statistical Software}. It is currently still identical to
   the published paper.  Over time, this vignette version may receive minor
-  updates. For citations, please use the publication \citep{JSS:Rcpp}.
+  updates. For citations, please use the \cite{JSS:Rcpp} or
+  \cite{Eddelbuettel:2013:Rcpp}; details are also provided in \proglang{R} via
+  \texttt{citation("Rcpp")}.
 
   This version corresponds to \pkg{Rcpp} version \Sexpr{rcpp.version} and was
   typeset on \Sexpr{now.date}.
@@ -717,6 +719,10 @@ function \code{fun} that uses the \proglang{C++} code we assigned to
 \code{src}---and all this functionality can be used directly from the \proglang{R}
 prompt making prototyping with \proglang{C++} functions straightforward.
 
+\textsl{Update}: \pkg{Rcpp} version 0.10.0 and later contain new and powerful feature
+called 'Rcpp Attributes' which provides an even more powerful mechanism; see
+\cite{CRAN:Rcpp:Attributes} for more details.
+
 \section{Using Standard Template Library algorithms}
 
 The STL offers a variety of generic
@@ -1015,6 +1021,11 @@ code than by writing accessor functions. Modules are inspired by the
 functionality for \proglang{Python}. \proglang{C++} classes exposed by \pkg{Rcpp} modules are
 shadowed by reference classes which have been introduced in \proglang{R} 2.12.0.
 
+\textsl{Update}: Besides the vignettes for '\pkg{Rcpp} Sugar'
+\citep{CRAN:Rcpp:Sugar} and '\pkg{Rcpp} Modules' \citep{CRAN:Rcpp:Modules},
+the aforementioned vignette for '\pkg{Rcpp} Attributes'
+\citep{CRAN:Rcpp:Attributes} describes a new possibility for even more direct
+integration between \proglang{Rcpp} and \proglang{C++}.
 
 \section{Summary}
 
