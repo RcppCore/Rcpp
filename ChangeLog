@@ -4,6 +4,7 @@
 
 	* inst/doc/Rcpp-introduction.Rnw: Added pointer to 'Rcpp Attributes'
 	vignette, as well as to 'Rcpp Sugar' and 'Rcpp Modules' vignettes.
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Idem
 
 2013-06-06  Romain Francois <romain@r-enthusiasts.com>
 
@@ -1513,7 +1514,7 @@
 	  This covered svn revisions 3264 to 3308.
 
 	* DESCRIPTION: Remove (for now) Depends: on int64
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Dito for int64_t example
+	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Ditto for int64_t example
 
 	* inst/unitTests/runit.Module.client.package.R: On Windows,
 	deactivate 'test.Module.package'
