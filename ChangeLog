@@ -1,3 +1,8 @@
+2013-06-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/Makefile: Force serial build of vignettes in yet another
+	effort to not let R-Forge fail when trying to rebuild them
+
 2013-06-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Rcpp.bib: Updated entries
