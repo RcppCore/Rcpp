@@ -12,7 +12,20 @@ all:
 	@echo The 'make all' target is now empty as eg R-Forge builds fall over
 	@echo So please use 'make pdfclean; make pdfall' to rebuild
 
-pdfall: rotateFiles index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-attributes.pdf Rcpp-quickref.pdf
+OLDpdfall: rotateFiles index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-attributes.pdf Rcpp-quickref.pdf
+
+pdfall: rotateFiles index.html 
+	## Play some games with explicit targets to avoid parallel make builds
+	## This is all just because R-Forge insists on re-making these, seemingly in parallel
+	make Rcpp-extending.pdf
+	make Rcpp-FAQ.pdf
+	make Rcpp-introduction.pdf
+	make Rcpp-modules.pdf
+	make Rcpp-package.pdf
+	make Rcpp-quickref.pdf
+	make Rcpp-sugar.pdf
+	make Rcpp-attributes.pdf
+	make Rcpp-unitTests.pdf
 
 pdfclean:
 	rm -f Rcpp-extending.pdf  Rcpp-FAQ.pdf  Rcpp-introduction.pdf  Rcpp-modules.pdf  Rcpp-package.pdf  Rcpp-quickref.pdf  Rcpp-sugar.pdf  Rcpp-attributes.pdf  Rcpp-unitTests.pdf

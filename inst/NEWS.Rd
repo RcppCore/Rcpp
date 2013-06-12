@@ -44,6 +44,7 @@
       SingleLogicalResult.      
       \item The \code{src/Makevars} file can now optionally override the
       path for \code{/usr/bin/install_name_tool} which is used on OS X.
+      \item Vignettes are trying harder not to be built in parallel.
     }
     \item Changes in Rcpp documentation:
     \itemize{
