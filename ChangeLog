@@ -1,3 +1,7 @@
+2013-06-13  Romain Francois <romain@r-enthusiasts.com>
+
+	* src/Module.cpp: small buglet in macro. Reported on Rcpp-devel
+
 2013-06-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/Makefile: Force serial build of vignettes in yet another

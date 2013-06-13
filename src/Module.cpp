@@ -2,7 +2,7 @@
 //
 // Module.cpp: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,7 +28,7 @@
 SEXP __CARGS__[MAX_ARGS] ;                       \
 int nargs = 0 ;                                  \
 for(; nargs<MAX_ARGS; nargs++){                  \
-	if( p == R_NilValue ) break ;                \
+	if( __P__ == R_NilValue ) break ;            \
 	__CARGS__[nargs] = CAR(__P__) ;              \
 	__P__ = CDR(__P__) ;                         \
 }
