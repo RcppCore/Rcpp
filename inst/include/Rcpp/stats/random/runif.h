@@ -2,7 +2,7 @@
 //
 // runif.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,7 +30,7 @@ namespace Rcpp {
 		public:
 	
 			UnifGenerator( double min_ = 0.0, double max_ = 1.0) : 
-				min(min_), max(max_), diff(max_ - min_) {}
+				min(min_), diff(max_ - min_) {}
 	
 			inline double operator()() const {
 				double u;
@@ -40,7 +40,6 @@ namespace Rcpp {
 	
 		private:
 			double min; 
-			double max ;
 			double diff ;
 		} ;
 
@@ -48,7 +47,7 @@ namespace Rcpp {
 		class UnifGenerator__0__1 : public ::Rcpp::Generator<double> {
 		public:
 	
-			UnifGenerator__0__1( double min_ = 0.0, double max_ = 1.0) {}
+			UnifGenerator__0__1() {}
 	
 			inline double operator()() const {
 				double u;

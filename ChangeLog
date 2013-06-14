@@ -1,3 +1,8 @@
+2013-06-14  Romain Francois <romain@r-enthusiasts.com>
+
+	* include/Rcpp/stats/random/runif.h : removed unused max variable
+	* include/Rcpp/stats/random/rf.h : removed unused n1 and n2 variables
+
 2013-06-13  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/Module.cpp: small buglet in macro. Reported on Rcpp-devel
