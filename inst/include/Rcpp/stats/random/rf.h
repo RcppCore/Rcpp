@@ -2,7 +2,7 @@
 //
 // rf.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,7 +30,7 @@ namespace Rcpp {
 		public:
 	
 			FGenerator_Finite_Finite( double n1_, double n2_ ) : 
-				n1(n1_), n2(n2_), n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ), ratio(n2_/n1_) {}
+				n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ), ratio(n2_/n1_) {}
 	
 			inline double operator()() const {
 				// here we know that both n1 and n2 are finite
@@ -39,7 +39,7 @@ namespace Rcpp {
 			}
 	
 		private:
-			double n1, n2, n1__2, n2__2, ratio ;
+			double n1__2, n2__2, ratio ;
 		} ;
 
 		
