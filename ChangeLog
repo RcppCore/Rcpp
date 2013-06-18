@@ -1,3 +1,9 @@
+2013-06-18 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/module/Module_generated_CppFunction.h : using BEGIN_RCPP / END_RCPP
+        as suggested by QRD in Rcpp-devel. This should reduce cross dll exceptions
+        issues on windows. 
+
 2013-06-14  Romain Francois <romain@r-enthusiasts.com>
 
 	* include/Rcpp/stats/random/runif.h : removed unused max variable
