@@ -28,7 +28,8 @@
       \item \code{Vector<*>::erase(iterator, iterator)} was fixed. Now
       it does not remove the element pointed by last (similar to what is
       done on stl types and what was intended initially). Reported on
-      Rcpp-devel by Toni Giorgino.  
+      Rcpp-devel by Toni Giorgino.
+      \item Added equality operator between elements of \code{CharacterVector}s. 
     }
     \item Changes in Rcpp sugar:
     \itemize{
@@ -48,9 +49,19 @@
     }
     \item Changes in Rcpp documentation:
     \itemize{
-      \item Updated the bibliograph in \code{Rcpp.bib} (which is also
+      \item Updated the bibliography in \code{Rcpp.bib} (which is also
       sourced by packages using Rcpp).
       \item Updated the \code{THANKS} file.
+    }
+    \item Deprecation plans:
+    \itemize{
+      \item The set of macros \code{RCPP_FUNCTION_} etc ... from the 
+      \code{preprocessor_generated.h} file will be deprecated in the next version
+      of \code{Rcpp}, i.e they willl still be available but will generate some
+      warning in addition to their expected behavior. 
+      In release +2 the macros will be removed
+      from \code{Rcpp}. Users of these macros (if any) should start replacing them 
+      with more up to date code, such as using attributes or modules. 
     }
   }
 }

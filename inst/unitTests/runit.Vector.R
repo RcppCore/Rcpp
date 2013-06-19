@@ -590,6 +590,13 @@ test.containsElementNamed <- function() {
     checkEquals(fun(x, ""), FALSE, msg = "containsElementNamed with empty element")
 }
 
+test.CharacterVector.equality.operator <- function(){
+    res <- CharacterVectorEqualityOperator( letters, letters )
+    checkEquals( res, 
+        list( rep( TRUE, 26L ), rep( FALSE, 26L) ), 
+        msg = 'CharacterVector element equality operator' )    
+}
+
 # test graveyard. Might come back when we can use C++11
 
 # if( Rcpp:::capabilities()[["initializer lists"]] ){
