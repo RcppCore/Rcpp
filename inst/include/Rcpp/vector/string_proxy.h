@@ -182,7 +182,18 @@ namespace internal{
 		bool operator==( const char* other){
 			return strcmp( begin(), other ) == 0 ;
 		}
-			
+		bool operator!=( const char* other){
+			return strcmp( begin(), other ) != 0 ;
+		}
+		
+		bool operator==( const string_proxy& other){
+			return strcmp( begin(), other.begin() ) == 0 ;
+		}
+		bool operator!=( const string_proxy& other){
+			return strcmp( begin(), other.begin() ) != 0 ;
+		}
+		
+		
 		private:
 			static std::string buffer ;
 		
