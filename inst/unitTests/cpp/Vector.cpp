@@ -665,6 +665,17 @@ bool containsElementNamed( List l, CharacterVector n){
     return l.containsElementNamed(n[0]);
 }
 
+// [[Rcpp::export]]
+List CharacterVectorEqualityOperator( CharacterVector x, CharacterVector y){
+    int n = x.size() ;
+    LogicalVector eq(n), neq(n);
+    for( int i=0; i<n; i++){
+        eq[i]  = x[i] == y[i] ;
+        neq[i] = x[i] != y[i] ; 
+    }
+    return List::create(eq, neq) ;
+}
+
 #if defined(HAS_INIT_LISTS)
     RawVector raw_initializer_list(){
         RawVector x = {0,1,2,3} ;
