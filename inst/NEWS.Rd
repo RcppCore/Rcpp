@@ -57,10 +57,13 @@
     \itemize{
       \item The set of macros \code{RCPP_FUNCTION_} etc ... from the 
       \code{preprocessor_generated.h} file will be deprecated in the next version
-      of \code{Rcpp}, i.e they willl still be available but will generate some
+      of \code{Rcpp}, i.e they will still be available but will generate some
       warning in addition to their expected behavior. 
-      In release +2 the macros will be removed
-      from \code{Rcpp}. Users of these macros (if any) should start replacing them 
+      
+      In the first release 12 months after now, the macros will be removed
+      from \code{Rcpp}. 
+      
+      Users of these macros (if any) should start replacing them 
       with more up to date code, such as using attributes or modules. 
     }
   }
