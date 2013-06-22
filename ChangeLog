@@ -1,18 +1,23 @@
-2013-06-19 Romain Francois <romain@r-enthusiasts.com>
+2013-06-19  Romain Francois <romain@r-enthusiasts.com>
+
+	* inst/NEWS.Rd: Document planned depreciation of old RCPP_FUNCION_*
+	macros which are redundant thanks to Rcpp Modules and Rcpp Attributes
 
         * include/Rcpp/vector/string_proxy.h : added operator
-        string_proxy::operator==( const string_proxy& ) so that me may compare x[i]
-        and y[i] (x and y being CharacterVector)
-        * include/Rcpp/module/Module_generated_Pointer_CppMethod.h : remove const 
-        and reference to OUT type in several places, that was causing problems e.g.
-        on making the Rcpp-modules vignette 
-        * include/Rcpp/module/Module_generated_CppMethod.h : idem
-        
-2013-06-18 Romain Francois <romain@r-enthusiasts.com>
+	string_proxy::operator==( const string_proxy& ) so that me may
+	compare x[i] and y[i] (x and y being CharacterVector)
 
-        * include/Rcpp/module/Module_generated_CppFunction.h : using BEGIN_RCPP / END_RCPP
-        as suggested by QRD in Rcpp-devel. This should reduce cross dll exceptions
-        issues on windows. 
+        * include/Rcpp/module/Module_generated_Pointer_CppMethod.h : remove
+	const and reference to OUT type in several places, that was causing
+	problems e.g.  on making the Rcpp-modules vignette
+
+        * include/Rcpp/module/Module_generated_CppMethod.h : idem
+
+2013-06-18  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/module/Module_generated_CppFunction.h : using
+	BEGIN_RCPP / END_RCPP as suggested by Ben North on Rcpp-devel. This
+	should reduce cross dll exceptions issues on windows.
 
 2013-06-14  Romain Francois <romain@r-enthusiasts.com>
 
