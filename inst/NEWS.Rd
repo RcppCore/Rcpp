@@ -29,7 +29,8 @@
       it does not remove the element pointed by last (similar to what is
       done on stl types and what was intended initially). Reported on
       Rcpp-devel by Toni Giorgino.
-      \item Added equality operator between elements of \code{CharacterVector}s. 
+      \item Added equality operator between elements of
+      \code{CharacterVector}s.  
     }
     \item Changes in Rcpp sugar:
     \itemize{
@@ -41,8 +42,8 @@
     }
     \item Changes in Rcpp build tools:
     \itemize{
-      \item Fix (from Martyn Plummer) for solaris in handling
-      SingleLogicalResult.      
+      \item Fix by Martyn Plummer for Solaris in handling of
+      \code{SingleLogicalResult}.      
       \item The \code{src/Makevars} file can now optionally override the
       path for \code{/usr/bin/install_name_tool} which is used on OS X.
       \item Vignettes are trying harder not to be built in parallel.
@@ -53,18 +54,17 @@
       sourced by packages using Rcpp).
       \item Updated the \code{THANKS} file.
     }
-    \item Deprecation plans:
+    \item Planned Deprecation of \code{RCPP_FUNCTION_*}:
     \itemize{
       \item The set of macros \code{RCPP_FUNCTION_} etc ... from the 
       \code{preprocessor_generated.h} file will be deprecated in the next version
-      of \code{Rcpp}, i.e they will still be available but will generate some
+      of \pkg{Rcpp}, i.e they will still be available but will generate some
       warning in addition to their expected behavior. 
-      
-      In the first release 12 months after now, the macros will be removed
-      from \code{Rcpp}. 
-      
-      Users of these macros (if any) should start replacing them 
-      with more up to date code, such as using attributes or modules. 
+      \item In the first release that is at least 12 months after this announcement, the
+      macros will be removed from \pkg{Rcpp}. 
+      \item Users of these macros (if there are any) should start replacing them 
+      with more up to date code, such as using Rcpp attributes or Rcpp
+      modules.  
     }
   }
 }
