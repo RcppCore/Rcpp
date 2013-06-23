@@ -72,3 +72,4 @@ r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/examples/Misc/new
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.rmath.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.String.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.wstring.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.Reference.R

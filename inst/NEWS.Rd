@@ -2,9 +2,9 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-  \section{Changes in Rcpp version 0.10.4 (future)}{
+  \section{Changes in Rcpp version 0.10.4 (2013-06-23)}{
   \itemize{
-    \item Changes in R code:
+    \item Changes in R code: None beyond those detailed for Rcpp Attributes
     \item Changes in Rcpp attributes:
     \itemize{
       \item Fixed problem whereby the interaction between the gc and the 
