@@ -1,3 +1,10 @@
+2013-06-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.10.4
+        * inst/NEWS.Rd: Release 0.10.4
+        * inst/include/Rcpp/config.h: Release 0.10.4
+        * debian/*: Similarly updated for new release to Debian
+
 2013-06-19  Romain Francois <romain@r-enthusiasts.com>
 
 	* inst/NEWS.Rd: Document planned depreciation of old RCPP_FUNCION_*
