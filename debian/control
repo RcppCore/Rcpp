@@ -51,4 +51,8 @@ Description: GNU R package for Seamless R and C++ Integration
  been factored out of Rcpp into the package RcppClassic and it is still
  available for code relying on this interface. New development should use 
  this package instead.
+ .
+ Additional documentation is available via the paper by Eddelbuettel and
+ Francois (2011, JSS) paper and the book by Eddelbuettel (2013, Springer); 
+ see 'citation("Rcpp")' for details.
 
