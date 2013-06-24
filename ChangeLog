@@ -1,3 +1,9 @@
+2013-06-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/platform/compiler.h: Note the useful wiki page
+	http://sourceforge.net/p/predef/wiki/Home with #defines for OSs,
+	compilers, libraries and more
+
 2013-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.10.4
