@@ -11,7 +11,8 @@ methods and fields, such as for prototyping new computations for the
 C++ class.
 }
 \usage{
-setRcppClass(Class, CppClass, module, fields = list(), contains = , methods = , saveAs = Class, where = , ...)
+setRcppClass(Class, CppClass, module, fields = list(), contains = ,
+             methods = , saveAs = Class, where = , ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,7 +37,8 @@ See Details for the implementation of methods.
   \item{saveAs}{
 Save a generator object for the class in the package's namespace under
 this name.  By default, the generator object has the name of the
-class.  To avoid saving any generator object, supply this argument as \code{NULL}.
+class.  To avoid saving any generator object, supply this argument as
+\code{NULL}.
 }
   \item{where}{
 The environment in which to save the class definition.  By default,
