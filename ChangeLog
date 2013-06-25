@@ -1,3 +1,10 @@
+2013-06-25 Romain Francois <romain@r-enthusiasts.com>
+
+        * DESCRIPTION : devel version 0.10.4.1
+        * src/Module.cpp : bring a simplified version of RCPP_FUNCTION 1 .. 4
+        * unitTests/runit.macros.R : removed, as RCPP_FUNCTION ... are deprecated
+        * include/Rcpp/macros/preprocessor_generated.h : deprecating RCPP_FUNCTION_... macros
+        
 2013-06-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/platform/compiler.h: Note the useful wiki page

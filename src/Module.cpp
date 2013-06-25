@@ -37,87 +37,134 @@ typedef Rcpp::XPtr<Rcpp::Module> XP_Module ;
 typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ; 
 typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ; 
 
-RCPP_FUNCTION_1( bool, Class__has_default_constructor, XP_Class cl ){
+
+#define RCPP_FUN_1(__OUT__,__NAME__, ___0)        \
+__OUT__ RCPP_DECORATE(__NAME__)(___0) ;               \
+extern "C" SEXP __NAME__(SEXP x0){                       \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 )) ) ; \
+return res ;                                        \
+END_RCPP                                            \
+}                                                   \
+__OUT__ RCPP_DECORATE(__NAME__)(___0)
+
+
+#define RCPP_FUN_2(__OUT__,__NAME__, ___0, ___1)        \
+__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1) ;               \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1){                       \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 )) ) ; \
+return res ;                                        \
+END_RCPP                                            \
+}                                                   \
+__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1)
+
+#define RCPP_FUN_3(__OUT__,__NAME__, ___0, ___1, ___2)        \
+__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2) ;               \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2){                       \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 )) ) ; \
+return res ;                                        \
+END_RCPP                                            \
+}                                                   \
+__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2)
+
+#define RCPP_FUN_4(__OUT__,__NAME__, ___0, ___1, ___2, ___3)        \
+__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3) ;               \
+extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3){                       \
+SEXP res = R_NilValue ;                             \
+BEGIN_RCPP                                          \
+res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 )) ) ; \
+return res ;                                        \
+END_RCPP                                            \
+}                                                   \
+__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3)
+
+
+RCPP_FUN_1( bool, Class__has_default_constructor, XP_Class cl ){
     return cl->has_default_constructor() ;
 }
-RCPP_FUNCTION_2( SEXP, Module__get_function, XP_Module module, std::string fun ){
+RCPP_FUN_2( SEXP, Module__get_function, XP_Module module, std::string fun ){
     return module->get_function( fun ) ;
 }
-RCPP_FUNCTION_2( bool, Class__has_method, XP_Class cl, std::string m){
+RCPP_FUN_2( bool, Class__has_method, XP_Class cl, std::string m){
 	return cl->has_method(m) ;
 }
-RCPP_FUNCTION_2( bool, Class__has_property, XP_Class cl, std::string m){
+RCPP_FUN_2( bool, Class__has_property, XP_Class cl, std::string m){
 	return cl->has_property(m) ;
 }
-RCPP_FUNCTION_1( std::string, Class__name, XP_Class cl){
+RCPP_FUN_1( std::string, Class__name, XP_Class cl){
 	return cl->name ;
 }
-RCPP_FUNCTION_2( bool, Module__has_function, XP_Module module, std::string met ){
+RCPP_FUN_2( bool, Module__has_function, XP_Module module, std::string met ){
 	return module->has_function( met ) ;
 }
-RCPP_FUNCTION_2( bool, Module__has_class, XP_Module module, std::string cl ){
+RCPP_FUN_2( bool, Module__has_class, XP_Module module, std::string cl ){
 	return module->has_class( cl ) ;
 }
-RCPP_FUNCTION_2( Rcpp::CppClass, Module__get_class, XP_Module module, std::string cl ){
+RCPP_FUN_2( Rcpp::CppClass, Module__get_class, XP_Module module, std::string cl ){
 	return module->get_class( cl ) ;
 }
-RCPP_FUNCTION_1( bool, CppObject__needs_init, SEXP xp ){
+RCPP_FUN_1( bool, CppObject__needs_init, SEXP xp ){
 	return EXTPTR_PTR(xp) == 0 ;
 }
-RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__methods, XP_Class cl){
+RCPP_FUN_1( Rcpp::CharacterVector, CppClass__methods, XP_Class cl){
 	return cl->method_names() ;
 }
-RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__properties, XP_Class cl){
+RCPP_FUN_1( Rcpp::CharacterVector, CppClass__properties, XP_Class cl){
 	return cl->property_names() ;
 }
-RCPP_FUNCTION_1( Rcpp::List, CppClass__property_classes, XP_Class cl){
+RCPP_FUN_1( Rcpp::List, CppClass__property_classes, XP_Class cl){
 	return cl->property_classes() ;
 }
 
-RCPP_FUNCTION_1( Rcpp::IntegerVector, CppClass__methods_arity, XP_Class cl){
+RCPP_FUN_1( Rcpp::IntegerVector, CppClass__methods_arity, XP_Class cl){
 	return cl->methods_arity() ;
 }
-RCPP_FUNCTION_1( Rcpp::LogicalVector, CppClass__methods_voidness, XP_Class cl){
+RCPP_FUN_1( Rcpp::LogicalVector, CppClass__methods_voidness, XP_Class cl){
 	return cl->methods_voidness() ;
 }
 
 
-RCPP_FUNCTION_2( bool, CppClass__property_is_readonly, XP_Class cl, std::string p){
+RCPP_FUN_2( bool, CppClass__property_is_readonly, XP_Class cl, std::string p){
 	return cl->property_is_readonly(p) ;
 }
-RCPP_FUNCTION_2( std::string, CppClass__property_class, XP_Class cl, std::string p){
+RCPP_FUN_2( std::string, CppClass__property_class, XP_Class cl, std::string p){
 	return cl->property_class(p) ;
 }
 
-RCPP_FUNCTION_1( Rcpp::IntegerVector, Module__functions_arity, XP_Module module ){
+RCPP_FUN_1( Rcpp::IntegerVector, Module__functions_arity, XP_Module module ){
 	return module->	functions_arity() ;
 }
-RCPP_FUNCTION_1( Rcpp::CharacterVector, Module__functions_names, XP_Module module ){
+RCPP_FUN_1( Rcpp::CharacterVector, Module__functions_names, XP_Module module ){
 	return module->	functions_names() ;
 }
-RCPP_FUNCTION_1( std::string, Module__name, XP_Module module ){
+RCPP_FUN_1( std::string, Module__name, XP_Module module ){
 	return module->name;
 }
-RCPP_FUNCTION_1( Rcpp::List, Module__classes_info, XP_Module module ){
+RCPP_FUN_1( Rcpp::List, Module__classes_info, XP_Module module ){
 	return module->classes_info() ;
 }
-RCPP_FUNCTION_1( Rcpp::CharacterVector, Module__complete, XP_Module module ){
+RCPP_FUN_1( Rcpp::CharacterVector, Module__complete, XP_Module module ){
 	return module->complete() ;
 }
-RCPP_FUNCTION_1( Rcpp::CharacterVector, CppClass__complete, XP_Class cl){
+RCPP_FUN_1( Rcpp::CharacterVector, CppClass__complete, XP_Class cl){
 	return cl->complete(); 
 }
 
 // these operate directly on the external pointers, rather than 
 // looking up the property in the map
-RCPP_FUNCTION_3(SEXP, CppField__get, XP_Class cl, SEXP field_xp, SEXP obj){
+RCPP_FUN_3(SEXP, CppField__get, XP_Class cl, SEXP field_xp, SEXP obj){
 	return cl->getProperty( field_xp, obj ) ;
 }
-RCPP_FUNCTION_4(SEXP, CppField__set, XP_Class cl, SEXP field_xp, SEXP obj, SEXP value){
+RCPP_FUN_4(SEXP, CppField__set, XP_Class cl, SEXP field_xp, SEXP obj, SEXP value){
 	cl->setProperty( field_xp, obj, value ) ;
 	return R_NilValue ;
 }
-RCPP_FUNCTION_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj){
+RCPP_FUN_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj){
 	cl->run_finalizer( obj ) ;
 	return R_NilValue ;
 }
