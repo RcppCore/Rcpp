@@ -1,4 +1,9 @@
-2013-06-25 Romain Francois <romain@r-enthusiasts.com>
+2013-06-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/api.cpp: Also test for #defined(__sun) when checking for system
+	lacking a valid backtrace() function for stack traces
+
+2013-06-25  Romain Francois <romain@r-enthusiasts.com>
 
         * DESCRIPTION : devel version 0.10.4.1
         * src/Module.cpp : bring a simplified version of RCPP_FUNCTION 1 .. 4

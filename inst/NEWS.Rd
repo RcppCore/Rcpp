@@ -3,7 +3,16 @@
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
   \section{Changes in Rcpp version 0.10.5 (future)}{
-  \item Deprecation of \code{RCPP_FUNCTION_*}:
+  \itemize{
+
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Add \code{#defined(__sun)} to lists of operating systems to
+      test for when checking for lack of \code{backtrace()} needed for
+      stack traces.
+    }
+
+    \item Deprecation of \code{RCPP_FUNCTION_*}:
     \itemize{
       \item The macros from the \code{preprocessor_generated.h} 
       file have been deprecated. They are still available, but they print a message
