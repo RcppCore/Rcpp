@@ -2,6 +2,20 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+  \section{Changes in Rcpp version 0.10.5 (future)}{
+  \item Deprecation of \code{RCPP_FUNCTION_*}:
+    \itemize{
+      \item The macros from the \code{preprocessor_generated.h} 
+      file have been deprecated. They are still available, but they print a message
+      in addition to their expected behavior. 
+      \item The macros will be permanently removed in the first \pkg{Rcpp} 
+      release after july 2014. 
+      \item Users of these macros (if there are any) should start replacing them 
+      with more up to date code, such as using Rcpp attributes or Rcpp
+      modules.  
+    }
+  }
+  
   \section{Changes in Rcpp version 0.10.4 (2013-06-23)}{
   \itemize{
     \item Changes in R code: None beyond those detailed for Rcpp Attributes
