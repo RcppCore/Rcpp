@@ -2550,8 +2550,8 @@ namespace {
                 for (std::vector<std::string>::const_iterator 
                     it = modules.begin(); it != modules.end(); ++it)
                 {
-                    ostr << *it << " <- Rcpp::Module(\"" << *it << "\"," 
-                         << dllInfo << ")" << std::endl;
+                    ostr << " populate( Rcpp::Module(\"" << *it << "\"," 
+                         << dllInfo << "), environment() ) " << std::endl;
                 }
             }
                            

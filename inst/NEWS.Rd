@@ -14,6 +14,14 @@
       T is a class exposed by modules, i.e. with \code{RCPP_EXPOSED_CLASS}
     }
 
+    \item Changes in Attributes:
+    \itemize{
+        \item Objects exported by a module (i.e. by a \code{RCPP_MODULE} call
+        in a file that is processed by \code{sourceCpp}) are now ditectly 
+        available in the environment. We used to make the module object
+        available, which was less useful. 
+    }
+
     \item Changes in Modules:
     \itemize{
       \item We can now expose functions and methods that take

@@ -12,7 +12,6 @@ sourceCpp(file = "", code = NULL, env = globalenv(),
           rebuild = FALSE, showOutput = verbose, 
           verbose = getOption("verbose"))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{file}{
     A character string giving the path name of a file
@@ -36,13 +35,24 @@ sourceCpp(file = "", code = NULL, env = globalenv(),
 \details{
     If the \code{code} parameter is provided then the \code{file} parameter is ignored.
 
-    Functions exported using \code{sourceCpp} must meet several conditions, including being defined in the global namespace and having return types that are compatible with \code{Rcpp::wrap} and parameter types that are compatible with \code{Rcpp::as}. See the \code{\link[=exportAttribute]{Rcpp::export}} documentation for more details.
+    Functions exported using \code{sourceCpp} must meet several conditions, 
+    including being defined in the global namespace and having return types 
+    that are compatible with \code{Rcpp::wrap} and parameter types that are 
+    compatible with \code{Rcpp::as}. 
+    See the \code{\link[=exportAttribute]{Rcpp::export}} documentation for more details.
     
-    Rcpp Modules will be automatically loaded into the specified environment using the \code{\link[=Module]{Module}} function. the name of the loaded module object will be the same as the name specified in the \code{RCPP_MODULE} declaration.
+    Content of Rcpp Modules will be automatically loaded into the specified 
+    environment using the \code{\link[=Module]{Module}} and 
+    \code{\link[=populate]{populate}} functions. 
     
-    If the source file has compilation dependencies on other packages (e.g. \pkg{Matrix}, \pkg{RcppArmadillo}) then an \code{\link[=dependsAttribute]{Rcpp::depends}} attribute should be provided naming these dependencies. 
+    If the source file has compilation dependencies on other 
+    packages (e.g. \pkg{Matrix}, \pkg{RcppArmadillo}) then an 
+    \code{\link[=dependsAttribute]{Rcpp::depends}} attribute 
+    should be provided naming these dependencies. 
     
-	It's possible to embed chunks of R code within a C++ source file by including the R code within a block comment with the prefix of \code{/*** R}. For example:
+	It's possible to embed chunks of R code within a C++ source file by 
+	including the R code within a block comment with the 
+	prefix of \code{/*** R}. For example:
     
 \preformatted{
 /*** R

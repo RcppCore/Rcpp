@@ -5,6 +5,7 @@
         * unitTests/runit.Matrix.R: using sourceCpp
         * unitTests/runit.misc.R: using sourceCpp
         * unitTests/runit.wrap.R: using sourceCpp
+        * unitTests/runit.support.R: using sourceCpp
         * unitTests/runit.Vector.R: testing List( int, IntegerVector ) which 
         eventually uses fill__dispatch
         * include/Rcpp/traits/r_type_traits.h: support for as<T&> and as<const T&>
@@ -12,6 +13,9 @@
         * include/Rcpp/as.h: as<T&> and as<const T&> when T is module exposed
         * include/Rcpp/module/Module_generated_CppFunction.h: removed the 
         remove_const_and_reference since as<T&> and as<const T&> is supported
+        * src/attributes.cpp: automatically populating the environment with 
+        the content of a module, rather than make the module object available
+        in the environment
 
 2013-07-01  Romain Francois <romain@r-enthusiasts.com>
 
