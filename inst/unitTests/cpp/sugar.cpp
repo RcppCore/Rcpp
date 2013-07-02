@@ -2,7 +2,7 @@
 //
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -594,3 +594,40 @@ NumericVector runit_clamp( double a, NumericVector x, double b){
     return clamp( a, x, b ) ;
 }
 
+// [[Rcpp::export]]
+List vector_scalar_ops( NumericVector xx ){
+			NumericVector y1 = xx + 2.0;  // NB does not work with ints as eg "+ 2L"
+			NumericVector y2 = 2 - xx;
+			NumericVector y3 = xx * 2.0;
+			NumericVector y4 = 2.0 / xx;
+			return List::create(y1, y2, y3, y4);
+}
+
+// [[Rcpp::export]]
+List vector_scalar_logical( NumericVector xx ){
+			LogicalVector y1 = xx < 2;
+			LogicalVector y2 = 2  > xx;
+			LogicalVector y3 = xx <= 2;
+			LogicalVector y4 = 2 != xx;
+			return List::create(y1, y2, y3, y4);
+}
+
+// [[Rcpp::export]]
+List vector_vector_ops( NumericVector xx, NumericVector yy){
+			NumericVector y1 = xx + yy;
+			NumericVector y2 = yy - xx;
+			NumericVector y3 = xx * yy;
+			NumericVector y4 = yy / xx;
+			return List::create(y1, y2, y3, y4);
+}
+
+// [[Rcpp::export]]
+List vector_vector_logical( NumericVector xx, NumericVector yy){
+			LogicalVector y1 = xx < yy;
+			LogicalVector y2 = xx > yy;
+			LogicalVector y3 = xx <= yy;
+			LogicalVector y4 = xx >= yy;
+			LogicalVector y5 = xx == yy;
+			LogicalVector y6 = xx != yy;
+			return List::create(y1, y2, y3, y4, y5, y6);
+}     
