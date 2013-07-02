@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,297 +22,12 @@
 
 if (.runThisTest) {
 
-definitions <- function(){
-    list(
-				  "runit_dbeta" = list(
-				  signature(x = "numeric",
-							a = "numeric", b = "numeric"),
-				  '
-				  double aa = as<double>(a), bb = as<double>(b) ;
-				  NumericVector xx(x) ;
-				  return List::create(_["NoLog"] = dbeta( xx, aa, bb),
-									  _["Log"]	 = dbeta( xx, aa, bb, true ));
-				  ')
-
-				  ,
-				  "runit_dbinom" = list(
-				  signature( x = "integer" ),
-				  '
-				  IntegerVector xx(x) ;
-				  return List::create(_["false"] = dbinom( xx, 10, .5),
-									  _["true"]	 = dbinom( xx, 10, .5, true ));
-				  ')
-
-				  ,
-				  "runit_dunif" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(
-                                      _["NoLog_noMin_noMax"] = dunif( xx ),
-                                      _["NoLog_noMax"] = dunif( xx, 0.0 ),
-                                      _["NoLog"] = dunif( xx, 0.0 , 1.0 ),
-									  _["Log"]	= dunif( xx, 0.0, 1.0 , true ),
-									  _["Log_noMax"]	= dunif( xx, 0.0, true )
-                                    //,_["Log_noMin_noMax"]	= dunif( xx, true )
-                  );
-				  ')
-
-				  ,
-				  "runit_dgamma" = list( signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["NoLog"] = dgamma( xx, 1.0, 1.0),
-									  _["Log"]	 = dgamma( xx, 1.0, 1.0, true ),
-									  _["Log_noRate"]	 = dgamma( xx, 1.0, true )
-                  );
-				  ')
-
-				  ,
-				  "runit_dpois" = list(
-				  signature( x = "integer" ),
-				  '
-				  IntegerVector xx(x) ;
-				  return List::create(_["false"] = dpois( xx, .5 ),
-									  _["true"]	 = dpois( xx, .5 , true));
-				  ')
-
-				  ,
-				  "runit_dnorm" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(
-                                      _["false_noMean_noSd"] = dnorm( xx ),
-                                      _["false_noSd"] = dnorm( xx, 0.0  ),
-                                      _["false"] = dnorm( xx, 0.0, 1.0 ),
-									  _["true"]	 = dnorm( xx, 0.0, 1.0, true ),
-									  _["true_noSd"]	 = dnorm( xx, 0.0, true ),
-									  _["true_noMean_noSd"]	 = dnorm( xx, true ));
-				  ')
-
-				  ,
-				  "runit_dt" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["false"] = dt( xx, 5),
-									  _["true"]	 = dt( xx, 5, true ));
-				  ')
-
-				  ,
-				  "runit_pbeta" = list(
-				  signature(x = "numeric", a = "numeric", b = "numeric"),
-				  '
-				  double aa = as<double>(a), bb = as<double>(b) ;
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pbeta( xx, aa, bb),
-									  _["lowerLog"]	  = pbeta( xx, aa, bb, true, true),
-									  _["upperNoLog"] = pbeta( xx, aa, bb, false),
-									  _["upperLog"]	  = pbeta( xx, aa, bb, false, true));
-				  ')
-
-				  ,
-				  "runit_pbinom" = list(
-				  signature( x = "numeric", size = "integer", prob = "numeric" ),
-				  '
-				  int n = as<int>(size);
-				  double p = as<double>(prob);
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pbinom(xx, n, p ),
-									  _["lowerLog"]	  = pbinom(xx, n, p, true, true ),
-									  _["upperNoLog"] = pbinom(xx, n, p, false ),
-									  _["upperLog"]	  = pbinom(xx, n, p, false, true ));
-				  ')
-
-				  ,
-				  "runit_pcauchy" = list(
-				  signature( x = "numeric", location = "numeric", scale = "numeric" ),
-				  '
-				  double loc = as<double>(location);
-				  double scl = as<double>(scale);
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pcauchy(xx, loc, scl ),
-									  _["lowerLog"]	  = pcauchy(xx, loc, scl, true, true ),
-									  _["upperNoLog"] = pcauchy(xx, loc, scl, false ),
-									  _["upperLog"]	  = pcauchy(xx, loc, scl, false, true ));
-				  ')
-
-				  ,
-				  "runit_punif" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = punif( xx, 0.0, 1.0 ),
-									  _["lowerLog"]	  = punif( xx, 0.0, 1.0, true, true ),
-									  _["upperNoLog"] = punif( xx, 0.0, 1.0, false ),
-									  _["upperLog"]	  = punif( xx, 0.0, 1.0, false, true ));
-				  ')
-
-				  ,
-				  "runit_pgamma" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pgamma( xx, 2.0, 1.0 ),
-									  _["lowerLog"]	  = pgamma( xx, 2.0, 1.0, true, true ),
-									  _["upperNoLog"] = pgamma( xx, 2.0, 1.0, false ),
-									  _["upperLog"]	  = pgamma( xx, 2.0, 1.0, false, true ));
-				  ')
-
-				  ,
-				  "runit_pnf" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pnf( xx, 6.0, 8.0, 2.5, true ),
-									  _["lowerLog"]	  = pnf( xx, 6.0, 8.0, 2.5, true, true ),
-									  _["upperNoLog"] = pnf( xx, 6.0, 8.0, 2.5, false ),
-									  _["upperLog"]	  = pnf( xx, 6.0, 8.0, 2.5, false, true ));
-				  ')
-
-				  ,
-				  "runit_pf" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pf( xx, 6.0, 8.0 ),
-									  _["lowerLog"]	  = pf( xx, 6.0, 8.0, true, true ),
-									  _["upperNoLog"] = pf( xx, 6.0, 8.0, false ),
-									  _["upperLog"]	  = pf( xx, 6.0, 8.0, false, true ));
-				  ')
-
-				  ,
-				  "runit_pnchisq" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pnchisq( xx, 6.0, 2.5, true ),
-									  _["lowerLog"]	  = pnchisq( xx, 6.0, 2.5, true, true ),
-									  _["upperNoLog"] = pnchisq( xx, 6.0, 2.5, false ),
-									  _["upperLog"]	  = pnchisq( xx, 6.0, 2.5, false, true ));
-				  ')
-
-				  ,
-				  "runit_pchisq" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pchisq( xx, 6.0 ),
-									  _["lowerLog"]	  = pchisq( xx, 6.0, true, true ),
-									  _["upperNoLog"] = pchisq( xx, 6.0, false ),
-									  _["upperLog"]	  = pchisq( xx, 6.0, false, true ));
-				  ')
-
-                  ,
-				  "runit_pnorm" = list(signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = pnorm( xx, 0.0, 1.0 ),
-									  _["lowerLog"]	  = pnorm( xx, 0.0, 1.0, true, true ),
-									  _["upperNoLog"] = pnorm( xx, 0.0, 1.0, false ),
-									  _["upperLog"]	  = pnorm( xx, 0.0, 1.0, false, true ));
-				  ')
-
-				  ,
-				  "runit_ppois" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lowerNoLog"] = ppois( xx, 0.5 ),
-									  _["lowerLog"]	  = ppois( xx, 0.5, true, true ),
-									  _["upperNoLog"] = ppois( xx, 0.5, false ),
-									  _["upperLog"]	  = ppois( xx, 0.5, false, true ));
-				  ')
-
-				  ,
-				  "runit_pt" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["false"] = pt( xx, 5, true),
-									  _["true"]	 = pt( xx, 5, true, true	 ));
-				  '
-				  )
-
-				  ,
-				  "runit_qbinom_prob" = list(
-				  signature( x = "numeric", size = "integer", prob = "numeric" ),
-				  '
-				  int n = as<int>(size);
-				  double p = as<double>(prob);
-				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = qbinom( xx, n, p ),
-									  _["upper"] = qbinom( xx, n, p, false));
-				  ')
-
-				  ,
-				  "runit_qunif_prob" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = qunif( xx, 0.0, 1.0 ),
-									  _["upper"] = qunif( xx, 0.0, 1.0, false));
-				  '
-				  )
-
-				  ,
-				  "runit_qnorm_prob" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = qnorm( xx, 0.0, 1.0 ),
-									  _["upper"] = qnorm( xx, 0.0, 1.0, false));
-				  ')
-
-				  ## need a separate test for log prob because different allowable range of x
-				  ,
-				  "runit_qnorm_log" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = qnorm( xx, 0.0, 1.0, true, true),
-									  _["upper"] = qnorm( xx, 0.0, 1.0, false, true));
-				  ')
-
-				  ,
-				  "runit_qpois_prob" = list(
-				  signature( x = "numeric" ),
-				  '
-				  NumericVector xx(x) ;
-				  return List::create(_["lower"] = qpois( xx, 0.5 ),
-									  _["upper"] = qpois( xx, 0.5, false));
-				  ')
-
-
-                  ,
-                  "runit_qt" = list(
-                  signature( x = "numeric", df = "numeric", lower = "logical", log = "logical" ),
-                  '
-				  NumericVector xx(x);
-                  double d = as<double>(df);
-                  bool lt = as<bool>(lower);
-                  bool lg = as<bool>(log);
-			      return wrap(qt( xx, d, lt, lg));
-				  ')
-
-         )
-}
-
-.setUp <- function(){
-	if( ! exists( ".rcpp.stats", globalenv() ) ){
-		fun <- Rcpp:::compile_unit_tests(
-		    definitions()
-		)
-	    assign( ".rcpp.stats", fun, globalenv() )
-	}
-}
+.setUp <- Rcpp:::unit_test_setup( "stats.cpp" ) 
 
 test.stats.dbeta <- function() {
-    fx <- .rcpp.stats$runit_dbeta
     vv <- seq(0, 1, by = 0.1)
     a <- 0.5; b <- 2.5
-    checkEquals(fx(vv, a, b),
+    checkEquals(runit_dbeta(vv, a, b),
                 list(
                      NoLog = dbeta(vv, a, b),
                      Log   = dbeta(vv, a, b, log=TRUE)
@@ -321,9 +36,8 @@ test.stats.dbeta <- function() {
 }
 
 test.stats.dbinom <- function( ){
-	fx <- .rcpp.stats$runit_dbinom
-    v <- 1:10
-	checkEquals(fx(v) ,
+	v <- 1:10
+	checkEquals(runit_dbinom(v) ,
                 list(
                     false = dbinom(v, 10, .5),
                     true = dbinom(v, 10, .5, TRUE )
@@ -331,9 +45,8 @@ test.stats.dbinom <- function( ){
 }
 
 test.stats.dunif <- function() {
-    fx <- .rcpp.stats$runit_dunif
     vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv),
+    checkEquals(runit_dunif(vv),
                 list(
                     NoLog_noMin_noMax = dunif(vv),
                     NoLog_noMax = dunif(vv, 0),
@@ -346,9 +59,8 @@ test.stats.dunif <- function() {
 }
 
 test.stats.dgamma <- function( ) {
-    fx <- .rcpp.stats$runit_dgamma
     v <- 1:4
-    checkEquals(fx(v),
+    checkEquals(runit_dgamma(v),
                 list( NoLog = dgamma(v, 1.0, 1.0),
                       Log = dgamma(v, 1.0, 1.0, log = TRUE ),
                       Log_noRate = dgamma(v, 1.0, log = TRUE )
@@ -357,18 +69,16 @@ test.stats.dgamma <- function( ) {
 
 
 test.stats.dpois <- function( ){
-	fx <- .rcpp.stats$runit_dpois
-    v <- 0:5
-	checkEquals(fx(v) ,
+	v <- 0:5
+	checkEquals(runit_dpois(v) ,
                 list( false = dpois(v, .5),
                       true = dpois(v, .5, TRUE )
                 ), msg = "stats.dpois" )
 }
 
 test.stats.dnorm <- function( ) {
-    fx <- .rcpp.stats$runit_dnorm
     v <- seq(0.0, 1.0, by=0.1)
-    checkEquals(fx(v),
+    checkEquals(runit_dnorm(v),
                 list( false_noMean_noSd = dnorm(v),
                       false_noSd = dnorm(v, 0.0),
                       false = dnorm(v, 0.0, 1.0),
@@ -379,19 +89,17 @@ test.stats.dnorm <- function( ) {
 }
 
 test.stats.dt <- function( ) {
-	fx <- .rcpp.stats$runit_dt
-    v <- seq(0.0, 1.0, by=0.1)
-    checkEquals(fx(v),
+	v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(runit_dt(v),
                 list( false = dt(v, 5),
                       true = dt(v, 5, log=TRUE ) # NB: need log=TRUE here
                 ), msg = "stats.dt" )
 }
 
 test.stats.pbeta <- function( ) {
-    fx <- .rcpp.stats$runit_pbeta
     a <- 0.5; b <- 2.5
     v <- qbeta(seq(0.0, 1.0, by=0.1), a, b)
-    checkEquals(fx(v, a, b),
+    checkEquals(runit_pbeta(v, a, b),
                 list(lowerNoLog = pbeta(v, a, b),
                      lowerLog   = pbeta(v, a, b,              log=TRUE),
                      upperNoLog = pbeta(v, a, b, lower=FALSE),
@@ -402,16 +110,15 @@ test.stats.pbeta <- function( ) {
     x <- c(.01, .10, .25, .40, .55, .71, .98)
     pbval <- c(-0.04605755624088, -0.3182809860569, -0.7503593555585,
                -1.241555830932, -1.851527837938, -2.76044482378, -8.149862739881)
-    checkEqualsNumeric(fx(x, 0.8, 2)$upperLog, pbval, msg = " stats.pbeta")
-    checkEqualsNumeric(fx(1-x, 2, 0.8)$lowerLog, pbval, msg = " stats.pbeta")
+    checkEqualsNumeric(runit_pbeta(x, 0.8, 2)$upperLog, pbval, msg = " stats.pbeta")
+    checkEqualsNumeric(runit_pbeta(1-x, 2, 0.8)$lowerLog, pbval, msg = " stats.pbeta")
 }
 
 test.stats.pbinom <- function( ) {
-    fx <- .rcpp.stats$runit_pbinom
     n <- 20
     p <- 0.5
     vv <- 0:n
-    checkEquals(fx(vv, n, p),
+    checkEquals(runit_pbinom(vv, n, p),
                 list(lowerNoLog = pbinom(vv, n, p),
                      lowerLog   = pbinom(vv, n, p, log=TRUE),
                      upperNoLog = pbinom(vv, n, p, lower=FALSE),
@@ -421,11 +128,10 @@ test.stats.pbinom <- function( ) {
 }
 
 test.stats.pcauchy <- function( ) {
-    fx <- .rcpp.stats$runit_pcauchy
     location <- 0.5
     scale <- 1.5
     vv <- 1:5
-    checkEquals(fx(vv, location, scale),
+    checkEquals(runit_pcauchy(vv, location, scale),
                 list(lowerNoLog = pcauchy(vv, location, scale),
                      lowerLog   = pcauchy(vv, location, scale, log=TRUE),
                      upperNoLog = pcauchy(vv, location, scale, lower=FALSE),
@@ -435,9 +141,8 @@ test.stats.pcauchy <- function( ) {
 }
 
 test.stats.punif <- function( ) {
-    fx <- .rcpp.stats$runit_punif
     v <- qunif(seq(0.0, 1.0, by=0.1))
-    checkEquals(fx(v),
+    checkEquals(runit_punif(v),
                 list(lowerNoLog = punif(v),
                      lowerLog   = punif(v, log=TRUE ),
                      upperNoLog = punif(v, lower=FALSE),
@@ -448,9 +153,8 @@ test.stats.punif <- function( ) {
 }
 
 test.stats.pf <- function( ) {
-    fx <- .rcpp.stats$runit_pf
     v <- (1:9)/10
-    checkEquals(fx(v),
+    checkEquals(runit_pf(v),
                 list(lowerNoLog = pf(v, 6, 8, lower=TRUE, log=FALSE),
                      lowerLog   = pf(v, 6, 8, log=TRUE ),
                      upperNoLog = pf(v, 6, 8, lower=FALSE),
@@ -460,9 +164,8 @@ test.stats.pf <- function( ) {
 }
 
 test.stats.pnf <- function( ) {
-    fx <- .rcpp.stats$runit_pnf
     v <- (1:9)/10
-    checkEquals(fx(v),
+    checkEquals(runit_pnf(v),
                 list(lowerNoLog = pf(v, 6, 8, ncp=2.5, lower=TRUE, log=FALSE),
                      lowerLog   = pf(v, 6, 8, ncp=2.5, log=TRUE ),
                      upperNoLog = pf(v, 6, 8, ncp=2.5, lower=FALSE),
@@ -472,9 +175,8 @@ test.stats.pnf <- function( ) {
 }
 
 test.stats.pchisq <- function( ) {
-    fx <- .rcpp.stats$runit_pchisq
     v <- (1:9)/10
-    checkEquals(fx(v),
+    checkEquals(runit_pchisq(v),
                 list(lowerNoLog = pchisq(v, 6, lower=TRUE, log=FALSE),
                      lowerLog   = pchisq(v, 6, log=TRUE ),
                      upperNoLog = pchisq(v, 6, lower=FALSE),
@@ -484,9 +186,8 @@ test.stats.pchisq <- function( ) {
 }
 
 test.stats.pnchisq <- function( ) {
-    fx <- .rcpp.stats$runit_pnchisq
     v <- (1:9)/10
-    checkEquals(fx(v),
+    checkEquals(runit_pnchisq(v),
                 list(lowerNoLog = pchisq(v, 6, ncp=2.5, lower=TRUE, log=FALSE),
                      lowerLog   = pchisq(v, 6, ncp=2.5, log=TRUE ),
                      upperNoLog = pchisq(v, 6, ncp=2.5, lower=FALSE),
@@ -496,9 +197,8 @@ test.stats.pnchisq <- function( ) {
 }
 
 test.stats.pgamma <- function( ) {
-    fx <- .rcpp.stats$runit_pgamma
     v <- (1:9)/10
-    checkEquals(fx(v),
+    checkEquals(runit_pgamma(v),
                 list(lowerNoLog = pgamma(v, shape = 2.0),
                      lowerLog   = pgamma(v, shape = 2.0, log=TRUE ),
                      upperNoLog = pgamma(v, shape = 2.0, lower=FALSE),
@@ -509,9 +209,8 @@ test.stats.pgamma <- function( ) {
 
 
 test.stats.pnorm <- function( ) {
-    fx <- .rcpp.stats$runit_pnorm
     v <- qnorm(seq(0.0, 1.0, by=0.1))
-    checkEquals(fx(v),
+    checkEquals(runit_pnorm(v),
                 list(lowerNoLog = pnorm(v),
                      lowerLog   = pnorm(v, log=TRUE ),
                      upperNoLog = pnorm(v, lower=FALSE),
@@ -521,17 +220,16 @@ test.stats.pnorm <- function( ) {
     ## Borrowed from R's d-p-q-r-tests.R
     z <- c(-Inf,Inf,NA,NaN, rt(1000, df=2))
     z.ok <- z > -37.5 | !is.finite(z)
-    pz <- fx(z)
+    pz <- runit_pnorm(z)
     checkEqualsNumeric(pz$lowerNoLog, 1 - pz$upperNoLog, msg = "stats.pnorm")
-    checkEqualsNumeric(pz$lowerNoLog, fx(-z)$upperNoLog, msg = "stats.pnorm")
+    checkEqualsNumeric(pz$lowerNoLog, runit_pnorm(-z)$upperNoLog, msg = "stats.pnorm")
     checkEqualsNumeric(log(pz$lowerNoLog[z.ok]), pz$lowerLog[z.ok], msg = "stats.pnorm")
     ## FIXME: Add tests that use non-default mu and sigma
-}
+} 
 
 test.stats.ppois <- function( ) {
-    fx <- .rcpp.stats$runit_ppois
     vv <- 0:20
-    checkEquals(fx(vv),
+    checkEquals(runit_ppois(vv),
                 list(lowerNoLog = ppois(vv, 0.5),
                      lowerLog   = ppois(vv, 0.5,              log=TRUE),
                      upperNoLog = ppois(vv, 0.5, lower=FALSE),
@@ -541,19 +239,17 @@ test.stats.ppois <- function( ) {
 }
 
 test.stats.pt <- function( ) {
-	fx <- .rcpp.stats$runit_pt
-    v <- seq(0.0, 1.0, by=0.1)
-    checkEquals(fx(v),
+	v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(runit_pt(v),
                 list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
                 msg = "stats.pt" )
 }
 
 test.stats.qbinom <- function( ) {
-    fx <- .rcpp.stats$runit_qbinom_prob
     n <- 20
     p <- 0.5
     vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv, n, p),
+    checkEquals(runit_qbinom_prob(vv, n, p),
                 list(lower = qbinom(vv, n, p),
                      upper = qbinom(vv, n, p, lower=FALSE)
                      ),
@@ -561,8 +257,7 @@ test.stats.qbinom <- function( ) {
 }
 
 test.stats.qunif <- function( ) {
-    fx <- .rcpp.stats$runit_qunif_prob
-    checkEquals(fx(c(0, 1, 1.1, -.1)),
+    checkEquals(runit_qunif_prob(c(0, 1, 1.1, -.1)),
                 list(lower = c(0, 1, NaN, NaN),
                      upper = c(1, 0, NaN, NaN)
                      ),
@@ -571,31 +266,28 @@ test.stats.qunif <- function( ) {
 }
 
 test.stats.qnorm <- function( ) {
-    fx <- .rcpp.stats$runit_qnorm_prob
-    checkEquals(fx(c(0, 1, 1.1, -.1)),
+    checkEquals(runit_qnorm_prob(c(0, 1, 1.1, -.1)),
                 list(lower = c(-Inf, Inf, NaN, NaN),
                      upper = c(Inf, -Inf, NaN, NaN)
                      ),
                 msg = "stats.qnorm" )
     ## Borrowed from R's d-p-q-r-tests.R and Wichura (1988)
-    checkEqualsNumeric(fx(c( 0.25,  .001,	 1e-20))$lower,
+    checkEqualsNumeric(runit_qnorm_prob(c( 0.25,  .001,	 1e-20))$lower,
                        c(-0.6744897501960817, -3.090232306167814, -9.262340089798408),
                        msg = "stats.qnorm",
                        tol = 1e-15)
 
-    fx <- .rcpp.stats$runit_qnorm_log
-    checkEquals(fx(c(-Inf, 0, 0.1)),
+    checkEquals(runit_qnorm_log(c(-Inf, 0, 0.1)),
                 list(lower = c(-Inf, Inf, NaN),
                      upper = c(Inf, -Inf, NaN)
                      ),
                 msg = "stats.qnorm" )
-    checkEqualsNumeric(fx(-1e5)$lower, -447.1974945)
+    checkEqualsNumeric(runit_qnorm_log(-1e5)$lower, -447.1974945)
 }
 
 test.stats.qpois.prob <- function( ) {
-    fx <- .rcpp.stats$runit_qpois_prob
     vv <- seq(0, 1, by = 0.1)
-    checkEquals(fx(vv),
+    checkEquals(runit_qpois_prob(vv),
                 list(lower = qpois(vv, 0.5),
                      upper = qpois(vv, 0.5, lower=FALSE)
                      ),
@@ -603,16 +295,23 @@ test.stats.qpois.prob <- function( ) {
 }
 
 test.stats.qt <- function( ) {
-	fx <- .rcpp.stats$runit_qt
     v <- seq(0.05, 0.95, by=0.05)
-    checkEquals(fx(v, df=5, lower=FALSE, log=FALSE),
-                qt(v, df=5, lower=FALSE, log=FALSE), msg="stats.qt.f.f")
-    checkEquals(fx(v, df=5, lower=TRUE,  log=FALSE),
-                qt(v, df=5, lower=TRUE,  log=FALSE), msg="stats.qt.t.f")
-    checkEquals(fx(-v, df=5, lower=FALSE, log=TRUE),
-                qt(-v, df=5, lower=FALSE, log=TRUE), msg="stats.qt.f.t")
-    checkEquals(fx(-v, df=5, lower=TRUE,  log=TRUE),
-                qt(-v, df=5, lower=TRUE,  log=TRUE), msg="stats.qt.t.t")
+    ( x1 <- runit_qt(v, 5, FALSE, FALSE) )
+    ( x2 <- qt(v, df=5, lower=FALSE, log=FALSE) )
+    checkEquals(x1, x2, msg="stats.qt.f.f")
+    
+    ( x1 <- runit_qt(v, 5, TRUE, FALSE) )
+    ( x2 <- qt(v, df=5, lower=TRUE, log=FALSE) ) 
+    checkEquals(x1, x2, msg="stats.qt.t.f")
+    
+	( x1 <- runit_qt(-v, 5, FALSE, TRUE) )
+    ( x2 <- qt(-v, df=5, lower=FALSE, log=TRUE) ) 
+    checkEquals(x1, x2, msg="stats.qt.f.t")
+    
+    ( x1 <- runit_qt(-v, 5, TRUE, TRUE) )
+    ( x2 <- qt(-v, df=5, lower=TRUE, log=TRUE) ) 
+    checkEquals(x1, x2, msg="stats.qt.t.t")
+    
 }
 
 # TODO: test.stats.qgamma
