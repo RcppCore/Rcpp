@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,11 +22,7 @@
 
 if (.runThisTest) {
 
-.setUp <- function(){
-	suppressMessages( require( datasets ) )
-	data( iris )
-    sourceCpp(file.path(pathRcppTests, "cpp/DataFrame.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup( "DataFrame.cpp" )
 
 test.DataFrame.FromSEXP <- function() {
     DF <- data.frame(a=1:3, b=c("a","b","c"))
@@ -61,16 +57,18 @@ test.DataFrame.CreateTwo <- function() {
 }
 
 test.DataFrame.SlotProxy <- function(){
-	setClass("track", representation(x="data.frame", y = "function"))
-	tr1 <- new( "track", x = iris, y = rnorm )
-    checkTrue( identical( SlotProxy(tr1, "x"), iris ), msg = "DataFrame( SlotProxy )" )
-	checkException( SlotProxy(tr1, "y"), msg = "DataFrame( SlotProxy ) -> exception" )
+    setClass("track", representation(x="data.frame", y = "function"))
+    df <- data.frame( x = 1:10, y = 1:10 )
+    tr1 <- new( "track", x = df, y = rnorm )
+    checkTrue( identical( SlotProxy(tr1, "x"), df ), msg = "DataFrame( SlotProxy )" )
+    checkException( SlotProxy(tr1, "y"), msg = "DataFrame( SlotProxy ) -> exception" )
 }
 
 test.DataFrame.AttributeProxy <- function(){
-	tr1 <- structure( NULL, x = iris, y = rnorm )
-    checkTrue( identical( AttributeProxy(tr1, "x"), iris) , msg = "DataFrame( AttributeProxy )" )
-	checkException( AttributeProxy(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
+	df <- data.frame( x = 1:10, y = 1:10 )
+    tr1 <- structure( NULL, x = df, y = rnorm )
+    checkTrue( identical( AttributeProxy(tr1, "x"), df) , msg = "DataFrame( AttributeProxy )" )
+    checkException( AttributeProxy(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
 }
 
 test.DataFrame.CreateTwo.stringsAsFactors <- function() {
@@ -79,7 +77,8 @@ test.DataFrame.CreateTwo.stringsAsFactors <- function() {
 }
 
 test.DataFrame.nrows <- function(){
-    checkEquals( DataFrame_nrows( iris ), nrow(iris) )
+    df <- data.frame( x = 1:10, y = 1:10 )
+    checkEquals( DataFrame_nrows( df ), nrow(df) )
 }
 
 

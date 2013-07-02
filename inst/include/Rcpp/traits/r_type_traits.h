@@ -67,9 +67,19 @@ struct r_type_module_object_pointer_tag{} ;
 
 /**
  * identifies a module object. Implementers of modules can define the 
- * r_type_traits to sghow that their object is handled
+ * r_type_traits to show that their object is handled
  */ 
 struct r_type_module_object_tag{} ;
+
+/**
+ * identifies a reference to a module object. 
+ */ 
+struct r_type_module_object_reference_tag{} ;
+
+/**
+ * identifies a const reference to a module object. 
+ */ 
+struct r_type_module_object_const_reference_tag{} ;
 
 /**
  * identifies an enum. conversions from/to int is used

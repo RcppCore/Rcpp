@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2013  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,58 +22,50 @@
 
 if (.runThisTest) {
 
-.setUp <- function(){
-	sourceCpp(file.path(pathRcppTests, "cpp/Environment.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup( "Environment.cpp" )
 
 test.environment.ls <- function(){
-	funx <- runit_ls
 	e <- new.env( )
 	e$a <- 1:10
 	e$b <- "foo"
 	e$.c <- "hidden"
-	checkEquals( sort(funx(e)), sort(c("a","b", ".c")), msg = "Environment::ls(true)" )
-	checkEquals( funx(asNamespace("Rcpp")), ls(envir=asNamespace("Rcpp"), all = TRUE),
+	checkEquals( sort(runit_ls(e)), sort(c("a","b", ".c")), msg = "Environment::ls(true)" )
+	checkEquals( runit_ls(asNamespace("Rcpp")), ls(envir=asNamespace("Rcpp"), all = TRUE),
 		msg = "Environment(namespace)::ls()" )
 
-	funx <- runit_ls2
-	checkEquals( funx(e), c("a","b"), msg = "Environment::ls(false)" )
-	checkEquals( funx(asNamespace("Rcpp")), ls(envir=asNamespace("Rcpp"), all = FALSE),
+	checkEquals( runit_ls2(e), c("a","b"), msg = "Environment::ls(false)" )
+	checkEquals( runit_ls2(asNamespace("Rcpp")), ls(envir=asNamespace("Rcpp"), all = FALSE),
 		msg = "Environment(namespace)::ls()" )
 
 }
 
 test.environment.get <- function(){
-	funx <- runit_get
-
 	e <- new.env( )
 	e$a <- 1:10
 	e$b <- "foo"
 
-	checkEquals( funx( e, "a" ), e$a, msg = "Environment::get()" )
-	checkEquals( funx( e, "foobar" ), NULL, msg = "Environment::get()" )
-	checkEquals( funx( asNamespace("Rcpp"), "CxxFlags"), Rcpp:::CxxFlags,
+	checkEquals( runit_get( e, "a" ), e$a, msg = "Environment::get()" )
+	checkEquals( runit_get( e, "foobar" ), NULL, msg = "Environment::get()" )
+	checkEquals( runit_get( asNamespace("Rcpp"), "CxxFlags"), Rcpp:::CxxFlags,
 		msg = "Environment(namespace)::get() " )
 
 }
 
 test.environment.exists <- function(){
-	funx <- runit_exists
 	e <- new.env( )
 	e$a <- 1:10
 	e$b <- "foo"
 
-	checkTrue( funx( e, "a" ), msg = "Environment::get()" )
-	checkTrue( !funx( e, "foobar" ), msg = "Environment::get()" )
-	checkTrue( funx( asNamespace("Rcpp"), "CxxFlags"),
+	checkTrue( runit_exists( e, "a" ), msg = "Environment::get()" )
+	checkTrue( !runit_exists( e, "foobar" ), msg = "Environment::get()" )
+	checkTrue( runit_exists( asNamespace("Rcpp"), "CxxFlags"),
 		msg = "Environment(namespace)::get() " )
 }
 
 test.environment.assign <- function(){
-	funx <- runit_assign
 	e <- new.env( )
-	checkTrue( funx(e, "a", 1:10 ), msg = "Environment::assign" )
-	checkTrue( funx(e, "b", Rcpp:::CxxFlags ), msg = "Environment::assign" )
+	checkTrue( runit_assign(e, "a", 1:10 ), msg = "Environment::assign" )
+	checkTrue( runit_assign(e, "b", Rcpp:::CxxFlags ), msg = "Environment::assign" )
 	checkEquals( ls(e), c("a", "b"), msg = "Environment::assign, checking names" )
 	checkEquals( e$a, 1:10, msg = "Environment::assign, checking value 1" )
 	checkEquals( e$b, Rcpp:::CxxFlags, msg = "Environment::assign, checking value 2" )
@@ -82,19 +74,18 @@ test.environment.assign <- function(){
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 	if( can.demangle ){
 		checkTrue(
-			tryCatch( { funx(e, "a", letters ) ; FALSE}, "Rcpp::binding_is_locked" = function(e) TRUE ),
+			tryCatch( { runit_assign(e, "a", letters ) ; FALSE}, "Rcpp::binding_is_locked" = function(e) TRUE ),
 			msg = "cannot assign to locked binding (catch exception)" )
 	} else {
 		checkTrue(
-			tryCatch( { funx(e, "a", letters ) ; FALSE}, "error" = function(e) TRUE ),
+			tryCatch( { runit_assign(e, "a", letters ) ; FALSE}, "error" = function(e) TRUE ),
 			msg = "cannot assign to locked binding (catch exception)" )
 	}
 }
 
 test.environment.isLocked <- function(){
-	funx <- runit_islocked
 	e <- new.env()
-	funx(e)
+	runit_islocked(e)
 	checkEquals( e[["x1"]], 1L  , msg = "Environment::assign( int ) " )
 	checkEquals( e[["x2"]], 10.0, msg = "Environment::assign( double ) " )
 	checkEquals( e[["x3"]], "foobar", msg = "Environment::assign( char* ) " )
@@ -103,203 +94,182 @@ test.environment.isLocked <- function(){
 }
 
 test.environment.bindingIsActive <- function(){
-	funx <- runit_bindingIsActive
 	e <- new.env()
 	e$a <- 1:10
 	makeActiveBinding( "b", function(x) 10, e )
 
-	checkTrue( !funx(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
-	checkTrue( funx(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
+	checkTrue( !runit_bindingIsActive(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
+	checkTrue( runit_bindingIsActive(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
 
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 	if( can.demangle ){
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
+			tryCatch( { runit_bindingIsActive(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
 			msg = "Environment::bindingIsActive(no binding) -> exception)" )
 	} else {
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
+			tryCatch( { runit_bindingIsActive(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
 			msg = "Environment::bindingIsActive(no binding) -> exception)" )
 	}
 }
 
 test.environment.bindingIsLocked <- function(){
-	funx <- runit_bindingIsLocked
 	e <- new.env()
 	e$a <- 1:10
 	e$b <- letters
 	lockBinding( "b", e )
 
-	checkTrue( !funx(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
-	checkTrue( funx(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
+	checkTrue( !runit_bindingIsLocked(e, "a" ), msg = "Environment::bindingIsActive( non active ) -> false" )
+	checkTrue( runit_bindingIsLocked(e, "b" ), msg = "Environment::bindingIsActive( active ) -> true" )
 
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 	if( can.demangle ){
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
+			tryCatch( { runit_bindingIsLocked(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
 			msg = "Environment::bindingIsLocked(no binding) -> exception)" )
 	} else {
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
+			tryCatch( { runit_bindingIsLocked(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
 			msg = "Environment::bindingIsLocked(no binding) -> exception)" )
 	}
 }
 
 test.environment.NotAnEnvironment <- function(){
-	funx <- runit_notanenv
-	checkException( funx( funx ), msg = "not an environment" )
-	checkException( funx( letters ), msg = "not an environment" )
-	checkException( funx( NULL ), msg = "not an environment" )
+	checkException( runit_notanenv( runit_notanenv ), msg = "not an environment" )
+	checkException( runit_notanenv( letters ), msg = "not an environment" )
+	checkException( runit_notanenv( NULL ), msg = "not an environment" )
 }
 
 
 test.environment.lockBinding <- function(){
-	funx <- runit_lockbinding
 	e <- new.env()
 	e$a <- 1:10
 	e$b <- letters
-	funx(e, "b")
+	runit_lockbinding(e, "b")
 	checkTrue( bindingIsLocked("b", e ), msg = "Environment::lockBinding()" )
 
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 	if( can.demangle ){
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
+			tryCatch( { runit_lockbinding(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
 			msg = "Environment::lockBinding(no binding) -> exception)" )
 	} else {
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
+			tryCatch( { runit_lockbinding(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
 			msg = "Environment::lockBinding(no binding) -> exception)" )
 	}
 }
 
 test.environment.unlockBinding <- function(){
-	funx <- runit_unlockbinding
 	e <- new.env()
 	e$a <- 1:10
 	e$b <- letters
 	lockBinding( "b", e )
-	funx(e, "b")
+	runit_unlockbinding(e, "b")
 	checkTrue( !bindingIsLocked("b", e ), msg = "Environment::lockBinding()" )
 
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 	if( can.demangle ){
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
+			tryCatch( { runit_unlockbinding(e, "xx" ) ; FALSE}, "Rcpp::no_such_binding" = function(e) TRUE ),
 			msg = "Environment::unlockBinding(no binding) -> exception)" )
 	} else {
 		checkTrue(
-			tryCatch( { funx(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
+			tryCatch( { runit_unlockbinding(e, "xx" ) ; FALSE}, error = function(e) TRUE ),
 			msg = "Environment::unlockBinding(no binding) -> exception)" )
 	}
 }
 
 test.environment.global.env <- function(){
-	funx <- runit_globenv
-	checkEquals( funx(), globalenv(), msg = "REnvironment::global_env" )
+	checkEquals( runit_globenv(), globalenv(), msg = "REnvironment::global_env" )
 }
 
 test.environment.empty.env <- function(){
-	funx <- runit_emptyenv
-	checkEquals( funx(), emptyenv(), msg = "REnvironment::empty_env" )
+	checkEquals( runit_emptyenv(), emptyenv(), msg = "REnvironment::empty_env" )
 }
 
 test.environment.base.env <- function(){
-	funx <- runit_baseenv
-	checkEquals( funx(), baseenv(), msg = "REnvironment::base_env" )
+	checkEquals( runit_baseenv(), baseenv(), msg = "REnvironment::base_env" )
 }
 
 test.environment.empty.env <- function(){
-	funx <- runit_emptyenv
-	checkEquals( funx(), .BaseNamespaceEnv, msg = "REnvironment::base_namespace" )
+	checkEquals( runit_emptyenv(), .BaseNamespaceEnv, msg = "REnvironment::base_namespace" )
 }
 
 test.environment.namespace.env <- function(){
-	funx <- runit_namespace
-	checkEquals( funx("Rcpp"), asNamespace("Rcpp"), msg = "REnvironment::base_namespace" )
+	checkEquals( runit_namespace("Rcpp"), asNamespace("Rcpp"), msg = "REnvironment::base_namespace" )
 
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 	if( can.demangle ){
 		checkTrue(
-			tryCatch( { funx("----" ) ; FALSE}, "Rcpp::no_such_namespace" = function(e) TRUE ),
+			tryCatch( { runit_namespace("----" ) ; FALSE}, "Rcpp::no_such_namespace" = function(e) TRUE ),
 			msg = "Environment::namespace_env(no namespace) -> exception)" )
 	} else {
 		checkTrue(
-			tryCatch( { funx("----" ) ; FALSE}, error = function(e) TRUE ),
+			tryCatch( { runit_namespace("----" ) ; FALSE}, error = function(e) TRUE ),
 			msg = "Environment::namespace_env(no namespace) -> exception)" )
 	}
 }
 
 test.environment.constructor.SEXP <- function(){
-	funx <- runit_env_SEXP
-	checkEquals( funx( globalenv() ), globalenv(), msg = "Environment( environment ) - 1" )
-	checkEquals( funx( baseenv() ), baseenv(), msg = "Environment( environment ) - 2" )
-	checkEquals( funx( asNamespace("Rcpp") ), asNamespace("Rcpp"), msg = "Environment( environment ) - 3" )
+	checkEquals( runit_env_SEXP( globalenv() ), globalenv(), msg = "Environment( environment ) - 1" )
+	checkEquals( runit_env_SEXP( baseenv() ), baseenv(), msg = "Environment( environment ) - 2" )
+	checkEquals( runit_env_SEXP( asNamespace("Rcpp") ), asNamespace("Rcpp"), msg = "Environment( environment ) - 3" )
 
-	checkEquals( funx( ".GlobalEnv" ), globalenv(), msg = "Environment( character ) - 1" )
-	checkEquals( funx( "package:base" ), baseenv(), msg = "Environment( character ) - 2" )
-	checkEquals( funx( "package:Rcpp" ), as.environment("package:Rcpp") , msg = 'Environment( "package:Rcpp") ' )
+	checkEquals( runit_env_SEXP( ".GlobalEnv" ), globalenv(), msg = "Environment( character ) - 1" )
+	checkEquals( runit_env_SEXP( "package:base" ), baseenv(), msg = "Environment( character ) - 2" )
+	checkEquals( runit_env_SEXP( "package:Rcpp" ), as.environment("package:Rcpp") , msg = 'Environment( "package:Rcpp") ' )
 
-	checkEquals( funx(1L), globalenv(), msg = "Environment( SEXP{integer} )" )
+	checkEquals( runit_env_SEXP(1L), globalenv(), msg = "Environment( SEXP{integer} )" )
 }
 
 test.environment.constructor.stdstring <- function(){
-	funx <- runit_env_string
-	checkEquals( funx( ".GlobalEnv" ), globalenv(), msg = "Environment( std::string ) - 1" )
-	checkEquals( funx( "package:base" ), baseenv(), msg = "Environment( std::string ) - 2" )
-	checkEquals( funx( "package:Rcpp" ), as.environment("package:Rcpp") ,
+	checkEquals( runit_env_string( ".GlobalEnv" ), globalenv(), msg = "Environment( std::string ) - 1" )
+	checkEquals( runit_env_string( "package:base" ), baseenv(), msg = "Environment( std::string ) - 2" )
+	checkEquals( runit_env_string( "package:Rcpp" ), as.environment("package:Rcpp") ,
 		msg = 'Environment( std::string ) - 3' )
 
 }
 
 test.environment.constructor.int <- function(){
-	funx <- runit_env_int
 	for( i in 1:length(search())){
-		checkEquals( funx(i), as.environment(i), msg = sprintf("Environment(int) - %d", i) )
+		checkEquals( runit_env_int(i), as.environment(i), msg = sprintf("Environment(int) - %d", i) )
 	}
 }
 
 test.environment.remove <- function(){
-	funx <- runit_remove
 	e <- new.env( )
 	e$a <- 1
 	e$b <- 2
-	checkTrue( funx( e, "a" ), msg = "Environment::remove" )
+	checkTrue( runit_remove( e, "a" ), msg = "Environment::remove" )
 	checkEquals( ls(envir=e), "b", msg = "check that the element was removed" )
-	checkException( funx(e, "xx"), msg = "Environment::remove no such binding" )
+	checkException( runit_remove(e, "xx"), msg = "Environment::remove no such binding" )
 	lockBinding( "b", e )
-	checkException( funx(e, "b"), msg = "Environment::remove binding is locked" )
+	checkException( runit_remove(e, "b"), msg = "Environment::remove binding is locked" )
 	checkEquals( ls(envir=e), "b", msg = "check that the element was not removed" )
 
 }
 
 test.environment.parent <- function(){
-	funx <- runit_parent
-
 	e <- new.env( parent = emptyenv() )
 	f <- new.env( parent = e )
-	checkEquals( funx(f), e, msg = "Environment::parent" )
-	checkEquals( funx(e), emptyenv() , msg = "Environment::parent" )
-
+	checkEquals( runit_parent(f), e, msg = "Environment::parent" )
+	checkEquals( runit_parent(e), emptyenv() , msg = "Environment::parent" )
 }
 
 test.environment.square <- function(){
-	funx <- runit_square
 	env <- new.env( )
 	env[["x"]] <- 10L
-	checkEquals( funx(env), list( 10L, 2L, "foo") )
+	checkEquals( runit_square(env), list( 10L, 2L, "foo") )
 
 }
 
 test.environment.Rcpp <- function(){
-	funx <- runit_Rcpp
-	checkEquals( funx(), asNamespace("Rcpp") , msg = "cached Rcpp namespace" )
+	checkEquals( runit_Rcpp(), asNamespace("Rcpp") , msg = "cached Rcpp namespace" )
 }
 
 test.environment.child <- function(){
-	funx <- runit_child
-	checkEquals( parent.env(funx()), globalenv(),
-		msg = "" )
+	checkEquals( parent.env(runit_child()), globalenv(), msg = "child environment" )
 }
 
 

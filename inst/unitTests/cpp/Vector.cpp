@@ -676,6 +676,11 @@ List CharacterVectorEqualityOperator( CharacterVector x, CharacterVector y){
     return List::create(eq, neq) ;
 }
 
+// [[Rcpp::export]]
+List List_rep_ctor(IntegerVector x){
+    return List(3, x) ;
+}
+
 #if defined(HAS_INIT_LISTS)
     RawVector raw_initializer_list(){
         RawVector x = {0,1,2,3} ;

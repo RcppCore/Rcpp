@@ -99,6 +99,20 @@ namespace Rcpp{
             return *obj ;
         }
         
+        /** handling T such that T is a reference of a class handled by a module */
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_reference_tag ){
+            typedef typename traits::remove_reference<T>::type KLASS ;
+            KLASS* obj = as_module_object<KLASS>(x) ;
+            return *obj ;
+        }
+        
+        /** handling T such that T is a reference of a class handled by a module */
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_const_reference_tag ){
+            typedef typename traits::remove_const_and_reference<T>::type KLASS ;
+            KLASS* obj = as_module_object<KLASS>(x) ;
+            return const_cast<T>( *obj ) ;
+        }
+        
         /** handling enums by converting to int first */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_enum_tag ){
             return T( primitive_as<int>(x) ) ;
