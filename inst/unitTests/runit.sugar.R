@@ -22,10 +22,7 @@
 
 if (.runThisTest) {
 
-.setUp <- function() {
-    #sourceCpp( system.file( "unitTests/cpp/sugar.cpp", package = "Rcpp") )
-    sourceCpp(file.path(pathRcppTests, "cpp/sugar.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup( "sugar.cpp" ) 
 
 test.sugar.abs <- function( ){
 	x <- rnorm(10)
@@ -727,6 +724,28 @@ test.clamp <- function(){
         runit_clamp( -1, seq(-3,3, length=100), 1 ), 
         r_clamp( -1, seq(-3,3, length=100), 1 )
     )
+}
+
+test.vector.scalar.ops <- function( ){
+    x <- rnorm(10)
+    checkEquals(vector_scalar_ops(x), list(x + 2, 2 - x, x * 2, 2 / x), "sugar vector scalar operations")
+}
+
+test.vector.scalar.logical <- function( ){
+    x <- rnorm(10) + 2
+    checkEquals(vector_scalar_logical(x), list(x < 2, 2 > x, x <= 2, 2 != x), "sugar vector scalar logical operations")
+}
+
+test.vector.vector.ops <- function( ){
+    x <- rnorm(10)
+    y <- runif(10)
+    checkEquals(vector_vector_ops(x,y), list(x + y, y - x, x * y, y / x), "sugar vector vector operations")
+}
+
+test.vector.vector.logical <- function( ){
+    x <- rnorm(10)
+    y <- runif(10)
+    checkEquals(vector_vector_logical(x,y), list(x < y, x > y, x <= y, x >= y, x == y, x != y), "sugar vector vector operations")
 }
 
 }
