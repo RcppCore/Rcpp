@@ -29,7 +29,7 @@ int as_int( SEXP x){ return as<int>( x ); }
 double as_double( SEXP x){ return as<double>( x ); }
 
 // [[Rcpp::export]]
-Rbyte as_Rbyte( SEXP x){ return as<Rbyte>( x ); }
+Rbyte as_raw( SEXP x){ return as<Rbyte>( x ); }
 
 // [[Rcpp::export]]
 bool as_bool( SEXP x){ return as<bool>( x ); }
