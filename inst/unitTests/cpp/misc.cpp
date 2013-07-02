@@ -22,6 +22,8 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 using namespace std;
+#include <iostream>
+#include <fstream>
 
 class simple {
     Rcpp::Dimension dd;
@@ -82,5 +84,26 @@ LogicalVector has_iterator_( ){
         (bool)Rcpp::traits::has_iterator< std::pair<std::string,int> >::value, 
         (bool)Rcpp::traits::has_iterator< Rcpp::Symbol >::value 
         );
+}
+
+// [[Rcpp::export]]
+void test_rcout(std::string tfile, std::string teststring){
+    // define and open testfile
+    std::ofstream testfile(tfile.c_str());
+    
+    // save output buffer of the Rcout stream
+    std::streambuf* Rcout_buffer = Rcout.rdbuf();
+    
+    // redirect ouput into testfile
+    Rcout.rdbuf( testfile.rdbuf() );
+    
+    // write a test string to the file
+    Rcout << teststring << std::endl;
+    
+    // restore old output buffer
+    Rcout.rdbuf(Rcout_buffer);
+    
+    // close testfile
+    testfile.close();
 }
 
