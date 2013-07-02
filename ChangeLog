@@ -3,6 +3,7 @@
         * include/Rcpp/vector/Vector.h: fill__dispatch was mispelled (as
         fill_dispatch) for the non trivial case, so it did not work
         * unitTests/runit.Matrix.R: using sourceCpp
+        * unitTests/runit.misc.R: using sourceCpp
         * unitTests/runit.Vector.R: testing List( int, IntegerVector ) which 
         eventually uses fill__dispatch
         * include/Rcpp/traits/r_type_traits.h: support for as<T&> and as<const T&>
