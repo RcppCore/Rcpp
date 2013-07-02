@@ -21,12 +21,10 @@
 
 if (.runThisTest) {
 
-.setUp <- function() {
-    sourceCpp(file.path(pathRcppTests, "cpp/Reference.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup( "Reference.cpp" )
 
 test.Reference <- function(){
-    Instrument <-setRefClass(
+    Instrument <- setRefClass(
        Class="Instrument",
        fields=list("id"="character", "description"="character")
     )
@@ -36,6 +34,5 @@ test.Reference <- function(){
     
     checkEquals( runit_Reference_getId(instrument), "AAPL", msg = ".field" )
 }
-
 
 }
