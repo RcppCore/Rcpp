@@ -597,6 +597,14 @@ test.CharacterVector.equality.operator <- function(){
         msg = 'CharacterVector element equality operator' )    
 }
 
+test.List.rep.ctor <- function(){
+    x <- 1:10
+    res <- List_rep_ctor(x)
+    expected <- rep( list(x), 3 )
+    checkEquals( res, expected, msg = "List rep constructor" )
+}
+
+
 # test graveyard. Might come back when we can use C++11
 
 # if( Rcpp:::capabilities()[["initializer lists"]] ){

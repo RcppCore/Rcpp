@@ -1,3 +1,25 @@
+2013-07-02  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/Vector.h: fill__dispatch was mispelled (as
+        fill_dispatch) for the non trivial case, so it did not work
+        * unitTests/runit.Matrix.R: using sourceCpp
+        * unitTests/runit.Vector.R: testing List( int, IntegerVector ) which 
+        eventually uses fill__dispatch
+        * include/Rcpp/traits/r_type_traits.h: support for as<T&> and as<const T&>
+        when T is module exposed
+        * include/Rcpp/as.h: as<T&> and as<const T&> when T is module exposed
+        * include/Rcpp/module/Module_generated_CppFunction.h: removed the 
+        remove_const_and_reference since as<T&> and as<const T&> is supported
+
+2013-07-01  Romain Francois <romain@r-enthusiasts.com>
+
+        * R/unit.test.R: added helper function Rcpp:::unit_test_setup to avoid
+        some boiler plate code in unit test files. See e.g. runit.Function.R for
+        an example
+        * unitTests/runit.as.R: using sourceCpp
+        * unitTests/runit.Function.R: using sourceCpp
+        * unitTests/runit.DataFrame.R: remove dependency on datasets
+
 2013-06-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp: Also test for #defined(__sun) when checking for system

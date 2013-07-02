@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,133 +22,49 @@
 
 if (.runThisTest) {
 
-definitions <- function(){
-    list(
-        	"function_" = list(
-        		signature(x="ANY"), 'return Function(x) ;'
-        	),
-        	"function_variadic" = list(
-        		signature(x="function", y = "ANY"),
-        		'
-				Function sort(x) ;
-				return sort( y, Named("decreasing", true) ) ;
-				// return sort( y ) ;
-				'
-        	),
-        	"function_env" = list(
-        		signature(x="function"),
-        		'
-					Function fun(x) ;
-					return fun.environment() ;
-				'
-        	),
-        	"function_unarycall" = list(
-        		signature(y = "list" ),
-        		'
-				Function len( "length" ) ;
-				List x(y) ;
-				IntegerVector output( x.size() ) ;
-				std::transform(
-					x.begin(), x.end(),
-					output.begin(),
-					unary_call<IntegerVector,int>(len)
-					) ;
-				return output ;
-				'
-        	),
-        	"function_binarycall" = list(
-        		signature(x1 = "list", x2 = "integer" ),
-        		'
-					Function pmin( "pmin" ) ;
-					List list(x1) ;
-					IntegerVector vec(x2) ;
-					List output( list.size() ) ;
-					std::transform(
-						list.begin(), list.end(),
-						vec.begin(),
-						output.begin(),
-						binary_call<IntegerVector,int,IntegerVector>(pmin)
-						) ;
-					return output ;
-				'
-        	),
-        	"function_namespace_env" = list(
-        		signature(),
-        		'
-                Environment ns = Environment::namespace_env( "stats" ) ;
-                Function fun = ns[".asSparse"] ;  // accesses a non-exported function
-                return fun;
-				'
-        	)
-        )
-}
-
-cxxargs <- function(){
-    ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x","")
-}
-
-.setUp <- function() {
-	suppressMessages( require( stats ) )
-    tests <- ".rcpp.Function"
-    if( ! exists( tests, globalenv() )) {
-        ## definition of all the functions at once
-        fun <- Rcpp:::compile_unit_tests(
-            definitions(),
-            cxxargs = cxxargs()
-        )
-        assign( tests, fun, globalenv() )
-    }
-}
-
+.setUp <- Rcpp:::unit_test_setup( "Function.cpp", "stats" )
 
 test.Function <- function(){
-	funx <- .rcpp.Function$function_
-    checkEquals( funx( rnorm ), rnorm, msg = "Function( CLOSXP )" )
-	checkEquals( funx( is.function ), is.function, msg = "Pairlist( BUILTINSXP )" )
-
-	checkException( funx(1:10), msg = "Function( INTSXP) " )
-	checkException( funx(TRUE), msg = "Function( LGLSXP )" )
-	checkException( funx(1.3), msg = "Function( REALSXP) " )
-	checkException( funx(as.raw(1) ), msg = "Function( RAWSXP)" )
-	checkException( funx(new.env()), msg = "Function not compatible with environment" )
-
+    checkEquals( function_( rnorm ), rnorm, msg = "Function( CLOSXP )" )
+    checkEquals( function_( is.function ), is.function, msg = "Pairlist( BUILTINSXP )" )
+    
+    checkException( function_(1:10), msg = "Function( INTSXP) " )
+    checkException( function_(TRUE), msg = "Function( LGLSXP )" )
+    checkException( function_(1.3), msg = "Function( REALSXP) " )
+    checkException( function_(as.raw(1) ), msg = "Function( RAWSXP)" )
+    checkException( function_(new.env()), msg = "Function not compatible with environment" )
 }
 
 test.Function.variadic <- function(){
-	funx <- .rcpp.Function$function_variadic
-    checkEquals( funx( sort, sample(1:20) ), 20:1, msg = "calling function" )
-	checkException( funx(sort, sort), msg = "Function, R error -> exception" )
+    checkEquals( function_variadic( sort, sample(1:20) ), 20:1, msg = "calling function" )
+    checkException( function_variadic(sort, sort), msg = "Function, R error -> exception" )
 }
 
 test.Function.env <- function(){
-	funx <- .rcpp.Function$function_env
-    checkEquals( funx(rnorm), asNamespace("stats" ), msg = "Function::environment" )
-	checkException( funx(is.function),
+    checkEquals( function_env(rnorm), asNamespace("stats" ), msg = "Function::environment" )
+	checkException( function_env(is.function),
 		msg = "Function::environment( builtin) : exception" )
-	checkException( funx(`~`),
+	checkException( function_env(`~`),
 		msg = "Function::environment( special) : exception" )
 }
 
 test.Function.unary.call <- function(){
-	funx <- .rcpp.Function$function_unarycall
 	checkEquals(
-		funx( lapply( 1:10, function(n) seq(from=n, to = 0 ) ) ),
+		function_unarycall( lapply( 1:10, function(n) seq(from=n, to = 0 ) ) ),
 		2:11 ,
-		msg = "unary_call(Fcuntion)" )
+		msg = "unary_call(Function)" )
 }
 
 test.Function.binary.call <- function(){
-	funx <- .rcpp.Function$function_binarycall
 	data <- lapply( 1:10, function(n) seq(from=n, to = 0 ) )
-	res <- funx( data , rep(5L,10) )
+	res <- function_binarycall( data , rep(5L,10) )
 	expected <- lapply( data, pmin, 5 )
 	checkEquals( res, expected,
 		msg = "binary_call(Function)" )
 }
 
 test.Function.namespace.env <- function() {
-    funx <- .rcpp.Function$function_namespace_env
-    exportedfunc <- funx()
+    exportedfunc <- function_namespace_env()
     checkEquals( stats:::.asSparse, exportedfunc, msg = "namespace_env(Function)" )
 }
 

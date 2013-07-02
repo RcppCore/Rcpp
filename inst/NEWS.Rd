@@ -10,6 +10,15 @@
       \item Add \code{#defined(__sun)} to lists of operating systems to
       test for when checking for lack of \code{backtrace()} needed for
       stack traces.
+      \item \code{as<T&>} and \code{as<const T&>} is now supported, when 
+      T is a class exposed by modules, i.e. with \code{RCPP_EXPOSED_CLASS}
+    }
+
+    \item Changes in Modules:
+    \itemize{
+      \item We can now expose functions and methods that take
+      \code{T&} or \code{const T&} as arguments. In these situations
+      objects are no longer copied as they used to be. 
     }
 
     \item Deprecation of \code{RCPP_FUNCTION_*}:

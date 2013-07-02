@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -37,3 +37,16 @@ compile_unit_tests <- function( definitions, includes = "", cxxargs = "" ){
     )
     fun
 }
+
+unit_test_setup <- function(file, packages = NULL) {
+	function(){
+	    if( !is.null(packages) ){
+	        for( p in packages ){
+	            suppressMessages( require( p, character.only = TRUE ) )
+	        }
+	    }
+	    if (!exists("pathRcppTests")) pathRcppTests <- getwd()
+        sourceCpp(file.path(pathRcppTests, "cpp", file ))
+    }
+}
+

@@ -494,7 +494,7 @@ private:
     inline void fill_or_generate__impl( const T& t, traits::false_type) ;
 
     template <typename U>
-    void fill_dispatch( traits::false_type, const U& u){
+    void fill__dispatch( traits::false_type, const U& u){
         // when this is not trivial, this is SEXP
         SEXP elem = PROTECT( converter_type::get( u ) ); 
         iterator it(begin());

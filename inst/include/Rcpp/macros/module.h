@@ -2,7 +2,8 @@
 //
 // macros.h: Rcpp R/C++ interface class library -- helper macros for Rcpp modules
 //
-// Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012-2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013       Rice University
 //
 // This file is part of Rcpp.
 //
@@ -26,7 +27,19 @@
  *  as a parameter of a function or method exposed by modules. This defines
  *  the necessary trait that makes the class as<>'able
  */
-#define RCPP_EXPOSED_AS(CLASS)   namespace Rcpp{ namespace traits{ template<> struct r_type_traits< CLASS >{ typedef r_type_module_object_tag r_category ; } ; }}
+#define RCPP_EXPOSED_AS(CLASS)                                         \
+    namespace Rcpp{ namespace traits{                                  \
+    template<> struct r_type_traits< CLASS >{                          \
+        typedef r_type_module_object_tag r_category ;                  \
+    } ;                                                                \
+    template<> struct r_type_traits< CLASS& >{                         \
+        typedef r_type_module_object_reference_tag r_category ;        \
+    } ;                                                                \
+    template<> struct r_type_traits< const CLASS& >{                   \
+        typedef r_type_module_object_const_reference_tag r_category ;  \
+    } ;                                                                \
+    }}
+    
 #define RCPP_EXPOSED_WRAP(CLASS) namespace Rcpp{ namespace traits{ template<> struct wrap_type_traits< CLASS >{typedef wrap_type_module_object_tag wrap_category ; } ; }}
 
 #define RCPP_EXPOSED_CLASS_NODECL(CLASS) \
