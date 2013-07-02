@@ -37,7 +37,7 @@ std::string matrix_character( CharacterMatrix m){
     for( size_t i=0 ; i<4; i++){
         	trace += m(i,i) ;
     }
-    return wrap( trace ) ;
+    return trace;
 }
 
 // [[Rcpp::export]]
@@ -66,7 +66,7 @@ NumericMatrix matrix_numeric_ctor1(){
 
 // [[Rcpp::export]]
 NumericMatrix matrix_numeric_ctor2(){
-    return NumericMatrix m(3,3);
+    return NumericMatrix(3,3);
 }
 
 // [[Rcpp::export]]
@@ -89,7 +89,7 @@ IntegerVector integer_matrix_indexing_lhs( IntegerVector m ){
 // [[Rcpp::export]]
 double runit_NumericMatrix_row( NumericMatrix m){
     NumericMatrix::Row first_row = m.row(0) ;
-    return wrap( std::accumulate( first_row.begin(), first_row.end(), 0.0 ) ) ;
+    return std::accumulate( first_row.begin(), first_row.end(), 0.0 ) ;
 }
 
 // [[Rcpp::export]]
@@ -115,7 +115,7 @@ IntegerVector runit_GenericMatrix_row( GenericMatrix m ){
 // [[Rcpp::export]]
 double runit_NumericMatrix_column( NumericMatrix m ){
     NumericMatrix::Column col = m.column(0) ;
-    return wrap( std::accumulate( col.begin(), col.end(), 0.0 ) ) ;
+    return std::accumulate( col.begin(), col.end(), 0.0 ) ;
 }
 
 // [[Rcpp::export]]
@@ -135,9 +135,9 @@ NumericMatrix runit_NumericMatrix_cumsum( NumericMatrix input ){
 std::string runit_CharacterMatrix_column( CharacterMatrix m){
     CharacterMatrix::Column col = m.column(0) ;
     std::string res(
-    	std::accumulate(
-    		col.begin(), col.end(), std::string() ) ) ;
-    return wrap(res) ;
+        std::accumulate( col.begin(), col.end(), std::string() )
+    ) ;
+    return res ;
 }
 
 // [[Rcpp::export]]
