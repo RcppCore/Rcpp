@@ -22,8 +22,8 @@
 	gc()
 }
 
-# .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-.runThisTest <- FALSE 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+# .runThisTest <- FALSE 
 
 if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
 
