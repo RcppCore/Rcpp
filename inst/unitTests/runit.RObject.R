@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2009 - 2012  Romain Francois and Dirk Eddelbuettel
+# Copyright (C) 2009 - 2013  Romain Francois and Dirk Eddelbuettel
 #
 # This file is part of Rcpp.
 #
@@ -22,332 +22,167 @@
 
 if (.runThisTest) {
 
-definitions <- function(){
-    list("asDouble"=list(
-                  signature(x="numeric"),
-                  'double d = as<double>(x);
-				   return(wrap( 2*d ) );')
-
-                  ,"asInt"=list(
-                   signature(x="numeric"),
-                   'int i = as<int>(x) ;
-					return(wrap( 2*i ) ); ')
-
-                  ,"asStdString"=list(
-                   signature(x="character"),
-                   'std::string s = as<std::string>(x) ;
-	                return(wrap( s+s ) );')
-
-                  ,"asRaw"=list(
-                   signature(x="raw"),
-                   'Rbyte i = as<Rbyte>(x);
-	                return(wrap( (Rbyte)(2*i) ) ); ')
-
-                  ,"asLogical"=list(
-                   signature(x="logical"),
-                   'bool b = as<bool>(x);
-					return(wrap( !b ));')
-
-                  ,"asStdVectorInt"=list(
-                   signature(x="numeric"),
-                   'std::vector<int> iv = as< std::vector<int> >(x);
-				    for (size_t i=0; i<iv.size(); i++) {
-				        iv[i] = 2*iv[i];
-    				}
-				    return(Rcpp::wrap( iv ) );')
-
-                  ,"asStdVectorDouble"=list(
-                   signature(x="numeric"),
-                   'std::vector<double> iv = as< std::vector<double> >( x );
-					for (size_t i=0; i<iv.size(); i++) {
-	        			iv[i] = 2*iv[i];
-	    			}
-				 	return(Rcpp::wrap( iv ));')
-
-                  ,"asStdVectorRaw"=list(
-                   signature(x="raw"),
-                   'std::vector<Rbyte> iv = as< std::vector<Rbyte> >( x );
-					for (size_t i=0; i<iv.size(); i++) {
-			    	    iv[i] = 2*iv[i];
-			    	}
-			 		return(Rcpp::wrap( iv ));')
-
-                  ,"asStdVectorBool"=list(
-                   signature(x="logical"),
-                   'std::vector<bool> bv = as< std::vector<bool> >( x );
-					for (size_t i=0; i<bv.size(); i++) {
-		    			bv[i].flip() ;
-					}
-					return(Rcpp::wrap( bv ));')
-
-                  ,"asStdVectorString"=list(
-                   signature(x="character"),
-                   'std::vector<std::string> iv = as< std::vector<std::string> >( x );
-					for (size_t i=0; i<iv.size(); i++) {
-			    	    iv[i] = iv[i] + iv[i];
-			    	}
-				 	return(Rcpp::wrap( iv ));')
-
-                  ,"stdsetint"=list(
-                   signature(),
-                   'std::set<int> iv ;
-					iv.insert( 0 ) ;
-					iv.insert( 1 ) ;
-					iv.insert( 0 ) ;
-					return Rcpp::wrap( iv );')
-
-                  ,"stdsetdouble"=list(
-                   signature(),
-                   'std::set<double> ds;
-					ds.insert( 0.0 );
-					ds.insert( 1.0 );
-					ds.insert( 0.0 );
-					return(Rcpp::wrap( ds )); ')
-
-                  ,"stdsetraw"=list(
-                   signature(),
-                   'std::set<Rbyte> bs ;
-					bs.insert( (Rbyte)0 ) ;
-					bs.insert( (Rbyte)1 ) ;
-					bs.insert( (Rbyte)0 ) ;
-					return(Rcpp::wrap( bs )); ')
-
-                  ,"stdsetstring"=list(
-                   signature(),
-                   'std::set<std::string> ss ;
-					ss.insert( "foo" ) ;
-					ss.insert( "bar" ) ;
-					ss.insert( "foo" ) ;
-					return(Rcpp::wrap( ss )); ')
-
-                  ,"attributeNames"=list(
-                   signature(x="data.frame"),
-                   'std::vector<std::string> iv = RObject(x).attributeNames();
-					return(wrap( iv ));' )
-
-                  ,"hasAttribute"=list(
-                   signature(x="data.frame"),
-                   'bool has_class = RObject(x).hasAttribute( "class" ) ;
-					return wrap( has_class ) ;')
-
-                  ,"attr"=list(
-                   signature(x="data.frame"),
-                   'return RObject(x).attr( "row.names" ) ;')
-
-                  ,"attr_set"=list(
-                   signature(),
-                   'RObject y = wrap("blabla") ;
-	                y.attr("foo") = 10 ;
-					return y ; ')
-
-                  ,"isNULL"=list(
-                   signature(x="ANY"),
-                   'bool is_null = RObject(x).isNULL() ;
-					return wrap( is_null ) ; ')
-
-				  ,"inherits" = list(
-                   signature(x = "ANY" ),
-				   'RObject xx(x) ;
-				    return wrap( xx.inherits( "foo" ) ) ;
-				   ')
-
-                  )
-
-}
-
-cxxargs <- function(){
-    ifelse(Rcpp:::capabilities()[["initializer lists"]],"-std=c++0x","")
-}
-
-.setUp <- function(){
-    suppressMessages( require( datasets ) )
-    data( iris )
-
-    tests <- ".Rcpp.RObject"
-    if( ! exists(tests, globalenv() )) {
-        fun <- Rcpp:::compile_unit_tests(
-            definitions(),
-            cxxargs = cxxargs()
-        )
-        assign( tests, fun, globalenv() )
-    }
-}
+.setUp <- Rcpp:::unit_test_setup( "RObject.cpp" ) 
 
 test.RObject.asDouble <- function(){
-	funx <- .Rcpp.RObject$asDouble
-	checkEquals( funx(2.123), 4.246, msg = "as<double>( REALSXP ) " )
-	checkEquals( funx(2L), 4.0, msg = "as<double>( INTSXP ) " )
-	checkEquals( funx(as.raw(2L)), 4.0, msg = "as<double>( RAWSXP )" )
-	checkException( funx(x='2'), msg = "as<double>( STRSXP ) -> exception" )
-	checkException( funx(x=2:3), msg = "as<double> expects the vector to be of length 1" )
+	checkEquals( asDouble(2.123), 4.246, msg = "as<double>( REALSXP ) " )
+	checkEquals( asDouble(2L), 4.0, msg = "as<double>( INTSXP ) " )
+	checkEquals( asDouble(as.raw(2L)), 4.0, msg = "as<double>( RAWSXP )" )
+	checkException( asDouble('2'), msg = "as<double>( STRSXP ) -> exception" )
+	checkException( asDouble(2:3), msg = "as<double> expects the vector to be of length 1" )
 }
 
 test.RObject.asInt <- function(){
-	funx <- .Rcpp.RObject$asInt
-	checkEquals( funx(2.123), 4L, msg = "as<int>( REALSXP )" )
-	checkEquals( funx(2), 4L, msg = "as<int>( REALSXP )" )
-	checkEquals( funx(2L), 4.0, msg = "as<int>( INTSXP )" )
-	checkEquals( funx(as.raw(2L)), 4.0, msg = "as<int>( RAWSXP )" )
-	checkException( funx(x='2'), msg = "as<int> can not convert character" )
-	checkException( funx(x=2:3), msg = "as<int> expects the vector to be of length 1" )
+	checkEquals( asInt(2.123), 4L, msg = "as<int>( REALSXP )" )
+	checkEquals( asInt(2), 4L, msg = "as<int>( REALSXP )" )
+	checkEquals( asInt(2L), 4.0, msg = "as<int>( INTSXP )" )
+	checkEquals( asInt(as.raw(2L)), 4.0, msg = "as<int>( RAWSXP )" )
+	checkException( asInt( '2'), msg = "as<int> can not convert character" )
+	checkException( asInt( 2:3), msg = "as<int> expects the vector to be of length 1" )
 }
 
 test.RObject.asStdString <- function(){
-	funx <- .Rcpp.RObject$asStdString
-	checkEquals( funx("abc"), "abcabc", msg = "as<std::string>" )
-	checkException( funx(NULL), msg = "as<std::string> expects character vector" )
-	checkException( funx(0L), msg = "as<std::string> expects character vector" )
-	checkException( funx(0.1), msg = "as<std::string> expects character vector" )
-	checkException( funx(as.raw(0L)), msg = "as<std::string> expects character vector" )
+	checkEquals( asStdString("abc"), "abcabc", msg = "as<std::string>" )
+	checkException( asStdString(NULL), msg = "as<std::string> expects character vector" )
+	checkException( asStdString(0L), msg = "as<std::string> expects character vector" )
+	checkException( asStdString(0.1), msg = "as<std::string> expects character vector" )
+	checkException( asStdString(as.raw(0L)), msg = "as<std::string> expects character vector" )
 
-	checkException( funx(letters), msg = "as<std::string> expects single string" )
+	checkException( asStdString(letters), msg = "as<std::string> expects single string" )
 }
 
 test.RObject.asRaw <- function(){
-	funx <- .Rcpp.RObject$asRaw
-	checkEquals( funx(1L), as.raw(2L), msg = "as<Rbyte>(integer)" )
-	checkEquals( funx(1.3), as.raw(2L), msg = "as<Rbyte>(numeric)" )
-	checkEquals( funx(as.raw(1)), as.raw(2L), msg = "as<Rbyte>(raw)" )
-	checkException( funx(NULL) , msg = "as<Rbyte>(NULL) -> exception" )
-	checkException( funx("foo") , msg = "as<Rbyte>(character) -> exception" )
-	checkException( funx(1:2), msg = "as<Rbyte>(>1 integer) -> exception" )
-	checkException( funx(as.numeric(1:2)), msg = "as<Rbyte>(>1 numeric) -> exception" )
-	checkException( funx(as.raw(1:3)), msg = "as<Rbyte>(>1 raw) -> exception" )
-	checkException( funx(integer(0)), msg = "as<Rbyte>(0 integer) -> exception" )
-	checkException( funx(numeric(0)), msg = "as<Rbyte>(0 numeric) -> exception" )
-	checkException( funx(raw(0)), msg = "as<Rbyte>(0 raw) -> exception" )
+	checkEquals( asRaw(1L), as.raw(2L), msg = "as<Rbyte>(integer)" )
+	checkEquals( asRaw(1.3), as.raw(2L), msg = "as<Rbyte>(numeric)" )
+	checkEquals( asRaw(as.raw(1)), as.raw(2L), msg = "as<Rbyte>(raw)" )
+	checkException( asRaw(NULL) , msg = "as<Rbyte>(NULL) -> exception" )
+	checkException( asRaw("foo") , msg = "as<Rbyte>(character) -> exception" )
+	checkException( asRaw(1:2), msg = "as<Rbyte>(>1 integer) -> exception" )
+	checkException( asRaw(as.numeric(1:2)), msg = "as<Rbyte>(>1 numeric) -> exception" )
+	checkException( asRaw(as.raw(1:3)), msg = "as<Rbyte>(>1 raw) -> exception" )
+	checkException( asRaw(integer(0)), msg = "as<Rbyte>(0 integer) -> exception" )
+	checkException( asRaw(numeric(0)), msg = "as<Rbyte>(0 numeric) -> exception" )
+	checkException( asRaw(raw(0)), msg = "as<Rbyte>(0 raw) -> exception" )
 }
 
 test.RObject.asLogical <- function(){
-	funx <- .Rcpp.RObject$asLogical
-	checkTrue( !funx(TRUE), msg = "as<bool>(TRUE) -> true" )
-	checkTrue( funx(FALSE), msg = "as<bool>(FALSE) -> false" )
-	checkTrue( !funx(1L), msg = "as<bool>(1L) -> true" )
-	checkTrue( funx(0L), msg = "as<bool>(0L) -> false" )
-	checkTrue( !funx(1.0), msg = "as<bool>(1.0) -> true" )
-	checkTrue( funx(0.0), msg = "as<bool>0.0) -> false" )
-	checkTrue( !funx(as.raw(1)), msg = "as<bool>(aw.raw(1)) -> true" )
-	checkTrue( funx(as.raw(0)), msg = "as<bool>(as.raw(0)) -> false" )
+	checkTrue( !asLogical(TRUE), msg = "as<bool>(TRUE) -> true" )
+	checkTrue( asLogical(FALSE), msg = "as<bool>(FALSE) -> false" )
+	checkTrue( !asLogical(1L), msg = "as<bool>(1L) -> true" )
+	checkTrue( asLogical(0L), msg = "as<bool>(0L) -> false" )
+	checkTrue( !asLogical(1.0), msg = "as<bool>(1.0) -> true" )
+	checkTrue( asLogical(0.0), msg = "as<bool>0.0) -> false" )
+	checkTrue( !asLogical(as.raw(1)), msg = "as<bool>(aw.raw(1)) -> true" )
+	checkTrue( asLogical(as.raw(0)), msg = "as<bool>(as.raw(0)) -> false" )
 
-	checkException( funx(NULL), msg = "as<bool>(NULL) -> exception" )
-	checkException( funx(c(TRUE,FALSE)), msg = "as<bool>(>1 logical) -> exception" )
-	checkException( funx(1:2), msg = "as<bool>(>1 integer) -> exception" )
-	checkException( funx(1:2+.1), msg = "as<bool>(>1 numeric) -> exception" )
-	checkException( funx(as.raw(1:2)), msg = "as<bool>(>1 raw) -> exception" )
+	checkException( asLogical(NULL), msg = "as<bool>(NULL) -> exception" )
+	checkException( asLogical(c(TRUE,FALSE)), msg = "as<bool>(>1 logical) -> exception" )
+	checkException( asLogical(1:2), msg = "as<bool>(>1 integer) -> exception" )
+	checkException( asLogical(1:2+.1), msg = "as<bool>(>1 numeric) -> exception" )
+	checkException( asLogical(as.raw(1:2)), msg = "as<bool>(>1 raw) -> exception" )
 
-	checkException( funx(integer(0)), msg = "as<bool>(0 integer) -> exception" )
-	checkException( funx(numeric(0)), msg = "as<bool>(0 numeric) -> exception" )
-	checkException( funx(raw(0)), msg = "as<bool>(0 raw) -> exception" )
+	checkException( asLogical(integer(0)), msg = "as<bool>(0 integer) -> exception" )
+	checkException( asLogical(numeric(0)), msg = "as<bool>(0 numeric) -> exception" )
+	checkException( asLogical(raw(0)), msg = "as<bool>(0 raw) -> exception" )
 }
 
 test.RObject.asStdVectorInt <- function(){
-	funx <- .Rcpp.RObject$asStdVectorInt
-    checkEquals( funx(x=2:5), 2:5*2L, msg = "as< std::vector<int> >(integer)" )
-    checkEquals( funx(x=2:5+.1), 2:5*2L, msg = "as< std::vector<int> >(numeric)" )
-    checkEquals( funx(x=as.raw(2:5)), 2:5*2L, msg = "as< std::vector<int> >(raw)" )
-    checkException( funx("foo"), msg = "as< std::vector<int> >(character) -> exception" )
-    checkException( funx(NULL), msg = "as< std::vector<int> >(NULL) -> exception" )
+    checkEquals( asStdVectorInt(x=2:5), 2:5*2L, msg = "as< std::vector<int> >(integer)" )
+    checkEquals( asStdVectorInt(x=2:5+.1), 2:5*2L, msg = "as< std::vector<int> >(numeric)" )
+    checkEquals( asStdVectorInt(x=as.raw(2:5)), 2:5*2L, msg = "as< std::vector<int> >(raw)" )
+    checkException( asStdVectorInt("foo"), msg = "as< std::vector<int> >(character) -> exception" )
+    checkException( asStdVectorInt(NULL), msg = "as< std::vector<int> >(NULL) -> exception" )
 }
 
 test.RObject.asStdVectorDouble <- function(){
-	funx <- .Rcpp.RObject$asStdVectorDouble
-	checkEquals( funx(x=0.1+2:5), 2*(0.1+2:5), msg = "as< std::vector<double> >( numeric )" )
-	checkEquals( funx(x=2:5), 2*(2:5), msg = "as< std::vector<double> >(integer)" )
-	checkEquals( funx(x=as.raw(2:5)), 2*(2:5), msg = "as< std::vector<double> >(raw)" )
-	checkException( funx("foo"), msg = "as< std::vector<double> >(character) -> exception" )
-    checkException( funx(NULL), msg = "as< std::vector<double> >(NULL) -> exception" )
+    checkEquals( asStdVectorDouble(x=0.1+2:5), 2*(0.1+2:5), msg = "as< std::vector<double> >( numeric )" )
+    checkEquals( asStdVectorDouble(x=2:5), 2*(2:5), msg = "as< std::vector<double> >(integer)" )
+    checkEquals( asStdVectorDouble(x=as.raw(2:5)), 2*(2:5), msg = "as< std::vector<double> >(raw)" )
+    checkException( asStdVectorDouble("foo"), msg = "as< std::vector<double> >(character) -> exception" )
+    checkException( asStdVectorDouble(NULL), msg = "as< std::vector<double> >(NULL) -> exception" )
 }
 
 test.RObject.asStdVectorRaw <- function(){
-	funx <- .Rcpp.RObject$asStdVectorRaw
-	checkEquals( funx(x=as.raw(0:9)), as.raw(2*(0:9)), msg = "as< std::vector<Rbyte> >(raw)" )
-	checkEquals( funx(x=0:9), as.raw(2*(0:9)), msg = "as< std::vector<Rbyte> >( integer )" )
-	checkEquals( funx(x=as.numeric(0:9)), as.raw(2*(0:9)), msg = "as< std::vector<Rbyte> >(numeric)" )
-	checkException( funx("foo"), msg = "as< std::vector<Rbyte> >(character) -> exception" )
-    checkException( funx(NULL), msg = "as< std::vector<Rbyte> >(NULL) -> exception" )
-
+	checkEquals( asStdVectorRaw(x=as.raw(0:9)), as.raw(2*(0:9)), msg = "as< std::vector<Rbyte> >(raw)" )
+    checkEquals( asStdVectorRaw(x=0:9), as.raw(2*(0:9)), msg = "as< std::vector<Rbyte> >( integer )" )
+    checkEquals( asStdVectorRaw(x=as.numeric(0:9)), as.raw(2*(0:9)), msg = "as< std::vector<Rbyte> >(numeric)" )
+    checkException( asStdVectorRaw("foo"), msg = "as< std::vector<Rbyte> >(character) -> exception" )
+    checkException( asStdVectorRaw(NULL), msg = "as< std::vector<Rbyte> >(NULL) -> exception" )
 }
 
 test.RObject.asStdVectorBool <- function(){
-	funx <- .Rcpp.RObject$asStdVectorBool
-	checkEquals( funx(x=c(TRUE,FALSE)), c(FALSE, TRUE), msg = "as< std::vector<bool> >(logical)" )
-	checkEquals( funx(x=c(1L, 0L)), c(FALSE, TRUE), msg = "as< std::vector<bool> >(integer)" )
-	checkEquals( funx(x=c(1.0, 0.0)), c(FALSE, TRUE), msg = "as< std::vector<bool> >(numeric)" )
-	checkEquals( funx(x=as.raw(c(1,0))), c(FALSE, TRUE), msg = "as< std::vector<bool> >(raw)" )
-	checkException( funx("foo"), msg = "as< std::vector<bool> >(character) -> exception" )
-    checkException( funx(NULL), msg = "as< std::vector<bool> >(NULL) -> exception" )
+	checkEquals( asStdVectorBool(x=c(TRUE,FALSE)), c(FALSE, TRUE), msg = "as< std::vector<bool> >(logical)" )
+    checkEquals( asStdVectorBool(x=c(1L, 0L)), c(FALSE, TRUE), msg = "as< std::vector<bool> >(integer)" )
+    checkEquals( asStdVectorBool(x=c(1.0, 0.0)), c(FALSE, TRUE), msg = "as< std::vector<bool> >(numeric)" )
+    checkEquals( asStdVectorBool(x=as.raw(c(1,0))), c(FALSE, TRUE), msg = "as< std::vector<bool> >(raw)" )
+    checkException( asStdVectorBool("foo"), msg = "as< std::vector<bool> >(character) -> exception" )
+    checkException( asStdVectorBool(NULL), msg = "as< std::vector<bool> >(NULL) -> exception" )
 }
 
 test.RObject.asStdVectorString <- function(){
-	funx <- .Rcpp.RObject$asStdVectorString
-	checkEquals( funx(c("foo", "bar")), c("foofoo", "barbar"), msg = "as< std::vector<std::string> >(character)" )
-	checkException( funx(1L), msg = "as< std::vector<std::string> >(integer) -> exception" )
-	checkException( funx(1.0), msg = "as< std::vector<std::string> >(numeric) -> exception" )
-	checkException( funx(as.raw(1)), msg = "as< std::vector<std::string> >(raw) -> exception" )
-	checkException( funx(TRUE), msg = "as< std::vector<std::string> >(logical) -> exception" )
-	checkException( funx(NULL), msg = "as< std::vector<std::string> >(NULL) -> exception" )
+	checkEquals( asStdVectorString(c("foo", "bar")), c("foofoo", "barbar"), msg = "as< std::vector<std::string> >(character)" )
+	checkException( asStdVectorString(1L), msg = "as< std::vector<std::string> >(integer) -> exception" )
+	checkException( asStdVectorString(1.0), msg = "as< std::vector<std::string> >(numeric) -> exception" )
+	checkException( asStdVectorString(as.raw(1)), msg = "as< std::vector<std::string> >(raw) -> exception" )
+	checkException( asStdVectorString(TRUE), msg = "as< std::vector<std::string> >(logical) -> exception" )
+	checkException( asStdVectorString(NULL), msg = "as< std::vector<std::string> >(NULL) -> exception" )
 }
 
 test.RObject.stdsetint <- function(){
-	funx <- .Rcpp.RObject$stdsetint
-	checkEquals( funx(), c(0L, 1L), msg = "wrap( set<int> )" )
+	checkEquals( stdsetint(), c(0L, 1L), msg = "wrap( set<int> )" )
 }
 
 test.RObject.stdsetdouble <- function(){
-	funx <- .Rcpp.RObject$stdsetdouble
-	checkEquals( funx(), as.numeric(0:1), msg = "wrap( set<double>" )
+	checkEquals( stdsetdouble(), as.numeric(0:1), msg = "wrap( set<double>" )
 }
 
 test.RObject.stdsetraw <- function(){
-	funx <- .Rcpp.RObject$stdsetraw
-	checkEquals( funx(), as.raw(0:1), msg = "wrap(set<raw>)" )
+	checkEquals( stdsetraw(), as.raw(0:1), msg = "wrap(set<raw>)" )
 }
 
 test.RObject.stdsetstring <- function(){
-	funx <- .Rcpp.RObject$stdsetstring
-	checkEquals( funx(), c("bar", "foo"), msg = "wrap(set<string>)" )
+	checkEquals( stdsetstring(), c("bar", "foo"), msg = "wrap(set<string>)" )
 }
 
 test.RObject.attributeNames <- function(){
-	funx <- .Rcpp.RObject$attributeNames
-	checkTrue( all( c("names","row.names","class") %in% funx(iris)), msg = "RObject.attributeNames" )
+	df <- data.frame( x = 1:10, y = 1:10 )
+	checkTrue( all( c("names","row.names","class") %in% attributeNames(df)), msg = "RObject.attributeNames" )
 }
 
 test.RObject.hasAttribute <- function(){
-	funx <- .Rcpp.RObject$hasAttribute
-	checkTrue( funx( iris ), msg = "RObject.hasAttribute" )
+	df <- data.frame( x = 1:10 )
+	checkTrue( hasAttribute( df ), msg = "RObject.hasAttribute" )
 }
 
 test.RObject.attr <- function(){
-	funx <- .Rcpp.RObject$attr
-	checkEquals( funx( iris ), 1:150, msg = "RObject.attr" )
+	df <- data.frame( x = 1:150 )
+	rownames(df) <- 1:150
+	checkEquals( attr_( iris ), 1:150, msg = "RObject.attr" )
 }
 
 test.RObject.attr.set <- function(){
-	funx <- .Rcpp.RObject$attr_set
-	checkEquals( attr(funx(), "foo"), 10L, msg = "RObject.attr() = " )
+	checkEquals( attr(attr_set(), "foo"), 10L, msg = "RObject.attr() = " )
 }
 
 test.RObject.isNULL <- function(){
-	funx <- .Rcpp.RObject$isNULL
-	checkTrue( !funx( iris ), msg = "RObject.isNULL(iris) -> false" )
-	checkTrue( funx(NULL), msg = "RObject.isNULL(NULL) -> true" )
-	checkTrue( !funx(1L), msg = "RObject.isNULL(integer) -> false" )
-	checkTrue( !funx(1.0), msg = "RObject.isNULL(numeric) -> false" )
-	checkTrue( !funx(as.raw(1)), msg = "RObject.isNULL(raw) -> false" )
-	checkTrue( !funx(letters), msg = "RObject.isNULL(character) -> false")
-	checkTrue( !funx(funx), msg = "RObject.isNULL(function) -> false" )
-	checkTrue( !funx(.GlobalEnv), msg = "RObject.isNULL(environment) -> false" )
+	df <- data.frame( x = 1:10 )
+	checkTrue( !isNULL( df ), msg = "RObject.isNULL(data frame) -> false" )
+	checkTrue( !isNULL(1L), msg = "RObject.isNULL(integer) -> false" )
+	checkTrue( !isNULL(1.0), msg = "RObject.isNULL(numeric) -> false" )
+	checkTrue( !isNULL(as.raw(1)), msg = "RObject.isNULL(raw) -> false" )
+	checkTrue( !isNULL(letters), msg = "RObject.isNULL(character) -> false")
+	checkTrue( !isNULL(test.RObject.isNULL), msg = "RObject.isNULL(function) -> false" )
+	checkTrue( !isNULL(.GlobalEnv), msg = "RObject.isNULL(environment) -> false" )
+	checkTrue( isNULL(NULL), msg = "RObject.isNULL(NULL) -> true" )
 }
 
 test.RObject.inherits <- function(){
-	fx <- .Rcpp.RObject$inherits
 	x <- 1:10
-	checkTrue( !fx(x) )
+	checkTrue( !inherits_(x) )
 	class(x) <- "foo"
-	checkTrue( fx(x) )
+	checkTrue( inherits_(x) )
 	class(x) <- c("foo", "bar" )
-	checkTrue( fx(x) )
+	checkTrue( inherits_(x) )
 }
 
 }

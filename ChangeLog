@@ -7,6 +7,7 @@
         * unitTests/runit.wrap.R: using sourceCpp
         * unitTests/runit.support.R: using sourceCpp
         * unitTests/runit.rmath.R: using sourceCpp
+        * unitTests/runit.RObject.R: using sourceCpp
         * unitTests/runit.Vector.R: testing List( int, IntegerVector ) which 
         eventually uses fill__dispatch
         * include/Rcpp/traits/r_type_traits.h: support for as<T&> and as<const T&>
