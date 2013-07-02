@@ -100,5 +100,22 @@ test.has.iterator <- function(){
 test.AreMacrosDefined <- function(){
     checkTrue( Rcpp:::areMacrosDefined( "__cplusplus" ) )    
 }
+    
+test.rcout <- function(){
+    ## define test string that is written to two files
+    teststr <- "First line.\nSecond line."
+
+    rcppfile <- tempfile()
+    rfile <- tempfile()
+    
+    ## write to test_rcpp.txt from Rcpp
+    test_rcout(rcppfile,  teststr )
+    
+    ## write to test_r.txt from R
+    cat( teststr, file=rfile, sep='\n' )
+    
+    ## compare whether the two files have the same data
+    checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")    
+}
 
 }
