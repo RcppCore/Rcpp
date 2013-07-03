@@ -2,15 +2,6 @@ pkg <- "Rcpp"
 
 # load this package
 require( pkg, character.only = TRUE )
-require( inline )
-
-if( compareVersion( packageDescription( "inline" )[["Version"]], "0.3.4.4" ) < 0 ){
-	stop( "Rcpp unit tests need at least the version 0.3.4.4 of inline" )
-}
-
-cppfunction <- function( ... ){
-	cxxfunction( ..., plugin = "Rcpp" )
-}
 
 ## Make sure we run all tests for the vignette
 Sys.setenv("RunAllRcppTests"="yes")
