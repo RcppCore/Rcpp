@@ -720,5 +720,12 @@ List List_rep_ctor(IntegerVector x){
         CharacterVector x = {"foo", "bar"} ;
         return x ;
     }
+    
+    List List_insert(){
+        List list(x) ;
+        list.insert( list.begin(), 10 ) ;
+        list.insert( list.end(), Named("foo", "bar" ) ) ;
+        return list ;
+	}
 #endif
 
