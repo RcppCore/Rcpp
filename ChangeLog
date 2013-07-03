@@ -2,7 +2,10 @@
 
         * unitTests/runit.modref.R: using sourceCpp
         * unitTests/runit.Module.R: using sourceCpp
-
+        * unitTests/runit.Vector.R: no more uses of inline
+        * unitTests/runTests.R: we don't need inline no more for testing
+        * doc/unitTests/Rcpp-unitTests.R: idem
+        
 2013-07-02  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/Vector.h: fill__dispatch was mispelled (as
