@@ -1,3 +1,8 @@
+2013-07-03  Romain Francois <romain@r-enthusiasts.com>
+
+        * unitTests/runit.modref.R: using sourceCpp
+        * unitTests/runit.Module.R: using sourceCpp
+
 2013-07-02  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/Vector.h: fill__dispatch was mispelled (as
