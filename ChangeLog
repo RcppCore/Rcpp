@@ -1,3 +1,7 @@
+2013-07-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: Add an OpenMP plugin
+
 2013-07-03  Romain Francois <romain@r-enthusiasts.com>
 
         * unitTests/runit.modref.R: using sourceCpp
@@ -5,7 +9,7 @@
         * unitTests/runit.Vector.R: no more uses of inline
         * unitTests/runTests.R: we don't need inline no more for testing
         * doc/unitTests/Rcpp-unitTests.R: idem
-        
+
 2013-07-02  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/Vector.h: fill__dispatch was mispelled (as
@@ -18,14 +22,14 @@
         * unitTests/runit.RObject.R: using sourceCpp
         * unitTests/runit.stats.R: using sourceCpp
         * unitTests/runit.XPTr.R: using sourceCpp
-        * unitTests/runit.Vector.R: testing List( int, IntegerVector ) which 
+        * unitTests/runit.Vector.R: testing List( int, IntegerVector ) which
         eventually uses fill__dispatch
         * include/Rcpp/traits/r_type_traits.h: support for as<T&> and as<const T&>
         when T is module exposed
         * include/Rcpp/as.h: as<T&> and as<const T&> when T is module exposed
-        * include/Rcpp/module/Module_generated_CppFunction.h: removed the 
+        * include/Rcpp/module/Module_generated_CppFunction.h: removed the
         remove_const_and_reference since as<T&> and as<const T&> is supported
-        * src/attributes.cpp: automatically populating the environment with 
+        * src/attributes.cpp: automatically populating the environment with
         the content of a module, rather than make the module object available
         in the environment
 
@@ -49,7 +53,7 @@
         * src/Module.cpp : bring a simplified version of RCPP_FUNCTION 1 .. 4
         * unitTests/runit.macros.R : removed, as RCPP_FUNCTION ... are deprecated
         * include/Rcpp/macros/preprocessor_generated.h : deprecating RCPP_FUNCTION_... macros
-        
+
 2013-06-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/platform/compiler.h: Note the useful wiki page
