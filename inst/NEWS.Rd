@@ -17,9 +17,10 @@
     \item Changes in Attributes:
     \itemize{
         \item Objects exported by a module (i.e. by a \code{RCPP_MODULE} call
-        in a file that is processed by \code{sourceCpp}) are now ditectly 
+        in a file that is processed by \code{sourceCpp}) are now directly 
         available in the environment. We used to make the module object
-        available, which was less useful. 
+        available, which was less useful.
+	\item A plugin for 'openmp' has been added to support use of OpenMP.
     }
 
     \item Changes in Modules:
@@ -31,14 +32,13 @@
 
     \item Deprecation of \code{RCPP_FUNCTION_*}:
     \itemize{
-      \item The macros from the \code{preprocessor_generated.h} 
-      file have been deprecated. They are still available, but they print a message
-      in addition to their expected behavior. 
+      \item The macros from the \code{preprocessor_generated.h} file
+      have been deprecated. They are still available, but they print a
+      message in addition to their expected behavior.
       \item The macros will be permanently removed in the first \pkg{Rcpp} 
-      release after july 2014. 
-      \item Users of these macros (if there are any) should start replacing them 
-      with more up to date code, such as using Rcpp attributes or Rcpp
-      modules.  
+      release after July 2014. 
+      \item Users of these macros should start replacing them with more
+      up-to-date code, such as using 'Rcpp attributes' or 'Rcpp modules'.  
     }
   }
   
