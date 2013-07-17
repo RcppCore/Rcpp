@@ -22,10 +22,7 @@
 
 if (.runThisTest) {
 
-.setUp <- function(){
-    if (!exists("pathRcppTests")) pathRcppTests <- getwd()
-    sourceCpp(file.path(pathRcppTests, "cpp/dates.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup("dates.cpp")
 
 test.Date.ctor.sexp <- function() {
     fun <- ctor_sexp

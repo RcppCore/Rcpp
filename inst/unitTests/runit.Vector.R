@@ -22,10 +22,7 @@
 
 if (.runThisTest) {
 
-.setUp <- function() {
-    #sourceCpp( system.file( "unitTests/cpp/Vector.cpp", package = "Rcpp" ) )
-    sourceCpp(file.path(pathRcppTests, "cpp/Vector.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup("Vector.cpp")
 
 test.RawVector <- function(){
 	funx <- raw_

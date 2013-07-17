@@ -21,9 +21,7 @@
 
 if (.runThisTest) {
 
-.setUp <- function() {
-    sourceCpp(file.path(pathRcppTests, "cpp/S4.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup( "S4.cpp" )
 
 test.RObject.S4methods <- function(){
 	setClass("track", representation(x="numeric", y="numeric"))

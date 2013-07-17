@@ -2,7 +2,7 @@
 //
 // instantiation.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,6 +26,7 @@ typedef Vector<CPLXSXP> ComplexVector ;
 typedef Vector<INTSXP> IntegerVector ;
 typedef Vector<LGLSXP> LogicalVector ;
 typedef Vector<REALSXP> NumericVector ;
+typedef Vector<REALSXP> DoubleVector ;
 typedef Vector<RAWSXP> RawVector ;
 
 typedef Vector<STRSXP> CharacterVector ;   
