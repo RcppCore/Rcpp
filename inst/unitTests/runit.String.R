@@ -22,10 +22,7 @@
 
 if (.runThisTest) {
 
-.setUp <- function(){
-    #sourceCpp( system.file( "unitTests/cpp/String.cpp" , package = "Rcpp" ) )
-    sourceCpp(file.path(pathRcppTests, "cpp/String.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup( "String.cpp" )
 
 test.replace_all <- function(){
     checkEquals( String_replace_all("foobar", "o", "*"), "f**bar")

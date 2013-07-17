@@ -1,3 +1,9 @@
+2013-07-17  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/vector/instantiation.h: added the DoubleVector alias
+        to NumericVector
+        * include/Rcpp/is.h: added is template function
+
 2013-07-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Attributes.R: Add an OpenMP plugin
