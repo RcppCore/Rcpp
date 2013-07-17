@@ -1,8 +1,9 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// backward.h: Rcpp R/C++ interface class library -- 
+// is.h: Rcpp R/C++ interface class library -- test if an R Object can be seen 
+//                                             as one type
 //
-// Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,15 +20,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_meat_h
-#define Rcpp_api_meat_meat_h
+#ifndef Rcpp__is__h
+#define Rcpp__is__h
 
-#include <Rcpp/api/meat/RObject.h>
-#include <Rcpp/api/meat/Environment.h>
-#include <Rcpp/api/meat/DottedPair.h>
-#include <Rcpp/api/meat/Vector.h>
-#include <Rcpp/api/meat/Matrix.h>
-#include <Rcpp/api/meat/Reference.h>
-#include <Rcpp/api/meat/is.h>
+namespace Rcpp{
+
+    /** identify if an x can be seen as the T type
+     *  
+     *  example:
+     *     bool is_list = is<List>( x ) ;
+     */
+    template <typename T> bool is( SEXP x ) ;
+    
+} // Rcpp 
 
 #endif

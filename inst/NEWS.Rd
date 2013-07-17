@@ -12,6 +12,12 @@
       stack traces.
       \item \code{as<T&>} and \code{as<const T&>} is now supported, when 
       T is a class exposed by modules, i.e. with \code{RCPP_EXPOSED_CLASS}
+      \item \code{DoubleVector} as been added as an alias to 
+      \code{NumericVector}
+      \item New template function \code{is<T>} to identify if an R object 
+      can be seen as a \code{T}. For example \code{is<DataFrame>(x)}. 
+      This is a building block for more expressive dispatch in various places
+      (modules and attributes functions). 
     }
 
     \item Changes in Attributes:

@@ -23,10 +23,7 @@
 
 if (.runThisTest) {
 
-.setUp <- function(){
-    if (!exists("pathRcppTests")) pathRcppTests <- getwd()
-    sourceCpp(file.path(pathRcppTests, "cpp/wstring.cpp"))
-}
+.setUp <- Rcpp:::unit_test_setup( "wstring.cpp" )
 
 test.CharacterVector_wstring <- function(){
     res <- CharacterVector_wstring()

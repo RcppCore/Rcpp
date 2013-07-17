@@ -110,6 +110,7 @@ namespace Rcpp{
 #include <Rcpp/internal/export.h>
 #include <Rcpp/internal/r_coerce.h>
 #include <Rcpp/as.h>
+#include <Rcpp/is.h>
 
 #include <Rcpp/vector/VectorBase.h>
 #include <Rcpp/vector/MatrixBase.h>
