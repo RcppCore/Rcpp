@@ -73,7 +73,8 @@ private:
     double x ;
     int y ;
 };
-    
+   
+RCPP_EXPOSED_CLASS(Number)
 class Number{
 public:
     Number() : x(0.0), y(0){} ;
@@ -97,6 +98,25 @@ private:
     double min, max ;
 } ;
 
+// [[Rcpp::export]]
+double Number_get_x_const_ref( const Number& x){
+    return x.x ;    
+}
+
+// [[Rcpp::export]]
+double Number_get_x_ref( Number& x){
+    return x.x ;    
+}
+
+// [[Rcpp::export]]
+double Number_get_x_const_pointer( const Number* x){
+    return x->x ;    
+}
+
+// [[Rcpp::export]]
+double Number_get_x_pointer( Number* x){
+    return x->x ;    
+}
 
 RCPP_MODULE(yada){
 	function( "hello" , &hello ) ;

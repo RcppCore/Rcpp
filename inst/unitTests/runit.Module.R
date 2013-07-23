@@ -19,7 +19,6 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-# .runThisTest <- FALSE 
 
 if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
 
@@ -40,6 +39,14 @@ test.Module <- function(){
     checkEquals( w$greet(), "hello world" )
     w$clear( )
     checkEquals( w$greet(), "" )
+}
+
+test.Module.exposed.class <- function(){
+    num <- new( Number )
+    checkEquals( Number_get_x_const_ref(num), 0.0 )
+    checkEquals( Number_get_x_const_pointer(num), 0.0 )
+    checkEquals( Number_get_x_ref(num), 0.0 )
+    checkEquals( Number_get_x_pointer(num), 0.0 )
 }
 
 test.Module.property <- function(){

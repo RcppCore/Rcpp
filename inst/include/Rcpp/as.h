@@ -89,8 +89,13 @@ namespace Rcpp{
         }
         
         /** handling object<T> */ 
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_const_pointer_tag ) {
+            typedef typename Rcpp::traits::remove_const<T>::type T_NON_CONST ;
+            return const_cast<T>( as_module_object<T_NON_CONST>( x ) ) ;
+        }
+        
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_pointer_tag ) {
-            return as_module_object<typename T::object_type>( x ) ;
+            return as_module_object<typename traits::un_pointer<T>::type>( x ) ;
         }
         
         /** handling T such that T is exposed by a module */
