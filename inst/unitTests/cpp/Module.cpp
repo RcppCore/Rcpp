@@ -98,22 +98,15 @@ private:
     double min, max ;
 } ;
 
-// [[Rcpp::export]]
 double Number_get_x_const_ref( const Number& x){
     return x.x ;    
 }
-
-// [[Rcpp::export]]
 double Number_get_x_ref( Number& x){
     return x.x ;    
 }
-
-// [[Rcpp::export]]
 double Number_get_x_const_pointer( const Number* x){
     return x->x ;    
 }
-
-// [[Rcpp::export]]
 double Number_get_x_pointer( Number* x){
     return x->x ;    
 }
@@ -154,7 +147,12 @@ RCPP_MODULE(yada){
         
         	// read only data member
         	.field_readonly( "y", &Number::y )
-    ; 
+    ;
+    function( "Number_get_x_const_ref", Number_get_x_const_ref ); 
+    function( "Number_get_x_ref", Number_get_x_ref ); 
+    function( "Number_get_x_const_pointer", Number_get_x_const_pointer ); 
+    function( "Number_get_x_pointer", Number_get_x_pointer ); 
+    
     
     class_<Randomizer>( "Randomizer" )
         // No default: .default_constructor()
