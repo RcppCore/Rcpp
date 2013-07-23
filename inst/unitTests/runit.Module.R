@@ -42,11 +42,16 @@ test.Module <- function(){
 }
 
 test.Module.exposed.class <- function(){
-    num <- new( Number )
-    checkEquals( Number_get_x_const_ref(num), 0.0 )
-    checkEquals( Number_get_x_const_pointer(num), 0.0 )
-    checkEquals( Number_get_x_ref(num), 0.0 )
-    checkEquals( Number_get_x_pointer(num), 0.0 )
+    test <- new( Test, 3.0 )
+    checkEquals( Test_get_x_const_ref(test), 3.0 )
+    checkEquals( Test_get_x_const_pointer(test), 3.0 )
+    checkEquals( Test_get_x_ref(test), 3.0 )
+    checkEquals( Test_get_x_pointer(test), 3.0 )
+    
+    checkEquals( attr_Test_get_x_const_ref(test), 3.0 )
+    checkEquals( attr_Test_get_x_const_pointer(test), 3.0 )
+    checkEquals( attr_Test_get_x_ref(test), 3.0 )
+    checkEquals( attr_Test_get_x_pointer(test), 3.0 )
 }
 
 test.Module.property <- function(){
