@@ -1,3 +1,14 @@
+2013-07-23  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/as.h: support as<T*> and as<const T*> where T is a class
+        exposed by modules
+        * include/Rcpp/macros/module.h: idem
+        * include/Rcpp/traits/un_pointer.h: handle the object<T> case
+        * include/Rcpp/traits/r_type_traits.h: adding traits to help the 
+        with as<T*> and as<const T*>
+        * unitTests/runit.Module.R: testing as<T*> and as<const T*>
+        * unitTests/cpp/Module.cpp: idem
+
 2013-07-17  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/instantiation.h: added the DoubleVector alias
