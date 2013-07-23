@@ -10,7 +10,8 @@
       \item Add \code{#defined(__sun)} to lists of operating systems to
       test for when checking for lack of \code{backtrace()} needed for
       stack traces.
-      \item \code{as<T&>} and \code{as<const T&>} is now supported, when 
+      \item \code{as<T*>}, \code{as<const T*>}, \code{as<T&>} and
+      \code{as<const T&>} are now supported, when 
       T is a class exposed by modules, i.e. with \code{RCPP_EXPOSED_CLASS}
       \item \code{DoubleVector} as been added as an alias to 
       \code{NumericVector}
@@ -26,7 +27,12 @@
         in a file that is processed by \code{sourceCpp}) are now directly 
         available in the environment. We used to make the module object
         available, which was less useful.
-	\item A plugin for 'openmp' has been added to support use of OpenMP.
+        \item A plugin for 'openmp' has been added to support use of OpenMP.
+        \item \code{Rcpp::export} now takes advantage of the more flexible 
+        \code{as<>}, handling constness and referenceness of the input types. 
+        For users, it means that for the parameters of function exported by modules, 
+        we can now use references, pointers and const versions of them.
+        The Module.cpp file has an example. 
     }
 
     \item Changes in Modules:
