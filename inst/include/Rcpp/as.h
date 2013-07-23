@@ -91,7 +91,7 @@ namespace Rcpp{
         /** handling object<T> */ 
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_const_pointer_tag ) {
             typedef typename Rcpp::traits::remove_const<T>::type T_NON_CONST ;
-            return const_cast<T>( as_module_object<T_NON_CONST>( x ) ) ;
+            return const_cast<T>( (T_NON_CONST)as_module_object_internal(x) ) ;
         }
         
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_pointer_tag ) {
@@ -105,7 +105,8 @@ namespace Rcpp{
         }
         
         /** handling T such that T is a reference of a class handled by a module */
-        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_reference_tag ){
+        template <typename T> 
+        T as(SEXP x, ::Rcpp::traits::r_type_module_object_reference_tag ){
             typedef typename traits::remove_reference<T>::type KLASS ;
             KLASS* obj = as_module_object<KLASS>(x) ;
             return *obj ;
