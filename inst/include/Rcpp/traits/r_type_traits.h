@@ -61,9 +61,14 @@ struct r_type_pairstring_string_tag{} ;
 struct r_type_pairstring_generic_tag{} ;
 
 /**
- * identifies a module object pointer (i.e. something like object<T>
+ * identifies a module object pointer
  */ 
 struct r_type_module_object_pointer_tag{} ;
+
+/**
+ * identifies a module object const pointer 
+ */ 
+struct r_type_module_object_const_pointer_tag{} ;
 
 /**
  * identifies a module object. Implementers of modules can define the 

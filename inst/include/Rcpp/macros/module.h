@@ -29,6 +29,12 @@
  */
 #define RCPP_EXPOSED_AS(CLASS)                                         \
     namespace Rcpp{ namespace traits{                                  \
+    template<> struct r_type_traits< CLASS* >{                         \
+        typedef r_type_module_object_pointer_tag r_category ;          \
+    } ;                                                                \
+    template<> struct r_type_traits< const CLASS* >{                   \
+        typedef r_type_module_object_const_pointer_tag r_category ;    \
+    } ;                                                                \
     template<> struct r_type_traits< CLASS >{                          \
         typedef r_type_module_object_tag r_category ;                  \
     } ;                                                                \

@@ -3,7 +3,7 @@
 //
 // un_pointer.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012-2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,6 +28,7 @@ namespace traits{
 	
 template <typename T> struct un_pointer { typedef T type ;} ;
 template <typename T> struct un_pointer<T*> { typedef T type ;} ;
+template <typename T> struct un_pointer< object<T> > { typedef T* type ;} ;
 
 } // namespace traits
 } // namespace Rcpp
