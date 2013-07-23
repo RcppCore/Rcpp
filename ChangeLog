@@ -8,6 +8,8 @@
         with as<T*> and as<const T*>
         * unitTests/runit.Module.R: testing as<T*> and as<const T*>
         * unitTests/cpp/Module.cpp: idem
+        * src/attributes.cpp: take advantage of a more flexible as<>. The Type
+        class gains a full_name() method that shows const-ness and reference-ness 
 
 2013-07-17  Romain Francois <romain@r-enthusiasts.com>
 
