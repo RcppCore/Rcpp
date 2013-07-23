@@ -74,7 +74,6 @@ private:
     int y ;
 };
    
-RCPP_EXPOSED_CLASS(Number)
 class Number{
 public:
     Number() : x(0.0), y(0){} ;
@@ -98,17 +97,29 @@ private:
     double min, max ;
 } ;
 
-double Number_get_x_const_ref( const Number& x){
-    return x.x ;    
+RCPP_EXPOSED_CLASS(Test)
+class Test{
+public:
+    double value ;
+    Test(double v) : value(v){}
+private:    
+    // hiding those on purpose
+    // we work by reference or pointers here. Not by copy. 
+    Test( const Test& other) ;
+    Test& operator=( const Test& ) ;
+} ;
+
+double Test_get_x_const_ref( const Test& x){
+    return x.value ;    
 }
-double Number_get_x_ref( Number& x){
-    return x.x ;    
+double Test_get_x_ref( Test& x){
+    return x.value;    
 }
-double Number_get_x_const_pointer( const Number* x){
-    return x->x ;    
+double Test_get_x_const_pointer( const Test* x){
+    return x->value ;    
 }
-double Number_get_x_pointer( Number* x){
-    return x->x ;    
+double Test_get_x_pointer( Test* x){
+    return x->value ;    
 }
 
 RCPP_MODULE(yada){
@@ -119,6 +130,10 @@ RCPP_MODULE(yada){
 	function( "bla1"  , &bla1   ) ;
 	function( "bla2"  , &bla2   ) ;
 
+	class_<Test>("Test")
+        .constructor<double>()
+    ;   
+    
 	class_<World>( "World" )
 
 	    .constructor()
@@ -148,10 +163,10 @@ RCPP_MODULE(yada){
         	// read only data member
         	.field_readonly( "y", &Number::y )
     ;
-    function( "Number_get_x_const_ref", Number_get_x_const_ref ); 
-    function( "Number_get_x_ref", Number_get_x_ref ); 
-    function( "Number_get_x_const_pointer", Number_get_x_const_pointer ); 
-    function( "Number_get_x_pointer", Number_get_x_pointer ); 
+    function( "Test_get_x_const_ref", Test_get_x_const_ref ); 
+    function( "Test_get_x_ref", Test_get_x_ref ); 
+    function( "Test_get_x_const_pointer", Test_get_x_const_pointer ); 
+    function( "Test_get_x_pointer", Test_get_x_pointer ); 
     
     
     class_<Randomizer>( "Randomizer" )
@@ -161,4 +176,25 @@ RCPP_MODULE(yada){
         .method( "get" , &Randomizer::get ) 
     ;
 }
+  
+// [[Rcpp::export]]
+double attr_Test_get_x_const_ref( const Test& x){
+    return x.value ;    
+}
+
+// [[Rcpp::export]]
+double attr_Test_get_x_ref( Test& x){
+    return x.value;    
+}
+
+// [[Rcpp::export]]
+double attr_Test_get_x_const_pointer( const Test* x){
+    return x->value ;    
+}
+
+// [[Rcpp::export]]
+double attr_Test_get_x_pointer( Test* x){
+    return x->value ;    
+}
+
 
