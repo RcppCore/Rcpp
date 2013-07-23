@@ -112,6 +112,13 @@ namespace attributes {
         bool empty() const { return name().empty(); }
         
         const std::string& name() const { return name_; }
+        std::string full_name() const {
+            std::string res ;
+            if( isConst() ) res += "const " ;
+            res += name() ;
+            if( isReference() ) res += "&" ;
+            return res ;
+        }
         
         bool isVoid() const { return name() == "void"; }
         bool isConst() const { return isConst_; }
@@ -1228,7 +1235,7 @@ namespace attributes {
         // if the type is now empty because of some strange parse then bail
         if (type.empty())
             return Type();
-            
+          
         return Type(type, isConst, isReference);
     }
     
@@ -2141,9 +2148,8 @@ namespace attributes {
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
                 
-                // Rcpp::as to c++ type
-                ostr << "        " << argument.type().name() << " " << argument.name() 
-                     << " = " << "Rcpp::as<"  << argument.type().name() << " >(" 
+                ostr << "        " << argument.type().full_name() << " " << argument.name() 
+                     << " = " << "Rcpp::as<"  << argument.type().full_name() << " >(" 
                      << argument.name() << "SEXP);" << std::endl;
             }
             
