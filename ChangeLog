@@ -1,3 +1,14 @@
+2013-07-24  Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/traits/is_module_object.h: trait class that identifies
+        at compile time if a given type is a type exposed by a module, i.e. if 
+        we used the RCPP_EXPOSED_AS macro
+        * include/Rcpp/is.h: able to identify if an object is of a given type
+        exposed by a module (supports references and pointers too). 
+        * src/Module.cpp: implementation of is_module_object_internal that 
+        checks if an object is of a given typeid, used by is<T> where T is 
+        module exposed
+
 2013-07-23  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/as.h: support as<T*> and as<const T*> where T is a class

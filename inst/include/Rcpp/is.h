@@ -24,13 +24,35 @@
 #define Rcpp__is__h
 
 namespace Rcpp{
-
+      
+    namespace internal{  
+        
+        // simple implementation, for most default types
+        template <typename T> bool is__simple( SEXP x) ;
+        
+        // implementation for module objects
+        template <typename T> bool is__module__object( SEXP x) ;
+        
+        // not a module object
+        template <typename T>
+        inline bool is__dispatch( SEXP x, Rcpp::traits::false_type ){
+            return is__simple<T>( x ) ;
+        }
+        
+        template <typename T>
+        inline bool is__dispatch( SEXP x, Rcpp::traits::true_type ){
+            return is__module__object<T>( x ) ;
+        }
+    }
+    
     /** identify if an x can be seen as the T type
      *  
      *  example:
      *     bool is_list = is<List>( x ) ;
      */
-    template <typename T> bool is( SEXP x ) ;
+    template <typename T> bool is( SEXP x ){
+        return internal::is__dispatch<T>( x, typename traits::is_module_object<T>::type() ) ;    
+    }
     
 } // Rcpp 
 
