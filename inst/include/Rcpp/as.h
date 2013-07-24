@@ -105,8 +105,7 @@ namespace Rcpp{
         }
         
         /** handling T such that T is a reference of a class handled by a module */
-        template <typename T> 
-        T as(SEXP x, ::Rcpp::traits::r_type_module_object_reference_tag ){
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_reference_tag ){
             typedef typename traits::remove_reference<T>::type KLASS ;
             KLASS* obj = as_module_object<KLASS>(x) ;
             return *obj ;
