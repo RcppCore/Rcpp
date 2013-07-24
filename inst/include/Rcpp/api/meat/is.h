@@ -23,121 +23,130 @@
 #define Rcpp_api_meat_is_h
 
 namespace Rcpp{ 
-    
+namespace internal{
+        
     inline bool is_atomic( SEXP x){ return Rf_length(x) == 1 ; } 
     inline bool is_matrix(SEXP x){
         SEXP dim = Rf_getAttrib( x, R_DimSymbol) ;
         return dim != R_NilValue && Rf_length(dim) == 2 ;
     }
     
-    template <> inline bool is<int>( SEXP x ){
+    template <> inline bool is__simple<int>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == INTSXP ;
     }
 
-    template <> inline bool is<double>( SEXP x ){
+    template <> inline bool is__simple<double>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == REALSXP ;
     }
     
-    template <> inline bool is<bool>( SEXP x ){
+    template <> inline bool is__simple<bool>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == LGLSXP ;
     }
     
-    template <> inline bool is<std::string>( SEXP x ){
+    template <> inline bool is__simple<std::string>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == STRSXP ;
     }
     
-    template <> inline bool is<String>( SEXP x ){
+    template <> inline bool is__simple<String>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == STRSXP ;
     }
     
-    template <> inline bool is<RObject>( SEXP x ){
+    template <> inline bool is__simple<RObject>( SEXP x ){
         return true ;
     }
-    template <> inline bool is<IntegerVector>( SEXP x ){
+    template <> inline bool is__simple<IntegerVector>( SEXP x ){
         return TYPEOF(x) == INTSXP ;
     }
-    template <> inline bool is<ComplexVector>( SEXP x ){
+    template <> inline bool is__simple<ComplexVector>( SEXP x ){
         return TYPEOF(x) == CPLXSXP ;
     }
-    template <> inline bool is<RawVector>( SEXP x ){
+    template <> inline bool is__simple<RawVector>( SEXP x ){
         return TYPEOF(x) == RAWSXP ;
     }
-    template <> inline bool is<NumericVector>( SEXP x ){
+    template <> inline bool is__simple<NumericVector>( SEXP x ){
         return TYPEOF(x) == REALSXP ;
     }
-    template <> inline bool is<LogicalVector>( SEXP x ){
+    template <> inline bool is__simple<LogicalVector>( SEXP x ){
         return TYPEOF(x) == LGLSXP ;
     }
-    template <> inline bool is<List>( SEXP x ){
+    template <> inline bool is__simple<List>( SEXP x ){
         return TYPEOF(x) == VECSXP ;
     }
-    template <> inline bool is<IntegerMatrix>( SEXP x ){
+    template <> inline bool is__simple<IntegerMatrix>( SEXP x ){
         return TYPEOF(x) == INTSXP && is_matrix(x) ;
     }
-    template <> inline bool is<ComplexMatrix>( SEXP x ){
+    template <> inline bool is__simple<ComplexMatrix>( SEXP x ){
         return TYPEOF(x) == CPLXSXP && is_matrix(x) ;
     }
-    template <> inline bool is<RawMatrix>( SEXP x ){
+    template <> inline bool is__simple<RawMatrix>( SEXP x ){
         return TYPEOF(x) == RAWSXP && is_matrix(x) ;
     }
-    template <> inline bool is<NumericMatrix>( SEXP x ){
+    template <> inline bool is__simple<NumericMatrix>( SEXP x ){
         return TYPEOF(x) == REALSXP && is_matrix(x) ;
     }
-    template <> inline bool is<LogicalMatrix>( SEXP x ){
+    template <> inline bool is__simple<LogicalMatrix>( SEXP x ){
         return TYPEOF(x) == LGLSXP && is_matrix(x) ;
     }
-    template <> inline bool is<GenericMatrix>( SEXP x ){
+    template <> inline bool is__simple<GenericMatrix>( SEXP x ){
         return TYPEOF(x) == VECSXP && is_matrix(x) ;
     }
     
     
-    template <> inline bool is<DataFrame>( SEXP x ){
+    template <> inline bool is__simple<DataFrame>( SEXP x ){
         if( TYPEOF(x) != VECSXP ) return false ;
         return Rf_inherits( x, "data.frame" ) ;
     }
-    template <> inline bool is<WeakReference>( SEXP x ){
+    template <> inline bool is__simple<WeakReference>( SEXP x ){
         return TYPEOF(x) == WEAKREFSXP ;
     }
-    template <> inline bool is<Symbol>( SEXP x ){
+    template <> inline bool is__simple<Symbol>( SEXP x ){
         return TYPEOF(x) == SYMSXP ;
     }
-    template <> inline bool is<S4>( SEXP x ){
+    template <> inline bool is__simple<S4>( SEXP x ){
         return ::Rf_isS4(x);
     }
-    template <> inline bool is<Reference>( SEXP x ){
+    template <> inline bool is__simple<Reference>( SEXP x ){
         if( ! ::Rf_isS4(x) ) return false ;
         return ::Rf_inherits(x, "envRefClass" ) ;
     }
-    template <> inline bool is<Promise>( SEXP x ){
+    template <> inline bool is__simple<Promise>( SEXP x ){
         return TYPEOF(x) == PROMSXP ;
     }
-    template <> inline bool is<Pairlist>( SEXP x ){
+    template <> inline bool is__simple<Pairlist>( SEXP x ){
         return TYPEOF(x) == LISTSXP ;
     }
-    template <> inline bool is<Function>( SEXP x ){
+    template <> inline bool is__simple<Function>( SEXP x ){
         return TYPEOF(x) == CLOSXP || TYPEOF(x) == SPECIALSXP || TYPEOF(x) == BUILTINSXP ;
     }
-    template <> inline bool is<Environment>( SEXP x ){
+    template <> inline bool is__simple<Environment>( SEXP x ){
         return TYPEOF(x) == ENVSXP ;
     }
-    template <> inline bool is<Formula>( SEXP x ){
+    template <> inline bool is__simple<Formula>( SEXP x ){
         if( TYPEOF(x) != LANGSXP ) return false ; 
         return Rf_inherits( x, "formula" ) ;
     }
     
-    template <> inline bool is<Date>( SEXP x ){
+    template <> inline bool is__simple<Date>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == REALSXP && Rf_inherits( x, "Date" ) ;
     }
-    template <> inline bool is<Datetime>( SEXP x ){
+    template <> inline bool is__simple<Datetime>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == REALSXP && Rf_inherits( x, "POSIXt" ) ;
     }
-    template <> inline bool is<DateVector>( SEXP x ){
+    template <> inline bool is__simple<DateVector>( SEXP x ){
         return TYPEOF(x) == REALSXP && Rf_inherits( x, "Date" ) ;
     }
-    template <> inline bool is<DatetimeVector>( SEXP x ){
+    template <> inline bool is__simple<DatetimeVector>( SEXP x ){
         return TYPEOF(x) == REALSXP && Rf_inherits( x, "POSIXt" ) ;
     }
      
+    bool is_module_object_internal(SEXP, const char*) ;
+    template <typename T> bool is__module__object( SEXP x){
+        typedef typename Rcpp::traits::un_pointer<T>::type CLASS ;
+        return is_module_object_internal(x, typeid(CLASS).name() ) ;     
+    }
+        
+    
+} // namespace internal
 } // namespace Rcpp
 
 #endif
