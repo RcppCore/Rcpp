@@ -4,6 +4,8 @@
         DatetimeVector
         * include/Rcpp/Date.h : added is_na method
         * include/Rcpp/Datetime.h : added is_na method
+        * unitTests/cpp/dates.cpp : removed the ignoreme useless parameters
+        * unitTests/runit.Date.R : idem
         
 2013-07-24  Romain Francois <romain@r-enthusiasts.com>
 

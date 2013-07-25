@@ -49,13 +49,11 @@ test.Date.ctor.diffs <- function() {
 }
 
 test.Date.ctor.mdy <- function() {
-    fun <- ctor_mdy
-    checkEquals(fun(1), as.Date("2005-12-31"), msg = "Date.ctor.mdy")
+    checkEquals(ctor_mdy(), as.Date("2005-12-31"), msg = "Date.ctor.mdy")
 }
 
 test.Date.ctor.ymd <- function() {
-    fun <- ctor_ymd
-    checkEquals(fun(1), as.Date("2005-12-31"), msg = "Date.ctor.ymd")
+    checkEquals(ctor_ymd(), as.Date("2005-12-31"), msg = "Date.ctor.ymd")
 }
 
 test.Date.ctor.int <- function() {
@@ -77,32 +75,27 @@ test.Date.ctor.string <- function() {
 }
 
 test.Date.operators <- function() {
-    fun <- operators
-    checkEquals(fun(1),
+    checkEquals(operators(),
                 list(diff=-1, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE, ne=TRUE),
                 msg = "Date.operators")
 }
 
 test.Date.components <- function() {
-    fun <- components
-    checkEquals(fun(1),
+    checkEquals(components(),
                 list(day=31, month=12, year=2005, weekday=7, yearday=365),
                 msg = "Date.components")
 }
 
 test.vector.Date <- function(){
-    fun <- vector_Date
-    checkEquals(fun(1), rep(as.Date("2005-12-31"),2), msg = "Date.vector.wrap")
+    checkEquals(vector_Date(), rep(as.Date("2005-12-31"),2), msg = "Date.vector.wrap")
 }
 
 test.DateVector.wrap <- function(){
-    fun <- Datevector_wrap
-    checkEquals(fun(1), rep(as.Date("2005-12-31"),2), msg = "DateVector.wrap")
+    checkEquals(Datevector_wrap(), rep(as.Date("2005-12-31"),2), msg = "DateVector.wrap")
 }
 
 test.DateVector.operator.SEXP <- function(){
-    fun <- Datevector_sexp
-    checkEquals(fun(1), rep(as.Date("2005-12-31"),2), msg = "DateVector.SEXP")
+    checkEquals(Datevector_sexp(), rep(as.Date("2005-12-31"),2), msg = "DateVector.SEXP")
 }
 
 test.Date.getFunctions <- function(){
@@ -123,15 +116,13 @@ test.Datetime.get.functions <- function() {
 }
 
 test.Datetime.operators <- function() {
-    fun <- Datetime_operators
-    checkEquals(fun(1),
+    checkEquals(Datetime_operators(),
                 list(diff=-60*60, bigger=TRUE, smaller=FALSE, equal=FALSE, ge=TRUE, le=FALSE, ne=TRUE),
                 msg = "Datetime.operators")
 }
 
 test.Datetime.wrap <- function() {
-    fun <- Datetime_wrap
-    checkEquals(as.numeric(fun(1)), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
+    checkEquals(as.numeric(Datetime_wrap()), as.numeric(as.POSIXct("2001-02-03 01:02:03.123456", tz="UTC")),
                 msg = "Datetime.wrap")
 }
 
