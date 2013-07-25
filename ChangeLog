@@ -6,6 +6,8 @@
         * include/Rcpp/Datetime.h : added is_na method
         * unitTests/cpp/dates.cpp : removed the ignoreme useless parameters
         * unitTests/runit.Date.R : idem
+        * src/attributes.cpp: collecting functions in a FunctionMap. Will use this
+        for dispatching
         
 2013-07-24  Romain Francois <romain@r-enthusiasts.com>
 

@@ -252,6 +252,18 @@ namespace attributes {
         std::vector<std::string> roxygen_;
     };
 
+    class FunctionMap {
+        std::map< std::string, std::vector<Function> > map_ ;
+        
+    public:
+        FunctionMap(){};
+        ~FunctionMap(){} ;
+        
+        void insert( const Function& fun ){
+            map_[ fun.name() ].push_back( fun ) ;
+        }
+    } ;
+    
     // Operator << for parsed types
     std::ostream& operator<<(std::ostream& os, const Type& type); 
     std::ostream& operator<<(std::ostream& os, const Argument& argument); 
@@ -389,6 +401,7 @@ namespace attributes {
         std::string sourceFile_;
         CharacterVector lines_;
         std::vector<Attribute> attributes_;
+        FunctionMap functionMap_ ;
         std::vector<std::string> modules_;
         std::vector<std::string> embeddedR_;
         std::vector<std::vector<std::string> > roxygenChunks_; 
@@ -868,8 +881,13 @@ namespace attributes {
                         continue;
                     
                     // add the attribute
-                    attributes_.push_back(parseAttribute(
-                        Rcpp::as<std::vector<std::string> >(match),  i));
+                    Attribute attr = parseAttribute(
+                        Rcpp::as<std::vector<std::string> >(match),  i); 
+                    attributes_.push_back(attr);
+                    
+                    if( attr.isExportedFunction() ){
+                        functionMap_.insert(attr.function());
+                    }
                 } 
                 
                 // if it's not an attribute line then it could still be a 
@@ -889,8 +907,8 @@ namespace attributes {
                     }
                 } 
             }
-            
-             // Scan for Rcpp modules 
+             
+            // Scan for Rcpp modules 
             commentState.reset();
             Rcpp::List modMatches = regexMatches(lines_, 
                 "^\\s*RCPP_MODULE\\s*\\(\\s*(\\w+)\\s*\\).*$");
