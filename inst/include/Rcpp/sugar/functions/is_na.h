@@ -66,12 +66,33 @@ private:
 	
 } ;
 
-	
+template <typename T>
+class IsNa_Vector_is_na : public Rcpp::VectorBase<LGLSXP, false, IsNa_Vector_is_na<T> >{
+   public:
+       IsNa_Vector_is_na( const T& x) : ref(x){}
+       
+       inline int operator[]( int i) const {
+           return ref[i].is_na() ;
+       }
+       
+       inline int size() const { return ref.size() ; } 
+       
+   private:
+        const T& ref ;       
+} ;
+
 } // sugar
 
 template <int RTYPE, bool NA, typename T>
 inline sugar::IsNa<RTYPE,NA,T> is_na( const Rcpp::VectorBase<RTYPE,NA,T>& t){
 	return sugar::IsNa<RTYPE,NA,T>( t ) ;
+}
+
+inline sugar::IsNa_Vector_is_na<DatetimeVector> is_na( const DatetimeVector& x){
+    return sugar::IsNa_Vector_is_na<DatetimeVector>( x ) ;
+}
+inline sugar::IsNa_Vector_is_na<DateVector> is_na( const DateVector& x){
+    return sugar::IsNa_Vector_is_na<DateVector>( x ) ;
 }
 
 } // Rcpp

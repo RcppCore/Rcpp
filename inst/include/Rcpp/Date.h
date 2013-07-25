@@ -64,6 +64,8 @@ namespace Rcpp {
 		friend bool   operator<=(const Date &date1, const Date& date2);
 		friend bool   operator!=(const Date &date1, const Date& date2);
 
+		inline int is_na() const { return traits::is_na<REALSXP>( m_d ) ; }
+		
     private:
         double m_d;					// (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;				// standard time representation
