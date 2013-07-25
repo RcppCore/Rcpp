@@ -2,7 +2,7 @@
 //
 // Datetime.h: Rcpp R/C++ interface class library -- Datetime (POSIXct)
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -59,12 +59,14 @@ namespace Rcpp {
 		friend bool      operator<=(const Datetime &dt1, const Datetime& dt2);
 		friend bool      operator!=(const Datetime &dt1, const Datetime& dt2);
 
+		inline int is_na() const { return traits::is_na<REALSXP>( m_dt ) ; }
+		
     private:
         double m_dt;				// fractional seconds since epoch
-        struct tm m_tm;				// standard time representation
-		unsigned int m_us;			// microsecond (to complement m_tm)
-
-		void update_tm();			// update m_tm based on m_dt
+        struct tm m_tm;			// standard time representation
+        unsigned int m_us;		// microsecond (to complement m_tm)
+                                
+        void update_tm();		// update m_tm based on m_dt
 
     };
 
