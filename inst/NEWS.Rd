@@ -42,6 +42,12 @@
       objects are no longer copied as they used to be. 
     }
 
+    \item Changes in sugar:
+    \itemize{
+        \item \code{is_na} supports classes \code{DatetimeVector} and 
+        \code{DateVector}
+    }
+    
     \item Deprecation of \code{RCPP_FUNCTION_*}:
     \itemize{
       \item The macros from the \code{preprocessor_generated.h} file
