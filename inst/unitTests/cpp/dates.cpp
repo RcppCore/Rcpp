@@ -29,13 +29,13 @@ Date ctor_sexp(SEXP d) {
 }
 
 // [[Rcpp::export]]
-SEXP ctor_mdy(int ignoreme) {
+SEXP ctor_mdy() {
     Date dt = Date(12,31,2005);
     return wrap(dt);
 }
 
 // [[Rcpp::export]]
-SEXP ctor_ymd(int ignoreme) {
+SEXP ctor_ymd() {
     Date dt = Date(2005,12,31);
     return wrap(dt);
 }
@@ -53,7 +53,7 @@ SEXP ctor_string(std::string x) {
 }
 
 // [[Rcpp::export]]
-List operators(int ignoreme) {
+List operators() {
     Date d1 = Date(2005,12,31);
     Date d2 = d1 + 1;
     return List::create(Named("diff") = d1 - d2,
@@ -66,7 +66,7 @@ List operators(int ignoreme) {
 }
 
 // [[Rcpp::export]]
-List components(int ignoreme) {
+List components() {
     Date d = Date(2005,12,31);
     return List::create(Named("day") = d.getDay(),
                         Named("month") = d.getMonth(),
@@ -76,7 +76,7 @@ List components(int ignoreme) {
 }
 
 // [[Rcpp::export]]
-SEXP vector_Date(int ignoreme) {
+SEXP vector_Date() {
     std::vector<Date> v(2) ;
     v[0] = Date(2005,12,31) ;
     v[1] = Date(12,31,2005) ;
@@ -84,7 +84,7 @@ SEXP vector_Date(int ignoreme) {
 }
 
 // [[Rcpp::export]]
-SEXP Datevector_wrap(int ignoreme) {
+SEXP Datevector_wrap() {
     DateVector v(2) ;
     v[0] = Date(2005,12,31) ;
     v[1] = Date(12,31,2005) ;
@@ -92,7 +92,7 @@ SEXP Datevector_wrap(int ignoreme) {
 }
 
 // [[Rcpp::export]]
-SEXP Datevector_sexp(int ignoreme) {
+SEXP Datevector_sexp() {
     DateVector v(2) ;
     v[0] = Date(2005,12,31) ;
     v[1] = Date(12,31,2005) ;
@@ -123,7 +123,7 @@ List Datetime_get_functions(Datetime x) {
 }
 
 // [[Rcpp::export]]
-List Datetime_operators(int ignoreme) {
+List Datetime_operators() {
     Datetime d1 = Datetime(946774923.123456);
     Datetime d2 = d1 + 60*60;
     return List::create(Named("diff") = d1 - d2,
@@ -136,7 +136,7 @@ List Datetime_operators(int ignoreme) {
 }
 
 // [[Rcpp::export]]
-SEXP Datetime_wrap(int ignoreme) {
+SEXP Datetime_wrap() {
     Datetime dt = Datetime(981162123.123456);
     return wrap(dt);
 }
