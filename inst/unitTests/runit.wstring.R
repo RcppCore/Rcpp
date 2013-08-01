@@ -21,7 +21,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) {
+if (FALSE && .runThisTest) {
 
 .setUp <- Rcpp:::unit_test_setup( "wstring.cpp" )
 
