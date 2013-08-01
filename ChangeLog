@@ -1,3 +1,8 @@
+2013-08-01 Romain Francois <romain@r-enthusiasts.com>
+
+        * unitTests/cpp/wstring.cpp : re-enable the wstring test suite. 
+        * unitTests/runit.wstring.R : re-enable the wstring test suite.
+        
 2013-07-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Bump development version to 0.10.4.3
