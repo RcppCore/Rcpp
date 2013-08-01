@@ -1,7 +1,7 @@
 2013-08-01 Romain Francois <romain@r-enthusiasts.com>
 
-        * unitTests/cpp/wstring.cpp : re-enable the wstring test suite. 
-        * unitTests/runit.wstring.R : re-enable the wstring test suite.
+        * unitTests/cpp/wstring.cpp: fix to re-enable wstring test suite. 
+        * unitTests/runit.wstring.R: re-enable the wstring test suite.
         
 2013-07-31  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -9,9 +9,6 @@
 
 	* inst/doc/Makefile: Rejigged pdf builds in another attempt at
 	pleasing whatever runs the builds on r-forge. L'espoir fait vivre.
-
-	* inst/unitTests/runit.wstring.R: *TEMPORARILY* disabled
-	======================================= To be revverted before release ======
 
 2013-07-25  Romain Francois <romain@r-enthusiasts.com>
 
