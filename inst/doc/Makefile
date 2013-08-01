@@ -12,9 +12,9 @@ all:
 	@echo The 'make all' target is now empty as eg R-Forge builds fall over
 	@echo So please use 'make pdfclean; make pdfall' to rebuild
 
-OLDpdfall: rotateFiles index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-attributes.pdf Rcpp-quickref.pdf
+OLDpdfall: index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-attributes.pdf Rcpp-quickref.pdf
 
-pdfall: rotateFiles index.html 
+pdfall: index.html 
 	## Play some games with explicit targets to avoid parallel make builds
 	## This is all just because R-Forge insists on re-making these, seemingly in parallel
 	make Rcpp-extending.pdf
@@ -31,13 +31,6 @@ pdfclean:
 	rm -f Rcpp-extending.pdf  Rcpp-FAQ.pdf  Rcpp-introduction.pdf  Rcpp-modules.pdf  Rcpp-package.pdf  Rcpp-quickref.pdf  Rcpp-sugar.pdf  Rcpp-attributes.pdf  Rcpp-unitTests.pdf
 
 rotateFiles:
-	cp -f Rcpp-extending/Rcpp-extending-fake.Rnw Rcpp-extending.Rnw
-	cp -f Rcpp-FAQ/Rcpp-FAQ-fake.Rnw Rcpp-FAQ.Rnw
-	cp -f Rcpp-modules/Rcpp-modules-fake.Rnw Rcpp-modules.Rnw
-	cp -f Rcpp-package/Rcpp-package-fake.Rnw Rcpp-package.Rnw
-	cp -f Rcpp-quickref/Rcpp-quickref-fake.Rnw Rcpp-quickref.Rnw
-	cp -f Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
-	cp -f Rcpp-attributes/Rcpp-attributes-fake.Rnw Rcpp-attributes.Rnw
 
 clean:
 	rm -f index.html
@@ -148,9 +141,8 @@ ifneq (,$(findstring edd,$(whoami)))
 else
 	$(RSCRIPT) -e "tools::texi2dvi( 'Rcpp-sugar.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-sugar.tex Rcpp-sugar.bbl Rcpp-sugar.blg Rcpp-sugar.aux Rcpp-sugar.out Rcpp-sugar.log
-	rm Rcpp-sugar.Rnw
-	cp Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
+	rm -fr Rcpp-sugar.tex Rcpp-sugar.bbl Rcpp-sugar.blg Rcpp-sugar.aux Rcpp-sugar.out Rcpp-sugar.log Rcpp-sugar.Rnw
+	cp -f Rcpp-sugar/Rcpp-sugar-fake.Rnw Rcpp-sugar.Rnw
 
 Rcpp-attributes.pdf : Rcpp-attributes/Rcpp-attributes.Rnw
 	cp -f Rcpp-attributes/Rcpp-attributes.Rnw .
@@ -163,9 +155,8 @@ ifneq (,$(findstring edd,$(whoami)))
 else
 	$(RSCRIPT) -e "tools::texi2dvi( 'Rcpp-attributes.tex', pdf = TRUE, clean = TRUE )"
 endif
-	rm -fr Rcpp-attributes.tex Rcpp-attributes.bbl Rcpp-attributes.blg Rcpp-attributes.aux Rcpp-attributes.out Rcpp-attributes.log
-	rm Rcpp-attributes.Rnw
-	cp Rcpp-attributes/Rcpp-attributes-fake.Rnw Rcpp-attributes.Rnw
+	rm -fr Rcpp-attributes.tex Rcpp-attributes.bbl Rcpp-attributes.blg Rcpp-attributes.aux Rcpp-attributes.out Rcpp-attributes.log Rcpp-attributes.Rnw
+	cp -f Rcpp-attributes/Rcpp-attributes-fake.Rnw Rcpp-attributes.Rnw
 
 Rcpp-quickref.pdf : Rcpp-quickref/Rcpp-quickref.Rnw
 	cp -f Rcpp-quickref/Rcpp-quickref.Rnw .
