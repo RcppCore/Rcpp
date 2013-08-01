@@ -21,13 +21,12 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (FALSE && .runThisTest) {
+if ( .runThisTest) {
 
 .setUp <- Rcpp:::unit_test_setup( "wstring.cpp" )
 
 test.CharacterVector_wstring <- function(){
     res <- CharacterVector_wstring()
-    #print(res)
     checkEquals( res, c("foobar", "foobar" ) )
 }
 

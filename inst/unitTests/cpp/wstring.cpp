@@ -19,7 +19,7 @@ std::wstring wstring_return(){
 }
 
 // [[Rcpp::export]]
-String wstring_param(const std::wstring& s1, const std::wstring& s2){
+String wstring_param(std::wstring s1, std::wstring s2){
     String s = s1 ;
     s += s2 ;
     return s ;
