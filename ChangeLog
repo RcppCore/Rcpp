@@ -1,4 +1,9 @@
-2013-07-25 Romain Francois <romain@r-enthusiasts.com>
+2013-07-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.wstring.R: *TEMPORARILY* disabled
+	===== To be revverted before release ======
+
+2013-07-25  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/functions/is_na.h : added is_na for DateVector and
         DatetimeVector
@@ -8,17 +13,17 @@
         * unitTests/runit.Date.R : idem
         * src/attributes.cpp: collecting functions in a FunctionMap. Will use this
         for dispatching
-        
+
 2013-07-24  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_module_object.h: trait class that identifies
-        at compile time if a given type is a type exposed by a module, i.e. if 
-        we used the RCPP_EXPOSED_AS macro
+	at compile time if a given type is a type exposed by a module,
+	i.e. if we used the RCPP_EXPOSED_AS macro
         * include/Rcpp/is.h: able to identify if an object is of a given type
-        exposed by a module (supports references and pointers too). 
-        * src/Module.cpp: implementation of is_module_object_internal that 
-        checks if an object is of a given typeid, used by is<T> where T is 
-        module exposed
+	exposed by a module (supports references and pointers too).
+        * src/Module.cpp: implementation of is_module_object_internal that
+	checks if an object is of a given typeid, used by is<T> where T is
+	module exposed
 
 2013-07-23  Romain Francois <romain@r-enthusiasts.com>
 
@@ -26,12 +31,13 @@
         exposed by modules
         * include/Rcpp/macros/module.h: idem
         * include/Rcpp/traits/un_pointer.h: handle the object<T> case
-        * include/Rcpp/traits/r_type_traits.h: adding traits to help the 
-        with as<T*> and as<const T*>
+        * include/Rcpp/traits/r_type_traits.h: adding traits to help the with
+	as<T*> and as<const T*>
         * unitTests/runit.Module.R: testing as<T*> and as<const T*>
         * unitTests/cpp/Module.cpp: idem
-        * src/attributes.cpp: take advantage of a more flexible as<>. The Type
-        class gains a full_name() method that shows const-ness and reference-ness 
+        * src/attributes.cpp: take advantage of a more flexible as<>. The
+	Type class gains a full_name() method that shows const-ness and
+	reference-ness
 
 2013-07-17  Romain Francois <romain@r-enthusiasts.com>
 
