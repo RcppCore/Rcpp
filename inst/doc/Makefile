@@ -15,8 +15,8 @@ all:
 OLDpdfall: index.html Rcpp-unitTests.pdf Rcpp-introduction.pdf Rcpp-modules.pdf Rcpp-package.pdf Rcpp-FAQ.pdf Rcpp-extending.pdf Rcpp-sugar.pdf Rcpp-attributes.pdf Rcpp-quickref.pdf
 
 pdfall: index.html 
-	## Play some games with explicit targets to avoid parallel make builds
-	## This is all just because R-Forge insists on re-making these, seemingly in parallel
+        ## Play some games with explicit targets to avoid parallel make builds
+        ## This is all just because R-Forge insists on re-making these, seemingly in parallel
 	make Rcpp-extending.pdf
 	make Rcpp-FAQ.pdf
 	make Rcpp-introduction.pdf
@@ -30,11 +30,9 @@ pdfall: index.html
 pdfclean:
 	rm -f Rcpp-extending.pdf  Rcpp-FAQ.pdf  Rcpp-introduction.pdf  Rcpp-modules.pdf  Rcpp-package.pdf  Rcpp-quickref.pdf  Rcpp-sugar.pdf  Rcpp-attributes.pdf  Rcpp-unitTests.pdf
 
-rotateFiles:
-
-clean:
-	rm -f index.html
-	rm -f *.tex *.bbl *.blg *.aux *.out *.log
+#clean:
+#	rm -f index.html
+#	rm -f *.tex *.bbl *.blg *.aux *.out *.log
 
 setvars:
 ifeq (${R_HOME},)
