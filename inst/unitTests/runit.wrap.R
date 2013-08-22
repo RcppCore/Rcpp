@@ -149,5 +149,37 @@ test.wrap.unordered.map.string.generic <- function(){
     checkEquals( res[["c"]], c(1L,2L,2L,2L) ,  msg = "wrap( tr1::unordered_map<string,vector<int>>) " )
 }
 
+test.wrap.map.int.double <- function(){
+    checkEquals( 
+        map_int_double(), 
+        c("-1" = 3, "0" = 2 ), 
+        msg = "std::map<int,double>"
+    )    
+}
+
+test.wrap.map.double.double <- function(){
+    checkEquals( 
+        map_double_double(), 
+        c("0" = 2, "1.2" = 3 ), 
+        msg = "std::map<double,double>"
+    )    
+}
+
+test.wrap.map.int.vector_double <- function(){
+    checkEquals( 
+        map_int_vector_double(), 
+        list("0" = c(1,2), "1" = c(2,3) ), 
+        msg = "std::map<double, std::vector<double> >"
+    )    
+}
+
+test.wrap.map.int.Foo <- function(){
+    checkEquals( 
+        sapply( map_int_Foo(), function(.) .$get() ), 
+        c("0" = 2, "1" = 3 ), 
+        msg = "std::map<int, MODULE EXPOSED CLASS >"
+    )    
+}
+
 }
 

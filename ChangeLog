@@ -1,5 +1,16 @@
 2013-08-22 Romain Francois <romain@r-enthusiasts.com>
 
+        * include/Rcpp/traits/is_primitive.h : new trait to identify if a type is 
+        primitive, this is a shortcut of using r_type_traits and compare it
+        to r_type_primitive_tag
+        * include/Rcpp/traits/r_type_traits.h : new tag r_type_pair_tag to handle
+        wrapping map<KEY, VALUE> where KEY can be converted to String and VALUE 
+        can wrap itself
+        * include/Rcpp/internal/wrap.h : handling r_type_pair_tag
+        * include/Rcpp/api/meat/wrap.h : implementations to handle map<KEY, VALUE>
+        * unitTests/cpp/wrap.cpp : more tests for map<KEY, VALUE> with KEY not a string
+        * unitTests/runit.wrap.R : more tests for map<KEY, VALUE> with KEY not a string
+        
         * include/Rcpp/internal/export.h : added export_range__dispatch for the 
         r_type_generic_tag tag. Meaning we can now use as< vector<T> > where 
         T is not a primitive

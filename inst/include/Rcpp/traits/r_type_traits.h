@@ -61,6 +61,12 @@ struct r_type_pairstring_string_tag{} ;
 struct r_type_pairstring_generic_tag{} ;
 
 /**
+ * Identifies a pair<const KEY, VALUE>, used to wrap map<KEY, VALUE>
+ * VALUE can be anything that wraps, KEY can be anything we can build a String from
+ */
+struct r_type_pair_tag{} ;
+
+/**
  * identifies a module object pointer
  */ 
 struct r_type_module_object_pointer_tag{} ;
@@ -102,6 +108,12 @@ template <typename T> struct r_type_traits { typedef r_type_generic_tag r_catego
  * module object type
  */
 template <typename T> struct r_type_traits< Rcpp::object<T> >{ typedef r_type_module_object_pointer_tag r_category ; } ;
+
+
+template <typename KEY, typename VALUE> 
+struct r_type_traits< std::pair<const KEY,VALUE> > { 
+	typedef r_type_pair_tag r_category ; 
+} ;
 
 /** 
  * special cases pair<string,T> to deal with map<string,T> etc ...
