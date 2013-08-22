@@ -249,4 +249,11 @@ SEXP map_int_Foo(){
     return wrap( map ) ;
 }
 
+// [[Rcpp::export]]
+SEXP vector_Foo(){
+    std::vector<Foo> vec(2) ;
+    vec[0] = Foo( 2 ) ;
+    vec[1] = Foo( 3 ) ;
+    return wrap(vec) ;
+}
 
