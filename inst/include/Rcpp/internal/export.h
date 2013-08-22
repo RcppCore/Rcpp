@@ -47,26 +47,30 @@ namespace Rcpp{
     	
         /* iterating */
         
-        template <typename InputIterator, typename value_type>
-        	void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ) {
-	    	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
-	    	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	    	SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-	    	STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
-	    	std::copy( start, start + ::Rf_length(y), first ) ;
-	    	UNPROTECT(1) ;
+		template <typename InputIterator, typename value_type>
+			void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ) {
+			const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
+			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+			SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
+			std::copy( start, start + ::Rf_length(y), first ) ;
+			UNPROTECT(1) ;
+		}
+        
+		template <typename InputIterator, typename value_type>
+		void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::true_type ) {
+			const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
+			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+			SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
+			std::transform( start, start + ::Rf_length(y) , first, caster<STORAGE,value_type> ) ;
+			UNPROTECT(1) ;
         }
         
+        // implemented in meat
         template <typename InputIterator, typename value_type>
-        void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::true_type ) {
-	    	const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
-	    	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	    	SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
-	    	STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
-	    	std::transform( start, start + ::Rf_length(y) , first, caster<STORAGE,value_type> ) ;
-	    	UNPROTECT(1) ;
-        }
-        
+        void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_generic_tag ) ;
+		
         template <typename InputIterator, typename value_type>
         void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_primitive_tag ) {
 			export_range__impl<InputIterator,value_type>(
