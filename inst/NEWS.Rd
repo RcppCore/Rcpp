@@ -30,7 +30,11 @@
           a String from a double and \code{std::vector<double>} can wrap itself
       }
       Other examples of this are included at the end of the \code{wrap} unit test
-      file (\code{runit.wrap.R} and \code{wrap.cpp}) . 
+      file (\code{runit.wrap.R} and \code{wrap.cpp}).
+      \item \code{wrap} now handles containers of classes handled by modules. e.g.
+      if you expose a class \code{Foo} via modules, then you can wrap 
+      \code{vector<Foo>}, ... An example is included in the \code{wrap} unit test
+      file
     }
 
     \item Changes in Attributes:
