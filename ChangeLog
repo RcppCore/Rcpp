@@ -6,7 +6,8 @@
         * include/Rcpp/traits/r_type_traits.h : new tag r_type_pair_tag to handle
         wrapping map<KEY, VALUE> where KEY can be converted to String and VALUE 
         can wrap itself
-        * include/Rcpp/internal/wrap.h : handling r_type_pair_tag
+        * include/Rcpp/internal/wrap.h : handling map<KEY, VALUE> and vector<T>
+        where T is a class handled by modules
         * include/Rcpp/api/meat/wrap.h : implementations to handle map<KEY, VALUE>
         * unitTests/cpp/wrap.cpp : more tests for map<KEY, VALUE> with KEY not a string
         * unitTests/runit.wrap.R : more tests for map<KEY, VALUE> with KEY not a string

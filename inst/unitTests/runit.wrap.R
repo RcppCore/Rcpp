@@ -181,5 +181,13 @@ test.wrap.map.int.Foo <- function(){
     )    
 }
 
+test.wrap.vector.Foo <- function(){
+    checkEquals( 
+        sapply( vector_Foo(), function(.) .$get() ), 
+        c(2, 3), 
+        msg = "std::vector< MODULE EXPOSED CLASS >"
+    )    
+}
+
 }
 
