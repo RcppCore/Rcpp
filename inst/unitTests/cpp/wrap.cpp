@@ -196,3 +196,57 @@ List unordered_map_string_generic(){
     return wrap(m);
 }
 
+
+RCPP_EXPOSED_CLASS(Foo)
+class Foo{
+    public: 
+        Foo() : x(0.0){}
+        Foo( double x_ ) : x(x_){}
+        double get() { return x ; }
+   private:
+       double x ;
+} ;
+RCPP_MODULE(mod){
+    class_<Foo>("Foo")
+        .constructor<double>()
+        .method( "get", &Foo::get )
+    ;
+}
+
+// [[Rcpp::export]]
+SEXP map_int_double(){
+    std::map<int, double> map ;
+    map[0] = 2.0 ;
+    map[-1] = 3.0 ;
+    return wrap( map ) ;
+}
+ 
+// [[Rcpp::export]]
+SEXP map_double_double(){
+    std::map<double, double> map ;
+    map[0.0] = 2.0 ;
+    map[1.2] = 3.0 ;
+    return wrap( map ) ;
+}
+
+// [[Rcpp::export]]
+SEXP map_int_vector_double(){
+    std::map<int, std::vector<double> > map ;
+    map[0].push_back( 1.0 ) ;
+    map[0].push_back( 2.0 ) ;
+    
+    map[1].push_back( 2.0 ) ;
+    map[1].push_back( 3.0 ) ;
+    
+    return wrap( map ) ;
+}
+
+// [[Rcpp::export]]
+SEXP map_int_Foo(){
+    std::map<int, Foo> map ;
+    map[0] = Foo( 2 ) ;
+    map[1] = Foo( 3 ) ;
+    return wrap( map ) ;
+}
+
+

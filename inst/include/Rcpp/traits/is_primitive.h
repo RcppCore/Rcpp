@@ -1,8 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// meat.h: Rcpp R/C++ interface class library -- 
+// is_primitive.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,17 +20,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_meat_h
-#define Rcpp_api_meat_meat_h
+#ifndef Rcpp__traits__is_primitive__h
+#define Rcpp__traits__is_primitive__h
 
-#include <Rcpp/api/meat/RObject.h>
-#include <Rcpp/api/meat/Environment.h>
-#include <Rcpp/api/meat/DottedPair.h>
-#include <Rcpp/api/meat/Vector.h>
-#include <Rcpp/api/meat/Matrix.h>
-#include <Rcpp/api/meat/Reference.h>
-#include <Rcpp/api/meat/is.h>
-#include <Rcpp/api/meat/export.h>
-#include <Rcpp/api/meat/wrap.h>
+namespace Rcpp{
+namespace traits{
+
+	template <typename T> struct is_primitive : public same_type<
+		typename r_type_traits<T>::r_category , 
+		r_type_primitive_tag
+	>{} ;
+	
+} // traits
+} // Rcpp
 
 #endif
