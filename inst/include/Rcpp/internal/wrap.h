@@ -351,6 +351,40 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
 	return x ;
 
 }
+
+/** 
+ * iterating over pair<const int, VALUE>
+ * where VALUE is some primitive type
+ */
+template <typename InputIterator, typename KEY, typename VALUE, int RTYPE>
+inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator last, Rcpp::traits::true_type ) ;
+
+/** 
+ * iterating over pair<const int, VALUE>
+ * where VALUE is a type that needs wrapping
+ */
+template <typename InputIterator, typename KEY, typename VALUE, int RTYPE>
+inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator last, Rcpp::traits::false_type ) ;
+
+
+/**
+ * Range wrap dispatch for iterators over std::pair<const int, T>
+ */
+template<typename InputIterator, typename T>
+inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last, ::Rcpp::traits::r_type_pair_tag ){
+	typedef typename T::second_type VALUE ;
+	typedef typename T::first_type KEY ;
+	
+	return range_wrap_dispatch___impl__pair<
+			InputIterator,
+			KEY, 
+			VALUE, 
+			Rcpp::traits::r_sexptype_traits<VALUE>::rtype
+		>( first, last, 
+		typename Rcpp::traits::is_primitive<VALUE>::type()
+		) ;
+}
+
 // }}}
 
 /**

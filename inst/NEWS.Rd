@@ -19,6 +19,18 @@
       can be seen as a \code{T}. For example \code{is<DataFrame>(x)}. 
       This is a building block for more expressive dispatch in various places
       (modules and attributes functions). 
+      \item \code{wrap} can now handle more types, i.e. types that iterate over 
+      \code{std::pair<const KEY, VALUE>} where KEY can be converted to a 
+      \code{String} and \code{VALUE} is either a primitive type (int, double)
+      or a type that wraps. Examples :
+      \itemize{
+          \item \code{std::map<int, double>} : we can make a String from an int, 
+          and double is primitive
+          \item \code{boost::unordered_map<double, std::vector<double> >}: we can make
+          a String from a double and \code{std::vector<double>} can wrap itself
+      }
+      Other examples of this are included at the end of the \code{wrap} unit test
+      file (\code{runit.wrap.R} and \code{wrap.cpp}) . 
     }
 
     \item Changes in Attributes:
