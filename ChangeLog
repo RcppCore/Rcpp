@@ -1,3 +1,10 @@
+2013-08-22 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/internal/export.h : added export_range__dispatch for the 
+        r_type_generic_tag tag. Meaning we can now use as< vector<T> > where 
+        T is not a primitive
+        * include/Rcpp/api/meat/export.h : implementation in meat because it needs as
+        
 2013-08-01 Romain Francois <romain@r-enthusiasts.com>
 
         * unitTests/cpp/wstring.cpp: fix to re-enable wstring test suite. 
