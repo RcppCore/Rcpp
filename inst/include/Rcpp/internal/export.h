@@ -122,7 +122,7 @@ namespace Rcpp{
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			R_len_t size = ::Rf_length(y)  ;
 			for( R_len_t i=0; i<size; i++){
-			res[i] = caster<STORAGE,value_type>(start[i]) ;
+				res[i] = caster<STORAGE,value_type>(start[i]) ;
 			}
 			UNPROTECT(1) ; /* y */
 		}
