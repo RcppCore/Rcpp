@@ -55,8 +55,9 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
 	link( sprintf("%s-class", cl), package, text, root )
 }
 
-require( inline )
-require( Rcpp )
+require(inline)
+require(highlight)
+require(Rcpp)
 @
 
 \begin{document}
