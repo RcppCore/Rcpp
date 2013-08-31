@@ -26,9 +26,10 @@ rm -f confdefs.h config.log config.status \
 	src/symbols.rds \
 	inst/unitTests/testRcppClass/src/symbols.rds \
 	vignettes/*.aux vignettes/*.log vignettes/*.out \
+	vignettes/*.tex
 
 rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
-   	inst/doc/auto inst/doc/Rcpp-*/auto/ src-* vignettesq/auto
+   	inst/doc/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto
 
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;
