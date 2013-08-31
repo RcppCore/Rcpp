@@ -472,7 +472,9 @@ writeLines( '
 external_highlight( "myfile.cpp", type = "LATEX", doc = FALSE )
 @
 
-<<>>=
+%% Running this now makes the package depend on RcppArmadillo being installed
+%% and would require at least a Suggests
+<<eval=FALSE>>=
 fx <- cxxfunction(
 	signature(x_ = "numeric", Y_ = "matrix", z_ = "numeric" ),
 	paste( readLines( "myfile.cpp" ), collapse = "\n" ),
