@@ -1,4 +1,0 @@
-\documentclass[10pt]{article}
-%\VignetteIndexEntry{Rcpp-modules}
-\begin{document}
-\end{document}

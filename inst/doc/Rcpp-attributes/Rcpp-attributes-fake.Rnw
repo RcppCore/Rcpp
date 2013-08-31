@@ -1,4 +1,0 @@
-\documentclass[10pt]{article}
-%\VignetteIndexEntry{Rcpp-attributes}
-\begin{document}
-\end{document}
