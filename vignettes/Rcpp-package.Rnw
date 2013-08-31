@@ -36,7 +36,8 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
 <<echo=FALSE>>=
-require( Rcpp )
+require(Rcpp)
+require(highlight)
 link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
 	h <- if( missing(package) ) {
 		as.character( help( f ) )

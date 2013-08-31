@@ -56,6 +56,7 @@ linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upen
     link( sprintf("%s-class", cl), package, text, root )
 }
 require(inline)
+require(highlight)
 @
 
 \newcommand{\faq}[1]{FAQ~\ref{#1}}
