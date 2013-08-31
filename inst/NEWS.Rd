@@ -4,7 +4,6 @@
 
 \section{Changes in Rcpp version 0.10.5 (future)}{
   \itemize{
-
     \item Changes in Rcpp API:
     \itemize{
       \item Add \code{#defined(__sun)} to lists of operating systems to
@@ -24,10 +23,10 @@
       \code{String} and \code{VALUE} is either a primitive type (int, double)
       or a type that wraps. Examples :
       \itemize{
-          \item \code{std::map<int, double>} : we can make a String from an int, 
-          and double is primitive
-          \item \code{boost::unordered_map<double, std::vector<double> >}: we can make
-          a String from a double and \code{std::vector<double>} can wrap itself
+        \item \code{std::map<int, double>} : we can make a String from an int, 
+        and double is primitive
+        \item \code{boost::unordered_map<double, std::vector<double> >}: we can make
+        a String from a double and \code{std::vector<double>} can wrap itself
       }
       Other examples of this are included at the end of the \code{wrap} unit test
       file (\code{runit.wrap.R} and \code{wrap.cpp}).
@@ -36,34 +35,37 @@
       \code{vector<Foo>}, ... An example is included in the \code{wrap} unit test
       file
     }
-
     \item Changes in Attributes:
     \itemize{
-        \item Objects exported by a module (i.e. by a \code{RCPP_MODULE} call
-        in a file that is processed by \code{sourceCpp}) are now directly 
-        available in the environment. We used to make the module object
-        available, which was less useful.
-        \item A plugin for 'openmp' has been added to support use of OpenMP.
-        \item \code{Rcpp::export} now takes advantage of the more flexible 
-        \code{as<>}, handling constness and referenceness of the input types. 
-        For users, it means that for the parameters of function exported by modules, 
-        we can now use references, pointers and const versions of them.
-        The Module.cpp file has an example. 
+      \item Objects exported by a module (i.e. by a \code{RCPP_MODULE} call
+      in a file that is processed by \code{sourceCpp}) are now directly 
+      available in the environment. We used to make the module object
+      available, which was less useful.
+      \item A plugin for \code{openmp} has been added to support use of OpenMP.
+      \item \code{Rcpp::export} now takes advantage of the more flexible 
+      \code{as<>}, handling constness and referenceness of the input types. 
+      For users, it means that for the parameters of function exported by modules, 
+      we can now use references, pointers and const versions of them.
+      The file \code{Module.cpp} file has an example. 
     }
-
     \item Changes in Modules:
     \itemize{
       \item We can now expose functions and methods that take
       \code{T&} or \code{const T&} as arguments. In these situations
       objects are no longer copied as they used to be. 
     }
-
     \item Changes in sugar:
     \itemize{
-        \item \code{is_na} supports classes \code{DatetimeVector} and 
-        \code{DateVector}
+      \item \code{is_na} supports classes \code{DatetimeVector} and 
+      \code{DateVector}
     }
-    
+    \item Changes in Rcpp documentation:
+    \itemize{
+      \item The vignettes have been moved from \code{inst/doc/} to the
+      \code{vignettes} directory which is now preferred
+      \item The unitTest vignette has been disabled as no longer builds
+      when called from \code{R CMD check};
+    }
     \item Deprecation of \code{RCPP_FUNCTION_*}:
     \itemize{
       \item The macros from the \code{preprocessor_generated.h} file

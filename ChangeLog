@@ -1,27 +1,35 @@
+2013-08-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/doc/*: Moved all vignettes to vignettes/*
+	* vignettes/*: Minor updates to some vignettes
+
 2013-08-22 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/traits/is_primitive.h : new trait to identify if a type is 
-        primitive, this is a shortcut of using r_type_traits and compare it
-        to r_type_primitive_tag
-        * include/Rcpp/traits/r_type_traits.h : new tag r_type_pair_tag to handle
-        wrapping map<KEY, VALUE> where KEY can be converted to String and VALUE 
-        can wrap itself
+        * include/Rcpp/traits/is_primitive.h : new trait to identify if a
+	type is primitive, this is a shortcut of using r_type_traits and
+	compare it to r_type_primitive_tag
+        * include/Rcpp/traits/r_type_traits.h : new tag r_type_pair_tag to
+	handle wrapping map<KEY, VALUE> where KEY can be converted to String
+	and VALUE can wrap itself
         * include/Rcpp/internal/wrap.h : handling map<KEY, VALUE> and vector<T>
         where T is a class handled by modules
-        * include/Rcpp/api/meat/wrap.h : implementations to handle map<KEY, VALUE>
-        * unitTests/cpp/wrap.cpp : more tests for map<KEY, VALUE> with KEY not a string
-        * unitTests/runit.wrap.R : more tests for map<KEY, VALUE> with KEY not a string
-        
-        * include/Rcpp/internal/export.h : added export_range__dispatch for the 
-        r_type_generic_tag tag. Meaning we can now use as< vector<T> > where 
-        T is not a primitive
+        * include/Rcpp/api/meat/wrap.h : implementations to handle map<KEY,
+	VALUE>
+        * unitTests/cpp/wrap.cpp : more tests for map<KEY, VALUE> with KEY
+	not a string
+        * unitTests/runit.wrap.R : more tests for map<KEY, VALUE> with KEY
+	not a string
+
+        * include/Rcpp/internal/export.h : added export_range__dispatch for
+	the r_type_generic_tag tag. Meaning we can now use as< vector<T> >
+	where T is not a primitive
         * include/Rcpp/api/meat/export.h : implementation in meat because it needs as
-        
+
 2013-08-01 Romain Francois <romain@r-enthusiasts.com>
 
-        * unitTests/cpp/wstring.cpp: fix to re-enable wstring test suite. 
+        * unitTests/cpp/wstring.cpp: fix to re-enable wstring test suite.
         * unitTests/runit.wstring.R: re-enable the wstring test suite.
-        
+
 2013-07-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION: Bump development version to 0.10.4.3
