@@ -2,6 +2,8 @@
 
 	* include/Rcpp/platform/compiler.h : patch submitted by Murray for better
 	support of long long type. 
+	* include/Rcpp/platform/compiler.h : gcc 4.2.1 has tr1/unordered_map 
+	and tr1/unordered_set. Previous test was for gcc 4.4.0 for some reason
 
 2013-08-31  Dirk Eddelbuettel  <edd@debian.org>
 
