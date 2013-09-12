@@ -116,7 +116,7 @@
 // Check TR1 Headers
 #if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
     #if defined(__GLIBCXX__)
-        #if GCC_VERSION >= 40201
+        #if GCC_VERSION >= 40400 || ( GCC_VERSION >= 40201 && defined(__APPLE__) )
             #define HAS_TR1_UNORDERED_MAP
             #define HAS_TR1_UNORDERED_SET
         #endif
