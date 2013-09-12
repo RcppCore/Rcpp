@@ -1,3 +1,8 @@
+2013-09-12 Romain Francois <romain@r-enthusiasts.com>
+
+	* include/Rcpp/platform/compiler.h : patch submitted by Murray for better
+	support of long long type. 
+
 2013-08-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/*: Moved all vignettes to vignettes/*
