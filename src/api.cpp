@@ -1329,8 +1329,8 @@ SEXP rcpp_can_use_cxx0x(){
 }
 
 SEXP rcpp_capabilities(){
-	SEXP cap = PROTECT( Rf_allocVector( LGLSXP, 8) ) ;
-	SEXP names = PROTECT( Rf_allocVector( STRSXP, 8 ) ) ;
+	SEXP cap = PROTECT( Rf_allocVector( LGLSXP, 9) ) ;
+	SEXP names = PROTECT( Rf_allocVector( STRSXP, 9 ) ) ;
 #ifdef HAS_VARIADIC_TEMPLATES
 	LOGICAL(cap)[0] = TRUE ;
 #else
@@ -1365,6 +1365,12 @@ SEXP rcpp_capabilities(){
 #endif
 
 	LOGICAL(cap)[7] = FALSE ;
+	
+#ifdef RCPP_HAS_LONG_LONG_TYPES
+	LOGICAL(cap)[8] = TRUE ;
+#else
+    LOGICAL(cap)[8] = FALSE ;
+#endif
 
 	SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
 	SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
@@ -1374,6 +1380,7 @@ SEXP rcpp_capabilities(){
 	SET_STRING_ELT(names, 5, Rf_mkChar("Rcpp modules") ) ;
 	SET_STRING_ELT(names, 6, Rf_mkChar("demangling") ) ;
 	SET_STRING_ELT(names, 7, Rf_mkChar("classic api") ) ;
+	SET_STRING_ELT(names, 8, Rf_mkChar("long long") ) ;
 	Rf_setAttrib( cap, R_NamesSymbol, names ) ;
 	UNPROTECT(2) ;
 	return cap ;
