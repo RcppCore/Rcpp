@@ -3,7 +3,11 @@
 	* src/api.cpp : added "long long" to the capabilities function. 
 	* include/Rcpp/platform/compiler.h : demangling is definitely available
 	on all mac versions using gcc. No point is testing for OSX version. 
-
+	* include/Rcpp/InputParameter.h : extra layer of abstraction to allow for
+	custom handling of references etc ... used in RcppArmadillo
+	* src/attributes.cpp : using InputParameter
+	* DESCRIPTION: bump to 0.10.4.4
+	
 2013-09-12 Romain Francois <romain@r-enthusiasts.com>
 
 	* include/Rcpp/platform/compiler.h : patch submitted by Murray for better
