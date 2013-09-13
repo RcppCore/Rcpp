@@ -174,14 +174,7 @@
 #endif
 
 #ifdef __GNUC__
-  #ifdef __APPLE__ 
-    #include <Availability.h>
-    #ifndef __MAC_10_8
-        #define RCPP_HAS_DEMANGLING
-    #endif
-  #else
-      #define RCPP_HAS_DEMANGLING
-  #endif
+  #define RCPP_HAS_DEMANGLING
 #endif
 
 #ifdef __GNUC__

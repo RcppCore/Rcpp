@@ -1,6 +1,8 @@
 2013-09-13 Romain Francois <romain@r-enthusiasts.com>
 
-	* src/api.cpp : added "long long" to the capabilities function.  
+	* src/api.cpp : added "long long" to the capabilities function. 
+	* include/Rcpp/platform/compiler.h : demangling is definitely available
+	on all mac versions using gcc. No point is testing for OSX version. 
 
 2013-09-12 Romain Francois <romain@r-enthusiasts.com>
 
