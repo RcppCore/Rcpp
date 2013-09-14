@@ -136,6 +136,7 @@ template<> struct r_type_traits< std::pair<const std::string,float> >{ typedef r
 template<> struct r_type_traits<int>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<const int>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<double>{ typedef r_type_primitive_tag r_category ; } ;
+template<> struct r_type_traits<const double>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<Rbyte>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<Rcomplex>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<bool>{ typedef r_type_primitive_tag r_category ; } ;
