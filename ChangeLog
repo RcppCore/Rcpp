@@ -1,26 +1,28 @@
-2013-09-13 Romain Francois <romain@r-enthusiasts.com>
+2013-09-13  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/api.cpp : added "long long" to the capabilities function. 
-	* include/Rcpp/platform/compiler.h : demangling is definitely available
-	on all mac versions using gcc. No point is testing for OSX version. 
-	* include/Rcpp/InputParameter.h : extra layer of abstraction to allow for
-	custom handling of references etc ... used in RcppArmadillo
+	* src/api.cpp : added "long long" to the capabilities function.
+	* include/Rcpp/platform/compiler.h : demangling is definitely
+	available on all mac versions using gcc. No point is testing for OSX
+	version.
+	* include/Rcpp/InputParameter.h : extra layer of abstraction to allow
+	for custom handling of references etc ... used in RcppArmadillo
 	* src/attributes.cpp : using InputParameter
 	* DESCRIPTION: bump to 0.10.4.4
-	
-2013-09-12 Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/platform/compiler.h : patch submitted by Murray for better
-	support of long long type. 
-	* include/Rcpp/platform/compiler.h : gcc 4.2.1 has tr1/unordered_map 
-	and tr1/unordered_set. Previous test was for gcc 4.4.0 for some reason
+2013-09-12  Romain Francois <romain@r-enthusiasts.com>
+
+	* include/Rcpp/platform/compiler.h : patch submitted by Murray for
+	better support of long long type.
+	* include/Rcpp/platform/compiler.h : gcc 4.2.1 has tr1/unordered_map
+	and tr1/unordered_set. Previous test was for gcc 4.4.0 for some
+	reason
 
 2013-08-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/doc/*: Moved all vignettes to vignettes/*
 	* vignettes/*: Minor updates to some vignettes
 
-2013-08-22 Romain Francois <romain@r-enthusiasts.com>
+2013-08-22  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_primitive.h : new trait to identify if a
 	type is primitive, this is a shortcut of using r_type_traits and
@@ -42,7 +44,7 @@
 	where T is not a primitive
         * include/Rcpp/api/meat/export.h : implementation in meat because it needs as
 
-2013-08-01 Romain Francois <romain@r-enthusiasts.com>
+2013-08-01  Romain Francois <romain@r-enthusiasts.com>
 
         * unitTests/cpp/wstring.cpp: fix to re-enable wstring test suite.
         * unitTests/runit.wstring.R: re-enable the wstring test suite.
