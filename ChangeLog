@@ -1,3 +1,7 @@
+2013-09-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/attributes.cpp (Rcpp): Precede closing '>' by space to avoid '>>'
+
 2013-09-13  Romain Francois <romain@r-enthusiasts.com>
 
 	* src/api.cpp : added "long long" to the capabilities function.
