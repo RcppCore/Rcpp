@@ -2167,8 +2167,8 @@ namespace attributes {
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
                 
-                ostr << "        Rcpp::InputParameter< " 
-                     << argument.type().full_name() << " > " << argument.name() 
+                ostr << "        Rcpp::traits::input_parameter< " 
+                     << argument.type().full_name() << " >::type " << argument.name() 
                      << "(" << argument.name() << "SEXP );" << std::endl;
             }
             
