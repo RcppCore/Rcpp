@@ -589,9 +589,9 @@ test.containsElementNamed <- function() {
 
 test.CharacterVector.equality.operator <- function(){
     res <- CharacterVectorEqualityOperator( letters, letters )
-    checkEquals( res, 
-        list( rep( TRUE, 26L ), rep( FALSE, 26L) ), 
-        msg = 'CharacterVector element equality operator' )    
+    checkEquals( res,
+        list( rep( TRUE, 26L ), rep( FALSE, 26L) ),
+        msg = 'CharacterVector element equality operator' )
 }
 
 test.List.rep.ctor <- function(){
@@ -640,3 +640,53 @@ if( Rcpp:::capabilities()[["initializer lists"]] ){
 }
 
 }
+
+test.std.vector.double <- function() {
+    fun <- stdVectorDouble
+    x <- seq(1.0, 5.0, by=1.0)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorDouble")
+}
+
+test.std.vector.double.const <- function() {
+    fun <- stdVectorDoubleConst
+    x <- seq(1.0, 5.0, by=1.0)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorDoubleConst")
+}
+
+test.std.vector.double.ref <- function() {
+    fun <- stdVectorDoubleRef
+    x <- seq(1.0, 5.0, by=1.0)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorDoubleRef")
+}
+
+test.std.vector.double.const.ref <- function() {
+    fun <- stdVectorDoubleConstRef
+    x <- seq(1.0, 5.0, by=1.0)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorDoubleConstRef")
+}
+
+test.std.vector.int <- function() {
+    fun <- stdVectorInt
+    x <- seq(1L, 5L, by=1L)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorInt")
+}
+
+test.std.vector.int.const <- function() {
+    fun <- stdVectorIntConst
+    x <- seq(1L, 5L, by=1L)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorIntConst")
+}
+
+test.std.vector.int.ref <- function() {
+    fun <- stdVectorIntRef
+    x <- seq(1L, 5L, by=1L)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorIntRef")
+}
+
+test.std.vector.int.const.ref <- function() {
+    fun <- stdVectorIntConstRef
+    x <- seq(1L, 5L, by=1L)
+    checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorIntConstRef")
+}
+
+

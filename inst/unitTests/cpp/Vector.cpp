@@ -729,3 +729,42 @@ List List_rep_ctor(IntegerVector x){
 	}
 #endif
 
+// [[Rcpp::export]]
+int stdVectorDouble(std::vector<double> x) { 
+    return x.size();
+}
+
+// [[Rcpp::export]]
+int stdVectorDoubleConst(const std::vector<double> x) { 
+    return x.size();
+}
+
+// [[Rcpp::export]]
+int stdVectorDoubleRef(std::vector<double> & x) { 
+    return x.size();
+}
+
+// [[Rcpp::export]]
+int stdVectorDoubleConstRef(const std::vector<double> & x) { 
+    return x.size();
+}
+
+// [[Rcpp::export]]
+int stdVectorInt(std::vector<int> x) { 
+    return x.size();
+}
+
+// [[Rcpp::export]]
+int stdVectorIntConst(const std::vector<int> x) { 
+    return x.size();
+}
+
+// [[Rcpp::export]]
+int stdVectorIntRef(std::vector<int> & x) { 
+    return x.size();
+}
+
+// [[Rcpp::export]]
+int stdVectorIntConstRef(const std::vector<int> & x) { 
+    return x.size();
+}
