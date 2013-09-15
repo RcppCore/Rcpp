@@ -1,5 +1,7 @@
 2013-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/include/Rcpp/InputParameter.h (Rcpp): Add 'const' case
+
 	* inst/unitTests/cpp/Vector.cpp: New unit tests for std::vector
 	conversions, using both int and double arguments
 	* inst/unitTests/runit.Vector.R: R complement of these tests

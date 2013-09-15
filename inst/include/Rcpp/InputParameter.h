@@ -50,6 +50,19 @@ namespace Rcpp {
     private:
         T obj ;
     } ;
+
+    // same for const
+    template <typename T>
+    class ConstInputParameter {
+    public:
+        typedef const T const_nonref ;
+        ConstInputParameter(SEXP x_) : obj( as<T>(x_) ){}
+        
+        inline operator const_nonref() { return obj ; }
+        
+    private:
+        T obj ;
+    } ;
     
     // same for const references
     template <typename T>
@@ -72,6 +85,10 @@ namespace Rcpp {
         template <typename T>
         struct input_parameter<T&> {
             typedef typename Rcpp::ReferenceInputParameter<T> type ;
+        } ;
+        template <typename T>
+        struct input_parameter<const T> {
+            typedef typename Rcpp::ConstInputParameter<T> type ;
         } ;
         template <typename T>
         struct input_parameter<const T&> {
