@@ -1,9 +1,19 @@
+2013-09-15 Romain Francois <romain@r-enthusiasts.com>
+        
+	* include/Rcpp/InputParameter.h : added the traits::input_parameter trait
+	to add another layer of abstration. 
+	* include/Rcpp/macros/module.h : taking advantage of input_parameter to
+	specialize how to work with module objects
+	* src/attributes.cpp : using traits::input_parameter<T> instead of 
+	InputParameter<T>
+        
 2013-09-14  Dirk Eddelbuettel  <edd@debian.org>
 
+	* src/attributes.cpp : Precede closing '>' by space to avoid '>>'
 	* inst/include/Rcpp/platform/compiler.h: Further refine #if test for
 	'long long' by conditioning __LP64__ on also using clang/llvm
 
-	* src/attributes.cpp (Rcpp): Precede closing '>' by space to avoid '>>'
+	* src/attributes.cpp : Precede closing '>' by space to avoid '>>'
 
 2013-09-13  Romain Francois <romain@r-enthusiasts.com>
 

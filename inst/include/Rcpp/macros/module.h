@@ -44,6 +44,21 @@
     template<> struct r_type_traits< const CLASS& >{                          \
         typedef r_type_module_object_const_reference_tag r_category ;         \
     } ;                                                                       \
+    template<> struct input_parameter< CLASS* >{                              \
+        typedef Rcpp::InputParameter<CLASS*> type ;                           \
+    } ;                                                                       \
+    template<> struct input_parameter< const CLASS* >{                        \
+        typedef Rcpp::InputParameter<const CLASS*> type ;                     \
+    } ;                                                                       \
+    template<> struct input_parameter< CLASS >{                               \
+        typedef Rcpp::InputParameter<CLASS> type ;                            \
+    } ;                                                                       \
+    template<> struct input_parameter< CLASS& >{                              \
+        typedef Rcpp::InputParameter<CLASS&> type ;                           \
+    } ;                                                                       \
+    template<> struct input_parameter< const CLASS& >{                        \
+        typedef Rcpp::InputParameter<const CLASS&> type ;                     \
+    } ;                                                                       \
     }}
     
 #define RCPP_EXPOSED_WRAP(CLASS) namespace Rcpp{ namespace traits{ template<> struct wrap_type_traits< CLASS >{typedef wrap_type_module_object_tag wrap_category ; } ; }}
