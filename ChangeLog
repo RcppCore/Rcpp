@@ -1,12 +1,18 @@
-2013-09-15 Romain Francois <romain@r-enthusiasts.com>
-        
-	* include/Rcpp/InputParameter.h : added the traits::input_parameter trait
-	to add another layer of abstration. 
-	* include/Rcpp/macros/module.h : taking advantage of input_parameter to
-	specialize how to work with module objects
-	* src/attributes.cpp : using traits::input_parameter<T> instead of 
+2013-09-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/cpp/Vector.cpp: New unit tests for std::vector
+	conversions, using both int and double arguments
+	* inst/unitTests/runit.Vector.R: R complement of these tests
+
+2013-09-15  Romain Francois <romain@r-enthusiasts.com>
+
+	* include/Rcpp/InputParameter.h : added the traits::input_parameter
+	trait to add another layer of abstration.
+	* include/Rcpp/macros/module.h : taking advantage of input_parameter
+	to specialize how to work with module objects
+	* src/attributes.cpp : using traits::input_parameter<T> instead of
 	InputParameter<T>
-        
+
 2013-09-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/attributes.cpp : Precede closing '>' by space to avoid '>>'
