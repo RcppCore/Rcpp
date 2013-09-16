@@ -87,6 +87,11 @@ public:
         RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
         update_vector();
     }
+    Vector( const char* st ) : RObject( internal::vector_from_string<RTYPE>(st) ){
+        RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
+        update_vector();
+    }
+	
 	Vector( const int& siz, stored_type (*gen)(void) ) : RObject(Rf_allocVector( RTYPE, siz)) {
         RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         update_vector() ;
