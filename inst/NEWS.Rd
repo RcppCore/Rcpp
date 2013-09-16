@@ -47,6 +47,7 @@
       For users, it means that for the parameters of function exported by modules, 
       we can now use references, pointers and const versions of them.
       The file \code{Module.cpp} file has an example. 
+      \item{No longer call non-exported functions from the tools package}
     }
     \item Changes in Modules:
     \itemize{
