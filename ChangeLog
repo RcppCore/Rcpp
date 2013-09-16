@@ -8,7 +8,9 @@
         std::deque, and std::list so that we use their faster range constructor when 
         we can, and so let the STL optimize how data is copied
         * include/Rcpp/api/meat/export.h : Implementation of the above
-
+        * include/Rcpp/vector/Vector.h : added Vector( const char* ) ctor
+        * DESCRIPTION : bump to 0.10.4.5 (for RcppExtras)
+        
 2013-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/InputParameter.h (Rcpp): Add 'const' case
