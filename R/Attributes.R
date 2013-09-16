@@ -309,13 +309,12 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     descFile <- file.path(pkgdir,"DESCRIPTION")
     if (!file.exists(descFile))
         stop("pkgdir must refer to the directory containing an R package")
-
-    pkgInfo <- tools:::.split_description(tools:::.read_description(descFile))
-    pkgname <- as.character(pkgInfo$DESCRIPTION["Package"])
-    depends <- unique(names(pkgInfo$Depends))
-    if (is.null(depends))
-        depends <- character()
-
+    pkgDesc <- read.dcf(descFile)[1,]
+    pkgname = .readPkgDescField(pkgDesc, "Package")
+    depends <- .readPkgDescField(pkgDesc, "Depends", character())
+    depends <- unique(.splitDepends(depends)) 
+    depends <- depends[depends != "R"]
+        
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
     if (!file.exists(srcDir))
@@ -330,7 +329,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     cppFiles <- list.files(srcDir, pattern=glob2rx("*.c*"))
 
     # derive base names (will be used for modules)
-    cppFileBasenames <- tools:::file_path_sans_ext(cppFiles)
+    cppFileBasenames <- tools::file_path_sans_ext(cppFiles)
 
     # expend them to their full paths
     cppFiles <- file.path(srcDir, cppFiles)
@@ -338,7 +337,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
     # generate the includes list based on LinkingTo. Specify plugins-only
     # because we only need as/wrap declarations
-    linkingTo <- as.character(pkgInfo$DESCRIPTION["LinkingTo"])
+    linkingTo <- .readPkgDescField(pkgDesc, "LinkingTo")
     includes <- .linkingToIncludes(linkingTo, TRUE)
 
     # if a master include file is defined for the package then include it
@@ -448,6 +447,24 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
                       sep=""),
                 call. = FALSE)
     }
+}
+
+# Split the depends field of a package description
+.splitDepends <- function(x) {
+    if (!length(x)) 
+        return(character())
+    x <- unlist(strsplit(x, ","))
+    x <- sub("[[:space:]]+$", "", x)
+    x <- unique(sub("^[[:space:]]*(.*)", "\\1", x))
+    sub("^([[:alnum:].]+).*$", "\\1", x)
+}
+
+# read a field from a named package description character vector
+.readPkgDescField <- function(pkgDesc, name, default = NULL) {
+    if (name %in% names(pkgDesc))
+        pkgDesc[[name]]
+    else
+        default
 }
 
 
