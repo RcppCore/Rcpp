@@ -1,9 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
 // exporter.h: Rcpp R/C++ interface class library -- identify if a class has a nested iterator typedef
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,33 +25,33 @@
 namespace Rcpp{
     namespace traits{
 
-        template <typename T> class Exporter{
-        public:
-            Exporter( SEXP x ) : t(x){}
-            inline T get(){ return t ; }
-
-        private:
-            T t ;
-        } ;
-
-        template <typename T> class RangeExporter {
-        public:
-            typedef typename T::value_type r_export_type ;
+		template <typename T> class Exporter{
+		public:
+		    Exporter( SEXP x ) : t(x){}
+		    inline T get(){ return t ; }
+		
+		private:
+		    T t ;
+		} ;
+		
+		template <typename T> class RangeExporter {
+		public:
+		    typedef typename T::value_type r_export_type ;
+		
+		    RangeExporter( SEXP x ) : object(x){}
+		    ~RangeExporter(){}
+		
+		    T get(){ 
+		        T vec( ::Rf_length(object) );
+		        ::Rcpp::internal::export_range( object, vec.begin() ) ;
+		        return vec ;
+		    }
+		
+		private:
+		    SEXP object ;
+		} ;
         
-            RangeExporter( SEXP x ) : object(x){}
-            ~RangeExporter(){}
-        
-            T get(){ 
-                T vec( ::Rf_length(object) );
-                ::Rcpp::internal::export_range( object, vec.begin() ) ;
-                return vec ;
-            }
-        
-        private:
-            SEXP object ;
-        } ;
-
-        template <typename T, typename value_type> class IndexingExporter {
+		template <typename T, typename value_type> class IndexingExporter {
         public:
             typedef value_type r_export_type ;
         
@@ -92,20 +91,26 @@ namespace Rcpp{
             SEXP object ;
         } ;
 
-
-        template <typename T> class Exporter< std::vector<T> > : public RangeExporter< std::vector<T> > {
+        template < template<class,class> class Container, typename T>
+        struct container_exporter{
+        		typedef RangeExporter< Container<T, std::allocator<T> > > type ;
+        } ;
+        template < template<class,class> class Container > struct container_exporter< Container, int > ;
+        template < template<class,class> class Container > struct container_exporter< Container, double > ;
+        
+        template <typename T> class Exporter< std::vector<T> > : public container_exporter< std::vector, T>::type {
         public:
-            Exporter(SEXP x) : RangeExporter< std::vector<T> >(x){}
+            Exporter(SEXP x) : container_exporter< std::vector, T>::type(x){}
         };
-        template <typename T> class Exporter< std::deque<T> > : public RangeExporter< std::deque<T> > {
+        template <typename T> class Exporter< std::deque<T> > : public container_exporter< std::deque, T>::type {
         public:
-            Exporter(SEXP x) : RangeExporter< std::deque<T> >(x){}
+            Exporter(SEXP x) : container_exporter< std::deque, T>::type(x){}
         };
-        template <typename T> class Exporter< std::list<T> > : public RangeExporter< std::list<T> > {
+        template <typename T> class Exporter< std::list<T> > : public container_exporter< std::list, T>::type {
         public:
-            Exporter(SEXP x) : RangeExporter< std::list<T> >(x){}
+            Exporter(SEXP x) : container_exporter< std::list, T>::type(x){}
         };
-
+        
     } // namespace traits
 } // namespace Rcpp
 #endif

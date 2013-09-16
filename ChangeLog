@@ -1,3 +1,10 @@
+2013-09-16 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/internal/Exporter.h : Specific handling of containers (std::vector,
+        std::deque, and std::list so that we use their faster range constructor when 
+        we can, and so let the STL optimize how data is copied
+        * include/Rcpp/api/meat/export.h : Implementation of the above
+
 2013-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/InputParameter.h (Rcpp): Add 'const' case
