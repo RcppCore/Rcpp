@@ -1,3 +1,7 @@
+2013-09-16 JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R : Remove calls to non-exported functions from the tools package
+
 2013-09-16 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/Exporter.h : Specific handling of containers (std::vector,
