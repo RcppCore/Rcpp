@@ -4,6 +4,7 @@ inst/doc/latex
 inst/doc/man
 build
 inst/doc/jss.bst
+vignettes/jss.bst
 ^.*\.Rproj$
 ^\.Rproj\.user$
 inst/include/Rcpp/preprocessor
