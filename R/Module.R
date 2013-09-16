@@ -239,7 +239,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                           )
         rm( .self, .refClassDef )
 
-        classDef <- methods:::getClass(clname)
+        classDef <- methods::getClass(clname)
         ## non-public (static) fields in class representation
         ## <fixme>  Should these become real fields? </fixme>
         fields <- classDef@fieldPrototypes
