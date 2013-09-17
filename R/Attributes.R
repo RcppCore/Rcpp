@@ -312,9 +312,9 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     pkgDesc <- read.dcf(descFile)[1,]
     pkgname = .readPkgDescField(pkgDesc, "Package")
     depends <- .readPkgDescField(pkgDesc, "Depends", character())
-    depends <- unique(.splitDepends(depends)) 
+    depends <- unique(.splitDepends(depends))
     depends <- depends[depends != "R"]
-        
+
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
     if (!file.exists(srcDir))
@@ -451,7 +451,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
 # Split the depends field of a package description
 .splitDepends <- function(x) {
-    if (!length(x)) 
+    if (!length(x))
         return(character())
     x <- unlist(strsplit(x, ","))
     x <- sub("[[:space:]]+$", "", x)
@@ -566,7 +566,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         # we are using a plugin -- confirm that the plugin includes the Rcpp
         # PKG_LIBS and if it doesn't then add them
         pkgLibs <- buildEnv$PKG_LIBS
-        rcppLibs <- Rcpp:::RcppLdFlags()
+        rcppLibs <- Rcpp::RcppLdFlags()
         if (is.null(pkgLibs) || !grepl(rcppLibs, pkgLibs, fixed = TRUE))
             buildEnv$PKG_LIBS <- paste(pkgLibs, rcppLibs)
     }
