@@ -6,6 +6,14 @@
 	* R/SHLIB.R: Ditto
 	* R/inline.R: Ditto
 
+	* vignettes/Rcpp-FAQ.Rnw: Add %\VignetteEngine{highlight::highlight}
+	* vignettes/Rcpp-attributes.Rnw: Idem
+	* vignettes/Rcpp-extending.Rnw: Idem
+	* vignettes/Rcpp-modules.Rnw: Idem
+	* vignettes/Rcpp-package.Rnw: Idem
+	* vignettes/Rcpp-quickref.Rnw: Idem
+	* vignettes/Rcpp-sugar.Rnw: Idem
+	
 2013-09-16 JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R : Remove calls to non-exported functions from the tools package

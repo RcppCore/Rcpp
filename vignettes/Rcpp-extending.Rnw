@@ -1,5 +1,6 @@
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-extending}
+%\VignetteEngine{highlight::highlight}
 \usepackage[USletter]{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
