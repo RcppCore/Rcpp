@@ -14,10 +14,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-               
-SHLIB.maker <- function(env = 
-    list( 
-        PKG_LIBS = Rcpp:::RcppLdFlags(), 
+
+SHLIB.maker <- function(env =
+    list(
+        PKG_LIBS = Rcpp::RcppLdFlags(),
         PKG_CPPFLAGS = Rcpp:::RcppCxxFlags()
         )
     ){
@@ -26,7 +26,7 @@ SHLIB.maker <- function(env =
         R <- file.path( R.home(component = "bin"), "R"  )
         system( sprintf( "%s CMD SHLIB %s", R, cmd ) )
     }
-}    
-    
+}
+
 SHLIB <- SHLIB.maker()
 
