@@ -561,7 +561,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
     # if there is no buildEnv from a plugin then use the Rcpp plugin
     if (length(buildEnv) == 0) {
-        buildEnv <- Rcpp:::inlineCxxPlugin()$env
+        buildEnv <- inlineCxxPlugin()$env
     } else {
         # we are using a plugin -- confirm that the plugin includes the Rcpp
         # PKG_LIBS and if it doesn't then add them
@@ -795,7 +795,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # Rcpp.plugin.maker. If the plugin$includes has this suffix we know
     # it's an Rcpp plugin
     token <- "include_after_token"
-    stockRcppPlugin <- Rcpp:::Rcpp.plugin.maker(include.after=token)
+    stockRcppPlugin <- Rcpp.plugin.maker(include.after=token)
     includes <- stockRcppPlugin()$includes
     suffix <- strsplit(includes, token)[[1]][[2]]
 
