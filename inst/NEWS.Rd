@@ -34,6 +34,8 @@
       if you expose a class \code{Foo} via modules, then you can wrap 
       \code{vector<Foo>}, ... An example is included in the \code{wrap} unit test
       file
+      \item \code{RcppLdFlags()}, often used in \code{Makevars} files of
+      packages using \pkg{Rcpp}, is now exported from the package namespace.
     }
     \item Changes in Attributes:
     \itemize{
