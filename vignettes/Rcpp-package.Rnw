@@ -27,7 +27,7 @@
 \newcommand{\hlboxbacktick}{   \hlnormalsizeboxbacktick}
 \newcommand{\hlboxunderscore}{ \hlnormalsizeboxunderscore}
 
-<<echo=FALSE,print=FALSE>>=
+<<version,echo=FALSE,print=FALSE>>=
 prettyVersion <- packageDescription("Rcpp")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
 @
@@ -36,28 +36,30 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \title{Writing a package that uses \pkg{Rcpp} }
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
-<<echo=FALSE>>=
+<<link,echo=FALSE>>=
 require(Rcpp)
 require(highlight)
-link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
-	h <- if( missing(package) ) {
-		as.character( help( f ) )
-	} else {
-		as.character( help( f, package = paste( package, sep = "" ) ) )
-	}
-	if( ! length(h) ){
-		sprintf( "\\\\textbf{%s}", f )
-	} else {
-		rx <- "^.*/([^/]*?)/help/(.*?)$"
-		package <- sub( rx, "\\1", h, perl = TRUE )
-		page <- sub( rx, "\\2", h, perl = TRUE )
-		sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
-	}
+link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/") {
+    h <- if( missing(package) ) {
+        as.character( help( f ) )
+    } else {
+        as.character( help( f, package = paste( package, sep = "" ) ) )
+    }
+    if( ! length(h) ){
+        sprintf( "\\\\textbf{%s}", f )
+    } else {
+        rx <- "^.*/([^/]*?)/help/(.*?)$"
+        package <- sub( rx, "\\1", h, perl = TRUE )
+        page <- sub( rx, "\\2", h, perl = TRUE )
+        sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
+    }
 }
-linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
-	link( sprintf("%s-class", cl), package, text, root )
+linkS4class <- function(cl, package, text=cl, root="http://finzi.psych.upenn.edu/R/library/") {
+    link( sprintf("%s-class", cl), package, text, root )
 }
 @
+
+
 
 \begin{document}
 \maketitle
@@ -116,58 +118,34 @@ main argument is the first one which provides the name of the package one
 aims to create by invoking the function.  An illustration of a call using an
 argument \texttt{mypackage} is provided below.
 
-<<echo=FALSE>>=
-here <- getwd()
-gendir <- tempfile()
-dir.create( gendir )
-setwd( gendir )
-Rcpp.package.skeleton( "mypackage" )
-dir.create( tlib <- tempfile() )
-system( sprintf( 'R CMD INSTALL --library="%s" mypackage ', tlib ) )
-require( "mypackage", lib.loc = tlib )
-setwd(here)
+<<tree,eval=FALSE>>=
+Rcpp.package.skeleton("mypackage")
 @
-
-% <<>>=
-% Rcpp.package.skeleton( "mypackage" )
-% writeLines( system( "tree" , intern = TRUE ) )
-% @
 \begin{Hchunk}
-\begin{Hinput}
-\ttfamily\noindent
-\hlprompt{\usebox{\hlboxgreaterthan}{\ }}\hlfunctioncall{Rcpp.package.skeleton}\hlkeyword{(}{\ }\hlstring{"mypackage"}{\ }\hlkeyword{)}\mbox{}
-\normalfont
+\begin{verbatim}
+$ ls -1R mypackage/
+mypackage/:
+DESCRIPTION
+man
+NAMESPACE
+R
+Read-and-delete-me
+src
 
-\end{Hinput}
+mypackage/man:
+mypackage-package.Rd
+rcpp_hello_world.Rd
 
-\begin{Hinput}
-\ttfamily\noindent
-\hlprompt{\usebox{\hlboxgreaterthan}{\ }}\hlfunctioncall{writeLines}\hlkeyword{(}{\ }\hlfunctioncall{system}\hlkeyword{(}{\ }\hlstring{"tree"}\hlkeyword{,}{\ }\hlargument{intern}{\ }\hlargument{=}{\ }\hlnumber{TRUE}{\ }\hlkeyword{)}{\ }\hlkeyword{)}\mbox{}
-\normalfont
-\end{Hinput}
+mypackage/R:
+rcpp_hello_world.R
 
-\begin{Houtput}
-\ttfamily\noindent
-.\hspace*{\fill}\\
-\hlstd{}\usebox{\hlboxbacktick}--{\ }mypackage\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|--{\ }DESCRIPTION\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|--{\ }NAMESPACE\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|--{\ }R\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.R\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|--{\ }Read-and-delete-me\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|--{\ }man\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|{\ }{\ }{\ }|--{\ }mypackage-package.Rd\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }|{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.Rd\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }src\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }|--{\ }Makevars\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }|--{\ }Makevars.win\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }|--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.cpp\hspace*{\fill}\\
-\hlstd{}{\ }{\ }{\ }{\ }{\ }{\ }{\ }{\ }\usebox{\hlboxbacktick}--{\ }rcpp\usebox{\hlboxunderscore}hello\usebox{\hlboxunderscore}world.h\hspace*{\fill}\\
-\hlstd{}\hspace*{\fill}\\
-\hlstd{}4{\ }directories,{\ }10{\ }files\hspace*{\fill}\\
-\hlstd{}\mbox{}
-\normalfont
-\end{Houtput}
+mypackage/src:
+Makevars
+Makevars.win
+rcpp_hello_world.cpp
+rcpp_hello_world.h
+$
+\end{verbatim}
 \end{Hchunk}
 
 Using \Sexpr{link("Rcpp.package.skeleton")} is by far the simplest approach
@@ -182,11 +160,10 @@ The skeleton contains an example \proglang{R} function
 invoke the \proglang{C++} function \texttt{rcpp\_hello\_world} from the
 package \texttt{mypackage}.
 
-<<echo=FALSE,results=tex>>=
-highlight(
-    file.path( gendir, "mypackage", "R", "rcpp_hello_world.R" ),
-    renderer = renderer_latex( doc = FALSE )
-    )
+<<lang=r>>=
+rcpp_hello_world <- function(){
+	.Call( "rcpp_hello_world", PACKAGE = "mypackage" )
+}
 @
 
 \pkg{Rcpp} uses the \Sexpr{link(".Call")} calling convention as it allows
@@ -204,32 +181,52 @@ creation mechanics.
 The \proglang{C++} function is declared in the \texttt{rcpp\_hello\_world.h}
 header file:
 
-<<echo=FALSE,results=tex>>=
-external_highlight(
-    file.path( gendir, "mypackage", "src", "rcpp_hello_world.h" ),
-    type = "LATEX",
-    doc = FALSE
-    )
+<<lang=cpp>>=
+#ifndef _mypackage_RCPP_HELLO_WORLD_H
+#define _mypackage_RCPP_HELLO_WORLD_H
+
+#include <Rcpp.h>
+
+/*
+ * note : RcppExport is an alias to `extern "C"` defined by Rcpp.
+ *
+ * It gives C calling convention to the rcpp_hello_world function so that
+ * it can be called from .Call in R. Otherwise, the C++ compiler mangles the
+ * name of the function and .Call can't find it.
+ *
+ * It is only useful to use RcppExport when the function is intended to be called
+ * by .Call. See the thread http://thread.gmane.org/gmane.comp.lang.r.rcpp/649/focus=672
+ * on Rcpp-devel for a misuse of RcppExport
+ */
+RcppExport SEXP rcpp_hello_world() ;
+
+#endif
 @
 
 The header includes the \texttt{Rcpp.h} file, which is the only file that
 needs to be included to use \pkg{Rcpp}. The function is then implemented in
 the \texttt{rcpp\_hello\_world.cpp} file
 
-<<echo=FALSE,results=tex>>=
-external_highlight(
-    file.path( gendir, "mypackage", "src", "rcpp_hello_world.cpp" ),
-    type = "LATEX",
-    doc = FALSE
-)
+<<lang=cpp>>=
+#include "rcpp_hello_world.h"
+
+SEXP rcpp_hello_world(){
+    using namespace Rcpp ;
+
+    CharacterVector x = CharacterVector::create( "foo", "bar" )  ;
+    NumericVector y   = NumericVector::create( 0.0, 1.0 ) ;
+    List z            = List::create( x, y ) ;
+
+    return z ;
+}
 @
 
 The function creates an \proglang{R} list that contains a
 \Sexpr{link("character")} vector and a \Sexpr{link("numeric")} vector using \pkg{Rcpp}
 classes. At the \proglang{R} level, we will therefore receive a list of
-length two containing these two vectors:
+length two containing these two vectors.
 
-<<>>=
+<<eval=FALSE>>=
 rcpp_hello_world( )
 @
 
@@ -238,14 +235,21 @@ rcpp_hello_world( )
 The skeleton generates an appropriate \texttt{DESCRIPTION} file, using
 both \texttt{Depends:} and \texttt{LinkingTo} for \pkg{Rcpp}:
 
-<<echo=FALSE,results=tex>>=
-local({
-	tf <- sprintf( "%s.make", tempfile() )
-	file.copy( file.path( gendir, "mypackage", "DESCRIPTION" ), tf )
-	external_highlight( tf, type = "LATEX", doc = FALSE )
-	unlink( tf )
-})
-@
+\begin{Hchunk}
+\begin{verbatim}
+Package: mypackage
+Type: Package
+Title: What the package does (short line)
+Version: 1.0
+Date: 2013-09-17
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What Licence is it under ?
+Depends: Rcpp (>= 0.10.4.5)
+LinkingTo: Rcpp
+\end{verbatim}
+\end{Hchunk}
 
 \Sexpr{link("Rcpp.package.skeleton")} adds the three last lines to the
 \texttt{DESCRIPTION} file generated by \Sexpr{link("package.skeleton")}.
@@ -264,39 +268,57 @@ add the \pkg{Rcpp} library to the \texttt{PKG\_LIBS} variable in the
 \texttt{Makevars} and \texttt{Makevars.win} files. \pkg{Rcpp} provides the
 unexported function \texttt{Rcpp:::LdFlags()} to ease the process:
 
-<<echo=FALSE,results=tex>>=
-local({
-	tf <- sprintf( "%s.make", tempfile() )
-	file.copy( file.path( gendir, "mypackage", "src", "Makevars" ), tf )
-	external_highlight( tf, type = "LATEX", doc = FALSE )
-	unlink( tf )
-})
-@
+\begin{Hchunk}
+\begin{verbatim}
+## Use the R_HOME indirection to support installations of multiple R version
+PKG_LIBS = `$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"`
+
+## As an alternative, one can also add this code in a file 'configure'
+##
+##    PKG_LIBS=`${R_HOME}/bin/Rscript -e "Rcpp:::LdFlags()"`
+##
+##    sed -e "s|@PKG_LIBS@|${PKG_LIBS}|" \
+##        src/Makevars.in > src/Makevars
+##
+## which together with the following file 'src/Makevars.in'
+##
+##    PKG_LIBS = @PKG_LIBS@
+##
+## can be used to create src/Makevars dynamically. This scheme is more
+## powerful and can be expanded to also check for and link with other
+## libraries.  It should be complemented by a file 'cleanup'
+##
+##    rm src/Makevars
+##
+## which removes the autogenerated file src/Makevars.
+##
+## Of course, autoconf can also be used to write configure files. This is
+## done by a number of packages, but recommended only for more advanced users
+## comfortable with autoconf and its related tools.
+\end{verbatim}
+\end{Hchunk}
+
 
 The \texttt{Makevars.win} is the equivalent, targeting windows.
 
-<<echo=FALSE,results=tex>>=
-local({
-	tf <- sprintf( "%s.make", tempfile() )
-	file.copy( file.path( gendir, "mypackage", "src", "Makevars.win" ), tf )
-	external_highlight( tf, type = "LATEX", doc = FALSE )
-	unlink( tf )
-})
-@
+\begin{Hchunk}
+\begin{verbatim}
+## Use the R_HOME indirection to support installations of multiple R version
+PKG_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()")
+\end{verbatim}
+\end{Hchunk}
 
 \subsection{\texttt{NAMESPACE}}
 
 The \Sexpr{link("Rcpp.package.skeleton")} function also creates a file
 \texttt{NAMESPACE}.
 
-<<echo=FALSE,results=tex>>=
-local({
-	tf <- sprintf( "%s.make", tempfile() )
-	file.copy( file.path( gendir, "mypackage", "NAMESPACE" ), tf )
-	external_highlight( tf, type = "LATEX", doc = FALSE )
-	unlink( tf )
-})
-@
+\begin{Hchunk}
+\begin{verbatim}
+useDynLib(mypackage)
+exportPattern("^[[:alpha:]]+")
+\end{verbatim}
+\end{Hchunk}
 
 This file serves two purposes. First, it ensure that the dynamic library
 contained in the package we are creating via
@@ -319,29 +341,75 @@ documentation on how to create suitable content for help files.
 The help file \texttt{mypackage-package.Rd} can be used to describe
 the new package.
 
-<<echo=FALSE,results=tex>>=
-local({
-	tf <- sprintf( "%s.make", tempfile() )
-	file.copy( file.path( gendir, "mypackage", "man", "mypackage-package.Rd" ), tf )
-	external_highlight( tf, type = "LATEX", doc = FALSE )
-	unlink( tf )
-})
-@
+\begin{Hchunk}
+\begin{verbatim}
+\name{mypackage-package}
+\alias{mypackage-package}
+\alias{mypackage}
+\docType{package}
+\title{
+What the package does (short line)
+}
+\description{
+More about what it does (maybe more than one line)
+~~ A concise (1-5 lines) description of the package ~~
+}
+\details{
+\tabular{ll}{
+Package: \tab mypackage\cr
+Type: \tab Package\cr
+Version: \tab 1.0\cr
+Date: \tab 2013-09-17\cr
+License: \tab What license is it under?\cr
+}
+~~ An overview of how to use the package, including the most important functions ~~
+}
+\author{
+Who wrote it
 
+Maintainer: Who to complain to <yourfault@somewhere.net>
+}
+\references{
+~~ Literature or other references for background information ~~
+}
+~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
+\keyword{ package }
+\seealso{
+~~ Optional links to other man pages, e.g. ~~
+~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+}
+\examples{
+%% ~~ simple examples of the most important functions ~~
+}
+\end{verbatim}
+\end{Hchunk}
 
 \subsubsection{\texttt{rcpp\_hello\_world.Rd}}
 
 The help file \texttt{rcpp\_hello\_world.Rd} serves as documentation for the
 example \proglang{R} function.
 
-<<echo=FALSE,results=tex>>=
-local({
-	tf <- sprintf( "%s.make", tempfile() )
-	file.copy( file.path( gendir, "mypackage", "man", "rcpp_hello_world.Rd" ), tf )
-	external_highlight( tf, type = "LATEX", doc = FALSE )
-	unlink( tf )
-})
-@
+\begin{Hchunk}
+\begin{verbatim}
+\name{rcpp_hello_world}
+\alias{rcpp_hello_world}
+\docType{package}
+\title{
+Simple function using Rcpp
+}
+\description{
+Simple function using Rcpp
+}
+\usage{
+rcpp_hello_world()
+}
+\examples{
+\dontrun{
+rcpp_hello_world()
+}
+}
+\end{verbatim}
+\end{Hchunk}
 
 
 \section{Further examples}
