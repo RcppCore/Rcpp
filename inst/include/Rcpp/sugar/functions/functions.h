@@ -46,7 +46,9 @@
 #include <Rcpp/sugar/functions/pmin.h>
 #include <Rcpp/sugar/functions/pmax.h>
 #include <Rcpp/sugar/functions/clamp.h>
-#include <Rcpp/sugar/functions/minmax.h>
+#include <Rcpp/sugar/functions/min.h>
+#include <Rcpp/sugar/functions/max.h>
+#include <Rcpp/sugar/functions/range.h>
 #include <Rcpp/sugar/functions/sign.h>
 #include <Rcpp/sugar/functions/diff.h>
 #include <Rcpp/sugar/functions/pow.h>
