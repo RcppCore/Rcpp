@@ -22,7 +22,7 @@ Rcpp.package.skeleton <- function(
 	path = ".", force = FALSE, namespace = TRUE,
 	code_files = character(), cpp_files = character(),
 	example_code = TRUE,
-	attributes = FALSE,
+	attributes = TRUE,
 	module = FALSE,
 	author = "Who wrote it",
 	maintainer = if(missing( author)) "Who to complain to" else author,
@@ -32,7 +32,9 @@ Rcpp.package.skeleton <- function(
 	
 	if (!is.character(cpp_files)) 
 		stop("'cpp_files' must be a character vector")
-
+	# set example_code if attributes is set
+	if( isTRUE(attributes) )
+	    example_code <- TRUE
 	env <- parent.frame(1)
 
 	if( !length(list) ){
@@ -114,6 +116,20 @@ Rcpp.package.skeleton <- function(
 			writeLines( 'import( Rcpp )', ns )
 		}
 		close( ns )
+	}
+	
+	# update the package description help page
+	package_help_page <- file.path( root, "man", sprintf( "%s-package.Rd" ) )
+	if( file.exists(package_help_page) ){
+	    lines <- readLines(package_help_page)
+	    lines <- gsub( "What license is it under?", license, fixed = TRUE )
+	    lines <- gsub( "Who to complain to <yourfault@somewhere.net>", 
+	        sprintf( "%s <%s>", maintainer, email), 
+	        fixed = TRUE
+	        )
+	    )
+	    lines <- gsub( "Who wrote it", author, fixed = TRUE )
+	    writeLines( lines, package_help_page )
 	}
 
 	# lay things out in the src directory

@@ -14,7 +14,7 @@ Create a skeleton for a new package depending on Rcpp
 Rcpp.package.skeleton(name = "anRpackage", list = character(), 
 	environment = .GlobalEnv, path = ".", force = FALSE, 
 	namespace = TRUE, code_files = character(), cpp_files = character(),
-	example_code = TRUE, attributes = FALSE, module = FALSE, 
+	example_code = TRUE, attributes = TRUE, module = FALSE, 
 	author = "Who wrote it", 
 	maintainer = if(missing( author)) "Who to complain to" else author, 
 	email = "yourfault@somewhere.net", 
@@ -64,7 +64,9 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	
 	If the \code{attributes} argument is \code{TRUE}, then rather than generate
 	the example files as described above, a single \samp{rcpp_hello_world.cpp}
-	file is created in the \samp{src} directory and it's attributes are compiled.
+	file is created in the \samp{src} directory and it's attributes are 
+	compiled using the \code{\link{compileAttributes}} function, so files
+	\samp{RcppExports.R} and \samp{RcppExports.cpp} are generated as well. 
 	
 	If the \code{module} argument is \code{TRUE}, a sample Rcpp module will 
 	be generated as well. 
