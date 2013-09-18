@@ -13,7 +13,10 @@
         so that it works even when we don't know the previous value
         * unitTests/runit.sugar.R : 
         * unitTests/cpp/sugar.cpp :
-        * TODO : 2 less items
+        * include/Rcpp/sugar/functions/range.h : factored out of minmax.h
+        * include/Rcpp/sugar/functions/min.h : factored out of minmax.h
+        * include/Rcpp/sugar/functions/max.h : factored out of minmax.h
+        * TODO : 3 less items
         
 2013-09-17  JJ Allaire  <jj@rstudio.org>
 

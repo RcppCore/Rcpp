@@ -50,11 +50,6 @@ Syntactic sugar
     
     o   operator/ needs to handle the case of division by 0
 
-    o   min, max with specialization of the binary operators, so that we can do 
-        things like this lazily: 
-        
-        min( x ) < 4
-    
     o   matrix functions : apply
     
     o   for character vectors: nchar, grepl, sub, gsub
