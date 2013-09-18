@@ -119,15 +119,16 @@ Rcpp.package.skeleton <- function(
 	}
 	
 	# update the package description help page
-	package_help_page <- file.path( root, "man", sprintf( "%s-package.Rd" ) )
+	package_help_page <- file.path( root, "man", sprintf( "%s-package.Rd", name ) )
 	if( file.exists(package_help_page) ){
 	    lines <- readLines(package_help_page)
-	    lines <- gsub( "What license is it under?", license, fixed = TRUE )
+	    lines <- gsub( "What license is it under?", license, lines, fixed = TRUE )
 	    lines <- gsub( "Who to complain to <yourfault@somewhere.net>", 
-	        sprintf( "%s <%s>", maintainer, email), 
+	        sprintf( "%s <%s>", maintainer, email),  
+	        lines, 
 	        fixed = TRUE
 	        )
-	    lines <- gsub( "Who wrote it", author, fixed = TRUE )
+	    lines <- gsub( "Who wrote it", author, lines, fixed = TRUE )
 	    writeLines( lines, package_help_page )
 	}
 
