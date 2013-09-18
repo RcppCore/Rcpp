@@ -1,12 +1,13 @@
 2013-09-17  JJ Allaire  <jj@rstudio.org>
 
-    * R/Attributes.R: Call inlineCxxPlugin and Rcpp.plugin.maker without qualification rather than with '...'
+	* R/Attributes.R: Call inlineCxxPlugin and Rcpp.plugin.maker without
+	qualification rather than with '...'
 
 2013-09-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* NAMESPACE: Export RcppLdFlags which is often used to build Rcpp
 	* man/RcppLdFlags.Rd: Added required manual page
-	* R/Attributes.R: Call RcppLdFlags() via '::' instead of ':::' 
+	* R/Attributes.R: Call RcppLdFlags() via '::' instead of ':::'
 	* R/SHLIB.R: Ditto
 	* R/inline.R: Ditto
 
@@ -17,20 +18,25 @@
 	* vignettes/Rcpp-package.Rnw: Idem
 	* vignettes/Rcpp-quickref.Rnw: Idem
 	* vignettes/Rcpp-sugar.Rnw: Idem
-	
-2013-09-16 JJ Allaire <jj@rstudio.org>
+
+	* vignettes/Rcpp-package.Rnw: Altered to make use of highlight
+	package; also no longer build embedded demo package (which upsets R
+	CMD check under R-devel)
+
+2013-09-16  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R : Remove calls to non-exported functions from the tools package
 
-2013-09-16 Romain Francois <romain@r-enthusiasts.com>
+2013-09-16  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/internal/Exporter.h : Specific handling of containers (std::vector,
-        std::deque, and std::list so that we use their faster range constructor when 
-        we can, and so let the STL optimize how data is copied
+        * include/Rcpp/internal/Exporter.h : Specific handling of containers
+	(std::vector, std::deque, and std::list so that we use their faster
+	range constructor when we can, and so let the STL optimize how data
+	is copied
         * include/Rcpp/api/meat/export.h : Implementation of the above
         * include/Rcpp/vector/Vector.h : added Vector( const char* ) ctor
         * DESCRIPTION : bump to 0.10.4.5 (for RcppExtras)
-        
+
 2013-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/InputParameter.h (Rcpp): Add 'const' case
