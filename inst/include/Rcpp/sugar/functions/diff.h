@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
 // diff.h: Rcpp R/C++ interface class library -- diff
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -24,42 +24,50 @@
 
 namespace Rcpp{
 namespace sugar{
-	
-	// NOTE: caching the previous value so that we only have to fetch the 
-	//       value once only works because we process the object from left to 
-	//       right
+
+// NOTE: caching the previous value so that we only have to fetch the 
+//       value once only works because we process the object from left to 
+//       right
 template <int RTYPE, bool LHS_NA, typename LHS_T>
 class Diff : public Rcpp::VectorBase< RTYPE, LHS_NA , Diff<RTYPE,LHS_NA,LHS_T> > {
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
-	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs_[0]), was_na(false) {
-		was_na = traits::is_na<RTYPE>(previous) ;
-	}
+	Diff( const LHS_TYPE& lhs_ ) : 
+	    lhs(lhs_), 
+	    previous(lhs_[0]),
+	    previous_index(0),
+	    was_na(traits::is_na<RTYPE>(previous)) 
+	{}
 	
 	inline STORAGE operator[]( int i ) const {
-		STORAGE y = lhs[i+1] ;
-		if( was_na ){
-			previous = y ;
-			was_na = traits::is_na<RTYPE>(y) ;
-			return previous ; // NA
-		}
-		if( traits::is_na<RTYPE>(y) ) {
-			was_na = true ;
-			previous = y ;
-			return previous ; // NA
-		}
-		STORAGE res = y - previous ;
-		previous = y ;
-		was_na = false ;
-		return res ;
+        STORAGE y = lhs[i+1] ;
+        if( previous_index != i ){
+            // we don't know the previous value, we need to get it. 
+            set_previous(i, lhs[i] ) ; // record the current value
+        }
+        if( was_na || traits::is_na<RTYPE>(y) ) {
+            set_previous(i+1, y ) ;
+            return traits::get_na<RTYPE>() ; // NA
+        }
+        STORAGE res = y - previous ;
+        set_previous( i+1, y) ;
+        return res ;
+	}     
+	
+	inline void set_previous(int i, STORAGE value){
+	    previous = value ;
+	    was_na = is_na<RTYPE>(previous) ;
+	    previous_index = i ;
 	}
+	
 	inline int size() const { return lhs.size() - 1 ; }
 	         
 private:
 	const LHS_TYPE& lhs ;
 	mutable STORAGE previous ;
+	mutable int previous_index ;
 	mutable bool was_na ;
 } ;
 
@@ -68,12 +76,14 @@ class Diff<REALSXP, LHS_NA, LHS_T> : public Rcpp::VectorBase< REALSXP, LHS_NA, D
 public:
 	typedef typename Rcpp::VectorBase<REALSXP,LHS_NA,LHS_T> LHS_TYPE ;
 	
-	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs_[0]) {}
+	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs_[0]), previous_index(0) {}
 	
 	inline double operator[]( int i ) const {
 		double y = lhs[i+1] ;
+		if( previous_index != i ) previous = lhs[i] ;
 		double res = y - previous ;
 		previous = y ;
+		previous_index = i+1 ;
 		return res ;
 	}
 	inline int size() const { return lhs.size() - 1 ; }
@@ -81,6 +91,7 @@ public:
 private:
 	const LHS_TYPE& lhs ;
 	mutable double previous ;
+	mutable int previous_index ;
 } ;
 
 template <int RTYPE, typename LHS_T>
@@ -89,12 +100,14 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
-	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_) {}
+	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs[0]), previous_index(0) {}
 	
 	inline STORAGE operator[]( int i ) const {
 		STORAGE y = lhs[i+1] ;
+		if( previous_index != i ) previous = lhs[i] ;
 		STORAGE diff = y - previous ;
 		previous = y ;
+		previous_index = i+1 ;
 		return y - previous ;
 	}
 	inline int size() const { return lhs.size() - 1 ; }
@@ -102,6 +115,7 @@ public:
 private:
 	const LHS_TYPE& lhs ;
 	mutable STORAGE previous ;
+	mutable int previous_index ;
 } ;
 
 } // sugar

@@ -9,7 +9,12 @@
         * R/Rcpp.package.skeleton.R: Setting attributes to TRUE by default. This is
         what we should encourage people to use. 
         * include/Rcpp/as.h: add as<char> specialization
-	
+        * include/Rcpp/sugar/functions/diff.h : rework the implementation of diff
+        so that it works even when we don't know the previous value
+        * unitTests/runit.sugar.R : 
+        * unitTests/cpp/sugar.cpp :
+        * TODO : 2 less items
+        
 2013-09-17  JJ Allaire  <jj@rstudio.org>
 
 	* R/Attributes.R: Call inlineCxxPlugin and Rcpp.plugin.maker without

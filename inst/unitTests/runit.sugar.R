@@ -211,9 +211,11 @@ test.sugar.assignment <- function( ){
 }
 
 test.sugar.diff <- function( ){
-	fx <- runit_diff
-	x <- rnorm( 100 )
-	checkEquals( fx(x) , diff(x) )
+    x <- rnorm( 100 )
+    checkEquals( runit_diff(x) , diff(x) ) 
+    y    <- rnorm(100)
+    pred <- sample( c(T,F), 99, replace = TRUE )
+    checkEquals( runit_diff_ifelse(pred, x, y ), ifelse( pred, diff(x), diff(y) ) )
 }
 
 test.sugar.exp <- function( ){
