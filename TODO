@@ -10,9 +10,6 @@ Current active misfeatures
     o   DataFrame::create(Named("a")=b, Named("b")=b) fails with
         NumericVectors
 
-    o   Single char variables do not seem to covered correctly by as<>()
-        and wrap() (cf http://stackoverflow.com/questions/16535899/)
-
 Documentation
 
     o	Finish the quickref vignette

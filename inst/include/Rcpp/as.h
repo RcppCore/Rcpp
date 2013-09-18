@@ -145,6 +145,10 @@ namespace Rcpp{
         return internal::as<T>( m_sexp, typename traits::r_type_traits<T>::r_category() ) ;
     }
     
+    template <> inline char as<char>( SEXP m_sexp ){
+        return internal::check_single_string(m_sexp)[0] ;    
+    }
+    
     template <typename T> 
     inline typename traits::remove_const_and_reference<T>::type bare_as( SEXP m_sexp ){
         return as< typename traits::remove_const_and_reference<T>::type >( m_sexp ) ;

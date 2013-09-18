@@ -2,12 +2,13 @@
 
         * R/Attributes.R: Don't search the inline package as a fallback when loading plugins for the the Rcpp::plugins attribute
 
-2013-09-16  Romain Francois <romain@r-enthusiasts.com>
+2013-09-18  Romain Francois <romain@r-enthusiasts.com>
 
         * vignettes/Rcpp-package.Rnw: Updating the vignette. Setting attributes to TRUE
         by default. 
         * R/Rcpp.package.skeleton.R: Setting attributes to TRUE by default. This is
         what we should encourage people to use. 
+        * include/Rcpp/as.h: add as<char> specialization
 	
 2013-09-17  JJ Allaire  <jj@rstudio.org>
 
