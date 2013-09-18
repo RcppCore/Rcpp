@@ -50,6 +50,8 @@
       we can now use references, pointers and const versions of them.
       The file \code{Module.cpp} file has an example. 
       \item{No longer call non-exported functions from the tools package}
+      \item{No longer search the inline package as a fallback when loading
+      plugins for the the \code{Rcpp::plugins} attribute}.
     }
     \item Changes in Modules:
     \itemize{

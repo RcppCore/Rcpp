@@ -21,9 +21,6 @@ The \code{Rcpp::plugins} attribute is added to a C++ source file to specify the
 Plugins must be registered using the \code{\link{registerPlugin}}
 function. 
 
-If a plugin is not found within the \pkg{Rcpp} package then the 
-\pkg{inline} package will also be searched for a matching plugin.
-
 When included within a \code{\link{sourceCpp}} translation unit,
 the configuration-related fields of the plugin (e.g. \code{env} and 
 \code{LinkingTo}) are utilized, however the code-generation fields
