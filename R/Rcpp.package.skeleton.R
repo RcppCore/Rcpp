@@ -127,7 +127,6 @@ Rcpp.package.skeleton <- function(
 	        sprintf( "%s <%s>", maintainer, email), 
 	        fixed = TRUE
 	        )
-	    )
 	    lines <- gsub( "Who wrote it", author, fixed = TRUE )
 	    writeLines( lines, package_help_page )
 	}
