@@ -1,3 +1,7 @@
+2013-09-18  JJ Allaire  <jj@rstudio.org>
+
+        * R/Attributes.R: Don't search the inline package as a fallback when loading plugins for the the Rcpp::plugins attribute
+
 2013-09-16  Romain Francois <romain@r-enthusiasts.com>
 
         * vignettes/Rcpp-package.Rnw: Updating the vignette. Setting attributes to TRUE
