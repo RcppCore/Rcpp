@@ -8,7 +8,7 @@
  *
  * It gives C calling convention to the rcpp_hello_world function so that 
  * it can be called from .Call in R. Otherwise, the C++ compiler mangles the 
- * name of the function and .Call can't find it.
+ * name of the function and .Call cannot find it.
  *
  * It is only useful to use RcppExport when the function is intended to be called
  * by .Call. See the thread http://thread.gmane.org/gmane.comp.lang.r.rcpp/649/focus=672

@@ -1,7 +1,7 @@
 2013-09-17  JJ Allaire  <jj@rstudio.org>
 
 	* R/Attributes.R: Call inlineCxxPlugin and Rcpp.plugin.maker without
-	qualification rather than with '...'
+	qualification rather than with ':::'
 
 2013-09-17  Dirk Eddelbuettel  <edd@debian.org>
 
