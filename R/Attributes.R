@@ -474,20 +474,13 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
              error = function(e) NULL)
 }
 
-# Lookup a plugin (first in our package then in the inline package)
+# Lookup a plugin
 .findPlugin <- function(pluginName) {
-    # lookup in our plugins
+    
     plugin <- .plugins[[pluginName]]
-
-    # if necessary lookup in the inline package
-    if (is.null(plugin))
-        if (length(find.package("inline", quiet=TRUE)) > 0)
-            plugin <- inline:::plugins[[pluginName]]
-
-    # error if plugin not found
     if (is.null(plugin))
         stop("Inline plugin '", pluginName, "' could not be found ",
-             "within either the Rcpp or inline package. You should be ",
+             "within the Rcpp package. You should be ",
              "sure to call registerPlugin before using a plugin.")
 
     return(plugin)
