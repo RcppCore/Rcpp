@@ -30,15 +30,18 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 \title{\pkg{Rcpp} Quick Reference Guide}
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
+\newsavebox{\quickrefbox}
+\definecolor{quickrefBg}{rgb}{0.949019607843137,0.949019607843137,0.949019607843137}
+\definecolor{quickrefBorder}{rgb}{0,0,0}
 \renewenvironment{Hchunk}%
 {%
-\vspace{0.5em}\noindent\begin{lrbox}{\highlightbox}%
+\vspace{0.5em}\noindent\begin{lrbox}{\quickrefbox}%
 \begin{minipage}[b]{.42\textwidth}%
 }%
 {%
 \end{minipage}%
 \end{lrbox}%
-\fcolorbox{highlightBorder}{highlightBg}{\usebox{\highlightbox}}%
+\fcolorbox{quickrefBorder}{quickrefBg}{\usebox{\quickrefbox}}%
 \vspace{0.5em}}%
 
 \begin{document}
