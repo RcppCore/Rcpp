@@ -1,3 +1,8 @@
+2013-09-19 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/traits/r_sexptype_traits.h : unsigned int wrapped as REALSXP
+        long standing feature request from Murray. 
+
 2013-09-18  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R: Don't search the inline package as a fallback when loading plugins for the the Rcpp::plugins attribute
@@ -5408,3 +5413,4 @@
 
         * inst/doc/RcppAPI.{Rnw,pdf}: Added footnote onto titlepage about how
           this document has not (yet) been updated along with the channges made
+

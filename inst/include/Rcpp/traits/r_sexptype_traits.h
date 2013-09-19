@@ -3,7 +3,7 @@
 //
 // r_sexptype_traits.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -40,7 +40,8 @@ template<> struct r_sexptype_traits<std::string>{ enum{ rtype = STRSXP } ; } ;
 template<> struct r_sexptype_traits<Rcomplex>{ enum{ rtype = CPLXSXP } ; } ;
 template<> struct r_sexptype_traits<Rbyte>{ enum{ rtype = RAWSXP } ; } ;
 
-template<> struct r_sexptype_traits<unsigned int>{ enum{ rtype = INTSXP } ; } ;
+
+template<> struct r_sexptype_traits<unsigned int>{ enum{ rtype = REALSXP } ; } ;
 template<> struct r_sexptype_traits<float>{ enum{ rtype = REALSXP } ; } ;
 
 /* long are represented as numeric vectors which allows more precision 
