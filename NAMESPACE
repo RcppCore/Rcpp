@@ -24,7 +24,8 @@ export(Module,
        sourceCpp,
        compileAttributes,
        registerPlugin,
-       RcppLdFlags
+       RcppLdFlags, 
+       demangle
        )
 
 exportClass(RcppClass)

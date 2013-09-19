@@ -4,9 +4,13 @@
 
 \section{Changes in Rcpp version 0.10.5 (future)}{
   \itemize{
+    \item Changes in R code:
+    \itemize{
+      \item New R function \code{demangle} that calls the \code{DEMANGLE} macro.     
+    }
     \item Changes in Rcpp API:
     \itemize{
-      \item Add \code{#defined(__sun)} to lists of operating systems to
+      \item Add \code{defined(__sun)} to lists of operating systems to
       test for when checking for lack of \code{backtrace()} needed for
       stack traces.
       \item \code{as<T*>}, \code{as<const T*>}, \code{as<T&>} and

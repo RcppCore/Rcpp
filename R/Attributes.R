@@ -252,6 +252,19 @@ cppFunction <- function(code,
     }
 }
 
+# demangling a type
+demangle <- function( type = "int", ... ){
+    code <- sprintf( '
+    String demangle_this_type(){
+        typedef %s type ;
+        return DEMANGLE(type) ;
+    }', type )
+    dots <- list( code, ... )
+    dots[["env"]] <- environment()
+    do.call( cppFunction, dots )
+    demangle_this_type()
+}
+
 # Evaluate a simple c++ expression
 evalCpp <- function(code,
                     depends = character(),
