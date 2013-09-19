@@ -252,17 +252,30 @@ cppFunction <- function(code,
     }
 }
 
-# demangling a type
-demangle <- function( type = "int", ... ){
-    code <- sprintf( '
-    String demangle_this_type(){
-        typedef %s type ;
-        return DEMANGLE(type) ;
-    }', type )
-    dots <- list( code, ... )
-    dots[["env"]] <- environment()
-    do.call( cppFunction, dots )
-    demangle_this_type()
+.type_manipulate <- function( what = "DEMANGLE", class = NULL ) {
+    function( type = "int", ... ){
+        code <- sprintf( '
+        SEXP manipulate_this_type(){
+            typedef %s type ;
+            return wrap( %s(type) ) ;
+        }', type, what )
+        dots <- list( code, ... )
+        dots[["env"]] <- environment()
+        manipulate_this_type <- do.call( cppFunction, dots )
+        res <- manipulate_this_type()
+        if( ! is.null(class) ){
+            class(res) <- class    
+        }
+        res
+    }
+}
+
+demangle <- .type_manipulate( "DEMANGLE" )
+sizeof   <- .type_manipulate( "sizeof", "bytes" )
+
+print.bytes <- function( x, ...){
+    writeLines( sprintf( "%d bytes (%d bits)", x, 8 * x ) )
+    invisible( x )    
 }
 
 # Evaluate a simple c++ expression

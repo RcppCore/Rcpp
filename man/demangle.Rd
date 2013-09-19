@@ -1,14 +1,16 @@
 \name{demangle}
 \alias{demangle}
+\alias{sizeof}
+\alias{print.bytes}
 \title{
-demanging c++ types 
+c++ type information 
 }
 \description{
-    This uses the compiler functionality (if available) to demangle type. If the compiler
-    cannot demangle, then it will return its argument as is
+    \code{demangle} gives the demangled type, \code{sizeof} its size (in bytes). 
 }
 \usage{
     demangle(type = "int", ...)
+    sizeof(type = "int", ...)
 }
 \arguments{
     \item{type}{The type we want to demangle}
@@ -18,10 +20,15 @@ demanging c++ types
     The following function is compiled and invoked: 
     
     \preformatted{%
-        String demangle_this_type(){
+        SEXP demangle_this_type(){
             typedef %s type ;
-            return DEMANGLE(type) ;
-        }         
+            return wrap( DEMANGLE(type) ) ;
+        }
+        
+        SEXP sizeof_this_type(){
+            typedef %s type ;
+            return wrap( sizeof(type) ) ;
+        }
     }    
     
     \code{DEMANGLE} is a macro in \samp{Rcpp} that does the work. 
@@ -50,6 +57,10 @@ demanging c++ types
 
     demangle( "NumericVector" )
     demangle( "std::map<std::string,double>" )
+    
+    sizeof( "long" )
+    sizeof( "long long" )
+    
 }
 }
 \keyword{programming}
