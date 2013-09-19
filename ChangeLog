@@ -2,6 +2,8 @@
 
         * include/Rcpp/traits/r_sexptype_traits.h : unsigned int wrapped as REALSXP
         long standing feature request from Murray. 
+        * R/Attributes.R : Added the helper demangle function
+        * man/demangle.Rd : Documentation for demangle
 
 2013-09-18  JJ Allaire  <jj@rstudio.org>
 
