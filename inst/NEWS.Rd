@@ -6,7 +6,10 @@
   \itemize{
     \item Changes in R code:
     \itemize{
-      \item New R function \code{demangle} that calls the \code{DEMANGLE} macro.     
+      \item New R function \code{demangle} that calls the \code{DEMANGLE} macro.  
+      \item New R function \code{sizeof} to query the byte size of a type. This
+      returns an object of S3 class \code{bytes} that has a \code{print} method
+      showing bytes and bits. 
     }
     \item Changes in Rcpp API:
     \itemize{

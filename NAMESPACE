@@ -25,9 +25,9 @@ export(Module,
        compileAttributes,
        registerPlugin,
        RcppLdFlags, 
-       demangle
+       demangle, sizeof
        )
-
+S3method( print, bytes )
 exportClass(RcppClass)
 
 
