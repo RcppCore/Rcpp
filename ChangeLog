@@ -4,6 +4,9 @@
         long standing feature request from Murray. 
         * R/Attributes.R : Added the helper demangle and sizeof functions
         * man/demangle.Rd : Documentation for demangle and sizeof
+        * include/Rcpp/platform/compiler.h : less restritive support of long long 
+        types. But still behind a test for gcc and a test for the availability
+        of the type, and the __extension__. -pedantic does not warn about it
 
 2013-09-18  JJ Allaire  <jj@rstudio.org>
 
