@@ -91,11 +91,6 @@ template <> struct wrap_type_traits<long double> { typedef wrap_type_primitive_t
 template <> struct wrap_type_traits<short> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<unsigned short> { typedef wrap_type_primitive_tag wrap_category; } ;
 
-#ifdef RCPP_HAS_LONG_LONG_TYPES
-template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-#endif
-
 template <typename T> struct wrap_type_traits< Rcpp::object<T> > { typedef wrap_type_module_object_pointer_tag wrap_category; } ;
 
 
