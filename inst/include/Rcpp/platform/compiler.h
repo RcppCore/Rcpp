@@ -177,34 +177,4 @@
   #define RCPP_HAS_DEMANGLING
 #endif
 
-// long long and unssigned long long support. 
-//
-// given the current restriction of what might go to CRAN
-// we can only use long long if we are running a gcc compatible (e.g. clang)
-// compiler and the type is actually available (hence the test for __LONG_LONG_MAX__)
-// even then, we cannot use long long as is, we first have to "hide" it
-// behind the __extension__ so that -pedantic stops giving warnings about 
-// compliance with C++98
-// 
-// client code may use the facilities we provide for long long (wrap, etc ...)
-// but not using long long directly, because then it is not CRAN proof. 
-// So client code must use the rcpp_long_long_type and rcpp_ulong_long_type 
-// types 
-//
-// e.g. code like this is not good: 
-//
-// long long x = 2 ;
-//
-// but code like this is CRAN proof
-//
-// rcpp_long_long_type x = 2 ;
-//
-// Note that if you don't distribute your code to CRAN and you don't use the 
-// -pedantic option, then you can use long long
-#if defined(__GNUC__) &&  defined(__LONG_LONG_MAX__)
-    __extension__ typedef long long int rcpp_long_long_type;
-    __extension__ typedef unsigned long long int rcpp_ulong_long_type;
-    #define RCPP_HAS_LONG_LONG_TYPES
-#endif
-
 #endif
