@@ -1,3 +1,8 @@
+2013-09-20 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/longlong.h: isolate all handling of long long
+        in a separate file which we might choose not to include by default
+
 2013-09-19 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/r_sexptype_traits.h : unsigned int wrapped as REALSXP

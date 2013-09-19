@@ -133,4 +133,6 @@ namespace Rcpp{
 #include <Rcpp/iostream/Rstreambuf.h>
 #include <Rcpp/iostream/Rostream.h>
 
+#include <Rcpp/longlong.h>
+
 #endif
