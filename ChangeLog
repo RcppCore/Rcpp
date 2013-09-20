@@ -1,3 +1,14 @@
+2013-09-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Module.R: More ':::' cleanups to make R CMD check happy
+	* R/RcppClass.R: Ditto
+
+	* NAMESPACE: Some new exports related to this
+
+	* man/setRcppClass.Rd: Document loadRcppClass()
+	* man/Rcpp-internal.Rd: Added in order to document
+	cpp_object_initializer() and cpp_object_dummy()
+
 2013-09-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/longlong.h: Unbreak long long by making it (as

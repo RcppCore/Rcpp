@@ -25,7 +25,7 @@ setRcppClass <- function(Class, CppClass,
                          where = topenv(parent.frame()),
                          ...) {
     myCall <- match.call()
-    myCall[[1]] <- quote(Rcpp:::loadRcppClass)
+    myCall[[1]] <- quote(Rcpp::loadRcppClass)
     if(!missing(module) && moduleIsLoaded(module, where)) # eval now
         eval.parent(myCall)
     else {
