@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // longlong.h: Rcpp R/C++ interface class library -- long long support
 //
@@ -21,6 +21,14 @@
 
 #ifndef RCPP_LONG_LONG_H
 #define RCPP_LONG_LONG_H
+
+// This does not work as C++98, our default, has no long long support.
+// So we are wrapping another layer of C++11 test around it. Feel free
+// to add a boolean OR with another suitably #define'd variable which
+// has to be OFF by default to restore the old behaviour.
+
+#ifdef __GNUC__
+#if defined(__GXX_EXPERIMENTAL_CXX0X__) || (defined (__clang__) && defined(__LP64__))
 
 // long long and unssigned long long support. 
 //
@@ -71,5 +79,7 @@ namespace traits{
 }
 #endif
 
+#endif
+#endif
 
 #endif
