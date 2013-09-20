@@ -48,7 +48,8 @@
       \code{__LONG_LONG_MAX__} is defined, then we have typedefs 
       \code{rcpp_long_long_type} and \code{rcpp_ulong_long_type} that are defined
       behind a gcc \code{__extension__}. This way, we can create useful 
-      features supporting long long, while having \code{-pedantic} not warn about it. 
+      features supporting long long, while having \code{-pedantic} not
+      warn about it. Note that this still depends on C++11.
     }
     \item Changes in Attributes:
     \itemize{
