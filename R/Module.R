@@ -155,7 +155,7 @@ cpp_object_dummy <- function(.self, .refClassDef) {
 }
 
 cpp_object_maker <- function(typeid, pointer){
-    Class <- Rcpp:::.classes_map[[ typeid ]]
+    Class <- .classes_map[[ typeid ]]
     new( Class, .object_pointer = pointer )
 }
 
@@ -230,11 +230,11 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         .self <- .refClassDef <- NULL
         generator$methods(initialize =
               if(cpp_hasDefaultConstructor(CLASS))
-                 function(...) Rcpp:::cpp_object_initializer(.self,.refClassDef, ...)
+                 function(...) cpp_object_initializer(.self,.refClassDef, ...)
               else
                  function(...) {
-                     if(nargs())  Rcpp:::cpp_object_initializer(.self,.refClassDef, ...)
-                     else Rcpp:::cpp_object_dummy(.self, .refClassDef)
+                     if(nargs()) cpp_object_initializer(.self,.refClassDef, ...)
+                     else cpp_object_dummy(.self, .refClassDef)
                  }
                           )
         rm( .self, .refClassDef )
@@ -264,12 +264,12 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                 } , where = where )
             }
         }
-        
+
         # promoting show to S4
         if( any( grepl( "show", names(CLASS@methods) ) ) ){
             setMethod( "show", clname, function(object) object$show(), where = where )
         }
-        
+
     }
     if(length(classes)) {
         module$refClassGenerators <- generators
@@ -280,24 +280,24 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         clname <- as.character(CLASS)
         demangled_name <- sub( "^Rcpp_", "", clname )
         .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
-        
-        # exposing enums values as CLASS.VALUE 
+
+        # exposing enums values as CLASS.VALUE
         # (should really be CLASS$value but I don't know how to do it)
         if( length( CLASS@enums ) ){
             for( enum in CLASS@enums ){
                 for( i in 1:length(enum) ){
-                    storage[[ paste( demangled_name, ".", names(enum)[i], sep = "" ) ]] <- enum[i]  
+                    storage[[ paste( demangled_name, ".", names(enum)[i], sep = "" ) ]] <- enum[i]
                 }
             }
         }
-        
+
     }
 
     # functions
     functions <- .Call( Module__functions_names, xp )
     for( fun in functions ){
         storage[[ fun ]] <- .get_Module_function( module, fun, xp )
-        
+
         # register as(FROM, TO) methods
         converter_rx <- "^[.]___converter___(.*)___(.*)$"
         if( length( matches <- grep( converter_rx, functions ) ) ){
@@ -306,13 +306,13 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                 from <- sub( converter_rx, "\\1", fun )
                 to   <- sub( converter_rx, "\\2", fun )
                 converter <- function( from ){}
-                body( converter ) <- substitute( { CONVERT(from) }, 
+                body( converter ) <- substitute( { CONVERT(from) },
                     list( CONVERT = storage[[fun]] )
                 )
                 setAs( from, to, converter, where = where )
             }
         }
-        
+
     }
 
     assign( "storage", storage, envir = as.environment(module) )
@@ -322,7 +322,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]
 
 method_wrapper <- function( METHOD, where ){
-        noargs <- all( METHOD$nargs == 0 ) 
+        noargs <- all( METHOD$nargs == 0 )
         stuff <- list(
             class_pointer = METHOD$class_pointer,
             pointer = METHOD$pointer,
@@ -335,9 +335,9 @@ method_wrapper <- function( METHOD, where ){
         f <- function(...) NULL
         if( noargs ){
             formals(f) <- NULL
-        } 
-        
-        extCall <- if( noargs ) { 
+        }
+
+        extCall <- if( noargs ) {
             if( all( METHOD$void ) ){
                 # all methods are void, so we know we want to return invisible(NULL)
                 substitute(

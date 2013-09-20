@@ -18,14 +18,18 @@ export(Module,
        populate,
        loadRcppModules,
        setRcppClass,
+       loadRcppClass,
        loadModule,
        cppFunction,
        evalCpp,
        sourceCpp,
        compileAttributes,
        registerPlugin,
-       RcppLdFlags, 
-       demangle, sizeof
+       RcppLdFlags,
+       demangle,
+       sizeof,
+       cpp_object_initializer,
+       cpp_object_dummy
        )
 S3method( print, bytes )
 exportClass(RcppClass)

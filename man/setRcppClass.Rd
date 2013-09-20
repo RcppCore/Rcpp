@@ -1,5 +1,6 @@
 \name{setRcppClass}
 \alias{setRcppClass}
+\alias{loadRcppClass}
 \alias{RcppClass-class}
 \title{
 Create a Class Extending a C++ Class
@@ -13,6 +14,9 @@ C++ class.
 \usage{
 setRcppClass(Class, CppClass, module, fields = list(), contains = ,
              methods = , saveAs = Class, where = , ...)
+loadRcppClass(Class, CppClass, module, fields = character(),
+              contains = character(),
+              methods = , saveAs = Class, where = , ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -50,7 +54,7 @@ Arguments, if any, to pass on to \code{\link{setRefClass}()}.
 }
 }
 \details{
-The call to this function normally appears in the source code for a
+The call to these functions normally appears in the source code for a
 package.
 It generates a load action that loads the specified module and
 extracts the C++ class definition specified.
