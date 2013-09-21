@@ -1,3 +1,9 @@
+2013-09-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-modules.Rnw: Remove vignette-local compilations
+	which again caused problems for the Windows builds at R-Forge and
+	win-builder. Unit tests comprise the same functionality and pass.
+
 2013-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Module.R: More ':::' cleanups to make R CMD check happy
