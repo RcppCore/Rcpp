@@ -43,13 +43,6 @@
       file
       \item \code{RcppLdFlags()}, often used in \code{Makevars} files of
       packages using \pkg{Rcpp}, is now exported from the package namespace.
-      \item Less restritive support for \code{long long}. If we are using a gcc 
-      compatible compiler and the long long type is available (i.e. the 
-      \code{__LONG_LONG_MAX__} is defined, then we have typedefs 
-      \code{rcpp_long_long_type} and \code{rcpp_ulong_long_type} that are defined
-      behind a gcc \code{__extension__}. This way, we can create useful 
-      features supporting long long, while having \code{-pedantic} not
-      warn about it. Note that this still depends on C++11.
     }
     \item Changes in Attributes:
     \itemize{
