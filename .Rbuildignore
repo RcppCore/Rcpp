@@ -9,3 +9,4 @@ vignettes/jss.bst
 ^\.Rproj\.user$
 inst/include/Rcpp/preprocessor
 inst/include/Rcpp/sugar/functions/impl
+vignettes/notyet
