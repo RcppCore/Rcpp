@@ -145,6 +145,12 @@ NumericVector runit_diff( NumericVector xx){
 }
 
 // [[Rcpp::export]]
+IntegerVector runit_diff_int(IntegerVector xx) {
+    IntegerVector res = diff(xx);
+    return res;
+}
+
+// [[Rcpp::export]]
 NumericVector runit_diff_ifelse( LogicalVector pred, NumericVector xx, NumericVector yy){
     NumericVector res = ifelse( pred, diff(xx), diff(yy) );
     return res ;

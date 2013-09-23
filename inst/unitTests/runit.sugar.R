@@ -22,7 +22,7 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "sugar.cpp" ) 
+.setUp <- Rcpp:::unit_test_setup( "sugar.cpp" )
 
 test.sugar.abs <- function( ){
 	x <- rnorm(10)
@@ -211,8 +211,10 @@ test.sugar.assignment <- function( ){
 }
 
 test.sugar.diff <- function( ){
+    x <- as.integer(round(rnorm(100,1,100)))
+    checkEquals( runit_diff_int(x) , diff(x) )
     x <- rnorm( 100 )
-    checkEquals( runit_diff(x) , diff(x) ) 
+    checkEquals( runit_diff(x) , diff(x) )
     y    <- rnorm(100)
     pred <- sample( c(T,F), 99, replace = TRUE )
     checkEquals( runit_diff_ifelse(pred, x, y ), ifelse( pred, diff(x), diff(y) ) )
@@ -266,26 +268,26 @@ test.sugar.isna <- function( ){
 }
 
 test.sugar.isfinite <- function( ){
-	checkEquals( 
-	    runit_isfinite( c(1, NA, Inf, -Inf, NaN) ) , 
-	    c(TRUE, FALSE, FALSE, FALSE, FALSE), 
+	checkEquals(
+	    runit_isfinite( c(1, NA, Inf, -Inf, NaN) ) ,
+	    c(TRUE, FALSE, FALSE, FALSE, FALSE),
 	    msg = "is_finite"
 	)
 }
 
 test.sugar.isinfinite <- function( ){
-	checkEquals( 
-	    runit_isinfinite( c(1, NA, Inf, -Inf, NaN) ) , 
-	    c(FALSE, FALSE, TRUE, TRUE, FALSE), 
+	checkEquals(
+	    runit_isinfinite( c(1, NA, Inf, -Inf, NaN) ) ,
+	    c(FALSE, FALSE, TRUE, TRUE, FALSE),
 	    msg = "is_infinite"
 	)
 }
 
 
 test.sugar.isnan <- function( ){
-	checkEquals( 
-	    runit_isnan( c(1, NA, Inf, -Inf, NaN) ) , 
-	    c(FALSE, FALSE, FALSE, FALSE, TRUE), 
+	checkEquals(
+	    runit_isnan( c(1, NA, Inf, -Inf, NaN) ) ,
+	    c(FALSE, FALSE, FALSE, FALSE, TRUE),
 	    msg = "is_nan"
 	)
 }
@@ -722,8 +724,8 @@ test.intersect <- function(){
 
 test.clamp <- function(){
     r_clamp <- function(a, x, b) pmax(a, pmin(x, b) )
-    checkEquals( 
-        runit_clamp( -1, seq(-3,3, length=100), 1 ), 
+    checkEquals(
+        runit_clamp( -1, seq(-3,3, length=100), 1 ),
         r_clamp( -1, seq(-3,3, length=100), 1 )
     )
 }
