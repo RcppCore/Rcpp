@@ -56,9 +56,9 @@ public:
         return res ;
 	}     
 	
-	inline void set_previous(int i, STORAGE value){
+	inline void set_previous(int i, STORAGE value) const {
 	    previous = value ;
-	    was_na = is_na<RTYPE>(previous) ;
+	    was_na = traits::is_na<RTYPE>(previous) ;
 	    previous_index = i ;
 	}
 	
