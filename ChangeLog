@@ -1,3 +1,8 @@
+2013-09-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/sugar/functions/diff.h: Declare set_previous
+	const and add a missing traits:: prefix before is_na
+
 2013-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-modules.Rnw: Remove vignette-local compilations
