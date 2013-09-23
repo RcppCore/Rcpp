@@ -3,6 +3,9 @@
 	* inst/include/Rcpp/sugar/functions/diff.h: Declare set_previous
 	const and add a missing traits:: prefix before is_na
 
+	* inst/unitTests/cpp/sugar.cpp: Unit test for diff() of int. vector
+	* inst/unitTests/runit.sugar.R: Invoke new test
+
 2013-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-modules.Rnw: Remove vignette-local compilations
