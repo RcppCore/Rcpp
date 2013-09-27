@@ -75,8 +75,6 @@
     \itemize{
       \item The vignettes have been moved from \code{inst/doc/} to the
       \code{vignettes} directory which is now preferred.
-      \item The unitTest vignette has been disabled as no longer builds
-      when called from \code{R CMD check}.
       \item The appearance of the vignettes has been refreshed by
       switching to the Bistream Charter font, and microtype package.
     }

@@ -1,3 +1,8 @@
+2013-09-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-unitTests.Rnw: Re-activated vignette
+        * DESCRIPTION: Version number bumped to 0.10.4.6
+
 2013-09-27 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/module/Module_generated_CppFunction.h : regenerated to 
