@@ -47,6 +47,16 @@ void bla2( int x, double y){
 	Rprintf( "hello (x = %d, y = %5.2f)\\n", x, y ) ;
 }
 
+int test_reference( std::vector<double>& ref ){
+    return ref.size() ;    
+}
+int test_const_reference( const std::vector<double>& ref ){
+    return ref.size() ;    
+}
+int test_const( const std::vector<double> ref ){
+    return ref.size() ;    
+}
+
 class World {
 public:
     World() : msg("hello"){}
@@ -131,6 +141,10 @@ RCPP_MODULE(yada){
 	function( "bla1"  , &bla1   ) ;
 	function( "bla2"  , &bla2   ) ;
 
+	function( "test_reference", test_reference );
+	function( "test_const_reference", test_const_reference ) ;
+	function( "test_const", test_const ) ;
+	
 	class_<Test>("Test")
         .constructor<double>()
     ;   
