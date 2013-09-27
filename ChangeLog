@@ -1,3 +1,10 @@
+2013-09-27 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/module/Module_generated_CppFunction.h : regenerated to 
+        use input_parameter traits for more flexible parameter passing strategy
+        * unitTests/cpp/Module.cpp : more testing
+        * unitTests/runit.Module.R : more testing 
+        
 2013-09-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/sugar/functions/diff.h: Declare set_previous
