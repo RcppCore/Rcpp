@@ -61,6 +61,8 @@ class World {
 public:
     World() : msg("hello"){}
     void set(std::string msg_) { this->msg = msg_; }
+    void set_ref(std::string& msg_) { this->msg = msg_; }
+    void set_const_ref(const std::string& msg_) { this->msg = msg_; }
     std::string greet() { return msg; }
 
 private:
@@ -155,6 +157,8 @@ RCPP_MODULE(yada){
 
 		.method( "greet", &World::greet )
 		.method( "set", &World::set )
+		.method( "set_ref", &World::set_ref )
+		.method( "set_const_ref", &World::set_const_ref )
 		.method( "clear", &clearWorld )
 	;
       

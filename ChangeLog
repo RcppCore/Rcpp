@@ -1,3 +1,8 @@
+2013-09-28 Romain Francois <romain@r-enthusiasts.com>
+
+        * inst/unitTests/cpp/Module.cpp: Making sure Rcp is not released before this 
+        is fixed
+    
 2013-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-unitTests.Rnw: Re-activated vignette
