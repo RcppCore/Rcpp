@@ -1,11 +1,21 @@
+2013-09-28  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.10.5
+        * inst/NEWS.Rd: Release 0.10.5
+        * inst/include/Rcpp/config.h: Release 0.10.5
+        * debian/*: Similarly updated for new release to Debian
+
+	* vignettes/Rcpp-unitTests.Rnw: Switched to Charter font just like
+	the other eight vignettes
+
 2013-09-28 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/module/Module_generated_CppMethod.h : more code bloat to handle
-        flexible semantics for passing parameters in methods
-        * include/Rcpp/module/Module_generated_Pointer_CppMethod.h : same 
+        * include/Rcpp/module/Module_generated_CppMethod.h : more code bloat
+	to handle flexible semantics for passing parameters in methods
+        * include/Rcpp/module/Module_generated_Pointer_CppMethod.h : same
         * inst/unitTests/cpp/Module.cpp: testing the above
-        * unitTests/runit.Module.R: testing 
-        
+        * unitTests/runit.Module.R: testing
+
 2013-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-unitTests.Rnw: Re-activated vignette
@@ -13,11 +23,11 @@
 
 2013-09-27 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/module/Module_generated_CppFunction.h : regenerated to 
+        * include/Rcpp/module/Module_generated_CppFunction.h : regenerated to
         use input_parameter traits for more flexible parameter passing strategy
         * unitTests/cpp/Module.cpp : more testing
-        * unitTests/runit.Module.R : more testing 
-        
+        * unitTests/runit.Module.R : more testing
+
 2013-09-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/sugar/functions/diff.h: Declare set_previous
