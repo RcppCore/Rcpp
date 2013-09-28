@@ -6,8 +6,9 @@
 \usepackage{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
-\RequirePackage{ae,mathpple}    % ae as a default font pkg works with Sweave
-\RequirePackage[T1]{fontenc}
+\usepackage{microtype}                     %% cf http://www.khirevich.com/latex/microtype/
+\usepackage[T1]{fontenc}		   %% cf http://www.khirevich.com/latex/font/
+\usepackage[bitstream-charter]{mathdesign} %% cf http://www.khirevich.com/latex/font/
 
 <<echo=FALSE,print=FALSE>>=
 require(Rcpp)
