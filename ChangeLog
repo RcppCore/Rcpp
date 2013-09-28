@@ -1,8 +1,11 @@
 2013-09-28 Romain Francois <romain@r-enthusiasts.com>
 
-        * inst/unitTests/cpp/Module.cpp: Making sure Rcp is not released before this 
-        is fixed
-    
+        * include/Rcpp/module/Module_generated_CppMethod.h : more code bloat to handle
+        flexible semantics for passing parameters in methods
+        * include/Rcpp/module/Module_generated_Pointer_CppMethod.h : same 
+        * inst/unitTests/cpp/Module.cpp: testing the above
+        * unitTests/runit.Module.R: testing 
+        
 2013-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-unitTests.Rnw: Re-activated vignette
