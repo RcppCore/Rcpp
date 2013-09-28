@@ -37,6 +37,10 @@ test.Module <- function(){
     checkEquals( w$greet(), "hello" )
     w$set( "hello world" )
     checkEquals( w$greet(), "hello world" )
+    w$set_ref( "hello world ref" )
+    checkEquals( w$greet(), "hello world ref" )
+    w$set_const_ref( "hello world const ref" )
+    checkEquals( w$greet(), "hello world const ref" )
     w$clear( )
     checkEquals( w$greet(), "" )
 }
