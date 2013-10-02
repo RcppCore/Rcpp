@@ -1,3 +1,10 @@
+2013-10-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/api/meat/is.h: Applied patch by Thomas Tse to
+	provide missing Character(Vector|Matrix)
+
+        * DESCRIPTION: Bump to development release 0.10.5.1
+
 2013-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.10.5

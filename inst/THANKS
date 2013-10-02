@@ -25,6 +25,7 @@ Dominick Samperi        for starting what is now in the RcppClassic package
 Oleg Sklyar             for the incredibly cool inline package
 Alexey Stukalov         for a support enabling Intel Compiler 12.0 support
 Luke Tierney            for helpful discussions on R internals
+Thomas Tse              for a patch filling in two missing is<T>() instances
 Simon Urbanek           for help on OS X build issues and with R internals
 Ken Williams            for additional OS X testing
 Jelmer Ypma             for contributing the Rcout iostreams class patch
