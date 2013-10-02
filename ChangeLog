@@ -1,3 +1,7 @@
+2013-10-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/traits/is_na.h: More fixes thanks to Thomas Tse
+
 2013-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/api/meat/is.h: Applied patch by Thomas Tse to
