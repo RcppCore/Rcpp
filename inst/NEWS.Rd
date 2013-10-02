@@ -2,13 +2,13 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.10.5.1 (2013-10-01)}{
+\section{Changes in Rcpp version 0.10.5.1 (2013-10-02)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item Two missing \code{is<>()} templates for
-      \code{CharacterVector} and \code{CharacterMatrix} have been added
-      thanks to Thomas Tse.  
+      \code{CharacterVector} and \code{CharacterMatrix} have been added,
+      and tests for \code{is.na()} have been corrected thanks to Thomas Tse.  
     }
   }
 }

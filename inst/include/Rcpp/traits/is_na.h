@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // is_na.h: Rcpp R/C++ interface class library -- vector operators
 //                                                                      
@@ -23,36 +23,41 @@
 #define Rcpp__traits_is_na_h
 
 namespace Rcpp{
-namespace traits{
-	
-	// default to always false, applies to VECSXP, EXPRSXP and RAWSXP
-	template <int RTYPE> 
-	bool is_na( typename storage_type<RTYPE>::type ){
-	    return false ;    
-	}
-	
-	template <> 
-	inline bool is_na<INTSXP>( int x ){
-		return x == NA_INTEGER ;
-	}
-	
-	template <> 
-	inline bool is_na<REALSXP>( double x ){
-		return R_IsNA(x) ;
-	}
-	
-	template <> 
-	inline bool is_na<CPLXSXP>( Rcomplex x ){
-		return R_IsNA(x.r) || R_IsNA(x.i) ;
-	}
-	
-	template <>
-	inline bool is_na<STRSXP>( SEXP x ){ return x == NA_STRING ; }
-	
-	template <>
-	inline bool is_na<LGLSXP>( int x ){ return x == NA_LOGICAL ; }
-	
-}
+
+    namespace traits{
+        
+        // default to always false, applies to VECSXP, EXPRSXP and RAWSXP
+        template <int RTYPE> 
+        bool is_na(typename storage_type<RTYPE>::type) {
+            return false;    
+        }
+        
+        template <> 
+        inline bool is_na<INTSXP>(int x) {
+            return x == NA_INTEGER;
+        }
+        
+        template <> 
+        inline bool is_na<REALSXP>(double x) {
+            return R_IsNA(x) || R_IsNaN(x);
+        }
+        
+        template <> 
+        inline bool is_na<CPLXSXP>(Rcomplex x) {
+            return R_IsNA(x.r) || R_IsNA(x.i) || R_IsNaN(x.r) || R_IsNaN(x.i);
+        }
+        
+        template <>
+        inline bool is_na<STRSXP>(SEXP x) { 
+            return false; // see rcpp-devel on 2013-10-02; was:  x == NA_STRING; 
+        }
+        
+        template <>
+        inline bool is_na<LGLSXP>(int x) { 
+            return x == NA_LOGICAL; 
+        }
+        
+    }
 }
 
 #endif
