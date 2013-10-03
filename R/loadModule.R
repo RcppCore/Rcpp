@@ -74,7 +74,7 @@ loadModule <- function( module, what = character(), loadNow,
         if(is(loadM, "error")) {
             if(.botched)
                return(.DummyModule(module, what))
-            stop(gettextf("Unable to load module \"%s\": %s (and not botched session)",
+            stop(gettextf("Unable to load module \"%s\": %s",
                 as(module, "character"), loadM$message))
         }
         if(!exists(metaName, envir = env, inherits =FALSE))
