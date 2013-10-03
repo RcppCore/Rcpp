@@ -49,7 +49,7 @@ namespace Rcpp{
         
         template <>
         inline bool is_na<STRSXP>(SEXP x) { 
-            return false; // see rcpp-devel on 2013-10-02; was:  x == NA_STRING; 
+            return x == NA_STRING; 
         }
         
         template <>
