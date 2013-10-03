@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // is_finite.h: Rcpp R/C++ interface class library -- is finite
 //                                                                      
@@ -23,33 +23,38 @@
 #define Rcpp__traits_is_finite_h
 
 namespace Rcpp{
-namespace traits{
-	
-	// default for complex, 
-	template <int RTYPE> 
-	bool is_finite( typename storage_type<RTYPE>::type) ;
-	
-	template <> 
-	inline bool is_finite<INTSXP>( int x ){
-		return x != NA_INTEGER ;
-	}
-	
-	template <> 
-	inline bool is_finite<REALSXP>( double x ){
-		return R_finite(x) ;
-	}
-	
-	template <> 
-	inline bool is_finite<CPLXSXP>( Rcomplex x ){
-		return !( !R_finite(x.r) || !R_finite(x.i) );
-	}
-	
-	template <>
-	inline bool is_finite<STRSXP>( SEXP x ){ return x != NA_STRING ; }
-	
-	template <>
-	inline bool is_finite<LGLSXP>( int x ){ return x != NA_LOGICAL ; }
-	
+
+    namespace traits{
+        
+        // default for complex, 
+        template <int RTYPE> 
+        bool is_finite( typename storage_type<RTYPE>::type);
+        
+        template <> 
+        inline bool is_finite<INTSXP>(int x){
+            return x != NA_INTEGER;
+        }
+        
+        template <> 
+        inline bool is_finite<REALSXP>(double x) {
+            return R_finite(x);
+        }
+        
+        template <> 
+        inline bool is_finite<CPLXSXP>(Rcomplex x) {
+            return !( !R_finite(x.r) || !R_finite(x.i) );
+        }
+        
+        template <>
+        inline bool is_finite<STRSXP>(SEXP x) { 
+            return false; // see rcpp-devel on 2013-10-02; was:  x != NA_STRING; 
+        }
+        
+        template <>
+        inline bool is_finite<LGLSXP>(int x) { 
+            return x != NA_LOGICAL; 
+        }
+        
 }
 }
 

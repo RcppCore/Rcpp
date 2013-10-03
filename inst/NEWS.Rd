@@ -8,7 +8,8 @@
     \itemize{
       \item Two missing \code{is<>()} templates for
       \code{CharacterVector} and \code{CharacterMatrix} have been added,
-      and tests for \code{is.na()} have been corrected thanks to Thomas Tse.  
+      and some tests for \code{is_na()} and \code{is_finite()} have been
+      corrected thanks to Thomas Tse.   
     }
   }
 }
