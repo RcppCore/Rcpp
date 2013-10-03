@@ -1,3 +1,12 @@
+2013-10-03  John M Chambers  <jmc@r-project.org>
+
+	* R/classModule.R: new function to write module file for class
+	* man/classModule.Rd: documentation for new function classModule()
+	* NAMESPACE: export classModule
+	* R/loadModule.R: clean up an error message
+	* R/RcppClass.R: defaults for module consistent w. classModule()
+	* man/setRcppClass.Rd: add defaults, explain need for saveAs
+
 2013-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/traits/is_na.h: More fixes thanks to Thomas Tse

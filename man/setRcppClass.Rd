@@ -7,14 +7,15 @@ Create a Class Extending a C++ Class
 }
 \description{
 A class is defined that includes the fields and methods of a C++ class
-defined, usually in this package.  The \R{} class can include new
-methods and fields, such as for prototyping new computations for the
-C++ class.
+defined, usually in this package.  For most applications, it is
+recommended to call
+\code{\link{classModule}()} to write files in the package with a call to \code{setRcppClass()} and the
+C++ module code required.  See Details.
 }
 \usage{
-setRcppClass(Class, CppClass, module, fields = list(), contains = ,
+setRcppClass(Class, CppClass = , module = , fields = list(), contains = ,
              methods = , saveAs = Class, where = , ...)
-loadRcppClass(Class, CppClass, module, fields = character(),
+loadRcppClass(Class, CppClass = , module = , fields = character(),
               contains = character(),
               methods = , saveAs = Class, where = , ...)
 }
@@ -30,19 +31,30 @@ extends. By default, the same as \code{Class}.
   \item{module}{
 The Rcpp module in which the class is defined.  The module does not
 have to be loaded separately; \code{setRcppClass()} will arrange to
-load the module.
+load the module. By default, \code{"class_"} followed by the C++ class
+name.
 }
   \item{fields, contains, methods}{
 Additional fields, superclasses and method definitions in \R{} that
 extend the C++ class.  These arguments are passed on to
 \code{\link{setRefClass}()}.
-See Details for the implementation of methods.
+See Details for recommendations.
 }
   \item{saveAs}{
 Save a generator object for the class in the package's namespace under
 this name.  By default, the generator object has the name of the
 class.  To avoid saving any generator object, supply this argument as
 \code{NULL}.
+
+(This argument is currently needed because the actual class definition
+must take place at package load time, to include C++ pointer
+information.
+Therefore the
+value returned by \code{setRcppClass()} when called during package
+installation is not the generator object returned by
+\code{setRefClass()}.
+We may be able to hack
+around this problem in the future.)
 }
   \item{where}{
 The environment in which to save the class definition.  By default,

@@ -37,7 +37,7 @@ setRcppClass <- function(Class, CppClass,
 }
 
 loadRcppClass <- function(Class, CppClass = Class,
-                         module,
+                         module = paste0("class_",Class),
                          fields = character(),
                          contains = character(),
                          methods = list(),
@@ -51,22 +51,15 @@ loadRcppClass <- function(Class, CppClass = Class,
             assign(saveAs, value, envir = where)
         return(value)
     }
-    if(!missing(module)) {
-        mod <- loadModule(module, NULL, env = where, loadNow = TRUE)
-        storage <- get("storage", envir = as.environment(mod))
-        if(exists(CppClass, envir = storage, inherits = FALSE)) {
-            cppclassinfo <- get(CppClass, envir = storage)
-            if(!is(cppclassinfo, "C++Class"))
-                stop(gettextf("Object \"%s\" in module \"%s\" is not a C++ class description", CppClass, module))
-        }
-        else
-            stop(gettextf("No object \"%s\" in module \"%s\"", CppClass, module))
-    }
-    else {
+    mod <- loadModule(module, NULL, env = where, loadNow = TRUE)
+    storage <- get("storage", envir = as.environment(mod))
+    if(exists(CppClass, envir = storage, inherits = FALSE)) {
+        cppclassinfo <- get(CppClass, envir = storage)
         if(!is(cppclassinfo, "C++Class"))
-            stop("If argument \"module\" is missing, CppClass must be a \"C++Class\" object")
-        CppClass <- .CppClassName(cppclassinfo)
+            stop(gettextf("Object \"%s\" in module \"%s\" is not a C++ class description", CppClass, module))
     }
+    else
+        stop(gettextf("No object \"%s\" in module \"%s\"", CppClass, module))
     allmethods <- .makeCppMethods(methods, cppclassinfo, where)
     allfields <- .makeCppFields(fields, cppclassinfo, where)
     value <- setRefClass(Class, fields = allfields,
@@ -155,9 +148,10 @@ loadRcppClass <- function(Class, CppClass = Class,
                        cat("Field \"", fi, "\":\n", sep = "")
                        methods::show(field(fi))
                    }
-               }
-                   )
+               },
+    objectPointer = function()
+           .CppObject$.pointer
+    )
 
 
-## </Temporary:>
 
