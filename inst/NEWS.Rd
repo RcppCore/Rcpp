@@ -4,6 +4,12 @@
 
 \section{Changes in Rcpp version 0.10.5.1 (2013-10-02)}{
   \itemize{
+    \item Changes in Modules:
+    \itemize{
+      \item New function \code{classModule} which creates a C++ module
+      for a C++ class, which then results in a corresponding Reference
+      Class made available at the R level.
+    }
     \item Changes in Rcpp API:
     \itemize{
       \item Two missing \code{is<>()} templates for
