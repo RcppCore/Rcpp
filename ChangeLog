@@ -1,6 +1,6 @@
 2013-10-06  John M Chambers  <jmc@r-project.org>
 
-	* NAMESPACE: change classModule to expose Class
+	* NAMESPACE: change classModule to exposeClass
 	* R/classModule.R: delete
 	* man/classModule.Rd: delete
 	* R/exposeClass.R: add
