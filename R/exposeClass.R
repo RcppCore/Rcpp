@@ -100,8 +100,8 @@ exposeClass <- function(class, constructors, fields, methods,
             Rcon <- Rfile
         Rfile <- TRUE
     }
-    temp <- tempfile()
-    mcon <- file(temp, "w")
+    mfile <- tempfile()
+    mcon <- file(mfile, "w")
     writeLines(.stdHeader, con)
     if(length(header))
         writeLines(header, con)
@@ -178,7 +178,7 @@ exposeClass <- function(class, constructors, fields, methods,
     close(mcon)
     if(!is.null(ns))
         writeLines(sprintf("} // %s", ns), con) # close namespace
-    writeLines(readLines(file(temp, "r")), con)
+    writeLines(readLines(mfile), con)
     if(Rfile) {
         if(missing(CppClass))
             CppString <- ""
