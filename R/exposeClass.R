@@ -53,7 +53,7 @@
     paste0(ns, "::",mName)
 }
 
-classModule <- function(class, constructors, fields, methods,
+exposeClass <- function(class, constructors, fields, methods,
                         file = paste0(CppClass, "Module.cpp"),
                         header = character(),
                         module = paste0("class_",class), CppClass = class,
