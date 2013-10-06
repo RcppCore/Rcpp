@@ -1,5 +1,5 @@
-\name{classModule}
-\alias{classModule}
+\name{exposeClass}
+\alias{exposeClass}
 \title{
 Create an Rcpp Module to Expose a C++ Class in R
 }
@@ -7,7 +7,7 @@ Create an Rcpp Module to Expose a C++ Class in R
 The arguments specify a C++ class and some combination of
 constructors, fields and methods to be shared with \R by creating a
 corresponding reference class in \R.
-The information needed in the call to \code{classModule()} is the
+The information needed in the call to \code{exposeClass()} is the
 simplest possible in order to create a C++ module for the class; for
 example, fields and methods in this class need only be identified by
 their name.
@@ -20,7 +20,7 @@ class.
 }
 
 \usage{
-classModule(class, constructors = , fields = , methods = , file = ,
+exposeClass(class, constructors = , fields = , methods = , file = ,
     header = , module = , CppClass = class, readOnly = , rename = ,
     Rfile = TRUE)
 }
@@ -97,16 +97,16 @@ information in the C++ class supplied.  This file is intended to be
 part of the C++ source for an \R package.  The file only needs to
 modified when the information changes, either because the class has
 changed or because you want to expose different information to \R.  In
-that case you can either recall \code{classModule()} or edit the C++
+that case you can either recall \code{exposeClass()} or edit the C++
 file created.
 
 The Rcpp Module mechanism has a number of other optional techniques,
-not covered by \code{classModule()}.  These should be entered into the
+not covered by \code{exposeClass()}.  These should be entered into the
 C++ file created.  See the \dQuote{rcpp-modules} vignette with the
 package for current possibilities.
 
 For fields and methods specified directly in the C++ class,
-the fields and method arguments to \code{classModule()} are character vectors naming the
+the fields and method arguments to \code{exposeClass()} are character vectors naming the
 corresponding members of the class.  For module construction, the
 data types of directly specified fields and of the arguments for the methods are not
 needed.
@@ -128,7 +128,7 @@ An indirect mechanism is used, generating free functions in C++ to
 expose the inherited members in \R.
 
 This mechanism requires data type information in the call to
-\code{classModule()}.
+\code{exposeClass()}.
 This is provided by naming the corresponding element of the
 \code{fields} or \code{methods} argument with the name of the member.
 The actual element of the \code{fields} argument is then the single
@@ -158,7 +158,7 @@ in the package.
 \examples{
 \dontrun{
 ### Given the following C++ class, defined in file PopBD.h,
-### the call to classModule() shown below will write a file
+### the call to exposeClass() shown below will write a file
 ### src/PopBDModule.cpp containing a corresponding module definition.
 ###   class PopBD {
 ###     public:
@@ -178,7 +178,7 @@ in the package.
 ### The call below exposes the lineage and size fields, read-only,
 ### and the evolve() method.
 
-classModule("PopBD",
+exposeClass("PopBD",
       constructors =
         list("", c("NumericVector", "NumericVector")),
       fields = c("lineage", "size"),
@@ -191,7 +191,7 @@ classModule("PopBD",
 ### constructors as the previous class.
 ### To expose the table() method, and the inherited evolve() method and size field:
 
-classModule("PopCount",
+exposeClass("PopCount",
       constructors =
         list("", c("NumericVector", "NumericVector")),
       fields = c(size = "std::vector<long>"),
