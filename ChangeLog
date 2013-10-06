@@ -1,3 +1,12 @@
+2013-10-06  John M Chambers  <jmc@r-project.org>
+
+	* NAMESPACE: change classModule to expose Class
+	* R/classModule.R: delete
+	* man/classModule.Rd: delete
+	* R/exposeClass.R: add
+	* man/exposeClass.Rd: add
+	* man/setRcppClass.Rd: update, clarify, recommend exposeClass()
+
 2013-10-03  John M Chambers  <jmc@r-project.org>
 
 	* R/classModule.R: new function to write module file for class
