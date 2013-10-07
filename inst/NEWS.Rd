@@ -4,11 +4,13 @@
 
 \section{Changes in Rcpp version 0.10.5.1 (2013-10-07)}{
   \itemize{
-    \item Changes in Modules:
+    \item Exposing C++ classes from a package:
     \itemize{
-      \item New function \code{exposeClass} which creates a C++ module
-      for a C++ class, which then results in a corresponding Reference
-      Class made available at the R level.
+      \item The function \code{exposeClass} takes a description of the
+        constructors, fields and methods to be exposed from a C++
+        class, and writes C++ and R files in the package.  Inherited
+        classes can be dealt with, but require data type information.
+        This approach avoids hand-coding module files.
     }
     \item Changes in Rcpp API:
     \itemize{
