@@ -4,16 +4,14 @@
 
 \section{Changes in Rcpp version 0.10.5.1 (2013-10-07)}{
   \itemize{
-    \item Exposing C++ classes from a package:
+    \item Changes in Rcpp API:
     \itemize{
       \item The function \code{exposeClass} takes a description of the
         constructors, fields and methods to be exposed from a C++
         class, and writes C++ and R files in the package.  Inherited
         classes can be dealt with, but require data type information.
         This approach avoids hand-coding module files.
-    }
-    \item Changes in Rcpp API:
-    \itemize{
+
       \item Two missing \code{is<>()} templates for
       \code{CharacterVector} and \code{CharacterMatrix} have been added,
       and some tests for \code{is_na()} and \code{is_finite()} have been
