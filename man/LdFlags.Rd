@@ -1,8 +1,8 @@
-\name{RcppLdFlags}
-\alias{RcppLdFlags}
+\name{LdFlags}
+\alias{LdFlags}
 \title{Provide Rcpp Linker Flags}
 \description{
-  \code{RcppLdFlags} returns the required flags and options for the the
+  \code{LdFlags} returns the required flags and options for the the
   system linker. This allows portable use of \pkg{Rcpp} as package
   location as well as operating-system specific details are abstracted
   away behind the interface of this function.
@@ -11,7 +11,7 @@
   \code{Makevars.win}) rather than in an interactive session.
 }
 \usage{
-RcppLdFlags(static=staticLinking())
+LdFlags(static=staticLinking())
 }
 \arguments{
   \item{static}{A boolean determining use of static (as opposed to

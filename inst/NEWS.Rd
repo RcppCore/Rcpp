@@ -19,6 +19,10 @@
       and some tests for \code{is_na()} and \code{is_finite()} have been
       corrected thanks to Thomas Tse.   
     }
+    \item Changes in R code:
+    \itemize{
+      \item Export linking helper function \code{LdFlags}, not \code{RcppLdFlags}
+    }
   }
 }
 

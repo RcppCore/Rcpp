@@ -1,3 +1,8 @@
+2013-10-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* NAMESPACE: Export LdFlags, not RcppLdFlags
+	* man/LdFlags.Rd: Renamed from RcppLdFlags, and changed
+
 2013-10-06  John M Chambers  <jmc@r-project.org>
 
 	* R/exposeClass.R: avoid warning from unclosed file()
