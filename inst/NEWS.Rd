@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.10.5.1 (2013-10-07)}{
+\section{Changes in Rcpp version 0.10.5.2 (2013-10-08)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -11,15 +11,15 @@
         class, and writes C++ and R files in the package.  Inherited
         classes can be dealt with, but require data type information.
         This approach avoids hand-coding module files.
-
       \item Two missing \code{is<>()} templates for
-      \code{CharacterVector} and \code{CharacterMatrix} have been added,
-      and some tests for \code{is_na()} and \code{is_finite()} have been
-      corrected thanks to Thomas Tse.   
+        \code{CharacterVector} and \code{CharacterMatrix} have been added,
+        and some tests for \code{is_na()} and \code{is_finite()} have been
+        corrected thanks to Thomas Tse.   
     }
     \item Changes in R code:
     \itemize{
-      \item Export linking helper function \code{LdFlags}, not \code{RcppLdFlags}
+      \item Export linking helper function \code{LdFlags} as well as
+        \code{RcppLdFlags}.
     }
   }
 }

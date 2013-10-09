@@ -1,7 +1,7 @@
 2013-10-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* NAMESPACE: Export LdFlags, not RcppLdFlags
-	* man/LdFlags.Rd: Renamed from RcppLdFlags, and changed
+	* NAMESPACE: Export LdFlags as well as RcppLdFlags
+	* man/RcppLdFlags.Rd: Updated
 
 2013-10-06  John M Chambers  <jmc@r-project.org>
 
