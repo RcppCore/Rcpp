@@ -49,7 +49,7 @@ Description: The Rcpp package provides R functions as well as a C++ library
  Additional documentation is available via the paper by Eddelbuettel and
  Francois (2011, JSS) paper and the book by Eddelbuettel (2013, Springer); 
  see 'citation("Rcpp")' for details.
-Depends: R (>= 2.15.1)
+Depends: R (>= 3.0.0)
 Imports: methods
 Suggests: RUnit, inline, rbenchmark, highlight
 VignetteBuilder: highlight

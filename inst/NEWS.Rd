@@ -21,6 +21,11 @@
       \item Export linking helper function \code{LdFlags} as well as
         \code{RcppLdFlags}.
     }
+    \item Changes in R setup:
+    \itemize{
+      \item Raise requirement for R itself to be version 3.0.0 or later
+      as needed by the vignette processing
+    }
   }
 }
 

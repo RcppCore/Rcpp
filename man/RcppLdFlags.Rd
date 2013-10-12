@@ -4,7 +4,7 @@
 \title{Provide Rcpp Linker Flags}
 \description{
   \code{LdFlags} and \code{RcppLdFlags} return the required flags and
-  options for the the system linker. This allows portable use of
+  options for the system linker. This allows portable use of
   \pkg{Rcpp} as package location as well as operating-system specific
   details are abstracted away behind the interface of this function.
 
