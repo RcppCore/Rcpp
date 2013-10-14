@@ -1,8 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
-// meat.h: Rcpp R/C++ interface class library -- 
-//
-// Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013    Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,18 +15,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_meat_h
-#define Rcpp_api_meat_meat_h
+#ifndef Rcpp_protection_meat_H
+#define Rcpp_protection_meat_H
+      
+namespace Rcpp{
 
-#include <Rcpp/api/meat/RObject.h>
-#include <Rcpp/api/meat/Environment.h>
-#include <Rcpp/api/meat/DottedPair.h>
-#include <Rcpp/api/meat/Vector.h>
-#include <Rcpp/api/meat/Matrix.h>
-#include <Rcpp/api/meat/Reference.h>
-#include <Rcpp/api/meat/is.h>
-#include <Rcpp/api/meat/export.h>
-#include <Rcpp/api/meat/protection.h>
-#include <Rcpp/api/meat/wrap.h>
+    template <typename T>
+    template <typename U>
+    Armor<T>::Armor( U x ) : data() {
+        init( wrap(x) ) ;
+    }       
+        
+    template <typename T>
+    template <typename U>
+    inline Armor<T>& Armor<T>::operator=( U x ){
+        REPROTECT(data = wrap(x), index) ;
+        return *this ;
+    }
+         
+    template <typename T>
+    template <typename U>
+    inline Shield<T>::operator U() const { 
+        return as<U>(t) ; 
+    }
+}
 
 #endif

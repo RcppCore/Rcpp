@@ -82,6 +82,7 @@ namespace Rcpp{
 #include <Rcpp/sprintf.h>
 
 
+#include <Rcpp/protection/protection.h>
 #include <Rcpp/lang.h>
 #include <Rcpp/complex.h>
 #include <Rcpp/barrier.h>
