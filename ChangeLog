@@ -1,3 +1,8 @@
+2013-10-14 Romain Francois <romain@r-enthusiasts.com>
+	
+	* inst/include/Rcpp/protection/protection.h: added Shield/Shelter/Armor
+	* DESCRIPTION: bump to version 0.10.5.3
+
 2013-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Depends): Rolled Depends: on R to "R (>= 3.0.0)" as

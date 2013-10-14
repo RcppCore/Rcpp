@@ -88,7 +88,7 @@ public:
         update_vector();
     }
     Vector( const char* st ) : RObject( internal::vector_from_string<RTYPE>(st) ){
-        RCPP_DEBUG_2( "Vector<%d>( const char* = %s )", RTYPE, st.c_str() )
+        RCPP_DEBUG_2( "Vector<%d>( const char* = %s )", RTYPE, st )
         update_vector();
     }
 	
