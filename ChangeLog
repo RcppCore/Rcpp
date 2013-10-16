@@ -1,3 +1,9 @@
+2013-10-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Deprecate
+	namespace argument which package.skeleton() no longer uses
+	* man/Rcpp.package.skeleton.Rd: Updated documentation accordingly
+
 2013-10-16 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/is.h : added missing implementation for 

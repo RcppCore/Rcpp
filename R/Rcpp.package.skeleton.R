@@ -1,6 +1,6 @@
 # -*- tab-width: 4; -*-
 
-# Copyright (C) 2009 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2013  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -17,20 +17,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-Rcpp.package.skeleton <- function(
-	name = "anRpackage", list = character(), environment = .GlobalEnv,
-	path = ".", force = FALSE, namespace = TRUE,
-	code_files = character(), cpp_files = character(),
-	example_code = TRUE,
-	attributes = TRUE,
-	module = FALSE,
-	author = "Who wrote it",
-	maintainer = if(missing( author)) "Who to complain to" else author,
-	email = "yourfault@somewhere.net",
-	license = "What Licence is it under ?"
-	){
-	
-	if (!is.character(cpp_files)) 
+Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
+                                  environment = .GlobalEnv,
+                                  path = ".", force = FALSE,
+                                  code_files = character(), cpp_files = character(),
+                                  example_code = TRUE, attributes = TRUE, module = FALSE,
+                                  author = "Who wrote it",
+                                  maintainer = if(missing( author)) "Who to complain to" else author,
+                                  email = "yourfault@somewhere.net",
+                                  license = "What Licence is it under ?") {
+
+	if (!is.character(cpp_files))
 		stop("'cpp_files' must be a character vector")
 	# set example_code if attributes is set
 	if( isTRUE(attributes) )
@@ -40,7 +37,7 @@ Rcpp.package.skeleton <- function(
 	if( !length(list) ){
 		fake <- TRUE
 		assign( "Rcpp.fake.fun", function(){}, envir = env )
-		if( example_code && !isTRUE(attributes)){ 
+		if( example_code && !isTRUE(attributes)){
 			assign( "rcpp_hello_world", function(){}, envir = env )
 			remove_hello_world <- TRUE
 		} else {
@@ -59,7 +56,6 @@ Rcpp.package.skeleton <- function(
 	# first let the traditional version do its business
 	call <- match.call()
 	call[[1]] <- as.name("package.skeleton")
-	call[["namespace"]] <- namespace
 	# remove Rcpp specific arguments
 
 	call <- call[ c( 1L, which( names(call) %in% names(formals(package.skeleton)))) ]
@@ -117,15 +113,15 @@ Rcpp.package.skeleton <- function(
 		}
 		close( ns )
 	}
-	
+
 	# update the package description help page
 	package_help_page <- file.path( root, "man", sprintf( "%s-package.Rd", name ) )
 	if( file.exists(package_help_page) ){
 	    lines <- readLines(package_help_page)
 	    lines <- gsub( "What license is it under?", license, lines, fixed = TRUE )
-	    lines <- gsub( "Who to complain to <yourfault@somewhere.net>", 
-	        sprintf( "%s <%s>", maintainer, email),  
-	        lines, 
+	    lines <- gsub( "Who to complain to <yourfault@somewhere.net>",
+	        sprintf( "%s <%s>", maintainer, email),
+	        lines,
 	        fixed = TRUE
 	        )
 	    lines <- gsub( "Who wrote it", author, lines, fixed = TRUE )
@@ -149,7 +145,7 @@ Rcpp.package.skeleton <- function(
 		file.copy( file.path( skeleton, "Makevars.win" ), Makevars.win )
 		message( " >> added Makevars.win file with Rcpp settings" )
 	}
-	
+
 	if ( length(cpp_files) > 0L ) {
 		for (file in cpp_files) {
 			file.copy(file, src)
@@ -157,10 +153,10 @@ Rcpp.package.skeleton <- function(
 		}
 		compileAttributes(root)
 	}
-	
+
 	if( example_code ){
 		if ( isTRUE( attributes ) ) {
-			file.copy( file.path( skeleton, "rcpp_hello_world_attributes.cpp" ), 
+			file.copy( file.path( skeleton, "rcpp_hello_world_attributes.cpp" ),
 								 file.path( src, "rcpp_hello_world.cpp" ) )
 			message( " >> added example src file using Rcpp attributes")
 			compileAttributes(root)
@@ -170,16 +166,16 @@ Rcpp.package.skeleton <- function(
 			header <- gsub( "@PKG@", name, header, fixed = TRUE )
 			writeLines( header , file.path( src, "rcpp_hello_world.h" ) )
 			message( " >> added example header file using Rcpp classes")
-			
+
 			file.copy( file.path( skeleton, "rcpp_hello_world.cpp" ), src )
 			message( " >> added example src file using Rcpp classes")
-			
+
 			rcode <- readLines( file.path( skeleton, "rcpp_hello_world.R" ) )
 			rcode <- gsub( "@PKG@", name, rcode, fixed = TRUE )
 			writeLines( rcode , file.path( root, "R", "rcpp_hello_world.R" ) )
 			message( " >> added example R file calling the C++ example")
 		}
-		
+
 		hello.Rd <- file.path( root, "man", "rcpp_hello_world.Rd")
 		unlink( hello.Rd )
 		file.copy(
