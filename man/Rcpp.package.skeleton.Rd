@@ -13,7 +13,7 @@ Create a skeleton for a new package depending on Rcpp
 \usage{
 Rcpp.package.skeleton(name = "anRpackage", list = character(), 
 	environment = .GlobalEnv, path = ".", force = FALSE, 
-	namespace = TRUE, code_files = character(), cpp_files = character(),
+	code_files = character(), cpp_files = character(),
 	example_code = TRUE, attributes = TRUE, module = FALSE, 
 	author = "Who wrote it", 
 	maintainer = if(missing( author)) "Who to complain to" else author, 
@@ -27,7 +27,6 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	\item{environment}{See \link[utils]{package.skeleton}}
 	\item{path}{See \link[utils]{package.skeleton}}
 	\item{force}{See \link[utils]{package.skeleton}}
-	\item{namespace}{See \link[utils]{package.skeleton}}
 	\item{code_files}{See \link[utils]{package.skeleton}}
 	\item{cpp_files}{A character vector with the paths to C++ source files to add to the package. }
 	\item{example_code}{If TRUE, example c++ code using Rcpp is added to the package. }

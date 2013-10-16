@@ -20,6 +20,8 @@
     \itemize{
       \item Export linking helper function \code{LdFlags} as well as
         \code{RcppLdFlags}.
+      \item Function \code{Rcpp.package.skeleton()} no longer passes a
+        \code{namespace} argument on to \code{package.skeleton()}
     }
     \item Changes in R setup:
     \itemize{
