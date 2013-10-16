@@ -30,23 +30,18 @@ namespace internal{
         SEXP dim = Rf_getAttrib( x, R_DimSymbol) ;
         return dim != R_NilValue && Rf_length(dim) == 2 ;
     }
-    
     template <> inline bool is__simple<int>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == INTSXP ;
     }
-
     template <> inline bool is__simple<double>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == REALSXP ;
     }
-    
     template <> inline bool is__simple<bool>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == LGLSXP ;
     }
-    
     template <> inline bool is__simple<std::string>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == STRSXP ;
     }
-    
     template <> inline bool is__simple<String>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == STRSXP ;
     }
@@ -78,7 +73,7 @@ namespace internal{
         return TYPEOF(x) == LANGSXP ;
     }
     template <> inline bool is__simple<DottedPair>( SEXP x ){
-        return TYPEOF(x) == LANGSXP || TYPEOF(x) == LISTSXP ;
+        return (TYPEOF(x) == LANGSXP) || (TYPEOF(x) == LISTSXP);
     }
     template <> inline bool is__simple<List>( SEXP x ){
         return TYPEOF(x) == VECSXP ;
