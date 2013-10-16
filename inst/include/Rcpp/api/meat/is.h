@@ -74,6 +74,12 @@ namespace internal{
     template <> inline bool is__simple<LogicalVector>( SEXP x ){
         return TYPEOF(x) == LGLSXP ;
     }
+    template <> inline bool is__simple<Language>( SEXP x ){
+        return TYPEOF(x) == LANGSXP ;
+    }
+    template <> inline bool is__simple<DottedPair>( SEXP x ){
+        return TYPEOF(x) == LANGSXP || TYPEOF(x) == LISTSXP ;
+    }
     template <> inline bool is__simple<List>( SEXP x ){
         return TYPEOF(x) == VECSXP ;
     }
