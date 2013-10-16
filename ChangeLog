@@ -1,3 +1,8 @@
+2013-10-16 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/api/meat/is.h : added missing implementation for 
+        is<Language> and is<DottedPair>
+
 2013-10-14 Romain Francois <romain@r-enthusiasts.com>
 	
 	* inst/include/Rcpp/protection/protection.h: added Shield/Shelter/Armor
