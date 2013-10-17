@@ -1,3 +1,7 @@
+2013-10-17  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: sourceCpp now correctly binds to Rtools 3.0 and 3.1
+
 2013-10-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Deprecate
