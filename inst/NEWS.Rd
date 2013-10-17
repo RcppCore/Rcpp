@@ -28,6 +28,10 @@
       \item Raise requirement for R itself to be version 3.0.0 or later
       as needed by the vignette processing
     }
+    \item Changes in Rcpp attributes: 
+    \itemize{
+      \item \code{sourceCpp} now correctly binds to Rtools 3.0 and 3.1
+    }
   }
 }
 
