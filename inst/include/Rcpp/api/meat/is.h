@@ -51,7 +51,7 @@ namespace internal{
     template <> inline bool is__simple<CharacterMatrix>(SEXP x) {
         return TYPEOF(x) == STRSXP && is_matrix(x);
     }
-    template <> inline bool is__simple<RObject>( SEXP x ){
+    template <> inline bool is__simple<RObject>(SEXP) {
         return true ;
     }
     template <> inline bool is__simple<IntegerVector>( SEXP x ){
