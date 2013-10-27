@@ -1,3 +1,10 @@
+2013-10-27  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.10.6
+        * inst/NEWS.Rd: Release 0.10.6
+        * inst/include/Rcpp/config.h: Release 0.10.5
+        * debian/*: Similarly updated for new release to Debian
+
 2013-10-17  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: sourceCpp now correctly binds to Rtools 3.0 and 3.1
@@ -10,12 +17,13 @@
 
 2013-10-16 Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/api/meat/is.h : added missing implementation for 
-        is<Language> and is<DottedPair>
+        * include/Rcpp/api/meat/is.h : added missing implementation for
+	is<Language> and is<DottedPair>
 
 2013-10-14 Romain Francois <romain@r-enthusiasts.com>
-	
-	* inst/include/Rcpp/protection/protection.h: added Shield/Shelter/Armor
+
+	* inst/include/Rcpp/protection/protection.h: added
+	Shield/Shelter/Armor
 	* DESCRIPTION: bump to version 0.10.5.3
 
 2013-10-12  Dirk Eddelbuettel  <edd@debian.org>
