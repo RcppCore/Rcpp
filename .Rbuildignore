@@ -10,3 +10,4 @@ vignettes/jss.bst
 inst/include/Rcpp/preprocessor
 inst/include/Rcpp/sugar/functions/impl
 vignettes/notyet
+doxyfile
