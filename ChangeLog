@@ -1,3 +1,8 @@
+2013-10-28 Romain Francois <romain@r-enthusiasts.com>
+
+        * include/Rcpp/protection/Armor.h : Armor::operator SEXP has to be const
+        for it to work properly with wrap. 
+
 2013-10-27  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.10.6
