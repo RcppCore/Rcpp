@@ -30,7 +30,7 @@ namespace Rcpp {
         
         template <typename U> Armor( U x );
         
-        inline operator SEXP(){
+        inline operator SEXP() const {
             return data ;
         }
               
