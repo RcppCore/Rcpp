@@ -2,8 +2,8 @@
 \documentclass[shortnames,nojss,article]{jss}
 \usepackage{booktabs,flafter,thumbpdf}
 %\VignetteIndexEntry{Rcpp-introduction}
-%\VignetteKeywords{foreign function interface, .Call, C++, R}
-%\VignettePackage{Rcpp}
+%\VignetteKeywords{Rcpp, foreign function interface, .Call, C++, R}
+%\VignetteDepends{Rcpp}
 
 \author{Dirk Eddelbuettel\\Debian Project \And Romain Fran\c{c}ois\\\proglang{R} Enthusiasts}
 \Plainauthor{Dirk Eddelbuettel, Romain Fran\c{c}ois}
