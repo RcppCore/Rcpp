@@ -1,8 +1,12 @@
 rcpp (0.10.6-1) unstable; urgency=low
 
   * New release
-
- -- Dirk Eddelbuettel <edd@debian.org>  Sun, 27 Oct 2013 16:47:29 -0500
+  * debian/control: Set Build-Depends: to current R version 
+  * debian/control: Set Standards-Version: to current version 
+  * debian/control: Add 'r-cran-codetools' to Build-Depends (as it is 
+    used at preparation for LazuyLoading stage) 
+  
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 29 Oct 2013 09:42:30 -0500
 
 rcpp (0.10.5-1) unstable; urgency=low
 
