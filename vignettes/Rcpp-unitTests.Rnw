@@ -1,7 +1,7 @@
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-unitTests}
 %\VignetteKeywords{R,Rcpp,unit tests}
-%\VignettePackage{Rcpp}
+%\VignetteDepends{Rcpp}
 
 \usepackage{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}

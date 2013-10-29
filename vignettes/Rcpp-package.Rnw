@@ -1,6 +1,9 @@
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-package}
 %\VignetteEngine{highlight::highlight}
+%\VignetteKeywords{Rcpp, package}
+%\VignetteDepends{Rcpp}
+
 \usepackage[USletter]{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 \usepackage{color,alltt}
