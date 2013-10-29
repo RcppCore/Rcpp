@@ -2,7 +2,6 @@ debian
 inst/doc/html
 inst/doc/latex
 inst/doc/man
-build
 inst/doc/jss.bst
 vignettes/jss.bst
 ^.*\.Rproj$
