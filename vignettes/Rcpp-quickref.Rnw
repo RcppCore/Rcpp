@@ -1,6 +1,8 @@
 \documentclass[8pt,twocolumn,a4paper]{article}
 %\VignetteIndexEntry{Rcpp-quickref}
 %\VignetteEngine{highlight::highlight}
+%\VignetteKeywords{Rcpp, reference}
+%\VignetteDepends{Rcpp}
 
 \setlength{\hoffset}{-0.8in}
 \setlength{\voffset}{-0.8in}

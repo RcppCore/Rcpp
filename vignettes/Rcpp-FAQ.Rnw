@@ -1,6 +1,8 @@
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-FAQ}
 %\VignetteEngine{highlight::highlight}
+%\VignetteKeywords{Rcpp, FAQ}
+%\VignetteDepends{Rcpp}
 \usepackage[USletter]{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
