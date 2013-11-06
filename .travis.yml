@@ -1,6 +1,9 @@
 # Sample .travis.yml for R projects.
 #
 # See https://github.com/craigcitro/r-travis
+#
+# Running with default settings which for now means 'no manual, no vignettes'
+# and checking '--as-cran'.
 
 language: c
 script: ./travis-tool.sh run_tests
@@ -14,6 +17,17 @@ notifications:
   email:
     on_success: change
     on_failure: change
+
+# Options used for building or testing your R package can be
+# controlled by uncommenting one or both of the following; the values
+# here are the defaults:
+env:
+  global:
+    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+    - R_CHECK_ARGS="--no-manual --as-cran"
+# See the travis docs for more information:
+#   http://about.travis-ci.org/docs/user/build-configuration/#The-Build-Matrix
+
 
 # Also works but is slower as it needs devtools:
 # - ./travis-tool.sh install_deps
