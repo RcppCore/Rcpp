@@ -13,6 +13,8 @@ before_install:
   - ./travis-tool.sh bootstrap
 install:
   - ./travis-tool.sh r_install RUnit inline rbenchmark highlight
+after_script:
+  - ./travis-tool.sh dump_logs
 notifications:
   email:
     on_success: change
