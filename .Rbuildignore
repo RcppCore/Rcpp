@@ -10,3 +10,4 @@ inst/include/Rcpp/preprocessor
 inst/include/Rcpp/sugar/functions/impl
 vignettes/notyet
 doxyfile
+.travis.yml
