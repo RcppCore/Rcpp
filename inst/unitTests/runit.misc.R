@@ -50,11 +50,11 @@ test.Dimension.const <- function(){
 }
 
 test.evaluator.error <- function(){
-   checkException( evaluator_error(), msg = "Evaluator::run( stop() )" )
+   checkException( evaluator_error(), msg = "Rcpp_eval( stop() )" )
 }
 
 test.evaluator.ok <- function(){
-	checkEquals( sort(evaluator_ok(1:10)), 1:10, msg = "Evaluator running fine" )
+	checkEquals( sort(evaluator_ok(1:10)), 1:10, msg = "Rcpp_eval running fine" )
 }
 
 test.exceptions <- function(){

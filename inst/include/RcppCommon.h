@@ -40,6 +40,7 @@
 #include <Rversion.h>
 
 const char * type2name(SEXP x); 
+SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
 
 /**
  * \brief Rcpp API

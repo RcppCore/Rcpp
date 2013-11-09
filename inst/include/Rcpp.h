@@ -38,7 +38,6 @@
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>
 #include <Rcpp/Environment.h>
-#include <Rcpp/Evaluator.h>
 
 #include <Rcpp/Vector.h>
 #include <Rcpp/sugar/nona/nona.h>
