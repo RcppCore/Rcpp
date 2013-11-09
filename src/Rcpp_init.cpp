@@ -26,9 +26,6 @@
 #define CALLDEF(name, n)  {#name, (DL_FUNC) &name, n}
 #define EXTDEF(name)  {#name, (DL_FUNC) &name, -1}
 
-
-// TODO: check that having this static does not mess up with 
-//       RInside, and move it within init_Rcpp_routines otherwise
 static R_CallMethodDef callEntries[]  = {
     CALLDEF(Class__name,1),
     CALLDEF(Class__has_default_constructor,1),
@@ -73,7 +70,7 @@ static R_ExternalMethodDef extEntries[]  = {
 } ;
 
 // this is called by R_init_Rcpp that is in Module.cpp
-void init_Rcpp_routines(DllInfo *info){
+extern "C" void init_Rcpp_routines(DllInfo *info){
   /* Register routines, allocate resources. */
   R_registerRoutines(info, 
       NULL /* .C*/, 
@@ -83,6 +80,6 @@ void init_Rcpp_routines(DllInfo *info){
   );
 }
         
-void R_unload_Rcpp(DllInfo *info) {
+extern "C" void R_unload_Rcpp(DllInfo *info) {
   /* Release resources. */
 }
