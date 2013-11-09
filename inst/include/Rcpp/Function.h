@@ -53,14 +53,6 @@ namespace Rcpp{
         Function(const Function& other) ;
         Function& operator=(const Function& other );
         
-        // /**
-        //  * Finds a function, searching from a specific environment
-        //  *
-        //  * @param name name of the function
-        //  * @param env environment where to find it
-        //  */
-        // Function(const std::string& name, SEXP env ) ;
-        
         /**
          * calls the function with the specified arguments
          *
@@ -72,11 +64,11 @@ namespace Rcpp{
 #ifdef HAS_VARIADIC_TEMPLATES
         template<typename... Args> 
         SEXP operator()( const Args&... args) const {
-            return internal::try_catch( Rf_lang2( m_sexp, pairlist(args...) ) ) ;
+            return Rcpp_eval( Rf_lang2( m_sexp, pairlist(args...) ) ) ;
         }
 #else
         SEXP operator()() const {
-            return internal::try_catch( Rf_lang1( m_sexp  ) ) ;     
+            return Rcpp_eval( Rf_lang1( m_sexp  ) ) ;     
         }
         
 #include <Rcpp/generated/Function__operator.h>  
