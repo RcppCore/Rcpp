@@ -24,12 +24,7 @@
 
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
 
-// All three digits have to be integers for g++-4.7 or later
-#define RCPP_VERSION Rcpp_Version(0,10,6)
-
-// Rcpp 0.10.3 has initial support for new preserve/release semantics
-// This switch enables a rollback to the standard R preserve/release semantics
-#define RCPP_USE_NEW_PRESERVE_RELEASE 0
-                                                                                                                
+#define RCPP_VERSION Rcpp_Version(0,10,7)
+                                                                                                             
 #endif
 
