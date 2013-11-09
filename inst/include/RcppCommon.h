@@ -39,9 +39,6 @@
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
 
-#ifdef __cplusplus
-extern "C" 
-#endif 
 const char * sexp_to_name(int sexp_type);
 
 /**
