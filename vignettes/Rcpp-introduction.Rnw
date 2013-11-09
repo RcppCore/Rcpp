@@ -852,8 +852,8 @@ to improve this issue.
 \subsection[R errors in C++]{\proglang{R} errors in \proglang{C++}}
 
 \proglang{R} itself currently does not offer \proglang{C}-level mechanisms to deal with errors. To
-overcome this problem, \pkg{Rcpp} uses the \code{Rcpp::Evaluator}
-class to evaluate an \proglang{R} expression in an R-level \code{tryCatch}
+overcome this problem, \pkg{Rcpp} uses the \code{Rcpp\_eval}
+function to evaluate an \proglang{R} expression in an R-level \code{tryCatch}
 block. The error, if any, that occurs while evaluating the
 function is then translated into an \proglang{C++} exception that can be dealt with using
 regular \proglang{C++} \code{try}/\code{catch} syntax.

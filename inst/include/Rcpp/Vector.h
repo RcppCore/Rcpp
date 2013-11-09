@@ -23,7 +23,6 @@
 #define Rcpp__Vector_h
 
 #include <RcppCommon.h>
-#include <Rcpp/Evaluator.h>
 #include <Rcpp/exceptions.h>
 #include <Rcpp/RObject.h>
 #include <Rcpp/r_cast.h>
