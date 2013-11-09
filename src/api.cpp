@@ -99,8 +99,7 @@ namespace Rcpp {
     Rostream<false> Rcerr;
     // }}}
     
-    // {{{ Evaluator
-    SEXP Evaluator::run(SEXP expr, SEXP env) {
+    SEXP Rcpp_eval(SEXP expr, SEXP env) {
         PROTECT(expr);
 
         reset_current_error() ; 
@@ -137,11 +136,6 @@ namespace Rcpp {
 
         return res ;
     }
-
-    SEXP Evaluator::run( SEXP expr) {
-        return run(expr, R_GlobalEnv );
-    }
-    // }}}
     
     // {{{ RObject
     void RObject::setSEXP(SEXP x){
@@ -829,7 +823,7 @@ namespace Rcpp {
             SEXP res ;
             try {
                 SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
-                res = Evaluator::run( Rf_lang2(asEnvironmentSym, x ) ) ;
+                res = Rcpp_eval( Rf_lang2(asEnvironmentSym, x ) ) ;
             } catch( const eval_error& ex){
                 throw not_compatible( "cannot convert to environment"  ) ; 
             }
@@ -847,7 +841,7 @@ namespace Rcpp {
             SEXP res = R_NilValue ;
             try{
                 SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
-                res = Evaluator::run(Rf_lang2( asEnvironmentSym, Rf_mkString(name.c_str()) ) ) ;
+                res = Rcpp_eval(Rf_lang2( asEnvironmentSym, Rf_mkString(name.c_str()) ) ) ;
             } catch( const eval_error& ex){
                 throw no_such_env(name) ;
             }
@@ -859,7 +853,7 @@ namespace Rcpp {
         SEXP res ;
         try{
             SEXP asEnvironmentSym = Rf_install("as.environment"); // cannot be gc()'ed  once in symbol table
-            res =  Evaluator::run( Rf_lang2( asEnvironmentSym, Rf_ScalarInteger(pos) ) ) ;
+            res =  Rcpp_eval( Rf_lang2( asEnvironmentSym, Rf_ScalarInteger(pos) ) ) ;
         } catch( const eval_error& ex){
             throw no_such_env(pos) ;
         }
@@ -1007,7 +1001,7 @@ namespace Rcpp {
         SEXP env = R_NilValue ;
         try{
             SEXP getNamespaceSym = Rf_install("getNamespace");
-            env = Evaluator::run( Rf_lang2(getNamespaceSym, Rf_mkString(package.c_str()) ) ) ;
+            env = Rcpp_eval( Rf_lang2(getNamespaceSym, Rf_mkString(package.c_str()) ) ) ;
         } catch( const eval_error& ex){
             throw no_such_namespace( package  ) ; 
         }
@@ -1065,7 +1059,7 @@ namespace Rcpp {
     
     Environment Environment::new_child(bool hashed) {
         SEXP newEnvSym = Rf_install("new.env");
-        return Environment( Evaluator::run(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), m_sexp )) );
+        return Environment( Rcpp_eval(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), m_sexp )) );
     }
     // }}}    
     
@@ -1132,7 +1126,7 @@ namespace Rcpp {
         obj.attr( "names") = names ;
         SEXP call  = PROTECT( Rf_lang3(as_df_symb, obj, wrap( strings_as_factors ) ) ) ;
         SET_TAG( CDDR(call),  strings_as_factors_symb ) ;   
-        SEXP res = PROTECT( Evaluator::run( call ) ) ; 
+        SEXP res = PROTECT( Rcpp_eval( call ) ) ; 
         DataFrame out( res ) ;
         UNPROTECT(2) ;
         return out ;
@@ -1374,7 +1368,7 @@ namespace internal{
         SEXP res = R_NilValue ;
         try{
             SEXP funSym = Rf_install(fun);
-            res = Evaluator::run( Rf_lang2( funSym, x ) ) ;
+            res = Rcpp_eval( Rf_lang2( funSym, x ) ) ;
         } catch( eval_error& e){
             throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
         }
@@ -1382,10 +1376,10 @@ namespace internal{
     }
     
     SEXP try_catch( SEXP expr, SEXP env ) {
-        return Evaluator::run(expr, env) ;
+        return Rcpp_eval(expr, env) ;
     }
     SEXP try_catch( SEXP expr ) {
-        return Evaluator::run(expr) ;
+        return Rcpp_eval(expr) ;
     }
     
     SEXP eval_methods<EXPRSXP>::eval(){
