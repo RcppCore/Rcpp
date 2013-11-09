@@ -138,8 +138,13 @@ namespace Rcpp{
     /* internal namespace for things not intended to be used by the user */
     namespace internal{     
         
-        SEXP try_catch( SEXP expr, SEXP env );
-        SEXP try_catch( SEXP expr );
+        inline SEXP try_catch( SEXP expr, SEXP env ) {
+            return Rcpp_eval(expr, env) ;
+        }
+        inline SEXP try_catch( SEXP expr ) {
+            return Rcpp_eval(expr) ;
+        }
+    
         
     } // namespace internal 
 } // namespace Rcpp

@@ -1375,13 +1375,6 @@ namespace internal{
         return res;
     }
     
-    SEXP try_catch( SEXP expr, SEXP env ) {
-        return Rcpp_eval(expr, env) ;
-    }
-    SEXP try_catch( SEXP expr ) {
-        return Rcpp_eval(expr) ;
-    }
-    
     SEXP eval_methods<EXPRSXP>::eval(){
         SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
         SEXP evalSym = Rf_install( "eval" );
