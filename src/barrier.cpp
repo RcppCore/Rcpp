@@ -2,7 +2,7 @@
 //
 // barrier.cpp: Rcpp R/C++ interface class library -- write barrier
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -54,19 +54,9 @@ const char* char_nocheck( SEXP x ){ return CHAR(x); }
 
 static bool Rcpp_cache_know = false ;
 static SEXP Rcpp_cache = R_NilValue ;
-static SEXP Rcpp_protection_stack = R_NilValue ;
 
 #define RCPP_HASH_CACHE_INDEX 4
-#define RCPP_PROTECTION_STACK_INDEX 5
-#define RCPP_CACHE_SIZE 6
-
-#ifndef RCPP_PROTECT_STACK_INITIAL_SIZE
-#define RCPP_PROTECT_STACK_INITIAL_SIZE 16384
-#endif
-
-#ifndef RCPP_PROTECT_STACK_INCREMENT
-#define RCPP_PROTECT_STACK_INCREMENT 4096
-#endif
+#define RCPP_CACHE_SIZE 5
 
 #ifndef RCPP_HASH_CACHE_INITIAL_SIZE
 #define RCPP_HASH_CACHE_INITIAL_SIZE 1024
@@ -81,17 +71,9 @@ SEXP get_rcpp_cache() {
         
         Rcpp_cache = Rf_findVarInFrame( RCPP, Rf_install(".rcpp_cache") ) ;
         Rcpp_cache_know = true ;
-        Rcpp_protection_stack = VECTOR_ELT(Rcpp_cache, RCPP_PROTECTION_STACK_INDEX) ;
         UNPROTECT(1) ;
     }
     return Rcpp_cache ;
-}
-
-SEXP get_Rcpp_protection_stack(){
-    if( ! Rcpp_cache_know ){
-        get_rcpp_cache() ;
-    }
-    return Rcpp_protection_stack ;
 }
 
 namespace Rcpp {
@@ -132,10 +114,6 @@ SEXP init_Rcpp_cache(){
 	set_current_error( cache, R_NilValue ) ; // current error
 	SET_VECTOR_ELT( cache, 3, R_NilValue ) ; // stack trace
 	SET_VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX, Rf_allocVector(INTSXP, RCPP_HASH_CACHE_INITIAL_SIZE) ) ;
-	SEXP stack = PROTECT(Rf_allocVector(VECSXP, RCPP_PROTECT_STACK_INITIAL_SIZE)) ;
-	// we use true length to store "top"
-	SET_TRUELENGTH(stack, -1 ) ;
-	SET_VECTOR_ELT( cache, RCPP_PROTECTION_STACK_INDEX, stack ) ;
 	Rf_defineVar( Rf_install(".rcpp_cache"), cache, RCPP );
     
     UNPROTECT(3) ; 

@@ -32,82 +32,17 @@
 namespace Rcpp {
          
     // {{{ SexpStack
-    static SEXP RCPP_PROTECTION_STACK = R_NilValue ;
-    static SEXP* RCPP_PROTECTION_STACK_PTR = 0 ;
-    static bool RCPP_PROTECTION_STACK_READY = false ;
-    
-    #define GET_TOP() TRUELENGTH(RCPP_PROTECTION_STACK)
-    #define SET_TOP(TOP) SET_TRUELENGTH(RCPP_PROTECTION_STACK, TOP)
-    
-    inline void init_ProtectionStack(){
-        if(!RCPP_PROTECTION_STACK_READY){
-            RCPP_PROTECTION_STACK = get_Rcpp_protection_stack() ;
-            RCPP_PROTECTION_STACK_PTR = get_vector_ptr(RCPP_PROTECTION_STACK) ;
-            RCPP_PROTECTION_STACK_READY = true ;
-        }
-    }
     
     SEXP Rcpp_PreserveObject(SEXP x){ 
-#if RCPP_USE_NEW_PRESERVE_RELEASE
-        if( x != R_NilValue ){
-            init_ProtectionStack();
-            int top = GET_TOP() ;
-            RCPP_DEBUG_2( "Rcpp_PreserveObject( <%p>), top = %d", x, top )
-            top++ ; 
-            // RCPP_PROTECTION_STACK_PTR[top] = x ;
-            set_vector_elt( RCPP_PROTECTION_STACK, top, x ) ;
-            SET_TOP(top) ;
-        }
-        #if RCPP_DEBUG_LEVEL > 1 
-        Rcpp_Stack_Debug() ;
-        #endif
-#else
         if( x != R_NilValue ) {
             R_PreserveObject(x); 
         }
-#endif
         return x ;
     }
     void Rcpp_ReleaseObject(SEXP x){
-#if RCPP_USE_NEW_PRESERVE_RELEASE
-        if( x != R_NilValue ){
-            init_ProtectionStack();
-            
-            int top = GET_TOP();
-            RCPP_DEBUG_2( "Rcpp_ReleaseObject( <%p>),  top = %d )", x, top )
-        
-            if( x == RCPP_PROTECTION_STACK_PTR[top] ) {
-                RCPP_PROTECTION_STACK_PTR[top] = R_NilValue ;
-                top-- ;
-                SET_TOP(top) ;
-            } else {
-                int i = top ;
-                for( ; i>=0; i--){
-                    if( x == RCPP_PROTECTION_STACK_PTR[i] ){
-                        // swap position i and top
-                        // perhaps should bubble down instead
-                        
-                        RCPP_PROTECTION_STACK_PTR[i] = RCPP_PROTECTION_STACK_PTR[top] ;
-                        RCPP_PROTECTION_STACK_PTR[top] = R_NilValue ;
-                        top-- ;
-                
-                        SET_TOP(top) ;
-                        break ;
-                    }
-                }
-                #if RCPP_DEBUG_LEVEL > 0
-                if( i < 0 ) RCPP_DEBUG_2( "!!!! STACK ERROR, did not find SEXP <%p> (i=%d)", x, i ) ;
-                #endif  
-            }
-            #if RCPP_DEBUG_LEVEL > 1 
-            Rcpp_Stack_Debug() ;
-            #endif
-        }
-#else
         if (x != R_NilValue) {
             R_ReleaseObject(x); 
         }
-#endif
     }
 
     SEXP Rcpp_ReplaceObject(SEXP x, SEXP y){
@@ -116,26 +51,6 @@ namespace Rcpp {
         } else if( y == R_NilValue ){
             Rcpp_ReleaseObject( x ) ;
         } else {
-#if RCPP_USE_NEW_PRESERVE_RELEASE
-            init_ProtectionStack();
-            
-            int top = GET_TOP(); 
-            RCPP_DEBUG_3( "Rcpp_ReplaceObject( <%p> , <%p> ),  top = %d )", x, y, top )
-            int i = top ;
-            for( ; i>= 0; i--){
-                if( x == RCPP_PROTECTION_STACK_PTR[i] ){
-                    set_vector_elt( RCPP_PROTECTION_STACK, i, y) ;
-                    break ;
-                }
-            }
-            #if RCPP_DEBUG_LEVEL > 0
-            if( i < 0 ) RCPP_DEBUG_1( "STACK ERROR, did not find SEXP <%p>", x ) ;
-            #endif
-            
-            #if RCPP_DEBUG_LEVEL > 1 
-            Rcpp_Stack_Debug() ;
-            #endif
-#else        
             // if we are setting to the same SEXP as we already have, do nothing 
             if (x != y) {
                 
@@ -145,27 +60,10 @@ namespace Rcpp {
                 // the new SEXP is not NULL, so preserve it 
                 Rcpp_PreserveObject(y);
                         
-                //update();
             }
-#endif
         }
         return y ;
     }                                                                                          
-
-    void Rcpp_Stack_Debug(){
-        init_ProtectionStack();
-        int top = GET_TOP() ;
-        if( top == -1 ){
-            Rprintf( "Rcpp_Stack_Debug [<<%p>>] : empty stack\n", RCPP_PROTECTION_STACK )    ;
-        } else {                      
-            int n = top + 1  ;
-            Rprintf( "Rcpp_Stack_Debug, %d objects on stack [<<%p>>]\n", n, RCPP_PROTECTION_STACK  )    ;
-            for( int i=0; i<n;i++){
-                SEXP ptr = RCPP_PROTECTION_STACK_PTR[i] ;
-                Rprintf( "[%4d] TYPE = %s, pointer = <%p>\n", i, sexp_to_name(TYPEOF(ptr)), ptr ) ;    
-            }
-        }
-    }
     // }}}
     
                           
