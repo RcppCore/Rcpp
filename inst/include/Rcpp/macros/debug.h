@@ -29,10 +29,6 @@
 
 const char* short_file_name(const char* file) ;
 
-namespace Rcpp{
-    void Rcpp_Stack_Debug() ;
-}
-
 #if RCPP_DEBUG_LEVEL > 0
     #define RCPP_DEBUG( MSG ) Rprintf( "%40s:%4d %s\n" , short_file_name(__FILE__), __LINE__, MSG ) ; 
     #define RCPP_DEBUG_1( fmt, MSG ) Rprintf( "%40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, MSG ) ; 
