@@ -145,7 +145,7 @@ namespace Rcpp {
     
     // {{{ RObject
     void RObject::setSEXP(SEXP x){
-        RCPP_DEBUG_2( "RObject::setSEXP(SEXP = <%p>, TYPEOF=%s )", x, sexp_to_name(TYPEOF(x)) ) 
+        RCPP_DEBUG_2( "RObject::setSEXP(SEXP = <%p>, TYPEOF=%s )", x, type2name(x) ) 
     
         // replace the currently protected SEXP by the new one
         m_sexp = Rcpp_ReplaceObject(m_sexp, x) ;
@@ -1283,9 +1283,9 @@ SEXP rcpp_capabilities(){
 	UNPROTECT(2) ;
 	return cap ;
 }
-
-const char * sexp_to_name(int sexp_type) {
-    switch (sexp_type) {
+                
+const char * type2name(SEXP x) {
+    switch (TYPEOF(x)) {
     case NILSXP:	return "NILSXP";
     case SYMSXP:	return "SYMSXP";
     case RAWSXP:	return "RAWSXP";
@@ -1311,7 +1311,7 @@ const char * sexp_to_name(int sexp_type) {
     case WEAKREFSXP:	return "WEAKREFSXP";
     case S4SXP:		return "S4SXP";
     default:
-	return "<unknown>";
+    return "<unknown>";
     }
 }
 
