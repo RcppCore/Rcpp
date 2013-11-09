@@ -71,7 +71,7 @@ static R_ExternalMethodDef extEntries[]  = {
 } ;
 
 // this is called by R_init_Rcpp that is in Module.cpp
-extern "C" void init_Rcpp_routines(DllInfo *info){
+void init_Rcpp_routines(DllInfo *info){
   /* Register routines, allocate resources. */
   R_registerRoutines(info, 
       NULL /* .C*/, 
