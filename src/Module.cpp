@@ -22,67 +22,9 @@
 #include <Rcpp.h>
 #include "internal.h"
 
-#define MAX_ARGS 65
-
-#define UNPACK_EXTERNAL_ARGS(__CARGS__,__P__)    \
-SEXP __CARGS__[MAX_ARGS] ;                       \
-int nargs = 0 ;                                  \
-for(; nargs<MAX_ARGS; nargs++){                  \
-	if( __P__ == R_NilValue ) break ;            \
-	__CARGS__[nargs] = CAR(__P__) ;              \
-	__P__ = CDR(__P__) ;                         \
-}
-
 typedef Rcpp::XPtr<Rcpp::Module> XP_Module ; 
 typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ; 
 typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ; 
-
-
-#define RCPP_FUN_1(__OUT__,__NAME__, ___0)        \
-__OUT__ RCPP_DECORATE(__NAME__)(___0) ;               \
-extern "C" SEXP __NAME__(SEXP x0){                       \
-SEXP res = R_NilValue ;                             \
-BEGIN_RCPP                                          \
-res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 )) ) ; \
-return res ;                                        \
-END_RCPP                                            \
-}                                                   \
-__OUT__ RCPP_DECORATE(__NAME__)(___0)
-
-
-#define RCPP_FUN_2(__OUT__,__NAME__, ___0, ___1)        \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1) ;               \
-extern "C" SEXP __NAME__(SEXP x0, SEXP x1){                       \
-SEXP res = R_NilValue ;                             \
-BEGIN_RCPP                                          \
-res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 )) ) ; \
-return res ;                                        \
-END_RCPP                                            \
-}                                                   \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1)
-
-#define RCPP_FUN_3(__OUT__,__NAME__, ___0, ___1, ___2)        \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2) ;               \
-extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2){                       \
-SEXP res = R_NilValue ;                             \
-BEGIN_RCPP                                          \
-res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 )) ) ; \
-return res ;                                        \
-END_RCPP                                            \
-}                                                   \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2)
-
-#define RCPP_FUN_4(__OUT__,__NAME__, ___0, ___1, ___2, ___3)        \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3) ;               \
-extern "C" SEXP __NAME__(SEXP x0, SEXP x1, SEXP x2, SEXP x3){                       \
-SEXP res = R_NilValue ;                             \
-BEGIN_RCPP                                          \
-res = ::Rcpp::wrap( RCPP_DECORATE(__NAME__)(::Rcpp::internal::converter( x0 ), ::Rcpp::internal::converter( x1 ), ::Rcpp::internal::converter( x2 ), ::Rcpp::internal::converter( x3 )) ) ; \
-return res ;                                        \
-END_RCPP                                            \
-}                                                   \
-__OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3)
-
 
 RCPP_FUN_1( bool, Class__has_default_constructor, XP_Class cl ){
     return cl->has_default_constructor() ;
@@ -170,7 +112,7 @@ RCPP_FUN_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj){
 }
 
 // .External functions
-extern "C" SEXP InternalFunction_invoke( SEXP args ){
+SEXP InternalFunction_invoke( SEXP args ){
 BEGIN_RCPP
 	SEXP p = CDR(args) ;
 	XP_Function fun( CAR(p) ) ; p = CDR(p) ;
@@ -179,7 +121,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
-extern "C" SEXP Module__invoke( SEXP args){
+SEXP Module__invoke( SEXP args){
 BEGIN_RCPP
 	SEXP p = CDR(args) ;
 	XP_Module module( CAR(p) ) ; p = CDR(p) ;
@@ -190,7 +132,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
-extern "C" SEXP class__newInstance(SEXP args){
+SEXP class__newInstance(SEXP args){
 	SEXP p = CDR(args) ;
 	
 	XP_Module module( CAR(p) ) ; p = CDR(p) ;
@@ -205,7 +147,7 @@ SEXP rcpp_dummy_pointer = R_NilValue; // relies on being set in .onLoad()
 	
 
 
-extern "C" SEXP class__dummyInstance(SEXP args) {
+SEXP class__dummyInstance(SEXP args) {
 	SEXP p;
 
 	if(args == R_NilValue)
@@ -217,7 +159,7 @@ extern "C" SEXP class__dummyInstance(SEXP args) {
 	return rcpp_dummy_pointer;
 }
 
-extern "C" SEXP CppMethod__invoke(SEXP args){
+SEXP CppMethod__invoke(SEXP args){
 	SEXP p = CDR(args) ;
 	
 	// the external pointer to the class
@@ -236,7 +178,7 @@ extern "C" SEXP CppMethod__invoke(SEXP args){
    	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
 
-extern "C" SEXP CppMethod__invoke_void(SEXP args){
+SEXP CppMethod__invoke_void(SEXP args){
 	SEXP p = CDR(args) ;
 	
 	// the external pointer to the class
@@ -255,7 +197,7 @@ extern "C" SEXP CppMethod__invoke_void(SEXP args){
    	return R_NilValue ;
 }
 
-extern "C" SEXP CppMethod__invoke_notvoid(SEXP args){
+SEXP CppMethod__invoke_notvoid(SEXP args){
 	SEXP p = CDR(args) ;
 	
 	// the external pointer to the class
@@ -281,6 +223,7 @@ namespace Rcpp{
 
 Rcpp::Module* getCurrentScope(){ return Rcpp::current_scope ; }
 void setCurrentScope( Rcpp::Module* scope ){ Rcpp::current_scope = scope ; }
+
 extern "C" void R_init_Rcpp( DllInfo* info){
 	Rcpp::current_scope = 0 ;
 	
