@@ -63,37 +63,6 @@ namespace Rcpp {
         return y ;
     }                                                                                          
     
-    // {{{ Rostream
-    template <> inline std::streamsize Rstreambuf<true>::xsputn(const char *s, std::streamsize num ) {
-        Rprintf( "%.*s", num, s ) ;
-        return num ;
-    }
-    template <> inline std::streamsize Rstreambuf<false>::xsputn(const char *s, std::streamsize num ) {
-        REprintf( "%.*s", num, s ) ; 
-        return num ;
-    }
-    
-    template <> inline int Rstreambuf<true>::overflow(int c ) {
-      if (c != EOF) Rprintf( "%.1s", &c ) ;
-      return c ;
-    }
-    template <> inline int Rstreambuf<false>::overflow(int c ) {
-      if (c != EOF) REprintf( "%.1s", &c ) ;
-      return c ;
-    }
-        
-    template <> inline int Rstreambuf<true>::sync(){
-        ::R_FlushConsole() ;
-        return 0 ;
-    }
-    template <> inline int Rstreambuf<false>::sync(){
-        ::R_FlushConsole() ;
-        return 0 ;
-    }
-    Rostream<true>  Rcout;
-    Rostream<false> Rcerr;
-    // }}}
-    
     // {{{ RObject
     void RObject::setSEXP(SEXP x){
         RCPP_DEBUG_2( "RObject::setSEXP(SEXP = <%p>, TYPEOF=%s )", x, type2name(x) ) 
@@ -1587,16 +1556,15 @@ static const char* dropTrailing0(char *s, char cdec) {
     /* Note that  's'  is modified */
     char *p = s;
     for (p = s; *p; p++) {
-	if(*p == cdec) {
-	    char *replace = p++;
-	    while ('0' <= *p  &&  *p <= '9')
-		if(*(p++) != '0')
-		    replace = p;
-	    if(replace != p)
-		while((*(replace++) = *(p++)))
-		    ;
-	    break;
-	}
+        if(*p == cdec) {
+            char *replace = p++;
+            while ('0' <= *p  &&  *p <= '9')
+            if(*(p++) != '0')
+                replace = p;
+            if(replace != p)
+                while((*(replace++) = *(p++))) ;
+            break;
+        }
     }
     return s;
 }
