@@ -39,7 +39,7 @@
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
 
-const char * sexp_to_name(int sexp_type);
+const char * type2name(SEXP x); 
 
 /**
  * \brief Rcpp API

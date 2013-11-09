@@ -57,7 +57,7 @@ namespace Rcpp{
     
     template <int RTYPE>
     Vector<RTYPE>::Vector( const Dimension& dims ) : RObject( Rf_allocVector( RTYPE, dims.prod() ) ){
-        RCPP_DEBUG_3( "Vector<%s>( const Dimension& (%d) )   m_sexp = <%p>", sexp_to_name(RTYPE), dims.size(), m_sexp )
+        RCPP_DEBUG_3( "Vector<%s>( const Dimension& (%d) )   m_sexp = <%p>", type2name(m_sexp), dims.size(), m_sexp )
         update_vector();
         init() ;
         if( dims.size() > 1 ){

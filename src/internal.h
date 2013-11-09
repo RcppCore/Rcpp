@@ -142,7 +142,6 @@ EXTFUN(class__newInstance) ;
 EXTFUN(class__dummyInstance) ;
 
 void init_Rcpp_routines(DllInfo*) ;
-const char * sexp_to_name(int sexp_type); 
 
 #undef CALLFUN_0
 #undef CALLFUN_1
