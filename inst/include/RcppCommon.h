@@ -39,9 +39,6 @@
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
 
-const char * type2name(SEXP x); 
-SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
-
 /**
  * \brief Rcpp API
  */
@@ -59,6 +56,11 @@ namespace Rcpp{
     namespace internal{     
     } // internal 
 } // Rcpp
+
+const char * type2name(SEXP x); 
+namespace Rcpp{
+    SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
+}
 
 #include <iterator>
 #include <exception>
