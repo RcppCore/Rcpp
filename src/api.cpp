@@ -528,7 +528,7 @@ namespace Rcpp {
     }
         
     SEXP Language::eval( SEXP env ) {
-        return internal::try_catch( m_sexp, env );
+        return Rcpp_eval( m_sexp, env );
     }
     
     SEXP Language::fast_eval(){
@@ -692,7 +692,7 @@ namespace Rcpp {
             // 
             // SEXP slotSym = Rf_install( "slot" ), // cannot cause gc() once in symbol table
             //     getClassDefSym = Rf_install( "getClassDef" );
-            // CharacterVector res = internal::try_catch(Rf_lang2(R_NamesSymbol,
+            // CharacterVector res = Rcpp_eval(Rf_lang2(R_NamesSymbol,
             //                                                    Rf_lang3(slotSym,
             //                                                             Rf_lang2( getClassDefSym, cl ), 
             //                                                             Rf_mkString( "contains" )))) ;
@@ -744,7 +744,7 @@ namespace Rcpp {
         // using callback to R as apparently R_do_new_object always makes the same environment
         SEXP newSym = Rf_install("new");
         SEXP call = PROTECT( Rf_lang2( newSym, Rf_mkString( klass.c_str() ) ) ) ;
-        set_sexp( Rcpp::internal::try_catch( call ) ) ;
+        set_sexp( Rcpp_eval( call ) ) ;
         UNPROTECT(1) ; // call
     }
     
@@ -774,7 +774,7 @@ namespace Rcpp {
 									  Rf_mkString( field_name.c_str() )
 									   ) ) ;
         UNPROTECT(1) ;
-        return Rcpp::internal::try_catch( call ) ;
+        return Rcpp_eval( call ) ;
     }
     
     void Reference::FieldProxy::set( SEXP x) {
@@ -808,7 +808,7 @@ namespace Rcpp {
 									  const_cast<Reference&>(parent).asSexp(), 
 									  Rf_mkString( field_name.c_str() )
 									   ) ) ;
-        return Rcpp::internal::try_catch( call ) ;
+        return Rcpp_eval( call ) ;
         UNPROTECT(1) ;
     }
     
@@ -1378,13 +1378,13 @@ namespace internal{
     SEXP eval_methods<EXPRSXP>::eval(){
         SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
         SEXP evalSym = Rf_install( "eval" );
-        return try_catch( Rf_lang2( evalSym, xp ) ) ;
+        return Rcpp_eval( Rf_lang2( evalSym, xp ) ) ;
     }
     
     SEXP eval_methods<EXPRSXP>::eval( SEXP env ){
         SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
         SEXP evalSym = Rf_install( "eval" );
-        return try_catch( Rf_lang3( evalSym, xp, env ) ) ;
+        return Rcpp_eval( Rf_lang3( evalSym, xp, env ) ) ;
     }
 	
 } // internal

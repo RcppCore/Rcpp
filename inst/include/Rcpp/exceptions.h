@@ -134,21 +134,6 @@ SEXP string_to_try_error( const std::string& ) ;
 std::string demangle( const std::string& name) ;
 #define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str() 
 
-namespace Rcpp{
-    /* internal namespace for things not intended to be used by the user */
-    namespace internal{     
-        
-        inline SEXP try_catch( SEXP expr, SEXP env ) {
-            return Rcpp_eval(expr, env) ;
-        }
-        inline SEXP try_catch( SEXP expr ) {
-            return Rcpp_eval(expr) ;
-        }
-    
-        
-    } // namespace internal 
-} // namespace Rcpp
-
 namespace Rcpp {
 	  inline void stop(const std::string& message) { throw Rcpp::exception(message.c_str()); }
 } // namespace Rcpp

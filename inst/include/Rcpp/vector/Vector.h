@@ -239,7 +239,7 @@ public:
             } else {
                 /* use the slower and more flexible version (callback to R) */
                 SEXP namesSym = Rf_install( "names<-" );
-                SEXP new_vec = PROTECT( internal::try_catch(Rf_lang3( namesSym, parent, x ))) ;
+                SEXP new_vec = PROTECT( Rcpp_eval(Rf_lang3( namesSym, parent, x ))) ;
                 /* names<- makes a new vector, so we have to change 
                    the SEXP of the parent of this proxy */
                 const_cast<Vector&>(parent).set_sexp( new_vec ) ;
