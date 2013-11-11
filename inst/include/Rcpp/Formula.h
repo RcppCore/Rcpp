@@ -27,20 +27,50 @@
 
 namespace Rcpp{ 
 
-    class Formula : public Language {
+    RCPP_API_CLASS(Formula_Impl), 
+        public DottedPairProxyPolicy<Formula_Impl<StoragePolicy>>, 
+        public DottedPairImpl<Formula_Impl<StoragePolicy>>{
+    {
     public:
 
-        Formula() ;
+        RCPP_GENERATE_CTOR_ASSIGN(Formula_Impl) 
+    
+        Formula_Impl(){} ;
         
-        Formula(SEXP lang);
+        Formula_Impl(SEXP lang){
+            switch( TYPEOF( x ) ){
+            case LANGSXP:
+                if( ::Rf_inherits( x, "formula") ){
+                    Storage::set__( x );
+                } else{
+                    Storage::set__( internal::convert_using_rfunction( x, "as.formula") ) ;
+                }
+                break;
+            case EXPRSXP:
+            case VECSXP:
+                /* lists or expression, try the first one */
+                if( ::Rf_length(x) > 0 ){
+                    SEXP y = VECTOR_ELT( x, 0 ) ;
+                    if( ::Rf_inherits( y, "formula" ) ){
+                        Storage::set__( y ) ;  
+                    } else{
+                        SEXP z = internal::convert_using_rfunction( y, "as.formula") ;
+                        Storage::set__( z ) ;
+                    }
+                } else{
+                    throw not_compatible( "cannot create formula from empty list or expression" ) ; 
+                }
+                break;
+            default:
+                Storage::set__( internal::convert_using_rfunction( x, "as.formula") ) ;
+            }
+        }
 
-        Formula(const Formula& other) ;
-        explicit Formula( const std::string& code ); 
-
-        Formula& operator=(const Formula& other) ;
-        
-    private:
-        void set_sexp(SEXP x) ;
+        explicit Formula( const std::string& code ) {
+            Storage::set__( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") ) ;    
+        }
+    
+        void update(){}
         
     } ; 
 
