@@ -22,6 +22,8 @@
 #ifndef Rcpp_api_meat_meat_h
 #define Rcpp_api_meat_meat_h
 
+#include <Rcpp/api/meat/Dimension.h>
+
 #include <Rcpp/api/meat/AttributeProxy.h>
 #include <Rcpp/api/meat/SlotProxy.h>
 
