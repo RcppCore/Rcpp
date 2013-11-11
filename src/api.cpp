@@ -68,16 +68,6 @@ namespace Rcpp {
     }                                                                                          
     
     // {{{ DottedPair
-        SEXP grow( SEXP head, SEXP tail ){
-        SEXP x = PROTECT( head ) ;
-	    SEXP res = PROTECT( Rf_cons( x, tail ) ) ;
-	    UNPROTECT(2) ;
-	    return res ;    
-    }
-    SEXP grow( const char* head, SEXP tail ) {
-        return grow( Rf_mkString(head), tail ) ; 
-    }
-    
     
     DottedPair::~DottedPair(){}
     DottedPair::DottedPair() : RObject(){}
