@@ -20,22 +20,82 @@
 
 namespace Rcpp{
     
-template <typename CLASS>
+template <typename EnvironmentClass>
 class BindingPolicy {
-   public:
-       typedef typename CLASS::Storage Storage ;
-       
-       class Binding {
-           
-       }
-       
-       class const_Binding {
-           
-       }
-       
-       const_Binding operator[]( const std::string& name) const ;
+public:
+    typedef typename CLASS::Storage Storage ;
     
-       Binding operator[](const std::string& name) ;
+    class Binding {
+    public:
+        Binding( EnvironmentClass& env_, const std::string& name_) : 
+            env(env_), name(name_){}
+        
+        inline bool active() const { 
+            return env.bindingIsActive(name) ;    
+        }
+        inline bool locked() const {
+            return env.bindingIsLocked(name) ;    
+        }
+        inline bool exists() const {
+            return env.exists(name) ;    
+        }
+        void lock() {
+            env.lockBinding(name) ;    
+        }
+        void unlock(){
+            env.unlockBinding(name) ;    
+        }
+        Binding& operator=(const Binding& rhs){
+            if( *this != rhs )
+                set( rhs.get() ) ;
+            return *this ;
+        }
+        
+        template <typename WRAPPABLE> Binding& operator=(const WRAPPABLE& rhs) ;
+        template <typename T> operator T() const ;
+        
+    private:
+        
+        SEXP get() const {
+            return env.get( name ) ;    
+        }
+        
+        void set( SEXP x){
+            env.assign(name, x ) ;     
+        }
+        
+        EnvironmentClass& env ;
+        std::string name ;
+    } ;
+    
+    class const_Binding {
+    public:
+        Binding( EnvironmentClass& env_, const std::string& name_) : 
+            env(env_), name(name_){}
+        
+        inline bool active() const { 
+            return env.bindingIsActive(name) ;    
+        }
+        inline bool locked() const {
+            return env.bindingIsLocked(name) ;    
+        }
+        inline bool exists() const {
+            return env.exists(name) ;    
+        }
+        template <typename T> operator T() const ;
+        
+    private:
+        
+        SEXP get() const {
+            return env.get( name ) ;    
+        }
+        
+        const EnvironmentClass& env ;
+        std::string name ;
+    }
+    
+    const_Binding operator[]( const std::string& name) const ;
+    Binding operator[](const std::string& name) ;
     
 } ;
 
