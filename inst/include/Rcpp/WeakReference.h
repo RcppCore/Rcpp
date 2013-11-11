@@ -56,6 +56,8 @@ namespace Rcpp{
         SEXP value() const {
             return R_WeakRefValue(Storage::get__());
         }
+        
+        void update(SEXP){}
 
     } ;
 
