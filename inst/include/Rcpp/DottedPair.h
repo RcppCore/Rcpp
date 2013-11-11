@@ -32,7 +32,7 @@ RCPP_API_CLASS(DottedPair_Impl),
 public:
     RCPP_GENERATE_CTOR_ASSIGN(DottedPair_Impl) 
         
-	DottedPair_Impl() ;
+	DottedPair_Impl(){}
 	
 	DottedPair_Impl(SEXP x) {
 	    Storage::set__(x) ;

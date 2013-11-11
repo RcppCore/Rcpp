@@ -67,17 +67,6 @@ namespace Rcpp {
         return y ;
     }                                                                                          
     
-    // {{{ Pairlist
-    Pairlist::Pairlist() : DottedPair() {}
-    Pairlist::Pairlist( SEXP x ) : DottedPair( r_cast<LISTSXP>(x) ){}
-    Pairlist::~Pairlist(){}
-    Pairlist::Pairlist( const Pairlist& other): DottedPair(other.asSexp()){}
-    Pairlist& Pairlist::operator=(const Pairlist& other){
-        setSEXP( other.asSexp() ) ;
-        return *this ;
-    }
-    // }}}
-    
     // {{{ WeakReference
     WeakReference::WeakReference( SEXP x) : RObject(x){
         if( TYPEOF(x) != WEAKREFSXP )
