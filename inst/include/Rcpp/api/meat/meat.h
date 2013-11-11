@@ -22,6 +22,9 @@
 #ifndef Rcpp_api_meat_meat_h
 #define Rcpp_api_meat_meat_h
 
+#include <Rcpp/api/meat/AttributeProxy.h>
+#include <Rcpp/api/meat/SlotProxy.h>
+
 #include <Rcpp/api/meat/Environment.h>
 #include <Rcpp/api/meat/DottedPair.h>
 #include <Rcpp/api/meat/Vector.h>
