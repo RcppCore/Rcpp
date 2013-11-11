@@ -2,7 +2,7 @@
 //
 // RObject.h: Rcpp R/C++ interface class library -- general R object wrapper
 //
-// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -31,236 +31,32 @@
 
 namespace Rcpp{ 
 
-    class RObject {
+    RCPP_API_CLASS(RObject_Impl) {
     public:
         
         /**
          * default constructor. uses R_NilValue
          */ 
-        RObject() ; 
+        RObject_Impl() ; 
 
+        RCPP_GENERATE_CTOR_ASSIGN(RObject_Impl) 
+        
         /**
          * wraps a SEXP. The SEXP is automatically protected from garbage 
          * collection by this object and the protection vanishes when this 
          * object is destroyed
          */
-        RObject(SEXP x) ;
-
-        /**
-         * Copy constructor. set this SEXP to the SEXP of the copied object
-         */
-        RObject( const RObject& other ) ;
-
-        /**
-         * Assignment operator. set this SEXP to the SEXP of the copied object
-         */
-        RObject& operator=( const RObject& other ) ;
+        RObject_Impl(SEXP x){
+            Storage::set__(x) ;    
+        }
 
         /** 
          * Assignement operator. Set this SEXP to the given SEXP
          */ 
-        RObject& operator=( SEXP other ) ;
+        RObject& operator=( SEXP other ){
+            Storage::set__(other) ;    
+        }
 
-        /**
-         * Removes the protection. The enclosed SEXP becomes subject
-         * to garbage collection, if not otherwise protected
-         */
-        virtual ~RObject() ;
-
-        /**
-         * implicit conversion to SEXP.
-         */
-        inline operator SEXP() const { return m_sexp ; }
-
-        /**
-         * Does this object inherit from a given class
-         */
-        inline bool inherits(const char* clazz) const { return ::Rf_inherits( m_sexp, clazz) ; }
-    
-        /* attributes */
-
-        /**
-         * extracts the names of the attributes of the wrapped SEXP
-         */
-        std::vector<std::string> attributeNames() const ;
-
-        /**
-         * Identifies if the SEXP has the given attribute
-         */
-        bool hasAttribute( const std::string& attr) const ; 
-
-        /**
-         * Proxy for an object's attribute. Instances of this class
-         * are created by the attr member function of RObject.
-         *
-         * When the proxy is used on the lhs of an assignment it 
-         * forwards the object it is assigned to to the attribute, 
-         * outsourcing to wrap the job of creating the SEXP from the 
-         * input type
-         *
-         * When the proxy is used on the rhs of the assignment, it retrieves
-         * the current value of the attribute and outsources to as the job
-         * of making an object of the appropriate type
-         */
-        class AttributeProxy {
-        public:
-                
-            /** 
-             * @param v object of which we manipulate the attributes
-             * @param attr_name name of the attribute the proxy manipulates
-             */
-            AttributeProxy( const RObject& v, const std::string& attr_name) ;
-
-            /**
-             * lhs use. This assigns the target attribute by using the 
-             * current attribute referred by another proxy
-             */
-            AttributeProxy& operator=(const AttributeProxy& rhs) ;
-                
-            /**
-             * lhs use. assigns the target attribute by wrapping 
-             * the rhs object
-             *
-             * @param rhs wrappable object
-             */
-            template <typename T> AttributeProxy& operator=(const T& rhs) ; 
-                
-            /**
-             * rhs use. Retrieves the current value for the target
-             * attribute and structure it as a T object using as
-             */
-            template <typename T> operator T() const ;
-            
-            inline operator SEXP() const { return get() ; }
-            
-        private:
-            const RObject& parent; 
-            std::string attr_name ;
-                
-            SEXP get() const ;
-            void set(SEXP x) const ;
-        } ;
-        
-        /**
-         * Proxy for objects slots. 
-         */
-        class SlotProxy {
-        public:
-            /**
-             * Creates a slot proxy. This throws an exception 
-             * if the parent object is not an S4 object or if the 
-             * class of parent object does not have the requested 
-             * slot
-             *
-             * @param v parent object of which we get/set a slot
-             * @param name slot name
-             */
-            SlotProxy( const RObject& v, const std::string& name) ;
-
-            /**
-             * lhs use. Assigns the target slot using the current 
-             * value of another slot proxy.
-             *
-             * @param rhs another slot proxy
-             */
-            SlotProxy& operator=(const SlotProxy& rhs) ;
-                  
-            /**
-             * lhs use. Assigns the slot by wrapping the rhs object
-             *
-             * @param rhs wrappable object
-             */
-            template <typename T> SlotProxy& operator=(const T& rhs) ;
-                
-            /**
-             * rhs use. Retrieves the current value of the slot
-             * and structures it as a T object. This only works 
-             * when as<T> makes sense
-             */ 
-            template <typename T> operator T() const ;
-            inline operator SEXP() const { return get() ; }
-            
-        private:
-            const RObject& parent; 
-            std::string slot_name ;
-                
-            SEXP get() const ;
-            void set(SEXP x ) const;
-        } ;
-        friend class SlotProxy ;    
-        
-        /**
-         * extract or set the given attribute
-         *
-         * @param name name of the attribute to get/set
-         *
-         * @return this returns a proxy to the given attribute. Depending
-         * on whether the proxy is used as a lhs or a rhs the attribute is
-         * either set (if the proxy is used on the lhs) or extracted 
-         * (if the proxy is used on the rhs). 
-         *
-         * RObject y = x.attr("foo") ; // rhs : get the attribute
-         * x.attr( "bar" ) = 10 ;      // lhs : set the attribute. 
-         *
-         * wrap is called on the right side of the assignment it can be anything
-         * wrap can handle. 
-         */
-        AttributeProxy attr( const std::string& name) const  ;
-    
-        /**
-         * is this object NULL
-         */
-        inline bool isNULL() const{ return Rf_isNull(m_sexp) ; }
-
-        /**
-         * The SEXP typeof, calls TYPEOF on the underlying SEXP
-         */
-        inline int sexp_type() const { return TYPEOF(m_sexp) ; }
-
-        /** 
-         * explicit conversion to SEXP
-         */
-        inline SEXP asSexp() const { return m_sexp ; }
-
-        /**
-         * Tests if the SEXP has the object bit set
-         */
-        inline bool isObject() const { return ::Rf_isObject(m_sexp) ;}
-
-        /**
-         * Tests if the SEXP is an S4 object
-         */
-        inline bool isS4() const { return ::Rf_isS4(m_sexp) ; }
-
-        /**
-         * Indicates if this S4 object has the given slot
-         *
-         * @throw not_s4 if the object is not an S4 object
-         */
-        bool hasSlot(const std::string& name) const ;
-
-        /**
-         * Retrieves the given slot
-         *
-         * @throw not_s4 if this is not an S4 object
-         */
-        SlotProxy slot(const std::string& name) const ;
-    
-    protected:                                  
-
-        /**
-         * sets the SEXP wrapped by this object
-         *
-         * @param x new SEXP to attach to this object
-         */
-        void setSEXP(SEXP x) ;
-
-        /**
-         * The SEXP this is wrapping. This has to be considered read only.
-         * to change it, use setSEXP
-         */
-        SEXP m_sexp ;
-    
     };
 
 } // namespace Rcpp

@@ -39,13 +39,6 @@ namespace Rcpp{
             return static_cast<CLASS&>(*this) ;
         }
         
-        inline CLASS& steal__(CLASS& other){
-            if( this != &other){
-                set__(other.invalidate__());
-            }
-            return static_cast<CLASS&>(*this) ;
-        }
-        
         inline bool inherits(const char* clazz) const { 
             return ::Rf_inherits( data, clazz) ;
         }
