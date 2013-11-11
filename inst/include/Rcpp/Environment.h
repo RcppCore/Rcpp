@@ -2,7 +2,7 @@
 //
 // Environment.h: Rcpp R/C++ interface class library -- access R environments
 //
-// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,12 +22,13 @@
 #ifndef Rcpp_Environment_h
 #define Rcpp_Environment_h
 
-#include <Rcpp/RObject.h>
-
 namespace Rcpp{ 
 
-    class Environment: public RObject{
+    RCPP_API_CLASS(Environment_Impl), 
+        public BindingPolicy< Environment_Impl<StoragePolicy> > 
+    {
     public:
+        RCPP_GENERATE_CTOR_ASSIGN(Environment_Impl) 
     
         /**
          * proxy class to allow read and write access to a binding in
@@ -137,22 +138,7 @@ namespace Rcpp{
             std::string name ;
         } ;
     
-        /**
-         * Creates a binding for a variable in this environment
-         *
-         * The Binding class is a proxy class, so depending on how the result
-         * of this operator call is used, the variable is either retrieved 
-         * or modified. See the Binding class for details
-         */
-        const Binding operator[]( const std::string& name) const ;
-    
-        /**
-         * Same as above, but for a non-const Environment
-         */
-        Binding operator[](const std::string& name) ;
-    
-        friend class Binding ;
-    
+        
         Environment() ;
 
         /**
