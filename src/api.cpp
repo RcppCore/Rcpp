@@ -67,48 +67,6 @@ namespace Rcpp {
         return y ;
     }                                                                                          
     
-    // {{{ Function
-    Function::Function(SEXP x) : RObject( ){
-        switch( TYPEOF(x) ){
-        case CLOSXP:
-        case SPECIALSXP:
-        case BUILTINSXP:
-            setSEXP(x); 
-            break; 
-        default:
-            throw not_compatible("cannot convert to function") ;
-        }
-    }
-	
-    Function::Function(const std::string& name) : RObject() {
-        SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
-        SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
-        setSEXP(x) ;
-        UNPROTECT(1) ;
-    }
-	
-    Function::Function(const Function& other) : RObject( other.asSexp() ){}
-	
-    Function& Function::operator=(const Function& other){
-        setSEXP( other.asSexp() );
-        return *this ;
-    }
-	
-    Function::~Function(){}	
-	
-    SEXP Function::environment() const {
-        if( TYPEOF(m_sexp) != CLOSXP ) {
-            throw not_a_closure() ;
-        }
-        return CLOENV(m_sexp) ;
-    }
-	
-    SEXP Function::body() const {
-        return BODY( m_sexp ) ;
-    }
-
-    // }}}
-    
     // {{{ DottedPair
         SEXP grow( SEXP head, SEXP tail ){
         SEXP x = PROTECT( head ) ;
