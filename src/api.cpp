@@ -31,18 +31,22 @@
 // {{{ Rcpp api classes
 namespace Rcpp {
          
+    // [[Rcpp::register]]
     SEXP Rcpp_PreserveObject(SEXP x){ 
         if( x != R_NilValue ) {
             R_PreserveObject(x); 
         }
         return x ;
     }
+    
+    // [[Rcpp::register]]
     void Rcpp_ReleaseObject(SEXP x){
         if (x != R_NilValue) {
             R_ReleaseObject(x); 
         }
     }
-
+    
+    // [[Rcpp::register]]
     SEXP Rcpp_ReplaceObject(SEXP x, SEXP y){
         if( x == R_NilValue ){
             Rcpp_PreserveObject( y ) ;    
