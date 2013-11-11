@@ -85,7 +85,7 @@ namespace Rcpp{
             return BODY( Storage::get__() ) ;    
         }
          
-        ~Function() ;
+        void update(SEXP){}
     };
 
 } // namespace Rcpp
