@@ -67,28 +67,6 @@ namespace Rcpp {
         return y ;
     }                                                                                          
     
-    // {{{ WeakReference
-    WeakReference::WeakReference( SEXP x) : RObject(x){
-        if( TYPEOF(x) != WEAKREFSXP )
-            throw not_compatible( "not a weak reference" ) ;
-    }
-        
-    SEXP WeakReference::key() {
-        return R_WeakRefKey(m_sexp) ;
-    }
-        
-    SEXP WeakReference::value() {
-        return R_WeakRefValue(m_sexp);
-    }
-        
-    WeakReference::WeakReference( const WeakReference& other ) : RObject( other.asSexp() ){}
-        
-    WeakReference& WeakReference::operator=(const WeakReference& other){
-        setSEXP( other.asSexp() );
-        return *this;
-    }
-    // }}}
-    
     // {{{ Symbol
     Symbol::Symbol( SEXP x ) : RObject() {
         if( x != R_NilValue ){
