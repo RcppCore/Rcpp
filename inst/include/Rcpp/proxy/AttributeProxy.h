@@ -23,6 +23,7 @@ namespace Rcpp{
 template <typename CLASS>
 class AttributeProxyPolicy {
 public:
+    typedef typename CLASS::Storage Storage ;
     
     class AttributeProxy {
     public:
@@ -65,8 +66,28 @@ public:
     
     bool hasAttribute(const std::string& ) const ;
     
-    std::vector<std::string> attributeNames() const ;
+    std::vector<std::string> attributeNames() const {
+        std::vector<std::string> v ;
+        SEXP attrs = ATTRIB(Storage::get__());
+        while( attrs != R_NilValue ){
+            v.push_back( std::string(CHAR(PRINTNAME(TAG(attrs)))) ) ;
+            attrs = CDR( attrs ) ;
+        }
+        return v ;
+    }
 
+    bool hasAttribute( const std::string& attr) const {
+        SEXP attrs = ATTRIB(Storage::get__());
+        while( attrs != R_NilValue ){
+            if( attr == CHAR(PRINTNAME(TAG(attrs))) ){
+                return true ;
+            }
+            attrs = CDR( attrs ) ;
+        }
+        return false; /* give up */
+    }
+
+    
 } ;
 
 }
