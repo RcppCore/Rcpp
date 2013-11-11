@@ -53,5 +53,6 @@
 #include <Rcpp/macros/config.hpp>
 #include <Rcpp/macros/cat.hpp>
 #include <Rcpp/macros/module.h>
+#include <Rcpp/macros/interface.h>
 
 #endif
