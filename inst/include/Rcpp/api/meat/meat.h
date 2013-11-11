@@ -27,6 +27,7 @@
 #include <Rcpp/api/meat/AttributeProxy.h>
 #include <Rcpp/api/meat/SlotProxy.h>
 
+#include <Rcpp/api/meat/S4.h>
 #include <Rcpp/api/meat/Environment.h>
 
 #include <Rcpp/api/meat/DottedPairImpl.h>
