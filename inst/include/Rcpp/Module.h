@@ -90,8 +90,9 @@ namespace Rcpp{
 #include <Rcpp/module/class_Base.h>
 #include <Rcpp/module/Module.h>
 }
-extern "C" Rcpp::Module* getCurrentScope() ;
-extern "C" void setCurrentScope( Rcpp::Module* ) ;
+
+Rcpp::Module* getCurrentScope() ;
+void setCurrentScope( Rcpp::Module* ) ;
 
 namespace Rcpp{
         

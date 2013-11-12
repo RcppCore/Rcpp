@@ -100,7 +100,7 @@ namespace Rcpp{
             SEXP call  = PROTECT( Rf_lang3(as_df_symb, obj, wrap( strings_as_factors ) ) ) ;
             SET_TAG( CDDR(call),  strings_as_factors_symb ) ;   
             SEXP res = PROTECT( Rcpp_eval( call ) ) ; 
-            DataFrame out( res ) ;
+            DataFrame_Impl out( res ) ;
             UNPROTECT(2) ;
             return out ;
        
