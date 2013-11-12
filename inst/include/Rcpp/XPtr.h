@@ -50,7 +50,8 @@ class XPtr :
     public SlotProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,    
     public AttributeProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
     public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
-    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >
+    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
+    public RObjectMethods< XPtr<T,StoragePolicy, Finalizer> >
 {
 public:
 		 

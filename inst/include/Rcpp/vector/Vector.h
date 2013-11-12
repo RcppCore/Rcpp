@@ -33,6 +33,7 @@ class Vector :
     public SlotProxyPolicy< Vector<RTYPE,StoragePolicy> >,    
     public AttributeProxyPolicy< Vector<RTYPE,StoragePolicy> >,       
     public NamesProxyPolicy< Vector<RTYPE, StoragePolicy> >,
+    public RObjectMethods< Vector<RTYPE, StoragePolicy> >,
     public VectorBase< RTYPE, true, Vector<RTYPE,StoragePolicy> >
 {
 public:
