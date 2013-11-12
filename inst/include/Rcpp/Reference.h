@@ -64,6 +64,8 @@ namespace Rcpp{
         }
     } ;
 
+    typedef Reference_Impl<PreserveStorage> Reference ;
+    
 } // namespace Rcpp
 
 #endif
