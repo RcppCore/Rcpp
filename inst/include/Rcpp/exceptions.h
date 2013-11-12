@@ -2,7 +2,7 @@
 //
 // exceptions.h: Rcpp R/C++ interface class library -- exceptions
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,10 +21,6 @@
 
 #ifndef Rcpp__exceptions__h
 #define Rcpp__exceptions__h
-
-#define R_NO_REMAP
-#include <Rinternals.h>
-#include <sstream>
 
 SEXP stack_trace( const char *file, int line) ;
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
