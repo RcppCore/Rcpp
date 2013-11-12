@@ -28,8 +28,8 @@
 namespace Rcpp{ 
 
     RCPP_API_CLASS(Formula_Impl), 
-        public DottedPairProxyPolicy<Formula_Impl<StoragePolicy>>, 
-        public DottedPairImpl<Formula_Impl<StoragePolicy>>{
+        public DottedPairProxyPolicy<Formula_Impl<StoragePolicy> >, 
+        public DottedPairImpl<Formula_Impl<StoragePolicy> >{
     {
     public:
 

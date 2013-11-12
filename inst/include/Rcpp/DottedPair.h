@@ -22,13 +22,11 @@
 #ifndef Rcpp_DottedPair_h
 #define Rcpp_DottedPair_h
 
-#include <Rcpp/DottedPairImpl.h>
-
 namespace Rcpp{ 
 
 RCPP_API_CLASS(DottedPair_Impl), 
-    public DottedPairProxyPolicy<DottedPair_Impl<StoragePolicy>>, 
-    public DottedPairImpl<DottedPair_Impl<StoragePolicy>>
+    public DottedPairProxyPolicy<DottedPair_Impl<StoragePolicy> >, 
+    public DottedPairImpl<DottedPair_Impl<StoragePolicy> > {
 public:
     RCPP_GENERATE_CTOR_ASSIGN(DottedPair_Impl) 
         

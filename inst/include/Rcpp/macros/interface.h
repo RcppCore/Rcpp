@@ -30,8 +30,8 @@ __CLASS__& operator=(const __CLASS__& rhs) {                                   \
 
 #define RCPP_API_CLASS(__CLASS__)                                              \
 template < template <class> class StoragePolicy > class __CLASS__ :            \
-    public StoragePolicy<__CLASS__<StoragePolicy>>,                            \
-    public SlotProxyPolicy<__CLASS__<StoragePolicy>>,                          \
-    public AttributeProxyPolicy<__CLASS__<StoragePolicy>>                      \
+    public StoragePolicy<__CLASS__<StoragePolicy> >,                           \
+    public SlotProxyPolicy<__CLASS__<StoragePolicy> >,                         \
+    public AttributeProxyPolicy<__CLASS__<StoragePolicy> >                     \
    
 #endif

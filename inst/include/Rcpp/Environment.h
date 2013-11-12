@@ -246,7 +246,7 @@ namespace Rcpp{
          *
          * @throw no_such_binding if there is no such binding in this environment
          */
-        bool bindingIsLocked(const std::string& name) const {
+        bool bindingIsLocked(const std::string& name) const{
             if( !exists( name) ) throw no_such_binding(name) ;
             SEXP nameSym = Rf_install(name.c_str());
             return R_BindingIsLocked(nameSym, Storage::get__() ) ;
@@ -271,7 +271,7 @@ namespace Rcpp{
          * Indicates if this is a user defined database.
          */
         bool is_user_database() const {
-            SEXP env = Storage::get__()
+            SEXP env = Storage::get__() ;
             return OBJECT(env) && Rf_inherits(env, "UserDefinedDatabase") ;
         }
     
@@ -317,7 +317,7 @@ namespace Rcpp{
          *
          * @throw no_such_namespace 
          */
-        static Environment_Impl namespace_env(const std::string& ){
+        static Environment_Impl namespace_env(const std::string& package){
             Armor<SEXP> env ;
             try{
                 SEXP getNamespaceSym = Rf_install("getNamespace");
@@ -331,7 +331,7 @@ namespace Rcpp{
         /**
          * The parent environment of this environment
          */
-        Environment_Impl parent() const {
+        Environment_Impl parent() const {
             return Environment_Impl( ENCLOS(Storage::get__()) ) ;    
         }
     
@@ -344,6 +344,9 @@ namespace Rcpp{
         }
         
     };
+    
+    typedef Environment_Impl<PreserveStorage> Environment ;
+    
 
 } // namespace Rcpp
 

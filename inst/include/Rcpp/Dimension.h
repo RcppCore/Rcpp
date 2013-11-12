@@ -36,7 +36,7 @@ namespace Rcpp{
 	    Dimension( const Dimension& other ) : dims(other.dims){}
 	    Dimension& operator=( const Dimension& other ) {
 	        if( *this != other )
-	            dims = others.dims ;
+	            dims = other.dims ;
 	        return *this ;
 	    }
 	    Dimension(const size_t& n1) : dims(1){
