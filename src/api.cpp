@@ -190,6 +190,23 @@ namespace Rcpp {
         #endif
     }
     
+    // [[Rcpp::internal]]
+    SEXP as_character_externalptr(SEXP xp){
+        char buffer[20] ;
+        sprintf( buffer, "%p", (void*)EXTPTR_PTR(xp) ) ;
+        return Rcpp::wrap( (const char*)buffer ) ;
+    }
+      
+    const char* short_file_name(const char* file){
+        std::string f(file) ;
+        size_t index = f.find("/include/") ;
+        if( index != std::string::npos ){ 
+            f = f.substr( index + 9 ) ;
+        }
+        return f.c_str() ;
+    }
+    
+    
     
     
     
@@ -269,39 +286,6 @@ namespace Rcpp {
 
 
 // {{{ utilities (from RcppCommon.cpp)
-SEXP as_character_externalptr(SEXP xp){
-	char buffer[20] ;
-	sprintf( buffer, "%p", (void*)EXTPTR_PTR(xp) ) ;
-	return Rcpp::wrap( (const char*)buffer ) ;
-}
-
-SEXP exception_to_try_error( const std::exception& ex ){
-    return string_to_try_error(ex.what());
-}
-
-SEXP string_to_try_error( const std::string& str){
-
-    using namespace Rcpp;
-	
-    // form simple error condition based on a string
-    SEXP simpleErrorExpr = PROTECT(::Rf_lang2(::Rf_install("simpleError"), Rf_mkString(str.c_str())));
-    SEXP simpleError = PROTECT(Rf_eval(simpleErrorExpr, R_GlobalEnv));
-	
-    SEXP tryError = PROTECT( Rf_mkString( str.c_str() ) ) ;
-    Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ; 
-    Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ; 
-    
-    // unprotect and return
-    UNPROTECT(3);
-    return tryError;
-}
-
-const char* short_file_name(const char* file){
-    std::string f(file) ;
-    size_t index = f.find("/include/") ;
-    if( index != std::string::npos ){ f = f.substr( index + 9 ) ;}
-    return f.c_str() ;
-}
 
 #if defined(__GNUC__)
 #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
