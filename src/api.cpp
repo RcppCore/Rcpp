@@ -32,9 +32,65 @@
 #include <cxxabi.h>
 #endif
 
-// {{{ Rcpp api classes
 namespace Rcpp {
-         
+     
+    namespace internal{
+        namespace {
+            unsigned long RNGScopeCounter = 0;
+        }
+        
+        // [[Rcpp::register]]
+        void enterRNGScope() {       
+            if (RNGScopeCounter == 0) GetRNGstate();       
+            RNGScopeCounter++;
+        }
+        
+        // [[Rcpp::register]]
+        void exitRNGScope() {
+            RNGScopeCounter--;
+            if (RNGScopeCounter == 0) PutRNGstate();
+        }
+    }
+    
+    // [[Rcpp::register]]
+    SEXP Rcpp_eval(SEXP expr, SEXP env) {
+        PROTECT(expr);
+        
+        reset_current_error() ; 
+        
+        Environment RCPP = Environment::Rcpp_namespace(); 
+        static SEXP tryCatchSym = NULL, evalqSym, conditionMessageSym, errorRecorderSym, errorSym ;
+        if (!tryCatchSym) {
+            tryCatchSym               = ::Rf_install("tryCatch");
+            evalqSym                  = ::Rf_install("evalq");
+            conditionMessageSym       = ::Rf_install("conditionMessage");
+            errorRecorderSym          = ::Rf_install(".rcpp_error_recorder");
+            errorSym                  = ::Rf_install("error");
+        }
+        
+        SEXP call = PROTECT( Rf_lang3( 
+            tryCatchSym, 
+            Rf_lang3( evalqSym, expr, env ),
+            errorRecorderSym
+        ) ) ;
+        SET_TAG( CDDR(call), errorSym ) ;
+        /* call the tryCatch call */
+        SEXP res  = PROTECT(::Rf_eval( call, RCPP ) );
+        
+        UNPROTECT(3) ;
+        
+        if( error_occured() ) {
+            SEXP current_error        = PROTECT( rcpp_get_current_error() ) ;
+            SEXP conditionMessageCall = PROTECT(::Rf_lang2(conditionMessageSym, current_error)) ;
+            SEXP condition_message    = PROTECT(::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
+            std::string message(CHAR(::Rf_asChar(condition_message)));
+            UNPROTECT( 3 ) ;
+            throw eval_error(message) ;
+        }
+        
+        return res ;
+    }
+    
     // [[Rcpp::register]]
     SEXP Rcpp_PreserveObject(SEXP x){ 
         if( x != R_NilValue ) {
@@ -545,192 +601,3 @@ template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
 
 // }}}
 
-// {{{ r_cast support
-namespace Rcpp{
-    namespace internal{
-        
-        template<> SEXP r_true_cast<INTSXP>(SEXP x) {
-            switch( TYPEOF(x) ){
-            case REALSXP:
-            case RAWSXP:
-            case LGLSXP:
-            case CPLXSXP:
-                return Rf_coerceVector( x, INTSXP) ;
-            default:
-                throw ::Rcpp::not_compatible( "not compatible with INTSXP" ) ;
-            }
-            return R_NilValue ; /* -Wall */
-        }
-
-        template<> SEXP r_true_cast<REALSXP>( SEXP x) {
-            switch( TYPEOF( x ) ){
-            case INTSXP:
-            case LGLSXP:
-            case CPLXSXP:
-            case RAWSXP:
-                return Rf_coerceVector( x, REALSXP );
-            default:
-                throw ::Rcpp::not_compatible( "not compatible with REALSXP" ) ;
-            }
-            return R_NilValue ; /* -Wall */
-        }
-
-        template<> SEXP r_true_cast<LGLSXP>( SEXP x) {
-            switch( TYPEOF( x ) ){
-            case REALSXP:
-            case INTSXP:
-            case CPLXSXP:
-            case RAWSXP:
-                return Rf_coerceVector( x, LGLSXP );
-            default:
-                throw ::Rcpp::not_compatible( "not compatible with LGLSXP" ) ;
-            }
-            return R_NilValue ; /* -Wall */
-        }
-
-        template<> SEXP r_true_cast<RAWSXP>( SEXP x) {
-            switch( TYPEOF( x ) ){
-            case LGLSXP:
-            case REALSXP:
-            case INTSXP:
-            case CPLXSXP:
-                return Rf_coerceVector( x, RAWSXP );
-            default:
-                throw ::Rcpp::not_compatible( "not compatible with RAWSXP" ) ;
-            }
-            return R_NilValue ; /* -Wall */
-        }
-
-
-        template<> SEXP r_true_cast<CPLXSXP>( SEXP x) {
-            switch( TYPEOF( x ) ){
-            case RAWSXP:
-            case LGLSXP:
-            case REALSXP:
-            case INTSXP:
-                return Rf_coerceVector( x, CPLXSXP );
-            default:
-                throw ::Rcpp::not_compatible( "not compatible with CPLXSXP" ) ;
-            }
-            return R_NilValue ; /* -Wall */
-        }
-
-        template<> SEXP r_true_cast<STRSXP>( SEXP x) {
-            switch( TYPEOF( x ) ){
-            case CPLXSXP:
-            case RAWSXP:
-            case LGLSXP:
-            case REALSXP:
-            case INTSXP:
-                {
-                    // return Rf_coerceVector( x, STRSXP );
-                    // coerceVector does not work for some reason
-                    SEXP call = PROTECT( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
-                    SEXP res  = PROTECT( Rf_eval( call, R_GlobalEnv ) ) ;
-                    UNPROTECT(2); 
-                    return res ;
-                }
-            case CHARSXP:
-                return Rf_ScalarString( x ) ;
-            case SYMSXP:
-                return Rf_ScalarString( PRINTNAME( x ) ) ; 
-            default:
-                throw ::Rcpp::not_compatible( "not compatible with STRSXP" ) ;
-            }
-            return R_NilValue ; /* -Wall */
-        }
-
-        template<> SEXP r_true_cast<VECSXP>(SEXP x) {
-            return convert_using_rfunction(x, "as.list" ) ;
-        }
-    
-        template<> SEXP r_true_cast<EXPRSXP>(SEXP x) {
-            return convert_using_rfunction(x, "as.expression" ) ;
-        }
-
-        template<> SEXP r_true_cast<LISTSXP>(SEXP x) {
-            switch( TYPEOF(x) ){
-            case LANGSXP:
-                {
-                    SEXP y = R_NilValue ;
-                    PROTECT(y = Rf_duplicate( x )); 
-                    SET_TYPEOF(y,LISTSXP) ;
-                    UNPROTECT(1);
-                    return y ;
-                }
-            default:
-                return convert_using_rfunction(x, "as.pairlist" ) ;
-            }
-        
-        }
-
-        template<> SEXP r_true_cast<LANGSXP>(SEXP x) {
-            return convert_using_rfunction(x, "as.call" ) ;
-        }
-    }
-}
-// }}}
-
-// {{{ random number generators
-
-namespace Rcpp{
-    namespace internal{
-        namespace {
-            unsigned long RNGScopeCounter = 0;
-        }
-        
-        void enterRNGScope() {       
-            if (RNGScopeCounter == 0)
-                GetRNGstate();       
-            RNGScopeCounter++;
-        }
-        
-        void exitRNGScope() {
-            RNGScopeCounter--;
-            if (RNGScopeCounter == 0)
-                PutRNGstate();
-        }
-    } // internal
-	
-}
-// }}}
-
-namespace Rcpp{
-    SEXP Rcpp_eval(SEXP expr, SEXP env) {
-        PROTECT(expr);
-        
-        reset_current_error() ; 
-        
-        Environment RCPP = Environment::Rcpp_namespace(); 
-        static SEXP tryCatchSym = NULL, evalqSym, conditionMessageSym, errorRecorderSym, errorSym ;
-        if (!tryCatchSym) {
-            tryCatchSym               = ::Rf_install("tryCatch");
-            evalqSym                  = ::Rf_install("evalq");
-            conditionMessageSym       = ::Rf_install("conditionMessage");
-            errorRecorderSym          = ::Rf_install(".rcpp_error_recorder");
-            errorSym                  = ::Rf_install("error");
-        }
-        
-        SEXP call = PROTECT( Rf_lang3( 
-            tryCatchSym, 
-            Rf_lang3( evalqSym, expr, env ),
-            errorRecorderSym
-        ) ) ;
-        SET_TAG( CDDR(call), errorSym ) ;
-        /* call the tryCatch call */
-        SEXP res  = PROTECT(::Rf_eval( call, RCPP ) );
-        
-        UNPROTECT(3) ;
-        
-        if( error_occured() ) {
-            SEXP current_error        = PROTECT( rcpp_get_current_error() ) ;
-            SEXP conditionMessageCall = PROTECT(::Rf_lang2(conditionMessageSym, current_error)) ;
-            SEXP condition_message    = PROTECT(::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
-            std::string message(CHAR(::Rf_asChar(condition_message)));
-            UNPROTECT( 3 ) ;
-            throw eval_error(message) ;
-        }
-        
-        return res ;
-    }
-}   
