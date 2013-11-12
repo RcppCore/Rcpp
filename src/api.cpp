@@ -273,37 +273,6 @@ namespace Rcpp {
 namespace Rcpp{
 namespace internal{
 
-	template<> void r_init_vector<VECSXP>(SEXP x){}
-	template<> void r_init_vector<EXPRSXP>(SEXP x){}
-	template<> void r_init_vector<STRSXP>(SEXP x){}
-
-	template<> Rcomplex get_zero<CPLXSXP,Rcomplex>(){
-		Rcomplex x ;
-		x.r = 0.0 ;
-		x.i = 0.0 ;
-		return x ;
-	}
-
-	template<> Rcomplex caster<std::complex<double>, Rcomplex>( std::complex<double> from){
-		Rcomplex cx ;
-		cx.r = from.real() ; 
-		cx.i = from.imag() ;
-		return cx ;
-	}
-	template<> Rcomplex caster<std::complex<float>, Rcomplex>( std::complex<float> from){
-		Rcomplex cx ;
-		cx.r = static_cast<double>( from.real() ); 
-		cx.i = static_cast<double>( from.imag() );
-		return cx ;
-	}
-
-	template<> std::complex<double> caster<Rcomplex,std::complex<double> >( Rcomplex from){
-		return std::complex<double>(from.r, from.i ) ;
-	}
-	template<> std::complex<float> caster<Rcomplex,std::complex<float> >( Rcomplex from){
-		return std::complex<float>(static_cast<float>(from.r), static_cast<float>(from.i) ) ;
-	}
-
 	SEXP convert_using_rfunction(SEXP x, const char* const fun) {
         SEXP res = R_NilValue ;
         try{
