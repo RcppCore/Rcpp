@@ -57,11 +57,6 @@ namespace Rcpp{
     } // internal 
 } // Rcpp
 
-const char * type2name(SEXP x); 
-namespace Rcpp{
-    SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
-}
-
 #include <iterator>
 #include <exception>
 #include <iostream>
@@ -80,6 +75,10 @@ namespace Rcpp{
 #include <limits>
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
+
+namespace Rcpp{
+    class Module ;    
+}
 
 #include <Rcpp/routines.h>
 
