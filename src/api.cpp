@@ -67,6 +67,13 @@ namespace Rcpp {
             RNGScopeCounter--;
             if (RNGScopeCounter == 0) PutRNGstate();
         }
+        
+        // [[Rcpp::register]]
+        char* get_string_buffer(){
+            static char buffer[MAXELTSIZE];
+            return buffer ;    
+        }
+
     }
     
     // [[Rcpp::register]]
@@ -365,9 +372,9 @@ SEXP stack_trace( const char* file, int line ){
         #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
             // Simpler version for Windows and *BSD 
             Rcpp::List trace = Rcpp::List::create( 
-            	Rcpp::Named( "file"  ) = file, 
-            	Rcpp::Named( "line"  ) = line, 
-            	Rcpp::Named( "stack" ) = "C++ stack not available on this system" ) ;
+                Rcpp::Named( "file"  ) = file, 
+                Rcpp::Named( "line"  ) = line, 
+                Rcpp::Named( "stack" ) = "C++ stack not available on this system" ) ;
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
         }
@@ -386,16 +393,17 @@ SEXP stack_trace( const char* file, int line ){
             
             Rcpp::CharacterVector res( stack_depth - 1) ;
             std::transform( 
-            	stack_strings + 1, stack_strings + stack_depth, 
-            	res.begin(), 
-            	demangler_one 
-            	) ;
+                stack_strings + 1, stack_strings + stack_depth, 
+                res.begin(), 
+                demangler_one 
+            ) ;
             free(stack_strings); // malloc()ed by backtrace_symbols
             
             Rcpp::List trace = Rcpp::List::create( 
-            	Rcpp::Named( "file"  ) = file, 
-            	Rcpp::Named( "line"  ) = line, 
-            	Rcpp::Named( "stack" ) = res ) ;
+                Rcpp::Named( "file"  ) = file, 
+                Rcpp::Named( "line"  ) = line, 
+                Rcpp::Named( "stack" ) = res
+            ) ;
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
         #endif 
@@ -403,202 +411,5 @@ SEXP stack_trace( const char* file, int line ){
 	    return R_NilValue ;
 	#endif 
 }
-// }}}
-
-// {{{ coercion
-
-namespace Rcpp{ 
-namespace internal{
-
-template <> int r_coerce<INTSXP,INTSXP>(int from) { return from ; }
-template <> int r_coerce<LGLSXP,LGLSXP>(int from) { return from ; }
-template <> double r_coerce<REALSXP,REALSXP>(double from) { return from ; }
-template <> Rcomplex r_coerce<CPLXSXP,CPLXSXP>(Rcomplex from) { return from ; }
-template <> Rbyte r_coerce<RAWSXP,RAWSXP>(Rbyte from) { return from ; }
-
-// -> INTSXP
-template <> int r_coerce<LGLSXP,INTSXP>(int from){
-	return (from==NA_LOGICAL) ? NA_INTEGER : from ;
-}
-template <> int r_coerce<REALSXP,INTSXP>(double from){
-	if (ISNAN(from)) return NA_INTEGER;
-	else if (from > INT_MAX || from <= INT_MIN ) {
-		return NA_INTEGER;
-	}
-	return static_cast<int>(from);
-
-}
-template <> int r_coerce<CPLXSXP,INTSXP>(Rcomplex from){
-	return r_coerce<REALSXP,INTSXP>(from.r) ;
-}
-template <> int r_coerce<RAWSXP,INTSXP>(Rbyte from){
-	return static_cast<int>(from);
-}
-
-// -> REALSXP
-template <> double r_coerce<LGLSXP,REALSXP>(int from){
-	return from == NA_LOGICAL ? NA_REAL : static_cast<double>(from) ;
-}
-template <> double r_coerce<INTSXP,REALSXP>(int from){
-	return from == NA_INTEGER ? NA_REAL : static_cast<double>(from) ; 
-}
-template <> double r_coerce<CPLXSXP,REALSXP>(Rcomplex from){
-	return from.r ;
-}
-template <> double r_coerce<RAWSXP,REALSXP>(Rbyte from){
-	return static_cast<double>(from) ;
-}
-
-// -> LGLSXP
-template <> int r_coerce<REALSXP,LGLSXP>(double from){
-	return ( from == NA_REAL ) ? NA_LOGICAL : (from!=0.0);
-}
-template <> int r_coerce<INTSXP,LGLSXP>(int from){
-	return ( from == NA_INTEGER ) ? NA_LOGICAL : (from!=0);
-}
-template <> int r_coerce<CPLXSXP,LGLSXP>(Rcomplex from){
-	if( from.r == NA_REAL ) return NA_LOGICAL ;
-	if( from.r == 0.0 || from.i == 0.0 ) return FALSE ;
-	return TRUE ;
-}
-template <> int r_coerce<RAWSXP,LGLSXP>(Rbyte from){
-	if( from != static_cast<Rbyte>(0) ) return TRUE ;
-	return FALSE ;
-}
-
-// -> RAWSXP
-template <> Rbyte r_coerce<REALSXP,RAWSXP>(double from){
-	if( from == NA_REAL) return static_cast<Rbyte>(0) ; 
-	return r_coerce<INTSXP,RAWSXP>(static_cast<int>(from)) ;
-}
-template <> Rbyte r_coerce<INTSXP,RAWSXP>(int from){
-	return (from < 0 || from > 255) ? static_cast<Rbyte>(0) : static_cast<Rbyte>(from) ;
-}
-template <> Rbyte r_coerce<CPLXSXP,RAWSXP>(Rcomplex from){
-	return r_coerce<REALSXP,RAWSXP>(from.r) ;
-}
-template <> Rbyte r_coerce<LGLSXP,RAWSXP>(int from){
-	return static_cast<Rbyte>(from == TRUE) ;
-}
-
-// -> CPLXSXP
-template <> Rcomplex r_coerce<REALSXP,CPLXSXP>(double from){
-	Rcomplex c ;
-	if( from == NA_REAL ){
-		c.r = NA_REAL; 
-		c.i = NA_REAL;
-	} else{
-		c.r = from ;
-		c.i = 0.0 ;
-	}
-	return c ;
-}
-template <> Rcomplex r_coerce<INTSXP,CPLXSXP>(int from){
-	Rcomplex c ;
-	if( from == NA_INTEGER ){
-		c.r = NA_REAL; 
-		c.i = NA_REAL;
-	} else{
-		c.r = static_cast<double>(from) ;
-		c.i = 0.0 ;
-	}
-	return c ;
-}
-template <> Rcomplex r_coerce<RAWSXP,CPLXSXP>(Rbyte from){
-	Rcomplex c ;
-	c.r = static_cast<double>(from);
-	c.i = 0.0 ;
-	return c ;
-}
-template <> Rcomplex r_coerce<LGLSXP,CPLXSXP>(int from){
-	Rcomplex c ;
-	if( from == TRUE ){
-		c.r = 1.0 ; c.i = 0.0 ;
-	} else if( from == FALSE ){
-		c.r = c.i = 0.0 ;
-	} else { /* NA */
-		c.r = c.i = NA_REAL;
-	}
-	return c ;
-}
-
-inline int integer_width( int n ){
-    return n < 0 ? ( (int) ( ::log10( -n+0.5) + 2 ) ) : ( (int) ( ::log10( n+0.5) + 1 ) ) ;    
-}
-
-#define NB 1000
-template <> const char* coerce_to_string<INTSXP>(int from){
-    static char buffer[NB] ;
-    snprintf( buffer, NB, "%*d", integer_width(from), from );
-    return buffer ;
-}
-template <> const char* coerce_to_string<LGLSXP>(int from){
-    return from == 0 ? "FALSE" : "TRUE" ;    
-}
-template <> const char* coerce_to_string<RAWSXP>(Rbyte from){
-    static char buff[3];
-    ::sprintf(buff, "%02x", from);
-    return buff ;    
-}
-
-char* get_string_buffer(){
-    static char buffer[MAXELTSIZE];
-    return buffer ;    
-}
-
-static const char* dropTrailing0(char *s, char cdec) {
-    /* Note that  's'  is modified */
-    char *p = s;
-    for (p = s; *p; p++) {
-        if(*p == cdec) {
-            char *replace = p++;
-            while ('0' <= *p  &&  *p <= '9')
-            if(*(p++) != '0')
-                replace = p;
-            if(replace != p)
-                while((*(replace++) = *(p++))) ;
-            break;
-        }
-    }
-    return s;
-}
-
-template <> const char* coerce_to_string<REALSXP>(double x){
-    //int w,d,e ;
-    // cf src/main/format.c in R's sources:
-    //   The return values are
-    //     w : the required field width
-    //     d : use %w.df in fixed format, %#w.de in scientific format
-    //     e : use scientific format if != 0, value is number of exp digits - 1
-    //
-    //   nsmall specifies the minimum number of decimal digits in fixed format:
-    //   it is 0 except when called from do_format.
-    //Rf_formatReal( &x, 1, &w, &d, &e, 0 ) ;
-    // we are no longer allowed to use this:
-    //     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
-    // so approximate it poorly as
-    static char tmp[128];
-    snprintf(tmp, 127, "%f", x); 
-    return dropTrailing0(tmp, '.');
-}
-
-template <> const char* coerce_to_string<CPLXSXP>(Rcomplex x){
-    //int wr, dr, er, wi, di, ei;
-    //Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
-    // we are no longer allowed to use this:
-    //     Rf_EncodeComplex(x, wr, dr, er, wi, di, ei, '.' );
-    // so approximate it poorly as
-    static char tmp1[128], tmp2[128], tmp3[256];
-    //snprintf(tmp, 127, "%*.*f+%*.*fi", wr, dr, x.r, wi, di, x.i);
-    //snprintf(tmp, 127, "%f+%fi", x.r, x.i); // FIXEM: barebones default formatting
-    snprintf(tmp1, 127, "%f", x.r); 
-    snprintf(tmp2, 127, "%f", x.i); 
-    snprintf(tmp3, 255, "%s+%si", dropTrailing0(tmp1, '.'), dropTrailing0(tmp2, '.'));
-    return tmp3;
-}
-
-} // internal
-} // Rcpp
-
 // }}}
 
