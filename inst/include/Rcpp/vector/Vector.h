@@ -232,13 +232,13 @@ public:
     }
 	
     inline NameProxy operator[]( const std::string& name ) const {
-        return NameProxy( const_cast<Vector&>(*this), name ) ;
+        return NameProxy( const_cast<Vector_Impl&>(*this), name ) ;
     }
     inline NameProxy operator()( const std::string& name ) const {
-        return NameProxy( const_cast<Vector&>(*this), name ) ;
+        return NameProxy( const_cast<Vector_Impl&>(*this), name ) ;
     }
 	
-    Vector& sort(){
+    Vector_Impl& sort(){
         std::sort( 
             internal::r_vector_start<RTYPE>(m_sexp), 
             internal::r_vector_start<RTYPE>(m_sexp) + size(), 
@@ -258,15 +258,15 @@ public:
     }
 
     template <typename InputIterator>
-    static Vector import( InputIterator first, InputIterator last){
-        Vector v ;
+    static Vector_Impl import( InputIterator first, InputIterator last){
+        Vector_Impl v ;
         v.assign( first , last ) ;
         return v ;
     }
 
     template <typename InputIterator, typename F>
-    static Vector import_transform( InputIterator first, InputIterator last, F f){
-        return Vector( first, last, f) ;
+    static Vector_Impl import_transform( InputIterator first, InputIterator last, F f){
+        return Vector_Impl( first, last, f) ;
     }
 	
     template <typename T>
@@ -328,7 +328,7 @@ public:
     }
 	
     void update(SEXP){
-        RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector), reinterpret_cast<void*>( RObject::asSexp() ) )
+        RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector_Impl), reinterpret_cast<void*>( RObject::asSexp() ) )
         cache.update(*this) ;
     }
 		
@@ -350,7 +350,7 @@ public:
 
     template <typename U>
     static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, int index, const U& u){
-        RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
+        RCPP_DEBUG_2( "  Vector_Impl::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
 		
         *it = converter_type::get(u.object ) ;
         SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
@@ -358,7 +358,7 @@ public:
 	
     template <typename U>
     static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, int index, const U& u){
-        RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
+        RCPP_DEBUG_2( "  Vector_Impl::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
 		
         *it = R_MissingArg ;
         SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
@@ -368,17 +368,17 @@ public:
         RObject::setSEXP( x) ;
         update_vector() ;
     }
-    typedef internal::RangeIndexer<RTYPE,true,Vector> Indexer ;
+    typedef internal::RangeIndexer<RTYPE,true,Vector_Impl> Indexer ;
 	
     inline Indexer operator[]( const Range& range ){
-        return Indexer( const_cast<Vector&>(*this), range );
+        return Indexer( const_cast<Vector_Impl&>(*this), range );
     }
     
     template <typename EXPR_VEC>
-    Vector& operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ) ;
+    Vector_Impl& operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ) ;
     
     template <typename EXPR_VEC>
-    Vector& operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ) ;
+    Vector_Impl& operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ) ;
     
     /** 
      *  Does this vector have an element with the target name 
@@ -464,8 +464,8 @@ private:
 
 public:
     
-    static Vector create(){
-        return Vector( 0 ) ;
+    static Vector_Impl create(){
+        return Vector_Impl( 0 ) ;
     }
 
     #include <Rcpp/generated/Vector__create.h>
