@@ -38,7 +38,9 @@ void set_string_elt(SEXP x, int i, SEXP value){
 void char_set_string_elt(SEXP x, int i, const char* value){
     STRING_ELT(x, i) = Rf_mkChar(value) ; 
 }
-SEXP* get_string_ptr(SEXP x){ return STRING_PTR(x) ; }
+SEXP* get_string_ptr(SEXP x){ 
+    return STRING_PTR(x) ; 
+}
 
 SEXP get_vector_elt(SEXP x, int i){
     return VECTOR_ELT(x, i ) ;
@@ -46,11 +48,17 @@ SEXP get_vector_elt(SEXP x, int i){
 void set_vector_elt(SEXP x, int i, SEXP value){
     SET_VECTOR_ELT(x, i, value ) ;
 }
-SEXP* get_vector_ptr(SEXP x){ return VECTOR_PTR(x) ; }
-void* dataptr(SEXP x){ return DATAPTR(x); }
+SEXP* get_vector_ptr(SEXP x){ 
+    return VECTOR_PTR(x) ; 
+}
+void* dataptr(SEXP x){ 
+    return DATAPTR(x); 
+}
 
 // when we already know x is a CHARSXP
-const char* char_nocheck( SEXP x ){ return CHAR(x); }
+const char* char_nocheck( SEXP x ){ 
+    return CHAR(x); 
+}
 
 static bool Rcpp_cache_know = false ;
 static SEXP Rcpp_cache = R_NilValue ;
