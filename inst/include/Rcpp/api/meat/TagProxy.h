@@ -15,14 +15,31 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_proxy_proxy_h
+#ifndef Rcpp_api_meat_TagProxy_h
+#define Rcpp_api_meat_TagProxy_h
 
-#include <Rcpp/proxy/RObjectMethods.h>
-#include <Rcpp/proxy/AttributeProxy.h>
-#include <Rcpp/proxy/TagProxy.h>
-#include <Rcpp/proxy/SlotProxy.h>
-#include <Rcpp/proxy/FieldProxy.h>
-#include <Rcpp/proxy/DottedPairProxy.h>
-#include <Rcpp/proxy/NamesProxy.h>
+namespace Rcpp{
+
+    template <typename CLASS>
+    template <typename U>
+    typename TagProxyPolicy<CLASS>::TagProxy& TagProxyPolicy<CLASS>::TagProxy::operator=( const U& rhs ){
+        set( wrap( rhs ) ) ;
+        return *this ;
+    }
+    
+    template <typename CLASS>
+    template <typename U>
+    TagProxyPolicy<CLASS>::TagProxy::operator U() const{
+        return as<U>( get() ) ;
+    }
+    
+    template <typename CLASS>
+    template <typename U>
+    TagProxyPolicy<CLASS>::const_TagProxy::operator U() const{
+        return as<U>( get() ) ;
+    }
+    
+    
+}
 
 #endif
