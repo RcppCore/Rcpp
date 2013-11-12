@@ -22,5 +22,6 @@
 #include <Rcpp/proxy/SlotProxy.h>
 #include <Rcpp/proxy/FieldProxy.h>
 #include <Rcpp/proxy/DottedPairProxy.h>
+#include <Rcpp/proxy/NamesProxy.h>
 
 #endif
