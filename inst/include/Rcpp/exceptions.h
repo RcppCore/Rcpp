@@ -33,10 +33,14 @@ namespace Rcpp{
 
 class exception : public std::exception {
 public:
-    explicit exception(const char* message_) ;
-    exception(const char* message_, const char* file, int line ) ;
-    virtual ~exception() throw() ;
-    virtual const char* what() const throw() ;
+    explicit exception(const char* message_) : message(message_){}
+    exception(const char* message_, const char* file, int line ) : message(message_){
+        rcpp_set_stack_trace( stack_trace(file,line) ) ;
+    }
+    virtual ~exception() throw(){}
+    virtual const char* what() const throw() {
+        return message.c_str() ;    
+    }
 private:
     std::string message ;
 } ;
@@ -86,7 +90,7 @@ class __CLASS__ : public std::exception{                                       \
 public:                                                                        \
 	__CLASS__( const std::string& message ) throw() : message( __WHAT__ ){} ;  \
 	virtual ~__CLASS__() throw(){} ;                                           \
-	virtual const char* what() const throw() ;                                 \
+	virtual const char* what() const throw() { return message.c_str() ; }      \
 private:                                                                       \
 	std::string message ;                                                      \
 } ;
@@ -96,7 +100,7 @@ class __CLASS__ : public std::exception{                                       \
 public:                                                                        \
 	__CLASS__() throw() {} ;                                                   \
 	virtual ~__CLASS__() throw(){} ;                                           \
-	virtual const char* what() const throw() ;                                 \
+	virtual const char* what() const throw() { return __MESSAGE__ ; }          \
 } ;
 
 RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "not a matrix")
@@ -124,18 +128,84 @@ RCPP_EXCEPTION_CLASS(eval_error, message )
 #undef RCPP_EXCEPTION_CLASS
 #undef RCPP_SIMPLE_EXCEPTION_CLASS
 
-} // namesapce Rcpp
+} // namespace Rcpp
+       
+inline SEXP get_last_call(){
+    SEXP sys_calls_symbol = Rf_install( "sys.calls" ) ;
+    Shield<SEXP> sys_calls_expr = Rf_lang1(sys_calls_symbol);   
+    Shield<SEXP> calls = Rf_eval( sys_calls_expr, R_GlobalEnv ) ;
+    SEXP res = calls ;
+    while( !Rf_isNull(CDR(res)) ) res = CDR(res); 
+    return CAR(res) ;
+}
 
-void forward_exception_to_r( const std::exception& ) ;
-SEXP exception_to_try_error( const std::exception& ) ;
-SEXP exception_to_r_condition( const std::exception& ) ;
-SEXP string_to_try_error( const std::string& ) ;
+inline SEXP get_exception_classes( const std::string& ex_class) {
+    Shield<SEXP> res = Rf_allocVector( STRSXP, 4 );
+    SET_STRING_ELT( res, 0, Rf_mkChar( ex_class.c_str() ) ) ;
+    SET_STRING_ELT( res, 1, Rf_mkChar( "C++Error" ) ) ;
+    SET_STRING_ELT( res, 2, Rf_mkChar( "error" ) ) ;
+    SET_STRING_ELT( res, 3, Rf_mkChar( "condition" ) ) ;
+    return res;
+}
+
+inline void forward_exception_to_r( const std::exception& ex){
+    SEXP stop_sym  = Rf_install( "stop" ) ;
+    Shield<SEXP> condition = exception_to_r_condition(ex) ;
+    Shield<SEXP> expr = Rf_lang2( stop_sym , condition ) ;
+    Rf_eval( expr, R_GlobalEnv ) ;
+}
+
+inline SEXP exception_to_try_error( const std::exception& ex){
+    return string_to_try_error(ex.what());
+}
+
+inline SEXP make_condition(const std::string& ex_msg, SEXP call, SEXP cppstack, SEXP classes){
+    Shield<SEXP> res = Rf_allocVector( VECSXP, 3 ) ;
+    
+    SET_VECTOR_ELT( res, 0, Rf_mkString( ex_msg.c_str() ) ) ;
+    SET_VECTOR_ELT( res, 1, call ) ;
+    SET_VECTOR_ELT( res, 2, cppstack ) ;
+    
+    Shield<SEXP> names = Rf_allocVector( STRSXP, 3 ) ;
+    SET_STRING_ELT( names, 0, Rf_mkChar( "message" ) ) ;
+    SET_STRING_ELT( names, 1, Rf_mkChar( "call" ) ) ;
+    SET_STRING_ELT( names, 2, Rf_mkChar( "cppstack" ) ) ;
+    Rf_setAttrib( res, R_NamesSymbol, names ) ;
+    Rf_setAttrib( res, R_ClassSymbol, classes ) ;
+    return res ;
+}
+
+inline SEXP exception_to_r_condition( const std::exception& ex){
+    std::string ex_class = demangle( typeid(ex).name() ) ;
+    std::string ex_msg   = ex.what() ; 
+    
+    Shield<SEXP> cppstack = rcpp_get_stack_trace() ;
+    Shield<SEXP> call = get_last_call() ;
+    Shield<SEXP> classes = get_exception_classes(ex_class) ;
+    Shield<SEXP> condition = make_condition( ex_msg, call, cppstack, classes) ; 
+    rcpp_set_stack_trace( R_NilValue ) ;
+    return condition ;
+}
+
+inline SEXP string_to_try_error( const std::string& str){
+    using namespace Rcpp;
+    
+    Shield<SEXP> simpleErrorExpr = Rf_lang2(::Rf_install("simpleError"), Rf_mkString(str.c_str()));
+    Shield<SEXP> simpleError = Rf_eval(simpleErrorExpr, R_GlobalEnv);
+    Shield<SEXP> tryError = Rf_mkString( str.c_str() ) ;
+    Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ; 
+    Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ; 
+    
+    return tryError;
+}
 
 std::string demangle( const std::string& name) ;
 #define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str() 
 
 namespace Rcpp {
-	  inline void stop(const std::string& message) { throw Rcpp::exception(message.c_str()); }
+    inline void stop(const std::string& message) { 
+        throw Rcpp::exception(message.c_str()); 
+    }
 } // namespace Rcpp
 
 #endif
