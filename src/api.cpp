@@ -269,36 +269,6 @@ namespace Rcpp {
 
 
 // {{{ utilities (from RcppCommon.cpp)
-
-namespace Rcpp{
-namespace internal{
-
-	SEXP convert_using_rfunction(SEXP x, const char* const fun) {
-        SEXP res = R_NilValue ;
-        try{
-            SEXP funSym = Rf_install(fun);
-            res = Rcpp_eval( Rf_lang2( funSym, x ) ) ;
-        } catch( eval_error& e){
-            throw ::Rcpp::not_compatible( std::string("could not convert using R function : ") + fun  ) ;
-        }
-        return res;
-    }
-    
-    SEXP eval_methods<EXPRSXP>::eval(){
-        SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
-        SEXP evalSym = Rf_install( "eval" );
-        return Rcpp_eval( Rf_lang2( evalSym, xp ) ) ;
-    }
-    
-    SEXP eval_methods<EXPRSXP>::eval( SEXP env ){
-        SEXP xp = ( static_cast<ExpressionVector&>(*this) ).asSexp() ;
-        SEXP evalSym = Rf_install( "eval" );
-        return Rcpp_eval( Rf_lang3( evalSym, xp, env ) ) ;
-    }
-	
-} // internal
-} // Rcpp
-
 SEXP as_character_externalptr(SEXP xp){
 	char buffer[20] ;
 	sprintf( buffer, "%p", (void*)EXTPTR_PTR(xp) ) ;

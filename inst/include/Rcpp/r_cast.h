@@ -27,7 +27,16 @@
 namespace Rcpp{
     namespace internal {
         
-        SEXP convert_using_rfunction(SEXP x, const char* const fun);
+        inline SEXP convert_using_rfunction(SEXP x, const char* const fun){
+            Armor<SEXP> res ;
+            try{
+                SEXP funSym = Rf_install(fun);
+                res = Rcpp_eval( Rf_lang2( funSym, x ) ) ;
+            } catch( eval_error& e){
+                throw not_compatible( std::string("could not convert using R function : ") + fun  ) ;
+            }
+            return res;
+        }
         
         // r_true_cast is only meant to be used when the target SEXP type
         // is different from the SEXP type of x 
