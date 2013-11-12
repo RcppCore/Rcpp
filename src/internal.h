@@ -91,11 +91,6 @@ END_RCPP                                            \
 __OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3)
 
 SEXP get_Rcpp_protection_stack() ;
-namespace Rcpp{
-    SEXP Rcpp_PreserveObject(SEXP x) ;
-    void Rcpp_ReleaseObject(SEXP x) ;
-    SEXP Rcpp_ReplaceObject(SEXP x, SEXP y) ;
-}
 
 CALLFUN_1(as_character_externalptr) ;
 

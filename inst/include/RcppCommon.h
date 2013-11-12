@@ -82,6 +82,40 @@ namespace Rcpp{
     namespace traits{
         template <typename T> class named_object ;
     }
+    
+    inline SEXP Rcpp_PreserveObject(SEXP x){ 
+        if( x != R_NilValue ) {
+            R_PreserveObject(x); 
+        }
+        return x ;
+    }
+    
+    inline void Rcpp_ReleaseObject(SEXP x){
+        if (x != R_NilValue) {
+            R_ReleaseObject(x); 
+        }
+    }
+    
+    inline SEXP Rcpp_ReplaceObject(SEXP x, SEXP y){
+        if( x == R_NilValue ){
+            Rcpp_PreserveObject( y ) ;    
+        } else if( y == R_NilValue ){
+            Rcpp_ReleaseObject( x ) ;
+        } else {
+            // if we are setting to the same SEXP as we already have, do nothing 
+            if (x != y) {
+                
+                // the previous SEXP was not NULL, so release it 
+                Rcpp_ReleaseObject(x);
+                
+                // the new SEXP is not NULL, so preserve it 
+                Rcpp_PreserveObject(y);
+                        
+            }
+        }
+        return y ;
+    }   
+
 }
 
 #include <Rcpp/storage/storage.h>

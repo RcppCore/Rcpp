@@ -56,7 +56,7 @@ namespace Rcpp {
     
     inline SEXP rcpp_get_stack_trace(){
         typedef SEXP (*Fun)(void) ;
-        static Fun fun =  GET_CALLABLE("rcpp_get_stack_trace") ;
+        static Fun fun = GET_CALLABLE("rcpp_get_stack_trace") ;
         return fun() ;
     }
     
