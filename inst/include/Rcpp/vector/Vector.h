@@ -27,18 +27,18 @@ class Dimension ;
 
 template <bool NA,typename T> class SingleLogicalResult ;
 
-template <int RTYPE, template <class> class StoragePolicy>
-class Vector_Impl :
-    public StoragePolicy< Vector_Impl<RTYPE,StoragePolicy> >,       
-    public SlotProxyPolicy<Vector_Impl<RTYPE,StoragePolicy> >,    
-    public AttributeProxyPolicy<Vector_Impl<RTYPE,StoragePolicy> >,       
-    public VectorBase< RTYPE, true, Vector_Impl<RTYPE,StoragePolicy> >, 
-    public NamesProxy< Vector_Impl<RTYPE, StoragePolicy> >
+template <int RTYPE, template <class> class StoragePolicy = PreservePolicy >
+class Vector :
+    public StoragePolicy< Vector<RTYPE,StoragePolicy> >,       
+    public SlotProxyPolicy<Vector<RTYPE,StoragePolicy> >,    
+    public AttributeProxyPolicy<Vector<RTYPE,StoragePolicy> >,       
+    public VectorBase< RTYPE, true, Vector<RTYPE,StoragePolicy> >, 
+    public NamesProxy< Vector<RTYPE, StoragePolicy> >
 {
 public:
 
-    typedef typename StoragePolicy<Vector_Impl> Storage ;
-    typedef typename AttributeProxyPolicy<Vector_Impl> AttributeProxy_ ;
+    typedef typename StoragePolicy<Vector> Storage ;
+    typedef typename AttributeProxyPolicy<Vector> AttributeProxy_ ;
     
     typename traits::r_vector_cache_type<RTYPE>::type cache ;
     typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
@@ -55,80 +55,80 @@ public:
      * Default constructor. Creates a vector of the appropriate type
      * and 0 length
      */
-    Vector_Impl() ;
+    Vector() ;
     
     /**
      * copy constructor. shallow copy of the SEXP
      */
-    Vector_Impl( const Vector_Impl& other){
+    Vector( const Vector& other){
         Storage::copy__(other) ;    
     }
     
-    Vector_Impl& operator=(const Vector_Impl& rhs) {
+    Vector& operator=(const Vector& rhs) {
         return Storage::copy__(rhs) ;                    
     }                                           
     
     // we can't define these 3 in meat for some reason
     // maybe because of the typedef in instantiation.h
-    Vector_Impl( SEXP x ) {
+    Vector( SEXP x ) {
         Storage::set__(x) ;
     }
-    Vector_Impl( const int& size, const stored_type& u ) {
-        RCPP_DEBUG_2( "Vector_Impl<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
+    Vector( const int& size, const stored_type& u ) {
+        RCPP_DEBUG_2( "Vector<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill( u ) ;
     }
-    Vector_Impl( const std::string& st ){
-        RCPP_DEBUG_2( "Vector_Impl<%d>( const std::string& = %s )", RTYPE, st.c_str() )
+    Vector( const std::string& st ){
+        RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
         Storage::set__( internal::vector_from_string<RTYPE>(st) ) ;
     }
-    Vector_Impl( const char* st ) {
-        RCPP_DEBUG_2( "Vector_Impl<%d>( const char* = %s )", RTYPE, st )
+    Vector( const char* st ) {
+        RCPP_DEBUG_2( "Vector<%d>( const char* = %s )", RTYPE, st )
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
 	
-    Vector_Impl( const int& siz, stored_type (*gen)(void) ) : RObject() {
-        RCPP_DEBUG_2( "Vector_Impl<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
+    Vector( const int& siz, stored_type (*gen)(void) ) : RObject() {
+        RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
     }
     
-    Vector_Impl( const int& size )  ;
-    Vector_Impl( const Dimension& dims)  ;
+    Vector( const int& size )  ;
+    Vector( const Dimension& dims)  ;
     
-    template <typename U> Vector_Impl( const Dimension& dims, const U& u) ;
-    template <bool NA, typename VEC> Vector_Impl( const VectorBase<RTYPE,NA,VEC>& other )  ;
-    template <typename U> Vector_Impl( const int& size, const U& u) ;
-    template <bool NA, typename T> Vector_Impl( const sugar::SingleLogicalResult<NA,T>& obj ) ;
+    template <typename U> Vector( const Dimension& dims, const U& u) ;
+    template <bool NA, typename VEC> Vector( const VectorBase<RTYPE,NA,VEC>& other )  ;
+    template <typename U> Vector( const int& size, const U& u) ;
+    template <bool NA, typename T> Vector( const sugar::SingleLogicalResult<NA,T>& obj ) ;
     
     template <typename U1>
-    Vector_Impl( const int& siz, stored_type (*gen)(U1), const U1& u1) ;
+    Vector( const int& siz, stored_type (*gen)(U1), const U1& u1) ;
     
     template <typename U1, typename U2>
-    Vector_Impl( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2) ;
+    Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2) ;
 
     template <typename U1, typename U2, typename U3>
-    Vector_Impl( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) ;
+    Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) ;
 
     template <typename InputIterator>
-    Vector_Impl( InputIterator first, InputIterator last) ;
+    Vector( InputIterator first, InputIterator last) ;
 
     template <typename InputIterator>
-    Vector_Impl( InputIterator first, InputIterator last, int n)  ;
+    Vector( InputIterator first, InputIterator last, int n)  ;
 
     template <typename InputIterator, typename Func>
-    Vector_Impl( InputIterator first, InputIterator last, Func func)  ;
+    Vector( InputIterator first, InputIterator last, Func func)  ;
     
     template <typename InputIterator, typename Func>
-    Vector_Impl( InputIterator first, InputIterator last, Func func, int n) ;
+    Vector( InputIterator first, InputIterator last, Func func, int n) ;
 
 #ifdef HAS_CXX0X_INITIALIZER_LIST
-    Vector_Impl( std::initializer_list<init_type> list ) : RObject(){
+    Vector( std::initializer_list<init_type> list ) : RObject(){
         assign( list.begin() , list.end() ) ;
     }
 #endif
 	
-    template <typename T> Vector_Impl& operator=( const T& x) ;
+    template <typename T> Vector& operator=( const T& x) ;
 	
     static inline stored_type get_na() { 
         return traits::get_na<RTYPE>(); 
@@ -227,13 +227,13 @@ public:
     }
 	
     inline NameProxy operator[]( const std::string& name ) const {
-        return NameProxy( const_cast<Vector_Impl&>(*this), name ) ;
+        return NameProxy( const_cast<Vector&>(*this), name ) ;
     }
     inline NameProxy operator()( const std::string& name ) const {
-        return NameProxy( const_cast<Vector_Impl&>(*this), name ) ;
+        return NameProxy( const_cast<Vector&>(*this), name ) ;
     }
 	
-    Vector_Impl& sort(){
+    Vector& sort(){
         typename traits::storage_type<RTYPE>* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
         std::sort( 
             start, start + size(), 
@@ -253,15 +253,15 @@ public:
     }
 
     template <typename InputIterator>
-    static Vector_Impl import( InputIterator first, InputIterator last){
-        Vector_Impl v ;
+    static Vector import( InputIterator first, InputIterator last){
+        Vector v ;
         v.assign( first , last ) ;
         return v ;
     }
 
     template <typename InputIterator, typename F>
-    static Vector_Impl import_transform( InputIterator first, InputIterator last, F f){
-        return Vector_Impl( first, last, f) ;
+    static Vector import_transform( InputIterator first, InputIterator last, F f){
+        return Vector( first, last, f) ;
     }
 	
     template <typename T>
@@ -323,7 +323,7 @@ public:
     }
 	
     void update(SEXP){
-        RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector_Impl), reinterpret_cast<void*>( RObject::asSexp() ) )
+        RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector), reinterpret_cast<void*>( RObject::asSexp() ) )
         cache.update(*this) ;
     }
 		
@@ -345,7 +345,7 @@ public:
 
     template <typename U>
     static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, int index, const U& u){
-        RCPP_DEBUG_2( "  Vector_Impl::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
+        RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
 		
         *it = converter_type::get(u.object ) ;
         SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
@@ -353,7 +353,7 @@ public:
 	
     template <typename U>
     static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, int index, const U& u){
-        RCPP_DEBUG_2( "  Vector_Impl::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
+        RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ; 
 		
         *it = R_MissingArg ;
         SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
@@ -363,17 +363,17 @@ public:
         RObject::setSEXP( x) ;
         update_vector() ;
     }
-    typedef internal::RangeIndexer<RTYPE,true,Vector_Impl> Indexer ;
+    typedef internal::RangeIndexer<RTYPE,true,Vector> Indexer ;
 	
     inline Indexer operator[]( const Range& range ){
-        return Indexer( const_cast<Vector_Impl&>(*this), range );
+        return Indexer( const_cast<Vector&>(*this), range );
     }
     
     template <typename EXPR_VEC>
-    Vector_Impl& operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ) ;
+    Vector& operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ) ;
     
     template <typename EXPR_VEC>
-    Vector_Impl& operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ) ;
+    Vector& operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ) ;
     
     /** 
      *  Does this vector have an element with the target name 
@@ -459,8 +459,8 @@ private:
 
 public:
     
-    static Vector_Impl create(){
-        return Vector_Impl( 0 ) ;
+    static Vector create(){
+        return Vector( 0 ) ;
     }
 
     #include <Rcpp/generated/Vector__create.h>

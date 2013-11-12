@@ -45,7 +45,9 @@ class XPtr :
     public StoragePolicy< XPtr<T,StoragePolicy, Finalizer> >,       
     public SlotProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,    
     public AttributeProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
-    public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >
+    public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
+    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
+    
 {
 public:
 		
@@ -54,8 +56,8 @@ public:
      *
      * @param xp external pointer to wrap
      */
-    explicit XPtr(SEXP x, SEXP tag = R_NilValue, SEXP prot = R_NilValue) : RObject(m_sexp){
-        if( TYPEOF(m_sexp) != EXTPTRSXP )
+    explicit XPtr(SEXP x, SEXP tag = R_NilValue, SEXP prot = R_NilValue) {
+        if( TYPEOF(x) != EXTPTRSXP )
             throw ::Rcpp::not_compatible( "expecting an external pointer" ) ;
         Storage::set__(x) ;
         R_SetExternalPtrTag( x, tag ) ;
@@ -113,41 +115,7 @@ public:
     inline operator T*(){ 
         return (T*)( R_ExternalPtrAddr( Storage::get__() )) ; 
     }
-
     
-    class ProtectedProxy{
-    public:
-    	ProtectedProxy( XPtr& xp_ ): xp(xp_){}
-    	
-    	template <typename U>
-    	ProtectedProxy& operator=( const U& u){
-    		set( Rcpp::wrap(u) );
-    		return *this ;
-    	}
-    	
-    	template <typename U>
-    	operator U(){
-    		return Rcpp::as<U>( get() ) ;
-    	}
-
-    	operator SEXP(){ return get() ; }
-    	
-    	inline SEXP get(){
-    		return R_ExternalPtrProtected(xp.asSexp()) ;
-    	}
-    	
-    	inline void set( SEXP x){
-    		R_SetExternalPtrProtected( xp.asSexp(), x ) ;
-    	}
-    	
-    private:
-    	XPtr& xp ;
-    } ;
-
-	ProtectedProxy prot(){
-		return ProtectedProxy( *this ) ;
-	}
-	
     
 };
 
