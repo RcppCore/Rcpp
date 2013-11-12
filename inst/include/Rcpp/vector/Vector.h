@@ -30,8 +30,7 @@ template <bool NA,typename T> class SingleLogicalResult ;
 template <int RTYPE>
 class Vector :
     public RObject,       
-    public VectorBase< RTYPE, true, Vector<RTYPE> >, 
-    public internal::eval_methods<RTYPE> 
+    public VectorBase< RTYPE, true, Vector<RTYPE> >
 {
     typename traits::r_vector_cache_type<RTYPE>::type cache ;
     
@@ -522,6 +521,15 @@ public:
 
     #include <Rcpp/generated/Vector__create.h>
 
+    inline SEXP eval() const {
+        return Rcpp_eval( Storage::get__(), R_GlobalEnv ) ;    
+    }
+    
+    inline SEXP eval(SEXP env) const {
+        return Rcpp_eval( Storage::get__(), env );    
+    }
+    
+    
 } ; /* Vector */
 
 #endif
