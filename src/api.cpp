@@ -117,42 +117,6 @@ namespace Rcpp {
         return res ;
     }
     
-    // [[Rcpp::register]]
-    SEXP Rcpp_PreserveObject(SEXP x){ 
-        if( x != R_NilValue ) {
-            R_PreserveObject(x); 
-        }
-        return x ;
-    }
-    
-    // [[Rcpp::register]]
-    void Rcpp_ReleaseObject(SEXP x){
-        if (x != R_NilValue) {
-            R_ReleaseObject(x); 
-        }
-    }
-    
-    // [[Rcpp::register]]
-    SEXP Rcpp_ReplaceObject(SEXP x, SEXP y){
-        if( x == R_NilValue ){
-            Rcpp_PreserveObject( y ) ;    
-        } else if( y == R_NilValue ){
-            Rcpp_ReleaseObject( x ) ;
-        } else {
-            // if we are setting to the same SEXP as we already have, do nothing 
-            if (x != y) {
-                
-                // the previous SEXP was not NULL, so release it 
-                Rcpp_ReleaseObject(x);
-                
-                // the new SEXP is not NULL, so preserve it 
-                Rcpp_PreserveObject(y);
-                        
-            }
-        }
-        return y ;
-    }   
-    
     // [[Rcpp::register]]  
     std::string demangle( const std::string& name ){
         #ifdef RCPP_HAS_DEMANGLING
