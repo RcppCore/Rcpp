@@ -29,7 +29,7 @@ namespace Rcpp{
 
     RCPP_API_CLASS(Formula_Impl), 
         public DottedPairProxyPolicy<Formula_Impl<StoragePolicy> >, 
-        public DottedPairImpl<Formula_Impl<StoragePolicy> >{
+        public DottedPairImpl<Formula_Impl<StoragePolicy> >
     {
     public:
 
@@ -37,7 +37,7 @@ namespace Rcpp{
     
         Formula_Impl(){} ;
         
-        Formula_Impl(SEXP lang){
+        Formula_Impl(SEXP x){
             switch( TYPEOF( x ) ){
             case LANGSXP:
                 if( ::Rf_inherits( x, "formula") ){
@@ -66,7 +66,7 @@ namespace Rcpp{
             }
         }
 
-        explicit Formula( const std::string& code ) {
+        explicit Formula_Impl( const std::string& code ) {
             Storage::set__( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") ) ;    
         }
     
