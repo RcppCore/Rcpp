@@ -77,12 +77,19 @@ namespace Rcpp{
 #include <Rcpp/sprintf.h>
 
 namespace Rcpp{
-    class Module ;    
+    class Module ; 
+    
+    namespace traits{
+        template <typename T> class named_object ;
+    }
 }
 
-#include <Rcpp/routines.h>
-
+#include <Rcpp/storage/storage.h>
 #include <Rcpp/protection/protection.h>
+#include <Rcpp/routines.h>
+#include <Rcpp/exceptions.h>
+#include <Rcpp/proxy/proxy.h>
+
 #include <Rcpp/lang.h>
 #include <Rcpp/complex.h>
 #include <Rcpp/barrier.h>

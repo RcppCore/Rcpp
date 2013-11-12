@@ -24,7 +24,6 @@
 
 #include <RcppCommon.h>
 #include <Rcpp/exceptions.h>
-#include <Rcpp/RObject.h>
 #include <Rcpp/r_cast.h>
 
 namespace Rcpp{

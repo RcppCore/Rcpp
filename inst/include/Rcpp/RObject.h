@@ -22,13 +22,6 @@
 #ifndef Rcpp_RObject_h
 #define Rcpp_RObject_h
 
-#define R_NO_REMAP
-#include <R.h>
-#include <Rcpp/macros/macros.h>
-#include <Rinternals.h>
-#include <vector>
-#include <string>
-
 namespace Rcpp{ 
 
     RCPP_API_CLASS(RObject_Impl) {

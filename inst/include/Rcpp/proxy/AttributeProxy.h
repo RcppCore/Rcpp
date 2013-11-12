@@ -15,15 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_AttributeProxy_h
-#define Rcpp_AttributeProxy_h
+#ifndef Rcpp_proxy_AttributeProxy_h
+#define Rcpp_proxy_AttributeProxy_h
 
 namespace Rcpp{
     
 template <typename CLASS>
 class AttributeProxyPolicy {
 public:
-    typedef typename CLASS::Storage Storage ;
     
     class AttributeProxy {
     public:
@@ -31,44 +30,59 @@ public:
             : parent(v), attr_name(Rf_install(name.c_str()))
         {}
         
-        AttributeProxy& operator=(const AttributeProxy& rhs) ;
+        AttributeProxy& operator=(const AttributeProxy& rhs){
+            if( *this != rhs ) set( rhs.get() ) ;
+            return *this ;    
+        }
               
         template <typename T> AttributeProxy& operator=(const T& rhs) ;
             
         template <typename T> operator T() const ;
-        inline operator SEXP() const { return get() ; }
+        inline operator SEXP() const { 
+            return get() ; 
+        }
         
     private:
         CLASS& parent; 
         SEXP attr_name ;
             
-        SEXP get() const ;
-        void set(SEXP x ) ;
+        SEXP get() const {
+            return Rf_getAttrib( parent, attr_name ) ;
+        }
+        void set(SEXP x ){
+            Rf_setAttrib( parent, attr_name, x ) ;
+        }
     } ;
     
     class const_AttributeProxy {
     public:
-        const_AttributeProxy( const CLASS& v, const std::string& name) ;
-        const_AttributeProxy& operator=(const const_AttributeProxy& rhs) ;
+        const_AttributeProxy( const CLASS& v, const std::string& name) 
+            : parent(v), attr_name(Rf_install(name.c_str())){}
               
         template <typename T> operator T() const ;
-        inline operator SEXP() const { return get() ; }
+        inline operator SEXP() const { 
+            return get() ; 
+        }
         
     private:
         const CLASS& parent; 
         SEXP attr_name ;
             
-        SEXP get() const ;
+        SEXP get() const {
+            return Rf_getAttrib( parent, attr_name ) ;
+        }
     } ;
     
-    AttributeProxy attr( const std::string& name) ;
-    const_AttributeProxy attr( const std::string& name) const ;
-    
-    bool hasAttribute(const std::string& ) const ;
+    AttributeProxy attr( const std::string& name){
+        return AttributeProxy( static_cast<CLASS&>( *this ) ) ;    
+    }
+    const_AttributeProxy attr( const std::string& name) const {
+        return AttributeProxy( static_cast<const CLASS&>( *this ) ) ;
+    }
     
     std::vector<std::string> attributeNames() const {
         std::vector<std::string> v ;
-        SEXP attrs = ATTRIB(Storage::get__());
+        SEXP attrs = ATTRIB( static_cast<const CLASS&>(*this).get__());
         while( attrs != R_NilValue ){
             v.push_back( std::string(CHAR(PRINTNAME(TAG(attrs)))) ) ;
             attrs = CDR( attrs ) ;
@@ -77,7 +91,7 @@ public:
     }
 
     bool hasAttribute( const std::string& attr) const {
-        SEXP attrs = ATTRIB(Storage::get__());
+        SEXP attrs = ATTRIB(static_cast<const CLASS&>(*this).get__());
         while( attrs != R_NilValue ){
             if( attr == CHAR(PRINTNAME(TAG(attrs))) ){
                 return true ;

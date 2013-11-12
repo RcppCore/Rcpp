@@ -64,16 +64,20 @@ namespace Rcpp{
         inline SEXP r_true_cast<INTSXP>(SEXP x){
             return basic_cast<INTSXP>(x) ;    
         }
-        inline template<> SEXP r_true_cast<REALSXP>(SEXP x){
+        template<> 
+        inline SEXP r_true_cast<REALSXP>(SEXP x){
             return basic_cast<REALSXP>(x) ;    
         }
-        inline template<> SEXP r_true_cast<RAWSXP>(SEXP x){
+        template<> 
+        inline SEXP r_true_cast<RAWSXP>(SEXP x){
             return  basic_cast<RAWSXP>(x) ;   
         }
-        inline template<> SEXP r_true_cast<CPLXSXP>(SEXP x){
+        template<> 
+        inline SEXP r_true_cast<CPLXSXP>(SEXP x){
             return basic_cast<CPLXSXP>(x) ;
         }
-        inline template<> SEXP r_true_cast<LGLSXP>(SEXP x){
+        template<> 
+        inline SEXP r_true_cast<LGLSXP>(SEXP x){
             return basic_cast<LGLSXP>(x) ;
         }
         

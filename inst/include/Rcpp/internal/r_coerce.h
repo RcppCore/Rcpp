@@ -112,14 +112,14 @@ inline int r_coerce<RAWSXP,LGLSXP>(Rbyte from){
 
 // -> RAWSXP
 template <> 
-inline Rbyte r_coerce<REALSXP,RAWSXP>(double from){
-	if( R_IsNA(from) ) return static_cast<Rbyte>(0) ; 
-	return r_coerce<INTSXP,RAWSXP>(static_cast<int>(from)) ;
+inline Rbyte r_coerce<INTSXP,RAWSXP>(int from){
+	return (from < 0 || from > 255) ? static_cast<Rbyte>(0) : static_cast<Rbyte>(from) ;
 }
 
 template <> 
-inline Rbyte r_coerce<INTSXP,RAWSXP>(int from){
-	return (from < 0 || from > 255) ? static_cast<Rbyte>(0) : static_cast<Rbyte>(from) ;
+inline Rbyte r_coerce<REALSXP,RAWSXP>(double from){
+	if( R_IsNA(from) ) return static_cast<Rbyte>(0) ; 
+	return r_coerce<INTSXP,RAWSXP>(static_cast<int>(from)) ;
 }
 
 template <> 
@@ -206,7 +206,7 @@ inline int integer_width( int n ){
 }
 
 template <> 
-inline const char* coerce_to_string<CPLXSXP>(Rcomplex from){
+inline const char* coerce_to_string<CPLXSXP>(Rcomplex x){
 	//int wr, dr, er, wi, di, ei;
     //Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
     // we are no longer allowed to use this:
@@ -220,7 +220,7 @@ inline const char* coerce_to_string<CPLXSXP>(Rcomplex from){
     snprintf(tmp3, 255, "%s+%si", dropTrailing0(tmp1, '.'), dropTrailing0(tmp2, '.'));
     return tmp3;
 }
-template <> const char* coerce_to_string<REALSXP>(double from){
+template <> const char* coerce_to_string<REALSXP>(double x){
 	//int w,d,e ;
     // cf src/main/format.c in R's sources:
     //   The return values are

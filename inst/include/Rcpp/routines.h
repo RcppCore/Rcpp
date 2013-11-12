@@ -26,14 +26,13 @@ namespace Rcpp{
     SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
     const char* type2name(SEXP x) ;
     std::string demangle( const std::string& name) ;
-    void forward_exception_to_r( const std::exception& ex ) ;
-    SEXP exception_to_try_error( const std::exception& ex ) ;
-    SEXP string_to_try_error( const std::string& str) ;
     SEXP stack_trace( const char *file, int line) ;
     unsigned long enterRNGScope(); 
     unsigned long exitRNGScope() ;
     SEXP get_Rcpp11_namespace() ; 
     int* get_cache( int n ) ;
+    SEXP rcpp_get_stack_trace() ;
+    SEXP rcpp_set_stack_trace(SEXP) ;
 }
            
 SEXP rcpp_set_stack_trace(SEXP) ;
@@ -55,6 +54,18 @@ namespace Rcpp {
     
     #define GET_CALLABLE(__FUN__) (Fun) R_GetCCallable( "Rcpp", __FUN__ )
     
+    inline SEXP rcpp_get_stack_trace(){
+        typedef SEXP (*Fun)(void) ;
+        static Fun fun =  GET_CALLABLE("rcpp_get_stack_trace") ;
+        return fun() ;
+    }
+    
+    inline SEXP rcpp_set_stack_trace(SEXP e){
+        typedef SEXP (*Fun)(SEXP) ;
+        static Fun fun =  GET_CALLABLE("rcpp_set_stack_trace") ;
+        return fun(e) ;
+    }
+    
     inline SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv){
         typedef SEXP (*Fun)(SEXP,SEXP) ;
         static Fun fun = GET_CALLABLE("Rcpp_eval") ;
@@ -71,24 +82,6 @@ namespace Rcpp {
         typedef std::string (*Fun)( const std::string& ) ;
         static Fun fun = GET_CALLABLE("demangle") ;
         return fun(name) ;
-    }
-    
-    inline void forward_exception_to_r( const std::exception& ex ){
-        typedef void (*Fun)(const std::exception&) ;
-        static Fun fun = GET_CALLABLE("forward_exception_to_r") ;
-        fun(ex) ;
-    }
-    
-    inline SEXP exception_to_try_error( const std::exception& ex ){
-        typedef SEXP (*Fun)(const std::exception& ) ;
-        static Fun fun = GET_CALLABLE("exception_to_try_error") ;
-        return fun(ex) ;
-    }
-    
-    inline SEXP string_to_try_error( const std::string& str){
-        typedef SEXP (*Fun)( const std::string&) ;
-        static Fun fun = GET_CALLABLE("string_to_try_error") ;
-        return fun(str) ;
     }
     
     inline SEXP stack_trace( const char *file, int line){
@@ -181,12 +174,6 @@ inline void* dataptr(SEXP x){
     typedef void* (*Fun)(SEXP) ;
     static Fun fun = GET_CALLABLE("dataptr") ;
     return fun(x) ; 
-}
-
-inline SEXP rcpp_set_stack_trace(SEXP x){
-    typedef SEXP (*Fun)(SEXP) ;
-    static Fun fun = GET_CALLABLE("rcpp_set_stack_trace") ;
-    return fun(x) ;    
 }
 
 inline Rcpp::Module* getCurrentScope(){

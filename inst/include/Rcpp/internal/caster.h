@@ -49,7 +49,7 @@ inline Rcomplex caster<std::complex<float>, Rcomplex>( std::complex<float> from)
 
 template <typename T>
 inline std::complex<T> std_complex_caster( Rcomplex from ){
-	std::complex<T>( static_cast<T>(from.r), static_cast<T>(from.i) ) ;	
+	return std::complex<T>( static_cast<T>(from.r), static_cast<T>(from.i) ) ;	
 }
  
 template <> 
