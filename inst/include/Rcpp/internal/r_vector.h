@@ -26,20 +26,21 @@
 namespace Rcpp{
 namespace internal{
 
-template<int RTYPE> 
-typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x){ return get_vector_ptr(x) ; }
-
-template<> int* r_vector_start<INTSXP>(SEXP x) ; 
-template<> int* r_vector_start<LGLSXP>(SEXP x) ;
-template<> double* r_vector_start<REALSXP>(SEXP x) ;
-template<> Rbyte* r_vector_start<RAWSXP>(SEXP x) ; 
-template<> Rcomplex* r_vector_start<CPLXSXP>(SEXP x) ;                         
+template <int RTYPE> 
+typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x){ 
+	typedef typename Rcpp::traits::storage_type<RTYPE>::type* pointer ;
+	return reinterpret_cast<pointer>( data_ptr(x) ) ; 
+}
 
 /**
  * The value 0 statically casted to the appropriate type for 
  * the given SEXP type
  */
-template <int RTYPE,typename CTYPE> CTYPE get_zero(){ return static_cast<CTYPE>(0) ; }
+template <int RTYPE,typename CTYPE> CTYPE get_zero(){ 
+	return static_cast<CTYPE>(0) ; 
+}
+
+
 /**
  * Specialization for Rcomplex
  */
