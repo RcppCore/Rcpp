@@ -32,7 +32,7 @@ namespace Rcpp{
             if( Rf_isEnvironment(x) ) return x ;
             SEXP asEnvironmentSym = Rf_install("as.environment");
             try {
-                Shield<SEXP> res = Rcpp_eval( Rf_lang2( asEnvironmentSym, x ) );
+                Shield<SEXP> res( Rcpp_eval( Rf_lang2( asEnvironmentSym, x ) ) );
                 return res ;
             } catch( const eval_error& ex){
                 throw not_compatible( "cannot convert to environment"  ) ; 
@@ -194,9 +194,9 @@ namespace Rcpp{
                        we have to go back to R to do this operation */
                     SEXP internalSym = Rf_install( ".Internal" );
                     SEXP removeSym = Rf_install( "remove" );
-                    Shield<SEXP> call = Rf_lang2(internalSym, 
+                    Shield<SEXP> call( Rf_lang2(internalSym, 
                             Rf_lang4(removeSym, Rf_mkString(name.c_str()), Storage::get__(), Rf_ScalarLogical( FALSE ))
-                        );
+                        ) );
                     Rf_eval( call, R_GlobalEnv ) ;
                 }
             } else{

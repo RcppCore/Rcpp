@@ -206,8 +206,8 @@ namespace Rcpp {
     
     // [[Rcpp::internal]]
     SEXP rcpp_capabilities(){
-        Shield<SEXP> cap   = Rf_allocVector( LGLSXP, 9 ) ;
-        Shield<SEXP> names = Rf_allocVector( STRSXP, 9 ) ;
+        Shield<SEXP> cap( Rf_allocVector( LGLSXP, 9 ) );
+        Shield<SEXP> names( Rf_allocVector( STRSXP, 9 ) );
         #ifdef HAS_VARIADIC_TEMPLATES
             LOGICAL(cap)[0] = TRUE ;
         #else
