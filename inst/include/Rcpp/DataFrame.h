@@ -66,12 +66,11 @@ namespace Rcpp{
     private:
         void set_sexp(SEXP x){
             if( ::Rf_inherits( x, "data.frame" )){
-                setSEXP( x ) ;
+                Parent::set__( x ) ;
             } else{
                 SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
-                setSEXP( y ) ;
+                Parent::set__( y ) ;
             }
-            Parent::update() ;
         }
         
         static DataFrame_Impl from_list( Parent obj ){
