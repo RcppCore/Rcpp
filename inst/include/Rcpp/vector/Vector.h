@@ -27,18 +27,17 @@ class Dimension ;
 
 template <bool NA,typename T> class SingleLogicalResult ;
 
-template <int RTYPE, template <class> class StoragePolicy = PreservePolicy >
+template <int RTYPE, template <class> class StoragePolicy = PreserveStorage >
 class Vector :
     public StoragePolicy< Vector<RTYPE,StoragePolicy> >,       
-    public SlotProxyPolicy<Vector<RTYPE,StoragePolicy> >,    
-    public AttributeProxyPolicy<Vector<RTYPE,StoragePolicy> >,       
-    public VectorBase< RTYPE, true, Vector<RTYPE,StoragePolicy> >, 
-    public NamesProxy< Vector<RTYPE, StoragePolicy> >
+    public SlotProxyPolicy< Vector<RTYPE,StoragePolicy> >,    
+    public AttributeProxyPolicy< Vector<RTYPE,StoragePolicy> >,       
+    public NamesProxyPolicy< Vector<RTYPE, StoragePolicy> >,
+    public VectorBase< RTYPE, true, Vector<RTYPE,StoragePolicy> >
 {
 public:
 
-    typedef typename StoragePolicy<Vector> Storage ;
-    typedef typename AttributeProxyPolicy<Vector> AttributeProxy_ ;
+    typedef StoragePolicy<Vector> Storage ;
     
     typename traits::r_vector_cache_type<RTYPE>::type cache ;
     typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
@@ -87,7 +86,7 @@ public:
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
 	
-    Vector( const int& siz, stored_type (*gen)(void) ) : RObject() {
+    Vector( const int& siz, stored_type (*gen)(void) ) {
         RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
@@ -123,7 +122,7 @@ public:
     Vector( InputIterator first, InputIterator last, Func func, int n) ;
 
 #ifdef HAS_CXX0X_INITIALIZER_LIST
-    Vector( std::initializer_list<init_type> list ) : RObject(){
+    Vector( std::initializer_list<init_type> list ) {
         assign( list.begin() , list.end() ) ;
     }
 #endif
@@ -247,8 +246,8 @@ public:
         /* FIXME: we can do better than this r_cast to avoid 
            allocating an unnecessary temporary object
         */
-        SEXP x = PROTECT( r_cast<RTYPE>( wrap( first, last ) ) );
-        RObject::setSEXP( x) ;
+        Shield<SEXP> x( r_cast<RTYPE>( wrap( first, last ) ) );
+        Storage::set__( x) ;
         UNPROTECT(1) ;
     }
 
@@ -323,7 +322,6 @@ public:
     }
 	
     void update(SEXP){
-        RCPP_DEBUG_2(  " update_vector( VECTOR = %s, SEXP = < %p > )", DEMANGLE(Vector), reinterpret_cast<void*>( RObject::asSexp() ) )
         cache.update(*this) ;
     }
 		
@@ -359,10 +357,6 @@ public:
         SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
     }
     
-    void set_sexp(SEXP x){
-        RObject::setSEXP( x) ;
-        update_vector() ;
-    }
     typedef internal::RangeIndexer<RTYPE,true,Vector> Indexer ;
 	
     inline Indexer operator[]( const Range& range ){

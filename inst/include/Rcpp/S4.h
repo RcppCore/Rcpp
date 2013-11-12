@@ -43,8 +43,8 @@ namespace Rcpp{
             Storage::set__(x) ;
         }
         
-        S4& operator=( SEXP other ){
-            Storage::set__( other.get__() ) ;
+        S4_Impl& operator=( SEXP other ){
+            Storage::set__( other ) ;
             return *this ;
         }
         
@@ -54,7 +54,7 @@ namespace Rcpp{
          * @param klass name of the target S4 class
          * @throw not_s4 if klass does not map to a known S4 class
          */
-        S4( const std::string& klass ){
+        S4_Impl( const std::string& klass ){
             Shield<SEXP> x( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) );
             if (!Rf_inherits(x, klass.c_str()))
                 throw S4_creation_error( klass ) ;
@@ -70,6 +70,8 @@ namespace Rcpp{
             if( ! ::Rf_isS4(x) ) throw not_s4() ;    
         }
     } ;
+    
+    typedef S4_Impl<PreserveStorage> S4 ;
 
 } // namespace Rcpp
 

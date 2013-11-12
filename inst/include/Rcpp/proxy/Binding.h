@@ -23,7 +23,6 @@ namespace Rcpp{
 template <typename EnvironmentClass>
 class BindingPolicy {
 public:
-    typedef typename CLASS::Storage Storage ;
     
     class Binding {
     public:
@@ -70,7 +69,7 @@ public:
     
     class const_Binding {
     public:
-        Binding( EnvironmentClass& env_, const std::string& name_) : 
+        const_Binding( const EnvironmentClass& env_, const std::string& name_) : 
             env(env_), name(name_){}
         
         inline bool active() const { 
@@ -92,10 +91,14 @@ public:
         
         const EnvironmentClass& env ;
         std::string name ;
-    }
+    } ;
     
-    const_Binding operator[]( const std::string& name) const ;
-    Binding operator[](const std::string& name) ;
+    const_Binding operator[]( const std::string& name) const {
+        return const_Binding( static_cast<EnvironmentClass&>(*this) ) ;    
+    }
+    Binding operator[](const std::string& name){
+        return Binding( static_cast<const EnvironmentClass&>(*this) ) ;  
+    }
     
 } ;
 
