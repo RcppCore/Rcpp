@@ -81,6 +81,7 @@ namespace Rcpp{
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 
+#include <Rcpp/routines.h>
 
 #include <Rcpp/protection/protection.h>
 #include <Rcpp/lang.h>
