@@ -22,9 +22,6 @@
 #ifndef Rcpp__DataFrame_h
 #define Rcpp__DataFrame_h
 
-#include <Rcpp/RObject.h>
-#include <Rcpp/vector/00_forward_Vector.h>
-
 namespace Rcpp{
         
     class DataFrame : public Vector<VECSXP> {

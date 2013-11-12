@@ -142,17 +142,6 @@ namespace Rcpp{
         return res;
     }
     
-    inline void forward_exception_to_r( const std::exception& ex){
-        SEXP stop_sym  = Rf_install( "stop" ) ;
-        Shield<SEXP> condition( exception_to_r_condition(ex) );
-        Shield<SEXP> expr( Rf_lang2( stop_sym , condition ) ) ;
-        Rf_eval( expr, R_GlobalEnv ) ;
-    }
-    
-    inline SEXP exception_to_try_error( const std::exception& ex){
-        return string_to_try_error(ex.what());
-    }
-    
     inline SEXP make_condition(const std::string& ex_msg, SEXP call, SEXP cppstack, SEXP classes){
         Shield<SEXP> res( Rf_allocVector( VECSXP, 3 ) ) ;
         
@@ -181,6 +170,13 @@ namespace Rcpp{
         return condition ;
     }
     
+    inline void forward_exception_to_r( const std::exception& ex){
+        SEXP stop_sym  = Rf_install( "stop" ) ;
+        Shield<SEXP> condition( exception_to_r_condition(ex) );
+        Shield<SEXP> expr( Rf_lang2( stop_sym , condition ) ) ;
+        Rf_eval( expr, R_GlobalEnv ) ;
+    }
+    
     inline SEXP string_to_try_error( const std::string& str){
         using namespace Rcpp;
         
@@ -191,6 +187,10 @@ namespace Rcpp{
         Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ; 
         
         return tryError;
+    }
+    
+    inline SEXP exception_to_try_error( const std::exception& ex){
+        return string_to_try_error(ex.what());
     }
     
     std::string demangle( const std::string& name) ; 

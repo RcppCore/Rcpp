@@ -21,12 +21,12 @@
 namespace Rcpp{
     
     template <class XPtrClass>
-    class ProtectedProxyPolicy {
+    class ProtectedProxyPolicy{
     public:
         
         class ProtectedProxy{
         public:
-            ProtectedProxy( XPtr& xp_ ): xp(xp_){}
+            ProtectedProxy( XPtrClass& xp_ ): xp(xp_){}
             
             template <typename U>
             ProtectedProxy& operator=( const U& u) ;
@@ -53,7 +53,7 @@ namespace Rcpp{
 
         class const_ProtectedProxy{
         public:
-            const_ProtectedProxy( XPtr& xp_ ): xp(xp_){}
+            const_ProtectedProxy( const XPtrClass& xp_ ): xp(xp_){}
             
             template <typename U>
             operator U() const ;

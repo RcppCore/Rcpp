@@ -34,8 +34,4 @@ template < template <class> class StoragePolicy > class __CLASS__ :            \
     public SlotProxyPolicy<__CLASS__<StoragePolicy>>,                          \
     public AttributeProxyPolicy<__CLASS__<StoragePolicy>>                      \
    
-#define RCPP_API_CLASS_DECL(__CLASS__)                                         \
-    template < template <class> class StoragePolicy > class __CLASS__##_Impl ; \
-    typedef __CLASS__##_Impl<PreserveStorage> __CLASS__ ;
-    
 #endif
