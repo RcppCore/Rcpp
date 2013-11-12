@@ -94,7 +94,7 @@ versa.  The corresponding function declarations are as follows:
 
 <<lang=cpp>>=
 // conversion from R to C++
-template <typename T> T as( SEXP m_sexp) ;
+template <typename T> T as( SEXP x) ;
 
 // conversion from C++ to R
 template <typename T> SEXP wrap(const T& object) ;
