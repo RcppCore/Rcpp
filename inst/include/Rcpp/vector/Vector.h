@@ -58,11 +58,6 @@ public:
     Vector_Impl() ;
     
     /**
-     * Destructor. Prints some information if debugging is enabled
-     */
-    ~Vector_Impl() ;
-    
-    /**
      * copy constructor. shallow copy of the SEXP
      */
     Vector_Impl( const Vector_Impl& other){
@@ -239,9 +234,9 @@ public:
     }
 	
     Vector_Impl& sort(){
+        typename traits::storage_type<RTYPE>* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
         std::sort( 
-            internal::r_vector_start<RTYPE>(m_sexp), 
-            internal::r_vector_start<RTYPE>(m_sexp) + size(), 
+            start, start + size(), 
             typename traits::comparator_type<RTYPE>::type()
             ) ;
         return *this ;
