@@ -2,7 +2,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -40,7 +40,7 @@ namespace Rcpp{
 #include <Rcpp/vector/no_init.h>
 namespace Rcpp{
 #include <Rcpp/vector/00_forward_proxy.h>
-#include <Rcpp/vector/00_forward_eval_methods.h>
+#include <Rcpp/vector/vector_from_string.h>
 
 #include <Rcpp/vector/converter.h>
 
