@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_NamesProxy_h
-#define Rcpp_NamesProxy_h
+#ifndef Rcpp_proxy_NamesProxy_h
+#define Rcpp_proxy_NamesProxy_h
 
 namespace Rcpp{
     

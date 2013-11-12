@@ -40,17 +40,22 @@ void finalizer_wrapper(SEXP p){
     }
 }
 
-template <typename T, template <class> class StoragePolicy = PreservePolicy, void Finalizer(T*) = standard_delete_finalizer<T>>
+template <
+    typename T, 
+    template <class> class StoragePolicy = PreserveStorage, 
+    void Finalizer(T*) = standard_delete_finalizer<T>
+>
 class XPtr :
     public StoragePolicy< XPtr<T,StoragePolicy, Finalizer> >,       
     public SlotProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,    
     public AttributeProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
     public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
-    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
-    
+    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >
 {
 public:
-		
+		 
+    typedef StoragePolicy<XPtr> Storage ;
+    
     /** 
      * constructs a XPtr wrapping the external pointer (EXTPTRSXP SEXP)
      *

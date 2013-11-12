@@ -36,7 +36,7 @@ namespace Rcpp{
          * in the last case, the first element of the character vector 
          * is silently used
          */
-        Symbol(SEXP x){
+        Symbol_Impl(SEXP x){
             int type = TYPEOF(x) ;
             switch( type ){
             case SYMSXP:
@@ -58,7 +58,7 @@ namespace Rcpp{
             }
         }
     
-        Symbol(const std::string& symbol){
+        Symbol_Impl(const std::string& symbol){
             Storage::set__( Rf_install(symbol.c_str()) );    
         }
         inline const char* c_str() const {
@@ -71,6 +71,8 @@ namespace Rcpp{
         void update(){}
     };
 
+    typedef Symbol_Impl<NoProtectStorage> Symbol;
+    
 } // namespace Rcpp
 
 #endif

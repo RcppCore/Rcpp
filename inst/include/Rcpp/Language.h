@@ -30,13 +30,16 @@ namespace Rcpp{
      * This represents calls that can be evaluated
      */
     RCPP_API_CLASS(Language_Impl), 
-        public DottedPairProxyPolicy<Language_Impl<StoragePolicy>>, 
-        public DottedPairImpl<Language_Impl<StoragePolicy>>{
+        public DottedPairProxyPolicy< Language_Impl<StoragePolicy> > , 
+        public DottedPairImpl< Language_Impl<StoragePolicy> >
     {
     public:
-
+        
+        typedef typename DottedPairProxyPolicy<Language_Impl>::DottedPairProxy Proxy ;
+        typedef typename DottedPairProxyPolicy<Language_Impl>::const_DottedPairProxy const_Proxy ;
+        
         RCPP_GENERATE_CTOR_ASSIGN(Language_Impl) 
-    
+        
         Language_Impl(){}
         
         /**
@@ -45,7 +48,7 @@ namespace Rcpp{
          * @throw not_compatible if the SEXP could not be converted
          * to a call using as.call
          */
-        Language_Impl(SEXP lang){
+        Language_Impl(SEXP x){
             Storage::set__( r_cast<LANGSXP>(x) ) ;    
         }
 
@@ -58,8 +61,8 @@ namespace Rcpp{
          * > as.call( as.list( as.name( "rnorm") ) )
          * > call( "rnorm" )
          */
-        explicit Language( const std::string& symbol ){
-            Storage::set__( Rf_lang1( Rf_install(symbol.c_str()) ) ;
+        explicit Language_Impl( const std::string& symbol ){
+            Storage::set__( Rf_lang1( Rf_install(symbol.c_str()) ) ) ;
         }
 
         /**
@@ -70,7 +73,7 @@ namespace Rcpp{
          * Language( Symbol("rnorm") ) makes a SEXP similar to this: 
          * > call( "rnorm" )
          */
-        explicit Language( const Symbol& symbol ){
+        explicit Language_Impl( const Symbol& symbol ){
             Storage::set__( Rf_lang1( symbol ) ) ;    
         }
 
@@ -79,8 +82,8 @@ namespace Rcpp{
          * 
          * @param function function to call
          */
-        explicit Language( const Function& function) {
-            Storage::set__( Rf_lang1( symbol ) ) ;
+        explicit Language_Impl( const Function& function) {
+            Storage::set__( Rf_lang1( function ) ) ;
         }
         
         /**
@@ -155,6 +158,8 @@ namespace Rcpp{
         
     };
 
+    typedef Language_Impl<PreserveStorage> Language ;
+    
     template <typename OUT=SEXP>
     class fixed_call {
     public:

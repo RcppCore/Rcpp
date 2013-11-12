@@ -75,6 +75,7 @@ namespace Rcpp{
 #include <limits>
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
+#include <R_ext/Callbacks.h>
 
 namespace Rcpp{
     class Module ; 
