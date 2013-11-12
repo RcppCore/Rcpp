@@ -25,7 +25,6 @@
 #include <RcppCommon.h>
 
 #include <Rcpp/grow.h>
-#include <Rcpp/RObject.h>
 
 namespace Rcpp{ 
 

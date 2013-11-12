@@ -25,7 +25,6 @@
 #include <RcppCommon.h>
 
 #include <Rcpp/grow.h>
-#include <Rcpp/RObject.h>
 
 namespace Rcpp{ 
 
@@ -37,7 +36,7 @@ namespace Rcpp{
 
         RCPP_GENERATE_CTOR_ASSIGN(Function_Impl) 
         
-        Function_Impl(SEXP fun){
+        Function_Impl(SEXP x){
             switch( TYPEOF(x) ){
             case CLOSXP:
             case SPECIALSXP:
@@ -54,7 +53,7 @@ namespace Rcpp{
          *
          * @param name name of the function
          */
-        Function(const std::string& name) {
+        Function_Impl(const std::string& name) {
             SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
             SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
             Storage::set__(x) ;
@@ -88,6 +87,8 @@ namespace Rcpp{
         void update(SEXP){}
     };
 
+    typedef Function_Impl<PreserveStorage> Function ;
+    
 } // namespace Rcpp
 
 #endif

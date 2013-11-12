@@ -29,7 +29,7 @@ namespace internal{
 template <int RTYPE> 
 typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x){ 
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type* pointer ;
-	return reinterpret_cast<pointer>( data_ptr(x) ) ; 
+	return reinterpret_cast<pointer>( dataptr(x) ) ; 
 }
 
 /**

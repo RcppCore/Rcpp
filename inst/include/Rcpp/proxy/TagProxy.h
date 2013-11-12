@@ -26,7 +26,7 @@ namespace Rcpp{
         
         class TagProxy{
         public:
-            TagProxy( XPtr& xp_ ): xp(xp_){}
+            TagProxy( XPtrClass& xp_ ): xp(xp_){}
             
             template <typename U>
             TagProxy& operator=( const U& u) ;
@@ -54,7 +54,7 @@ namespace Rcpp{
         
         class const_TagProxy{
         public:
-            const_TagProxy( XPtr& xp_ ): xp(xp_){}
+            const_TagProxy( XPtrClass& xp_ ): xp(xp_){}
             
             template <typename U>
             operator U() const ;

@@ -92,6 +92,18 @@ namespace Rcpp {
 			return VECTOR_ELT( get_rcpp_cache() , 0 ) ;
 		}
 	}
+	
+	// [[Rcpp::register]]
+    SEXP rcpp_get_stack_trace(){
+        return VECTOR_ELT( get_rcpp_cache(), 3 ) ;
+    }
+
+    // [[Rcpp::register]]
+    SEXP rcpp_set_stack_trace(SEXP e){
+        SET_VECTOR_ELT( get_rcpp_cache(), 3, e ) ;
+        return R_NilValue ;
+    }
+
 }
 
 SEXP set_error_occured(SEXP cache, SEXP e){
@@ -103,18 +115,7 @@ SEXP set_current_error(SEXP cache, SEXP e){
     SET_VECTOR_ELT( cache, 2, e ) ;
     return R_NilValue ;
 }
-
-// [[Rcpp::register]]
-SEXP rcpp_set_stack_trace(SEXP e){
-    SET_VECTOR_ELT( get_rcpp_cache(), 3, e ) ;
-    return R_NilValue ;
-}
-
-// [[Rcpp::register]]
-SEXP rcpp_get_stack_trace(){
-    return VECTOR_ELT( get_rcpp_cache(), 3 ) ;
-}
-
+ 
 SEXP init_Rcpp_cache(){   
     SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
     SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;

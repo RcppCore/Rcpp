@@ -21,7 +21,7 @@
 namespace Rcpp{
     
 template <typename CLASS>
-class NamesProxyPolicy {
+class NamesProxyPolicy{
 public:
     
     class NamesProxy {
