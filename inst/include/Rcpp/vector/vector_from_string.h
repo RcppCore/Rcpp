@@ -32,8 +32,8 @@ namespace internal{
     template <int RTYPE>
     SEXP vector_from_string_expr( const std::string& code) {
         ParseStatus status;
-        Shield<SEXP> expr = Rf_mkString( code.c_str() ) ;
-        Shield<SEXP> res  = R_ParseVector(expr, -1, &status, R_NilValue) ;
+        Shield<SEXP> expr( Rf_mkString( code.c_str() ) ) ;
+        Shield<SEXP> res( R_ParseVector(expr, -1, &status, R_NilValue) );
         switch( status ){
         case PARSE_OK:
             return(res) ;
