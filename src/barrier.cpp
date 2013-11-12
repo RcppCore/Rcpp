@@ -19,6 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#define COMPILING_RCPP
+
 #define USE_RINTERNALS
 #include <Rinternals.h>
 #include <Rcpp/barrier.h>
@@ -102,11 +104,13 @@ SEXP set_current_error(SEXP cache, SEXP e){
     return R_NilValue ;
 }
 
+// [[Rcpp::register]]
 SEXP rcpp_set_stack_trace(SEXP e){
     SET_VECTOR_ELT( get_rcpp_cache(), 3, e ) ;
     return R_NilValue ;
 }
 
+// [[Rcpp::register]]
 SEXP rcpp_get_stack_trace(){
     return VECTOR_ELT( get_rcpp_cache(), 3 ) ;
 }
