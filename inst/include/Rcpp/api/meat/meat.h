@@ -24,6 +24,7 @@
 
 #include <Rcpp/api/meat/Dimension.h>
 
+#include <Rcpp/api/meat/TagProxy.h>
 #include <Rcpp/api/meat/EnvironmentBinding.h>
 #include <Rcpp/api/meat/AttributeProxy.h>
 #include <Rcpp/api/meat/NamesProxy.h>
