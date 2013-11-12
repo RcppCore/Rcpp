@@ -19,6 +19,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#define COMPILING_RCPP
+
 #include <Rcpp.h>
 #include "internal.h"
 
