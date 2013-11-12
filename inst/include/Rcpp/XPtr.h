@@ -34,9 +34,9 @@ void standard_delete_finalizer(T* obj){
 template <typename T, void Finalizer(T*) >
 void finalizer_wrapper(SEXP p){
     if( TYPEOF(p) == EXTPTRSXP ){
-	T* ptr = (T*) R_ExternalPtrAddr(p) ;
-	RCPP_DEBUG_3( "finalizer_wrapper<%s>(SEXP p = <%p>). ptr = %p", DEMANGLE(T), p, ptr  )
-	Finalizer(ptr) ;
+        T* ptr = (T*) R_ExternalPtrAddr(p) ;
+        RCPP_DEBUG_3( "finalizer_wrapper<%s>(SEXP p = <%p>). ptr = %p", DEMANGLE(T), p, ptr  )
+        Finalizer(ptr) ;
     }
 }
 

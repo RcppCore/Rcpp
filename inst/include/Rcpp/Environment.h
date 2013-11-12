@@ -271,7 +271,8 @@ namespace Rcpp{
          * Indicates if this is a user defined database.
          */
         bool is_user_database() const {
-            return OBJECT(Storage::get__()) && Rf_inherits(m_sexp, "UserDefinedDatabase") ;
+            SEXP env = Storage::get__()
+            return OBJECT(env) && Rf_inherits(env, "UserDefinedDatabase") ;
         }
     
         /**

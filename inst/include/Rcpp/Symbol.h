@@ -32,7 +32,7 @@ namespace Rcpp{
         /**
          * wraps the SEXP into a Symbol object. 
          * 
-         * @param m_sexp Accepted SEXP types are SYMSXP, CHARSXP and STRSXP
+         * @param x Accepted SEXP types are SYMSXP, CHARSXP and STRSXP
          * in the last case, the first element of the character vector 
          * is silently used
          */
