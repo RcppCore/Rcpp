@@ -28,7 +28,7 @@ namespace Rcpp{
     public:
         RCPP_GENERATE_CTOR_ASSIGN(WeakReference_Impl) 
         
-        WeakReference(){}
+        WeakReference_Impl(){}
 
         /**
          * wraps a weak reference
@@ -37,7 +37,7 @@ namespace Rcpp{
          *
          * @throw not_compatible if x is not a weak reference
          */
-        WeakReference( SEXP x){
+        WeakReference_Impl( SEXP x){
              if( TYPEOF(x) != WEAKREFSXP )
                 throw not_compatible( "not a weak reference" ) ;
             Storage::set__(x);

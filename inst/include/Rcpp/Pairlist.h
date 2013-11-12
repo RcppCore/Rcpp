@@ -38,8 +38,8 @@ namespace Rcpp{
         typedef typename DottedPairProxyPolicy<Pairlist_Impl>::DottedPairProxy Proxy ;
         typedef typename DottedPairProxyPolicy<Pairlist_Impl>::const_DottedPairProxy const_Proxy ;
         
-        Pairlist(){}
-        Pairlist(SEXP x){
+        Pairlist_Impl(){}
+        Pairlist_Impl(SEXP x){
             Storage::set__(x) ;    
         }
                 
