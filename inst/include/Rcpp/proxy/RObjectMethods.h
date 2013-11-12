@@ -22,22 +22,22 @@ namespace Rcpp{
       
     template <typename Class>
     class RObjectMethods{
-        typedef typename Class::Storage Storage ;
+    public:
         
         inline bool isNULL() const{ 
-            return Rf_isNull( Storage::get__() ) ; 
+            return Rf_isNull( static_cast<const Class&>(*this) ) ; 
         }
 
         inline int sexp_type() const { 
-            return TYPEOF(Storage::get__()) ; 
+            return TYPEOF( static_cast<const Class&>(*this) ) ; 
         }
 
         inline bool isObject() const { 
-            return Rf_isObject(Storage::get__()) ;
+            return Rf_isObject( static_cast<const Class&>(*this) ) ;
         }
 
         inline bool isS4() const { 
-            return Rf_isS4(Storage::get__()) ; 
+            return Rf_isS4( static_cast<const Class&>(*this) ) ; 
         }
 
     } ;
