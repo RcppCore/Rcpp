@@ -81,21 +81,22 @@ namespace Rcpp{
         }
     } 
 
+}
+
 #include <Rcpp/module/CppFunction.h>
-#include <Rcpp/module/Module_generated_get_return_type.h>
+#include <Rcpp/module/get_return_type.h>
 #include <Rcpp/module/Module_generated_get_signature.h>
 
     // templates CppFunction0, ..., CppFunction65
 #include <Rcpp/module/Module_generated_CppFunction.h>
 #include <Rcpp/module/class_Base.h>
 #include <Rcpp/module/Module.h>
-}
-
-Rcpp::Module* getCurrentScope() ;
-void setCurrentScope( Rcpp::Module* ) ;
 
 namespace Rcpp{
-        
+
+    Rcpp::Module* getCurrentScope() ;
+    void setCurrentScope( Rcpp::Module* ) ;
+
     template <typename Class>
     class CppMethod {
     public:

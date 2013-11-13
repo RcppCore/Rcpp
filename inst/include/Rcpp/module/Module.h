@@ -21,7 +21,9 @@
 
 #ifndef Rcpp_Module_Module_h
 #define Rcpp_Module_Module_h
-       
+
+namespace Rcpp {
+    
     /**
      * holds information about exposed functions and classes
      */
@@ -120,4 +122,6 @@
                            
     };
 
+}
+    
 #endif
