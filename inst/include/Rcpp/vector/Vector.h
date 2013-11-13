@@ -75,6 +75,10 @@ public:
     template <typename U>
     explicit Vector( const U& obj) ;
     
+    explicit Vector( const no_init& obj) {
+        Storage::set__( Rf_allocVector( RTYPE, obj.get() ) ) ;
+    }
+    
     Vector( const int& size, const stored_type& u ) {
         RCPP_DEBUG_2( "Vector<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
