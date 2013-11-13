@@ -22,7 +22,6 @@
 #ifndef Rcpp__exceptions__h
 #define Rcpp__exceptions__h
 
-SEXP stack_trace( const char *file, int line) ;
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 
 namespace Rcpp{
