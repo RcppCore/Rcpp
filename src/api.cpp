@@ -61,15 +61,17 @@ namespace Rcpp {
         }
         
         // [[Rcpp::register]]
-        void enterRNGScope() {       
+        unsigned long enterRNGScope() {       
             if (RNGScopeCounter == 0) GetRNGstate();       
             RNGScopeCounter++;
+            return RNGScopeCounter ;
         }
         
         // [[Rcpp::register]]
-        void exitRNGScope() {
+        unsigned long exitRNGScope() {
             RNGScopeCounter--;
             if (RNGScopeCounter == 0) PutRNGstate();
+            return RNGScopeCounter ;
         }
         
         // [[Rcpp::register]]
