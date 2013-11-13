@@ -51,7 +51,7 @@ namespace Rcpp {
         double excess = 0.0;
         
         day = tm.tm_mday - 1;
-        year0 = Date::baseYear + tm.tm_year;
+        year0 = Date::baseYear() + tm.tm_year;
         /* safety check for unbounded loops */
         if (year0 > 3000) {
             excess = (int)(year0/2000) - 1;
