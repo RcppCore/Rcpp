@@ -45,7 +45,10 @@ namespace Rcpp{
                 
         #include <Rcpp/generated/Pairlist__ctors.h>
 
-        void update(SEXP){}
+        void update(SEXP x){
+            SET_TYPEOF( x, LISTSXP ) ;
+            SET_TAG( x, R_NilValue ) ;
+        }
     } ;
     
     typedef Pairlist_Impl<PreserveStorage> Pairlist ;
