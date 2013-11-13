@@ -30,8 +30,10 @@ library(RUnit)
 <<unitTesting,echo=FALSE,print=FALSE>>=
 pkg <- "Rcpp"
 
-## Make sure we run all tests for the vignette
-Sys.setenv("RunAllRcppTests"="yes")
+## Check the environemnt variable to see if all tests should be run
+if (Sys.getenv("RunAllRcppTests") != "yes") {
+    writeLines("The environment variable 'RunAllRcppTests' was not set to 'yes', so skipping some tests.")
+}
 
 if (file.exists("unitTests-results")) unlink("unitTests-results", recursive = TRUE)
 dir.create("unitTests-results")
@@ -61,7 +63,7 @@ results <- "unitTests-results/Rcpp-unitTests.txt"
 if (file.exists(results)) {
     writeLines(readLines(results))
 } else{
-    writeLines( "unit test results not available" )
+    writeLines("Unit test results not available")
 }
 @
 
