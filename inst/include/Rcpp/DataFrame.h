@@ -44,6 +44,9 @@ namespace Rcpp{
             set_sexp(other) ;    
         }
         
+        template <typename T>
+        DataFrame_Impl( const T& obj ) ;
+        
         DataFrame_Impl& operator=( DataFrame_Impl& other){
             if( *this != other) set_sexp(other) ;    
         }
