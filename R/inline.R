@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2013 Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -21,8 +21,8 @@ Rcpp.plugin.maker <- function(
 	LinkingTo     = unique( c( package, "Rcpp" ) ),
 	Depends       = unique( c( package, "Rcpp" ) ),
 	libs          = "",
-	Makevars      = readLines( system.file("skeleton", "Makevars"    , package = package ) ) ,
-	Makevars.win  = readLines( system.file("skeleton", "Makevars.win", package = package ) ),
+	Makevars      = NULL ,
+	Makevars.win  = NULL,
 	package       = "Rcpp"
 ){
 	function( ... ){
@@ -41,17 +41,18 @@ includes <- sprintf( "%s
 using namespace Rcpp;
 ", include.before, include.after )
 
-	list(
-		env = list( PKG_LIBS = paste( libs, Rcpp::RcppLdFlags() ) ),
+  out <- list(
+		env = list( PKG_LIBS = libs ),
 		includes = includes,
 		LinkingTo = LinkingTo ,
 		body = function( x ){
 			sprintf( "BEGIN_RCPP\n%s\nEND_RCPP", x )
 		},
-		Depends = Depends,
-		Makevars = Makevars,
-		Makevars.win = Makevars.win
+		Depends = Depends
 	)
+	if( !is.null(Makevars ) ) out$Makevars <- Makevars
+  	if( !is.null(Makevars.win ) ) out$Makevars.win <- Makevars.win
+  	out
 }
 }
 
