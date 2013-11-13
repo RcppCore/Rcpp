@@ -419,8 +419,7 @@ namespace Rcpp {
 	    }
         
         CppClass& operator=( const CppClass& other) {
-            Storage::copy__( static_cast<const S4&>(other) ) ;
-            return *this ;
+            return Storage::copy__( other ) ;
         }
         
     } ;
@@ -433,8 +432,13 @@ namespace Rcpp {
             slot( "cppclass" ) = Rcpp::XPtr<class_Base>( clazz, false ) ;
             slot( "pointer" )  = xp ;
         }
-        CppObject( const CppObject& ) ;
-        CppObject& operator=( const CppObject& ) ;
+        CppObject( const CppObject& other){
+            Storage::copy( other ) ;    
+        }
+        
+        CppObject& operator=( const CppObject& other ) {
+            return Storage::copy__( other ) ;    
+        }
         
     } ;
 
