@@ -39,7 +39,7 @@ namespace Rcpp{
             while( !Rf_isNull(CDR(x)) ){
                 x = CDR(x) ;
             }
-            Shield<SEXP> tail( pairlist( object ) ); 
+            Shield<SEXP> tail( grow( object, R_NilValue ) ); 
             SETCDR( x, tail ) ;
         }
 	}

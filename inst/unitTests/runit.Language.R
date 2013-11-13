@@ -100,7 +100,7 @@ test.Language.in.env <- function(){
 
 test.Pairlist <- function(){
 	checkEquals( runit_pairlist( pairlist("rnorm") ), pairlist("rnorm" ), msg = "Pairlist( LISTSXP )" )
-	# checkEquals( runit_pairlist( call("rnorm") ), pairlist(as.name("rnorm")), msg = "Pairlist( LANGSXP )" )
+	checkEquals( runit_pairlist( call("rnorm") ), pairlist(as.name("rnorm")), msg = "Pairlist( LANGSXP )" )
 	checkEquals( runit_pairlist(1:10), as.pairlist(1:10) , msg = "Pairlist( INTSXP) " )
 	checkEquals( runit_pairlist(TRUE), as.pairlist( TRUE) , msg = "Pairlist( LGLSXP )" )
 	checkEquals( runit_pairlist(1.3), as.pairlist(1.3), msg = "Pairlist( REALSXP) " )
