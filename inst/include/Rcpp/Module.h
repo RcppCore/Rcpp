@@ -94,9 +94,6 @@ namespace Rcpp{
 
 namespace Rcpp{
 
-    Rcpp::Module* getCurrentScope() ;
-    void setCurrentScope( Rcpp::Module* ) ;
-
     template <typename Class>
     class CppMethod {
     public:
