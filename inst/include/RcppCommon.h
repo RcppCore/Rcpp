@@ -76,6 +76,7 @@ namespace Rcpp{
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 #include <R_ext/Callbacks.h>
+#include <Rmath.h> 		// for Rf_fround
 
 namespace Rcpp{
     class Module ; 

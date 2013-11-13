@@ -31,6 +31,7 @@
 #include <Rcpp/api/meat/SlotProxy.h>
 
 #include <Rcpp/api/meat/Date.h>
+#include <Rcpp/api/meat/Datetime.h>
 #include <Rcpp/api/meat/DataFrame.h>
 #include <Rcpp/api/meat/S4.h>
 #include <Rcpp/api/meat/Environment.h>
