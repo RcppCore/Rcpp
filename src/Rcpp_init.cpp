@@ -21,8 +21,7 @@
 
 #define COMPILING_RCPP
 
-#include <R.h>
-#include <Rinternals.h>
+#include <Rcpp.h>
 #include "internal.h"
 
 // borrowed from Matrix
@@ -82,7 +81,51 @@ void init_Rcpp_routines(DllInfo *info){
       extEntries /*.External*/
   );
 }
-        
+      
+void registerFunctions(){
+    using namespace Rcpp ;
+    using namespace Rcpp::internal ;
+    
+    #define RCPP_REGISTER(__FUN__) R_RegisterCCallable( "Rcpp", #__FUN__ , (DL_FUNC)__FUN__ );
+    RCPP_REGISTER(rcpp_get_stack_trace)
+    RCPP_REGISTER(rcpp_set_stack_trace)
+    RCPP_REGISTER(Rcpp_eval)
+    RCPP_REGISTER(type2name)
+    RCPP_REGISTER(demangle)
+    RCPP_REGISTER(enterRNGScope)
+    RCPP_REGISTER(exitRNGScope)
+    RCPP_REGISTER(get_Rcpp_namespace)
+    RCPP_REGISTER(get_cache)
+    RCPP_REGISTER(stack_trace)
+    RCPP_REGISTER(get_string_elt)
+    RCPP_REGISTER(char_get_string_elt)
+    RCPP_REGISTER(set_string_elt)
+    RCPP_REGISTER(char_set_string_elt)
+    RCPP_REGISTER(get_string_ptr)
+    RCPP_REGISTER(get_vector_elt)
+    RCPP_REGISTER(set_vector_elt)
+    RCPP_REGISTER(get_vector_ptr)
+    RCPP_REGISTER(char_nocheck)
+    RCPP_REGISTER(dataptr)
+    RCPP_REGISTER(getCurrentScope)
+    RCPP_REGISTER(setCurrentScope)
+    #undef RCPP_REGISTER
+}
+
+
 extern "C" void R_unload_Rcpp(DllInfo *info) {
   /* Release resources. */
 }
+
+extern "C" void R_init_Rcpp( DllInfo* info){
+	setCurrentScope(0) ;
+	
+	registerFunctions() ;
+	
+	// init the cache
+	init_Rcpp_cache() ;
+	
+	// init routines
+	init_Rcpp_routines(info) ;
+}
+

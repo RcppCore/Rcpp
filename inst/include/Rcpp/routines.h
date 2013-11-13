@@ -32,11 +32,11 @@ namespace Rcpp{
         unsigned long exitRNGScope() ;
     }
     SEXP get_Rcpp_namespace() ; 
-    int* get_cache( int n ) ;
     SEXP rcpp_get_stack_trace() ;
     SEXP rcpp_set_stack_trace(SEXP) ;
 }
     
+int* get_cache( int n ) ;
 SEXP stack_trace( const char *file, int line) ;
 SEXP get_string_elt(SEXP s, int i); 
 const char* char_get_string_elt(SEXP s, int i) ;
@@ -92,24 +92,18 @@ namespace Rcpp {
             static Fun fun = GET_CALLABLE("enterRNGScope") ;
             return fun() ;
         }
-    }
     
-    inline unsigned long exitRNGScope(){
-        typedef unsigned long (*Fun)(void) ;
-        static Fun fun = GET_CALLABLE("exitRNGScope") ;
-        return fun() ;
+        inline unsigned long exitRNGScope(){
+            typedef unsigned long (*Fun)(void) ;
+            static Fun fun = GET_CALLABLE("exitRNGScope") ;
+            return fun() ;
+        }
     }
-           
+                  
     inline SEXP get_Rcpp_namespace() {
         typedef SEXP (*Fun)(void) ;
         static Fun fun = GET_CALLABLE("get_Rcpp_namespace") ;
         return fun();
-    }
-    
-    inline int* get_cache( int n ){
-        typedef int* (*Fun)(int) ;
-        static Fun fun = GET_CALLABLE("get_cache") ;
-        return fun(n) ;    
     }
     
 }
@@ -192,6 +186,12 @@ inline void setCurrentScope( Rcpp::Module* mod ){
     fun(mod) ;    
 }
 
+inline int* get_cache( int n ){
+    typedef int* (*Fun)(int) ;
+    static Fun fun = GET_CALLABLE("get_cache") ;
+    return fun(n) ;    
+}
+    
 #endif
 
 
