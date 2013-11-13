@@ -74,10 +74,10 @@ public:
     } ;
     
     AttributeProxy attr( const std::string& name){
-        return AttributeProxy( static_cast<CLASS&>( *this ) ) ;    
+        return AttributeProxy( static_cast<CLASS&>( *this ), name ) ;    
     }
     const_AttributeProxy attr( const std::string& name) const {
-        return AttributeProxy( static_cast<const CLASS&>( *this ) ) ;
+        return const_AttributeProxy( static_cast<const CLASS&>( *this ), name ) ;
     }
     
     std::vector<std::string> attributeNames() const {
