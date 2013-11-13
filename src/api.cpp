@@ -44,7 +44,7 @@
                 buffer.begin(), 
                 buffer.begin() + buffer.find_last_of( ' ' ) + 1
             ) ;
-            return demangle( buffer) ;
+            return Rcpp::demangle( buffer) ;
         }
 
     #endif
@@ -239,7 +239,7 @@ namespace Rcpp {
     // [[Rcpp::internal]]
     SEXP as_character_externalptr(SEXP xp){
         char buffer[20] ;
-        sprintf( buffer, "%p", (void*)EXTPTR_PTR(xp) ) ;
+        snprintf( buffer, 20, "%p", (void*)EXTPTR_PTR(xp) ) ;
         return Rcpp::wrap( (const char*)buffer ) ;
     }
       

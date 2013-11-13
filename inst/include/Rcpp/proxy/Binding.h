@@ -94,10 +94,10 @@ public:
     } ;
     
     const_Binding operator[]( const std::string& name) const {
-        return const_Binding( static_cast<EnvironmentClass&>(*this) ) ;    
+        return const_Binding( static_cast<const EnvironmentClass&>(*this), name ) ;    
     }
     Binding operator[](const std::string& name){
-        return Binding( static_cast<const EnvironmentClass&>(*this) ) ;  
+        return Binding( static_cast<EnvironmentClass&>(*this), name ) ;  
     }
     
 } ;
