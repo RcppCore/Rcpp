@@ -27,17 +27,6 @@ test <- function( output = if( file.exists( "/tmp" ) ) "/tmp" else getwd() ){
     system( cmd )
 }
 
-compile_unit_tests <- function( definitions, includes = "", cxxargs = "" ){
-    signatures <- lapply(definitions, "[[", 1L)
-    bodies <- lapply(definitions, "[[", 2L)
-    cxxfunction <- get( "cxxfunction", asNamespace("inline" ) )
-    fun <- cxxfunction( signatures, bodies, plugin = "Rcpp",
-        includes = sprintf( "using namespace std;\n%s", paste( includes, collapse = "\n") ),
-        cxxargs = cxxargs
-    )
-    fun
-}
-
 unit_test_setup <- function(file, packages = NULL) {
     function(){
         if( !is.null(packages) ){
