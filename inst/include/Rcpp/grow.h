@@ -40,18 +40,18 @@ namespace Rcpp {
     namespace internal{
      
         template <typename T>
-    	inline SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
-    	    return grow( wrap(head), tail ) ;
-    	}
+        inline SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
+            return grow( wrap(head), tail ) ;
+        }
     
-    	template <typename T>
-    	inline SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
-    	    Shield<SEXP> y( wrap( head.object) ) ;
-    	    Shield<SEXP> x( Rf_cons( y , tail) ) ;
-    	    SEXP headNameSym = ::Rf_install( head.name.c_str() );
-    	    SET_TAG( x, headNameSym ); 
-    	    return x; 	
-    	}
+        template <typename T>
+        inline SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
+            Shield<SEXP> y( wrap( head.object) ) ;
+            Shield<SEXP> x( Rf_cons( y , tail) ) ;
+            SEXP headNameSym = ::Rf_install( head.name.c_str() );
+            SET_TAG( x, headNameSym ); 
+            return x; 	
+        }
     
     } // internal
 
@@ -68,25 +68,7 @@ namespace Rcpp {
         return grow( Rf_mkString(head), tail ) ; 
     }
     
-    
-#ifdef HAS_VARIADIC_TEMPLATES
-
-    /* end of the recursion, wrap first to make the CAR and use R_NilValue as the CDR of the list */
-    template<typename T>
-    SEXP pairlist( const T& first){
-        return grow(first, R_NilValue ); 
-    }
-
-    template<typename T, typename... Args>
-    SEXP pairlist( const T& first, const Args&... args ){
-        return grow(first, pairlist(args...) );
-    }
-
-#else
-
-#include <Rcpp/generated/grow__pairlist.h>
-
-#endif
+    #include <Rcpp/generated/grow__pairlist.h>
 
 } // namespace Rcpp
 

@@ -47,7 +47,6 @@ namespace Rcpp{
 
         void update(SEXP x){
             SET_TYPEOF( x, LISTSXP ) ;
-            SET_TAG( x, R_NilValue ) ;
         }
     } ;
     
