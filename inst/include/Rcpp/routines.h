@@ -18,7 +18,7 @@
 #ifndef RCPP_ROUTINE_H
 #define RCPP_ROUTINE_H
 
-#if defined(COMPILING_RCPP11)
+#if defined(COMPILING_RCPP)
 
 // the idea is that this file should be generated automatically by Rcpp::register
 
@@ -29,13 +29,12 @@ namespace Rcpp{
     SEXP stack_trace( const char *file, int line) ;
     unsigned long enterRNGScope(); 
     unsigned long exitRNGScope() ;
-    SEXP get_Rcpp11_namespace() ; 
+    SEXP get_Rcpp_namespace() ; 
     int* get_cache( int n ) ;
     SEXP rcpp_get_stack_trace() ;
     SEXP rcpp_set_stack_trace(SEXP) ;
 }
            
-SEXP rcpp_set_stack_trace(SEXP) ;
 SEXP get_string_elt(SEXP s, int i); 
 const char* char_get_string_elt(SEXP s, int i) ;
 void set_string_elt(SEXP s, int i, SEXP v); 
