@@ -143,11 +143,11 @@ SEXP class__newInstance(SEXP args){
 	return clazz->newInstance(cargs, nargs ) ;
 }
 
-SEXP rcpp_dummy_pointer = R_NilValue; // relies on being set in .onLoad()
+// relies on being set in .onLoad()
+SEXP rcpp_dummy_pointer = R_NilValue; 
 
-#define CHECK_DUMMY_OBJ(p) if(p == rcpp_dummy_pointer) forward_exception_to_r ( Rcpp::not_initialized())
+#define CHECK_DUMMY_OBJ(p) if(p == rcpp_dummy_pointer) forward_exception_to_r( Rcpp::not_initialized())
 	
-
 
 SEXP class__dummyInstance(SEXP args) {
 	SEXP p;
@@ -218,13 +218,16 @@ SEXP CppMethod__invoke_notvoid(SEXP args){
    	return clazz->invoke_notvoid( met, obj, cargs, nargs ) ;
 }
 
-
 namespace Rcpp{
 	static Module* current_scope  ;
 }
 
-Rcpp::Module* getCurrentScope(){ return Rcpp::current_scope ; }
-void setCurrentScope( Rcpp::Module* scope ){ Rcpp::current_scope = scope ; }
+Rcpp::Module* getCurrentScope(){ 
+    return Rcpp::current_scope ; 
+}
+void setCurrentScope( Rcpp::Module* scope ){ 
+    Rcpp::current_scope = scope ; 
+}
 
 extern "C" void R_init_Rcpp( DllInfo* info){
 	Rcpp::current_scope = 0 ;

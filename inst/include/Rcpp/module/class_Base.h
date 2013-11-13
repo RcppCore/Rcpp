@@ -2,7 +2,7 @@
 //
 // class_Base.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,6 +21,8 @@
 
 #ifndef Rcpp_Module_Class_Base_h
 
+namespace Rcpp{
+    
 class class_Base {
 public:
     typedef Rcpp::XPtr<class_Base> XP_Class ;
@@ -88,4 +90,6 @@ public:
     std::vector<std::string> parents ;
     
 } ;
+
+}
 #endif
