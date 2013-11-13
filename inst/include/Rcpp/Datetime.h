@@ -10,7 +10,7 @@
 // under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 2 of the License, or
 // (at your option) any later version.
-//
+//                             
 // Rcpp is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -28,12 +28,18 @@ namespace Rcpp {
 
     class Datetime {
     public:	
-		Datetime();
-		Datetime(SEXP s); 
-		Datetime(const double &dt);	// from double, just like POSIXct
+		Datetime() {
+		    m_dt = 0; 
+		    update_tm();
+		}
+		Datetime(SEXP s);
+		
+		// from double, just like POSIXct
+		Datetime(const double &dt){
+		    m_dt = dt;
+		    update_tm();        
+		}
 		Datetime(const std::string &s, const std::string &fmt="%Y-%m-%d %H:%M:%OS");
-		Datetime(const Datetime &copy);
-		~Datetime() {};
 		
 		double getFractionalTimestamp(void) const { return m_dt; } 
 
@@ -46,8 +52,6 @@ namespace Rcpp {
 		int getYear()         const { return m_tm.tm_year + 1900; }
 		int getWeekday()      const { return m_tm.tm_wday + 1; } 	 // makes it 1 .. 7
 		int getYearday()      const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
-
-		Datetime & operator=(const Datetime &newdt); 		// copy assignment operator 
 
 		// Minimal set of date operations.
 		friend Datetime  operator+(const Datetime &dt, double offset);
@@ -66,7 +70,20 @@ namespace Rcpp {
         struct tm m_tm;			// standard time representation
         unsigned int m_us;		// microsecond (to complement m_tm)
                                 
-        void update_tm();		// update m_tm based on m_dt
+        // update m_tm based on m_dt
+        void update_tm() {
+            if (R_FINITE(m_dt)) {
+                time_t t = static_cast<time_t>(std::floor(m_dt));	
+                m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
+                // m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
+                m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
+            } else {
+                m_dt = NA_REAL;			// NaN and Inf need it set
+                m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
+                m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
+            	   m_us = NA_INTEGER;
+            }
+        }		
 
     };
 
@@ -85,7 +102,24 @@ namespace Rcpp {
     }
     
     template<> SEXP wrap_extra_steps<Rcpp::Datetime>( SEXP x ) ;
-	
+	   
+    inline Datetime operator+(const Datetime &datetime, double offset) {
+		Datetime newdt(datetime.m_dt);
+		newdt.m_dt += offset;
+		time_t t = static_cast<time_t>(std::floor(newdt.m_dt));	
+		newdt.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's dat		
+		newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));	
+		return newdt;
+    }
+
+    inline double  operator-(const Datetime& d1, const Datetime& d2) { return d1.m_dt - d2.m_dt; }
+    inline bool    operator<(const Datetime &d1, const Datetime& d2) { return d1.m_dt < d2.m_dt; }
+    inline bool    operator>(const Datetime &d1, const Datetime& d2) { return d1.m_dt > d2.m_dt; }
+    inline bool    operator==(const Datetime &d1, const Datetime& d2) { return d1.m_dt == d2.m_dt; }
+    inline bool    operator>=(const Datetime &d1, const Datetime& d2) { return d1.m_dt >= d2.m_dt; }
+    inline bool    operator<=(const Datetime &d1, const Datetime& d2) { return d1.m_dt <= d2.m_dt; }
+    inline bool    operator!=(const Datetime &d1, const Datetime& d2) { return d1.m_dt != d2.m_dt; }
+ 
 }
 
 #endif
