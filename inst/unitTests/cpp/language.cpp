@@ -95,9 +95,9 @@ List runit_lang_unarycallindex(IntegerVector x){
     Language call( "seq", 10, 0 ) ;
     List output( x.size() ) ;
     std::transform(
-    	x.begin(), x.end(),
-    	output.begin(),
-    	unary_call<int>(call,2)
+        x.begin(), x.end(),
+        output.begin(),
+        unary_call<int>(call,2)
     	) ;
     return output ;
 }
@@ -107,9 +107,9 @@ List runit_lang_binarycall(IntegerVector x1, IntegerVector x2 ){
     Language call( "seq", Named("from", 10 ), Named("to", 0 ) ) ;
     List output( x1.size() ) ;
     std::transform(
-    	x1.begin(), x1.end(), x2.begin(),
-    	output.begin(),
-    	binary_call<int,int>(call)
+        x1.begin(), x1.end(), x2.begin(),
+        output.begin(),
+        binary_call<int,int>(call)
     	) ;
     return output ;
 }
