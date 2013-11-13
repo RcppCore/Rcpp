@@ -25,7 +25,7 @@
 namespace Rcpp{ 
 
     template <int RTYPE, template <class> class StoragePolicy>
-    Vector<RTYPE, StoragePolicy>::Vector() : RObject( Rf_allocVector( RTYPE, 0 ) ) {
+    Vector<RTYPE, StoragePolicy>::Vector() {
         Storage::set__( Rf_allocVector(RTYPE, 0 ) );
         init() ;
     }
@@ -41,7 +41,7 @@ namespace Rcpp{
         Storage::set__( Rf_allocVector( RTYPE, dims.prod() ) ) ;
         init() ;
         if( dims.size() > 1 ){
-            RObject::attr( "dim" ) = dims;
+            AttributeProxyPolicy<Vector>::attr( "dim" ) = dims;
         }
     }
     
@@ -52,7 +52,7 @@ namespace Rcpp{
         Storage::set__( Rf_allocVector( RTYPE, dims.prod() ) ) ; 
         fill(u) ;
         if( dims.size() > 1 ){
-            RObject::attr( "dim" ) = dims;
+            AttributeProxyPolicy<Vector>::attr( "dim" ) = dims;
         }
     }
     
@@ -84,7 +84,7 @@ namespace Rcpp{
 
     template <int RTYPE, template <class> class StoragePolicy>
     template <typename U1, typename U2, typename U3>
-    Vector<RTYPE, StoragePolicy>::Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3): RObject(  Rf_allocVector( RTYPE, siz) ){
+    Vector<RTYPE, StoragePolicy>::Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         RCPP_DEBUG_2( "const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3)", RTYPE, siz )
         iterator first = begin(), last = end() ;
@@ -637,7 +637,7 @@ namespace Rcpp{
 	
     template <int RTYPE, template <class> class StoragePolicy>
     template <typename EXPR_VEC>
-    Vector<RTYPE>& Vector<RTYPE, StoragePolicy>::operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ){
+    Vector<RTYPE,StoragePolicy>& Vector<RTYPE, StoragePolicy>::operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ){
         const EXPR_VEC& ref = rhs.get_ref() ;
         iterator start = begin() ;
         int n = size() ;
@@ -655,7 +655,7 @@ namespace Rcpp{
     
     template <int RTYPE, template <class> class StoragePolicy>
     template <typename EXPR_VEC>
-    Vector<RTYPE>& Vector<RTYPE, StoragePolicy>::operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ){
+    Vector<RTYPE,StoragePolicy>& Vector<RTYPE, StoragePolicy>::operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ){
         const EXPR_VEC& ref = rhs.get_ref() ;
         iterator start = begin() ;
         int n = size() ;
@@ -668,29 +668,29 @@ namespace Rcpp{
         return *this ;  
     }
     
-    template <>
-    template <typename EXPR_VEC>
-    Vector<REALSXP>& Vector<REALSXP>::operator+=( const VectorBase<REALSXP,false,EXPR_VEC>& rhs ){
-        const EXPR_VEC& vec = rhs.get_ref() ;
-        int n = size() ;
-        iterator start = begin() ;
-        for( int i=0; i<n; i++){
-            start[i] += vec[i] ;        
-        }
-        return *this ;
-    }
+    // template <template <class> class StoragePolicy>
+    // template <typename EXPR_VEC>
+    // Vector<REALSXP,StoragePolicy>& Vector<REALSXP,StoragePolicy>::operator+=( const VectorBase<REALSXP,false,EXPR_VEC>& rhs ){
+    //     const EXPR_VEC& vec = rhs.get_ref() ;
+    //     int n = size() ;
+    //     iterator start = begin() ;
+    //     for( int i=0; i<n; i++){
+    //         start[i] += vec[i] ;        
+    //     }
+    //     return *this ;
+    // }
     
-    template <>
-    template <typename EXPR_VEC>
-    Vector<REALSXP>& Vector<REALSXP>::operator+=( const VectorBase<REALSXP,true,EXPR_VEC>& rhs ){
-        const EXPR_VEC& vec = rhs.get_ref() ;
-        int n = size() ;
-        iterator start = begin() ;
-        for( int i=0; i<n; i++){
-            start[i] += vec[i] ;        
-        }
-        return *this ;
-    }
+    // template <template <class> class StoragePolicy>
+    // template <typename EXPR_VEC>
+    // Vector<REALSXP,StoragePolicy>& Vector<REALSXP,StoragePolicy>::operator+=( const VectorBase<REALSXP,true,EXPR_VEC>& rhs ){
+    //     const EXPR_VEC& vec = rhs.get_ref() ;
+    //     int n = size() ;
+    //     iterator start = begin() ;
+    //     for( int i=0; i<n; i++){
+    //         start[i] += vec[i] ;        
+    //     }
+    //     return *this ;
+    // }
     
     
     template <int RTYPE, template <class> class StoragePolicy>
@@ -709,9 +709,9 @@ namespace Rcpp{
     
         template <typename T>
         inline SEXP wrap_range_sugar_expression( const T& object, Rcpp::traits::true_type) {
-        	RCPP_DEBUG_1( "wrap_range_sugar_expression<%s>(., true  )", DEMANGLE(T) )
-        	const int RTYPE = T::r_type::value ;
-        	return Rcpp::Vector<RTYPE>(object) ;
+            RCPP_DEBUG_1( "wrap_range_sugar_expression<%s>(., true  )", DEMANGLE(T) )
+            const int RTYPE = T::r_type::value ;
+            return Rcpp::Vector<RTYPE>(object) ;
         }
 
     }

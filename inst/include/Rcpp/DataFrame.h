@@ -107,7 +107,8 @@ namespace Rcpp{
         }
         
     } ;
-        
+ 
+    typedef DataFrame_Impl<PreserveStorage> DataFrame ;
 }
 
 #endif

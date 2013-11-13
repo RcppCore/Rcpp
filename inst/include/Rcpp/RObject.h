@@ -51,6 +51,8 @@ namespace Rcpp{
         }
 
     };
+    
+    typedef RObject_Impl<PreserveStorage> RObject ;
 
 } // namespace Rcpp
 

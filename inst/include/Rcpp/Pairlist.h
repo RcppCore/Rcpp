@@ -47,6 +47,7 @@ namespace Rcpp{
 
         void update(SEXP){}
     } ;
-        
+    
+    typedef Pairlist_Impl<PreserveStorage> Pairlist ;
 }
 #endif
