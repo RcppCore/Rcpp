@@ -40,7 +40,7 @@ namespace Rcpp{
         
         Pairlist_Impl(){}
         Pairlist_Impl(SEXP x){
-            Storage::set__(x) ;    
+            Storage::set__(r_cast<LISTSXP>(x)) ;    
         }
                 
         #include <Rcpp/generated/Pairlist__ctors.h>
