@@ -33,7 +33,7 @@ public:
     }
     
     template <int RTYPE, template <class> class StoragePolicy >
-    operator Vector<RTYPE, StoragePolicy>(){ 
+    operator Vector<RTYPE, StoragePolicy>() const { 
         return Rf_allocVector(RTYPE, size) ; 
     }
     

@@ -31,13 +31,14 @@ public:
         {}
         
         AttributeProxy& operator=(const AttributeProxy& rhs){
-            if( *this != rhs ) set( rhs.get() ) ;
+            if( this != &rhs ) set( rhs.get() ) ;
             return *this ;    
         }
               
         template <typename T> AttributeProxy& operator=(const T& rhs) ;
             
         template <typename T> operator T() const ;
+        
         inline operator SEXP() const { 
             return get() ; 
         }

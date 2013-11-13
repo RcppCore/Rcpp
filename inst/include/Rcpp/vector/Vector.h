@@ -68,8 +68,6 @@ public:
         return Storage::copy__(rhs) ;                    
     }                                           
     
-    // we can't define these 3 in meat for some reason
-    // maybe because of the typedef in instantiation.h
     Vector( SEXP x ) {
         Storage::set__(x) ;
     }
