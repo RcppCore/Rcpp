@@ -811,7 +811,7 @@ RcppExport SEXP fun( SEXP x ) {
             throw std::range_error("too big");
         return Rcpp::wrap( dx * dx);
     } catch( std::exception& __ex__ ) {
-        forward_exception_to_r( __ex__ );
+        Rcpp::forward_exception_to_r( __ex__ );
     } catch(...) {
         ::Rf_error( "c++ exception (unknown reason)" );
     }
