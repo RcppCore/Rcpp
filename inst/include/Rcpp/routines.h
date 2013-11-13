@@ -26,8 +26,11 @@ namespace Rcpp{
     SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
     const char* type2name(SEXP x) ;
     std::string demangle( const std::string& name) ;
-    unsigned long enterRNGScope(); 
-    unsigned long exitRNGScope() ;
+    
+    namespace internal{
+        unsigned long enterRNGScope(); 
+        unsigned long exitRNGScope() ;
+    }
     SEXP get_Rcpp_namespace() ; 
     int* get_cache( int n ) ;
     SEXP rcpp_get_stack_trace() ;
@@ -82,11 +85,13 @@ namespace Rcpp {
         static Fun fun = GET_CALLABLE("demangle") ;
         return fun(name) ;
     }
-    
-    inline unsigned long enterRNGScope(){
-        typedef unsigned long (*Fun)(void) ; 
-        static Fun fun = GET_CALLABLE("enterRNGScope") ;
-        return fun() ;
+        
+    namespace internal{
+        inline unsigned long enterRNGScope(){
+            typedef unsigned long (*Fun)(void) ; 
+            static Fun fun = GET_CALLABLE("enterRNGScope") ;
+            return fun() ;
+        }
     }
     
     inline unsigned long exitRNGScope(){
