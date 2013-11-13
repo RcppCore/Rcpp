@@ -34,8 +34,8 @@ namespace Rcpp{
     SEXP get_Rcpp_namespace() ; 
     SEXP rcpp_get_stack_trace() ;
     SEXP rcpp_set_stack_trace(SEXP) ;
-    inline double mktime00(struct tm &) ;
-    inline struct tm * gmtime_(const time_t * const) ;
+    double mktime00(struct tm &) ;
+    struct tm * gmtime_(const time_t * const) ;
 }
     
 int* get_cache( int n ) ;
