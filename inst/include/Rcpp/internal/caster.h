@@ -57,7 +57,8 @@ inline std::complex<double> caster<Rcomplex,std::complex<double> >( Rcomplex fro
 	return std_complex_caster<double>(from); 	
 }
 
-template<> std::complex<float>  caster<Rcomplex,std::complex<float> >( Rcomplex from){
+template<> 
+inline std::complex<float>  caster<Rcomplex,std::complex<float> >( Rcomplex from){
 	return std_complex_caster<float>(from) ;	
 }
 
