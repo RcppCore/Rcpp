@@ -73,6 +73,10 @@ public:
     Vector( SEXP x ) {
         Storage::set__(x) ;
     }
+    
+    template <typename U>
+    explicit Vector( const U& obj) ;
+    
     Vector( const int& size, const stored_type& u ) {
         RCPP_DEBUG_2( "Vector<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
