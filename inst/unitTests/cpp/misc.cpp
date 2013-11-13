@@ -36,10 +36,10 @@ public:
 // [[Rcpp::export]]
 SEXP symbol_(){
     return LogicalVector::create( 
-        Symbol( Rf_install("foobar") ).asSexp() == Rf_install("foobar"), 
-        Symbol( Rf_mkChar("foobar") ).asSexp() == Rf_install("foobar"), 
-        Symbol( Rf_mkString("foobar") ).asSexp() == Rf_install("foobar"), 
-        Symbol( "foobar" ).asSexp() == Rf_install("foobar") 
+        Symbol( Rf_install("foobar") ) == Rf_install("foobar"), 
+        Symbol( Rf_mkChar("foobar") ) == Rf_install("foobar"), 
+        Symbol( Rf_mkString("foobar") ) == Rf_install("foobar"), 
+        Symbol( "foobar" ) == Rf_install("foobar") 
     ) ;
 }
 
