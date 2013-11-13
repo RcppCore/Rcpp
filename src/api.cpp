@@ -255,8 +255,6 @@ namespace Rcpp {
     
     
 } // namespace Rcpp
-// }}}
-
 
 // [[Rcpp::register]]
 SEXP stack_trace( const char* file, int line ){
