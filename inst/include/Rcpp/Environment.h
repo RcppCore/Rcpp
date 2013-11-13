@@ -97,7 +97,7 @@ namespace Rcpp{
          * @return a SEXP (possibly R_NilValue)
          */
         SEXP get(const std::string& name) const {
-            SEXP env = Storage::get_() ;
+            SEXP env = Storage::get__() ;
             SEXP nameSym = Rf_install(name.c_str());
             SEXP res = Rf_findVarInFrame( env, nameSym ) ;
             
@@ -343,6 +343,8 @@ namespace Rcpp{
             return Environment_Impl( Rcpp_eval(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), Storage::get__() )) );    
         }
         
+        
+        void update(SEXP){}
     };
     
     typedef Environment_Impl<PreserveStorage> Environment ;

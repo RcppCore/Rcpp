@@ -395,11 +395,12 @@ namespace Rcpp {
        
     class CppClass : public S4{
     public:
+        typedef XPtr<class_Base> XP_Class ;
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
         CppClass( SEXP x) : S4(x){};
         CppClass( const CppClass& other) : S4(other.get__()){}
         
-        CppClass( Module* p, class_Base* clazz, std::string& ) S4("C++Class") {
+        CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
 	        XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
 	        slot( "module"  ) = XP( p, false ) ;
 	        slot( "pointer" ) = clxp ;
@@ -427,13 +428,13 @@ namespace Rcpp {
     class CppObject : public S4{
     public:
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
-        CppObject( Module* p, class_Base*, SEXP xp ) : S4("C++Object") {
+        CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
             slot( "module" )   = XP( p, false ) ;
             slot( "cppclass" ) = Rcpp::XPtr<class_Base>( clazz, false ) ;
             slot( "pointer" )  = xp ;
         }
         CppObject( const CppObject& other){
-            Storage::copy( other ) ;    
+            Storage::copy__( other ) ;    
         }
         
         CppObject& operator=( const CppObject& other ) {

@@ -50,6 +50,7 @@ namespace Rcpp{
             Storage::set__(other) ;    
         }
 
+        void update(SEXP){}
     };
     
     typedef RObject_Impl<PreserveStorage> RObject ;
