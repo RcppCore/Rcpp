@@ -54,9 +54,8 @@ public:
             } else {
                 /* use the slower and more flexible version (callback to R) */
                 SEXP namesSym = Rf_install( "names<-" );
-                SEXP new_vec = PROTECT( Rcpp_eval(Rf_lang3( namesSym, parent, x ))) ;
+                Shield<SEXP> new_vec( Rcpp_eval(Rf_lang3( namesSym, parent, x ))) ;
                 parent.set__(new_vec); 
-                UNPROTECT(1) ; /* new_vec */
             }
     		
         }

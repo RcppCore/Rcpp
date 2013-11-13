@@ -76,14 +76,13 @@ namespace Rcpp{
             ~MatrixExporter(){}
         
             T get() {
-                SEXP dims = PROTECT( ::Rf_getAttrib( object, R_DimSymbol ) ) ;
+                Shield<SEXP> dims( ::Rf_getAttrib( object, R_DimSymbol ) ) ;
                 if( dims == R_NilValue || ::Rf_length(dims) != 2 ){
                     throw ::Rcpp::not_a_matrix() ;
                 }
                 int* dims_ = INTEGER(dims) ;
                 T result( dims_[0], dims_[1] ) ;
                 ::Rcpp::internal::export_indexing<T,value_type>( object, result ) ;
-                UNPROTECT(1) ;
                 return result ;
             }
         
