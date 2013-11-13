@@ -54,6 +54,8 @@ public:
 	
 };
 
+typedef DottedPair_Impl<PreserveStorage> DottedPair ;
+
 } // namespace Rcpp
 
 #endif

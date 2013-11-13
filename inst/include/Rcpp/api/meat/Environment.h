@@ -24,18 +24,18 @@
 
 namespace Rcpp{ 
 
-template <template <class> StoragePolicy>    
+template <template <class> class StoragePolicy>    
 template <typename WRAPPABLE>
 bool Environment_Impl<StoragePolicy>::assign( const std::string& name, const WRAPPABLE& x) const {
     return assign( name, wrap( x ) ) ;
 }
 
-template <template <class> StoragePolicy>    
+template <template <class> class StoragePolicy>    
 Environment_Impl<StoragePolicy>::Environment_Impl( const std::string& name ){
    Storage::set__( as_environment( wrap(name) ) ) ;     
 }
 
-template <template <class> StoragePolicy>    
+template <template <class> class StoragePolicy>    
 Environment_Impl<StoragePolicy>::Environment_Impl( int pos ){
    Storage::set__( as_environment( wrap(pos) ) ) ;     
 }

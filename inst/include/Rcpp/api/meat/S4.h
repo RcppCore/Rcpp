@@ -22,7 +22,7 @@ namespace Rcpp{
       
     template <template <class> class StoragePolicy> 
     bool S4_Impl<StoragePolicy>::is( const std::string& clazz) const {
-        CharacterVector cl = attr("class");
+        CharacterVector cl = AttributeProxyPolicy<S4_Impl>::attr("class");
             
         // simple test for exact match
         if( ! clazz.compare( cl[0] ) ) return true ;

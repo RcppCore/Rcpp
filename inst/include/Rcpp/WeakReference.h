@@ -61,7 +61,7 @@ namespace Rcpp{
 
     } ;
 
-
+    typedef WeakReference_Impl<PreserveStorage> WeakReference ;
 }
 
 #endif

@@ -22,7 +22,7 @@ namespace Rcpp{
 
     template <typename EnvironmentClass>
     template <typename T>
-    BindingPolicy<EnvironmentClass>::Binding& BindingPolicy<EnvironmentClass>::operator=( const T& rhs){
+    typename BindingPolicy<EnvironmentClass>::Binding& BindingPolicy<EnvironmentClass>::Binding::operator=( const T& rhs){
         set( wrap(rhs) );
         return *this ;
     }
@@ -40,3 +40,5 @@ namespace Rcpp{
     }
 
 }
+
+#endif

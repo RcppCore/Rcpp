@@ -74,6 +74,8 @@ namespace Rcpp{
         
     } ; 
 
+    typedef Formula_Impl<PreserveStorage> Formula ;
+    
 } // namespace Rcpp
 
 #endif
