@@ -30,8 +30,8 @@ inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator
 	size_t size = std::distance( first, last ) ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
-	SEXP names = PROTECT( Rf_allocVector(STRSXP, size) ) ;
-	SEXP x = PROTECT( Rf_allocVector(RTYPE, size) ) ;
+	Shield<SEXP> names( Rf_allocVector(STRSXP, size) ) ;
+	Shield<SEXP> x( Rf_allocVector(RTYPE, size) ) ;
 	STORAGE* ptr = Rcpp::internal::r_vector_start<RTYPE>( x ) ;
 	Rcpp::String buffer ;
 	for( size_t i = 0; i < size ; i++, ++first){
@@ -40,7 +40,6 @@ inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator
         SET_STRING_ELT( names, i, buffer.get_sexp() ) ;
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names) ;
-	UNPROTECT(2) ;
 	return x ;
 }
                 
@@ -48,8 +47,8 @@ template <typename InputIterator, typename KEY, typename VALUE, int RTYPE>
 inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator last, Rcpp::traits::false_type ){
 	size_t size = std::distance( first, last ) ;
 	
-	SEXP names = PROTECT( Rf_allocVector(STRSXP, size) ) ;
-	SEXP x = PROTECT( Rf_allocVector(VECSXP, size) ) ;
+	Shield<SEXP> names( Rf_allocVector(STRSXP, size) ) ;
+	Shield<SEXP> x( Rf_allocVector(VECSXP, size) ) ;
 	Rcpp::String buffer ;
 	for( size_t i = 0; i < size ; i++, ++first){
         buffer = first->first ;
@@ -57,7 +56,6 @@ inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator
         SET_STRING_ELT( names, i, buffer.get_sexp() ) ;
 	}
 	::Rf_setAttrib( x, R_NamesSymbol, names) ;
-	UNPROTECT(2) ;
 	return x ;
 }
   

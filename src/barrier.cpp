@@ -77,11 +77,10 @@ SEXP get_rcpp_cache() {
     if( ! Rcpp_cache_know ){
         
         SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
-        SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+        Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
         
         Rcpp_cache = Rf_findVarInFrame( RCPP, Rf_install(".rcpp_cache") ) ;
         Rcpp_cache_know = true ;
-        UNPROTECT(1) ;
     }
     return Rcpp_cache ;
 }
@@ -118,8 +117,8 @@ SEXP set_current_error(SEXP cache, SEXP e){
  
 SEXP init_Rcpp_cache(){   
     SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
-    SEXP RCPP = PROTECT( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
-    SEXP cache = PROTECT( Rf_allocVector( VECSXP, RCPP_CACHE_SIZE ) );
+    Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+    Shield<SEXP> cache( Rf_allocVector( VECSXP, RCPP_CACHE_SIZE ) );
     
     // the Rcpp namespace
 	SET_VECTOR_ELT( cache, 0, RCPP ) ;
@@ -129,9 +128,7 @@ SEXP init_Rcpp_cache(){
 	SET_VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX, Rf_allocVector(INTSXP, RCPP_HASH_CACHE_INITIAL_SIZE) ) ;
 	Rf_defineVar( Rf_install(".rcpp_cache"), cache, RCPP );
     
-    UNPROTECT(3) ; 
-    
-    return cache ;
+	return cache ;
 }
 
 SEXP reset_current_error(){ 
@@ -175,9 +172,9 @@ int* get_cache( int m){
     SEXP hash_cache = VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX) ;
     int n = Rf_length(hash_cache) ;
     if( m > n ){
-        hash_cache = PROTECT( Rf_allocVector( INTSXP, m) ) ;
+        Shield<SEXP> new_hash_cache( Rf_allocVector( INTSXP, m) ) ;
+        hash_cache = new_hash_cache ;
         SET_VECTOR_ELT(cache,RCPP_HASH_CACHE_INDEX, hash_cache); 
-        UNPROTECT(1) ;
     }
     int *res = INTEGER(hash_cache) ;
     std::fill(res, res+m, 0 ) ;

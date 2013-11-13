@@ -97,11 +97,10 @@ namespace Rcpp{
             obj.erase(strings_as_factors_index) ;
             names.erase(strings_as_factors_index) ;
             obj.attr( "names") = names ;
-            SEXP call  = PROTECT( Rf_lang3(as_df_symb, obj, wrap( strings_as_factors ) ) ) ;
+            Shield<SEXP> call( Rf_lang3(as_df_symb, obj, wrap( strings_as_factors ) ) ) ;
             SET_TAG( CDDR(call),  strings_as_factors_symb ) ;   
-            SEXP res = PROTECT( Rcpp_eval( call ) ) ; 
+            Shield<SEXP> res( Rcpp_eval( call ) ) ; 
             DataFrame_Impl out( res ) ;
-            UNPROTECT(2) ;
             return out ;
        
         }

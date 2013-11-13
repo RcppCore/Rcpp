@@ -249,7 +249,6 @@ public:
         */
         Shield<SEXP> x( r_cast<RTYPE>( wrap( first, last ) ) );
         Storage::set__( x) ;
-        UNPROTECT(1) ;
     }
 
     template <typename InputIterator>
@@ -439,12 +438,11 @@ private:
     template <typename U>
     void fill__dispatch( traits::false_type, const U& u){
         // when this is not trivial, this is SEXP
-        SEXP elem = PROTECT( converter_type::get( u ) ); 
+        Shield<SEXP> elem( converter_type::get( u ) ); 
         iterator it(begin());
         for( int i=0; i<size() ; i++, ++it){
             *it = ::Rf_duplicate( elem ) ;
         }
-        UNPROTECT(1) ; /* elem */
     }
 	
     template <typename U>

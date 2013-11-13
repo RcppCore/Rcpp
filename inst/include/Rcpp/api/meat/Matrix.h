@@ -135,7 +135,7 @@ namespace Rcpp{
     template <int RTYPE>
     template <typename U>
     void Matrix<RTYPE>::fill_diag__dispatch( traits::false_type, const U& u){
-        SEXP elem = PROTECT( converter_type::get( u ) ) ;
+        Shield<SEXP> elem( converter_type::get( u ) ) ;
         int n = Matrix::ncol() ;
         int offset = n +1 ;
         iterator it( VECTOR::begin()) ;
@@ -143,7 +143,6 @@ namespace Rcpp{
             *it = ::Rf_duplicate( elem );
             it += offset; 
         }
-        UNPROTECT(1); // elem
     }
     
     template <int RTYPE>
