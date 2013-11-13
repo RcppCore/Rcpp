@@ -64,12 +64,12 @@ public:
 
     class const_NamesProxy {
     public:
-        const_NamesProxy( CLASS& v) : parent(v){} ;
+        const_NamesProxy( const CLASS& v) : parent(v){} ;
 	
         template <typename T> operator T() const ;
 		
     private:
-        CLASS& parent; 
+        const CLASS& parent; 
 		
         SEXP get() const {
             return RCPP_GET_NAMES(parent.get__()) ;
