@@ -40,18 +40,6 @@ public:
 
 	void update(SEXP){}
 	
-	template <typename T>
-	friend DottedPair_Impl& operator<<(DottedPair_Impl& os, const T& t){
-		os.push_back( t ) ;
-		return os ;
-	}
-	
-	template <typename T>
-	friend DottedPair_Impl& operator>>( const T& t, DottedPair_Impl& s){
-		s.push_front(t);
-		return s ;
-	}
-	
 };
 
 typedef DottedPair_Impl<PreserveStorage> DottedPair ;
