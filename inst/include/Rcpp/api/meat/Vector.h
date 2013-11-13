@@ -31,6 +31,12 @@ namespace Rcpp{
     }
     
     template <int RTYPE, template <class> class StoragePolicy>
+    template <typename U>
+    Vector<RTYPE, StoragePolicy>::Vector( const U& obj) {
+        Storage::set__( r_cast<RTYPE>( wrap(obj) ) ) ;
+    }
+        
+    template <int RTYPE, template <class> class StoragePolicy>
     Vector<RTYPE, StoragePolicy>::Vector( const int& size ) {
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
