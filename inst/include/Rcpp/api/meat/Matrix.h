@@ -24,8 +24,8 @@
 
 namespace Rcpp{ 
 
-    template <int RTYPE>
-    Matrix<RTYPE>::Matrix(SEXP x) : VECTOR( r_cast<RTYPE>( x ) ), nrows( VECTOR::dims()[0] ) {}
+    template <int RTYPE, template <class> class StoragePolicy >
+    Matrix<RTYPE, StoragePolicy>::Matrix(SEXP x) : VECTOR( r_cast<RTYPE>( x ) ), nrows( VECTOR::dims()[0] ) {}
     
     template <int RTYPE>
     Matrix<RTYPE>::Matrix( const Dimension& dims) : VECTOR( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ), nrows(dims[0]) {
