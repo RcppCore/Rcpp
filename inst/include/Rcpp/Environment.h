@@ -322,7 +322,7 @@ namespace Rcpp{
             try{
                 SEXP getNamespaceSym = Rf_install("getNamespace");
                 env = Rcpp_eval( Rf_lang2(getNamespaceSym, Rf_mkString(package.c_str()) ) ) ;
-            } catch( const eval_error& ex){
+            } catch( ... ){
                 throw no_such_namespace( package  ) ; 
             }
             return Environment_Impl( env ) ;
