@@ -40,10 +40,7 @@ namespace internal{
 		 * @param v reference to the associated character vector
 		 * @param index index 
 		 */
-		string_proxy( VECTOR& v, int index_ ) : 
-			parent(&v), index(index_){
-				RCPP_DEBUG_2( "string_proxy( VECTOR& = <%p>, index_ = %d) ", v.asSexp(), index_ ) ;
-		}
+		string_proxy( VECTOR& v, int index_ ) : parent(&v), index(index_){}
 			
 		string_proxy( const string_proxy& other ) : 
 			parent(other.parent), index(other.index){} ;
