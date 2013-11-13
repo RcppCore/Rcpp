@@ -22,7 +22,7 @@
 #ifndef Rcpp_Module_generated_get_signature_h
 #define Rcpp_Module_generated_get_signature_h
 
-namespace Rcpp {
+namespace Rcpp {
     
 template <typename OUT>
 inline void signature(std::string& s, const char* name){

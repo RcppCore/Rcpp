@@ -241,46 +241,6 @@ extern "C" void R_init_Rcpp( DllInfo* info){
 
 namespace Rcpp{
 	
-	void class_Base::add_enum( const std::string& enum_name, const std::map<std::string, int>& value ){
-	    enums.insert( ENUM_MAP_PAIR( enum_name, value ) ) ;
-	}
-    
-	CppClass::CppClass( SEXP x) : S4(x){}
-	
-	CppClass::CppClass( const CppClass& other) : S4(other.asSexp()){}
-	CppClass& CppClass::operator=( const CppClass& other){
-	    setSEXP( other.asSexp() ) ;
-	    return *this ;
-	}
-	
-	CppClass::CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
-		XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
-		RCPP_DEBUG_2( "CppClass::CppClass( cl->name = %s ), clxp = <%p>", cl->name.c_str(), clxp.asSexp() ) ;
-		#if RCPP_DEBUG_LEVEL > 0
-		Rf_PrintValue( clxp ) ;
-		#endif
-		slot( "module"  ) = XP( p, false ) ;
-		slot( "pointer" ) = clxp ;
-		
-		buffer = "Rcpp_" ;
-		buffer += cl->name ;
-		slot( ".Data" ) = buffer ;
-		
-		slot( "fields" )      = cl->fields( clxp ) ;
-		
-		slot( "methods" )     = cl->getMethods( clxp, buffer ) ;
-		slot( "constructors") = cl->getConstructors( clxp, buffer ) ;
-		slot( "docstring"   ) = cl->docstring ;
-		slot( "typeid" )      = cl->get_typeinfo_name() ;
-		slot( "enums"  )      = cl->enums ;
-		slot( "parents" )     = cl->parents ;
-	}
-
-	CppObject::CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
-		slot( "module" )   = XP( p, false ) ;
-		slot( "cppclass" ) = Rcpp::XPtr<class_Base>( clazz, false ) ;
-		slot( "pointer" )  = xp ;
-	}
 	CppObject::CppObject( const CppObject& other) : S4(other.asSexp()){}
 	CppObject& CppObject::operator=( const CppObject& other){
 	    setSEXP( other.asSexp() ) ;
