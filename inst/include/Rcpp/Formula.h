@@ -70,7 +70,7 @@ namespace Rcpp{
             Storage::set__( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") ) ;    
         }
     
-        void update(){}
+        void update(SEXP){}
         
     } ; 
 
