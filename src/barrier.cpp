@@ -25,7 +25,6 @@
 #include <Rinternals.h>
 #include <Rcpp/barrier.h>
 #include "internal.h"
-#include <Rcpp/cache.h>
 #include <algorithm>
 #include <Rcpp/protection/Shield.h>
 
@@ -88,11 +87,11 @@ SEXP get_rcpp_cache() {
 }
 
 namespace Rcpp {
-    namespace internal {   
-		SEXP get_Rcpp_namespace(){ 
-			return VECTOR_ELT( get_rcpp_cache() , 0 ) ;
-		}
-	}
+    	
+    // [[Rcpp::register]]
+    SEXP get_Rcpp_namespace(){ 
+    	    return VECTOR_ELT( get_rcpp_cache() , 0 ) ;
+    }
 	
 	// [[Rcpp::register]]
     SEXP rcpp_get_stack_trace(){

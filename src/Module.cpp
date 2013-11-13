@@ -229,13 +229,3 @@ void setCurrentScope( Rcpp::Module* scope ){
     Rcpp::current_scope = scope ; 
 }
 
-extern "C" void R_init_Rcpp( DllInfo* info){
-	Rcpp::current_scope = 0 ;
-	
-	// init the cache
-	init_Rcpp_cache() ;
-	
-	// init routines
-	init_Rcpp_routines(info) ;
-}
-
