@@ -22,13 +22,13 @@ namespace Rcpp{
         
     template <typename CLASS>
     template <typename T>
-    DottedPairProxyPolicy<CLASS>::DottedPairProxy& DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=( const T& rhs){
+    typename DottedPairProxyPolicy<CLASS>::DottedPairProxy& DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=( const T& rhs){
         return set( wrap(rhs) ) ;
     }
     
     template <typename CLASS>
     template <typename T>
-    DottedPairProxyPolicy<CLASS>::DottedPairProxy& DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=( const traits::named_object<T>& rhs){
+    typename DottedPairProxyPolicy<CLASS>::DottedPairProxy& DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=( const traits::named_object<T>& rhs){
         return set( wrap(rhs.object), rhs.name ) ;
     }
     
