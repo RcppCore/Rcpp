@@ -30,6 +30,7 @@
 #include <Rcpp/api/meat/NamesProxy.h>
 #include <Rcpp/api/meat/SlotProxy.h>
 
+#include <Rcpp/api/meat/DataFrame.h>
 #include <Rcpp/api/meat/S4.h>
 #include <Rcpp/api/meat/Environment.h>
 

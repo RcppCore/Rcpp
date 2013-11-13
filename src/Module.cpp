@@ -146,7 +146,7 @@ SEXP class__newInstance(SEXP args){
 // relies on being set in .onLoad()
 SEXP rcpp_dummy_pointer = R_NilValue; 
 
-#define CHECK_DUMMY_OBJ(p) if(p == rcpp_dummy_pointer) forward_exception_to_r( Rcpp::not_initialized())
+#define CHECK_DUMMY_OBJ(p) if(p == rcpp_dummy_pointer) Rcpp::forward_exception_to_r( Rcpp::not_initialized())
 	
 
 SEXP class__dummyInstance(SEXP args) {
