@@ -25,7 +25,9 @@
 #define Rcpp_list1 Rf_list1
 #define Rcpp_lang1 Rf_lang1
 
-inline SEXP Rcpp_lcons(SEXP car_, SEXP cdr){
+namespace Rcpp {
+
+inline SEXP Rcpp_lcons(SEXP car, SEXP cdr){
     Shield<SEXP> out( Rf_lcons( car, cdr ) ); 
     return out ;
 }
@@ -362,8 +364,7 @@ inline SEXP Rcpp_lang20( SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, S
     return out;
 }
 
-
-
+}
      
 #endif
 
