@@ -25,7 +25,8 @@
 namespace Rcpp{
     namespace traits{
 
-		template <typename T> class Exporter{
+		template <typename T> 
+		class Exporter{
 		public:
 		    Exporter( SEXP x ) : t(x){}
 		    inline T get(){ return t ; }
