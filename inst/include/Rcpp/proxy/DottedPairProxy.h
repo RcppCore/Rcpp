@@ -51,7 +51,9 @@ public:
 		inline SEXP get() const { 
 		    return CAR(node); 
 		}
-		inline operator SEXP() const { return get() ; }
+		inline operator SEXP() const { 
+		    return get() ; 
+		}
 		inline DottedPairProxy& set(SEXP x){ 
 		    SETCAR( node, x ) ; 
 		    return *this ;
@@ -81,7 +83,9 @@ public:
 		inline SEXP get() const { 
 		    return CAR(node); 
 		}
-		inline operator SEXP() const { return get() ; }
+		inline operator SEXP() const { 
+		    return get() ; 
+		}
 		
 	private:
 		SEXP node ;
