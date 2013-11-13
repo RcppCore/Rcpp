@@ -70,6 +70,8 @@ namespace Rcpp{
         
     } ;
 
+    typedef Promise_Impl<PreserveStorage> Promise ;
+    
 } // namespace
 
 #endif
