@@ -53,6 +53,7 @@ namespace Rcpp{
             case RAWSXP:
             case LGLSXP:
             case CPLXSXP:
+            case INTSXP:
                 return Rf_coerceVector( x, RTYPE) ;
             default:
                 throw ::Rcpp::not_compatible( "not compatible with requested type" ) ;
