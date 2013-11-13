@@ -239,20 +239,3 @@ extern "C" void R_init_Rcpp( DllInfo* info){
 	init_Rcpp_routines(info) ;
 }
 
-namespace Rcpp{
-	
-	namespace internal{
-	    void* as_module_object_internal(SEXP obj){
-	        Environment env(obj) ;
-	        SEXP xp = env.get(".pointer") ;
-	        return R_ExternalPtrAddr(xp );
-	    }
-	    bool is_module_object_internal(SEXP obj, const char* clazz){
-	        Environment env(obj) ;
-	        XPtr<class_Base> xp( env.get(".cppclass") );
-	        return xp->has_typeinfo_name( clazz ) ;
-	    }
-	}
-	
-}
-

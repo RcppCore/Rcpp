@@ -83,7 +83,11 @@ namespace Rcpp{
             return exporter.get() ;
         }
         
-        void* as_module_object_internal(SEXP) ;
+        inline void* as_module_object_internal(SEXP obj) {
+            Environment env(obj) ;
+            SEXP xp = env.get(".pointer") ;
+            return R_ExternalPtrAddr(xp );   
+        }
         template <typename T> object<T> as_module_object(SEXP x){
             return (T*) as_module_object_internal(x) ;
         }
