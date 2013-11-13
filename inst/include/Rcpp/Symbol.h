@@ -68,7 +68,7 @@ namespace Rcpp{
             return ! strcmp(other, c_str() ); 
         }
         
-        void update(){}
+        void update(SEXP){}
     };
 
     typedef Symbol_Impl<NoProtectStorage> Symbol;
