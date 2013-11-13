@@ -22,59 +22,102 @@
 #ifndef Rcpp__Date_h
 #define Rcpp__Date_h
 
-#include <RcppCommon.h>
-
 namespace Rcpp {
 
     class Date {
     public:	
-		Date();
-		Date(SEXP s); 
-		Date(const int &dt);		// from integer (with negative dates before Jan 1, 1970)
-		Date(const double &dt);		// from fractional integer since epoch, just like R 
-		Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
-		Date(const unsigned int &m, const unsigned int &d, const unsigned int &y); 
-		Date(const Date &copy);
-		~Date() {};
-		
-		double getDate(void) const { return m_d; } 
+        Date(){
+            m_d = 0; 
+            update_tm();
+        }
+        Date(SEXP s);
+        
+        // from integer (with negative dates before Jan 1, 1970)
+        Date(const int &dt){
+            m_d = dt;
+            update_tm();    
+        }
+        
+        // from fractional integer since epoch, just like R
+        Date(const double &dt){
+            m_d = dt;
+            update_tm();    
+        }
+        Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
+        
+        Date(const unsigned int &mon, const unsigned int &day, const unsigned int &year) {
+            m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = 0;
+            
+            // allow for ISO-notation case (yyyy, mm, dd) which we prefer over (mm, dd, year)
+            if (mon >= baseYear && day <= 12 && year <= 31) {
+                m_tm.tm_year = mon - baseYear;
+                m_tm.tm_mon  = day - 1;     // range 0 to 11
+                m_tm.tm_mday = year;
+            } else {
+                m_tm.tm_mday  = day;
+                m_tm.tm_mon   = mon - 1;	// range 0 to 11
+                m_tm.tm_year  = year - baseYear;
+            }
+            double tmp = mktime00(m_tm); 	// use mktime() replacement borrowed from R
+            m_tm.tm_year += baseYear;	// we'd rather keep it as a normal year
+            m_d = tmp/(24*60*60);
+        }
 
-		// intra-day useless for date class
-		//int getSeconds() const { return m_tm.tm_sec; }
-		//int getMinutes() const { return m_tm.tm_min; }
-		//int getHours()   const { return m_tm.tm_hour; }
-		int getDay()     const { return m_tm.tm_mday; }
-		int getMonth()   const { return m_tm.tm_mon + 1; } 		// makes it 1 .. 12
-		int getYear()    const { return m_tm.tm_year; }			// does include 1900 (see Date.cpp)
-		int getWeekday() const { return m_tm.tm_wday + 1; } 	// makes it 1 .. 7
-		int getYearday() const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
-
-		static const unsigned int QLtoJan1970Offset;  			// Offset between R / Unix epoch date and the QL base date
-		static const unsigned int baseYear;						// 1900 as per POSIX mktime() et al
-
-		Date & operator=(const Date &newdate); 					// copy assignment operator 
-
-		// Minimal set of date operations.
-		friend Date   operator+(const Date &date, int offset);
-		friend double operator-(const Date& date1, const Date& date2);
-		friend bool   operator<(const Date &date1, const Date& date2);
-		friend bool   operator>(const Date &date1, const Date& date2);
-		friend bool   operator==(const Date &date1, const Date& date2);
-		friend bool   operator>=(const Date &date1, const Date& date2);
-		friend bool   operator<=(const Date &date1, const Date& date2);
-		friend bool   operator!=(const Date &date1, const Date& date2);
-
-		inline int is_na() const { return traits::is_na<REALSXP>( m_d ) ; }
-		
+        ~Date() {};
+    	
+        	double getDate(void) const { 
+        	   return m_d; 
+        	} 
+    
+        // intra-day useless for date class
+        //int getSeconds() const { return m_tm.tm_sec; }
+        //int getMinutes() const { return m_tm.tm_min; }
+        //int getHours()   const { return m_tm.tm_hour; }
+        int getDay()     const { return m_tm.tm_mday; }
+        int getMonth()   const { return m_tm.tm_mon + 1; } 		// makes it 1 .. 12
+        int getYear()    const { return m_tm.tm_year; }			// does include 1900 (see Date.cpp)
+        int getWeekday() const { return m_tm.tm_wday + 1; } 	// makes it 1 .. 7
+        int getYearday() const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
+        
+        static const unsigned int QLtoJan1970Offset;  			// Offset between R / Unix epoch date and the QL base date
+        static const unsigned int baseYear;						// 1900 as per POSIX mktime() et al
+        
+        Date & operator=(const Date &newdate); 					// copy assignment operator 
+        
+        // Minimal set of date operations.
+        friend Date   operator+(const Date &date, int offset);
+        friend double operator-(const Date& date1, const Date& date2);
+        friend bool   operator<(const Date &date1, const Date& date2);
+        friend bool   operator>(const Date &date1, const Date& date2);
+        friend bool   operator==(const Date &date1, const Date& date2);
+        friend bool   operator>=(const Date &date1, const Date& date2);
+        friend bool   operator<=(const Date &date1, const Date& date2);
+        friend bool   operator!=(const Date &date1, const Date& date2);
+    
+        inline int is_na() const { 
+           return traits::is_na<REALSXP>( m_d ) ; 
+        }
+    	
     private:
         double m_d;					// (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;				// standard time representation
-
-		void update_tm();			// update m_tm based on m_d
-
-		double mktime00(struct tm &tm) const; // from R's src/main/datetime.c
-    };
-
+    
+        // update m_tm based on m_d
+        void update_tm(){			
+            if (R_FINITE(m_d)) {
+                time_t t = 24*60*60 * m_d;		// (fractional) days since epoch to seconds since epoch
+                m_tm = *gmtime_(&t);
+            } else {
+                m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
+                m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
+            }
+        }
+    
+        	double mktime00(struct tm &tm) const; // from R's src/main/datetime.c
+    };    
+    
+    const unsigned int Date::QLtoJan1970Offset = 25569;  	// Offset between R / Unix epoch date and the QL base date
+    const unsigned int Date::baseYear = 1900;			// because we hate macros
 
     // template specialisation for wrap() on the date 
     template <> SEXP wrap<Rcpp::Date>(const Rcpp::Date &date);
@@ -90,10 +133,51 @@ namespace Rcpp {
     }
     
     template<> inline SEXP wrap_extra_steps<Rcpp::Date>( SEXP x ){
-    	Rf_setAttrib( x, R_ClassSymbol, Rf_mkString( "Date" ) ) ;
-    	return x ;
+        Rf_setAttrib( x, R_ClassSymbol, Rf_mkString( "Date" ) ) ;
+        return x ;
     }
-	
+
+    inline Date operator+(const Date &date, int offset) {
+        Date newdate(date.m_d);
+        newdate.m_d += offset;
+        time_t t = 24*60*60 * newdate.m_d;	// days since epoch to seconds since epo
+        //newdate.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
+        newdate.m_tm = *gmtime_(&t);
+        return newdate;
+    }
+    
+    inline double operator-(const Date& d1, const Date& d2) { return d1.m_d - d2.m_d; }
+    inline bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
+    inline bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
+    inline bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; }
+    inline bool  operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; }
+    inline bool  operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
+    inline bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
+
+    namespace internal{
+    
+        inline SEXP getPosixClasses(){
+            Shield<SEXP> datetimeclass(Rf_allocVector(STRSXP,2));
+            SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
+            SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
+            return datetimeclass ;
+        }
+        
+        inline SEXP new_posixt_object( double d){
+            Shield<SEXP> x( Rf_ScalarReal( d ) ) ;
+            Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() ); 
+            return x ;	
+        }
+        
+        inline SEXP new_date_object( double d){
+            Shield<SEXP> x(Rf_ScalarReal( d ) ) ;
+            Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date")); 
+            return x;
+        }
+
+    }
+    
+    	
 }
 
 #endif
