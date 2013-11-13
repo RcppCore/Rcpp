@@ -241,12 +241,6 @@ extern "C" void R_init_Rcpp( DllInfo* info){
 
 namespace Rcpp{
 	
-	CppObject::CppObject( const CppObject& other) : S4(other.asSexp()){}
-	CppObject& CppObject::operator=( const CppObject& other){
-	    setSEXP( other.asSexp() ) ;
-	    return *this ;
-	}
-	
 	namespace internal{
 	    void* as_module_object_internal(SEXP obj){
 	        Environment env(obj) ;

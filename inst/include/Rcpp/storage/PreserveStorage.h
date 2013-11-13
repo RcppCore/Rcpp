@@ -32,11 +32,12 @@ namespace Rcpp{
             return out ;
         }
         
-        inline CLASS& copy__(const CLASS& other){
+        template <typename T>
+        inline T& copy__(const T& other){
             if( this != &other){
                 set__(other.get__());
             }
-            return static_cast<CLASS&>(*this) ;
+            return static_cast<T&>(*this) ;
         }
         
         inline bool inherits(const char* clazz) const { 
