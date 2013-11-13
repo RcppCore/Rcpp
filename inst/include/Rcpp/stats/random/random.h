@@ -23,10 +23,6 @@
 #define Rcpp__stats__random_random_h
 
 namespace Rcpp{
-namespace internal {
-    void enterRNGScope();
-    void exitRNGScope();
-}
 
 class RNGScope{
 public:
