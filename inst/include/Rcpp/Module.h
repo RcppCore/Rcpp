@@ -427,7 +427,6 @@ namespace Rcpp{
         DL_FUNC p_fun ;
     } ;
     
-    FunctionProxy GetCppCallable( const std::string& pkg, const std::string& mod, const std::string& fun) ;
 }
 
 #define RCPP_MODULE_BOOT(name) _rcpp_module_boot_##name
