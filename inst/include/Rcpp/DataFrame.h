@@ -93,7 +93,7 @@ namespace Rcpp{
                 }
             }
             if( use_default_strings_as_factors ) 
-                return DataFrame(obj) ;
+                return DataFrame_Impl(obj) ;
             SEXP as_df_symb = Rf_install("as.data.frame");
             SEXP strings_as_factors_symb = Rf_install("stringsAsFactors");
             
