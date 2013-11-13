@@ -117,7 +117,8 @@ namespace Rcpp {
     inline struct tm * gmtime_(const time_t * const x){
         typedef struct tm* (*Fun)(const time_t* const);
         static Fun fun =  GET_CALLABLE("gmtime_") ;
-    }
+        return fun(x) ;
+    }                                             
     
 }     
     
