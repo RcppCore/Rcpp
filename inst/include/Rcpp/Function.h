@@ -55,9 +55,8 @@ namespace Rcpp{
          */
         Function_Impl(const std::string& name) {
             SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
-            SEXP x = PROTECT( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
+            Shield<SEXP> x( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
             Storage::set__(x) ;
-            UNPROTECT(1) ;
         }
         
         SEXP operator()() const {

@@ -81,8 +81,8 @@ namespace Rcpp {
     }
     
     // [[Rcpp::register]]
-    SEXP Rcpp_eval(SEXP expr, SEXP env) {
-        PROTECT(expr);
+    SEXP Rcpp_eval(SEXP expr_, SEXP env) {
+        Shield<SEXP> expr( expr_) ;
         
         reset_current_error() ; 
         
@@ -96,23 +96,20 @@ namespace Rcpp {
             errorSym                  = ::Rf_install("error");
         }
         
-        SEXP call = PROTECT( Rf_lang3( 
+        Shield<SEXP> call( Rf_lang3( 
             tryCatchSym, 
             Rf_lang3( evalqSym, expr, env ),
             errorRecorderSym
         ) ) ;
         SET_TAG( CDDR(call), errorSym ) ;
         /* call the tryCatch call */
-        SEXP res  = PROTECT(::Rf_eval( call, RCPP ) );
-        
-        UNPROTECT(3) ;
+        Shield<SEXP> res(::Rf_eval( call, RCPP ) );
         
         if( error_occured() ) {
-            SEXP current_error        = PROTECT( rcpp_get_current_error() ) ;
-            SEXP conditionMessageCall = PROTECT(::Rf_lang2(conditionMessageSym, current_error)) ;
-            SEXP condition_message    = PROTECT(::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
+            Shield<SEXP> current_error        ( rcpp_get_current_error() ) ;
+            Shield<SEXP> conditionMessageCall (::Rf_lang2(conditionMessageSym, current_error)) ;
+            Shield<SEXP> condition_message    (::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
             std::string message(CHAR(::Rf_asChar(condition_message)));
-            UNPROTECT( 3 ) ;
             throw eval_error(message) ;
         }
         

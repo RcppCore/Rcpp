@@ -180,25 +180,22 @@ namespace Rcpp {
     namespace internal{
     
         SEXP getPosixClasses(){
-        	SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-        	SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
-        	SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
-        	UNPROTECT(1) ;
-        	return datetimeclass ;
+            Shield<SEXP> datetimeclass(Rf_allocVector(STRSXP,2));
+            SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
+            SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
+            return datetimeclass ;
         }
         
         SEXP new_posixt_object( double d){
-        	SEXP x = PROTECT( Rf_ScalarReal( d ) ) ;
-        	Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() ); 
-        	UNPROTECT(1); 
-        	return x ;	
+            Shield<SEXP> x( Rf_ScalarReal( d ) ) ;
+            Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() ); 
+            return x ;	
         }
         
         SEXP new_date_object( double d){
-        	SEXP x = PROTECT(Rf_ScalarReal( d ) ) ;
-        	Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date")); 
-        	UNPROTECT(1);
-        	return x;
+            Shield<SEXP> x(Rf_ScalarReal( d ) ) ;
+            Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date")); 
+            return x;
         }
 
     }

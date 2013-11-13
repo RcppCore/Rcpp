@@ -708,11 +708,10 @@ List List_rep_ctor(IntegerVector x){
     }
     
     List list_initializer_list(){
-        SEXP x0 = PROTECT( Rf_ScalarInteger( 0 ) ) ;
-        SEXP x1 = PROTECT( Rf_ScalarInteger( 1 ) ) ;
-        SEXP x2 = PROTECT( Rf_ScalarInteger( 2 ) ) ;
+        Shield<SEXP> x0( Rf_ScalarInteger( 0 ) ) ;
+        Shield<SEXP> x1( Rf_ScalarInteger( 1 ) ) ;
+        Shield<SEXP> x2( Rf_ScalarInteger( 2 ) ) ;
         List x = { x0, x1, x2} ;
-        UNPROTECT(3) ;
         return x ;
     }
     

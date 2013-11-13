@@ -92,9 +92,8 @@ namespace Rcpp{
                 {
                     // return Rf_coerceVector( x, STRSXP );
                     // coerceVector does not work for some reason
-                    SEXP call = PROTECT( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
-                    SEXP res  = PROTECT( Rf_eval( call, R_GlobalEnv ) ) ;
-                    UNPROTECT(2); 
+                    Shield<SEXP> call( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
+                    Shield<SEXP> res( Rf_eval( call, R_GlobalEnv ) ) ;
                     return res ;
                 }
             case CHARSXP:
@@ -119,10 +118,8 @@ namespace Rcpp{
             switch( TYPEOF(x) ){
             case LANGSXP:
                 {
-                    SEXP y = R_NilValue ;
-                    PROTECT(y = Rf_duplicate( x )); 
+                    Shield<SEXP> y( Rf_duplicate( x )); 
                     SET_TYPEOF(y,LISTSXP) ;
-                    UNPROTECT(1);
                     return y ;
                 }
             default:
