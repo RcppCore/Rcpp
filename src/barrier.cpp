@@ -27,6 +27,8 @@
 #include "internal.h"
 #include <Rcpp/cache.h>
 #include <algorithm>
+#include <Rcpp/protection/Shield.h>
+
 
 SEXP get_string_elt(SEXP x, int i){
     return STRING_ELT(x, i ) ;
@@ -77,7 +79,7 @@ SEXP get_rcpp_cache() {
     if( ! Rcpp_cache_know ){
         
         SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
-        Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+        Rcpp::Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
         
         Rcpp_cache = Rf_findVarInFrame( RCPP, Rf_install(".rcpp_cache") ) ;
         Rcpp_cache_know = true ;
@@ -117,8 +119,8 @@ SEXP set_current_error(SEXP cache, SEXP e){
  
 SEXP init_Rcpp_cache(){   
     SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
-    Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
-    Shield<SEXP> cache( Rf_allocVector( VECSXP, RCPP_CACHE_SIZE ) );
+    Rcpp::Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+    Rcpp::Shield<SEXP> cache( Rf_allocVector( VECSXP, RCPP_CACHE_SIZE ) );
     
     // the Rcpp namespace
 	SET_VECTOR_ELT( cache, 0, RCPP ) ;
@@ -172,7 +174,7 @@ int* get_cache( int m){
     SEXP hash_cache = VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX) ;
     int n = Rf_length(hash_cache) ;
     if( m > n ){
-        Shield<SEXP> new_hash_cache( Rf_allocVector( INTSXP, m) ) ;
+        Rcpp::Shield<SEXP> new_hash_cache( Rf_allocVector( INTSXP, m) ) ;
         hash_cache = new_hash_cache ;
         SET_VECTOR_ELT(cache,RCPP_HASH_CACHE_INDEX, hash_cache); 
     }
