@@ -113,7 +113,6 @@ namespace Rcpp {
             }
         }
     
-        	double mktime00(struct tm &tm) const; // from R's src/main/datetime.c
     };    
     
     // template specialisation for wrap() on the date 
