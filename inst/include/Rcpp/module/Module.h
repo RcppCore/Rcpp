@@ -70,10 +70,10 @@ namespace Rcpp {
         /**
          * vector of arity of all the functions exported by the module 
          */
-        Rcpp::IntegerVector functions_arity(){
+        IntegerVector functions_arity(){
 	        int n = functions.size() ;
-	        Rcpp::IntegerVector x( n ) ;
-	        Rcpp::CharacterVector names( n );
+	        IntegerVector x( n ) ;
+	        CharacterVector names( n );
 	        MAP::iterator it = functions.begin() ;
 	        for( int i=0; i<n; i++, ++it){
 	            x[i] = (it->second)->nargs() ;
@@ -86,9 +86,9 @@ namespace Rcpp {
         /**
          * vector of names of the functions
          */
-        Rcpp::CharacterVector functions_names(){
+        CharacterVector functions_names(){
 	        int n = functions.size() ;
-	        Rcpp::CharacterVector names( n );
+	        CharacterVector names( n );
 	        MAP::iterator it = functions.begin() ;
 	        for( int i=0; i<n; i++, ++it){
 	            names[i] = it->first ;
@@ -112,28 +112,16 @@ namespace Rcpp {
         /** 
          * information about the classes
          */
-        inline List classes_info(){
-	        int n = classes.size() ;
-	        CharacterVector names(n) ;
-	        List info(n);
-	        CLASS_MAP::iterator it = classes.begin() ;
-	        std::string buffer ;
-	        for( int i=0; i<n; i++, ++it){
-	            names[i] = it->first ;
-	            info[i]  = CppClass( this , it->second, buffer ) ;
-	        }
-	        info.names() = names ;
-	        return info ;
-	    }
+        List classes_info() ;
         
         /**
          * completion information
          */
-        Rcpp::CharacterVector complete(){
+        CharacterVector complete(){
             int nf = functions.size() ;
             int nc = classes.size() ;
             int n = nf + nc ;
-            Rcpp::CharacterVector res( n ) ;
+            CharacterVector res( n ) ;
             int i=0;
             MAP::iterator it = functions.begin();
             std::string buffer ;
@@ -177,7 +165,7 @@ namespace Rcpp {
             std::string sign ;
             fun->signature( sign, name.data() ) ;
             return List::create( 
-                Rcpp::XPtr<CppFunction>( fun, false ), 
+                XPtr<CppFunction>( fun, false ), 
                 fun->is_void(), 
                 fun->docstring, 
                 sign, 
@@ -219,14 +207,8 @@ namespace Rcpp {
             return classes.find(m) != classes.end() ;
         }
                 
-        Rcpp::CppClass get_class( const std::string& cl ){
-	        BEGIN_RCPP
-	            CLASS_MAP::iterator it = classes.find(cl) ;
-	            if( it == classes.end() ) throw std::range_error( "no such class" ) ;
-	            std::string buffer ;
-	            return CppClass( this, it->second, buffer ) ;
-	        END_RCPP
-	    }
+        CppClass get_class( const std::string& cl ) ;
+        
         class_Base* get_class_pointer(const std::string& cl){
             CLASS_MAP::iterator it = classes.find(cl) ;
             if( it == classes.end() ) throw std::range_error( "no such class" ) ;

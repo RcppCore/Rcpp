@@ -380,53 +380,64 @@ namespace Rcpp{
             std::string parent_typeinfo_name ;
             
     } ;
-    
-    // function factories
+}    
+
+// function factories
 #include <Rcpp/module/Module_generated_function.h>
 
+namespace Rcpp {
+    
     template <typename FROM, typename TO>
     void converter( const char* from, const char* to, TO (*fun)(FROM), const char* docstring = 0 ){
         std::string fun_name = internal::get_converter_name<FROM,TO>( from, to ) ;
         function( fun_name.c_str(), fun, docstring ) ;
     }  
        
-    // commented out as there is no convert_to in class_
-    // 
-    // template <typename FROM, typename TO>
-    // void converter( const char* /* from */ , const char* to, TO (FROM::*fun)(), const char* docstring = 0 ){
-    //     class_<FROM>().convert_to( to, fun, docstring ) ;
-    // }
-    
-    
     class CppClass : public S4{
     public:
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
-        CppClass( Module* p, class_Base* clazz, std::string& ) ;
-        CppClass( SEXP x) ;
-        CppClass( const CppClass& ) ;
-        CppClass& operator=( const CppClass& ) ;
+        CppClass( SEXP x) : S4(x){};
+        CppClass( const CppClass& other) : S4(other.get__()){}
+        
+        CppClass( Module* p, class_Base* clazz, std::string& ) S4("C++Class") {
+	        XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
+	        slot( "module"  ) = XP( p, false ) ;
+	        slot( "pointer" ) = clxp ;
+	        
+	        buffer = "Rcpp_" ;
+	        buffer += cl->name ;
+	        slot( ".Data" ) = buffer ;
+	        
+	        slot( "fields" )      = cl->fields( clxp ) ;
+	        
+	        slot( "methods" )     = cl->getMethods( clxp, buffer ) ;
+	        slot( "constructors") = cl->getConstructors( clxp, buffer ) ;
+	        slot( "docstring"   ) = cl->docstring ;
+	        slot( "typeid" )      = cl->get_typeinfo_name() ;
+	        slot( "enums"  )      = cl->enums ;
+	        slot( "parents" )     = cl->parents ;
+	    }
+        
+        CppClass& operator=( const CppClass& other) {
+            Storage::copy__( static_cast<const S4&>(other) ) ;
+            return *this ;
+        }
         
     } ;
 
     class CppObject : public S4{
     public:
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
-        CppObject( Module* p, class_Base*, SEXP xp ) ;
+        CppObject( Module* p, class_Base*, SEXP xp ) : S4("C++Object") {
+            slot( "module" )   = XP( p, false ) ;
+            slot( "cppclass" ) = Rcpp::XPtr<class_Base>( clazz, false ) ;
+            slot( "pointer" )  = xp ;
+        }
         CppObject( const CppObject& ) ;
         CppObject& operator=( const CppObject& ) ;
         
     } ;
 
-    class FunctionProxy{
-    public:
-        FunctionProxy( DL_FUNC p_fun_ ): p_fun(p_fun_){}
-        
-        template <typename T> operator T() const { return (T)p_fun ; }
-        
-    private:
-        DL_FUNC p_fun ;
-    } ;
-    
 }
 
 #define RCPP_MODULE_BOOT(name) _rcpp_module_boot_##name

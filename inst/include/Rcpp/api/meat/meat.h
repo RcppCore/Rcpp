@@ -42,4 +42,6 @@
 #include <Rcpp/api/meat/protection.h>
 #include <Rcpp/api/meat/wrap.h>
 
+#include <Rcpp/api/meat/module/Module.h>
+
 #endif
