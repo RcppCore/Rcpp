@@ -214,11 +214,6 @@ namespace Rcpp{
             field( "docstring" )     = m->docstring ;
         }
         
-        S4_CppConstructor( const S4_CppConstructor& other) : Reference( other.asSexp() ) {}
-        S4_CppConstructor& operator=( const S4_CppConstructor& other){
-            setSEXP( other.asSexp() ); 
-            return *this ;
-        }
     } ;
 
     template <typename Class>
@@ -228,13 +223,7 @@ namespace Rcpp{
         typedef SignedMethod<Class> signed_method_class ;
         typedef std::vector<signed_method_class*> vec_signed_method ;
         
-        // FIXME: is class_xp protected ?
         S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
-            RCPP_DEBUG_2( "S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp = <%p>, const char* name = %s, std::string& buffer )", name, class_xp.asSexp() )
-            #if RCPP_DEBUG_LEVEL > 0
-                Rf_PrintValue( class_xp ) ;
-            #endif
-            
             int n = m->size() ;
             Rcpp::LogicalVector voidness(n), constness(n) ;
             Rcpp::CharacterVector docstrings(n), signatures(n) ;
@@ -260,13 +249,7 @@ namespace Rcpp{
             field( "nargs" )         = nargs ;
             
         }
-        S4_CppOverloadedMethods( const S4_CppOverloadedMethods& other){ 
-            setSEXP( other.asSexp() ) ;
-        }
-        S4_CppOverloadedMethods& operator=( const S4_CppOverloadedMethods& other){ 
-            setSEXP( other.asSexp() ) ;
-            return *this ;
-        }
+        
     } ;
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
@@ -339,11 +322,7 @@ namespace Rcpp{
             field( "class_pointer" ) = class_xp ;
             field( "docstring" )     = p->docstring ;
         }
-        S4_field( const S4_field& other) : Reference(other.asSexp()) {}
-        S4_field& operator=(const S4_field& other){
-            setSEXP(other.asSexp());
-            return *this ;
-        }
+        
     } ;
 
 #include <Rcpp/module/Module_Property.h>
