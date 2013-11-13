@@ -88,7 +88,8 @@ inline double r_coerce<RAWSXP,REALSXP>(Rbyte from){
 }
 
 // -> LGLSXP
-template <> int r_coerce<REALSXP,LGLSXP>(double from){
+template <> 
+inline int r_coerce<REALSXP,LGLSXP>(double from){
 	return R_IsNA(from) ? NA_LOGICAL : (from!=0.0);	
 }
 
@@ -220,7 +221,8 @@ inline const char* coerce_to_string<CPLXSXP>(Rcomplex x){
     snprintf(tmp3, 255, "%s+%si", dropTrailing0(tmp1, '.'), dropTrailing0(tmp2, '.'));
     return tmp3;
 }
-template <> const char* coerce_to_string<REALSXP>(double x){
+template <> 
+inline const char* coerce_to_string<REALSXP>(double x){
 	//int w,d,e ;
     // cf src/main/format.c in R's sources:
     //   The return values are
@@ -239,17 +241,20 @@ template <> const char* coerce_to_string<REALSXP>(double x){
     return dropTrailing0(tmp, '.');
 }
 #define NB 1000
-template <> const char* coerce_to_string<INTSXP >(int from) {
+template <> 
+inline const char* coerce_to_string<INTSXP >(int from) {
 	static char buffer[NB] ;
     snprintf( buffer, NB, "%*d", integer_width(from), from );
     return buffer ;
 }
-template <> const char* coerce_to_string<RAWSXP >(Rbyte from){
+template <>
+inline const char* coerce_to_string<RAWSXP >(Rbyte from){
 	static char buff[3];
     ::sprintf(buff, "%02x", from);
     return buff ;	
 }
-template <> const char* coerce_to_string<LGLSXP >(int from){
+template <> 
+inline const char* coerce_to_string<LGLSXP >(int from){
 	return from == 0 ? "FALSE" : "TRUE" ;
 }
 
@@ -274,7 +279,8 @@ template <>
 inline SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from){ 
 	return Rf_mkChar( coerce_to_string<RAWSXP>(from)); 
 }
-template <> inline SEXP r_coerce<LGLSXP ,STRSXP>(int from){
+template <> 
+inline SEXP r_coerce<LGLSXP ,STRSXP>(int from){
 	return Rcpp::traits::is_na<LGLSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<LGLSXP>(from));
 }
 

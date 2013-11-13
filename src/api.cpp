@@ -24,13 +24,15 @@
 
 #include <Rcpp.h>
 
+using namespace Rcpp ;
+
 #include "internal.h" 
 #include <R_ext/PrtUtil.h>
 
 #ifdef RCPP_HAS_DEMANGLING
 #include <cxxabi.h>
 #endif
-
+     
 #if defined(__GNUC__)
     #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
     #else
@@ -168,81 +170,6 @@ namespace Rcpp {
         }
     }
     
-    // [[Rcpp::internal]]
-    SEXP rcpp_capabilities(){
-        Shield<SEXP> cap( Rf_allocVector( LGLSXP, 9 ) );
-        Shield<SEXP> names( Rf_allocVector( STRSXP, 9 ) );
-        #ifdef HAS_VARIADIC_TEMPLATES
-            LOGICAL(cap)[0] = TRUE ;
-        #else
-            LOGICAL(cap)[0] = FALSE ;
-        #endif
-        #ifdef HAS_CXX0X_INITIALIZER_LIST
-            LOGICAL(cap)[1] = TRUE ;
-        #else
-            LOGICAL(cap)[1] = FALSE ;
-        #endif
-        /* exceptions are always supported */
-        LOGICAL(cap)[2] = TRUE ;
-        
-        #ifdef HAS_TR1_UNORDERED_MAP
-            LOGICAL(cap)[3] = TRUE ;
-        #else
-           LOGICAL(cap)[3] = FALSE ;
-        #endif
-        
-        #ifdef HAS_TR1_UNORDERED_SET
-            LOGICAL(cap)[4] = TRUE ;
-        #else
-            LOGICAL(cap)[4] = FALSE ;
-        #endif
-        
-        LOGICAL(cap)[5] = TRUE ;
-        
-        #ifdef RCPP_HAS_DEMANGLING
-            LOGICAL(cap)[6] = TRUE ;
-        #else
-           LOGICAL(cap)[6] = FALSE ;
-        #endif
-        
-           LOGICAL(cap)[7] = FALSE ;
-        
-        #ifdef RCPP_HAS_LONG_LONG_TYPES
-            LOGICAL(cap)[8] = TRUE ;
-        #else
-            LOGICAL(cap)[8] = FALSE ;
-        #endif
-        
-        SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
-        SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
-        SET_STRING_ELT(names, 2, Rf_mkChar("exception handling") ) ;
-        SET_STRING_ELT(names, 3, Rf_mkChar("tr1 unordered maps") ) ;
-        SET_STRING_ELT(names, 4, Rf_mkChar("tr1 unordered sets") ) ;
-        SET_STRING_ELT(names, 5, Rf_mkChar("Rcpp modules") ) ;
-        SET_STRING_ELT(names, 6, Rf_mkChar("demangling") ) ;
-        SET_STRING_ELT(names, 7, Rf_mkChar("classic api") ) ;
-        SET_STRING_ELT(names, 8, Rf_mkChar("long long") ) ;
-        Rf_setAttrib( cap, R_NamesSymbol, names ) ;
-        return cap ;
-    }
- 
-
-    // [[Rcpp::internal]]
-    SEXP rcpp_can_use_cxx0x(){ 
-        #ifdef HAS_VARIADIC_TEMPLATES
-            return Rf_ScalarLogical( TRUE );
-        #else
-            return Rf_ScalarLogical( FALSE );
-        #endif
-    }
-    
-    // [[Rcpp::internal]]
-    SEXP as_character_externalptr(SEXP xp){
-        char buffer[20] ;
-        snprintf( buffer, 20, "%p", (void*)EXTPTR_PTR(xp) ) ;
-        return Rcpp::wrap( (const char*)buffer ) ;
-    }
-      
     // [[Rcpp::register]]
     const char* short_file_name(const char* file){
         std::string f(file) ;
@@ -255,6 +182,82 @@ namespace Rcpp {
     
     
 } // namespace Rcpp
+
+// [[Rcpp::internal]]
+SEXP as_character_externalptr(SEXP xp){
+    char buffer[20] ;
+    snprintf( buffer, 20, "%p", (void*)EXTPTR_PTR(xp) ) ;
+    return Rcpp::wrap( (const char*)buffer ) ;
+}
+    
+// [[Rcpp::internal]]
+SEXP rcpp_capabilities(){
+    Shield<SEXP> cap( Rf_allocVector( LGLSXP, 9 ) );
+    Shield<SEXP> names( Rf_allocVector( STRSXP, 9 ) );
+    #ifdef HAS_VARIADIC_TEMPLATES
+        LOGICAL(cap)[0] = TRUE ;
+    #else
+        LOGICAL(cap)[0] = FALSE ;
+    #endif
+    #ifdef HAS_CXX0X_INITIALIZER_LIST
+        LOGICAL(cap)[1] = TRUE ;
+    #else
+        LOGICAL(cap)[1] = FALSE ;
+    #endif
+    /* exceptions are always supported */
+    LOGICAL(cap)[2] = TRUE ;
+    
+    #ifdef HAS_TR1_UNORDERED_MAP
+        LOGICAL(cap)[3] = TRUE ;
+    #else
+       LOGICAL(cap)[3] = FALSE ;
+    #endif
+    
+    #ifdef HAS_TR1_UNORDERED_SET
+        LOGICAL(cap)[4] = TRUE ;
+    #else
+        LOGICAL(cap)[4] = FALSE ;
+    #endif
+    
+    LOGICAL(cap)[5] = TRUE ;
+    
+    #ifdef RCPP_HAS_DEMANGLING
+        LOGICAL(cap)[6] = TRUE ;
+    #else
+       LOGICAL(cap)[6] = FALSE ;
+    #endif
+    
+       LOGICAL(cap)[7] = FALSE ;
+    
+    #ifdef RCPP_HAS_LONG_LONG_TYPES
+        LOGICAL(cap)[8] = TRUE ;
+    #else
+        LOGICAL(cap)[8] = FALSE ;
+    #endif
+    
+    SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
+    SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
+    SET_STRING_ELT(names, 2, Rf_mkChar("exception handling") ) ;
+    SET_STRING_ELT(names, 3, Rf_mkChar("tr1 unordered maps") ) ;
+    SET_STRING_ELT(names, 4, Rf_mkChar("tr1 unordered sets") ) ;
+    SET_STRING_ELT(names, 5, Rf_mkChar("Rcpp modules") ) ;
+    SET_STRING_ELT(names, 6, Rf_mkChar("demangling") ) ;
+    SET_STRING_ELT(names, 7, Rf_mkChar("classic api") ) ;
+    SET_STRING_ELT(names, 8, Rf_mkChar("long long") ) ;
+    Rf_setAttrib( cap, R_NamesSymbol, names ) ;
+    return cap ;
+}
+
+
+// [[Rcpp::internal]]
+SEXP rcpp_can_use_cxx0x(){ 
+    #ifdef HAS_VARIADIC_TEMPLATES
+        return Rf_ScalarLogical( TRUE );
+    #else
+        return Rf_ScalarLogical( FALSE );
+    #endif
+}
+    
 
 // [[Rcpp::register]]
 SEXP stack_trace( const char* file, int line ){

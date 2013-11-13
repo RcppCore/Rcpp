@@ -26,7 +26,6 @@ namespace Rcpp{
     SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
     const char* type2name(SEXP x) ;
     std::string demangle( const std::string& name) ;
-    SEXP stack_trace( const char *file, int line) ;
     unsigned long enterRNGScope(); 
     unsigned long exitRNGScope() ;
     SEXP get_Rcpp_namespace() ; 
@@ -34,7 +33,8 @@ namespace Rcpp{
     SEXP rcpp_get_stack_trace() ;
     SEXP rcpp_set_stack_trace(SEXP) ;
 }
-           
+    
+SEXP stack_trace( const char *file, int line) ;
 SEXP get_string_elt(SEXP s, int i); 
 const char* char_get_string_elt(SEXP s, int i) ;
 void set_string_elt(SEXP s, int i, SEXP v); 
@@ -83,12 +83,6 @@ namespace Rcpp {
         return fun(name) ;
     }
     
-    inline SEXP stack_trace( const char *file, int line){
-        typedef SEXP (*Fun)(const char*, int) ;
-        static Fun fun = GET_CALLABLE("stack_trace") ;
-        return fun(file, line) ;
-    }
-    
     inline unsigned long enterRNGScope(){
         typedef unsigned long (*Fun)(void) ; 
         static Fun fun = GET_CALLABLE("enterRNGScope") ;
@@ -114,7 +108,13 @@ namespace Rcpp {
     }
     
 }
-           
+    
+inline SEXP stack_trace( const char *file, int line){
+    typedef SEXP (*Fun)(const char*, int) ;
+    static Fun fun = GET_CALLABLE("stack_trace") ;
+    return fun(file, line) ;
+}
+    
 inline SEXP get_string_elt(SEXP s, int i){
     typedef SEXP (*Fun)(SEXP, int) ;
     static Fun fun = GET_CALLABLE("get_string_elt") ;
