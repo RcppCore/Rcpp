@@ -151,13 +151,13 @@ test.wrap.map.int.double <- function(){
     )    
 }
 
-test.wrap.map.double.double <- function(){
-    checkEquals( 
-        map_double_double(), 
-        c("0" = 2, "1.2" = 3 ), 
-        msg = "std::map<double,double>"
-    )    
-}
+# test.wrap.map.double.double <- function(){
+#     checkEquals( 
+#         map_double_double(), 
+#         c("0" = 2, "1.2" = 3 ), 
+#         msg = "std::map<double,double>"
+#     )    
+# }
 
 test.wrap.map.int.vector_double <- function(){
     checkEquals( 
