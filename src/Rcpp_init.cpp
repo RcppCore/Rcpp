@@ -110,6 +110,7 @@ void registerFunctions(){
     RCPP_REGISTER(getCurrentScope)
     RCPP_REGISTER(setCurrentScope)
     RCPP_REGISTER(get_string_buffer)
+    RCPP_REGISTER(short_file_name)
     RCPP_REGISTER(mktime00)
     RCPP_REGISTER(gmtime_)
     #undef RCPP_REGISTER
