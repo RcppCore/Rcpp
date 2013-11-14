@@ -920,13 +920,11 @@ inline SEXP module_wrap<SEXP>( const SEXP& obj ){
 	return obj ;	
 }
 
-
-// special case - FIXME : this is not template specializations of wrap<>
 inline SEXP wrap(const char* const v ){ 
-    if (v == NULL)
-	return R_NilValue;
-    else
-	return Rf_mkString(v) ;
+	if (v)
+		return Rf_mkString(v) ;
+	else 	
+		return R_NilValue;
 }
 
 /**
