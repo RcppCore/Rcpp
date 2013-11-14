@@ -53,7 +53,7 @@ if (.runThisTest && ! .badOSX && ! .onWindows) {
         require( "testRcppClass", "templib", character.only = TRUE )
     
         v <- stdNumeric$new()
-        data <- 1:10
+        data <- as.numeric(1:10)
         v$assign(data)
         v$set(3L, v$at(3L) + 1)
         
