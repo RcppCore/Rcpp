@@ -30,7 +30,7 @@ public:
 	
         /* lvalue uses */              
         NamesProxy& operator=(const NamesProxy& rhs) {
-            if( *this != rhs) set( rhs.get() ) ;
+            if( this != &rhs) set( rhs.get() ) ;
             return *this ;
         }
 	
