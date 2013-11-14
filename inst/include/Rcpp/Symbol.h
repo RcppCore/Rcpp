@@ -2,7 +2,7 @@
 //
 // Symbol.h: Rcpp R/C++ interface class library -- access R environments
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,41 +22,57 @@
 #ifndef Rcpp_Symbol_h
 #define Rcpp_Symbol_h
 
-#include <RcppCommon.h>
-#include <Rcpp/RObject.h>
-
 namespace Rcpp{ 
 
-    class Symbol: public RObject{
+    RCPP_API_CLASS(Symbol_Impl) {
     public:
 
+        RCPP_GENERATE_CTOR_ASSIGN(Symbol_Impl) 
+    
         /**
          * wraps the SEXP into a Symbol object. 
          * 
-         * @param m_sexp Accepted SEXP types are SYMSXP, CHARSXP and STRSXP
+         * @param x Accepted SEXP types are SYMSXP, CHARSXP and STRSXP
          * in the last case, the first element of the character vector 
          * is silently used
          */
-        Symbol(SEXP x) ;
+        Symbol_Impl(SEXP x){
+            int type = TYPEOF(x) ;
+            switch( type ){
+            case SYMSXP:
+                Storage::set__( x ) ;
+                break; /* nothing to do */
+            case CHARSXP: {
+                SEXP charSym = Rf_install(CHAR(x));     // cannot be gc()'ed  once in symbol table
+                Storage::set__( charSym ) ;
+                break ;
+            }
+            case STRSXP: {
+                /* FIXME: check that there is at least one element */
+                SEXP charSym = Rf_install( CHAR(STRING_ELT(x, 0 )) ); // cannot be gc()'ed  once in symbol table
+                Storage::set__( charSym );
+                break ;
+            }
+            default:
+                throw not_compatible("cannot convert to symbol (SYMSXP)") ;
+            }
+        }
     
-        /**
-         *
-         */
-        Symbol(const std::string& symbol) ;
-    
-        Symbol( const Symbol& other) ;
-        Symbol& operator=(const Symbol& other) ;
-    
-        /**
-         * Nothing specific
-         */ 
-        ~Symbol() ;
-
-        inline const char* c_str() const { return CHAR(PRINTNAME(m_sexp)) ; }
+        Symbol_Impl(const std::string& symbol){
+            Storage::set__( Rf_install(symbol.c_str()) );    
+        }
+        inline const char* c_str() const {
+            return CHAR(PRINTNAME(Storage::get__())) ; 
+        }
+        inline bool operator==(const char* other) const { 
+            return ! strcmp(other, c_str() ); 
+        }
         
-        inline bool operator==(const char* other) const { return ! strcmp(other, c_str() ); }
+        void update(SEXP){}
     };
 
+    typedef Symbol_Impl<NoProtectStorage> Symbol;
+    
 } // namespace Rcpp
 
 #endif

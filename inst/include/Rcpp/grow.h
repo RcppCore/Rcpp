@@ -2,7 +2,7 @@
 //
 // grow.h: Rcpp R/C++ interface class library -- grow a pairlist
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,25 +27,31 @@
 
 namespace Rcpp {
 
-    inline SEXP pairlist() { return R_NilValue ; }
-    SEXP grow( SEXP head, SEXP tail ) ; 
+    inline SEXP pairlist() { 
+        return R_NilValue ; 
+    }
+    
+    inline SEXP grow( SEXP head, SEXP tail ) {
+        Shield<SEXP> x( head ) ;
+        Shield<SEXP> res( Rf_cons( x, tail ) ) ;
+        return res ;  
+    }
     
     namespace internal{
      
         template <typename T>
-    	inline SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
-    	    return grow( wrap(head), tail ) ;
-    	}
+        inline SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
+            return grow( wrap(head), tail ) ;
+        }
     
-    	template <typename T>
-    	inline SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
-    	    SEXP y = PROTECT( wrap( head.object) ) ;
-    	    SEXP x = PROTECT( Rf_cons( y , tail) ) ;
-    	    SEXP headNameSym = ::Rf_install( head.name.c_str() );
-    	    SET_TAG( x, headNameSym ); 
-    	    UNPROTECT(2); 
-    	    return x; 	
-    	}
+        template <typename T>
+        inline SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
+            Shield<SEXP> y( wrap( head.object) ) ;
+            Shield<SEXP> x( Rf_cons( y , tail) ) ;
+            SEXP headNameSym = ::Rf_install( head.name.c_str() );
+            SET_TAG( x, headNameSym ); 
+            return x; 	
+        }
     
     } // internal
 
@@ -56,26 +62,13 @@ namespace Rcpp {
     template <typename T>
     SEXP grow(const T& head, SEXP tail) {
         return internal::grow__dispatch( typename traits::is_named<T>::type(), head, tail );
+    } 
+    
+    inline SEXP grow( const char* head, SEXP tail ) {
+        return grow( Rf_mkString(head), tail ) ; 
     }
     
-#ifdef HAS_VARIADIC_TEMPLATES
-
-    /* end of the recursion, wrap first to make the CAR and use R_NilValue as the CDR of the list */
-    template<typename T>
-    SEXP pairlist( const T& first){
-        return grow(first, R_NilValue ); 
-    }
-
-    template<typename T, typename... Args>
-    SEXP pairlist( const T& first, const Args&... args ){
-        return grow(first, pairlist(args...) );
-    }
-
-#else
-
-#include <Rcpp/generated/grow__pairlist.h>
-
-#endif
+    #include <Rcpp/generated/grow__pairlist.h>
 
 } // namespace Rcpp
 

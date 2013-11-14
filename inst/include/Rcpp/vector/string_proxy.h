@@ -40,10 +40,7 @@ namespace internal{
 		 * @param v reference to the associated character vector
 		 * @param index index 
 		 */
-		string_proxy( VECTOR& v, int index_ ) : 
-			parent(&v), index(index_){
-				RCPP_DEBUG_2( "string_proxy( VECTOR& = <%p>, index_ = %d) ", v.asSexp(), index_ ) ;
-		}
+		string_proxy( VECTOR& v, int index_ ) : parent(&v), index(index_){}
 			
 		string_proxy( const string_proxy& other ) : 
 			parent(other.parent), index(other.index){} ;
@@ -136,10 +133,9 @@ namespace internal{
 		friend std::string operator+( const std::string& x, const string_proxy<RT>& proxy);
 		
 		void swap( string_proxy& other ){
-			SEXP tmp = PROTECT( STRING_ELT(*parent, index)) ;
+			Shield<SEXP> tmp( STRING_ELT(*parent, index)) ;
 			SET_STRING_ELT( *parent, index, STRING_ELT( *(other.parent), other.index) ) ;
 			SET_STRING_ELT( *(other.parent), other.index, tmp ) ;
-			UNPROTECT(1) ; /* tmp */
 		}
 		
 		VECTOR* parent; 
@@ -283,10 +279,9 @@ namespace internal{
 			operator int() const { return ::Rcpp::as<int>(get()) ; }
 			
 			void swap(generic_proxy& other){
-				SEXP tmp = PROTECT(get()) ;
+				Shield<SEXP> tmp(get()) ;
 				set( other.get() ) ;
 				other.set(tmp) ;
-				UNPROTECT(1) ;
 			}
 			
 			VECTOR* parent; 
@@ -299,8 +294,12 @@ namespace internal{
 			}
 			
 		private:
-			inline void set(SEXP x) { SET_VECTOR_ELT( *parent, index, x ) ;} 
-			inline SEXP get() const { return VECTOR_ELT(*parent, index ); } 
+			inline void set(SEXP x) { 
+			    SET_VECTOR_ELT( *parent, index, x ) ;
+			} 
+			inline SEXP get() const { 
+			    return VECTOR_ELT(*parent, index ); 
+			} 
 		
 	}  ;
 	

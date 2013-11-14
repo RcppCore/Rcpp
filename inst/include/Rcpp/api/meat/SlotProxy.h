@@ -1,8 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
-// RObject.h: Rcpp R/C++ interface class library -- 
-//
-// Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,33 +15,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_RObject_h
-#define Rcpp_api_meat_RObject_h
+#ifndef Rcpp_api_meat_SlotProxy_h
+#define Rcpp_api_meat_SlotProxy_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
+    template <typename CLASS>
     template <typename T> 
-    RObject::AttributeProxy& RObject::AttributeProxy::operator=( const T& rhs ){
+    typename SlotProxyPolicy<CLASS>::SlotProxy& SlotProxyPolicy<CLASS>::SlotProxy::operator=( const T& rhs ){
         set( wrap( rhs ) ) ;
         return *this ;
     }
     
+    template <typename CLASS>
     template <typename T>
-    RObject::AttributeProxy::operator T() const {
+    SlotProxyPolicy<CLASS>::SlotProxy::operator T() const {
         return as<T>(get()) ;    
     }
-    
-    template <typename T> 
-    RObject::SlotProxy& RObject::SlotProxy::operator=( const T& rhs ){
-        set( wrap( rhs ) ) ;
-        return *this ;
-    }
-    template <typename T>
-    RObject::SlotProxy::operator T() const {
-        return as<T>(get()) ;    
-    }
-   
-    
-} // namespace Rcpp
 
+    template <typename CLASS>
+    template <typename T>
+    SlotProxyPolicy<CLASS>::const_SlotProxy::operator T() const {
+        return as<T>(get()) ;    
+    }
+
+}
 #endif

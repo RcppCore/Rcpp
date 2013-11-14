@@ -2,7 +2,7 @@
 //
 // rcast.h: Rcpp R/C++ interface class library -- cast from one SEXP type to another
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,8 +27,16 @@
 namespace Rcpp{
     namespace internal {
         
-        /* defined in Evaluator.cpp */
-        SEXP convert_using_rfunction(SEXP x, const char* const fun);
+        inline SEXP convert_using_rfunction(SEXP x, const char* const fun){
+            Armor<SEXP> res ;
+            try{
+                SEXP funSym = Rf_install(fun);
+                res = Rcpp_eval( Rf_lang2( funSym, x ) ) ;
+            } catch( eval_error& e){
+                throw not_compatible( std::string("could not convert using R function : ") + fun  ) ;
+            }
+            return res;
+        }
         
         // r_true_cast is only meant to be used when the target SEXP type
         // is different from the SEXP type of x 
@@ -36,17 +44,93 @@ namespace Rcpp{
         SEXP r_true_cast( SEXP x) {
             throw not_compatible( "not compatible" ) ;
         }
+        
+        template <int RTYPE>
+        SEXP basic_cast( SEXP x){
+            if( TYPEOF(x) == RTYPE ) return x ;
+            switch( TYPEOF(x) ){
+            case REALSXP:
+            case RAWSXP:
+            case LGLSXP:
+            case CPLXSXP:
+            case INTSXP:
+                return Rf_coerceVector( x, RTYPE) ;
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with requested type" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
 
-        template<> SEXP r_true_cast<INTSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<REALSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<RAWSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<CPLXSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<LGLSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<STRSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<VECSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<EXPRSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<LISTSXP>(SEXP x) ;
-        template<> SEXP r_true_cast<LANGSXP>(SEXP x) ;
+        template<> 
+        inline SEXP r_true_cast<INTSXP>(SEXP x){
+            return basic_cast<INTSXP>(x) ;    
+        }
+        template<> 
+        inline SEXP r_true_cast<REALSXP>(SEXP x){
+            return basic_cast<REALSXP>(x) ;    
+        }
+        template<> 
+        inline SEXP r_true_cast<RAWSXP>(SEXP x){
+            return  basic_cast<RAWSXP>(x) ;   
+        }
+        template<> 
+        inline SEXP r_true_cast<CPLXSXP>(SEXP x){
+            return basic_cast<CPLXSXP>(x) ;
+        }
+        template<> 
+        inline SEXP r_true_cast<LGLSXP>(SEXP x){
+            return basic_cast<LGLSXP>(x) ;
+        }
+        
+        template <> 
+        inline SEXP r_true_cast<STRSXP>(SEXP x){
+            switch( TYPEOF( x ) ){
+            case CPLXSXP:
+            case RAWSXP:
+            case LGLSXP:
+            case REALSXP:
+            case INTSXP:
+                {
+                    // return Rf_coerceVector( x, STRSXP );
+                    // coerceVector does not work for some reason
+                    Shield<SEXP> call( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
+                    Shield<SEXP> res( Rf_eval( call, R_GlobalEnv ) ) ;
+                    return res ;
+                }
+            case CHARSXP:
+                return Rf_ScalarString( x ) ;
+            case SYMSXP:
+                return Rf_ScalarString( PRINTNAME( x ) ) ; 
+            default:
+                throw ::Rcpp::not_compatible( "not compatible with STRSXP" ) ;
+            }
+            return R_NilValue ; /* -Wall */
+        }
+        template<> 
+        inline SEXP r_true_cast<VECSXP>(SEXP x) {
+            return convert_using_rfunction(x, "as.list" ) ;    
+        }
+        template<> 
+        inline SEXP r_true_cast<EXPRSXP>(SEXP x) {
+            return convert_using_rfunction(x, "as.expression" ) ;
+        }
+        template<> 
+        inline SEXP r_true_cast<LISTSXP>(SEXP x) {
+            switch( TYPEOF(x) ){
+            case LANGSXP:
+                {
+                    Shield<SEXP> y( Rf_duplicate( x )); 
+                    SET_TYPEOF(y,LISTSXP) ;
+                    return y ;
+                }
+            default:
+                return convert_using_rfunction(x, "as.pairlist" ) ;
+            }
+        }
+        template<> 
+        inline SEXP r_true_cast<LANGSXP>(SEXP x) {
+            return convert_using_rfunction(x, "as.call" ) ;    
+        }
 
     } // namespace internal 
 

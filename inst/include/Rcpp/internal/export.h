@@ -51,20 +51,18 @@ namespace Rcpp{
 			void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::false_type ) {
 			const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-			SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+			Shield<SEXP> y( ::Rcpp::r_cast<RTYPE>(x) ) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			std::copy( start, start + ::Rf_length(y), first ) ;
-			UNPROTECT(1) ;
 		}
         
 		template <typename InputIterator, typename value_type>
 		void export_range__impl( SEXP x, InputIterator first, ::Rcpp::traits::true_type ) {
 			const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-			SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+			Shield<SEXP> y( ::Rcpp::r_cast<RTYPE>(x) ) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			std::transform( start, start + ::Rf_length(y) , first, caster<STORAGE,value_type> ) ;
-			UNPROTECT(1) ;
         }
         
         // implemented in meat
@@ -105,26 +103,24 @@ namespace Rcpp{
 			void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::false_type ) {
 			const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-			SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+			Shield<SEXP> y( ::Rcpp::r_cast<RTYPE>(x) ) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			R_len_t size = ::Rf_length(y)  ;
 			for( R_len_t i=0; i<size; i++){
 				res[i] =  start[i] ;
 			}
-			UNPROTECT(1) ; /* y */
 		}
         
 		template <typename T, typename value_type>
 		void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::true_type ) {
 			const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-			SEXP y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+			Shield<SEXP> y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			R_len_t size = ::Rf_length(y)  ;
 			for( R_len_t i=0; i<size; i++){
 				res[i] = caster<STORAGE,value_type>(start[i]) ;
 			}
-			UNPROTECT(1) ; /* y */
 		}
 
 		template <typename T, typename value_type>

@@ -2,7 +2,7 @@
 //
 // WeakReference.h: Rcpp R/C++ interface class library -- weak references
 //
-// Copyright (C) 2009 - 2011    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,14 +22,13 @@
 #ifndef Rcpp_WeakReference_h
 #define Rcpp_WeakReference_h
 
-#include <RcppCommon.h>
-#include <Rcpp/RObject.h>
-
 namespace Rcpp{
 
-    class WeakReference : public RObject {
+    RCPP_API_CLASS(WeakReference_Impl) {
     public:
-        WeakReference() : RObject(){} ;
+        RCPP_GENERATE_CTOR_ASSIGN(WeakReference_Impl) 
+        
+        WeakReference_Impl(){}
 
         /**
          * wraps a weak reference
@@ -38,27 +37,31 @@ namespace Rcpp{
          *
          * @throw not_compatible if x is not a weak reference
          */
-        WeakReference( SEXP x) ; 
-
-        WeakReference( const WeakReference& other) ;
-        WeakReference& operator=(const WeakReference& other) ;
-        
-        /* TODO: constructor that makes a new weak reference based
-           on key, value, finalizer (C and R) */
+        WeakReference_Impl( SEXP x){
+             if( TYPEOF(x) != WEAKREFSXP )
+                throw not_compatible( "not a weak reference" ) ;
+            Storage::set__(x);
+        }
         
         /** 
          * Retrieve the key
          */
-        SEXP key() ; 
+        SEXP key() const {
+            return R_WeakRefKey(Storage::get__()) ;    
+        }
 
         /**
          * Retrieve the value
          */
-        SEXP value() ;
+        SEXP value() const {
+            return R_WeakRefValue(Storage::get__());
+        }
+        
+        void update(SEXP){}
 
     } ;
 
-
+    typedef WeakReference_Impl<PreserveStorage> WeakReference ;
 }
 
 #endif

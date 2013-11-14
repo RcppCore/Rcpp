@@ -2,7 +2,7 @@
 //
 // DatetimeVector.h: Rcpp R/C++ interface class library -- Datetime vector
 //
-// Copyright (C) 2010 - 2011    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -24,37 +24,19 @@
 
 #include <RcppCommon.h>
 
+#include <Rcpp/internal/GreedyVector.h>
+
 namespace Rcpp {
 
-    class DatetimeVector {
+    class DatetimeVector : public GreedyVector<Datetime, DatetimeVector> {
     public:
-        typedef std::vector<Datetime>::iterator iterator;
-        typedef std::vector<Datetime>::const_iterator const_iterator;
+        DatetimeVector(SEXP vec) : GreedyVector(vec){}
+        DatetimeVector(int n) : GreedyVector(n){}
         
-        DatetimeVector(SEXP vec);
-        DatetimeVector(int n);
-        ~DatetimeVector() {};
-
-        const Datetime& operator()(int i) const;
-        Datetime& operator()(int i);
-
-        const Datetime& operator[](int i) const;
-        Datetime& operator[](int i);
-
-        int size() const;
-
-        std::vector<Datetime> getDatetimes() const;
+        std::vector<Datetime> getDatetimes() const{
+            return v ;    
+        }
         
-        inline iterator begin(){ return v.begin(); }
-        inline iterator end(){ return v.end(); }
-        
-        inline const_iterator begin() const { return v.begin(); }
-        inline const_iterator end() const { return v.end(); }
-        
-        inline operator SEXP() const { return wrap( v ) ; } 
-        
-    private:
-        std::vector<Datetime> v;
     };
 }
 

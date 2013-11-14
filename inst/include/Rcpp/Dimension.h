@@ -2,7 +2,7 @@
 //
 // Dimension.h: Rcpp R/C++ interface class library -- dimensions
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,10 +22,6 @@
 #ifndef Rcpp_Dimension_h
 #define Rcpp_Dimension_h
 
-#define R_NO_REMAP
-#include <Rinternals.h>
-#include <vector>
- 
 namespace Rcpp{ 
 
     class Dimension {
@@ -33,22 +29,47 @@ namespace Rcpp{
 	    typedef std::vector<int>::reference reference ;
 	    typedef std::vector<int>::const_reference const_reference ;
 	    
-	    Dimension() ;
-	    Dimension(SEXP dims);
-	    Dimension( const Dimension& other ) ;
-	    Dimension& operator=( const Dimension& other ) ;
-	    Dimension(const size_t& n1) ;
-	    Dimension(const size_t& n1, const size_t& n2) ;
-	    Dimension(const size_t& n1, const size_t& n2, const size_t& n3) ;
+	    Dimension() : dims(){}
+	    
+	    Dimension(SEXP dims) ;
+	    
+	    Dimension( const Dimension& other ) : dims(other.dims){}
+	    Dimension& operator=( const Dimension& other ) {
+	        if( *this != other )
+	            dims = other.dims ;
+	        return *this ;
+	    }
+	    Dimension(const size_t& n1) : dims(1){
+	        dims[0] = n1 ;    
+	    }
+	    Dimension(const size_t& n1, const size_t& n2) : dims(2){
+	        dims[0] = n1 ;
+	        dims[1] = n2 ;
+	    }
+	    Dimension(const size_t& n1, const size_t& n2, const size_t& n3) : dims(3){
+	        dims[0] = n1 ;
+	        dims[1] = n2 ;
+	        dims[2] = n3 ;
+	    }
 	    operator SEXP() const ;
 	    
-	    int size() const ;
-	    int prod() const ;
+	    inline int size() const {
+	        return (int) dims.size() ;    
+	    }
+	    inline int prod() const {
+	        return std::accumulate( dims.begin(), dims.end(), 1, std::multiplies<int>() ) ;    
+	    }
 	    
-	    reference operator[](int i);
-	    const_reference operator[](int i) const;
+	    inline reference operator[](int i){
+	        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
+            return dims[i] ;
+	    }
+	    inline const_reference operator[](int i) const{
+	        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
+	        return dims[i] ;    
+	    }
 	    
-        private:
+	private:
 	    std::vector<int> dims;
     };
 

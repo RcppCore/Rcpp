@@ -2,7 +2,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,10 +27,15 @@ namespace Rcpp{
 class no_init {
 public:
     no_init(int size_): size(size_){}
-    inline int get() const { return size; }
     
-    template <int RTYPE>
-    operator Vector<RTYPE>(){ return Rf_allocVector(RTYPE, size) ; }
+    inline int get() const { 
+        return size; 
+    }
+    
+    template <int RTYPE, template <class> class StoragePolicy >
+    operator Vector<RTYPE, StoragePolicy>() const { 
+        return Rf_allocVector(RTYPE, size) ; 
+    }
     
 private:
     int size ;

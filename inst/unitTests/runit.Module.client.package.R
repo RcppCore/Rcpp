@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2010 - 2012	 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2013	 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -33,7 +33,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .onWindows) {
+if (.runThisTest && ! .badOSX && ! .onWindows) {
 
     ## ## added test for 'testRcppClass' example of extending C++ classes via R
     test.Class.package <- function( ){
@@ -53,7 +53,7 @@ if (.runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] && ! .badOSX && ! .o
         require( "testRcppClass", "templib", character.only = TRUE )
     
         v <- stdNumeric$new()
-        data <- 1:10
+        data <- as.numeric(1:10)
         v$assign(data)
         v$set(3L, v$at(3L) + 1)
         

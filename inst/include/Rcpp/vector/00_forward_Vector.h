@@ -2,7 +2,7 @@
 //
 // 00_forward_Vector.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,6 @@
 #ifndef Rcpp__vector__forward_Vector_h
 #define Rcpp__vector__forward_Vector_h
 
-template <int RTYPE> class Vector ;
+template <int RTYPE, template <class> class StoragePolicy> class Vector ;
 
 #endif

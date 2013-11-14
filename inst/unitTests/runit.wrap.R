@@ -95,12 +95,6 @@ test.wrap.multimap.string.generic <- function(){
 		msg = "wrap( multimap<string,vector<int>>) " )
 }
 
-test.null.const.char <- function() {
-    checkEquals(null_const_char(),
-                NULL,
-                msg = "null const char*")
-}
-
 test.nonnull.const.char <- function() {
     checkEquals(nonnull_const_char(),
                 "foo",
@@ -173,21 +167,21 @@ test.wrap.map.int.vector_double <- function(){
     )    
 }
 
-test.wrap.map.int.Foo <- function(){
-    checkEquals( 
-        sapply( map_int_Foo(), function(.) .$get() ), 
-        c("0" = 2, "1" = 3 ), 
-        msg = "std::map<int, MODULE EXPOSED CLASS >"
-    )    
-}
-
-test.wrap.vector.Foo <- function(){
-    checkEquals( 
-        sapply( vector_Foo(), function(.) .$get() ), 
-        c(2, 3), 
-        msg = "std::vector< MODULE EXPOSED CLASS >"
-    )    
-}
+# test.wrap.map.int.Foo <- function(){
+#     checkEquals( 
+#         sapply( map_int_Foo(), function(.) .$get() ), 
+#         c("0" = 2, "1" = 3 ), 
+#         msg = "std::map<int, MODULE EXPOSED CLASS >"
+#     )    
+# }
+# 
+# test.wrap.vector.Foo <- function(){
+#     checkEquals( 
+#         sapply( vector_Foo(), function(.) .$get() ), 
+#         c(2, 3), 
+#         msg = "std::vector< MODULE EXPOSED CLASS >"
+#     )    
+# }
 
 }
 

@@ -2,7 +2,7 @@
 //
 // Function.h: Rcpp R/C++ interface class library -- functions (also primitives and builtins)
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,76 +25,69 @@
 #include <RcppCommon.h>
 
 #include <Rcpp/grow.h>
-#include <Rcpp/RObject.h>
 
 namespace Rcpp{ 
 
     /** 
      * functions
      */
-    class Function : public RObject{
+    RCPP_API_CLASS(Function_Impl) {
     public:
 
-        /**
-         * Attempts to convert the SEXP to a pair list
-         *
-         * @throw not_compatible if the SEXP could not be converted
-         * to a pair list using as.pairlist
-         */
-        Function(SEXP lang = R_NilValue) ;
+        RCPP_GENERATE_CTOR_ASSIGN(Function_Impl) 
+        
+        Function_Impl(SEXP x){
+            switch( TYPEOF(x) ){
+            case CLOSXP:
+            case SPECIALSXP:
+            case BUILTINSXP:
+                Storage::set__(x); 
+                break; 
+            default:
+                throw not_compatible("cannot convert to function") ;
+            }
+        }
         
         /**
          * Finds a function, searching from the global environment
          *
          * @param name name of the function
          */
-        Function(const std::string& name) ;
-        
-        Function(const Function& other) ;
-        Function& operator=(const Function& other );
-        
-        // /**
-        //  * Finds a function, searching from a specific environment
-        //  *
-        //  * @param name name of the function
-        //  * @param env environment where to find it
-        //  */
-        // Function(const std::string& name, SEXP env ) ;
-        
-        /**
-         * calls the function with the specified arguments
-         *
-         * @param ...Args variable length argument list. The type of each 
-         *        argument must be wrappable, meaning there need to be 
-         *        a wrap function that takes this type as its parameter
-         *
-         */
-#ifdef HAS_VARIADIC_TEMPLATES
-        template<typename... Args> 
-        SEXP operator()( const Args&... args) const {
-            return internal::try_catch( Rf_lang2( m_sexp, pairlist(args...) ) ) ;
+        Function_Impl(const std::string& name) {
+            SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
+            Shield<SEXP> x( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
+            Storage::set__(x) ;
         }
-#else
+        
         SEXP operator()() const {
-            return internal::try_catch( Rf_lang1( m_sexp  ) ) ;     
+            return Rcpp_eval( Rf_lang1( Storage::get__()  ) ) ;     
         }
         
-#include <Rcpp/generated/Function__operator.h>  
-#endif
+        #include <Rcpp/generated/Function__operator.h>  
         
         /**
          * Returns the environment of this function
          */
-        SEXP environment() const ;
+        SEXP environment() const { 
+            SEXP fun = Storage::get__() ;
+            if( TYPEOF(fun) != CLOSXP ) {
+                throw not_a_closure() ;
+            }
+            return CLOENV(fun) ;
+        }
         
         /**
          * Returns the body of the function
          */
-        SEXP body() const ;
+        SEXP body() const {
+            return BODY( Storage::get__() ) ;    
+        }
          
-        ~Function() ;
+        void update(SEXP){}
     };
 
+    typedef Function_Impl<PreserveStorage> Function ;
+    
 } // namespace Rcpp
 
 #endif
