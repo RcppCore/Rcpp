@@ -1,8 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
-// backward.h: Rcpp R/C++ interface class library -- 
-//
-// Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,26 +15,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_api_meat_Reference_h
-#define Rcpp_api_meat_Reference_h
+#ifndef Rcpp_api_meat_EnvironmentBinding_h
+#define Rcpp_api_meat_EnvironmentBinding_h
 
 namespace Rcpp{
 
+    template <typename EnvironmentClass>
     template <typename T>
-    Reference::FieldProxy& Reference::FieldProxy::operator=( const T& rhs){
-         set( wrap(rhs) ) ;
-         return *this ;
+    typename BindingPolicy<EnvironmentClass>::Binding& BindingPolicy<EnvironmentClass>::Binding::operator=( const T& rhs){
+        set( wrap(rhs) );
+        return *this ;
     }
     
+    template <typename EnvironmentClass>
     template <typename T>
-    Reference::FieldProxy::operator T() const {
-        return as<T>(get());    
+    BindingPolicy<EnvironmentClass>::Binding::operator T() const {
+        return as<T>( get() ) ;    
     }
-    
+
+    template <typename EnvironmentClass>
     template <typename T>
-    Reference::ConstFieldProxy::operator T() const {
-        return as<T>(get());    
+    BindingPolicy<EnvironmentClass>::const_Binding::operator T() const {
+        return as<T>( get() ) ;    
     }
-    
+
 }
+
 #endif

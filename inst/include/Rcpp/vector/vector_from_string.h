@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// eval_methods.h: Rcpp R/C++ interface class library -- 
+// vector_from_string.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,27 +19,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__vector__forward_eval_methods_h
-#define Rcpp__vector__forward_eval_methods_h
+#ifndef Rcpp__vector__forward_vector_from_string_h
+#define Rcpp__vector__forward_vector_from_string_h
 
 namespace internal{
+    
     template <int RTYPE>
-    SEXP vector_from_string( const std::string& st ) {
+    inline SEXP vector_from_string( const std::string& st ) {
         return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
     }
         
     template <int RTYPE>
     SEXP vector_from_string_expr( const std::string& code) {
         ParseStatus status;
-        SEXP expr = PROTECT( ::Rf_mkString( code.c_str() ) );
-        SEXP res  = PROTECT( ::R_ParseVector(expr, -1, &status, R_NilValue));
+        Shield<SEXP> expr( Rf_mkString( code.c_str() ) ) ;
+        Shield<SEXP> res( R_ParseVector(expr, -1, &status, R_NilValue) );
         switch( status ){
         case PARSE_OK:
-            UNPROTECT( 2) ;
             return(res) ;
             break;
         default:
-            UNPROTECT(2) ;
             throw parse_error() ;
         }
         return R_NilValue ; /* -Wall */
@@ -49,13 +48,6 @@ namespace internal{
     inline SEXP vector_from_string<EXPRSXP>( const std::string& st ) {
         return vector_from_string_expr<EXPRSXP>( st ) ;
     }
-        
-    template <int RTYPE> class eval_methods {} ;
-    template <> class eval_methods<EXPRSXP> {
-    public:
-        SEXP eval() ;
-        SEXP eval(SEXP) ;
-    } ;
-      
+    
 }
 #endif

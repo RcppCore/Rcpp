@@ -27,6 +27,8 @@ env:
   global:
     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+    - RunAllRcppTests="yes"
+    
 # See the travis docs for more information:
 #   http://about.travis-ci.org/docs/user/build-configuration/#The-Build-Matrix
 

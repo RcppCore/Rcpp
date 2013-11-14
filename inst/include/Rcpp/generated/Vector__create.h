@@ -2,7 +2,7 @@
 //
 // Vector__create.h: Rcpp R/C++ interface class library -- generated helper code for Vector.h
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -50,7 +50,7 @@ private:
 	template <TYPENAMES>
 	static Vector create__dispatch( traits::true_type, ARGUMENTS){
 		Vector res( ___N___ ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, ___N___ ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, ___N___ ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -59,7 +59,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -90,7 +90,7 @@ private:
 	template <typename T1>
 	static Vector create__dispatch( traits::true_type, const T1& t1){
 		Vector res( 1 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 1 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 1 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -99,7 +99,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -130,7 +130,7 @@ private:
 	template <typename T1, typename T2>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2){
 		Vector res( 2 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 2 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 2 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -140,7 +140,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -172,7 +172,7 @@ private:
 	template <typename T1, typename T2, typename T3>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3){
 		Vector res( 3 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 3 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 3 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -183,7 +183,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -216,7 +216,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4){
 		Vector res( 4 ) ;
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 4 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 4 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -228,7 +228,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -262,7 +262,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5){
 		Vector res( 5 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 5 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 5 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -275,7 +275,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -310,7 +310,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6){
 		Vector res( 6 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 6 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 6 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -324,7 +324,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -360,7 +360,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7){
 		Vector res( 7 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 7 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 7 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -375,7 +375,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -412,7 +412,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8){
 		Vector res( 8 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 8 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 8 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -428,7 +428,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -466,7 +466,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9){
 		Vector res( 9 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 9 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 9 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -483,7 +483,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -522,7 +522,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10){
 		Vector res( 10 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 10 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 10 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -540,7 +540,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -580,7 +580,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11){
 		Vector res( 11 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 11 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 11 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -599,7 +599,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -640,7 +640,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12){
 		Vector res( 12 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 12 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 12 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -660,7 +660,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -702,7 +702,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13){
 		Vector res( 13 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 13 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 13 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -723,7 +723,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -766,7 +766,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14){
 		Vector res( 14 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 14 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 14 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -788,7 +788,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -832,7 +832,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15){
 		Vector res( 15 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 15 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 15 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -855,7 +855,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -900,7 +900,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16){
 		Vector res( 16 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 16 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 16 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -924,7 +924,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -970,7 +970,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17){
 		Vector res( 17 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 17 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 17 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -995,7 +995,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -1042,7 +1042,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17, const T18& t18){
 		Vector res( 18 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 18 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 18 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -1068,7 +1068,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -1116,7 +1116,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18, typename T19>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17, const T18& t18, const T19& t19){
 		Vector res( 19 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 19 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 19 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -1143,7 +1143,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 
@@ -1192,7 +1192,7 @@ private:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10, typename T11, typename T12, typename T13, typename T14, typename T15, typename T16, typename T17, typename T18, typename T19, typename T20>
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, const T6& t6, const T7& t7, const T8& t8, const T9& t9, const T10& t10, const T11& t11, const T12& t12, const T13& t13, const T14& t14, const T15& t15, const T16& t16, const T17& t17, const T18& t18, const T19& t19, const T20& t20){
 		Vector res( 20 ) ;                                                                      
-		SEXP names = PROTECT( ::Rf_allocVector( STRSXP, 20 ) ) ;
+		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 20 ) ) ;
 		int index = 0 ;
 		iterator it( res.begin() );
 		
@@ -1220,7 +1220,7 @@ private:
 		////
 		
 		res.attr("names") = names ;
-		UNPROTECT(1); // names
+		
 		return res ;
 	}
 

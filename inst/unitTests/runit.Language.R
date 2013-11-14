@@ -26,7 +26,7 @@ if (.runThisTest) {
 
 test.Language <- function(){
 	checkEquals( runit_language( call("rnorm") ), call("rnorm" ), msg = "Language( LANGSXP )" )
-	checkException( runit_language(funx), msg = "Language not compatible with function" )
+	checkException( runit_language(test.Language), msg = "Language not compatible with function" )
 	checkException( runit_language(new.env()), msg = "Language not compatible with environment" )
 	checkException( runit_language(1:10), msg = "Language not compatible with integer" )
 	checkException( runit_language(TRUE), msg = "Language not compatible with logical" )

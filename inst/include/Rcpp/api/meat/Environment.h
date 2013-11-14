@@ -2,7 +2,7 @@
 //
 // Environment.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -24,23 +24,23 @@
 
 namespace Rcpp{ 
 
+template <template <class> class StoragePolicy>    
 template <typename WRAPPABLE>
-bool Environment::assign( const std::string& name, const WRAPPABLE& x) const {
+bool Environment_Impl<StoragePolicy>::assign( const std::string& name, const WRAPPABLE& x) const {
     return assign( name, wrap( x ) ) ;
 }
 
-template <typename T> 
-Environment::Binding::operator T() const{
-    SEXP x = env.get(name) ;
-    return as<T>(x) ;
-}  
-    
-template <typename WRAPPABLE>
-Environment::Binding& Environment::Binding::operator=(const WRAPPABLE& rhs){
-    env.assign( name, rhs ) ;
-    return *this ;
+template <template <class> class StoragePolicy>    
+Environment_Impl<StoragePolicy>::Environment_Impl( const std::string& name ){
+   Storage::set__( as_environment( wrap(name) ) ) ;     
 }
-    
+
+template <template <class> class StoragePolicy>    
+Environment_Impl<StoragePolicy>::Environment_Impl( int pos ){
+   Storage::set__( as_environment( wrap(pos) ) ) ;     
+}
+
+
 } // namespace Rcpp
 
 #endif

@@ -2,7 +2,7 @@
 //
 // Module_generated_function.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +22,8 @@
 #ifndef Rcpp_Module_generated_function_h
 #define Rcpp_Module_generated_function_h
 
-
+namespace Rcpp {
+    
 template <typename OUT>                                                                   
 void function( const char* name_,  OUT (*fun)(void), const char* docstring = 0){
   Rcpp::Module* scope = ::getCurrentScope() ;
@@ -1144,6 +1145,6 @@ void function( const char* name_,  OUT (*fun)(U0 u0, U1 u1, U2 u2, U3 u3, U4 u4,
   }
 }
 
-
+}
 #endif
 

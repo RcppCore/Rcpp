@@ -26,387 +26,63 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <Rcpp/Datetime.h>
-#include <Rcpp/Date.h>
-#include <Rcpp/DatetimeVector.h>
-#include <Rcpp/DateVector.h>
+#define COMPILING_RCPP
 
-#include <Rcpp/Function.h>
+#include <Rcpp.h>
 #include <Rmath.h> 		// for Rf_fround
 #include <time.h>		// for gmtime
 #include <Rcpp/exceptions.h>
 
 namespace Rcpp {
 
-    static struct tm * gmtime_(const time_t * const timep); 	// see below
-
-    // {{{ Date
-    const unsigned int Date::QLtoJan1970Offset = 25569;  	// Offset between R / Unix epoch date and the QL base date
-    const unsigned int Date::baseYear = 1900;			// because we hate macros
-
-    Date::Date() {
-	m_d = 0; 
-	update_tm();
-    }
-
-    Date::Date(SEXP d) {
-	m_d = Rcpp::as<double>(d);
-	update_tm();
-    }
-
-    Date::Date(const int &dt) {
-	m_d = dt;
-	update_tm();
-    }
-
-    Date::Date(const double &dt) {
-        m_d = dt;
-        update_tm();
-    }
-
-    Date::Date(const std::string &s, const std::string &fmt) {
-	Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
-	Rcpp::Function asDate("as.Date");	// and we need to convert to Date
-	m_d = Rcpp::as<int>(asDate(strptime(s, fmt, "UTC")));
-	update_tm();
-    }
-
-    Date::Date(const unsigned int &mon, const unsigned int &day, const unsigned int &year) {
-
-	m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = 0;
-
-	// allow for ISO-notation case (yyyy, mm, dd) which we prefer over (mm, dd, year)
-	if (mon >= baseYear && day <= 12 && year <= 31) {
-	    m_tm.tm_year = mon - baseYear;
-	    m_tm.tm_mon  = day - 1;     // range 0 to 11
-	    m_tm.tm_mday = year;
-	} else {
-	    m_tm.tm_mday  = day;
-	    m_tm.tm_mon   = mon - 1;	// range 0 to 11
-	    m_tm.tm_year  = year - baseYear;
-	}
-	double tmp = mktime00(m_tm); 	// use mktime() replacement borrowed from R
-	m_tm.tm_year += baseYear;	// we'd rather keep it as a normal year
-	m_d = tmp/(24*60*60);
-    }
-
-    Date::Date(const Date &copy) {
-	m_d = copy.m_d;
-	m_tm = copy.m_tm;
-    }
-
-    Date & Date::operator=(const Date & newdate) {
-	if (this != &newdate) {
-	    m_d = newdate.m_d;
-	    m_tm = newdate.m_tm;
-	}
-	return *this;
-    }
-
-    void Date::update_tm() {
-        if (R_FINITE(m_d)) {
-            time_t t = 24*60*60 * m_d;		// (fractional) days since epoch to seconds since epoch
-            m_tm = *gmtime_(&t);
-        } else {
-            m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
-            m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
-        }
-    }
-
     // Taken from R's src/main/datetime.c and made a member function called with C++ reference
     /* Substitute for mktime -- no checking, always in GMT */
-    double Date::mktime00(struct tm &tm) const {
+    
+    // [[Rcpp::register]]
+    double mktime00(struct tm &tm) {
 
-	static const int days_in_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
+        static const int days_in_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        
         #define isleap(y) ((((y) % 4) == 0 && ((y) % 100) != 0) || ((y) % 400) == 0)
         #define days_in_year(year) (isleap(year) ? 366 : 365)
-
-	int day = 0;
-	int i, year, year0;
-	double excess = 0.0;
-
-	day = tm.tm_mday - 1;
-	year0 = baseYear + tm.tm_year;
-	/* safety check for unbounded loops */
-	if (year0 > 3000) {
-	    excess = (int)(year0/2000) - 1;
-	    year0 -= excess * 2000;
-	} else if (year0 < 0) {
-	    excess = -1 - (int)(-year0/2000);
-	    year0 -= excess * 2000;
-	}
-
-	for(i = 0; i < tm.tm_mon; i++) day += days_in_month[i];
-	if (tm.tm_mon > 1 && isleap(year0)) day++;
-	tm.tm_yday = day;
-
-	if (year0 > 1970) {
-	    for (year = 1970; year < year0; year++)
-		day += days_in_year(year);
-	} else if (year0 < 1970) {
-	    for (year = 1969; year >= year0; year--)
-		day -= days_in_year(year);
-	}
-
-	/* weekday: Epoch day was a Thursday */
-	if ((tm.tm_wday = (day + 4) % 7) < 0) tm.tm_wday += 7;
-	
-	return tm.tm_sec + (tm.tm_min * 60) + (tm.tm_hour * 3600)
-	    + (day + excess * 730485) * 86400.0;
+        
+        int day = 0;
+        int i, year, year0;
+        double excess = 0.0;
+        
+        day = tm.tm_mday - 1;
+        year0 = Date::baseYear() + tm.tm_year;
+        /* safety check for unbounded loops */
+        if (year0 > 3000) {
+            excess = (int)(year0/2000) - 1;
+            year0 -= excess * 2000;
+        } else if (year0 < 0) {
+            excess = -1 - (int)(-year0/2000);
+            year0 -= excess * 2000;
+        }
+        
+        for(i = 0; i < tm.tm_mon; i++) day += days_in_month[i];
+        if (tm.tm_mon > 1 && isleap(year0)) day++;
+        tm.tm_yday = day;
+        
+        if (year0 > 1970) {
+            for (year = 1970; year < year0; year++)
+                day += days_in_year(year);
+        } else if (year0 < 1970) {
+            for (year = 1969; year >= year0; year--)
+                day -= days_in_year(year);
+        }
+        
+        /* weekday: Epoch day was a Thursday */
+        if ((tm.tm_wday = (day + 4) % 7) < 0) tm.tm_wday += 7;
+        
+        return tm.tm_sec + (tm.tm_min * 60) + (tm.tm_hour * 3600)
+            + (day + excess * 730485) * 86400.0;
     }
+    
     #undef isleap
     #undef days_in_year 
 
-    Date operator+(const Date &date, int offset) {
-	Date newdate(date.m_d);
-	newdate.m_d += offset;
-	time_t t = 24*60*60 * newdate.m_d;	// days since epoch to seconds since epo
-	//newdate.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
-	newdate.m_tm = *gmtime_(&t);
-	return newdate;
-    }
-
-    double operator-(const Date& d1, const Date& d2) { return d1.m_d - d2.m_d; }
-    bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
-    bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
-    bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; }
-    bool  operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; }
-    bool  operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
-    bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
-
-    namespace internal{
-    
-        SEXP getPosixClasses(){
-        	SEXP datetimeclass = PROTECT(Rf_allocVector(STRSXP,2));
-        	SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
-        	SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
-        	UNPROTECT(1) ;
-        	return datetimeclass ;
-        }
-        
-        SEXP new_posixt_object( double d){
-        	SEXP x = PROTECT( Rf_ScalarReal( d ) ) ;
-        	Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() ); 
-        	UNPROTECT(1); 
-        	return x ;	
-        }
-        
-        SEXP new_date_object( double d){
-        	SEXP x = PROTECT(Rf_ScalarReal( d ) ) ;
-        	Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date")); 
-        	UNPROTECT(1);
-        	return x;
-        }
-
-    }
-    
-    template <> SEXP wrap(const Date &date) {
-	return internal::new_date_object( date.getDate() ) ;
-    }
-    // }}}
-
-    // {{{ Datetime
-    Datetime::Datetime() {
-		m_dt = 0; 
-		update_tm();
-    }
-
-    Datetime::Datetime(SEXP d) {
-		m_dt = Rcpp::as<double>(d); 
-		update_tm();
-    }
-
-    Datetime::Datetime(const double &dt) {
-		m_dt = dt;
-		update_tm();
-    }
-
-    Datetime::Datetime(const std::string &s, const std::string &fmt) {
-		Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
-		Rcpp::Function asPOSIXct("as.POSIXct");	// and we need to convert to POSIXct
-		m_dt = Rcpp::as<double>(asPOSIXct(strptime(s, fmt)));
-		update_tm();
-    }
-
-    Datetime::Datetime(const Datetime &copy) {
-		m_dt = copy.m_dt;
-		m_us = copy.m_us;
-		m_tm = copy.m_tm;
-    }
-
-    Datetime & Datetime::operator=(const Datetime & newdt) {
-		if (this != &newdt) {
-			m_dt = newdt.m_dt;
-			m_us = newdt.m_us;
-			m_tm = newdt.m_tm;
-		}
-		return *this;
-    }
-
-    void Datetime::update_tm() {
-        if (R_FINITE(m_dt)) {
-			time_t t = static_cast<time_t>(floor(m_dt));	
-			m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
-			// m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
-			m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
-        } else {
-			m_dt = NA_REAL;			// NaN and Inf need it set
-            m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
-            m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
-			m_us = NA_INTEGER;
-        }
-	}
-
-    Datetime operator+(const Datetime &datetime, double offset) {
-		Datetime newdt(datetime.m_dt);
-		newdt.m_dt += offset;
-		time_t t = static_cast<time_t>(floor(newdt.m_dt));	
-		newdt.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's dat		
-		newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));	
-		return newdt;
-    }
-
-    double  operator-(const Datetime& d1, const Datetime& d2) { return d1.m_dt - d2.m_dt; }
-    bool    operator<(const Datetime &d1, const Datetime& d2) { return d1.m_dt < d2.m_dt; }
-    bool    operator>(const Datetime &d1, const Datetime& d2) { return d1.m_dt > d2.m_dt; }
-    bool    operator==(const Datetime &d1, const Datetime& d2) { return d1.m_dt == d2.m_dt; }
-    bool    operator>=(const Datetime &d1, const Datetime& d2) { return d1.m_dt >= d2.m_dt; }
-    bool    operator<=(const Datetime &d1, const Datetime& d2) { return d1.m_dt <= d2.m_dt; }
-    bool    operator!=(const Datetime &d1, const Datetime& d2) { return d1.m_dt != d2.m_dt; }
-
-    template<> SEXP wrap_extra_steps<Rcpp::Datetime>( SEXP x ){
-		Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses() ); 
-		return x ;
-    }
-	
-    template <> SEXP wrap(const Datetime &date) {
-		return internal::new_posixt_object( date.getFractionalTimestamp() ) ;
-    }
-    // }}}    
-
-    // {{{ DatetimeVector
-        DatetimeVector::DatetimeVector(SEXP vec) : v()  {
-        int i;
-        if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
-            throw std::range_error("DatetimeVector: invalid numeric vector in constructor");
-        int len = Rf_length(vec);
-        if (len == 0)
-            throw std::range_error("DatetimeVector: null vector in constructor");
-        v.resize(len);
-        for (i = 0; i < len; i++)
-            v[i] = Datetime( static_cast<double>(REAL(vec)[i]));
-    }
-
-
-    DatetimeVector::DatetimeVector(int n) : v(n) {}
-
-    const Datetime & DatetimeVector::operator()(int i) const {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DatetimeVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    Datetime & DatetimeVector::operator()(int i) {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DatetimeVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    const Datetime & DatetimeVector::operator[](int i) const {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DatetimeVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    Datetime & DatetimeVector::operator[](int i) {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DatetimeVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    int DatetimeVector::size() const { 
-        return v.size(); 
-    }
-
-    std::vector<Datetime> DatetimeVector::getDatetimes() const {
-        return v;
-    }
-    // }}}
-    
-    // {{{ DateVector
-        DateVector::DateVector(SEXP vec) : v()  {
-        int i;
-        if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
-            throw std::range_error("DateVector: invalid numeric vector in constructor");
-        int len = Rf_length(vec);
-        if (len == 0)
-            throw std::range_error("DateVector: null vector in constructor");
-        v.resize(len);
-        for (i = 0; i < len; i++)
-            v[i] = Date( static_cast<double>(REAL(vec)[i]));
-    }
-
-
-    DateVector::DateVector(int n) : v(n){}
-
-    const Date & DateVector::operator()(int i) const {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DateVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    Date & DateVector::operator()(int i) {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DateVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    const Date & DateVector::operator[](int i) const {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DatetimeVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    Date & DateVector::operator[](int i) {
-        if (i < 0 || i >= static_cast<int>(v.size())) {
-            std::ostringstream oss;
-            oss << "DatetimeVector: subscript out of range: " << i;
-            throw std::range_error(oss.str());
-        }
-        return v[i];
-    }
-
-    int DateVector::size() const { 
-        return v.size(); 
-    }
-
-    std::vector<Date> DateVector::getDates() const {
-        return v;
-    }
-    // }}}    
-    
 #include "sys/types.h"	/* for time_t */
 #include "string.h"
 #include "limits.h"	/* for CHAR_BIT et al. */
@@ -590,8 +266,6 @@ struct tzhead {
 #define TM_OCTOBER	9
 #define TM_NOVEMBER	10
 #define TM_DECEMBER	11
-
-#define TM_YEAR_BASE	baseYear 	// was: 1900, baseYear defined above
 
 #define EPOCH_YEAR	1970
 #define EPOCH_WDAY	TM_THURSDAY
@@ -1548,8 +1222,6 @@ struct tzhead {
 	    // 	return NULL;
 	}
 	tmp->tm_year = y;
-	// if (increment_overflow(&tmp->tm_year, -TM_YEAR_BASE)) // commented-out because of nasty g++ -Wall comment
-	//     return NULL;
 	tmp->tm_yday = idays;
 	/*
 	** The "extra" mods below avoid overflow problems.
@@ -1598,7 +1270,8 @@ struct tzhead {
 	return result;
     }
 
-    static struct tm * gmtime_(const time_t * const	timep) {
-	return gmtsub(timep, 0L, &tm);
+    // [[Rcpp::register]]
+    struct tm * gmtime_(const time_t * const	timep) {
+        return gmtsub(timep, 0L, &tm);
     }
 }

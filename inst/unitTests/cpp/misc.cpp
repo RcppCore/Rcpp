@@ -36,10 +36,10 @@ public:
 // [[Rcpp::export]]
 SEXP symbol_(){
     return LogicalVector::create( 
-        Symbol( Rf_install("foobar") ).asSexp() == Rf_install("foobar"), 
-        Symbol( Rf_mkChar("foobar") ).asSexp() == Rf_install("foobar"), 
-        Symbol( Rf_mkString("foobar") ).asSexp() == Rf_install("foobar"), 
-        Symbol( "foobar" ).asSexp() == Rf_install("foobar") 
+        Symbol( Rf_install("foobar") ) == Rf_install("foobar"), 
+        Symbol( Rf_mkChar("foobar") ) == Rf_install("foobar"), 
+        Symbol( Rf_mkString("foobar") ) == Rf_install("foobar"), 
+        Symbol( "foobar" ) == Rf_install("foobar") 
     ) ;
 }
 
@@ -60,12 +60,12 @@ int Dimension_const( SEXP ia ){
 
 // [[Rcpp::export]] 
 SEXP evaluator_error(){
-    return Rcpp::Evaluator::run( Rf_lang2( Rf_install("stop"), Rf_mkString( "boom" ) ) ) ;
+    return Rcpp_eval( Rf_lang2( Rf_install("stop"), Rf_mkString( "boom" ) ) ) ;
 }
 
 // [[Rcpp::export]]
 SEXP evaluator_ok(SEXP x){
-    return Rcpp::Evaluator::run( Rf_lang2( Rf_install("sample"), x ) ) ;
+    return Rcpp_eval( Rf_lang2( Rf_install("sample"), x ) ) ;
 }
 
 // [[Rcpp::export]]

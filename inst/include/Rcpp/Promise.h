@@ -2,7 +2,7 @@
 //
 // Promise.h: Rcpp R/C++ interface class library -- promises (PROMSXP)
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,44 +22,56 @@
 #ifndef Rcpp_Promise_h
 #define Rcpp_Promise_h
 
-#include <RcppCommon.h>
-#include <Rcpp/Vector.h>
-#include <Rcpp/Environment.h>
-#include <Rcpp/RObject.h>
-
 namespace Rcpp{ 
-    class Promise : public RObject {     
+    
+    RCPP_API_CLASS(Promise_Impl) {     
     public:
-
-        Promise( SEXP x);
-        
-        Promise( const Promise& other) ;
-        Promise& operator=(const Promise& other ) ;
+        RCPP_GENERATE_CTOR_ASSIGN(Promise_Impl) 
+    
+        Promise_Impl( SEXP x){
+            if( TYPEOF(x) != PROMSXP)
+                throw not_compatible("not a promise") ;
+            Storage::set__(x) ;
+        }
         
         /** 
          * Return the result of the PRSEEN macro
          */
-        int seen() const ;
+        int seen() const {
+            return PRSEEN(Storage::get__());    
+        }
         
         /**
          * Return the result of the PRVALUE macro on the promise
          */
-        SEXP value() const;
+        SEXP value() const{
+            SEXP val = PRVALUE( Storage::get__() ) ; 
+            if( val == R_UnboundValue ) throw unevaluated_promise() ;
+            return val ;    
+        }
 
-        bool was_evaluated() const ;
+        bool was_evaluated() const {
+            return PRVALUE(Storage::get__()) != R_UnboundValue ;    
+        }
         
         /**
          * The promise expression: PRCODE
          */
-        ExpressionVector expression() const ;
+        ExpressionVector expression() const {
+            return ExpressionVector(PRCODE( Storage::get__() )) ;   
+        }
 
         /**
          * The promise environment : PRENV
          */
-        Environment environment() const ;
+        Environment environment() const {
+            return Environment( PRENV(Storage::get__() ) ) ;   
+        }
         
     } ;
 
+    typedef Promise_Impl<PreserveStorage> Promise ;
+    
 } // namespace
 
 #endif

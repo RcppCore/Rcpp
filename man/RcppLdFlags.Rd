@@ -12,14 +12,8 @@
   \code{Makevars.win}) rather than in an interactive session.
 }
 \usage{
-LdFlags(static=staticLinking())
-RcppLdFlags(static=staticLinking())
-}
-\arguments{
-  \item{static}{A boolean determining use of static (as opposed to
-  dynamic) linking; defaults to using the \code{staticLinking()}
-  function which defaults to \code{FALSE} on Linux, and \code{TRUE}
-  if the operating system is different from Linux.}
+LdFlags()
+RcppLdFlags()
 }
 \value{
   A character vector suitable by use by the system linker in order to

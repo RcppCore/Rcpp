@@ -2,7 +2,7 @@
 //
 // S4.h: Rcpp R/C++ interface class library -- S4 objects
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,41 +22,31 @@
 #ifndef Rcpp_S4_h
 #define Rcpp_S4_h                     
 
-#include <RcppCommon.h>
-#include <Rcpp/RObject.h>
-
 namespace Rcpp{ 
 
     /**
      * S4 object
      */
-    class S4 : public RObject{
+    RCPP_API_CLASS(S4_Impl) {
     public:
-        S4() ;
+        RCPP_GENERATE_CTOR_ASSIGN(S4_Impl) 
+    
+        S4_Impl(){} ;
         
         /**
          * checks that x is an S4 object and wrap it.
          *
          * @param x must be an S4 object
          */
-        S4(SEXP x) ; 
+        S4_Impl(SEXP x) {
+            if( ! ::Rf_isS4(x) ) throw not_s4() ;
+            Storage::set__(x) ;
+        }
         
-        /**
-         * copy constructor
-         *
-         * @param other other S4 object
-         */
-        S4(const S4& other) ;
-        
-        S4(const RObject::SlotProxy& proxy ) ;
-        S4(const RObject::AttributeProxy& proxy ) ;
-        
-        /**
-         * assignment operator. 
-         */
-        S4& operator=( const S4& other);
-        
-        S4& operator=( SEXP other ) ; 
+        S4_Impl& operator=( SEXP other ){
+            Storage::set__( other ) ;
+            return *this ;
+        }
         
         /**
          * Creates an S4 object of the requested class. 
@@ -64,16 +54,24 @@ namespace Rcpp{
          * @param klass name of the target S4 class
          * @throw not_s4 if klass does not map to a known S4 class
          */
-        S4( const std::string& klass ) ;
+        S4_Impl( const std::string& klass ){
+            Shield<SEXP> x( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) );
+            if (!Rf_inherits(x, klass.c_str()))
+                throw S4_creation_error( klass ) ;
+            Storage::set__(x) ;
+        }
         
         /**
          * Indicates if this object is an instance of the given S4 class
          */
-        bool is( const std::string& clazz) ;
+        bool is( const std::string& clazz) const ;
         
-    private:
-        void set_sexp( SEXP x) ;
+        void update(SEXP x){
+            if( ! ::Rf_isS4(x) ) throw not_s4() ;    
+        }
     } ;
+    
+    typedef S4_Impl<PreserveStorage> S4 ;
 
 } // namespace Rcpp
 

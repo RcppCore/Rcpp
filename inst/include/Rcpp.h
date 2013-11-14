@@ -26,31 +26,28 @@
 /* it is important that this comes first */
 #include <RcppCommon.h>
 
-/* new api */
-#include <Rcpp/exceptions.h>
-
 #include <Rcpp/RObject.h>
 
-#include <Rcpp/Promise.h>
 #include <Rcpp/S4.h>
 #include <Rcpp/Reference.h>
 #include <Rcpp/clone.h>
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>
 #include <Rcpp/Environment.h>
-#include <Rcpp/Evaluator.h>
 
 #include <Rcpp/Vector.h>
 #include <Rcpp/sugar/nona/nona.h>
 #include <Rcpp/Fast.h>
 #include <Rcpp/Extractor.h>
+#include <Rcpp/Promise.h>
 
 #include <Rcpp/XPtr.h>
 #include <Rcpp/Symbol.h>
+#include <Rcpp/DottedPairImpl.h>
+#include <Rcpp/Function.h>
 #include <Rcpp/Language.h>
 #include <Rcpp/DottedPair.h>
 #include <Rcpp/Pairlist.h>
-#include <Rcpp/Function.h>
 #include <Rcpp/WeakReference.h>
 #include <Rcpp/StringTransformer.h>
 #include <Rcpp/Formula.h>

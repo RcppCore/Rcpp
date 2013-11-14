@@ -2,7 +2,7 @@
 //
 // class_Base.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,6 +21,8 @@
 
 #ifndef Rcpp_Module_Class_Base_h
 
+namespace Rcpp{
+    
 class class_Base {
 public:
     typedef Rcpp::XPtr<class_Base> XP_Class ;
@@ -76,7 +78,9 @@ public:
     bool has_typeinfo_name( const std::string& name_ ){
         return get_typeinfo_name().compare(name_) == 0;   
     }
-    void add_enum( const std::string& enum_name, const std::map<std::string, int>& value ) ;
+    void add_enum( const std::string& enum_name, const std::map<std::string, int>& value ){
+	    enums.insert( ENUM_MAP_PAIR( enum_name, value ) ) ;
+	}
     
     std::string name ;
     std::string docstring ;
@@ -88,4 +92,6 @@ public:
     std::vector<std::string> parents ;
     
 } ;
+
+}
 #endif

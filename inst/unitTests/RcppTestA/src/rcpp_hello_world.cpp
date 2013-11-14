@@ -12,7 +12,7 @@ SEXP hello_world_ex(){
 	try{
 		throw std::range_error( "boom" ) ;
 	} catch( std::exception& __ex__ ){
-		forward_exception_to_r( __ex__ ) ;	
+	    Rcpp::forward_exception_to_r( __ex__ ) ;	
 	}
 	return R_NilValue ;
 }

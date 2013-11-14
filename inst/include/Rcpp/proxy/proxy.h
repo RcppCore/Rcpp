@@ -1,8 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
-// cache.h: Rcpp R/C++ interface class library -- 
-//
-// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,19 +15,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_CACHE_H
-#define RCPP_CACHE_H
+#ifndef Rcpp_proxy_proxy_h
 
-namespace Rcpp {
-namespace internal{
-        
-    SEXP get_Rcpp_namespace() ;
-    
-}    
-}
-
-extern "C" {
-    int* get_cache( int ) ;
-}
+#include <Rcpp/proxy/NamesProxy.h>
+#include <Rcpp/proxy/RObjectMethods.h>
+#include <Rcpp/proxy/AttributeProxy.h>
+#include <Rcpp/proxy/TagProxy.h>
+#include <Rcpp/proxy/ProtectedProxy.h>
+#include <Rcpp/proxy/SlotProxy.h>
+#include <Rcpp/proxy/Binding.h>
+#include <Rcpp/proxy/FieldProxy.h>
+#include <Rcpp/proxy/DottedPairProxy.h>
 
 #endif

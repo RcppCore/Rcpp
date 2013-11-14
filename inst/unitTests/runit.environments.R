@@ -181,23 +181,23 @@ test.environment.unlockBinding <- function(){
 }
 
 test.environment.global.env <- function(){
-	checkEquals( runit_globenv(), globalenv(), msg = "REnvironment::global_env" )
+	checkEquals( runit_globenv(), globalenv(), msg = "Environment::global_env" )
 }
 
 test.environment.empty.env <- function(){
-	checkEquals( runit_emptyenv(), emptyenv(), msg = "REnvironment::empty_env" )
+	checkEquals( runit_emptyenv(), emptyenv(), msg = "Environment::empty_env" )
 }
 
 test.environment.base.env <- function(){
-	checkEquals( runit_baseenv(), baseenv(), msg = "REnvironment::base_env" )
+	checkEquals( runit_baseenv(), baseenv(), msg = "Environment::base_env" )
 }
 
 test.environment.empty.env <- function(){
-	checkEquals( runit_emptyenv(), .BaseNamespaceEnv, msg = "REnvironment::base_namespace" )
+	checkEquals( runit_emptyenv(), .BaseNamespaceEnv, msg = "Environment::base_namespace" )
 }
 
 test.environment.namespace.env <- function(){
-	checkEquals( runit_namespace("Rcpp"), asNamespace("Rcpp"), msg = "REnvironment::base_namespace" )
+	checkEquals( runit_namespace("Rcpp"), asNamespace("Rcpp"), msg = "Environment::base_namespace" )
 
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 	if( can.demangle ){
