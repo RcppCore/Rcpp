@@ -95,12 +95,6 @@ test.wrap.multimap.string.generic <- function(){
 		msg = "wrap( multimap<string,vector<int>>) " )
 }
 
-test.null.const.char <- function() {
-    checkEquals(null_const_char(),
-                NULL,
-                msg = "null const char*")
-}
-
 test.nonnull.const.char <- function() {
     checkEquals(nonnull_const_char(),
                 "foo",

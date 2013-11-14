@@ -137,12 +137,6 @@ List multimap_string_generic(){
 }
 
 // [[Rcpp::export]]
-SEXP null_const_char(){ 
-    const char *p = NULL; 
-    return wrap(p); 
-}
-
-// [[Rcpp::export]]
 SEXP nonnull_const_char(){ 
     const char *p = "foo"; 
     return wrap(p) ; 
