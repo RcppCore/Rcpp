@@ -44,7 +44,7 @@ if (require("RUnit", quietly = TRUE)) {
 
     ## Define tests
     testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path
-                                      , testFileRegexp = "wrap"
+                                 #     , testFileRegexp = "Vector"
                                  )
 
     ## TODO: actually prioritize which ones we want
