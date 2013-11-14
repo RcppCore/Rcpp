@@ -29,7 +29,6 @@
 #define COMPILING_RCPP
 
 #include <Rcpp.h>
-#include <Rmath.h> 		// for Rf_fround
 #include <time.h>		// for gmtime
 #include <Rcpp/exceptions.h>
 
