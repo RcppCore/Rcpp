@@ -27,7 +27,8 @@ namespace internal{
         
 template <typename InputIterator, typename KEY, typename VALUE, int RTYPE>
 inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator last, Rcpp::traits::true_type ){
-	size_t size = std::distance( first, last ) ;
+	RCPP_DEBUG_3( "range_wrap_dispatch___impl__pair<KEY = %s, VALUE = %s, RTYPE = %d>\n", DEMANGLE(KEY), DEMANGLE(VALUE), RTYPE)
+    size_t size = std::distance( first, last ) ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
 	Shield<SEXP> names( Rf_allocVector(STRSXP, size) ) ;
