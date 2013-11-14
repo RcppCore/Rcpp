@@ -19,8 +19,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#define RCPP_DEBUG_LEVEL 1
-
 #include <Rcpp.h>
 using namespace Rcpp ;
 
