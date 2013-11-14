@@ -461,6 +461,8 @@ public:
 
     #include <Rcpp/generated/Vector__create.h>
 
+public:
+    
     inline SEXP eval() const {
         return Rcpp_eval( Storage::get__(), R_GlobalEnv ) ;    
     }
