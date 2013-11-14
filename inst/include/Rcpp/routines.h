@@ -39,6 +39,7 @@ namespace Rcpp{
     struct tm * gmtime_(const time_t * const) ;
 }
     
+const char* short_file_name(const char* ) ;
 int* get_cache( int n ) ;
 SEXP stack_trace( const char *file, int line) ;
 SEXP get_string_elt(SEXP s, int i); 
@@ -129,6 +130,11 @@ namespace Rcpp {
     
 }     
     
+inline const char* short_file_name(const char* file) {
+    typedef const char* (*Fun)(const char*) ;
+    static Fun fun = GET_CALLABLE("short_file_name") ;
+    return fun(file) ;    
+}
 inline SEXP stack_trace( const char *file, int line){
     typedef SEXP (*Fun)(const char*, int) ;
     static Fun fun = GET_CALLABLE("stack_trace") ;
