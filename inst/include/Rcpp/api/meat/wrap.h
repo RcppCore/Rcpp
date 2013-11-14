@@ -31,16 +31,15 @@ inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator
     size_t size = std::distance( first, last ) ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
-	Shield<SEXP> names( Rf_allocVector(STRSXP, size) ) ;
-	Shield<SEXP> x( Rf_allocVector(RTYPE, size) ) ;
-	STORAGE* ptr = Rcpp::internal::r_vector_start<RTYPE>( x ) ;
+	CharacterVector names(size) ;
+	Vector<RTYPE> x(size) ;
 	Rcpp::String buffer ;
 	for( size_t i = 0; i < size ; i++, ++first){
-        buffer = first->first ;
-        ptr[i] = first->second ;
-        SET_STRING_ELT( names, i, buffer.get_sexp() ) ;
+        buffer   = first->first ;
+        x[i]     = first->second ;
+        names[i] = buffer ;
 	}
-	::Rf_setAttrib( x, R_NamesSymbol, names) ;
+	x.attr( "names" ) = names ;
 	return x ;
 }
                 
