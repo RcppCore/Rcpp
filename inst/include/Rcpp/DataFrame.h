@@ -26,8 +26,11 @@ namespace Rcpp{
          
     namespace internal{
         inline SEXP empty_data_frame(){
-            SEXP dataFrameSym = ::Rf_install( "data.frame");
-            return ::Rf_eval( ::Rf_lang1( dataFrameSym ), R_GlobalEnv ) ;       
+            Shield<SEXP> df = Rf_allocVector(VECSXP, 0);
+            Rf_setAttrib(df, R_NamesSymbol, Rf_allocVector(STRSXP, 0));
+            Rf_setAttrib(df, R_RowNamesSymbol, Rf_allocVector(INTSXP, 0));
+            Rf_setAttrib(df, R_ClassSymbol, Rf_mkString("data.frame"));
+            return df;
         }
     }
     
