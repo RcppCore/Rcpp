@@ -69,11 +69,8 @@ public:
     }                                           
     
     Vector( SEXP x ) {
-        Storage::set__(x) ;
+        Storage::set__( r_cast<RTYPE>(x) ) ;
     }
-    
-    template <typename U>
-    explicit Vector( const U& obj) ;
     
     explicit Vector( const no_init& obj) {
         Storage::set__( Rf_allocVector( RTYPE, obj.get() ) ) ;

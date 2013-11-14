@@ -31,9 +31,10 @@ namespace Rcpp{
     }
     
     template <int RTYPE, template <class> class StoragePolicy>
-    template <typename U>
-    Vector<RTYPE, StoragePolicy>::Vector( const U& obj) {
-        Storage::set__( r_cast<RTYPE>( wrap(obj) ) ) ;
+    template <bool NA, typename VEC>
+    Vector<RTYPE, StoragePolicy>::Vector( const VectorBase<RTYPE,NA,VEC>& other ) {
+        RCPP_DEBUG_2( "Vector<%d>( const VectorBase<RTYPE,NA,VEC>& ) [VEC = %s]", RTYPE, DEMANGLE(VEC) )
+        import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
         
     template <int RTYPE, template <class> class StoragePolicy>
@@ -127,14 +128,6 @@ namespace Rcpp{
         Storage::set__( Rf_allocVector( RTYPE, n ) );
         RCPP_DEBUG_2( "Vector<%d>( InputIterator, InputIterator, Func, int n = %d )", RTYPE, n )
         std::transform( first, last, begin(), func) ;
-    }
-          
-    
-    template <int RTYPE, template <class> class StoragePolicy>
-    template <bool NA, typename VEC>
-    Vector<RTYPE, StoragePolicy>::Vector( const VectorBase<RTYPE,NA,VEC>& other ) {
-        RCPP_DEBUG_2( "Vector<%d>( const VectorBase<RTYPE,NA,VEC>& ) [VEC = %s]", RTYPE, DEMANGLE(VEC) )
-        import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
     
     template <int RTYPE, template <class> class StoragePolicy>
