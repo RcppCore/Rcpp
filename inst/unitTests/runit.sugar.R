@@ -711,7 +711,10 @@ test.duplicated <- function(){
 }
 
 test.setdiff <- function(){
-    checkEquals( runit_setdiff( 1:10, 1:5 ), setdiff( 1:10, 1:5 ) )
+    checkEquals( 
+      sort(runit_setdiff( 1:10, 1:5 )), 
+      sort(setdiff( 1:10, 1:5))
+    )
 }
 
 test.union <- function(){
