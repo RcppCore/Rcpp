@@ -30,6 +30,7 @@
 #include <Rcpp/api/meat/NamesProxy.h>
 #include <Rcpp/api/meat/DottedPairProxy.h>
 #include <Rcpp/api/meat/SlotProxy.h>
+#include <Rcpp/api/meat/FieldProxy.h>
 
 #include <Rcpp/api/meat/Date.h>
 #include <Rcpp/api/meat/Datetime.h>
