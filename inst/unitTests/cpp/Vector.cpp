@@ -681,53 +681,6 @@ List List_rep_ctor(IntegerVector x){
     return List(3, x) ;
 }
 
-#if defined(HAS_INIT_LISTS)
-    RawVector raw_initializer_list(){
-        RawVector x = {0,1,2,3} ;
-        for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
-        return x ;
-    }
-    
-    ComplexVector complex_initializer_list(){
-        Rcomplex c1 ; c1.r = c1.i = 0.0 ;
-    	Rcomplex c2 ; c2.r = c2.i = 1.0 ;
-    	ComplexVector x = { c1, c2 } ;
-    	return x ;
-    }
-    
-    IntegerVector integer_initializer_list(){
-        IntegerVector x = {0,1,2,3} ;
-    	for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
-    	return x ;
-    }
-    
-    NumericVector numeric_initlist(){
-        NumericVector x = {0.0,1.0,2.0,3.0} ;
-    	for( int i=0; i<x.size(); i++) x[i] = x[i]*2 ;
-    	return x ;
-    }
-    
-    List list_initializer_list(){
-        Shield<SEXP> x0( Rf_ScalarInteger( 0 ) ) ;
-        Shield<SEXP> x1( Rf_ScalarInteger( 1 ) ) ;
-        Shield<SEXP> x2( Rf_ScalarInteger( 2 ) ) ;
-        List x = { x0, x1, x2} ;
-        return x ;
-    }
-    
-    CharacterVector character_initializer_list(){
-        CharacterVector x = {"foo", "bar"} ;
-        return x ;
-    }
-    
-    List List_insert(){
-        List list(x) ;
-        list.insert( list.begin(), 10 ) ;
-        list.insert( list.end(), Named("foo", "bar" ) ) ;
-        return list ;
-	}
-#endif
-
 // [[Rcpp::export]]
 int stdVectorDouble(std::vector<double> x) { 
     return x.size();
