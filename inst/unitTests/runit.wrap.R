@@ -18,7 +18,6 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-.runThisTest <- FALSE
 
 if (.runThisTest) {
 
@@ -168,21 +167,21 @@ test.wrap.map.int.vector_double <- function(){
     )    
 }
 
-test.wrap.map.int.Foo <- function(){
-    checkEquals( 
-        sapply( map_int_Foo(), function(.) .$get() ), 
-        c("0" = 2, "1" = 3 ), 
-        msg = "std::map<int, MODULE EXPOSED CLASS >"
-    )    
-}
-
-test.wrap.vector.Foo <- function(){
-    checkEquals( 
-        sapply( vector_Foo(), function(.) .$get() ), 
-        c(2, 3), 
-        msg = "std::vector< MODULE EXPOSED CLASS >"
-    )    
-}
+# test.wrap.map.int.Foo <- function(){
+#     checkEquals( 
+#         sapply( map_int_Foo(), function(.) .$get() ), 
+#         c("0" = 2, "1" = 3 ), 
+#         msg = "std::map<int, MODULE EXPOSED CLASS >"
+#     )    
+# }
+# 
+# test.wrap.vector.Foo <- function(){
+#     checkEquals( 
+#         sapply( vector_Foo(), function(.) .$get() ), 
+#         c(2, 3), 
+#         msg = "std::vector< MODULE EXPOSED CLASS >"
+#     )    
+# }
 
 }
 
