@@ -81,7 +81,7 @@ namespace Rcpp{
 
     template <typename CLASS>
     bool SlotProxyPolicy<CLASS>::hasSlot(const std::string& name) const {
-        SEXP x = static_cast<CLASS&>(*this).get__() ;
+        SEXP x = static_cast<const CLASS&>(*this).get__() ;
         if( !Rf_isS4(x) ) throw not_s4() ;
         return R_has_slot( x, Rf_mkString(name.c_str()) ) ;
     }
