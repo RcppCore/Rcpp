@@ -76,7 +76,9 @@ namespace Rcpp{
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 #include <R_ext/Callbacks.h>
-#include <Rmath.h> 		// for Rf_fround
+
+#include <Rmath.h>
+#include <Rcpp/sugar/undoRmath.h>
 
 namespace Rcpp{
     class Module ; 
