@@ -200,9 +200,10 @@ namespace Rcpp{
     } ;
 
     template <typename Class>
-    class S4_CppConstructor : public Rcpp::Reference {
+    class S4_CppConstructor : public Reference {
     public:  
         typedef XPtr<class_Base> XP_Class ;
+        typedef Reference::Storage Storage ;
         
         S4_CppConstructor( SignedConstructor<Class>* m, const XP_Class& class_xp, const std::string& class_name, std::string& buffer ) : Reference( "C++Constructor" ){
             RCPP_DEBUG( "S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name, std::string& buffer" ) ;
@@ -213,6 +214,8 @@ namespace Rcpp{
             field( "signature" )     = buffer ;
             field( "docstring" )     = m->docstring ;
         }
+        
+        RCPP_CTOR_ASSIGN(S4_CppConstructor)
         
     } ;
 
@@ -249,6 +252,8 @@ namespace Rcpp{
             field( "nargs" )         = nargs ;
             
         }
+        
+        RCPP_CTOR_ASSIGN(S4_CppOverloadedMethods)
         
     } ;
 
@@ -323,6 +328,8 @@ namespace Rcpp{
             field( "docstring" )     = p->docstring ;
         }
         
+        RCPP_CTOR_ASSIGN(S4_field)
+        
     } ;
 
 #include <Rcpp/module/Module_Property.h>
@@ -374,7 +381,6 @@ namespace Rcpp {
         typedef XPtr<class_Base> XP_Class ;
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
         CppClass( SEXP x) : S4(x){};
-        CppClass( const CppClass& other) : S4(other.get__()){}
         
         CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
 	        XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
@@ -395,9 +401,7 @@ namespace Rcpp {
 	        slot( "parents" )     = cl->parents ;
 	    }
         
-        CppClass& operator=( const CppClass& other) {
-            return Storage::copy__( other ) ;
-        }
+	    RCPP_CTOR_ASSIGN(CppClass)
         
     } ;
 
@@ -409,14 +413,7 @@ namespace Rcpp {
             slot( "cppclass" ) = Rcpp::XPtr<class_Base>( clazz, false ) ;
             slot( "pointer" )  = xp ;
         }
-        CppObject( const CppObject& other){
-            Storage::copy__( other ) ;    
-        }
-        
-        CppObject& operator=( const CppObject& other ) {
-            return Storage::copy__( other ) ;    
-        }
-        
+        RCPP_CTOR_ASSIGN(CppObject)
     } ;
 
 }

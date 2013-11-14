@@ -21,6 +21,9 @@
 #define RCPP_GENERATE_CTOR_ASSIGN(__CLASS__)                                   \
 typedef StoragePolicy<__CLASS__> Storage ;                                     \
 typedef AttributeProxyPolicy<__CLASS__> AttributePolicy ;                      \
+RCPP_CTOR_ASSIGN(__CLASS__)
+
+#define RCPP_CTOR_ASSIGN(__CLASS__)                                            \
 __CLASS__( const __CLASS__& other ){                                           \
     Storage::copy__(other) ;                                                   \
 }                                                                              \
