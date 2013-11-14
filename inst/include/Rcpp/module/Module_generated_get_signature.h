@@ -2,7 +2,7 @@
 //
 // Module_generated_get_signature.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2011 Doug Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Doug Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,8 @@
 #ifndef Rcpp_Module_generated_get_signature_h
 #define Rcpp_Module_generated_get_signature_h
 
+namespace Rcpp {
+    
 template <typename OUT>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
@@ -3161,7 +3163,6 @@ inline void signature(std::string& s, const char* name){
     s += ")" ; 
 }
 
-
-
+}
 
 #endif

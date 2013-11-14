@@ -32,10 +32,9 @@ namespace Rcpp{
         template <typename T> T primitive_as( SEXP x ){
             if( ::Rf_length(x) != 1 ) throw ::Rcpp::not_compatible( "expecting a single value" ) ;
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
-            SEXP y = PROTECT( r_cast<RTYPE>(x) );
+            Shield<SEXP> y( r_cast<RTYPE>(x) );
             typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
             T res = caster<STORAGE,T>( *r_vector_start<RTYPE>( y ) ) ;
-            UNPROTECT(1) ;
             return res ; 
         }
         
@@ -83,7 +82,8 @@ namespace Rcpp{
             return exporter.get() ;
         }
         
-        void* as_module_object_internal(SEXP) ;
+        void* as_module_object_internal(SEXP obj) ; 
+        
         template <typename T> object<T> as_module_object(SEXP x){
             return (T*) as_module_object_internal(x) ;
         }
@@ -141,20 +141,20 @@ namespace Rcpp{
      * Environment x = ... ; // some environment
      * Foo y = x["bla"] ;    // if as<Foo> makes sense then this works !!
      */
-    template <typename T> T as( SEXP m_sexp) {
-        return internal::as<T>( m_sexp, typename traits::r_type_traits<T>::r_category() ) ;
+    template <typename T> T as( SEXP x) {
+        return internal::as<T>( x, typename traits::r_type_traits<T>::r_category() ) ;
     }
     
-    template <> inline char as<char>( SEXP m_sexp ){
-        return internal::check_single_string(m_sexp)[0] ;    
+    template <> inline char as<char>( SEXP x ){
+        return internal::check_single_string(x)[0] ;    
     }
     
     template <typename T> 
-    inline typename traits::remove_const_and_reference<T>::type bare_as( SEXP m_sexp ){
-        return as< typename traits::remove_const_and_reference<T>::type >( m_sexp ) ;
+    inline typename traits::remove_const_and_reference<T>::type bare_as( SEXP x ){
+        return as< typename traits::remove_const_and_reference<T>::type >( x ) ;
     }
     
-    template<> inline SEXP as(SEXP m_sexp) { return m_sexp ; }
+    template<> inline SEXP as(SEXP x) { return x ; }
 
 } // Rcpp 
 

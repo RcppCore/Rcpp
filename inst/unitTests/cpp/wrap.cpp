@@ -137,10 +137,10 @@ List multimap_string_generic(){
 }
 
 // [[Rcpp::export]]
-SEXP null_const_char(){ const char *p = NULL; return wrap(p); }
-
-// [[Rcpp::export]]
-SEXP nonnull_const_char(){ const char *p = "foo"; return wrap(p) ; }
+SEXP nonnull_const_char(){ 
+    const char *p = "foo"; 
+    return wrap(p) ; 
+}
 
 // [[Rcpp::export]]
 IntegerVector unordered_map_string_int(){
@@ -196,23 +196,6 @@ List unordered_map_string_generic(){
     return wrap(m);
 }
 
-
-RCPP_EXPOSED_CLASS(Foo)
-class Foo{
-    public: 
-        Foo() : x(0.0){}
-        Foo( double x_ ) : x(x_){}
-        double get() { return x ; }
-   private:
-       double x ;
-} ;
-RCPP_MODULE(mod){
-    class_<Foo>("Foo")
-        .constructor<double>()
-        .method( "get", &Foo::get )
-    ;
-}
-
 // [[Rcpp::export]]
 SEXP map_int_double(){
     std::map<int, double> map ;
@@ -241,19 +224,35 @@ SEXP map_int_vector_double(){
     return wrap( map ) ;
 }
 
-// [[Rcpp::export]]
-SEXP map_int_Foo(){
-    std::map<int, Foo> map ;
-    map[0] = Foo( 2 ) ;
-    map[1] = Foo( 3 ) ;
-    return wrap( map ) ;
-}
-
-// [[Rcpp::export]]
-SEXP vector_Foo(){
-    std::vector<Foo> vec(2) ;
-    vec[0] = Foo( 2 ) ;
-    vec[1] = Foo( 3 ) ;
-    return wrap(vec) ;
-}
+// RCPP_EXPOSED_CLASS(Foo)
+// class Foo{
+//     public: 
+//         Foo() : x(0.0){}
+//         Foo( double x_ ) : x(x_){}
+//         double get() { return x ; }
+//    private:
+//        double x ;
+// } ;
+// RCPP_MODULE(mod){
+//     class_<Foo>("Foo")
+//         .constructor<double>()
+//         .method( "get", &Foo::get )
+//     ;
+// }
+// 
+// // [[Rcpp::export]]
+// SEXP map_int_Foo(){
+//     std::map<int, Foo> map ;
+//     map[0] = Foo( 2 ) ;
+//     map[1] = Foo( 3 ) ;
+//     return wrap( map ) ;
+// }
+// 
+// // [[Rcpp::export]]
+// SEXP vector_Foo(){
+//     std::vector<Foo> vec(2) ;
+//     vec[0] = Foo( 2 ) ;
+//     vec[1] = Foo( 3 ) ;
+//     return wrap(vec) ;
+// }
 

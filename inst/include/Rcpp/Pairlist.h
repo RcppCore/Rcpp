@@ -2,7 +2,7 @@
 //
 // Pairlist.h: Rcpp R/C++ interface class library -- pair lists objects (LISTSXP)
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,25 +28,28 @@
 
 namespace Rcpp{
 
-    class Pairlist : public DottedPair {
-    public:         
-        Pairlist();
-        Pairlist(SEXP x) ;
-        Pairlist(const Pairlist& other) ;
-        Pairlist& operator=(const Pairlist& other) ;
-                
-#ifdef HAS_VARIADIC_TEMPLATES
-        template<typename... Args> 
-        Pairlist( const Args&... args) : DottedPair(args...) {}
-#else
-
-#include <Rcpp/generated/Pairlist__ctors.h>
-
-#endif
-
-        ~Pairlist() ;
-                
-    } ;
+    RCPP_API_CLASS(Pairlist_Impl),
+        public DottedPairProxyPolicy<Pairlist_Impl<StoragePolicy> >, 
+        public DottedPairImpl<Pairlist_Impl<StoragePolicy> >{
+    public:
         
+        RCPP_GENERATE_CTOR_ASSIGN(Pairlist_Impl) 
+        
+        typedef typename DottedPairProxyPolicy<Pairlist_Impl>::DottedPairProxy Proxy ;
+        typedef typename DottedPairProxyPolicy<Pairlist_Impl>::const_DottedPairProxy const_Proxy ;
+        
+        Pairlist_Impl(){}
+        Pairlist_Impl(SEXP x){
+            Storage::set__(r_cast<LISTSXP>(x)) ;    
+        }
+                
+        #include <Rcpp/generated/Pairlist__ctors.h>
+
+        void update(SEXP x){
+            SET_TYPEOF( x, LISTSXP ) ;
+        }
+    } ;
+    
+    typedef Pairlist_Impl<PreserveStorage> Pairlist ;
 }
 #endif

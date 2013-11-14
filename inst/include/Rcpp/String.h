@@ -385,7 +385,7 @@ namespace Rcpp {
         template <int RTYPE>
         SEXP string_element_converter<RTYPE>::get( const Rcpp::String& input) {
             RCPP_DEBUG( "string_element_converter::get< Rcpp::String >()" )
-		     return input.get_sexp() ;   
+            return input.get_sexp() ;   
 		}
         
         template <>
@@ -396,10 +396,10 @@ namespace Rcpp {
 	    template <int RTYPE>
 	    template <typename T>
         string_proxy<RTYPE>& string_proxy<RTYPE>::operator+=(const T& rhs) {
-        	String tmp = get() ;
-        	tmp += rhs ;
-        	set( tmp ) ;
-        	return *this ;
+            String tmp = get() ;
+            tmp += rhs ;
+            set( tmp ) ;
+            return *this ;
         }
 		
 	}
@@ -407,12 +407,11 @@ namespace Rcpp {
 	
 	template <>
     inline SEXP wrap<Rcpp::String>( const Rcpp::String& object) {
-    	RCPP_STRING_DEBUG( "wrap<String>()" ) ;
-    	SEXP res = PROTECT( Rf_allocVector( STRSXP, 1 ) ) ;
-    	SEXP data = object.get_sexp(); 
-    	SET_STRING_ELT( res, 0, data ) ;
-    	UNPROTECT(1) ;
-    	return res ;
+        RCPP_STRING_DEBUG( "wrap<String>()" ) ;
+        Shield<SEXP> res( Rf_allocVector( STRSXP, 1 ) ) ;
+        SEXP data = object.get_sexp(); 
+        SET_STRING_ELT( res, 0, data ) ;
+        return res ;
     }
 
     

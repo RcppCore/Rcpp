@@ -134,11 +134,9 @@ namespace internal{
 	public:
 		typedef ::Rcpp::Vector<RTYPE> VECTOR ;
 		generic_name_proxy( VECTOR& v, const std::string& name_) :
-			parent(v), name(name_){
-				RCPP_DEBUG_2( "generic_name_proxy( VECTOR& = %p, const string& = %s)", v.asSexp(), name_.c_str() );
-		} ;
+			parent(v), name(name_){}
 		generic_name_proxy( const generic_name_proxy& other ) : 
-			parent(other.parent), name(other.name){} ;
+			parent(other.parent), name(other.name){}
 		~generic_name_proxy(){} ;
 		
 		generic_name_proxy& operator=( SEXP rhs ){

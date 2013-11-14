@@ -2,7 +2,7 @@
 //
 // CppFunction.h: Rcpp R/C++ interface class library -- C++ exposed function
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,6 +22,8 @@
 #ifndef Rcpp_Module_CppFunction_h
 #define Rcpp_Module_CppFunction_h
 
+namespace Rcpp {
+    
     /** 
      * base class of all exported C++ functions. Template deduction in the
      * Module_generated_function.h file creates an instance of a class that 
@@ -73,4 +75,5 @@
         std::string docstring ;
     };
 
+}
 #endif

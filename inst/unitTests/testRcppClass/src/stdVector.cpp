@@ -5,7 +5,7 @@ typedef std::vector<double> vec ;
 
 // helpers
 void vec_assign( vec* obj, Rcpp::NumericVector data ){
-	obj->assign( data.begin(), data.end() ) ;
+    obj->assign( data.begin(), data.end() ) ;
 }
 
 void vec_insert( vec* obj, int position, Rcpp::NumericVector data){

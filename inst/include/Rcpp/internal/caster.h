@@ -3,7 +3,7 @@
 //
 // caster.h: Rcpp R/C++ interface class library -- 
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,11 +29,38 @@ namespace internal{
 template <typename FROM, typename TO> TO caster(FROM from){
 	return static_cast<TO>(from) ;
 }
-template<> Rcomplex caster<std::complex<double>, Rcomplex>( std::complex<double> from) ;
-template<> Rcomplex caster<std::complex<float>, Rcomplex>( std::complex<float> from) ;
 
-template<> std::complex<double> caster<Rcomplex,std::complex<double> >( Rcomplex from) ;
-template<> std::complex<float>  caster<Rcomplex,std::complex<float>  >( Rcomplex from) ;
+template <typename T>
+inline Rcomplex Rcomplex_caster( std::complex<T> from ){
+	Rcomplex cx ;
+	cx.r = (double)from.real() ; 
+	cx.i = (double)from.imag() ;
+	return cx ;	
+}
+ 
+template <> 
+inline Rcomplex caster<std::complex<double>, Rcomplex>( std::complex<double> from){
+	return Rcomplex_caster(from) ;
+}
+template<> 
+inline Rcomplex caster<std::complex<float>, Rcomplex>( std::complex<float> from){
+	return Rcomplex_caster(from) ;	
+}
+
+template <typename T>
+inline std::complex<T> std_complex_caster( Rcomplex from ){
+	return std::complex<T>( static_cast<T>(from.r), static_cast<T>(from.i) ) ;	
+}
+ 
+template <> 
+inline std::complex<double> caster<Rcomplex,std::complex<double> >( Rcomplex from){
+	return std_complex_caster<double>(from); 	
+}
+
+template<> 
+inline std::complex<float>  caster<Rcomplex,std::complex<float> >( Rcomplex from){
+	return std_complex_caster<float>(from) ;	
+}
 
 
 }

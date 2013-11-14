@@ -81,20 +81,19 @@ namespace Rcpp{
         }
     } 
 
+}
+
 #include <Rcpp/module/CppFunction.h>
-#include <Rcpp/module/Module_generated_get_return_type.h>
+#include <Rcpp/module/get_return_type.h>
 #include <Rcpp/module/Module_generated_get_signature.h>
 
     // templates CppFunction0, ..., CppFunction65
 #include <Rcpp/module/Module_generated_CppFunction.h>
 #include <Rcpp/module/class_Base.h>
 #include <Rcpp/module/Module.h>
-}
-extern "C" Rcpp::Module* getCurrentScope() ;
-extern "C" void setCurrentScope( Rcpp::Module* ) ;
 
 namespace Rcpp{
-        
+
     template <typename Class>
     class CppMethod {
     public:
@@ -201,9 +200,10 @@ namespace Rcpp{
     } ;
 
     template <typename Class>
-    class S4_CppConstructor : public Rcpp::Reference {
+    class S4_CppConstructor : public Reference {
     public:  
         typedef XPtr<class_Base> XP_Class ;
+        typedef Reference::Storage Storage ;
         
         S4_CppConstructor( SignedConstructor<Class>* m, const XP_Class& class_xp, const std::string& class_name, std::string& buffer ) : Reference( "C++Constructor" ){
             RCPP_DEBUG( "S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name, std::string& buffer" ) ;
@@ -215,11 +215,8 @@ namespace Rcpp{
             field( "docstring" )     = m->docstring ;
         }
         
-        S4_CppConstructor( const S4_CppConstructor& other) : Reference( other.asSexp() ) {}
-        S4_CppConstructor& operator=( const S4_CppConstructor& other){
-            setSEXP( other.asSexp() ); 
-            return *this ;
-        }
+        RCPP_CTOR_ASSIGN(S4_CppConstructor)
+        
     } ;
 
     template <typename Class>
@@ -229,13 +226,7 @@ namespace Rcpp{
         typedef SignedMethod<Class> signed_method_class ;
         typedef std::vector<signed_method_class*> vec_signed_method ;
         
-        // FIXME: is class_xp protected ?
         S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
-            RCPP_DEBUG_2( "S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp = <%p>, const char* name = %s, std::string& buffer )", name, class_xp.asSexp() )
-            #if RCPP_DEBUG_LEVEL > 0
-                Rf_PrintValue( class_xp ) ;
-            #endif
-            
             int n = m->size() ;
             Rcpp::LogicalVector voidness(n), constness(n) ;
             Rcpp::CharacterVector docstrings(n), signatures(n) ;
@@ -261,13 +252,9 @@ namespace Rcpp{
             field( "nargs" )         = nargs ;
             
         }
-        S4_CppOverloadedMethods( const S4_CppOverloadedMethods& other){ 
-            setSEXP( other.asSexp() ) ;
-        }
-        S4_CppOverloadedMethods& operator=( const S4_CppOverloadedMethods& other){ 
-            setSEXP( other.asSexp() ) ;
-            return *this ;
-        }
+        
+        RCPP_CTOR_ASSIGN(S4_CppOverloadedMethods)
+        
     } ;
 
 #include <Rcpp/module/Module_generated_CppMethod.h>
@@ -340,11 +327,9 @@ namespace Rcpp{
             field( "class_pointer" ) = class_xp ;
             field( "docstring" )     = p->docstring ;
         }
-        S4_field( const S4_field& other) : Reference(other.asSexp()) {}
-        S4_field& operator=(const S4_field& other){
-            setSEXP(other.asSexp());
-            return *this ;
-        }
+        
+        RCPP_CTOR_ASSIGN(S4_field)
+        
     } ;
 
 #include <Rcpp/module/Module_Property.h>
@@ -378,54 +363,59 @@ namespace Rcpp{
             std::string parent_typeinfo_name ;
             
     } ;
-    
-    // function factories
+}    
+
+// function factories
 #include <Rcpp/module/Module_generated_function.h>
 
+namespace Rcpp {
+    
     template <typename FROM, typename TO>
     void converter( const char* from, const char* to, TO (*fun)(FROM), const char* docstring = 0 ){
         std::string fun_name = internal::get_converter_name<FROM,TO>( from, to ) ;
         function( fun_name.c_str(), fun, docstring ) ;
     }  
        
-    // commented out as there is no convert_to in class_
-    // 
-    // template <typename FROM, typename TO>
-    // void converter( const char* /* from */ , const char* to, TO (FROM::*fun)(), const char* docstring = 0 ){
-    //     class_<FROM>().convert_to( to, fun, docstring ) ;
-    // }
-    
-    
     class CppClass : public S4{
     public:
+        typedef XPtr<class_Base> XP_Class ;
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
-        CppClass( Module* p, class_Base* clazz, std::string& ) ;
-        CppClass( SEXP x) ;
-        CppClass( const CppClass& ) ;
-        CppClass& operator=( const CppClass& ) ;
+        CppClass( SEXP x) : S4(x){};
+        
+        CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
+	        XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
+	        slot( "module"  ) = XP( p, false ) ;
+	        slot( "pointer" ) = clxp ;
+	        
+	        buffer = "Rcpp_" ;
+	        buffer += cl->name ;
+	        slot( ".Data" ) = buffer ;
+	        
+	        slot( "fields" )      = cl->fields( clxp ) ;
+	        
+	        slot( "methods" )     = cl->getMethods( clxp, buffer ) ;
+	        slot( "constructors") = cl->getConstructors( clxp, buffer ) ;
+	        slot( "docstring"   ) = cl->docstring ;
+	        slot( "typeid" )      = cl->get_typeinfo_name() ;
+	        slot( "enums"  )      = cl->enums ;
+	        slot( "parents" )     = cl->parents ;
+	    }
+        
+	    RCPP_CTOR_ASSIGN(CppClass)
         
     } ;
 
     class CppObject : public S4{
     public:
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
-        CppObject( Module* p, class_Base*, SEXP xp ) ;
-        CppObject( const CppObject& ) ;
-        CppObject& operator=( const CppObject& ) ;
-        
+        CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
+            slot( "module" )   = XP( p, false ) ;
+            slot( "cppclass" ) = Rcpp::XPtr<class_Base>( clazz, false ) ;
+            slot( "pointer" )  = xp ;
+        }
+        RCPP_CTOR_ASSIGN(CppObject)
     } ;
 
-    class FunctionProxy{
-    public:
-        FunctionProxy( DL_FUNC p_fun_ ): p_fun(p_fun_){}
-        
-        template <typename T> operator T() const { return (T)p_fun ; }
-        
-    private:
-        DL_FUNC p_fun ;
-    } ;
-    
-    FunctionProxy GetCppCallable( const std::string& pkg, const std::string& mod, const std::string& fun) ;
 }
 
 #define RCPP_MODULE_BOOT(name) _rcpp_module_boot_##name

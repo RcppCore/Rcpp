@@ -601,44 +601,6 @@ if (.runThisTest) {
         checkEquals( res, expected, msg = "List rep constructor" )
     }
 
-    if( Rcpp:::capabilities()[["initializer lists"]] ){
-
-        test.RawVector.initializer.list <- function(){
-            checkEquals( raw_initializer_list(), as.raw(2*0:3), msg = "RawVector( initializer list) " )
-        }
-
-        test.ComplexVector.initializer.list <- function(){
-            checkEquals( complex_initializer_list(), c( 0:1*(1+1i)), msg = "ComplexVector( initializer list) " )
-        }
-
-        test.IntegerVector.initializer.list <- function() {
-            checkEquals( integer_initializer_list(), 2*0:3, msg = "IntegerVector( initializer list) " )
-        }
-
-        test.NumericVector.initializer.list <- function(){
-            checkEquals( numeric_initlist(), as.numeric(2*0:3), msg = "NumericVector( initializer list) " )
-        }
-
-        test.List.initializer.list <- function(){
-            checkEquals( list_initializer_list(), as.list(0:2),
-                        msg = "List( initializer list) " )
-        }
-
-        test.List.insert <- function(){
-            d <- list( x = 1:10, y = letters[1:10] )
-            res <- List_insert( d )
-            checkEquals( res,
-                        list( 10L, x = 1:10, y = letters[1:10], foo = "bar" ),
-                        msg = "List.insert" )
-        }
-
-        test.CharacterVector.initializer.list <- function() {
-            checkEquals( character_initializer_list(), c("foo","bar"),
-                        msg = "CharacterVector( initializer list) " )
-        }
-
-    }
-
     test.std.vector.double <- function() {
         fun <- stdVectorDouble
         x <- seq(1.0, 5.0, by=1.0)

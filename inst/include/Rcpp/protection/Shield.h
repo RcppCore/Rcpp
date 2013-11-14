@@ -31,6 +31,10 @@ namespace Rcpp {
         template <typename U>
         inline operator U() const  ;
         
+        inline operator SEXP() const { 
+            return t ; 
+        }
+        
     private:  
         // not defined on purpose
         Shield( const Shield& ) ;

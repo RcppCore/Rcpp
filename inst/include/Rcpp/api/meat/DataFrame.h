@@ -1,8 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
-// Evaluator.h: Rcpp R/C++ interface class library -- protected evaluation
-//
-// Copyright (C) 2009 - 2012    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,21 +15,17 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_Evaluator_h
-#define Rcpp_Evaluator_h
+#ifndef Rcpp_api_meat_DataFrame_h
+#define Rcpp_api_meat_DataFrame_h
 
-#define R_NO_REMAP
-#include <Rinternals.h>
+namespace Rcpp{
 
-namespace Rcpp{ 
-
-    class Evaluator{
-    public:
-                
-        static SEXP run(SEXP expr); 
-        static SEXP run(SEXP expr, SEXP env);
-    };
-
-} // namespace Rcpp
+     template <template <class> class StoragePolicy>
+     template <class T>
+     DataFrame_Impl<StoragePolicy>::DataFrame_Impl( const T& obj){
+        set_sexp( wrap(obj) ) ;     
+     }
+    
+}
 
 #endif
