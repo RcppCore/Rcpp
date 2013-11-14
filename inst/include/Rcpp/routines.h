@@ -30,6 +30,7 @@ namespace Rcpp{
     namespace internal{
         unsigned long enterRNGScope(); 
         unsigned long exitRNGScope() ;
+        char* get_string_buffer() ;
     }
     SEXP get_Rcpp_namespace() ; 
     SEXP rcpp_get_stack_trace() ;
@@ -99,6 +100,12 @@ namespace Rcpp {
             typedef unsigned long (*Fun)(void) ;
             static Fun fun = GET_CALLABLE("exitRNGScope") ;
             return fun() ;
+        }
+        
+        inline char* get_string_buffer(){
+            typedef char* (*Fun)(void) ;
+            static Fun fun = GET_CALLABLE("get_string_buffer") ;
+            return fun();
         }
     }
                   

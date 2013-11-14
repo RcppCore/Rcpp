@@ -40,8 +40,6 @@ template <typename T> class CustomImporter ;
 
 namespace internal{
 	
-	char* get_string_buffer() ;
-	
 	inline SEXP make_charsexp__impl__wstring( const wchar_t* data ){
 		char* buffer = get_string_buffer() ;
 		wcstombs( buffer, data, MAXELTSIZE ) ;
