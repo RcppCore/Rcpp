@@ -32,19 +32,28 @@ public:
             }  
         }
         
-        SlotProxy& operator=(const SlotProxy& rhs) ;
+        SlotProxy& operator=(const SlotProxy& rhs){
+            set( rhs.get() ) ;
+            return *this ;    
+        }
               
         template <typename T> SlotProxy& operator=(const T& rhs) ;
             
         template <typename T> operator T() const ;
-        inline operator SEXP() const { return get() ; }
+        inline operator SEXP() const { 
+            return get() ; 
+        }
         
     private:
         CLASS& parent; 
         SEXP slot_name ;
             
-        SEXP get() const ;
-        void set(SEXP x ) ;
+        SEXP get() const {
+            return R_do_slot( parent, slot_name ) ;
+        }
+        void set(SEXP x ) {
+            parent = R_do_slot_assign(parent, slot_name, x);
+        }
     } ;
     
     class const_SlotProxy {
@@ -53,19 +62,35 @@ public:
         const_SlotProxy& operator=(const const_SlotProxy& rhs) ;
               
         template <typename T> operator T() const ;
-        inline operator SEXP() const { return get() ; }
+        inline operator SEXP() const { 
+            return get() ; 
+        }
         
     private:
         const CLASS& parent; 
         SEXP slot_name ;
             
-        SEXP get() const ;
+        SEXP get() const {
+            return R_do_slot( parent, slot_name ) ;
+        }
     } ;
     
-    SlotProxy slot(const std::string& name) ;
-    const_SlotProxy slot(const std::string& name) const ;
+    SlotProxy slot(const std::string& name){
+        SEXP x = static_cast<CLASS&>(*this) ;
+        if( !Rf_isS4(x) ) throw not_s4() ;
+        return SlotProxy( static_cast<CLASS&>(*this) , name ) ;
+    }
+    const_SlotProxy slot(const std::string& name) const {
+        SEXP x = static_cast<const CLASS&>(*this) ;
+        if( !Rf_isS4(x) ) throw not_s4() ;
+        return const_SlotProxy( static_cast<const CLASS&>(*this) , name ) ;
+    }
     
-    bool hasSlot(const std::string& name) const ;
+    bool hasSlot(const std::string& name) const{
+        SEXP x = static_cast<const CLASS&>(*this).get__() ;
+        if( !Rf_isS4(x) ) throw not_s4() ;
+        return R_has_slot( x, Rf_mkString(name.c_str()) ) ;
+    }
     
 } ;
 
