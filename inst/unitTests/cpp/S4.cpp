@@ -66,12 +66,14 @@ bool S4_is_trackCurve(S4 tr){
 
 // [[Rcpp::export]]
 NumericVector S4_get_slot_x(S4 o){
-    return NumericVector(o.slot("x")) ;    
+    NumericVector res = o.slot("x") ;
+    return res ;    
 }
 
 // [[Rcpp::export]]
 CharacterVector S4_get_attr_x(IntegerVector o){
-     return CharacterVector(o.attr("foo")) ; 
+    CharacterVector res = o.attr("foo") ;
+    return res ;
 }
 
 // [[Rcpp::export]]
