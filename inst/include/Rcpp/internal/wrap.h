@@ -921,8 +921,7 @@ inline SEXP module_wrap<SEXP>( const SEXP& obj ){
 }
 
 inline SEXP wrap(const char* const v ){ 
-	Rprintf( "wrap(const char* const v = <%p>)\n", v ) ;
-	if (v && v != NULL)
+	if (v != NULL)
 		return Rf_mkString(v) ;
 	else 	
 		return R_NilValue;
