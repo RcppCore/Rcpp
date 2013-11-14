@@ -169,19 +169,19 @@ namespace Rcpp {
         }
     }
     
-    // [[Rcpp::register]]
-    const char* short_file_name(const char* file){
-        std::string f(file) ;
-        size_t index = f.find("/include/") ;
-        if( index != std::string::npos ){ 
-            f = f.substr( index + 9 ) ;
-        }
-        return f.c_str() ;
-    }
-    
     
 } // namespace Rcpp
 
+// [[Rcpp::register]]
+const char* short_file_name(const char* file){
+    std::string f(file) ;
+    size_t index = f.find("/include/") ;
+    if( index != std::string::npos ){ 
+        f = f.substr( index + 9 ) ;
+    }
+    return f.c_str() ;
+}
+    
 // [[Rcpp::internal]]
 SEXP as_character_externalptr(SEXP xp){
     char buffer[20] ;
