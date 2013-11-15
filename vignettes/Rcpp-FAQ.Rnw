@@ -724,6 +724,8 @@ The
 mailing list hosted at R-forge is by far the best place.  You may also want
 to look at the list archives to see if your question has been asked before.
 
+You can also use Stack Overflow with the rcpp tag. \href{http://stackoverflow.com/questions/tagged/rcpp}
+
 \subsection{Where can I read old questions and answers ?}
 
 The normal \href{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel}{Rcpp-devel}
@@ -739,16 +741,15 @@ searching.
 \subsection{I like it. How can I help ?}
 \label{helping}
 
-The current list of things to do is available in our \texttt{TODO} file.
-\href{https://r-forge.r-project.org/scm/viewvc.php/pkg/Rcpp/TODO?view=markup&root=rcpp}.
+We maintain a list of issues in the github repository 
+we use. \href{https://github.com/RcppCore/Rcpp/issues?state=open}. 
+
 If you are willing to donate time and have skills in C++, let us know. If you are
 willing to donate money to sponsor improvements, let us know.
 
 You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
-that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could write a
-review of \pkg{Rcpp} in \href{http://crantastic.org}{crantastic}, blog about
+that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could blog about
 it or get the word out otherwise.
-
 
 \subsection{I don't like it. How can I help ?}
 
@@ -758,7 +759,7 @@ what it is that you dislike. We are very open to \emph{constructive} criticism.
 \subsection{Can I have commercial support for \pkg{Rcpp} ?}
 
 Sure you can. Just send us an email, and we will be happy to discuss the
-request..
+request. 
 
 \subsection{I want to learn quickly. Do you provide training courses ?}
 
