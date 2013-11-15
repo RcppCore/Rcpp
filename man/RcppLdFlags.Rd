@@ -1,36 +1,25 @@
 \name{LdFlags}
 \alias{LdFlags}
 \alias{RcppLdFlags}
-\title{Provide Rcpp Linker Flags}
+\title{(Deprecated) Rcpp Linker Flags}
 \description{
-  \code{LdFlags} and \code{RcppLdFlags} return the required flags and
-  options for the system linker. This allows portable use of
-  \pkg{Rcpp} as package location as well as operating-system specific
-  details are abstracted away behind the interface of this function.
-
-  \code{LdFlags} is commonly called from the files \code{Makevars} (or
-  \code{Makevars.win}) rather than in an interactive session.
+  In previous versions of Rcpp, \code{LdFlags} and \code{RcppLdFlags}  
+  were used to return the required flags and options for the system linker to 
+  link to the Rcpp user library. Since we no longer build or ship a 
+  user library, these functions now return an empty string.
 }
 \usage{
 LdFlags()
 RcppLdFlags()
 }
 \value{
-  A character vector suitable by use by the system linker in order to
-  create a library based on \pkg{Rcpp}.
-}
-\details{
-  Thee functions are not meant to used interactively, and are intended
-  solely for use by the build tools.
+  An empty string.
 }
 \references{
   Dirk Eddelbuettel and Romain Francois (2011). \pkg{Rcpp}: Seamless R
   and C++ Integration. \emph{Journal of Statistical Software},
   \bold{40(8)}, 1-18. URL http://www.jstatsoft.org/v40/i08/ and
   available as \code{vignette("Rcpp-introduction")}.
-}
-\seealso{
-  The vignette \sQuote{Rcpp-package} has more details.
 }
 \author{Dirk Eddelbuettel and Romain Francois}
 \keyword{programming}
