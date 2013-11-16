@@ -115,7 +115,7 @@ namespace Rcpp{
 		void export_indexing__impl( SEXP x, T& res, ::Rcpp::traits::true_type ) {
 			const int RTYPE = ::Rcpp::traits::r_sexptype_traits<value_type>::rtype ;
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-			Shield<SEXP> y = PROTECT( ::Rcpp::r_cast<RTYPE>(x) ) ;
+			Shield<SEXP> y = ::Rcpp::r_cast<RTYPE>(x) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			R_len_t size = ::Rf_length(y)  ;
 			for( R_len_t i=0; i<size; i++){
