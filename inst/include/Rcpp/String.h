@@ -51,6 +51,7 @@ namespace Rcpp {
     class String {
     public:
         typedef internal::string_proxy<STRSXP> StringProxy;
+        typedef internal::const_string_proxy<STRSXP> const_StringProxy;
         
         /** default constructor */
         String( ): data( Rf_mkChar("") ), buffer(), valid(true), buffer_ready(true) {
@@ -70,6 +71,10 @@ namespace Rcpp {
         /** from string proxy */
         String( const StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false){
             RCPP_STRING_DEBUG( "String( const StringProxy&)" ) ; 
+        }
+        /** from string proxy */
+        String( const const_StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false){
+            RCPP_STRING_DEBUG( "String( const const_StringProxy&)" ) ; 
         }
         
         /** from a std::string */
@@ -250,6 +255,12 @@ namespace Rcpp {
             valid = false ;
             return *this ;
         }
+        
+        template <typename LHS, typename RHS>
+        inline String& replace_all( const LHS& s, const RHS& news ){
+            return replace_all( String( s ), String(news) ) ;
+        }
+        
         inline String& replace_all( const Rcpp::String& s, const char* news ){
             // replace NA -> do nothing
             if( s.is_na() ) return *this ;
