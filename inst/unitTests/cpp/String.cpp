@@ -53,7 +53,6 @@ List test_compare_Strings( String aa, String bb ){
         _["a  > b" ] = aa > bb, 
         _["a == b"]  = aa == bb,
         _["a == a"]  = aa == aa
-        
         ) ;
 }
 
