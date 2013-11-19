@@ -649,5 +649,10 @@ if (.runThisTest) {
         checkEquals(fun(x), 5, msg = "automatic conversion of stdVectorIntConstRef")
     }
 
+    test.character.vector.const.proxy <- function(){
+        res <- character_vector_const_proxy( "fooo" )
+        checkEquals( res, "fooo", msg = "CharacterVector const proxy. #32" )
+    }
+    
 }
 

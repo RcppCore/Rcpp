@@ -61,6 +61,7 @@ template <int RTYPE> class SubMatrix ;
 
 #include <Rcpp/vector/instantiation.h>
 #include <Rcpp/vector/string_proxy.h>
+#include <Rcpp/vector/const_string_proxy.h>
 }
 
 #include <Rcpp/String.h>
