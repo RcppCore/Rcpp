@@ -720,3 +720,12 @@ int stdVectorIntRef(std::vector<int> & x) {
 int stdVectorIntConstRef(const std::vector<int> & x) { 
     return x.size();
 }
+
+// [[Rcpp::export]]
+std::string character_vector_const_proxy(const CharacterVector& str){
+    char* cstr = (char*) str[0] ;
+    std::string res  ;
+    res += cstr ;
+    return cstr ;
+}
+
