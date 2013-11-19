@@ -24,7 +24,7 @@ template <typename EnvironmentClass>
 class BindingPolicy {
 public:
     
-    class Binding {
+    class Binding : public GenericProxy<Binding> {
     public:
         Binding( EnvironmentClass& env_, const std::string& name_) : 
             env(env_), name(name_){}
@@ -67,7 +67,7 @@ public:
         std::string name ;
     } ;
     
-    class const_Binding {
+    class const_Binding : public GenericProxy<const_Binding> {
     public:
         const_Binding( const EnvironmentClass& env_, const std::string& name_) : 
             env(env_), name(name_){}

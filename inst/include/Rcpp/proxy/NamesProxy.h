@@ -24,7 +24,7 @@ template <typename CLASS>
 class NamesProxyPolicy{
 public:
     
-    class NamesProxy {
+    class NamesProxy : public GenericProxy<NamesProxy> {
     public:
         NamesProxy( CLASS& v) : parent(v){} ;
 	
@@ -62,7 +62,7 @@ public:
     		
     } ;
 
-    class const_NamesProxy {
+    class const_NamesProxy : public GenericProxy<const_NamesProxy>{
     public:
         const_NamesProxy( const CLASS& v) : parent(v){} ;
 	

@@ -24,7 +24,7 @@ namespace Rcpp{
     class TagProxyPolicy {
     public:
         
-        class TagProxy{
+        class TagProxy : public GenericProxy<TagProxy>{
         public:
             TagProxy( XPtrClass& xp_ ): xp(xp_){}
             
@@ -52,7 +52,7 @@ namespace Rcpp{
         	
         } ;
         
-        class const_TagProxy{
+        class const_TagProxy : public GenericProxy<const_TagProxy>{
         public:
             const_TagProxy( XPtrClass& xp_ ): xp(xp_){}
             

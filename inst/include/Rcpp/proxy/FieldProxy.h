@@ -24,7 +24,7 @@ template <typename CLASS>
 class FieldProxyPolicy {
 public:
     
-    class FieldProxy {
+    class FieldProxy : public GenericProxy<FieldProxy> {
     public:
         FieldProxy( CLASS& v, const std::string& name) : 
             parent(v), field_name(name) {}
@@ -56,7 +56,7 @@ public:
         }
     } ;
     
-    class const_FieldProxy {
+    class const_FieldProxy : public GenericProxy<const_FieldProxy> {
     public:
         const_FieldProxy( const CLASS& v, const std::string& name) :
             parent(v), field_name(name) {}

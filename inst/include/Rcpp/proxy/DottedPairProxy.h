@@ -24,7 +24,7 @@ template <typename CLASS>
 class DottedPairProxyPolicy {
 public:
     
-    	class DottedPairProxy {
+    	class DottedPairProxy : public GenericProxy<DottedPairProxy> {
 	public:
 		DottedPairProxy( CLASS& v, int index_ ): node(R_NilValue){
             if( index_ >= v.length() ) throw index_out_of_bounds() ;
@@ -69,7 +69,7 @@ public:
 		SEXP node ;
 	} ;
 
-	class const_DottedPairProxy {
+	class const_DottedPairProxy : public GenericProxy<const_DottedPairProxy>{
 	public:
 		const_DottedPairProxy( const CLASS& v, int index_ ): node(R_NilValue){
             if( index_ >= v.length() ) throw index_out_of_bounds() ;
