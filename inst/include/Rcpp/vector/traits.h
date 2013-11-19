@@ -70,10 +70,8 @@ namespace traits{
 		inline proxy ref() { return proxy(*p,0) ; }
 		inline proxy ref(int i) { return proxy(*p,i);}
 		
-		// inline const_proxy ref() const { return const_proxy(*p,0) ; }
-		// inline const_proxy ref(int i) const { return const_proxy(*p,i);}
-		inline const_proxy ref() const { return *get_vector_ptr(*p) ; }
-		inline const_proxy ref(int i) const { return get_vector_ptr(*p)[i] ;}
+		inline const_proxy ref() const { return const_proxy(*p,0) ; }
+		inline const_proxy ref(int i) const { return const_proxy(*p,i);}
 		
 		private:
 			VECTOR* p ;
