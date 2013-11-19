@@ -19,12 +19,12 @@
 #define Rcpp_proxy_AttributeProxy_h
 
 namespace Rcpp{
-    
+   
 template <typename CLASS>
 class AttributeProxyPolicy {
 public:
     
-    class AttributeProxy {
+    class AttributeProxy : public GenericProxy<AttributeProxy> {
     public:
         AttributeProxy( CLASS& v, const std::string& name) 
             : parent(v), attr_name(Rf_install(name.c_str()))
@@ -55,7 +55,7 @@ public:
         }
     } ;
     
-    class const_AttributeProxy {
+    class const_AttributeProxy : public GenericProxy<const_AttributeProxy> {
     public:
         const_AttributeProxy( const CLASS& v, const std::string& name) 
             : parent(v), attr_name(Rf_install(name.c_str())){}

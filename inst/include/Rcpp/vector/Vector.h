@@ -72,6 +72,11 @@ public:
         Storage::set__( r_cast<RTYPE>(x) ) ;
     }
     
+    template <typename Proxy>
+    Vector( const GenericProxy<Proxy>& proxy ){
+        Storage::set__( proxy.get() ) ;    
+    }
+    
     explicit Vector( const no_init& obj) {
         Storage::set__( Rf_allocVector( RTYPE, obj.get() ) ) ;
     }

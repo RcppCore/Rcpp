@@ -24,7 +24,7 @@ template <typename CLASS>
 class SlotProxyPolicy {
 public:
     
-    class SlotProxy {
+    class SlotProxy : public GenericProxy<SlotProxy>{
     public:
         SlotProxy( CLASS& v, const std::string& name) : parent(v), slot_name(Rf_install(name.c_str())) {
             if( !R_has_slot( v, slot_name) ){
@@ -56,7 +56,7 @@ public:
         }
     } ;
     
-    class const_SlotProxy {
+    class const_SlotProxy : public GenericProxy<const_SlotProxy> {
     public:
         const_SlotProxy( const CLASS& v, const std::string& name) ;
         const_SlotProxy& operator=(const const_SlotProxy& rhs) ;

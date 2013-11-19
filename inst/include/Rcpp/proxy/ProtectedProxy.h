@@ -24,7 +24,7 @@ namespace Rcpp{
     class ProtectedProxyPolicy{
     public:
         
-        class ProtectedProxy{
+        class ProtectedProxy : public GenericProxy<ProtectedProxy> {
         public:
             ProtectedProxy( XPtrClass& xp_ ): xp(xp_){}
             
@@ -51,7 +51,7 @@ namespace Rcpp{
         	
         } ;
 
-        class const_ProtectedProxy{
+        class const_ProtectedProxy : public GenericProxy<const_ProtectedProxy>{
         public:
             const_ProtectedProxy( const XPtrClass& xp_ ): xp(xp_){}
             

@@ -15,18 +15,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_proxy_proxy_h
+#ifndef Rcpp_proxy_GenericProxy_h
+#define Rcpp_proxy_GenericProxy_h
 
-#include <Rcpp/proxy/GenericProxy.h>
+namespace Rcpp{
+    
+template <typename Proxy>
+struct GenericProxy {
+    inline SEXP get() const {
+        return static_cast<const Proxy&>(*this) ;    
+    }
+} ;
 
-#include <Rcpp/proxy/NamesProxy.h>
-#include <Rcpp/proxy/RObjectMethods.h>
-#include <Rcpp/proxy/AttributeProxy.h>
-#include <Rcpp/proxy/TagProxy.h>
-#include <Rcpp/proxy/ProtectedProxy.h>
-#include <Rcpp/proxy/SlotProxy.h>
-#include <Rcpp/proxy/Binding.h>
-#include <Rcpp/proxy/FieldProxy.h>
-#include <Rcpp/proxy/DottedPairProxy.h>
+}
 
 #endif
