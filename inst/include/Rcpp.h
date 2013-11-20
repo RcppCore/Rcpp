@@ -57,6 +57,8 @@
 #include <Rcpp/Datetime.h>
 #include <Rcpp/DatetimeVector.h>
 
+#include <Rcpp/NA_Proxy.h>
+
 #include <Rcpp/Module.h>
 #include <Rcpp/InternalFunction.h>
 

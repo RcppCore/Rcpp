@@ -107,3 +107,29 @@ void test_rcout(std::string tfile, std::string teststring){
     testfile.close();
 }
 
+// [[Rcpp::export]]
+LogicalVector na_proxy(){
+    CharacterVector s("foo") ;
+    return LogicalVector::create( 
+        NA_REAL    == NA, 
+        NA_INTEGER == NA,
+        NA_STRING  == NA,
+        true       == NA, 
+        false      == NA, 
+        1.2        == NA, 
+        12         == NA,
+        "foo"      == NA,
+        s[0]       == NA, 
+        
+        NA         == NA_REAL, 
+        NA         == NA_INTEGER,
+        NA         == NA_STRING,
+        NA         == true, 
+        NA         == false,
+        NA         == 1.2  , 
+        NA         == 12   ,
+        NA         == "foo", 
+        NA         == s[0]
+        ) ;
+}      
+
