@@ -205,7 +205,7 @@ List runit_pt(NumericVector xx){
 }
 
 // [[Rcpp::export]]
-List runit_pnt(cdNumericVector xx){
+List runit_pnt(NumericVector xx){
     return List::create(_["lowerNoLog"] = pnt( xx, 5, 7  /*true,    false*/),
 			_["lowerLog"]   = pnt( xx, 5, 7,   true,    true),
 			_["upperNoLog"] = pnt( xx, 5, 7,   false /*,false*/),
