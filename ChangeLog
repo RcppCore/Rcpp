@@ -1,3 +1,7 @@
+2013-11-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/stats/nt.h: Correct expandion for (d|q|p)nt() function
+
 2013-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Added to support continuous integration on github
