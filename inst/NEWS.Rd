@@ -7,7 +7,7 @@
     \item Changes in Rcpp API:
     \itemize{
       \item The function \code{dnt}, \code{pnt}, \code{qnt} sugar
-      function were incorrectly expanding to the no-degree-of-freedoms variant.
+      functions were incorrectly expanding to the no-degree-of-freedoms variant.
     }
   }
 }
