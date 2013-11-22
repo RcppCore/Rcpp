@@ -2,6 +2,16 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.10.7 (2013-11-21)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The function \code{dnt}, \code{pnt}, \code{qnt} sugar
+      function were incorrectly expanding to the no-degree-of-freedoms variant.
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.10.6 (2013-10-27)}{
   \itemize{
     \item Changes in Rcpp API:
