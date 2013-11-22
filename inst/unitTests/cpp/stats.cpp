@@ -197,11 +197,19 @@ List runit_ppois( NumericVector xx){
 }
 
 // [[Rcpp::export]]
-List runit_pt( NumericVector xx ){
-    return List::create(
-        _["false"] = pt( xx, 5, true),
-        _["true"]	 = pt( xx, 5, true, true	 )
-        );
+List runit_pt(NumericVector xx){
+    return List::create(_["lowerNoLog"] = pt( xx, 5 /*true,    false*/),
+			_["lowerLog"]   = pt( xx, 5,  true,    true),
+			_["upperNoLog"] = pt( xx, 5,  false /*,false*/),
+			_["upperLog"]   = pt( xx, 5,  false,   true)    );
+}
+
+// [[Rcpp::export]]
+List runit_pnt(cdNumericVector xx){
+    return List::create(_["lowerNoLog"] = pnt( xx, 5, 7  /*true,    false*/),
+			_["lowerLog"]   = pnt( xx, 5, 7,   true,    true),
+			_["upperNoLog"] = pnt( xx, 5, 7,   false /*,false*/),
+			_["upperLog"]   = pnt( xx, 5, 7,   false,   true)    );
 }
 
 // [[Rcpp::export]]

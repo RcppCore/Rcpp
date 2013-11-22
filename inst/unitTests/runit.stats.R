@@ -22,7 +22,7 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "stats.cpp" ) 
+.setUp <- Rcpp:::unit_test_setup( "stats.cpp" )
 
 test.stats.dbeta <- function() {
     vv <- seq(0, 1, by = 0.1)
@@ -225,7 +225,7 @@ test.stats.pnorm <- function( ) {
     checkEqualsNumeric(pz$lowerNoLog, runit_pnorm(-z)$upperNoLog, msg = "stats.pnorm")
     checkEqualsNumeric(log(pz$lowerNoLog[z.ok]), pz$lowerLog[z.ok], msg = "stats.pnorm")
     ## FIXME: Add tests that use non-default mu and sigma
-} 
+}
 
 test.stats.ppois <- function( ) {
     vv <- 0:20
@@ -241,8 +241,21 @@ test.stats.ppois <- function( ) {
 test.stats.pt <- function( ) {
 	v <- seq(0.0, 1.0, by=0.1)
     checkEquals(runit_pt(v),
-                list( false = pt(v, 5), true = pt(v, 5, log=TRUE ) ), # NB: need log=TRUE here
+                list(lowerNoLog = pt(v, 5),
+                     lowerLog   = pt(v, 5,              log=TRUE),
+                     upperNoLog = pt(v, 5, lower=FALSE),
+                     upperLog   = pt(v, 5, lower=FALSE, log=TRUE) ),
                 msg = "stats.pt" )
+}
+
+test.stats.pnt <- function( ) {
+	v <- seq(0.0, 1.0, by=0.1)
+    checkEquals(runit_pnt(v),
+                list(lowerNoLog = pt(v, 5, ncp=7),
+                     lowerLog   = pt(v, 5, ncp=7,              log=TRUE),
+                     upperNoLog = pt(v, 5, ncp=7, lower=FALSE),
+                     upperLog   = pt(v, 5, ncp=7, lower=FALSE, log=TRUE) ),
+                msg = "stats.pnt" )
 }
 
 test.stats.qbinom <- function( ) {
@@ -299,19 +312,19 @@ test.stats.qt <- function( ) {
     ( x1 <- runit_qt(v, 5, FALSE, FALSE) )
     ( x2 <- qt(v, df=5, lower=FALSE, log=FALSE) )
     checkEquals(x1, x2, msg="stats.qt.f.f")
-    
+
     ( x1 <- runit_qt(v, 5, TRUE, FALSE) )
-    ( x2 <- qt(v, df=5, lower=TRUE, log=FALSE) ) 
+    ( x2 <- qt(v, df=5, lower=TRUE, log=FALSE) )
     checkEquals(x1, x2, msg="stats.qt.t.f")
-    
+
 	( x1 <- runit_qt(-v, 5, FALSE, TRUE) )
-    ( x2 <- qt(-v, df=5, lower=FALSE, log=TRUE) ) 
+    ( x2 <- qt(-v, df=5, lower=FALSE, log=TRUE) )
     checkEquals(x1, x2, msg="stats.qt.f.t")
-    
+
     ( x1 <- runit_qt(-v, 5, TRUE, TRUE) )
-    ( x2 <- qt(-v, df=5, lower=TRUE, log=TRUE) ) 
+    ( x2 <- qt(-v, df=5, lower=TRUE, log=TRUE) )
     checkEquals(x1, x2, msg="stats.qt.t.t")
-    
+
 }
 
 # TODO: test.stats.qgamma

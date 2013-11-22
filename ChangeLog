@@ -1,6 +1,8 @@
 2013-11-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/stats/nt.h: Correct expandion for (d|q|p)nt() function
+	* inst/include/Rcpp/stats/nt.h: Correct expansion of (d|q|p)nt()
+	* inst/unitTests/runit.stats.R: Added unit tests for t dist with ncp
+	* inst/unitTests/cpp/stats.cpp: C++ side of expamded unit tests
 
 2013-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
