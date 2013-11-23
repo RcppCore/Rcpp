@@ -11,14 +11,11 @@ env:
     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
     - RunAllRcppTests="yes"
-    - CC="gcc-4.7"
-    - CXX="g++-4.7"
 
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh install_aptget gcc-4.7 g++-4.7
 
 install:
   - ./travis-tool.sh install_r RUnit inline rbenchmark highlight
