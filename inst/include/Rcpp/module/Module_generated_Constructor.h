@@ -2,7 +2,7 @@
 //
 // Module_generated_Constructor.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -34,7 +34,7 @@ template <typename Class>
 class Constructor_0 : public Constructor_Base<Class>{
 public:
     virtual Class* get_new( SEXP* args, int nargs ){
-	return new Class() ;
+        return new Class() ;
     }
     virtual int nargs(){ return 0 ; }
     virtual void signature(std::string& s, const std::string& class_name ){

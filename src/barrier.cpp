@@ -87,23 +87,23 @@ SEXP get_rcpp_cache() {
 }
 
 namespace Rcpp {
-    	
-    // [[Rcpp::register]]
-    SEXP get_Rcpp_namespace(){ 
-    	    return VECTOR_ELT( get_rcpp_cache() , 0 ) ;
+    namespace internal {
+        // [[Rcpp::register]]
+        SEXP get_Rcpp_namespace(){ 
+        	    return VECTOR_ELT( get_rcpp_cache() , 0 ) ;
+        }
     }
-	
-	// [[Rcpp::register]]
-    SEXP rcpp_get_stack_trace(){
-        return VECTOR_ELT( get_rcpp_cache(), 3 ) ;
-    }
+}
 
-    // [[Rcpp::register]]
-    SEXP rcpp_set_stack_trace(SEXP e){
-        SET_VECTOR_ELT( get_rcpp_cache(), 3, e ) ;
-        return R_NilValue ;
-    }
+// [[Rcpp::register]]
+SEXP rcpp_get_stack_trace(){
+    return VECTOR_ELT( get_rcpp_cache(), 3 ) ;
+}
 
+// [[Rcpp::register]]
+SEXP rcpp_set_stack_trace(SEXP e){
+    SET_VECTOR_ELT( get_rcpp_cache(), 3, e ) ;
+    return R_NilValue ;
 }
 
 SEXP set_error_occured(SEXP cache, SEXP e){
