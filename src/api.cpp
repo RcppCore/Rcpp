@@ -46,7 +46,7 @@ using namespace Rcpp ;
                 buffer.begin(), 
                 buffer.begin() + buffer.find_last_of( ' ' ) + 1
             ) ;
-            return Rcpp::demangle( buffer) ;
+            return demangle( buffer) ;
         }
 
     #endif
@@ -118,25 +118,6 @@ namespace Rcpp {
         return res ;
     }
     
-    // [[Rcpp::register]]  
-    std::string demangle( const std::string& name ){
-        #ifdef RCPP_HAS_DEMANGLING
-            std::string real_class ;
-            int status =-1 ;
-            char *dem = 0;
-            dem = abi::__cxa_demangle(name.c_str(), 0, 0, &status);
-            if( status == 0 ){
-                real_class = dem ;
-                free(dem);
-            } else {
-                real_class = name ;
-            }
-            return real_class ;
-        #else
-            return name ;
-        #endif    
-    }
-      
     // [[Rcpp::register]]
     const char * type2name(SEXP x) {
         switch (TYPEOF(x)) {
@@ -172,6 +153,25 @@ namespace Rcpp {
     
 } // namespace Rcpp
 
+// [[Rcpp::register]]  
+std::string demangle( const std::string& name ){
+    #ifdef RCPP_HAS_DEMANGLING
+        std::string real_class ;
+        int status =-1 ;
+        char *dem = 0;
+        dem = abi::__cxa_demangle(name.c_str(), 0, 0, &status);
+        if( status == 0 ){
+            real_class = dem ;
+            free(dem);
+        } else {
+            real_class = name ;
+        }
+        return real_class ;
+    #else
+        return name ;
+    #endif    
+}
+    
 // [[Rcpp::register]]
 const char* short_file_name(const char* file){
     std::string f(file) ;
