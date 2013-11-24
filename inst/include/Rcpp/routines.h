@@ -25,20 +25,20 @@
 namespace Rcpp{
     SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
     const char* type2name(SEXP x) ;
-    std::string demangle( const std::string& name) ;
     
     namespace internal{
         unsigned long enterRNGScope(); 
         unsigned long exitRNGScope() ;
         char* get_string_buffer() ;
+        SEXP get_Rcpp_namespace() ; 
     }
-    SEXP get_Rcpp_namespace() ; 
-    SEXP rcpp_get_stack_trace() ;
-    SEXP rcpp_set_stack_trace(SEXP) ;
     double mktime00(struct tm &) ;
     struct tm * gmtime_(const time_t * const) ;
 }
-    
+ 
+SEXP rcpp_get_stack_trace() ;
+SEXP rcpp_set_stack_trace(SEXP) ;
+std::string demangle( const std::string& name) ;
 const char* short_file_name(const char* ) ;
 int* get_cache( int n ) ;
 SEXP stack_trace( const char *file, int line) ;
@@ -60,18 +60,6 @@ namespace Rcpp {
     
     #define GET_CALLABLE(__FUN__) (Fun) R_GetCCallable( "Rcpp", __FUN__ )
     
-    inline SEXP rcpp_get_stack_trace(){
-        typedef SEXP (*Fun)(void) ;
-        static Fun fun = GET_CALLABLE("rcpp_get_stack_trace") ;
-        return fun() ;
-    }
-    
-    inline SEXP rcpp_set_stack_trace(SEXP e){
-        typedef SEXP (*Fun)(SEXP) ;
-        static Fun fun =  GET_CALLABLE("rcpp_set_stack_trace") ;
-        return fun(e) ;
-    }
-    
     inline SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv){
         typedef SEXP (*Fun)(SEXP,SEXP) ;
         static Fun fun = GET_CALLABLE("Rcpp_eval") ;
@@ -84,12 +72,6 @@ namespace Rcpp {
         return fun(x) ;
     }
     
-    inline std::string demangle( const std::string& name){
-        typedef std::string (*Fun)( const std::string& ) ;
-        static Fun fun = GET_CALLABLE("demangle") ;
-        return fun(name) ;
-    }
-        
     namespace internal{
         inline unsigned long enterRNGScope(){
             typedef unsigned long (*Fun)(void) ; 
@@ -108,13 +90,15 @@ namespace Rcpp {
             static Fun fun = GET_CALLABLE("get_string_buffer") ;
             return fun();
         }
+        
+        inline SEXP get_Rcpp_namespace() {
+            typedef SEXP (*Fun)(void) ;
+            static Fun fun = GET_CALLABLE("get_Rcpp_namespace") ;
+            return fun();
+        }
+    
     }
                   
-    inline SEXP get_Rcpp_namespace() {
-        typedef SEXP (*Fun)(void) ;
-        static Fun fun = GET_CALLABLE("get_Rcpp_namespace") ;
-        return fun();
-    }
     
     inline double mktime00(struct tm &tm){
         typedef double (*Fun)(struct tm&) ;
@@ -129,6 +113,24 @@ namespace Rcpp {
     }                                             
     
 }     
+   
+inline SEXP rcpp_get_stack_trace(){
+    typedef SEXP (*Fun)(void) ;
+    static Fun fun = GET_CALLABLE("rcpp_get_stack_trace") ;
+    return fun() ;
+}
+
+inline SEXP rcpp_set_stack_trace(SEXP e){
+    typedef SEXP (*Fun)(SEXP) ;
+    static Fun fun =  GET_CALLABLE("rcpp_set_stack_trace") ;
+    return fun(e) ;
+}
+    
+inline std::string demangle( const std::string& name){
+    typedef std::string (*Fun)( const std::string& ) ;
+    static Fun fun = GET_CALLABLE("demangle") ;
+    return fun(name) ;
+}
     
 inline const char* short_file_name(const char* file) {
     typedef const char* (*Fun)(const char*) ;
