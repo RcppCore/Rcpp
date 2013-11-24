@@ -1,4 +1,3 @@
-
 useDynLib(Rcpp, .registration = TRUE)
 
 import(methods)
@@ -31,7 +30,8 @@ export(Module,
        demangle,
        sizeof,
        cpp_object_initializer,
-       cpp_object_dummy
+       cpp_object_dummy, 
+       Rcpp.plugin.maker
        )
 S3method( print, bytes )
 exportClass(RcppClass)
