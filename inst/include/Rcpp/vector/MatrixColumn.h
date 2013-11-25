@@ -2,7 +2,7 @@
 //
 // MatrixColumn.h: Rcpp R/C++ interface class library -- matrices column
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,7 +21,9 @@
 
 #ifndef Rcpp__vector__MatrixColumn_h
 #define Rcpp__vector__MatrixColumn_h
-   
+ 
+namespace Rcpp{
+    
 template <int RTYPE>
 class MatrixColumn : public VectorBase<RTYPE,true,MatrixColumn<RTYPE> > {
 public:
@@ -101,4 +103,5 @@ private:
     
 } ;
 
+}
 #endif

@@ -46,7 +46,7 @@
     }
 
 
-
+namespace Rcpp{
 namespace internal{
 
 template <int RTYPE, bool NA, typename VECTOR>
@@ -55,11 +55,9 @@ public:
 	typedef typename VECTOR::Proxy Proxy ;
 	typedef typename VECTOR::iterator iterator ;
 	
-	// TODO: check if the indexer is valid
 	RangeIndexer( VECTOR& vec_, const Rcpp::Range& range_) : 
 		start(vec_.begin() + range_.get_start() ), size_( range_.size() ) {}
 	
-		// TODO: size exceptions
 	template <bool NA_, typename T>	
 	RangeIndexer& operator=( const Rcpp::VectorBase<RTYPE,NA_,T>& x){
 	    UNROLL_LOOP(=)
@@ -98,6 +96,7 @@ private:
 	int size_ ;
 } ;
 	
+}
 }
 
 #undef UNROLL_LOOP

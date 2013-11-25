@@ -30,43 +30,36 @@ namespace Rcpp{
     namespace traits{
          template <int RTYPE, bool NA, typename VECTOR> struct Extractor ;  
     }
-}
+    template <int RTYPE> class MatrixRow ;
+    template <int RTYPE> class MatrixColumn ;
+    template <int RTYPE> class SubMatrix ;
 
-namespace Rcpp{
+    class Dimension ;
+    template <bool NA,typename T> class SingleLogicalResult ;
+
+}
 
 #include <Rcpp/vector/00_forward_Vector.h>
-}
 #include <Rcpp/vector/no_init.h>
-namespace Rcpp{
+
 #include <Rcpp/vector/00_forward_proxy.h>
 #include <Rcpp/vector/vector_from_string.h>
 
 #include <Rcpp/vector/converter.h>
-
-template <int RTYPE> class MatrixRow ;
-template <int RTYPE> class MatrixColumn ;
-template <int RTYPE> class SubMatrix ;
-
 #include <Rcpp/vector/RangeIndexer.h>
-
 #include <Rcpp/vector/Vector.h>
-
 #include <Rcpp/vector/proxy.h>
 #include <Rcpp/vector/traits.h>
-
 #include <Rcpp/vector/Matrix.h>
 #include <Rcpp/vector/SubMatrix.h>
 #include <Rcpp/vector/MatrixRow.h>
 #include <Rcpp/vector/MatrixColumn.h>
-
 #include <Rcpp/vector/instantiation.h>
-}
 
 #include <Rcpp/vector/string_proxy.h>
 #include <Rcpp/vector/const_string_proxy.h>
 #include <Rcpp/vector/generic_proxy.h>
 #include <Rcpp/vector/const_generic_proxy.h>
-
 
 #include <Rcpp/String.h>
 #include <Rcpp/vector/LazyVector.h>

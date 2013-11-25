@@ -21,7 +21,9 @@
 
 #ifndef Rcpp__vector__MatrixRow_h
 #define Rcpp__vector__MatrixRow_h
-   
+
+namespace Rcpp{
+    
 template <int RTYPE>
 class MatrixRow : public VectorBase< RTYPE, true, MatrixRow<RTYPE> > {
 public:
@@ -168,5 +170,6 @@ private:
         return i * parent_nrow ;
     } 
 } ;
+}
 
 #endif

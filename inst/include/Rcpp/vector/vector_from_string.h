@@ -22,6 +22,7 @@
 #ifndef Rcpp__vector__forward_vector_from_string_h
 #define Rcpp__vector__forward_vector_from_string_h
 
+namespace Rcpp{
 namespace internal{
     
     template <int RTYPE>
@@ -50,4 +51,6 @@ namespace internal{
     }
     
 }
+}
+
 #endif
