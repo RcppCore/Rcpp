@@ -22,8 +22,8 @@
 #ifndef Rcpp__vector__Matrix_h
 #define Rcpp__vector__Matrix_h
 
-class Dimension ;
-
+namespace Rcpp{
+    
 template <int RTYPE, template <class> class StoragePolicy = PreserveStorage > 
 class Matrix : public Vector<RTYPE, StoragePolicy>, public MatrixBase<RTYPE, true, Matrix<RTYPE,StoragePolicy> > {
     int nrows ; 
@@ -118,5 +118,6 @@ private:
         
 } ;
 
+}
 
 #endif

@@ -22,10 +22,7 @@
 #ifndef Rcpp__vector__Vector_h
 #define Rcpp__vector__Vector_h
 
-// forward declarations
-class Dimension ;
-
-template <bool NA,typename T> class SingleLogicalResult ;
+namespace Rcpp{
 
 template <int RTYPE, template <class> class StoragePolicy = PreserveStorage >
 class Vector :
@@ -478,5 +475,7 @@ public:
     
     
 } ; /* Vector */
+
+}
 
 #endif

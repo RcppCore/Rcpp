@@ -2,7 +2,7 @@
 //
 // converter.h: Rcpp R/C++ interface class library -- converters
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,7 +21,8 @@
 
 #ifndef Rcpp__vector__converters_h
 #define Rcpp__vector__converters_h
- 
+
+namespace Rcpp{
 namespace internal {
 	template <int RTYPE>
 	class element_converter{
@@ -102,6 +103,7 @@ namespace traits{
 	template<> struct r_vector_element_converter<EXPRSXP>{
 		typedef ::Rcpp::internal::generic_element_converter<EXPRSXP> type ;
 	} ;
+}
 }
 
 #endif
