@@ -654,5 +654,9 @@ if (.runThisTest) {
         checkEquals( res, "fooo", msg = "CharacterVector const proxy. #32" )
     }
     
+    test.CharacterVector.test.const.proxy <- function(){
+        res <- CharacterVector_test_const_proxy( letters )
+        checkEquals( res, letters )
+    }
 }
 

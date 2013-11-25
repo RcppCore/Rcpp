@@ -57,6 +57,8 @@ namespace internal{
 			return *this ;
 		}
 		
+		string_proxy& operator=( const const_string_proxy<RTYPE>& other) ;
+		
 		string_proxy& operator=( const String& s) ;
 		
 		/**
