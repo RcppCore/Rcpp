@@ -60,10 +60,10 @@ template <int RTYPE> class SubMatrix ;
 #include <Rcpp/vector/MatrixColumn.h>
 
 #include <Rcpp/vector/instantiation.h>
-#include <Rcpp/vector/string_proxy.h>
-#include <Rcpp/vector/const_string_proxy.h>
 }
 
+#include <Rcpp/vector/string_proxy.h>
+#include <Rcpp/vector/const_string_proxy.h>
 #include <Rcpp/vector/generic_proxy.h>
 #include <Rcpp/vector/const_generic_proxy.h>
 

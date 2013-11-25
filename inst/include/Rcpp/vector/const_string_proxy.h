@@ -22,6 +22,7 @@
 #ifndef Rcpp__vector__const_string_proxy_h
 #define Rcpp__vector__const_string_proxy_h
  
+namespace Rcpp{
 namespace internal{
 	
 	template<int RTYPE> class const_string_proxy {
@@ -159,7 +160,7 @@ namespace internal{
        return *this ;
     }
 		
-
+}
 }
 
 #endif
