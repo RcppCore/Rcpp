@@ -224,7 +224,7 @@ namespace Rcpp{
         iterator it(begin()) ;
         iterator this_end(end()) ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             int i=0; 
             for( ; it < position; ++it, ++target_it, i++){
                 *target_it = *it;
@@ -269,7 +269,7 @@ namespace Rcpp{
 		
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator result ;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             int i=0; 
             for( ; it < first; ++it, ++target_it, i++ ){
                 *target_it = *it ;
@@ -306,7 +306,7 @@ namespace Rcpp{
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
         iterator this_end(end());
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it ){
                 *target_it = *it ;
             }
@@ -334,7 +334,7 @@ namespace Rcpp{
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
         iterator this_end(end());
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it ){
                 *target_it = *it ;
             }
@@ -362,7 +362,7 @@ namespace Rcpp{
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         Shield<SEXP> newnames( ::Rf_allocVector( STRSXP, n+1 ) ) ;
         int i=0;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             SEXP dummy = PROTECT( Rf_mkChar("") );
             for( ; it < this_end; ++it, ++target_it,i++ ){
                 *target_it = *it ;
@@ -392,7 +392,7 @@ namespace Rcpp{
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         Shield<SEXP> newnames( ::Rf_allocVector( STRSXP, n+1 ) ) ;
         int i=0;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it,i++ ){
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i , R_BlankString );
@@ -420,7 +420,7 @@ namespace Rcpp{
         *target_it = object ;
         ++target_it ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it<this_end; ++it, ++target_it){
                 *target_it = *it ;
             }
@@ -448,7 +448,7 @@ namespace Rcpp{
         *target_it = object_sexp ;
         ++target_it ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it<this_end; ++it, ++target_it){
                 *target_it = *it ;
             }
@@ -479,7 +479,7 @@ namespace Rcpp{
         *target_it = object;
         ++target_it ;
     		
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it,i++ ){
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i , R_BlankString );
@@ -510,7 +510,7 @@ namespace Rcpp{
         *target_it = object_sexp;
         ++target_it ;
     		
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it,i++ ){
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i , R_BlankString );
@@ -534,7 +534,7 @@ namespace Rcpp{
         iterator this_end = end() ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator result ;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it < position; ++it, ++target_it){
                 *target_it = *it ;
             }
@@ -576,7 +576,7 @@ namespace Rcpp{
         iterator this_end = end() ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator result ;
-        if( names == R_NilValue ){
+        if( Rf_isNull(names) ){
             for( ; it < position; ++it, ++target_it){
                 *target_it = *it ;
             }
