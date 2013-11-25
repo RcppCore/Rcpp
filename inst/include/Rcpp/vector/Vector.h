@@ -189,7 +189,7 @@ public:
     
     R_len_t offset(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES( Storage::get__() ) ;
-        if( names == R_NilValue ) throw index_out_of_bounds(); 
+        if( Rf_isNull(names) ) throw index_out_of_bounds(); 
         R_len_t n=size() ;
         for( R_len_t i=0; i<n; ++i){
             if( ! name.compare( CHAR(STRING_ELT(names, i)) ) ){
