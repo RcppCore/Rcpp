@@ -372,7 +372,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     if (file.exists(pkgHeaderPath)) {
         pkgInclude <- paste("#include \"../inst/include/",
                             pkgHeader, "\"", sep="")
-        includes <- c(includes, pkgInclude)
+        includes <- c(pkgInclude, includes)
     }
 
     # generate exports
