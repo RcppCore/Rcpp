@@ -729,3 +729,11 @@ std::string character_vector_const_proxy(const CharacterVector& str){
     return cstr ;
 }
 
+// [[Rcpp::export]]
+CharacterVector CharacterVector_test_const_proxy(const CharacterVector x){
+    CharacterVector out( x.size() ) ;
+    for( int i=0; i<x.size(); i++){
+        out[i] = x[i] ;    
+    }
+    return out ;
+}

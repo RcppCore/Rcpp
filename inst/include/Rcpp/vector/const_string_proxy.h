@@ -152,6 +152,13 @@ namespace internal{
 		return x + static_cast<const char*>(y) ;
 	}
 	
+	
+	template <int RTYPE>
+	string_proxy<RTYPE>& string_proxy<RTYPE>::operator=(const const_string_proxy<RTYPE>& other){
+       set( other.get() ) ;
+       return *this ;
+    }
+		
 
 }
 
