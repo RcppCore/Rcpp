@@ -15,16 +15,23 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-test <- function( output = if( file.exists( "/tmp" ) ) "/tmp" else getwd() ){
-    if( !file.exists( output ) ){ stop( "output directory does not exist" ) }
+run_unit_tests <- function( output = if( file.exists( "/tmp" ) ) "/tmp" else getwd(), package = "Rcpp" ){
+    if( !file.exists( output ) ){ 
+      stop( "output directory does not exist" ) 
+    }
 
     Rscript <- file.path( R.home( component = "bin" ), "Rscript" )
     if( .Platform$OS.type == "windows" ){
         Rscript <- sprintf( "%s.exe", Rscript )
     }
-    test.script <- system.file( "unitTests", "runTests.R", package = "Rcpp" )
+    test.script <- system.file( "unitTests", "runTests.R", package = package )
     cmd <- sprintf( '"%s" "%s" --output=%s', Rscript, test.script, output )
     system( cmd )
+}
+
+test <- function( output = if( file.exists( "/tmp" ) ) "/tmp" else getwd() ){
+  message( "test is deprecated, use `run_unit_test` instead" )
+  run_unit_tests( output, "Rcpp" )  
 }
 
 unit_test_setup <- function(file, packages = NULL) {
