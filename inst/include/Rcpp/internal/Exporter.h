@@ -78,7 +78,7 @@ namespace Rcpp{
         
             T get() {
                 Shield<SEXP> dims( ::Rf_getAttrib( object, R_DimSymbol ) ) ;
-                if( dims == R_NilValue || ::Rf_length(dims) != 2 ){
+                if( Rf_isNull(dims) || ::Rf_length(dims) != 2 ){
                     throw ::Rcpp::not_a_matrix() ;
                 }
                 int* dims_ = INTEGER(dims) ;
