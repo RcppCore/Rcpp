@@ -23,6 +23,7 @@
 #ifndef Rcpp__vector__string_proxy_h
 #define Rcpp__vector__string_proxy_h
  
+namespace Rcpp{
 namespace internal{
 	
 	template<int RTYPE> class string_proxy {
@@ -240,6 +241,7 @@ namespace internal{
 		return x + static_cast<const char*>(y) ;
 	}
 	
+}
 }
 
 #endif
