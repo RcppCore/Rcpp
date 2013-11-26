@@ -22,6 +22,7 @@
 #ifndef Rcpp_api_meat_meat_h
 #define Rcpp_api_meat_meat_h
 
+#include <Rcpp/api/meat/Rcpp_eval.h>
 #include <Rcpp/api/meat/Dimension.h>
 
 #include <Rcpp/api/meat/TagProxy.h>

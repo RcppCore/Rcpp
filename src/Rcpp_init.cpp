@@ -89,7 +89,6 @@ void registerFunctions(){
     #define RCPP_REGISTER(__FUN__) R_RegisterCCallable( "Rcpp", #__FUN__ , (DL_FUNC)__FUN__ );
     RCPP_REGISTER(rcpp_get_stack_trace)
     RCPP_REGISTER(rcpp_set_stack_trace)
-    RCPP_REGISTER(Rcpp_eval)
     RCPP_REGISTER(type2name)
     RCPP_REGISTER(demangle)
     RCPP_REGISTER(enterRNGScope)
@@ -113,6 +112,9 @@ void registerFunctions(){
     RCPP_REGISTER(short_file_name)
     RCPP_REGISTER(mktime00)
     RCPP_REGISTER(gmtime_)
+    RCPP_REGISTER(reset_current_error)
+    RCPP_REGISTER(error_occured)
+    RCPP_REGISTER(rcpp_get_current_error)
     #undef RCPP_REGISTER
 }
 

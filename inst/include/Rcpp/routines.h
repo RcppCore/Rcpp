@@ -23,7 +23,6 @@
 // the idea is that this file should be generated automatically by Rcpp::register
 
 namespace Rcpp{
-    SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv) ;
     const char* type2name(SEXP x) ;
     
     namespace internal{
@@ -54,17 +53,14 @@ const char* char_nocheck( SEXP x) ;
 void* dataptr(SEXP x) ;
 Rcpp::Module* getCurrentScope() ;
 void setCurrentScope( Rcpp::Module* mod ) ;
- 
+SEXP reset_current_error() ;
+int error_occured() ;
+SEXP rcpp_get_current_error() ;
+
 #else 
 namespace Rcpp {
     
     #define GET_CALLABLE(__FUN__) (Fun) R_GetCCallable( "Rcpp", __FUN__ )
-    
-    inline SEXP Rcpp_eval(SEXP expr, SEXP env = R_GlobalEnv){
-        typedef SEXP (*Fun)(SEXP,SEXP) ;
-        static Fun fun = GET_CALLABLE("Rcpp_eval") ;
-        return fun(expr, env) ;
-    }
     
     inline const char* type2name(SEXP x){
         typedef const char* (*Fun)(SEXP) ;
@@ -221,6 +217,22 @@ inline int* get_cache( int n ){
     return fun(n) ;    
 }
     
+inline SEXP reset_current_error(){
+    typedef SEXP (*Fun)(void) ;
+    static Fun fun = GET_CALLABLE("reset_current_error") ;
+    return fun() ;     
+} 
+
+inline int error_occured(){
+    typedef int (*Fun)(void) ;
+    static Fun fun = GET_CALLABLE("error_occured") ;
+    return fun() ;     
+}
+inline SEXP rcpp_get_current_error(){
+    typedef SEXP (*Fun)(void) ;
+    static Fun fun = GET_CALLABLE("rcpp_get_current_error") ;
+    return fun() ;    
+}
 #endif
 
 
