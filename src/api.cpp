@@ -227,10 +227,11 @@ SEXP stack_trace( const char* file, int line ){
     #if defined(__GNUC__)
         #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
             // Simpler version for Windows and *BSD 
-            Rcpp::List trace = Rcpp::List::create( 
-                Rcpp::Named( "file"  ) = file, 
-                Rcpp::Named( "line"  ) = line, 
-                Rcpp::Named( "stack" ) = "C++ stack not available on this system" ) ;
+            List trace = List::create( 
+                _[ "file"  ] = file, 
+                _[ "line"  ] = line, 
+                _[ "stack" ] = "C++ stack not available on this system"
+            ) ;
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
         #else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
@@ -246,7 +247,7 @@ SEXP stack_trace( const char* file, int line ){
             
             std::string current_line ;
             
-            Rcpp::CharacterVector res( stack_depth - 1) ;
+            CharacterVector res( stack_depth - 1) ;
             std::transform( 
                 stack_strings + 1, stack_strings + stack_depth, 
                 res.begin(), 
@@ -254,10 +255,10 @@ SEXP stack_trace( const char* file, int line ){
             ) ;
             free(stack_strings); // malloc()ed by backtrace_symbols
             
-            Rcpp::List trace = Rcpp::List::create( 
-                Rcpp::Named( "file"  ) = file, 
-                Rcpp::Named( "line"  ) = line, 
-                Rcpp::Named( "stack" ) = res
+            List trace = List::create( 
+                _["file" ] = file, 
+                _["line" ] = line, 
+                _["stack"] = res
             ) ;
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
