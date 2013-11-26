@@ -83,42 +83,6 @@ namespace Rcpp {
     }
     
     // [[Rcpp::register]]
-    SEXP Rcpp_eval(SEXP expr_, SEXP env) {
-        Shield<SEXP> expr( expr_) ;
-        
-        reset_current_error() ; 
-        
-        Environment RCPP = Environment::Rcpp_namespace(); 
-        static SEXP tryCatchSym = NULL, evalqSym, conditionMessageSym, errorRecorderSym, errorSym ;
-        if (!tryCatchSym) {
-            tryCatchSym               = ::Rf_install("tryCatch");
-            evalqSym                  = ::Rf_install("evalq");
-            conditionMessageSym       = ::Rf_install("conditionMessage");
-            errorRecorderSym          = ::Rf_install(".rcpp_error_recorder");
-            errorSym                  = ::Rf_install("error");
-        }
-        
-        Shield<SEXP> call( Rf_lang3( 
-            tryCatchSym, 
-            Rf_lang3( evalqSym, expr, env ),
-            errorRecorderSym
-        ) ) ;
-        SET_TAG( CDDR(call), errorSym ) ;
-        /* call the tryCatch call */
-        Shield<SEXP> res(::Rf_eval( call, RCPP ) );
-        
-        if( error_occured() ) {
-            Shield<SEXP> current_error        ( rcpp_get_current_error() ) ;
-            Shield<SEXP> conditionMessageCall (::Rf_lang2(conditionMessageSym, current_error)) ;
-            Shield<SEXP> condition_message    (::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
-            std::string message(CHAR(::Rf_asChar(condition_message)));
-            throw eval_error(message) ;
-        }
-        
-        return res ;
-    }
-    
-    // [[Rcpp::register]]
     const char * type2name(SEXP x) {
         switch (TYPEOF(x)) {
         case NILSXP:	return "NILSXP";

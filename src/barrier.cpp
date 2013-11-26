@@ -132,6 +132,7 @@ SEXP init_Rcpp_cache(){
 	return cache ;
 }
 
+// [[Rcpp::register]]
 SEXP reset_current_error(){ 
     SEXP cache = get_rcpp_cache() ;
     
@@ -147,6 +148,7 @@ SEXP reset_current_error(){
     return R_NilValue ;
 }
 
+// [[Rcpp::register]]
 int error_occured(){
     SEXP err = VECTOR_ELT( get_rcpp_cache(), 1 ) ;
     return LOGICAL(err)[0] ;
@@ -164,6 +166,7 @@ SEXP rcpp_error_recorder(SEXP e){
     return R_NilValue ;
 }
 
+// [[Rcpp::register]]
 SEXP rcpp_get_current_error(){
     return VECTOR_ELT( get_rcpp_cache(), 2 ) ;
 }

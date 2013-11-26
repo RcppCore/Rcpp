@@ -114,11 +114,7 @@ CALLFUN_2(CppObject__finalize);
 CALLFUN_0(get_rcpp_cache);
 CALLFUN_0(init_Rcpp_cache);
 
-CALLFUN_0(reset_current_error);
 CALLFUN_1(rcpp_error_recorder);
-CALLFUN_0(rcpp_get_current_error);
-int error_occured() ;
-
 CALLFUN_3(CppField__get);
 CALLFUN_4(CppField__set);
 

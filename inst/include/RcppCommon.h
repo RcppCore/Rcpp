@@ -81,6 +81,8 @@ namespace Rcpp{
 #include <Rcpp/sugar/undoRmath.h>
 
 namespace Rcpp{
+    
+    SEXP Rcpp_eval(SEXP expr_, SEXP env = R_GlobalEnv ) ;
     class Module ; 
     
     namespace traits{
