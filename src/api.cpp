@@ -269,7 +269,6 @@ SEXP stack_trace( const char* file, int line ){
                 Rcpp::Named( "stack" ) = "C++ stack not available on this system" ) ;
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
-        }
         #else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
         
             /* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */ 
