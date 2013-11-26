@@ -3,8 +3,8 @@ Title: Seamless R and C++ Integration
 Version: 0.10.6.3
 Date: 2013-11-14
 Authors@R: c(
-    person("Dirk", "Eddelbuettel", role = "aut", email = "edd@debian.org" ),
-    person("Romain", "Francois", role = c("aut", "cre"), email = "romain@r-enthusiasts.com"),
+    person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org" ),
+    person("Romain", "Francois", role = "aut", email = "romain@r-enthusiasts.com"),
     person("JJ", "Allaire", role = "ctb", email = "jj.allaire@gmail.com"),
     person("John", "Chambers", role = "ctb", email = "jmc@r-project.org"),
     person("Douglas", "Bates", role = "ctb", email = "bates@stat.wisc.edu")
