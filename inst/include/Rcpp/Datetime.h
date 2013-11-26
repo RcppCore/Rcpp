@@ -74,7 +74,7 @@ namespace Rcpp {
         void update_tm() {
             if (R_FINITE(m_dt)) {
                 time_t t = static_cast<time_t>(std::floor(m_dt));	
-                m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
+                m_tm = *gmtime_(&t);		// this may need a Windows fix, re-check R's datetime.c
                 // m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
                 m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));	
             } else {
@@ -107,7 +107,7 @@ namespace Rcpp {
 		Datetime newdt(datetime.m_dt);
 		newdt.m_dt += offset;
 		time_t t = static_cast<time_t>(std::floor(newdt.m_dt));	
-		newdt.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's dat		
+		newdt.m_tm = *gmtime_(&t);		// this may need a Windows fix, re-check R's dat		
 		newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));	
 		return newdt;
     }
