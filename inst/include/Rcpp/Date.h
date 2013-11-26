@@ -137,7 +137,6 @@ namespace Rcpp {
         Date newdate(date.m_d);
         newdate.m_d += offset;
         time_t t = 24*60*60 * newdate.m_d;	// days since epoch to seconds since epo
-        //newdate.m_tm = *gmtime(&t);		// this may need a Windows fix, re-check R's datetime.c
         newdate.m_tm = *gmtime_(&t);
         return newdate;
     }
