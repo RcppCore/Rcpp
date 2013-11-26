@@ -47,6 +47,11 @@ namespace Rcpp{
             set_sexp(other) ;    
         }
         
+        template <typename Proxy>
+        DataFrame_Impl( const GenericProxy<Proxy>& proxy ){
+            set_sexp( proxy.get() ) ;    
+        }
+    
         template <typename T>
         DataFrame_Impl( const T& obj ) ;
         
