@@ -28,37 +28,52 @@
 #include <algorithm>
 #include <Rcpp/protection/Shield.h>
 
-
+// [[Rcpp::register]]
 SEXP get_string_elt(SEXP x, int i){
     return STRING_ELT(x, i ) ;
 }    
+
+// [[Rcpp::register]]
 const char* char_get_string_elt(SEXP x, int i){
     return CHAR(STRING_ELT(x, i )) ;
 }    
+
+// [[Rcpp::register]]
 void set_string_elt(SEXP x, int i, SEXP value){
     STRING_ELT(x, i) = value ;
 }
+
+// [[Rcpp::register]]
 void char_set_string_elt(SEXP x, int i, const char* value){
     STRING_ELT(x, i) = Rf_mkChar(value) ; 
 }
+
+// [[Rcpp::register]]
 SEXP* get_string_ptr(SEXP x){ 
     return STRING_PTR(x) ; 
 }
 
+// [[Rcpp::register]]
 SEXP get_vector_elt(SEXP x, int i){
     return VECTOR_ELT(x, i ) ;
 }
+
+// [[Rcpp::register]]
 void set_vector_elt(SEXP x, int i, SEXP value){
     SET_VECTOR_ELT(x, i, value ) ;
 }
+
+// [[Rcpp::register]]
 SEXP* get_vector_ptr(SEXP x){ 
     return VECTOR_PTR(x) ; 
 }
+
+// [[Rcpp::register]]
 void* dataptr(SEXP x){ 
     return DATAPTR(x); 
 }
 
-// when we already know x is a CHARSXP
+// [[Rcpp::register]]
 const char* char_nocheck( SEXP x ){ 
     return CHAR(x); 
 }
@@ -154,6 +169,7 @@ int error_occured(){
     return LOGICAL(err)[0] ;
 }
 
+// [[Rcpp::internal]]
 SEXP rcpp_error_recorder(SEXP e){ 
     SEXP cache = get_rcpp_cache() ;
     
@@ -171,6 +187,7 @@ SEXP rcpp_get_current_error(){
     return VECTOR_ELT( get_rcpp_cache(), 2 ) ;
 }
 
+// [[Rcpp::register]]
 int* get_cache( int m){
     SEXP cache = get_rcpp_cache() ;
     SEXP hash_cache = VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX) ;
