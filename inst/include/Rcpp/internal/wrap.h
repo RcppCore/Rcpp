@@ -411,7 +411,9 @@ inline SEXP range_wrap_dispatch___impl( InputIterator first, InputIterator last,
  */
 template<typename InputIterator, typename T>
 inline SEXP range_wrap_dispatch( InputIterator first, InputIterator last ){
+#if RCPP_DEBUG_LEVEL > 0
 	typedef typename ::Rcpp::traits::r_type_traits<T>::r_category categ ;
+#endif
 	RCPP_DEBUG_3( "range_wrap_dispatch< InputIterator = \n%s , T = %s, categ = %s>\n", DEMANGLE(InputIterator), DEMANGLE(T), DEMANGLE(categ) ) ;
 	return range_wrap_dispatch___impl<InputIterator,T>( first, last, typename ::Rcpp::traits::r_type_traits<T>::r_category() ) ;
 }
