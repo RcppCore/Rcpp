@@ -28,7 +28,7 @@ namespace Rcpp{
         
     template <typename T>
     template <typename U>
-    inline Armor<T>& Armor<T>::operator=( U x ){
+    inline Armor<T>& Armor<T>::operator=( const U& x ){
         REPROTECT(data = wrap(x), index) ;
         return *this ;
     }
