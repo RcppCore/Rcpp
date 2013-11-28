@@ -35,7 +35,7 @@ namespace Rcpp {
         }
               
         template <typename U>
-        inline Armor& operator=( U x ) ;
+        inline Armor& operator=( const U& x ) ;
         
         ~Armor(){
             UNPROTECT(1) ;
