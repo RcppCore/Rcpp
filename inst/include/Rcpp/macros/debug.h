@@ -2,7 +2,7 @@
 //
 // debug.h: Rcpp R/C++ interface class library -- debug macros
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,6 +27,11 @@
     #define RCPP_DEBUG_LEVEL 0
 #endif
 
+#ifndef RCPP_DEBUG_MODULE_LEVEL
+    #define RCPP_DEBUG_MODULE_LEVEL RCPP_DEBUG_LEVEL
+#endif
+
+
 #if RCPP_DEBUG_LEVEL > 0
     #define RCPP_DEBUG( MSG ) Rprintf( "%40s:%4d %s\n" , short_file_name(__FILE__), __LINE__, MSG ) ; 
     #define RCPP_DEBUG_1( fmt, MSG ) Rprintf( "%40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, MSG ) ; 
@@ -41,6 +46,64 @@
     #define RCPP_DEBUG_3( fmt, M1, M2, M3 )
     #define RCPP_DEBUG_4( fmt, M1, M2, M3, M4 )
     #define RCPP_DEBUG_5( fmt, M1, M2, M3, M4, M5 )
+#endif
+
+#if RCPP_DEBUG_MODULE_LEVEL > 0
+    #define RCPP_DEBUG_MODULE( MSG ) {                                                                                             \
+        Rcpp::Module * mod__ = getCurrentScope() ;                                                                                 \
+        if( mod__ ){                                                                                                                 \
+            Rprintf( "[module (%s) <%p> ] %40s:%4d %s\n" , mod__->name.c_str(), mod__, short_file_name(__FILE__), __LINE__, MSG ) ;\
+        } else {                                                                                                                   \
+            Rprintf( "[module () ] %40s:%4d %s\n" , short_file_name(__FILE__), __LINE__, MSG ) ;                                \
+        }                                                                                                                          \
+    } 
+    #define RCPP_DEBUG_MODULE_1( fmt, MSG ) {                                                                                      \
+        Rcpp::Module * mod__ = getCurrentScope() ;                                                                                 \
+        if( mod__ ){                                                                                                                 \
+            Rprintf( "[module (%s) <%p> ] %40s:%4d " fmt "\n" , mod__->name.c_str(), mod__, short_file_name(__FILE__), __LINE__, MSG ) ;\
+        } else {                                                                                                                   \
+            Rprintf( "[module () ] %40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, MSG ) ;                                \
+        }                                                                                                                          \
+    } 
+    #define RCPP_DEBUG_MODULE_2( fmt, M1, M2 ) {                                                                                      \
+        Rcpp::Module * mod__ = getCurrentScope() ;                                                                                 \
+        if( mod__ ){                                                                                                                 \
+            Rprintf( "[module (%s) <%p> ] %40s:%4d " fmt "\n" , mod__->name.c_str(), mod__, short_file_name(__FILE__), __LINE__, M1, M2 ) ;\
+        } else {                                                                                                                   \
+            Rprintf( "[module () ] %40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2 ) ;                                \
+        }                                                                                                                          \
+    } 
+    #define RCPP_DEBUG_MODULE_3( fmt, M1, M2, M3 ) {                                                                                      \
+        Rcpp::Module * mod__ = getCurrentScope() ;                                                                                 \
+        if( mod__ ){                                                                                                                 \
+            Rprintf( "[module (%s) <%p> ] %40s:%4d " fmt "\n" , mod__->name.c_str(), mod__, short_file_name(__FILE__), __LINE__, M1, M2, M3 ) ;\
+        } else {                                                                                                                   \
+            Rprintf( "[module () ] %40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2, M3 ) ;                                \
+        }                                                                                                                          \
+    } 
+    #define RCPP_DEBUG_MODULE_4( fmt, M1, M2, M3, M4 ) {                                                                                      \
+        Rcpp::Module * mod__ = getCurrentScope() ;                                                                                 \
+        if( mod__ ) {                                                                                                                \
+            Rprintf( "[module (%s) <%p> ] %40s:%4d " fmt "\n" , mod__->name.c_str(), mod__, short_file_name(__FILE__), __LINE__, M1, M2, M3, M4 ) ;\
+        } else {                                                                                                                   \
+            Rprintf( "[module () ] %40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2, M3, M4 ) ;                                \
+        }                                                                                                                          \
+    } 
+    #define RCPP_DEBUG_MODULE_5( fmt, M1, M2, M3, M4, M5 ) {                                                                                      \
+        Rcpp::Module * mod__ = getCurrentScope() ;                                                                                 \
+        if( mod__ ){                                                                                                                 \
+            Rprintf( "[module (%s) <%p> ] %40s:%4d " fmt "\n" , mod__->name.c_str(), mod__, short_file_name(__FILE__), __LINE__, M1, M2, M3, M4, M5 ) ;\
+        } else {                                                                                                                   \
+            Rprintf( "[module () ] %40s:%4d " fmt "\n" , short_file_name(__FILE__), __LINE__, M1, M2, M3, M4, M5 ) ;                                \
+        }                                                                                                                          \
+    } 
+#else 
+    #define RCPP_DEBUG_MODULE( MSG )
+    #define RCPP_DEBUG_MODULE_1( fmt, MSG )
+    #define RCPP_DEBUG_MODULE_2( fmt, M1, M2 )
+    #define RCPP_DEBUG_MODULE_3( fmt, M1, M2, M3 )
+    #define RCPP_DEBUG_MODULE_4( fmt, M1, M2, M3, M4 )
+    #define RCPP_DEBUG_MODULE_5( fmt, M1, M2, M3, M4, M5 )
 #endif
 
 #endif
