@@ -230,7 +230,7 @@
         
         
         self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes, const char* docstring = 0){
-            RCPP_DEBUG_1( "AddMethod( %s, method_class* m, ValidMethod valid = &yes, const char* docstring = 0", name_ )
+            RCPP_DEBUG_MODULE_1( "AddMethod( %s, method_class* m, ValidMethod valid = &yes, const char* docstring = 0", name_ )
             self* ptr = get_instance() ;
             typename map_vec_signed_method::iterator it = ptr->vec_methods.find( name_ ) ; 
             if( it == ptr->vec_methods.end() ){
@@ -413,7 +413,7 @@
         }
 
         Rcpp::List getMethods( const XP_Class& class_xp, std::string& buffer){
-            RCPP_DEBUG( "Rcpp::List getMethods( const XP_Class& class_xp, std::string& buffer" )
+            RCPP_DEBUG_MODULE( "Rcpp::List getMethods( const XP_Class& class_xp, std::string& buffer" )
             #if RCPP_DEBUG_LEVEL > 0
                 Rf_PrintValue( class_xp ) ;
             #endif
