@@ -68,12 +68,17 @@
     private:
         
         self* get_instance() {
+            
             // check if we already have it
-            if( class_pointer ) return class_pointer ;
+            if( class_pointer ) {
+                RCPP_DEBUG_MODULE_2( "class_<%s>::get_instance(). [cached] class_pointer = <%p>\n", DEMANGLE(Class), class_pointer ) ; 
+                return class_pointer ;
+            }
             
             // check if it exists in the module
             Module* module = getCurrentScope() ;
             if( module->has_class(name) ){
+                RCPP_DEBUG_MODULE_2( "class_<%s>::get_instance(). [from module] class_pointer = class_pointer\n", DEMANGLE(Class), class_pointer ) ; 
                 class_pointer = dynamic_cast<self*>( module->get_class_pointer(name) ) ;
             } else {
                 class_pointer = new self ;
@@ -82,6 +87,8 @@
                 class_pointer->finalizer_pointer = new finalizer_class ;
                 class_pointer->typeinfo_name = typeid(Class).name() ;
                 module->AddClass( name.c_str(), class_pointer ) ;
+                RCPP_DEBUG_MODULE_2( "class_<%s>::get_instance(). [freshly created] class_pointer = class_pointer\n", DEMANGLE(Class), class_pointer ) ; 
+                
             } 
             return class_pointer ;
         }
