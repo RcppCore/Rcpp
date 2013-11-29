@@ -52,7 +52,7 @@
         typedef std::pair<const std::string,prop_class*> PROP_PAIR ;
         
         class_( const char* name_, const char* doc = 0) : 
-            class_Base(name_, 0), 
+            class_Base(name_, doc), 
             vec_methods(), 
             properties(), 
             finalizer_pointer(0), 
@@ -62,17 +62,32 @@
             class_pointer(0), 
             typeinfo_name("")
         {
-            Rcpp::Module* module = getCurrentScope() ;
-            if( ! module->has_class(name_) ){
-                class_pointer = new self ;
-                class_pointer->name = name_ ;
-                class_pointer->docstring = std::string( doc == 0 ? "" : doc );
-                class_pointer->finalizer_pointer = new finalizer_class ;
-                class_pointer->typeinfo_name = typeid(Class).name() ;
-                module->AddClass( name_, class_pointer ) ;
-            }
+            class_pointer = get_instance() ;
         }
          
+    private:
+        
+        self* get_instance() {
+            // check if we already have it
+            if( class_pointer ) return class_pointer ;
+            
+            // check if it exists in the module
+            Module* module = getCurrentScope() ;
+            if( module->has_class(name) ){
+                class_pointer = dynamic_cast<self*>( module->get_class_pointer(name) ) ;
+            } else {
+                class_pointer = new self ;
+                class_pointer->name = name ;
+                class_pointer->docstring = docstring ;
+                class_pointer->finalizer_pointer = new finalizer_class ;
+                class_pointer->typeinfo_name = typeid(Class).name() ;
+                module->AddClass( name.c_str(), class_pointer ) ;
+            } 
+            return class_pointer ;
+        }
+        
+    public:
+        
         ~class_(){}
         
         self& AddConstructor( constructor_class* ctor, ValidConstructor valid, const char* docstring = 0 ){
@@ -216,17 +231,18 @@
         
         self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes, const char* docstring = 0){
             RCPP_DEBUG_1( "AddMethod( %s, method_class* m, ValidMethod valid = &yes, const char* docstring = 0", name_ )
-            typename map_vec_signed_method::iterator it = class_pointer->vec_methods.find( name_ ) ; 
-            if( it == class_pointer->vec_methods.end() ){
-                it = class_pointer->vec_methods.insert( vec_signed_method_pair( name_, new vec_signed_method() ) ).first ;
+            self* ptr = get_instance() ;
+            typename map_vec_signed_method::iterator it = ptr->vec_methods.find( name_ ) ; 
+            if( it == ptr->vec_methods.end() ){
+                it = ptr->vec_methods.insert( vec_signed_method_pair( name_, new vec_signed_method() ) ).first ;
             } 
             (it->second)->push_back( new signed_method_class(m, valid, docstring ) ) ;
-            if( *name_ == '[' ) class_pointer->specials++ ;
+            if( *name_ == '[' ) ptr->specials++ ;
             return *this ;
         }
         
         self& AddProperty( const char* name_, prop_class* p){
-            class_pointer->properties.insert( PROP_PAIR( name_, p ) ) ;
+            get_instance()->properties.insert( PROP_PAIR( name_, p ) ) ;
             return *this ;
         }
 
@@ -439,8 +455,9 @@
         }
     
         void SetFinalizer( finalizer_class* f ){
-            if( class_pointer->finalizer_pointer ) delete class_pointer->finalizer_pointer ;
-            class_pointer->finalizer_pointer = f ; 
+            self* ptr = get_instance() ;
+            if( ptr->finalizer_pointer ) delete ptr->finalizer_pointer ;
+            ptr->finalizer_pointer = f ; 
         }
     
         map_vec_signed_method vec_methods ;
@@ -505,7 +522,7 @@
             }
             
             std::string buffer( "Rcpp_" ) ; buffer += parent ; 
-            class_pointer->parents.push_back( buffer.c_str() ) ;
+            get_instance()->parents.push_back( buffer.c_str() ) ;
             return *this ;
         }
         
