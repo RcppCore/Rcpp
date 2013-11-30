@@ -74,13 +74,4 @@ devtools::install_github("RcppCore/Rcpp")
 To install from source, ensure you have a 
 [complete package development environment](http://www.rstudio.com/ide/docs/packages/prerequisites).
 
-On OS X 10.9 (Mavericks) with Xcode 5.0 it is recommended to install Rcpp from source after 
-setting these variables in `~/.R/Makevars`
-
-```
-CC=clang
-CXX=clang++
-CXXFLAGS= -O3
-```
-
 Also see questions 1.2 and 1.3 in the [Rcpp-FAQ](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
