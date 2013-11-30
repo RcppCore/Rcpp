@@ -26,13 +26,13 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                   maintainer = if(missing( author)) "Who to complain to" else author,
                                   email = "yourfault@somewhere.net",
                                   license = "What Licence is it under ?") {
+  
+  call <- match.call()
+  call[[1]] <- as.name("package.skeleton")
+  env <- parent.frame(1)
 
 	if (!is.character(cpp_files))
 		stop("'cpp_files' must be a character vector")
-	# set example_code if attributes is set
-	if( isTRUE(attributes) )
-	    example_code <- TRUE
-	env <- parent.frame(1)
 
 	if( !length(list) ){
 		fake <- TRUE
@@ -41,21 +41,24 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 			assign( "rcpp_hello_world", function(){}, envir = env )
 			remove_hello_world <- TRUE
 		} else {
-		    remove_hello_world <- FALSE
+	    remove_hello_world <- FALSE
 		}
 	} else {
-		if( ! "rcpp_hello_world" %in% list ){
-			call[["list"]] <- c( "rcpp_hello_world", call[["list"]] )
+	  if( example_code && !isTRUE(attributes)){
+		  if( !"rcpp_hello_world" %in% list ){
+		    assign( "rcpp_hello_world", function(){}, envir = env )
+        call[["list"]] <- as.call( c(
+          as.name("c"), as.list(c( "rcpp_hello_world", list))
+        ) )
+		  }
 			remove_hello_world <- TRUE
-		} else{
+		} else {
 			remove_hello_world <- FALSE
 		}
 		fake <- FALSE
 	}
 
-	# first let the traditional version do its business
-	call <- match.call()
-	call[[1]] <- as.name("package.skeleton")
+  # first let the traditional version do its business
 	# remove Rcpp specific arguments
 
 	call <- call[ c( 1L, which( names(call) %in% names(formals(package.skeleton)))) ]
