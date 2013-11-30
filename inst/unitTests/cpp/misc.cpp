@@ -142,3 +142,12 @@ StretchyList stretchy_list(){
     return out;
 }
 
+// [[Rcpp::export]]
+StretchyList named_stretchy_list(){
+    StretchyList out ;
+    out.push_back( _["b"] = 1 ) ;
+    out.push_front( _["a"] = "foo" ) ;
+    out.push_back( _["c"] = 3.2 ) ;
+    return out;
+}
+

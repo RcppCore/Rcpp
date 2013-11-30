@@ -133,4 +133,11 @@ test.StretchyList <- function(){
     )
 }
 
+test.named_StretchyList <- function(){
+    checkEquals( 
+        named_stretchy_list(),
+        pairlist( a = "foo", b = 1L, c = 3.2 )
+    )
+}
+
 }
