@@ -3,7 +3,7 @@ Rcpp: Seamless R and C++ Integration
 
 [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp)
 
-The Rcpp package provides R functions as well as a C++ library
+The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions as well as a C++ library
 which facilitate the integration of R and C++
 
 R data types (`SEXP`) are matched to C++ objects in a class hierarchy.  All R
@@ -14,9 +14,10 @@ represented as instances of Rcpp::Environment, functions are represented as
 Rcpp::Function, etc ... 
 The
 [Rcpp-introduction](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-introduction.pdf)
-vignette (also published as [in JSS in 2011](http://www.jstatsoft.org/v40/i08/)) provides a good
-entry point to Rcpp, as does the [Rcpp website](http://www.rcpp.org) and the
-[Rcpp page](http://dirk.eddelbuettel.com/code/rcpp.html).
+vignette (also published as a [JSS paper](http://www.jstatsoft.org/v40/i08/)) provides a good
+entry point to Rcpp, as do the [Rcpp website](http://www.rcpp.org), the
+[Rcpp page](http://dirk.eddelbuettel.com/code/rcpp.html). Full documentation
+is provided by the [Rcpp book](http://www.rcpp.org/book/).
 
 Conversion from C++ to R and back is driven by the templates `Rcpp::wrap` 
 and `Rcpp::as` which are highly flexible and extensible, as documented
