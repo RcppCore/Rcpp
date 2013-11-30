@@ -2,7 +2,7 @@
 //
 // wrap_end.h: R/C++ interface class library
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,13 +23,14 @@
 #define Rcpp_internal_wrap_end_h
 
 namespace Rcpp{
+    
     template <typename T>
     inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::normal_wrap_tag ){
-    	return wrap( obj ) ;
+        return wrap( obj ) ;
     }
     template <typename T>
     inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::pointer_wrap_tag ) {
-    	return wrap( object< typename traits::un_pointer<T>::type >( obj ) ) ;
+        return wrap( object< typename traits::un_pointer<T>::type >( obj ) ) ;
     }
 }
 
