@@ -133,3 +133,12 @@ LogicalVector na_proxy(){
         ) ;
 }      
 
+// [[Rcpp::export]]
+StretchyList stretchy_list(){
+    StretchyList out ;
+    out.push_back( 1 ) ;
+    out.push_front( "foo" ) ;
+    out.push_back( 3.2 ) ;
+    return out;
+}
+
