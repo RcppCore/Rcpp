@@ -3,7 +3,7 @@
 // Rcpp.h: R/C++ interface class library
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -48,6 +48,8 @@
 #include <Rcpp/Language.h>
 #include <Rcpp/DottedPair.h>
 #include <Rcpp/Pairlist.h>
+#include <Rcpp/StrechyList.h>
+
 #include <Rcpp/WeakReference.h>
 #include <Rcpp/StringTransformer.h>
 #include <Rcpp/Formula.h>
