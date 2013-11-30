@@ -22,7 +22,7 @@ namespace Rcpp{
     
     template< template <class> class StoragePolicy>
     template< typename T>
-    StretchyList_Impl<StoragePolicy>& StretchyList_Impl<StoragePolicy>::push_back( const T& obj){
+    StretchyList_Impl<StoragePolicy>& StretchyList_Impl<StoragePolicy>::push_back__impl( const T& obj, traits::false_type ){
         Shield<SEXP> s( wrap(obj) ) ;
         SEXP tmp  = Rf_cons( s, R_NilValue );
         SEXP self = Storage::get__() ;
@@ -33,7 +33,7 @@ namespace Rcpp{
 
     template< template <class> class StoragePolicy>
     template< typename T>
-    StretchyList_Impl<StoragePolicy>& StretchyList_Impl<StoragePolicy>::push_front( const T& obj){
+    StretchyList_Impl<StoragePolicy>& StretchyList_Impl<StoragePolicy>::push_front__impl( const T& obj, traits::false_type){
         SEXP tmp ;
         SEXP self = Storage::get__() ;
         Shield<SEXP> s( wrap(obj) ) ;

@@ -47,10 +47,28 @@ namespace Rcpp{
         }
         
         template <typename T>
-        StretchyList_Impl& push_back(const T& obj ) ;
+        inline StretchyList_Impl& push_back(const T& obj ){
+            return push_back__impl( obj, typename traits::is_named<T>::type() ) ;
+        }
         
         template <typename T>
-        StretchyList_Impl& push_front(const T& obj ) ;
+        inline StretchyList_Impl& push_front(const T& obj ){
+            return push_front__impl( obj, typename traits::is_named<T>::type() ) ;    
+        }
+        
+    private:
+        
+        template <typename T>
+        StretchyList_Impl& push_back__impl(const T& obj, traits::true_type ) ;
+        
+        template <typename T>
+        StretchyList_Impl& push_back__impl(const T& obj, traits::false_type ) ;
+        
+        template <typename T>
+        StretchyList_Impl& push_front__impl(const T& obj, traits::true_type ) ;
+        
+        template <typename T>
+        StretchyList_Impl& push_front__impl(const T& obj, traits::false_type ) ;
         
     } ;
     
