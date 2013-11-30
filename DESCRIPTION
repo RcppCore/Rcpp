@@ -1,6 +1,6 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.10.6.3
+Version: 0.10.6.4
 Date: 2013-11-14
 Authors@R: c(
     person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org" ),
@@ -60,4 +60,4 @@ VignetteBuilder: highlight
 URL: http://www.rcpp.org, http://dirk.eddelbuettel.com/code/rcpp.html, https://github.com/RcppCore/Rcpp
 License: GPL (>= 2)
 BugReports: https://github.com/RcppCore/Rcpp/issues
-MailingList: Please send questions and comments regarding Rcpp to rcpp-devel@lists.r-forge.r-project.or
+MailingList: Please send questions and comments regarding Rcpp to rcpp-devel@lists.r-forge.r-project.org
