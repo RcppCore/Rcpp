@@ -23,8 +23,7 @@
 namespace Rcpp{
 
     RCPP_API_CLASS(StretchyList_Impl),
-        public DottedPairProxyPolicy<StretchyList_Impl<StoragePolicy> >, 
-        public DottedPairImpl<StretchyList_Impl<StoragePolicy> >{
+        public DottedPairProxyPolicy<StretchyList_Impl<StoragePolicy> > {
     public:
         
         RCPP_GENERATE_CTOR_ASSIGN(StretchyList_Impl) 
@@ -32,12 +31,26 @@ namespace Rcpp{
         typedef typename DottedPairProxyPolicy<StretchyList_Impl>::DottedPairProxy Proxy ;
         typedef typename DottedPairProxyPolicy<StretchyList_Impl>::const_DottedPairProxy const_Proxy ;
         
-        StretchyList_Impl(){}
+        StretchyList_Impl(){
+            SEXP s = Rf_cons(R_NilValue, R_NilValue);
+            SETCAR(s, s);
+            Storage::set__(s) ;
+        }
         StretchyList_Impl(SEXP x){
             Storage::set__(r_cast<LISTSXP>(x)) ;    
         }
         
         void update(SEXP x){}
+        
+        inline operator SEXP() const{
+            return CDR(Storage::get__() );    
+        }
+        
+        template <typename T>
+        StretchyList_Impl& push_back(const T& obj ) ;
+        
+        template <typename T>
+        StretchyList_Impl& push_front(const T& obj ) ;
         
     } ;
     

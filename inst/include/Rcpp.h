@@ -48,7 +48,7 @@
 #include <Rcpp/Language.h>
 #include <Rcpp/DottedPair.h>
 #include <Rcpp/Pairlist.h>
-#include <Rcpp/StrechyList.h>
+#include <Rcpp/StretchyList.h>
 
 #include <Rcpp/WeakReference.h>
 #include <Rcpp/StringTransformer.h>
