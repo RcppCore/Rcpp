@@ -126,4 +126,11 @@ test.na_proxy <- function(){
     )    
 }
 
+test.StretchyList <- function(){
+    checkEquals( 
+        stretchy_list(),
+        pairlist( "foo", 1L, 3.2 )
+    )
+}
+
 }
