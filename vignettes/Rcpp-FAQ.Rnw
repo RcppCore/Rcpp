@@ -73,7 +73,7 @@ require(highlight)
 
 \abstract{
   \noindent This document attempts to answer the most Frequently Asked
-  Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp} package.
+  Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} package.
 }
 
 \section{Getting started}
@@ -179,7 +179,8 @@ Further steps, specific to \pkg{Rcpp}, are described in a separate vignette.
 vignette( "Rcpp-package" )
 @
 
-\subsection{How do I quickly prototype my code using inline?}
+\subsection{How do I quickly prototype my code?}
+\subsubsection{Using inline}
 \label{using-inline}
 
 The \pkg{inline} package \citep{CRAN:inline} provides the functions
@@ -218,8 +219,31 @@ fx <- cxxfunction( signature(),
 The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
 useful as it shows how \pkg{inline} runs the show.
 
-Update: Also see question \ref{using-attributes} below about 'Rcpp
-Attributes' \citep{CRAN:Rcpp:Attributes}.
+\subsubsection{Using Rcpp Attributes}
+\label{using-attributes}
+
+Rcpp Attributes \citep{CRAN:Rcpp:Attributes}, discussed in \faq{using-attributes} below, permits an even easier
+route to integrating R and C++.  It provides three key functions. First, \code{evalCpp}
+provide a means to evaluate simple C++ expression which is often useful for
+small tests, or to simply check if the toolchain is set up
+correctly. Second, \code{cppFunction} can be used to create C++ functions
+for R use on the fly.  Third, \code{sourceCpp} can integrate entire files in
+order to define multiple functions.
+
+The example above can now be rewritten as:
+
+<<>>=
+cppFunction('double accu(NumericVector x) {
+   return(std::accumulate(x.begin(), x.end(), 0.0));
+}')
+res <- accu(seq(1, 10, by=0.5))
+res
+@
+
+The \code{cppFunction} parses the supplied text, extracts the desired
+function names, creates the required scaffolding, compiles, links and loads
+the supplied code and makes it available under the selected identifier.
+
 
 \subsection{How do I convert my prototyped code to a package ?}
 \label{from-inline-to-package}
@@ -387,8 +411,15 @@ which is described in detail in its own vignette
 
 \section{Examples}
 
-The following questions were asked on the \texttt{rcpp-devel} mailing list,
-which is generally the best place to ask questions.
+The following questions were asked on the
+\href{https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel}{Rcpp-devel}
+mailing list, which is our preferred place to ask questions as it guarantees
+exposure to a number of advanced Rcpp users.  The
+\href{http://stackoverflow.com/questions/tagged/rcpp}{StackOverflow tag for
+  rcpp} is an alternative; that site is also easily searchable.
+
+Several dozen fully documented examples are provided at the
+\href{http://gallery.rcpp.org}{Rcpp Gallery} -- which is also open for new contributions.
 
 \subsection{Can I use templates with \pkg{Rcpp} and \pkg{inline} ? }
 
@@ -423,10 +454,11 @@ fun <- cxxfunction(signature(xs="numeric", is="integer"),
 fun(2.2, 3L)
 @
 
-Update: Also see question \ref{using-attributes} above about 'Rcpp
+Update: Also see \faq{using-attributes} above about 'Rcpp
 Attributes' \citep{CRAN:Rcpp:Attributes} and its \code{sourceCpp} function.
 
 \subsection{Can I do matrix algebra with \pkg{Rcpp} ?}
+\label{matrix-algebra}
 
 \begin{quote}
   \emph{\pkg{Rcpp} allows element-wise operations on vector and matrices through
@@ -440,15 +472,16 @@ project (if done right) involving advanced techniques such as expression
 templates. We currently do not plan to go in this direction, but we would
 welcome external help. Please send us a design document.
 
-However, we have developed the \pkg{RcppArmadillo} package \citep{CRAN:RcppArmadillo} that provides a
+However, we have developed the \pkg{RcppArmadillo} package
+\citep{CRAN:RcppArmadillo,Eddelbuettel+Sanderson:2014:RcppArmadillo} that provides a
 bridge between \pkg{Rcpp} and \pkg{Armadillo} \citep{Sanderson:2010:Armadillo}.  \pkg{Armadillo}
 supports binary operators on its types in a way that takes full advantage of
 expression templates to remove temporaries and allow chaining of
 operations. That is a mouthful of words meaning that it makes the code go
 faster by using fiendishly clever ways available via the so-called template
 meta programming, an advanced \proglang{C++} technique.
-Also, the \pkg{RcppEigen} package provides an alternative using the
-\href{Eigen}{http://eigen.tuxfamily.org} template library.
+Also, the \pkg{RcppEigen} package \citep{JSS:RcppEigen} provides an alternative using the
+\href{http://eigen.tuxfamily.org}{Eigen} template library.
 
 
 The following example is adapted from the examples available at the project
@@ -521,6 +554,10 @@ fx()
 fx()
 @
 
+Newer versions of Rcpp also provide the actual Rmath function in the \code{R}
+namespace, \textsl{i.e.} as \code{R::rnorm(m,s)} to obtain a scalar
+random variable distributed as $N(m,s)$.
+
 \subsection{Can I use NA and Inf with \pkg{Rcpp} ?}
 
 \begin{quote}
@@ -548,7 +585,7 @@ fun()
 \end{quote}
 
 \noindent Yes, via the \pkg{RcppArmadillo} package which builds upon \pkg{Rcpp} and the
-wonderful Armadillo library at \url{http://arma.sf.net}:
+wonderful Armadillo library described above in \faq{matrix-algebra}:
 
 <<eval=FALSE>>=
 txt <- 'arma::mat Am = Rcpp::as< arma::mat >(A);
@@ -569,7 +606,7 @@ C <- mmult(A, B)
 Armadillo supports a full range of common linear algebra operations.
 
 The \pkg{RcppEigen} package provides an alternative using the
-\href{Eigen}{http://eigen.tuxfamily.org} template library.
+\href{http://eigen.tuxfamily.org}{Eigen} template library.
 
 \subsection{How do I write a plugin for \pkg{inline} ?}
 
@@ -737,15 +774,21 @@ searching.
 \subsection{I like it. How can I help ?}
 \label{helping}
 
-We maintain a list of issues in the github repository
-we use. \href{https://github.com/RcppCore/Rcpp/issues?state=open}.
+We maintain a list of
+\href{https://github.com/RcppCore/Rcpp/issues?state=open}{open issues in the
+  Github repository}. We welcome pull requests and suggest that code submissions
+come corresponding unit tests and, if applicable, documentation.
 
 If you are willing to donate time and have skills in C++, let us know. If you are
-willing to donate money to sponsor improvements, let us know.
+willing to donate money to sponsor improvements, let us know too.
 
 You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
 that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could blog about
-it or get the word out otherwise.
+it, or get the word out otherwise.
+
+Last but not least the \href{http://gallery.rcpp.org}{Rcpp Gallery} is open
+for user contributions.
+
 
 \subsection{I don't like it. How can I help ?}
 
@@ -760,6 +803,16 @@ request.
 \subsection{I want to learn quickly. Do you provide training courses ?}
 
 Yes. Just send us an email.
+
+\subsection{Where is to code repository ?}
+
+From late 2008 to late 2013, we used the
+\href{https://r-forge.r-project.org/scm/?group_id=155}{Subversion repository at R-Forge}
+which contained Rcpp and a number of related packages. It still has the full
+history as well as number of support files.
+
+We have since switched to a \href{http://github.com/RcppCore/Rcpp}{Git
+  repository at Github} for Rcpp (as well as RcppArmadillo and RcppEigen).
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}

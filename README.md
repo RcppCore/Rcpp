@@ -15,8 +15,9 @@ Rcpp::Function, etc ...
 The
 [Rcpp-introduction](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-introduction.pdf)
 vignette (also published as a [JSS paper](http://www.jstatsoft.org/v40/i08/)) provides a good
-entry point to Rcpp, as do the [Rcpp website](http://www.rcpp.org), the
-[Rcpp page](http://dirk.eddelbuettel.com/code/rcpp.html). Full documentation
+entry point to Rcpp as do the [Rcpp website](http://www.rcpp.org), the
+[Rcpp page](http://dirk.eddelbuettel.com/code/rcpp.html) and the 
+[Rcpp Gallery](http://gallery.rcpp.org). Full documentation
 is provided by the [Rcpp book](http://www.rcpp.org/book/).
 
 Conversion from C++ to R and back is driven by the templates `Rcpp::wrap` 
