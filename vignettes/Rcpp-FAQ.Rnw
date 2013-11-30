@@ -110,6 +110,8 @@ means one needs:
 \item standard development tools such as \texttt{make} etc.
 \end{itemize}
 
+Also see the \href{http://www.rstudio.com/ide/docs/packages/prerequisites}{RStudio
+  documentation} on pre-requisites for R package development.
 
 \subsection{What compiler can I use ?}
 
