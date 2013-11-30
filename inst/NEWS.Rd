@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in [unreleased] Rcpp version 0.10.7 (2013-11-21)}{
+\section{Changes in [unreleased] Rcpp version 0.10.7 (2013-11-30)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -10,6 +10,10 @@
       functions were incorrectly expanding to the no-degree-of-freedoms
       variant.
       \item Unit tests for \code{pnt} were added.
+    }
+    \item Changes in Rcpp documentation:
+    \itemize{
+      \item The Rcpp-FAQ vignette have been updated and expanded.
     }
   }
 }
