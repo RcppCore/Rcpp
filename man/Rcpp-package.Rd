@@ -39,7 +39,8 @@
   at \url{http://github.com/RcppCore/Rcpp}.
 
   Extensive examples with full documentation are available at
-  \url{http://gallery.rcpp.org}. 
+  \url{http://gallery.rcpp.org}.
+}
 \examples{
 \dontrun{                  
 # introduction to Rcpp
