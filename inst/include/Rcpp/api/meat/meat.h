@@ -41,6 +41,7 @@
 #include <Rcpp/api/meat/Environment.h>
 
 #include <Rcpp/api/meat/DottedPairImpl.h>
+#include <Rcpp/api/meat/StretchyList.h>
 #include <Rcpp/api/meat/Vector.h>
 #include <Rcpp/api/meat/Matrix.h>
 #include <Rcpp/api/meat/is.h>
