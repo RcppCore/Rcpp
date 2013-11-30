@@ -1,3 +1,7 @@
+2013-11-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-FAQ.Rnw: Updated and corrected in several spots
+
 2013-11-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/stats/nt.h: Correct expansion of (d|q|p)nt()
