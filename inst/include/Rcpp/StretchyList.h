@@ -22,6 +22,14 @@
 
 namespace Rcpp{
 
+    /**
+     * StretchyList uses a special pairlist to provide efficient insertion
+     * at the front and the end of a pairlist. 
+     *
+     * This is a C++ abstraction of the functions NewList, GrowList and Insert
+     * that are found in places where a pair list has to grow efficiently, e.g.
+     * in the R parser (gram.y)
+     */
     RCPP_API_CLASS(StretchyList_Impl),
         public DottedPairProxyPolicy<StretchyList_Impl<StoragePolicy> > {
     public:
