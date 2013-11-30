@@ -83,4 +83,4 @@ CXX=clang++
 CXXFLAGS= -O3
 ```
 
-Also see questions 1.2 and 1.3 in the [Rcpp-FAQ]((http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
+Also see questions 1.2 and 1.3 in the [Rcpp-FAQ](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
