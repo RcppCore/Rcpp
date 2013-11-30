@@ -57,21 +57,22 @@ see 'citation("Rcpp")' for details.
 
 ## Installation
 
-Released and tested versions of Rcpp available via the
-[CRAN](http://cran.r-project.org) network, and be installed from within R via 
+Released and tested versions of Rcpp are available via the
+[CRAN](http://cran.r-project.org) network, and can be installed from within R via 
 
 ```R
-install.packages( "Rcpp" )
+install.packages("Rcpp")
 ```
 
-To install Rcpp snapshots directly from the master branch at GitHub, first
-ensure you have a [package development environment](http://www.rstudio.com/ide/docs/packages/prerequisites), and
-then:
+To install Rcpp snapshots directly from the master branch at GitHub, do 
 
 ```R
 install.packages("devtools")
 devtools::install_github("RcppCore/Rcpp")
 ```
+
+To install from source, ensure you have a 
+[complete package development environment](http://www.rstudio.com/ide/docs/packages/prerequisites).
 
 On OS X 10.9 (Mavericks) with Xcode 5.0 it is recommended to install Rcpp from source after 
 setting these variables in `~/.R/Makevars`
