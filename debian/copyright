@@ -7,11 +7,8 @@ The sources were downloaded from the main CRAN site
 	http://cran.r-project.org/src/contrib/
 and are also available from all CRAN mirrors as e.g.
 	http://cran.us.r-project.org/src/contrib/
-as well the R-Forge SVN host at 
-	http://r-forge.r-project.org/projects/rcpp/
-via
-   	svn://svn.r-forge.r-project.org/svnroot/rcpp
-
+as well the GitHub repo
+	http://github.com/RcppCore/Rcpp
 
 The package was renamed from its upstream name 'Rcpp' to
 'r-cran-rcpp' to fit the pattern of CRAN (and non-CRAN) packages for

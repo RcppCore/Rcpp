@@ -20,8 +20,11 @@
 \references{
   Dirk Eddelbuettel and Romain Francois (2011). \pkg{Rcpp}: Seamless R
   and C++ Integration. \emph{Journal of Statistical Software},
-  \bold{40(8)}, 1-18. URL http://www.jstatsoft.org/v40/i08/ and
+  \bold{40(8)}, 1-18. URL \url{http://www.jstatsoft.org/v40/i08/} and
   available as \code{vignette("Rcpp-introduction")}.
+
+  Eddelbuettel, Dirk (2013) Seamless R and C++ Integration with
+  \pkg{Rcpp}. Springer, New York. ISBN 978-1-4614-6867-7.
 }
 \section{History}{
   The initial versions of Rcpp were written by Dominick Samperi during 2005 and
@@ -31,13 +34,19 @@
   
   Dirk Eddelbuettel and Romain Francois have been extending Rcpp since 2009.
 }
+\seealso{
+  Development for \pkg{Rcpp} can be followed via the GitHub repository
+  at \url{http://github.com/RcppCore/Rcpp}.
+
+  Extensive examples with full documentation are available at
+  \url{http://gallery.rcpp.org}. 
 \examples{
 \dontrun{                  
 # introduction to Rcpp
-vignette( "Rcpp-introduction" )	
+vignette("Rcpp-introduction")	
 
 # information on how to build a package that uses Rcpp
-vignette( "Rcpp-package" )	
+vignette("Rcpp-package")	
 }
 }
 \keyword{programming}
