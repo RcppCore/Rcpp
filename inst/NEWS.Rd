@@ -6,6 +6,10 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item New class \code{StretchyList} for pair lists with fast addition of
+      elements at the front and back. This abstracts the 3 functions
+      \code{NewList}, \code{GrowList} and \code{Insert} used in various 
+      packages and in parsers in R. 
       \item The function \code{dnt}, \code{pnt}, \code{qnt} sugar
       functions were incorrectly expanding to the no-degree-of-freedoms
       variant.
