@@ -54,3 +54,28 @@ always use this Rcpp package instead.
 Additional documentation is available via the [JSS paper](http://www.jstatsoft.org/v40/i08/) by Eddelbuettel and
 Francois (2011, JSS) paper and the [book](http://www.rcpp.org/book) by Eddelbuettel (2013, Springer); 
 see 'citation("Rcpp")' for details.
+
+## Installation
+
+To install Rcpp from github, first make sure you have a [package development environment](http://www.rstudio.com/ide/docs/packages/prerequisites), and then:
+
+```R
+install.packages("devtools")
+devtools::install_github("RcppCore/Rcpp")
+```
+
+Rcpp is also available from CRAN. 
+
+```R
+install.packages( "Rcpp" )
+```
+
+On OSX 10.9 (Mavericks) with Xcode 5.0 it is recommended to install Rcpp from source after 
+setting these variables in `~/.R/Makevars`
+
+```
+CC=clang
+CXX=clang++
+CXXFLAGS= -O3
+```
+
