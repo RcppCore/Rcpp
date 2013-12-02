@@ -1,3 +1,9 @@
+2013-12-01  Kevin Ushey  <kevinushey@gmail.com>
+
+	* R/Rcpp.package.skeleton.R: Fixed bug relating to user-supplied
+	functions in 'list' argument
+	* inst/unitTests/runit.Rcpp.package.skeleton.R: Added unit tests
+
 2013-11-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-FAQ.Rnw: Updated and corrected in several spots
@@ -1416,14 +1422,14 @@
         * src/Language.cpp: Language gains a fast_eval method, without the whole try/catch
         * src/barrier.cpp: function char_nocheck to avoid the check in using CHAR
         * include/Rcpp/sugar/functions/unique.h: sugar unique and sort_unique
-        using unordered_set (perhaps we could use it from c++11). 
+        using unordered_set (perhaps we could use it from c++11).
 
 2012-11-06  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: tweak whitespace in verbose mode
         * src/AttributesParser.h: support for interfaces attribute
         * src/AttributesParser.cpp: support for interfaces attribute
-        * src/Attributes.cpp: support for interfaces attribute; refactor 
+        * src/Attributes.cpp: support for interfaces attribute; refactor
         code generators; use single module for exports; return list of
         updated files from compileAttributes
         * src/Module.cpp: add package parameter to GetCppCallable
@@ -1432,7 +1438,7 @@
 
 2012-11-05  Romain Francois <romain@r-enthusiasts.com>
 
-        * include/Rcpp/Module.h: added class CppInheritedProperty to handle 
+        * include/Rcpp/Module.h: added class CppInheritedProperty to handle
         inherited properties
         * include/Rcpp/module/class.h: implemented inheritance of properties
 
@@ -4382,7 +4388,7 @@
 2010-02-01  Romain Francois <francoisromain@free.fr>
 
         * src/traits/wrap_type_traits.h: new namespace Rcpp::traits::
-        to host Rcpp type traits used by the template meta programming 
+        to host Rcpp type traits used by the template meta programming
         dispatching of wrap
 
 2010-01-31  Dirk Eddelbuettel  <edd@debian.org>
