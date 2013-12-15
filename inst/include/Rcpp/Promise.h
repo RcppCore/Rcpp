@@ -68,6 +68,8 @@ namespace Rcpp{
             return Environment( PRENV(Storage::get__() ) ) ;   
         }
         
+        inline void update(SEXP data){}
+        
     } ;
 
     typedef Promise_Impl<PreserveStorage> Promise ;
