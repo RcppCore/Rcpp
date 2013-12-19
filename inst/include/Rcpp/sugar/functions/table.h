@@ -21,6 +21,10 @@
 
 #ifndef Rcpp__sugar__table_h
 #define Rcpp__sugar__table_h
+
+#ifdef RCPP_USING_MAP
+#include <Rcpp/sugar/tools/mapcompare.h>
+#endif
           
 namespace Rcpp{
 namespace sugar{
@@ -28,7 +32,7 @@ namespace sugar{
 template <typename HASH, typename STORAGE>
 class CountInserter {
 public:
-    CountInserter( HASH& hash_ ) : hash(hash_), index(0) {}
+    CountInserter( HASH& hash_ ) : hash(hash_) {}
     
     inline void operator()( STORAGE value ){
         hash[value]++ ;
@@ -36,7 +40,6 @@ public:
     
 private:
     HASH& hash ;
-    int index;
 } ; 
 
 template <typename HASH, int RTYPE>
@@ -63,9 +66,11 @@ public:
     
     Table( const TABLE_T& table ): hash(), map() {
         // populate the initial hash
+        Rprintf("populating hash\n");
         std::for_each( table.begin(), table.end(), Inserter(hash) ) ;
         
         // populate the map, sorted by keys
+        Rprintf("populating map\n");
         map.insert( hash.begin(), hash.end() ) ;
     }
     
@@ -80,7 +85,13 @@ public:
     }
     
 private:
-    typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
+    // bugfix for standard map
+    #ifdef RCPP_USING_MAP
+      typedef RCPP_UNORDERED_MAP<STORAGE, int, MapCompare<STORAGE> >HASH ;
+    #else
+      typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
+    #endif
+    
     typedef CountInserter<HASH,STORAGE> Inserter ;
     
     typedef std::map<STORAGE, int, typename Rcpp::traits::comparator_type<RTYPE>::type > SORTED_MAP ;
