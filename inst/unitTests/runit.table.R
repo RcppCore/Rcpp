@@ -21,28 +21,30 @@
 
 if (.runThisTest) {
   
+  set.seed(123)
+  
   .setUp <- Rcpp:::unit_test_setup("table.cpp")
   
   table <- function(x) base::table(x, useNA="ifany")
     
   test.table.numeric <- function() {
     x <- c(1, 2, NA, NaN, -Inf, Inf)
-    checkEquals( RcppTable(x), c(table(x)))
+    checkEquals( RcppTable(x), c(table(x)), "table matches R: numeric case")
   }
   
   test.table.integer <- function() {
     x <- c(-1L, 1L, NA_integer_, NA_integer_, 100L, 1L)
-    checkEquals( RcppTable(x), c(table(x)))
+    checkEquals( RcppTable(x), c(table(x)), "table matches R: integer case")
   }
   
   test.table.logical <- function() {
     x <- c(TRUE, TRUE, FALSE, NA)
-    checkEquals( RcppTable(x), c(table(x)))
+    checkEquals( RcppTable(x), c(table(x)), "table matches R: logical case")
   }
   
   test.table.character <- function() {
     x <- c("a", "a", "b", "a", NA, NA)
-    checkEquals( RcppTable(x), c(table(x)))
+    checkEquals( RcppTable(x), c(table(x)), "table matches R: character case")
   }
   
 }
