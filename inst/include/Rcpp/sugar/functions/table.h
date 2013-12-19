@@ -66,11 +66,9 @@ public:
     
     Table( const TABLE_T& table ): hash(), map() {
         // populate the initial hash
-        Rprintf("populating hash\n");
         std::for_each( table.begin(), table.end(), Inserter(hash) ) ;
         
         // populate the map, sorted by keys
-        Rprintf("populating map\n");
         map.insert( hash.begin(), hash.end() ) ;
     }
     
