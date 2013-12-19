@@ -271,6 +271,8 @@ template <>
 inline SEXP r_coerce<REALSXP,STRSXP>(double from){
   // handle NaN explicitly
   if (R_IsNaN(from)) return Rf_mkChar("NaN");
+  else if (from == R_PosInf) return Rf_mkChar("Inf");
+  else if (from == R_NegInf) return Rf_mkChar("-Inf");
 	else return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ;
 }
 template <> 
