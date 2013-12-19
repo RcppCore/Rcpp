@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// table.h: Rcpp R/C++ interface class library -- table match
+// mapcompare.h: Rcpp R/C++ interface class library -- comparator for table
 //
 // Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
 //
