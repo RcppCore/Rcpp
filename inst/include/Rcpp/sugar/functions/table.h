@@ -22,9 +22,7 @@
 #ifndef Rcpp__sugar__table_h
 #define Rcpp__sugar__table_h
 
-#ifdef RCPP_USING_MAP
 #include <Rcpp/sugar/tools/mapcompare.h>
-#endif
           
 namespace Rcpp{
 namespace sugar{
