@@ -114,7 +114,7 @@ public:
     
 private:
     typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
-    typedef std::map<STORAGE, int, typename Rcpp::traits::comparator_type<RTYPE>::type > SORTED_MAP ;
+    typedef std::map<STORAGE, int, MapCompare<STORAGE> > SORTED_MAP ;
     
     SORTED_MAP map ;
     
