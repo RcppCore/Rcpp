@@ -112,12 +112,12 @@ public:
     
 private:
     typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
-    typedef std::map<STORAGE, int, MapCompare<STORAGE> > SORTED_MAP ;
-    
-    SORTED_MAP map ;
-    
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
+    
+    typedef std::map<STORAGE, int, MapCompare<STORAGE> > SORTED_MAP ;
+    SORTED_MAP map ;
+    
 }; 
 
 #endif // USING_RCPP_MAP
