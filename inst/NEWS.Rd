@@ -14,6 +14,11 @@
       functions were incorrectly expanding to the no-degree-of-freedoms
       variant.
       \item Unit tests for \code{pnt} were added.
+      \item The sugar table function did not handle NAs and NaNs properly
+      for numeric vectors. Fixed and tests added.
+      \item The internal coercion mechanism mapping numerics to strings has
+      been updated to better match \R (specifically with \code{Inf}, \code{-Inf},
+      and \code{NaN}.)
     }
     \item Changes in Rcpp documentation:
     \itemize{
