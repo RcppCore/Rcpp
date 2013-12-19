@@ -59,6 +59,36 @@ private:
     int index ;
 } ;
 
+// we define a different Table class depending on whether we are using
+// std::map or not
+#ifdef RCPP_USING_MAP
+
+template <int RTYPE, typename TABLE_T>        
+class Table {
+public:
+    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+    
+    Table( const TABLE_T& table ): hash() {
+        std::for_each( table.begin(), table.end(), Inserter(hash) ) ;
+    }
+    
+    inline operator IntegerVector() const { 
+        int n = hash.size() ;
+        IntegerVector result = no_init(n) ;
+        CharacterVector names = no_init(n) ;
+        std::for_each( hash.begin(), hash.end(), Grabber<HASH, RTYPE>(result, names) ) ;
+        result.names() = names ;
+        return result ;
+    }
+    
+private:
+    typedef RCPP_UNORDERED_MAP<STORAGE, int, MapCompare<STORAGE> >HASH ;
+    typedef CountInserter<HASH,STORAGE> Inserter ;
+    HASH hash ;
+};
+
+#else
+
 template <int RTYPE, typename TABLE_T>        
 class Table {
 public:
@@ -83,20 +113,16 @@ public:
     }
     
 private:
-    // bugfix for standard map
-    #ifdef RCPP_USING_MAP
-      typedef RCPP_UNORDERED_MAP<STORAGE, int, MapCompare<STORAGE> >HASH ;
-    #else
-      typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
-    #endif
-    
-    typedef CountInserter<HASH,STORAGE> Inserter ;
-    
+    typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
     typedef std::map<STORAGE, int, typename Rcpp::traits::comparator_type<RTYPE>::type > SORTED_MAP ;
     
-    HASH hash ;
     SORTED_MAP map ;
+    
+    typedef CountInserter<HASH,STORAGE> Inserter ;
+    HASH hash ;
 }; 
+
+#endif // USING_RCPP_MAP
     
 } // sugar
 
