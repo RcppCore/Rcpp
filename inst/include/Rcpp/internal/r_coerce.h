@@ -268,8 +268,10 @@ inline SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex from) {
 	return Rcpp::traits::is_na<CPLXSXP>(from) ? NA_STRING : Rf_mkChar( coerce_to_string<CPLXSXP>( from ) ) ;
 }
 template <> 
-inline SEXP r_coerce<REALSXP,STRSXP>(double from){ 
-	return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ;
+inline SEXP r_coerce<REALSXP,STRSXP>(double from){
+  // handle NaN explicitly
+  if (R_IsNaN(from)) return Rf_mkChar("NaN");
+	else return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ;
 }
 template <> 
 inline SEXP r_coerce<INTSXP ,STRSXP>(int from){ 
