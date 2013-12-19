@@ -155,8 +155,8 @@ SEXP as_character_externalptr(SEXP xp){
     
 // [[Rcpp::internal]]
 SEXP rcpp_capabilities(){
-    Shield<SEXP> cap( Rf_allocVector( LGLSXP, 9 ) );
-    Shield<SEXP> names( Rf_allocVector( STRSXP, 9 ) );
+    Shield<SEXP> cap( Rf_allocVector( LGLSXP, 11 ) );
+    Shield<SEXP> names( Rf_allocVector( STRSXP, 11 ) );
     #ifdef HAS_VARIADIC_TEMPLATES
         LOGICAL(cap)[0] = TRUE ;
     #else
@@ -198,6 +198,18 @@ SEXP rcpp_capabilities(){
         LOGICAL(cap)[8] = FALSE ;
     #endif
     
+    #ifdef HAS_CXX0X_UNORDERED_MAP
+      LOGICAL(cap)[9] = TRUE ;
+    #else
+      LOGICAL(cap)[9] = FALSE ;
+    #endif
+    
+    #ifdef HAS_CXX0X_UNORDERED_SET
+      LOGICAL(cap)[10] = TRUE ;
+    #else
+      LOGICAL(cap)[10] = FALSE ;
+    #endif
+    
     SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
     SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
     SET_STRING_ELT(names, 2, Rf_mkChar("exception handling") ) ;
@@ -207,6 +219,8 @@ SEXP rcpp_capabilities(){
     SET_STRING_ELT(names, 6, Rf_mkChar("demangling") ) ;
     SET_STRING_ELT(names, 7, Rf_mkChar("classic api") ) ;
     SET_STRING_ELT(names, 8, Rf_mkChar("long long") ) ;
+    SET_STRING_ELT(names, 9, Rf_mkChar("C++0x unordered maps") ) ;
+    SET_STRING_ELT(names, 10, Rf_mkChar("C++0x unordered sets") ) ;
     Rf_setAttrib( cap, R_NamesSymbol, names ) ;
     return cap ;
 }
