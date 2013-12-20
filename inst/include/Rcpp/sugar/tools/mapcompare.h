@@ -25,6 +25,17 @@
 namespace Rcpp {
 namespace sugar {
 
+static unsigned long const R_UNSIGNED_LONG_NA_REAL = *(unsigned long*)(&NA_REAL);
+static unsigned long const R_UNSIGNED_LONG_NAN_REAL = *(unsigned long*)(&R_NaN);
+
+inline bool Rcpp_IsNA(double x) {
+  return *reinterpret_cast<unsigned long*>(&x) == R_UNSIGNED_LONG_NA_REAL;
+}
+
+inline bool Rcpp_IsNaN(double x) {
+  return *reinterpret_cast<unsigned long*>(&x) == R_UNSIGNED_LONG_NAN_REAL;
+}
+
 inline int StrCmp(SEXP x, SEXP y) {
     if (x == NA_STRING) return (y == NA_STRING ? 0 : 1);
     if (y == NA_STRING) return -1;
@@ -57,7 +68,7 @@ struct MapCompare<double> {
     
     // this branch inspired by data.table: see
     // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
-    if (R_IsNaN(right) and R_IsNA(left)) return true;
+    if (Rcpp_IsNaN(right) and Rcpp_IsNA(left)) return true;
     
     if (leftNaN != rightNaN) {
       return leftNaN < rightNaN;
