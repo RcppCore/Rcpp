@@ -30,7 +30,7 @@ namespace Rcpp{
         /**
          * default constructor. uses R_NilValue
          */ 
-        RObject_Impl() ; 
+        RObject_Impl() {}; 
 
         RCPP_GENERATE_CTOR_ASSIGN(RObject_Impl) 
         
@@ -47,7 +47,8 @@ namespace Rcpp{
          * Assignement operator. Set this SEXP to the given SEXP
          */ 
         RObject_Impl& operator=( SEXP other ){
-            Storage::set__(other) ;    
+            Storage::set__(other) ;
+            return *this;
         }
 
         void update(SEXP){}

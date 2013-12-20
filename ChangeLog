@@ -1,3 +1,13 @@
+2013-12-20  Kevin Ushey  <kevinushey@gmail.com>
+
+  * inst/include/Rcpp/RObject.h: Add missing *this return for
+    RObject_impl::operator=
+
+2013-12-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/RObject.h: Applied fix by Kevin Ushey (#88)
+	* inst/include/Rcpp/vector/Vector.h: Ditto (#89)
+
 2013-12-01  Kevin Ushey  <kevinushey@gmail.com>
 
 	* R/Rcpp.package.skeleton.R: Fixed bug relating to user-supplied
