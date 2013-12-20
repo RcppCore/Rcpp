@@ -14,6 +14,8 @@
       functions were incorrectly expanding to the no-degree-of-freedoms
       variant.
       \item Unit tests for \code{pnt} were added.
+      \item Applied two bug fixes to Vector \code{sort()} and \code{RObject}
+      definition spotted and correct by Kevin Ushey
     }
     \item Changes in Rcpp documentation:
     \itemize{
