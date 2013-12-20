@@ -47,7 +47,8 @@ namespace Rcpp{
          * Assignement operator. Set this SEXP to the given SEXP
          */ 
         RObject_Impl& operator=( SEXP other ){
-            Storage::set__(other) ;    
+            Storage::set__(other) ;
+            return *this;
         }
 
         void update(SEXP){}

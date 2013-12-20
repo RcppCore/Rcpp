@@ -2,7 +2,7 @@
 //
 // compiler.h: Rcpp R/C++ interface class library -- check compiler
 //
-// Copyright (C) 2012 - 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -144,31 +144,39 @@
 #ifdef HAS_CXX0X_FLAG
     #if defined(HAS_CXX0X_UNORDERED_MAP)
         #include <unordered_map>
+        #define RCPP_USING_UNORDERED_MAP
         #define RCPP_UNORDERED_MAP std::unordered_map
     #else
         #include <map>
+        #define RCPP_USING_MAP
         #define RCPP_UNORDERED_MAP std::map
     #endif
     #if defined(HAS_CXX0X_UNORDERED_SET)
         #include <unordered_set>
+        #define RCPP_USING_UNORDERED_SET
         #define RCPP_UNORDERED_SET std::unordered_set
     #else
         #include <set>
+        #define RCPP_USING_SET
         #define RCPP_UNORDERED_SET std::set
     #endif
 #else
     #if defined(HAS_TR1_UNORDERED_MAP)
         #include <tr1/unordered_map>
+        #define RCPP_USING_TR1_UNORDERED_MAP
         #define RCPP_UNORDERED_MAP std::tr1::unordered_map
     #else
         #include <map>
+        #define RCPP_USING_MAP
         #define RCPP_UNORDERED_MAP std::map
     #endif
     #if defined(HAS_TR1_UNORDERED_SET)
         #include <tr1/unordered_set>
+        #define RCPP_USING_TR1_UNORDERED_SET
         #define RCPP_UNORDERED_SET std::tr1::unordered_set
     #else
         #include <set>
+        #define RCPP_USING_SET
         #define RCPP_UNORDERED_SET std::set
     #endif
 #endif
