@@ -1,5 +1,8 @@
 2013-12-20  Kevin Ushey  <kevinushey@gmail.com>
 
+  * inst/include/Rcpp/sugar/tools/mapcompare.h: Use a union for
+    type punning, to avoid compiler warning on aliasing. Also
+    switch to uint64_t to enforce 64bit comparison.
   * inst/include/Rcpp/RObject.h: Add missing *this return for
     RObject_impl::operator=
 
