@@ -238,7 +238,8 @@ inline const char* coerce_to_string<REALSXP>(double x){
     // so approximate it poorly as
     static char tmp[128];
     snprintf(tmp, 127, "%f", x); 
-    return dropTrailing0(tmp, '.');
+    if (strcmp( dropTrailing0(tmp, '.'), "-0") == 0) return "0";
+    else return dropTrailing0(tmp, '.');
 }
 #define NB 1000
 template <> 
