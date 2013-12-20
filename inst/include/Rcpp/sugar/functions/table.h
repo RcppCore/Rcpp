@@ -2,7 +2,7 @@
 //
 // table.h: Rcpp R/C++ interface class library -- table match
 //
-// Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013   Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -21,6 +21,8 @@
 
 #ifndef Rcpp__sugar__table_h
 #define Rcpp__sugar__table_h
+
+#include <Rcpp/sugar/tools/mapcompare.h>
           
 namespace Rcpp{
 namespace sugar{
@@ -28,7 +30,7 @@ namespace sugar{
 template <typename HASH, typename STORAGE>
 class CountInserter {
 public:
-    CountInserter( HASH& hash_ ) : hash(hash_), index(0) {}
+    CountInserter( HASH& hash_ ) : hash(hash_) {}
     
     inline void operator()( STORAGE value ){
         hash[value]++ ;
@@ -36,7 +38,6 @@ public:
     
 private:
     HASH& hash ;
-    int index;
 } ; 
 
 template <typename HASH, int RTYPE>
@@ -55,6 +56,36 @@ private:
     CharacterVector& names ;
     int index ;
 } ;
+
+// we define a different Table class depending on whether we are using
+// std::map or not
+#ifdef RCPP_USING_MAP
+
+template <int RTYPE, typename TABLE_T>        
+class Table {
+public:
+    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+    
+    Table( const TABLE_T& table ): hash() {
+        std::for_each( table.begin(), table.end(), Inserter(hash) ) ;
+    }
+    
+    inline operator IntegerVector() const { 
+        int n = hash.size() ;
+        IntegerVector result = no_init(n) ;
+        CharacterVector names = no_init(n) ;
+        std::for_each( hash.begin(), hash.end(), Grabber<HASH, RTYPE>(result, names) ) ;
+        result.names() = names ;
+        return result ;
+    }
+    
+private:
+    typedef RCPP_UNORDERED_MAP<STORAGE, int, MapCompare<STORAGE> >HASH ;
+    typedef CountInserter<HASH,STORAGE> Inserter ;
+    HASH hash ;
+};
+
+#else
 
 template <int RTYPE, typename TABLE_T>        
 class Table {
@@ -82,12 +113,14 @@ public:
 private:
     typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
     typedef CountInserter<HASH,STORAGE> Inserter ;
-    
-    typedef std::map<STORAGE, int, typename Rcpp::traits::comparator_type<RTYPE>::type > SORTED_MAP ;
-    
     HASH hash ;
+    
+    typedef std::map<STORAGE, int, MapCompare<STORAGE> > SORTED_MAP ;
     SORTED_MAP map ;
+    
 }; 
+
+#endif // USING_RCPP_MAP
     
 } // sugar
 

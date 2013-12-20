@@ -1,3 +1,8 @@
+2013-12-20  Kevin Ushey  <kevinushey@gmail.com>
+
+  * inst/include/Rcpp/RObject.h: Add missing *this return for
+    RObject_impl::operator=
+
 2013-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/RObject.h: Applied fix by Kevin Ushey (#88)
