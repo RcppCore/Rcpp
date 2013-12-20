@@ -3,7 +3,7 @@
 //
 // r_coerce.h: Rcpp R/C++ interface class library -- coercion
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2013 Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -236,6 +236,7 @@ inline const char* coerce_to_string<REALSXP>(double x){
     // we are no longer allowed to use this:
     //     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
     // so approximate it poorly as
+    
     static char tmp[128];
     snprintf(tmp, 127, "%f", x); 
     if (strcmp( dropTrailing0(tmp, '.'), "-0") == 0) return "0";
@@ -270,11 +271,12 @@ inline SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex from) {
 }
 template <> 
 inline SEXP r_coerce<REALSXP,STRSXP>(double from){
-  // handle NaN explicitly
+  
+  // handle some special values explicitly
   if (R_IsNaN(from)) return Rf_mkChar("NaN");
   else if (from == R_PosInf) return Rf_mkChar("Inf");
   else if (from == R_NegInf) return Rf_mkChar("-Inf");
-	else return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ;
+  else return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ;
 }
 template <> 
 inline SEXP r_coerce<INTSXP ,STRSXP>(int from){ 
