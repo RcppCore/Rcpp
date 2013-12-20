@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2013  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2013  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 #
 # This file is part of Rcpp.
 #
