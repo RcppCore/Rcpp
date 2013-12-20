@@ -22,9 +22,6 @@
 #ifndef Rcpp__sugar__tools__mapcompare_h
 #define Rcpp__sugar__tools__mapcompare_h
 
-#include <cstdint>
-using std::uint64_t;
-
 namespace Rcpp {
 namespace sugar {
 
