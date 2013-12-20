@@ -30,7 +30,7 @@ namespace Rcpp{
         /**
          * default constructor. uses R_NilValue
          */ 
-        RObject_Impl() ; 
+        RObject_Impl() {}; 
 
         RCPP_GENERATE_CTOR_ASSIGN(RObject_Impl) 
         
