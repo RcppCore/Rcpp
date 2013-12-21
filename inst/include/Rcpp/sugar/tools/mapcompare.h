@@ -25,15 +25,22 @@
 namespace Rcpp {
 namespace sugar {
 
-static unsigned long const R_UNSIGNED_LONG_NA_REAL = *(unsigned long*)(&NA_REAL);
-static unsigned long const R_UNSIGNED_LONG_NAN_REAL = *(unsigned long*)(&R_NaN);
+union DoublePunner {
+  double d;
+  uint64_t p;
+};
+
+static const DoublePunner NA_REAL_PUN = { NA_REAL };
+static const DoublePunner NAN_REAL_PUN = { R_NaN };
 
 inline bool Rcpp_IsNA(double x) {
-  return *reinterpret_cast<unsigned long*>(&x) == R_UNSIGNED_LONG_NA_REAL;
+  DoublePunner xp = { x };
+  return xp.p == NA_REAL_PUN.p;
 }
 
 inline bool Rcpp_IsNaN(double x) {
-  return *reinterpret_cast<unsigned long*>(&x) == R_UNSIGNED_LONG_NAN_REAL;
+  DoublePunner xp = { x };
+  return xp.p == NAN_REAL_PUN.p;
 }
 
 inline int StrCmp(SEXP x, SEXP y) {
