@@ -1,35 +1,35 @@
 2013-12-20  Kevin Ushey  <kevinushey@gmail.com>
 
-  * inst/include/Rcpp/sugar/tools/mapcompare.h: Use a union for
-    type punning, to avoid compiler warning on aliasing. Also
-    switch to uint64_t to enforce 64bit comparison.
-  * inst/include/Rcpp/RObject.h: Add missing *this return for
-    RObject_impl::operator=
+        * inst/include/Rcpp/sugar/tools/mapcompare.h: Use a union for
+        type punning, to avoid compiler warning on aliasing. Also
+        switch to uint64_t to enforce 64bit comparison.
+        * inst/include/Rcpp/RObject.h: Add missing *this return for
+        RObject_impl::operator=
 
 2013-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/RObject.h: Applied fix by Kevin Ushey (#88)
-	* inst/include/Rcpp/vector/Vector.h: Ditto (#89)
+        * inst/include/Rcpp/RObject.h: Applied fix by Kevin Ushey (#88)
+        * inst/include/Rcpp/vector/Vector.h: Ditto (#89)
 
 2013-12-01  Kevin Ushey  <kevinushey@gmail.com>
 
-	* R/Rcpp.package.skeleton.R: Fixed bug relating to user-supplied
-	functions in 'list' argument
-	* inst/unitTests/runit.Rcpp.package.skeleton.R: Added unit tests
+        * R/Rcpp.package.skeleton.R: Fixed bug relating to user-supplied
+        functions in 'list' argument
+        * inst/unitTests/runit.Rcpp.package.skeleton.R: Added unit tests
 
 2013-11-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-FAQ.Rnw: Updated and corrected in several spots
+        * vignettes/Rcpp-FAQ.Rnw: Updated and corrected in several spots
 
 2013-11-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/stats/nt.h: Correct expansion of (d|q|p)nt()
-	* inst/unitTests/runit.stats.R: Added unit tests for t dist with ncp
-	* inst/unitTests/cpp/stats.cpp: C++ side of expamded unit tests
+        * inst/include/Rcpp/stats/nt.h: Correct expansion of (d|q|p)nt()
+        * inst/unitTests/runit.stats.R: Added unit tests for t dist with ncp
+        * inst/unitTests/cpp/stats.cpp: C++ side of expamded unit tests
 
 2013-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml: Added to support continuous integration on github
+        * .travis.yml: Added to support continuous integration on github
 
 2013-10-28 Romain Francois <romain@r-enthusiasts.com>
 
@@ -49,61 +49,61 @@
 
 2013-10-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Deprecate
-	namespace argument which package.skeleton() no longer uses
-	* man/Rcpp.package.skeleton.Rd: Updated documentation accordingly
+        * R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Deprecate
+        namespace argument which package.skeleton() no longer uses
+        * man/Rcpp.package.skeleton.Rd: Updated documentation accordingly
 
 2013-10-16 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/is.h : added missing implementation for
-	is<Language> and is<DottedPair>
+        is<Language> and is<DottedPair>
 
 2013-10-14 Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/protection/protection.h: added
-	Shield/Shelter/Armor
-	* DESCRIPTION: bump to version 0.10.5.3
+        * inst/include/Rcpp/protection/protection.h: added
+        Shield/Shelter/Armor
+        * DESCRIPTION: bump to version 0.10.5.3
 
 2013-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Depends): Rolled Depends: on R to "R (>= 3.0.0)" as
-	required by the vignette building code (with thanks to Uwe Ligges)
+        * DESCRIPTION (Depends): Rolled Depends: on R to "R (>= 3.0.0)" as
+        required by the vignette building code (with thanks to Uwe Ligges)
 
 2013-10-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* NAMESPACE: Export LdFlags as well as RcppLdFlags
-	* man/RcppLdFlags.Rd: Updated
+        * NAMESPACE: Export LdFlags as well as RcppLdFlags
+        * man/RcppLdFlags.Rd: Updated
 
 2013-10-06  John M Chambers  <jmc@r-project.org>
 
-	* R/exposeClass.R: avoid warning from unclosed file()
+        * R/exposeClass.R: avoid warning from unclosed file()
 
 2013-10-06  John M Chambers  <jmc@r-project.org>
 
-	* NAMESPACE: change classModule to exposeClass
-	* R/classModule.R: delete
-	* man/classModule.Rd: delete
-	* R/exposeClass.R: add
-	* man/exposeClass.Rd: add
-	* man/setRcppClass.Rd: update, clarify, recommend exposeClass()
+        * NAMESPACE: change classModule to exposeClass
+        * R/classModule.R: delete
+        * man/classModule.Rd: delete
+        * R/exposeClass.R: add
+        * man/exposeClass.Rd: add
+        * man/setRcppClass.Rd: update, clarify, recommend exposeClass()
 
 2013-10-03  John M Chambers  <jmc@r-project.org>
 
-	* R/classModule.R: new function to write module file for class
-	* man/classModule.Rd: documentation for new function classModule()
-	* NAMESPACE: export classModule
-	* R/loadModule.R: clean up an error message
-	* R/RcppClass.R: defaults for module consistent w. classModule()
-	* man/setRcppClass.Rd: add defaults, explain need for saveAs
+        * R/classModule.R: new function to write module file for class
+        * man/classModule.Rd: documentation for new function classModule()
+        * NAMESPACE: export classModule
+        * R/loadModule.R: clean up an error message
+        * R/RcppClass.R: defaults for module consistent w. classModule()
+        * man/setRcppClass.Rd: add defaults, explain need for saveAs
 
 2013-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/traits/is_na.h: More fixes thanks to Thomas Tse
+        * inst/include/Rcpp/traits/is_na.h: More fixes thanks to Thomas Tse
 
 2013-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/api/meat/is.h: Applied patch by Thomas Tse to
-	provide missing Character(Vector|Matrix)
+        * inst/include/Rcpp/api/meat/is.h: Applied patch by Thomas Tse to
+        provide missing Character(Vector|Matrix)
 
         * DESCRIPTION: Bump to development release 0.10.5.1
 
@@ -114,20 +114,20 @@
         * inst/include/Rcpp/config.h: Release 0.10.5
         * debian/*: Similarly updated for new release to Debian
 
-	* vignettes/Rcpp-unitTests.Rnw: Switched to Charter font just like
-	the other eight vignettes
+        * vignettes/Rcpp-unitTests.Rnw: Switched to Charter font just like
+        the other eight vignettes
 
 2013-09-28 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/module/Module_generated_CppMethod.h : more code bloat
-	to handle flexible semantics for passing parameters in methods
+        to handle flexible semantics for passing parameters in methods
         * include/Rcpp/module/Module_generated_Pointer_CppMethod.h : same
         * inst/unitTests/cpp/Module.cpp: testing the above
         * unitTests/runit.Module.R: testing
 
 2013-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-unitTests.Rnw: Re-activated vignette
+        * vignettes/Rcpp-unitTests.Rnw: Re-activated vignette
         * DESCRIPTION: Version number bumped to 0.10.4.6
 
 2013-09-27 Romain Francois <romain@r-enthusiasts.com>
@@ -139,44 +139,44 @@
 
 2013-09-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sugar/functions/diff.h: Declare set_previous
-	const and add a missing traits:: prefix before is_na
+        * inst/include/Rcpp/sugar/functions/diff.h: Declare set_previous
+        const and add a missing traits:: prefix before is_na
 
-	* inst/unitTests/cpp/sugar.cpp: Unit test for diff() of int. vector
-	* inst/unitTests/runit.sugar.R: Invoke new test
+        * inst/unitTests/cpp/sugar.cpp: Unit test for diff() of int. vector
+        * inst/unitTests/runit.sugar.R: Invoke new test
 
 2013-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-modules.Rnw: Remove vignette-local compilations
-	which again caused problems for the Windows builds at R-Forge and
-	win-builder. Unit tests comprise the same functionality and pass.
+        * vignettes/Rcpp-modules.Rnw: Remove vignette-local compilations
+        which again caused problems for the Windows builds at R-Forge and
+        win-builder. Unit tests comprise the same functionality and pass.
 
-	* vignettes/Rcpp-attributes.Rnw: Refresh look by using Bitstream
-	Charter, and microtype package (cf http://www.khirevich.com/latex)
-	* vignettes/Rcpp-extending.Rnw: Idem
-	* vignettes/Rcpp-FAQ.Rnw: Idem
-	* vignettes/Rcpp-modules.Rnw: Idem
-	* vignettes/Rcpp-package.Rnw: Idem
-	* vignettes/Rcpp-quickref.Rnw: Idem
-	* vignettes/Rcpp-sugar.Rnw: Idem
+        * vignettes/Rcpp-attributes.Rnw: Refresh look by using Bitstream
+        Charter, and microtype package (cf http://www.khirevich.com/latex)
+        * vignettes/Rcpp-extending.Rnw: Idem
+        * vignettes/Rcpp-FAQ.Rnw: Idem
+        * vignettes/Rcpp-modules.Rnw: Idem
+        * vignettes/Rcpp-package.Rnw: Idem
+        * vignettes/Rcpp-quickref.Rnw: Idem
+        * vignettes/Rcpp-sugar.Rnw: Idem
 
 2013-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Module.R: More ':::' cleanups to make R CMD check happy
-	* R/RcppClass.R: Ditto
+        * R/Module.R: More ':::' cleanups to make R CMD check happy
+        * R/RcppClass.R: Ditto
 
-	* NAMESPACE: Some new exports related to this
+        * NAMESPACE: Some new exports related to this
 
-	* man/setRcppClass.Rd: Document loadRcppClass()
-	* man/Rcpp-internal.Rd: Added in order to document
-	cpp_object_initializer() and cpp_object_dummy()
+        * man/setRcppClass.Rd: Document loadRcppClass()
+        * man/Rcpp-internal.Rd: Added in order to document
+        cpp_object_initializer() and cpp_object_dummy()
 
 2013-09-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/longlong.h: Unbreak long long by making it (as
-	before) conditional on g++ (or clang) as well as C++11. The condition
-	can be OR'ed with another suitably-defined variable, but the default
-	has to be off as CRAN compliance has to remain the standard
+        * inst/include/Rcpp/longlong.h: Unbreak long long by making it (as
+        before) conditional on g++ (or clang) as well as C++11. The condition
+        can be OR'ed with another suitably-defined variable, but the default
+        has to be off as CRAN compliance has to remain the standard
 
 2013-09-19  Romain Francois <romain@r-enthusiasts.com>
 
@@ -184,28 +184,28 @@
         in a separate file which we might choose not to include by default
 
         * include/Rcpp/traits/r_sexptype_traits.h : unsigned int wrapped as
-	REALSXP long standing feature request from Murray.
+        REALSXP long standing feature request from Murray.
         * R/Attributes.R : Added the helper demangle and sizeof functions
         * man/demangle.Rd : Documentation for demangle and sizeof
         * include/Rcpp/platform/compiler.h : less restritive support of long
-	long types. But still behind a test for gcc and a test for the
-	availability of the type, and the __extension__. -pedantic does not
-	warn about it
+        long types. But still behind a test for gcc and a test for the
+        availability of the type, and the __extension__. -pedantic does not
+        warn about it
 
 2013-09-18  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R: Don't search the inline package as a fallback when
-	loading plugins for the the Rcpp::plugins attribute
+        loading plugins for the the Rcpp::plugins attribute
 
 2013-09-18  Romain Francois <romain@r-enthusiasts.com>
 
         * vignettes/Rcpp-package.Rnw: Updating the vignette. Setting
-	attributes to TRUE by default.
+        attributes to TRUE by default.
         * R/Rcpp.package.skeleton.R: Setting attributes to TRUE by
-	default. This is what we should encourage people to use.
+        default. This is what we should encourage people to use.
         * include/Rcpp/as.h: add as<char> specialization
         * include/Rcpp/sugar/functions/diff.h : rework the implementation of
-	diff so that it works even when we don't know the previous value
+        diff so that it works even when we don't know the previous value
         * unitTests/runit.sugar.R :
         * unitTests/cpp/sugar.cpp :
         * include/Rcpp/sugar/functions/range.h : factored out of minmax.h
@@ -215,28 +215,28 @@
 
 2013-09-17  JJ Allaire  <jj@rstudio.org>
 
-	* R/Attributes.R: Call inlineCxxPlugin and Rcpp.plugin.maker without
-	qualification rather than with ':::'
+        * R/Attributes.R: Call inlineCxxPlugin and Rcpp.plugin.maker without
+        qualification rather than with ':::'
 
 2013-09-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* NAMESPACE: Export RcppLdFlags which is often used to build Rcpp
-	* man/RcppLdFlags.Rd: Added required manual page
-	* R/Attributes.R: Call RcppLdFlags() via '::' instead of ':::'
-	* R/SHLIB.R: Ditto
-	* R/inline.R: Ditto
+        * NAMESPACE: Export RcppLdFlags which is often used to build Rcpp
+        * man/RcppLdFlags.Rd: Added required manual page
+        * R/Attributes.R: Call RcppLdFlags() via '::' instead of ':::'
+        * R/SHLIB.R: Ditto
+        * R/inline.R: Ditto
 
-	* vignettes/Rcpp-FAQ.Rnw: Add %\VignetteEngine{highlight::highlight}
-	* vignettes/Rcpp-attributes.Rnw: Idem
-	* vignettes/Rcpp-extending.Rnw: Idem
-	* vignettes/Rcpp-modules.Rnw: Idem
-	* vignettes/Rcpp-package.Rnw: Idem
-	* vignettes/Rcpp-quickref.Rnw: Idem
-	* vignettes/Rcpp-sugar.Rnw: Idem
+        * vignettes/Rcpp-FAQ.Rnw: Add %\VignetteEngine{highlight::highlight}
+        * vignettes/Rcpp-attributes.Rnw: Idem
+        * vignettes/Rcpp-extending.Rnw: Idem
+        * vignettes/Rcpp-modules.Rnw: Idem
+        * vignettes/Rcpp-package.Rnw: Idem
+        * vignettes/Rcpp-quickref.Rnw: Idem
+        * vignettes/Rcpp-sugar.Rnw: Idem
 
-	* vignettes/Rcpp-package.Rnw: Altered to make use of highlight
-	package; also no longer build embedded demo package (which upsets R
-	CMD check under R-devel)
+        * vignettes/Rcpp-package.Rnw: Altered to make use of highlight
+        package; also no longer build embedded demo package (which upsets R
+        CMD check under R-devel)
 
 2013-09-16  JJ Allaire <jj@rstudio.org>
 
@@ -245,82 +245,82 @@
 2013-09-16  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/Exporter.h : Specific handling of containers
-	(std::vector, std::deque, and std::list so that we use their faster
-	range constructor when we can, and so let the STL optimize how data
-	is copied
+        (std::vector, std::deque, and std::list so that we use their faster
+        range constructor when we can, and so let the STL optimize how data
+        is copied
         * include/Rcpp/api/meat/export.h : Implementation of the above
         * include/Rcpp/vector/Vector.h : added Vector( const char* ) ctor
         * DESCRIPTION : bump to 0.10.4.5 (for RcppExtras)
 
 2013-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/InputParameter.h (Rcpp): Add 'const' case
+        * inst/include/Rcpp/InputParameter.h (Rcpp): Add 'const' case
 
-	* inst/unitTests/cpp/Vector.cpp: New unit tests for std::vector
-	conversions, using both int and double arguments
-	* inst/unitTests/runit.Vector.R: R complement of these tests
+        * inst/unitTests/cpp/Vector.cpp: New unit tests for std::vector
+        conversions, using both int and double arguments
+        * inst/unitTests/runit.Vector.R: R complement of these tests
 
 2013-09-15  Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/InputParameter.h : added the traits::input_parameter
-	trait to add another layer of abstration.
-	* include/Rcpp/macros/module.h : taking advantage of input_parameter
-	to specialize how to work with module objects
-	* src/attributes.cpp : using traits::input_parameter<T> instead of
-	InputParameter<T>
+        * include/Rcpp/InputParameter.h : added the traits::input_parameter
+        trait to add another layer of abstration.
+        * include/Rcpp/macros/module.h : taking advantage of input_parameter
+        to specialize how to work with module objects
+        * src/attributes.cpp : using traits::input_parameter<T> instead of
+        InputParameter<T>
 
 2013-09-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/attributes.cpp : Precede closing '>' by space to avoid '>>'
-	* inst/include/Rcpp/platform/compiler.h: Further refine #if test for
-	'long long' by conditioning __LP64__ on also using clang/llvm
+        * src/attributes.cpp : Precede closing '>' by space to avoid '>>'
+        * inst/include/Rcpp/platform/compiler.h: Further refine #if test for
+        'long long' by conditioning __LP64__ on also using clang/llvm
 
-	* src/attributes.cpp : Precede closing '>' by space to avoid '>>'
+        * src/attributes.cpp : Precede closing '>' by space to avoid '>>'
 
 2013-09-13  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/api.cpp : added "long long" to the capabilities function.
-	* include/Rcpp/platform/compiler.h : demangling is definitely
-	available on all mac versions using gcc. No point is testing for OSX
-	version.
-	* include/Rcpp/InputParameter.h : extra layer of abstraction to allow
-	for custom handling of references etc ... used in RcppArmadillo
-	* src/attributes.cpp : using InputParameter
-	* DESCRIPTION: bump to 0.10.4.4
+        * src/api.cpp : added "long long" to the capabilities function.
+        * include/Rcpp/platform/compiler.h : demangling is definitely
+        available on all mac versions using gcc. No point is testing for OSX
+        version.
+        * include/Rcpp/InputParameter.h : extra layer of abstraction to allow
+        for custom handling of references etc ... used in RcppArmadillo
+        * src/attributes.cpp : using InputParameter
+        * DESCRIPTION: bump to 0.10.4.4
 
 2013-09-12  Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/platform/compiler.h : patch submitted by Murray for
-	better support of long long type.
-	* include/Rcpp/platform/compiler.h : gcc 4.2.1 has tr1/unordered_map
-	and tr1/unordered_set. Previous test was for gcc 4.4.0 for some
-	reason
+        * include/Rcpp/platform/compiler.h : patch submitted by Murray for
+        better support of long long type.
+        * include/Rcpp/platform/compiler.h : gcc 4.2.1 has tr1/unordered_map
+        and tr1/unordered_set. Previous test was for gcc 4.4.0 for some
+        reason
 
 2013-08-31  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/*: Moved all vignettes to vignettes/*
-	* vignettes/*: Minor updates to some vignettes
+        * inst/doc/*: Moved all vignettes to vignettes/*
+        * vignettes/*: Minor updates to some vignettes
 
 2013-08-22  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_primitive.h : new trait to identify if a
-	type is primitive, this is a shortcut of using r_type_traits and
-	compare it to r_type_primitive_tag
+        type is primitive, this is a shortcut of using r_type_traits and
+        compare it to r_type_primitive_tag
         * include/Rcpp/traits/r_type_traits.h : new tag r_type_pair_tag to
-	handle wrapping map<KEY, VALUE> where KEY can be converted to String
-	and VALUE can wrap itself
+        handle wrapping map<KEY, VALUE> where KEY can be converted to String
+        and VALUE can wrap itself
         * include/Rcpp/internal/wrap.h : handling map<KEY, VALUE> and vector<T>
         where T is a class handled by modules
         * include/Rcpp/api/meat/wrap.h : implementations to handle map<KEY,
-	VALUE>
+        VALUE>
         * unitTests/cpp/wrap.cpp : more tests for map<KEY, VALUE> with KEY
-	not a string
+        not a string
         * unitTests/runit.wrap.R : more tests for map<KEY, VALUE> with KEY
-	not a string
+        not a string
 
         * include/Rcpp/internal/export.h : added export_range__dispatch for
-	the r_type_generic_tag tag. Meaning we can now use as< vector<T> >
-	where T is not a primitive
+        the r_type_generic_tag tag. Meaning we can now use as< vector<T> >
+        where T is not a primitive
         * include/Rcpp/api/meat/export.h : implementation in meat because it needs as
 
 2013-08-01  Romain Francois <romain@r-enthusiasts.com>
@@ -330,10 +330,10 @@
 
 2013-07-31  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION: Bump development version to 0.10.4.3
+        * DESCRIPTION: Bump development version to 0.10.4.3
 
-	* inst/doc/Makefile: Rejigged pdf builds in another attempt at
-	pleasing whatever runs the builds on r-forge. L'espoir fait vivre.
+        * inst/doc/Makefile: Rejigged pdf builds in another attempt at
+        pleasing whatever runs the builds on r-forge. L'espoir fait vivre.
 
 2013-07-25  Romain Francois <romain@r-enthusiasts.com>
 
@@ -349,13 +349,13 @@
 2013-07-24  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_module_object.h: trait class that identifies
-	at compile time if a given type is a type exposed by a module,
-	i.e. if we used the RCPP_EXPOSED_AS macro
+        at compile time if a given type is a type exposed by a module,
+        i.e. if we used the RCPP_EXPOSED_AS macro
         * include/Rcpp/is.h: able to identify if an object is of a given type
-	exposed by a module (supports references and pointers too).
+        exposed by a module (supports references and pointers too).
         * src/Module.cpp: implementation of is_module_object_internal that
-	checks if an object is of a given typeid, used by is<T> where T is
-	module exposed
+        checks if an object is of a given typeid, used by is<T> where T is
+        module exposed
 
 2013-07-23  Romain Francois <romain@r-enthusiasts.com>
 
@@ -364,12 +364,12 @@
         * include/Rcpp/macros/module.h: idem
         * include/Rcpp/traits/un_pointer.h: handle the object<T> case
         * include/Rcpp/traits/r_type_traits.h: adding traits to help the with
-	as<T*> and as<const T*>
+        as<T*> and as<const T*>
         * unitTests/runit.Module.R: testing as<T*> and as<const T*>
         * unitTests/cpp/Module.cpp: idem
         * src/attributes.cpp: take advantage of a more flexible as<>. The
-	Type class gains a full_name() method that shows const-ness and
-	reference-ness
+        Type class gains a full_name() method that shows const-ness and
+        reference-ness
 
 2013-07-17  Romain Francois <romain@r-enthusiasts.com>
 
@@ -379,7 +379,7 @@
 
 2013-07-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Attributes.R: Add an OpenMP plugin
+        * R/Attributes.R: Add an OpenMP plugin
 
 2013-07-03  Romain Francois <romain@r-enthusiasts.com>
 
@@ -423,8 +423,8 @@
 
 2013-06-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/api.cpp: Also test for #defined(__sun) when checking for system
-	lacking a valid backtrace() function for stack traces
+        * src/api.cpp: Also test for #defined(__sun) when checking for system
+        lacking a valid backtrace() function for stack traces
 
 2013-06-25  Romain Francois <romain@r-enthusiasts.com>
 
@@ -435,9 +435,9 @@
 
 2013-06-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/platform/compiler.h: Note the useful wiki page
-	http://sourceforge.net/p/predef/wiki/Home with #defines for OSs,
-	compilers, libraries and more
+        * inst/include/Rcpp/platform/compiler.h: Note the useful wiki page
+        http://sourceforge.net/p/predef/wiki/Home with #defines for OSs,
+        compilers, libraries and more
 
 2013-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -448,46 +448,46 @@
 
 2013-06-19  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/NEWS.Rd: Document planned depreciation of old RCPP_FUNCION_*
-	macros which are redundant thanks to Rcpp Modules and Rcpp Attributes
+        * inst/NEWS.Rd: Document planned depreciation of old RCPP_FUNCION_*
+        macros which are redundant thanks to Rcpp Modules and Rcpp Attributes
 
         * include/Rcpp/vector/string_proxy.h : added operator
-	string_proxy::operator==( const string_proxy& ) so that me may
-	compare x[i] and y[i] (x and y being CharacterVector)
+        string_proxy::operator==( const string_proxy& ) so that me may
+        compare x[i] and y[i] (x and y being CharacterVector)
 
         * include/Rcpp/module/Module_generated_Pointer_CppMethod.h : remove
-	const and reference to OUT type in several places, that was causing
-	problems e.g.  on making the Rcpp-modules vignette
+        const and reference to OUT type in several places, that was causing
+        problems e.g.  on making the Rcpp-modules vignette
 
         * include/Rcpp/module/Module_generated_CppMethod.h : idem
 
 2013-06-18  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/module/Module_generated_CppFunction.h : using
-	BEGIN_RCPP / END_RCPP as suggested by Ben North on Rcpp-devel. This
-	should reduce cross dll exceptions issues on windows.
+        BEGIN_RCPP / END_RCPP as suggested by Ben North on Rcpp-devel. This
+        should reduce cross dll exceptions issues on windows.
 
 2013-06-14  Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/stats/random/runif.h : removed unused max variable
-	* include/Rcpp/stats/random/rf.h : removed unused n1 and n2 variables
+        * include/Rcpp/stats/random/runif.h : removed unused max variable
+        * include/Rcpp/stats/random/rf.h : removed unused n1 and n2 variables
 
 2013-06-13  Romain Francois <romain@r-enthusiasts.com>
 
-	* src/Module.cpp: small buglet in macro. Reported on Rcpp-devel
+        * src/Module.cpp: small buglet in macro. Reported on Rcpp-devel
 
 2013-06-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Makefile: Force serial build of vignettes in yet another
-	effort to not let R-Forge fail when trying to rebuild them
+        * inst/doc/Makefile: Force serial build of vignettes in yet another
+        effort to not let R-Forge fail when trying to rebuild them
 
 2013-06-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp.bib: Updated entries
+        * inst/doc/Rcpp.bib: Updated entries
 
-	* inst/doc/Rcpp-introduction.Rnw: Added pointer to 'Rcpp Attributes'
-	vignette, as well as to 'Rcpp Sugar' and 'Rcpp Modules' vignettes.
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Idem
+        * inst/doc/Rcpp-introduction.Rnw: Added pointer to 'Rcpp Attributes'
+        vignette, as well as to 'Rcpp Sugar' and 'Rcpp Modules' vignettes.
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Idem
 
 2013-06-06  Romain Francois <romain@r-enthusiasts.com>
 
@@ -497,7 +497,7 @@
 2013-06-05  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/Vector.h : fixed Vector<>::erase(iterator,
-	iterator) and correct return value of erase
+        iterator) and correct return value of erase
         * unitTests/cpp/Vector.cpp : added regression test for the above fix
         * unitTests/runit.Vector.R : added regression test for the above fix
         * include/Rcpp/module/class.h : removed useless typedef
@@ -507,7 +507,7 @@
         * unitTests/runit.sugar.R : new test for is_infinite and is_nan
         * unitTests/cpp/sugar.cpp : new test for is_infinite and is_nan
         * include/Rcpp/sugar/functions/is_infinite.h : new function
-	is_infinite
+        is_infinite
         * include/Rcpp/traits/is_infinite.h : new function is_infinite
         * include/Rcpp/sugar/functions/is_nan.h : new function is_nan
         * include/Rcpp/traits/is_nan.h : new function is_nan
@@ -515,10 +515,10 @@
 2013-05-30  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/functions/all.h : bug fixed for the NA=false
-	case
+        case
         * include/Rcpp/sugar/functions/is_na.h : header
         * include/Rcpp/sugar/functions/is_finite.h : added sugar is_finite
-	function
+        function
         * include/Rcpp/traits/is_finite.h : added is_finite trait
         * unitTests/runit.sugar.R : added test for is_finite
         * unitTests/cpp/S4.cpp : new cpp file to host S4 unit tests
@@ -528,7 +528,7 @@
 
 2013-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/api.cpp: Minor tweak for internal formatting
+        * src/api.cpp: Minor tweak for internal formatting
 
 2013-05-24  J.J. Allaire <jj@rstudio.org>
 
@@ -550,22 +550,22 @@
 
 2013-04-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/api.cpp (Rcpp): No longer use Rd_format(Real|Complex) which is
-	a very verboten R internal; formatting to string is now very bare
-	bones
+        * src/api.cpp (Rcpp): No longer use Rd_format(Real|Complex) which is
+        a very verboten R internal; formatting to string is now very bare
+        bones
 
 2013-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Makevars: Improved use as well as a new possible overrride of
-	/usr/bin/install_name_tool on OS X, once again contributed by Simon
+        * src/Makevars: Improved use as well as a new possible overrride of
+        /usr/bin/install_name_tool on OS X, once again contributed by Simon
 
 2013-04-16  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/functions/na_omit.h : new function na_omit to
-	remove missing values from a vector.
+        remove missing values from a vector.
         * src/attributes.cpp : portability fix (from Martyn Plummer)
         * include/Rcpp/api/meat/Vector.h : portability fix (from Martyn
-	Plummer)
+        Plummer)
 
 2013-04-14  Romain Francois <romain@r-enthusiasts.com>
 
@@ -574,15 +574,15 @@
 
 2013-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Date.cpp: Corrected operator-() for Date and Datetime objects
-	to behave more inline with C++ standard
+        * src/Date.cpp: Corrected operator-() for Date and Datetime objects
+        to behave more inline with C++ standard
 
-	* inst/include/Rcpp/Date.h: operator-() for Dates now returns a
-	double as the date itself is fractional double since epoch
+        * inst/include/Rcpp/Date.h: operator-() for Dates now returns a
+        double as the date itself is fractional double since epoch
 
-	* inst/unitTests/cpp/dates.cpp: New file with C++ portion of tests
-	factored out from R unit test file
-	* inst/unitTests/runit.Date.R: Rewritten for use with new C++ tests
+        * inst/unitTests/cpp/dates.cpp: New file with C++ portion of tests
+        factored out from R unit test file
+        * inst/unitTests/runit.Date.R: Rewritten for use with new C++ tests
 
 2013-04-02 Romain Francois <romain@r-enthusiasts.com>
 
@@ -596,20 +596,20 @@
 
 2013-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
-	* debian/control (Build-Depends): Modified for Debian-only rebuilds
-	under (rc version of upcoming) R 3.0.0 release
-	* debian/changelog: Entry for Debian build 0.10.3-2
+        * debian/control (Build-Depends): Modified for Debian-only rebuilds
+        under (rc version of upcoming) R 3.0.0 release
+        * debian/changelog: Entry for Debian build 0.10.3-2
 
 2013-03-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/api.cpp (Rcpp): Re-enable coerce_to_string<>() for real and
-	complex types with Poor Man's Versions (TM) of Rf_EncodeReal and
-	Rf_EncodeComplex which the Powers That Be disallow from being used
+        * src/api.cpp (Rcpp): Re-enable coerce_to_string<>() for real and
+        complex types with Poor Man's Versions (TM) of Rf_EncodeReal and
+        Rf_EncodeComplex which the Powers That Be disallow from being used
 
 2013-03-27 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/MatrixRow.h : removed unintended printed
-	messaged (reported on Rcpp-devel by Michaeal Love)
+        messaged (reported on Rcpp-devel by Michaeal Love)
 
 2013-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -620,30 +620,30 @@
 
 2013-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.wstring.R (test.as_vector_wstring): replace
-	the "€" symbol with its unicode equivalent "\u20ac"
+        * inst/unitTests/runit.wstring.R (test.as_vector_wstring): replace
+        the "€" symbol with its unicode equivalent "\u20ac"
 
 2013-03-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp.bib: Updated versions for several CRAN packages
+        * inst/doc/Rcpp.bib: Updated versions for several CRAN packages
 
-	* inst/CITATION: Add information about forthcoming book
+        * inst/CITATION: Add information about forthcoming book
 
 2013-03-20 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/is_wide_string.h : fixes to re-enable wrap(
-	vector<char> ) and wrap( vector<wchar_t> ), needed to support package
-	httpuv
+        vector<char> ) and wrap( vector<wchar_t> ), needed to support package
+        httpuv
         * include/Rcpp/internal/wrap.h : same
 
 2013-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/config.h: Define RCPP_USE_NEW_PRESERVE_RELEASE
-	with default value of 0 to enable/disable new preserve/release code
+        * inst/include/Rcpp/config.h: Define RCPP_USE_NEW_PRESERVE_RELEASE
+        with default value of 0 to enable/disable new preserve/release code
 
-	* src/api.cpp: Bracket the new Rcpp object preserve / release code
-	with the new variable RCPP_USE_NEW_PRESERVE_RELEASE and fall back
-	to R behaviour if not set
+        * src/api.cpp: Bracket the new Rcpp object preserve / release code
+        with the new variable RCPP_USE_NEW_PRESERVE_RELEASE and fall back
+        to R behaviour if not set
 
 2013-03-12 Romain Francois <romain@r-enthusiasts.com>
 
@@ -651,8 +651,8 @@
 
 2013-03-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/platform/compiler.h: Improved g++ version
-	detection with thanks to Yan Zhou
+        * inst/include/Rcpp/platform/compiler.h: Improved g++ version
+        detection with thanks to Yan Zhou
 
 2013-02-28 JJ Allaire <jj@rstudio.org>
 
@@ -673,9 +673,9 @@
 
 2013-02-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/platform/compiler.h: As deteced by Gong-Yi Liao,
-	we need to test for __LONG_LONG_MAX__ (defined in limits.h) and not
-	LONG_LONG_MAX (defined climits which we do not include)
+        * inst/include/Rcpp/platform/compiler.h: As deteced by Gong-Yi Liao,
+        we need to test for __LONG_LONG_MAX__ (defined in limits.h) and not
+        LONG_LONG_MAX (defined climits which we do not include)
 
 2013-02-19 Romain Francois <romain@r-enthusiasts.com>
 
@@ -705,13 +705,13 @@
         * include/Rcpp/as.h: re-enable as<std::string>(CharacterVector[int])
 2013-02-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/THANKS: Adding Ben North for the help / bug report on iterators
+        * inst/THANKS: Adding Ben North for the help / bug report on iterators
 
 2013-02-05 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/string_proxy.h : more wstring support
         * include/Rcpp/XPtr.h : more debugging. removed delete_finalizer
-	which is no longer used
+        which is no longer used
 
 2013-02-05 JJ Allaire <jj@rstudio.org>
 
@@ -721,16 +721,16 @@
 2013-02-04 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/traits/r_type_traits.h : make the
-	r_type_pairstring_string_tag tag more general, handling wstring as
-	well as string
+        r_type_pairstring_string_tag tag more general, handling wstring as
+        well as string
         * include/Rcpp/internal/wrap.h : using make_charsexp, a more generic
-	version of charsexp_from_wstring.
+        version of charsexp_from_wstring.
         * include/Rcpp/as.h : more support fot wstring
         * include/Rcpp/internal/wrap.h : rework the support of wstring
         * include/Rcpp/internal/export.h : added as_string_elt to rework the
-	support of wstring
+        support of wstring
         * include/Rcpp/traits/char_type.h : new trait to help the wstring
-	support
+        support
         * include/Rcpp/String.h : added some support for wstring
         * include/Rcpp/vector/string_proxy.h : adapt to add wstring support
         * unitTests/runit.wstring.R : unit tests for wstring support
@@ -740,16 +740,16 @@
 
         * include/Rcpp/traits/wrap_type_traits.h : support for wrap( wstring )
         * include/Rcpp/internal/export.h : exporting wstring and containers
-	of wstring
+        of wstring
         * include/Rcpp/internal/wrap.h : support for wrap( wstring ) and
-	containers of wstring
+        containers of wstring
         * include/RcppCommon.h : definition of charsexp_from_wstring
         * src/api.cpp: implementation of charsexp_from_wstring
 
 2013-02-02 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/MatrixRow.h: correct operator++(int) and
-	operator--(int)
+        operator--(int)
         * include/Rcpp/internal/Proxy_Iterator.h: correct operators ++ and --
         * include/Rcpp/sugar/Range.h: correct operators ++ and --
         * include/Rcpp/sugar/tools/iterator.h: correct operators ++ and --
@@ -763,14 +763,14 @@
 
 2013-01-15  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/api.cpp (Rcpp): Commented-out coerce_to_string() for real and
-	complex arguments as R-devel (as of today) dislikes use of non-API
-	functions Rf_EncodeComplex’, ‘Rf_EncodeReal’, ‘Rf_formatComplex’
+        * src/api.cpp (Rcpp): Commented-out coerce_to_string() for real and
+        complex arguments as R-devel (as of today) dislikes use of non-API
+        functions Rf_EncodeComplex’, ‘Rf_EncodeReal’, ‘Rf_formatComplex’
 
-	* .Rbuildignore: Added inst/include/Rcpp/preprocessor and
-	sugar/functions/impl which are currently empty directories
+        * .Rbuildignore: Added inst/include/Rcpp/preprocessor and
+        sugar/functions/impl which are currently empty directories
 
-	* src/Timer.cpp (Rcpp): Avoid a 'long long' warning from a const
+        * src/Timer.cpp (Rcpp): Avoid a 'long long' warning from a const
 
 2014-01-15  JJ Allaire <jj@rstudio.org>
 
@@ -792,10 +792,10 @@
 2014-01-13  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: use plugin includes in cppFunction; stop with
-	explicit error on Windows then the Rcpl libPath or sourceCpp target
-	file contains spaces in it's path; add source file directory as an
-	include path for sourceCpp; special handling for sourceCpp include
-	paths on windows
+        explicit error on Windows then the Rcpl libPath or sourceCpp target
+        file contains spaces in it's path; add source file directory as an
+        include path for sourceCpp; special handling for sourceCpp include
+        paths on windows
         * man/pluginsAttribute.Rd: clarify which fields of plugin are
         used by sourceCpp
 
@@ -821,18 +821,18 @@
 
 2013-01-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Timer.cpp (Rcpp): Applied refinement of previously applied
-	patch re *BSD builds, see http://bugs.debian.org/697032 for more
+        * src/Timer.cpp (Rcpp): Applied refinement of previously applied
+        patch re *BSD builds, see http://bugs.debian.org/697032 for more
 
 2012-12-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Timer.cpp (Rcpp): Added defined() tests for more *BSD family
-	members as the build also failed with the FreeBSD Kernel on Debian
+        * src/Timer.cpp (Rcpp): Added defined() tests for more *BSD family
+        members as the build also failed with the FreeBSD Kernel on Debian
 
 2012-12-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Timer.cpp (Rcpp): Applied patch kindly supplied by Rainer
-	Hurling to support compilation on FreeBSD
+        * src/Timer.cpp (Rcpp): Applied patch kindly supplied by Rainer
+        Hurling to support compilation on FreeBSD
 
 2012-12-26  JJ Allaire <jj@rstudio.org>
 
@@ -885,14 +885,14 @@
         * inst/include/Rcpp/config.h: Release 0.10.2
         * debian/*: Similarly updated for new release to Debian
 
-	* inst/doc/unitTests/Rcpp-unitTests.R: added one more variable so
-	that unitTest vignette can be built against new sourceCpp based files
+        * inst/doc/unitTests/Rcpp-unitTests.R: added one more variable so
+        that unitTest vignette can be built against new sourceCpp based files
 
 2012-12-15 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/exceptions.h: added exception_to_r_condition
         * exceptions.cpp: new implementation of forward_exception_to_r that
-	directly calls stop rather than a function in Rcpp
+        directly calls stop rather than a function in Rcpp
         * R/exceptions.R: remove code rendered useless
         * src/Rcpp_init.c: less exports
         * src/api.cpp: less going back to the R side
@@ -907,18 +907,18 @@
 
         * src/Attributes.R: always generate new dynlib file for rebuild=TRUE
         * src/attributes.cpp: set svn:eol-style to native; always generate
-	new dynlib file for rebuild=TRUE; don't declare attributes constant
-	strings extern
+        new dynlib file for rebuild=TRUE; don't declare attributes constant
+        strings extern
 
 2012-12-12 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/Symbol.h: c_str becomes const and added
-	Symbol::operator==(const char* )
+        Symbol::operator==(const char* )
 
 2012-12-11  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: always print output when shared library is not
-	created
+        created
         * src/attributes.cpp: consolidate attributes into single file
         * src/Attributes.cpp: consolidate attributes into single file
         * src/AttributesGen.h: consolidate attributes into single file
@@ -929,14 +929,14 @@
         * src/AttributesUtil.h: consolidate attributes into single file
         * inst/NEWS.Rd: additional notes on changes to attributes
         * inst/doc/Rcpp-attributes/Rcpp-attributes.Rnw: update for changes to
-	attributes in 0.10.2
+        attributes in 0.10.2
 
 2012-12-11 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/String.h: missing operator +=( const StringProxy& )
         * include/Rcpp/sugar/functions/strings/strings.h : string sugar functions
         * include/Rcpp/sugar/functions/strings/collapse.h : collapse
-	function, implementing paste( . , collapse = "" )
+        function, implementing paste( . , collapse = "" )
         * include/Rcpp/complex.h: operator==( Rcomplex, Rcomplex )
         * src/api.cpp: implementation of operator==(Rcomplex, Rcomplex)
         * include/Rcpp/vector/Vector.h: added const version of operator[](string)
@@ -944,8 +944,8 @@
 2012-12-10  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: warn when depends attribute is not matched with
-	required entries in package description; add Rtools to PATH for
-	duration of sourceCpp
+        required entries in package description; add Rtools to PATH for
+        duration of sourceCpp
         * src/Attributes.cpp: warn when depends attribute is not matched with
         required entries in package description
         * src/AttributesGen.cpp: prune unnecessary includes from RcppExports
@@ -957,7 +957,7 @@
         and debugging.cpp content
         * include/platform/compiler.h: put here compiler specific deduction things
         * src/internal.h: new header to host function declarations for
-	routines that are not exported into Rcpp.h
+        routines that are not exported into Rcpp.h
         * src/Rcpp_init.c: export capabilities (renamed rcpp_capabilities)
         * include/Rcpp/traits/traits.h: master file for all traits includes
         * include/Rcpp/macros/macros.h: master file for all macros includes
@@ -965,7 +965,7 @@
         * include/Rcpp/Benchmark/Timer.h: move it into the Rcpp:: namespace
         * include/Rcpp/cache.h: clean
         * include/Rcpp/Reference.h : field was declared const and should not
-	be.  added a ConstFieldProxy class for read only use
+        be.  added a ConstFieldProxy class for read only use
 
 2012-12-09 Romain Francois <romain@r-enthusiasts.com>
 
@@ -992,9 +992,9 @@
 
         * src/random.cpp: instantiations of random generators here
         * include/Rcpp/stats/random/random.h: only have declarations of
-	random generators here. Rework the Generator template so that it
-	inherits RNGScope to provide automatic calls to GetRNGstate and
-	PutRNGstate
+        random generators here. Rework the Generator template so that it
+        inherits RNGScope to provide automatic calls to GetRNGstate and
+        PutRNGstate
 
 2012-12-06  JJ Allaire <jj@rstudio.org>
 
@@ -1015,13 +1015,13 @@
 
 2012-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/exceptions.cpp: Added include of cstdlib to compile
+        * src/exceptions.cpp: Added include of cstdlib to compile
 
 2012-12-06 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/api/meat/Environment.h: meat for Environment
         * src/exceptions.cpp: include config so that it knows that Rcpp can
-	demangle
+        demangle
         * unitTests/runit.environments.R: using sourceCpp
         * src/Environment.cpp: less includes
         * src/Evaluator.cpp: less includes
@@ -1030,11 +1030,11 @@
 
         * src/cache.cpp: added get_cache
         * include/Rcpp/hash/IndexHash.h: use a cached integer vector for the
-	hash table payload. The cache vector increases as needed.
+        hash table payload. The cache vector increases as needed.
         * include/Rcpp/iostream/Rostream.h: make Rostream a template
         * include/Rcpp/iostream/Rstreambuf.h: make Rstreambuf a template
         * src/AttributesGen.cpp : include exceptions.h which was included
-	implicitely by Rostream.h before
+        implicitely by Rostream.h before
         * include/Rcpp/macros/debug.h : factor out the debugging macros
         * include/Rcpp/api/meat/RObject.h : only declare templates that use
         as and wrap. they are implemented later in the meat directory
@@ -1060,7 +1060,7 @@
 
 2012-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/hash/hash.h: Added include inttypes.h for intptr_t
+        * inst/include/Rcpp/hash/hash.h: Added include inttypes.h for intptr_t
 
 2012-12-04  JJ Allaire <jj@rstudio.org>
 
@@ -1078,31 +1078,31 @@
 2012-12-04 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/hash/hash.h: new implementation of IndexHash, based on
-	Simon's fastmatch package
+        Simon's fastmatch package
         * include/Rcpp/sugar/functions/match.h: more efficient version of match
         using new IndexHash
         * include/Rcpp/sugar/functions/unique.h: more efficient version of
-	unique and in using IndexHash
+        unique and in using IndexHash
         * include/Rcpp/sugar/functions/duplicated.h: more efficient version
-	of duplicated and in using IndexHash
+        of duplicated and in using IndexHash
         * include/Rcpp/sugar/functions/self_match.h: more efficient version
-	of self_match and in using IndexHash
+        of self_match and in using IndexHash
         * include/Rcpp/vector/Vector.h: more efficiently create Vector from
-	sugar expression that are already vectors, i.e. grab the SEXP
+        sugar expression that are already vectors, i.e. grab the SEXP
 
 2012-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/RcppCommon.h: Applied patch kindly contributed by Yan
-	Zhou which provides a number of more refined definition for support
-	of both the C++11 standard and different compilers
-	* inst/include/Rcpp/internal/wrap.h: Idem
-	* inst/include/Rcpp/sugar/sugar.h: Idem
-	* inst/include/Rcpp/traits/comparator_type.h: Idem
-	* inst/include/Rcpp/vector/Vector.h: Idem
-	* inst/unitTests/runit.wrap.R: Idem
-	* src/RcppCommon.cpp: Idem
+        * inst/include/RcppCommon.h: Applied patch kindly contributed by Yan
+        Zhou which provides a number of more refined definition for support
+        of both the C++11 standard and different compilers
+        * inst/include/Rcpp/internal/wrap.h: Idem
+        * inst/include/Rcpp/sugar/sugar.h: Idem
+        * inst/include/Rcpp/traits/comparator_type.h: Idem
+        * inst/include/Rcpp/vector/Vector.h: Idem
+        * inst/unitTests/runit.wrap.R: Idem
+        * src/RcppCommon.cpp: Idem
 
-	* DESCRIPTION: Increase minor dev. version once more
+        * DESCRIPTION: Increase minor dev. version once more
 
 2012-12-03  JJ Allaire <jj@rstudio.org>
 
@@ -1114,7 +1114,7 @@
         * src/Module.cpp: move BEGIN_RCPP/END_RCPP to Module__invoke
         * src/coerce.cpp: added coerce_to_string implementations
         * include/RcppCommon.h : nicer formatting for RCPP_DEBUG_*, now up to
-	RCPP_DEBUG_5
+        RCPP_DEBUG_5
         * include/Rcpp/vector/Vector.h: debugging
         * include/Rcpp/String.h: The String class
         * include/Rcpp/as.h: support for String
@@ -1131,8 +1131,8 @@
 
 2012-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/RcppCommon.h: Applied patch by Yan Zhou to add support
-	for clang++ with libc++, and Intel's icpc when std=c++11
+        * inst/include/RcppCommon.h: Applied patch by Yan Zhou to add support
+        for clang++ with libc++, and Intel's icpc when std=c++11
 
 2012-11-29 Romain Francois <romain@r-enthusiasts.com>
 
@@ -1141,7 +1141,7 @@
 
 2012-11-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/iostream/Rostream.h: Check before deleting buf
+        * inst/include/Rcpp/iostream/Rostream.h: Check before deleting buf
 
 2012-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -1150,15 +1150,15 @@
         * inst/include/Rcpp/config.h: Release 0.10.1
         * debian/*: Similarly updated for new release to Debian
 
-	* DESCRIPTION: Added paragraph about Rcpp attributes
-	* debian/control: Idem
+        * DESCRIPTION: Added paragraph about Rcpp attributes
+        * debian/control: Idem
 
 2012-11-26 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/Module.h: comment out the unused and unuseable
-	converter overload.
+        converter overload.
         * include/Rcpp/sugar/functions/pmin.h: be consistent about how the
-	pmin_op helper struct is defined (always a struct).
+        pmin_op helper struct is defined (always a struct).
         * include/Rcpp/sugar/functions/pmax.h: same for pmax
         * include/Rcpp/stats/random/rbeta.h: fixed constructor issue
         * unitTests/runit.sugar.R: rework to use sourceCpp instead of inline
@@ -1183,7 +1183,7 @@
         * src/AttributesParser.cpp : attempt to fix build issue on r-forge
         * include/Rcpp/DataFrame.h: nrows() method
         * include/Rcpp/vector/RangeIndexer.h: now derives from VectorBase so
-	that we can use it in sugar.
+        that we can use it in sugar.
 
 2012-11-22  JJ Allaire <jj@rstudio.org>
 
@@ -1194,7 +1194,7 @@
 2012-11-22 Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream.h: use delete rdbuf() as recommended by
-	Martyn Plummer
+        Martyn Plummer
         * include/Rcpp/sugar/functions/self_match.h: self_match, giving a
         functionality similar to match( x, unique(x) )
         * src/coerce.cpp: added coercion to STRSXP
@@ -1214,16 +1214,16 @@
 
 2012-11-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/Misc/piBySimulation.r: New simple example using Rcpp
-	attributes in a 'compute pi by simulation in R and C++' exercise
-	* inst/examples/Misc/piSugar.cpp: Corresponding C++ variant
+        * inst/examples/Misc/piBySimulation.r: New simple example using Rcpp
+        attributes in a 'compute pi by simulation in R and C++' exercise
+        * inst/examples/Misc/piSugar.cpp: Corresponding C++ variant
 
 2012-11-21  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream/Rostream.h: Fix warning given by -Wreorder
         * include/Rcpp/sugar/functions/mapply/mapply_3.h: more flexible
         * include/Rcpp/vector/Vector.h: More efficient assign_object, which
-	is used in the assignment operator
+        is used in the assignment operator
         * include/Rcpp/sugar/functions/clamp.h: added clamp function
 
 2012-11-20  JJ Allaire <jj@rstudio.org>
@@ -1235,11 +1235,11 @@
 2012-11-20  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/iostream/Rostream.h: change order of initiaization in
-	ctor. was making solaris compiler unhappy
+        ctor. was making solaris compiler unhappy
         * include/Rcpp/stats/random/rnorm.h: not using function pointer
-	generators, as this generates (anachronisms) warning on
-	solaris. Also, this version is more efficient since there is no need
-	to dereference the function pointer
+        generators, as this generates (anachronisms) warning on
+        solaris. Also, this version is more efficient since there is no need
+        to dereference the function pointer
 
 2012-11-19  JJ Allaire <jj@rstudio.org>
 
@@ -1255,7 +1255,7 @@
 2012-11-18  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: sourceCpp embedded R code; print warning if no
-	export attributes are found in source file
+        export attributes are found in source file
         * src/AttributesParser.h: sourceCpp embedded R code
         * src/AttributesParser.cpp: sourceCpp embedded R code; new scheme
         for mixing user and generated C++ headers
@@ -1267,29 +1267,29 @@
 2012-11-18  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/converter.h: allow CharacterVector::create(
-	NA_STRING )
+        NA_STRING )
         * include/Rcpp/sugar/functions/mapply/mapply_2.h: more cases in mapply
 
 2012-11-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Change free function name
-	'range' to 'uniformRange' to protect it from getting clobbered by the
-	new sugar function range.
+        * inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Change free function name
+        'range' to 'uniformRange' to protect it from getting clobbered by the
+        new sugar function range.
 
 2012-11-17  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/internal/wrap_end.h: have calls to wrap as late as
-	possible so that they "see" all (potentially user defined) overloads
-	of wrap.
+        possible so that they "see" all (potentially user defined) overloads
+        of wrap.
         * include/Rcpp/internal/SEXP_Iterator.h: directly iterate over SEXP.
         const iterator for List and ExpressionVector
 
 2012-11-16  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/Vector.h : added static methods Vector::is_na
-	and Vector::get_na
+        and Vector::get_na
         * include/Rcpp/sugar/functions/setdiff.h: initial version of setdiff
-	and intersect
+        and intersect
         * include/Rcpp/vector/MatrixColumn.h: dealing with const-ness
         * include/Rcpp/vector/MatrixRow.h: dealing with const-ness
         * include/Rcpp/vector/traits.h: dealing with const-ness
@@ -1300,27 +1300,27 @@
 2012-11-15  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/logical/SingleLogicalResult.h : apply patch
-	suggested by Karl Millar
+        suggested by Karl Millar
         * R/Attributes.R: new R function areMacrosDefined
         * man/evalCpp.Rd: documentation update
         * include/Rcpp/sugar/functions/match.h : generic version of match
         * include/Rcpp/sugar/tools/iterator.h: help iterator that helps
-	writing match in terms of stl algorithms.
+        writing match in terms of stl algorithms.
         * include/Rcpp/vector/Vector.h: class no_init that can be used to create
         an uninitialized vector. e.g. IntegerVector out = no_init(10) ;
         * include/Rcpp/sugar/functions/unique.h: sugar version of %in% using
-	unordered_set
+        unordered_set
         * include/Rcpp/sugar/functions/minmax.h: min, max, and range
 
 2012-11-14  JJ Allaire <jj@rstudio.org>
 
         * src/Attributes.cpp: create sourceCpp context list using single
-	statement
+        statement
 
 2012-11-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/announce/ANNOUNCE-0.10.0.txt: Fix typo spotted by Martin
-	Morgan in announcement mail
+        * inst/announce/ANNOUNCE-0.10.0.txt: Fix typo spotted by Martin
+        Morgan in announcement mail
 
 2012-11-14  Romain Francois <romain@r-enthusiasts.com>
 
@@ -1348,16 +1348,16 @@
 
 2012-11-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/announce/ANNOUNCE-0.10.0.txt: Announcement draft
+        * inst/announce/ANNOUNCE-0.10.0.txt: Announcement draft
 
 2012-11-12  JJ Allaire <jj@rstudio.org>
 
-	* inst/doc/Rcpp-attributes/*: New vignette
+        * inst/doc/Rcpp-attributes/*: New vignette
 
 2012-11-12  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/vector/Vector.h : adding const_iterator and associated
-	begin() and end() methods
+        begin() and end() methods
         * include/Rcpp/vector/Matrix.h : idem
 
 2012-11-11  JJ Allaire <jj@rstudio.org>
@@ -1385,8 +1385,8 @@
         * R/Attributes.R: Passing verbose from evalCpp to cppFunction
         * include/RcppCommon.h: include <limits> instead of <limits.h>
         * include/Rcpp/vector/CharacterVectorExtractionIterator.h: iterator
-	class to quickly iterate over the content of a CharacterVector. The
-	content that is iterated over is to be considered read-only.
+        class to quickly iterate over the content of a CharacterVector. The
+        content that is iterated over is to be considered read-only.
 
 2012-11-08  JJ Allaire <jj@rstudio.org>
 
@@ -1413,8 +1413,8 @@
 2012-11-07  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: derive depends from package LinkingTo; change
-	sourceCpp plugin parameter to depends and respect Rcpp::interfaces
-	generated include files
+        sourceCpp plugin parameter to depends and respect Rcpp::interfaces
+        generated include files
         * src/Attributes.cpp: validate exported C++ functions before calling;
         use static rather than inline for stubs to avoid call-site bloat;
         improved error message when package hpp already exists; import Rcpp
@@ -1464,10 +1464,10 @@
 
 2012-11-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* tests/doRUnit.R: In "development releases" (such as 0.9.15.5) we
-	now default to setting the required CRAN-test-workaround-kludge
-	"RunAllRcppTests" to "yes" as a default -- but not for actual
-	releases (with versions such as 0.9.15)
+        * tests/doRUnit.R: In "development releases" (such as 0.9.15.5) we
+        now default to setting the required CRAN-test-workaround-kludge
+        "RunAllRcppTests" to "yes" as a default -- but not for actual
+        releases (with versions such as 0.9.15)
 
 2012-11-04  Romain Francois <romain@r-enthusiasts.com>
 
@@ -1488,50 +1488,50 @@
 
 2012-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.rmath.R: More tests added
+        * inst/unitTests/runit.rmath.R: More tests added
 
 2012-11-02  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/module/CppFunction.h : factored CppFunction in its own
-	file and added the get_function_ptr virtual method. added
-	documentation
+        file and added the get_function_ptr virtual method. added
+        documentation
         * include/Rcpp/module/Module_generated_CppFunction.h: implementation
-	of get_function_ptr in classes that derive CppFunction
+        of get_function_ptr in classes that derive CppFunction
         * src/Module.cpp: s/get_function_ptr/get_function/
         * include/Rcpp/module/Module.h : factored out and documented.
-	s/get_function_ptr/get_function/
+        s/get_function_ptr/get_function/
 
 2012-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.rmath.R: New unit test file added
+        * inst/unitTests/runit.rmath.R: New unit test file added
 
 2012-11-01  JJ Allaire <jj@rstudio.org>
 
-	* R/Attributes.R: change 'envir' param to 'env' for consistency with
-	the interface of loadModule
-	* man/sourceCpp.Rd: documentation updates
-	* man/cppFunction.Rd: documentation updates
+        * R/Attributes.R: change 'envir' param to 'env' for consistency with
+        the interface of loadModule
+        * man/sourceCpp.Rd: documentation updates
+        * man/cppFunction.Rd: documentation updates
 
 2012-11-01  Romain Francois <romain@r-enthusiasts.com>
 
         * include/Rcpp/sugar/logical/or.h : implementing x | y where x and y
-	are Logical sugar expressions
+        are Logical sugar expressions
         * include/Rcpp/sugar/logical/and.h : implementing x & y where x and y
-	are Logical sugar expressions
+        are Logical sugar expressions
 
 2012-10-31  JJ Allaire <jj@rstudio.org>
 
-	* R/Attributes.R: add cppFunction for inline-style definitions;
-	change 'local' param to (more clear and explicit) 'envir' param;
-	change 'show.output' param to 'showOutput'; add parameter to
-	onBuild hook to indicate if the source was from a 'code' parameter
-	* src/Attributes.cpp: factored parser into it's own file
-	* src/AttributesParser.h: attributes parser header
-	* src/AttributesParser.cpp: attributes parser implementation
-	* man/sourceCpp.Rd: documentation updates
-	* man/compileAttributes.Rd: documentation updates
-	* man/cppFunction.Rd: documentation for cppFunction
-	* NAMESPACE: export for cppFunction
+        * R/Attributes.R: add cppFunction for inline-style definitions;
+        change 'local' param to (more clear and explicit) 'envir' param;
+        change 'show.output' param to 'showOutput'; add parameter to
+        onBuild hook to indicate if the source was from a 'code' parameter
+        * src/Attributes.cpp: factored parser into it's own file
+        * src/AttributesParser.h: attributes parser header
+        * src/AttributesParser.cpp: attributes parser implementation
+        * man/sourceCpp.Rd: documentation updates
+        * man/compileAttributes.Rd: documentation updates
+        * man/cppFunction.Rd: documentation for cppFunction
+        * NAMESPACE: export for cppFunction
 
 2012-10-31  Romain Francois <romain@r-enthusiasts.com>
 
@@ -1539,25 +1539,25 @@
         be too big. class_ gains a derives<Parent>( "Parent" ) for so that the
         class inherits method that were exposed by its parent.
         * include/Rcpp/Module.h: template class CppInheritedMethod for
-	implementing inherited method
+        implementing inherited method
         * src/Module.cpp: get_class_pointer implementation
 
 2012-10-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Rmath.h: Finalised adding Rmath functions
+        * inst/include/Rcpp/Rmath.h: Finalised adding Rmath functions
 
 2012-10-30  JJ Allaire <jj@rstudio.org>
 
-	* R/Attributes.R: new functions sourceCpp and compileAttributes that
-	use C++11 style attributes (embedded in comments) to perform
-	automatic generation of boilerplate marshaling code
-	* src/Attributes.cpp: support functions for attribute handling
-	* include/Rcpp/exceptions.h: file io exception classes
-	* man/sourceCpp.Rd: documentation for sourceCpp
-	* man/compileAttributes.Rd: documentation for compileAttributes
-	* man/exportAttriute.Rd: documentation for export attribute
-	* man/dependsAttribute.Rd: documentation for depends attribute
-	* NAMESPACE: exports for sourceCpp and compileAttributes
+        * R/Attributes.R: new functions sourceCpp and compileAttributes that
+        use C++11 style attributes (embedded in comments) to perform
+        automatic generation of boilerplate marshaling code
+        * src/Attributes.cpp: support functions for attribute handling
+        * include/Rcpp/exceptions.h: file io exception classes
+        * man/sourceCpp.Rd: documentation for sourceCpp
+        * man/compileAttributes.Rd: documentation for compileAttributes
+        * man/exportAttriute.Rd: documentation for export attribute
+        * man/dependsAttribute.Rd: documentation for depends attribute
+        * NAMESPACE: exports for sourceCpp and compileAttributes
 
 2012-10-30  Romain Francois <romain@r-enthusiasts.com>
 
@@ -1568,85 +1568,85 @@
 
 2012-10-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Rmath.h: More Rmath functions
+        * inst/include/Rcpp/Rmath.h: More Rmath functions
 
 2012-10-29  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/Module.R: Taking care of a check warning
-	* include/Rcpp/module/macros.h: adding RCPP_EXPOSED_CLASS_NODECL
-	* include/Rcpp/Module.h: introducing converter to facilitate
-	conversion between classes.
-	* R/Module.R: Methods registered internally with converter will
-	generate the appropriate "as" S4 method.
+        * R/Module.R: Taking care of a check warning
+        * include/Rcpp/module/macros.h: adding RCPP_EXPOSED_CLASS_NODECL
+        * include/Rcpp/Module.h: introducing converter to facilitate
+        conversion between classes.
+        * R/Module.R: Methods registered internally with converter will
+        generate the appropriate "as" S4 method.
 
 2012-10-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Rmath.h: Beginnings of a namespave 'R' around
-	Rmath functions so that Rcpp users can call the (scalar) functions
-	R::pnorm() which helps with adapting or integrating programs writting
-	outside of Rcpp
+        * inst/include/Rcpp/Rmath.h: Beginnings of a namespave 'R' around
+        Rmath functions so that Rcpp users can call the (scalar) functions
+        R::pnorm() which helps with adapting or integrating programs writting
+        outside of Rcpp
 
 2012-10-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/module/macros.h: Add forward declaration of class
-	to macro 'RCPP_EXPOSED_CLASS'
+        * inst/include/Rcpp/module/macros.h: Add forward declaration of class
+        to macro 'RCPP_EXPOSED_CLASS'
 
 2012-10-25  Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/internal/wrap.h: wrapping module object with the help
-	of the RCPP_EXPOSED_CLASS
-	* include/Rcpp/module/macros.h: improving the macros so that wrap and
-	as are covered
-	* include/Rcpp/traits/wrap_type_traits.h: wrapping module objects
-	* include/Rcpp/module/Module_generated_class_factory.h : factories
-	are alternatives to constructors. For now, we can expose as factories
-	any free function that returns a pointer to the target class
-	* include/Rcpp/module/Module_generated_Factory.h : factories
-	* include/Rcpp/Module.h: exposing factories
+        * include/Rcpp/internal/wrap.h: wrapping module object with the help
+        of the RCPP_EXPOSED_CLASS
+        * include/Rcpp/module/macros.h: improving the macros so that wrap and
+        as are covered
+        * include/Rcpp/traits/wrap_type_traits.h: wrapping module objects
+        * include/Rcpp/module/Module_generated_class_factory.h : factories
+        are alternatives to constructors. For now, we can expose as factories
+        any free function that returns a pointer to the target class
+        * include/Rcpp/module/Module_generated_Factory.h : factories
+        * include/Rcpp/Module.h: exposing factories
 
 2012-10-24  Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/traits/is_pointer.h: traits to identify if a type is a
-	pointer
-	* include/Rcpp/traits/un_pointer.h: traits to remove a pointer
-	* include/Rcpp/module/Module_generated_get_return_type.h : handle
-	pointer return types
-	* include/Rcpp/config.h: define RCPP_HAS_DEMANGLING for MAC OS <=
-	10.7 (up to Lion)
-	* include/Rcpp/module/macros.h: new file that contains macro to help
-	with modules
-	* include/Rcpp/traits/r_type_traits.h : new tag to allow as<T> where
-	T is some class exposed in a module
-	* include/Rcpp/as.h : implementation of as<T> in that case
+        * include/Rcpp/traits/is_pointer.h: traits to identify if a type is a
+        pointer
+        * include/Rcpp/traits/un_pointer.h: traits to remove a pointer
+        * include/Rcpp/module/Module_generated_get_return_type.h : handle
+        pointer return types
+        * include/Rcpp/config.h: define RCPP_HAS_DEMANGLING for MAC OS <=
+        10.7 (up to Lion)
+        * include/Rcpp/module/macros.h: new file that contains macro to help
+        with modules
+        * include/Rcpp/traits/r_type_traits.h : new tag to allow as<T> where
+        T is some class exposed in a module
+        * include/Rcpp/as.h : implementation of as<T> in that case
 
 2012-10-23  Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/internal/wrap.h: new function module_wrap used
-	internally by modules
-	* include/Rcpp/module/Module_generated_CppMethod.h: using module_wrap
-	and simplified the code (removing 35% of the generated code now
-	rendered useless)
-	* include/Rcpp/module/Module_generated_PointerCppMethod.h: using
-	module_wrap and simplified the code
-	* include/Rcpp/traits/module_wrap_traits.h : new file. helping
-	implementation of module_wrap
+        * include/Rcpp/internal/wrap.h: new function module_wrap used
+        internally by modules
+        * include/Rcpp/module/Module_generated_CppMethod.h: using module_wrap
+        and simplified the code (removing 35% of the generated code now
+        rendered useless)
+        * include/Rcpp/module/Module_generated_PointerCppMethod.h: using
+        module_wrap and simplified the code
+        * include/Rcpp/traits/module_wrap_traits.h : new file. helping
+        implementation of module_wrap
 
-	* R/00_classes.R: C++OverloadedMethods gets the field "nargs" to
-	capture the number of arguments
+        * R/00_classes.R: C++OverloadedMethods gets the field "nargs" to
+        capture the number of arguments
 
-	* R/01_show.R: cleanup
+        * R/01_show.R: cleanup
 
-	* R/Module.R: handle the case where a method has no argument. In that
-	case, the ellipsis does not end up in the formals
+        * R/Module.R: handle the case where a method has no argument. In that
+        case, the ellipsis does not end up in the formals
 
-	* include/Rcpp/Module.h: exposing nargs in C++OverloadedMethods
+        * include/Rcpp/Module.h: exposing nargs in C++OverloadedMethods
 
 2012-10-22  Romain Francois <romain@r-enthusiasts.com>
 
-	* include/Rcpp/as.h: support for as<> for module objects
-	* include/Rcpp/Module.h: idem
-	* include/Rcpp/traits/r_type_traits.h: idem
-	* src/Module.cpp: idem
+        * include/Rcpp/as.h: support for as<> for module objects
+        * include/Rcpp/Module.h: idem
+        * include/Rcpp/traits/r_type_traits.h: idem
+        * src/Module.cpp: idem
 
 2012-10-21  Romain Francois <romain@r-enthusiasts.com>
 
@@ -1663,35 +1663,35 @@
 
 2012-10-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/exceptions.cpp: Additional PROTECT for parsing exception
-	messages before returning them to R, from a suggestion by Ben North
+        * src/exceptions.cpp: Additional PROTECT for parsing exception
+        messages before returning them to R, from a suggestion by Ben North
 
 2012-10-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.Date.R: Added a few more tests
+        * inst/unitTests/runit.Date.R: Added a few more tests
 
 2012-10-06  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Date.h: Dates are now represented as doubles,
-	also added accessor functions for double and retained int
+        * inst/include/Rcpp/Date.h: Dates are now represented as doubles,
+        also added accessor functions for double and retained int
 
-	* src/Date.cpp: Convert from SEXP to double, added constructor from
-	double and added checks for 'finite' representation before converting
-	to 'struct tm' adding support for NA, NaN and Inf
+        * src/Date.cpp: Convert from SEXP to double, added constructor from
+        double and added checks for 'finite' representation before converting
+        to 'struct tm' adding support for NA, NaN and Inf
 
-	* src/DateVector.cpp: Instantiate Date types as double
+        * src/DateVector.cpp: Instantiate Date types as double
 
-	* src/Datetime.cpp: Also added support for NA, NaN and Inf values
+        * src/Datetime.cpp: Also added support for NA, NaN and Inf values
 
-	* inst/unitTests/runit.Date.R: A few additional tests
+        * inst/unitTests/runit.Date.R: A few additional tests
 
 2012-10-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/exceptions.cpp: Applied patch by Martin Morgan which untangles
-	the clang includes driven by version, and uses direct tests for
-	presence of the header file
-	* inst/include/RcppCommon.h: No longer define CLANG version meta
-	variables as we can directly include the relevant header
+        * src/exceptions.cpp: Applied patch by Martin Morgan which untangles
+        the clang includes driven by version, and uses direct tests for
+        presence of the header file
+        * inst/include/RcppCommon.h: No longer define CLANG version meta
+        variables as we can directly include the relevant header
 
 2012-09-30  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -1702,44 +1702,44 @@
 
 2012-09-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.sugarOps.R: More sugar Ops unit tests
+        * inst/unitTests/runit.sugarOps.R: More sugar Ops unit tests
 
 2012-09-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.sugarOps.R: (Incomplete) beginnings of new
-	unit test file for sugar operations on vectors and matrices
+        * inst/unitTests/runit.sugarOps.R: (Incomplete) beginnings of new
+        unit test file for sugar operations on vectors and matrices
 
 2012-09-07  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/functions/sign.h: Sign gets a SEXP operator
+        * inst/include/Rcpp/sugar/functions/sign.h: Sign gets a SEXP operator
 
 2012-09-03  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sugar/functions/math.h: Added new sugar
-	function trunc(), round() and signif()
-	* inst/unitTests/runit.sugar.R: Added unit tests for these
+        * inst/include/Rcpp/sugar/functions/math.h: Added new sugar
+        function trunc(), round() and signif()
+        * inst/unitTests/runit.sugar.R: Added unit tests for these
 
 2012-09-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Makefile: The 'all' target is now empty to prevent
-	autobuilders such as R-Forge from falling over
+        * inst/doc/Makefile: The 'all' target is now empty to prevent
+        autobuilders such as R-Forge from falling over
 
 2012-07-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/bib.R: Trim the trailing ".bib" from the generated bibtex
-	filename as Windows adds one anyway leading to two and an error
+        * R/bib.R: Trim the trailing ".bib" from the generated bibtex
+        filename as Windows adds one anyway leading to two and an error
 
 2012-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Module.h (Rcpp): Corrected typo / incomplete
-	reference in finalizer use
+        * inst/include/Rcpp/Module.h (Rcpp): Corrected typo / incomplete
+        reference in finalizer use
 
 2012-07-06  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/config.h: In order to not attempt to include
-	exception_defines.h if on OS X (as the clang runtime may not have
-	predictable access to g++ headers providing these), do not define
-	RCPP_HAS_DEMANGLING which is used in src/exceptions.cpp
+        * inst/include/Rcpp/config.h: In order to not attempt to include
+        exception_defines.h if on OS X (as the clang runtime may not have
+        predictable access to g++ headers providing these), do not define
+        RCPP_HAS_DEMANGLING which is used in src/exceptions.cpp
 
 2012-06-28  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -1757,25 +1757,25 @@
 
 2012-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Environment.cpp: Default ctor initializes its RObject with
-	R_GlobalEnv; SEXP constructor does not use a default arg as it tests
-	* inst/include/Rcpp/Environment.h: Corresponding change
+        * src/Environment.cpp: Default ctor initializes its RObject with
+        R_GlobalEnv; SEXP constructor does not use a default arg as it tests
+        * inst/include/Rcpp/Environment.h: Corresponding change
 
-	* inst/include/RcppCommon.h: #define(s) for before/after clang++ 3.0
+        * inst/include/RcppCommon.h: #define(s) for before/after clang++ 3.0
 
-	* src/exceptions.cpp: Added support for clang++ (>= 3.0) which (just
-	like g++ 4.6 or later) needs bits/exceptions_defines
+        * src/exceptions.cpp: Added support for clang++ (>= 3.0) which (just
+        like g++ 4.6 or later) needs bits/exceptions_defines
 
-	* inst/unitTests/runit.modref.R: re-activated
-	* inst/unitTests/runit.Module.client.package.R: re-activated core
+        * inst/unitTests/runit.modref.R: re-activated
+        * inst/unitTests/runit.Module.client.package.R: re-activated core
 
- 	* inst/unitTests/runit.modref.R: Run only if RunAllCppTests var set
-	* inst/unitTests/runit.Module.client.package.R: Idem
-	* inst/unitTests/runit.support.R: Idem
-	* inst/unitTests/runit.rcout.R: Idem
-	* inst/unitTests/runit.environments.R: Idem
-	* inst/unitTests/runit.Language.R: Idem
-	* inst/unitTests/runit.Function.R: Idem
+        * inst/unitTests/runit.modref.R: Run only if RunAllCppTests var set
+        * inst/unitTests/runit.Module.client.package.R: Idem
+        * inst/unitTests/runit.support.R: Idem
+        * inst/unitTests/runit.rcout.R: Idem
+        * inst/unitTests/runit.environments.R: Idem
+        * inst/unitTests/runit.Language.R: Idem
+        * inst/unitTests/runit.Function.R: Idem
 
 2012-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -1784,26 +1784,26 @@
         * inst/include/Rcpp/config.h: Release 0.9.12
         * debian/*: Similarly updated for new release to Debian
 
-	* src/Environment.cpp: Remove empty constructor which is redundant
-	since fix in rev3592 with default SEXP value of R_GlobalEnv
-	* inst/include/Rcpp/Environment.h: Idem
+        * src/Environment.cpp: Remove empty constructor which is redundant
+        since fix in rev3592 with default SEXP value of R_GlobalEnv
+        * inst/include/Rcpp/Environment.h: Idem
 
-	* inst/unitTests/runTests.R (allTests): Command-line flag --allTests
-	sets an environment variable indicating that all tests should run
+        * inst/unitTests/runTests.R (allTests): Command-line flag --allTests
+        sets an environment variable indicating that all tests should run
 
- 	* inst/unitTests/runit.Module.R: Run only if RunAllCppTests var set
-	* inst/unitTests/runit.Module.client.package.R: Idem
-	* inst/unitTests/runit.client.package.R: Idem
-	* inst/unitTests/runit.XPtr.R: Idem
-	* inst/unitTests/runit.macros.R: Idem
+        * inst/unitTests/runit.Module.R: Run only if RunAllCppTests var set
+        * inst/unitTests/runit.Module.client.package.R: Idem
+        * inst/unitTests/runit.client.package.R: Idem
+        * inst/unitTests/runit.XPtr.R: Idem
+        * inst/unitTests/runit.macros.R: Idem
 
-	* inst/doc/unitTests/Rcpp-unitTests.R: Ensure Rcpp-unitTests
-	vignette is built with RunAllCppTests flag set
+        * inst/doc/unitTests/Rcpp-unitTests.R: Ensure Rcpp-unitTests
+        vignette is built with RunAllCppTests flag set
 
-	* cleanup: Also clean in inst/unitTests/testRcppClass/src
+        * cleanup: Also clean in inst/unitTests/testRcppClass/src
 
-	* DESCRIPTION: Set Maintainer: to edd@debian.org as CRAN prefers to
-	receive upload email from the same address the Maintainer field
+        * DESCRIPTION: Set Maintainer: to edd@debian.org as CRAN prefers to
+        receive upload email from the same address the Maintainer field
 
 2012-06-22  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -1812,111 +1812,111 @@
         * inst/include/Rcpp/config.h: Release 0.9.11
         * debian/*: Similarly updated for new release to Debian
 
-	* DESCRIPTION: Increased Depends to R (>= 2.15.1)
+        * DESCRIPTION: Increased Depends to R (>= 2.15.1)
 
 2012-06-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Updated to reflect use
-	under R 2.15.1
-	* inst/skeleton/zzz.R: Idem
+        * inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Updated to reflect use
+        under R 2.15.1
+        * inst/skeleton/zzz.R: Idem
 
 2012-06-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/loadRcppModules.R: Use lib.loc= argument on packageDescription()
-	as suggested by Kurt, and fetch libname from enclosing environment
+        * R/loadRcppModules.R: Use lib.loc= argument on packageDescription()
+        as suggested by Kurt, and fetch libname from enclosing environment
 
-	* DESCRIPTION: Typo and grammar fixes with thanks to Kurt and Doug
+        * DESCRIPTION: Typo and grammar fixes with thanks to Kurt and Doug
 
 2012-05-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/skeleton/zzz.R: Added new 'evalqOnLoad()' call for R-devel,
-	currently commented out
+        * inst/skeleton/zzz.R: Added new 'evalqOnLoad()' call for R-devel,
+        currently commented out
 
 2012-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/skeleton/Num.cpp: Added to Rcpp.package.skeleton(); will be
-	added when module=TRUE in call
-	* inst/skeleton/stdVector.cpp: Idem
+        * inst/skeleton/Num.cpp: Added to Rcpp.package.skeleton(); will be
+        added when module=TRUE in call
+        * inst/skeleton/stdVector.cpp: Idem
 
-	* inst/unitTests/testRcppModule/src/rcpp_module.cpp: added more
-	comments, added copyright header, corrected output of example
-	functions by not escaping "backslash-n" twice
-	* inst/unitTests/testRcppModule/src/stdVector.cpp: added some
-	comments, added copyright header
-	* inst/unitTests/testRcppModule/src/Num.cpp: Idem
+        * inst/unitTests/testRcppModule/src/rcpp_module.cpp: added more
+        comments, added copyright header, corrected output of example
+        functions by not escaping "backslash-n" twice
+        * inst/unitTests/testRcppModule/src/stdVector.cpp: added some
+        comments, added copyright header
+        * inst/unitTests/testRcppModule/src/Num.cpp: Idem
 
-	* inst/unitTests/runit.Module.client.package.R: Added four simple
-	tests for Rcpp Modules
+        * inst/unitTests/runit.Module.client.package.R: Added four simple
+        tests for Rcpp Modules
 
-	* inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Some extensions and
-	clarifications added
+        * inst/doc/Rcpp-modules/Rcpp-modules.Rnw: Some extensions and
+        clarifications added
 
 2012-05-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/iostream/Rostream.h: Added Rstreambuf.h include
-	as per rcpp-devel discussion with Alexey Stukalov
+        * inst/include/Rcpp/iostream/Rostream.h: Added Rstreambuf.h include
+        as per rcpp-devel discussion with Alexey Stukalov
 
 2012-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Expanded R CMD SHLIB discussion
-	after suggested changes from SC8ren HC8jsgaard; also expanded compiler
-	section a little mentioning clang/clang++ and icc.
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Expanded R CMD SHLIB discussion
+        after suggested changes from SC8ren HC8jsgaard; also expanded compiler
+        section a little mentioning clang/clang++ and icc.
 
 2012-05-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Environment.cpp: Move one default argument to Environment.h
-	* src/Function.cpp: Move one default argument to Function.h
-	* inst/THANKS: Thanks to Anirban Mukherjee for these two changes
+        * src/Environment.cpp: Move one default argument to Environment.h
+        * src/Function.cpp: Move one default argument to Function.h
+        * inst/THANKS: Thanks to Anirban Mukherjee for these two changes
 
 2012-04-28  John M Chambers  <jmc@r-project.org>
 
-	* R/RcppClass.R: use globalVariables() from R 2.15.1 (with exists()
-	test to no break older versions) to declare C++ fields and methods
-	* inst/unitTests/testRcppClass/R/load.R: test use
+        * R/RcppClass.R: use globalVariables() from R 2.15.1 (with exists()
+        test to no break older versions) to declare C++ fields and methods
+        * inst/unitTests/testRcppClass/R/load.R: test use
 
 2012-04-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/debugging.cpp: Expanded 'if defined()' test to included Cygwin
-	thanks to a patch submitted by Dario Buttari
+        * src/debugging.cpp: Expanded 'if defined()' test to included Cygwin
+        thanks to a patch submitted by Dario Buttari
 
 2012-04-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Evaluator.cpp: errorOccuredSym never used and commented out
+        * src/Evaluator.cpp: errorOccuredSym never used and commented out
 
 2012-04-18  John M Chambers  <jmc@r-project.org>
 
-	* R/RcppClass.R: New version of setRcppClass, allowing R classes to
-	extend C++ classes used via Rcpp modules
-	* R/loadModule.R: New function, replaces uses of .onLoad()
-	* man/*: Added/updated corresponding documentation
+        * R/RcppClass.R: New version of setRcppClass, allowing R classes to
+        extend C++ classes used via Rcpp modules
+        * R/loadModule.R: New function, replaces uses of .onLoad()
+        * man/*: Added/updated corresponding documentation
 
 2012-04-07  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h: bug fix. reported on Rcpp-devel
-	http://comments.gmane.org/gmane.comp.lang.r.rcpp/3292
+        * inst/include/Rcpp/vector/Vector.h: bug fix. reported on Rcpp-devel
+        http://comments.gmane.org/gmane.comp.lang.r.rcpp/3292
 
 2012-03-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.Vector.R: unit test for containsElementNamed
+        * inst/unitTests/runit.Vector.R: unit test for containsElementNamed
 
 2012-03-29  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h: Vector<> gains the
-	containsElementNamed method to test for presence of named element
+        * inst/include/Rcpp/vector/Vector.h: Vector<> gains the
+        containsElementNamed method to test for presence of named element
 
 2012-03-24  Romain Francois  <romain@r-enthusiasts.com>
 
-	* src/cache.cpp: Using a single Rcpp_cache, stored in the Rcpp
-	namespace
+        * src/cache.cpp: Using a single Rcpp_cache, stored in the Rcpp
+        namespace
 
-	* src/Evaluator.cpp: Using tryCatch instead of rcpp_tryCatch, no more
-	using .Internal; but still define rcpp_TryCatch for backwards compat.
+        * src/Evaluator.cpp: Using tryCatch instead of rcpp_tryCatch, no more
+        using .Internal; but still define rcpp_TryCatch for backwards compat.
 
 2012-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added short subsection on how to
-	test a package from the command-line, expanding a patch by Glenn
-	Lawyer in response to an initial rcpp-devel post by Dirk
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added short subsection on how to
+        test a package from the command-line, expanding a patch by Glenn
+        Lawyer in response to an initial rcpp-devel post by Dirk
 
 2012-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -1927,8 +1927,8 @@
 
 2012-02-16  Douglas Bates  <bates@stat.wisc.edu>
 
-	* src/Evaluator.cpp: PROTECT the expr argument to Evaluator::Run.
-	Reorganize code.
+        * src/Evaluator.cpp: PROTECT the expr argument to Evaluator::Run.
+        Reorganize code.
 
 2011-12-15  Douglas Bates  <bates@stat.wisc.edu>
 
@@ -1936,30 +1936,30 @@
 
 2012-02-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/excections.R: Revert to previous use with .Internal
+        * R/excections.R: Revert to previous use with .Internal
         * R/tools.R: Add branch for R 2.15.0 which can use
-	assingInMyNamespace; else still use unlockBinding
+        assingInMyNamespace; else still use unlockBinding
 
 2012-02-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* Rcpp-introduction.Rnw: Small wording fix thanks to Pat Burns
+        * Rcpp-introduction.Rnw: Small wording fix thanks to Pat Burns
 
 2012-02-06  Romain Francois  <romain@r-enthusiasts.com>
 
         * R/exceptions.R: one less .Internal call
-	* src/Evaluator.cpp: one less .Internal call
+        * src/Evaluator.cpp: one less .Internal call
 
 2012-02-03  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/Extractor.h: remove use of Fast in Extractor
 
         * inst/include/Rcpp/sugar/functions/mapply/mapply.h: new sugar
-	function, similar to sapply, but with 2 or 3 (for now) input vectors
+        function, similar to sapply, but with 2 or 3 (for now) input vectors
 
 2012-02-01  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/iostream/Rostream.h: no need to include Rcpp.h
-	here
+        here
 
         * inst/include/RcppCommon.h: include Rostream.h here, instead of ...
 
@@ -1972,13 +1972,13 @@
 
 2012-01-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New FAQ entry on passing a single
-	option to g++, based on a rcpp-devel question by Whit Armstrong.
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New FAQ entry on passing a single
+        option to g++, based on a rcpp-devel question by Whit Armstrong.
 
 2012-01-15  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/vector/Vector.h: fixing IntegerVector(int,int),
-	reported by Gregor Kastner on rcpp-devel
+        reported by Gregor Kastner on rcpp-devel
         * inst/unitTests/runit.Vector.R: regression test for the above
 
 2011-12-25  Dirk Eddelbuettel  <edd@debian.org>
@@ -1990,25 +1990,25 @@
 
 2011-12-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* Reverting the 'int64' changes listed below (during the period from
-	  Oct-31 to Nov-07) which adversely affect packages using Rcpp
-	  We will re-apply the 'int64' changes in a way which should
-	  cooperate more easily with 'long' and 'unsigned long'
-	  This covered svn revisions 3264 to 3308.
+        * Reverting the 'int64' changes listed below (during the period from
+          Oct-31 to Nov-07) which adversely affect packages using Rcpp
+          We will re-apply the 'int64' changes in a way which should
+          cooperate more easily with 'long' and 'unsigned long'
+          This covered svn revisions 3264 to 3308.
 
-	* DESCRIPTION: Remove (for now) Depends: on int64
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Ditto for int64_t example
+        * DESCRIPTION: Remove (for now) Depends: on int64
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Ditto for int64_t example
 
-	* inst/unitTests/runit.Module.client.package.R: On Windows,
-	deactivate 'test.Module.package'
+        * inst/unitTests/runit.Module.client.package.R: On Windows,
+        deactivate 'test.Module.package'
 
-	* inst/unitTests/runit.client.package.R: On Windows, deactivate
-	'test.client.packageA' test
+        * inst/unitTests/runit.client.package.R: On Windows, deactivate
+        'test.client.packageA' test
 
 2011-12-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runTests.R: unit tests output 'fallback' directory
-	changed to '..' and files are now in top-level of $pkg.Rcheck/
+        * inst/unitTests/runTests.R: unit tests output 'fallback' directory
+        changed to '..' and files are now in top-level of $pkg.Rcheck/
 
 2011-12-21  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -2019,79 +2019,79 @@
 
 2011-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/skeleton/zzz.R (.onLoad): correct order of arguments
+        * inst/skeleton/zzz.R (.onLoad): correct order of arguments
 
 2011-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/FastLM/lmArmadillo.R: Link with -llapack when using
-	external Armadillo library (but RcppArmadillo makes all	this easier)
+        * inst/examples/FastLM/lmArmadillo.R: Link with -llapack when using
+        external Armadillo library (but RcppArmadillo makes all this easier)
 
 2011-12-18  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/doc/*: Fixes to various vignettes for new version of highlight
+        * inst/doc/*: Fixes to various vignettes for new version of highlight
 
 2011-12-16  Douglas Bates  <bates@stat.wisc.edu>
 
-	* inst/unitTests/runit.stats.R: Correct cut+paste typo in qbinom
+        * inst/unitTests/runit.stats.R: Correct cut+paste typo in qbinom
 
-	* inst/include/Rcpp/XPtr.h: Check for XPtr type constructing from SEXP
+        * inst/include/Rcpp/XPtr.h: Check for XPtr type constructing from SEXP
 
 2011-12-12  John M Chambers  <jmc@r-project.org>
 
-	* R/RcppClass.R: Added setRcppClass for classes extending C++ classes
-	* man/setRcppClass.Rd: Added corresponding documentation
-	* NAMESPACE: Added corresponding exports entry
+        * R/RcppClass.R: Added setRcppClass for classes extending C++ classes
+        * man/setRcppClass.Rd: Added corresponding documentation
+        * NAMESPACE: Added corresponding exports entry
 
 2011-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/stats/f.h: Correct call to not require ncp parameter
+        * inst/include/Rcpp/stats/f.h: Correct call to not require ncp parameter
 
-	* inst/unitTests/runit.stats.R: Add unit tests for pf(), pnf(),
-	pchisq(), pnchisq() and pcauchy()
+        * inst/unitTests/runit.stats.R: Add unit tests for pf(), pnf(),
+        pchisq(), pnchisq() and pcauchy()
 
 2011-11-07  Romain Francois  <romain@r-enthusiasts.com>
 
-	* include/Rcpp/internal/wrap.h: implemented wrap_dispatch_importer__impl
-	for int64 and uint64, needed for RProtoBuf
+        * include/Rcpp/internal/wrap.h: implemented wrap_dispatch_importer__impl
+        for int64 and uint64, needed for RProtoBuf
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Add int64_t usage example
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Add int64_t usage example
 
 2011-11-06  Romain Francois  <romain@r-enthusiasts.com>
 
-	* include/Rcpp/modules/Module_generated_Pointer_method.h: added code to deal
-	with const free "methods", e.g. OUT foo( const Class*, ...) in modules
-	Before const_method could only deal with actual const methods of the class,
-	e.g. OUT Class::foo( ... ) const
-	* include/Rcpp/modules/Module_generated_Pointer_CppMethod.h: idem
-	* include/Rcpp/as.h: deal with as<int64_t> and as<uint64_t>
-	* include/Rcpp/internal/export.h : deal with as< some_container<int64_t> >
-	and as< some_container<uint64_t> > where some_container is some container
-	that has iterators, e.g. std::vector
+        * include/Rcpp/modules/Module_generated_Pointer_method.h: added code to deal
+        with const free "methods", e.g. OUT foo( const Class*, ...) in modules
+        Before const_method could only deal with actual const methods of the class,
+        e.g. OUT Class::foo( ... ) const
+        * include/Rcpp/modules/Module_generated_Pointer_CppMethod.h: idem
+        * include/Rcpp/as.h: deal with as<int64_t> and as<uint64_t>
+        * include/Rcpp/internal/export.h : deal with as< some_container<int64_t> >
+        and as< some_container<uint64_t> > where some_container is some container
+        that has iterators, e.g. std::vector
 
 2011-10-31  Romain Francois  <romain@r-enthusiasts.com>
 
-	* include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types,
-	based on the int64 package
-	* include/Rcpp/internal/wrap.h: new dispatch layers to handle int64_t,
-	uint64_t and containers of these
-	* DESCRIPTION: new depending on int64
+        * include/Rcpp/int64/int64_lite.h: handling int64_t and uint64_t types,
+        based on the int64 package
+        * include/Rcpp/internal/wrap.h: new dispatch layers to handle int64_t,
+        uint64_t and containers of these
+        * DESCRIPTION: new depending on int64
 
 2011-10-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/iostream/Rostream.h (Rcpp): Added tentative patch
-	for operator<< also contributed by Jelmer Ypma -- but kept commented
-	out for now
+        * inst/include/Rcpp/iostream/Rostream.h (Rcpp): Added tentative patch
+        for operator<< also contributed by Jelmer Ypma -- but kept commented
+        out for now
 
 2011-10-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Rostream.cpp: Patch by Jelmer Ypma which adds a new device
-	'Rcout' not unlike std::cout but uses Rprintf internally
-	* src/Rstreambuf.cpp: Idem
-	* include/include/Rcpp/iostream/Rostream.h: Idem
-	* include/include/Rcpp/iostream/Rstreambuf.h: Idem
-	* include/include/Rcpp.h:  Include new headers
+        * src/Rostream.cpp: Patch by Jelmer Ypma which adds a new device
+        'Rcout' not unlike std::cout but uses Rprintf internally
+        * src/Rstreambuf.cpp: Idem
+        * include/include/Rcpp/iostream/Rostream.h: Idem
+        * include/include/Rcpp/iostream/Rstreambuf.h: Idem
+        * include/include/Rcpp.h:  Include new headers
 
-	* inst/unitTests/runit.rcout.R: Added simple unit test
+        * inst/unitTests/runit.rcout.R: Added simple unit test
 
 2011-09-29  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -2100,62 +2100,62 @@
         * inst/include/Rcpp/config.h: Release 0.9.7
         * debian/*: Similarly updated for new release to Debian
 
-	* inst/include/Rcpp/sugar/block/SugarBlock_1.h: Apply second path by
-	Martyn Plummer to permit compilation on Solaris
-	* inst/include/Rcpp/sugar/block/SugarBlock_2.h: Idem
-	* inst/include/Rcpp/sugar/block/SugarBlock_3.h: Idem
-	* inst/include/Rcpp/sugar/matrix/outer.h: Idem
-	* inst/include/Rcpp/vector/LazyVector.h: Idem
-	* inst/unitTests/testRcppModule/src/stdVector.cpp: Idem
+        * inst/include/Rcpp/sugar/block/SugarBlock_1.h: Apply second path by
+        Martyn Plummer to permit compilation on Solaris
+        * inst/include/Rcpp/sugar/block/SugarBlock_2.h: Idem
+        * inst/include/Rcpp/sugar/block/SugarBlock_3.h: Idem
+        * inst/include/Rcpp/sugar/matrix/outer.h: Idem
+        * inst/include/Rcpp/vector/LazyVector.h: Idem
+        * inst/unitTests/testRcppModule/src/stdVector.cpp: Idem
 
 2011-09-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Extractor.h: Apply patch by Martyn Plummer to
-	help with compilation on Solaris
-	* inst/include/Rcpp/sugar/block/Vectorized_Math.h: Idem
-	* inst/include/Rcpp/sugar/functions/math.h: Idem
+        * inst/include/Rcpp/Extractor.h: Apply patch by Martyn Plummer to
+        help with compilation on Solaris
+        * inst/include/Rcpp/sugar/block/Vectorized_Math.h: Idem
+        * inst/include/Rcpp/sugar/functions/math.h: Idem
 
-	* inst/include/Rcpp/sugar/block/SugarBlock_2.h: Also applied path by
-	Martyn Plummer, but with additional #ifdef layer for SunPro Compiler
-	* inst/include/Rcpp/vector/LazyVector.h: Idem
+        * inst/include/Rcpp/sugar/block/SugarBlock_2.h: Also applied path by
+        Martyn Plummer, but with additional #ifdef layer for SunPro Compiler
+        * inst/include/Rcpp/vector/LazyVector.h: Idem
 
 2011-08-26  Douglas Bates  <bates@stat.wisc.edu>
 
-	* inst/examples/OpenMP/OpenMPandInline.r: Added another variant
-	using import_transform for the Rcpp Vector class.
+        * inst/examples/OpenMP/OpenMPandInline.r: Added another variant
+        using import_transform for the Rcpp Vector class.
 
 2011-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/*h: Removed exception specifiers in function headers
-	* src/*cpp: Corresponding changes in implementations
+        * inst/include/*h: Removed exception specifiers in function headers
+        * src/*cpp: Corresponding changes in implementations
 
-	* inst/examples/OpenMP/OpenMPandInline.r: Added two std::transform()
-	variants as suggested in rcpp-devel email by Davor Cubranic
+        * inst/examples/OpenMP/OpenMPandInline.r: Added two std::transform()
+        variants as suggested in rcpp-devel email by Davor Cubranic
 
 2011-08-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/OpenMP/OpenMPandInline.r: Added new example for
-	OpenMP via inline, comparing simple loops with plain Rcpp and sugar
+        * inst/examples/OpenMP/OpenMPandInline.r: Added new example for
+        OpenMP via inline, comparing simple loops with plain Rcpp and sugar
 
 2011-08-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/Misc/ifelseLooped.r: Added new example based on blog
-	post today, and a StackOverflow ansers---and which shows how Rcpp can
-	accelerate loops that may be difficult to vectorise due to dependencies
+        * inst/examples/Misc/ifelseLooped.r: Added new example based on blog
+        post today, and a StackOverflow ansers---and which shows how Rcpp can
+        accelerate loops that may be difficult to vectorise due to dependencies
 
         * inst/examples/Misc/: New directory for small examples regrouping
-	the new example as well as the fibonacci example added in Rcpp 0.9.6
+        the new example as well as the fibonacci example added in Rcpp 0.9.6
 
 2011-08-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added a short section including an
-	example on the issue raised by Murray wherein 64 bit 'long' integer
-	types can be cast with loss to numeric types without error or warning.
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added a short section including an
+        example on the issue raised by Murray wherein 64 bit 'long' integer
+        types can be cast with loss to numeric types without error or warning.
 
 2011-07-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.Function.R: new unit test for accessing a
-	non-exported function from a namespace
+        * inst/unitTests/runit.Function.R: new unit test for accessing a
+        non-exported function from a namespace
 
 2011-07-26  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -2166,32 +2166,32 @@
 
 2011-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/Fibonacci/fib.r: New example showing how to compute a
-	Fibonacci sequence using Rcpp and compare it to R and byte-compiled R
+        * inst/examples/Fibonacci/fib.r: New example showing how to compute a
+        Fibonacci sequence using Rcpp and compare it to R and byte-compiled R
 
 2011-07-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/RcppGibbs/RcppGibbs.R: New example RcppGibbs,
-	extending Sanjog Misra's Rcpp illustration of Darren Wilkinson's
-	comparison of MCMC Gibbs Sampler implementations;
-	* inst/examples/RcppGibbs/timeRNGs.R: added short timing on Normal
-	and Gaussian RNG draws between Rcpp and GSL as R's rgamma() is seen
-	to be significantly slower
+        * inst/examples/RcppGibbs/RcppGibbs.R: New example RcppGibbs,
+        extending Sanjog Misra's Rcpp illustration of Darren Wilkinson's
+        comparison of MCMC Gibbs Sampler implementations;
+        * inst/examples/RcppGibbs/timeRNGs.R: added short timing on Normal
+        and Gaussian RNG draws between Rcpp and GSL as R's rgamma() is seen
+        to be significantly slower
 
 2011-07-13  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/traits/is_eigen_base.h: helper traits to
-	facilitate implementation of the RcppEigen package. The is_eigen_base
-	traits identifies if a class derives from EigenBase using SFINAE
+        * inst/include/Rcpp/traits/is_eigen_base.h: helper traits to
+        facilitate implementation of the RcppEigen package. The is_eigen_base
+        traits identifies if a class derives from EigenBase using SFINAE
 
-	* inst/include/Rcpp/internal/wrap.h: new layer of dispatch to help
-	RcppEigen
+        * inst/include/Rcpp/internal/wrap.h: new layer of dispatch to help
+        RcppEigen
 
 2011-07-07  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/XPtr.h: The XPtr class template gains a second
-	template parameter allowing the developper to supply his/her own
-	finalizer instead of the default one that calls delete
+        * inst/include/Rcpp/XPtr.h: The XPtr class template gains a second
+        template parameter allowing the developper to supply his/her own
+        finalizer instead of the default one that calls delete
 
 2011-07-05  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -2202,63 +2202,63 @@
 
 2011-07-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* cleanup: Also clean in examples/OpenMP/
+        * cleanup: Also clean in examples/OpenMP/
 
 2011-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/skeleton/zzz.R (.onLoad): Force load of methods package before
-	calling loadRcppModules() to make 'R CMD check' happier
+        * inst/skeleton/zzz.R (.onLoad): Force load of methods package before
+        calling loadRcppModules() to make 'R CMD check' happier
 
 2011-06-06  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h : init becomes protected to fix the bug
-	reported by Doug Bates on Rcpp-devel.
+        * inst/include/Rcpp/vector/Vector.h : init becomes protected to fix the bug
+        reported by Doug Bates on Rcpp-devel.
 
 2011-05-31  Romain Francois  <romain@r-enthusiasts.com>
 
-	* R/loadRcppModules.R: New argument "direct" in loadRcppModules
+        * R/loadRcppModules.R: New argument "direct" in loadRcppModules
 
-	* R/tools.R: New unexported function forceAssignInNamespace
+        * R/tools.R: New unexported function forceAssignInNamespace
 
 2011-05-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/stats/random/rlnorm.h: Repaired accidental header
-	guard from 'norm' to 'lnorm' so that the file really gets included,
-	make several calls to standard library 'exp()' explicit as '::exp()'
-	and fixed a cut-and-paste typo
+        * inst/include/Rcpp/stats/random/rlnorm.h: Repaired accidental header
+        guard from 'norm' to 'lnorm' so that the file really gets included,
+        make several calls to standard library 'exp()' explicit as '::exp()'
+        and fixed a cut-and-paste typo
 
 2011-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/internal/wrap.h: For arguments of type const char *,
-	wrap now checks for NULL arguments before calling Rf_mkString()
-	* unitTests/runit.wrap.R: Added unit test for this
+        * inst/include/Rcpp/internal/wrap.h: For arguments of type const char *,
+        wrap now checks for NULL arguments before calling Rf_mkString()
+        * unitTests/runit.wrap.R: Added unit test for this
 
 2011-05-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Corrected an error in STL
-	example and added two more STL examples
+        * inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Corrected an error in STL
+        example and added two more STL examples
 
 2011-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/OpenMP/piWithInterrupts.cpp: Beginnings of new
-	contributed example on OpenMP as well as user interrupt handling
+        * inst/examples/OpenMP/piWithInterrupts.cpp: Beginnings of new
+        contributed example on OpenMP as well as user interrupt handling
 
 2011-04-26  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/functions/mean.h: new sugar function: mean
+        * inst/include/Rcpp/sugar/functions/mean.h: new sugar function: mean
 
-	* inst/include/Rcpp/sugar/functions/var.h: new sugar function: var
+        * inst/include/Rcpp/sugar/functions/var.h: new sugar function: var
 
-	* inst/include/Rcpp/sugar/functions/sd.h: new sugar function: sd
+        * inst/include/Rcpp/sugar/functions/sd.h: new sugar function: sd
 
 2011-04-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New example setting row and column
-	names for matrices
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New example setting row and column
+        names for matrices
 
 2011-04-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New example using Rcpp.plugin.maker
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: New example using Rcpp.plugin.maker
 
 2011-04-12  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -2269,41 +2269,41 @@
 
 2011-04-12  Romain Francois  <romain@r-enthusiasts.com>
 
-	* inst/unitTests/testRcppModules/src/stdVector.cpp: compiler
-	disambiguation
+        * inst/unitTests/testRcppModules/src/stdVector.cpp: compiler
+        disambiguation
 
-	* src/r_cast.cpp: use a callback to R's "as.character" instead of
-	calling Rf_coerceVector, which did not work as expected for factors
+        * src/r_cast.cpp: use a callback to R's "as.character" instead of
+        calling Rf_coerceVector, which did not work as expected for factors
 
 2011-04-11  Romain Francois  <romain@r-enthusiasts.com>
 
-	* R/loadRcppModules.R: New R function "loadRcppModules" that looks
-	for the "RcppModules" field in the DESCRIPTION file, loads and
-	populates the modules into the package NAMESPACE
+        * R/loadRcppModules.R: New R function "loadRcppModules" that looks
+        for the "RcppModules" field in the DESCRIPTION file, loads and
+        populates the modules into the package NAMESPACE
 
-	* man/loadRcppModules.Rd: documentation
+        * man/loadRcppModules.Rd: documentation
 
-	* inst/unitTests/testRcppModule: using loadRcppModules
+        * inst/unitTests/testRcppModule: using loadRcppModules
 
 2011-04-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/man/Rcpp-package.Rd: Added JSS reference in \references{}
+        * inst/man/Rcpp-package.Rd: Added JSS reference in \references{}
 
-	* inst/doc/*: Added JSS reference to vignettes
+        * inst/doc/*: Added JSS reference to vignettes
 
 2011-04-09  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/CITATION: Finalized using JSS data on volume, number, pages
+        * inst/CITATION: Finalized using JSS data on volume, number, pages
 
 2011-04-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Add patch by Christian
-	pointing out need for Rcpp:: namespace qualifier, and hint for Rcpp-FAQ
+        * inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Add patch by Christian
+        pointing out need for Rcpp:: namespace qualifier, and hint for Rcpp-FAQ
 
 2011-04-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added OS X entry for min. sufficient
-	versions of OS X itself and Xode based on Simon's post to rcpp-devel
+        * inst/doc/Rcpp-FAQ/Rcpp-FAQ.Rnw: Added OS X entry for min. sufficient
+        versions of OS X itself and Xode based on Simon's post to rcpp-devel
 
 2011-04-05  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -2314,57 +2314,57 @@
 
 2011-04-05  Romain Francois  <romain@r-enthusiasts.com>
 
-	* R/01_show.R: set of cosmetic changes to the show method for C++
-	classes
+        * R/01_show.R: set of cosmetic changes to the show method for C++
+        classes
 
-	* inst/include/Rcpp/Module.h: fixed module bug by not using
-	singletons of the class_ template
+        * inst/include/Rcpp/Module.h: fixed module bug by not using
+        singletons of the class_ template
 
 2011-04-03  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-introduction.Rnw: Updated to forthcoming JSS paper
+        * inst/doc/Rcpp-introduction.Rnw: Updated to forthcoming JSS paper
 
-	* inst/CITATION: Added citation() support using forthcoming paper
+        * inst/CITATION: Added citation() support using forthcoming paper
 
-	* inst/doc/Makefile: Trying make parallel builds possible by not calling
-	'clean' in the 'all' target; thanks to Brian Ripley for the heads-up
+        * inst/doc/Makefile: Trying make parallel builds possible by not calling
+        'clean' in the 'all' target; thanks to Brian Ripley for the heads-up
 
 2011-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* cleanup: Also clean in inst/unitTest/testRcppModule/src/
+        * cleanup: Also clean in inst/unitTest/testRcppModule/src/
 
-	* inst/include/RcppCommon.h: Define new variable for g++ < 4.6.0
-	* src/exceptions.cpp: Include <exception_defines.h> up to g++-4.5 only
+        * inst/include/RcppCommon.h: Define new variable for g++ < 4.6.0
+        * src/exceptions.cpp: Include <exception_defines.h> up to g++-4.5 only
 
-	* inst/unitTests/testRcppModule/src/stdVector.cpp: Use #ifdef not #if
+        * inst/unitTests/testRcppModule/src/stdVector.cpp: Use #ifdef not #if
 
-	* inst/include/Rcpp/module/Module_generated_ctor_signature.h: Add a
-	bit of null-op code to suppress a 'unused parameter' warning in the
-	initial (and non-templated) ctor_signature() function
+        * inst/include/Rcpp/module/Module_generated_ctor_signature.h: Add a
+        bit of null-op code to suppress a 'unused parameter' warning in the
+        initial (and non-templated) ctor_signature() function
 
 2011-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/testRcppModule/src/stdVector.cpp: Protect push_back
-	declaration by #ifdef as it conflicts with -std=c++0x use for g++-4.5
+        * inst/unitTests/testRcppModule/src/stdVector.cpp: Protect push_back
+        declaration by #ifdef as it conflicts with -std=c++0x use for g++-4.5
 
 2011-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/RcppCommon.h: Condition the typedef for 'long long'
-	of rcpp_long_long_type on the (still experimental) support for C++0x
-	which can be enabled with the non-portable g++ flag '-std=c++0x';
-	adding a test for C++0x support suppresses a new warning with g++ about
-	long long being part of C++98; thanks to Kurt Hornik for raising this
+        * inst/include/RcppCommon.h: Condition the typedef for 'long long'
+        of rcpp_long_long_type on the (still experimental) support for C++0x
+        which can be enabled with the non-portable g++ flag '-std=c++0x';
+        adding a test for C++0x support suppresses a new warning with g++ about
+        long long being part of C++98; thanks to Kurt Hornik for raising this
 
 2011-03-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/grow.h: Applied another patch kindly supplied by
-	Murray which fixes another clang/llvm and C++ conformance issue by
-	re-ordering declarations as unqualified names must be declared before
-	they are used, even when used within templates.
+        * inst/include/Rcpp/grow.h: Applied another patch kindly supplied by
+        Murray which fixes another clang/llvm and C++ conformance issue by
+        re-ordering declarations as unqualified names must be declared before
+        they are used, even when used within templates.
 
 2011-02-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Makefile: Call R and Rscript relative to R_HOME/bin
+        * inst/doc/Makefile: Call R and Rscript relative to R_HOME/bin
 
 2011-02-23  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -2436,506 +2436,506 @@
 
 2011-01-25  Douglas Bates  <bates@stat.wisc.edu>
 
-	* src/exceptions.cpp: Assign Rf_install() result to local SEXP
-	* src/Evaluator.cpp: idem
-	* src/Reference.cpp: idem
-	* src/S4.cpp: idem
+        * src/exceptions.cpp: Assign Rf_install() result to local SEXP
+        * src/Evaluator.cpp: idem
+        * src/Reference.cpp: idem
+        * src/S4.cpp: idem
 
-	* inst/include/Rcpp/Date.h: Use predefined symbol.
+        * inst/include/Rcpp/Date.h: Use predefined symbol.
 
 2011-01-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/cache.cpp: Assign Rf_install() result to local SEXP
-	* src/Environment.cpp: idem
-	* src/Evaluator.cpp: idem
-	* src/Function.cpp: idem
-	* src/Function.cpp: idem
-	* src/RObject.cpp: idem
-	* src/Symbol.cpp: idem
+        * src/cache.cpp: Assign Rf_install() result to local SEXP
+        * src/Environment.cpp: idem
+        * src/Evaluator.cpp: idem
+        * src/Function.cpp: idem
+        * src/Function.cpp: idem
+        * src/RObject.cpp: idem
+        * src/Symbol.cpp: idem
 
-	* inst/doc/Rcpp.bib: Added SoDA (some time ago)
+        * inst/doc/Rcpp.bib: Added SoDA (some time ago)
 
 2011-01-13  Douglas Bates  <bates@stat.wisc.edu>
 
-	* src/Reference.cpp: Protect the value being set in Reference::FieldProxy::set
+        * src/Reference.cpp: Protect the value being set in Reference::FieldProxy::set
 
 2011-01-11  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/string_proxy.h: fix implicit conversion to int,
-	reported by Daniel Sabanes Bove on Rcpp-devel
+        * inst/include/Rcpp/vector/string_proxy.h: fix implicit conversion to int,
+        reported by Daniel Sabanes Bove on Rcpp-devel
 
-	* inst/unitTests/runit.vector.R: unit test for the above fix
+        * inst/unitTests/runit.vector.R: unit test for the above fix
 
 2011-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp.bib: Updated a number of CRAN versions
+        * inst/doc/Rcpp.bib: Updated a number of CRAN versions
 
 2011-01-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/config.h (RCPP_VERSION): Set to 0.9.0, at last.
+        * inst/include/Rcpp/config.h (RCPP_VERSION): Set to 0.9.0, at last.
 
 2011-01-06  Douglas Bates  <bates@stat.wisc.edu>
 
-	* R/zzz.R (.onLoad): Don't call init_Rcpp_cache here.
+        * R/zzz.R (.onLoad): Don't call init_Rcpp_cache here.
 
-	* src/Rcpp_init.c: Don't register init_Rcpp_cache.  It should only
-	be called once and it is called in the C function R_init_Rcpp.
+        * src/Rcpp_init.c: Don't register init_Rcpp_cache.  It should only
+        be called once and it is called in the C function R_init_Rcpp.
 
-	* NAMESPACE: Use registered symbols instead of relisting them.
-	Registration allows for checking the number of arguments.
+        * NAMESPACE: Use registered symbols instead of relisting them.
+        Registration allows for checking the number of arguments.
 
 2011-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/debugging.cpp: Treat the *BSD flavours like Windows and offer
-	file and line number but not stack trace (for lack of execinfo)
+        * src/debugging.cpp: Treat the *BSD flavours like Windows and offer
+        file and line number but not stack trace (for lack of execinfo)
 
-	* src/Makevars: Replace implicit variable $^ with explicit list
+        * src/Makevars: Replace implicit variable $^ with explicit list
 
 2011-01-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Applied patch with
-	additional documentation by Christian Gunning
+        * inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: Applied patch with
+        additional documentation by Christian Gunning
 
 2010-12-23  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/RObject.h: New internal class SEXPstack to handle
-	garbage collection. Presumably more efficient than R_PreserveObject
-	and R_ReleaseObject
+        * inst/include/Rcpp/RObject.h: New internal class SEXPstack to handle
+        garbage collection. Presumably more efficient than R_PreserveObject
+        and R_ReleaseObject
 
-	* inst/include/Rcpp/sugar/operators/times.h: More efficient operator*
-	for REALSXP sugar expressions, avoiding unnecessary NA tests.
+        * inst/include/Rcpp/sugar/operators/times.h: More efficient operator*
+        for REALSXP sugar expressions, avoiding unnecessary NA tests.
 
-	* inst/include/Rcpp/sugar/operators/divides.h: More efficient
-	operator/ for REALSXP sugar expressions, avoiding unnecessary NA
-	tests.
+        * inst/include/Rcpp/sugar/operators/divides.h: More efficient
+        operator/ for REALSXP sugar expressions, avoiding unnecessary NA
+        tests.
 
-	* inst/include/Rcpp/sugar/operators/minus.h: More efficient operator- for
-	REALSXP sugar expressions, avoiding unnecessary NA tests.
+        * inst/include/Rcpp/sugar/operators/minus.h: More efficient operator- for
+        REALSXP sugar expressions, avoiding unnecessary NA tests.
 
 2010-12-22  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/operators/plus.h: More efficient operator+
-	for REALSXP sugar expressions, avoiding unnecessary NA tests.
+        * inst/include/Rcpp/sugar/operators/plus.h: More efficient operator+
+        for REALSXP sugar expressions, avoiding unnecessary NA tests.
 
 2010-12-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.Vector.R: Applied patch by Christian Gunning
-	to add more tests for complex-typed vectors
+        * inst/unitTests/runit.Vector.R: Applied patch by Christian Gunning
+        to add more tests for complex-typed vectors
 
 2010-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/inline.R (Rcpp.plugin.maker): Reverse order in PKG_LIBS
+        * R/inline.R (Rcpp.plugin.maker): Reverse order in PKG_LIBS
 
 2010-12-19  Dirk Eddelbuettel  <edd@debian.org>
 
- 	* DESCRIPTION: Release 0.9.0
+        * DESCRIPTION: Release 0.9.0
 
         * debian/*: Similarly updated for new release to Debian
 
 2010-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/announce/ANNOUNCE-0.9.0.txt: Started announcement post
+        * inst/announce/ANNOUNCE-0.9.0.txt: Started announcement post
 
-	* inst/unitTests/runit.Date.R: Added new unit tests for date and
-	datetime from string
+        * inst/unitTests/runit.Date.R: Added new unit tests for date and
+        datetime from string
 
 2010-12-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Datetime.h: correct default format to use %OS for
-	fractional seconds and not the popular typo %OS (i.e. ooh, not zero)
+        * inst/include/Rcpp/Datetime.h: correct default format to use %OS for
+        fractional seconds and not the popular typo %OS (i.e. ooh, not zero)
 
-	* src/Datetime.cpp: add missing as.POSIXct() after strptime for
-	constructor from string as we then use the constructor from double
+        * src/Datetime.cpp: add missing as.POSIXct() after strptime for
+        constructor from string as we then use the constructor from double
 
-	* src/Date.cpp: add missing as.Date() after strptime for constructor
-	from string as we then use the constructor from int
+        * src/Date.cpp: add missing as.Date() after strptime for constructor
+        from string as we then use the constructor from int
 
 2010-12-13  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/string_proxy.h: List::Proxy did not
-	convert bool correctly, reported on Rcpp-devel by Daniel SabanC)s
-	BovC) <daniel.sabanesbove@ifspm.uzh.ch>
+        * inst/include/Rcpp/vector/string_proxy.h: List::Proxy did not
+        convert bool correctly, reported on Rcpp-devel by Daniel SabanC)s
+        BovC) <daniel.sabanesbove@ifspm.uzh.ch>
 
 2010-12-12  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/SHLIB.R: new unexported R function SHLIB, small wrapper around
-	R CMD SHLIB
+        * R/SHLIB.R: new unexported R function SHLIB, small wrapper around
+        R CMD SHLIB
 
-	* inst/include/Rcpp/sprintf.h: returning a std::string to avoid leaks
+        * inst/include/Rcpp/sprintf.h: returning a std::string to avoid leaks
 
 2010-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sprintf.h: Use vsnprintf() instead
+        * inst/include/Rcpp/sprintf.h: Use vsnprintf() instead
 
 2010-12-10  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/barrier.h: faster versions (crossing the write
-	barrier) for string_elt, etc ...(to be used only internally)
+        * inst/include/Rcpp/barrier.h: faster versions (crossing the write
+        barrier) for string_elt, etc ...(to be used only internally)
 
-	* src/barrier.cpp: implementation of the above
+        * src/barrier.cpp: implementation of the above
 
 2010-12-09  John M Chambers  <jmc@r-project.org>
 
-	* src/Module.cpp: Rcpp/src/exceptions.cpp,
-	Rcpp/src/Rcpp_init.c, etc. add a not_initialized exception and a
-	dummy_pointer to identify such objects, throw exc. back to R
+        * src/Module.cpp: Rcpp/src/exceptions.cpp,
+        Rcpp/src/Rcpp_init.c, etc. add a not_initialized exception and a
+        dummy_pointer to identify such objects, throw exc. back to R
 
 2010-12-07  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/matrix.h: Matrix gains a nested ::Sub
-	typedef
+        * inst/include/Rcpp/vector/matrix.h: Matrix gains a nested ::Sub
+        typedef
 
 2010-12-05  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/module/Module_generated_class_constructor.h: the
-	default constructor was always considered valid because of the use of
-	&yes instead of &yes_arity<0>
+        * inst/include/Rcpp/module/Module_generated_class_constructor.h: the
+        default constructor was always considered valid because of the use of
+        &yes instead of &yes_arity<0>
 
-	* R/Rcpp.package.skeleton.R: Rcpp.package.skeleton( "foo",
-	example_code = FALSE) did not work properly. Rcpp.package.skeleton
-	gains some arguments
+        * R/Rcpp.package.skeleton.R: Rcpp.package.skeleton( "foo",
+        example_code = FALSE) did not work properly. Rcpp.package.skeleton
+        gains some arguments
 
 2010-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Date.cpp: Add 1900 to tm.year after mktime00() call as we now
-	no longer assume the field is '1900-less'
-	* src/Date.cpp: Define new static const variable baseYear as 1900
-	and use throughout
+        * src/Date.cpp: Add 1900 to tm.year after mktime00() call as we now
+        no longer assume the field is '1900-less'
+        * src/Date.cpp: Define new static const variable baseYear as 1900
+        and use throughout
 
-	* inst/unitTests/runit.Date.R (test.Date.getFunctions): Added unit
-	tests for the get* functions of the Date class
+        * inst/unitTests/runit.Date.R (test.Date.getFunctions): Added unit
+        tests for the get* functions of the Date class
 
-	* R/bib.R (bib): Correct expression for default Rcpp bibtex file
+        * R/bib.R (bib): Correct expression for default Rcpp bibtex file
 
 2010-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Date.h: Remove addition of 1900 in getYear()
+        * inst/include/Rcpp/Date.h: Remove addition of 1900 in getYear()
 
 2010-12-04  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: documentation patch by
-	Christian Gunnning <xian@unm.edu>
+        * inst/doc/Rcpp-quickref/Rcpp-quickref.Rnw: documentation patch by
+        Christian Gunnning <xian@unm.edu>
 
-	* inst/include/Rcpp/vector/matrix.h: fix SubMatrix. Bug reported by
-	Christian Gunnning <xian@unm.edu> on Rcpp-devel
+        * inst/include/Rcpp/vector/matrix.h: fix SubMatrix. Bug reported by
+        Christian Gunnning <xian@unm.edu> on Rcpp-devel
 
-	* inst/include/Rcpp/vector/SubMatrix.h: factored out of matrix.h
+        * inst/include/Rcpp/vector/SubMatrix.h: factored out of matrix.h
 
-	* inst/include/Rcpp/sprintf.h: new sprintf template to format strings
+        * inst/include/Rcpp/sprintf.h: new sprintf template to format strings
 
 2010-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.RObject.R: fix 'inherits' test added today
+        * inst/unitTests/runit.RObject.R: fix 'inherits' test added today
 
-	* inst/include/Rcpp/module/Module_generated_Constructor.h: Applied
-	patch by Tama Ma <pingnang@phys.ethz.ch> for up to seven args in ctor
-	* inst/include/Rcpp/module/Module_generated_class_constructor.h: Idem
-	* inst/include/Rcpp/module/Module_generated_ctor_signature.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Constructor.h: Applied
+        patch by Tama Ma <pingnang@phys.ethz.ch> for up to seven args in ctor
+        * inst/include/Rcpp/module/Module_generated_class_constructor.h: Idem
+        * inst/include/Rcpp/module/Module_generated_ctor_signature.h: Idem
 
 2010-12-03  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/RObject.h : new inline method inherits that
-	checks if an object inherits from a given class (wrapper around
-	Rf_inherits)
+        * inst/include/Rcpp/RObject.h : new inline method inherits that
+        checks if an object inherits from a given class (wrapper around
+        Rf_inherits)
 
-	* inst/unitTests/runit.RObject.R: unit test for the above
+        * inst/unitTests/runit.RObject.R: unit test for the above
 
 2010-12-02  Douglas Bates  <bates@stat.wisc.edu>
 
-	* inst/include/Rcpp/generated/Function__operator.h,
-	  inst/include/Rcpp/Function.h: operator() becomes const.
+        * inst/include/Rcpp/generated/Function__operator.h,
+          inst/include/Rcpp/Function.h: operator() becomes const.
 
 2010-11-29  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h: trying to please suncc after
-	CRAN checks
+        * inst/include/Rcpp/vector/Vector.h: trying to please suncc after
+        CRAN checks
 
-	* R/Module.R: protect the module$refClassGenerators <- generators
-	line against the case where there are no classes (triggered a
-	problem with the parser package)
+        * R/Module.R: protect the module$refClassGenerators <- generators
+        line against the case where there are no classes (triggered a
+        problem with the parser package)
 
 2010-11-27  Dirk Eddelbuettel  <edd@debian.org>
 
- 	* DESCRIPTION: Release 0.8.9
+        * DESCRIPTION: Release 0.8.9
 
         * debian/*: Similarly updated for new release to Debian
 
 2010-11-26  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/Vector.h: List::create( _["foo"] ) sets
-	the SEXP to R_MissingArg, usueful for formal arguments
-	specifications, simpler form than List::create( _["foo"] =
-	R_MissingArg )
+        * inst/include/Rcpp/vector/Vector.h: List::create( _["foo"] ) sets
+        the SEXP to R_MissingArg, usueful for formal arguments
+        specifications, simpler form than List::create( _["foo"] =
+        R_MissingArg )
 
-	* inst/include/Rcpp/macros/unroll.h: helper macro RCPP_UNROLL_LOOP
+        * inst/include/Rcpp/macros/unroll.h: helper macro RCPP_UNROLL_LOOP
 
-	* inst/include/Rcpp/vector/MatrixColumn.h: added
-	MatrixColumn::operator=( MatrixColumn& ) otherwise it gets
-	synthetized by the compiler
+        * inst/include/Rcpp/vector/MatrixColumn.h: added
+        MatrixColumn::operator=( MatrixColumn& ) otherwise it gets
+        synthetized by the compiler
 
-	* inst/include/Rcpp/vector/MatrixRow.h: same for MatrixRow
+        * inst/include/Rcpp/vector/MatrixRow.h: same for MatrixRow
 
-	* inst/include/Rcpp/vector/Matrix.h: added Matrix( SubMatrix ) and
-	Matrix::operator=( SubMatrix )
+        * inst/include/Rcpp/vector/Matrix.h: added Matrix( SubMatrix ) and
+        Matrix::operator=( SubMatrix )
 
 2010-11-25  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/module/Module_generated_function.h: new .function
-	with formal argument specification
+        * inst/include/Rcpp/module/Module_generated_function.h: new .function
+        with formal argument specification
 
-	* inst/include/Rcpp/module/Module_generated_CppFunction.h: helper
-	classes for the above
+        * inst/include/Rcpp/module/Module_generated_CppFunction.h: helper
+        classes for the above
 
-	* R/Module.R: using the formal argument specification if available
+        * R/Module.R: using the formal argument specification if available
 
-	* R/populate.R: new R function populate to dump the contents of a
-	module into an environment or a namespace
+        * R/populate.R: new R function populate to dump the contents of a
+        module into an environment or a namespace
 
-	* man/populate.Rd: documentation for populate
+        * man/populate.Rd: documentation for populate
 
 2010-11-24  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/00_classes.R: formals<- method for C++Function that allows to set
-	default arguments, etc .. to a C++ function
+        * R/00_classes.R: formals<- method for C++Function that allows to set
+        default arguments, etc .. to a C++ function
 
 2010-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/doc/Makefile: Call Rscript with --vanilla to skip user settings
+        * inst/doc/Makefile: Call Rscript with --vanilla to skip user settings
 
 2010-11-23  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/00_classes.R: C++Class gains a docstring slot to host self
-	documentation
+        * R/00_classes.R: C++Class gains a docstring slot to host self
+        documentation
 
-	* R/Module.R: calling an exposed C++ more efficiently by using the xp
-	directly rather than traversing the map internally
+        * R/Module.R: calling an exposed C++ more efficiently by using the xp
+        directly rather than traversing the map internally
 
-	* R/00_classes.R: C++Function gains a docstring slot to host self
-	documentation of the internal function. And a "signature" slot to
-	host the C++ signature of the function
+        * R/00_classes.R: C++Function gains a docstring slot to host self
+        documentation of the internal function. And a "signature" slot to
+        host the C++ signature of the function
 
-	* R/01_show.R: updated show( C++Function ) to display the docstring
-	and the signature. updated show( C++Class ) to display the docstring.
+        * R/01_show.R: updated show( C++Function ) to display the docstring
+        and the signature. updated show( C++Class ) to display the docstring.
 
-	* inst/include/Rcpp/module/Module_generated_CppFunction.h: self
-	documentation for exposed C++ functions and extraction of the
-	signature
+        * inst/include/Rcpp/module/Module_generated_CppFunction.h: self
+        documentation for exposed C++ functions and extraction of the
+        signature
 
-	* inst/include/Rcpp/module/Module_generated_function.h: idem
+        * inst/include/Rcpp/module/Module_generated_function.h: idem
 
 2010-11-22  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/00_classes.R: C++OverloadedMethods gains an "info" class methods,
-	factored out from Module.R
+        * R/00_classes.R: C++OverloadedMethods gains an "info" class methods,
+        factored out from Module.R
 
-	* R/01_show.R: more information printed in show( C++Class )
+        * R/01_show.R: more information printed in show( C++Class )
 
-	* inst/include/Rcpp/Module/Module_generated_get_signature.h:
-	templates to grab method signatures
+        * inst/include/Rcpp/Module/Module_generated_get_signature.h:
+        templates to grab method signatures
 
-	* inst/include/Rcpp/Module.h: CppMethod gains a signature method that
-	returns the signature of the method.
+        * inst/include/Rcpp/Module.h: CppMethod gains a signature method that
+        returns the signature of the method.
 
-	* R/00_classes.R: C++OverloadedMethods gains a "signatures" field
-	that contains the signature of each overload
+        * R/00_classes.R: C++OverloadedMethods gains a "signatures" field
+        that contains the signature of each overload
 
-	* R/Module.R: registered method gain an automatically generated self
-	description that contains the method(s) signature(s) and the
-	docstring that is declared in .method
+        * R/Module.R: registered method gain an automatically generated self
+        description that contains the method(s) signature(s) and the
+        docstring that is declared in .method
 
-	* inst/include/Rcpp/Module/Module_generated_CppMethod.h: implement
-	signature
+        * inst/include/Rcpp/Module/Module_generated_CppMethod.h: implement
+        signature
 
-	* inst/include/Rcpp/Module/Module_generated_Pointer_CppMethod.h: idem
+        * inst/include/Rcpp/Module/Module_generated_Pointer_CppMethod.h: idem
 
 2010-11-21  Romain Francois <romain@r-enthusiasts.com>
 
-	* R/Module.R: internal version of cpp_hasDefaultConstructor
+        * R/Module.R: internal version of cpp_hasDefaultConstructor
 
-	* src/Module.cpp: implementation (Class__has_default_constructor)
+        * src/Module.cpp: implementation (Class__has_default_constructor)
 
-	* inst/include/Rcpp/Module.h: support (class_.has_default_constructor)
+        * inst/include/Rcpp/Module.h: support (class_.has_default_constructor)
 
-	* inst/include/Rcpp/module/Module_generated_class_constructor.h: new interface
-	for exposing constructors, the init_ disappears and the template arguments
-	are directly applied to the .constructor function
+        * inst/include/Rcpp/module/Module_generated_class_constructor.h: new interface
+        for exposing constructors, the init_ disappears and the template arguments
+        are directly applied to the .constructor function
 
-	* inst/include/Rcpp/module/Module_generated_Constructor.h: removed init_*
+        * inst/include/Rcpp/module/Module_generated_Constructor.h: removed init_*
 
-	* inst/include/Rcpp/module/Module_generated_method.h: .method gains a docstring
-	argument to allow self documentation of exposed methods
+        * inst/include/Rcpp/module/Module_generated_method.h: .method gains a docstring
+        argument to allow self documentation of exposed methods
 
-	* inst/include/Rcpp/module/Module_generated_PointerMethod.h: idem
+        * inst/include/Rcpp/module/Module_generated_PointerMethod.h: idem
 
-	* R/Module.R: grab method docstrings
+        * R/Module.R: grab method docstrings
 
 2010-11-20  John M Chambers  <jmc@r-project.org>
 
-	* R/Module.R: now checks for the existence of a default constructor
-	for a C++ class and generates a suitable $initialize() method accordingly.
+        * R/Module.R: now checks for the existence of a default constructor
+        for a C++ class and generates a suitable $initialize() method accordingly.
 
 2010-11-20  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/MatrixRow.h: added missing return *this ;
+        * inst/include/Rcpp/vector/MatrixRow.h: added missing return *this ;
 
-	* R/Module.R: dispatch based on void-ness of the methods. For example
-	if all methods are known to be void, etc ...
+        * R/Module.R: dispatch based on void-ness of the methods. For example
+        if all methods are known to be void, etc ...
 
-	* R/00_classes.R: more information in the C++OverloadedMethods ref
-	class
+        * R/00_classes.R: more information in the C++OverloadedMethods ref
+        class
 
-	* src/Module.cpp: new .External CppMethod__invoke_void and
-	CppMethod__invoke_notvoid that are used when we know for sure that
-	all overloaded methods are void, or not void
+        * src/Module.cpp: new .External CppMethod__invoke_void and
+        CppMethod__invoke_notvoid that are used when we know for sure that
+        all overloaded methods are void, or not void
 
-	* inst/include/Rcpp/Module.h: class_ gains invoke_void and
-	invoke_notvoid to support the changes above
+        * inst/include/Rcpp/Module.h: class_ gains invoke_void and
+        invoke_notvoid to support the changes above
 
 2010-11-18  Douglas Bates  <bates@stat.wisc.edu>
 
-	* inst/include/Rcpp/module/Module_generated_[class_]Constructor.h:
-	allow up to 6 arguments to .constructor
+        * inst/include/Rcpp/module/Module_generated_[class_]Constructor.h:
+        allow up to 6 arguments to .constructor
 
 2010-11-18  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h: rework the class_ template to allow
-	overloaded methods
+        * inst/include/Rcpp/Module.h: rework the class_ template to allow
+        overloaded methods
 
-	* R/00_classes.R: The C++Method class disappears and the
-	C++OverloadedMethods enters. a "C++OverloadedMethods" object points
-	to a set of overloaded C++ methods that all share the same name.
+        * R/00_classes.R: The C++Method class disappears and the
+        C++OverloadedMethods enters. a "C++OverloadedMethods" object points
+        to a set of overloaded C++ methods that all share the same name.
 
-	* R/Module.R: adapt some of the code to cope with changes above
+        * R/Module.R: adapt some of the code to cope with changes above
 
 2010-11-17  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/as_vector.h: added the as_vector function
-	that turns a sugar matrix expression into a vector of the appropriate
-	type
+        * inst/include/Rcpp/sugar/as_vector.h: added the as_vector function
+        that turns a sugar matrix expression into a vector of the appropriate
+        type
 
-	* inst/include/Rcpp/vector/Matrix.h: new SubMatrix class
+        * inst/include/Rcpp/vector/Matrix.h: new SubMatrix class
 
 2010-11-13  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h: expose constructors as the
-	"cpp_constructor" field of "C++ClassRepresentation" and the
-	"constructors" slot of "C++Class"
+        * inst/include/Rcpp/Module.h: expose constructors as the
+        "cpp_constructor" field of "C++ClassRepresentation" and the
+        "constructors" slot of "C++Class"
 
 2010-11-07  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/sugar/operators/minus.h: fixed
-	Minus_Vector_Primitive<RTYPE,false,T>
+        * inst/include/Rcpp/sugar/operators/minus.h: fixed
+        Minus_Vector_Primitive<RTYPE,false,T>
 
-	* inst/unitTests/runit.sugar.R: new test for the above
+        * inst/unitTests/runit.sugar.R: new test for the above
 
 2010-11-05  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h: exposing multiple constructors in modules
+        * inst/include/Rcpp/Module.h: exposing multiple constructors in modules
 
-	* src/Module.cpp: The mangled class name is now "Rcpp_" plus the
-	class name. The previous version used the address of the external
-	pointer to the module, which was not constant.
+        * src/Module.cpp: The mangled class name is now "Rcpp_" plus the
+        class name. The previous version used the address of the external
+        pointer to the module, which was not constant.
 
 2010-11-04  Douglas Bates  <bates@stat.wisc.edu>
 
-	* inst/include/Rcpp/module/Module_generated_Constructor.h: remove
-	redundant 'return's.
+        * inst/include/Rcpp/module/Module_generated_Constructor.h: remove
+        redundant 'return's.
 
 2010-11-04  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/Module.h: experimental way to specify which
-	constructor to use in classes exposed by modules. This is still too
-	restrictive as it only allows one constructor.
+        * inst/include/Rcpp/Module.h: experimental way to specify which
+        constructor to use in classes exposed by modules. This is still too
+        restrictive as it only allows one constructor.
 
-	* inst/include/Rcpp/sugar/block/SugarMath.h: extend the SUGAR_MATH_1
-	macro so that we can apply functions (e.g. sqrt) directly on SEXP
+        * inst/include/Rcpp/sugar/block/SugarMath.h: extend the SUGAR_MATH_1
+        macro so that we can apply functions (e.g. sqrt) directly on SEXP
 
 2010-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version): Release 0.8.8
+        * DESCRIPTION (Version): Release 0.8.8
 
         * debian/*: Similarly updated for new release to Debian
 
 2010-10-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/RcppCommon.h: New define IS_GCC_450_OR_LATER
-	* inst/include/Rcpp/Extractor.h: Do not enable Rcpp::Fast if g++
-	4.5.0 or later is used -- we need to figure out what upsets it
+        * inst/include/RcppCommon.h: New define IS_GCC_450_OR_LATER
+        * inst/include/Rcpp/Extractor.h: Do not enable Rcpp::Fast if g++
+        4.5.0 or later is used -- we need to figure out what upsets it
 
 2010-10-23  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/MatrixRow.h: Faster row indexing
+        * inst/include/Rcpp/vector/MatrixRow.h: Faster row indexing
 
-	* inst/include/Rcpp/vector/Matrix.h: added use of _ to get columns
-	and rows of a matrix. For example if x is a NumericMatrix, x(_,i)
-	returns the same as x.column(i) and x(i,_) returns the same as
-	x.row(i)
+        * inst/include/Rcpp/vector/Matrix.h: added use of _ to get columns
+        and rows of a matrix. For example if x is a NumericMatrix, x(_,i)
+        returns the same as x.column(i) and x(i,_) returns the same as
+        x.row(i)
 
-	* inst/unitTests/runit.Matrix.R: unit tests for the above
+        * inst/unitTests/runit.Matrix.R: unit tests for the above
 
-	* inst/include/Rcpp/sugar/functions/sum.h: the sugar version of sum
-	now takes care of missing values correctly
+        * inst/include/Rcpp/sugar/functions/sum.h: the sugar version of sum
+        now takes care of missing values correctly
 
-	* inst/include/Rcpp/sugar/functions/cumsum.h: sugar version of cumsum
+        * inst/include/Rcpp/sugar/functions/cumsum.h: sugar version of cumsum
 
 2010-10-21  Romain Francois <romain@r-enthusiasts.com>
 
-	* inst/include/Rcpp/vector/MatrixColumn.h: Fixed indexing
-	bug (mismatch between number of rows and number of columns
+        * inst/include/Rcpp/vector/MatrixColumn.h: Fixed indexing
+        bug (mismatch between number of rows and number of columns
 
-	* inst/unitTests/runit.Matrix.R: test fix above based on the
-	R-help/Rcpp-devel thread:
-	http://article.gmane.org/gmane.comp.lang.r.rcpp/851
+        * inst/unitTests/runit.Matrix.R: test fix above based on the
+        R-help/Rcpp-devel thread:
+        http://article.gmane.org/gmane.comp.lang.r.rcpp/851
 
-	* inst/include/Rcpp/vector/MatrixColumn.h: Column gains a operator=
-	taking a sugar expression. Faster indexing (caching the pointer
-	instead of calling nrow many times)
+        * inst/include/Rcpp/vector/MatrixColumn.h: Column gains a operator=
+        taking a sugar expression. Faster indexing (caching the pointer
+        instead of calling nrow many times)
 
-	* inst/include/Rcpp/vector/Matrix.h: first pass at making matrix
-	indexing faster
+        * inst/include/Rcpp/vector/Matrix.h: first pass at making matrix
+        indexing faster
 
 2010-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/Module.h: Reorder instantiation for class_
+        * inst/include/Rcpp/Module.h: Reorder instantiation for class_
 
 2010-10-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* include/Rcpp/XPtr.h: Applied patch by Karl Millar
-	* include/Rcpp/vector/Vector.h: Idem
+        * include/Rcpp/XPtr.h: Applied patch by Karl Millar
+        * include/Rcpp/vector/Vector.h: Idem
 
 2010-10-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/posixt.cpp: Correct POSIXct, POSIXt ordering for R 2.12.0
+        * src/posixt.cpp: Correct POSIXct, POSIXt ordering for R 2.12.0
 
  2010-10-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version): Release 0.8.7
+        * DESCRIPTION (Version): Release 0.8.7
 
         * debian/*: Similarly updated for new release to Debian
 
 2010-10-10  Romain Francois <romain@r-enthusiasts.com>
 
-	* tests/doRUnit.R: workaround to disable tests on windows 64 until we can
-	  figure out what upsets R CMD check.
+        * tests/doRUnit.R: workaround to disable tests on windows 64 until we can
+          figure out what upsets R CMD check.
 
-	* R/Module.R: expose the finalizer
+        * R/Module.R: expose the finalizer
 
 2010-10-07  John M Chambers  <jmc@r-project.org>
 
-	* R/Module.R: modify cpp_refMethods to substitute the .External
-	directly with the method and class pointers.
+        * R/Module.R: modify cpp_refMethods to substitute the .External
+        directly with the method and class pointers.
 
 2010-10-03  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/stats/random/r*: Added comment reminding users
-	read up on Section 6.3 of "Writing R Extensions" and the need to
-	call GetRNGstate() and PutRNGstate() when using R's RNGs
+        * inst/include/Rcpp/stats/random/r*: Added comment reminding users
+        read up on Section 6.3 of "Writing R Extensions" and the need to
+        call GetRNGstate() and PutRNGstate() when using R's RNGs
 
 2010-09-30  Romain Francois <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/vector/MatrixRow.h: Matrix row inherits
-	VectorBase so that it becomes a sugar expression, so that we can do
-	something like this:
+        VectorBase so that it becomes a sugar expression, so that we can do
+        something like this:
           NumericMatrix x( ... ) ;
           NumericVector x0 = x.row(0) ;
 
@@ -2967,57 +2967,57 @@
         * src/Rcpp_init.c: register routines
 
         * R/*.R: use registration information in many .Call and .External
-	functions to speed things up
+        functions to speed things up
 
         * inst/include/Rcpp/RangeIndexer.h: experimenting with loop unrolling
 
 2010-09-24  John M Chambers  <jmc@r-project.org>
 
-	* R/Module.R: modify cpp_fields to substitute the .Call
-	directly with the field and class pointers; supplements the
-	changes entered by Romain on 9-22. (svn rev 2165, 2141)
+        * R/Module.R: modify cpp_fields to substitute the .Call
+        directly with the field and class pointers; supplements the
+        changes entered by Romain on 9-22. (svn rev 2165, 2141)
 
-	* src/Rcpp_init.c: set up registration of .Call's (rev 2167)
+        * src/Rcpp_init.c: set up registration of .Call's (rev 2167)
 
 2010-09-24  Romain Francois <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/sugar/Range.h : Range gains some
-	operators (++,--,n etc ...)
+        operators (++,--,n etc ...)
 
         * inst/examples/ConvolveBenchmarks/convolve3_cpp.cpp: using the new
-	Range operators
+        Range operators
 
         * inst/include/Rcpp/sugar/operators/times.h: speed improvements. Not
-	using pointer to member functions seems to be beneficial.
+        using pointer to member functions seems to be beneficial.
 
         * inst/include/Rcpp/sugar/nona/nona.h: sugar function that wraps a
-	sugar expression in an object that pretends it does not contain any
-	missing values. This allows many sugar functions and operators to use
-	their fast versions when we know that the object does not contain
-	missing values.
+        sugar expression in an object that pretends it does not contain any
+        missing values. This allows many sugar functions and operators to use
+        their fast versions when we know that the object does not contain
+        missing values.
 
 2010-09-22  Romain Francois <romain@r-enthusiasts.com>
 
         * R/Module.R: set [[ and [[<- as regular methods too, which restores
-	previous behavior
+        previous behavior
 
 2010-09-17  Romain Francois <romain@r-enthusiasts.com>
 
         * src/Reference.cpp: new objects are created via a callback to R's
-	new function, as R_do_new_object did always return the same
-	environment
+        new function, as R_do_new_object did always return the same
+        environment
 
         * R/00_classes.R: new ref class C++Method to represent C++ methods
-	and holding their external pointers directly (same idea as C++Field)
+        and holding their external pointers directly (same idea as C++Field)
 
         * inst/include/Rcpp/Module.h: internal support for
-	C++Method (template class S4_CppMethod)
+        C++Method (template class S4_CppMethod)
 
 2010-09-17  John M Chambers  <jmc@r-project.org>
 
-	* R/00_classes.R, R/02_completion.R, et al.: use of environment
-	underlying the reference classes removes need for slots in
-	C++Object class	(svn rev's 2133, 2134)
+        * R/00_classes.R, R/02_completion.R, et al.: use of environment
+        underlying the reference classes removes need for slots in
+        C++Object class (svn rev's 2133, 2134)
 
 
 2010-09-16  Romain Francois <romain@r-enthusiasts.com>
@@ -3025,41 +3025,41 @@
         * R/00_classes.R: moving classes definition here
 
         * inst/Rcpp/Module.h: added C++ class S4_field that builds S4 objects
-	of class C++Field. Build the list of fields as part of the creation
-	of the C++Class objects
+        of class C++Field. Build the list of fields as part of the creation
+        of the C++Class objects
 
         * src/Module.cpp: .Call functions CppField__get and CppField__set to
-	get/set values of an object's field using external pointers
-	directly (no std::map lookup internally)
+        get/set values of an object's field using external pointers
+        directly (no std::map lookup internally)
 
         * R/Module.R: (unexported) functions .getField and .setField that
         call CppField__get and CppField__set
 
         * inst/include/Rcpp/Reference.h: skeleton for a Rcpp::Reference class
-	that will help dealing with reference classes on the C++ side
+        that will help dealing with reference classes on the C++ side
 
         * src/Reference.cpp: implementation (needs update)
 
 2010-09-16  John M Chambers  <jmc@r-project.org>
 
-	* R/Module.R, tests/modRef.R: un-generic of new(); return a
-	generator object for C++ classes. Use environment as superclass.
+        * R/Module.R, tests/modRef.R: un-generic of new(); return a
+        generator object for C++ classes. Use environment as superclass.
 
 
 2010-09-15  Romain Francois <romain@r-enthusiasts.com>
 
         * DESCRIPTION: added the declaration MinimumSvnRev to control which
-	version of R-devel we need so that Rcpp fully works, currently set to
-	52905
+        version of R-devel we need so that Rcpp fully works, currently set to
+        52905
 
         * R/zzz.R: check the svn revision of R against the declared
-	MinimumSvnRev requirement and print a message if necessary (this will
-	only stay for the interim period while we develop 0.8.7 so that we
-	all are on the same page.
+        MinimumSvnRev requirement and print a message if necessary (this will
+        only stay for the interim period while we develop 0.8.7 so that we
+        all are on the same page.
 
         * inst/include/Rcpp/Module.h: added methods to class_Base :
-	methods_arity and methods_voidness to query the number of arguments
-	of methods of a class and if the method is void
+        methods_arity and methods_voidness to query the number of arguments
+        of methods of a class and if the method is void
 
         * R/Module.R: implement referenceMethods (from methods) for 'C++Class'
 
@@ -3080,24 +3080,24 @@
 2010-09-08  Romain Francois <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/Module.h : added class_Base::property_names
-	method to grab the names of all fields (properties)
+        method to grab the names of all fields (properties)
 
         * src/Module.cpp : added R access (.Call) function
-	CppClass__properties to grab the names of the fields (property) from
-	the XP of a class
+        CppClass__properties to grab the names of the fields (property) from
+        the XP of a class
 
         * inst/include/Rcpp/Module.h : added class_Base::property_is_readonly
-	method to query if a property is read only
+        method to query if a property is read only
 
         * src/Module.cpp : added R access (.Call) function
-	CppClass__property_is_readonly to query if a class property is read
-	only
+        CppClass__property_is_readonly to query if a class property is read
+        only
 
         * inst/include/Rcpp/Module.h : added class_Base::property_class
-	method to grab the C++ class of a property
+        method to grab the C++ class of a property
 
         * src/Module.cpp : added R access (.Call) function
-	CppClass__property_class to grab the C++ class of a property
+        CppClass__property_class to grab the C++ class of a property
 
 2010-09-06  Dirk Eddelbuettel  <edd@debian.org>
 
