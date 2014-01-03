@@ -1,3 +1,7 @@
+2014-01-03  JJ Allaire <jj@rstudio.org>
+
+        * Added *.Rproj and .Rproj.user to .gitignore
+
 2013-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp.bib: Updated CRAN package references
