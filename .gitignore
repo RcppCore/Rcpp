@@ -1,2 +1,3 @@
 inst/lib
-
+*.Rproj
+.Rproj.user
