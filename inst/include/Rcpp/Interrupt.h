@@ -43,11 +43,6 @@ namespace Rcpp {
             return interruptedError;
         }
         
-        // Interrupt R's execution by jumping to the top-level
-        inline void jumpToTop() {
-            Rf_jump_to_toplevel();
-        }
-        
     } // namespace internal 
 
     // Helper function to check for interrupts. This is invoked within
