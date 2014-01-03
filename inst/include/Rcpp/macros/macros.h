@@ -31,7 +31,7 @@
 #endif 
 
 #ifndef VOID_END_RCPP
-#define VOID_END_RCPP } catch( Rcpp::internal::InterruptedException& __ex__ ) { Rcpp::internal::jumpToTop(); } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; }
+#define VOID_END_RCPP } catch( Rcpp::internal::InterruptedException& __ex__ ) { Rf_jump_to_toplevel(); } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; }
 #endif
 
 #ifndef END_RCPP
