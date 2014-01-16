@@ -191,9 +191,11 @@ inline SEXP exception_to_try_error( const std::exception& ex){
 std::string demangle( const std::string& name) ; 
 #define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str() 
 
-inline void stop(const std::string& message) { 
-    throw Rcpp::exception(message.c_str()); 
-} 
+namespace Rcpp{
+    inline void stop(const std::string& message) { 
+        throw Rcpp::exception(message.c_str()); 
+    } 
+}
 
 inline void forward_exception_to_r( const std::exception& ex){
     SEXP stop_sym  = Rf_install( "stop" ) ;

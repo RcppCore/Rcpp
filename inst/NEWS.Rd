@@ -20,7 +20,7 @@
       been updated to better match \R (specifically with \code{Inf}, \code{-Inf},
       and \code{NaN}.)
       \item Applied two bug fixes to Vector \code{sort()} and \code{RObject}
-      definition spotted and correct by Kevin Ushey
+      definition spotted and corrected by Kevin Ushey
     }
     \item Changes in Rcpp documentation:
     \itemize{
