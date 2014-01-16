@@ -2,6 +2,16 @@
 
 	* inst/include/Rcpp/exceptions.h: Move stop() into Rcpp namespace
 
+2014-01-03  JJ Allaire <jj@rstudio.org>
+
+        * .gitignore: Added src/<object-files>, *.Rproj, and .Rproj.user
+        * inst/include/Rcpp/Interrupt.h: New checkUserInterrupt function
+        that provides a C++ friendly implementation of R_CheckUserInterrupt
+        * inst/include/RcppCommon.h: Include Rcpp/Interrupts.h
+        * inst/include/macros/macros.h: Check for interrupts in END_RCPP
+        * src/attributes.cpp: Handle interrupted-error in attribute
+        function envelope.
+
 2013-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp.bib: Updated CRAN package references
