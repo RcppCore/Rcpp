@@ -1,3 +1,8 @@
+2014-01-16  JJ Allaiare <jj@rstudio.org>
+
+        * inst/include/Rcpp/DateVector.h: Fix GreedyVector compilation error
+        * inst/include/Rcpp/DatetimeVector.h: Fix GreedyVector compilation error
+
 2014-01-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/exceptions.h: Move stop() into Rcpp namespace
