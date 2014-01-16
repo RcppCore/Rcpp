@@ -18,12 +18,13 @@ before_install:
   - ./travis-tool.sh bootstrap
 
 install:
-  - ./travis-tool.sh install_r RUnit inline rbenchmark highlight
+  - ./travis-tool.sh install_aptget r-cran-runit
+  - ./travis-tool.sh install_r inline rbenchmark highlight
 
 script: 
   - ./travis-tool.sh run_tests
 
-after_script:
+after_failure:
   - ./travis-tool.sh dump_logs
 
 notifications:

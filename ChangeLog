@@ -1,3 +1,7 @@
+2014-01-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/exceptions.h: Move stop() into Rcpp namespace
+
 2013-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp.bib: Updated CRAN package references
