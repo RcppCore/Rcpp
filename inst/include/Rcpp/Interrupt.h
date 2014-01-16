@@ -22,7 +22,7 @@
 #ifndef Rcpp_Interrupt_h
 #define Rcpp_Interrupt_h
 
-#include <Rinterface.h>
+#include <R_ext/GraphicsEngine.h>
 
 namespace Rcpp { 
     
