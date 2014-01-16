@@ -21,6 +21,9 @@
       and \code{NaN}.)
       \item Applied two bug fixes to Vector \code{sort()} and \code{RObject}
       definition spotted and corrected by Kevin Ushey
+      definition spotted and correct by Kevin Ushey
+      \item New \code{checkUserInterrupt()} function that provides a C++ friendly 
+      implementation of \code{R_CheckUserInterrupt}.
     }
     \item Changes in Rcpp documentation:
     \itemize{

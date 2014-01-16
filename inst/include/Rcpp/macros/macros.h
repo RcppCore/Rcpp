@@ -31,7 +31,7 @@
 #endif 
 
 #ifndef VOID_END_RCPP
-#define VOID_END_RCPP } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; }
+#define VOID_END_RCPP } catch( Rcpp::internal::InterruptedException& __ex__ ) { Rf_jump_to_toplevel(); } catch( std::exception& __ex__ ){ forward_exception_to_r( __ex__ ) ; } catch(...){ ::Rf_error( "c++ exception (unknown reason)" ) ; }
 #endif
 
 #ifndef END_RCPP
@@ -39,7 +39,7 @@
 #endif
 
 #ifndef END_RCPP_RETURN_ERROR
-#define END_RCPP_RETURN_ERROR } catch( std::exception& __ex__ ){ return exception_to_try_error( __ex__ ) ; } catch(...){ return string_to_try_error( "c++ exception (unknown reason)" ) ; } return R_NilValue;
+#define END_RCPP_RETURN_ERROR } catch( Rcpp::internal::InterruptedException& __ex__ ) { return Rcpp::internal::interruptedError(); } catch( std::exception& __ex__ ){ return exception_to_try_error( __ex__ ) ; } catch(...){ return string_to_try_error( "c++ exception (unknown reason)" ) ; } return R_NilValue;
 #endif
 
 #define Rcpp_error(MESSAGE) throw Rcpp::exception( MESSAGE, __FILE__, __LINE__ ) 
