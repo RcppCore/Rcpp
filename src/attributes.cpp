@@ -1700,10 +1700,6 @@ namespace attributes {
                 ostr() << ");" << std::endl;
                 ostr() << "        }" << std::endl;
                 
-                ostr() << "        if (__result.inherits(\"interrupted-error\"))" 
-                       << std::endl
-                       << "            throw Rcpp::internal::InterruptedException();"
-                       << std::endl;
                 ostr() << "        if (__result.inherits(\"try-error\"))" 
                        << std::endl
                        << "            throw Rcpp::exception(as<std::string>("
@@ -2226,13 +2222,7 @@ namespace attributes {
                 }
                 ostr << "));" << std::endl;
                 ostr << "    }" << std::endl;
-                ostr << "    Rboolean __isInterrupt = Rf_inherits(__result, \"interrupted-error\");"
-                     << std::endl
-                     << "    if (__isInterrupt) {" << std::endl
-                     << "        UNPROTECT(1);" << std::endl
-                     << "        Rcpp::internal::jumpToTop();" << std::endl
-                     << "    }" << std::endl
-                     << "    Rboolean __isError = Rf_inherits(__result, \"try-error\");"
+                ostr << "    Rboolean __isError = Rf_inherits(__result, \"try-error\");"
                      << std::endl
                      << "    if (__isError) {" << std::endl
                      << "        SEXP __msgSEXP = Rf_asChar(__result);" << std::endl
