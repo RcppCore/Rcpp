@@ -139,8 +139,6 @@ namespace Rcpp{
 
 #include <Rcpp/exceptions.h>
 
-#include <Rcpp/Interrupt.h>
-
 namespace Rcpp{
     template <typename T> class object ;
     class String ;
