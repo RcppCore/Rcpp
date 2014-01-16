@@ -64,7 +64,7 @@ namespace Rcpp{
     Matrix<RTYPE, StoragePolicy>& Matrix<RTYPE,StoragePolicy>::operator=(const Matrix& other) {
         SEXP x = VECTOR::get__() ;
         if( ! ::Rf_isMatrix(x) ) not_compatible("not a matrix") ;
-        VECTOR::set_sexp( x ) ;
+        VECTOR::set__( x ) ;
         nrows = other.nrows ;
         return *this ;
     }

@@ -41,21 +41,21 @@ namespace Rcpp{
         
         DataFrame_Impl() : Parent( internal::empty_data_frame() ){}
         DataFrame_Impl(SEXP x) {
-            set_sexp(x);     
+            set__(x);     
         }
         DataFrame_Impl( const DataFrame_Impl& other){
-            set_sexp(other) ;    
+            set__(other) ;    
         }
         
         template <typename T>
         DataFrame_Impl( const T& obj ) ;
         
         DataFrame_Impl& operator=( DataFrame_Impl& other){
-            if( *this != other) set_sexp(other) ;    
+            if( *this != other) set__(other) ;    
         }
         
         DataFrame_Impl& operator=( SEXP x){
-            set_sexp(x) ;
+            set__(x) ;
             return *this ;
         }
                 
@@ -70,7 +70,7 @@ namespace Rcpp{
         #include <Rcpp/generated/DataFrame_generated.h>           
 
     private:
-        void set_sexp(SEXP x){
+        void set__(SEXP x){
             if( ::Rf_inherits( x, "data.frame" )){
                 Parent::set__( x ) ;
             } else{
