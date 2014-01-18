@@ -1,3 +1,8 @@
+2014-01-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/RcppLdpath.R (RcppCxxFlags): Restore function to supply values
+	for include files for packages not yet converted to LinkingTo:
+
 2014-01-16  JJ Allaiare <jj@rstudio.org>
 
         * inst/include/Rcpp/macros/macros.h: Use Rf_onintr rather than 
