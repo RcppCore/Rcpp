@@ -1,4 +1,4 @@
-2014-01-18  Kevin Ushey  <kevinushey@Kevin-MBP.local>
+2014-01-18  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/unitTests/cpp/Matrix.cpp: Add unit test
 	* inst/unitTests/runit.Matrix.R: Add unit test
