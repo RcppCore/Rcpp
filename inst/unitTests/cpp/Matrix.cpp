@@ -2,7 +2,7 @@
 //
 // Matrix.cpp: Rcpp R/C++ interface class library -- Matrix unit tests
 //
-// Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2014    Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -50,12 +50,19 @@ List matrix_generic( GenericMatrix m){
 }
 
 // [[Rcpp::export]]
-IntegerMatrix matrix_integer_diag(){ 
+NumericMatrix matrix_opequals(SEXP x) {
+  NumericMatrix xx;
+  xx = NumericMatrix(x);
+  return xx;
+}
+
+// [[Rcpp::export]]
+IntegerMatrix matrix_integer_diag(){
     return IntegerMatrix::diag( 5, 1 ) ;
 }
 
 // [[Rcpp::export]]
-CharacterMatrix matrix_character_diag(){ 
+CharacterMatrix matrix_character_diag(){
     return CharacterMatrix::diag( 5, "foo" ) ;
 }
 
@@ -147,7 +154,7 @@ IntegerVector runit_GenericMatrix_column( GenericMatrix m ){
     std::transform(
     	   col.begin(), col.end(),
     	   out.begin(),
-    	   unary_call<SEXP,int>( Function("length" ) ) 
+    	   unary_call<SEXP,int>( Function("length" ) )
     ) ;
     return wrap(out) ;
 }
