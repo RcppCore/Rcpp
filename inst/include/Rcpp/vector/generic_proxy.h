@@ -1,7 +1,6 @@
 // generic_proxy.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2013 Rice University
 //
 // This file is part of Rcpp.
 //

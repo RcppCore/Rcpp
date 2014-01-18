@@ -3,7 +3,6 @@
 // as.h: Rcpp R/C++ interface class library -- convert SEXP to C++ objects
 //
 // Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2013    Rice University
 //
 // This file is part of Rcpp.
 //

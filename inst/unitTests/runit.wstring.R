@@ -2,7 +2,6 @@
 # -*- mode: R; tab-width: 4; -*-
 #
 # Copyright (C) 2013  Dirk Eddelbuettel and Romain Francois
-# Copyright (C) 2013  Rice University
 #
 # This file is part of Rcpp.
 #

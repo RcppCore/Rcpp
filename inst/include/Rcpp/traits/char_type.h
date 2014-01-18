@@ -4,7 +4,6 @@
 // char_type.h: Rcpp R/C++ interface class library -- 
 //
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2013 Rice University
 //
 // This file is part of Rcpp.
 //

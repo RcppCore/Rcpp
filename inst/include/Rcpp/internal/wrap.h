@@ -4,7 +4,6 @@
 // wrap.h: Rcpp R/C++ interface class library -- wrap implementations
 //
 // Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2013  Rice University
 //
 // This file is part of Rcpp.
 //

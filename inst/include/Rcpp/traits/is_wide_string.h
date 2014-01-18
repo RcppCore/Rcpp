@@ -4,7 +4,6 @@
 // is_wide_string.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2013 Rice University
 //
 // This file is part of Rcpp.
 //
