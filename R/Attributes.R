@@ -352,7 +352,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         dir.create(rDir)
 
     # get a list of all source files
-    cppFiles <- list.files(srcDir, pattern=glob2rx("*.c*"))
+    cppFiles <- list.files(srcDir, pattern="\\.c(c|pp)$")
 
     # derive base names (will be used for modules)
     cppFileBasenames <- tools::file_path_sans_ext(cppFiles)

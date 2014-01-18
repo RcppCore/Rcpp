@@ -1,3 +1,8 @@
+2014-01-18  JJ Allaiare <jj@rstudio.org>
+
+        * R/Attributes.R: More restrictive matching of c++ file extensions
+        for compileAttributes.
+
 2014-01-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/RcppLdpath.R (RcppCxxFlags): Restore function to supply values
