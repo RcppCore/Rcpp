@@ -1,6 +1,12 @@
+2014-01-18  Kevin Ushey  <kevinushey@Kevin-MBP.local>
+
+	* inst/unitTests/cpp/Matrix.cpp: Add unit test
+	* inst/unitTests/runit.Matrix.R: Add unit test
+	* inst/include/Rcpp/api/meat/Matrix.h: Bug fix in operator=
+
 2014-01-16  JJ Allaiare <jj@rstudio.org>
 
-        * inst/include/Rcpp/macros/macros.h: Use Rf_onintr rather than 
+        * inst/include/Rcpp/macros/macros.h: Use Rf_onintr rather than
         non-public Rf_jump_to_toplevel
         * inst/include/Rcpp/DateVector.h: Fix GreedyVector compilation error
         * inst/include/Rcpp/DatetimeVector.h: Fix GreedyVector compilation error
