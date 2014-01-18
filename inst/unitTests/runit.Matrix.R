@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 #
 # This file is part of Rcpp.
 #
@@ -139,6 +139,11 @@ test.NumericMatrix.rowsum <- function( ){
 test.NumericMatrix.SubMatrix <- function( ){
     target <- rbind( c(3,4,5,5), c(3,4,5,5), 0 )
     checkEquals( runit_SubMatrix(), target, msg = "SubMatrix" )
+}
+
+test.NumericMatrix.opequals <- function() {
+  m <- matrix(1:4, nrow=2)
+  checkEquals(m, matrix_opequals(m))
 }
 
 
