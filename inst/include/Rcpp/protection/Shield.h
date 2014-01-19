@@ -1,4 +1,4 @@
-// Copyright (C) 2013    Romain Francois
+// Copyright (C) 2013 Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -15,34 +15,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp_protection_Shield_H
-#define Rcpp_protection_Shield_H
+#ifndef Rcpp__protection_Shield_h
+#define Rcpp__protection_Shield_h
 
-namespace Rcpp {
-    
+namespace Rcpp{
+
+    inline SEXP Rcpp_protect(SEXP x){
+        if( x != R_NilValue ) PROTECT(x) ;
+        return x ;
+    }
+
     template <typename T>
     class Shield{
     public:
-        Shield( SEXP t_) : t(PROTECT(t_)){}
+        Shield( SEXP t_) : t(Rcpp_protect(t_)){}
         ~Shield(){
-            UNPROTECT(1) ;    
+            if( t != R_NilValue ) UNPROTECT(1) ;
         }
-        
-        template <typename U>
-        inline operator U() const  ;
-        
-        inline operator SEXP() const { 
-            return t ; 
-        }
-        
-    private:  
-        // not defined on purpose
+
+        operator SEXP() const { return t; }
+        SEXP t ;
+
+    private:
         Shield( const Shield& ) ;
         Shield& operator=( const Shield& ) ;
-    
-        SEXP t ;
     } ;
-    
+
+
+
 }
 
 #endif
