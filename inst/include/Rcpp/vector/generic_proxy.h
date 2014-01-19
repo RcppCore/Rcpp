@@ -24,7 +24,7 @@ namespace Rcpp{
 namespace internal{
 	
 	template <int RTYPE> 
-	class generic_proxy{
+	class generic_proxy : public GenericProxy< generic_proxy<RTYPE> > {
 		public:
 			typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
 			
