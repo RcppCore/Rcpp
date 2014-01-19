@@ -26,9 +26,9 @@ if (.runThisTest) {
 test.RObject.S4methods <- function(){
 	setClass("track", representation(x="numeric", y="numeric"))
 	tr <- new( "track", x = 2, y = 2 )
-	checkEquals( 
+	checkEquals(
 	    S4_methods(tr),
-		list( TRUE, TRUE, FALSE, 2.0, 2.0 ), 
+		list( TRUE, TRUE, FALSE, 2.0, 2.0 ),
 		msg = "slot management" )
 
 	S4_getslots( tr )
@@ -92,6 +92,12 @@ test.S4.dotdataslot <- function(){
 	setClass( "Foo", contains = "character", representation( x = "numeric" ) )
 	foo <- S4_dotdata( new( "Foo", "bla", x = 10 ) )
 	checkEquals( as.character( foo) , "foooo" )
+}
+
+test.S4.proxycoerce <- function() {
+  setClass("Foo", list(data="integer"))
+  foo <- new("Foo", data=1:3)
+  checkEquals( S4_proxycoerce(foo), c(1, 2, 3) )
 }
 
 }

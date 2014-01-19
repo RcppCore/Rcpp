@@ -30,14 +30,14 @@ List S4_methods( RObject y ){
     res[2] = y.hasSlot("z") ;
     res[3] = y.slot("x") ;
     res[4] = y.slot("y") ;
-    return res ;        
+    return res ;
 }
 
 // [[Rcpp::export]]
 void S4_getslots( S4 y){
     y.slot( "x" ) = 10.0 ;
     y.slot( "y" ) = 20.0 ;
-}      
+}
 
 // [[Rcpp::export]]
 void S4_setslots( S4 y ){
@@ -46,12 +46,12 @@ void S4_setslots( S4 y ){
 
 // [[Rcpp::export]]
 void S4_setslots_2( S4 y){
-    y.slot( "foo" ) ;    
+    y.slot( "foo" ) ;
 }
 
 // [[Rcpp::export]]
 S4 S4_ctor( std::string cl){
-    return S4( cl );    
+    return S4( cl );
 }
 
 // [[Rcpp::export]]
@@ -67,7 +67,7 @@ bool S4_is_trackCurve(S4 tr){
 // [[Rcpp::export]]
 NumericVector S4_get_slot_x(S4 o){
     NumericVector res( o.slot("x") );
-    return res ;    
+    return res ;
 }
 
 // [[Rcpp::export]]
@@ -82,3 +82,12 @@ S4 S4_dotdata(S4 foo){
     return foo ;
 }
 
+// [[Rcpp::export]]
+std::vector<double> S4_proxycoerce(S4 x_) {
+  NumericVector x(x_.slot("data"));
+  std::vector<double> xx( x.size() );
+  for (int i=0; i < x.size(); ++i) {
+    xx[i] = x[i];
+  }
+  return xx;
+}
