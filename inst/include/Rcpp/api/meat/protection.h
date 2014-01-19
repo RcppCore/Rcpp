@@ -17,27 +17,22 @@
 
 #ifndef Rcpp_protection_meat_H
 #define Rcpp_protection_meat_H
-      
+
 namespace Rcpp{
 
     template <typename T>
     template <typename U>
     Armor<T>::Armor( U x ) : data() {
         init( wrap(x) ) ;
-    }       
-        
+    }
+
     template <typename T>
     template <typename U>
     inline Armor<T>& Armor<T>::operator=( const U& x ){
         REPROTECT(data = wrap(x), index) ;
         return *this ;
     }
-         
-    template <typename T>
-    template <typename U>
-    inline Shield<T>::operator U() const { 
-        return as<U>(t) ; 
-    }
+
 }
 
 #endif
