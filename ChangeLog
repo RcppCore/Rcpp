@@ -1,5 +1,7 @@
 2014-01-18  Kevin Ushey  <kevinushey@gmail.com>
 
+  * inst/unitTests/runit.S4.R: Add a test for ctor from slot proxy
+  * inst/unitTests/cpp/S4.cpp: Add a test for ctor from slot proxy
 	* inst/include/Rcpp/vector/Vector.h: Add missing r_cast to vector
 	ctor from proxy
 
