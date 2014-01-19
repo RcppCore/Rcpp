@@ -4,3 +4,4 @@ inst/lib
 src/*.o
 src/*.so
 src/*.dll
+.Rhistory
