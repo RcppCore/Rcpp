@@ -7,7 +7,8 @@ Authors@R: c(
     person("Romain", "Francois", role = "aut", email = "romain@r-enthusiasts.com"),
     person("JJ", "Allaire", role = "ctb", email = "jj.allaire@gmail.com"),
     person("John", "Chambers", role = "ctb", email = "jmc@r-project.org"),
-    person("Douglas", "Bates", role = "ctb", email = "bates@stat.wisc.edu")
+    person("Douglas", "Bates", role = "ctb", email = "bates@stat.wisc.edu"),
+    person("Kevin", "Ushey", role = "ctb", email = "kevinushey@gmail.com")
     )
 Description: The Rcpp package provides R functions as well as a C++ library
  which facilitate the integration of R and C++.
@@ -18,15 +19,15 @@ Description: The Rcpp package provides R functions as well as a C++ library
  represented as instances of the Rcpp::NumericVector class, environments are
  represented as instances of Rcpp::Environment, functions are represented as
  Rcpp::Function, etc ... The "Rcpp-introduction" vignette provides a good
- entry point to Rcpp. 
+ entry point to Rcpp.
  .
- Conversion from C++ to R and back is driven by the templates Rcpp::wrap 
+ Conversion from C++ to R and back is driven by the templates Rcpp::wrap
  and Rcpp::as which are highly flexible and extensible, as documented
  in the "Rcpp-extending" vignette.
  .
- Rcpp also provides Rcpp modules, a framework that allows exposing 
+ Rcpp also provides Rcpp modules, a framework that allows exposing
  C++ functions and classes to the R level. The "Rcpp-modules" vignette
- details the current set of features of Rcpp-modules. 
+ details the current set of features of Rcpp-modules.
  .
  Rcpp includes a concept called Rcpp sugar that brings many R functions
  into C++. Sugar takes advantage of lazy evaluation and expression templates
@@ -47,11 +48,11 @@ Description: The Rcpp package provides R functions as well as a C++ library
  An earlier version of Rcpp, containing what we now call the 'classic Rcpp
  API' was written during 2005 and 2006 by Dominick Samperi.  This code has
  been factored out of Rcpp into the package RcppClassic, and it is still
- available for code relying on the older interface. New development should 
+ available for code relying on the older interface. New development should
  always use this Rcpp package instead.
  .
  Additional documentation is available via the paper by Eddelbuettel and
- Francois (2011, JSS) paper and the book by Eddelbuettel (2013, Springer); 
+ Francois (2011, JSS) paper and the book by Eddelbuettel (2013, Springer);
  see 'citation("Rcpp")' for details.
 Depends: R (>= 3.0.0)
 Imports: methods
