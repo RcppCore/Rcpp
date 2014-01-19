@@ -1,3 +1,8 @@
+2014-01-18  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/vector/Vector.h: Add missing r_cast to vector
+	ctor from proxy
+
 2014-01-18  JJ Allaiare <jj@rstudio.org>
 
         * R/Attributes.R: More restrictive matching of C++ file extensions

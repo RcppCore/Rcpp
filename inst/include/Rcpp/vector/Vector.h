@@ -71,7 +71,7 @@ public:
     
     template <typename Proxy>
     Vector( const GenericProxy<Proxy>& proxy ){
-        Storage::set__( proxy.get() ) ;    
+        Storage::set__( r_cast<RTYPE>(proxy.get()) ) ;    
     }
     
     explicit Vector( const no_init& obj) {
