@@ -363,12 +363,11 @@ namespace Rcpp{
         Shield<SEXP> newnames( ::Rf_allocVector( STRSXP, n+1 ) ) ;
         int i=0;
         if( Rf_isNull(names) ){
-            SEXP dummy = PROTECT( Rf_mkChar("") );
+            Shield<SEXP> dummy( Rf_mkChar("") );
             for( ; it < this_end; ++it, ++target_it,i++ ){
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i , dummy );
             }
-            UNPROTECT(1);
         } else {
             for( ; it < this_end; ++it, ++target_it, i++ ){
                 *target_it = *it ;
