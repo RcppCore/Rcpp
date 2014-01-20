@@ -229,11 +229,11 @@ List integer_erase_range( IntegerVector x, IntegerVector y ){
 List integer_erase_range_2( IntegerVector x, IntegerVector y ){
     IntegerVector::iterator it = x.begin()+1 ;
     while( it != x.end() ){
-        it = x.erase(it) ;
+        it = x.erase(it) ;    
     }
     it = y.begin() + 1 ;
     while( it != y.end() ){
-        it = y.erase(it) ;
+        it = y.erase(it) ;    
     }
     return List::create( x, y ) ;
 }
@@ -242,11 +242,11 @@ List integer_erase_range_2( IntegerVector x, IntegerVector y ){
 List List_erase_range_2( List x, List y ){
     List::iterator it = x.begin()+1 ;
     while( it != x.end() ){
-        it = x.erase(it) ;
+        it = x.erase(it) ;    
     }
     it = y.begin() + 1 ;
     while( it != y.end() ){
-        it = y.erase(it) ;
+        it = y.erase(it) ;    
     }
     return List::create( x, y ) ;
 }
@@ -320,7 +320,7 @@ IntegerVector numeric_import(){
 NumericVector numeric_importtransform(){
     std::vector<double> v(10) ;
     for( int i=0; i<10; i++) v[i] = i ;
-
+    
     return NumericVector::import_transform( v.begin(), v.end(), square ) ;
 }
 
@@ -330,7 +330,7 @@ List list_ctor(){
 	for( int i=0; i<10; i++) x[i] = Rf_ScalarInteger( i * 2)  ;
 	return x ;
 }
-
+	
 // [[Rcpp::export]]
 List list_template_(){
     List x(4) ;
@@ -612,7 +612,7 @@ List character_listOf( List ll ){
     CharacterVector cv2 = ll["bar"];
     std::string rv1 = std::string(cv1[0]) + cv1[1] + cv1[2];
     std::string rv2 = std::string(cv2[0]) + cv2[1] + cv2[2];
-    return List::create(_["foo"] = rv1, _["bar"] = rv2);
+    return List::create(_["foo"] = rv1, _["bar"] = rv2); 
 }
 
 // [[Rcpp::export]]
@@ -671,7 +671,7 @@ List CharacterVectorEqualityOperator( CharacterVector x, CharacterVector y){
     LogicalVector eq(n), neq(n);
     for( int i=0; i<n; i++){
         eq[i]  = x[i] == y[i] ;
-        neq[i] = x[i] != y[i] ;
+        neq[i] = x[i] != y[i] ; 
     }
     return List::create(eq, neq) ;
 }
@@ -682,42 +682,42 @@ List List_rep_ctor(IntegerVector x){
 }
 
 // [[Rcpp::export]]
-int stdVectorDouble(std::vector<double> x) {
+int stdVectorDouble(std::vector<double> x) { 
     return x.size();
 }
 
 // [[Rcpp::export]]
-int stdVectorDoubleConst(const std::vector<double> x) {
+int stdVectorDoubleConst(const std::vector<double> x) { 
     return x.size();
 }
 
 // [[Rcpp::export]]
-int stdVectorDoubleRef(std::vector<double> & x) {
+int stdVectorDoubleRef(std::vector<double> & x) { 
     return x.size();
 }
 
 // [[Rcpp::export]]
-int stdVectorDoubleConstRef(const std::vector<double> & x) {
+int stdVectorDoubleConstRef(const std::vector<double> & x) { 
     return x.size();
 }
 
 // [[Rcpp::export]]
-int stdVectorInt(std::vector<int> x) {
+int stdVectorInt(std::vector<int> x) { 
     return x.size();
 }
 
 // [[Rcpp::export]]
-int stdVectorIntConst(const std::vector<int> x) {
+int stdVectorIntConst(const std::vector<int> x) { 
     return x.size();
 }
 
 // [[Rcpp::export]]
-int stdVectorIntRef(std::vector<int> & x) {
+int stdVectorIntRef(std::vector<int> & x) { 
     return x.size();
 }
 
 // [[Rcpp::export]]
-int stdVectorIntConstRef(const std::vector<int> & x) {
+int stdVectorIntConstRef(const std::vector<int> & x) { 
     return x.size();
 }
 
@@ -733,20 +733,7 @@ std::string character_vector_const_proxy(const CharacterVector& str){
 CharacterVector CharacterVector_test_const_proxy(const CharacterVector x){
     CharacterVector out( x.size() ) ;
     for( int i=0; i<x.size(); i++){
-        out[i] = x[i] ;
+        out[i] = x[i] ;    
     }
     return out ;
-}
-
-extern int R_PPStackTop;
-
-// [[Rcpp::export]]
-SEXP test_push_back_name__impl_no_names() {
-  int save = R_PPStackTop;
-  NumericVector x;
-  x["foo"] = 1;
-  if (R_PPStackTop != save) {
-    throw Rcpp::exception("stack imbalance");
-  }
-  return x;
 }

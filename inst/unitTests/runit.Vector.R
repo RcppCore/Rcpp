@@ -653,16 +653,10 @@ if (.runThisTest) {
         res <- character_vector_const_proxy( "fooo" )
         checkEquals( res, "fooo", msg = "CharacterVector const proxy. #32" )
     }
-
+    
     test.CharacterVector.test.const.proxy <- function(){
         res <- CharacterVector_test_const_proxy( letters )
         checkEquals( res, letters )
-    }
-
-
-    test.push_back_name__impl_no_names <- function(){
-      checkEquals( setNames(1, "foo"), test_push_back_name__impl_no_names(),
-        "stack imbalance push_back_names__impl" )
     }
 }
 
