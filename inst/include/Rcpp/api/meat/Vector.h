@@ -368,6 +368,7 @@ namespace Rcpp{
                 *target_it = *it ;
                 SET_STRING_ELT( newnames, i , dummy );
             }
+            UNPROTECT(1);
         } else {
             for( ; it < this_end; ++it, ++target_it, i++ ){
                 *target_it = *it ;
