@@ -811,7 +811,7 @@ inline SEXP rowmajor_wrap__dispatch( InputIterator first, int nrow, int ncol, ::
 			SET_VECTOR_ELT( out, j + ncol*i, ::Rcpp::wrap( *first) ) ;
 		}
 	}
-	SEXP dims = PROTECT( ::Rf_allocVector( INTSXP, 2) ); 
+	Shield<SEXP> dims( ::Rf_allocVector( INTSXP, 2) ); 
 	INTEGER(dims)[0] = nrow; 
 	INTEGER(dims)[1] = ncol; 
 	::Rf_setAttrib( out, R_DimSymbol, dims) ;
