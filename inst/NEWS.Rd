@@ -6,6 +6,11 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item Functions provided/used by \cpkg{Rcpp} are now registered
+      with R and instantiated by client package alleviating the new for
+      explicit linking against \code{libRcpp} which is therefore no
+      longer created.
+      \item Updated the \code{Rcpp.package.skeleton()} function accordingly.
       \item New class \code{StretchyList} for pair lists with fast addition of
       elements at the front and back. This abstracts the 3 functions
       \code{NewList}, \code{GrowList} and \code{Insert} used in various 
@@ -21,7 +26,6 @@
       and \code{NaN}.)
       \item Applied two bug fixes to Vector \code{sort()} and \code{RObject}
       definition spotted and corrected by Kevin Ushey
-      definition spotted and correct by Kevin Ushey
       \item New \code{checkUserInterrupt()} function that provides a C++ friendly 
       implementation of \code{R_CheckUserInterrupt}.
     }
