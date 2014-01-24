@@ -25,7 +25,6 @@
 
 /* it is important that this comes first */
 #include <RcppCommon.h>
-#include <Rcpp/routines.h>
 
 #include <Rcpp/RObject.h>
 

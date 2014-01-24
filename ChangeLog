@@ -1,6 +1,11 @@
 2014-01-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/announce/ANNOUNCE-0.11.0.txt: Added 
+	* inst/announce/ANNOUNCE-0.11.0.txt: Added for next release
+
+2014-01-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Rcpp.package.skeleton.R: Update skeleton package to add proper
+	Imports: to DESCRIPTION, and importFrom() to NAMESPACE
 
 2014-01-19  Kevin Ushey  <kevinushey@gmail.com>
 
