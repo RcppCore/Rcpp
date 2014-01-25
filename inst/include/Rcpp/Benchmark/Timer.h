@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Timer.h: Rcpp R/C++ interface class library -- Rcpp benchmark utility
 //
-// Copyright (C) 2012 - 2013 JJ Allaire, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2014  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -106,34 +106,30 @@ namespace Rcpp{
         Timer() : data(), start_time( get_nanotime() ){}
         
         void step( const std::string& name){
-            nanotime_t now = get_nanotime() ;
-            data.push_back( std::make_pair( name, now - start_time ) ) ;
-            start_time = get_nanotime() ; 
+            nanotime_t now = get_nanotime();
+            data.push_back(std::make_pair(name, now - start_time));
+            start_time = get_nanotime(); 
         }
         
         operator SEXP() const {
-            NumericVector out( data.begin(), data.end(), get_second ) ; 
-            CharacterVector names( data.begin(), data.end(), get_first ) ;
-            out.attr( "names" ) = names ;
-            return out ;
+            size_t n = data.size();
+            NumericVector out(n);
+            CharacterVector names(n);
+            for (size_t i=0; i<n; i++) {
+                names[i] = data[i].first;
+                out[i] = data[i].second;
+            }
+            out.attr("names") = names;
+            return out;
         }
         
     private:
-        
-        inline std::string get_first( const std::pair<std::string,nanotime_t>& pair ){
-            return pair.first ;    
-        }
-        inline double get_second( const std::pair<std::string,nanotime_t>& pair ){
-            return static_cast<double>(pair.second) ;    
-        }
-        
         typedef std::pair<std::string,nanotime_t> Step;
         typedef std::vector<Step> Steps;
         
-        Steps data ;
-        nanotime_t start_time ;
-            
-    } ;
+        Steps data;
+        nanotime_t start_time;
+    };
     
 }
 

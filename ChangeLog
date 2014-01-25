@@ -1,3 +1,8 @@
+2014-01-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Benchmark/Timer.h: Simplified -- Rcpp Gallery
+	example using it was not building any longer under g++
+
 2014-01-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/announce/ANNOUNCE-0.11.0.txt: Added for next release
