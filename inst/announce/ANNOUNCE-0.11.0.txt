@@ -6,8 +6,9 @@ Version 0.11.0 of the Rcpp package is now on CRAN and its mirrors.
 
 This new release brings a number of new features, most noticably a simplified
 build, as well as improvements to existing features and bugfixes. Complete
-details can be found in the NEWS and ChangeLog files which are included in
-the package.
+details of the changes implemented between the last announcement for version
+0.10.0 and this new can be found in the NEWS and ChangeLog files which are
+included in the package.
 
 
 
@@ -28,7 +29,20 @@ Several key features of the new 0.11.0 release are described below.
 
 
 
-===== Building with Rcpp =====
+===== One-time rebuild required =====
+
+Because of the simplified linking scheme detailed in the next section, and
+the corresponding removal of the libRcpp.* library, all packages currently
+using Rcpp need to be reinstalled.
+
+We provide a simple helper script at
+https://github.com/RcppCore/rcpp-logs/blob/master/scripts/showReverseRcppDepends.r
+to identidy which of your currently-installed packages use Rcpp, and need to
+be rebuilt.
+
+
+
+===== Simpler Building with Rcpp =====
 
 Thanks to the 'LinkingTo:' directive, R already instructed the compiler where
 to fine header files when writing code with Rcpp. The package now uses the
@@ -39,10 +53,17 @@ Rcpp code will be properly instantiated without any explicit linking. [ Note
 that just using 'import(Rcpp)' is not sufficient, but any exported C++
 identifier should do -- evalCpp is nice and short. ]
 
-The key benefit is that package should no longer require files src/Makevars
-and src/Makevars.win to link with Rcpp, and many packages will be able to
-retire these values. The exception, of course, is the case where the package
-links against an external library.
+This means that the package no longer provides a user-facing library
+libRcpp.so (or libRcpp.dylib or libRcpp.dll).  This also implies that a
+one-time rebuild is needed as alluded to in the previous section.
+
+The key benefit is that many package should no longer require the files
+src/Makevars and src/Makevars.win in order to link with Rcpp. Mny packages
+will be able to retire these files. The exception, of course, is the case
+where a package links against an external library as eg the RcppArmadillo
+package> Here, the LAPACK / BLAS / Fortran libraries still need to be
+linked. However, the corresponding values are also provided by R and the
+expression becomes a simple 'PKG_LIBS=$(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)'.
 
 
 
@@ -51,6 +72,7 @@ links against an external library.
 Rcpp attributes were a key innovation in the 0.10.0; they have matured
 further and have now become the standard way to build code with Rcpp.  See
 the dedicated vignette for details.
+
 
 
 ==== C++11 Support =====
@@ -64,6 +86,7 @@ already supported 'local' builds using C++11 since version 0.10.3, simply add
 and Rcpp attributes takes care of the rest.
 
 
+
 ===== Memory management =====
 
 A number of internal data structures were rewritten.
@@ -74,6 +97,9 @@ A number of internal data structures were rewritten.
 
 Rcpp site:
     http://www.rcpp.org
+
+Rcpp Gallery:
+    http://gallery.rcpp.org
 
 Dirk's Rcpp page: 
     http://dirk.eddelbuettel.com/code/rcpp.html
