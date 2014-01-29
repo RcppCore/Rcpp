@@ -1,3 +1,7 @@
+2014-01-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-FAQ.Rnw: Some updates for upcoming release
+
 2014-01-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Benchmark/Timer.h: Simplified -- Rcpp Gallery
