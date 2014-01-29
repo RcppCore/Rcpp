@@ -182,6 +182,12 @@ vignette( "Rcpp-package" )
 @
 
 \subsection{How do I quickly prototype my code?}
+
+There are two toolchains which can help with this. The older one is provided
+by the \pkg{inline} package and described in Section~\ref{using-inline}.
+Starting with \pkg{Rcpp} 0.10.0, the Rcpp Attributes feature offered an even
+easier alternative. It is described in Section~\ref{using-attributes}.
+
 \subsubsection{Using inline}
 \label{using-inline}
 
@@ -224,7 +230,8 @@ useful as it shows how \pkg{inline} runs the show.
 \subsubsection{Using Rcpp Attributes}
 \label{using-attributes}
 
-Rcpp Attributes \citep{CRAN:Rcpp:Attributes}, discussed in \faq{using-attributes} below, permits an even easier
+Rcpp Attributes \citep{CRAN:Rcpp:Attributes}, and also discussed in
+\faq{prototype-using-attributes} below, permits an even easier 
 route to integrating R and C++.  It provides three key functions. First, \code{evalCpp}
 provide a means to evaluate simple C++ expression which is often useful for
 small tests, or to simply check if the toolchain is set up
@@ -257,6 +264,10 @@ transform a prototyped function into the minimal structure of a package.
 After that you can proceed with working on the package in the spirit of
 \faq{make-package}.
 
+Rcpp Attributes \citep{CRAN:Rcpp:Attributes} also offers a means to convert
+functions written using Rcpp Attributes into a function via the
+\code{compileAttributes()} function; see the vignette for details.
+
 \subsection{How do I quickly prototype my code in a package?}
 \label{using-a-package}
 
@@ -288,6 +299,9 @@ The example then becomes
 
 The \code{-l} option calls 'suppressMessages(library(mypkg))' before executing the
 \proglang{R} expression. Several packages can be listed, separated by a comma.
+
+More choice are provide by the \pkg{devtools} package, and by using
+RStudio. See the respective documentation for details.
 
 \subsection{But I want to compile my code with R CMD SHLIB !}
 \label{using-r-cmd-shlib}
@@ -347,7 +361,10 @@ user. How to do so has been shown above, and we recommned you use either
 function \texttt{Rcpp:::LdFlags()}.
 
 If and when \texttt{LinkingTo} changes and lives up to its name, we will be
-sure to adapt \pkg{Rcpp} as well.
+sure to adapt \pkg{Rcpp} as well. 
+
+An important change arrive with \pkg{Rcpp} release 0.11.0 and concern the
+automatic registration of functions; see Section~\ref{function-registration} below.
 
 
 \subsection{Does \pkg{Rcpp} work on windows ?}
@@ -367,19 +384,25 @@ complain to its vendor if you are still upset.
 \subsection{I am having problems building Rcpp on OS X, any help ?}
 \label{q:OSX}
 
-OS X is a little more conservative with compiler versions, so it pays to get
-the latest of whatever Apple releases which may already be a little behind
-what is used on Linux or Windows.
+OS X used to be a little more conservative with compiler versions as Apple
+stuck with gcc-4.2. Following the 'Mavericks' release, it is the opposite as
+only llvm is provide in Xcode---while the R build provided by CRAN still has
+hardwired settings for the gcc/g++ combination. Until that is resolved, users
+either need to create softlinks (say, in, \code{/usr/local/bin}) or override
+the \code{CC} and \code{CXX} variables via a file \code{~/.R/Makevars} or its
+system-equivalent in R's \code{etc/} directory.
 
-At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
-(just like CRAN) supports all OS X releases greater or equal to 10.5.
-However, building \pkg{Rcpp} from source (or building packages using
-\pkg{Rcpp}) also requires a recent-enough version of Xcode. For the
-\textsl{Leopard} release of OS X, the current version is 3.1.4 which can be
-downloaded free of charge from the Apple Developer site. Users may have to
-manually select \code{g++-4.2} via the symbolic link \code{/usr/bin/g++}.
-The \textsl{Snow Leopard} release already comes with Xcode 3.2.x and work as
-is.
+Compilation from source is recommended.  See the \code{r-sig-mac} mailing for
+further details. 
+%At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
+%(just like CRAN) supports all OS X releases greater or equal to 10.5.
+%However, building \pkg{Rcpp} from source (or building packages using
+%\pkg{Rcpp}) also requires a recent-enough version of Xcode. For the
+%\textsl{Leopard} release of OS X, the current version is 3.1.4 which can be
+%downloaded free of charge from the Apple Developer site. Users may have to
+%manually select \code{g++-4.2} via the symbolic link \code{/usr/bin/g++}.
+%The \textsl{Snow Leopard} release already comes with Xcode 3.2.x and work as
+%is.
 
 \subsection{Does \pkg{Rcpp} work on solaris/suncc ?}
 
@@ -401,7 +424,7 @@ CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
 but they do it in very different ways.
 
 \subsection{How do I quickly prototype my code using Attributes?}
-\label{using-attributes}
+\label{prototype-using-attributes}
 
 \pkg{Rcpp} version 0.10.0 and later offer a new feature 'Rcpp Attributes'
 which is described in detail in its own vignette
@@ -409,6 +432,30 @@ which is described in detail in its own vignette
 \code{cppFunction} and \code{sourceCpp} which extend the functionality of the
 \code{cxxfunction} function.
 
+
+\subsection{What about the new 'no-linking' feature??}
+\label{function-registration}
+
+Starting with \pkg{Rcpp} 0.11.0, functionality provided by \pkg{Rcpp} and
+used by packages built with \pkg{Rcpp} accessed via the registration facility
+offered by R (and which is used by \pkg{lme4} and \pkg{Matrix}, as well as by
+\pkg{xts} and \pkg{zoo}).  This requires no effort from the user /
+programmer, and even frees us from explicit linking instruction. In most
+cases, the files \code{src/Makevars} and \code{src/Makevars.win} can now be
+removed. Exceptions are the use of \pkg{RcppArmadillo} (which needs an entry
+\verb|PKG_LIBS=$(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)|) and packages linking 
+to external libraries they use.
+
+But for most packages using \pkg{Rcpp}, only two things are required:
+\begin{itemize}
+\item an entry in \code{DESCRIPTION} such as \code{Imports: Rcpp} (which may
+  be versioned as in \code{Imports: Rcpp (>= 0.11.0)}), and
+\item an entry in \code{NAMESPACE} to ensure \pkg{Rcpp} is correctly
+  instantiated, for example \code{importFrom(Rcpp, evalCpp)}.
+\end{itemize}
+
+The name of the symbol does really matter; once one symbol is important all
+should be available.
 
 
 \section{Examples}
@@ -456,8 +503,9 @@ fun <- cxxfunction(signature(xs="numeric", is="integer"),
 fun(2.2, 3L)
 @
 
-Update: Also see \faq{using-attributes} above about 'Rcpp
-Attributes' \citep{CRAN:Rcpp:Attributes} and its \code{sourceCpp} function.
+Update: Also see \faq{using-attributes} and \faq{prototype-using-attributes}
+above about 'Rcpp Attributes' \citep{CRAN:Rcpp:Attributes} and its
+\code{sourceCpp} function.
 
 \subsection{Can I do matrix algebra with \pkg{Rcpp} ?}
 \label{matrix-algebra}
