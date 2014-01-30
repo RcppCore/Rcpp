@@ -743,13 +743,27 @@ The \pkg{RcppEigen} package provides an alternative using the
 
 Rcpp Attributes, once again, makes this even easier:
 
-<<>>=
-cppFunction('arma::mat mult(arma::mat A, arma::mat B) { return A*B; }',
-            depends="RcppArmadillo")  # needed to use RcppArmadillo
+<<lang=cpp>>=
+
+#include <RcppArmadillo.h>
+
+// [[Rcpp::depends(RcppArmadillo)]] 
+
+// [[Rcpp::export]]
+arma::mat mult(arma::mat A, arma::mat B) { 
+    return A*B; 
+}
+
+/*** R
 A <- matrix(1:9, 3, 3)
 B <- matrix(9:1, 3, 3)
 mult(A,B)
+*/
 @ 
+
+which can be built, and run, from R via a simple \rdoc{Rcpp}{sourceCpp}
+call---and will also run the small R example at the end.
+
 
 \subsection{How do I write a plugin for \pkg{inline} and/or Rcpp Attributes?}
 
