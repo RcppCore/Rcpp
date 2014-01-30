@@ -311,7 +311,7 @@ against.
 
 On the Linux command-line, you can do the following:\newline
 <<lang=bash>>=
-$ export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
+$ export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`  # if Rcpp older than 0.11.0
 $ export PKG_CXXFLAGS=`Rscript -e "Rcpp:::CxxFlags()"`
 $ R CMD SHLIB myfile.cpp
 @
@@ -324,6 +324,20 @@ can still be found in some deprecated documents (as \textit{e.g.} some of
 Dirk's older 'Intro to HPC with R' tutorial slides).  It is still not
 recommended as there are tools and automation mechanisms that can do the work
 for you.
+
+\pkg{Rcpp} versions 0.11.0 or later can do with the definition of
+\code{PKG\_LIBS} as a user-facing library is no longer needed (and hence no
+longer shipped with the package).  One still needs to set \code{PKG\_CXXFLAGS}
+to tell R where the \pkg{Rcpp} headers files are located.  
+
+Once \code{R CMD SHLIB} has created the dyanmically-loadable file (with
+extension \code{.so} on Linux, \code{.dylib} on OS X or \code{.dll} on
+Windows), it can be loaded in an R session via \rdoc{base}{dyn.load}, and the
+function can be executed via \rdoc{base}{.Call}.  Needless to say, we
+\emph{strongly} recommend using a package, or at least Rcpp Attributes as
+either approach takes care of a lot of these tedious and error-prone manual
+steps.
+
 
 \subsection{But R CMD SHLIB still does not work !}
 
@@ -380,13 +394,14 @@ complain to its vendor if you are still upset.
 OS X used to be a little more conservative with compiler versions as Apple
 stuck with gcc-4.2. Following the 'Mavericks' release, it is the opposite as
 only llvm is provide in Xcode---while the R build provided by CRAN still has
-hardwired settings for the gcc/g++ combination. Until that is resolved, users
-either need to create softlinks (say, in, \code{/usr/local/bin}) or override
-the \code{CC} and \code{CXX} variables via a file \code{~/.R/Makevars} or its
-system-equivalent in R's \code{etc/} directory.
+hardwired settings for the gcc/g++ combination. 
 
-Compilation from source is recommended.  See the \code{r-sig-mac} mailing for
-further details. 
+Until that is resolved, users either need to create softlinks (say, in,
+\code{/usr/local/bin}) or override the \code{CC} and \code{CXX} variables via
+a file \code{~/.R/Makevars} or its system-equivalent in R's \code{etc/}
+directory. See the \code{r-sig-mac} mailing for further details.
+
+Compilation from source is recommended.  
 %At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
 %(just like CRAN) supports all OS X releases greater or equal to 10.5.
 %However, building \pkg{Rcpp} from source (or building packages using
