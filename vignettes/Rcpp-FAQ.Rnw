@@ -34,46 +34,28 @@
 \newcommand{\hlboxbacktick}{   \hlnormalsizeboxbacktick}
 \newcommand{\hlboxunderscore}{ \hlnormalsizeboxunderscore}
 
+\newcommand{\faq}[1]{FAQ~\ref{#1}}
+\newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+
 <<echo=FALSE,print=FALSE>>=
 prettyVersion <- packageDescription("Rcpp")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
+require(inline)
+require(highlight)
 @
 
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{Frequently Asked Questions about \pkg{Rcpp}}
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
 
-<<echo=FALSE>>=
-link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/" ){
-    h <- if( missing(package) ) {
-        as.character( help( f ) )
-    } else {
-        as.character( help( f, package = paste( package, sep = "" ) ) )
-    }
-    if( ! length(h) ){
-        sprintf( "\\\\textbf{%s}", f )
-    } else {
-        rx <- "^.*/([^/]*?)/help/(.*?)$"
-        package <- sub( rx, "\\1", h, perl = TRUE )
-        page <- sub( rx, "\\2", h, perl = TRUE )
-        sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
-    }
-}
-linkS4class <- function( cl, package, text = cl, root = "http://finzi.psych.upenn.edu/R/library/" ){
-    link( sprintf("%s-class", cl), package, text, root )
-}
-require(inline)
-require(highlight)
-@
-
-\newcommand{\faq}[1]{FAQ~\ref{#1}}
 
 \begin{document}
 \maketitle
 
 \abstract{
   \noindent This document attempts to answer the most Frequently Asked
-  Questions (FAQ) regarding the \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} package.
+  Questions (FAQ) regarding the \pkg{Rcpp}
+  \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} package. 
 }
 
 \section{Getting started}
@@ -81,12 +63,12 @@ require(highlight)
 \subsection{How do I get started ?}
 
 If you have \pkg{Rcpp} installed, please execute the following command in \proglang{R}
+to access the introductory vignette (which is a variant of the \citet{JSS:Rcpp}
+paper) for a detailed introduction:
 
 <<eval=FALSE>>=
-vignette( "Rcpp-introduction" )
+vignette("Rcpp-introduction")
 @
-
-\noindent to access the vignette which provides a detailed introduction.
 
 If you do not have \pkg{Rcpp} installed, the document should also be available
 whereever you found this document, \textsl{i.e.,} on every mirror of CRAN site.
@@ -154,13 +136,17 @@ Additional packages that we have found useful are
 
 \begin{description}
 \item[\pkg{inline}] which is invaluable for direct compilation, linking and loading
-  of short code snippets;
-\item[\pkg{RUnit}] is used for unit testing; the package is recommended and will be needed to re-run
-  some of our tests but it is not strictly required;
+  of short code snippets---but now effectively superseded by the Rcpp
+  Attributes (see \faq{using-attributes} and
+  \faq{prototype-using-attributes}) feature provided by \pkg{Rcpp};
+\item[\pkg{RUnit}] is used for unit testing; the package is recommended and
+  will be needed to re-run some of our tests but it is not strictly required
+  during use of \pkg{Rcpp};
 \item[\pkg{rbenchmark}] to run simple timing comparisons and benchmarks; it is also
   recommended but not required.
 \item[\pkg{microbenchmark}] is an alternative for benchmarking.
-\item[\pkg{devtools}] can help the process of making a package.
+\item[\pkg{devtools}] can help the process of building, compiling and testing
+  a package but it too is entirely optional.
 \end{description}
 
 
@@ -178,53 +164,58 @@ first step.
 Further steps, specific to \pkg{Rcpp}, are described in a separate vignette.
 
 <<eval=FALSE>>=
-vignette( "Rcpp-package" )
+vignette("Rcpp-package")
 @
 
 \subsection{How do I quickly prototype my code?}
 
-There are two toolchains which can help with this. The older one is provided
-by the \pkg{inline} package and described in Section~\ref{using-inline}.
-Starting with \pkg{Rcpp} 0.10.0, the Rcpp Attributes feature offered an even
-easier alternative. It is described in Section~\ref{using-attributes}.
+There are two toolchains which can help with this:
+\begin{itemize}
+\item The older one is provided by the \pkg{inline} package and described in
+  Section~\ref{using-inline}. 
+\item Starting with \pkg{Rcpp} 0.10.0, the Rcpp Attributes feature (described
+  in Section~\ref{using-attributes}) offered an even easier alternative via
+  the function \rdoc{Rcpp}{evalCpp}, \rdoc{Rcpp}{cppFunction} and
+  \rdoc{Rcpp}{sourceCpp}.
+\end{itemize}
+The next two subsections show an example each.
 
 \subsubsection{Using inline}
 \label{using-inline}
 
 The \pkg{inline} package \citep{CRAN:inline} provides the functions
-\Sexpr{link("cfunction")} and \Sexpr{link("cxxfunction")}. Below is a simple
+\rdoc{inline}{cfunction} and \rdoc{inline}{cxxfunction}. Below is a simple
 function that uses \texttt{accumulate} from the (\proglang{C++}) Standard
 Template Library to sum the elements of a numeric vector.
 
 <<>>=
-fx <- cxxfunction(signature( x = "numeric" ),
+fx <- cxxfunction(signature(x = "numeric"),
     'NumericVector xx(x);
-     return wrap( std::accumulate( xx.begin(), xx.end(), 0.0));',
+     return wrap(std::accumulate(xx.begin(), xx.end(), 0.0));',
     plugin = "Rcpp")
-res <- fx( seq( 1, 10, by = 0.5 ) )
+res <- fx(seq(1, 10, by=0.5))
 res
 <<echo=FALSE>>=
-stopifnot( identical( res, sum( seq( 1, 10, by = 0.5 ) ) ) )
+stopifnot(identical(res, sum(seq(1, 10, by=0.5))))
 @
 
-\pkg{Rcpp} uses \pkg{inline} to power its entire unit test suite. Consult the
-\texttt{unitTests} directory of \pkg{Rcpp} for several hundred further examples.
-
-<<eval=FALSE>>=
-list.files( system.file( "unitTests", package = "Rcpp" ), pattern = "^runit[.]" )
-@
+%\pkg{Rcpp} uses \pkg{inline} to power its entire unit test suite. Consult the
+%\texttt{unitTests} directory of \pkg{Rcpp} for several hundred further examples.
+%
+%< < eval=FALSE>>=
+% \list.files( system.file( "unitTests", package = "Rcpp" ), pattern = "^runit[.]" )
+% @
 
 One might want to use code that lives in a \proglang{C++} file instead of writing
 the code in a character string in R. This is easily achieved by using
-\Sexpr{link("readLines")} :
+\rdoc{base}{readLines}:
 
 <<eval=FALSE>>=
-fx <- cxxfunction( signature(),
-	paste( readLines( "myfile.cpp"), collapse = "\n" ),
-	plugin = "Rcpp" )
+fx <- cxxfunction(signature(), paste(readLines("myfile.cpp"), collapse="\n"),
+                  plugin = "Rcpp")
 @
 
-The \texttt{verbose} argument of \Sexpr{link("cxxfunction")} is very
+The \texttt{verbose} argument of \rdoc{inline}{cxxfunction} is very
 useful as it shows how \pkg{inline} runs the show.
 
 \subsubsection{Using Rcpp Attributes}
@@ -232,11 +223,11 @@ useful as it shows how \pkg{inline} runs the show.
 
 Rcpp Attributes \citep{CRAN:Rcpp:Attributes}, and also discussed in
 \faq{prototype-using-attributes} below, permits an even easier 
-route to integrating R and C++.  It provides three key functions. First, \code{evalCpp}
+route to integrating R and C++.  It provides three key functions. First, \rdoc{Rcpp}{evalCpp}
 provide a means to evaluate simple C++ expression which is often useful for
 small tests, or to simply check if the toolchain is set up
-correctly. Second, \code{cppFunction} can be used to create C++ functions
-for R use on the fly.  Third, \code{sourceCpp} can integrate entire files in
+correctly. Second, \rdoc{Rcpp}{cppFunction} can be used to create C++ functions
+for R use on the fly.  Third, \code{Rcpp}{sourceCpp} can integrate entire files in
 order to define multiple functions.
 
 The example above can now be rewritten as:
@@ -249,10 +240,12 @@ res <- accu(seq(1, 10, by=0.5))
 res
 @
 
-The \code{cppFunction} parses the supplied text, extracts the desired
+The \rdoc{Rcpp}{cppFunction} parses the supplied text, extracts the desired
 function names, creates the required scaffolding, compiles, links and loads
 the supplied code and makes it available under the selected identifier.
 
+Similarly, \rdoc{Rcpp}{sourceCpp} can read in a file and compile, link and load
+the code therein.
 
 \subsection{How do I convert my prototyped code to a package ?}
 \label{from-inline-to-package}
@@ -266,7 +259,7 @@ After that you can proceed with working on the package in the spirit of
 
 Rcpp Attributes \citep{CRAN:Rcpp:Attributes} also offers a means to convert
 functions written using Rcpp Attributes into a function via the
-\code{compileAttributes()} function; see the vignette for details.
+\rdoc{Rdoc}{compileAttributes} function; see the vignette for details.
 
 \subsection{How do I quickly prototype my code in a package?}
 \label{using-a-package}
@@ -280,21 +273,21 @@ $ R CMD INSTALL mypkg && Rscript --default-packages=mypkg -e 'someFunctionToTick
 @
 
 This first installs the packages, and then uses the command-line tool
-\code{Rscript} (which ships with \code{R}) to load the package, and execute
+\rdoc{utils}{Rscript} (which ships with \code{R}) to load the package, and execute
 the \proglang{R} expression following the \code{-e} switch. Such an
 expression can contain multiple statements separated by semicolons.
-\code{Rscript} is available on all three core operating systems.
+\rdoc{utils}{Rscript} is available on all three core operating systems.
 
 On Linux, one can also use \code{r} from the \code{littler} package by Horner
 and Eddelbuettel which is an alternative front end to \proglang{R} designed
 for both \verb|#!| (hashbang) scripting and command-line use. It has slightly
-faster start-up times than \code{Rscript}; and both give a guaranteed clean
+faster start-up times than \rdoc{utils}{Rscript}; and both give a guaranteed clean
 slate as a new session is created.
 
 The example then becomes
 
 <<lang=bash>>=
- $ R CMD INSTALL mypkg && r -l mypkg -e 'someFunctionToTickle(3.14)'
+$ R CMD INSTALL mypkg && r -l mypkg -e 'someFunctionToTickle(3.14)'
 @
 
 The \code{-l} option calls 'suppressMessages(library(mypkg))' before executing the
@@ -428,9 +421,9 @@ but they do it in very different ways.
 
 \pkg{Rcpp} version 0.10.0 and later offer a new feature 'Rcpp Attributes'
 which is described in detail in its own vignette
-\citep{CRAN:Rcpp:Attributes}.  In short, it offers functions \code{evalCpp},
-\code{cppFunction} and \code{sourceCpp} which extend the functionality of the
-\code{cxxfunction} function.
+\citep{CRAN:Rcpp:Attributes}.  In short, it offers functions \rdoc{Rcpp}{evalCpp},
+\rdoc{Rcpp}{cppFunction} and \rdoc{Rcpp}{sourceCpp} which extend the functionality of the
+\rdoc{Rcpp}{cxxfunction} function.
 
 
 \subsection{What about the new 'no-linking' feature??}
@@ -470,13 +463,19 @@ exposure to a number of advanced Rcpp users.  The
 Several dozen fully documented examples are provided at the
 \href{http://gallery.rcpp.org}{Rcpp Gallery} -- which is also open for new contributions.
 
-\subsection{Can I use templates with \pkg{Rcpp} and \pkg{inline} ? }
+\subsection{Can I use templates with \pkg{Rcpp} ? }
 
 \begin{quote}
   \emph{I'm curious whether one can provide a class definition inline in an R
     script and then initialize an instance of the class and call a method on
     the class, all inline in R.}
 \end{quote}
+
+This question was initially about using templates with \pkg{inline}, and we
+show that (older) answer first. It is also easy with Rcpp Attributes which is
+what we show below.
+
+\subsubsection{Using inline}
 
 \noindent Most certainly, consider this simple example of a templated class
 which squares its argument:
@@ -503,9 +502,33 @@ fun <- cxxfunction(signature(xs="numeric", is="integer"),
 fun(2.2, 3L)
 @
 
-Update: Also see \faq{using-attributes} and \faq{prototype-using-attributes}
-above about 'Rcpp Attributes' \citep{CRAN:Rcpp:Attributes} and its
-\code{sourceCpp} function.
+\subsubsection{Using Rcpp Attributes}
+
+We can also use 'Rcpp Attributes' \citep{CRAN:Rcpp:Attributes}---as described
+in \faq{using-attributes} and \faq{prototype-using-attributes} above. Simply
+place the following code into a file and use \rdoc{Rcpp}{sourceCpp} on it. It
+will even run the R part at the end.
+
+<<lang=cpp>>=
+#include <Rcpp.h>
+
+template <typename T> class square : public std::unary_function<T,T> {
+public:
+    T operator()( T t) const { return t*t ;}
+};
+
+// [[Rcpp::export]]
+Rcpp::DataFrame fun(double x, int i) {
+       square<double> sqdbl;
+       square<int> sqint;
+       return Rcpp::DataFrame::create(Rcpp::Named("x", sqdbl(x)),
+                                      Rcpp::Named("i", sqint(i)));
+}
+
+/*** R
+fun(2.2, 3L)
+*/
+@ 
 
 \subsection{Can I do matrix algebra with \pkg{Rcpp} ?}
 \label{matrix-algebra}
@@ -523,8 +546,9 @@ templates. We currently do not plan to go in this direction, but we would
 welcome external help. Please send us a design document.
 
 However, we have developed the \pkg{RcppArmadillo} package
-\citep{CRAN:RcppArmadillo,Eddelbuettel+Sanderson:2014:RcppArmadillo} that provides a
-bridge between \pkg{Rcpp} and \pkg{Armadillo} \citep{Sanderson:2010:Armadillo}.  \pkg{Armadillo}
+\citep{CRAN:RcppArmadillo,Eddelbuettel+Sanderson:2014:RcppArmadillo} that
+provides a bridge between \pkg{Rcpp} and \pkg{Armadillo}
+\citep{Sanderson:2010:Armadillo}. \pkg{Armadillo}
 supports binary operators on its types in a way that takes full advantage of
 expression templates to remove temporaries and allow chaining of
 operations. That is a mouthful of words meaning that it makes the code go
@@ -533,41 +557,37 @@ meta programming, an advanced \proglang{C++} technique.
 Also, the \pkg{RcppEigen} package \citep{JSS:RcppEigen} provides an alternative using the
 \href{http://eigen.tuxfamily.org}{Eigen} template library.
 
+\subsubsection{Using inline}
 
 The following example is adapted from the examples available at the project
 page of Armadillo. It calculates $ x' \times Y^{-1} \times z$
 
-<<echo=FALSE>>=
-writeLines( '
+<<lang=cpp>>=
     // copy the data to armadillo structures
     arma::colvec x = Rcpp::as<arma::colvec> (x_);
-    arma::mat Y = Rcpp::as<arma::mat>( Y_ ) ;
-    arma::colvec z = Rcpp::as<arma::colvec>( z_ ) ;
+    arma::mat Y = Rcpp::as<arma::mat>(Y_) ;
+    arma::colvec z = Rcpp::as<arma::colvec>(z_) ;
 
     // calculate the result
-    double result = arma::as_scalar(
-        arma::trans(x) * arma::inv(Y) * z
-        );
+    double result = arma::as_scalar(arma::trans(x) * arma::inv(Y) * z);
 
     // return it to R
     return Rcpp::wrap( result );
-', "myfile.cpp" )
-@
-<<echo=FALSE,results=tex>>=
-external_highlight( "myfile.cpp", type = "LATEX", doc = FALSE )
 @
 
 %% Running this now makes the package depend on RcppArmadillo being installed
 %% and would require at least a Suggests
+
+If stored in a file \code{myfile.cpp}, we can use it via \pkg{inline}:
+
 <<eval=FALSE>>=
-fx <- cxxfunction(
-	signature(x_ = "numeric", Y_ = "matrix", z_ = "numeric" ),
-	paste( readLines( "myfile.cpp" ), collapse = "\n" ),
-	plugin = "RcppArmadillo" )
-fx( 1:4, diag( 4 ), 1:4 )
+fx <- cxxfunction(signature(x_="numeric", Y_="matrix", z_="numeric" ),
+                  paste(readLines("myfile.cpp"), collapse="\n"),
+                  plugin="RcppArmadillo" )
+fx(1:4, diag(4), 1:4)
 @
 <<echo=FALSE>>=
-unlink( "myfile.cpp" )
+unlink("myfile.cpp")
 @
 
 The focus is on the code \verb|arma::trans(x) * arma::inv(Y) * z|, which
@@ -578,6 +598,37 @@ are provided on \href{http://arma.sourceforge.net/speed.html}{the Armadillo webs
 
 It should be noted that code below depends on the version \texttt{0.3.5} of
 \pkg{inline} and the version \texttt{0.2.2} of \pkg{RcppArmadillo}
+
+\subsubsection{Using Rcpp Attributes}
+
+We can also write the same example for use with Rcpp Attributes:
+
+<<lang=cpp>>=
+#include <RcppArmadillo.h>
+
+// [[Rcpp::depends(RcppArmadillo)]]
+
+// [[Rcpp::export]]
+double fx(arma::colvec x, arma::mat Y, arma::colvec z) {
+    // calculate the result
+    double result = arma::as_scalar(arma::trans(x) * arma::inv(Y) * z);
+    return result;
+}
+
+/*** R
+fx(1:4, diag(4), 1:4)
+*/
+@ 
+
+Here, the additional \code{Rcpp::depends(RcppArmadillo)} ensures that code
+can be compiled against the \pkg{RcppArmadillo} header, and that the correct
+libraries are linked to the function built from the supplied code example.
+
+Note how we do not have to concern ourselves with conversion; R object
+automatically become (Rcpp)Armadillo objects and we can focus on the single
+computing a (scalar) result.
+
+
 
 \subsection{Can I use code from the Rmath header and library with \pkg{Rcpp} ?}
 
@@ -596,10 +647,11 @@ we could explicitly set the seed after the \texttt{RNGScope} object has been
 instantiated.
 
 <<>>=
-fx <- cxxfunction(signature(),
+fx <- cxxfunction(signature(), 
                   'RNGScope();
                    return rnorm(5, 0, 100);',
                   plugin="Rcpp")
+set.seed(42)
 fx()
 fx()
 @
@@ -607,6 +659,22 @@ fx()
 Newer versions of Rcpp also provide the actual Rmath function in the \code{R}
 namespace, \textsl{i.e.} as \code{R::rnorm(m,s)} to obtain a scalar
 random variable distributed as $N(m,s)$.
+
+Using Rcpp Attributes, this can be as simple as 
+
+<<>>=
+cppFunction('Rcpp::NumericVector ff(int n) { return rnorm(n, 0, 100); }')
+set.seed(42)
+ff(5)
+ff(5)
+set.seed(42)
+rnorm(5, 0, 100)
+rnorm(5, 0, 100)
+@ 
+
+This illustrates the Rcpp Attributes adds the required \code{RNGScope} object
+for us. It also shows how setting the seed from R affects draws done via C++
+as well as R, and that identical random number draws are obtained.
 
 \subsection{Can I use NA and Inf with \pkg{Rcpp} ?}
 
@@ -627,6 +695,21 @@ fun <- cxxfunction(signature(), src, plugin="Rcpp")
 fun()
 @
 
+Similarly, for Rcpp Attributes:
+
+<<lang=cpp>>=
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::NumericVector fun(void) {
+    Rcpp::NumericVector v(4);
+    v[0] = R_NegInf;  // -Inf
+    v[1] = NA_REAL;   // NA
+    v[2] = R_PosInf;  // Inf
+    v[3] = 42;        // see the Hitchhiker Guide
+    return v;
+}
+@ 
 
 \subsection{Can I easily multiply matrices ?}
 
@@ -658,7 +741,17 @@ Armadillo supports a full range of common linear algebra operations.
 The \pkg{RcppEigen} package provides an alternative using the
 \href{http://eigen.tuxfamily.org}{Eigen} template library.
 
-\subsection{How do I write a plugin for \pkg{inline} ?}
+Rcpp Attributes, once again, makes this even easier:
+
+<<>>=
+cppFunction('arma::mat mult(arma::mat A, arma::mat B) { return A*B; }',
+            depends="RcppArmadillo")  # needed to use RcppArmadillo
+A <- matrix(1:9, 3, 3)
+B <- matrix(9:1, 3, 3)
+mult(A,B)
+@ 
+
+\subsection{How do I write a plugin for \pkg{inline} and/or Rcpp Attributes?}
 
 \begin{quote}
   \emph{How can I create my own plugin for use by the \pkg{inline} package?}
@@ -693,6 +786,7 @@ fun(0)
 Here the \pkg{Rcpp} function \code{Rcpp.plugin.maker} is used to create a
 plugin 'plug' which is then registered, and subsequently used by \pkg{inline}.
 
+The same plugins can be used by Rcpp Attributes as well.
 
 \subsection{How can I pass one additional flag to the compiler?}
 
@@ -708,13 +802,16 @@ values instead.
 
 <<eval=FALSE>>=
 myplugin <- getPlugin("Rcpp")
-myplugin$env$PKG_CXXFLAGS <- "-std=c++0x"
+myplugin$env$PKG_CXXFLAGS <- "-std=c++11"
 f <- cxxfunction(signature(), settings=myplugin, body='
 +    std::vector<double> x = { 1.0, 2.0, 3.0 };  // fails without -std=c++0x
 +    return Rcpp::wrap(x);
 + ')
 f()
 @
+
+For Rcpp Attributes, the attributes \code{Rcpp::plugin()} can be
+used. Currently supported plugins are for C++11 as well as for OpenMP.
 
 \subsection{How can I set matrix row and column names ?}
 
@@ -742,6 +839,24 @@ fun()
 @
 %
 
+The same logic, but used with Rcpp Attributes:
+
+<<lang=cpp>>=
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::List fun(void) {
+    Rcpp::NumericMatrix x(2,2);
+    x.fill(42);                           // or more interesting values
+    Rcpp::List dimnms =                   // two vec. with static names
+        Rcpp::List::create(Rcpp::CharacterVector::create("cc", "dd"),
+                           Rcpp::CharacterVector::create("ee", "ff"));
+    // and assign it
+    x.attr("dimnames") = dimnms;
+    return(x);
+}
+@ 
+
 \subsection{Why can long long types not be cast correctly?}
 
 That is a good and open question. We rely on the basic \proglang{R} types,
@@ -762,6 +877,7 @@ retval<-BigInts()
 
 # Unique 64-bit integers were cast to identical lower precision numerics
 # behind my back with no warnings or errors whatsoever.  Error.
+
 
 stopifnot(length(unique(retval)) == 2)
 @
@@ -854,7 +970,7 @@ request.
 
 Yes. Just send us an email.
 
-\subsection{Where is to code repository ?}
+\subsection{Where is the code repository ?}
 
 From late 2008 to late 2013, we used the
 \href{https://r-forge.r-project.org/scm/?group_id=155}{Subversion repository at R-Forge}
