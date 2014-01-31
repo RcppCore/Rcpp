@@ -29,9 +29,14 @@
       \item New \code{checkUserInterrupt()} function that provides a C++ friendly 
       implementation of \code{R_CheckUserInterrupt}.
     }
+    \item Changes in Rcpp attributes:
+    \itemize{
+      \item Embedded R code chunks in sourceCpp are now executed within
+      the working directory of the C++ source file.
+    }
     \item Changes in Rcpp documentation:
     \itemize{
-      \item The Rcpp-FAQ vignette have been updated and expanded.
+      \item The Rcpp-FAQ and Rcpp-package vignettes have been updated and expanded.
       \item Vignettes are now typeset with grey background for code boxes.
     }
   }
