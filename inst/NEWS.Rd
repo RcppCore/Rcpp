@@ -31,7 +31,7 @@
     }
     \item Changes in Rcpp documentation:
     \itemize{
-      \item The Rcpp-FAQ vignette have been updated and expanded.
+      \item The Rcpp-FAQ and Rcpp-package vignettes have been updated and expanded.
     }
   }
 }

@@ -25,39 +25,19 @@
 
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
 
 <<version,echo=FALSE,print=FALSE>>=
 prettyVersion <- packageDescription("Rcpp")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
+require(Rcpp)
+require(highlight)
 @
 
 \author{Dirk Eddelbuettel \and Romain Fran\c{c}ois}
 \title{Writing a package that uses \pkg{Rcpp} }
 \date{\pkg{Rcpp} version \Sexpr{prettyVersion} as of \Sexpr{prettyDate}}
-
-<<link,echo=FALSE>>=
-require(Rcpp)
-require(highlight)
-link <- function( f, package, text = f, root = "http://finzi.psych.upenn.edu/R/library/") {
-    h <- if( missing(package) ) {
-        as.character( help( f ) )
-    } else {
-        as.character( help( f, package = paste( package, sep = "" ) ) )
-    }
-    if( ! length(h) ){
-        sprintf( "\\\\textbf{%s}", f )
-    } else {
-        rx <- "^.*/([^/]*?)/help/(.*?)$"
-        package <- sub( rx, "\\1", h, perl = TRUE )
-        page <- sub( rx, "\\2", h, perl = TRUE )
-        sprintf( "\\\\href{%s%s/html/%s.html}{\\\\texttt{%s}}", root, package, page, text )
-    }
-}
-linkS4class <- function(cl, package, text=cl, root="http://finzi.psych.upenn.edu/R/library/") {
-    link( sprintf("%s-class", cl), package, text, root )
-}
-@
-
 
 
 \begin{document}
@@ -65,24 +45,23 @@ linkS4class <- function(cl, package, text=cl, root="http://finzi.psych.upenn.edu
 
 \abstract{
   \noindent This document provides a short overview of how to use
-  \pkg{Rcpp}~\citep{CRAN:Rcpp,JSS:Rcpp} when writing an \proglang{R} package.  It
-  shows how usage of the function \Sexpr{link("Rcpp.package.skeleton")}
-  which creates a complete and self-sufficient example package using
-  \pkg{Rcpp}. All components of the directory tree created by
-  \Sexpr{link("Rcpp.package.skeleton")} are discussed in detail.  This
-  document thereby complements the \textsl{Writing R Extensions}
-  manual~\citep{R:Extensions} which is the authoritative source on how to extend
-  \proglang{R} in general.
-}
+  \pkg{Rcpp}~\citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} when writing
+  an \proglang{R} package.  It shows how usage of the function
+  \rdoc{Rcpp}{Rcpp.package.skeleton} which creates a complete and
+  self-sufficient example package using \pkg{Rcpp}. All components of the
+  directory tree created by \rdoc{Rcpp}{Rcpp.package.skeleton} are discussed
+  in detail.  This document thereby complements the \textsl{Writing R
+    Extensions} manual~\citep{R:Extensions} which is the authoritative source
+  on how to extend \proglang{R} in general.  }
 
 \section{Introduction}
 
-\pkg{Rcpp}~\citep{CRAN:Rcpp,JSS:Rcpp} is an extension package for \proglang{R} which
-offers an easy-to-use yet featureful interface between \proglang{C++} and
-\proglang{R}.  However, it is somewhat different from a traditional
-\proglang{R} package because its key component is a \proglang{C++} library. A
-client package that wants to make use of the \pkg{Rcpp} features must link
-against the library provided by \pkg{Rcpp}.
+\pkg{Rcpp}~\citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} is an extension
+package for \proglang{R} which offers an easy-to-use yet featureful interface
+between \proglang{C++} and \proglang{R}.  However, it is somewhat different
+from a traditional \proglang{R} package because its key component is a
+\proglang{C++} library. A client package that wants to make use of the
+\pkg{Rcpp} features must link against the library provided by \pkg{Rcpp}.
 
 It should be noted that \proglang{R} has only limited support for
 \proglang{C(++)}-level dependencies between packages~\citep{R:Extensions}. The
@@ -91,7 +70,7 @@ allows the client package to retrieve the headers of the target package (here
 \pkg{Rcpp}), but support for linking against a library is not provided by
 \proglang{R} and has to be added manually.
 
-This document follows the steps of the \Sexpr{link("Rcpp.package.skeleton")}
+This document follows the steps of the \rdoc{Rcpp}{Rcpp.package.skeleton}
 function to illustrate a recommended way of using \pkg{Rcpp} from a client
 package. We illustrate this using a simple \proglang{C++} function
 which will be called by an \proglang{R} function.
@@ -107,12 +86,12 @@ in such add-on packages.
 
 \subsection{Overview}
 
-\pkg{Rcpp} provides a function \Sexpr{link("Rcpp.package.skeleton")}, modeled
-after the base \proglang{R} function \Sexpr{link("package.skeleton")}, which
+\pkg{Rcpp} provides a function \rdoc{Rcpp}{Rcpp.package.skeleton}, modeled
+after the base \proglang{R} function \rdoc{utils}{package.skeleton}, which
 facilitates creation of a skeleton package using \pkg{Rcpp}.
 
-\Sexpr{link("Rcpp.package.skeleton")} has a number of arguments documented on
-its help page (and similar to those of \Sexpr{link("package.skeleton")}). The
+\rdoc{Rcpp}{Rcpp.package.skeleton} has a number of arguments documented on
+its help page (and similar to those of \rdoc{utils}{package.skeleton}). The
 main argument is the first one which provides the name of the package one
 aims to create by invoking the function.  An illustration of a call using an
 argument \texttt{mypackage} is provided below.
@@ -138,15 +117,15 @@ mypackage-package.Rd
 rcpp_hello_world.Rd
 
 mypackage/src:
-Makevars
-Makevars.win
+Makevars            ## up until Rcpp 0.10.6, see below
+Makevars.win        ## up until Rcpp 0.10.6, see below
 RcppExports.cpp
 rcpp_hello_world.cpp
 $
 \end{verbatim}
 \end{Hchunk}
 
-Using \Sexpr{link("Rcpp.package.skeleton")} is by far the simplest approach
+Using \rdoc{Rcpp}{Rcpp.package.skeleton} is by far the simplest approach
 as it fulfills two roles. It creates the complete set of files needed for a
 package, and it also includes the different components needed for using
 \pkg{Rcpp} that we discuss in the following sections.
@@ -182,7 +161,7 @@ This function is preceded by the \texttt{Rcpp::export} attribute to automaticall
 handle argument conversion because \proglang{R} has to be taught how to
 e.g. handle the \texttt{List} class.
 
-\Sexpr{link("Rcpp.package.skeleton")} then invokes \Sexpr{link("compileAttributes")}
+\rdoc{Rcpp}{Rcpp.package.skeleton} then invokes \rdoc{Rcpp}{compileAttributes}
 on the package, which generates the \texttt{RcppExports.cpp} file:
 
 <<lang=cpp>>=
@@ -210,15 +189,15 @@ END_RCPP
 @
 
 This file defines a function with the appropriate calling convention, suitable for
-\Sexpr{link(".Call")}. It needs to be regenerated each time functions
+\rdoc{base}{.Call}. It needs to be regenerated each time functions
 exposed by attributes are modified. This is the task of the
-\Sexpr{link("compileAttributes")} function. A discussion on attributes is
+\rdoc{Rcpp}{compileAttributes} function. A discussion on attributes is
 beyond the scope of this document and more information is available
 in the attributes vignette \citep{CRAN:Rcpp:Attributes}.
 
 \subsection{\proglang{R} code}
 
-The \Sexpr{link("compileAttributes")} also generates \proglang{R} code
+The \rdoc{Rcpp}{compileAttributes} also generates \proglang{R} code
 that uses the \proglang{C++} function.
 
 <<lang=cpp>>=
@@ -231,12 +210,12 @@ rcpp_hello_world <- function() {
 @
 
 This is also a generated file so it should not be modified manually, rather
-regenerated as needed by \Sexpr{link("compileAttributes")}.
+regenerated as needed by \rdoc{Rcpp}{compileAttributes}.
 
 \subsection{\texttt{DESCRIPTION}}
 
 The skeleton generates an appropriate \texttt{DESCRIPTION} file, using
-both \texttt{Depends:} and \texttt{LinkingTo} for \pkg{Rcpp}:
+both \texttt{Imports:} and \texttt{LinkingTo} for \pkg{Rcpp}:
 
 \begin{Hchunk}
 \begin{verbatim}
@@ -249,27 +228,37 @@ Author: Who wrote it
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
 License: What Licence is it under ?
-Depends: Rcpp (>= 0.10.4.5)
+Imports: Rcpp (>= 0.11.0)
 LinkingTo: Rcpp
 \end{verbatim}
 \end{Hchunk}
 
-\Sexpr{link("Rcpp.package.skeleton")} adds the three last lines to the
-\texttt{DESCRIPTION} file generated by \Sexpr{link("package.skeleton")}.
+\rdoc{Rcpp}{Rcpp.package.skeleton} adds the three last lines to the
+\texttt{DESCRIPTION} file generated by \rdoc{utils}{package.skeleton}.
 
-The \texttt{Depends} declaration indicates \proglang{R}-level dependency
-between the client package and \pkg{Rcpp}. The \texttt{LinkingTo} declaration
+The \texttt{Imports} declaration indicates \proglang{R}-level dependency
+between the client package and \pkg{Rcpp}; code from the latter is being
+imported into the package described here. The \texttt{LinkingTo} declaration
 indicates that the client package needs to use header files exposed by
 \pkg{Rcpp}.
 
-\subsection{\texttt{Makevars} and \texttt{Makevars.win}}
+\subsection{Now optional: \texttt{Makevars} and \texttt{Makevars.win}}
 
-Unfortunately, the \texttt{LinkingTo} declaration in itself is not
+This behaviour changed with \pkg{Rcpp} release 0.11.0. These files used to be
+mandatory, now they are merely optional. 
+
+We will describe the old setting first as it was in use for a few years. The
+new standard, however, is much easier and is described below.
+
+\subsubsection{Releases up until 0.10.6}
+
+Unfortunately, the \texttt{LinkingTo} declaration in itself was not
 enough to link to the user \proglang{C++} library of \pkg{Rcpp}. Until more
-explicit support for libraries is added to \proglang{R}, we need to manually
+explicit support for libraries is added to \proglang{R}, ones needes to manually
 add the \pkg{Rcpp} library to the \texttt{PKG\_LIBS} variable in the
-\texttt{Makevars} and \texttt{Makevars.win} files. \pkg{Rcpp} provides the
-unexported function \texttt{Rcpp:::LdFlags()} to ease the process:
+\texttt{Makevars} and \texttt{Makevars.win} files. (This has now changed with
+release 0.11.0; see below).
+\pkg{Rcpp} provides the unexported function \texttt{Rcpp:::LdFlags()} to ease the process:
 
 \begin{Hchunk}
 \begin{verbatim}
@@ -311,24 +300,42 @@ PKG_LIBS = $(shell "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" -e "Rcpp:::LdFlags()
 \end{verbatim}
 \end{Hchunk}
 
+\subsubsection{Releases since 0.11.0}
+
+As of release 0.11.0, this is no longer needed as client packages obtain the
+required code from \pkg{Rcpp} via explicit function registration. The user
+does not have to do anything.  
+
+This means that \code{PKG\_LIBS} can now be empty---unless some client
+libraries are needed.  For example, \pkg{RcppCNPy} needs compression support
+and hence uses \code{PKG\_LIBS= -lz}. Similarly, when a third-party library is
+required, it can and should be set here.
+
 \subsection{\texttt{NAMESPACE}}
 
-The \Sexpr{link("Rcpp.package.skeleton")} function also creates a file
+The \rdoc{Rcpp}{Rcpp.package.skeleton} function also creates a file
 \texttt{NAMESPACE}.
 
 \begin{Hchunk}
 \begin{verbatim}
 useDynLib(mypackage)
 exportPattern("^[[:alpha:]]+")
+importFrom{Rcpp, evalCpp}
 \end{verbatim}
 \end{Hchunk}
 
-This file serves two purposes. First, it ensure that the dynamic library
+This file serves three purposes. First, it ensure that the dynamic library
 contained in the package we are creating via
-\Sexpr{link("Rcpp.package.skeleton")} will be loaded and thereby made
-available to the newly created \proglang{R} package. Second, it declares
-which functions should be globally visible from the namespace of this
-package. As a reasonable default, we export all functions.
+\rdoc{Rcpp}{Rcpp.package.skeleton} will be loaded and thereby made
+available to the newly created \proglang{R} package. 
+
+Second, it declares which functions should be globally visible from the
+namespace of this package. As a reasonable default, we export all functions.
+
+Third, it instructs R to import a symbol from \pkg{Rcpp}. This sets up the
+import of all registered function and, together with the \code{Imports:}
+statement in \code{DESCRIPTION}, provides what is needed for client packages
+to access \pkg{Rcpp} functionality.
 
 \subsection{Help files}
 
@@ -417,7 +424,7 @@ rcpp_hello_world()
 \section{Using modules}
 
 This document does not cover the use of the \texttt{module} argument
-of \Sexpr{link("Rcpp.package.skeleton")}. It is covered
+of \rdoc{Rcpp}{Rcpp.package.skeleton}. It is covered
 in the modules vignette \citep{CRAN:Rcpp:Modules}.
 
 \section{Further examples}
@@ -455,7 +462,7 @@ manual~\citep{R:Extensions} for details.
 
 This document described how to use the \pkg{Rcpp} package for \proglang{R}
 and \proglang{C++} integration when writing an \proglang{R} extension
-package. The use of the \Sexpr{link("Rcpp.package.skeleton")} was shown in
+package. The use of the \rdoc{Rcpp}{Rcpp.package.skeleton} was shown in
 detail, and references to further examples were provided.
 
 \bibliographystyle{plainnat}
