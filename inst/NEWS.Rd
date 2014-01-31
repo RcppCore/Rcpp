@@ -32,6 +32,7 @@
     \item Changes in Rcpp documentation:
     \itemize{
       \item The Rcpp-FAQ vignette have been updated and expanded.
+      \item Vignettes are now typeset with grey background for code boxes.
     }
   }
 }
