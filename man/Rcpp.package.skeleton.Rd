@@ -40,11 +40,12 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 \details{
 	In addition to \link[utils]{package.skeleton} : 
 	
-	The \samp{DESCRIPTION} file gains a Depends line requesting that 
+	The \samp{DESCRIPTION} file gains an Imports line requesting that 
 	the package depends on Rcpp and a LinkingTo line so that the package
 	finds Rcpp header files.
 	
-	The \samp{NAMESPACE}, if any, gains a \code{useDynLib} directive.
+	The \samp{NAMESPACE} gains a \code{useDynLib} directive as well
+	as an \code{importFrom(Rcpp, evalCpp} to ensure instantiation of Rcpp.
 	
 	The \samp{src} directory is created if it does not exists and 
 	a \samp{Makevars} file is added setting the environment variables

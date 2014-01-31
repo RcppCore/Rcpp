@@ -1,3 +1,7 @@
+2014-01-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/Rcpp.package.skeleton.Rd: Also updated
+
 2014-01-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-package.Rnw: Updates for upcoming release
