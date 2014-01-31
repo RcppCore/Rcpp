@@ -34,6 +34,13 @@
 \newcommand{\hlboxbacktick}{   \hlnormalsizeboxbacktick}
 \newcommand{\hlboxunderscore}{ \hlnormalsizeboxunderscore}
 
+%% This corresponds to setting boxes=TRUE for highlight
+\newsavebox{\hlbox}
+\definecolor{hlBg}{rgb}{0.949019607843137,0.949019607843137,0.949019607843137}
+\definecolor{hlBd}{rgb}{0,0,0}
+\renewenvironment{Hchunk}{\vspace{0.5em}\noindent\begin{lrbox}{\hlbox}\begin{minipage}[b]{.9\textwidth}}%
+    {\end{minipage}\end{lrbox}\fcolorbox{hlBd}{hlBg}{\usebox{\hlbox}}\vspace{0.5em}}
+
 \newcommand{\faq}[1]{FAQ~\ref{#1}}
 \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
 

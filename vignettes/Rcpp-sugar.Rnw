@@ -29,6 +29,15 @@
 \newcommand{\ith}{\textsl{i}-\textsuperscript{th}}
 \newcommand{\code}[1]{\texttt{#1}}
 
+
+%% This corresponds to setting boxes=TRUE for highlight
+\newsavebox{\hlbox}
+\definecolor{hlBg}{rgb}{0.949019607843137,0.949019607843137,0.949019607843137}
+\definecolor{hlBd}{rgb}{0,0,0}
+\renewenvironment{Hchunk}{\vspace{0.5em}\noindent\begin{lrbox}{\hlbox}\begin{minipage}[b]{.9\textwidth}}%
+    {\end{minipage}\end{lrbox}\fcolorbox{hlBd}{hlBg}{\usebox{\hlbox}}\vspace{0.5em}}
+
+
 <<echo=FALSE,print=FALSE>>=
 prettyVersion <- packageDescription("Rcpp")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
