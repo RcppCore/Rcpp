@@ -24,12 +24,16 @@ sourceCpp <- function(file = "",
                       showOutput = verbose,
                       verbose = getOption("verbose")) {
 
-    # resolve code into a file if necessary
+    # resolve code into a file if necessary. also track the working
+    # directory to source the R embedded code chunk within
     if (!missing(code)) {
+        rWorkingDir <- getwd() 
         file <- tempfile(fileext = ".cpp")
         con <- file(file, open = "w")
         writeLines(code, con)
         close(con)
+    } else {
+        rWorkingDir <- dirname(file)
     }
 
     # resolve the file path
@@ -167,6 +171,7 @@ sourceCpp <- function(file = "",
     # source the embeddedR
     if (length(context$embeddedR) > 0) {
         srcConn <- textConnection(context$embeddedR)
+        setwd(rWorkingDir) # will be reset by previous on.exit handler
         source(file=srcConn, echo=TRUE)
     }
 
