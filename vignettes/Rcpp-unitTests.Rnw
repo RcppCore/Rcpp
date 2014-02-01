@@ -41,7 +41,6 @@ if( Sys.getenv( "TRAVIS" ) == "true" ){
   
   if (file.exists("unitTests-results")) unlink("unitTests-results", recursive = TRUE)
   dir.create("unitTests-results")
-  pathRcppTests <<- system.file("unitTests", package = pkg)
   path <- system.file("unitTests", package=pkg)
   testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs=path)
   tests <- runTestSuite(testSuite)
