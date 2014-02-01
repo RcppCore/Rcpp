@@ -1,3 +1,7 @@
+2014-02-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/doRUnit.R: Simplified following pattern in RProtoBuf
+
 2014-02-01  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R: Embedded R code chunks in sourceCpp can

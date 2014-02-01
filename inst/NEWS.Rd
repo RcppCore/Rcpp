@@ -40,6 +40,10 @@
       \item The Rcpp-FAQ and Rcpp-package vignettes have been updated and expanded.
       \item Vignettes are now typeset with grey background for code boxes.
     }
+    \item Changes in Rcpp unit tests:
+    \itemize{
+      \item The file \code{tests/doRUnit.R} was rewritten following the
+      pattern deployed in \cpkg{RProtoBuf} which is due to Murray Stokely
   }
 }
 
