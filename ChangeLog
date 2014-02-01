@@ -9,14 +9,16 @@
 	* inst/include/Rcpp/Benchmark/Timer.h: Reverted back to using
 	iterators via use of anonymous namespace for accessors
 
-2014-01-31  JJ Allaire  <jj@rstudio.org>
-
-        * R/Attributes.R: Embedded R code chunks in sourceCpp are now
-	executed within the working directory of the C++ source file.
+	* inst/announce/ANNOUNCE-0.11.0.txt: Updated
 
 2014-01-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/Rcpp.package.skeleton.Rd: Also updated
+
+2014-01-31  JJ Allaire  <jj@rstudio.org>
+
+        * R/Attributes.R: Embedded R code chunks in sourceCpp are now
+	executed within the working directory of the C++ source file.
 
 2014-01-30  Dirk Eddelbuettel  <edd@debian.org>
 

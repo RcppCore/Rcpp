@@ -5,10 +5,11 @@
 Version 0.11.0 of the Rcpp package is now on CRAN and its mirrors.  
 
 This new release brings a number of new features, most noticably a simplified
-build, as well as improvements to existing features and bugfixes. Complete
-details of the changes implemented between the last announcement for version
-0.10.0 and this new can be found in the NEWS and ChangeLog files which are
-included in the package.
+build system, as well as improvements to existing features and bugfixes.
+
+Complete details of the changes implemented between the last announcement for
+version 0.10.0 and this new can be found in the NEWS and ChangeLog files
+which are included in the package.
 
 
 
@@ -22,8 +23,7 @@ Issue 08) paper (also included in the package as the "Rcpp-introduction" pdf
 vignette) and a book "Seamless R and C++ Integration with Rcpp" (2013,
 Springer, useR! Series).
 
-As of early 2014, Rcpp is used by over 160 other CRAN packages making it the
-most widely-used language interface for R.
+As of early 2014, Rcpp is used by over 160 other CRAN packages.
 
 Several key features of the new 0.11.0 release are described below.
 
@@ -38,7 +38,7 @@ using Rcpp need to be reinstalled.
 We provide a simple helper script at
 https://github.com/RcppCore/rcpp-logs/blob/master/scripts/showReverseRcppDepends.r
 to identidy which of your currently-installed packages use Rcpp, and need to
-be rebuilt.
+be rebuilt / reinstalled.
 
 
 
@@ -46,8 +46,9 @@ be rebuilt.
 
 Thanks to the 'LinkingTo:' directive, R already instructed the compiler where
 to fine header files when writing code with Rcpp. The package now uses the
-registration facilities in R (see Section 5.4 in Writing R Extensions). With
-just an 'Imports: Rcpp' in DESCRIPTION along with an explicit import
+registration facilities in R (see Section 5.4 in Writing R Extensions). 
+
+With just an 'Imports: Rcpp' in DESCRIPTION along with an explicit import
 statement in the NAMESPACE file such 'importFrom(Rcpp, evalCpp)' all required
 Rcpp code will be properly instantiated without any explicit linking. [ Note
 that just using 'import(Rcpp)' is not sufficient, but any exported C++
@@ -89,7 +90,7 @@ and Rcpp attributes takes care of the rest.
 
 ===== Memory management =====
 
-A number of internal data structures were rewritten.
+A number of internal data structures have been rewritten.
 
 
 
@@ -129,7 +130,7 @@ used resource under the [rcpp] tag:
 On behalf of the Rcpp Core team,  
 
    Dirk Eddelbuettel
-   January 2014
+   February 2014
 
 
 
