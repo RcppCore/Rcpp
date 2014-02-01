@@ -441,6 +441,10 @@ Depends: Rcpp (>= 0.10.0), RcppArmadillo (>= 0.3.4.4)
 LinkingTo: Rcpp, RcppArmadillo
 @ 
 
+Using a \texttt{Imports} declaration together with an \texttt{import} or
+\texttt{importFrom} statement in the file \texttt{NAMESPACE} is a more recent
+alternative. 
+
 \subsection{Exporting R Functions}
 
 Within interactive sessions you call the \texttt{sourceCpp} function
