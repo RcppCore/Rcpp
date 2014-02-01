@@ -6,6 +6,8 @@
 	* vignettes/Rcpp-extending.Rnw: Idem
 	* vignettes/Rcpp-sugar.Rnw: Idem
 
+	* vignettes/Rcpp-attributes.Rnw: Switched to highlight driver
+
 	* inst/include/Rcpp/Benchmark/Timer.h: Reverted back to using
 	iterators via use of anonymous namespace for accessors
 
