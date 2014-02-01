@@ -144,7 +144,7 @@ NumericVector convolveCpp(NumericVector a, NumericVector b) {
 The addition of the export attribute allows us to do this from the \proglang{R}
 prompt:
 
-<<eval=FALSE>>=
+<<eval=FALSE,lang=r>>=
 sourceCpp("convolve.cpp")
 convolveCpp(x, y)
 @ 
@@ -173,7 +173,7 @@ DataFrame readData(
 
 Will be exported to R as:
 
-<<lang=r>>=
+<<eval=FALSE,lang=r>>=
 function(file, colNames=character(), commentChar="#", header=TRUE)
 @ 
 
@@ -365,7 +365,7 @@ There are several ways to accomplish this, including passing a code
 string to \texttt{sourceCpp} or using the shorter-form \texttt{cppFunction}
 or \texttt{evalCpp} functions. For example:
 
-<<lang=r>>=
+<<eval=FALSE,lang=r>>=
 cppFunction('
     int fibonacci(const int x) {
         if (x < 2)
@@ -380,7 +380,7 @@ evalCpp('std::numeric_limits<double>::max()')
 
 You can also specify a depends parameter to \texttt{cppFunction} or \texttt{evalCpp}:
 
-<<lang=r>>=
+<<eval=FALSE,lang=r>>=
 cppFunction(depends = 'RcppArmadillo', code = '...')
 @ 
 
@@ -412,14 +412,14 @@ is most conveniently done using  the \texttt{Rcpp.package.skeleton} function.
 To generate a new package with a simple hello, world function that uses
 attributes you can do the following:
 
-<<lang=r>>=
+<<eval=FALSE,lang=r>>=
 Rcpp.package.skeleton("NewPackage", attributes = TRUE)
 @ 
 
 To generate a package based on \proglang{C++} files that you've been using
 with \texttt{sourceCpp} you can use the \texttt{cpp\_files} parameter:
 
-<<lang=r>>=
+<<eval=FALSE,lang=r>>=
 Rcpp.package.skeleton("NewPackage", example_code = FALSE,
                       cpp_files = c("convolve.cpp"))
 @ 
@@ -436,7 +436,7 @@ you need to add these entries.
 For example, if your package depends on \pkg{Rcpp} and \pkg{RcppArmadillo}
 you would have the following in your \texttt{DESCRIPTION} file:
 
-<<lang=sh>>=
+<<lang=bash>>=
 Depends: Rcpp (>= 0.10.0), RcppArmadillo (>= 0.3.4.4)
 LinkingTo: Rcpp, RcppArmadillo
 @ 
@@ -452,7 +452,7 @@ The \texttt{compileAttributes} function scans the source files within a package
 for export attributes and generates code as required. For example, executing
 this from within the package working directory:
 
-<<eval=FALSE>>=
+<<eval=FALSE,lang=r>>=
 compileAttributes()
 @ 
 
@@ -499,7 +499,7 @@ NumericVector strLength(CharacterVector str)
 
 Results in the following code in the generated \proglang{R} source file:
 
-<<lang=r>>=
+<<eval=FALSE,lang=r>>=
 #' The length of a string (in characters).
 #'
 #' @param str input character vector
@@ -550,7 +550,7 @@ If you request a \texttt{cpp} interface for a source file then
 (substituting \emph{Package} with the name of the package code is being
 generated for):
 
-<<lang=sh>>=
+<<lang=bash>>=
 inst/include/Package.h
 inst/include/Package_RcppExports.h
 @ 
@@ -601,7 +601,7 @@ compilation of your package source files, you will also need to add the
 following entry to \texttt{Makevars} and \texttt{Makevars.win} (both are
 in the \texttt{src} directory of your package):
 
-<<lang=sh>>=
+<<lang=bash>>=
 PKG_CPPFLAGS += -I../inst/include/
 @ 
 
