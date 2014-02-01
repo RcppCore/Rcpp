@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,34 +15,36 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-run_unit_tests <- function( output = if( file.exists( "/tmp" ) ) "/tmp" else getwd(), package = "Rcpp" ){
-    if( !file.exists( output ) ){ 
-      stop( "output directory does not exist" ) 
-    }
+test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd()) {
+    if (require(RUnit)) {
+        testSuite <- defineTestSuite(name="Rcpp Unit Tests",
+                                     dirs=system.file("unitTests", package = "Rcpp"),
+                                     testFuncRegexp = "^[Tt]est.+")
 
-    Rscript <- file.path( R.home( component = "bin" ), "Rscript" )
-    if( .Platform$OS.type == "windows" ){
-        Rscript <- sprintf( "%s.exe", Rscript )
+        ## if someoone calls Rcpp::test(), he/she wants all tests
+        Sys.setenv("RunAllRcppTests"="yes")
+
+        ## Run tests
+        tests <- runTestSuite(testSuite)
+
+        ## Print results
+        printTextProtocol(tests)
+
+        return(tests)
     }
-    test.script <- system.file( "unitTests", "runTests.R", package = package )
-    cmd <- sprintf( '"%s" "%s" --output=%s', Rscript, test.script, output )
-    system( cmd )
+  
+    stop("Running unit tests requires the 'RUnit' package.")
 }
 
-test <- function( output = if( file.exists( "/tmp" ) ) "/tmp" else getwd() ){
-  message( "test is deprecated, use `run_unit_test` instead" )
-  run_unit_tests( output, "Rcpp" )  
-}
-
-unit_test_setup <- function(file, packages = NULL) {
-    function(){
-        if( !is.null(packages) ){
-            for( p in packages ){
-                suppressMessages( require( p, character.only = TRUE ) )
+unitTestSetup <- function(file, packages=NULL,
+                          pathToRcppTests=system.file("unitTests", package = "Rcpp")) {
+    function() {
+        if (! is.null(packages)) {
+            for (p in packages) {
+                suppressMessages(require(p, character.only=TRUE))
             }
         }
-        if (!exists("pathRcppTests")) pathRcppTests <- getwd()
-        sourceCpp(file.path(pathRcppTests, "cpp", file ))
+        sourceCpp(file.path(pathToRcppTests, "cpp", file))
     }
 }
 

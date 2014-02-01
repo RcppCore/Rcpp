@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2012 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,32 +22,32 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "String.cpp" )
+    .setUp <- Rcpp:::unitTestSetup("String.cpp")
 
-test.replace_all <- function(){
-    checkEquals( String_replace_all("foobar", "o", "*"), "f**bar")
-}
-test.replace_first <- function(){
-    checkEquals( String_replace_first("foobar", "o", "*"), "f*obar")
-}
-test.replace_last <- function(){
-    checkEquals( String_replace_last("foobar", "o", "*"), "fo*bar")
-}
+    test.replace_all <- function(){
+        checkEquals( String_replace_all("foobar", "o", "*"), "f**bar")
+    }
+    test.replace_first <- function(){
+        checkEquals( String_replace_first("foobar", "o", "*"), "f*obar")
+    }
+    test.replace_last <- function(){
+        checkEquals( String_replace_last("foobar", "o", "*"), "fo*bar")
+    }
 
-test.String.sapply <- function(){
-    res <- test_sapply_string( "foobar", c("o", "a" ), c("*", "!" ) )
-    checkEquals( res, "f**b!r" )    
-}
+    test.String.sapply <- function(){
+        res <- test_sapply_string( "foobar", c("o", "a" ), c("*", "!" ) )
+        checkEquals( res, "f**b!r" )    
+    }
 
-test.compare.Strings <- function(){
-    res <- test_compare_Strings( "aaa", "aab" )
-    target <- list( 
-        "a  < b" = TRUE, 
-        "a  > b" = FALSE,  
-        "a == b" = FALSE,
-        "a == a" = TRUE
-    )
-    checkEquals( res, target )
-}
-  
+    test.compare.Strings <- function(){
+        res <- test_compare_Strings( "aaa", "aab" )
+        target <- list( 
+            "a  < b" = TRUE, 
+            "a  > b" = FALSE,  
+            "a == b" = FALSE,
+            "a == a" = TRUE
+            )
+        checkEquals( res, target )
+    }
+    
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2013  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2013 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,28 +22,28 @@
 
 if ( .runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "wstring.cpp" )
+    .setUp <- Rcpp:::unitTestSetup("wstring.cpp")
 
-test.CharacterVector_wstring <- function(){
-    res <- CharacterVector_wstring()
-    checkEquals( res, c("foobar", "foobar" ) )
-}
+    test.CharacterVector_wstring <- function(){
+        res <- CharacterVector_wstring()
+        checkEquals( res, c("foobar", "foobar" ) )
+    }
 
-test.wstring_return <- function(){
-    checkEquals( wstring_return(), "foo" )
-}
+    test.wstring_return <- function(){
+        checkEquals( wstring_return(), "foo" )
+    }
 
-test.wstring_param <- function(){
-    checkEquals( wstring_param( "foo", "bar" ), "foobar" )
-}
+    test.wstring_param <- function(){
+        checkEquals( wstring_param( "foo", "bar" ), "foobar" )
+    }
 
-test.wrap_vector_wstring <- function(){
-    checkEquals( wrap_vector_wstring( ), c("foo", "bar" ) )
-}
+    test.wrap_vector_wstring <- function(){
+        checkEquals( wrap_vector_wstring( ), c("foo", "bar" ) )
+    }
 
-#test.as_vector_wstring <- function(){
-#    ## the "€" did not survive on Windows, so trying its unicode equivalent
-#    checkEquals( as_vector_wstring(letters), paste0( letters, "\u20ac" ) )
-#}
+    ##test.as_vector_wstring <- function(){
+    ##    ## the "€" did not survive on Windows, so trying its unicode equivalent
+    ##    checkEquals( as_vector_wstring(letters), paste0( letters, "\u20ac" ) )
+    ##}
 
 }

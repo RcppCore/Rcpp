@@ -44,6 +44,9 @@
     \itemize{
       \item The file \code{tests/doRUnit.R} was rewritten following the
       pattern deployed in \cpkg{RProtoBuf} which is due to Murray Stokely
+      \item The function \code{test()} was rewritten; it provides an
+      easy entry point to running unit tests of the installed package 
+    }
   }
 }
 

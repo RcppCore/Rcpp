@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2013  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2013 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -21,18 +21,18 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "Reference.cpp" )
+    .setUp <- Rcpp:::unitTestSetup("Reference.cpp")
 
-test.Reference <- function(){
-    Instrument <- setRefClass(
-       Class="Instrument",
-       fields=list("id"="character", "description"="character")
-    )
-    Instrument$accessors(c("id", "description"))
-    
-    instrument <- Instrument$new(id="AAPL", description="Apple")
-    
-    checkEquals( runit_Reference_getId(instrument), "AAPL", msg = ".field" )
-}
+    test.Reference <- function(){
+        Instrument <- setRefClass(
+            Class="Instrument",
+            fields=list("id"="character", "description"="character")
+            )
+        Instrument$accessors(c("id", "description"))
+        
+        instrument <- Instrument$new(id="AAPL", description="Apple")
+        
+        checkEquals( runit_Reference_getId(instrument), "AAPL", msg = ".field" )
+    }
 
 }

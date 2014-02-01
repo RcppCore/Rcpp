@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -21,71 +21,71 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "misc.cpp" )
+    .setUp <- Rcpp:::unitTestSetup("misc.cpp")
 
-test.Symbol <- function(){
+    test.Symbol <- function(){
 	res <- symbol_()
 	checkTrue( res[1L], msg = "Symbol creation - SYMSXP " )
 	checkTrue( res[2L], msg = "Symbol creation - CHARSXP " )
 	checkTrue( res[3L], msg = "Symbol creation - STRSXP " )
 	checkTrue( res[4L], msg = "Symbol creation - std::string " )
-}
+    }
 
-test.Symbol.notcompatible <- function(){
+    test.Symbol.notcompatible <- function(){
 	checkException( symbol_ctor(symbol_ctor), msg = "Symbol not compatible with function" )
 	checkException( symbol_ctor(asNamespace("Rcpp")), msg = "Symbol not compatible with environment" )
 	checkException( symbol_ctor(1:10), msg = "Symbol not compatible with integer" )
 	checkException( symbol_ctor(TRUE), msg = "Symbol not compatible with logical" )
 	checkException( symbol_ctor(1.3), msg = "Symbol not compatible with numeric" )
 	checkException( symbol_ctor(as.raw(1) ), msg = "Symbol not compatible with raw" )
-}
+    }
 
 
-test.Argument <- function(){
-   checkEquals( Argument_(), list( x = 2L, y = 3L ) , msg = "Argument")
-}
+    test.Argument <- function(){
+        checkEquals( Argument_(), list( x = 2L, y = 3L ) , msg = "Argument")
+    }
 
-test.Dimension.const <- function(){
-   checkEquals( Dimension_const( c(2L, 2L)) , 2L, msg = "testing const operator[]" )
-}
+    test.Dimension.const <- function(){
+        checkEquals( Dimension_const( c(2L, 2L)) , 2L, msg = "testing const operator[]" )
+    }
 
-test.evaluator.error <- function(){
-   checkException( evaluator_error(), msg = "Rcpp_eval( stop() )" )
-}
+    test.evaluator.error <- function(){
+        checkException( evaluator_error(), msg = "Rcpp_eval( stop() )" )
+    }
 
-test.evaluator.ok <- function(){
+    test.evaluator.ok <- function(){
 	checkEquals( sort(evaluator_ok(1:10)), 1:10, msg = "Rcpp_eval running fine" )
-}
+    }
 
-test.exceptions <- function(){
+    test.exceptions <- function(){
 	can.demangle <- Rcpp:::capabilities()[["demangling"]]
 
 	e <- tryCatch(  exceptions_(), "C++Error" = function(e) e )
 	checkTrue( "C++Error" %in% class(e), msg = "exception class C++Error" )
 
 	if( can.demangle ){
-		checkTrue( "std::range_error" %in% class(e), msg = "exception class std::range_error" )
+            checkTrue( "std::range_error" %in% class(e), msg = "exception class std::range_error" )
 	}
 	checkEquals( e$message, "boom", msg = "exception message" )
 
 	if( can.demangle ){
-		# same with direct handler
-		e <- tryCatch(  exceptions_(), "std::range_error" = function(e) e )
-		checkTrue( "C++Error" %in% class(e), msg = "(direct handler) exception class C++Error" )
-		checkTrue( "std::range_error" %in% class(e), msg = "(direct handler) exception class std::range_error" )
-		checkEquals( e$message, "boom", msg = "(direct handler) exception message" )
+                                        # same with direct handler
+            e <- tryCatch(  exceptions_(), "std::range_error" = function(e) e )
+            checkTrue( "C++Error" %in% class(e), msg = "(direct handler) exception class C++Error" )
+            checkTrue( "std::range_error" %in% class(e), msg = "(direct handler) exception class std::range_error" )
+            checkEquals( e$message, "boom", msg = "(direct handler) exception message" )
 	}
 	f <- function(){
-		try( exceptions_(), silent = TRUE)
-		"hello world"
+            try( exceptions_(), silent = TRUE)
+            "hello world"
 	}
 	checkEquals( f(), "hello world", msg = "life continues after an exception" )
 
-}
+    }
 
-test.has.iterator <- function(){
+    test.has.iterator <- function(){
 
-    has_it <- has_iterator_()
+        has_it <- has_iterator_()
 	checkTrue( has_it[1L] , msg = "has_iterator< std::vector<int> >" )
 	checkTrue( has_it[2L] , msg = "has_iterator< std::ist<int> >" )
 	checkTrue( has_it[3L] , msg = "has_iterator< std::deque<int> >" )
@@ -95,49 +95,49 @@ test.has.iterator <- function(){
 	checkTrue( ! has_it[6L] , msg = "has_iterator< std::pair<string,int> >" )
 	checkTrue( ! has_it[7L] , msg = "Rcpp::Symbol" )
 
-}
+    }
 
-test.AreMacrosDefined <- function(){
-    checkTrue( Rcpp:::areMacrosDefined( "__cplusplus" ) )    
-}
+    test.AreMacrosDefined <- function(){
+        checkTrue( Rcpp:::areMacrosDefined( "__cplusplus" ) )    
+    }
     
-test.rcout <- function(){
-    ## define test string that is written to two files
-    teststr <- "First line.\nSecond line."
+    test.rcout <- function(){
+        ## define test string that is written to two files
+        teststr <- "First line.\nSecond line."
 
-    rcppfile <- tempfile()
-    rfile <- tempfile()
-    
-    ## write to test_rcpp.txt from Rcpp
-    test_rcout(rcppfile,  teststr )
-    
-    ## write to test_r.txt from R
-    cat( teststr, file=rfile, sep='\n' )
-    
-    ## compare whether the two files have the same data
-    checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")    
-}
+        rcppfile <- tempfile()
+        rfile <- tempfile()
+        
+        ## write to test_rcpp.txt from Rcpp
+        test_rcout(rcppfile,  teststr )
+        
+        ## write to test_r.txt from R
+        cat( teststr, file=rfile, sep='\n' )
+        
+        ## compare whether the two files have the same data
+        checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")    
+    }
 
-test.na_proxy <- function(){
-    checkEquals( 
-        na_proxy(), 
-        rep(c(TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE) , 2), 
-        msg = "Na_Proxy NA == handling"
-    )    
-}
+    test.na_proxy <- function(){
+        checkEquals( 
+            na_proxy(), 
+            rep(c(TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE) , 2), 
+            msg = "Na_Proxy NA == handling"
+            )    
+    }
 
-test.StretchyList <- function(){
-    checkEquals( 
-        stretchy_list(),
-        pairlist( "foo", 1L, 3.2 )
-    )
-}
+    test.StretchyList <- function(){
+        checkEquals( 
+            stretchy_list(),
+            pairlist( "foo", 1L, 3.2 )
+            )
+    }
 
-test.named_StretchyList <- function(){
-    checkEquals( 
-        named_stretchy_list(),
-        pairlist( a = "foo", b = 1L, c = 3.2 )
-    )
-}
+    test.named_StretchyList <- function(){
+        checkEquals( 
+            named_stretchy_list(),
+            pairlist( a = "foo", b = 1L, c = 3.2 )
+            )
+    }
 
 }
