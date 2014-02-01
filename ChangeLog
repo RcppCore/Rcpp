@@ -4,6 +4,8 @@
 
 	* vignettes/Rcpp-unitTests.Rnw: Remove a now superfluous global var
 
+	* vignettes/Rcpp.bib: Updated references to current packages
+
 2014-02-01  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R: Embedded R code chunks in sourceCpp can

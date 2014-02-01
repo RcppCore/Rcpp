@@ -39,6 +39,8 @@
     \itemize{
       \item The Rcpp-FAQ and Rcpp-package vignettes have been updated and expanded.
       \item Vignettes are now typeset with grey background for code boxes.
+      \item The bibtex reference file has been update to reflexct
+      current package versions.
     }
     \item Changes in Rcpp unit tests:
     \itemize{
