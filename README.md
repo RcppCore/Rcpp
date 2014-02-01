@@ -42,6 +42,8 @@ package development. Attributes are built on top of Rcpp modules and
 their implementation is based on previous work in the inline package.
 See the [Rcpp-atttributes]((http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-attributes.pdf) vignettes for more details. 
 
+## Examples
+
 Many examples are included, and over 800 unit tests in over 400 unit
 test functions provide additional usage examples.
 
@@ -51,8 +53,13 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should 
 always use this Rcpp package instead.
 
+## Documentation 
+
+The package ships with nine pdf vignettes. 
+
 Additional documentation is available via the [JSS paper](http://www.jstatsoft.org/v40/i08/) by Eddelbuettel and
-Francois (2011, JSS) paper and the [book](http://www.rcpp.org/book) by Eddelbuettel (2013, Springer); 
+Francois (2011, JSS) paper (corresponding to the 'intro' vignette) 
+and the [book](http://www.rcpp.org/book) by Eddelbuettel (2013, Springer); 
 see 'citation("Rcpp")' for details.
 
 ## Installation
@@ -64,14 +71,15 @@ Released and tested versions of Rcpp are available via the
 install.packages("Rcpp")
 ```
 
-To install Rcpp snapshots directly from the master branch at GitHub, do 
-
-```R
-install.packages("devtools")
-devtools::install_github("RcppCore/Rcpp")
-```
-
 To install from source, ensure you have a 
 [complete package development environment](http://www.rstudio.com/ide/docs/packages/prerequisites).
-
 Also see questions 1.2 and 1.3 in the [Rcpp-FAQ](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
+
+### Authors
+
+Dirk Eddelbuettel, Romain Francois, JJ Allaire, Doug Bates, John Chamber and
+Kevin Ushey
+
+### License
+
+GPL (>= 2)
