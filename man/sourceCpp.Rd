@@ -9,8 +9,8 @@ and RCPP_MODULE declarations. A shared library is then built and its exported fu
 }
 \usage{
 sourceCpp(file = "", code = NULL, env = globalenv(), 
-          rebuild = FALSE, showOutput = verbose, 
-          verbose = getOption("verbose"))
+          embeddedR = TRUE, rebuild = FALSE, 
+          showOutput = verbose, verbose = getOption("verbose"))
 }
 \arguments{
   \item{file}{
@@ -21,6 +21,9 @@ sourceCpp(file = "", code = NULL, env = globalenv(),
 }
   \item{env}{
     Environment where the R functions and modules should be made available.
+}
+  \item{embeddedR}{
+    \code{TRUE} to run embedded R code chunks.
 }
   \item{rebuild}{
     Force a rebuild of the shared library.

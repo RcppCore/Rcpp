@@ -33,6 +33,7 @@
     \itemize{
       \item Embedded R code chunks in sourceCpp are now executed within
       the working directory of the C++ source file.
+      \item Embedded R code chunks in sourceCpp can now be disabled.
     }
     \item Changes in Rcpp documentation:
     \itemize{
