@@ -43,9 +43,7 @@ if (require("RUnit", quietly = TRUE)) {
     ## --- Testing ---
 
     ## Define tests
-    testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path
-                                 #     , testFileRegexp = "Vector"
-                                 )
+    testSuite <- defineTestSuite(name=paste(pkg, "unit testing"), dirs = path)
 
     ## TODO: actually prioritize which ones we want
     ##       for now, expensive tests (eg Modules, client packages) are skipped

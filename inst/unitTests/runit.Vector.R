@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,7 +22,7 @@
 
 if (.runThisTest) {
 
-    .setUp <- Rcpp:::unit_test_setup("Vector.cpp")
+    .setUp <- Rcpp:::unitTestSetup("Vector.cpp")
 
     test.RawVector <- function(){
         funx <- raw_

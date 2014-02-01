@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2009 - 2013	 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2014	 Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,14 +22,14 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "XPtr.cpp" )
+    .setUp <- Rcpp:::unitTestSetup("XPtr.cpp")
     
-test.XPtr <- function(){
-    xp <- xptr_1()
-    checkEquals(typeof( xp ), "externalptr", msg = "checking external pointer creation" )
-    
-    front <- xptr_2(xp)
-    checkEquals( front, 1L, msg = "check usage of external pointer" )
-}
+    test.XPtr <- function(){
+        xp <- xptr_1()
+        checkEquals(typeof( xp ), "externalptr", msg = "checking external pointer creation" )
+        
+        front <- xptr_2(xp)
+        checkEquals( front, 1L, msg = "check usage of external pointer" )
+    }
 
 }

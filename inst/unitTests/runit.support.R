@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -21,41 +21,41 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "support.cpp" )
+    .setUp <- Rcpp:::unitTestSetup("support.cpp")
 
-test.plus.REALSXP <- function(){
-    checkEquals(
-        plus_REALSXP(),
-        list(NA_real_,NA_real_,NA_real_) ,
-        msg = " REALSXP + REALSXP" )
-}
+    test.plus.REALSXP <- function(){
+        checkEquals(
+            plus_REALSXP(),
+            list(NA_real_,NA_real_,NA_real_) ,
+            msg = " REALSXP + REALSXP" )
+    }
 
-test.times.REALSXP <- function(){
-    checkEquals(
-        times_REALSXP(),
-        list(NA_real_,NA_real_,NA_real_) ,
-        msg = " REALSXP * REALSXP" )
-}
+    test.times.REALSXP <- function(){
+        checkEquals(
+            times_REALSXP(),
+            list(NA_real_,NA_real_,NA_real_) ,
+            msg = " REALSXP * REALSXP" )
+    }
 
-test.divides.REALSXP <- function(){
-    checkEquals(
-        divides_REALSXP(),
-        list(NA_real_,NA_real_,NA_real_) ,
-        msg = " REALSXP / REALSXP" )
-}
+    test.divides.REALSXP <- function(){
+        checkEquals(
+            divides_REALSXP(),
+            list(NA_real_,NA_real_,NA_real_) ,
+            msg = " REALSXP / REALSXP" )
+    }
 
-test.minus.REALSXP <- function(){
-    checkEquals(
-        minus_REALSXP(),
-        list(NA_real_,NA_real_,NA_real_) ,
-        msg = " REALSXP - REALSXP" )
-}
+    test.minus.REALSXP <- function(){
+        checkEquals(
+            minus_REALSXP(),
+            list(NA_real_,NA_real_,NA_real_) ,
+            msg = " REALSXP - REALSXP" )
+    }
 
-test.functions.REALSXP <- function(){
-    checkEquals(
-        functions_REALSXP(),
-        list( rep(NA_real_, 20L), rep(NA_real_, 6L) ) ,
-        msg = "function(NA_REAL)" )
-}
+    test.functions.REALSXP <- function(){
+        checkEquals(
+            functions_REALSXP(),
+            list( rep(NA_real_, 20L), rep(NA_real_, 6L) ) ,
+            msg = "function(NA_REAL)" )
+    }
 
 }

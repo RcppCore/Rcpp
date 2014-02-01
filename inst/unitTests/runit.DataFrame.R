@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,64 +22,64 @@
 
 if (.runThisTest) {
 
-.setUp <- Rcpp:::unit_test_setup( "DataFrame.cpp" )
+    .setUp <- Rcpp:::unitTestSetup("DataFrame.cpp")
 
-test.DataFrame.FromSEXP <- function() {
-    DF <- data.frame(a=1:3, b=c("a","b","c"))
-    checkEquals( FromSEXP(DF), DF, msg = "DataFrame pass-through")
-}
+    test.DataFrame.FromSEXP <- function() {
+        DF <- data.frame(a=1:3, b=c("a","b","c"))
+        checkEquals( FromSEXP(DF), DF, msg = "DataFrame pass-through")
+    }
 
-test.DataFrame.index.byName <- function() {
-    DF <- data.frame(a=1:3, b=c("a","b","c"))
-    checkEquals( index_byName(DF, "a"), DF$a, msg = "DataFrame column by name 'a'")
-    checkEquals( index_byName(DF, "b"), DF$b, msg = "DataFrame column by name 'b'")
-}
+    test.DataFrame.index.byName <- function() {
+        DF <- data.frame(a=1:3, b=c("a","b","c"))
+        checkEquals( index_byName(DF, "a"), DF$a, msg = "DataFrame column by name 'a'")
+        checkEquals( index_byName(DF, "b"), DF$b, msg = "DataFrame column by name 'b'")
+    }
 
-test.DataFrame.index.byPosition <- function() {
-    DF <- data.frame(a=1:3, b=c("a","b","c"))
-    checkEquals( index_byPosition(DF, 0), DF$a, msg = "DataFrame column by position 0")
-    checkEquals( index_byPosition(DF, 1), DF$b, msg = "DataFrame column by position 1")
-}
+    test.DataFrame.index.byPosition <- function() {
+        DF <- data.frame(a=1:3, b=c("a","b","c"))
+        checkEquals( index_byPosition(DF, 0), DF$a, msg = "DataFrame column by position 0")
+        checkEquals( index_byPosition(DF, 1), DF$b, msg = "DataFrame column by position 1")
+    }
 
-test.DataFrame.string.element <- function() {
-    DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors=FALSE)
-    checkEquals( string_element(DF), DF[2,"b"], msg = "DataFrame string element")
-}
+    test.DataFrame.string.element <- function() {
+        DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors=FALSE)
+        checkEquals( string_element(DF), DF[2,"b"], msg = "DataFrame string element")
+    }
 
-test.DataFrame.CreateOne <- function() {
-    DF <- data.frame(a=1:3)
-    checkEquals( createOne(), DF, msg = "DataFrame create1")
-}
+    test.DataFrame.CreateOne <- function() {
+        DF <- data.frame(a=1:3)
+        checkEquals( createOne(), DF, msg = "DataFrame create1")
+    }
 
-test.DataFrame.CreateTwo <- function() {
-    DF <- data.frame(a=1:3, b=c("a","b","c"))
-    checkEquals( createTwo(), DF, msg = "DataFrame create2")
-}
+    test.DataFrame.CreateTwo <- function() {
+        DF <- data.frame(a=1:3, b=c("a","b","c"))
+        checkEquals( createTwo(), DF, msg = "DataFrame create2")
+    }
 
-test.DataFrame.SlotProxy <- function(){
-    setClass("track", representation(x="data.frame", y = "function"))
-    df <- data.frame( x = 1:10, y = 1:10 )
-    tr1 <- new( "track", x = df, y = rnorm )
-    checkTrue( identical( SlotProxy(tr1, "x"), df ), msg = "DataFrame( SlotProxy )" )
-    checkException( SlotProxy(tr1, "y"), msg = "DataFrame( SlotProxy ) -> exception" )
-}
+    test.DataFrame.SlotProxy <- function(){
+        setClass("track", representation(x="data.frame", y = "function"))
+        df <- data.frame( x = 1:10, y = 1:10 )
+        tr1 <- new( "track", x = df, y = rnorm )
+        checkTrue( identical( SlotProxy(tr1, "x"), df ), msg = "DataFrame( SlotProxy )" )
+        checkException( SlotProxy(tr1, "y"), msg = "DataFrame( SlotProxy ) -> exception" )
+    }
 
-test.DataFrame.AttributeProxy <- function(){
-	df <- data.frame( x = 1:10, y = 1:10 )
-    tr1 <- structure( NULL, x = df, y = rnorm )
-    checkTrue( identical( AttributeProxy(tr1, "x"), df) , msg = "DataFrame( AttributeProxy )" )
-    checkException( AttributeProxy(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
-}
+    test.DataFrame.AttributeProxy <- function(){
+        df <- data.frame( x = 1:10, y = 1:10 )
+        tr1 <- structure( NULL, x = df, y = rnorm )
+        checkTrue( identical( AttributeProxy(tr1, "x"), df) , msg = "DataFrame( AttributeProxy )" )
+        checkException( AttributeProxy(tr1, "y"), msg = "DataFrame( AttributeProxy ) -> exception" )
+    }
 
-test.DataFrame.CreateTwo.stringsAsFactors <- function() {
-    DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors = FALSE )
-    checkEquals( createTwoStringsAsFactors(), DF, msg = "DataFrame create2 stringsAsFactors = false")
-}
+    test.DataFrame.CreateTwo.stringsAsFactors <- function() {
+        DF <- data.frame(a=1:3, b=c("a","b","c"), stringsAsFactors = FALSE )
+        checkEquals( createTwoStringsAsFactors(), DF, msg = "DataFrame create2 stringsAsFactors = false")
+    }
 
-test.DataFrame.nrows <- function(){
-    df <- data.frame( x = 1:10, y = 1:10 )
-    checkEquals( DataFrame_nrows( df ), nrow(df) )
-}
+    test.DataFrame.nrows <- function(){
+        df <- data.frame( x = 1:10, y = 1:10 )
+        checkEquals( DataFrame_nrows( df ), nrow(df) )
+    }
 
 
 }
