@@ -2,9 +2,12 @@
 
 	* vignettes/Rcpp-FAQ.Rnw: Render code with background boxen
 	* vignettes/Rcpp-package.Rnw: Idem
-	* vignettes/Rcpp-modules.Rnw: Idem 
-	* vignettes/Rcpp-extending.Rnw: Idem 
-	* vignettes/Rcpp-sugar.Rnw: Idem 
+	* vignettes/Rcpp-modules.Rnw: Idem
+	* vignettes/Rcpp-extending.Rnw: Idem
+	* vignettes/Rcpp-sugar.Rnw: Idem
+
+	* inst/include/Rcpp/Benchmark/Timer.h: Reverted back to using
+	iterators via use of anonymous namespace for accessors
 
 2014-01-31  JJ Allaire  <jj@rstudio.org>
 
