@@ -82,11 +82,11 @@ To install from source, ensure you have a
 [complete package development environment](http://www.rstudio.com/ide/docs/packages/prerequisites). 
 Also see questions 1.2 and 1.3 in the [Rcpp-FAQ](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
 
-### Authors
+## Authors
 
 Dirk Eddelbuettel, Romain Francois, JJ Allaire, Doug Bates, John Chamber and
 Kevin Ushey
 
-### License
+## License
 
 GPL (>= 2)
