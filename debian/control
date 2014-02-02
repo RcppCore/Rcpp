@@ -43,7 +43,7 @@ Description: GNU R package for Seamless R and C++ Integration
  package development. Attributes are built on top of Rcpp modules and
  their implementation is based on previous work in the inline package.
  .
- Many examples are included, and around 872 unit tests in 422 unit
+ Many examples are included, and around 891 unit tests in 430 unit
  test functions provide additional usage examples.
  .
  An earlier version of Rcpp, containing what we now call the 'classic Rcpp
