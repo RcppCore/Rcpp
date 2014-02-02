@@ -1,3 +1,10 @@
+2014-02-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.11.0
+        * inst/NEWS.Rd: Release 0.11.0
+        * inst/include/Rcpp/config.h: Release 0.11.0
+        * debian/*: Similarly updated for new release to Debian
+
 2014-02-02  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R: Use placeholder for .Call to avoid warning
