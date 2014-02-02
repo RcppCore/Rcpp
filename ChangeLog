@@ -1,3 +1,7 @@
+2014-02-02  JJ Allaire  <jj@rstudio.org>
+
+        * R/Attributes.R: Use placeholder for .Call to avoid warning
+
 2014-02-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/doRUnit.R: Simplified following pattern in RProtoBuf
