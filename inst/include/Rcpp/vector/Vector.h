@@ -237,6 +237,10 @@ public:
     inline NameProxy operator()( const std::string& name ) const {
         return NameProxy( const_cast<Vector&>(*this), name ) ;
     }
+
+    inline operator RObject() const {
+        return RObject( Storage::get__() );
+    }
 	
     Vector& sort(){
         typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
