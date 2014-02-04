@@ -2,6 +2,16 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in [UNRELEASED] Rcpp version 0.11.1 (2014-04-01)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Preserve backwards compatibility with Rcpp 0.10.* by allow
+      \code{RObject} extraction from vectors (or lists) of Rcpp objects
+    }
+  }
+}
+      
 \section{Changes in Rcpp version 0.11.0 (2014-02-02)}{
   \itemize{
     \item Changes in Rcpp API:
