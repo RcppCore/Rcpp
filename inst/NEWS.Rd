@@ -6,8 +6,11 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Preserve backwards compatibility with Rcpp 0.10.* by allow
-      \code{RObject} extraction from vectors (or lists) of Rcpp objects
+      \item Preserve backwards compatibility with Rcpp 0.10.* by
+      allowing \code{RObject} extraction from vectors (or lists) of Rcpp
+      objects
+      \item Add missing default constructor to Reference class that was
+      omitted in the header-only rewrite
     }
   }
 }
