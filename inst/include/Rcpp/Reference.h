@@ -31,6 +31,9 @@ namespace Rcpp{
         public FieldProxyPolicy<Reference_Impl<StoragePolicy> > 
     {
     public:
+
+        Reference_Impl() {}
+
         RCPP_GENERATE_CTOR_ASSIGN(Reference_Impl) 
         
         /**
