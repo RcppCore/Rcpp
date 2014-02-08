@@ -894,10 +894,7 @@ inline SEXP rowmajor_wrap(InputIterator first, int nrow, int ncol){
  * 
  */
 template <typename T> 
-inline SEXP wrap(const T& object){
-	RCPP_DEBUG_1( "inline SEXP wrap<%s>(const T& object)", DEMANGLE(T) ) 
-	return internal::wrap_dispatch( object, typename ::Rcpp::traits::wrap_type_traits<T>::wrap_category() ) ;
-}
+inline SEXP wrap(const T& object) ;
 
 template <> inline SEXP wrap<Rcpp::String>( const Rcpp::String& object) ;
 

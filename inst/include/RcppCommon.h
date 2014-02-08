@@ -167,8 +167,6 @@ namespace Rcpp{
 #include <Rcpp/vector/VectorBase.h>
 #include <Rcpp/vector/MatrixBase.h>
 
-#include <Rcpp/internal/wrap.h>
-
 #include <Rcpp/internal/ListInitialization.h>
 #include <Rcpp/internal/Proxy_Iterator.h>
 #include <Rcpp/internal/SEXP_Iterator.h>
@@ -180,5 +178,7 @@ namespace Rcpp{
 
 #include <Rcpp/iostream/Rstreambuf.h>
 #include <Rcpp/longlong.h>
+
+#include <Rcpp/internal/wrap.h>
 
 #endif
