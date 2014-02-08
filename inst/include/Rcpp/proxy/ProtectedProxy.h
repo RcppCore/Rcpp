@@ -19,6 +19,8 @@
 #define Rcpp_ProtectedProxy_h
 
 namespace Rcpp{
+  
+    template <typename T> T as(SEXP x);
     
     template <class XPtrClass>
     class ProtectedProxyPolicy{
@@ -29,10 +31,15 @@ namespace Rcpp{
             ProtectedProxy( XPtrClass& xp_ ): xp(xp_){}
             
             template <typename U>
-            ProtectedProxy& operator=( const U& u) ;
+            ProtectedProxy& operator=( const U& u) {
+              set( wrap( u ) );
+              return *this;
+            }
             
             template <typename U>
-            operator U() const ;
+            operator U() const {
+              return as<U>( get() );
+            }
             
             operator SEXP() const{ 
                 return get() ; 
@@ -56,7 +63,9 @@ namespace Rcpp{
             const_ProtectedProxy( const XPtrClass& xp_ ): xp(xp_){}
             
             template <typename U>
-            operator U() const ;
+            operator U() const {
+              return as<U>( get() );
+            };
             
             operator SEXP() const{ 
                 return get() ; 

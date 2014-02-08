@@ -25,14 +25,14 @@
 #include <Rcpp/api/meat/Rcpp_eval.h>
 #include <Rcpp/api/meat/Dimension.h>
 
-#include <Rcpp/api/meat/TagProxy.h>
-#include <Rcpp/api/meat/ProtectedProxy.h>
-#include <Rcpp/api/meat/EnvironmentBinding.h>
-#include <Rcpp/api/meat/AttributeProxy.h>
-#include <Rcpp/api/meat/NamesProxy.h>
-#include <Rcpp/api/meat/DottedPairProxy.h>
-#include <Rcpp/api/meat/SlotProxy.h>
-#include <Rcpp/api/meat/FieldProxy.h>
+// #include <Rcpp/api/meat/TagProxy.h>
+// #include <Rcpp/api/meat/ProtectedProxy.h>
+// #include <Rcpp/api/meat/EnvironmentBinding.h>
+// #include <Rcpp/api/meat/AttributeProxy.h>
+// #include <Rcpp/api/meat/NamesProxy.h>
+// #include <Rcpp/api/meat/DottedPairProxy.h>
+// #include <Rcpp/api/meat/SlotProxy.h>
+// #include <Rcpp/api/meat/FieldProxy.h>
 
 #include <Rcpp/api/meat/Date.h>
 #include <Rcpp/api/meat/Datetime.h>

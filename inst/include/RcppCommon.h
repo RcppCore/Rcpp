@@ -147,7 +147,7 @@ namespace Rcpp{
 	namespace internal{
 		template <typename Class> SEXP make_new_object( Class* ptr ) ;	
 	}
-}	
+}
 
 #include <Rcpp/traits/traits.h>
 #include <Rcpp/Named.h>
