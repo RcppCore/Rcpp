@@ -29,7 +29,8 @@
 // don't include it directly
 
 namespace Rcpp{
-	namespace RcppEigen{
+  
+  namespace RcppEigen{
 		template <typename T> SEXP eigen_wrap( const T& object ) ;
 	}
 	
@@ -737,6 +738,7 @@ inline SEXP wrap_dispatch_unknown( const T& object, ::Rcpp::traits::false_type){
  * wrapping a __single__ primitive type : int, double, std::string, size_t, 
  * Rbyte, Rcomplex
  */
+ 
 template <typename T> 
 inline SEXP wrap_dispatch( const T& object, ::Rcpp::traits::wrap_type_primitive_tag ){
 	return primitive_wrap( object ) ;
