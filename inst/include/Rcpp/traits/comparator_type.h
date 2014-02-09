@@ -46,7 +46,7 @@ inline int StrCmp(SEXP x, SEXP y) {
     if (x == NA_STRING) return (y == NA_STRING ? 0 : 1);
     if (y == NA_STRING) return -1;
     if (x == y) return 0;  // same string in cache
-    return strcmp(CHAR(x), CHAR(y));
+    return strcmp(char_nocheck(x), char_nocheck(y));
 }
 
 template <typename T>
@@ -91,7 +91,21 @@ struct comparator_type<SEXP> {
   inline bool operator()(SEXP left, SEXP right) const {
     return StrCmp(left, right) < 0;
   }
-};   
+};
+
+template <typename T>
+struct equal_type {
+  inline bool operator()(T left, T right) const {
+    return left == right;
+  }
+};
+
+template <>
+struct equal_type<double> {
+  inline bool operator()(double left, double right) const {
+    return memcmp(&left, &right, sizeof(double)) == 0;
+  }
+};
 
 }
 }     
