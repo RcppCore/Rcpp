@@ -160,7 +160,7 @@ namespace Rcpp{
         }
         
         inline bool not_equal(const STORAGE& lhs, const STORAGE& rhs) {
-            return ! ::Rcpp::traits::equal_type<STORAGE>()(lhs, rhs);
+            return ! ::Rcpp::traits::NAEquals<STORAGE>()(lhs, rhs);
         }
         
         bool add_value(int i){
