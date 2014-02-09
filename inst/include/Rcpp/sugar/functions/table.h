@@ -78,7 +78,7 @@ public:
     }
     
 private:
-    typedef RCPP_UNORDERED_MAP<STORAGE, int, ::Rcpp::traits::comparator_type<STORAGE> >HASH ;
+    typedef RCPP_UNORDERED_MAP<STORAGE, int, ::Rcpp::traits::NAComparator<STORAGE> >HASH ;
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
 };
@@ -113,7 +113,7 @@ private:
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
     
-    typedef std::map<STORAGE, int, ::Rcpp::traits::comparator_type<STORAGE> > SORTED_MAP ;
+    typedef std::map<STORAGE, int, ::Rcpp::traits::NAComparator<STORAGE> > SORTED_MAP ;
     SORTED_MAP map ;
     
 }; 
