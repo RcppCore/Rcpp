@@ -159,8 +159,8 @@ namespace Rcpp{
         #endif
         }
         
-        inline bool not_equal(STORAGE lhs, STORAGE rhs) {
-          return ::Rcpp::traits::comparator_type<STORAGE>()(lhs, rhs);
+        inline bool not_equal(const STORAGE& lhs, const STORAGE& rhs) {
+            return ! ::Rcpp::traits::equal_type<STORAGE>()(lhs, rhs);
         }
         
         bool add_value(int i){
@@ -169,15 +169,17 @@ namespace Rcpp{
             int addr = get_addr(val) ;
             while (data[addr] && not_equal( src[data[addr] - 1], val)) {
               addr++;
-              if (addr == m) addr = 0;
+              if (addr == m) {
+                addr = 0;
+              }
             }
+            
             if (!data[addr]){
               data[addr] = i ;
               size_++ ;
               
               return true ;
             }
-            
             return false;
         }
         
