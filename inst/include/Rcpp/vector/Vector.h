@@ -245,9 +245,10 @@ public:
     Vector& sort(){
         typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
         std::sort( 
-            start, start + size(), 
-            typename traits::comparator_type<RTYPE>::type()
-            ) ;
+            start, 
+            start + size(), 
+            typename traits::comparator_type<typename traits::storage_type<RTYPE>::type >()
+        ) ;
         return *this ;
     }
 
