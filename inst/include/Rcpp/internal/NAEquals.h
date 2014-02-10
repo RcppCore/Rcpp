@@ -1,6 +1,6 @@
 // NAEquals.h: Rcpp R/C++ interface class library -- for allowing NA == NA
 //
-// Copyright (C) 2014 Kevin UShey
+// Copyright (C) 2014 Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -17,10 +17,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__NAEquals__h
-#define Rcpp__NAEquals__h
+#ifndef Rcpp__internal__NAEquals__h
+#define Rcpp__internal__NAEquals__h
 
 namespace Rcpp {
+  
+namespace internal {
   
 template <typename T>
 struct NAEquals {
@@ -29,12 +31,15 @@ struct NAEquals {
   }
 };
 
+// TODO: check different kinds of NA, NaNs
 template <>
 struct NAEquals<double> {
   inline bool operator()(double left, double right) const {
     return memcmp(&left, &right, sizeof(double)) == 0;
   }
 };
+
+}
 
 }
 

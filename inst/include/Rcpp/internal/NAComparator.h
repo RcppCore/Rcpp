@@ -20,28 +20,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__NAComparator__h
-#define Rcpp__NAComparator__h
+#ifndef Rcpp__internal__NAComparator__h
+#define Rcpp__internal__NAComparator__h
 
 namespace Rcpp{
-   
-inline bool Rcpp_IsNA(double x) {
-  return memcmp(
-    (void*) &x,
-    (void*) &NA_REAL,
-    sizeof(double)
-  ) == 0;
-}
-
-inline bool Rcpp_IsNaN(double x) {
-  return R_IsNaN(x);
-}
-
+  
+namespace internal {
+  
 inline int StrCmp(SEXP x, SEXP y) {
-    if (x == NA_STRING) return (y == NA_STRING ? 0 : 1);
-    if (y == NA_STRING) return -1;
-    if (x == y) return 0;  // same string in cache
-    return strcmp(char_nocheck(x), char_nocheck(y));
+  if (x == NA_STRING) return (y == NA_STRING ? 0 : 1);
+  if (y == NA_STRING) return -1;
+  if (x == y) return 0;  // same string in cache
+  return strcmp(char_nocheck(x), char_nocheck(y));
 }
 
 template <typename T>
@@ -87,6 +77,8 @@ struct NAComparator<SEXP> {
     return StrCmp(left, right) < 0;
   }
 };
+
+}
 
 }     
 
