@@ -20,11 +20,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits__NAComparator__h
-#define Rcpp__traits__NAComparator__h
+#ifndef Rcpp__NAComparator__h
+#define Rcpp__NAComparator__h
 
 namespace Rcpp{
-namespace traits{
    
 inline bool Rcpp_IsNA(double x) {
   return memcmp(
@@ -93,7 +92,6 @@ struct NAComparator<SEXP> {
   }
 };
 
-}
 }     
 
 #endif

@@ -113,7 +113,7 @@ private:
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
     
-    typedef std::map<STORAGE, int, ::Rcpp::traits::NAComparator<STORAGE> > SORTED_MAP ;
+    typedef std::map<STORAGE, int, NAComparator<STORAGE> > SORTED_MAP ;
     SORTED_MAP map ;
     
 }; 
