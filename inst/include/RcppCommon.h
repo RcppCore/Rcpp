@@ -149,6 +149,8 @@ namespace Rcpp{
 	}
 }	
 
+#include <Rcpp/NAComparator.h>
+#include <Rcpp/NAEquals.h>
 #include <Rcpp/traits/traits.h>
 #include <Rcpp/Named.h>
 

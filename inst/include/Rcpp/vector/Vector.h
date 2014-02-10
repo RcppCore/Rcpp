@@ -247,7 +247,7 @@ public:
         std::sort( 
             start, 
             start + size(), 
-            typename traits::NAComparator<typename traits::storage_type<RTYPE>::type >()
+            NAComparator<typename traits::storage_type<RTYPE>::type >()
         ) ;
         return *this ;
     }

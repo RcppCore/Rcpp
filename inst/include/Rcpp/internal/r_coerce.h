@@ -52,7 +52,7 @@ inline int r_coerce<LGLSXP,INTSXP>(int from){
 }
 template <> 
 inline int r_coerce<REALSXP,INTSXP>(double from){
-	if (R_IsNA(from)) {
+	if (Rcpp_IsNA(from)) {
 		return NA_INTEGER;
 	} else if (from > INT_MAX || from <= INT_MIN ) {
 		return NA_INTEGER;
@@ -90,7 +90,7 @@ inline double r_coerce<RAWSXP,REALSXP>(Rbyte from){
 // -> LGLSXP
 template <> 
 inline int r_coerce<REALSXP,LGLSXP>(double from){
-	return R_IsNA(from) ? NA_LOGICAL : (from!=0.0);	
+	return Rcpp_IsNA(from) ? NA_LOGICAL : (from!=0.0);	
 }
 
 template <> 
@@ -100,7 +100,7 @@ inline int r_coerce<INTSXP,LGLSXP>(int from){
 
 template <>
 inline int r_coerce<CPLXSXP,LGLSXP>(Rcomplex from){
-	if( R_IsNA(from.r) ) return NA_LOGICAL ;
+	if( Rcpp_IsNA(from.r) ) return NA_LOGICAL ;
 	if( from.r == 0.0 || from.i == 0.0 ) return FALSE ;
 	return TRUE ;
 }
@@ -119,7 +119,7 @@ inline Rbyte r_coerce<INTSXP,RAWSXP>(int from){
 
 template <> 
 inline Rbyte r_coerce<REALSXP,RAWSXP>(double from){
-	if( R_IsNA(from) ) return static_cast<Rbyte>(0) ; 
+	if( Rcpp_IsNA(from) ) return static_cast<Rbyte>(0) ; 
 	return r_coerce<INTSXP,RAWSXP>(static_cast<int>(from)) ;
 }
 
@@ -137,7 +137,7 @@ inline Rbyte r_coerce<LGLSXP,RAWSXP>(int from){
 template <> 
 inline Rcomplex r_coerce<REALSXP,CPLXSXP>(double from){
 	Rcomplex c ;
-	if( R_IsNA(from) ){
+	if( Rcpp_IsNA(from) ){
 		c.r = NA_REAL; 
 		c.i = NA_REAL;
 	} else{
@@ -273,7 +273,7 @@ template <>
 inline SEXP r_coerce<REALSXP,STRSXP>(double from){
   
   // handle some special values explicitly
-  if (R_IsNaN(from)) return Rf_mkChar("NaN");
+  if (Rcpp_IsNaN(from)) return Rf_mkChar("NaN");
   else if (from == R_PosInf) return Rf_mkChar("Inf");
   else if (from == R_NegInf) return Rf_mkChar("-Inf");
   else return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ;
