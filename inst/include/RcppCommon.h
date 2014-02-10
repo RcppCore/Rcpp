@@ -147,10 +147,14 @@ namespace Rcpp{
 	namespace internal{
 		template <typename Class> SEXP make_new_object( Class* ptr ) ;	
 	}
-}	
+}
 
-#include <Rcpp/NAComparator.h>
-#include <Rcpp/NAEquals.h>
+#include <Rcpp/longlong.h>
+
+#include <Rcpp/internal/na.h>
+#include <Rcpp/internal/NAComparator.h>
+#include <Rcpp/internal/NAEquals.h>
+
 #include <Rcpp/traits/traits.h>
 #include <Rcpp/Named.h>
 
@@ -181,6 +185,5 @@ namespace Rcpp{
 #include <Rcpp/sugar/sugar_forward.h>
 
 #include <Rcpp/iostream/Rstreambuf.h>
-#include <Rcpp/longlong.h>
 
 #endif

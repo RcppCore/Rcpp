@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// is_nan.h: Rcpp R/C++ interface class library -- is NaN
-//                                                                      
-// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
+// na.cpp: Rcpp R/C++ interface class library -- na unit tests
+//
+// Copyright (C) 2014 Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -19,29 +19,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits_is_nan_h
-#define Rcpp__traits_is_nan_h
+#include <Rcpp.h>
+using namespace Rcpp ;
 
-namespace Rcpp{
-namespace traits{
-	
-	// default for most types 
-	template <int RTYPE> 
-	bool is_nan( typename storage_type<RTYPE>::type){
-	    return false ;    
-	}
-	
-	template <> 
-	inline bool is_nan<REALSXP>( double x ){
-		return internal::Rcpp_IsNaN(x) ;
-	}
-	
-	template <> 
-	inline bool is_nan<CPLXSXP>( Rcomplex x ){
-		return internal::Rcpp_IsNaN(x.r) || internal::Rcpp_IsNaN(x.i) ;
-	}
-	
-}
+// [[Rcpp::export]]
+bool Rcpp_IsNA(double x) {
+  return internal::Rcpp_IsNA(x);
 }
 
-#endif
+// [[Rcpp::export]]
+bool Rcpp_IsNaN(double x) {
+  return internal::Rcpp_IsNaN(x);
+}
+
+// [[Rcpp::export]]
+bool R_IsNA_(double x) {
+  return ::R_IsNA(x);
+}
+
+// [[Rcpp::export]]
+bool R_IsNaN_(double x) {
+  return ::R_IsNaN(x);
+}
+

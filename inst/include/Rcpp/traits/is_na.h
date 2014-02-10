@@ -39,12 +39,13 @@ namespace Rcpp{
         
         template <> 
         inline bool is_na<REALSXP>(double x) {
-            return Rcpp_IsNA(x) || Rcpp_IsNaN(x);
+            return internal::Rcpp_IsNA(x) || internal::Rcpp_IsNaN(x);
         }
         
         template <> 
         inline bool is_na<CPLXSXP>(Rcomplex x) {
-            return Rcpp_IsNA(x.r) || Rcpp_IsNA(x.i) || Rcpp_IsNaN(x.r) || Rcpp_IsNaN(x.i);
+            return internal::Rcpp_IsNA(x.r) || internal::Rcpp_IsNA(x.i) || 
+              internal::Rcpp_IsNaN(x.r) || internal::Rcpp_IsNaN(x.i);
         }
         
         template <>

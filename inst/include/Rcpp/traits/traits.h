@@ -42,6 +42,7 @@
 #include <Rcpp/traits/un_pointer.h>
 #include <Rcpp/traits/is_pointer.h>
 #include <Rcpp/traits/wrap_type_traits.h>
+#include <Rcpp/traits/longlong.h>
 #include <Rcpp/traits/module_wrap_traits.h>
 #include <Rcpp/traits/is_na.h>
 #include <Rcpp/traits/is_finite.h>
