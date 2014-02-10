@@ -27,18 +27,14 @@ namespace Rcpp{
    
 inline bool Rcpp_IsNA(double x) {
   return memcmp(
-    &x,
-    &NA_REAL,
+    (void*) &x,
+    (void*) &NA_REAL,
     sizeof(double)
   ) == 0;
 }
 
 inline bool Rcpp_IsNaN(double x) {
-  return memcmp(
-    &x,
-    &R_NaN,
-    sizeof(double)
-  ) == 0;
+  return R_IsNaN(x);
 }
 
 inline int StrCmp(SEXP x, SEXP y) {
