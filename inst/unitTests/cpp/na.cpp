@@ -24,21 +24,21 @@ using namespace Rcpp ;
 
 // [[Rcpp::export]]
 bool Rcpp_IsNA(double x) {
-  return internal::Rcpp_IsNA(x);
+    return internal::Rcpp_IsNA(x);
 }
 
 // [[Rcpp::export]]
 bool Rcpp_IsNaN(double x) {
-  return internal::Rcpp_IsNaN(x);
+    return internal::Rcpp_IsNaN(x);
 }
 
 // [[Rcpp::export]]
 bool R_IsNA_(double x) {
-  return ::R_IsNA(x);
+    return ::R_IsNA(x);
 }
 
 // [[Rcpp::export]]
 bool R_IsNaN_(double x) {
-  return ::R_IsNaN(x);
+    return ::R_IsNaN(x);
 }
 

@@ -26,17 +26,17 @@ namespace internal {
   
 template <typename T>
 struct NAEquals {
-  inline bool operator()(T left, T right) const {
-    return left == right;
-  }
+    inline bool operator()(T left, T right) const {
+        return left == right;
+    }
 };
 
 // TODO: check different kinds of NA, NaNs
 template <>
 struct NAEquals<double> {
-  inline bool operator()(double left, double right) const {
-    return memcmp(&left, &right, sizeof(double)) == 0;
-  }
+    inline bool operator()(double left, double right) const {
+        return memcmp(&left, &right, sizeof(double)) == 0;
+    }
 };
 
 }

@@ -21,10 +21,10 @@
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
 if (.runThisTest) {
-  
-  .setUp <- Rcpp:::unitTestSetup("na.cpp")
-  
-  test.na <- function() {
+    
+.setUp <- Rcpp:::unitTestSetup("na.cpp")
+
+test.na <- function() {
     checkIdentical( R_IsNA_(NA_real_), Rcpp_IsNA(NA_real_) )
     checkIdentical( R_IsNA_(NA_real_+1), Rcpp_IsNA(NA_real_+1) )
     checkIdentical( R_IsNA_(NA_real_+NaN), Rcpp_IsNA(NA_real_+NaN) )
@@ -32,6 +32,6 @@ if (.runThisTest) {
     checkIdentical( R_IsNaN_(NA_real_), Rcpp_IsNaN(NA_real_) )
     checkIdentical( R_IsNaN_(NaN), Rcpp_IsNaN(NaN) )
     checkIdentical( R_IsNaN_(NaN+1), Rcpp_IsNaN(NaN+1) )
-  }
-  
+}
+    
 }

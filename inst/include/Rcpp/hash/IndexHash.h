@@ -5,6 +5,7 @@
 //
 // Copyright (C) 2010, 2011  Simon Urbanek
 // Copyright (C) 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //

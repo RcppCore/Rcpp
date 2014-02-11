@@ -28,54 +28,55 @@ namespace Rcpp{
 namespace internal {
   
 inline int StrCmp(SEXP x, SEXP y) {
-  if (x == NA_STRING) return (y == NA_STRING ? 0 : 1);
-  if (y == NA_STRING) return -1;
-  if (x == y) return 0;  // same string in cache
-  return strcmp(char_nocheck(x), char_nocheck(y));
+    if (x == NA_STRING) return (y == NA_STRING ? 0 : 1);
+    if (y == NA_STRING) return -1;
+    if (x == y) return 0;  // same string in cache
+    return strcmp(char_nocheck(x), char_nocheck(y));
 }
 
 template <typename T>
 struct NAComparator {
-  inline bool operator()(T left, T right) const {
-    return left < right;
-  }
+    inline bool operator()(T left, T right) const {
+        return left < right;
+    }
 };
 
 template <>
 struct NAComparator<int> {
-  inline bool operator()(int left, int right) const {
-    if (left == NA_INTEGER) return false;
-    if (right == NA_INTEGER) return true;
-    return left < right;
-  }
+    inline bool operator()(int left, int right) const {
+        if (left == NA_INTEGER) return false;
+        if (right == NA_INTEGER) return true;
+        return left < right;
+    }
 };
 
 template <>
 struct NAComparator<double> {  
-  inline bool operator()(double left, double right) const {
+    inline bool operator()(double left, double right) const {
         
-    bool leftNaN = (left != left);
-    bool rightNaN = (right != right);
+        bool leftNaN = (left != left);
+        bool rightNaN = (right != right);
+        
+        // this branch inspired by data.table: see
+        // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
+        if (Rcpp_IsNaN(right) and Rcpp_IsNA(left)) 
+            return true;
+        
+        if (leftNaN != rightNaN) {
+            return leftNaN < rightNaN;
+        } else {
+            return left < right;
+        }
     
-    // this branch inspired by data.table: see
-    // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
-    if (Rcpp_IsNaN(right) and Rcpp_IsNA(left)) return true;
-    
-    if (leftNaN != rightNaN) {
-      return leftNaN < rightNaN;
-    } else {
-      return left < right;
-    }
-
-  }
+      }
   
 };
 
 template <>
 struct NAComparator<SEXP> {
-  inline bool operator()(SEXP left, SEXP right) const {
-    return StrCmp(left, right) < 0;
-  }
+    inline bool operator()(SEXP left, SEXP right) const {
+        return StrCmp(left, right) < 0;
+    }
 };
 
 }
