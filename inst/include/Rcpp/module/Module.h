@@ -152,18 +152,18 @@ namespace Rcpp {
          * The R code in Module.R uses this information to create a C++Function 
          * object
          */
-        inline SEXP get_function( const std::string& name ){
+        inline SEXP get_function( const std::string& name_ ){
             MAP::iterator it = functions.begin() ;
             int n = functions.size() ;
             CppFunction* fun = 0 ;
             for( int i=0; i<n; i++, ++it){
-                if( name.compare( it->first ) == 0){
+                if( name_.compare( it->first ) == 0){
                     fun = it->second ;
                     break ;
                 }
             }
             std::string sign ;
-            fun->signature( sign, name.data() ) ;
+            fun->signature( sign, name_.data() ) ;
             return List::create( 
                 XPtr<CppFunction>( fun, false ), 
                 fun->is_void(), 
@@ -177,12 +177,12 @@ namespace Rcpp {
         /**
          * get the underlying C++ function pointer as a DL_FUNC
          */
-        inline DL_FUNC get_function_ptr( const std::string& name ){
+        inline DL_FUNC get_function_ptr( const std::string& name_ ){
 	        MAP::iterator it = functions.begin() ;
 	        int n = functions.size() ;
 	        CppFunction* fun = 0 ;
 	        for( int i=0; i<n; i++, ++it){
-	            if( name.compare( it->first ) == 0){
+	            if( name_.compare( it->first ) == 0){
 	                fun = it->second ;
 	                break ;
 	            }
