@@ -78,7 +78,7 @@ public:
     }
     
 private:
-    typedef RCPP_UNORDERED_MAP<STORAGE, int, NAComparator<STORAGE> >HASH ;
+    typedef RCPP_UNORDERED_MAP<STORAGE, int, internal::NAComparator<STORAGE> >HASH ;
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
 };
