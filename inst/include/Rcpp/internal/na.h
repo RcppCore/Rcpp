@@ -23,12 +23,10 @@
 namespace Rcpp {
 namespace internal {
     
-// On 64bit processors, NAs can change
-// we can still get a performance benefit by checking for specific
-// bit patterns, though
+// we rely on the presence of unsigned long long types, since we
+// want to compare specific bit patterns, but we can't explicitly
+// assign a hex to a double storage.
 
-// we rely on the presence of unsigned long long types (could do it with
-// a union, but that's messier; this is cleaner)
 #ifdef RCPP_HAS_LONG_LONG_TYPES
 
 #ifdef HAS_STATIC_ASSERT
@@ -39,9 +37,9 @@ static_assert(
 #endif
 
 // motivation: on 32bit architectures, we only see 'LargeNA'
-// as defined ashead; on 64bit architectures, R defaults to
+// as defined ahead; on 64bit architectures, R defaults to
 // 'SmallNA' for R_NaReal, but this can get promoted to 'LargeNA'
-// if a certain operation can create a 'signalling' NA.
+// if a certain operation can create a 'signalling' NA, e.g. NA_real_+1
 static const rcpp_ulong_long_type SmallNA = 0x7FF00000000007A2;
 static const rcpp_ulong_long_type LargeNA = 0x7FF80000000007A2;
 
