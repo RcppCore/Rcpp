@@ -25,13 +25,13 @@ and `Rcpp::as` which are highly flexible and extensible, as documented
 in the [Rcpp-extending](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-extending.pdf) vignette.
 
 Rcpp also provides Rcpp modules, a framework that allows exposing 
-C++ functions and classes to the R level. The [Rcpp-modules]((http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-modules.pdf) vignette
+C++ functions and classes to the R level. The [Rcpp-modules](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-modules.pdf) vignette
 details the current set of features of Rcpp-modules. 
 
 Rcpp includes a concept called Rcpp sugar that brings many R functions
 into C++. Sugar takes advantage of lazy evaluation and expression templates
 to achieve great performance while exposing a syntax that is much nicer
-to use than the equivalent low-level loop code. The [Rcpp-sugar]((http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-sugar.pdf)
+to use than the equivalent low-level loop code. The [Rcpp-sugar](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-sugar.pdf)
 gives an overview of the feature.
 
 Rcpp attributes provide a high-level syntax for declaring C++
@@ -40,7 +40,7 @@ required to invoke them.  Attributes are intended to facilitate both
 interactive use of C++ within R sessions as well as to support R
 package development. Attributes are built on top of Rcpp modules and
 their implementation is based on previous work in the inline package.
-See the [Rcpp-atttributes]((http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-attributes.pdf) vignettes for more details. 
+See the [Rcpp-atttributes](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-attributes.pdf) vignettes for more details. 
 
 ## Documentation 
 
