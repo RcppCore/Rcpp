@@ -16,6 +16,11 @@
       depending on IndexHash (unique, sort_unique, match) will now properly
       handle NA and NaN values for numeric vectors.
     }
+    \item Changes in Rcpp Attributes
+      \itemize{
+        \item Fix issue preventing packages with Rcpp::interfaces attribute
+      from compiling.
+      }
   }
 }
       
