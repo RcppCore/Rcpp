@@ -1,3 +1,8 @@
+2014-02-16  JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp Replace (incorrect) call to 
+        Rcpp::internal::jumpToTop with Rf_onintr
+
 2014-02-07  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/Reference.h: Add default ctor
