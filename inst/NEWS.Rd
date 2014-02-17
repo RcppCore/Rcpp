@@ -21,6 +21,10 @@
         \item Fix issue preventing packages with Rcpp::interfaces attribute
       from compiling.
       }
+    \item Changes in Rcpp modules
+      \itemize{
+      \item \code{un_pointer} implementation for \code{object} was wrong. 
+      }
   }
 }
       
