@@ -1,3 +1,11 @@
+2014-02-17  Kevin Ushey <kevinushey@gmail.com>
+
+        * src/attributes.cpp: Fix attributes behavior with
+        ::create, and also add an option for a default constructor
+        (e.g. NumericVector v = NumericVector(10)) gives a default
+        value of 'numeric(10)' at the R level). Also make NAs
+        keep their type when exposed to R.
+
 2014-02-16  JJ Allaire <jj@rstudio.org>
 
         * src/attributes.cpp Replace (incorrect) call to 
