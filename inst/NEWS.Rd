@@ -19,7 +19,13 @@
     \item Changes in Rcpp Attributes
       \itemize{
         \item Fix issue preventing packages with Rcpp::interfaces attribute
-      from compiling.
+        from compiling.
+        \item Fix behavior with attributes parsing of ::create for default
+        arguments, and also allow constructors of a given size
+        (e.g. NumericVector v = NumericVector(10)) gives a default
+        value of 'numeric(10)' at the R level). Also make NAs preserve
+        type when exported to R (e.g. NA_STRING as a default argument
+        maps to NA_character_ at the R level)
       }
   }
 }
