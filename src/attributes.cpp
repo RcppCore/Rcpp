@@ -2069,14 +2069,13 @@ namespace attributes {
         std::string cppConstructorArgToRArg(const std::string& cppArg) {
             
             // map Rcpp containers to R default initializers
-            static const std::map<std::string, std::string> RcppContainerToR = {
-                {"NumericVector", "numeric"},
-                {"DoubleVector", "numeric"},
-                {"CharacterVector", "character"},
-                {"IntegerVector", "integer"},
-                {"LogicalVector", "logical"},
-                {"ComplexVector", "complex"}
-            };
+            static std::map<std::string, std::string> RcppContainerToR;
+            RcppContainerToR.insert(std::make_pair("NumericVector", "numeric"));
+            RcppContainerToR.insert(std::make_pair("DoubleVector", "numeric"));
+            RcppContainerToR.insert(std::make_pair("CharacterVector", "character"));
+            RcppContainerToR.insert(std::make_pair("IntegerVector", "integer"));
+            RcppContainerToR.insert(std::make_pair("LogicalVector", "logical"));
+            RcppContainerToR.insert(std::make_pair("ComplexVector", "complex"));
             
             // for each entry in the map above, see if we find it; if we do,
             // return the R version
