@@ -60,7 +60,12 @@ namespace Rcpp{
         }
                 
         inline int nrows() const {
-            return Rf_length( VECTOR_ELT(Parent::get__(), 0) );     
+            SEXP rn = Rf_getAttrib( Parent::get__(), R_RowNamesSymbol );
+            if (TYPEOF(rn) == INTSXP && LENGTH(rn) == 2 && INTEGER(rn)[0] == NA_INTEGER)
+                return INTEGER(rn)[1];
+            if (Rf_isNull(rn))
+                return 0;
+            return LENGTH(rn);
         }
         
         static DataFrame_Impl create(){ 

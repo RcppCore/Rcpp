@@ -15,6 +15,8 @@
       as the vector .sort() method. These fixes ensure that sugar functions
       depending on IndexHash (unique, sort_unique, match) will now properly
       handle NA and NaN values for numeric vectors.
+      \item DataFrame::nrows now more accurately mimics R's internal behavior
+      (checks the row.names attribute)
     }
     \item Changes in Rcpp Attributes
       \itemize{
