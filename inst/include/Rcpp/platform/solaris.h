@@ -8,8 +8,10 @@
 namespace Rcpp{
 namespace traits{
 
-  
   template <typename T> struct is_convertible< std::vector<T>, SEXP> : public false_type{} ;
+  template <typename T> struct is_convertible< std::deque<T>, SEXP> : public false_type{} ;
+  template <typename T> struct is_convertible< std::map<T>, SEXP> : public false_type{} ;
+  
   template <> struct is_convertible<Range,SEXP> : public false_type{} ;
   
   #if !defined(RCPP_NO_SUGAR)
