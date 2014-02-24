@@ -290,6 +290,10 @@ template <>
 inline SEXP r_coerce<LGLSXP ,STRSXP>(int from){
 	return Rcpp::traits::is_na<LGLSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<LGLSXP>(from));
 }
+template <> 
+inline SEXP r_coerce<SYMSXP ,STRSXP>(SEXP from){
+	return Rf_ScalarString( PRINTNAME(from) ) ; 
+}
 
 } // internal
 } // Rcpp
