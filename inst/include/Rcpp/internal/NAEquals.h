@@ -1,9 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
+// NAEquals.h: Rcpp R/C++ interface class library -- for allowing NA == NA
 //
-// un_pointer.h: Rcpp R/C++ interface class library -- 
-//
-// Copyright (C) 2012-2014 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2014 Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -16,20 +13,34 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//                                   
+//
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits__un_pointer__h
-#define Rcpp__traits__un_pointer__h
+#ifndef Rcpp__internal__NAEquals__h
+#define Rcpp__internal__NAEquals__h
 
-namespace Rcpp{
-namespace traits{   
-	
-template <typename T> struct un_pointer { typedef T type ;} ;
-template <typename T> struct un_pointer<T*> { typedef T type ;} ;
-template <typename T> struct un_pointer< object<T> > { typedef T type ;} ;
+namespace Rcpp {
+  
+namespace internal {
+  
+template <typename T>
+struct NAEquals {
+    inline bool operator()(T left, T right) const {
+        return left == right;
+    }
+};
 
-} // namespace traits
-} // namespace Rcpp
+// TODO: check different kinds of NA, NaNs
+template <>
+struct NAEquals<double> {
+    inline bool operator()(double left, double right) const {
+        return memcmp(&left, &right, sizeof(double)) == 0;
+    }
+};
+
+}
+
+}
+
 #endif

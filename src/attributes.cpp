@@ -2229,7 +2229,7 @@ namespace attributes {
                      << std::endl
                      << "    if (__isInterrupt) {" << std::endl
                      << "        UNPROTECT(1);" << std::endl
-                     << "        Rcpp::internal::jumpToTop();" << std::endl
+                     << "        Rf_onintr();" << std::endl
                      << "    }" << std::endl
                      << "    Rboolean __isError = Rf_inherits(__result, \"try-error\");"
                      << std::endl

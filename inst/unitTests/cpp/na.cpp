@@ -1,9 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// comparator_type.h: Rcpp R/C++ interface class library -- comparator
+// na.cpp: Rcpp R/C++ interface class library -- na unit tests
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2014 Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -20,29 +19,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__traits__comparator_type__h
-#define Rcpp__traits__comparator_type__h
+#include <Rcpp.h>
+using namespace Rcpp ;
 
-namespace Rcpp{
-namespace traits{
-   
-class StringCompare {
-public:
-    inline bool operator()( SEXP x, SEXP y) const {
-        return strcmp( char_nocheck(x), char_nocheck(y) ) < 0 ; 
-    }
-} ;
-	
-template <int RTYPE> struct comparator_type {
-	typedef std::less< typename storage_type<RTYPE>::type > type ;	
-} ;
-template <> struct comparator_type<STRSXP>{
-	typedef StringCompare type ;
-} ;
-   
-
+// [[Rcpp::export]]
+bool Rcpp_IsNA(double x) {
+    return internal::Rcpp_IsNA(x);
 }
-}     
 
-#endif
+// [[Rcpp::export]]
+bool Rcpp_IsNaN(double x) {
+    return internal::Rcpp_IsNaN(x);
+}
+
+// [[Rcpp::export]]
+bool R_IsNA_(double x) {
+    return ::R_IsNA(x);
+}
+
+// [[Rcpp::export]]
+bool R_IsNaN_(double x) {
+    return ::R_IsNaN(x);
+}
 

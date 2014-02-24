@@ -11,7 +11,22 @@
       objects
       \item Add missing default constructor to Reference class that was
       omitted in the header-only rewrite
+      \item Fixes re: the NA, NaN handling for the IndexHash class, as well
+      as the vector .sort() method. These fixes ensure that sugar functions
+      depending on IndexHash (unique, sort_unique, match) will now properly
+      handle NA and NaN values for numeric vectors.
+      \item DataFrame::nrows now more accurately mimics R's internal behavior
+      (checks the row.names attribute)
     }
+    \item Changes in Rcpp Attributes
+      \itemize{
+        \item Fix issue preventing packages with Rcpp::interfaces attribute
+      from compiling.
+      }
+    \item Changes in Rcpp modules
+      \itemize{
+      \item \code{un_pointer} implementation for \code{object} was wrong. 
+      }
   }
 }
       

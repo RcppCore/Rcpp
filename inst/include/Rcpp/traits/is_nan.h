@@ -33,12 +33,12 @@ namespace traits{
 	
 	template <> 
 	inline bool is_nan<REALSXP>( double x ){
-		return R_IsNaN(x) ;
+		return internal::Rcpp_IsNaN(x) ;
 	}
 	
 	template <> 
 	inline bool is_nan<CPLXSXP>( Rcomplex x ){
-		return R_IsNaN(x.r) || R_IsNaN(x.i) ;
+		return internal::Rcpp_IsNaN(x.r) || internal::Rcpp_IsNaN(x.i) ;
 	}
 	
 }

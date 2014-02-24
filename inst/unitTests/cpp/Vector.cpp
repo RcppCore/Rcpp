@@ -737,3 +737,23 @@ CharacterVector CharacterVector_test_const_proxy(const CharacterVector x){
     }
     return out ;
 }
+
+// [[Rcpp::export]]
+NumericVector sort_numeric(NumericVector x) {
+  return x.sort();
+}
+
+// [[Rcpp::export]]
+IntegerVector sort_integer(IntegerVector x) {
+  return x.sort();
+}
+
+// [[Rcpp::export]]
+CharacterVector sort_character(CharacterVector x) {
+  return x.sort();
+}
+
+// [[Rcpp::export]]
+LogicalVector sort_logical(LogicalVector x) {
+  return x.sort();
+}
