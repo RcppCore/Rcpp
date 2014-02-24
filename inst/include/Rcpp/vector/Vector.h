@@ -22,6 +22,8 @@
 #ifndef Rcpp__vector__Vector_h
 #define Rcpp__vector__Vector_h
 
+#include <Rcpp/vector/Subsetter.h>
+
 namespace Rcpp{
 
 template <int RTYPE, template <class> class StoragePolicy = PreserveStorage >
@@ -309,6 +311,11 @@ public:
 
     inline operator RObject() const {
         return RObject( Storage::get__() );
+    }
+    
+    template <int RTYPE2>
+    Vector operator[](const Vector<RTYPE2>& rhs) const {
+        return Subsetter<RTYPE, StoragePolicy, Vector<RTYPE2, StoragePolicy> >(*this, rhs);
     }
 	
     Vector& sort(){

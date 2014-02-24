@@ -49,6 +49,10 @@ inline Rcomplex get_na<CPLXSXP>(){
 template<>
 inline SEXP get_na<STRSXP>(){ return NA_STRING ; }
 
+// this is the list equivalent of an NA value
+template<>
+inline SEXP get_na<VECSXP>(){ return R_NilValue; }
+
 }
 }
 
