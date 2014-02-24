@@ -43,6 +43,7 @@ namespace Rcpp{
         template <int TARGET>
         SEXP r_true_cast( SEXP x) {
             throw not_compatible( "not compatible" ) ;
+            return x ; // makes solaris happy
         }
         
         template <int RTYPE>
