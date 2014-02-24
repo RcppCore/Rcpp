@@ -8,11 +8,16 @@
 namespace Rcpp{
 namespace traits{
 
+  template <typename T> struct is_convertible< std::list<T>, SEXP> : public false_type{} ;
+  template <typename T> struct is_convertible< std::set<T>, SEXP> : public false_type{} ;
   template <typename T> struct is_convertible< std::vector<T>, SEXP> : public false_type{} ;
   template <typename T> struct is_convertible< std::deque<T>, SEXP> : public false_type{} ;
   
   template <typename KEY, typename VALUE> 
   struct is_convertible< std::map<KEY,VALUE>, SEXP> : public false_type{} ;
+  
+  template <typename KEY, typename VALUE> 
+  struct is_convertible< std::multimap<KEY,VALUE>, SEXP> : public false_type{} ;
   
   template <> struct is_convertible<Range,SEXP> : public false_type{} ;
   
@@ -25,8 +30,10 @@ namespace traits{
   
   template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
   struct is_convertible< sugar::Plus_Vector_Vector< RTYPE, LHS_NA, LHS_T, RHS_NA, RHS_T >, SEXP> : public false_type{} ;
-  
   #endif
+  
+  template <int RTYPE>
+  struct is_convertible< MatrixRow<RTYPE>, SEXP> : public false_type{} ;
   
 }
 }
