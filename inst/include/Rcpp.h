@@ -3,7 +3,7 @@
 // Rcpp.h: R/C++ interface class library
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2009 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2014 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -76,6 +76,6 @@
 // 'see' all versions of wrap
 #include <Rcpp/internal/wrap_end.h>
 
+#include <Rcpp/platform/solaris.h>
 #include <Rcpp/api/meat/meat.h>
-
 #endif
