@@ -17,11 +17,15 @@ namespace traits{
   template <> struct is_convertible<Range,SEXP> : public false_type{} ;
   
   #if !defined(RCPP_NO_SUGAR)
-  template <int RTYPE, bool NA>
-  struct is_convertible< sugar::Minus_Vector_Primitive< RTYPE, NA, Vector<RTYPE> >, SEXP> : public false_type{} ;
+  template <int RTYPE, bool NA, typename T>
+  struct is_convertible< sugar::Minus_Vector_Primitive< RTYPE, NA, T >, SEXP> : public false_type{} ;
   
-  template <int RTYPE, bool NA>
-  struct is_convertible< sugar::Plus_Vector_Primitive< RTYPE, NA, Vector<RTYPE> >, SEXP> : public false_type{} ;
+  template <int RTYPE, bool NA, typename T>
+  struct is_convertible< sugar::Plus_Vector_Primitive< RTYPE, NA, T >, SEXP> : public false_type{} ;
+  
+  template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
+  struct is_convertible< sugar::Plus_Vector_Vector< RTYPE, LHS_NA, LHS_T, RHS_NA, RHS_T >, SEXP> : public false_type{} ;
+  
   #endif
   
 }
