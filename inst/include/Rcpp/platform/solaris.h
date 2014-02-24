@@ -35,6 +35,9 @@ namespace traits{
   template <int RTYPE>
   struct is_convertible< MatrixRow<RTYPE>, SEXP> : public false_type{} ;
   
+  template <int RTYPE>
+  struct is_convertible< MatrixColumn<RTYPE>, SEXP> : public false_type{} ;
+  
 }
 }
 
