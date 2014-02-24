@@ -5,7 +5,7 @@
 
 #ifdef __SUNPRO_CC
 
-namespace Rcpp {
+namespace Rcpp{
 namespace traits{
 
   
