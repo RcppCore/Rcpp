@@ -22,8 +22,6 @@
 #ifndef Rcpp__sugar__table_h
 #define Rcpp__sugar__table_h
 
-#include <Rcpp/sugar/tools/mapcompare.h>
-          
 namespace Rcpp{
 namespace sugar{
 
@@ -80,7 +78,7 @@ public:
     }
     
 private:
-    typedef RCPP_UNORDERED_MAP<STORAGE, int, MapCompare<STORAGE> >HASH ;
+    typedef RCPP_UNORDERED_MAP<STORAGE, int, internal::NAComparator<STORAGE> >HASH ;
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
 };
@@ -115,7 +113,7 @@ private:
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
     
-    typedef std::map<STORAGE, int, MapCompare<STORAGE> > SORTED_MAP ;
+    typedef std::map<STORAGE, int, internal::NAComparator<STORAGE> > SORTED_MAP ;
     SORTED_MAP map ;
     
 }; 

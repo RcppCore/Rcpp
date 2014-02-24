@@ -26,37 +26,16 @@
 // forbidden by CRAN which stick with the C++98 standard predating it.
 // One way to get 'long long' is to switch to C++11, another is to use
 // clang++ from the llvm project.
-
 #ifdef __GNUC__
-  #if defined(__GXX_EXPERIMENTAL_CXX0X__) || (defined (__clang__) && defined(__LP64__))
+#if defined(__GXX_EXPERIMENTAL_CXX0X__) || (defined (__clang__) && defined(__LP64__))
 
-    #if defined(__GNUC__) &&  defined(__LONG_LONG_MAX__)
-      __extension__ typedef long long int rcpp_long_long_type;
-      __extension__ typedef unsigned long long int rcpp_ulong_long_type;
-      #define RCPP_HAS_LONG_LONG_TYPES
-    #endif
-
-  #endif
+#if defined(__GNUC__) &&  defined(__LONG_LONG_MAX__)
+__extension__ typedef long long int rcpp_long_long_type;
+__extension__ typedef unsigned long long int rcpp_ulong_long_type;
+#define RCPP_HAS_LONG_LONG_TYPES
 #endif
 
-
-#if defined(RCPP_HAS_LONG_LONG_TYPES)
-
-namespace Rcpp{
-    namespace traits{
-
-        template<> struct r_sexptype_traits<rcpp_long_long_type>{ enum{ rtype = REALSXP } ; } ;
-        template<> struct r_sexptype_traits<rcpp_ulong_long_type>{ enum{ rtype = REALSXP } ; } ;
-    
-        template<> struct r_type_traits<rcpp_long_long_type>{ typedef r_type_primitive_tag r_category ; } ;
-        template<> struct r_type_traits< std::pair<const std::string,rcpp_long_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
-        template<> struct r_type_traits<rcpp_ulong_long_type>{ typedef r_type_primitive_tag r_category ; } ;
-        template<> struct r_type_traits< std::pair<const std::string,rcpp_ulong_long_type> >{ typedef r_type_primitive_tag r_category ; } ;
-    
-        template <> struct wrap_type_traits<rcpp_long_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-        template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
-    }
-}
+#endif
 #endif
 
 #endif

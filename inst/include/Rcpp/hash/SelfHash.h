@@ -104,8 +104,8 @@ namespace sugar{
       union dint_u val_u;
       /* double is a bit tricky - we nave to normalize 0.0, NA and NaN */
       if (val == 0.0) val = 0.0;
-      if (R_IsNA(val)) val = NA_REAL;
-      else if (R_IsNaN(val)) val = R_NaN;
+      if (internal::Rcpp_IsNA(val)) val = NA_REAL;
+      else if (internal::Rcpp_IsNaN(val)) val = R_NaN;
       val_u.d = val;            
       addr = RCPP_HASH(val_u.u[0] + val_u.u[1]);
       return addr ;

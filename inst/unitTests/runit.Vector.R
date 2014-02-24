@@ -658,5 +658,16 @@ if (.runThisTest) {
         res <- CharacterVector_test_const_proxy( letters )
         checkEquals( res, letters )
     }
+  
+    test.sort <- function() {
+        num <- setNames( c(1, -1, 4, NA, 5, NaN), letters[1:5] )
+        checkIdentical( sort_numeric(num), sort(num, na.last=TRUE) )
+        int <- as.integer(num)
+        checkIdentical( sort_integer(int), sort(int, na.last=TRUE) )
+        char <- setNames( sample(letters, 5), LETTERS[1:5] )
+        checkIdentical( sort_character(char), sort(char, na.last=TRUE) )
+        lgcl <- as.logical(int)
+        checkIdentical( sort_logical(lgcl), sort(lgcl, na.last=TRUE) )
+    }
 }
 

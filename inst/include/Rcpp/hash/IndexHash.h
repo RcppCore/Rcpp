@@ -4,7 +4,8 @@
 // from Simon's fastmatch package
 //
 // Copyright (C) 2010, 2011  Simon Urbanek
-// Copyright (C) 2012 - 2014 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -159,18 +160,25 @@ namespace Rcpp{
         #endif
         }
         
+        inline bool not_equal(const STORAGE& lhs, const STORAGE& rhs) {
+            return ! internal::NAEquals<STORAGE>()(lhs, rhs);
+        }
         
         bool add_value(int i){
             RCPP_DEBUG_2( "%s::add_value(%d)", DEMANGLE(IndexHash), i )
             STORAGE val = src[i++] ;
             int addr = get_addr(val) ;
-            while (data[addr] && src[data[addr] - 1] != val) {
+            while (data[addr] && not_equal( src[data[addr] - 1], val)) {
               addr++;
-              if (addr == m) addr = 0;
+              if (addr == m) {
+                addr = 0;
+              }
             }
+            
             if (!data[addr]){
               data[addr] = i ;
               size_++ ;
+              
               return true ;
             }
             return false;
@@ -206,8 +214,8 @@ namespace Rcpp{
       union dint_u val_u;
       /* double is a bit tricky - we nave to normalize 0.0, NA and NaN */
       if (val == 0.0) val = 0.0;
-      if (R_IsNA(val)) val = NA_REAL;
-      else if (R_IsNaN(val)) val = R_NaN;
+      if (internal::Rcpp_IsNA(val)) val = NA_REAL;
+      else if (internal::Rcpp_IsNaN(val)) val = R_NaN;
       val_u.d = val;
       addr = RCPP_HASH(val_u.u[0] + val_u.u[1]);
       return addr ;
