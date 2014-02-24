@@ -30,6 +30,29 @@ namespace traits{
   
   template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
   struct is_convertible< sugar::Plus_Vector_Vector< RTYPE, LHS_NA, LHS_T, RHS_NA, RHS_T >, SEXP> : public false_type{} ;
+  
+  template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
+  struct is_convertible< sugar::Minus_Vector_Vector< RTYPE, LHS_NA, LHS_T, RHS_NA, RHS_T >, SEXP> : public false_type{} ;
+  
+  template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
+  struct is_convertible< sugar::Times_Vector_Vector< RTYPE, LHS_NA, LHS_T, RHS_NA, RHS_T >, SEXP> : public false_type{} ;
+  
+  template <int RTYPE, bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
+  struct is_convertible< sugar::Divides_Vector_Vector< RTYPE, LHS_NA, LHS_T, RHS_NA, RHS_T >, SEXP> : public false_type{} ;
+  
+  template <
+	  int RTYPE, 
+	  bool COND_NA, typename COND_T, 
+	  bool RHS_NA , typename RHS_T
+	>
+	struct is_convertible< sugar::IfElse_Primitive_Vector<RTYPE,COND_NA,COND_T,RHS_NA,RHS_T> , SEXP > : public false_type{} ; 
+    
+	template <
+	  int RTYPE, 
+	  bool COND_NA, typename COND_T
+	>
+	struct is_convertible< sugar::IfElse_Primitive_Primitive<RTYPE,COND_NA,COND_T>, SEXP > : public false_type{} ;
+	
   #endif
   
   template <int RTYPE>
