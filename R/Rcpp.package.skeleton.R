@@ -109,6 +109,8 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     }
     if (isTRUE(module)) {
         writeLines('import(methods)', ns)
+        writeLines('importFrom(Rcpp, loadModule)', ns)
+        message(" >> added importFrom(Rcpp, loadModule) directive to NAMESPACE")
     }
     writeLines('importFrom(Rcpp, evalCpp)', ns)
     message(" >> added importFrom(Rcpp, evalCpp) directive to NAMESPACE" )
