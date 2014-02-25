@@ -1,5 +1,10 @@
 2014-02-23  Kevin Ushey <kevinushey@gmail.com>
 
+        * R/Rcpp.package.skeleton.R: make sure we add loadModule
+        to NAMESPACE when module is TRUE
+
+2014-02-23  Kevin Ushey <kevinushey@gmail.com>
+
         * inst/include/Rcpp/DataFrame.h: better nrows behavior
 
 2014-02-17  Romain Francois <romain@r-enthusiasts.com>
