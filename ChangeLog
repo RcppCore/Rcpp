@@ -1,17 +1,17 @@
-2014-02-23  Kevin Ushey <kevinushey@gmail.com>
+2014-02-24  Kevin Ushey  <kevinushey@gmail.com>
 
         * R/Rcpp.package.skeleton.R: make sure we add loadModule
         to NAMESPACE when module is TRUE
 
-2014-02-23  Kevin Ushey <kevinushey@gmail.com>
+2014-02-23  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/DataFrame.h: better nrows behavior
 
-2014-02-17  Romain Francois <romain@r-enthusiasts.com>
+2014-02-17  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/traits/un_pointer.h: fix bug in un_pointer for object<T>
 
-2014-02-16  JJ Allaire <jj@rstudio.org>
+2014-02-16  JJ Allaire  <jj@rstudio.org>
 
         * src/attributes.cpp Replace (incorrect) call to 
         Rcpp::internal::jumpToTop with Rf_onintr
