@@ -35,9 +35,14 @@ public:
             return *this ;    
         }
               
-        template <typename T> AttributeProxy& operator=(const T& rhs) ;
+        template <typename T> AttributeProxy& operator=(const T& rhs) {
+          set( wrap( rhs ) );
+          return *this;
+        } ;
             
-        template <typename T> operator T() const ;
+        template <typename T> operator T() const {
+          return as<T>( get() );
+        };
         
         inline operator SEXP() const { 
             return get() ; 
@@ -60,7 +65,9 @@ public:
         const_AttributeProxy( const CLASS& v, const std::string& name) 
             : parent(v), attr_name(Rf_install(name.c_str())){}
               
-        template <typename T> operator T() const ;
+        template <typename T> operator T() const {
+          return as<T>( get() );
+        };
         inline operator SEXP() const { 
             return get() ; 
         }
