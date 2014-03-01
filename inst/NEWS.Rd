@@ -6,27 +6,30 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Preserve backwards compatibility with Rcpp 0.10.* by
+      \item Preserve backwards compatibility with \cpkg{Rcpp} 0.10.* by
       allowing \code{RObject} extraction from vectors (or lists) of Rcpp
       objects
       \item Add missing default constructor to Reference class that was
       omitted in the header-only rewrite
-      \item Fixes re: the NA, NaN handling for the IndexHash class, as well
-      as the vector .sort() method. These fixes ensure that sugar functions
-      depending on IndexHash (unique, sort_unique, match) will now properly
-      handle NA and NaN values for numeric vectors.
-      \item DataFrame::nrows now more accurately mimics R's internal behavior
-      (checks the row.names attribute)
+      \item Fixes for \cpde{NA} and \code{NaN} handling of the
+      \code{IndexHash} class, as well as the vector \code{.sort()}
+      method. These fixes ensure that sugar functions depending on
+      \code{IndexHash} (i.e. \code{unique()}, \code{sort_unique()},
+      \code{match()}) will now properly handle \code{NA} and \code{NaN}
+      values for numeric vectors.
+      \item \code{DataFrame::nrows} now more accurately mimics R's
+      internal behavior (checks the row.names attribute)
+      \item Numerous changed to permit compilation on the Solaris OS 
     }
     \item Changes in Rcpp Attributes
-      \itemize{
-        \item Fix issue preventing packages with Rcpp::interfaces attribute
-      from compiling.
-      }
+    \itemize{
+      \item Fix issue preventing packages with \code{Rcpp::interfaces}
+      attribute from compiling.
+    }
     \item Changes in Rcpp modules
-      \itemize{
-      \item \code{un_pointer} implementation for \code{object} was wrong. 
-      }
+    \itemize{
+      \item Corrected the \code{un_pointer} implementation for \code{object} 
+    }
   }
 }
       
