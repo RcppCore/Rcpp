@@ -50,8 +50,13 @@ public:
             return *this ;
         }
         
-        template <typename WRAPPABLE> Binding& operator=(const WRAPPABLE& rhs) ;
-        template <typename T> operator T() const ;
+        template <typename WRAPPABLE> Binding& operator=(const WRAPPABLE& rhs) {
+          set( wrap(rhs) );
+          return *this;
+        } ;
+        template <typename T> operator T() const {
+          return as<T>( get() );
+        } ;
         
     private:
         
@@ -81,7 +86,9 @@ public:
         inline bool exists() const {
             return env.exists(name) ;    
         }
-        template <typename T> operator T() const ;
+        template <typename T> operator T() const {
+          return as<T>( get() );
+        } ;
         
     private:
         

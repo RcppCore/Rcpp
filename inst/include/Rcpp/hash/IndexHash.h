@@ -132,10 +132,10 @@ namespace Rcpp{
         #endif
         
         template <typename T>
-        SEXP lookup__impl(const T& vec, int n) const {
+        SEXP lookup__impl(const T& vec, int n_) const {
             RCPP_PROFILE_TIC
             
-            SEXP res = Rf_allocVector(INTSXP, n) ;
+            SEXP res = Rf_allocVector(INTSXP, n_) ;
             
             RCPP_PROFILE_TOC
             RCPP_PROFILE_RECORD(allocVector)
@@ -144,7 +144,7 @@ namespace Rcpp{
             
             RCPP_PROFILE_TIC
             
-            for( int i=0; i<n; i++) v[i] = get_index( vec[i] ) ;
+            for( int i=0; i<n_; i++) v[i] = get_index( vec[i] ) ;
             
             RCPP_PROFILE_TOC
             RCPP_PROFILE_RECORD(lookup)
