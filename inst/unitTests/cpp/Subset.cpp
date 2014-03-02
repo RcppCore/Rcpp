@@ -7,6 +7,11 @@ NumericVector subset_test_int(NumericVector x, IntegerVector y) {
 }
 
 // [[Rcpp::export]]
+NumericVector subset_test_num(NumericVector x, NumericVector y) {
+    return x[y];
+}
+
+// [[Rcpp::export]]
 NumericVector subset_test_lgcl(NumericVector x, LogicalVector y) {
     return x[y];
 }
