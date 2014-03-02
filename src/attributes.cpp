@@ -2016,16 +2016,18 @@ namespace attributes {
             
             std::string args = cppArg.substr(createLoc + create.length());
             if (type == "CharacterVector")
-                return "character" + args;
-            else if (type == "IntegerVector")
-                return "integer" + args;
-            else if (type == "NumericVector")
-                return "numeric" + args;
-            else    
-                return std::string();
+                return "as.character( c" + args + ")";
+            if (type == "IntegerVector")
+                return "as.integer( c" + args + ")";
+            if (type == "NumericVector")
+                return "as.numeric( c" + args + ")";
+            if (type == "LogicalVector")
+                return "as.logical( c" + args + ")";
+                    
+            return std::string();
         }
         
-        // convert a C++ Matrix to an R argument (returns emtpy string
+        // convert a C++ Matrix to an R argument (returns empty string
         // if no conversion possible)
         std::string cppMatrixArgToRArg(const std::string& cppArg) {
             
@@ -2041,7 +2043,7 @@ namespace attributes {
             return "matrix" + args;
         }
         
-        // convert a C++ literal to an R argument (returns emtpy string
+        // convert a C++ literal to an R argument (returns empty string
         // if no conversion possible)
         std::string cppLiteralArgToRArg(const std::string& cppArg) {
             if (cppArg == "true")
@@ -2050,12 +2052,43 @@ namespace attributes {
                 return "FALSE";
             else if (cppArg == "R_NilValue")
                 return "NULL";
-            else if (cppArg == "NA_STRING" || cppArg == "NA_INTEGER" ||
-                     cppArg == "NA_LOGICAL" || cppArg == "NA_REAL") {
-                return "NA";
-            }
+            else if (cppArg == "NA_STRING")
+                return "NA_character_";
+            else if (cppArg == "NA_INTEGER")
+                return "NA_integer_";
+            else if (cppArg == "NA_LOGICAL")
+                return "NA_integer_";
+            else if (cppArg == "NA_REAL")
+                return "NA_real_";
             else
                 return std::string();
+        }
+        
+        // convert an Rcpp container constructor to an R argument
+        // (returns empty string if no conversion possible)
+        std::string cppConstructorArgToRArg(const std::string& cppArg) {
+            
+            // map Rcpp containers to R default initializers
+            static std::map<std::string, std::string> RcppContainerToR;
+            RcppContainerToR.insert(std::make_pair("NumericVector", "numeric"));
+            RcppContainerToR.insert(std::make_pair("DoubleVector", "numeric"));
+            RcppContainerToR.insert(std::make_pair("CharacterVector", "character"));
+            RcppContainerToR.insert(std::make_pair("IntegerVector", "integer"));
+            RcppContainerToR.insert(std::make_pair("LogicalVector", "logical"));
+            RcppContainerToR.insert(std::make_pair("ComplexVector", "complex"));
+            
+            // for each entry in the map above, see if we find it; if we do,
+            // return the R version
+            typedef std::map<std::string, std::string>::const_iterator Iterator;
+            for (Iterator it = RcppContainerToR.begin(); it != RcppContainerToR.end(); ++it) {
+                size_t loc = cppArg.find(it->first);
+                if (loc != std::string::npos) {
+                    return it->second + cppArg.substr(it->first.size(), std::string::npos);
+                }
+            }
+            
+            return std::string();
+            
         }
         
         // convert a C++ argument value to an R argument value (returns empty
@@ -2084,6 +2117,11 @@ namespace attributes {
                 
             // try for a numeric arg
             rArg = cppNumericArgToRArg(type, cppArg);
+            if (!rArg.empty())
+                return rArg;
+                
+            // try for a constructor arg
+            rArg = cppConstructorArgToRArg(cppArg);
             if (!rArg.empty())
                 return rArg;
                 

@@ -25,6 +25,12 @@
     \itemize{
       \item Fix issue preventing packages with \code{Rcpp::interfaces}
       attribute from compiling.
+      \item Fix behavior with attributes parsing of \code{::create} for default
+      arguments, and also allow constructors of a given size
+      (e.g. \code{NumericVector v = NumericVector(10))} gives a default
+      value of \code{numeric(10)} at the R level). Also make NAs preserve
+      type when exported to R (e.g. \code{NA_STRING} as a default argument
+      maps to \code{NA_character_} at the R level)
     }
     \item Changes in Rcpp modules
     \itemize{
