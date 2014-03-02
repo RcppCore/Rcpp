@@ -72,12 +72,22 @@ class Subsetter {
   inline Vector<RTYPE, StoragePolicy> subset_impl( const VECTOR& this_, const Vector<LGLSXP, OtherStoragePolicy>& x ) const {
     Vector<INTSXP, StoragePolicy> tmp = which_na(x);
     if (!tmp.size()) return Vector<RTYPE, StoragePolicy>(0);
-    else return subset_impl__hidden(this_, tmp);
+    else return subset_impl(this_, tmp);
   }
   
   // Subsetting for characters
   template <template <class> class OtherStoragePolicy>
   inline Vector<RTYPE, StoragePolicy> subset_impl( const VECTOR& this_, const Vector<STRSXP, OtherStoragePolicy>& x ) const {
+      
+      if (Rf_isNull( Rf_getAttrib(this_, R_NamesSymbol) )) {
+          int n = x.size();
+          Vector<RTYPE, StoragePolicy> output(n);
+          for (int i=0; i < n; ++i) {
+              output[i] = traits::get_na<RTYPE>();
+          }
+          return output;
+      }
+      
     Vector<STRSXP, StoragePolicy> names = as< Vector<STRSXP, StoragePolicy> >(Rf_getAttrib(this_, R_NamesSymbol));
     Vector<INTSXP, StoragePolicy> idx = match(x, names); // match returns 1-based index
     // apparently, we don't see sugar, so we have to do this manually
@@ -85,7 +95,7 @@ class Subsetter {
     for (int i=0; i < idx.size(); ++i) {
         idxm1[i] = idx[i] - 1;
     }
-    Vector<RTYPE, StoragePolicy> output = subset_impl__hidden(this_, idxm1);
+    Vector<RTYPE, StoragePolicy> output = subset_impl(this_, idxm1);
     int n = output.size();
     if (n == 0) return Vector<RTYPE, StoragePolicy>(0);
     Vector<STRSXP, StoragePolicy> out_names = no_init(n);
@@ -100,21 +110,11 @@ class Subsetter {
   const VECTOR& vec;
   const T& other;
   
-  private:
-  
-  // Subsetting for integers -- note that it is 0-based
-  template <template <class> class OtherStoragePolicy>
-  inline Vector<RTYPE, StoragePolicy> 
-  subset_impl( const VECTOR this_, const Vector<INTSXP, OtherStoragePolicy>& x ) const {
-    stop("Subset is not yet implemented for IntegerVectors");
-    return Vector<RTYPE, StoragePolicy>();
-  }
-  
   // Subsetting for integers -- note that it is 0-based
   // hidden until we decide whether to go with 0 or 1 based indexing
   template <template <class> class OtherStoragePolicy>
   inline Vector<RTYPE, StoragePolicy> 
-  subset_impl__hidden( const VECTOR this_, const Vector<INTSXP, OtherStoragePolicy>& x ) const {
+  subset_impl( const VECTOR this_, const Vector<INTSXP, OtherStoragePolicy>& x ) const {
     int n = x.size();
     if (n == 0) return this_;
     Vector<RTYPE, StoragePolicy> output = no_init(n);
@@ -124,8 +124,12 @@ class Subsetter {
       else if (x[i] > this_.size() - 1) output[i] = traits::get_na<RTYPE>();
       else output[i] = (this_)[ x[i] ];
     }
+    
     if (!Rf_isNull( Rf_getAttrib( this_, R_NamesSymbol) )) {
-      Vector<STRSXP, StoragePolicy> thisnames = as<Vector<STRSXP, StoragePolicy> >(Rf_getAttrib(this_, R_NamesSymbol));
+      
+      Vector<STRSXP, StoragePolicy> thisnames = 
+        as<Vector<STRSXP, StoragePolicy> >(Rf_getAttrib(this_, R_NamesSymbol));
+        
       Vector<STRSXP, StoragePolicy> outnames = no_init(n);
       for (int i=0; i < n; ++i) {
         if (x[i] == NA_INTEGER) outnames[i] = NA_STRING;

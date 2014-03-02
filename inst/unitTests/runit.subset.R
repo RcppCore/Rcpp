@@ -1,0 +1,66 @@
+#!/usr/bin/r -t
+# -*- mode: R; tab-width: 4; -*-
+#
+# Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+#
+# This file is part of Rcpp.
+#
+# Rcpp is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# Rcpp is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+
+if (.runThisTest) {
+
+    .setUp <- Rcpp:::unitTestSetup("Subset.cpp")
+    
+    test.subset <- function() {
+        
+        x <- rnorm(5)
+        names(x) <- letters[1:5]
+        
+        checkIdentical( x[c(1, 2, 10)], subset_test_int(x, c(0L, 1L, 9L)),
+            "integer subsetting")
+        
+        checkIdentical( x[ c('b', 'a') ], subset_test_char(x, c('b', 'a')),
+            "character subsetting")
+        
+        checkIdentical( c(1, 2, 3)['a'], subset_test_char( c(1, 2, 3), 'a' ),
+            "character subsetting -- no names on x")
+        
+        lgcl <- c(TRUE, FALSE, NA, TRUE, TRUE)
+        checkIdentical( 
+            x[lgcl],
+            subset_test_lgcl(x, lgcl),
+            "logical subsetting" )
+        
+        names(x) <- c('a', 'b', 'b', 'c', 'd')
+        checkIdentical(
+            x['b'],
+            subset_test_char(x, 'b'),
+            "character subsetting -- duplicated name")
+        
+        l <- as.list(x)
+        checkIdentical(
+            l[c('b', 'Q')],
+            subset_test_list(x, c('b', 'Q')),
+            "list subsetting")
+        
+        checkIdentical(
+            x[ x > 0 ],
+            subset_test_greater_0(x),
+            "sugar subsetting (x[x > 0])")
+        
+    }
+
+}

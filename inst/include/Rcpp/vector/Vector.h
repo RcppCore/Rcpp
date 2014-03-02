@@ -313,11 +313,12 @@ public:
         return RObject( Storage::get__() );
     }
     
-    template <int RTYPE2>
-    Vector operator[](const Vector<RTYPE2>& rhs) const {
-        return Subsetter<RTYPE, StoragePolicy, Vector<RTYPE2, StoragePolicy> >(*this, rhs);
+    // sugar subsetting requires dispatch on VectorBase
+    template <int RTYPE2, bool na, typename T>
+    Vector operator[](const VectorBase<RTYPE2, na, T>& rhs) const {
+        return Subsetter<RTYPE, StoragePolicy, Vector<RTYPE2, PreserveStorage> >(*this, rhs);
     }
-	
+    
     Vector& sort(){
         typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
         std::sort( 
