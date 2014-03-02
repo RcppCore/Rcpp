@@ -29,13 +29,14 @@ if (.runThisTest) {
         x <- rnorm(5)
         names(x) <- letters[1:5]
         
-        checkIdentical( x[c(1, 2, 10)], subset_test_int(x, c(0L, 1L, 9L)),
-            "integer subsetting")
+        checkIdentical( x[c(1, 2, 3)], subset_test_int(x, c(0L, 1L, 2L)) )
+        checkException( subset_test_int(x, -1L) )
+        checkException( subset_test_int(x, length(x)) )
         
         checkIdentical( x[ c('b', 'a') ], subset_test_char(x, c('b', 'a')),
             "character subsetting")
         
-        checkIdentical( c(1, 2, 3)['a'], subset_test_char( c(1, 2, 3), 'a' ),
+        checkException( subset_test_char( c(1, 2, 3), 'a' ),
             "character subsetting -- no names on x")
         
         lgcl <- c(TRUE, FALSE, NA, TRUE, TRUE)
@@ -52,8 +53,8 @@ if (.runThisTest) {
         
         l <- as.list(x)
         checkIdentical(
-            l[c('b', 'Q')],
-            subset_test_list(x, c('b', 'Q')),
+            l[c('b', 'c')],
+            subset_test_list(x, c('b', 'c')),
             "list subsetting")
         
         checkIdentical(
