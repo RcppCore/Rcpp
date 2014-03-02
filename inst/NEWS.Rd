@@ -20,6 +20,12 @@
       \item \code{DataFrame::nrows} now more accurately mimics R's
       internal behavior (checks the row.names attribute)
       \item Numerous changed to permit compilation on the Solaris OS 
+      \item Rcpp vectors gain a subsetting method -- it is now possible
+      to subset an Rcpp vector using \code{CharacterVector}s (subset
+      by name), \code{LogicalVector}s (logical subsetting), and
+      \code{IntegerVector}s (0-based index subsetting). Such subsetting
+      will also work with Rcpp sugar expressions, enabling expressions
+      such as \code{x[ x > 0]}.
     }
     \item Changes in Rcpp Attributes
     \itemize{
