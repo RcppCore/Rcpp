@@ -11,7 +11,7 @@
       objects
       \item Add missing default constructor to Reference class that was
       omitted in the header-only rewrite
-      \item Fixes for \cpde{NA} and \code{NaN} handling of the
+      \item Fixes for \code{NA} and \code{NaN} handling of the
       \code{IndexHash} class, as well as the vector \code{.sort()}
       method. These fixes ensure that sugar functions depending on
       \code{IndexHash} (i.e. \code{unique()}, \code{sort_unique()},
