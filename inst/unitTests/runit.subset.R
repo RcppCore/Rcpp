@@ -33,6 +33,9 @@ if (.runThisTest) {
         checkException( subset_test_int(x, -1L) )
         checkException( subset_test_int(x, length(x)) )
         
+        checkIdentical( x[c(1, 2, 3)], subset_test_num(x, c(0, 1, 2)),
+            "numeric subsetting")
+        
         checkIdentical( x[ c('b', 'a') ], subset_test_char(x, c('b', 'a')),
             "character subsetting")
         

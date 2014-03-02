@@ -73,7 +73,7 @@ namespace Rcpp {
         template <template <class> class OtherStoragePolicy>
         inline Vector<RTYPE, StoragePolicy> subset_impl( const VECTOR& this_, const Vector<LGLSXP, OtherStoragePolicy>& x ) const {
             if (this_.size() != x.size()) {
-                stop("unequal vector sizes");
+                stop("subsetting with a LogicalVector requires both vectors to be of equal size");
             }
             Vector<INTSXP, StoragePolicy> tmp = which_na(x);
             if (!tmp.size()) return Vector<RTYPE, StoragePolicy>(0);
@@ -85,7 +85,7 @@ namespace Rcpp {
         inline Vector<RTYPE, StoragePolicy> subset_impl( const VECTOR& this_, const Vector<STRSXP, OtherStoragePolicy>& x ) const {
             
             if (Rf_isNull( Rf_getAttrib(this_, R_NamesSymbol) )) {
-                stop("Tried to subset a vector with no names using a CharacterVector");
+                stop("can't subset a nameless vector using a CharacterVector");
             }
       
             Vector<STRSXP, StoragePolicy> names = as< Vector<STRSXP, StoragePolicy> >(Rf_getAttrib(this_, R_NamesSymbol));
