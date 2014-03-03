@@ -63,9 +63,12 @@ public:
     
     class const_SlotProxy : public GenericProxy<const_SlotProxy> {
     public:
-        const_SlotProxy( const CLASS& v, const std::string& name) ;
-        const_SlotProxy& operator=(const const_SlotProxy& rhs) ;
-              
+        const_SlotProxy( const CLASS& v, const std::string& name) : parent(v), slot_name(Rf_install(name.c_str())) {
+            if( !R_has_slot( v, slot_name) ){
+                throw no_such_slot() ; 
+            }  
+        }
+        
         template <typename T> operator T() const {
           return as<T>( get() );
         }
