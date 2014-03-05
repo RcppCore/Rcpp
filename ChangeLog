@@ -1,3 +1,8 @@
+2014-03-05  Kevin Ushey <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/proxy/FieldProxy.h: bandaid for protection issue
+        in operator= of FieldProxy
+
 2014-03-03  Kevin Ushey <kevinushey@gmail.com>
 
         * inst/include/Rcpp/proxy/SlotProxy.h: Add missing const_SlotProxy ctor

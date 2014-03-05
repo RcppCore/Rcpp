@@ -35,8 +35,10 @@ public:
         }
               
         template <typename T> FieldProxy& operator=(const T& rhs) {
-          set( wrap(rhs) );
-          return *this;
+            SEXP tmp = PROTECT( wrap(rhs) );
+            set(tmp);
+            UNPROTECT(1);
+            return *this;
         }
             
         template <typename T> operator T() const {
