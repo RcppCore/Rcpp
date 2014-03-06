@@ -2,6 +2,8 @@
 
         * inst/include/Rcpp/proxy/FieldProxy.h: bandaid for protection issue
         in operator= of FieldProxy
+        * R/unit.tests.R: modify Rcpp:::test so we can run tests with
+        gctorture(TRUE)
 
 2014-03-03  Kevin Ushey <kevinushey@gmail.com>
 
