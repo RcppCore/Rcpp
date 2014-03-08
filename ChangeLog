@@ -1,3 +1,10 @@
+2014-03-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/proxy/Binding.h: Remove spurious ';' [g++ -pedantic]
+	* inst/include/Rcpp/proxy/ProtectedProxy.h: Idem
+	* inst/include/Rcpp/proxy/TagProxy.h: Idem
+	* inst/include/Rcpp/proxy/AttributeProxy.h: Idem
+
 2014-03-05  Kevin Ushey <kevinushey@gmail.com>
 
         * inst/include/Rcpp/proxy/FieldProxy.h: bandaid for protection issue

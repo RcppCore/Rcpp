@@ -64,7 +64,7 @@ namespace Rcpp{
             template <typename U>
             operator U() const {
               return as<U>( get() );
-            };
+            }
             
             operator SEXP() const { 
                 return get(); 

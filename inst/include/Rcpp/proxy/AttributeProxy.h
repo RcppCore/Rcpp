@@ -38,11 +38,11 @@ public:
         template <typename T> AttributeProxy& operator=(const T& rhs) {
           set( wrap( rhs ) );
           return *this;
-        } ;
+        } 
             
         template <typename T> operator T() const {
           return as<T>( get() );
-        };
+        }
         
         inline operator SEXP() const { 
             return get() ; 
@@ -67,7 +67,7 @@ public:
               
         template <typename T> operator T() const {
           return as<T>( get() );
-        };
+        }
         inline operator SEXP() const { 
             return get() ; 
         }
