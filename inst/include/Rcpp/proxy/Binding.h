@@ -53,10 +53,10 @@ public:
         template <typename WRAPPABLE> Binding& operator=(const WRAPPABLE& rhs) {
           set( wrap(rhs) );
           return *this;
-        } ;
+        } 
         template <typename T> operator T() const {
           return as<T>( get() );
-        } ;
+        } 
         
     private:
         
@@ -88,7 +88,7 @@ public:
         }
         template <typename T> operator T() const {
           return as<T>( get() );
-        } ;
+        } 
         
     private:
         
