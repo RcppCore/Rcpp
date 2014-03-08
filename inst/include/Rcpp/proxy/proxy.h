@@ -20,8 +20,9 @@
 // forward decl of as (should put this somewhere better)
 // similar for wrap
 namespace Rcpp {
-  template <typename T> T as(SEXP);
-  template <typename T> SEXP wrap(const T& object);
+    template <typename T> T as(SEXP);
+    template <typename T> SEXP wrap(const T& object);
+    inline SEXP wrap(const char* const v);
 }
 
 #include <Rcpp/proxy/GenericProxy.h>
