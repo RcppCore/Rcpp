@@ -14,10 +14,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-test <- function(
-    output=if(file.exists("/tmp")) "/tmp" else getwd(),
-    gctorture=FALSE,
-    gctorture.exclude="runit.Module.client.package.R") {
+
+test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd(),
+                 gctorture=FALSE,
+                 gctorture.exclude="runit.Module.client.package.R") {
+    
     if (require(RUnit)) {
         
         if (gctorture) {
