@@ -23,137 +23,175 @@
 #define Rcpp_vector_Subsetter_h_
 
 namespace Rcpp {
-
-    template <int RTYPE, template <class> class StoragePolicy, typename T>
-    class Subsetter {
-  
-        typedef Vector<RTYPE, StoragePolicy> VECTOR;
-  
-    public:
-  
-        explicit Subsetter(const Subsetter& rhs): vec(rhs.vec), other(rhs.other) {};
-        Subsetter(const VECTOR& vec_, const T& other_): vec(vec_), other(other_) {};
-  
-        inline operator SEXP() const {
-            return subset_impl(vec, other).get__();
-        }
-  
-        inline operator VECTOR() const {
-            return subset_impl(vec, other);
-        }
-  
-    private:
-  
-        Subsetter() {};
-  
-        // helper function used for the subset methods when going from logical to int
-        // operates like R's which, but returns NA when it encounters an NA
-        template <template <class> class OtherStoragePolicy>
-        static Vector<INTSXP, StoragePolicy> which_na( const Vector<LGLSXP, OtherStoragePolicy>& x) {
-            
-            std::vector<int> output;
-            int n = x.size();
-            output.reserve(n);
-            for (int i=0; i < n; ++i) {
-                if (x[i] == NA_LOGICAL) {
-                    output.push_back(NA_INTEGER);
-                } else if (x[i]) {
-                    output.push_back(i);
-                }
-            }
-            int n_ = output.size();
-            Vector<INTSXP, StoragePolicy> output_ = no_init(n_);
-            for (int i=0; i < n_; ++i) {
-                output_[i] = output[i];
-            };
-            return output_;
-        }
-  
-        // Subsetting for logicals
-        template <template <class> class OtherStoragePolicy>
-        inline Vector<RTYPE, StoragePolicy> subset_impl( const VECTOR& this_, const Vector<LGLSXP, OtherStoragePolicy>& x ) const {
-            if (this_.size() != x.size()) {
-                stop("subsetting with a LogicalVector requires both vectors to be of equal size");
-            }
-            Vector<INTSXP, StoragePolicy> tmp = which_na(x);
-            if (!tmp.size()) return Vector<RTYPE, StoragePolicy>(0);
-            else return subset_impl(this_, tmp);
-        }
-  
-        // Subsetting for characters
-        template <template <class> class OtherStoragePolicy>
-        inline Vector<RTYPE, StoragePolicy> subset_impl( const VECTOR& this_, const Vector<STRSXP, OtherStoragePolicy>& x ) const {
-            
-            if (Rf_isNull( Rf_getAttrib(this_, R_NamesSymbol) )) {
-                stop("can't subset a nameless vector using a CharacterVector");
-            }
-      
-            Vector<STRSXP, StoragePolicy> names = as< Vector<STRSXP, StoragePolicy> >(Rf_getAttrib(this_, R_NamesSymbol));
-            Vector<INTSXP, StoragePolicy> idx = match(x, names); // match returns 1-based index
-            
-            // apparently, we don't see sugar, so we have to populate an (index - 1) manually
-            Vector<INTSXP, StoragePolicy> idxm1 = no_init(idx.size());
-            for (int i=0; i < idx.size(); ++i) {
-                idxm1[i] = idx[i] - 1;
-            }
-            
-            Vector<RTYPE, StoragePolicy> output = subset_impl(this_, idxm1);
-            int n = output.size();
-            if (n == 0) return Vector<RTYPE, StoragePolicy>(0);
-            Vector<STRSXP, StoragePolicy> out_names = no_init(n);
-            for (int i=0; i < n; ++i) {
-                out_names[i] = names[ idx[i] - 1 ];
-            }
-            output.attr("names") = out_names;
-            return output;
-        }
-  
-        // Subsetting for integers -- note that it is 0-based
-        template <template <class> class OtherStoragePolicy>
-        inline Vector<RTYPE, StoragePolicy> 
-        subset_impl( const VECTOR this_, const Vector<INTSXP, OtherStoragePolicy>& x ) const {
-            int n = x.size();
-            if (n == 0) return this_;
-            Vector<RTYPE, StoragePolicy> output = no_init(n);
-            for (int i=0; i < n; ++i) {
-                if (x[i] == NA_INTEGER) output[i] = traits::get_na<RTYPE>();
-                #ifndef RCPP_NO_BOUNDS_CHECK
-                else if (x[i] < 0) stop("Index error: tried to index < 0");
-                else if (x[i] > this_.size() - 1) stop("Index error: tried to index above vector size");
-                #endif
-                else output[i] = (this_)[ x[i] ];
-            }
     
-            if (!Rf_isNull( Rf_getAttrib( this_, R_NamesSymbol) )) {
-      
-                Vector<STRSXP, StoragePolicy> thisnames = 
-                    as<Vector<STRSXP, StoragePolicy> >(Rf_getAttrib(this_, R_NamesSymbol));
-        
-                Vector<STRSXP, StoragePolicy> outnames = no_init(n);
-                for (int i=0; i < n; ++i) {
-                    if (x[i] == NA_INTEGER) outnames[i] = NA_STRING;
-                    #ifndef RCPP_NO_BOUNDS_CHECK
-                    else if (x[i] > this_.size() - 1) outnames[i] = NA_STRING;
-                    #endif
-                    else if (x[i] >= 0) outnames[i] = thisnames[ x[i] ];
-                }
-                output.attr("names") = outnames;
-            }
-            return wrap(output);
-        }
-        
-        // Subsetting for numerics -- coerce to integer
-        template <template <class> class OtherStoragePolicy>
-        Vector<RTYPE, StoragePolicy>
-        subset_impl( const VECTOR this_, const Vector<REALSXP, OtherStoragePolicy>& x ) const {
-            return subset_impl(this_, as< Vector<INTSXP, OtherStoragePolicy> >(x) );
-        }
-        
-        const VECTOR& vec;
-        const T& other;
-  
-    };
+template <
+    int RTYPE, template <class> class StoragePolicy,
+    int RHS_RTYPE, bool RHS_NA, typename RHS_T
+>
+class SubsetProxy {
+    
+    typedef Vector<RTYPE, StoragePolicy> LHS_t;
+    typedef Vector<RHS_RTYPE, StoragePolicy> RHS_t;
+    
+public:
 
-} // namespace Rcpp
+    SubsetProxy(LHS_t& lhs_, const RHS_t& rhs_):
+        lhs(lhs_), rhs(rhs_), lhs_n(lhs.size()), rhs_n(rhs.size()) {
+            
+        indices.reserve(rhs_n);
+        get_indices( traits::identity< traits::int2type<RHS_RTYPE> >() );
+        
+    }
+    
+    SubsetProxy(const SubsetProxy& other):
+        lhs(other.lhs), 
+        rhs(other.rhs), 
+        lhs_n(other.lhs_n), 
+        rhs_n(other.rhs_n), 
+        indices(other.indices) {}
+    
+    // Enable e.g. x[y] = z
+    template <int OtherRTYPE, template <class> class OtherStoragePolicy>
+    SubsetProxy& operator=(const Vector<OtherRTYPE, OtherStoragePolicy>& other) {
+        int n = other.size();
+        if (indices.size() != n) stop("index error");
+        if (n == 1) {
+            for (int i=0; i < n; ++i) {
+                lhs[ indices[i] ] = other[0];
+            }
+        } else if (n == indices.size()) {
+            for (int i=0; i < n; ++i) {
+                lhs[ indices[i] ] = other[i];
+            }
+        } else {
+            stop("index error");
+        }
+        return *this;
+    }
+    
+    // Enable e.g. x[y] = 1;
+    // TODO: std::enable_if<primitive> with C++11
+    SubsetProxy& operator=(double other) {
+        int n = indices.size();
+        for (int i=0; i < n; ++i) {
+            lhs[ indices[i] ] = other;
+        }
+        return *this;
+    }
+    
+    SubsetProxy& operator=(int other) {
+        int n = indices.size();
+        for (int i=0; i < n; ++i) {
+            lhs[ indices[i] ] = other;
+        }
+        return *this;
+    }
+    
+    SubsetProxy& operator=(const char* other) {
+        int n = indices.size();
+        for (int i=0; i < n; ++i) {
+            lhs[ indices[i] ] = other;
+        }
+        return *this;
+    }
+    
+    SubsetProxy& operator=(bool other) {
+        int n = indices.size();
+        for (int i=0; i < n; ++i) {
+            lhs[ indices[i] ] = other;
+        }
+        return *this;
+    }
+    
+    template <int OtherRTYPE, template <class> class OtherStoragePolicy>
+    operator Vector<OtherRTYPE, OtherStoragePolicy>() const {
+        int n = indices.size();
+        Vector<OtherRTYPE, OtherStoragePolicy> output = no_init(n);
+        for (int i=0; i < n; ++i) {
+            output[i] = lhs[ indices[i] ];
+        }
+        SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
+        if (!Rf_isNull(names)) {
+            Shield<SEXP> out_names( Rf_allocVector(STRSXP, n) );
+            for (int i=0; i < n; ++i) {
+                SET_STRING_ELT(out_names, i, STRING_ELT(names, indices[i]));
+            }
+            Rf_setAttrib(output, R_NamesSymbol, out_names);
+        }
+        return output;
+    }
+
+private:
+
+    #ifndef RCPP_NO_BOUNDS_CHECK
+    void check_indices(int* x, int n, int size) {
+        for (int i=0; i < n; ++i) {
+            if (x[i] < 0 or x[i] >= size) {
+                stop("index error");
+            }
+        }
+    }
+    #else
+    void check_indices(int* x, int n, int size) {}
+    #endif
+    
+    void get_indices( traits::identity< traits::int2type<INTSXP> > t ) {
+        int* ptr = INTEGER( rhs );
+        check_indices(ptr, rhs_n, lhs_n);
+        for (int i=0; i < rhs_n; ++i) {
+            indices.push_back( ptr[i] );
+        }
+    }
+    
+    void get_indices( traits::identity< traits::int2type<REALSXP> > t ) {
+        Vector<INTSXP, StoragePolicy> tmp =
+            as< Vector<INTSXP, StoragePolicy> >(rhs);
+        int* ptr = INTEGER(tmp);
+        check_indices(ptr, rhs_n, lhs_n);
+        for (int i=0; i < rhs_n; ++i) {
+            indices.push_back( tmp[i] );
+        }
+    }
+    
+    void get_indices( traits::identity< traits::int2type<STRSXP> > t ) {
+        SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
+        if (Rf_isNull(names)) stop("names is null");
+        for (int i=0; i < rhs_n; ++i) {
+            indices.push_back( find(names, CHAR( STRING_ELT(rhs, i) )) );
+        }
+    }
+    
+    int find(const RHS_t& names, const char* str) {
+        for (int i=0; i < lhs_n; ++i) {
+            if (strcmp( CHAR( STRING_ELT( names, i) ), str) == 0) return i;
+        }
+        stop("no name found");
+        return -1;
+    }
+    
+    void get_indices( traits::identity< traits::int2type<LGLSXP> > t ) {
+        if (lhs_n != rhs_n) {
+            stop("logical subsetting requires vectors of identical size");
+        }
+        int* ptr = LOGICAL(rhs);
+        for (int i=0; i < rhs_n; ++i) {
+            if (ptr[i] == NA_INTEGER) {
+                stop("can't subset using a logical vector with NAs");
+            }
+            if (ptr[i]) {
+                indices.push_back(i);
+            }
+        }
+    }
+
+    LHS_t& lhs;
+    const RHS_t& rhs;
+    int lhs_n;
+    int rhs_n;
+    std::vector<int> indices;
+    
+};
+
+}
 
 #endif
