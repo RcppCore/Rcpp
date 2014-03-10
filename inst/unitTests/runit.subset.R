@@ -42,7 +42,7 @@ if (.runThisTest) {
         checkException( subset_test_char( c(1, 2, 3), 'a' ),
             "character subsetting -- no names on x")
         
-        lgcl <- c(TRUE, FALSE, NA, TRUE, TRUE)
+        lgcl <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
         checkIdentical( 
             x[lgcl],
             subset_test_lgcl(x, lgcl),
@@ -64,6 +64,12 @@ if (.runThisTest) {
             x[ x > 0 ],
             subset_test_greater_0(x),
             "sugar subsetting (x[x > 0])")
+        
+        x <- as.numeric(-2:2)
+        checkIdentical(
+            c(-2, -1, 0, 0, 0),
+            subset_test_assign(x)
+        )
         
     }
 

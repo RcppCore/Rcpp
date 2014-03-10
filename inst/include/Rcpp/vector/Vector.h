@@ -314,9 +314,13 @@ public:
     }
     
     // sugar subsetting requires dispatch on VectorBase
-    template <int RTYPE2, bool na, typename T>
-    Vector operator[](const VectorBase<RTYPE2, na, T>& rhs) const {
-        return Subsetter<RTYPE, StoragePolicy, Vector<RTYPE2, PreserveStorage> >(*this, rhs);
+    template <int RHS_RTYPE, bool RHS_NA, typename RHS_T>
+    SubsetProxy<RTYPE, StoragePolicy, RHS_RTYPE, RHS_NA, RHS_T>
+    operator[](const VectorBase<RHS_RTYPE, RHS_NA, RHS_T>& rhs) {
+        return SubsetProxy<RTYPE, StoragePolicy, RHS_RTYPE, RHS_NA, RHS_T>(
+            *this,
+            rhs
+        );
     }
     
     Vector& sort(){

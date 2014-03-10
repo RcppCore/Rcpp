@@ -23,6 +23,18 @@
 #ifndef Rcpp__traits__traits__h
 #define Rcpp__traits__traits__h
 
+namespace Rcpp {    
+namespace traits {
+    
+template <typename T>
+struct identity { typedef T type; };
+
+template <int I>
+struct int2type { enum { value = I }; };
+
+}
+}
+
 #include <Rcpp/traits/integral_constant.h>
 #include <Rcpp/traits/same_type.h>
 #include <Rcpp/traits/is_wide_string.h>
