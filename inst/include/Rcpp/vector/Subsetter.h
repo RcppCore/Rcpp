@@ -118,6 +118,7 @@ public:
             }
             Rf_setAttrib(output, R_NamesSymbol, out_names);
         }
+        Rf_copyMostAttrib(lhs, output);
         return output;
     }
 

@@ -71,6 +71,10 @@ if (.runThisTest) {
             subset_test_assign(x)
         )
         
+        attr(x, "foo") <- "bar"
+        y <- subset_test_int(x, 0L)
+        checkIdentical( attr(y, "foo"), "bar" )
+        
     }
 
 }
