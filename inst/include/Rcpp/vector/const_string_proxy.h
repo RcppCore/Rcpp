@@ -41,6 +41,11 @@ namespace internal{
 		 * @param index index 
 		 */
 		const_string_proxy( VECTOR& v, int index_ ) : parent(&v), index(index_){}
+        
+        const_string_proxy(SEXP x): parent(0), index(0) {
+            Vector<RTYPE> tmp(x);
+            parent = &tmp;
+        }
 			
 		const_string_proxy( const const_string_proxy& other ) : 
 			parent(other.parent), index(other.index){} ;
