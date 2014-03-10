@@ -1,12 +1,12 @@
-2014-03-09  Kevin Ushey <kevinushey@gmail.com>
+2014-03-09  Kevin Ushey  <kevinushey@gmail.com>
 
-    * inst/include/Rcpp/vector/const_string_proxy.h: Workaround for issue
-    with constructing proxies from CHARSXPs
+	* inst/include/Rcpp/vector/const_string_proxy.h: Workaround for issue
+	with constructing proxies from CHARSXPs
 
-2014-03-08  Kevin Ushey <kevinushey@gmail.com>
+2014-03-08  Kevin Ushey  <kevinushey@gmail.com>
 
-    * inst/include/Rcpp/proxy/proxy.h: Make sure proxies know about the
-    const char* wrap shortcut
+	* inst/include/Rcpp/proxy/proxy.h: Make sure proxies know about the
+	const char* wrap shortcut
 
 2014-03-08  Dirk Eddelbuettel  <edd@debian.org>
 
