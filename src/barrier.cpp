@@ -133,7 +133,8 @@ SEXP set_current_error(SEXP cache, SEXP e){
  
 SEXP init_Rcpp_cache(){   
     SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
-    Rcpp::Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+    Rcpp::Shield<SEXP> RcppString( Rf_mkString("Rcpp") );
+    Rcpp::Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, RcppString ), R_GlobalEnv) ) ;
     Rcpp::Shield<SEXP> cache( Rf_allocVector( VECSXP, RCPP_CACHE_SIZE ) );
     
     // the Rcpp namespace
@@ -141,7 +142,8 @@ SEXP init_Rcpp_cache(){
 	set_error_occured( cache, Rf_ScalarLogical(FALSE) ) ; // error occured
 	set_current_error( cache, R_NilValue ) ; // current error
 	SET_VECTOR_ELT( cache, 3, R_NilValue ) ; // stack trace
-	SET_VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX, Rf_allocVector(INTSXP, RCPP_HASH_CACHE_INITIAL_SIZE) ) ;
+    Rcpp::Shield<SEXP> tmp( Rf_allocVector(INTSXP, RCPP_HASH_CACHE_INITIAL_SIZE) );
+	SET_VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX, tmp );
 	Rf_defineVar( Rf_install(".rcpp_cache"), cache, RCPP );
     
 	return cache ;
