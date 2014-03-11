@@ -321,7 +321,8 @@ namespace Rcpp{
             Armor<SEXP> env ;
             try{
                 SEXP getNamespaceSym = Rf_install("getNamespace");
-                env = Rcpp_eval( Rf_lang2(getNamespaceSym, Rf_mkString(package.c_str()) ) ) ;
+                Shield<SEXP> package_str( Rf_mkString(package.c_str()) );
+                env = Rcpp_eval( Rf_lang2(getNamespaceSym, package_str) ) ;
             } catch( ... ){
                 throw no_such_namespace( package  ) ; 
             }
