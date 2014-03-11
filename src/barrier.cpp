@@ -93,7 +93,8 @@ SEXP get_rcpp_cache() {
     if( ! Rcpp_cache_know ){
         
         SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
-        Rcpp::Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, Rf_mkString("Rcpp") ), R_GlobalEnv) ) ;
+        Rcpp::Shield<SEXP> RcppString( Rf_mkString("Rcpp") );
+        Rcpp::Shield<SEXP> RCPP( Rf_eval(Rf_lang2( getNamespaceSym, RcppString ), R_GlobalEnv) ) ;
         
         Rcpp_cache = Rf_findVarInFrame( RCPP, Rf_install(".rcpp_cache") ) ;
         Rcpp_cache_know = true ;
