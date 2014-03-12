@@ -187,13 +187,6 @@ int integer_names_indexing( IntegerVector y ){
 }
 
 // [[Rcpp::export]]
-IntegerVector integer_comma(){
-    IntegerVector x(4) ;
-	x = 0, 1, 2, 3 ;
-	return x ;
-}
-
-// [[Rcpp::export]]
 IntegerVector integer_push_back( IntegerVector y ){
     y.push_back( 5 ) ;
     return y ;
@@ -600,13 +593,6 @@ std::string character_names_indexing( CharacterVector y ){
 }
 
 // [[Rcpp::export]]
-CharacterVector character_comma(){
-    CharacterVector x(3) ;
-    x = "foo", "bar", "bling" ;
-    return x ;
-}
-
-// [[Rcpp::export]]
 List character_listOf( List ll ){
     CharacterVector cv1 = ll["foo"];
     CharacterVector cv2 = ll["bar"];
@@ -756,4 +742,11 @@ CharacterVector sort_character(CharacterVector x) {
 // [[Rcpp::export]]
 LogicalVector sort_logical(LogicalVector x) {
   return x.sort();
+}
+
+// [[Rcpp::export]]
+List list_sexp_assign(SEXP x) {
+    List L;
+    L = x;
+    return L;
 }

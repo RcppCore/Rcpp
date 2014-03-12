@@ -213,10 +213,12 @@ public:
         return traits::is_na<RTYPE>(x); 
     }
     
+    #ifdef RCPP_COMMA_INITIALIZATION
     internal::ListInitialization<iterator,init_type> operator=( init_type x){
         iterator start = begin() ; *start = x; 
         return internal::ListInitialization<iterator,init_type>( start + 1 ) ; ;
     }
+    #endif
     
     /**
      * the length of the vector, uses Rf_length
