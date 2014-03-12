@@ -26,6 +26,14 @@
       \code{IntegerVector}s (0-based index subsetting). Such subsetting
       will also work with Rcpp sugar expressions, enabling expressions
       such as \code{x[ x > 0]}.
+      \item Comma initialization (e.g. 
+      \code{CharacterVector x = "a", "b", "c";}, has been disabled, as
+      it causes problems with the behavior of the \code{=} operator with
+      \code{Rcpp::List}s. Users who want to re-enable this functionality 
+      can use \code{#define RCPP_COMMA_INITIALIZATION}, but be aware of
+      the above caveat. The more verbose 
+      \code{CharacterVector x = CharacterVector::create("a", "b", "c")}
+      is preferred.
     }
     \item Changes in Rcpp Attributes
     \itemize{
