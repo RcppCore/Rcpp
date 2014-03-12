@@ -447,7 +447,9 @@ static VARIABLE_IS_NOT_USED SEXP moduleSym = NULL;
 #define GET_MODULE_SYM    ( moduleSym == NULL ? moduleSym = Rf_install("Module") : moduleSym )
 
 // this macro is called by code wanting to load a module -- see RInside's rinside_module_sample0.cpp
-#define LOAD_RCPP_MODULE(NAME) Rf_eval( Rf_lang2( GET_MODULE_SYM, _rcpp_module_boot_##NAME() ), R_GlobalEnv )
+#define LOAD_RCPP_MODULE(NAME) \
+    Shield<SEXP> __load_module_call__( Rf_lang2( GET_MODULE_SYM, _rcpp_module_boot_##NAME() ); \
+    Rf_eval(__load_module_call__), R_GlobalEnv );
 
 #endif
 
