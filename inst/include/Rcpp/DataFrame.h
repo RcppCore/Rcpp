@@ -2,7 +2,7 @@
 //
 // DataFrame.h: Rcpp R/C++ interface class library -- data frames
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -51,7 +51,8 @@ namespace Rcpp{
         DataFrame_Impl( const T& obj ) ;
         
         DataFrame_Impl& operator=( DataFrame_Impl& other){
-            if( *this != other) set__(other) ;    
+            if (*this != other) set__(other);    
+            return *this;
         }
         
         DataFrame_Impl& operator=( SEXP x){

@@ -1,3 +1,7 @@
+2014-03-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/DataFrame.h (Rcpp): Add missing return in Impl method
+
 2014-03-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.11.0
