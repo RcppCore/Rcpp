@@ -73,3 +73,7 @@ r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.r
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.String.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.wstring.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.Reference.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/examples/ConvolveBenchmarks/overhead.sh
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.na.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.subset.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.table.R
