@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in [UNRELEASED] Rcpp version 0.11.1 (2014-04-01)}{
+\section{Changes in Rcpp version 0.11.1 (2014-03-13)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -19,7 +19,7 @@
       values for numeric vectors.
       \item \code{DataFrame::nrows} now more accurately mimics R's
       internal behavior (checks the row.names attribute)
-      \item Numerous changed to permit compilation on the Solaris OS 
+      \item Numerous changes to permit compilation on the Solaris OS 
       \item Rcpp vectors gain a subsetting method -- it is now possible
       to subset an Rcpp vector using \code{CharacterVector}s (subset
       by name), \code{LogicalVector}s (logical subsetting), and
