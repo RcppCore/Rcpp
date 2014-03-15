@@ -327,7 +327,7 @@ The \rdoc{Rcpp}{Rcpp.package.skeleton} function also creates a file
 \begin{verbatim}
 useDynLib(mypackage)
 exportPattern("^[[:alpha:]]+")
-importFrom{Rcpp, evalCpp}
+importFrom(Rcpp, evalCpp)
 \end{verbatim}
 \end{Hchunk}
 
