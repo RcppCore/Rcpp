@@ -46,7 +46,8 @@ namespace Rcpp{
         /** 
          * Assignement operator. Set this SEXP to the given SEXP
          */ 
-        RObject_Impl& operator=( SEXP other ){
+        template <typename T>
+        RObject_Impl& operator=(const T& other) {
             Storage::set__(other) ;
             return *this;
         }
