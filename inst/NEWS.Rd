@@ -2,6 +2,15 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in [UNRELEASED] Rcpp version 0.11.2} {
+  \itemize{
+    \item Templated List containers, \code{ListOf<T>}, have been 
+    introduced. When subsetting such containers, the return is assumed 
+    to be of type T, allowing code such as 
+    \code{ListOf<NumericVector> x; NumericVector y = x[0] + x[1] + x[2]}.
+  }
+}
+
 \section{Changes in Rcpp version 0.11.1 (2014-03-13)}{
   \itemize{
     \item Changes in Rcpp API:
