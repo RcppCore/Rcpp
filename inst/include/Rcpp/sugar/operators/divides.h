@@ -407,42 +407,43 @@ namespace sugar{
 
 
 }
-}
 
 template <int RTYPE,bool NA, typename T>
-inline Rcpp::sugar::Divides_Vector_Primitive< RTYPE , NA, T >
+inline sugar::Divides_Vector_Primitive< RTYPE , NA, T >
 operator/( 
-	const Rcpp::VectorBase<RTYPE,NA,T>& lhs, 
-	typename Rcpp::traits::storage_type<RTYPE>::type rhs 
+	const VectorBase<RTYPE,NA,T>& lhs, 
+	typename traits::storage_type<RTYPE>::type rhs 
 ) {
-	return Rcpp::sugar::Divides_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
+	return sugar::Divides_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 
 template <int RTYPE,bool NA, typename T>
-inline Rcpp::sugar::Divides_Primitive_Vector< RTYPE , NA,T>
+inline sugar::Divides_Primitive_Vector< RTYPE , NA,T>
 operator/( 
-	typename Rcpp::traits::storage_type<RTYPE>::type lhs, 
-	const Rcpp::VectorBase<RTYPE,NA,T>& rhs
+	typename traits::storage_type<RTYPE>::type lhs, 
+	const VectorBase<RTYPE,NA,T>& rhs
 ) {
-	return Rcpp::sugar::Divides_Primitive_Vector<RTYPE,NA,T>( lhs, rhs ) ;
+	return sugar::Divides_Primitive_Vector<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 template <int RTYPE,bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
-inline Rcpp::sugar::Divides_Vector_Vector< 
+inline sugar::Divides_Vector_Vector< 
 	RTYPE , 
 	LHS_NA, LHS_T, 
 	RHS_NA, RHS_T
 	>
 operator/( 
-	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
-	const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs
+	const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
+	const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs
 ) {
-	return Rcpp::sugar::Divides_Vector_Vector<
+	return sugar::Divides_Vector_Vector<
 		RTYPE, 
 		LHS_NA,LHS_T,
 		RHS_NA,RHS_T
 		>( lhs, rhs ) ;
+}
+
 }
 
 #endif

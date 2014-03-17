@@ -441,63 +441,64 @@ namespace sugar{
 	} ;
 	
 }
-}
 
 template <int RTYPE,bool NA, typename T>
-inline Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA,T>
+inline sugar::Plus_Vector_Primitive<RTYPE,NA,T>
 operator+( 
-	const Rcpp::VectorBase<RTYPE,NA,T>& lhs, 
-	typename Rcpp::traits::storage_type<RTYPE>::type rhs 
+	const VectorBase<RTYPE,NA,T>& lhs, 
+	typename traits::storage_type<RTYPE>::type rhs 
 ) {
-	return Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
-}
-
-
-template <int RTYPE,bool NA, typename T>
-inline Rcpp::sugar::Plus_Vector_Primitive< RTYPE , NA , T >
-operator+( 
-	typename Rcpp::traits::storage_type<RTYPE>::type rhs, 
-	const Rcpp::VectorBase<RTYPE,NA,T>& lhs
-) {
-	return Rcpp::sugar::Plus_Vector_Primitive<RTYPE,NA, T >( lhs, rhs ) ;
+	return sugar::Plus_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 
+template <int RTYPE,bool NA, typename T>
+inline sugar::Plus_Vector_Primitive< RTYPE , NA , T >
+operator+( 
+	typename traits::storage_type<RTYPE>::type rhs, 
+	const VectorBase<RTYPE,NA,T>& lhs
+) {
+	return sugar::Plus_Vector_Primitive<RTYPE,NA, T >( lhs, rhs ) ;
+}
+
+
 
 template <int RTYPE,bool NA, typename T>
-inline Rcpp::sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>
+inline sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>
 operator+( 
-	const Rcpp::VectorBase<RTYPE,NA,T>& lhs, 
-	typename Rcpp::sugar::NonaPrimitive< typename Rcpp::traits::storage_type<RTYPE>::type > rhs 
+	const VectorBase<RTYPE,NA,T>& lhs, 
+	typename sugar::NonaPrimitive< typename traits::storage_type<RTYPE>::type > rhs 
 ) {
-	return Rcpp::sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>( lhs, rhs ) ;
+	return sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 template <int RTYPE,bool NA, typename T>
-inline Rcpp::sugar::Plus_Vector_Primitive_nona< RTYPE , NA , T >
+inline sugar::Plus_Vector_Primitive_nona< RTYPE , NA , T >
 operator+( 
-	typename Rcpp::sugar::NonaPrimitive< typename Rcpp::traits::storage_type<RTYPE>::type > rhs, 
-	const Rcpp::VectorBase<RTYPE,NA,T>& lhs
+	typename sugar::NonaPrimitive< typename traits::storage_type<RTYPE>::type > rhs, 
+	const VectorBase<RTYPE,NA,T>& lhs
 ) {
-	return Rcpp::sugar::Plus_Vector_Primitive_nona<RTYPE,NA, T >( lhs, rhs ) ;
+	return sugar::Plus_Vector_Primitive_nona<RTYPE,NA, T >( lhs, rhs ) ;
 }
 
 
 template <int RTYPE,bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
-inline Rcpp::sugar::Plus_Vector_Vector< 
+inline sugar::Plus_Vector_Vector< 
 	RTYPE , 
 	LHS_NA, LHS_T, 
 	RHS_NA, RHS_T
 	>
 operator+( 
-	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
-	const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs
+	const VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
+	const VectorBase<RTYPE,RHS_NA,RHS_T>& rhs
 ) {
-	return Rcpp::sugar::Plus_Vector_Vector<
+	return sugar::Plus_Vector_Vector<
 		RTYPE, 
 		LHS_NA, LHS_T,
 		RHS_NA, RHS_T
 		>( lhs, rhs ) ;
+}
+
 }
 
 #endif
