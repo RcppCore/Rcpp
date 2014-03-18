@@ -21,73 +21,137 @@
 #define Rcpp_vector_ListOf_h_
 
 namespace Rcpp {
-    template <typename T> class ListOf;
-}
 
-#include <Rcpp/proxy/ListOfProxy.h>
+template <typename T>
+class ListOf {
 
-namespace Rcpp {
+public:
+    static const int RTYPE = traits::r_sexptype_traits<T>::rtype;
+    typedef typename traits::r_vector_iterator<RTYPE>::type iterator ;
+    typedef typename traits::r_vector_const_iterator<RTYPE>::type const_iterator ;
 
-// defines used to clean up some of the code repetition
-#define THIS static_cast<List>(list)[index]
-#define LHS  static_cast<List>(lhs.list)[lhs.index]
-#define RHS  static_cast<List>(rhs.list)[rhs.index]
+    ListOf(): list(R_NilValue) {};
 
-  template <typename T>
-  class ListOf: public List {
-
-  public:
-
-    ListOf() {}
-
-    ListOf(SEXP data_): List(data_) {}
+    ListOf(SEXP data_): list(data_) {};
 
     template <typename U>
-    ListOf(const U& data_): List(data_) {}
+    ListOf(const U& data_): list(data_) {};
 
-    operator SEXP() const {
-      return wrap(static_cast<const List&>(*this));
-    }
-
-    ListOfProxy<T> operator[](int i) {
-      return ListOfProxy<T>(*this, i);
-    }
-
-    const ListOfProxy<T> operator[](int i) const {
-      return ListOfProxy<T>(const_cast< ListOf<T>& >(*this), i);
-    }
-
-    ListOfProxy<T> operator[](std::string str) {
-      std::vector<std::string> names = as< std::vector<std::string> >(this->attr("names"));
-      for (int i=0; i < this->size(); ++i) {
-        if (names[i] == str) {
-          return ListOfProxy<T>(*this, i);
+    ListOf(const ListOf& other): list(other.list) {};
+    ListOf& operator=(const ListOf& other) {
+        if (this != &other) {
+            list = other.list;
         }
-      }
-      std::stringstream ss;
-      ss << "No name '" << str << "' in the names of the list supplied";
-      stop(ss.str());
-      return ListOfProxy<T>(*this, -1); // silence compiler
+        return *this;
     }
 
-    const ListOfProxy<T> operator[](std::string str) const {
-      std::vector<std::string> names = as< std::vector<std::string> >(this->attr("names"));
-      for (int i=0; i < this->size(); ++i) {
-        if (names[i] == str) {
-          return ListOfProxy<T>(const_cast< ListOf<T>& >(*this), i);
+    template <typename U>
+    ListOf& operator=(const U& other) {
+        list = as<List>(other);
+        return *this;
+    }
+
+    // subsetting operators
+
+    T operator[](int i) {
+      return list[i];
+    }
+
+    const T operator[](int i) const {
+      return list[i];
+    }
+
+    T operator[](const std::string& str) {
+        return list[str];
+    }
+
+    const T operator[](const std::string& str) const {
+        return list[str];
+    }
+
+    // iteration operators pass down to list
+
+    inline iterator begin() {
+        return list.begin();
+    }
+
+    inline iterator end() {
+        return list.end();
+    }
+
+    inline const_iterator begin() const {
+        return list.begin();
+    }
+
+    inline const_iterator end() const {
+        return list.end();
+    }
+
+    class ListOfProxy {
+
+    public:
+        ListOfProxy(List& list_): list(list_) {};
+
+        List::Proxy operator[](int i) {
+            return List::Proxy(list, i);
         }
-      }
-      std::stringstream ss;
-      ss << "No name '" << str << "' in the names of the list supplied";
-      return ListOfProxy<T>(*this, -1); // silence compiler
+
+        List::Proxy operator[](const char* str) {
+            std::vector<std::string> names = as< std::vector<std::string> >(list.attr("names"));
+            for (int i=0; i < list.size(); ++i) {
+                if (names[i] == str) {
+                    return List::Proxy(list, i);
+                }
+            }
+            std::stringstream ss;
+            ss << "No name '" << str << "' in the names of the list supplied";
+            stop(ss.str());
+            return List::Proxy(list, -1);
+        }
+
+    private:
+        ListOfProxy() {};
+
+        List& list;
+    };
+
+    friend class ListOfProxy;
+
+    // lhs access
+    friend ListOfProxy lhs(ListOf& x) {
+        return ListOfProxy(x.list);
     }
 
-  }; // ListOf<T>
+    // conversion operators
+    operator SEXP() const { return wrap(list); }
+    operator List() const { return list; }
+
+    List list;
+
+}; // ListOf<T>
+
+// sapply, lapply wrappers
+
+namespace sugar {
+
+template <int RTYPE, bool NA, typename T, typename Function>
+class Lapply;
+
+template <int RTYPE, bool NA, typename T, typename Function, bool NO_CONVERSION>
+class Sapply;
+
+}
+
+template <typename T, typename Function>
+List lapply(const ListOf<T>& t, Function fun) {
+    return lapply(t.list, fun);
+}
+
+template <typename T, typename Function>
+T sapply(const ListOf<T>& t, Function fun) {
+    return sapply(t.list, fun);
+}
 
 } // Rcpp
-
-#undef THIS
-#undef LHS
-#undef RHS
 
 #endif

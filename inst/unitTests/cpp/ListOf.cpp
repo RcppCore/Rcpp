@@ -9,9 +9,9 @@ NVList test_identity(NVList x) {
 }
 
 template <typename T>
-    double sum_(const T& x) {
-        return sum(x);
-    }
+double sum_(const T& x) {
+    return sum(x);
+}
 
 // [[Rcpp::export]]
 List test_lapply_sum(NVList x) {
@@ -24,27 +24,22 @@ NumericVector test_sapply_sum(NVList x) {
 }
 
 // [[Rcpp::export]]
-NVList test_assign(ListOf<NumericVector> x, NumericVector y, CharacterVector z) {
-    x[1] = y;
-    x[2] = 1;
+NVList test_assign(NVList x, NumericVector y, CharacterVector z) {
+    lhs(x)[1] = y;
+    lhs(x)[2] = 1;
     return x;
 }
 
 // [[Rcpp::export]]
 NVList test_assign_names(NVList x) {
-    x["a"] = x["b"];
+    lhs(x)["a"] = x["b"];
     return x;
 }
+
 
 // [[Rcpp::export]]
 NumericVector test_add(NVList x) {
     return x[0] + x[1] + x[2];
-}
-
-// [[Rcpp::export]]
-NVList test_add2(NVList x) {
-    x[0] += x[1];
-    return x;
 }
 
 // [[Rcpp::export]]
@@ -60,15 +55,8 @@ NumericVector test_mult(NVList x) {
 typedef ListOf<CharacterVector> CVList;
 // [[Rcpp::export]]
 CVList test_char(CVList x) {
-    x[0] = "apple";
+    lhs(x)[0] = "apple";
     return x;
-}
-
-typedef ListOf<NumericMatrix> NMList;
-
-// [[Rcpp::export]]
-NVList test_matrix_sum(NVList x) {
-    return lapply(x, sum_<NumericVector>);
 }
 
 // [[Rcpp::export]]
