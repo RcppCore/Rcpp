@@ -1,3 +1,7 @@
+2014-03-18  JJ Allaire <jj@rstudio.org>
+
+        * man/cppFunction.Rd: Correct package header file example to use .h
+
 2014-03-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/DataFrame.h (Rcpp): Add missing return in Impl method
