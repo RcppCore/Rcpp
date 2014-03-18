@@ -31,10 +31,12 @@ if (.runThisTest) {
     }
     
     test.lapply.sum <- function() {
+        x <- list( c(1, 5), c(2, 6), c(3, 7) )
         checkIdentical( test_lapply_sum(x), lapply(x, sum) )
     }
     
     test.sapply.sum <- function() {
+        x <- list( c(1, 5), c(2, 6), c(3, 7) )
         checkIdentical( test_sapply_sum(x), sapply(x, sum) )
     }
     
@@ -51,7 +53,6 @@ if (.runThisTest) {
     
     test.arith <- function() {
         checkIdentical(test_add(list(1, 2, 3)), 6)
-        checkIdentical(test_add2(list(1, 2, 3)), list(3, 2, 3))
         checkIdentical(test_add_subtract(list(1, 2, 3)), 0)
         checkIdentical(test_mult( list(1, 2, 3) ), 6)
         checkIdentical(test_char( list("banana") ), list("apple"))
