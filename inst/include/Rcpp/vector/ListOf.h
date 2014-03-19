@@ -26,9 +26,8 @@ template <typename T>
 class ListOf {
 
 public:
-    static const int RTYPE = traits::r_sexptype_traits<T>::rtype;
-    typedef typename traits::r_vector_iterator<RTYPE>::type iterator ;
-    typedef typename traits::r_vector_const_iterator<RTYPE>::type const_iterator ;
+    typedef typename traits::r_vector_iterator<VECSXP>::type iterator;
+    typedef typename traits::r_vector_const_iterator<VECSXP>::type const_iterator;
 
     ListOf(): list(R_NilValue) {};
 
