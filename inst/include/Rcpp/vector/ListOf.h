@@ -86,6 +86,10 @@ public:
         return list.end();
     }
 
+    inline int size() const {
+        return list.size() ;    
+    }
+    
     class ListOfProxy {
 
     public:
