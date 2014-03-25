@@ -468,6 +468,13 @@ Similar d/q/p/r functions are provided for the most common distributions:
 beta, binom, cauchy, chisq, exp, f, gamma, geom, hyper, lnorm, logis, nbeta,
 nbinom, nbinom\_mu, nchisq, nf, norm, nt, pois, t, unif, and weibull.
 
+Note that the parameterization used in these sugar functions may differ between
+the top-level functions exposed in an \proglang{R} session. For example, 
+the internal \code{rexp} is parameterized by \code{scale},
+whereas the R-level \code{stats::rexp} is parameterized by \code{rate}. 
+Consult \href{http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Distribution-functions}{Distribution Functions}
+for more details on the parameterization used for these sugar functions.
+
 One point to note is that the programmer using these functions needs to
 initialize the state of the random number generator as detailed in Section
 6.3 of the `Writing R Extensions' manual \citep{R:Extensions}.  A nice
