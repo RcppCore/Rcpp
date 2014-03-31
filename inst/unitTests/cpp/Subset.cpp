@@ -51,3 +51,8 @@ NumericVector subset_test_assign(NumericVector x) {
     x[ x > 0 ] = 0;
     return x;
 }
+
+// [[Rcpp::export]]
+NumericVector subset_test_constref(NumericVector const& x, IntegerVector const& y) {
+    return x[y];
+}

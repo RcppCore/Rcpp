@@ -325,6 +325,15 @@ public:
         );
     }
     
+    template <int RHS_RTYPE, bool RHS_NA, typename RHS_T>
+    const SubsetProxy<RTYPE, StoragePolicy, RHS_RTYPE, RHS_NA, RHS_T>
+    operator[](const VectorBase<RHS_RTYPE, RHS_NA, RHS_T>& rhs) const {
+        return SubsetProxy<RTYPE, StoragePolicy, RHS_RTYPE, RHS_NA, RHS_T>(
+            const_cast< Vector<RTYPE, StoragePolicy>& >(*this),
+            rhs
+        );
+    }
+    
     Vector& sort(){
         typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
         std::sort( 
