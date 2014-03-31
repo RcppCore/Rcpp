@@ -103,23 +103,12 @@ public:
         return *this;
     }
     
-    template <int OtherRTYPE, template <class> class OtherStoragePolicy>
-    operator Vector<OtherRTYPE, OtherStoragePolicy>() const {
-        int n = indices.size();
-        Vector<OtherRTYPE, OtherStoragePolicy> output = no_init(n);
-        for (int i=0; i < n; ++i) {
-            output[i] = lhs[ indices[i] ];
-        }
-        SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
-        if (!Rf_isNull(names)) {
-            Shield<SEXP> out_names( Rf_allocVector(STRSXP, n) );
-            for (int i=0; i < n; ++i) {
-                SET_STRING_ELT(out_names, i, STRING_ELT(names, indices[i]));
-            }
-            Rf_setAttrib(output, R_NamesSymbol, out_names);
-        }
-        Rf_copyMostAttrib(lhs, output);
-        return output;
+    operator Vector<RTYPE, StoragePolicy>() const {
+        return get_vec();
+    }
+    
+    operator SEXP() const {
+        return wrap( get_vec() );
     }
 
 private:
@@ -183,6 +172,24 @@ private:
                 indices.push_back(i);
             }
         }
+    }
+    
+    Vector<RTYPE, StoragePolicy> get_vec() const {
+        int n = indices.size();
+        Vector<RTYPE, StoragePolicy> output = no_init(n);
+        for (int i=0; i < n; ++i) {
+            output[i] = lhs[ indices[i] ];
+        }
+        SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
+        if (!Rf_isNull(names)) {
+            Shield<SEXP> out_names( Rf_allocVector(STRSXP, n) );
+            for (int i=0; i < n; ++i) {
+                SET_STRING_ELT(out_names, i, STRING_ELT(names, indices[i]));
+            }
+            Rf_setAttrib(output, R_NamesSymbol, out_names);
+        }
+        Rf_copyMostAttrib(lhs, output);
+        return output;
     }
 
     LHS_t& lhs;
