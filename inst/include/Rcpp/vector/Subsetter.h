@@ -37,10 +37,7 @@ public:
 
     SubsetProxy(LHS_t& lhs_, const RHS_t& rhs_):
         lhs(lhs_), rhs(rhs_), lhs_n(lhs.size()), rhs_n(rhs.size()) {
-            
-        indices.reserve(rhs_n);
         get_indices( traits::identity< traits::int2type<RHS_RTYPE> >() );
-        
     }
     
     SubsetProxy(const SubsetProxy& other):
@@ -48,18 +45,19 @@ public:
         rhs(other.rhs), 
         lhs_n(other.lhs_n), 
         rhs_n(other.rhs_n), 
-        indices(other.indices) {}
+        indices(other.indices),
+        indices_n(other.indices_n) {}
     
     // Enable e.g. x[y] = z
     template <int OtherRTYPE, template <class> class OtherStoragePolicy>
     SubsetProxy& operator=(const Vector<OtherRTYPE, OtherStoragePolicy>& other) {
         int n = other.size();
-        if (indices.size() != n) stop("index error");
+        if (indices_n != n) stop("index error");
         if (n == 1) {
             for (int i=0; i < n; ++i) {
                 lhs[ indices[i] ] = other[0];
             }
-        } else if (n == indices.size()) {
+        } else if (n == indices_n) {
             for (int i=0; i < n; ++i) {
                 lhs[ indices[i] ] = other[i];
             }
@@ -72,32 +70,28 @@ public:
     // Enable e.g. x[y] = 1;
     // TODO: std::enable_if<primitive> with C++11
     SubsetProxy& operator=(double other) {
-        int n = indices.size();
-        for (int i=0; i < n; ++i) {
+        for (int i=0; i < indices_n; ++i) {
             lhs[ indices[i] ] = other;
         }
         return *this;
     }
     
     SubsetProxy& operator=(int other) {
-        int n = indices.size();
-        for (int i=0; i < n; ++i) {
+        for (int i=0; i < indices_n; ++i) {
             lhs[ indices[i] ] = other;
         }
         return *this;
     }
     
     SubsetProxy& operator=(const char* other) {
-        int n = indices.size();
-        for (int i=0; i < n; ++i) {
+        for (int i=0; i < indices_n; ++i) {
             lhs[ indices[i] ] = other;
         }
         return *this;
     }
     
     SubsetProxy& operator=(bool other) {
-        int n = indices.size();
-        for (int i=0; i < n; ++i) {
+        for (int i=0; i < indices_n; ++i) {
             lhs[ indices[i] ] = other;
         }
         return *this;
@@ -126,14 +120,13 @@ private:
     #endif
     
     void get_indices( traits::identity< traits::int2type<INTSXP> > t ) {
-        int* ptr = INTEGER( rhs );
-        check_indices(ptr, rhs_n, lhs_n);
-        for (int i=0; i < rhs_n; ++i) {
-            indices.push_back( ptr[i] );
-        }
+        indices = INTEGER(rhs);
+        indices_n = rhs_n;
+        check_indices(indices, rhs_n, lhs_n);
     }
     
     void get_indices( traits::identity< traits::int2type<REALSXP> > t ) {
+        indices.reserve(rhs_n);
         Vector<INTSXP, StoragePolicy> tmp =
             as< Vector<INTSXP, StoragePolicy> >(rhs);
         int* ptr = INTEGER(tmp);
@@ -141,14 +134,17 @@ private:
         for (int i=0; i < rhs_n; ++i) {
             indices.push_back( tmp[i] );
         }
+        indices_n = rhs_n;
     }
     
     void get_indices( traits::identity< traits::int2type<STRSXP> > t ) {
+        indices.reserve(rhs_n);
         SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
         if (Rf_isNull(names)) stop("names is null");
         for (int i=0; i < rhs_n; ++i) {
             indices.push_back( find(names, CHAR( STRING_ELT(rhs, i) )) );
         }
+        indices_n = indices.size();
     }
     
     int find(const RHS_t& names, const char* str) {
@@ -160,6 +156,7 @@ private:
     }
     
     void get_indices( traits::identity< traits::int2type<LGLSXP> > t ) {
+        indices.reserve(rhs_n);
         if (lhs_n != rhs_n) {
             stop("logical subsetting requires vectors of identical size");
         }
@@ -172,18 +169,18 @@ private:
                 indices.push_back(i);
             }
         }
+        indices_n = indices.size();
     }
     
     Vector<RTYPE, StoragePolicy> get_vec() const {
-        int n = indices.size();
-        Vector<RTYPE, StoragePolicy> output = no_init(n);
-        for (int i=0; i < n; ++i) {
+        Vector<RTYPE, StoragePolicy> output = no_init(indices_n);
+        for (int i=0; i < indices_n; ++i) {
             output[i] = lhs[ indices[i] ];
         }
         SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
         if (!Rf_isNull(names)) {
-            Shield<SEXP> out_names( Rf_allocVector(STRSXP, n) );
-            for (int i=0; i < n; ++i) {
+            Shield<SEXP> out_names( Rf_allocVector(STRSXP, indices_n) );
+            for (int i=0; i < indices_n; ++i) {
                 SET_STRING_ELT(out_names, i, STRING_ELT(names, indices[i]));
             }
             Rf_setAttrib(output, R_NamesSymbol, out_names);
@@ -196,7 +193,17 @@ private:
     const RHS_t& rhs;
     int lhs_n;
     int rhs_n;
-    std::vector<int> indices;
+    
+    // we want to reuse the indices if an IntegerVector is passed in; otherwise,
+    // we construct a std::vector<int> to hold the indices
+    typename traits::if_<
+        RHS_RTYPE == INTSXP,
+        int*,
+        std::vector<int>
+    >::type indices;
+    
+    // because of the above, we keep track of the size
+    int indices_n;
     
 };
 
