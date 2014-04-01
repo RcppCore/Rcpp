@@ -41,7 +41,7 @@ public:
 		return object( i, i ) ;
 	}
 	inline int size() const { return n; }
-	         
+	
 private:
 	const MAT_TYPE& object ;
 	int n ;
@@ -62,7 +62,7 @@ public:
 	inline int size() const { return n * n; }
 	inline int ncol() const { return n; }
 	inline int nrow() const { return n; }
-	         
+	
 private:
 	const VEC_TYPE& object ;
 	int n ;
@@ -70,16 +70,16 @@ private:
 
 template <typename T> struct diag_result_type_trait{
 	typedef typename Rcpp::traits::if_<
-		Rcpp::traits::matrix_interface<T>::value, 
-		Diag_Extractor< T::r_type::value , T::can_have_na::value , T >, 
-		Diag_Maker< T::r_type::value , T::can_have_na::value , T > 
+		Rcpp::traits::matrix_interface<T>::value,
+		Diag_Extractor< T::r_type::value , T::can_have_na::value , T >,
+		Diag_Maker< T::r_type::value , T::can_have_na::value , T >
 	>::type type ;
 } ;
 
 } // sugar
 
 template <typename T>
-inline typename sugar::diag_result_type_trait<T>::type 
+inline typename sugar::diag_result_type_trait<T>::type
 diag( const T& t ){
 	return typename sugar::diag_result_type_trait<T>::type( t ) ;
 }

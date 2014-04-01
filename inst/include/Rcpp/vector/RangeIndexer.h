@@ -21,7 +21,7 @@
 
 #ifndef Rcpp__vector__RangeIndexer_h
 #define Rcpp__vector__RangeIndexer_h
-       
+
 #define UNROLL_LOOP(OP)                              \
     typedef typename ::Rcpp::traits::Extractor<RTYPE,NA,T>::type EXT ; \
     const EXT& input( x.get_ref() ) ;                   \
@@ -55,7 +55,7 @@ public:
 	typedef typename VECTOR::Proxy Proxy ;
 	typedef typename VECTOR::iterator iterator ;
 	
-	RangeIndexer( VECTOR& vec_, const Rcpp::Range& range_) : 
+	RangeIndexer( VECTOR& vec_, const Rcpp::Range& range_) :
 		start(vec_.begin() + range_.get_start() ), size_( range_.size() ) {}
 	
 	template <bool NA_, typename T>	

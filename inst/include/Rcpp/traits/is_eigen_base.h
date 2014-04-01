@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// is_eigen_base.h: Rcpp R/C++ interface class library -- 
+// is_eigen_base.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2011 Doug Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -38,8 +38,8 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
-  
-  template<typename T> struct is_eigen_base : 
+
+  template<typename T> struct is_eigen_base :
   	integral_constant<bool, _is_eigen_helper<T>::value >{ };
 
 }

@@ -25,18 +25,18 @@
 #include <RcppCommon.h>
 #include <Rcpp/Language.h>
 
-namespace Rcpp{ 
+namespace Rcpp{
 
-    RCPP_API_CLASS(Formula_Impl), 
-        public DottedPairProxyPolicy<Formula_Impl<StoragePolicy> >, 
+    RCPP_API_CLASS(Formula_Impl),
+        public DottedPairProxyPolicy<Formula_Impl<StoragePolicy> >,
         public DottedPairImpl<Formula_Impl<StoragePolicy> >
     {
     public:
 
-        RCPP_GENERATE_CTOR_ASSIGN(Formula_Impl) 
-    
+        RCPP_GENERATE_CTOR_ASSIGN(Formula_Impl)
+
         Formula_Impl(){} ;
-        
+
         Formula_Impl(SEXP x){
             switch( TYPEOF( x ) ){
             case LANGSXP:
@@ -52,13 +52,13 @@ namespace Rcpp{
                 if( ::Rf_length(x) > 0 ){
                     SEXP y = VECTOR_ELT( x, 0 ) ;
                     if( ::Rf_inherits( y, "formula" ) ){
-                        Storage::set__( y ) ;  
+                        Storage::set__( y ) ;
                     } else{
                         SEXP z = internal::convert_using_rfunction( y, "as.formula") ;
                         Storage::set__( z ) ;
                     }
                 } else{
-                    throw not_compatible( "cannot create formula from empty list or expression" ) ; 
+                    throw not_compatible( "cannot create formula from empty list or expression" ) ;
                 }
                 break;
             default:
@@ -67,15 +67,15 @@ namespace Rcpp{
         }
 
         explicit Formula_Impl( const std::string& code ) {
-            Storage::set__( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") ) ;    
+            Storage::set__( internal::convert_using_rfunction( ::Rf_mkString(code.c_str()), "as.formula") ) ;
         }
-    
+
         void update(SEXP){}
-        
-    } ; 
+
+    } ;
 
     typedef Formula_Impl<PreserveStorage> Formula ;
-    
+
 } // namespace Rcpp
 
 #endif

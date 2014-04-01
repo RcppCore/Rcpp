@@ -25,22 +25,22 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, 
+template <int RTYPE,
           bool LHS_NA, typename LHS_T,
           bool RHS_NA, typename RHS_T,
           typename Function >
-class Outer : public MatrixBase< 
+class Outer : public MatrixBase<
     Rcpp::traits::r_sexptype_traits<
         typename ::Rcpp::traits::result_of<Function>::type
-	>::rtype , 
+	>::rtype ,
             true ,
     Outer<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T,Function>
 > {
 public:
     typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
-    const static int RESULT_R_TYPE = 
+    const static int RESULT_R_TYPE =
         Rcpp::traits::r_sexptype_traits<result_type>::rtype ;
-    
+
     typedef Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
     typedef Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 	
@@ -50,7 +50,7 @@ public:
     typedef typename Rcpp::traits::r_vector_element_converter<RESULT_R_TYPE>::type converter_type ;
     typedef typename Rcpp::traits::storage_type<RESULT_R_TYPE>::type STORAGE ;
 	
-    Outer( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_, Function fun_ ) : 
+    Outer( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_, Function fun_ ) :
         lhs(lhs_), rhs(rhs_), fun(fun_), nr(lhs_.size()), nc(rhs_.size()) {}
 	
     inline STORAGE operator()( int i, int j ) const {
@@ -60,9 +60,9 @@ public:
     inline int size() const { return nr * nc ; }
     inline int nrow() const { return nr; }
     inline int ncol() const { return nc; }
-	         
+	
 private:
-	      
+	
     LHS_LAZY lhs ;
     RHS_LAZY rhs ;
 	
@@ -72,12 +72,12 @@ private:
 	
 } // sugar
 
-template <int RTYPE, 
+template <int RTYPE,
           bool LHS_NA, typename LHS_T,
           bool RHS_NA, typename RHS_T,
           typename Function >
-inline sugar::Outer<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T,Function> 
-outer( 
+inline sugar::Outer<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T,Function>
+outer(
       const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
       const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs,
       Function fun ){

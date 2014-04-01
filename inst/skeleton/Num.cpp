@@ -27,7 +27,7 @@ public:                         // which have a getter/setter and getter
 
     double getX() { return x ; }
     void setX(double value){ x = value ; }
-    
+
     int getY() { return y ; }
 
 private:

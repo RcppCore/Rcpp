@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// vector_from_string.h: Rcpp R/C++ interface class library -- 
+// vector_from_string.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -24,12 +24,12 @@
 
 namespace Rcpp{
 namespace internal{
-    
+
     template <int RTYPE>
     inline SEXP vector_from_string( const std::string& st ) {
         return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
     }
-        
+
     template <int RTYPE>
     SEXP vector_from_string_expr( const std::string& code) {
         ParseStatus status;
@@ -44,12 +44,12 @@ namespace internal{
         }
         return R_NilValue ; /* -Wall */
     }
-        
+
     template <>
     inline SEXP vector_from_string<EXPRSXP>( const std::string& st ) {
         return vector_from_string_expr<EXPRSXP>( st ) ;
     }
-    
+
 }
 }
 

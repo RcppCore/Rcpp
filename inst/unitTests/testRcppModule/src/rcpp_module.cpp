@@ -25,7 +25,7 @@
 int bar(int x) {                // simple free function returning an int
     return x*2;
 }
-        
+
 double foo(int x, double y) {   // simple free function returning a double
     return x * y;
 }
@@ -37,7 +37,7 @@ void bla( ) {                   // no input or return but output side effect
 void bla1(int x) {              // output reflecting a single input
     Rprintf( "hello (x = %d)\n", x);
 }
-  
+
 void bla2(int x, double y) {    // output reflecting two inputs
     Rprintf( "hello (x = %d, y = %5.2f)\n", x, y);
 }
@@ -57,7 +57,7 @@ private:
 
 RCPP_MODULE(yada){
     using namespace Rcpp;
-	                  
+	
     function( "bar"   , &bar   );
     function( "foo"   , &foo   );
     function( "bla"   , &bla   );
@@ -69,6 +69,6 @@ RCPP_MODULE(yada){
         .method( "greet", &World::greet )
         .method( "set", &World::set )
 	;
-}                     
+}
 
 

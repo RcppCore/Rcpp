@@ -27,30 +27,30 @@ namespace Rcpp{
 namespace internal{
 
 template <int FROM, int TO>
-typename ::Rcpp::traits::storage_type<TO>::type 
+typename ::Rcpp::traits::storage_type<TO>::type
 r_coerce( typename ::Rcpp::traits::storage_type<FROM>::type from ) ;
 
-template <> 
+template <>
 inline int r_coerce<INTSXP,INTSXP>(int from) { return from ; }
 
-template <> 
+template <>
 inline int r_coerce<LGLSXP,LGLSXP>(int from) { return from ; }
 
-template <> 
+template <>
 inline double r_coerce<REALSXP,REALSXP>(double from) { return from ; }
 
-template <> 
+template <>
 inline Rcomplex r_coerce<CPLXSXP,CPLXSXP>(Rcomplex from) { return from ; }
 
-template <> 
+template <>
 inline Rbyte r_coerce<RAWSXP,RAWSXP>(Rbyte from) { return from ; }
 
 // -> INTSXP
-template <> 
+template <>
 inline int r_coerce<LGLSXP,INTSXP>(int from){
 	return (from==NA_LOGICAL) ? NA_INTEGER : from ;
 }
-template <> 
+template <>
 inline int r_coerce<REALSXP,INTSXP>(double from){
 	if (Rcpp_IsNA(from)) {
 		return NA_INTEGER;
@@ -60,40 +60,40 @@ inline int r_coerce<REALSXP,INTSXP>(double from){
 	return static_cast<int>(from);
 
 }
-template <> 
+template <>
 inline int r_coerce<CPLXSXP,INTSXP>(Rcomplex from){
 	return r_coerce<REALSXP,INTSXP>(from.r) ;
 }
-template <> 
+template <>
 inline int r_coerce<RAWSXP,INTSXP>(Rbyte from){
 	return static_cast<int>(from);
 }
 
 // -> REALSXP
-template <> 
+template <>
 inline double r_coerce<LGLSXP,REALSXP>(int from){
 	return from == NA_LOGICAL ? NA_REAL : static_cast<double>(from) ;
 }
 template <>
 inline double r_coerce<INTSXP,REALSXP>(int from){
-	return from == NA_INTEGER ? NA_REAL : static_cast<double>(from) ; 
+	return from == NA_INTEGER ? NA_REAL : static_cast<double>(from) ;
 }
-template <> 
+template <>
 inline double r_coerce<CPLXSXP,REALSXP>(Rcomplex from){
 	return from.r ;
 }
-template <> 
+template <>
 inline double r_coerce<RAWSXP,REALSXP>(Rbyte from){
 	return static_cast<double>(from) ;
 }
 
 // -> LGLSXP
-template <> 
+template <>
 inline int r_coerce<REALSXP,LGLSXP>(double from){
 	return Rcpp_IsNA(from) ? NA_LOGICAL : (from!=0.0);	
 }
 
-template <> 
+template <>
 inline int r_coerce<INTSXP,LGLSXP>(int from){
 	return ( from == NA_INTEGER ) ? NA_LOGICAL : (from!=0);	
 }
@@ -105,40 +105,40 @@ inline int r_coerce<CPLXSXP,LGLSXP>(Rcomplex from){
 	return TRUE ;
 }
 
-template <> 
+template <>
 inline int r_coerce<RAWSXP,LGLSXP>(Rbyte from){
 	if( from != static_cast<Rbyte>(0) ) return TRUE ;
 	return FALSE ;
 }
 
 // -> RAWSXP
-template <> 
+template <>
 inline Rbyte r_coerce<INTSXP,RAWSXP>(int from){
 	return (from < 0 || from > 255) ? static_cast<Rbyte>(0) : static_cast<Rbyte>(from) ;
 }
 
-template <> 
+template <>
 inline Rbyte r_coerce<REALSXP,RAWSXP>(double from){
-	if( Rcpp_IsNA(from) ) return static_cast<Rbyte>(0) ; 
+	if( Rcpp_IsNA(from) ) return static_cast<Rbyte>(0) ;
 	return r_coerce<INTSXP,RAWSXP>(static_cast<int>(from)) ;
 }
 
-template <> 
+template <>
 inline Rbyte r_coerce<CPLXSXP,RAWSXP>(Rcomplex from){
 	 return r_coerce<REALSXP,RAWSXP>(from.r) ;
 }
 
-template <> 
+template <>
 inline Rbyte r_coerce<LGLSXP,RAWSXP>(int from){
 	return static_cast<Rbyte>(from == TRUE) ;	
 }
 
 // -> CPLXSXP
-template <> 
+template <>
 inline Rcomplex r_coerce<REALSXP,CPLXSXP>(double from){
 	Rcomplex c ;
 	if( Rcpp_IsNA(from) ){
-		c.r = NA_REAL; 
+		c.r = NA_REAL;
 		c.i = NA_REAL;
 	} else{
 		c.r = from ;
@@ -147,11 +147,11 @@ inline Rcomplex r_coerce<REALSXP,CPLXSXP>(double from){
 	return c ;
 }
 
-template <> 
+template <>
 inline Rcomplex r_coerce<INTSXP,CPLXSXP>(int from){
 	Rcomplex c ;
 	if( from == NA_INTEGER ){
-		c.r = NA_REAL; 
+		c.r = NA_REAL;
 		c.i = NA_REAL;
 	} else{
 		c.r = static_cast<double>(from) ;
@@ -160,7 +160,7 @@ inline Rcomplex r_coerce<INTSXP,CPLXSXP>(int from){
 	return c ;	
 }
 
-template <> 
+template <>
 inline Rcomplex r_coerce<RAWSXP,CPLXSXP>(Rbyte from){
 	Rcomplex c ;
 	c.r = static_cast<double>(from);
@@ -168,7 +168,7 @@ inline Rcomplex r_coerce<RAWSXP,CPLXSXP>(Rbyte from){
 	return c ;
 }
 
-template <> 
+template <>
 inline Rcomplex r_coerce<LGLSXP,CPLXSXP>(int from){
 	Rcomplex c ;
 	if( from == TRUE ){
@@ -182,7 +182,7 @@ inline Rcomplex r_coerce<LGLSXP,CPLXSXP>(int from){
 }
 
 // -> STRSXP
-template <int RTYPE> 
+template <int RTYPE>
 const char* coerce_to_string( typename ::Rcpp::traits::storage_type<RTYPE>::type from ) ;
 
 inline const char* dropTrailing0(char *s, char cdec) {
@@ -203,10 +203,10 @@ inline const char* dropTrailing0(char *s, char cdec) {
 }
 
 inline int integer_width( int n ){
-    return n < 0 ? ( (int) ( ::log10( -n+0.5) + 2 ) ) : ( (int) ( ::log10( n+0.5) + 1 ) ) ;    
+    return n < 0 ? ( (int) ( ::log10( -n+0.5) + 2 ) ) : ( (int) ( ::log10( n+0.5) + 1 ) ) ;
 }
 
-template <> 
+template <>
 inline const char* coerce_to_string<CPLXSXP>(Rcomplex x){
 	//int wr, dr, er, wi, di, ei;
     //Rf_formatComplex(&x, 1, &wr, &dr, &er, &wi, &di, &ei, 0);
@@ -216,12 +216,12 @@ inline const char* coerce_to_string<CPLXSXP>(Rcomplex x){
     static char tmp1[128], tmp2[128], tmp3[256];
     //snprintf(tmp, 127, "%*.*f+%*.*fi", wr, dr, x.r, wi, di, x.i);
     //snprintf(tmp, 127, "%f+%fi", x.r, x.i); // FIXEM: barebones default formatting
-    snprintf(tmp1, 127, "%f", x.r); 
-    snprintf(tmp2, 127, "%f", x.i); 
+    snprintf(tmp1, 127, "%f", x.r);
+    snprintf(tmp2, 127, "%f", x.i);
     snprintf(tmp3, 255, "%s+%si", dropTrailing0(tmp1, '.'), dropTrailing0(tmp2, '.'));
     return tmp3;
 }
-template <> 
+template <>
 inline const char* coerce_to_string<REALSXP>(double x){
 	//int w,d,e ;
     // cf src/main/format.c in R's sources:
@@ -236,14 +236,14 @@ inline const char* coerce_to_string<REALSXP>(double x){
     // we are no longer allowed to use this:
     //     char* tmp = const_cast<char*>( Rf_EncodeReal(x, w, d, e, '.') );
     // so approximate it poorly as
-    
+
     static char tmp[128];
-    snprintf(tmp, 127, "%f", x); 
+    snprintf(tmp, 127, "%f", x);
     if (strcmp( dropTrailing0(tmp, '.'), "-0") == 0) return "0";
     else return dropTrailing0(tmp, '.');
 }
 #define NB 1000
-template <> 
+template <>
 inline const char* coerce_to_string<INTSXP >(int from) {
 	static char buffer[NB] ;
     snprintf( buffer, NB, "%*d", integer_width(from), from );
@@ -255,44 +255,44 @@ inline const char* coerce_to_string<RAWSXP >(Rbyte from){
     ::sprintf(buff, "%02x", from);
     return buff ;	
 }
-template <> 
+template <>
 inline const char* coerce_to_string<LGLSXP >(int from){
 	return from == 0 ? "FALSE" : "TRUE" ;
 }
 
 #undef NB
-template <> 
-inline SEXP r_coerce<STRSXP ,STRSXP>(SEXP from){ 
-	return from ; 
+template <>
+inline SEXP r_coerce<STRSXP ,STRSXP>(SEXP from){
+	return from ;
 }
-template <> 
+template <>
 inline SEXP r_coerce<CPLXSXP,STRSXP>(Rcomplex from) {
 	return Rcpp::traits::is_na<CPLXSXP>(from) ? NA_STRING : Rf_mkChar( coerce_to_string<CPLXSXP>( from ) ) ;
 }
-template <> 
+template <>
 inline SEXP r_coerce<REALSXP,STRSXP>(double from){
-  
+
   // handle some special values explicitly
   if (Rcpp_IsNaN(from)) return Rf_mkChar("NaN");
   else if (from == R_PosInf) return Rf_mkChar("Inf");
   else if (from == R_NegInf) return Rf_mkChar("-Inf");
   else return Rcpp::traits::is_na<REALSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<REALSXP>( from ) ) ;
 }
-template <> 
-inline SEXP r_coerce<INTSXP ,STRSXP>(int from){ 
+template <>
+inline SEXP r_coerce<INTSXP ,STRSXP>(int from){
 	return Rcpp::traits::is_na<INTSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<INTSXP>( from ) ) ;
 }
-template <> 
-inline SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from){ 
-	return Rf_mkChar( coerce_to_string<RAWSXP>(from)); 
+template <>
+inline SEXP r_coerce<RAWSXP ,STRSXP>(Rbyte from){
+	return Rf_mkChar( coerce_to_string<RAWSXP>(from));
 }
-template <> 
+template <>
 inline SEXP r_coerce<LGLSXP ,STRSXP>(int from){
 	return Rcpp::traits::is_na<LGLSXP>(from) ? NA_STRING :Rf_mkChar( coerce_to_string<LGLSXP>(from));
 }
-template <> 
+template <>
 inline SEXP r_coerce<SYMSXP ,STRSXP>(SEXP from){
-	return Rf_ScalarString( PRINTNAME(from) ) ; 
+	return Rf_ScalarString( PRINTNAME(from) ) ;
 }
 
 } // internal

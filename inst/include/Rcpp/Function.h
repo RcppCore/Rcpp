@@ -26,28 +26,28 @@
 
 #include <Rcpp/grow.h>
 
-namespace Rcpp{ 
+namespace Rcpp{
 
-    /** 
+    /**
      * functions
      */
     RCPP_API_CLASS(Function_Impl) {
     public:
 
-        RCPP_GENERATE_CTOR_ASSIGN(Function_Impl) 
-        
+        RCPP_GENERATE_CTOR_ASSIGN(Function_Impl)
+
         Function_Impl(SEXP x){
             switch( TYPEOF(x) ){
             case CLOSXP:
             case SPECIALSXP:
             case BUILTINSXP:
-                Storage::set__(x); 
-                break; 
+                Storage::set__(x);
+                break;
             default:
                 throw not_compatible("cannot convert to function") ;
             }
         }
-        
+
         /**
          * Finds a function, searching from the global environment
          *
@@ -58,36 +58,36 @@ namespace Rcpp{
             Shield<SEXP> x( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
             Storage::set__(x) ;
         }
-        
+
         SEXP operator()() const {
-            return Rcpp_eval( Rf_lang1( Storage::get__()  ) ) ;     
+            return Rcpp_eval( Rf_lang1( Storage::get__()  ) ) ;
         }
-        
-        #include <Rcpp/generated/Function__operator.h>  
-        
+
+        #include <Rcpp/generated/Function__operator.h>
+
         /**
          * Returns the environment of this function
          */
-        SEXP environment() const { 
+        SEXP environment() const {
             SEXP fun = Storage::get__() ;
             if( TYPEOF(fun) != CLOSXP ) {
                 throw not_a_closure() ;
             }
             return CLOENV(fun) ;
         }
-        
+
         /**
          * Returns the body of the function
          */
         SEXP body() const {
-            return BODY( Storage::get__() ) ;    
+            return BODY( Storage::get__() ) ;
         }
-         
+
         void update(SEXP){}
     };
 
     typedef Function_Impl<PreserveStorage> Function ;
-    
+
 } // namespace Rcpp
 
 #endif

@@ -64,7 +64,7 @@ namespace internal {
 		}
 		
 		// assuming a CHARSXP
-		static SEXP get(SEXP x){ 
+		static SEXP get(SEXP x){
 		    RCPP_DEBUG( "string_element_converter::get< SEXP >()" )
 		    return x;
 		}

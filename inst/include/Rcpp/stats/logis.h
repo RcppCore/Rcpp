@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// logis.h: Rcpp R/C++ interface class library -- 
+// logis.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -31,7 +31,7 @@ inline double dlogis_0(double x /*, double location [=0.0], double scale [=1.0] 
     if (ISNAN(x))
 	return x + 1.0 ;
 #endif
-    
+
 	e = ::exp(-::fabs(x));
     f = 1.0 + e ;
     return give_log ? -(x + ::log(f * f)) : e / (f * f);
@@ -43,10 +43,10 @@ inline double dlogis_1(double x, double location /*, double scale [=1.0] */, int
     if (ISNAN(x) || ISNAN(location))
 	return x + location + 1.0;
 #endif
-    
+
     x = ::fabs((x - location) );
     e = ::exp(-x);
-    f = 1.0 + e;                                        
+    f = 1.0 + e;
     return give_log ? -(x + ::log(f * f)) : e / (f * f);
 }
 	
@@ -57,7 +57,7 @@ inline double plogis_0(double x /*, double location [=0.0] , double scale [=1.0]
     if (ISNAN(x) )
 	return x + 1.0 ;
 #endif
-    
+
     if (ISNAN(x))	return R_NaN ;
     R_P_bounds_Inf_01(x);
 
@@ -72,7 +72,7 @@ inline double plogis_1(double x, double location /*, double scale [=1.0] */,
     if (ISNAN(x) || ISNAN(location) )
 	return x + location + 1.0 ;
 #endif
-    
+
     x = (x - location) ;
     if (ISNAN(x))	return R_NaN ;
     R_P_bounds_Inf_01(x);

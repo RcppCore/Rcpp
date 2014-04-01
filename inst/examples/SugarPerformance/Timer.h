@@ -20,8 +20,8 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 
-// Simple timer class based on on ideas in atimer.h / atimer.cxx found a few years ago at 
-//     http://www.cs.uiowa.edu/~sriram/30/fall03/ 
+// Simple timer class based on on ideas in atimer.h / atimer.cxx found a few years ago at
+//     http://www.cs.uiowa.edu/~sriram/30/fall03/
 //     and attributed to Amir Elaguizy while under GPL
 // but converted to using gettimeofday/GetSystemTime instead
 
@@ -32,8 +32,8 @@ class Timer {
 public:
     Timer() : sys_time("Sys.time") { Reset(); }
     void Start()  { start_t = getFractionalSeconds() ; }
-    void Stop() { 
-	end_t = getFractionalSeconds(); 
+    void Stop() {
+	end_t = getFractionalSeconds();
 	elapsed = end_t - start_t;		// Calculate elapsed time in seconds
 	cumul += elapsed;
     }

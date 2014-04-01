@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rbeta.h: Rcpp R/C++ interface class library -- 
+// rbeta.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -24,18 +24,18 @@
 
 namespace Rcpp {
 namespace stats{
-    
+
     class BetaGenerator : public Generator<double>{
-    public: 
+    public:
         BetaGenerator(double a_, double b_) : a(a_), b(b_){}
-        
+
         inline double operator()() const {
-            return ::Rf_rbeta(a, b) ;    
+            return ::Rf_rbeta(a, b) ;
         }
     private:
         double a, b ;
     } ;
-    
+
 } // namespace stats
 
 } // Rcpp

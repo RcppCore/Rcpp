@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// hash.h: Rcpp R/C++ interface class library -- hashing utility, inspired 
+// hash.h: Rcpp R/C++ interface class library -- hashing utility, inspired
 // from Simon's fastmatch package
 //
 // Copyright (C) 2010, 2011  Simon Urbanek
@@ -25,7 +25,7 @@
 #define RCPP__HASH__SELF_HASH_H
 
 namespace Rcpp{
-namespace sugar{ 
+namespace sugar{
 
 
     template <int RTYPE>
@@ -33,33 +33,33 @@ namespace sugar{
     public:
         typedef typename traits::storage_type<RTYPE>::type STORAGE ;
         typedef Vector<RTYPE> VECTOR ;
-              
-        SelfHash( SEXP table ) : n(Rf_length(table)), m(2), k(1), 
-            src( (STORAGE*)dataptr(table) ), data(), indices(), size_(0) 
+
+        SelfHash( SEXP table ) : n(Rf_length(table)), m(2), k(1),
+            src( (STORAGE*)dataptr(table) ), data(), indices(), size_(0)
         {
             int desired = n*2 ;
             while( m < desired ){ m *= 2 ; k++ ; }
             data.resize( m ) ;
             indices.resize( m ) ;
         }
-       
+
         inline IntegerVector fill_and_self_match(){
             IntegerVector result = no_init(n) ;
             int* res = INTEGER(result) ;
             for( int i=0; i<n; i++) res[i] = add_value_get_index(i) ;
-            return result ;    
-        }                       
-    
+            return result ;
+        }
+
         inline int size() const {
             return size_ ;
         }
-        
+
         int n, m, k ;
         STORAGE* src ;
         std::vector<int> data ;
         std::vector<int> indices ;
         int size_ ;
-        
+
         int add_value_get_index(int i){
             STORAGE val = src[i++] ;
             int addr = get_addr(val) ;
@@ -73,7 +73,7 @@ namespace sugar{
             }
             return indices[addr] ;
         }
-        
+
         /* NOTE: we are returning a 1-based index ! */
         int get_index(STORAGE value) const {
             int addr = get_addr(value) ;
@@ -85,11 +85,11 @@ namespace sugar{
             }
             return NA_INTEGER;
         }
-        
+
         // defined below
         int get_addr(STORAGE value) const ;
     } ;
-        
+
     template <>
     inline int SelfHash<INTSXP>::get_addr(int value) const {
         return RCPP_HASH(value) ;
@@ -106,11 +106,11 @@ namespace sugar{
       if (val == 0.0) val = 0.0;
       if (internal::Rcpp_IsNA(val)) val = NA_REAL;
       else if (internal::Rcpp_IsNaN(val)) val = R_NaN;
-      val_u.d = val;            
+      val_u.d = val;
       addr = RCPP_HASH(val_u.u[0] + val_u.u[1]);
       return addr ;
     }
-    
+
     template <>
     inline int SelfHash<STRSXP>::get_addr(SEXP value) const {
         intptr_t val = (intptr_t) value;

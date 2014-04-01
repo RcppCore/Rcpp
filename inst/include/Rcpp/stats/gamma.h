@@ -1,9 +1,9 @@
 
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// auto generated file (from script/stats.R) 
+// auto generated file (from script/stats.R)
 //
-// gamma.h: Rcpp R/C++ interface class library -- 
+// gamma.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -58,7 +58,7 @@ inline double pgamma_1(double x, double alph, int lower_tail, int log_p){
 	return ::Rf_pgamma(x, alph, 1.0, lower_tail, log_p) ;
 }	
 inline double qgamma_1(double p, double alpha, int lower_tail, int log_p){
-	return ::Rf_qgamma(p, alpha, 1.0, lower_tail, log_p ); 
+	return ::Rf_qgamma(p, alpha, 1.0, lower_tail, log_p );
 }
 
 }

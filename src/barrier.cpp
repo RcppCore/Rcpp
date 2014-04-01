@@ -31,12 +31,12 @@
 // [[Rcpp::register]]
 SEXP get_string_elt(SEXP x, int i){
     return STRING_ELT(x, i ) ;
-}    
+}
 
 // [[Rcpp::register]]
 const char* char_get_string_elt(SEXP x, int i){
     return CHAR(STRING_ELT(x, i )) ;
-}    
+}
 
 // [[Rcpp::register]]
 void set_string_elt(SEXP x, int i, SEXP value){
@@ -45,12 +45,12 @@ void set_string_elt(SEXP x, int i, SEXP value){
 
 // [[Rcpp::register]]
 void char_set_string_elt(SEXP x, int i, const char* value){
-    STRING_ELT(x, i) = Rf_mkChar(value) ; 
+    STRING_ELT(x, i) = Rf_mkChar(value) ;
 }
 
 // [[Rcpp::register]]
-SEXP* get_string_ptr(SEXP x){ 
-    return STRING_PTR(x) ; 
+SEXP* get_string_ptr(SEXP x){
+    return STRING_PTR(x) ;
 }
 
 // [[Rcpp::register]]
@@ -64,18 +64,18 @@ void set_vector_elt(SEXP x, int i, SEXP value){
 }
 
 // [[Rcpp::register]]
-SEXP* get_vector_ptr(SEXP x){ 
-    return VECTOR_PTR(x) ; 
+SEXP* get_vector_ptr(SEXP x){
+    return VECTOR_PTR(x) ;
 }
 
 // [[Rcpp::register]]
-void* dataptr(SEXP x){ 
-    return DATAPTR(x); 
+void* dataptr(SEXP x){
+    return DATAPTR(x);
 }
 
 // [[Rcpp::register]]
-const char* char_nocheck( SEXP x ){ 
-    return CHAR(x); 
+const char* char_nocheck( SEXP x ){
+    return CHAR(x);
 }
 
 static bool Rcpp_cache_know = false ;
@@ -86,17 +86,17 @@ static SEXP Rcpp_cache = R_NilValue ;
 
 #ifndef RCPP_HASH_CACHE_INITIAL_SIZE
 #define RCPP_HASH_CACHE_INITIAL_SIZE 1024
-#endif 
+#endif
 
 // only used for debugging
 SEXP get_rcpp_cache() {
     if( ! Rcpp_cache_know ){
-        
+
         SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
         Rcpp::Shield<SEXP> RcppString( Rf_mkString("Rcpp") );
         Rcpp::Shield<SEXP> call( Rf_lang2( getNamespaceSym, RcppString ) );
         Rcpp::Shield<SEXP> RCPP( Rf_eval(call, R_GlobalEnv) ) ;
-        
+
         Rcpp_cache = Rf_findVarInFrame( RCPP, Rf_install(".rcpp_cache") ) ;
         Rcpp_cache_know = true ;
     }
@@ -106,7 +106,7 @@ SEXP get_rcpp_cache() {
 namespace Rcpp {
     namespace internal {
         // [[Rcpp::register]]
-        SEXP get_Rcpp_namespace(){ 
+        SEXP get_Rcpp_namespace(){
         	    return VECTOR_ELT( get_rcpp_cache() , 0 ) ;
         }
     }
@@ -128,18 +128,18 @@ SEXP set_error_occured(SEXP cache, SEXP e){
     return R_NilValue ;
 }
 
-SEXP set_current_error(SEXP cache, SEXP e){ 
+SEXP set_current_error(SEXP cache, SEXP e){
     SET_VECTOR_ELT( cache, 2, e ) ;
     return R_NilValue ;
 }
- 
-SEXP init_Rcpp_cache(){   
+
+SEXP init_Rcpp_cache(){
     SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
     Rcpp::Shield<SEXP> RcppString( Rf_mkString("Rcpp") );
     Rcpp::Shield<SEXP> call( Rf_lang2( getNamespaceSym, RcppString ) );
     Rcpp::Shield<SEXP> RCPP( Rf_eval(call, R_GlobalEnv) ) ;
     Rcpp::Shield<SEXP> cache( Rf_allocVector( VECSXP, RCPP_CACHE_SIZE ) );
-    
+
     // the Rcpp namespace
 	SET_VECTOR_ELT( cache, 0, RCPP ) ;
 	set_error_occured( cache, Rf_ScalarLogical(FALSE) ) ; // error occured
@@ -148,14 +148,14 @@ SEXP init_Rcpp_cache(){
     Rcpp::Shield<SEXP> tmp( Rf_allocVector(INTSXP, RCPP_HASH_CACHE_INITIAL_SIZE) );
 	SET_VECTOR_ELT( cache, RCPP_HASH_CACHE_INDEX, tmp );
 	Rf_defineVar( Rf_install(".rcpp_cache"), cache, RCPP );
-    
+
 	return cache ;
 }
 
 // [[Rcpp::register]]
-SEXP reset_current_error(){ 
+SEXP reset_current_error(){
     SEXP cache = get_rcpp_cache() ;
-    
+
     // error occured
     set_error_occured( cache, Rf_ScalarLogical(FALSE) ) ;
 	
@@ -175,15 +175,15 @@ int error_occured(){
 }
 
 // [[Rcpp::internal]]
-SEXP rcpp_error_recorder(SEXP e){ 
+SEXP rcpp_error_recorder(SEXP e){
     SEXP cache = get_rcpp_cache() ;
-    
+
     // error occured
     set_error_occured( cache, Rf_ScalarLogical(TRUE) ) ;
 	
     // current error
     set_current_error(cache, e ) ;
-    
+
     return R_NilValue ;
 }
 
@@ -200,7 +200,7 @@ int* get_cache( int m){
     if( m > n ){
         Rcpp::Shield<SEXP> new_hash_cache( Rf_allocVector( INTSXP, m) ) ;
         hash_cache = new_hash_cache ;
-        SET_VECTOR_ELT(cache,RCPP_HASH_CACHE_INDEX, hash_cache); 
+        SET_VECTOR_ELT(cache,RCPP_HASH_CACHE_INDEX, hash_cache);
     }
     int *res = INTEGER(hash_cache) ;
     std::fill(res, res+m, 0 ) ;

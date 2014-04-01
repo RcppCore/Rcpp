@@ -19,7 +19,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 #ifndef Rcpp__traits__storage_type__h
 #define Rcpp__traits__storage_type__h
 
@@ -32,7 +32,7 @@ namespace traits{
  *
  * The default is SEXP, which works for VECSXP, EXPRSXP and STRSXP
  */
-template<int RTYPE> struct storage_type{ 
+template<int RTYPE> struct storage_type{
 	typedef SEXP type ;
 } ;
 
@@ -40,7 +40,7 @@ template<int RTYPE> struct storage_type{
  * Total specialization for integer vector (INTSXP)
  * typedef to int
  */
-template<> struct storage_type<INTSXP>{ 
+template<> struct storage_type<INTSXP>{
 	typedef int type ;
 } ;
 
@@ -48,7 +48,7 @@ template<> struct storage_type<INTSXP>{
  * Total specialization for numeric vectors (REALSXP)
  * typedef to double
  */
-template<> struct storage_type<REALSXP>{ 
+template<> struct storage_type<REALSXP>{
 	typedef double type ;
 } ;
 
@@ -56,7 +56,7 @@ template<> struct storage_type<REALSXP>{
  * Total specialization for numeric vectors (CPLXSXP)
  * typedef to Rcomplex
  */
-template<> struct storage_type<CPLXSXP>{ 
+template<> struct storage_type<CPLXSXP>{
 	typedef Rcomplex type ;
 } ;
 
@@ -64,7 +64,7 @@ template<> struct storage_type<CPLXSXP>{
  * Total specialization for raw vectors (RAWSXP)
  * typedef to Rbyte
  */
-template<> struct storage_type<RAWSXP>{ 
+template<> struct storage_type<RAWSXP>{
 	typedef Rbyte type ;
 } ;
 
@@ -72,7 +72,7 @@ template<> struct storage_type<RAWSXP>{
  * Total specialization for logical vectors (LGLSXP)
  * typedef to int
  */
-template<> struct storage_type<LGLSXP>{ 
+template<> struct storage_type<LGLSXP>{
 	typedef int type ;
 } ;
 

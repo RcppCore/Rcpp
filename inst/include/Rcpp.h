@@ -72,7 +72,7 @@
 // wrappers for R API 'scalar' functions
 #include <Rcpp/Rmath.h>
 
-// this stays at the very end, because it needs to 
+// this stays at the very end, because it needs to
 // 'see' all versions of wrap
 #include <Rcpp/internal/wrap_end.h>
 

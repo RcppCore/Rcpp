@@ -31,7 +31,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	
-	Rep( const VEC_TYPE& object_, int times_ ) : 
+	Rep( const VEC_TYPE& object_, int times_ ) :
 		object(object_), times(times_), n(object_.size()){}
 	
 	inline STORAGE operator[]( int i ) const {
@@ -45,9 +45,9 @@ private:
 } ;
 
 template <typename T>
-class Rep_Single : public Rcpp::VectorBase< 
-	Rcpp::traits::r_sexptype_traits<T>::rtype, 
-	true, 
+class Rep_Single : public Rcpp::VectorBase<
+	Rcpp::traits::r_sexptype_traits<T>::rtype,
+	true,
 	Rep_Single<T>
 > {
 public:

@@ -10,7 +10,7 @@
 // under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 2 of the License, or
 // (at your option) any later version.
-//                             
+//
 // Rcpp is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -29,7 +29,7 @@ namespace Rcpp {
     class Datetime {
     public:	
 		Datetime() {
-		    m_dt = 0; 
+		    m_dt = 0;
 		    update_tm();
 		}
 		Datetime(SEXP s);
@@ -37,11 +37,11 @@ namespace Rcpp {
 		// from double, just like POSIXct
 		Datetime(const double &dt){
 		    m_dt = dt;
-		    update_tm();        
+		    update_tm();
 		}
 		Datetime(const std::string &s, const std::string &fmt="%Y-%m-%d %H:%M:%OS");
 		
-		double getFractionalTimestamp(void) const { return m_dt; } 
+		double getFractionalTimestamp(void) const { return m_dt; }
 
 		int getMicroSeconds() const { return m_us; }
 		int getSeconds()      const { return m_tm.tm_sec; }
@@ -69,7 +69,7 @@ namespace Rcpp {
         double m_dt;				// fractional seconds since epoch
         struct tm m_tm;			// standard time representation
         unsigned int m_us;		// microsecond (to complement m_tm)
-                                
+
         // update m_tm based on m_dt
         void update_tm() {
             if (R_FINITE(m_dt)) {
@@ -100,9 +100,9 @@ namespace Rcpp {
 			return Rcpp::Datetime( from ) ;
 		}
     }
-    
+
     template<> SEXP wrap_extra_steps<Rcpp::Datetime>( SEXP x ) ;
-	   
+	
     inline Datetime operator+(const Datetime &datetime, double offset) {
 		Datetime newdt(datetime.m_dt);
 		newdt.m_dt += offset;
@@ -119,7 +119,7 @@ namespace Rcpp {
     inline bool    operator>=(const Datetime &d1, const Datetime& d2) { return d1.m_dt >= d2.m_dt; }
     inline bool    operator<=(const Datetime &d1, const Datetime& d2) { return d1.m_dt <= d2.m_dt; }
     inline bool    operator!=(const Datetime &d1, const Datetime& d2) { return d1.m_dt != d2.m_dt; }
- 
+
 }
 
 #endif

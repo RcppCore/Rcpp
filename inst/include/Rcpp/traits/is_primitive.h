@@ -27,7 +27,7 @@ namespace Rcpp{
 namespace traits{
 
 	template <typename T> struct is_primitive : public same_type<
-		typename r_type_traits<T>::r_category , 
+		typename r_type_traits<T>::r_category ,
 		r_type_primitive_tag
 	>{} ;
 	

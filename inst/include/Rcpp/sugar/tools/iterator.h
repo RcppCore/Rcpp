@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// iterator.h: Rcpp R/C++ interface class library -- 
+// iterator.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
 //
@@ -23,34 +23,34 @@
 #define Rcpp__sugar__tools_iterator_h
 
 namespace Rcpp {
-namespace sugar { 
+namespace sugar {
 
     /* generic sugar iterator type */
     template <typename T>
     class SugarIterator {
     public:
-        
+
         typedef int difference_type ;
         typedef typename Rcpp::traits::storage_type< Rcpp::traits::r_sexptype_traits<T>::rtype >::type STORAGE_TYPE ;
         typedef STORAGE_TYPE reference ;
         typedef STORAGE_TYPE* pointer ;
         typedef std::random_access_iterator_tag iterator_category ;
         typedef SugarIterator iterator ;
-        
+
         SugarIterator( const T& ref_ ) :ref(ref_), index(0) {}
         SugarIterator( const T& ref_, int index_) : ref(ref_), index(index_) {}
         SugarIterator( const SugarIterator& other) : ref(other.ref), index(other.index){}
-        
+
         inline iterator& operator++(){ index++; return *this ; }
-        inline iterator operator++(int){ 
+        inline iterator operator++(int){
             iterator orig(*this) ;
-            ++(*this); 
+            ++(*this);
             return orig ;
         }
         inline iterator& operator--(){ index--; return *this ; }
-        inline iterator operator--(int){ 
+        inline iterator operator--(int){
             iterator orig(*this) ;
-            --(*this); 
+            --(*this);
             return orig ;
         }
         inline iterator operator+(difference_type n) const {
@@ -64,7 +64,7 @@ namespace sugar {
 			return *this ;
 		}
 		inline iterator& operator-=(difference_type n) {
-			index -= n; 
+			index -= n;
 			return *this ;
 		}
         inline reference operator[](int i){
@@ -101,12 +101,12 @@ namespace sugar {
 			return index - other.index ;
 		}
 	
-        
-    private:   
+
+    private:
         const T& ref ;
         int index ;
     } ;
-    
+
     template <typename T> struct sugar_const_iterator_type {
         typedef SugarIterator<T> type ;
     } ;
@@ -116,24 +116,24 @@ namespace sugar {
     template <> struct sugar_const_iterator_type< CharacterVector >{
         typedef SEXP* type ;
     } ;
-    
-    
+
+
     template <typename T> struct is_sugar_vector : public Rcpp::traits::false_type{} ;
     template <int RTYPE> struct is_sugar_vector< Rcpp::Vector<RTYPE> > : public Rcpp::traits::true_type{} ;
-    
-    
+
+
     template <typename T>
     inline typename sugar_const_iterator_type<T>::type get_const_begin__impl(const T& obj, Rcpp::traits::true_type ){
         return obj.begin() ;
     }
     template <typename T>
     inline typename sugar_const_iterator_type<T>::type get_const_begin__impl(const T& obj, Rcpp::traits::false_type ){
-        typedef typename sugar_const_iterator_type<T>::type const_iterator ; 
+        typedef typename sugar_const_iterator_type<T>::type const_iterator ;
         return const_iterator( obj ) ;
     }
-    
-    
-    
+
+
+
     template <typename T>
     inline typename sugar_const_iterator_type<T>::type get_const_begin(const T& obj){
         return get_const_begin__impl( obj, typename is_sugar_vector<T>::type() ) ;
@@ -143,13 +143,13 @@ namespace sugar {
     inline SEXP* get_const_begin(const CharacterVector& obj){
         return get_string_ptr(obj) ;
     }
-    
+
     template <typename T>
     inline typename sugar_const_iterator_type<T>::type get_const_end(const T& obj){
         return get_const_begin<T>(obj) + obj.size() ;
     }
-    
-    
+
+
 }
 }
 #endif

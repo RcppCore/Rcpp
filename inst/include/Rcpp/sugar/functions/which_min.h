@@ -53,7 +53,7 @@ private:
     const VEC_TYPE& obj ;	
 	
 } ;
-   
+
 template <int RTYPE, typename T>
 class WhichMin<RTYPE,false,T> {
 public:
@@ -81,16 +81,16 @@ private:
 	
 } ;
 
-    
+
 } // sugar
 
 
 
 template <int RTYPE, bool NA, typename T>
 int which_min( const VectorBase<RTYPE,NA,T>& t ){
-	return sugar::WhichMin<RTYPE,NA,T>(t).get() ; 
+	return sugar::WhichMin<RTYPE,NA,T>(t).get() ;
 }
-  
+
 } // Rcpp
 #endif
 

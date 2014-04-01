@@ -7,8 +7,8 @@
 //
 //    The mktime00() as well as the gmtime_() replacement function are
 //    Copyright (C) 2000 - 2010  The R Development Core Team.
-// 
-//    gmtime_() etc are from the public domain timezone code dated 
+//
+//    gmtime_() etc are from the public domain timezone code dated
 //    1996-06-05 by Arthur David Olson.
 //
 // This file is part of Rcpp.
@@ -36,19 +36,19 @@ namespace Rcpp {
 
     // Taken from R's src/main/datetime.c and made a member function called with C++ reference
     /* Substitute for mktime -- no checking, always in GMT */
-    
+
     // [[Rcpp::register]]
     double mktime00(struct tm &tm) {
 
         static const int days_in_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        
+
         #define isleap(y) ((((y) % 4) == 0 && ((y) % 100) != 0) || ((y) % 400) == 0)
         #define days_in_year(year) (isleap(year) ? 366 : 365)
-        
+
         int day = 0;
         int i, year, year0;
         double excess = 0.0;
-        
+
         day = tm.tm_mday - 1;
         year0 = Date::baseYear() + tm.tm_year;
         /* safety check for unbounded loops */
@@ -59,11 +59,11 @@ namespace Rcpp {
             excess = -1 - (int)(-year0/2000);
             year0 -= excess * 2000;
         }
-        
+
         for(i = 0; i < tm.tm_mon; i++) day += days_in_month[i];
         if (tm.tm_mon > 1 && isleap(year0)) day++;
         tm.tm_yday = day;
-        
+
         if (year0 > 1970) {
             for (year = 1970; year < year0; year++)
                 day += days_in_year(year);
@@ -71,16 +71,16 @@ namespace Rcpp {
             for (year = 1969; year >= year0; year--)
                 day -= days_in_year(year);
         }
-        
+
         /* weekday: Epoch day was a Thursday */
         if ((tm.tm_wday = (day + 4) % 7) < 0) tm.tm_wday += 7;
-        
+
         return tm.tm_sec + (tm.tm_min * 60) + (tm.tm_hour * 3600)
             + (day + excess * 730485) * 86400.0;
     }
-    
+
     #undef isleap
-    #undef days_in_year 
+    #undef days_in_year
 
 #include "sys/types.h"	/* for time_t */
 #include "string.h"
@@ -558,7 +558,7 @@ struct tzhead {
 	int	 nread;
 	union {
 	    struct tzhead  tzhead;
-	    char  buf[2 * sizeof(struct tzhead) + 
+	    char  buf[2 * sizeof(struct tzhead) +
 		      2 * sizeof *sp + 4 * TZ_MAX_TIMES];
 	} u;
 
@@ -590,7 +590,7 @@ struct tzhead {
 		char buf[1000];
 		p = getenv("TZDIR");
 		if (p == NULL) {
-		    snprintf(buf, 1000, "%s/share/zoneinfo", 
+		    snprintf(buf, 1000, "%s/share/zoneinfo",
 			     getenv("R_HOME"));
 		    buf[999] = '\0';
 		    p = buf;
@@ -609,13 +609,13 @@ struct tzhead {
 	    }
 	    // edd 16 Jul 2010  comment out whole block
 	    //if (doaccess && access(name, R_OK) != 0) {
-		// edd 08 Jul 2010  we use this without TZ for dates only 
+		// edd 08 Jul 2010  we use this without TZ for dates only
 		//                  so no need to warn
 		//Rf_warning("unknown timezone '%s'", sname);
 		//return -1;
 	    //}
 	    if ((fid = open(name, OPEN_MODE)) == -1) {
-		// edd 08 Jul 2010  we use this without TZ for dates only 
+		// edd 08 Jul 2010  we use this without TZ for dates only
 		//                  so no need to warn
 		//Rf_warning("unknown timezone '%s'", sname);
 		return -1;
@@ -1217,7 +1217,7 @@ struct tzhead {
 	}
 	while (idays >= year_lengths[isleap(y)]) {
 	    idays -= year_lengths[isleap(y)];
-	    // if (increment_overflow(&y, 1)) // commented-out because of nasty g++ -Wall comment 
+	    // if (increment_overflow(&y, 1)) // commented-out because of nasty g++ -Wall comment
 	    // 	return NULL;
 	}
 	tmp->tm_year = y;

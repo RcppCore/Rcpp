@@ -14,12 +14,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-                    
+
 #ifndef Rcpp_api_meat_StretchyList_h
 #define Rcpp_api_meat_StretchyList_h
 
-namespace Rcpp{ 
-    
+namespace Rcpp{
+
     template< template <class> class StoragePolicy>
     template< typename T>
     StretchyList_Impl<StoragePolicy>& StretchyList_Impl<StoragePolicy>::push_back__impl( const T& obj, traits::false_type ){
@@ -68,7 +68,7 @@ namespace Rcpp{
         return *this ;
     }
 
-    
+
 }
 
 #endif

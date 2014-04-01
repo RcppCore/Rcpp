@@ -15,7 +15,7 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//                                                       
+//
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -23,7 +23,7 @@
 #define Rcpp_Module_generated_get_signature_h
 
 namespace Rcpp {
-    
+
 template <typename OUT>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
@@ -42,7 +42,7 @@ inline void signature(std::string& s, const char* name){
     s += name ;
     s += "(" ;
     s += get_return_type<U0>() ;
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -56,7 +56,7 @@ inline void signature(std::string& s, const char* name){
     s += "(" ;
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -73,7 +73,7 @@ inline void signature(std::string& s, const char* name){
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>();
     s += ", " ; s+= get_return_type<U2>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -91,7 +91,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U1>();
     s += ", " ; s+= get_return_type<U2>();
     s += ", " ; s+= get_return_type<U3>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -110,7 +110,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U2>();
     s += ", " ; s+= get_return_type<U3>();
     s += ", " ; s+= get_return_type<U4>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -130,7 +130,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U3>();
     s += ", " ; s+= get_return_type<U4>();
     s += ", " ; s+= get_return_type<U5>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -151,7 +151,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U4>();
     s += ", " ; s+= get_return_type<U5>();
     s += ", " ; s+= get_return_type<U6>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -173,7 +173,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U5>();
     s += ", " ; s+= get_return_type<U6>();
     s += ", " ; s+= get_return_type<U7>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -196,7 +196,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U6>();
     s += ", " ; s+= get_return_type<U7>();
     s += ", " ; s+= get_return_type<U8>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -220,7 +220,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U7>();
     s += ", " ; s+= get_return_type<U8>();
     s += ", " ; s+= get_return_type<U9>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -245,7 +245,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U8>();
     s += ", " ; s+= get_return_type<U9>();
     s += ", " ; s+= get_return_type<U10>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -271,7 +271,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U9>();
     s += ", " ; s+= get_return_type<U10>();
     s += ", " ; s+= get_return_type<U11>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -298,7 +298,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U10>();
     s += ", " ; s+= get_return_type<U11>();
     s += ", " ; s+= get_return_type<U12>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -326,7 +326,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U11>();
     s += ", " ; s+= get_return_type<U12>();
     s += ", " ; s+= get_return_type<U13>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -355,7 +355,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U12>();
     s += ", " ; s+= get_return_type<U13>();
     s += ", " ; s+= get_return_type<U14>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -385,7 +385,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U13>();
     s += ", " ; s+= get_return_type<U14>();
     s += ", " ; s+= get_return_type<U15>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -416,7 +416,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U14>();
     s += ", " ; s+= get_return_type<U15>();
     s += ", " ; s+= get_return_type<U16>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -448,7 +448,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U15>();
     s += ", " ; s+= get_return_type<U16>();
     s += ", " ; s+= get_return_type<U17>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -481,7 +481,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U16>();
     s += ", " ; s+= get_return_type<U17>();
     s += ", " ; s+= get_return_type<U18>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -515,7 +515,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U17>();
     s += ", " ; s+= get_return_type<U18>();
     s += ", " ; s+= get_return_type<U19>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -550,7 +550,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U18>();
     s += ", " ; s+= get_return_type<U19>();
     s += ", " ; s+= get_return_type<U20>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -586,7 +586,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U19>();
     s += ", " ; s+= get_return_type<U20>();
     s += ", " ; s+= get_return_type<U21>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -623,7 +623,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U20>();
     s += ", " ; s+= get_return_type<U21>();
     s += ", " ; s+= get_return_type<U22>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -661,7 +661,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U21>();
     s += ", " ; s+= get_return_type<U22>();
     s += ", " ; s+= get_return_type<U23>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -700,7 +700,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U22>();
     s += ", " ; s+= get_return_type<U23>();
     s += ", " ; s+= get_return_type<U24>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -740,7 +740,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U23>();
     s += ", " ; s+= get_return_type<U24>();
     s += ", " ; s+= get_return_type<U25>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -781,7 +781,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U24>();
     s += ", " ; s+= get_return_type<U25>();
     s += ", " ; s+= get_return_type<U26>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -823,7 +823,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U25>();
     s += ", " ; s+= get_return_type<U26>();
     s += ", " ; s+= get_return_type<U27>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -866,7 +866,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U26>();
     s += ", " ; s+= get_return_type<U27>();
     s += ", " ; s+= get_return_type<U28>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -910,7 +910,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U27>();
     s += ", " ; s+= get_return_type<U28>();
     s += ", " ; s+= get_return_type<U29>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -955,7 +955,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U28>();
     s += ", " ; s+= get_return_type<U29>();
     s += ", " ; s+= get_return_type<U30>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1001,7 +1001,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U29>();
     s += ", " ; s+= get_return_type<U30>();
     s += ", " ; s+= get_return_type<U31>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1048,7 +1048,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U30>();
     s += ", " ; s+= get_return_type<U31>();
     s += ", " ; s+= get_return_type<U32>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1096,7 +1096,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U31>();
     s += ", " ; s+= get_return_type<U32>();
     s += ", " ; s+= get_return_type<U33>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1145,7 +1145,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U32>();
     s += ", " ; s+= get_return_type<U33>();
     s += ", " ; s+= get_return_type<U34>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1195,7 +1195,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U33>();
     s += ", " ; s+= get_return_type<U34>();
     s += ", " ; s+= get_return_type<U35>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1246,7 +1246,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U34>();
     s += ", " ; s+= get_return_type<U35>();
     s += ", " ; s+= get_return_type<U36>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1298,7 +1298,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U35>();
     s += ", " ; s+= get_return_type<U36>();
     s += ", " ; s+= get_return_type<U37>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1351,7 +1351,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U36>();
     s += ", " ; s+= get_return_type<U37>();
     s += ", " ; s+= get_return_type<U38>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1405,7 +1405,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U37>();
     s += ", " ; s+= get_return_type<U38>();
     s += ", " ; s+= get_return_type<U39>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1460,7 +1460,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U38>();
     s += ", " ; s+= get_return_type<U39>();
     s += ", " ; s+= get_return_type<U40>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1516,7 +1516,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U39>();
     s += ", " ; s+= get_return_type<U40>();
     s += ", " ; s+= get_return_type<U41>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1573,7 +1573,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U40>();
     s += ", " ; s+= get_return_type<U41>();
     s += ", " ; s+= get_return_type<U42>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1631,7 +1631,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U41>();
     s += ", " ; s+= get_return_type<U42>();
     s += ", " ; s+= get_return_type<U43>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1690,7 +1690,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U42>();
     s += ", " ; s+= get_return_type<U43>();
     s += ", " ; s+= get_return_type<U44>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1750,7 +1750,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U43>();
     s += ", " ; s+= get_return_type<U44>();
     s += ", " ; s+= get_return_type<U45>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1811,7 +1811,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U44>();
     s += ", " ; s+= get_return_type<U45>();
     s += ", " ; s+= get_return_type<U46>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1873,7 +1873,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U45>();
     s += ", " ; s+= get_return_type<U46>();
     s += ", " ; s+= get_return_type<U47>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -1936,7 +1936,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U46>();
     s += ", " ; s+= get_return_type<U47>();
     s += ", " ; s+= get_return_type<U48>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2000,7 +2000,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U47>();
     s += ", " ; s+= get_return_type<U48>();
     s += ", " ; s+= get_return_type<U49>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2065,7 +2065,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U48>();
     s += ", " ; s+= get_return_type<U49>();
     s += ", " ; s+= get_return_type<U50>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2131,7 +2131,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U49>();
     s += ", " ; s+= get_return_type<U50>();
     s += ", " ; s+= get_return_type<U51>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2198,7 +2198,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U50>();
     s += ", " ; s+= get_return_type<U51>();
     s += ", " ; s+= get_return_type<U52>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2266,7 +2266,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U51>();
     s += ", " ; s+= get_return_type<U52>();
     s += ", " ; s+= get_return_type<U53>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2335,7 +2335,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U52>();
     s += ", " ; s+= get_return_type<U53>();
     s += ", " ; s+= get_return_type<U54>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2405,7 +2405,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U53>();
     s += ", " ; s+= get_return_type<U54>();
     s += ", " ; s+= get_return_type<U55>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2476,7 +2476,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U54>();
     s += ", " ; s+= get_return_type<U55>();
     s += ", " ; s+= get_return_type<U56>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2548,7 +2548,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U55>();
     s += ", " ; s+= get_return_type<U56>();
     s += ", " ; s+= get_return_type<U57>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2621,7 +2621,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U56>();
     s += ", " ; s+= get_return_type<U57>();
     s += ", " ; s+= get_return_type<U58>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2695,7 +2695,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U57>();
     s += ", " ; s+= get_return_type<U58>();
     s += ", " ; s+= get_return_type<U59>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2770,7 +2770,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U58>();
     s += ", " ; s+= get_return_type<U59>();
     s += ", " ; s+= get_return_type<U60>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2846,7 +2846,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U59>();
     s += ", " ; s+= get_return_type<U60>();
     s += ", " ; s+= get_return_type<U61>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -2923,7 +2923,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U60>();
     s += ", " ; s+= get_return_type<U61>();
     s += ", " ; s+= get_return_type<U62>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -3001,7 +3001,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U61>();
     s += ", " ; s+= get_return_type<U62>();
     s += ", " ; s+= get_return_type<U63>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -3080,7 +3080,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U62>();
     s += ", " ; s+= get_return_type<U63>();
     s += ", " ; s+= get_return_type<U64>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 
@@ -3160,7 +3160,7 @@ inline void signature(std::string& s, const char* name){
     s += ", " ; s+= get_return_type<U63>();
     s += ", " ; s+= get_return_type<U64>();
     s += ", " ; s+= get_return_type<U65>();
-    s += ")" ; 
+    s += ")" ;
 }
 
 }

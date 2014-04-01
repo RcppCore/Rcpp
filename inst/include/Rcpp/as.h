@@ -27,20 +27,20 @@
 namespace Rcpp{
 
     namespace internal{
-        
+
         template <typename T> T primitive_as( SEXP x ){
             if( ::Rf_length(x) != 1 ) throw ::Rcpp::not_compatible( "expecting a single value" ) ;
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype ;
             Shield<SEXP> y( r_cast<RTYPE>(x) );
             typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
             T res = caster<STORAGE,T>( *r_vector_start<RTYPE>( y ) ) ;
-            return res ; 
+            return res ;
         }
-        
+
         template <typename T> T as( SEXP x, ::Rcpp::traits::r_type_primitive_tag ) {
             return primitive_as<T>(x) ;
         }
-        
+
         inline const char* check_single_string( SEXP x){
             if( TYPEOF(x) == CHARSXP ) return CHAR( x ) ;
             if( ! ::Rf_isString(x) )
@@ -49,21 +49,21 @@ namespace Rcpp{
                 throw ::Rcpp::not_compatible( "expecting a single value");
             return CHAR( STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ) ;
         }
-        
-        
+
+
         template <typename T> T as_string( SEXP x, Rcpp::traits::true_type){
             const char* y = check_single_string(x) ;
             return std::wstring( y, y+strlen(y)) ;
         }
-        
+
         template <typename T> T as_string( SEXP x, Rcpp::traits::false_type){
             return check_single_string(x) ;
         }
-        
+
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_tag ) {
             return as_string<T>( x, typename Rcpp::traits::is_wide_string<T>::type() );
         }
-        
+
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_RcppString_tag ) {
             if( ! ::Rf_isString(x) ){
                 throw ::Rcpp::not_compatible( "expecting a string" ) ;
@@ -73,65 +73,65 @@ namespace Rcpp{
             }
             return STRING_ELT( ::Rcpp::r_cast<STRSXP>(x) ,0 ) ;
         }
-        
+
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_generic_tag ) {
             RCPP_DEBUG_1( "as(SEXP = <%p>, r_type_generic_tag )", x ) ;
             ::Rcpp::traits::Exporter<T> exporter(x);
             RCPP_DEBUG_1( "exporter type = %s", DEMANGLE(exporter) ) ;
             return exporter.get() ;
         }
-        
-        void* as_module_object_internal(SEXP obj) ; 
-        
+
+        void* as_module_object_internal(SEXP obj) ;
+
         template <typename T> object<T> as_module_object(SEXP x){
             return (T*) as_module_object_internal(x) ;
         }
-        
-        /** handling object<T> */ 
+
+        /** handling object<T> */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_const_pointer_tag ) {
             typedef typename Rcpp::traits::remove_const<T>::type T_NON_CONST ;
             return const_cast<T>( (T_NON_CONST)as_module_object_internal(x) ) ;
         }
-        
+
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_pointer_tag ) {
             return as_module_object<typename traits::un_pointer<T>::type>( x ) ;
         }
-        
+
         /** handling T such that T is exposed by a module */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_tag ){
             T* obj = as_module_object<T>(x) ;
             return *obj ;
         }
-        
+
         /** handling T such that T is a reference of a class handled by a module */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_reference_tag ){
             typedef typename traits::remove_reference<T>::type KLASS ;
             KLASS* obj = as_module_object<KLASS>(x) ;
             return *obj ;
         }
-        
+
         /** handling T such that T is a reference of a class handled by a module */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_const_reference_tag ){
             typedef typename traits::remove_const_and_reference<T>::type KLASS ;
             KLASS* obj = as_module_object<KLASS>(x) ;
             return const_cast<T>( *obj ) ;
         }
-        
+
         /** handling enums by converting to int first */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_enum_tag ){
             return T( primitive_as<int>(x) ) ;
         }
-        
+
     }
-        
-        
-    /** 
-     * Generic converted from SEXP to the typename. T can be any type that 
-     * has a constructor taking a SEXP, which is the case for all our 
-     * RObject and derived classes. 
+
+
+    /**
+     * Generic converted from SEXP to the typename. T can be any type that
+     * has a constructor taking a SEXP, which is the case for all our
+     * RObject and derived classes.
      *
      * If it is not possible to add the SEXP constructor, e.g you don't control
-     * the type, you can specialize the as template to perform the 
+     * the type, you can specialize the as template to perform the
      * requested conversion
      *
      * This is used for example in Environment, so that for example the code
@@ -143,18 +143,18 @@ namespace Rcpp{
     template <typename T> T as( SEXP x) {
         return internal::as<T>( x, typename traits::r_type_traits<T>::r_category() ) ;
     }
-    
+
     template <> inline char as<char>( SEXP x ){
-        return internal::check_single_string(x)[0] ;    
+        return internal::check_single_string(x)[0] ;
     }
-    
-    template <typename T> 
+
+    template <typename T>
     inline typename traits::remove_const_and_reference<T>::type bare_as( SEXP x ){
         return as< typename traits::remove_const_and_reference<T>::type >( x ) ;
     }
-    
+
     template<> inline SEXP as(SEXP x) { return x ; }
 
-} // Rcpp 
+} // Rcpp
 
 #endif

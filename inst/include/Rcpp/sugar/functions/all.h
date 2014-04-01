@@ -39,7 +39,7 @@ public:
 		for( int i=0 ; i<n ; i++){
 			current = object[i] ;
 			if( current == FALSE ) {
-				PARENT::set_false() ; 
+				PARENT::set_false() ;
 				return ;
 			}
 			if( Rcpp::traits::is_na<LGLSXP>(current)  ) {
@@ -68,7 +68,7 @@ public:
 		PARENT::set_true() ;
 		for( int i=0 ; i<n ; i++){
 			if( object[i] == FALSE ) {
-				PARENT::set_false() ; 
+				PARENT::set_false() ;
 				return ;
 			}
 		}

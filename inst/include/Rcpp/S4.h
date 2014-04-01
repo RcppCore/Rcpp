@@ -20,19 +20,19 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef Rcpp_S4_h
-#define Rcpp_S4_h                     
+#define Rcpp_S4_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
     /**
      * S4 object
      */
     RCPP_API_CLASS(S4_Impl) {
     public:
-        RCPP_GENERATE_CTOR_ASSIGN(S4_Impl) 
-    
+        RCPP_GENERATE_CTOR_ASSIGN(S4_Impl)
+
         S4_Impl(){} ;
-        
+
         /**
          * checks that x is an S4 object and wrap it.
          *
@@ -42,14 +42,14 @@ namespace Rcpp{
             if( ! ::Rf_isS4(x) ) throw not_s4() ;
             Storage::set__(x) ;
         }
-        
+
         S4_Impl& operator=( SEXP other ){
             Storage::set__( other ) ;
             return *this ;
         }
-        
+
         /**
-         * Creates an S4 object of the requested class. 
+         * Creates an S4 object of the requested class.
          *
          * @param klass name of the target S4 class
          * @throw not_s4 if klass does not map to a known S4 class
@@ -60,17 +60,17 @@ namespace Rcpp{
                 throw S4_creation_error( klass ) ;
             Storage::set__(x) ;
         }
-        
+
         /**
          * Indicates if this object is an instance of the given S4 class
          */
         bool is( const std::string& clazz) const ;
-        
+
         void update(SEXP x){
-            if( ! ::Rf_isS4(x) ) throw not_s4() ;    
+            if( ! ::Rf_isS4(x) ) throw not_s4() ;
         }
     } ;
-    
+
     typedef S4_Impl<PreserveStorage> S4 ;
 
 } // namespace Rcpp

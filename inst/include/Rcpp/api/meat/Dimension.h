@@ -19,13 +19,13 @@
 #define Rcpp_api_meat_Dimension_h
 
 namespace Rcpp{
-      
+
     inline Dimension::Dimension(SEXP dims_) : dims( as< std::vector<int> >(dims_) ){}
-	 
+	
     inline Dimension::operator SEXP() const {
-        return wrap( dims.begin(), dims.end() ) ;    
+        return wrap( dims.begin(), dims.end() ) ;
     }
-    
+
 }
 
 #endif

@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// sets.h: Rcpp R/C++ interface class library -- 
+// sets.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
 //
@@ -25,8 +25,8 @@
 #if __cplusplus >= 201103L
     #define RCPP_UNORDERED_SET std::unordered_set
     #define RCPP_UNORDERED_MAP std::unordered_map
-    
-    namespace std { 
+
+    namespace std {
         template<>
         struct hash<Rcpp::String> {
             std::size_t operator()(const Rcpp::String& key) const {
@@ -35,13 +35,13 @@
             hash<SEXP> pointer_hasher ;
         };
     }
-  
+
 #elif defined(HAS_TR1_UNORDERED_SET)
     #define RCPP_UNORDERED_SET std::tr1::unordered_set
     #define RCPP_UNORDERED_MAP std::tr1::unordered_map
-    
-    namespace std { 
-        namespace tr1 { 
+
+    namespace std {
+        namespace tr1 {
             template<>
             struct hash<Rcpp::String> {
                 std::size_t operator()(const Rcpp::String& key) const {
@@ -51,11 +51,11 @@
             };
         }
     }
-  
-    
+
+
 #else
     #define RCPP_UNORDERED_SET std::set
-    #define RCPP_UNORDERED_MAP std::map  
+    #define RCPP_UNORDERED_MAP std::map
 #endif
 
 #endif

@@ -6,7 +6,7 @@
 //
 // Rcpp is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 2 of the License, or           
+// the Free Software Foundation, either version 2 of the License, or
 // (at your option) any later version.
 //
 // Rcpp is distributed in the hope that it will be useful, but
@@ -35,7 +35,7 @@ namespace Rcpp {
 	    info.names() = names ;
 	    return info ;
 	}
-        
+
     inline CppClass Module::get_class( const std::string& cl ){
         BEGIN_RCPP
             CLASS_MAP::iterator it = classes.find(cl) ;
@@ -44,7 +44,7 @@ namespace Rcpp {
             return CppClass( this, it->second, buffer ) ;
         END_RCPP
     }
-        
+
 }
 
 #endif

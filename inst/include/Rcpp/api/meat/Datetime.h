@@ -19,9 +19,9 @@
 #define Rcpp_api_meat_Datetime_h
 
 namespace Rcpp{
-    
+
     inline Datetime::Datetime(SEXP d) {
-		m_dt = Rcpp::as<double>(d); 
+		m_dt = Rcpp::as<double>(d);
 		update_tm();
     }
 
@@ -31,18 +31,18 @@ namespace Rcpp{
 		m_dt = Rcpp::as<double>(asPOSIXct(strptime(s, fmt)));
 		update_tm();
     }
-    
-    template<> 
+
+    template<>
     inline SEXP wrap_extra_steps<Rcpp::Datetime>( SEXP x ){
-		Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses() ); 
+		Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses() );
 		return x ;
     }
 	
-    template <> 
+    template <>
     inline SEXP wrap<Datetime>(const Datetime &date) {
 		return internal::new_posixt_object( date.getFractionalTimestamp() ) ;
     }
-    
+
 
 }
 
