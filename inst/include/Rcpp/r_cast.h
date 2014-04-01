@@ -26,7 +26,7 @@
 
 namespace Rcpp{
     namespace internal {
-        
+
         inline SEXP convert_using_rfunction(SEXP x, const char* const fun){
             Armor<SEXP> res ;
             try{
@@ -37,15 +37,15 @@ namespace Rcpp{
             }
             return res;
         }
-        
+
         // r_true_cast is only meant to be used when the target SEXP type
-        // is different from the SEXP type of x 
+        // is different from the SEXP type of x
         template <int TARGET>
         SEXP r_true_cast( SEXP x) {
             throw not_compatible( "not compatible" ) ;
             return x ; // makes solaris happy
         }
-        
+
         template <int RTYPE>
         SEXP basic_cast( SEXP x){
             if( TYPEOF(x) == RTYPE ) return x ;
@@ -62,28 +62,28 @@ namespace Rcpp{
             return R_NilValue ; /* -Wall */
         }
 
-        template<> 
+        template<>
         inline SEXP r_true_cast<INTSXP>(SEXP x){
-            return basic_cast<INTSXP>(x) ;    
+            return basic_cast<INTSXP>(x) ;
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<REALSXP>(SEXP x){
-            return basic_cast<REALSXP>(x) ;    
+            return basic_cast<REALSXP>(x) ;
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<RAWSXP>(SEXP x){
-            return  basic_cast<RAWSXP>(x) ;   
+            return  basic_cast<RAWSXP>(x) ;
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<CPLXSXP>(SEXP x){
             return basic_cast<CPLXSXP>(x) ;
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<LGLSXP>(SEXP x){
             return basic_cast<LGLSXP>(x) ;
         }
-        
-        template <> 
+
+        template <>
         inline SEXP r_true_cast<STRSXP>(SEXP x){
             switch( TYPEOF( x ) ){
             case CPLXSXP:
@@ -101,26 +101,26 @@ namespace Rcpp{
             case CHARSXP:
                 return Rf_ScalarString( x ) ;
             case SYMSXP:
-                return Rf_ScalarString( PRINTNAME( x ) ) ; 
+                return Rf_ScalarString( PRINTNAME( x ) ) ;
             default:
                 throw ::Rcpp::not_compatible( "not compatible with STRSXP" ) ;
             }
             return R_NilValue ; /* -Wall */
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<VECSXP>(SEXP x) {
-            return convert_using_rfunction(x, "as.list" ) ;    
+            return convert_using_rfunction(x, "as.list" ) ;
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<EXPRSXP>(SEXP x) {
             return convert_using_rfunction(x, "as.expression" ) ;
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<LISTSXP>(SEXP x) {
             switch( TYPEOF(x) ){
             case LANGSXP:
                 {
-                    Shield<SEXP> y( Rf_duplicate( x )); 
+                    Shield<SEXP> y( Rf_duplicate( x ));
                     SET_TYPEOF(y,LISTSXP) ;
                     return y ;
                 }
@@ -128,15 +128,28 @@ namespace Rcpp{
                 return convert_using_rfunction(x, "as.pairlist" ) ;
             }
         }
-        template<> 
+        template<>
         inline SEXP r_true_cast<LANGSXP>(SEXP x) {
-            return convert_using_rfunction(x, "as.call" ) ;    
+            return convert_using_rfunction(x, "as.call" ) ;
         }
 
-    } // namespace internal 
+    } // namespace internal
 
-    template <int TARGET> SEXP r_cast( SEXP x) { 
-        return (TYPEOF(x)== TARGET) ? x : internal::r_true_cast<TARGET>(x) ; 
+    template <int TARGET> SEXP r_cast(SEXP x) {
+        if (TYPEOF(x) == TARGET) {
+            return x;
+        } else {
+            #ifndef RCPP_DONT_WARN_ON_COERCE
+            Shield<SEXP> result( internal::r_true_cast<TARGET>(x) );
+            Rf_warning("coerced object from '%s' to '%s'",
+                CHAR(Rf_type2str(TYPEOF(x))),
+                CHAR(Rf_type2str(TARGET))
+            );
+            return result;
+            #else
+            return internal::r_true_cast<TARGET>(x);
+            #endif
+        }
     }
 
 } // namespace Rcpp
