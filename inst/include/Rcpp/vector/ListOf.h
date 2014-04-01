@@ -29,14 +29,14 @@ public:
     typedef typename traits::r_vector_iterator<VECSXP>::type iterator;
     typedef typename traits::r_vector_const_iterator<VECSXP>::type const_iterator;
 
-    ListOf(): list(R_NilValue) {};
+    ListOf(): list(R_NilValue) {}
 
-    ListOf(SEXP data_): list(data_) {};
+    ListOf(SEXP data_): list(data_) {}
 
     template <typename U>
-    ListOf(const U& data_): list(data_) {};
+    ListOf(const U& data_): list(data_) {}
 
-    ListOf(const ListOf& other): list(other.list) {};
+    ListOf(const ListOf& other): list(other.list) {}
     ListOf& operator=(const ListOf& other) {
         if (this != &other) {
             list = other.list;
