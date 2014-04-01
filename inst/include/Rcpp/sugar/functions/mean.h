@@ -30,12 +30,12 @@ class Mean : public Lazy< typename Rcpp::traits::storage_type<RTYPE>::type , Mea
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-		                                             
+		
 	Mean( const VEC_TYPE& object_ ) : object(object_){}
 	
 	STORAGE get() const {
 		return sum(object).get() / object.size() ;
-	}         
+	}
 private:
 	const VEC_TYPE& object ;
 } ;

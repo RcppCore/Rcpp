@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// VectorBase.h: Rcpp R/C++ interface class library -- 
+// VectorBase.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -56,7 +56,7 @@ public:
 		typedef stored_type value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
 
-		iterator( const VectorBase& object_, int index_ ) : object(object_.get_ref()), index(index_){} 
+		iterator( const VectorBase& object_, int index_ ) : object(object_.get_ref()), index(index_){}
 		iterator( const iterator& other) : object(other.object), index(other.index){};
 		
 		inline iterator& operator++(){
@@ -64,7 +64,7 @@ public:
 			return *this ;
 		}
 		inline iterator operator++(int){
-			iterator orig(*this); 
+			iterator orig(*this);
 		    ++(*this) ;
 			return orig ;
 		}
@@ -74,11 +74,11 @@ public:
 			return *this ;
 		}
 		inline iterator operator--(int){
-			iterator orig(*this); 
+			iterator orig(*this);
 		    --(*this) ;
 			return orig ;
 		}
-		                    
+		
 		inline iterator operator+(difference_type n) const {
 			return iterator( object, index+n ) ;
 		}
@@ -91,7 +91,7 @@ public:
 			return *this ;
 		}
 		inline iterator& operator-=(difference_type n) {
-			index -= n; 
+			index -= n;
 			return *this ;
 		}
 
@@ -132,7 +132,7 @@ public:
 			
 	private:
 		const VECTOR& object ;
-		int index; 
+		int index;
 	} ;
 	
 	inline iterator begin() const { return iterator(*this, 0) ; }

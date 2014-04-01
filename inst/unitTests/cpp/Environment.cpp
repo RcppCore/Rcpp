@@ -24,7 +24,7 @@ using namespace Rcpp ;
 
 // [[Rcpp::export]]
 SEXP runit_ls( Environment env ){
-    return env.ls(true) ;    
+    return env.ls(true) ;
 }
 
 // [[Rcpp::export]]

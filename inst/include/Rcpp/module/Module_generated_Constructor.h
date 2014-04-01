@@ -54,9 +54,9 @@ class Constructor_1 : public Constructor_Base<Class>{
 template <typename Class, typename U0, typename U1>
 class Constructor_2 : public Constructor_Base<Class>{
     virtual Class* get_new( SEXP* args, int nargs ){
-        return new Class( 
-            as<U0>(args[0]), 
-            as<U1>(args[1]) 
+        return new Class(
+            as<U0>(args[0]),
+            as<U1>(args[1])
             ) ;
     }
     virtual int nargs(){ return 2 ; }
@@ -67,10 +67,10 @@ class Constructor_2 : public Constructor_Base<Class>{
 template <typename Class, typename U0, typename U1, typename U2>
 class Constructor_3 : public Constructor_Base<Class>{
     virtual Class* get_new( SEXP* args, int nargs ){
-        return new Class( 
-            as<U0>(args[0]), 
-            as<U1>(args[1]), 
-            as<U2>(args[2]) 
+        return new Class(
+            as<U0>(args[0]),
+            as<U1>(args[1]),
+            as<U2>(args[2])
             ) ;
     }
     virtual int nargs(){ return 3 ; }
@@ -81,11 +81,11 @@ class Constructor_3 : public Constructor_Base<Class>{
 template <typename Class, typename U0, typename U1, typename U2, typename U3>
 class Constructor_4 : public Constructor_Base<Class>{
     virtual Class* get_new( SEXP* args, int nargs ){
-        return new Class( 
-            as<U0>(args[0]), 
-            as<U1>(args[1]), 
-            as<U2>(args[2]), 
-            as<U3>(args[3]) 
+        return new Class(
+            as<U0>(args[0]),
+            as<U1>(args[1]),
+            as<U2>(args[2]),
+            as<U3>(args[3])
             ) ;
     }
     virtual int nargs(){ return 4 ; }
@@ -96,12 +96,12 @@ class Constructor_4 : public Constructor_Base<Class>{
 template <typename Class, typename U0, typename U1, typename U2, typename U3, typename U4>
 class Constructor_5 : public Constructor_Base<Class>{
     virtual Class* get_new( SEXP* args, int nargs ){
-        return new Class( 
-            as<U0>(args[0]), 
-            as<U1>(args[1]), 
-            as<U2>(args[2]), 
-            as<U3>(args[3]), 
-            as<U4>(args[4]) 
+        return new Class(
+            as<U0>(args[0]),
+            as<U1>(args[1]),
+            as<U2>(args[2]),
+            as<U3>(args[3]),
+            as<U4>(args[4])
             ) ;
     }
     virtual int nargs(){ return 5 ; }
@@ -112,13 +112,13 @@ class Constructor_5 : public Constructor_Base<Class>{
 template <typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
 class Constructor_6 : public Constructor_Base<Class>{
     virtual Class* get_new( SEXP* args, int nargs ){
-        return new Class( 
-            as<U0>(args[0]), 
-            as<U1>(args[1]), 
-            as<U2>(args[2]), 
-            as<U3>(args[3]), 
+        return new Class(
+            as<U0>(args[0]),
+            as<U1>(args[1]),
+            as<U2>(args[2]),
+            as<U3>(args[3]),
             as<U4>(args[4]),
-            as<U5>(args[5]) 
+            as<U5>(args[5])
             ) ;
     }
     virtual int nargs(){ return 6 ; }
@@ -129,14 +129,14 @@ class Constructor_6 : public Constructor_Base<Class>{
 template <typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
 class Constructor_7 : public Constructor_Base<Class>{
     virtual Class* get_new( SEXP* args, int nargs ){
-        return new Class( 
-            as<U0>(args[0]), 
-            as<U1>(args[1]), 
-            as<U2>(args[2]), 
-            as<U3>(args[3]), 
+        return new Class(
+            as<U0>(args[0]),
+            as<U1>(args[1]),
+            as<U2>(args[2]),
+            as<U3>(args[3]),
             as<U4>(args[4]),
             as<U5>(args[5]),
-            as<U6>(args[6]) 
+            as<U6>(args[6])
             ) ;
     }
     virtual int nargs(){ return 7 ; }

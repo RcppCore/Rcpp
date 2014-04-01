@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// 00_forward_Vector.h: Rcpp R/C++ interface class library -- 
+// 00_forward_Vector.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //

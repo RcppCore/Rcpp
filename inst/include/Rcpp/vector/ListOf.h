@@ -87,9 +87,9 @@ public:
     }
 
     inline int size() const {
-        return list.size() ;    
+        return list.size() ;
     }
-    
+
     class ListOfProxy {
 
     public:

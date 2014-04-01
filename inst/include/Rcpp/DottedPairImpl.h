@@ -23,27 +23,27 @@ namespace Rcpp{
     template <typename CLASS>
     class DottedPairImpl {
     public:
-             
+
         /**
          * wraps an object and add it at the end of the pairlist
          * (this require traversing the entire pairlist)
          *
-         * @param object anything that can be wrapped by one 
-         * of the wrap functions, named objects (instances of traits::named_object<> 
+         * @param object anything that can be wrapped by one
+         * of the wrap functions, named objects (instances of traits::named_object<>
          * are treated specially
          */
         template <typename T>
         void push_back( const T& object) ;
-        
+
         /**
-         * wraps an object and add it in front of the pairlist. 
+         * wraps an object and add it in front of the pairlist.
          *
-         * @param object anything that can be wrapped by one 
+         * @param object anything that can be wrapped by one
          * of the wrap functions, or an object of class Named
          */
         template <typename T>
         void push_front( const T& object) ;
-        
+
         /**
          * insert an object at the given position, pushing other objects
          * to the tail of the list
@@ -53,7 +53,7 @@ namespace Rcpp{
          */
         template <typename T>
         void insert( const size_t& index, const T& object) ;
-        
+
         /**
          * replaces an element of the list
          *
@@ -62,28 +62,28 @@ namespace Rcpp{
          */
         template <typename T>
         void replace( const int& index, const T& object ) ;
-        
-        inline R_len_t length() const { 
-            return ::Rf_length(static_cast<const CLASS&>(*this).get__()) ; 
+
+        inline R_len_t length() const {
+            return ::Rf_length(static_cast<const CLASS&>(*this).get__()) ;
         }
-        
-        inline R_len_t size() const { 
-            return ::Rf_length(static_cast<const CLASS&>(*this).get__()) ; 
+
+        inline R_len_t size() const {
+            return ::Rf_length(static_cast<const CLASS&>(*this).get__()) ;
         }
-        
+
         /**
          * Remove the element at the given position
          *
          * @param index position where the element is to be removed
          */
-        void remove( const size_t& index ); 
-	    
+        void remove( const size_t& index );
+	
         template <typename T>
 	    friend DottedPairImpl& operator<<(DottedPairImpl& os, const T& t){
 	        os.push_back( t ) ;
 	        return os ;
 	    }
-	    
+	
 	    template <typename T>
 	    friend DottedPairImpl& operator>>( const T& t, DottedPairImpl& s){
 	        s.push_front(t);
@@ -91,7 +91,7 @@ namespace Rcpp{
 	    }
 	
     } ;
-    
+
 }
 
 #endif

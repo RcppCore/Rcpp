@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// string_proxy.h: Rcpp R/C++ interface class library -- 
+// string_proxy.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -21,7 +21,7 @@
 
 #ifndef Rcpp__vector__string_proxy_h
 #define Rcpp__vector__string_proxy_h
- 
+
 namespace Rcpp{
 namespace internal{
 	
@@ -38,16 +38,16 @@ namespace internal{
 		 * Creates a proxy
 		 *
 		 * @param v reference to the associated character vector
-		 * @param index index 
+		 * @param index index
 		 */
 		string_proxy( VECTOR& v, int index_ ) : parent(&v), index(index_){}
 			
-		string_proxy( const string_proxy& other ) : 
+		string_proxy( const string_proxy& other ) :
 			parent(other.parent), index(other.index){} ;
 		
 		/**
-		 * lhs use. Assign the value of the referred element to 
-		 * the current content of the element referred by the 
+		 * lhs use. Assign the value of the referred element to
+		 * the current content of the element referred by the
 		 * rhs proxy
 		 *
 		 * @param rhs another proxy, possibly from another vector
@@ -96,14 +96,14 @@ namespace internal{
 		}
 		
         /**
-         * lhs use. Adds the content of the rhs proxy to the 
+         * lhs use. Adds the content of the rhs proxy to the
          * element this proxy refers to.
          */
         template <typename T>
         string_proxy& operator+=(const T& rhs) ;
 		
 		/**
-		 * rhs use. Retrieves the current value of the 
+		 * rhs use. Retrieves the current value of the
 		 * element this proxy refers to.
 		 */
 		operator SEXP() const {
@@ -111,21 +111,21 @@ namespace internal{
 		}
 		
 		/**
-		 * rhs use. Retrieves the current value of the 
-		 * element this proxy refers to and convert it to a 
+		 * rhs use. Retrieves the current value of the
+		 * element this proxy refers to and convert it to a
 		 * C string
 		 */
 		 operator /* const */ char*() const {
 		 	 return const_cast<char*>( CHAR(get()) );
 		 }
-		 
+		
 		 // operator std::wstring() const {
 		 //     const char* st = CHAR(get()) ;
 		 //     return std::wstring( st, st+strlen(st) ) ;
 		 // }
 		
 		/**
-		 * Prints the element this proxy refers to to an 
+		 * Prints the element this proxy refers to to an
 		 * output stream
 		 */
 		template <int RT>
@@ -140,7 +140,7 @@ namespace internal{
 			SET_STRING_ELT( *(other.parent), other.index, tmp ) ;
 		}
 		
-		VECTOR* parent; 
+		VECTOR* parent;
 		int index ;
 		inline void move( int n ){ index += n ;}
 		
@@ -199,32 +199,32 @@ namespace internal{
 	
 	template <int RT>
 	bool operator<( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) < 0 ;
 	}
 
 	template <int RT>
 	bool operator>( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) > 0 ;
 	}
 	
 	template <int RT>
 	bool operator>=( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) >= 0 ;
 	}
 	
 	template <int RT>
 	bool operator<=( const string_proxy<RT>& lhs, const string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) <= 0 ;
 	}

@@ -31,7 +31,7 @@ namespace internal{
 		typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
 		simple_name_proxy( VECTOR& v, const std::string& name_) :
 			parent(v), name(name_){} ;
-		simple_name_proxy( const simple_name_proxy& other ) : 
+		simple_name_proxy( const simple_name_proxy& other ) :
 			parent(other.parent), name(other.name){} ;
 		~simple_name_proxy() {} ;
 		
@@ -70,7 +70,7 @@ namespace internal{
 				index = parent.offset(name) ;
 				parent[ index ] = rhs ;
 			} catch( const index_out_of_bounds& ex ){
-				parent.push_back( rhs, name ); 
+				parent.push_back( rhs, name );
 			}
 		}
 		CTYPE get() const {
@@ -87,7 +87,7 @@ namespace internal{
 		
 		string_name_proxy( VECTOR& v, const std::string& name_) :
 			parent(v), name(name_){} ;
-		string_name_proxy( const string_name_proxy& other ) : 
+		string_name_proxy( const string_name_proxy& other ) :
 			parent(other.parent), name(other.name){} ;
 		~string_name_proxy(){} ;
 		
@@ -122,7 +122,7 @@ namespace internal{
 				index = parent.offset(name) ;
 				parent[ index ] = rhs ;
 			} catch( const index_out_of_bounds& ex ){
-				parent.push_back( rhs, name ); 
+				parent.push_back( rhs, name );
 			}
 		}
 		char* get(){
@@ -136,7 +136,7 @@ namespace internal{
 		typedef ::Rcpp::Vector<RTYPE> VECTOR ;
 		generic_name_proxy( VECTOR& v, const std::string& name_) :
 			parent(v), name(name_){}
-		generic_name_proxy( const generic_name_proxy& other ) : 
+		generic_name_proxy( const generic_name_proxy& other ) :
 			parent(other.parent), name(other.name){}
 		~generic_name_proxy(){} ;
 		
@@ -173,7 +173,7 @@ namespace internal{
 		}
 		
 		operator bool() const{
-		    return ::Rcpp::as<bool>(get()); 
+		    return ::Rcpp::as<bool>(get());
 		}
 		
 	private:
@@ -185,7 +185,7 @@ namespace internal{
 				index = parent.offset(name) ;
 				parent[ index ] = rhs ;
 			} catch( const index_out_of_bounds& ex ){
-				parent.push_back( rhs, name ); 
+				parent.push_back( rhs, name );
 			}
 		}
 		SEXP get() const {
@@ -196,7 +196,7 @@ namespace internal{
 
 namespace traits {
 	
-	template <int RTYPE> 
+	template <int RTYPE>
 	struct r_vector_name_proxy{
 		typedef typename ::Rcpp::internal::simple_name_proxy<RTYPE> type ;
 	} ;
@@ -227,7 +227,7 @@ namespace traits {
 	template <int RTYPE>
 	struct r_vector_const_proxy{
 		typedef const typename storage_type<RTYPE>::type& type ;
-	} ;                                            
+	} ;
 	template<> struct r_vector_const_proxy<STRSXP> {
 		typedef ::Rcpp::internal::const_string_proxy<STRSXP> type ;
 	} ;

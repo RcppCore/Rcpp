@@ -19,7 +19,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 #ifndef Rcpp__traits__has_na__h
 #define Rcpp__traits__has_na__h
 
@@ -28,8 +28,8 @@ namespace traits{
 
 /**
  * Indentifies if a given SEXP type has the concept of missing values
- * 
- * This is false by default and specialized for all types that do 
+ *
+ * This is false by default and specialized for all types that do
  * have the concept
  */
 template<int RTYPE> struct has_na : public false_type{} ;

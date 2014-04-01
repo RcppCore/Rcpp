@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // is_finite.h: Rcpp R/C++ interface class library -- is finite
-//                                                                      
+//
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -25,36 +25,36 @@
 namespace Rcpp{
 
     namespace traits{
-        
-        // default for complex, 
-        template <int RTYPE> 
+
+        // default for complex,
+        template <int RTYPE>
         bool is_finite( typename storage_type<RTYPE>::type);
-        
-        template <> 
+
+        template <>
         inline bool is_finite<INTSXP>(int x){
             return x != NA_INTEGER;
         }
-        
-        template <> 
+
+        template <>
         inline bool is_finite<REALSXP>(double x) {
             return R_finite(x);
         }
-        
-        template <> 
+
+        template <>
         inline bool is_finite<CPLXSXP>(Rcomplex x) {
             return !( !R_finite(x.r) || !R_finite(x.i) );
         }
-        
+
         template <>
-        inline bool is_finite<STRSXP>(SEXP) { 
-            return false; 	// see rcpp-devel on 2013-10-02; was:  x != NA_STRING; 
+        inline bool is_finite<STRSXP>(SEXP) {
+            return false; 	// see rcpp-devel on 2013-10-02; was:  x != NA_STRING;
         }
-        
+
         template <>
-        inline bool is_finite<LGLSXP>(int x) { 
-            return x != NA_LOGICAL; 
+        inline bool is_finite<LGLSXP>(int x) {
+            return x != NA_LOGICAL;
         }
-        
+
 }
 }
 

@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rhyper.h: Rcpp R/C++ interface class library -- 
+// rhyper.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -24,17 +24,17 @@
 
 namespace Rcpp {
     namespace stats {
-        
+
         class HyperGenerator : public Generator<double>{
         public:
-            HyperGenerator( double nn1_, double nn2_, double kk_) : 
+            HyperGenerator( double nn1_, double nn2_, double kk_) :
                 nn1(nn1_), nn2(nn2_), kk(kk_){}
-            inline double operator()() const { return ::Rf_rhyper(nn1, nn2, kk) ;}  
+            inline double operator()() const { return ::Rf_rhyper(nn1, nn2, kk) ;}
         private:
             double nn1, nn2, kk ;
         } ;
     }
-    
+
 } // Rcpp
 
 #endif

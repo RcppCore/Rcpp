@@ -32,15 +32,15 @@ class Vectorized : public VectorBase<REALSXP, NA, Vectorized<Func,NA,VEC> >{
 public:
     typedef typename Rcpp::VectorBase<REALSXP,NA,VEC> VEC_TYPE ;
     typedef typename Rcpp::traits::Extractor<REALSXP,NA,VEC>::type VEC_EXT ;
-        
+
     Vectorized( const VEC_TYPE& object_) : object( object_.get_ref() ){}
     inline double operator[]( int i) const {
         return Func( object[i] ) ;
     }
     inline int size() const { return object.size(); }
-        
+
 private:
-    const VEC_EXT& object ;     
+    const VEC_EXT& object ;
 } ;
 
 template <DDFun Func, bool NA, typename VEC>
@@ -48,7 +48,7 @@ class Vectorized_INTSXP : public VectorBase<REALSXP, NA, Vectorized_INTSXP<Func,
 public:
     typedef typename Rcpp::VectorBase<INTSXP,NA,VEC> VEC_TYPE ;
     typedef typename Rcpp::traits::Extractor<INTSXP,NA,VEC>::type VEC_EXT ;
-        
+
     Vectorized_INTSXP( const VEC_TYPE& object_) : object( object_.get_ref() ){}
     inline double operator[]( int i) const {
         int x = object[i] ;
@@ -56,25 +56,25 @@ public:
         return Func( x ) ;
     }
     inline int size() const { return object.size(); }
-        
+
 private:
-    const VEC_EXT& object ;     
+    const VEC_EXT& object ;
 } ;
 template <DDFun Func, typename VEC>
-class Vectorized_INTSXP<Func,false,VEC> : 
+class Vectorized_INTSXP<Func,false,VEC> :
     public VectorBase<REALSXP,false, Vectorized_INTSXP<Func,false,VEC> >{
 public:
     typedef typename Rcpp::VectorBase<INTSXP,false,VEC> VEC_TYPE ;
     typedef typename Rcpp::traits::Extractor<INTSXP,false,VEC>::type VEC_EXT ;
-        
+
     Vectorized_INTSXP( const VEC_TYPE& object_) : object( object_.get_ref() ){}
     inline double operator[]( int i) const {
         return Func( object[i] ) ;
     }
     inline int size() const { return object.size(); }
-        
+
 private:
-    const VEC_EXT& object ;     
+    const VEC_EXT& object ;
 } ;
 
 } // sugar

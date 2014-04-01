@@ -32,11 +32,11 @@ namespace Rcpp {
     public:
         DatetimeVector(SEXP vec) : GreedyVector<Datetime, DatetimeVector>(vec){}
         DatetimeVector(int n) : GreedyVector<Datetime, DatetimeVector>(n){}
-        
+
         std::vector<Datetime> getDatetimes() const{
-            return v ;    
+            return v ;
         }
-        
+
     };
 }
 

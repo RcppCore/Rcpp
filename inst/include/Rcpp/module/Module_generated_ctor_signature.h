@@ -15,7 +15,7 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//                                                       
+//
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -24,13 +24,13 @@
 
 inline void ctor_signature( std::string& s, const std::string& classname){
     s.assign(classname) ;
-    s+= "()" ; 
+    s+= "()" ;
 }
 
 template <typename U0>
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.assign(classname) ;
-    s += "(" ; 
+    s += "(" ;
     s += get_return_type<U0>() ;
     s += ")" ;
 }
@@ -38,7 +38,7 @@ inline void ctor_signature( std::string& s, const std::string& classname ){
 template <typename U0, typename U1>
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.assign(classname) ;
-    s += "(" ; 
+    s += "(" ;
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ")" ;
@@ -47,7 +47,7 @@ inline void ctor_signature( std::string& s, const std::string& classname ){
 template <typename U0, typename U1, typename U2>
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.assign(classname) ;
-    s += "(" ; 
+    s += "(" ;
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ", " ; s+= get_return_type<U2>() ;
@@ -57,7 +57,7 @@ inline void ctor_signature( std::string& s, const std::string& classname ){
 template <typename U0, typename U1, typename U2, typename U3>
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.assign(classname) ;
-    s += "(" ; 
+    s += "(" ;
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ", " ; s+= get_return_type<U2>() ;
@@ -68,7 +68,7 @@ inline void ctor_signature( std::string& s, const std::string& classname ){
 template <typename U0, typename U1, typename U2, typename U3, typename U4>
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.assign(classname) ;
-    s += "(" ; 
+    s += "(" ;
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ", " ; s+= get_return_type<U2>() ;
@@ -80,7 +80,7 @@ inline void ctor_signature( std::string& s, const std::string& classname ){
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.assign(classname) ;
-    s += "(" ; 
+    s += "(" ;
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ", " ; s+= get_return_type<U2>() ;
@@ -93,7 +93,7 @@ inline void ctor_signature( std::string& s, const std::string& classname ){
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
 inline void ctor_signature( std::string& s, const std::string& classname ){
     s.assign(classname) ;
-    s += "(" ; 
+    s += "(" ;
     s += get_return_type<U0>() ;
     s += ", " ; s+= get_return_type<U1>() ;
     s += ", " ; s+= get_return_type<U2>() ;

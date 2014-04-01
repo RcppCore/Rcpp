@@ -23,9 +23,9 @@
 #ifndef Rcpp__traits__traits__h
 #define Rcpp__traits__traits__h
 
-namespace Rcpp {    
+namespace Rcpp {
 namespace traits {
-    
+
 template <typename T>
 struct identity { typedef T type; };
 

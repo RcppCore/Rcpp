@@ -33,7 +33,7 @@ public:
 		return 1 + i ;
 	}
 	inline int size() const { return len ; }
-	         
+	
 private:
 	int len ;
 } ;

@@ -29,26 +29,26 @@ template <typename HASH, typename STORAGE>
 class CountInserter {
 public:
     CountInserter( HASH& hash_ ) : hash(hash_) {}
-    
+
     inline void operator()( STORAGE value ){
         hash[value]++ ;
     }
-    
+
 private:
     HASH& hash ;
-} ; 
+} ;
 
 template <typename HASH, int RTYPE>
 class Grabber{
 public:
     Grabber( IntegerVector& res_, CharacterVector& names_ ) : res(res_), names(names_), index(0){}
-    
+
     template <typename T>
     inline void operator()( T pair){
         res[index] = pair.second ;
         names[index++] = internal::r_coerce<RTYPE,STRSXP>(pair.first) ;
     }
-    
+
 private:
     IntegerVector& res ;
     CharacterVector& names ;
@@ -59,16 +59,16 @@ private:
 // std::map or not
 #ifdef RCPP_USING_MAP
 
-template <int RTYPE, typename TABLE_T>        
+template <int RTYPE, typename TABLE_T>
 class Table {
 public:
     typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-    
+
     Table( const TABLE_T& table ): hash() {
         std::for_each( table.begin(), table.end(), Inserter(hash) ) ;
     }
-    
-    inline operator IntegerVector() const { 
+
+    inline operator IntegerVector() const {
         int n = hash.size() ;
         IntegerVector result = no_init(n) ;
         CharacterVector names = no_init(n) ;
@@ -76,7 +76,7 @@ public:
         result.names() = names ;
         return result ;
     }
-    
+
 private:
     typedef RCPP_UNORDERED_MAP<STORAGE, int, internal::NAComparator<STORAGE> >HASH ;
     typedef CountInserter<HASH,STORAGE> Inserter ;
@@ -85,20 +85,20 @@ private:
 
 #else
 
-template <int RTYPE, typename TABLE_T>        
+template <int RTYPE, typename TABLE_T>
 class Table {
 public:
     typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-    
+
     Table( const TABLE_T& table ): hash(), map() {
         // populate the initial hash
         std::for_each( table.begin(), table.end(), Inserter(hash) ) ;
-        
+
         // populate the map, sorted by keys
         map.insert( hash.begin(), hash.end() ) ;
     }
-    
-    inline operator IntegerVector() const { 
+
+    inline operator IntegerVector() const {
         // fill the result
         int n = map.size() ;
         IntegerVector result = no_init(n) ;
@@ -107,19 +107,19 @@ public:
         result.names() = names ;
         return result ;
     }
-    
+
 private:
     typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
-    
+
     typedef std::map<STORAGE, int, internal::NAComparator<STORAGE> > SORTED_MAP ;
     SORTED_MAP map ;
-    
-}; 
+
+};
 
 #endif // USING_RCPP_MAP
-    
+
 } // sugar
 
 template <int RTYPE, bool NA, typename T>

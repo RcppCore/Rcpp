@@ -38,34 +38,34 @@
 
 //! \example functionCallback/RcppFunctionCallExample.cpp
 //! An example providing a class RVectorFuncCall derived from class RcppFunction which
-//! implements a vector-values function transformVector(); the class gets initialized 
+//! implements a vector-values function transformVector(); the class gets initialized
 //! with an R function vecfunc passed along using Rcpp.
 
 //! \example functionCallback/ExampleRCode.R
-//! This files defines the R function vecfunc passed down to C++ and called via the 
+//! This files defines the R function vecfunc passed down to C++ and called via the
 //! wrapper function built using the sub-class of RcppFunction to call it.
 
 
 
-//! \example RcppInline/external_pointer.r  
+//! \example RcppInline/external_pointer.r
 //! A simple example (using inline) of external Pointer use via Rcpp::XPtr
 
-//! \example RcppInline/RcppInlineExample.r  
+//! \example RcppInline/RcppInlineExample.r
 //! The 'distribution of determinant' example as a demonstration of how to use
 //! inline and Rcpp for a simple function.
 
-//! \example RcppInline/RcppInlineWithLibsExamples.r  
-//! Four simple examples of how to combine Rcpp and an external library 
-//! (where we use the GNU GSL) using inline. 
+//! \example RcppInline/RcppInlineWithLibsExamples.r
+//! Four simple examples of how to combine Rcpp and an external library
+//! (where we use the GNU GSL) using inline.
 
-//! \example RcppInline/RObject.r  
+//! \example RcppInline/RObject.r
 //! A number of examples on how to use wrap() to automatically convert data types.
 
 //! \example RcppInline/RcppSimpleExample.r
 //! A very simple example of using inline without Rcpp.
 
-//! \example RcppInline/RcppSimpleTests.r  
-//! This file provides a few simple tests that preceded the creation of the 
+//! \example RcppInline/RcppSimpleTests.r
+//! This file provides a few simple tests that preceded the creation of the
 //! numerous formal unit tests that followed.
 
 //! \example RcppInline/UncaughtExceptions.r
@@ -77,15 +77,15 @@
 //! The basic convolution example from Section 5.10.1 of 'Writing R Extensions'
 
 //! \example ConvolveBenchmarks/convolve2_cpp.cpp
-//! A simple version of the basic convolution example from Section 5.10.1 
+//! A simple version of the basic convolution example from Section 5.10.1
 //! of 'Writing R Extensions', now rewritten for Rcpp using RcppVector<double>.
 
 //! \example ConvolveBenchmarks/convolve3_cpp.cpp
-//! A more efficient version of the basic convolution example from Section 5.10.1 
+//! A more efficient version of the basic convolution example from Section 5.10.1
 //! of 'Writing R Extensions', now rewritten for Rcpp and using Rcpp::NumericVector.
 
 //! \example ConvolveBenchmarks/convolve4_cpp.cpp
-//! An even more efficient version of the basic convolution example from Section 5.10.1 
+//! An even more efficient version of the basic convolution example from Section 5.10.1
 //! of 'Writing R Extensions', now rewritten for Rcpp and using Rcpp::NumericVector as
 //! well as direct pointer operations for better performance.
 
@@ -116,13 +116,13 @@
 
 
 //! \example SugarPerformance/sugarBenchmarks.R
-//! Benchmarking the 'Rcpp sugar' extensions 
+//! Benchmarking the 'Rcpp sugar' extensions
 
 //! \example SugarPerformance/Timer.h
 //! Simple C++ timer class in a headers-only implementation
 
 //! \example SugarPerformance/Timertest.cpp
-//! Simple test program for the C++ timer class 
+//! Simple test program for the C++ timer class
 
 
 

@@ -19,14 +19,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 #ifndef Rcpp__traits__get_na__h
 #define Rcpp__traits__get_na__h
 
 namespace Rcpp{
 namespace traits{
 
-template<int RTYPE> 
+template<int RTYPE>
 typename storage_type<RTYPE>::type get_na() ;
 
 template<>
@@ -39,7 +39,7 @@ template<>
 inline double get_na<REALSXP>(){ return NA_REAL ; }
 
 template<>
-inline Rcomplex get_na<CPLXSXP>(){ 
+inline Rcomplex get_na<CPLXSXP>(){
 	Rcomplex x ;
 	x.r = NA_REAL ;
 	x.i = NA_REAL ;

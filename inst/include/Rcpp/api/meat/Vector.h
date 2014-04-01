@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// Vector.h: Rcpp R/C++ interface class library -- Vector meat 
+// Vector.h: Rcpp R/C++ interface class library -- Vector meat
 //
 // Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
 //
@@ -22,10 +22,10 @@
 #ifndef Rcpp_api_meat_Vector_h
 #define Rcpp_api_meat_Vector_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 	
     namespace internal {
-    
+
         template <typename T>
         inline SEXP wrap_range_sugar_expression( const T& object, Rcpp::traits::true_type) {
             RCPP_DEBUG_1( "wrap_range_sugar_expression<%s>(., true  )", DEMANGLE(T) )
@@ -34,7 +34,7 @@ namespace Rcpp{
         }
 
     }
-    
+
 } // namespace Rcpp
 
 #endif

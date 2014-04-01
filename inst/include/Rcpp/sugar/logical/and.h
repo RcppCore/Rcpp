@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// and.h: Rcpp R/C++ interface class library -- 
+// and.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
@@ -23,20 +23,20 @@
 #define Rcpp__sugar__logical_and_h
 
 namespace Rcpp{
-namespace sugar{  
+namespace sugar{
 
 template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
-class And_SingleLogicalResult_SingleLogicalResult : 
-public SingleLogicalResult< 
-	(LHS_NA || RHS_NA) , 
+class And_SingleLogicalResult_SingleLogicalResult :
+public SingleLogicalResult<
+	(LHS_NA || RHS_NA) ,
 	And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>
 	>
 {
-public: 
+public:
 	typedef SingleLogicalResult<LHS_NA,LHS_T> LHS_TYPE ;
 	typedef SingleLogicalResult<RHS_NA,RHS_T> RHS_TYPE ;
-	typedef SingleLogicalResult< 
-		(LHS_NA || RHS_NA) , 
+	typedef SingleLogicalResult<
+		(LHS_NA || RHS_NA) ,
 		And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>
 	> BASE ;
 	
@@ -60,19 +60,19 @@ private:
 	
 } ;
 
-// special version when we know the rhs is not NA     
+// special version when we know the rhs is not NA
 template <bool LHS_NA, typename LHS_T, typename RHS_T>
-class And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,false,RHS_T> : 
-public SingleLogicalResult< 
-	LHS_NA , 
+class And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,false,RHS_T> :
+public SingleLogicalResult<
+	LHS_NA ,
 	And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,false,RHS_T>
 	>
 {
-public: 
+public:
 	typedef SingleLogicalResult<LHS_NA,LHS_T> LHS_TYPE ;
 	typedef SingleLogicalResult<false,RHS_T> RHS_TYPE ;
-	typedef SingleLogicalResult< 
-		LHS_NA, 
+	typedef SingleLogicalResult<
+		LHS_NA,
 		And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,false,RHS_T>
 	> BASE ;
 	
@@ -96,19 +96,19 @@ private:
 } ;
 
 
-// special version when we know the lhs is not NA     
+// special version when we know the lhs is not NA
 template <typename LHS_T, bool RHS_NA, typename RHS_T>
-class And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,RHS_NA,RHS_T> : 
-public SingleLogicalResult< 
-	RHS_NA , 
+class And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,RHS_NA,RHS_T> :
+public SingleLogicalResult<
+	RHS_NA ,
 	And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,RHS_NA,RHS_T>
 	>
 {
-public: 
+public:
 	typedef SingleLogicalResult<false,LHS_T> LHS_TYPE ;
 	typedef SingleLogicalResult<RHS_NA,RHS_T> RHS_TYPE ;
-	typedef SingleLogicalResult< 
-		RHS_NA, 
+	typedef SingleLogicalResult<
+		RHS_NA,
 		And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,RHS_NA,RHS_T>
 	> BASE ;
 	
@@ -131,19 +131,19 @@ private:
 	
 } ;
 
-// special version when we know both the lhs and the rhs are not NA     
+// special version when we know both the lhs and the rhs are not NA
 template <typename LHS_T, typename RHS_T>
-class And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,false,RHS_T> : 
-public SingleLogicalResult< 
-	false , 
+class And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,false,RHS_T> :
+public SingleLogicalResult<
+	false ,
 	And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,false,RHS_T>
 	>
 {
-public: 
+public:
 	typedef SingleLogicalResult<false,LHS_T> LHS_TYPE ;
 	typedef SingleLogicalResult<false,RHS_T> RHS_TYPE ;
-	typedef SingleLogicalResult< 
-		false, 
+	typedef SingleLogicalResult<
+		false,
 		And_SingleLogicalResult_SingleLogicalResult<false,LHS_T,false,RHS_T>
 	> BASE ;
 	
@@ -168,16 +168,16 @@ private:
 
 
 template <bool LHS_NA, typename LHS_T>
-class And_SingleLogicalResult_bool : 
-public SingleLogicalResult< 
-	LHS_NA , 
+class And_SingleLogicalResult_bool :
+public SingleLogicalResult<
+	LHS_NA ,
 	And_SingleLogicalResult_bool<LHS_NA,LHS_T>
 	>
 {
-public: 
+public:
 	typedef SingleLogicalResult<LHS_NA,LHS_T> LHS_TYPE ;
-	typedef SingleLogicalResult< 
-		LHS_NA , 
+	typedef SingleLogicalResult<
+		LHS_NA ,
 		And_SingleLogicalResult_bool<LHS_NA,LHS_T>
 	> BASE ;
 	
@@ -200,62 +200,62 @@ private:
 
 
 
-// (LogicalExpression) & (LogicalExpression) 
+// (LogicalExpression) & (LogicalExpression)
 template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 class And_LogicalExpression_LogicalExpression : public Rcpp::VectorBase< LGLSXP, true, And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,RHS_NA,RHS_T> >{
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
-    
+
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
-    
+
     inline int operator[]( int i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
         if( lhs[i] == NA_LOGICAL || rhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
-        return FALSE ; 
+        return FALSE ;
     }
     inline int size() const { return lhs.size(); }
-    
+
 private:
     const LHS_TYPE& lhs ;
     const RHS_TYPE& rhs ;
 } ;
 template <typename LHS_T, bool RHS_NA, typename RHS_T>
-class And_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T> 
+class And_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T>
     : public Rcpp::VectorBase< LGLSXP, true, And_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T> >{
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
-    
+
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
-    
+
     inline int operator[]( int i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
         if( rhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
-        return FALSE ; 
+        return FALSE ;
     }
     inline int size() const { return lhs.size(); }
-    
+
 private:
     const LHS_TYPE& lhs ;
     const RHS_TYPE& rhs ;
 } ;
 template <bool LHS_NA, typename LHS_T, typename RHS_T>
-class And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T> 
+class And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T>
     : public Rcpp::VectorBase< LGLSXP, true, And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T> >{
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
-    
+
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
-    
+
     inline int operator[]( int i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
         if( lhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
-        return FALSE; 
+        return FALSE;
     }
     inline int size() const { return lhs.size(); }
-    
+
 private:
     const LHS_TYPE& lhs ;
     const RHS_TYPE& rhs ;
@@ -266,15 +266,15 @@ class And_LogicalExpression_LogicalExpression<false,LHS_T,false,RHS_T>
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
-    
+
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
-    
+
     inline int operator[]( int i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
-        return FALSE; 
+        return FALSE;
     }
     inline int size() const { return lhs.size(); }
-    
+
 private:
     const LHS_TYPE& lhs ;
     const RHS_TYPE& rhs ;
@@ -285,8 +285,8 @@ private:
 
 template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>
-operator&&( 
-	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs, 
+operator&&(
+	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs,
 	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& rhs
 ){
 	return Rcpp::sugar::And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs, rhs ) ;
@@ -294,8 +294,8 @@ operator&&(
 
 template <bool LHS_NA, typename LHS_T>
 inline Rcpp::sugar::And_SingleLogicalResult_bool<LHS_NA,LHS_T>
-operator&&( 
-	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs, 
+operator&&(
+	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs,
 	bool rhs
 ){
 	return Rcpp::sugar::And_SingleLogicalResult_bool<LHS_NA,LHS_T>( lhs, rhs ) ;
@@ -303,8 +303,8 @@ operator&&(
 
 template <bool LHS_NA, typename LHS_T>
 inline Rcpp::sugar::And_SingleLogicalResult_bool<LHS_NA,LHS_T>
-operator&&( 
-	bool rhs, 
+operator&&(
+	bool rhs,
 	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs
 ){
 	return Rcpp::sugar::And_SingleLogicalResult_bool<LHS_NA,LHS_T>( lhs, rhs ) ;
@@ -313,8 +313,8 @@ operator&&(
 // (logical expression) & (logical expression)
 template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,RHS_NA,RHS_T>
-operator&( 
-    const Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T>& lhs, 
+operator&(
+    const Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T>& lhs,
     const Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T>& rhs
 ){
     return Rcpp::sugar::And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs, rhs ) ;

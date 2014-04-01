@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rgeom.h: Rcpp R/C++ interface class library -- 
+// rgeom.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -25,14 +25,14 @@
 namespace Rcpp {
 	namespace stats {
 
-	    
+	
 		class GeomGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
 			GeomGenerator( double p ) : lambda( (1-p)/p  ) {}
 	
 			inline double operator()() const {
-				return ::Rf_rpois(exp_rand() * lambda); 
+				return ::Rf_rpois(exp_rand() * lambda);
 			}
 	
 		private:

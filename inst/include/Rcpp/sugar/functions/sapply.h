@@ -26,16 +26,16 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, bool NA, typename T, typename Function, bool NO_CONVERSION>
-class Sapply : public VectorBase< 
+class Sapply : public VectorBase<
 	Rcpp::traits::r_sexptype_traits<
 		typename ::Rcpp::traits::result_of<Function>::type
-	>::rtype , 
+	>::rtype ,
 	true ,
 	Sapply<RTYPE,NA,T,Function,NO_CONVERSION>
 > {
 public:
 	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
-	const static int RESULT_R_TYPE = 
+	const static int RESULT_R_TYPE =
 		Rcpp::traits::r_sexptype_traits<result_type>::rtype ;
 	
 	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
@@ -46,7 +46,7 @@ public:
 	
 	Sapply( const VEC& vec_, Function fun_ ) : vec(vec_.get_ref()), fun(fun_){
 	    RCPP_DEBUG_1( "Sapply With Converter = %s", DEMANGLE(Sapply) )
-	    RCPP_DEBUG_1( "Sapply Converter = %s", DEMANGLE(converter_type) ) 
+	    RCPP_DEBUG_1( "Sapply Converter = %s", DEMANGLE(converter_type) )
 	}
 	
 	inline STORAGE operator[]( int i ) const {
@@ -54,7 +54,7 @@ public:
 		return res ;
 	}
 	inline int size() const { return vec.size() ; }
-	         
+	
 private:
 	const EXT& vec ;
 	Function fun ;
@@ -63,16 +63,16 @@ private:
 
 
 template <int RTYPE, bool NA, typename T, typename Function>
-class Sapply<RTYPE,NA,T,Function,true> : public VectorBase< 
+class Sapply<RTYPE,NA,T,Function,true> : public VectorBase<
 	Rcpp::traits::r_sexptype_traits<
 		typename ::Rcpp::traits::result_of<Function>::type
-	>::rtype , 
+	>::rtype ,
 	true ,
 	Sapply<RTYPE,NA,T,Function,true>
 > {
 public:
 	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
-	const static int RESULT_R_TYPE = 
+	const static int RESULT_R_TYPE =
 		Rcpp::traits::r_sexptype_traits<result_type>::rtype ;
 	
 	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
@@ -88,7 +88,7 @@ public:
 		return fun( vec[i] ) ;
 	}
 	inline int size() const { return vec.size() ; }
-	         
+	
 private:
 	const EXT& vec ;
 	Function fun ;
@@ -100,16 +100,16 @@ private:
 
 template <int RTYPE, bool NA, typename T, typename Function >
 inline sugar::Sapply<
-    RTYPE,NA,T,Function, 
-    traits::same_type< 
-        typename ::Rcpp::traits::result_of<Function>::type ,  
+    RTYPE,NA,T,Function,
+    traits::same_type<
+        typename ::Rcpp::traits::result_of<Function>::type ,
         typename Rcpp::traits::storage_type< traits::r_sexptype_traits< typename ::Rcpp::traits::result_of<Function>::type >::rtype >::type
     >::value
-> 
+>
 sapply( const Rcpp::VectorBase<RTYPE,NA,T>& t, Function fun ){
-	return sugar::Sapply<RTYPE,NA,T,Function, 
-	traits::same_type< 
-        typename ::Rcpp::traits::result_of<Function>::type ,  
+	return sugar::Sapply<RTYPE,NA,T,Function,
+	traits::same_type<
+        typename ::Rcpp::traits::result_of<Function>::type ,
         typename Rcpp::traits::storage_type< traits::r_sexptype_traits< typename ::Rcpp::traits::result_of<Function>::type >::rtype >::type
     >::value >( t, fun ) ;
 }

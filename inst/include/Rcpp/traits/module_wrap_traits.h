@@ -16,7 +16,7 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//                                   
+//
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -33,7 +33,7 @@ struct pointer_wrap_tag{} ;
 template <typename T> struct module_wrap_traits     { typedef normal_wrap_tag category; } ;
 template <> struct module_wrap_traits<void>         { typedef void_wrap_tag category; } ;
 template <typename T> struct module_wrap_traits<T*> { typedef pointer_wrap_tag category; } ;
-     
+
 } // namespace traits
 } // namespace Rcpp
 #endif

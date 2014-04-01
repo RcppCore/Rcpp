@@ -1,4 +1,4 @@
-// const_generic_proxy.h: Rcpp R/C++ interface class library -- 
+// const_generic_proxy.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2013 Romain Francois
 //
@@ -19,23 +19,23 @@
 
 #ifndef Rcpp__vector__const_generic_proxy_h
 #define Rcpp__vector__const_generic_proxy_h
- 
+
 namespace Rcpp{
 namespace internal{
-    
-    template <int RTYPE> 
+
+    template <int RTYPE>
 	class const_generic_proxy : public GenericProxy< const_generic_proxy<RTYPE> > {
 		public:
 			typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
 			
 			const_generic_proxy(): parent(0), index(-1){}
 			
-			const_generic_proxy( const const_generic_proxy& other ) : 
+			const_generic_proxy( const const_generic_proxy& other ) :
 				parent(other.parent), index(other.index){} ;
 			
 			const_generic_proxy( const VECTOR& v, int i ) : parent(&v), index(i){} ;
 		
-			operator SEXP() const { 
+			operator SEXP() const {
 			    return get() ;
 			}
 			
@@ -47,14 +47,14 @@ namespace internal{
 			operator bool() const { return ::Rcpp::as<bool>(get()) ; }
 			operator int() const { return ::Rcpp::as<int>(get()) ; }
 			
-			const VECTOR* parent; 
+			const VECTOR* parent;
 			int index ;
 			
 		private:
 			
-		    inline SEXP get() const { 
-			    return VECTOR_ELT(*parent, index ); 
-			} 
+		    inline SEXP get() const {
+			    return VECTOR_ELT(*parent, index );
+			}
 		
 	}  ;
 	

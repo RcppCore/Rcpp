@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rweibull.h: Rcpp R/C++ interface class library -- 
+// rweibull.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -29,7 +29,7 @@ namespace Rcpp {
 		class WeibullGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
-			WeibullGenerator( double shape_, double scale_ ) : 
+			WeibullGenerator( double shape_, double scale_ ) :
 				shape_inv( 1/shape_), scale(scale_) {}
 	
 			inline double operator()() const {
@@ -37,14 +37,14 @@ namespace Rcpp {
 			}
 	
 		private:
-			double shape_inv, scale ; 
+			double shape_inv, scale ;
 		} ;
 		
 		
 		class WeibullGenerator__scale1 : public ::Rcpp::Generator<double> {
 		public:
 	
-			WeibullGenerator__scale1( double shape_ ) : 
+			WeibullGenerator__scale1( double shape_ ) :
 				shape_inv( 1/shape_) {}
 	
 			inline double operator()() const {
@@ -52,7 +52,7 @@ namespace Rcpp {
 			}
 	
 		private:
-			double shape_inv ; 
+			double shape_inv ;
 		} ;
 	} // stats
 

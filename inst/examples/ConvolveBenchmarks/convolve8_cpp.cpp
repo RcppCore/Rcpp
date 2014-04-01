@@ -15,7 +15,7 @@ class Vec {
 public:
     Vec( double* data_ ) : data(data_){}
     inline double& operator[]( int i){ return data[i] ; }
-    
+
 private:
     double* data ;
 } ;
@@ -28,11 +28,11 @@ RcppExport SEXP convolve8cpp(SEXP a, SEXP b){
     int n_xb = xb.size() ;
     int nab = n_xa + n_xb - 1;
     Rcpp::NumericVector xab(nab);
-    
+
     Vec vab(xab.begin()), va(xa.begin()), vb(xb.begin()) ;
-    
+
     for (int i = 0; i < n_xa; i++)
-        for (int j = 0; j < n_xb; j++) 
+        for (int j = 0; j < n_xb; j++)
             vab[i + j] += va[i] * vb[j];
 
     return xab ;

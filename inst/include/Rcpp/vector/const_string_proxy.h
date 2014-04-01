@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// const_string_proxy.h: Rcpp R/C++ interface class library -- 
+// const_string_proxy.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2013 Romain Francois
 //
@@ -21,7 +21,7 @@
 
 #ifndef Rcpp__vector__const_string_proxy_h
 #define Rcpp__vector__const_string_proxy_h
- 
+
 namespace Rcpp{
 namespace internal{
 	
@@ -38,16 +38,16 @@ namespace internal{
 		 * Creates a proxy
 		 *
 		 * @param v reference to the associated character vector
-		 * @param index index 
+		 * @param index index
 		 */
 		const_string_proxy( VECTOR& v, int index_ ) : parent(&v), index(index_){}
-        
+
         const_string_proxy(SEXP x): parent(0), index(0) {
             Vector<RTYPE> tmp(x);
             parent = &tmp;
         }
 			
-		const_string_proxy( const const_string_proxy& other ) : 
+		const_string_proxy( const const_string_proxy& other ) :
 			parent(other.parent), index(other.index){} ;
 		
 		void import( const const_string_proxy& other){
@@ -56,7 +56,7 @@ namespace internal{
 		}
 		
         /**
-		 * rhs use. Retrieves the current value of the 
+		 * rhs use. Retrieves the current value of the
 		 * element this proxy refers to.
 		 */
 		operator SEXP() const {
@@ -64,8 +64,8 @@ namespace internal{
 		}
 		
 		/**
-		 * rhs use. Retrieves the current value of the 
-		 * element this proxy refers to and convert it to a 
+		 * rhs use. Retrieves the current value of the
+		 * element this proxy refers to and convert it to a
 		 * C string
 		 */
 		 operator /* const */ char*() const {
@@ -73,7 +73,7 @@ namespace internal{
 		 }
 		
 		/**
-		 * Prints the element this proxy refers to to an 
+		 * Prints the element this proxy refers to to an
 		 * output stream
 		 */
 		template <int RT>
@@ -82,7 +82,7 @@ namespace internal{
 		template <int RT>
 		friend std::string operator+( const std::string& x, const const_string_proxy<RT>& proxy);
 		
-		const VECTOR* parent; 
+		const VECTOR* parent;
 		int index ;
 		inline void move( int n ){ index += n ;}
 		
@@ -117,32 +117,32 @@ namespace internal{
 	
 	template <int RT>
 	bool operator<( const const_string_proxy<RT>& lhs, const const_string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) < 0 ;
 	}
 
 	template <int RT>
 	bool operator>( const const_string_proxy<RT>& lhs, const const_string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) > 0 ;
 	}
 	
 	template <int RT>
 	bool operator>=( const const_string_proxy<RT>& lhs, const const_string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) >= 0 ;
 	}
 	
 	template <int RT>
 	bool operator<=( const const_string_proxy<RT>& lhs, const const_string_proxy<RT>& rhs) {
-		return strcmp( 
-			const_cast<char *>(lhs.begin() ), 
+		return strcmp(
+			const_cast<char *>(lhs.begin() ),
 			const_cast<char *>(rhs.begin())
 			) <= 0 ;
 	}

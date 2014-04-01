@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// nbeta.h: Rcpp R/C++ interface class library -- 
+// nbeta.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //

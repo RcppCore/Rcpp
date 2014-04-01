@@ -14,11 +14,11 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-                    
+
 #ifndef Rcpp_api_meat_DottedPairImpl_h
 #define Rcpp_api_meat_DottedPairImpl_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
     template <typename CLASS>
     template <typename T>
@@ -39,7 +39,7 @@ namespace Rcpp{
             while( !Rf_isNull(CDR(x)) ){
                 x = CDR(x) ;
             }
-            Shield<SEXP> tail( grow( object, R_NilValue ) ); 
+            Shield<SEXP> tail( grow( object, R_NilValue ) );
             SETCDR( x, tail ) ;
         }
 	}
@@ -59,9 +59,9 @@ namespace Rcpp{
 			SEXP x = ref.get__() ;
 			while( i < index ){
 				x = CDR(x) ;
-				i++; 
+				i++;
 			}
-			Shield<SEXP> tail( grow( object, CDR(x) ) ); 
+			Shield<SEXP> tail( grow( object, CDR(x) ) );
 			SETCDR( x, tail ) ;
 		}
 	}
@@ -76,7 +76,7 @@ namespace Rcpp{
         SEXP y = ref.get__() ;
         int i=0;
         while( i<index ){ y = CDR(y) ; i++; }
-        
+
         SETCAR( y, CAR(x) );
         SET_TAG( y, TAG(x) );
 	}
@@ -94,7 +94,7 @@ namespace Rcpp{
             SETCDR( x, CDDR(x) ) ;
         }
     }
-    
+
 
 	
 } // namespace Rcpp

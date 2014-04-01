@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// un_pointer.h: Rcpp R/C++ interface class library -- 
+// un_pointer.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2012-2014 Dirk Eddelbuettel and Romain Francois
 //
@@ -16,7 +16,7 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//                                   
+//
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -24,7 +24,7 @@
 #define Rcpp__traits__un_pointer__h
 
 namespace Rcpp{
-namespace traits{   
+namespace traits{
 	
 template <typename T> struct un_pointer { typedef T type ;} ;
 template <typename T> struct un_pointer<T*> { typedef T type ;} ;

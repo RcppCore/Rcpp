@@ -47,13 +47,13 @@ void bla2( int x, double y){
 }
 
 int test_reference( std::vector<double>& ref ){
-    return ref.size() ;    
+    return ref.size() ;
 }
 int test_const_reference( const std::vector<double>& ref ){
-    return ref.size() ;    
+    return ref.size() ;
 }
 int test_const( const std::vector<double> ref ){
-    return ref.size() ;    
+    return ref.size() ;
 }
 
 class World {
@@ -85,7 +85,7 @@ private:
     double x ;
     int y ;
 };
-   
+
 class Number{
 public:
     Number() : x(0.0), y(0){} ;
@@ -93,7 +93,7 @@ public:
     double x ;
     int y ;
 };
-    
+
 class Randomizer {
 public:
 
@@ -114,24 +114,24 @@ class Test{
 public:
     double value ;
     Test(double v) : value(v){}
-private:    
+private:
     // hiding those on purpose
-    // we work by reference or pointers here. Not by copy. 
+    // we work by reference or pointers here. Not by copy.
     Test( const Test& other) ;
     Test& operator=( const Test& ) ;
 } ;
 
 double Test_get_x_const_ref( const Test& x){
-    return x.value ;    
+    return x.value ;
 }
 double Test_get_x_ref( Test& x){
-    return x.value;    
+    return x.value;
 }
 double Test_get_x_const_pointer( const Test* x){
-    return x->value ;    
+    return x->value ;
 }
 double Test_get_x_pointer( Test* x){
-    return x->value ;    
+    return x->value ;
 }
 
 RCPP_MODULE(yada){
@@ -148,8 +148,8 @@ RCPP_MODULE(yada){
 	
 	class_<Test>("Test")
         .constructor<double>()
-    ;   
-    
+    ;
+
 	class_<World>( "World" )
 
 	    .constructor()
@@ -160,59 +160,59 @@ RCPP_MODULE(yada){
 		.method( "set_const_ref", &World::set_const_ref )
 		.method( "clear", &clearWorld )
 	;
-      
+
 	class_<Num>( "Num" )
 	    .constructor()
-    
+
         	// read and write property
         	.property( "x", &Num::getX, &Num::setX )
-        
+
         	// read-only property
         	.property( "y", &Num::getY )
     ;
-    
+
     class_<Number>( "Number" )
-    
+
         .constructor()
-    
+
         	// read and write data member
         	.field( "x", &Number::x )
-        
+
         	// read only data member
         	.field_readonly( "y", &Number::y )
     ;
-    function( "Test_get_x_const_ref", Test_get_x_const_ref ); 
-    function( "Test_get_x_ref", Test_get_x_ref ); 
-    function( "Test_get_x_const_pointer", Test_get_x_const_pointer ); 
-    function( "Test_get_x_pointer", Test_get_x_pointer ); 
-    
-    
+    function( "Test_get_x_const_ref", Test_get_x_const_ref );
+    function( "Test_get_x_ref", Test_get_x_ref );
+    function( "Test_get_x_const_pointer", Test_get_x_const_pointer );
+    function( "Test_get_x_pointer", Test_get_x_pointer );
+
+
     class_<Randomizer>( "Randomizer" )
         // No default: .default_constructor()
         .constructor<double,double>()
 
-        .method( "get" , &Randomizer::get ) 
+        .method( "get" , &Randomizer::get )
     ;
 }
-  
+
 // [[Rcpp::export]]
 double attr_Test_get_x_const_ref( const Test& x){
-    return x.value ;    
+    return x.value ;
 }
 
 // [[Rcpp::export]]
 double attr_Test_get_x_ref( Test& x){
-    return x.value;    
+    return x.value;
 }
 
 // [[Rcpp::export]]
 double attr_Test_get_x_const_pointer( const Test* x){
-    return x->value ;    
+    return x->value ;
 }
 
 // [[Rcpp::export]]
 double attr_Test_get_x_pointer( Test* x){
-    return x->value ;    
+    return x->value ;
 }
 
 

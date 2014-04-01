@@ -22,30 +22,30 @@
 #ifndef Rcpp_RObject_h
 #define Rcpp_RObject_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
     RCPP_API_CLASS(RObject_Impl) {
     public:
-        
+
         /**
          * default constructor. uses R_NilValue
-         */ 
-        RObject_Impl() {}; 
+         */
+        RObject_Impl() {};
 
-        RCPP_GENERATE_CTOR_ASSIGN(RObject_Impl) 
-        
+        RCPP_GENERATE_CTOR_ASSIGN(RObject_Impl)
+
         /**
-         * wraps a SEXP. The SEXP is automatically protected from garbage 
-         * collection by this object and the protection vanishes when this 
+         * wraps a SEXP. The SEXP is automatically protected from garbage
+         * collection by this object and the protection vanishes when this
          * object is destroyed
          */
         RObject_Impl(SEXP x){
-            Storage::set__(x) ;    
+            Storage::set__(x) ;
         }
 
-        /** 
+        /**
          * Assignement operator. Set this SEXP to the given SEXP
-         */ 
+         */
         template <typename T>
         RObject_Impl& operator=(const T& other) {
             Storage::set__( wrap(other) ) ;
@@ -54,7 +54,7 @@ namespace Rcpp{
 
         void update(SEXP){}
     };
-    
+
     typedef RObject_Impl<PreserveStorage> RObject ;
 
 } // namespace Rcpp

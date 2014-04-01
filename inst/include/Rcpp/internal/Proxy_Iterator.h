@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// Proxy_Iterator.h: Rcpp R/C++ interface class library -- 
+// Proxy_Iterator.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -63,7 +63,7 @@ public:
 			--(*this) ;
 			return orig ;
 		}
-		                    
+		
 		inline Proxy_Iterator operator+(difference_type n) const {
 			return Proxy_Iterator( PROXY(*proxy.parent, proxy.index + n) ) ;
 		}
@@ -112,7 +112,7 @@ public:
 
 		inline int index() const { return proxy.index ; }
 
-		inline PROXY operator[](int i){ return PROXY(*proxy.parent, proxy.index + i) ; } 
+		inline PROXY operator[](int i){ return PROXY(*proxy.parent, proxy.index + i) ; }
 		
 private:
 	PROXY proxy ;

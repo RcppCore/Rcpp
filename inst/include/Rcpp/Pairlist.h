@@ -29,27 +29,27 @@
 namespace Rcpp{
 
     RCPP_API_CLASS(Pairlist_Impl),
-        public DottedPairProxyPolicy<Pairlist_Impl<StoragePolicy> >, 
+        public DottedPairProxyPolicy<Pairlist_Impl<StoragePolicy> >,
         public DottedPairImpl<Pairlist_Impl<StoragePolicy> >{
     public:
-        
-        RCPP_GENERATE_CTOR_ASSIGN(Pairlist_Impl) 
-        
+
+        RCPP_GENERATE_CTOR_ASSIGN(Pairlist_Impl)
+
         typedef typename DottedPairProxyPolicy<Pairlist_Impl>::DottedPairProxy Proxy ;
         typedef typename DottedPairProxyPolicy<Pairlist_Impl>::const_DottedPairProxy const_Proxy ;
-        
+
         Pairlist_Impl(){}
         Pairlist_Impl(SEXP x){
-            Storage::set__(r_cast<LISTSXP>(x)) ;    
+            Storage::set__(r_cast<LISTSXP>(x)) ;
         }
-                
+
         #include <Rcpp/generated/Pairlist__ctors.h>
 
         void update(SEXP x){
             SET_TYPEOF( x, LISTSXP ) ;
         }
     } ;
-    
+
     typedef Pairlist_Impl<PreserveStorage> Pairlist ;
 }
 #endif

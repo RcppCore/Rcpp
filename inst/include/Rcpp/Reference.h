@@ -20,38 +20,38 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef Rcpp_Reference_h
-#define Rcpp_Reference_h                     
+#define Rcpp_Reference_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
     /**
      * S4 object (of a reference class)
      */
-    RCPP_API_CLASS(Reference_Impl), 
-        public FieldProxyPolicy<Reference_Impl<StoragePolicy> > 
+    RCPP_API_CLASS(Reference_Impl),
+        public FieldProxyPolicy<Reference_Impl<StoragePolicy> >
     {
     public:
 
         Reference_Impl() {}
 
-        RCPP_GENERATE_CTOR_ASSIGN(Reference_Impl) 
-        
+        RCPP_GENERATE_CTOR_ASSIGN(Reference_Impl)
+
         /**
          * checks that x is an S4 object of a reference class and wrap it.
          *
          * @param x must be an S4 object of some reference class
          */
         Reference_Impl(SEXP x) {
-            Storage::set__(x) ;    
+            Storage::set__(x) ;
         }
-        
+
         Reference_Impl& operator=( SEXP other ) {
             Storage::set__(other) ;
-            return *this ;    
+            return *this ;
         }
-        
+
         /**
-         * Creates an reference object of the requested class. 
+         * Creates an reference object of the requested class.
          *
          * @param klass name of the target reference class
          * @throw reference_creation_error if klass does not map to a known S4 class
@@ -68,7 +68,7 @@ namespace Rcpp{
     } ;
 
     typedef Reference_Impl<PreserveStorage> Reference ;
-    
+
 } // namespace Rcpp
 
 #endif

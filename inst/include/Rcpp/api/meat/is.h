@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// is.h: Rcpp R/C++ interface class library -- is implementations 
+// is.h: Rcpp R/C++ interface class library -- is implementations
 //
 // Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
 //
@@ -22,10 +22,10 @@
 #ifndef Rcpp_api_meat_is_h
 #define Rcpp_api_meat_is_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 namespace internal{
-        
-    inline bool is_atomic( SEXP x){ return Rf_length(x) == 1 ; } 
+
+    inline bool is_atomic( SEXP x){ return Rf_length(x) == 1 ; }
     inline bool is_matrix(SEXP x){
         SEXP dim = Rf_getAttrib( x, R_DimSymbol) ;
         return dim != R_NilValue && Rf_length(dim) == 2 ;
@@ -96,8 +96,8 @@ namespace internal{
     template <> inline bool is__simple<GenericMatrix>( SEXP x ){
         return TYPEOF(x) == VECSXP && is_matrix(x) ;
     }
-    
-    
+
+
     template <> inline bool is__simple<DataFrame>( SEXP x ){
         if( TYPEOF(x) != VECSXP ) return false ;
         return Rf_inherits( x, "data.frame" ) ;
@@ -128,10 +128,10 @@ namespace internal{
         return TYPEOF(x) == ENVSXP ;
     }
     template <> inline bool is__simple<Formula>( SEXP x ){
-        if( TYPEOF(x) != LANGSXP ) return false ; 
+        if( TYPEOF(x) != LANGSXP ) return false ;
         return Rf_inherits( x, "formula" ) ;
     }
-    
+
     template <> inline bool is__simple<Date>( SEXP x ){
         return is_atomic(x) && TYPEOF(x) == REALSXP && Rf_inherits( x, "Date" ) ;
     }
@@ -144,7 +144,7 @@ namespace internal{
     template <> inline bool is__simple<DatetimeVector>( SEXP x ){
         return TYPEOF(x) == REALSXP && Rf_inherits( x, "POSIXt" ) ;
     }
-     
+
     inline bool is_module_object_internal(SEXP obj, const char* clazz){
 	    Environment env(obj) ;
 	    XPtr<class_Base> xp( env.get(".cppclass") );
@@ -152,10 +152,10 @@ namespace internal{
 	}
     template <typename T> bool is__module__object( SEXP x){
         typedef typename Rcpp::traits::un_pointer<T>::type CLASS ;
-        return is_module_object_internal(x, typeid(CLASS).name() ) ;     
+        return is_module_object_internal(x, typeid(CLASS).name() ) ;
     }
-        
-    
+
+
 } // namespace internal
 } // namespace Rcpp
 

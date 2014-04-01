@@ -23,22 +23,22 @@
 #define RCPP_SUGAR_BLOCK_2_H
 
 namespace Rcpp{
-namespace sugar{                         
+namespace sugar{
 
 template <bool NA, typename OUT, typename U1, typename T1, typename U2, typename T2>
 class SugarBlock_2 : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , NA, SugarBlock_2<NA,OUT,U1,T1,U2,T2> > {
 public:
     typedef OUT (*FunPtr)(U1,U2) ;
-    SugarBlock_2( FunPtr ptr_, const T1 & x_, const T2& y_ ) : 
+    SugarBlock_2( FunPtr ptr_, const T1 & x_, const T2& y_ ) :
         ptr(ptr_), x(x_), y(y_){
-        // TODO: check that x and y have same size      
+        // TODO: check that x and y have same size
     }
-        
-    inline OUT operator[]( int i) const { 
+
+    inline OUT operator[]( int i) const {
         return ptr( x[i], y[i] ) ;
     }
     inline int size() const { return x.size() ; }
-        
+
 private:
     FunPtr ptr ;
     const T1& x ;
@@ -50,14 +50,14 @@ template <bool NA, typename OUT, typename U1, typename T1, typename U2>
 class SugarBlock_2__VP : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , NA, SugarBlock_2__VP<NA,OUT,U1,T1,U2> > {
 public:
     typedef OUT (*FunPtr)(U1,U2) ;
-    SugarBlock_2__VP( FunPtr ptr_, const T1 & x_, U2 u2 ) : 
+    SugarBlock_2__VP( FunPtr ptr_, const T1 & x_, U2 u2 ) :
         ptr(ptr_), x(x_), y(u2){}
-    
-    inline OUT operator[]( int i) const { 
+
+    inline OUT operator[]( int i) const {
         return ptr( x[i], y ) ;
     }
     inline int size() const { return x.size() ; }
-        
+
 private:
     FunPtr ptr ;
     const T1& x ;
@@ -68,14 +68,14 @@ template <bool NA, typename OUT, typename U1, typename U2, typename T2>
 class SugarBlock_2__PV : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , NA, SugarBlock_2__PV<NA,OUT,U1,U2,T2> > {
 public:
     typedef OUT (*FunPtr)(U1,U2) ;
-    SugarBlock_2__PV( FunPtr ptr_, U1 u1, const T2& y_ ) : 
+    SugarBlock_2__PV( FunPtr ptr_, U1 u1, const T2& y_ ) :
         ptr(ptr_), x(u1), y(y_){}
-        
-    inline OUT operator[]( int i) const { 
+
+    inline OUT operator[]( int i) const {
         return ptr( x, y[i] ) ;
     }
     inline int size() const { return y.size() ; }
-        
+
 private:
     FunPtr ptr ;
     U1 x ;
@@ -123,7 +123,7 @@ private:
         }                                                                                       \
         }
 
-        
+
 #define SUGAR_BLOCK_2_NA(__NAME__,__SYMBOL__,__NA__)                                            \
         namespace Rcpp{                                                                         \
         template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >                    \
@@ -159,6 +159,6 @@ private:
                 ) ;                                                                             \
         }                                                                                       \
         }
-        
-        
+
+
 #endif

@@ -19,7 +19,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 #ifndef Rcpp__traits__integral_constant__h
 #define Rcpp__traits__integral_constant__h
 
@@ -34,9 +34,9 @@ template <typename _T, _T _V> struct integral_constant {
  typedef integral_constant<bool, true> true_type;
  typedef integral_constant<bool, false> false_type;
 
-template <typename T, typename U> struct both : 
+template <typename T, typename U> struct both :
 	public integral_constant<bool, T::value && U::value>{};
- 
+
 }
 }
 

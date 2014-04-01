@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rf.h: Rcpp R/C++ interface class library -- 
+// rf.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -25,11 +25,11 @@
 namespace Rcpp {
 	namespace stats {
 
-	    
+	
 		class FGenerator_Finite_Finite : public ::Rcpp::Generator<double> {
 		public:
 	
-			FGenerator_Finite_Finite( double n1_, double n2_ ) : 
+			FGenerator_Finite_Finite( double n1_, double n2_ ) :
 				n1__2(n1_ / 2.0 ), n2__2(n2_ / 2.0 ), ratio(n2_/n1_) {}
 	
 			inline double operator()() const {
@@ -72,7 +72,7 @@ namespace Rcpp {
 			double n1, n1__2 ;
 		} ;
 
-	} // stats 
+	} // stats
 
 } // Rcpp
 

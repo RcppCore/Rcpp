@@ -41,7 +41,7 @@ public:
 		return object[ i ] ;
 	}
 	inline int size() const { return n; }
-	         
+	
 private:
 	const VEC_TYPE& object ;
 	int n ;
@@ -50,9 +50,9 @@ private:
 } // sugar
 
 template <int RTYPE,bool NA, typename T>
-inline sugar::Head<RTYPE,NA,T> head( 
-	const VectorBase<RTYPE,NA,T>& t, 
-	int n 
+inline sugar::Head<RTYPE,NA,T> head(
+	const VectorBase<RTYPE,NA,T>& t,
+	int n
 	){
 	return sugar::Head<RTYPE,NA,T>( t, n ) ;
 }

@@ -60,6 +60,6 @@ extern "C" SEXP __NAME__( SEXP xp, SEXP value ){               \
 
 #define RCPP_XP_FIELD(__PREFIX__,__CLASS__,__FIELD__)          \
 RCPP_XP_FIELD_GET( RCPP_PP_CAT(__PREFIX__,_get), __CLASS__, __FIELD__ )    \
-RCPP_XP_FIELD_SET( RCPP_PP_CAT(__PREFIX__,_set), __CLASS__, __FIELD__ )    
+RCPP_XP_FIELD_SET( RCPP_PP_CAT(__PREFIX__,_set), __CLASS__, __FIELD__ )
 
 #endif

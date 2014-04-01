@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
 // is_infinite.h: Rcpp R/C++ interface class library -- is infinite
-//                                                                      
+//
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -26,17 +26,17 @@ namespace Rcpp{
 namespace traits{
 	
     // default for all but REALSXP and CPLXSXP
-	template <int RTYPE> 
+	template <int RTYPE>
 	bool is_infinite( typename storage_type<RTYPE>::type){
-	    return false ;    
+	    return false ;
 	}
 	
-	template <> 
+	template <>
 	inline bool is_infinite<REALSXP>( double x ){
 		return !( ISNAN(x) || R_FINITE(x) ) ;
 	}
 	
-	template <> 
+	template <>
 	inline bool is_infinite<CPLXSXP>( Rcomplex x ){
 		return is_infinite<REALSXP>(x.r) || is_infinite<REALSXP>(x.i) ;
 	}

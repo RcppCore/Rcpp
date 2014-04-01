@@ -40,12 +40,12 @@ public:
 		STORAGE current ;
 		for( int i=0; i<n; i++){
 		    current = object[i] ;
-		    if( Rcpp::traits::is_na<RTYPE>(current) ) 
+		    if( Rcpp::traits::is_na<RTYPE>(current) )
 		        return Rcpp::traits::get_na<RTYPE>() ;
 		    result += current ;
 		}
 		return result ;
-	}         
+	}
 private:
 	const VEC_EXT& object ;
 } ;
@@ -65,7 +65,7 @@ public:
 		   result += object[i] ;
 		}
 		return result ;
-	}         
+	}
 private:
 	const VEC_EXT& object ;
 } ;
@@ -87,7 +87,7 @@ public:
 		    result += object[i] ;
 		}
 		return result ;
-	}         
+	}
 private:
 	const VEC_EXT& object ;
 } ;

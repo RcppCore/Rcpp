@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// Environment.h: Rcpp R/C++ interface class library -- 
+// Environment.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
 //
@@ -22,22 +22,22 @@
 #ifndef Rcpp_api_meat_Environment_h
 #define Rcpp_api_meat_Environment_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
-template <template <class> class StoragePolicy>    
+template <template <class> class StoragePolicy>
 template <typename WRAPPABLE>
 bool Environment_Impl<StoragePolicy>::assign( const std::string& name, const WRAPPABLE& x) const {
     return assign( name, wrap( x ) ) ;
 }
 
-template <template <class> class StoragePolicy>    
+template <template <class> class StoragePolicy>
 Environment_Impl<StoragePolicy>::Environment_Impl( const std::string& name ){
-   Storage::set__( as_environment( wrap(name) ) ) ;     
+   Storage::set__( as_environment( wrap(name) ) ) ;
 }
 
-template <template <class> class StoragePolicy>    
+template <template <class> class StoragePolicy>
 Environment_Impl<StoragePolicy>::Environment_Impl( int pos ){
-   Storage::set__( as_environment( wrap(pos) ) ) ;     
+   Storage::set__( as_environment( wrap(pos) ) ) ;
 }
 
 

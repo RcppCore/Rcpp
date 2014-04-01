@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// wrap.h: Rcpp R/C++ interface class library -- wrap implementations 
+// wrap.h: Rcpp R/C++ interface class library -- wrap implementations
 //
 // Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
 //
@@ -22,9 +22,9 @@
 #ifndef Rcpp_api_meat_wrap_h
 #define Rcpp_api_meat_wrap_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 namespace internal{
-        
+
 template <typename InputIterator, typename KEY, typename VALUE, int RTYPE>
 inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator last, Rcpp::traits::true_type ){
 	RCPP_DEBUG_3( "range_wrap_dispatch___impl__pair<KEY = %s, VALUE = %s, RTYPE = %d>\n", DEMANGLE(KEY), DEMANGLE(VALUE), RTYPE)
@@ -42,7 +42,7 @@ inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator
 	x.attr( "names" ) = names ;
 	return x ;
 }
-                
+
 template <typename InputIterator, typename KEY, typename VALUE, int RTYPE>
 inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator last, Rcpp::traits::false_type ){
 	size_t size = std::distance( first, last ) ;
@@ -58,7 +58,7 @@ inline SEXP range_wrap_dispatch___impl__pair( InputIterator first, InputIterator
 	::Rf_setAttrib( x, R_NamesSymbol, names) ;
 	return x ;
 }
-  
+
 
 } // namespace internal
 } // namespace Rcpp

@@ -227,7 +227,7 @@ List runit_qunif_prob( NumericVector xx ){
         _["upper"] = qunif( xx, 0.0, 1.0, false)
         );
 }
-    
+
 // [[Rcpp::export]]
 List runit_qnorm_prob( NumericVector xx ){
     return List::create(

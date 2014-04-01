@@ -29,13 +29,13 @@ namespace sugar{
     class Min {
     public:
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-        
+
         Min( const T& obj_) : obj(obj_) {}
-        
+
         operator STORAGE() {
             min_ = obj[0] ;
             if( Rcpp::traits::is_na<RTYPE>( min_ ) ) return min_ ;
-            
+
             int n = obj.size() ;
             for( int i=1; i<n; i++){
                 current = obj[i] ;
@@ -44,7 +44,7 @@ namespace sugar{
             }
             return min_ ;
         }
-    
+
         const T& obj ;
         STORAGE min_, max_, current ;
     } ;
@@ -54,12 +54,12 @@ namespace sugar{
     class Min<RTYPE,false,T> {
     public:
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-        
+
         Min( const T& obj_) : obj(obj_) {}
-        
+
         operator STORAGE() {
             min_ = obj[0] ;
-            
+
             int n = obj.size() ;
             for( int i=1; i<n; i++){
                 current = obj[i] ;
@@ -67,12 +67,12 @@ namespace sugar{
             }
             return min_ ;
         }
-    
+
         const T& obj ;
         STORAGE min_, current ;
     } ;
 
-    
+
 } // sugar
 
 

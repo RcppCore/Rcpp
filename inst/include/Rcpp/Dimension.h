@@ -22,17 +22,17 @@
 #ifndef Rcpp_Dimension_h
 #define Rcpp_Dimension_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
     class Dimension {
     public:
 	    typedef std::vector<int>::reference reference ;
 	    typedef std::vector<int>::const_reference const_reference ;
-	    
+	
 	    Dimension() : dims(){}
-	    
+	
 	    Dimension(SEXP dims) ;
-	    
+	
 	    Dimension( const Dimension& other ) : dims(other.dims){}
 	    Dimension& operator=( const Dimension& other ) {
 	        if( *this != other )
@@ -40,7 +40,7 @@ namespace Rcpp{
 	        return *this ;
 	    }
 	    Dimension(const size_t& n1) : dims(1){
-	        dims[0] = n1 ;    
+	        dims[0] = n1 ;
 	    }
 	    Dimension(const size_t& n1, const size_t& n2) : dims(2){
 	        dims[0] = n1 ;
@@ -52,23 +52,23 @@ namespace Rcpp{
 	        dims[2] = n3 ;
 	    }
 	    operator SEXP() const ;
-	    
+	
 	    inline int size() const {
-	        return (int) dims.size() ;    
+	        return (int) dims.size() ;
 	    }
 	    inline int prod() const {
-	        return std::accumulate( dims.begin(), dims.end(), 1, std::multiplies<int>() ) ;    
+	        return std::accumulate( dims.begin(), dims.end(), 1, std::multiplies<int>() ) ;
 	    }
-	    
+	
 	    inline reference operator[](int i){
 	        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
             return dims[i] ;
 	    }
 	    inline const_reference operator[](int i) const{
 	        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
-	        return dims[i] ;    
+	        return dims[i] ;
 	    }
-	    
+	
 	private:
 	    std::vector<int> dims;
     };

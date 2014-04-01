@@ -25,17 +25,17 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, bool NA, typename T>                                    
+template <int RTYPE, bool NA, typename T>
 class Sd : public Lazy< typename Rcpp::traits::storage_type<RTYPE>::type , Sd<RTYPE,NA,T> > {
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-		                                             
+		
 	Sd( const VEC_TYPE& object_ ) : object(object_){}
 	
 	STORAGE get() const {
 	    return ::sqrt( var(object).get() ) ;
-	}         
+	}
 private:
 	const VEC_TYPE& object ;
 } ;

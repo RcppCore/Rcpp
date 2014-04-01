@@ -29,7 +29,7 @@
 #define R_NO_REMAP
 #include <Rinternals.h>
 
-#if defined(_WIN32) 
+#if defined(_WIN32)
     #define WIN32_LEAN_AND_MEAN
     #include <windows.h>
 #elif defined(__APPLE__)
@@ -45,27 +45,27 @@
 namespace Rcpp{
 
     typedef uint64_t nanotime_t;
-    
-#if defined(_WIN32)   
+
+#if defined(_WIN32)
 
     inline nanotime_t get_nanotime(void) {
         LARGE_INTEGER time_var, frequency;
         QueryPerformanceCounter(&time_var);
         QueryPerformanceFrequency(&frequency);
-        
+
         /* Convert to nanoseconds */
         return 1.0e9 * time_var.QuadPart / frequency.QuadPart;
     }
 
 #elif defined(__APPLE__)
-     
+
     inline nanotime_t get_nanotime(void) {
         nanotime_t time;
         mach_timebase_info_data_t info;
-        
+
         time = mach_absolute_time();
         mach_timebase_info(&info);
-        
+
         /* Convert to nanoseconds */
         return time * (info.numer / info.denom);
     }
@@ -73,20 +73,20 @@ namespace Rcpp{
 #elif defined(linux) || defined(__linux) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__GLIBC__) || defined(__GNU__) || defined(__CYGWIN__)
 
     static const nanotime_t nanoseconds_in_second = static_cast<nanotime_t>(1000000000.0);
-    
+
     inline nanotime_t get_nanotime(void) {
         struct timespec time_var;
-    
+
         /* Possible other values we could have used are CLOCK_MONOTONIC,
          * which is takes longer to retrieve and CLOCK_PROCESS_CPUTIME_ID
          * which, if I understand it correctly, would require the R
          * process to be bound to one core.
          */
         clock_gettime(CLOCK_REALTIME, &time_var);
-    
+
         nanotime_t sec = time_var.tv_sec;
         nanotime_t nsec = time_var.tv_nsec;
-    
+
         /* Combine both values to one nanoseconds value */
         return (nanoseconds_in_second * sec) + nsec;
     }
@@ -96,29 +96,29 @@ namespace Rcpp{
     /* short an sweet! */
     inline nanotime_t get_nanotime(void) {
         return gethrtime();
-    }    
+    }
 
 #endif
-    
+
     namespace{
         std::string get_first(const std::pair<std::string,nanotime_t>& pair) {
-            return pair.first;    
+            return pair.first;
         }
         double get_second(const std::pair<std::string,nanotime_t>& pair){
-            return static_cast<double>(pair.second);    
+            return static_cast<double>(pair.second);
         }
     }
-    
+
     class Timer {
     public:
         Timer() : data(), start_time( get_nanotime() ){}
-        
+
         void step( const std::string& name){
             nanotime_t now = get_nanotime();
             data.push_back(std::make_pair(name, now - start_time));
-            start_time = get_nanotime(); 
+            start_time = get_nanotime();
         }
-        
+
         operator SEXP() const {
             size_t n = data.size();
             NumericVector out(n);
@@ -130,15 +130,15 @@ namespace Rcpp{
             out.attr("names") = names;
             return out;
         }
-        
+
     private:
         typedef std::pair<std::string,nanotime_t> Step;
         typedef std::vector<Step> Steps;
-        
+
         Steps data;
         nanotime_t start_time;
     };
-    
+
 }
 
 #endif

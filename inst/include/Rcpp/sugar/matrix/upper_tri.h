@@ -26,16 +26,16 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, bool LHS_NA, typename LHS_T>
-class UpperTri : public VectorBase< 
-	LGLSXP , 
+class UpperTri : public VectorBase<
+	LGLSXP ,
 	false ,
 	UpperTri<RTYPE,LHS_NA,LHS_T>
 > {
 public:
 	typedef Rcpp::MatrixBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 	
-	UpperTri( const LHS_TYPE& lhs, bool diag) : 
-		nr( lhs.nrow() ), nc( lhs.ncol() ), 
+	UpperTri( const LHS_TYPE& lhs, bool diag) :
+		nr( lhs.nrow() ), nc( lhs.ncol() ),
 		getter( diag ? (&UpperTri::get_diag_true) : (&UpperTri::get_diag_false) ){}
 	
 	inline int operator()( int i, int j ) const {
@@ -45,7 +45,7 @@ public:
 	inline int size() const { return nr * nc ; }
 	inline int nrow() const { return nr; }
 	inline int ncol() const { return nc; }
-	         
+	
 private:
 	int nr, nc ;
 	typedef bool (UpperTri::*Method)(int,int) ;

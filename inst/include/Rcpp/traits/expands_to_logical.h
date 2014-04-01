@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// expands_to_logical.h: Rcpp R/C++ interface class library -- 
+// expands_to_logical.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
@@ -34,7 +34,7 @@ namespace traits{
 	
 	template <>
 	struct expands_to_logical__impl<LGLSXP> {
-		struct r_expands_to_logical{}; 
+		struct r_expands_to_logical{};
 	} ;
 
 	template<typename T>
@@ -50,12 +50,12 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
-  
-  template<typename T> struct expands_to_logical : 
+
+  template<typename T> struct expands_to_logical :
   	integral_constant<bool, _has_rtype_helper<T>::value >{ };
-    
-    
-} 
+
+
+}
 }
 
 #endif

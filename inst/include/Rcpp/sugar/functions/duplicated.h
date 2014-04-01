@@ -21,7 +21,7 @@
 
 #ifndef Rcpp__sugar__duplicated_h
 #define Rcpp__sugar__duplicated_h
-          
+
 namespace Rcpp{
 
 template <int RTYPE, bool NA, typename T>

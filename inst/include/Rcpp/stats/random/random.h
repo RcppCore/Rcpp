@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// random.h: Rcpp R/C++ interface class library -- 
+// random.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -59,8 +59,8 @@ public:
 #include <Rcpp/stats/random/rsignrank.h>
 #include <Rcpp/stats/random/rhyper.h>
 
-namespace Rcpp{ 
-    
+namespace Rcpp{
+
     inline NumericVector rnorm( int n, double mean, double sd){
 		if (ISNAN(mean) || !R_FINITE(sd) || sd < 0.){
 			// TODO: R also throws a warning in that case, should we ?
@@ -68,7 +68,7 @@ namespace Rcpp{
 		}  else if (sd == 0. || !R_FINITE(mean)){
 			return NumericVector( n, mean ) ;
 		} else {
-			bool sd1 = sd == 1.0 ; 
+			bool sd1 = sd == 1.0 ;
 			bool mean0 = mean == 0.0 ;
 			if( sd1 && mean0 ){
 				return NumericVector( n, stats::NormGenerator__mean0__sd1() ) ;
@@ -114,32 +114,32 @@ namespace Rcpp{
 	inline NumericVector rcauchy( int n, double location, double scale ){
         if (ISNAN(location) || !R_FINITE(scale) || scale < 0)
             return NumericVector( n, R_NaN ) ;
-        
+
         if (scale == 0. || !R_FINITE(location))
             return NumericVector( n, location ) ;
-        
+
         return NumericVector( n, stats::CauchyGenerator( location, scale ) ) ;
     }
-    
+
     inline NumericVector rcauchy( int n, double location /* , double scale [=1.0] */ ){
         if (ISNAN(location))
             return NumericVector( n, R_NaN ) ;
-        
+
         if (!R_FINITE(location))
             return NumericVector( n, location ) ;
-        
+
         return NumericVector( n, stats::CauchyGenerator_1( location ) ) ;
     }
-    
+
     inline NumericVector rcauchy( int n /*, double location [=0.0] , double scale [=1.0] */ ){
         return NumericVector( n, stats::CauchyGenerator_0() ) ;
     }
-       
+
     inline NumericVector rchisq( int n, double df ){
 		if (!R_FINITE(df) || df < 0.0) return NumericVector(n, R_NaN) ;
 		return NumericVector( n, stats::ChisqGenerator( df ) ) ;
 	}
- 
+
 	inline NumericVector rexp( int n, double rate ){
 		double scale = 1.0 / rate ;
 		if (!R_FINITE(scale) || scale <= 0.0) {
@@ -175,7 +175,7 @@ namespace Rcpp{
 		}
 		if( a == 0. ) return NumericVector(n, 0. ) ;
 		return NumericVector( n, stats::GammaGenerator(a, scale) ) ;
-	} 
+	}
 	
 	inline NumericVector rgamma( int n, double a /* scale = 1.0 */ ){
 		if (!R_FINITE(a) || a < 0.0 ) {
@@ -184,10 +184,10 @@ namespace Rcpp{
 		if( a == 0. ) return NumericVector(n, 0. ) ;
 		/* TODO: check if we can take advantage of the scale = 1 special case */
 		return NumericVector( n, stats::GammaGenerator(a, 1.0) ) ;
-	} 
+	}
 
 	inline NumericVector rgeom( int n, double p ){
-		if (!R_FINITE(p) || p <= 0 || p > 1) 
+		if (!R_FINITE(p) || p <= 0 || p > 1)
 			return NumericVector( n, R_NaN );
 		return NumericVector( n, stats::GeomGenerator( p ) ) ;
 	}
@@ -203,7 +203,7 @@ namespace Rcpp{
 		}  else if (sdlog == 0. || !R_FINITE(meanlog)){
 			return NumericVector( n, ::exp( meanlog ) ) ;
 		} else {
-			return NumericVector( n, stats::LNormGenerator( meanlog, sdlog ) ); 
+			return NumericVector( n, stats::LNormGenerator( meanlog, sdlog ) );
 		}
 	}
 
@@ -214,12 +214,12 @@ namespace Rcpp{
 		}  else if ( !R_FINITE(meanlog)){
 			return NumericVector( n, ::exp( meanlog ) ) ;
 		} else {
-			return NumericVector( n, stats::LNormGenerator_1( meanlog ) ); 
+			return NumericVector( n, stats::LNormGenerator_1( meanlog ) );
 		}
 	}
 
 	inline NumericVector rlnorm( int n /*, double meanlog [=0.], double sdlog = 1.0 */){
-		return NumericVector( n, stats::LNormGenerator_0( ) ); 
+		return NumericVector( n, stats::LNormGenerator_0( ) );
 	}
 
 	inline NumericVector rlogis( int n, double location, double scale ){
@@ -228,7 +228,7 @@ namespace Rcpp{
 
 		if (scale == 0. || !R_FINITE(location))
 			return NumericVector( n, location );
-    
+
 		return NumericVector( n, stats::LogisGenerator( location, scale ) ) ;
 	}
 
@@ -238,7 +238,7 @@ namespace Rcpp{
 
 		if (!R_FINITE(location))
 			return NumericVector( n, location );
-    
+
 		return NumericVector( n, stats::LogisGenerator_1( location ) ) ;
 	}
 
@@ -250,19 +250,19 @@ namespace Rcpp{
 		if(!R_FINITE(siz) || !R_FINITE(prob) || siz <= 0 || prob <= 0 || prob > 1)
 			/* prob = 1 is ok, PR#1218 */
 			return NumericVector( n, R_NaN ) ;
-    
+
 		return NumericVector( n, stats::NBinomGenerator( siz, prob ) ) ;
 	}
 
 	inline NumericVector rnbinom_mu( int n, double siz, double mu ){
 		if(!R_FINITE(siz) || !R_FINITE(mu) || siz <= 0 || mu < 0)
 			return NumericVector( n, R_NaN ) ;
-    
+
 		return NumericVector( n, stats::NBinomGenerator_Mu( siz, mu ) ) ;
 	}
 
 	inline NumericVector rnchisq( int n, double df, double lambda ){
-		if (!R_FINITE(df) || !R_FINITE(lambda) || df < 0. || lambda < 0.) 
+		if (!R_FINITE(df) || !R_FINITE(lambda) || df < 0. || lambda < 0.)
 			return NumericVector(n, R_NaN) ;
 		if( lambda == 0.0 ){
 			// using the central generator, see rchisq.h
@@ -272,7 +272,7 @@ namespace Rcpp{
 	}
 
 	inline NumericVector rnchisq( int n, double df /*, double lambda = 0.0 */ ){
-		if (!R_FINITE(df) || df < 0. ) 
+		if (!R_FINITE(df) || df < 0. )
 			return NumericVector(n, R_NaN) ;
 		return NumericVector( n, stats::ChisqGenerator( df ) ) ;
 	}
@@ -297,7 +297,7 @@ namespace Rcpp{
 		// general case
 		return NumericVector( n, stats::TGenerator( df ) ) ;
 	}
-	 
+	
 	inline NumericVector runif( int n, double min, double max ){
 		if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
 		if( min == max ) return NumericVector( n, min ) ;
@@ -313,7 +313,7 @@ namespace Rcpp{
 	inline NumericVector runif( int n /*, double min = 0.0, double max = 1.0 */ ){
 		return NumericVector( n, stats::UnifGenerator__0__1() ) ;
 	}
- 
+
 	inline NumericVector rweibull( int n, double shape, double scale ){
 		if (!R_FINITE(shape) || !R_FINITE(scale) || shape <= 0. || scale <= 0.) {
 			if(scale == 0.) return NumericVector(n, 0.);

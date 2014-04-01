@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rt.h: Rcpp R/C++ interface class library -- 
+// rt.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -25,7 +25,7 @@
 namespace Rcpp {
 	namespace stats {
 
-	    
+	
 		class TGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
@@ -37,7 +37,7 @@ namespace Rcpp {
 				double num = norm_rand();
 		
 				// return num / sqrt(rchisq(df) / df);
-				// replaced by the followoing line to skip the test in 
+				// replaced by the followoing line to skip the test in
 				// rchisq because we already know
 				return num / ::sqrt( ::Rf_rgamma(df_2, 2.0) / df);
 			}

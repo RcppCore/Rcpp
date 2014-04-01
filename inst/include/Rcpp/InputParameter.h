@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// InputParameter.h: Rcpp R/C++ interface class library -- 
+// InputParameter.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
 //
@@ -22,31 +22,31 @@
 #ifndef Rcpp__InputParameter__h
 #define Rcpp__InputParameter__h
 
-namespace Rcpp { 
-    
+namespace Rcpp {
+
     // default implementation used for pass by value and modules objects
     // as<> is called on the conversion operator
     template <typename T>
     class InputParameter {
     public:
         InputParameter(SEXP x_) : x(x_){}
-        
+
         inline operator T() { return as<T>(x) ; }
-        
+
     private:
         SEXP x ;
     } ;
-    
-    // impl for references. It holds an object at the constructor and then 
+
+    // impl for references. It holds an object at the constructor and then
     // returns a reference in the reference operator
     template <typename T>
     class ReferenceInputParameter {
     public:
         typedef T& reference ;
         ReferenceInputParameter(SEXP x_) : obj( as<T>(x_) ){}
-        
+
         inline operator reference() { return obj ; }
-        
+
     private:
         T obj ;
     } ;
@@ -57,26 +57,26 @@ namespace Rcpp {
     public:
         typedef const T const_nonref ;
         ConstInputParameter(SEXP x_) : obj( as<T>(x_) ){}
-        
+
         inline operator const_nonref() { return obj ; }
-        
+
     private:
         T obj ;
     } ;
-    
+
     // same for const references
     template <typename T>
     class ConstReferenceInputParameter {
     public:
         typedef const T& const_reference ;
         ConstReferenceInputParameter(SEXP x_) : obj( as<T>(x_) ){}
-        
+
         inline operator const_reference() { return obj ; }
-        
+
     private:
         T obj ;
     } ;
-    
+
     namespace traits{
         template <typename T>
         struct input_parameter {
@@ -94,8 +94,8 @@ namespace Rcpp {
         struct input_parameter<const T&> {
             typedef typename Rcpp::ConstReferenceInputParameter<T> type ;
         } ;
-    }    
-    
+    }
+
 }
 
 #endif

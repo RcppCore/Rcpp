@@ -31,7 +31,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Rep_each( const VEC_TYPE& object_, int times_ ) : 
+	Rep_each( const VEC_TYPE& object_, int times_ ) :
 		object(object_), times(times_), n(object.size()) {}
 
 	inline STORAGE operator[]( int i ) const {
@@ -41,7 +41,7 @@ public:
 
 private:
 	const VEC_TYPE& object ;
-	int times; 
+	int times;
 	int n ;
 } ;
 
