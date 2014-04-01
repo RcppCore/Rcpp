@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in [UNRELEASED] Rcpp version 0.11.2} {
+\section{Changes in [UNRELEASED] Rcpp version 0.11.2}{
   \itemize{
     \item Templated List containers, \code{ListOf<T>}, have been 
     introduced. When subsetting such containers, the return is assumed 
