@@ -19,28 +19,28 @@
 #define Rcpp_api_meat_S4_h
 
 namespace Rcpp{
-      
-    template <template <class> class StoragePolicy> 
+
+    template <template <class> class StoragePolicy>
     bool S4_Impl<StoragePolicy>::is( const std::string& clazz) const {
         CharacterVector cl = AttributeProxyPolicy<S4_Impl>::attr("class");
-            
+
         // simple test for exact match
         if( ! clazz.compare( cl[0] ) ) return true ;
-                
+
         try{
             SEXP containsSym = Rf_install("contains");
             Shield<SEXP> classDef( R_getClassDef(CHAR(Rf_asChar(cl))) ) ;
             CharacterVector res( Rf_getAttrib( R_do_slot( classDef, containsSym), R_NamesSymbol));
-        
+
             return any( res.begin(), res.end(), clazz.c_str() ) ;
         } catch( ... ){
-            // we catch eval_error and also not_compatible when 
+            // we catch eval_error and also not_compatible when
             // contains is NULL
         }
-        return false ;            
+        return false ;
     }
-        
-    
+
+
 }
 
 #endif

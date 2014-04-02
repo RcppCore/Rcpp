@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// is_module_object.h: Rcpp R/C++ interface class library -- 
+// is_module_object.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -25,8 +25,8 @@
 
 namespace Rcpp{
 namespace traits{
-      
-	template <typename T> struct is_module_object : 
+
+	template <typename T> struct is_module_object :
 		public integral_constant<bool,
 			same_type< typename r_type_traits<T>::r_category, r_type_module_object_tag >::value                ||
 			same_type< typename r_type_traits<T>::r_category, r_type_module_object_pointer_tag >::value        ||

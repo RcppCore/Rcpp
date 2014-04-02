@@ -26,7 +26,7 @@ namespace Rcpp{
 
 template <int MAX_SIZE>
 std::string sprintf( const char *format, ...) {
-    static char buffer[MAX_SIZE]; 
+    static char buffer[MAX_SIZE];
     va_list(ap);
     va_start(ap, format);
     vsnprintf( buffer, MAX_SIZE, format, ap);

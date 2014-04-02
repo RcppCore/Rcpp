@@ -25,9 +25,9 @@
 namespace Rcpp{
 namespace sugar{
 
-template <int RTYPE, bool LHS_NA, bool RHS_NA> struct pmax_op ; 
+template <int RTYPE, bool LHS_NA, bool RHS_NA> struct pmax_op ;
 
-// specializations for double. 
+// specializations for double.
 // we use the fact that NA < x is false
 template <>
 struct pmax_op<REALSXP,true,true>{
@@ -51,7 +51,7 @@ template <> struct pmax_op<REALSXP,false,false> {
 	}
 } ;
 
-// specializations for INTSXP. Since NA is represented as the smallest 
+// specializations for INTSXP. Since NA is represented as the smallest
 // int, NA is always the smallest, so it is safe to return NA
 template <bool LHS_NA, bool RHS_NA>
 struct pmax_op<INTSXP,LHS_NA,RHS_NA> {
@@ -88,16 +88,16 @@ private:
 	double right ;
 } ;
 
-    
+
 
 
 template <
-	int RTYPE, 
-	bool LHS_NA, typename LHS_T, 
+	int RTYPE,
+	bool LHS_NA, typename LHS_T,
 	bool RHS_NA, typename RHS_T
 	>
-class Pmax_Vector_Vector : public VectorBase< 
-	RTYPE , 
+class Pmax_Vector_Vector : public VectorBase<
+	RTYPE ,
 	( LHS_NA || RHS_NA ) ,
 	Pmax_Vector_Vector<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>
 > {
@@ -111,7 +111,7 @@ public:
 		return op( lhs[i], rhs[i] ) ;
 	}
 	inline int size() const { return lhs.size() ; }
-	         
+	
 private:
 	const LHS_T& lhs ;
 	const RHS_T& rhs ;
@@ -121,11 +121,11 @@ private:
 
 
 template <
-	int RTYPE, 
+	int RTYPE,
 	bool LHS_NA, typename LHS_T
 	>
-class Pmax_Vector_Primitive : public VectorBase< 
-	RTYPE , 
+class Pmax_Vector_Primitive : public VectorBase<
+	RTYPE ,
 	true ,
 	Pmax_Vector_Primitive<RTYPE,LHS_NA,LHS_T>
 > {
@@ -139,7 +139,7 @@ public:
 		return op( lhs[i] ) ;
 	}
 	inline int size() const { return lhs.size() ; }
-	         
+	
 private:
 	const LHS_T& lhs ;
 	OPERATOR op ;
@@ -150,39 +150,39 @@ private:
 } // sugar
 
 template <
-	int RTYPE, 
+	int RTYPE,
 	bool LHS_NA, typename LHS_T,
 	bool RHS_NA, typename RHS_T
 >
-inline sugar::Pmax_Vector_Vector<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T> 
-pmax( 
-	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, 
-	const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs 
+inline sugar::Pmax_Vector_Vector<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>
+pmax(
+	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
+	const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs
 	){
 	return sugar::Pmax_Vector_Vector<RTYPE,LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs.get_ref(), rhs.get_ref() ) ;
 }
 
 template <
-	int RTYPE, 
+	int RTYPE,
 	bool LHS_NA, typename LHS_T
 >
-inline sugar::Pmax_Vector_Primitive<RTYPE,LHS_NA,LHS_T> 
-pmax( 
-	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs, 
-	typename Rcpp::traits::storage_type<RTYPE>::type rhs 
+inline sugar::Pmax_Vector_Primitive<RTYPE,LHS_NA,LHS_T>
+pmax(
+	const Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T>& lhs,
+	typename Rcpp::traits::storage_type<RTYPE>::type rhs
 	){
 	return sugar::Pmax_Vector_Primitive<RTYPE,LHS_NA,LHS_T>( lhs.get_ref(), rhs ) ;
 }
 
 
 template <
-	int RTYPE, 
+	int RTYPE,
 	bool RHS_NA, typename RHS_T
 >
-inline sugar::Pmax_Vector_Primitive<RTYPE,RHS_NA,RHS_T> 
-pmax( 
-	typename Rcpp::traits::storage_type<RTYPE>::type lhs,  
-	const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs 
+inline sugar::Pmax_Vector_Primitive<RTYPE,RHS_NA,RHS_T>
+pmax(
+	typename Rcpp::traits::storage_type<RTYPE>::type lhs,
+	const Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T>& rhs
 	){
 	return sugar::Pmax_Vector_Primitive<RTYPE,RHS_NA,RHS_T>( rhs.get_ref(), lhs ) ;
 }

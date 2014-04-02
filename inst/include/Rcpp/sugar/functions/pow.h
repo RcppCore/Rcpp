@@ -36,7 +36,7 @@ public:
 	    return ::pow( object[i], op );
 	}
 	inline int size() const { return object.size() ; }
-	         
+	
 private:
 	const T& object ;
 	EXPONENT_TYPE op ;
@@ -52,7 +52,7 @@ public:
 	    return x == NA_INTEGER ? NA_INTEGER : ::pow( x, op );
 	}
 	inline int size() const { return object.size() ; }
-	         
+	
 private:
 	const T& object ;
 	EXPONENT_TYPE op ;
@@ -66,7 +66,7 @@ public:
 	    return ::pow( object[i], op );
 	}
 	inline int size() const { return object.size() ; }
-	         
+	
 private:
 	const T& object ;
 	EXPONENT_TYPE op ;
@@ -76,8 +76,8 @@ private:
 } // sugar
 
 template <int RTYPE, bool NA, typename T, typename EXPONENT_TYPE>
-inline sugar::Pow<RTYPE,NA,T,EXPONENT_TYPE> pow( 
-	const VectorBase<RTYPE,NA,T>& t, 
+inline sugar::Pow<RTYPE,NA,T,EXPONENT_TYPE> pow(
+	const VectorBase<RTYPE,NA,T>& t,
 	EXPONENT_TYPE exponent
 ){
 	return sugar::Pow<RTYPE,NA,T,EXPONENT_TYPE>( t.get_ref() , exponent ) ;

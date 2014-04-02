@@ -14,44 +14,44 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-        
+
 #ifndef Rcpp_protection_Armor_H
 #define Rcpp_protection_Armor_H
 
 namespace Rcpp {
-    
+
     template <typename T>
     class Armor {
     public:
-        
+
         Armor() : data(){
-            init(R_NilValue) ;    
+            init(R_NilValue) ;
         }
-        
+
         template <typename U> Armor( U x );
-        
+
         inline operator SEXP() const {
             return data ;
         }
-              
+
         template <typename U>
         inline Armor& operator=( const U& x ) ;
-        
+
         ~Armor(){
             UNPROTECT(1) ;
         }
-        
+
     private:
         void init(SEXP x){
-           PROTECT_WITH_INDEX( data = x, &index ) ;     
+           PROTECT_WITH_INDEX( data = x, &index ) ;
         }
-        
+
         SEXP data ;
         PROTECT_INDEX index ;
-        
+
         // not defined on purpose
         Armor(const Armor&) ;
-        Armor& operator=(const Armor&) ; 
+        Armor& operator=(const Armor&) ;
     } ;
 }
 

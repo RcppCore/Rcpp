@@ -19,7 +19,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 #ifndef Rcpp__traits__named_object__h
 #define Rcpp__traits__named_object__h
 
@@ -33,7 +33,7 @@ template <> struct needs_protection<SEXP> : true_type{} ;
 
 template <typename T> class named_object {
 	public:
-		named_object( const std::string& name_, const T& o_) : 
+		named_object( const std::string& name_, const T& o_) :
 			name(name_), object(o_){}
 		const std::string& name ;
 		const T& object ;
@@ -46,7 +46,7 @@ public:
 		R_PreserveObject(object) ;	
 	}
 	
-	named_object( const named_object<SEXP>& other ) : 
+	named_object( const named_object<SEXP>& other ) :
 		name(other.name), object(other.object)
 	{
 		R_PreserveObject(object) ;	
@@ -66,4 +66,4 @@ template <> struct is_named< Rcpp::Argument >   : public true_type {} ;
 } // namespace traits
 } // namespace Rcpp
 
-#endif 
+#endif

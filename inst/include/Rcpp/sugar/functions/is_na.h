@@ -38,12 +38,12 @@ public:
 	}
 	
 	inline int size() const { return obj.size() ; }
-	         
+	
 private:
 	const BASE& obj ;
 	
 } ;
-      
+
 // specialization for the case where we already know
 // the result (FALSE) because it is embedded in the type
 // (the second template parameter of VectorBase)
@@ -70,15 +70,15 @@ template <typename T>
 class IsNa_Vector_is_na : public Rcpp::VectorBase<LGLSXP, false, IsNa_Vector_is_na<T> >{
    public:
        IsNa_Vector_is_na( const T& x) : ref(x){}
-       
+
        inline int operator[]( int i) const {
            return ref[i].is_na() ;
        }
-       
-       inline int size() const { return ref.size() ; } 
-       
+
+       inline int size() const { return ref.size() ; }
+
    private:
-        const T& ref ;       
+        const T& ref ;
 } ;
 
 } // sugar

@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
 // is_nan.h: Rcpp R/C++ interface class library -- is NaN
-//                                                                      
+//
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -25,18 +25,18 @@
 namespace Rcpp{
 namespace traits{
 	
-	// default for most types 
-	template <int RTYPE> 
+	// default for most types
+	template <int RTYPE>
 	bool is_nan( typename storage_type<RTYPE>::type){
-	    return false ;    
+	    return false ;
 	}
 	
-	template <> 
+	template <>
 	inline bool is_nan<REALSXP>( double x ){
 		return internal::Rcpp_IsNaN(x) ;
 	}
 	
-	template <> 
+	template <>
 	inline bool is_nan<CPLXSXP>( Rcomplex x ){
 		return internal::Rcpp_IsNaN(x.r) || internal::Rcpp_IsNaN(x.i) ;
 	}

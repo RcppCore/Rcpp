@@ -33,9 +33,9 @@ namespace sugar{
 
 	
 template <bool NA, typename OUT, typename T, typename FunPtr>
-class SugarComplex : public Rcpp::VectorBase< 
-	Rcpp::traits::r_sexptype_traits<OUT>::rtype , 
-	NA, 
+class SugarComplex : public Rcpp::VectorBase<
+	Rcpp::traits::r_sexptype_traits<OUT>::rtype ,
+	NA,
 	SugarComplex<NA,OUT,T,FunPtr>
 	> {
 public:
@@ -44,11 +44,11 @@ public:
 	
 	SugarComplex( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 	
-	inline OUT operator[]( int i) const { 
+	inline OUT operator[]( int i) const {
 		Rcomplex x = vec[i] ;
-		if( Rcpp::traits::is_na<CPLXSXP>( x ) ) 
+		if( Rcpp::traits::is_na<CPLXSXP>( x ) )
 			return Rcpp::traits::get_na< Rcpp::traits::r_sexptype_traits<OUT>::rtype >() ;
-		return ptr( x ); 
+		return ptr( x );
 	}
 	inline int size() const { return vec.size() ; }
 	
@@ -64,7 +64,7 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 	inline double complex__Mod( Rcomplex x){ return ::sqrt( x.i * x.i + x.r * x.r) ; }
 	inline Rcomplex complex__Conj( Rcomplex x){
 		Rcomplex y ;
-		y.r = x.r; 
+		y.r = x.r;
 		y.i = -x.i ;
 		return y ;
 	}
@@ -104,7 +104,7 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 	    Rcomplex r ;
 	    r.r = ::cos(z.r) * ::cosh(z.i);
 	    r.i = - ::sin(z.r) * ::sinh(z.i);
-	    return r ; 
+	    return r ;
 	}
 	inline Rcomplex complex__cosh(Rcomplex z){
 	    Rcomplex r;
@@ -116,7 +116,7 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 		Rcomplex r ;
 	    r.r = ::sin(z.r) * ::cosh(z.i);
 	    r.i = ::cos(z.r) * ::sinh(z.i);
-	    return r; 
+	    return r;
 	}
 	inline Rcomplex complex__tan(Rcomplex z){
 	    Rcomplex r ;
@@ -168,7 +168,7 @@ inline Rcomplex complex__acos(Rcomplex z)
 
 inline Rcomplex complex__atan(Rcomplex z)
 {
-    Rcomplex r; 
+    Rcomplex r;
     double x, y;
     x = z.r;
     y = z.i;
@@ -253,20 +253,20 @@ RCPP_SUGAR_COMPLEX( Conj, Rcomplex )
 RCPP_SUGAR_COMPLEX( exp, Rcomplex )
 RCPP_SUGAR_COMPLEX( log, Rcomplex )
 RCPP_SUGAR_COMPLEX( sqrt, Rcomplex )
-RCPP_SUGAR_COMPLEX( cos, Rcomplex ) 
+RCPP_SUGAR_COMPLEX( cos, Rcomplex )
 RCPP_SUGAR_COMPLEX( sin, Rcomplex )
 RCPP_SUGAR_COMPLEX( tan, Rcomplex )
-RCPP_SUGAR_COMPLEX( acos, Rcomplex ) 
+RCPP_SUGAR_COMPLEX( acos, Rcomplex )
 RCPP_SUGAR_COMPLEX( asin, Rcomplex )
 RCPP_SUGAR_COMPLEX( atan, Rcomplex )
-RCPP_SUGAR_COMPLEX( acosh, Rcomplex ) 
+RCPP_SUGAR_COMPLEX( acosh, Rcomplex )
 RCPP_SUGAR_COMPLEX( asinh, Rcomplex )
 RCPP_SUGAR_COMPLEX( atanh, Rcomplex )
 RCPP_SUGAR_COMPLEX( cosh, Rcomplex )
 RCPP_SUGAR_COMPLEX( sinh, Rcomplex )
 RCPP_SUGAR_COMPLEX( tanh, Rcomplex )
 
-#undef RCPP_SUGAR_COMPLEX	 
+#undef RCPP_SUGAR_COMPLEX	
 	
 } // Rcpp
 #endif

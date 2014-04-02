@@ -23,7 +23,7 @@
 using namespace Rcpp ;
 
 // [[Rcpp::export]]
-double asDouble(double d){ 
+double asDouble(double d){
     return 2*d ;
 }
 
@@ -34,7 +34,7 @@ int asInt(int i){
 
 // [[Rcpp::export]]
 std::string asStdString(std::string s){
-   return s+s ; 
+   return s+s ;
 }
 
 // [[Rcpp::export]]
@@ -43,7 +43,7 @@ Rbyte asRaw( Rbyte i ){
 }
 
 // [[Rcpp::export]]
-bool asLogical( bool b){ 
+bool asLogical( bool b){
     return !b ;
 }
 
@@ -144,7 +144,7 @@ bool hasAttribute( DataFrame x){
 SEXP attr_( DataFrame x){
     return x.attr( "row.names" ) ;
 }
-    
+
 // [[Rcpp::export]]
 RObject attr_set(){
     RObject y = wrap("blabla") ;

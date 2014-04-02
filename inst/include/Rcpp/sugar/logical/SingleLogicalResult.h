@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
-// SingleLogicalResult.h: Rcpp R/C++ interface class library -- 
+// SingleLogicalResult.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
@@ -23,20 +23,20 @@
 #define Rcpp__sugar__SingleLogicalResult_h
 
 namespace Rcpp{
-namespace sugar{  
+namespace sugar{
 
-template <bool> 
+template <bool>
 class forbidden_conversion ;
 
-template <> 
+template <>
 class forbidden_conversion<true>{} ;
 
 template <bool x>
-class conversion_to_bool_is_forbidden : 
+class conversion_to_bool_is_forbidden :
 	forbidden_conversion<x>{
 	public:
 		void touch(){}
-}; 
+};
 
 template <bool NA,typename T>
 class SingleLogicalResult {

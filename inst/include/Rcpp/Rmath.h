@@ -8,7 +8,7 @@
 //
 // Rcpp is free software: you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 2 of the License, or           
+// the Free Software Foundation, either version 2 of the License, or
 // (at your option) any later version.
 //
 // Rcpp is distributed in the hope that it will be useful, but
@@ -29,7 +29,7 @@ namespace R {
     /* Random Number Generators */
     inline double norm_rand(void) 	{ return ::norm_rand(); }
     inline double unif_rand(void)	{ return ::unif_rand(); }
-    inline double exp_rand(void)	{ return ::exp_rand(); } 
+    inline double exp_rand(void)	{ return ::exp_rand(); }
 
     /* Normal Distribution */
     inline double dnorm(double x, double mu, double sigma, int lg)              { return ::Rf_dnorm4(x, mu, sigma, lg); }
@@ -196,7 +196,7 @@ namespace R {
     inline double trigamma(double x)	{ return ::Rf_trigamma(x); }
     inline double tetragamma(double x)	{ return ::Rf_tetragamma(x); }
     inline double pentagamma(double x)	{ return ::Rf_pentagamma(x); }
-    
+
     inline double beta(double a, double b)	{ return ::Rf_beta(a, b); }
     inline double lbeta(double a, double b)	{ return ::Rf_lbeta(a, b); }
 
@@ -233,7 +233,7 @@ namespace R {
     inline double fround(double x, double dg)	{ return ::Rf_fround(x, dg); }
     inline double fsign(double x, double y)	{ return ::Rf_fsign(x, y); }
     inline double ftrunc(double x)		{ return ::Rf_ftrunc(x); }
-    
+
 }
 
 #endif

@@ -12,9 +12,9 @@ RcppExport SEXP convolve14cpp(SEXP a, SEXP b){
     int nab = n_xa + n_xb - 1;
     NumericVector xab(nab);
     Fast<NumericVector> fa(xa), fb(xb), fab(xab) ;
-    
+
     for (int i = 0; i < n_xa; i++)
-        for (int j = 0; j < n_xb; j++) 
+        for (int j = 0; j < n_xb; j++)
             fab[i + j] += fa[i] * fb[j];
 
     return xab ;

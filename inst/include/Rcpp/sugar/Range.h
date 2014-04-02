@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// Range.h: Rcpp R/C++ interface class library -- 
+// Range.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -31,15 +31,15 @@ namespace Rcpp{
                 throw std::range_error( "upper value must be greater than lower value" ) ;
             }
         }
-                
+
         inline int size() const{
             return end_ - start + 1;
         }
-                
+
         inline int operator[]( int i) const {
             return start + i ;
         }
-                
+
         Range& operator++() {
             start++ ; end_++ ;
             return *this ;
@@ -49,7 +49,7 @@ namespace Rcpp{
             ++(*this);
             return orig ;
         }
-                
+
         Range& operator--() {
             start-- ; end_-- ;
             return *this ;
@@ -59,32 +59,32 @@ namespace Rcpp{
             --(*this);
             return orig ;
         }
-                
+
         Range& operator+=(int n) {
             start += n ; end_ += n ;
             return *this ;
         }
-                
+
         Range& operator-=(int n) {
             start -= n ; end_ -= n ;
             return *this ;
         }
-                
+
         Range operator+( int n ){
             return Range( start + n, end_ + n ) ;
         }
         Range operator-( int n ){
             return Range( start - n, end_ - n ) ;
         }
-                
+
         inline int get_start() const { return start ; }
         inline int get_end() const { return end_ ; }
-                
+
     private:
         int start ;
         int end_ ;
     } ;
-        
-} 
+
+}
 
 #endif

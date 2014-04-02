@@ -79,7 +79,7 @@
 #undef lgammafn_sign	
 #undef lgamma1p	
 #undef log1pmx		
-#undef logspace_add	    
+#undef logspace_add	
 #undef logspace_sub	
 #undef pbeta		
 #undef pbeta_raw	
@@ -102,7 +102,7 @@
 #undef pnorm_both	
 #undef pnt		
 #undef ppois		
-#undef psignrank	 
+#undef psignrank	
 #undef psigamma	
 #undef pt		
 #undef ptukey		
@@ -151,7 +151,7 @@
 #undef rnchisq	
 #undef rnf		
 #undef rnorm		
-#undef rnt		    
+#undef rnt		
 #undef rpois		
 #undef rsignrank	
 #undef rt		
@@ -159,7 +159,7 @@
 #undef runif		
 #undef rweibull
 #undef rwilcox		
-#undef sign		       
+#undef sign		
 #undef tetragamma	
 #undef trigamma	
 

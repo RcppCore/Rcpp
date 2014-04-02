@@ -19,12 +19,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 #ifndef Rcpp__traits__has_iterator__h
 #define Rcpp__traits__has_iterator__h
 
 /* "inspired" from the tr1_impl/functional file
-   This uses the SFINAE technique to identify if a class T has 
+   This uses the SFINAE technique to identify if a class T has
    an iterator typedef
 */
 
@@ -35,7 +35,7 @@ namespace traits{
     typedef char __one;
     typedef struct { char __arr[2]; } __two;
   };
-  
+
   template<typename T>
   class _has_iterator_helper : __sfinae_types {
       template<typename U> struct _Wrap_type { };
@@ -63,7 +63,7 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
-    
+
   template<typename T>
   class _is_generator_helper : __sfinae_types {
       template<typename U> struct _Wrap_type { };
@@ -77,8 +77,8 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
- 
-  
+
+
   template<typename T>
   class _is_exporter_helper : __sfinae_types {
       template<typename U> struct _Wrap_type { };
@@ -93,29 +93,29 @@ namespace traits{
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
 
-  /** 
-   * uses the SFINAE idiom to check if a class has an 
-   * nested iterator typedef. For example : 
+  /**
+   * uses the SFINAE idiom to check if a class has an
+   * nested iterator typedef. For example :
    *
    * has_iterator< std::vector<int> >::value is true
    * has_iterator< Rcpp::Symbol >::value is false
    */
-  template<typename T> struct has_iterator : 
+  template<typename T> struct has_iterator :
   	integral_constant<bool,_has_iterator_helper<T>::value> { };
 
   /**
    * uses SFINAE to identify if a type is importable
    *
-   * The test is based on the presence of a typedef r_import_type in the 
+   * The test is based on the presence of a typedef r_import_type in the
    * class
    */
-  template<typename T> struct is_importer : 
+  template<typename T> struct is_importer :
     integral_constant<bool,_is_importer_helper<T>::value> { };
 	
-  template<typename T> struct is_exporter : 
+  template<typename T> struct is_exporter :
     integral_constant<bool,_is_exporter_helper<T>::value> { };
 
-  template<typename T> struct is_generator : 
+  template<typename T> struct is_generator :
     integral_constant<bool,_is_generator_helper<T>::value> { };
 
 } // traits

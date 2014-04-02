@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rnchisq.h: Rcpp R/C++ interface class library -- 
+// rnchisq.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -29,14 +29,14 @@ namespace Rcpp {
 		class NChisqGenerator : public ::Rcpp::Generator<double> {
 		public:
 	
-			NChisqGenerator( double df_, double lambda_ ) : 
+			NChisqGenerator( double df_, double lambda_ ) :
 				df(df_), df_2(df_ / 2.0), lambda_2(lambda_ / 2.0 ) {}
 	
 			inline double operator()() const {
 				double r = ::Rf_rpois( lambda_2 ) ;
 				// if( r > 0.0 ) r = Rf_rchisq( 2. * r ) ;
 				// replace by so that we can skip the tests in rchisq
-				// because there is no point in doing them as we know the 
+				// because there is no point in doing them as we know the
 				// outcome for sure
 				if( r > 0.0 ) r = ::Rf_rgamma( r, 2. ) ;
 				if (df > 0.) r += ::Rf_rgamma( df_2, 2.);

@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// is_sugar_expression.h: Rcpp R/C++ interface class library -- 
+// is_sugar_expression.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
@@ -38,12 +38,12 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
-  
-  template<typename T> struct is_sugar_expression : 
+
+  template<typename T> struct is_sugar_expression :
   	integral_constant<bool, _is_sugar_expression_helper<T>::value >{ };
-    
-    
-} 
+
+
+}
 }
 
 #endif

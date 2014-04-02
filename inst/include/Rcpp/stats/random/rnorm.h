@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rnorm.h: Rcpp R/C++ interface class library -- 
+// rnorm.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -25,11 +25,11 @@
 namespace Rcpp {
 	namespace stats {
 
-	    
+	
 		class NormGenerator : public Generator<double> {
 		public:
 	
-			NormGenerator( double mean_ = 0.0 , double sd_ = 1.0 ) : 
+			NormGenerator( double mean_ = 0.0 , double sd_ = 1.0 ) :
 				mean(mean_), sd(sd_) {}
 	
 			inline double operator()() const {

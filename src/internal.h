@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// internal.h: Rcpp R/C++ interface class library -- 
+// internal.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -32,7 +32,7 @@
 #define CALLFUN_5(name) SEXP name(SEXP,SEXP,SEXP,SEXP,SEXP)
 #define EXTFUN(name) SEXP name(SEXP)
 
-// this file contains declarations of functions that are not 
+// this file contains declarations of functions that are not
 // exported via Rcpp.h but are needed to make Rcpp work internally
 
 #define MAX_ARGS 65

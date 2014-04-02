@@ -19,24 +19,24 @@
 #define Rcpp_api_meat_Date_h
 
 namespace Rcpp{
-       
+
     inline Date::Date(SEXP d) {
         m_d = Rcpp::as<double>(d);
         update_tm();
     }
-         
+
     inline Date::Date(const std::string &s, const std::string &fmt) {
         Function strptime("strptime");	// we cheat and call strptime() from R
         Function asDate("as.Date");	// and we need to convert to Date
         m_d = Rcpp::as<int>(asDate(strptime(s, fmt, "UTC")));
         update_tm();
     }
-    
-    template <> 
+
+    template <>
     inline SEXP wrap(const Date &date) {
         return internal::new_date_object( date.getDate() ) ;
     }
-    
+
 
 }
 

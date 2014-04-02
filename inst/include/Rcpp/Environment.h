@@ -22,26 +22,26 @@
 #ifndef Rcpp_Environment_h
 #define Rcpp_Environment_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
-    RCPP_API_CLASS(Environment_Impl), 
-        public BindingPolicy< Environment_Impl<StoragePolicy> > 
+    RCPP_API_CLASS(Environment_Impl),
+        public BindingPolicy< Environment_Impl<StoragePolicy> >
     {
     private:
-        inline SEXP as_environment(SEXP x){  
+        inline SEXP as_environment(SEXP x){
             if( Rf_isEnvironment(x) ) return x ;
             SEXP asEnvironmentSym = Rf_install("as.environment");
             try {
                 Shield<SEXP> res( Rcpp_eval( Rf_lang2( asEnvironmentSym, x ) ) );
                 return res ;
             } catch( const eval_error& ex){
-                throw not_compatible( "cannot convert to environment"  ) ; 
+                throw not_compatible( "cannot convert to environment"  ) ;
             }
         }
-    
+
     public:
-        RCPP_GENERATE_CTOR_ASSIGN(Environment_Impl) 
-        
+        RCPP_GENERATE_CTOR_ASSIGN(Environment_Impl)
+
         Environment_Impl(){
             Storage::set__(R_GlobalEnv) ;
         } ;
@@ -51,33 +51,33 @@ namespace Rcpp{
          *
          * if the SEXP is not an environment, and exception is thrown
          */
-        Environment_Impl(SEXP x) { 
+        Environment_Impl(SEXP x) {
             Storage::set__( as_environment(x) ) ;
         }
-    
+
         /**
          * Gets the environment associated with the given name
          *
          * @param name name of the environment, e.g "package:Rcpp"
          */
         Environment_Impl( const std::string& name ) ;
-    
+
         /**
          * Gets the environment in the given position of the search path
-         * 
+         *
          * @param pos (1-based) position of the environment, e.g pos=1 gives the
          *        global environment
          */
         Environment_Impl( int pos ) ;
-    
+
         /**
          * The list of objects in the environment
-         * 
-         * the same as calling this from R: 
+         *
+         * the same as calling this from R:
          * > ls( envir = this, all = all )
          *
          * @param all same meaning as in ?ls
-         */ 
+         */
         SEXP ls(bool all) const {
             SEXP env = Storage::get__() ;
             if( is_user_database() ){
@@ -88,7 +88,7 @@ namespace Rcpp{
             }
             return R_NilValue ;
         }
-        
+
         /**
          * Get an object from the environment
          *
@@ -100,16 +100,16 @@ namespace Rcpp{
             SEXP env = Storage::get__() ;
             SEXP nameSym = Rf_install(name.c_str());
             SEXP res = Rf_findVarInFrame( env, nameSym ) ;
-            
+
             if( res == R_UnboundValue ) return R_NilValue ;
-            
+
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
                 res = Rf_eval( res, env ) ;
             }
             return res ;
         }
-    
+
         /**
          * Get an object from the environment or one of its
          * parents
@@ -121,18 +121,18 @@ namespace Rcpp{
             SEXP env = Storage::get__() ;
             SEXP nameSym = Rf_install(name.c_str());
             SEXP res = Rf_findVar( nameSym, env ) ;
-            
+
             if( res == R_UnboundValue ) throw binding_not_found(name) ;
-            
+
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
                 res = Rf_eval( res, env ) ;
             }
             return res ;
         }
-    
+
         /**
-         * Indicates if an object called name exists in the 
+         * Indicates if an object called name exists in the
          * environment
          *
          * @param name name of the object
@@ -142,9 +142,9 @@ namespace Rcpp{
         bool exists( const std::string& name ) const {
             SEXP nameSym = Rf_install(name.c_str());
             SEXP res = Rf_findVarInFrame( Storage::get__() , nameSym  ) ;
-            return res != R_UnboundValue ;        
+            return res != R_UnboundValue ;
         }
-    
+
         /**
          * Attempts to assign x to name in this environment
          *
@@ -160,11 +160,11 @@ namespace Rcpp{
             if( exists( name) && bindingIsLocked(name) ) throw binding_is_locked(name) ;
             SEXP nameSym = Rf_install(name.c_str());
             Rf_defineVar( nameSym, x, Storage::get__() );
-            return true ;    
+            return true ;
         }
-    
+
         /**
-         * wrap and assign. If there is a wrap method taking an object 
+         * wrap and assign. If there is a wrap method taking an object
          * of WRAPPABLE type, then it is wrapped and the corresponding SEXP
          * is assigned in the environment
          *
@@ -173,15 +173,15 @@ namespace Rcpp{
          */
         template <typename WRAPPABLE>
         bool assign( const std::string& name, const WRAPPABLE& x) const ;
-    
+
         /**
          * @return true if this environment is locked
          * see ?environmentIsLocked for details of what this means
          */
         bool isLocked() const {
-             return R_EnvironmentIsLocked(Storage::get__());   
+             return R_EnvironmentIsLocked(Storage::get__());
         }
-    
+
         /**
          * remove an object from this environment
          */
@@ -190,11 +190,11 @@ namespace Rcpp{
                 if( bindingIsLocked(name) ){
                     throw binding_is_locked(name) ;
                 } else{
-                    /* unless we want to copy all of do_remove, 
+                    /* unless we want to copy all of do_remove,
                        we have to go back to R to do this operation */
                     SEXP internalSym = Rf_install( ".Internal" );
                     SEXP removeSym = Rf_install( "remove" );
-                    Shield<SEXP> call( Rf_lang2(internalSym, 
+                    Shield<SEXP> call( Rf_lang2(internalSym,
                             Rf_lang4(removeSym, Rf_mkString(name.c_str()), Storage::get__(), Rf_ScalarLogical( FALSE ))
                         ) );
                     Rf_eval( call, R_GlobalEnv ) ;
@@ -204,7 +204,7 @@ namespace Rcpp{
             }
             return true;
         }
-    
+
         /**
          * locks this environment. See ?lockEnvironment
          *
@@ -213,9 +213,9 @@ namespace Rcpp{
         void lock(bool bindings = false) {
             R_LockEnvironment( Storage::get__(), bindings ? TRUE: FALSE ) ;
         }
-    
+
         /**
-         * Locks the given binding in the environment. 
+         * Locks the given binding in the environment.
          * see ?bindingIsLocked
          *
          * @throw no_such_binding if there is no such binding in this environment
@@ -223,9 +223,9 @@ namespace Rcpp{
         void lockBinding(const std::string& name){
             if( !exists( name) ) throw no_such_binding(name) ;
             SEXP nameSym = Rf_install(name.c_str());
-            R_LockBinding( nameSym, Storage::get__() ); 
+            R_LockBinding( nameSym, Storage::get__() );
         }
-    
+
         /**
          * unlocks the given binding
          * see ?bindingIsLocked
@@ -237,7 +237,7 @@ namespace Rcpp{
             SEXP nameSym = Rf_install(name.c_str());
             R_unLockBinding( nameSym, Storage::get__() );
         }
-    
+
         /**
          * @param name name of a potential binding
          *
@@ -251,11 +251,11 @@ namespace Rcpp{
             SEXP nameSym = Rf_install(name.c_str());
             return R_BindingIsLocked(nameSym, Storage::get__() ) ;
         }
-    
+
         /**
          *
          * @param name name of a binding
-         * 
+         *
          * @return true if the binding is active in this environment
          * see ?bindingIsActive
          *
@@ -266,56 +266,56 @@ namespace Rcpp{
             SEXP nameSym = Rf_install(name.c_str());
             return R_BindingIsActive(nameSym, Storage::get__()) ;
         }
-    
-        /** 
+
+        /**
          * Indicates if this is a user defined database.
          */
         bool is_user_database() const {
             SEXP env = Storage::get__() ;
             return OBJECT(env) && Rf_inherits(env, "UserDefinedDatabase") ;
         }
-    
+
         /**
          * @return the global environment. See ?globalenv
          */
         static Environment_Impl global_env(){
-            return R_GlobalEnv ;    
+            return R_GlobalEnv ;
         }
-    
+
         /**
          * @return The empty environment. See ?emptyenv
          */
         static Environment_Impl empty_env(){
-            return R_EmptyEnv ;    
+            return R_EmptyEnv ;
         }
-    
+
         /**
          * @return the base environment. See ?baseenv
          */
         static Environment_Impl base_env(){
-            return R_BaseEnv ;    
+            return R_BaseEnv ;
         }
-    
+
         /**
          * @return the base namespace. See ?baseenv
          */
         static Environment_Impl base_namespace(){
-            return R_BaseNamespace ;    
+            return R_BaseNamespace ;
         }
-    
+
         /**
          * @return the Rcpp namespace
          */
         static Environment_Impl Rcpp_namespace(){
             return Rcpp::internal::get_Rcpp_namespace() ;
         }
-    
+
         /**
          * @param name the name of the package of which we want the namespace
          *
          * @return the namespace of the package
          *
-         * @throw no_such_namespace 
+         * @throw no_such_namespace
          */
         static Environment_Impl namespace_env(const std::string& package){
             Armor<SEXP> env ;
@@ -324,32 +324,32 @@ namespace Rcpp{
                 Shield<SEXP> package_str( Rf_mkString(package.c_str()) );
                 env = Rcpp_eval( Rf_lang2(getNamespaceSym, package_str) ) ;
             } catch( ... ){
-                throw no_such_namespace( package  ) ; 
+                throw no_such_namespace( package  ) ;
             }
             return Environment_Impl( env ) ;
         }
-    
+
         /**
          * The parent environment of this environment
          */
         Environment_Impl parent() const {
-            return Environment_Impl( ENCLOS(Storage::get__()) ) ;    
+            return Environment_Impl( ENCLOS(Storage::get__()) ) ;
         }
-    
+
         /**
          * creates a new environment whose this is the parent
          */
         Environment_Impl new_child(bool hashed) {
             SEXP newEnvSym = Rf_install("new.env");
-            return Environment_Impl( Rcpp_eval(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), Storage::get__() )) );    
+            return Environment_Impl( Rcpp_eval(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), Storage::get__() )) );
         }
-        
-        
+
+
         void update(SEXP){}
     };
-    
+
     typedef Environment_Impl<PreserveStorage> Environment ;
-    
+
 
 } // namespace Rcpp
 

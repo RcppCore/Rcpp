@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rsignrank.h: Rcpp R/C++ interface class library -- 
+// rsignrank.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -24,8 +24,8 @@
 
 namespace Rcpp {
     namespace stats{
-    
-        
+
+
 		class SignRankGenerator : public Generator<double>{
 		public:
 		    SignRankGenerator(double nn_) : nn(nn_){}

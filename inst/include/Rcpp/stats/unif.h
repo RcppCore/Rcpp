@@ -1,9 +1,9 @@
 
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// auto generated file (from script/stats.R) 
+// auto generated file (from script/stats.R)
 //
-// unif.h: Rcpp R/C++ interface class library -- 
+// unif.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -36,7 +36,7 @@ inline double dunif_0( double x /*, double a [=0.], double b [=1.]*/ , int give_
     if (ISNAN(x) )
 	return x + 1.0 ;
 #endif
-    
+
     if (0.0 <= x && x <= 1.0) return give_log ? 0.0 : 1.0 ;
     return R_D__0;
 }
@@ -77,7 +77,7 @@ inline double qunif_0(double p /*, double a [=0.0], double b [=1.0] */, int lowe
 	return p + 1.0 ;
 #endif
     R_Q_P01_check(p);
-    
+
     return R_DT_qIv(p) ;
 }
 
@@ -86,7 +86,7 @@ inline double qunif_0(double p /*, double a [=0.0], double b [=1.0] */, int lowe
 } // Rcpp
 
 RCPP_DPQ_0(unif, Rcpp::stats::dunif_0, Rcpp::stats::punif_0, Rcpp::stats::qunif_0 )
-RCPP_DPQ_1(unif, Rcpp::stats::dunif_1, Rcpp::stats::punif_1, Rcpp::stats::qunif_1 )   
+RCPP_DPQ_1(unif, Rcpp::stats::dunif_1, Rcpp::stats::punif_1, Rcpp::stats::qunif_1 )
 RCPP_DPQ_2(unif, ::Rf_dunif, ::Rf_punif, ::Rf_qunif )
 
 #endif

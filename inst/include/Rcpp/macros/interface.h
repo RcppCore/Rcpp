@@ -41,5 +41,5 @@ template < template <class> class StoragePolicy > class __CLASS__ :            \
     public SlotProxyPolicy<__CLASS__<StoragePolicy> >,                         \
     public AttributeProxyPolicy<__CLASS__<StoragePolicy> >,                    \
     public RObjectMethods< __CLASS__<StoragePolicy> >
-   
+
 #endif

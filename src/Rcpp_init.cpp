@@ -31,12 +31,12 @@
 static R_CallMethodDef callEntries[]  = {
     CALLDEF(Class__name,1),
     CALLDEF(Class__has_default_constructor,1),
-    
+
     CALLDEF(CppClass__complete,1),
     CALLDEF(CppClass__methods,1),
-    
+
     CALLDEF(CppObject__finalize,2),
-    
+
     CALLDEF(Module__classes_info,1),
     CALLDEF(Module__complete,1),
     CALLDEF(Module__get_class,2),
@@ -46,46 +46,46 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(Module__functions_names,1),
     CALLDEF(Module__name,1),
     CALLDEF(Module__get_function, 2),
-    
+
     CALLDEF(get_rcpp_cache,0),
     CALLDEF(rcpp_error_recorder,1),
     CALLDEF(as_character_externalptr,1),
-    
+
     CALLDEF(CppField__get,3),
     CALLDEF(CppField__set,4),
-    
+
     CALLDEF(rcpp_capabilities,0),
     CALLDEF(rcpp_can_use_cxx0x,0),
     {NULL, NULL, 0}
-}; 
+};
 
 static R_ExternalMethodDef extEntries[]  = {
     EXTDEF(CppMethod__invoke),
     EXTDEF(CppMethod__invoke_void),
     EXTDEF(CppMethod__invoke_notvoid),
     EXTDEF(InternalFunction_invoke),
-    EXTDEF(Module__invoke), 
-    EXTDEF(class__newInstance), 
-    EXTDEF(class__dummyInstance), 
-    
+    EXTDEF(Module__invoke),
+    EXTDEF(class__newInstance),
+    EXTDEF(class__dummyInstance),
+
     {NULL, NULL, 0}
 } ;
 
 // this is called by R_init_Rcpp that is in Module.cpp
 void init_Rcpp_routines(DllInfo *info){
   /* Register routines, allocate resources. */
-  R_registerRoutines(info, 
-      NULL /* .C*/, 
+  R_registerRoutines(info,
+      NULL /* .C*/,
       callEntries /*.Call*/,
       NULL /* .Fortran */,
       extEntries /*.External*/
   );
 }
-      
+
 void registerFunctions(){
     using namespace Rcpp ;
     using namespace Rcpp::internal ;
-    
+
     #define RCPP_REGISTER(__FUN__) R_RegisterCCallable( "Rcpp", #__FUN__ , (DL_FUNC)__FUN__ );
     RCPP_REGISTER(rcpp_get_stack_trace)
     RCPP_REGISTER(rcpp_set_stack_trace)

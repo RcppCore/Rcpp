@@ -27,7 +27,7 @@ namespace traits{
 
 template <std::size_t N>
 struct num2type {};
-    
+
 }
 }
 

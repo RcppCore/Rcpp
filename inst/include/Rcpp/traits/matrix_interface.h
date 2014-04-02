@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// matrix_interface.h: Rcpp R/C++ interface class library -- 
+// matrix_interface.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
@@ -42,12 +42,12 @@ namespace traits{
     public:
       static const bool value = sizeof(__test<T>(0)) == 1;
     };
-  
-  template<typename T> struct matrix_interface : 
+
+  template<typename T> struct matrix_interface :
   	integral_constant<bool, _has_matrix_interface_helper<T>::value >{ };
-    
-    
-} 
+
+
+}
 }
 
 #endif

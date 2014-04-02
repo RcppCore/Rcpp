@@ -21,7 +21,7 @@
 
 #ifndef Rcpp__vector__traits_h
 #define Rcpp__vector__traits_h
- 
+
 namespace Rcpp{
 namespace traits{
 
@@ -86,7 +86,7 @@ namespace traits{
 	template <> struct r_vector_cache_type<EXPRSXP> { typedef proxy_cache<EXPRSXP> type ; } ;
 	template <> struct r_vector_cache_type<STRSXP>  { typedef proxy_cache<STRSXP> type ;  } ;
 		
-} // traits 
+} // traits
 }
 
 #endif

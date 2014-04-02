@@ -22,7 +22,7 @@
 
 namespace Rcpp {
 namespace internal {
-    
+
 // we rely on the presence of unsigned long long types, since we
 // want to compare specific bit patterns, but we can't explicitly
 // assign a hex to a double storage.
@@ -30,7 +30,7 @@ namespace internal {
 #ifdef RCPP_HAS_LONG_LONG_TYPES
 
 #ifdef HAS_STATIC_ASSERT
-static_assert( 
+static_assert(
     sizeof(rcpp_ulong_long_type) == sizeof(double),
     "unsigned long long and double have same size"
 );
@@ -93,6 +93,6 @@ inline bool Rcpp_IsNaN(double x) {
 }
 
 #endif
-    
+
 }
 }

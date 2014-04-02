@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rbinom.h: Rcpp R/C++ interface class library -- 
+// rbinom.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -24,19 +24,19 @@
 
 namespace Rcpp {
 namespace stats {
-    
+
     class BinomGenerator : public Generator<double>{
     public:
         BinomGenerator( double nin_, double pp_ ) : nin(nin_), pp(pp_){}
         inline double operator()() const{
-            return ::Rf_rbinom( nin, pp ) ;    
+            return ::Rf_rbinom( nin, pp ) ;
         }
     private:
         double nin, pp ;
     } ;
-    
+
 }  // stats
-    
+
 } // Rcpp
 
 #endif

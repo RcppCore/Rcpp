@@ -47,7 +47,7 @@ struct result_of< RESULT_TYPE (*)(U1, U2, U3) >{
 } ;
 
 }
-}     
+}
 
 #endif
 

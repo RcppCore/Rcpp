@@ -24,9 +24,9 @@
 #include <Rcpp.h>
 #include "internal.h"
 
-typedef Rcpp::XPtr<Rcpp::Module> XP_Module ; 
-typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ; 
-typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ; 
+typedef Rcpp::XPtr<Rcpp::Module> XP_Module ;
+typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ;
+typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ;
 
 RCPP_FUN_1( bool, Class__has_default_constructor, XP_Class cl ){
     return cl->has_default_constructor() ;
@@ -96,10 +96,10 @@ RCPP_FUN_1( Rcpp::CharacterVector, Module__complete, XP_Module module ){
 	return module->complete() ;
 }
 RCPP_FUN_1( Rcpp::CharacterVector, CppClass__complete, XP_Class cl){
-	return cl->complete(); 
+	return cl->complete();
 }
 
-// these operate directly on the external pointers, rather than 
+// these operate directly on the external pointers, rather than
 // looking up the property in the map
 RCPP_FUN_3(SEXP, CppField__get, XP_Class cl, SEXP field_xp, SEXP obj){
 	return cl->getProperty( field_xp, obj ) ;
@@ -144,7 +144,7 @@ SEXP class__newInstance(SEXP args){
 }
 
 // relies on being set in .onLoad()
-SEXP rcpp_dummy_pointer = R_NilValue; 
+SEXP rcpp_dummy_pointer = R_NilValue;
 
 #define CHECK_DUMMY_OBJ(p) if(p == rcpp_dummy_pointer) forward_exception_to_r( Rcpp::not_initialized())
 	
@@ -222,10 +222,10 @@ namespace Rcpp{
 	static Module* current_scope  ;
 }
 
-Rcpp::Module* getCurrentScope(){ 
-    return Rcpp::current_scope ; 
+Rcpp::Module* getCurrentScope(){
+    return Rcpp::current_scope ;
 }
-void setCurrentScope( Rcpp::Module* scope ){ 
-    Rcpp::current_scope = scope ; 
+void setCurrentScope( Rcpp::Module* scope ){
+    Rcpp::current_scope = scope ;
 }
 

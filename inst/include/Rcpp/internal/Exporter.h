@@ -18,14 +18,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-   
+
 #ifndef Rcpp__internal__exporter__h
 #define Rcpp__internal__exporter__h
 
 namespace Rcpp{
     namespace traits{
 
-		template <typename T> 
+		template <typename T>
 		class Exporter{
 		public:
 		    Exporter( SEXP x ) : t(x){}
@@ -42,7 +42,7 @@ namespace Rcpp{
 		    RangeExporter( SEXP x ) : object(x){}
 		    ~RangeExporter(){}
 		
-		    T get(){ 
+		    T get(){
 		        T vec( ::Rf_length(object) );
 		        ::Rcpp::internal::export_range( object, vec.begin() ) ;
 		        return vec ;
@@ -51,20 +51,20 @@ namespace Rcpp{
 		private:
 		    SEXP object ;
 		} ;
-        
+
 		template <typename T, typename value_type> class IndexingExporter {
         public:
             typedef value_type r_export_type ;
-        
+
             IndexingExporter( SEXP x) : object(x){}
             ~IndexingExporter(){}
-        
+
             T get(){
                 T result( ::Rf_length(object) ) ;
                 ::Rcpp::internal::export_indexing<T,value_type>( object, result ) ;
                 return result ;
             }
-        
+
         private:
             SEXP object ;
         } ;
@@ -72,10 +72,10 @@ namespace Rcpp{
         template <typename T, typename value_type> class MatrixExporter {
         public:
             typedef value_type r_export_type ;
-        
+
             MatrixExporter( SEXP x) : object(x){}
             ~MatrixExporter(){}
-        
+
             T get() {
                 Shield<SEXP> dims( ::Rf_getAttrib( object, R_DimSymbol ) ) ;
                 if( Rf_isNull(dims) || ::Rf_length(dims) != 2 ){
@@ -86,7 +86,7 @@ namespace Rcpp{
                 ::Rcpp::internal::export_indexing<T,value_type>( object, result ) ;
                 return result ;
             }
-        
+
         private:
             SEXP object ;
         } ;
@@ -97,7 +97,7 @@ namespace Rcpp{
         } ;
         template < template<class,class> class Container > struct container_exporter< Container, int > ;
         template < template<class,class> class Container > struct container_exporter< Container, double > ;
-        
+
         template <typename T> class Exporter< std::vector<T> > : public container_exporter< std::vector, T>::type {
         public:
             Exporter(SEXP x) : container_exporter< std::vector, T>::type(x){}
@@ -110,7 +110,7 @@ namespace Rcpp{
         public:
             Exporter(SEXP x) : container_exporter< std::list, T>::type(x){}
         };
-        
+
     } // namespace traits
 } // namespace Rcpp
 #endif

@@ -15,7 +15,7 @@
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-//                                                       
+//
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -23,9 +23,9 @@
 #define Rcpp_Module_get_return_type_h
 
 namespace Rcpp {
-    
+
     struct void_type{} ;
-    
+
     template <typename OUT>
     inline std::string get_return_type_dispatch( Rcpp::traits::false_type ){
         return demangle( typeid(OUT).name() ).data() ;
@@ -37,7 +37,7 @@ namespace Rcpp {
         res += "*" ;
         return res ;
     }
-    
+
     template <typename OUT>
     inline std::string get_return_type(){
         return get_return_type_dispatch<OUT>( typename Rcpp::traits::is_pointer<OUT>::type() ) ;

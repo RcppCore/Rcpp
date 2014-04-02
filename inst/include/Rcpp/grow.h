@@ -27,47 +27,47 @@
 
 namespace Rcpp {
 
-    inline SEXP pairlist() { 
-        return R_NilValue ; 
+    inline SEXP pairlist() {
+        return R_NilValue ;
     }
-    
+
     inline SEXP grow( SEXP head, SEXP tail ) {
         Shield<SEXP> x( head ) ;
         Shield<SEXP> res( Rf_cons( x, tail ) ) ;
-        return res ;  
+        return res ;
     }
-    
+
     namespace internal{
-     
+
         template <typename T>
         inline SEXP grow__dispatch( ::Rcpp::traits::false_type, const T& head, SEXP tail ){
             return grow( wrap(head), tail ) ;
         }
-    
+
         template <typename T>
         inline SEXP grow__dispatch( ::Rcpp::traits::true_type, const T& head, SEXP tail ){
             Shield<SEXP> y( wrap( head.object) ) ;
             Shield<SEXP> x( Rf_cons( y , tail) ) ;
             SEXP headNameSym = ::Rf_install( head.name.c_str() );
-            SET_TAG( x, headNameSym ); 
+            SET_TAG( x, headNameSym );
             return x; 	
         }
-    
+
     } // internal
 
     /**
-     * grows a pairlist. First wrap the head into a SEXP, then 
+     * grows a pairlist. First wrap the head into a SEXP, then
      * grow the tail pairlist
      */
     template <typename T>
     SEXP grow(const T& head, SEXP tail) {
         return internal::grow__dispatch( typename traits::is_named<T>::type(), head, tail );
-    } 
-    
-    inline SEXP grow( const char* head, SEXP tail ) {
-        return grow( Rf_mkString(head), tail ) ; 
     }
-    
+
+    inline SEXP grow( const char* head, SEXP tail ) {
+        return grow( Rf_mkString(head), tail ) ;
+    }
+
     #include <Rcpp/generated/grow__pairlist.h>
 
 } // namespace Rcpp

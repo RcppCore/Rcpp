@@ -127,19 +127,19 @@ List multimap_string_generic(){
     std::multimap< std::string,std::vector<int> > m ;
     std::vector<int> b ; b.push_back(1) ; b.push_back(2) ;
     m.insert( _pair("b", b) );
-    
+
     std::vector<int> a ; a.push_back(1) ; a.push_back(2) ; a.push_back(2) ;
     m.insert( _pair("a", a) );
-    
+
     std::vector<int> c ; c.push_back(1) ; c.push_back(2) ; c.push_back(2) ; c.push_back(2) ;
     m.insert( _pair("c",  c) );
     return wrap(m);
 }
 
 // [[Rcpp::export]]
-SEXP nonnull_const_char(){ 
-    const char *p = "foo"; 
-    return wrap(p) ; 
+SEXP nonnull_const_char(){
+    const char *p = "foo";
+    return wrap(p) ;
 }
 
 // [[Rcpp::export]]
@@ -203,7 +203,7 @@ SEXP map_int_double(){
     map[-1] = 3.0 ;
     return wrap( map ) ;
 }
- 
+
 // [[Rcpp::export]]
 SEXP map_double_double(){
     std::map<double, double> map ;
@@ -217,16 +217,16 @@ SEXP map_int_vector_double(){
     std::map<int, std::vector<double> > map ;
     map[0].push_back( 1.0 ) ;
     map[0].push_back( 2.0 ) ;
-    
+
     map[1].push_back( 2.0 ) ;
     map[1].push_back( 3.0 ) ;
-    
+
     return wrap( map ) ;
 }
 
 RCPP_EXPOSED_CLASS(Foo)
 class Foo{
-    public: 
+    public:
         Foo() : x(0.0){}
         Foo( double x_ ) : x(x_){}
         double get() { return x ; }

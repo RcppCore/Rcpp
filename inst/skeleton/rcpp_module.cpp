@@ -28,7 +28,7 @@ std::string hello() {
 int bar(int x) {
     return x*2;
 }
-        
+
 double foo(int x, double y) {
     return x * y;
 }
@@ -40,7 +40,7 @@ void bla() {
 void bla1(int x) {
     Rprintf("hello (x = %d)\\n", x);
 }
-  
+
 void bla2( int x, double y) {
     Rprintf("hello (x = %d, y = %5.2f)\\n", x, y);
 }
@@ -59,27 +59,27 @@ private:
 
 RCPP_MODULE(yada){
     using namespace Rcpp ;
-	                  
+	
     function("hello" , &hello  , "documentation for hello ");
     function("bla"   , &bla    , "documentation for bla ");
     function("bla1"  , &bla1   , "documentation for bla1 ");
     function("bla2"  , &bla2   , "documentation for bla2 ");
 	
     // with formal arguments specification
-    function("bar"   , &bar    , 
-             List::create( _["x"] = 0.0), 
+    function("bar"   , &bar    ,
+             List::create( _["x"] = 0.0),
              "documentation for bar ");
-    function("foo"   , &foo    , 
+    function("foo"   , &foo    ,
              List::create( _["x"] = 1, _["y"] = 1.0),
              "documentation for foo ");	
 	
     class_<World>("World")
     // expose the default constructor
-    .constructor()    
-        
+    .constructor()
+
     .method("greet", &World::greet , "get the message")
     .method("set", &World::set     , "set the message")
     ;
-}                     
+}
 
 

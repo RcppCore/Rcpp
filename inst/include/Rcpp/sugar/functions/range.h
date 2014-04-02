@@ -29,25 +29,25 @@ namespace sugar{
     class Range {
     public:
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-        
+
         Range( const T& obj_) : obj(obj_) {}
-        
+
         operator Vector<RTYPE>(){
             min_ = max_ = obj[0] ;
             if( Rcpp::traits::is_na<RTYPE>( min_ ) ) return Vector<RTYPE>::create( min_, max_ ) ;
-            
+
             int n = obj.size() ;
             for( int i=1; i<n; i++){
                 current = obj[i] ;
                 if( Rcpp::traits::is_na<RTYPE>( current ) ) return Vector<RTYPE>::create( min_, max_ ) ;
                 if( current < min_ ) min_ = current ;
                 if( current > max_ ) max_ = current ;
-                
+
             }
             return Vector<RTYPE>::create( min_, max_ ) ;
         }
-        
-        
+
+
     private:
         const T& obj ;
         STORAGE min_, max_, current ;
@@ -58,12 +58,12 @@ namespace sugar{
     class Range<RTYPE,false,T> {
     public:
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-        
+
         Range( const T& obj_) : obj(obj_) {}
-        
+
         operator Vector<RTYPE>(){
             min_ = max_ = obj[0] ;
-            
+
             int n = obj.size() ;
             for( int i=1; i<n; i++){
                 current = obj[i] ;
@@ -72,13 +72,13 @@ namespace sugar{
             }
             return Vector<RTYPE>::create( min_, max_ ) ;
         }
-        
-        
+
+
     private:
         const T& obj ;
         STORAGE min_, max_, current ;
     } ;
-         
+
 
 } // sugar
 

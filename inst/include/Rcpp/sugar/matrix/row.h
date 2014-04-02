@@ -26,8 +26,8 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, bool LHS_NA, typename LHS_T>
-class Row : public MatrixBase< 
-	INTSXP , 
+class Row : public MatrixBase<
+	INTSXP ,
 	false ,
 	Row<RTYPE,LHS_NA,LHS_T>
 > {
@@ -43,7 +43,7 @@ public:
 	inline int size() const { return nr * nc ; }
 	inline int nrow() const { return nr; }
 	inline int ncol() const { return nc; }
-	         
+	
 private:
 	int nr, nc ;
 } ;

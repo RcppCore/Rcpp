@@ -1,9 +1,9 @@
 
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// auto generated file (from script/stats.R) 
+// auto generated file (from script/stats.R)
 //
-// lnorm.h: Rcpp R/C++ interface class library -- 
+// lnorm.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -53,7 +53,7 @@ inline double dlnorm_1(double x, double meanlog, int log_p){
     if (ISNAN(x) || ISNAN(meanlog) )
 	return x + meanlog + 1.0 ;
 #endif
-   
+
     if(x <= 0) return R_D__0;
 
     y = (::log(x) - meanlog);

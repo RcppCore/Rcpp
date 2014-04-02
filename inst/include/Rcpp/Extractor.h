@@ -24,13 +24,13 @@
 
 namespace Rcpp {
 namespace traits {
-        
+
     template <int RTYPE, bool NA, typename VECTOR>
     struct Extractor {
-        typedef VECTOR type ;  
-    } ;  
-   
-} // traits
-} // Rcpp 
+        typedef VECTOR type ;
+    } ;
 
-#endif 
+} // traits
+} // Rcpp
+
+#endif

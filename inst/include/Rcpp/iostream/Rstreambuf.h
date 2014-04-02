@@ -34,24 +34,24 @@ namespace Rcpp {
     	
     protected:
         virtual std::streamsize xsputn(const char *s, std::streamsize n );
-        
+
         virtual int overflow(int c = EOF );
-        
-        virtual int sync()  ;                             
+
+        virtual int sync()  ;
     };
 
     template <bool OUTPUT>
     class Rostream : public std::ostream {
-        typedef Rstreambuf<OUTPUT> Buffer ; 
+        typedef Rstreambuf<OUTPUT> Buffer ;
         Buffer* buf ;
     public:
-        Rostream() : 
-            std::ostream( new Buffer ), 
+        Rostream() :
+            std::ostream( new Buffer ),
             buf( static_cast<Buffer*>( rdbuf() ) )
         {}
-        ~Rostream() { 
+        ~Rostream() {
             if (buf != NULL) {
-                delete buf; 
+                delete buf;
                 buf = NULL;
             }
         }
@@ -62,10 +62,10 @@ namespace Rcpp {
         return num ;
     }
     template <> inline std::streamsize Rstreambuf<false>::xsputn(const char *s, std::streamsize num ) {
-        REprintf( "%.*s", num, s ) ; 
+        REprintf( "%.*s", num, s ) ;
         return num ;
     }
-    
+
     template <> inline int Rstreambuf<true>::overflow(int c ) {
       if (c != EOF) Rprintf( "%.1s", &c ) ;
       return c ;
@@ -74,7 +74,7 @@ namespace Rcpp {
       if (c != EOF) REprintf( "%.1s", &c ) ;
       return c ;
     }
-        
+
     template <> inline int Rstreambuf<true>::sync(){
         ::R_FlushConsole() ;
         return 0 ;
@@ -85,8 +85,8 @@ namespace Rcpp {
     }
     static Rostream<true>  Rcout;
     static Rostream<false> Rcerr;
-    
-  
+
+
 }
 
 #endif
