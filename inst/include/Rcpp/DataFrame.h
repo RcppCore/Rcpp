@@ -79,7 +79,7 @@ namespace Rcpp{
             if (Rf_isNull(rn))
                 return 0;
             if (TYPEOF(rn) == INTSXP && LENGTH(rn) == 2 && INTEGER(rn)[0] == NA_INTEGER)
-                return -INTEGER(rn)[1];
+                return abs(INTEGER(rn)[1]);
             return LENGTH(rn);
         }
 
