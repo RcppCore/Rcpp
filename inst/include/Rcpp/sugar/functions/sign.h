@@ -57,7 +57,7 @@ public:
 		return get(i) ;
 	}
 	inline int size() const { return object.size() ; }
-	    
+	
 	operator SEXP() const { return wrap( *this ); }
 	inline int get(int i) const { return sign__impl<NA,RTYPE>::get( object[i] ); }
 private:

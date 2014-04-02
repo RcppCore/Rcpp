@@ -24,15 +24,15 @@
 
 #include <RcppCommon.h>
 
-namespace Rcpp{ 
+namespace Rcpp{
 
-/* cloning type T is possible if : 
-   - T can be converted to SEXP 
+/* cloning type T is possible if :
+   - T can be converted to SEXP
    - T has a SEXP constructor
 */
 template <typename T> T clone(const T& object) {
     SEXP x = const_cast<T&>(object) ;
-    return T( Rf_duplicate( x ) ) ; 
+    return T( Rf_duplicate( x ) ) ;
 }
 
 } // namespace Rcpp

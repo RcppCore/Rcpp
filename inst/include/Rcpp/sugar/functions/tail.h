@@ -44,7 +44,7 @@ public:
 		return object[ start + i ] ;
 	}
 	inline int size() const { return n; }
-	         
+	
 private:
 	const VEC_TYPE& object ;
 	int start, n ;
@@ -53,9 +53,9 @@ private:
 } // sugar
 
 template <int RTYPE,bool NA, typename T>
-inline sugar::Tail<RTYPE,NA,T> tail( 
-	const VectorBase<RTYPE,NA,T>& t, 
-	int n 
+inline sugar::Tail<RTYPE,NA,T> tail(
+	const VectorBase<RTYPE,NA,T>& t,
+	int n
 	){
 	return sugar::Tail<RTYPE,NA,T>( t, n ) ;
 }

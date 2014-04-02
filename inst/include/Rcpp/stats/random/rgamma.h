@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rgamma.h: Rcpp R/C++ interface class library -- 
+// rgamma.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -24,17 +24,17 @@
 
 namespace Rcpp {
     namespace stats {
-        
+
         class GammaGenerator : public Generator<double>{
         public:
-            GammaGenerator(double a_, double scale_) : 
+            GammaGenerator(double a_, double scale_) :
                 a(a_), scale(scale_) {}
-            inline double operator()() const { return ::Rf_rgamma(a, scale ) ;}    
+            inline double operator()() const { return ::Rf_rgamma(a, scale ) ;}
         private:
             double a, scale ;
         } ;
     }    // stats
-    
+
 
 } // Rcpp
 

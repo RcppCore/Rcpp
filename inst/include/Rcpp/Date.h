@@ -27,27 +27,27 @@ namespace Rcpp {
     class Date {
     public:	
         Date(){
-            m_d = 0; 
+            m_d = 0;
             update_tm();
         }
         Date(SEXP s);
-        
+
         // from integer (with negative dates before Jan 1, 1970)
         Date(const int &dt){
             m_d = dt;
-            update_tm();    
+            update_tm();
         }
-        
+
         // from fractional integer since epoch, just like R
         Date(const double &dt){
             m_d = dt;
-            update_tm();    
+            update_tm();
         }
         Date(const std::string &s, const std::string &fmt="%Y-%m-%d");
-        
+
         Date(const unsigned int &mon, const unsigned int &day, const unsigned int &year) {
             m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = 0;
-            
+
             // allow for ISO-notation case (yyyy, mm, dd) which we prefer over (mm, dd, year)
             if (mon >= baseYear() && day <= 12 && year <= 31) {
                 m_tm.tm_year = mon - baseYear();
@@ -65,10 +65,10 @@ namespace Rcpp {
 
         ~Date() {};
     	
-        	double getDate(void) const { 
-        	   return m_d; 
-        	} 
-    
+        	double getDate(void) const {
+        	   return m_d;
+        	}
+
         // intra-day useless for date class
         //int getSeconds() const { return m_tm.tm_sec; }
         //int getMinutes() const { return m_tm.tm_min; }
@@ -78,12 +78,12 @@ namespace Rcpp {
         int getYear()    const { return m_tm.tm_year; }			// does include 1900 (see Date.cpp)
         int getWeekday() const { return m_tm.tm_wday + 1; } 	// makes it 1 .. 7
         int getYearday() const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
-        
+
         // 1900 as per POSIX mktime() et al
         static inline const unsigned int baseYear(){
-            return 1900 ;    
+            return 1900 ;
         }
-        
+
         // Minimal set of date operations.
         friend Date   operator+(const Date &date, int offset);
         friend double operator-(const Date& date1, const Date& date2);
@@ -93,15 +93,15 @@ namespace Rcpp {
         friend bool   operator>=(const Date &date1, const Date& date2);
         friend bool   operator<=(const Date &date1, const Date& date2);
         friend bool   operator!=(const Date &date1, const Date& date2);
-    
-        inline int is_na() const { 
-           return traits::is_na<REALSXP>( m_d ) ; 
+
+        inline int is_na() const {
+           return traits::is_na<REALSXP>( m_d ) ;
         }
     	
     private:
         double m_d;					// (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;				// standard time representation
-    
+
         // update m_tm based on m_d
         void update_tm(){			
             if (R_FINITE(m_d)) {
@@ -112,10 +112,10 @@ namespace Rcpp {
                 m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
             }
         }
-    
-    };    
-    
-    // template specialisation for wrap() on the date 
+
+    };
+
+    // template specialisation for wrap() on the date
     template <> SEXP wrap<Rcpp::Date>(const Rcpp::Date &date);
 
     // needed to wrap containers of Date such as vector<Date> or map<string,Date>
@@ -127,7 +127,7 @@ namespace Rcpp {
 			return Rcpp::Date( static_cast<int>( from ) ) ;
 		}
     }
-    
+
     template<> inline SEXP wrap_extra_steps<Rcpp::Date>( SEXP x ){
         Rf_setAttrib( x, R_ClassSymbol, Rf_mkString( "Date" ) ) ;
         return x ;
@@ -140,7 +140,7 @@ namespace Rcpp {
         newdate.m_tm = *gmtime_(&t);
         return newdate;
     }
-    
+
     inline double operator-(const Date& d1, const Date& d2) { return d1.m_d - d2.m_d; }
     inline bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
     inline bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
@@ -150,28 +150,28 @@ namespace Rcpp {
     inline bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
 
     namespace internal{
-    
+
         inline SEXP getPosixClasses(){
             Shield<SEXP> datetimeclass(Rf_allocVector(STRSXP,2));
             SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
             SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
             return datetimeclass ;
         }
-        
+
         inline SEXP new_posixt_object( double d){
             Shield<SEXP> x( Rf_ScalarReal( d ) ) ;
-            Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() ); 
+            Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() );
             return x ;	
         }
-        
+
         inline SEXP new_date_object( double d){
             Shield<SEXP> x(Rf_ScalarReal( d ) ) ;
-            Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date")); 
+            Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date"));
             return x;
         }
 
     }
-    
+
     	
 }
 

@@ -10,7 +10,7 @@
 // under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 2 of the License, or
 // (at your option) any later version.
-//                                                              
+//
 // Rcpp is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -23,31 +23,31 @@
 #define Rcpp_vector_Subsetter_h_
 
 namespace Rcpp {
-    
+
 template <
     int RTYPE, template <class> class StoragePolicy,
     int RHS_RTYPE, bool RHS_NA, typename RHS_T
 >
 class SubsetProxy {
-    
+
     typedef Vector<RTYPE, StoragePolicy> LHS_t;
     typedef Vector<RHS_RTYPE, StoragePolicy> RHS_t;
-    
+
 public:
 
     SubsetProxy(LHS_t& lhs_, const RHS_t& rhs_):
         lhs(lhs_), rhs(rhs_), lhs_n(lhs.size()), rhs_n(rhs.size()) {
         get_indices( traits::identity< traits::int2type<RHS_RTYPE> >() );
     }
-    
+
     SubsetProxy(const SubsetProxy& other):
-        lhs(other.lhs), 
-        rhs(other.rhs), 
-        lhs_n(other.lhs_n), 
-        rhs_n(other.rhs_n), 
+        lhs(other.lhs),
+        rhs(other.rhs),
+        lhs_n(other.lhs_n),
+        rhs_n(other.rhs_n),
         indices(other.indices),
         indices_n(other.indices_n) {}
-    
+
     // Enable e.g. x[y] = z
     template <int OtherRTYPE, template <class> class OtherStoragePolicy>
     SubsetProxy& operator=(const Vector<OtherRTYPE, OtherStoragePolicy>& other) {
@@ -66,7 +66,7 @@ public:
         }
         return *this;
     }
-    
+
     // Enable e.g. x[y] = 1;
     // TODO: std::enable_if<primitive> with C++11
     SubsetProxy& operator=(double other) {
@@ -75,32 +75,32 @@ public:
         }
         return *this;
     }
-    
+
     SubsetProxy& operator=(int other) {
         for (int i=0; i < indices_n; ++i) {
             lhs[ indices[i] ] = other;
         }
         return *this;
     }
-    
+
     SubsetProxy& operator=(const char* other) {
         for (int i=0; i < indices_n; ++i) {
             lhs[ indices[i] ] = other;
         }
         return *this;
     }
-    
+
     SubsetProxy& operator=(bool other) {
         for (int i=0; i < indices_n; ++i) {
             lhs[ indices[i] ] = other;
         }
         return *this;
     }
-    
+
     operator Vector<RTYPE, StoragePolicy>() const {
         return get_vec();
     }
-    
+
     operator SEXP() const {
         return wrap( get_vec() );
     }
@@ -118,13 +118,13 @@ private:
     #else
     void check_indices(int* x, int n, int size) {}
     #endif
-    
+
     void get_indices( traits::identity< traits::int2type<INTSXP> > t ) {
         indices = INTEGER(rhs);
         indices_n = rhs_n;
         check_indices(indices, rhs_n, lhs_n);
     }
-    
+
     void get_indices( traits::identity< traits::int2type<REALSXP> > t ) {
         indices.reserve(rhs_n);
         Vector<INTSXP, StoragePolicy> tmp =
@@ -136,7 +136,7 @@ private:
         }
         indices_n = rhs_n;
     }
-    
+
     void get_indices( traits::identity< traits::int2type<STRSXP> > t ) {
         indices.reserve(rhs_n);
         SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
@@ -146,7 +146,7 @@ private:
         }
         indices_n = indices.size();
     }
-    
+
     int find(const RHS_t& names, const char* str) {
         for (int i=0; i < lhs_n; ++i) {
             if (strcmp( CHAR( STRING_ELT( names, i) ), str) == 0) return i;
@@ -154,7 +154,7 @@ private:
         stop("no name found");
         return -1;
     }
-    
+
     void get_indices( traits::identity< traits::int2type<LGLSXP> > t ) {
         indices.reserve(rhs_n);
         if (lhs_n != rhs_n) {
@@ -171,7 +171,7 @@ private:
         }
         indices_n = indices.size();
     }
-    
+
     Vector<RTYPE, StoragePolicy> get_vec() const {
         Vector<RTYPE, StoragePolicy> output = no_init(indices_n);
         for (int i=0; i < indices_n; ++i) {
@@ -193,7 +193,7 @@ private:
     const RHS_t& rhs;
     int lhs_n;
     int rhs_n;
-    
+
     // we want to reuse the indices if an IntegerVector is passed in; otherwise,
     // we construct a std::vector<int> to hold the indices
     typename traits::if_<
@@ -201,10 +201,10 @@ private:
         int*,
         std::vector<int>
     >::type indices;
-    
+
     // because of the above, we keep track of the size
     int indices_n;
-    
+
 };
 
 }

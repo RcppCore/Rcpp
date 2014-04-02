@@ -19,31 +19,31 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-  
+
 #define COMPILING_RCPP
 
 #include <Rcpp.h>
 
 using namespace Rcpp ;
 
-#include "internal.h" 
+#include "internal.h"
 #include <R_ext/PrtUtil.h>
 
 #ifdef RCPP_HAS_DEMANGLING
 #include <cxxabi.h>
 #endif
-     
+
 #if defined(__GNUC__)
     #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
     #else
         #include <execinfo.h>
-        
+
         static std::string demangler_one( const char* input){
             static std::string buffer ;
             buffer = input ;
             buffer.resize( buffer.find_last_of( '+' ) - 1 ) ;
             buffer.erase(
-                buffer.begin(), 
+                buffer.begin(),
                 buffer.begin() + buffer.find_last_of( ' ' ) + 1
             ) ;
             return demangle( buffer) ;
@@ -54,34 +54,34 @@ using namespace Rcpp ;
 
 
 namespace Rcpp {
-     
+
     namespace internal{
         namespace {
             unsigned long RNGScopeCounter = 0;
         }
-        
+
         // [[Rcpp::register]]
-        unsigned long enterRNGScope() {       
-            if (RNGScopeCounter == 0) GetRNGstate();       
+        unsigned long enterRNGScope() {
+            if (RNGScopeCounter == 0) GetRNGstate();
             RNGScopeCounter++;
             return RNGScopeCounter ;
         }
-        
+
         // [[Rcpp::register]]
         unsigned long exitRNGScope() {
             RNGScopeCounter--;
             if (RNGScopeCounter == 0) PutRNGstate();
             return RNGScopeCounter ;
         }
-        
+
         // [[Rcpp::register]]
         char* get_string_buffer(){
             static char buffer[MAXELTSIZE];
-            return buffer ;    
+            return buffer ;
         }
 
     }
-    
+
     // [[Rcpp::register]]
     const char * type2name(SEXP x) {
         switch (TYPEOF(x)) {
@@ -113,11 +113,11 @@ namespace Rcpp {
         return "<unknown>";
         }
     }
-    
-    
+
+
 } // namespace Rcpp
 
-// [[Rcpp::register]]  
+// [[Rcpp::register]]
 std::string demangle( const std::string& name ){
     #ifdef RCPP_HAS_DEMANGLING
         std::string real_class ;
@@ -133,26 +133,26 @@ std::string demangle( const std::string& name ){
         return real_class ;
     #else
         return name ;
-    #endif    
+    #endif
 }
-    
+
 // [[Rcpp::register]]
 const char* short_file_name(const char* file){
     std::string f(file) ;
     size_t index = f.find("/include/") ;
-    if( index != std::string::npos ){ 
+    if( index != std::string::npos ){
         f = f.substr( index + 9 ) ;
     }
     return f.c_str() ;
 }
-    
+
 // [[Rcpp::internal]]
 SEXP as_character_externalptr(SEXP xp){
     char buffer[20] ;
     snprintf( buffer, 20, "%p", (void*)EXTPTR_PTR(xp) ) ;
     return Rcpp::wrap( (const char*)buffer ) ;
 }
-    
+
 // [[Rcpp::internal]]
 SEXP rcpp_capabilities(){
     Shield<SEXP> cap( Rf_allocVector( LGLSXP, 11 ) );
@@ -169,47 +169,47 @@ SEXP rcpp_capabilities(){
     #endif
     /* exceptions are always supported */
     LOGICAL(cap)[2] = TRUE ;
-    
+
     #ifdef HAS_TR1_UNORDERED_MAP
         LOGICAL(cap)[3] = TRUE ;
     #else
        LOGICAL(cap)[3] = FALSE ;
     #endif
-    
+
     #ifdef HAS_TR1_UNORDERED_SET
         LOGICAL(cap)[4] = TRUE ;
     #else
         LOGICAL(cap)[4] = FALSE ;
     #endif
-    
+
     LOGICAL(cap)[5] = TRUE ;
-    
+
     #ifdef RCPP_HAS_DEMANGLING
         LOGICAL(cap)[6] = TRUE ;
     #else
        LOGICAL(cap)[6] = FALSE ;
     #endif
-    
+
        LOGICAL(cap)[7] = FALSE ;
-    
+
     #ifdef RCPP_HAS_LONG_LONG_TYPES
         LOGICAL(cap)[8] = TRUE ;
     #else
         LOGICAL(cap)[8] = FALSE ;
     #endif
-    
+
     #ifdef HAS_CXX0X_UNORDERED_MAP
       LOGICAL(cap)[9] = TRUE ;
     #else
       LOGICAL(cap)[9] = FALSE ;
     #endif
-    
+
     #ifdef HAS_CXX0X_UNORDERED_SET
       LOGICAL(cap)[10] = TRUE ;
     #else
       LOGICAL(cap)[10] = FALSE ;
     #endif
-    
+
     SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
     SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
     SET_STRING_ELT(names, 2, Rf_mkChar("exception handling") ) ;
@@ -227,59 +227,59 @@ SEXP rcpp_capabilities(){
 
 
 // [[Rcpp::internal]]
-SEXP rcpp_can_use_cxx0x(){ 
+SEXP rcpp_can_use_cxx0x(){
     #ifdef HAS_VARIADIC_TEMPLATES
         return Rf_ScalarLogical( TRUE );
     #else
         return Rf_ScalarLogical( FALSE );
     #endif
 }
-    
+
 
 // [[Rcpp::register]]
 SEXP stack_trace( const char* file, int line ){
     #if defined(__GNUC__)
         #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
-            // Simpler version for Windows and *BSD 
-            List trace = List::create( 
-                _[ "file"  ] = file, 
-                _[ "line"  ] = line, 
+            // Simpler version for Windows and *BSD
+            List trace = List::create(
+                _[ "file"  ] = file,
+                _[ "line"  ] = line,
                 _[ "stack" ] = "C++ stack not available on this system"
             ) ;
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
         #else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
-        
-            /* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */ 
+
+            /* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */
             const size_t max_depth = 100;
             size_t stack_depth;
             void *stack_addrs[max_depth];
             char **stack_strings;
-            
+
             stack_depth = backtrace(stack_addrs, max_depth);
             stack_strings = backtrace_symbols(stack_addrs, stack_depth);
-            
+
             std::string current_line ;
-            
+
             CharacterVector res( stack_depth - 1) ;
-            std::transform( 
-                stack_strings + 1, stack_strings + stack_depth, 
-                res.begin(), 
-                demangler_one 
+            std::transform(
+                stack_strings + 1, stack_strings + stack_depth,
+                res.begin(),
+                demangler_one
             ) ;
             free(stack_strings); // malloc()ed by backtrace_symbols
-            
-            List trace = List::create( 
-                _["file" ] = file, 
-                _["line" ] = line, 
+
+            List trace = List::create(
+                _["file" ] = file,
+                _["line" ] = line,
                 _["stack"] = res
             ) ;
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
-        #endif 
+        #endif
     #else /* !defined( __GNUC__ ) */
 	    return R_NilValue ;
-	#endif 
+	#endif
 }
 // }}}
 

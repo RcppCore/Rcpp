@@ -27,7 +27,7 @@
 	public:
 		typedef OUT (*Method)(Class*) ;
 		typedef CppMethod<Class> method_class ;
-		Pointer_CppMethod0( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod0( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* ){
 			return Rcpp::module_wrap<OUT>( met(object) ) ;
 		}
@@ -44,7 +44,7 @@
 	public:
 		typedef void (*Method)(Class*) ;
 		typedef CppMethod<Class> method_class ;
-		Pointer_CppMethod0( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod0( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* ){
 			met( object ) ;
 			return R_NilValue ;
@@ -52,7 +52,7 @@
 		inline int nargs(){ return 0 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return false ; }
-    
+
 		inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type>(s, name) ; }
 		
 	private:
@@ -66,7 +66,7 @@
 	public:
 		typedef OUT (*Method)(const Class*) ;
 		typedef CppMethod<Class> method_class ;
-		Const_Pointer_CppMethod0( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod0( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* ){
 			return Rcpp::module_wrap<OUT>( met(object) ) ;
 		}
@@ -83,7 +83,7 @@
 	public:
 		typedef void (*Method)(const Class*) ;
 		typedef CppMethod<Class> method_class ;
-		Const_Pointer_CppMethod0( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod0( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* ){
 			met( object ) ;
 			return R_NilValue ;
@@ -91,7 +91,7 @@
 		inline int nargs(){ return 0 ; }
 		inline bool is_void(){ return true ; }
 		inline bool is_const(){ return true ; }
-    
+
 		inline void signature(std::string& s, const char* name){ Rcpp::signature<void_type>(s, name) ; }
 		
 	private:
@@ -107,7 +107,7 @@
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod1(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod1(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 		    return Rcpp::module_wrap<CLEANED_OUT>( met( object, x0 ) ) ;
@@ -126,7 +126,7 @@
 		typedef void (*Method)(Class*, U0 u0) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod1( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod1( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 		    met( object, x0 ) ;
@@ -150,7 +150,7 @@
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod1(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod1(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 			return Rcpp::module_wrap<CLEANED_OUT>( met( object, x0 ) ) ;
@@ -169,7 +169,7 @@
 		typedef void (*Method)(const Class*, U0 u0) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod1( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod1( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 			met( object, x0 ) ;
@@ -194,7 +194,7 @@
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod2(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod2(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -214,7 +214,7 @@ typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod2( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod2( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -239,7 +239,7 @@ typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod2(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod2(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -259,7 +259,7 @@ typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod2( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod2( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -285,7 +285,7 @@ typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod3(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod3(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -306,7 +306,7 @@ typename Rcpp::traits::input_parameter< U2 >::type x2( args[2] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod3( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod3( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -332,7 +332,7 @@ typename Rcpp::traits::input_parameter< U2 >::type x2( args[2] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod3(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod3(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -353,7 +353,7 @@ typename Rcpp::traits::input_parameter< U2 >::type x2( args[2] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod3( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod3( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -380,7 +380,7 @@ typename Rcpp::traits::input_parameter< U2 >::type x2( args[2] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod4(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod4(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -402,7 +402,7 @@ typename Rcpp::traits::input_parameter< U3 >::type x3( args[3] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod4( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod4( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -429,7 +429,7 @@ typename Rcpp::traits::input_parameter< U3 >::type x3( args[3] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod4(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod4(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -451,7 +451,7 @@ typename Rcpp::traits::input_parameter< U3 >::type x3( args[3] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod4( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod4( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -479,7 +479,7 @@ typename Rcpp::traits::input_parameter< U3 >::type x3( args[3] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod5(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod5(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -502,7 +502,7 @@ typename Rcpp::traits::input_parameter< U4 >::type x4( args[4] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod5( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod5( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -530,7 +530,7 @@ typename Rcpp::traits::input_parameter< U4 >::type x4( args[4] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod5(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod5(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -553,7 +553,7 @@ typename Rcpp::traits::input_parameter< U4 >::type x4( args[4] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod5( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod5( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -582,7 +582,7 @@ typename Rcpp::traits::input_parameter< U4 >::type x4( args[4] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod6(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod6(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -606,7 +606,7 @@ typename Rcpp::traits::input_parameter< U5 >::type x5( args[5] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod6( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod6( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -635,7 +635,7 @@ typename Rcpp::traits::input_parameter< U5 >::type x5( args[5] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod6(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod6(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -659,7 +659,7 @@ typename Rcpp::traits::input_parameter< U5 >::type x5( args[5] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod6( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod6( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -689,7 +689,7 @@ typename Rcpp::traits::input_parameter< U5 >::type x5( args[5] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod7(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod7(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -714,7 +714,7 @@ typename Rcpp::traits::input_parameter< U6 >::type x6( args[6] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod7( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod7( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -744,7 +744,7 @@ typename Rcpp::traits::input_parameter< U6 >::type x6( args[6] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod7(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod7(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -769,7 +769,7 @@ typename Rcpp::traits::input_parameter< U6 >::type x6( args[6] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod7( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod7( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -800,7 +800,7 @@ typename Rcpp::traits::input_parameter< U6 >::type x6( args[6] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod8(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod8(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -826,7 +826,7 @@ typename Rcpp::traits::input_parameter< U7 >::type x7( args[7] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod8( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod8( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -857,7 +857,7 @@ typename Rcpp::traits::input_parameter< U7 >::type x7( args[7] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod8(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod8(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -883,7 +883,7 @@ typename Rcpp::traits::input_parameter< U7 >::type x7( args[7] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod8( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod8( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -915,7 +915,7 @@ typename Rcpp::traits::input_parameter< U7 >::type x7( args[7] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod9(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod9(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -942,7 +942,7 @@ typename Rcpp::traits::input_parameter< U8 >::type x8( args[8] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod9( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod9( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -974,7 +974,7 @@ typename Rcpp::traits::input_parameter< U8 >::type x8( args[8] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod9(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod9(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1001,7 +1001,7 @@ typename Rcpp::traits::input_parameter< U8 >::type x8( args[8] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod9( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod9( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1034,7 +1034,7 @@ typename Rcpp::traits::input_parameter< U8 >::type x8( args[8] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod10(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod10(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1062,7 +1062,7 @@ typename Rcpp::traits::input_parameter< U9 >::type x9( args[9] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod10( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod10( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1095,7 +1095,7 @@ typename Rcpp::traits::input_parameter< U9 >::type x9( args[9] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod10(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod10(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1123,7 +1123,7 @@ typename Rcpp::traits::input_parameter< U9 >::type x9( args[9] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod10( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod10( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1157,7 +1157,7 @@ typename Rcpp::traits::input_parameter< U9 >::type x9( args[9] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod11(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod11(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1186,7 +1186,7 @@ typename Rcpp::traits::input_parameter< U10 >::type x10( args[10] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod11( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod11( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1220,7 +1220,7 @@ typename Rcpp::traits::input_parameter< U10 >::type x10( args[10] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod11(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod11(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1249,7 +1249,7 @@ typename Rcpp::traits::input_parameter< U10 >::type x10( args[10] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod11( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod11( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1284,7 +1284,7 @@ typename Rcpp::traits::input_parameter< U10 >::type x10( args[10] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod12(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod12(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1314,7 +1314,7 @@ typename Rcpp::traits::input_parameter< U11 >::type x11( args[11] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod12( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod12( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1349,7 +1349,7 @@ typename Rcpp::traits::input_parameter< U11 >::type x11( args[11] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod12(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod12(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1379,7 +1379,7 @@ typename Rcpp::traits::input_parameter< U11 >::type x11( args[11] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod12( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod12( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1415,7 +1415,7 @@ typename Rcpp::traits::input_parameter< U11 >::type x11( args[11] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod13(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod13(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1446,7 +1446,7 @@ typename Rcpp::traits::input_parameter< U12 >::type x12( args[12] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod13( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod13( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1482,7 +1482,7 @@ typename Rcpp::traits::input_parameter< U12 >::type x12( args[12] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod13(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod13(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1513,7 +1513,7 @@ typename Rcpp::traits::input_parameter< U12 >::type x12( args[12] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod13( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod13( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1550,7 +1550,7 @@ typename Rcpp::traits::input_parameter< U12 >::type x12( args[12] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod14(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod14(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1582,7 +1582,7 @@ typename Rcpp::traits::input_parameter< U13 >::type x13( args[13] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod14( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod14( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1619,7 +1619,7 @@ typename Rcpp::traits::input_parameter< U13 >::type x13( args[13] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod14(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod14(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1651,7 +1651,7 @@ typename Rcpp::traits::input_parameter< U13 >::type x13( args[13] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod14( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod14( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1689,7 +1689,7 @@ typename Rcpp::traits::input_parameter< U13 >::type x13( args[13] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod15(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod15(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1722,7 +1722,7 @@ typename Rcpp::traits::input_parameter< U14 >::type x14( args[14] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod15( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod15( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1760,7 +1760,7 @@ typename Rcpp::traits::input_parameter< U14 >::type x14( args[14] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod15(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod15(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1793,7 +1793,7 @@ typename Rcpp::traits::input_parameter< U14 >::type x14( args[14] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod15( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod15( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1832,7 +1832,7 @@ typename Rcpp::traits::input_parameter< U14 >::type x14( args[14] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod16(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod16(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1866,7 +1866,7 @@ typename Rcpp::traits::input_parameter< U15 >::type x15( args[15] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod16( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod16( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1905,7 +1905,7 @@ typename Rcpp::traits::input_parameter< U15 >::type x15( args[15] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod16(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod16(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1939,7 +1939,7 @@ typename Rcpp::traits::input_parameter< U15 >::type x15( args[15] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod16( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod16( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -1979,7 +1979,7 @@ typename Rcpp::traits::input_parameter< U15 >::type x15( args[15] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod17(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod17(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2014,7 +2014,7 @@ typename Rcpp::traits::input_parameter< U16 >::type x16( args[16] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod17( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod17( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2054,7 +2054,7 @@ typename Rcpp::traits::input_parameter< U16 >::type x16( args[16] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod17(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod17(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2089,7 +2089,7 @@ typename Rcpp::traits::input_parameter< U16 >::type x16( args[16] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod17( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod17( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2130,7 +2130,7 @@ typename Rcpp::traits::input_parameter< U16 >::type x16( args[16] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod18(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod18(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2166,7 +2166,7 @@ typename Rcpp::traits::input_parameter< U17 >::type x17( args[17] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod18( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod18( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2207,7 +2207,7 @@ typename Rcpp::traits::input_parameter< U17 >::type x17( args[17] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod18(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod18(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2243,7 +2243,7 @@ typename Rcpp::traits::input_parameter< U17 >::type x17( args[17] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod18( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod18( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2285,7 +2285,7 @@ typename Rcpp::traits::input_parameter< U17 >::type x17( args[17] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod19(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod19(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2322,7 +2322,7 @@ typename Rcpp::traits::input_parameter< U18 >::type x18( args[18] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod19( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod19( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2364,7 +2364,7 @@ typename Rcpp::traits::input_parameter< U18 >::type x18( args[18] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod19(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod19(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2401,7 +2401,7 @@ typename Rcpp::traits::input_parameter< U18 >::type x18( args[18] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod19( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod19( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2444,7 +2444,7 @@ typename Rcpp::traits::input_parameter< U18 >::type x18( args[18] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod20(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod20(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2482,7 +2482,7 @@ typename Rcpp::traits::input_parameter< U19 >::type x19( args[19] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod20( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod20( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2525,7 +2525,7 @@ typename Rcpp::traits::input_parameter< U19 >::type x19( args[19] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod20(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod20(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2563,7 +2563,7 @@ typename Rcpp::traits::input_parameter< U19 >::type x19( args[19] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod20( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod20( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2607,7 +2607,7 @@ typename Rcpp::traits::input_parameter< U19 >::type x19( args[19] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod21(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod21(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2646,7 +2646,7 @@ typename Rcpp::traits::input_parameter< U20 >::type x20( args[20] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod21( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod21( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2690,7 +2690,7 @@ typename Rcpp::traits::input_parameter< U20 >::type x20( args[20] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod21(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod21(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2729,7 +2729,7 @@ typename Rcpp::traits::input_parameter< U20 >::type x20( args[20] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod21( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod21( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2774,7 +2774,7 @@ typename Rcpp::traits::input_parameter< U20 >::type x20( args[20] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod22(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod22(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2814,7 +2814,7 @@ typename Rcpp::traits::input_parameter< U21 >::type x21( args[21] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod22( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod22( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2859,7 +2859,7 @@ typename Rcpp::traits::input_parameter< U21 >::type x21( args[21] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod22(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod22(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2899,7 +2899,7 @@ typename Rcpp::traits::input_parameter< U21 >::type x21( args[21] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod22( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod22( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2945,7 +2945,7 @@ typename Rcpp::traits::input_parameter< U21 >::type x21( args[21] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod23(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod23(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -2986,7 +2986,7 @@ typename Rcpp::traits::input_parameter< U22 >::type x22( args[22] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod23( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod23( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3032,7 +3032,7 @@ typename Rcpp::traits::input_parameter< U22 >::type x22( args[22] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod23(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod23(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3073,7 +3073,7 @@ typename Rcpp::traits::input_parameter< U22 >::type x22( args[22] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod23( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod23( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3120,7 +3120,7 @@ typename Rcpp::traits::input_parameter< U22 >::type x22( args[22] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod24(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod24(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3162,7 +3162,7 @@ typename Rcpp::traits::input_parameter< U23 >::type x23( args[23] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod24( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod24( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3209,7 +3209,7 @@ typename Rcpp::traits::input_parameter< U23 >::type x23( args[23] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod24(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod24(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3251,7 +3251,7 @@ typename Rcpp::traits::input_parameter< U23 >::type x23( args[23] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod24( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod24( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3299,7 +3299,7 @@ typename Rcpp::traits::input_parameter< U23 >::type x23( args[23] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod25(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod25(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3342,7 +3342,7 @@ typename Rcpp::traits::input_parameter< U24 >::type x24( args[24] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod25( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod25( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3390,7 +3390,7 @@ typename Rcpp::traits::input_parameter< U24 >::type x24( args[24] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod25(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod25(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3433,7 +3433,7 @@ typename Rcpp::traits::input_parameter< U24 >::type x24( args[24] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod25( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod25( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3482,7 +3482,7 @@ typename Rcpp::traits::input_parameter< U24 >::type x24( args[24] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod26(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod26(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3526,7 +3526,7 @@ typename Rcpp::traits::input_parameter< U25 >::type x25( args[25] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod26( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod26( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3575,7 +3575,7 @@ typename Rcpp::traits::input_parameter< U25 >::type x25( args[25] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod26(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod26(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3619,7 +3619,7 @@ typename Rcpp::traits::input_parameter< U25 >::type x25( args[25] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod26( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod26( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3669,7 +3669,7 @@ typename Rcpp::traits::input_parameter< U25 >::type x25( args[25] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod27(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod27(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3714,7 +3714,7 @@ typename Rcpp::traits::input_parameter< U26 >::type x26( args[26] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod27( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod27( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3764,7 +3764,7 @@ typename Rcpp::traits::input_parameter< U26 >::type x26( args[26] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod27(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod27(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3809,7 +3809,7 @@ typename Rcpp::traits::input_parameter< U26 >::type x26( args[26] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod27( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod27( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3860,7 +3860,7 @@ typename Rcpp::traits::input_parameter< U26 >::type x26( args[26] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod28(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod28(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3906,7 +3906,7 @@ typename Rcpp::traits::input_parameter< U27 >::type x27( args[27] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod28( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod28( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -3957,7 +3957,7 @@ typename Rcpp::traits::input_parameter< U27 >::type x27( args[27] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod28(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod28(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4003,7 +4003,7 @@ typename Rcpp::traits::input_parameter< U27 >::type x27( args[27] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod28( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod28( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4055,7 +4055,7 @@ typename Rcpp::traits::input_parameter< U27 >::type x27( args[27] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod29(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod29(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4102,7 +4102,7 @@ typename Rcpp::traits::input_parameter< U28 >::type x28( args[28] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod29( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod29( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4154,7 +4154,7 @@ typename Rcpp::traits::input_parameter< U28 >::type x28( args[28] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod29(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod29(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4201,7 +4201,7 @@ typename Rcpp::traits::input_parameter< U28 >::type x28( args[28] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod29( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod29( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4254,7 +4254,7 @@ typename Rcpp::traits::input_parameter< U28 >::type x28( args[28] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod30(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod30(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4302,7 +4302,7 @@ typename Rcpp::traits::input_parameter< U29 >::type x29( args[29] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod30( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod30( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4355,7 +4355,7 @@ typename Rcpp::traits::input_parameter< U29 >::type x29( args[29] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod30(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod30(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4403,7 +4403,7 @@ typename Rcpp::traits::input_parameter< U29 >::type x29( args[29] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod30( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod30( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4457,7 +4457,7 @@ typename Rcpp::traits::input_parameter< U29 >::type x29( args[29] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod31(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod31(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4506,7 +4506,7 @@ typename Rcpp::traits::input_parameter< U30 >::type x30( args[30] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod31( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod31( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4560,7 +4560,7 @@ typename Rcpp::traits::input_parameter< U30 >::type x30( args[30] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod31(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod31(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4609,7 +4609,7 @@ typename Rcpp::traits::input_parameter< U30 >::type x30( args[30] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod31( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod31( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4664,7 +4664,7 @@ typename Rcpp::traits::input_parameter< U30 >::type x30( args[30] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod32(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod32(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4714,7 +4714,7 @@ typename Rcpp::traits::input_parameter< U31 >::type x31( args[31] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod32( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod32( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4769,7 +4769,7 @@ typename Rcpp::traits::input_parameter< U31 >::type x31( args[31] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod32(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod32(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4819,7 +4819,7 @@ typename Rcpp::traits::input_parameter< U31 >::type x31( args[31] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod32( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod32( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4875,7 +4875,7 @@ typename Rcpp::traits::input_parameter< U31 >::type x31( args[31] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod33(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod33(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4926,7 +4926,7 @@ typename Rcpp::traits::input_parameter< U32 >::type x32( args[32] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod33( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod33( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -4982,7 +4982,7 @@ typename Rcpp::traits::input_parameter< U32 >::type x32( args[32] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod33(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod33(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5033,7 +5033,7 @@ typename Rcpp::traits::input_parameter< U32 >::type x32( args[32] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod33( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod33( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5090,7 +5090,7 @@ typename Rcpp::traits::input_parameter< U32 >::type x32( args[32] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod34(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod34(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5142,7 +5142,7 @@ typename Rcpp::traits::input_parameter< U33 >::type x33( args[33] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod34( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod34( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5199,7 +5199,7 @@ typename Rcpp::traits::input_parameter< U33 >::type x33( args[33] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod34(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod34(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5251,7 +5251,7 @@ typename Rcpp::traits::input_parameter< U33 >::type x33( args[33] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod34( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod34( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5309,7 +5309,7 @@ typename Rcpp::traits::input_parameter< U33 >::type x33( args[33] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod35(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod35(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5362,7 +5362,7 @@ typename Rcpp::traits::input_parameter< U34 >::type x34( args[34] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod35( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod35( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5420,7 +5420,7 @@ typename Rcpp::traits::input_parameter< U34 >::type x34( args[34] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod35(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod35(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5473,7 +5473,7 @@ typename Rcpp::traits::input_parameter< U34 >::type x34( args[34] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod35( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod35( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5532,7 +5532,7 @@ typename Rcpp::traits::input_parameter< U34 >::type x34( args[34] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod36(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod36(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5586,7 +5586,7 @@ typename Rcpp::traits::input_parameter< U35 >::type x35( args[35] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod36( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod36( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5645,7 +5645,7 @@ typename Rcpp::traits::input_parameter< U35 >::type x35( args[35] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod36(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod36(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5699,7 +5699,7 @@ typename Rcpp::traits::input_parameter< U35 >::type x35( args[35] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod36( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod36( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5759,7 +5759,7 @@ typename Rcpp::traits::input_parameter< U35 >::type x35( args[35] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod37(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod37(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5814,7 +5814,7 @@ typename Rcpp::traits::input_parameter< U36 >::type x36( args[36] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod37( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod37( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5874,7 +5874,7 @@ typename Rcpp::traits::input_parameter< U36 >::type x36( args[36] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod37(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod37(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5929,7 +5929,7 @@ typename Rcpp::traits::input_parameter< U36 >::type x36( args[36] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod37( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod37( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -5990,7 +5990,7 @@ typename Rcpp::traits::input_parameter< U36 >::type x36( args[36] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod38(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod38(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6046,7 +6046,7 @@ typename Rcpp::traits::input_parameter< U37 >::type x37( args[37] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod38( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod38( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6107,7 +6107,7 @@ typename Rcpp::traits::input_parameter< U37 >::type x37( args[37] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod38(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod38(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6163,7 +6163,7 @@ typename Rcpp::traits::input_parameter< U37 >::type x37( args[37] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod38( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod38( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6225,7 +6225,7 @@ typename Rcpp::traits::input_parameter< U37 >::type x37( args[37] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod39(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod39(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6282,7 +6282,7 @@ typename Rcpp::traits::input_parameter< U38 >::type x38( args[38] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod39( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod39( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6344,7 +6344,7 @@ typename Rcpp::traits::input_parameter< U38 >::type x38( args[38] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod39(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod39(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6401,7 +6401,7 @@ typename Rcpp::traits::input_parameter< U38 >::type x38( args[38] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod39( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod39( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6464,7 +6464,7 @@ typename Rcpp::traits::input_parameter< U38 >::type x38( args[38] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod40(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod40(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6522,7 +6522,7 @@ typename Rcpp::traits::input_parameter< U39 >::type x39( args[39] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod40( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod40( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6585,7 +6585,7 @@ typename Rcpp::traits::input_parameter< U39 >::type x39( args[39] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod40(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod40(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6643,7 +6643,7 @@ typename Rcpp::traits::input_parameter< U39 >::type x39( args[39] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod40( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod40( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6707,7 +6707,7 @@ typename Rcpp::traits::input_parameter< U39 >::type x39( args[39] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod41(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod41(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6766,7 +6766,7 @@ typename Rcpp::traits::input_parameter< U40 >::type x40( args[40] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod41( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod41( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6830,7 +6830,7 @@ typename Rcpp::traits::input_parameter< U40 >::type x40( args[40] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod41(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod41(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6889,7 +6889,7 @@ typename Rcpp::traits::input_parameter< U40 >::type x40( args[40] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod41( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod41( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -6954,7 +6954,7 @@ typename Rcpp::traits::input_parameter< U40 >::type x40( args[40] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod42(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod42(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7014,7 +7014,7 @@ typename Rcpp::traits::input_parameter< U41 >::type x41( args[41] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod42( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod42( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7079,7 +7079,7 @@ typename Rcpp::traits::input_parameter< U41 >::type x41( args[41] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod42(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod42(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7139,7 +7139,7 @@ typename Rcpp::traits::input_parameter< U41 >::type x41( args[41] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod42( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod42( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7205,7 +7205,7 @@ typename Rcpp::traits::input_parameter< U41 >::type x41( args[41] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod43(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod43(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7266,7 +7266,7 @@ typename Rcpp::traits::input_parameter< U42 >::type x42( args[42] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod43( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod43( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7332,7 +7332,7 @@ typename Rcpp::traits::input_parameter< U42 >::type x42( args[42] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod43(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod43(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7393,7 +7393,7 @@ typename Rcpp::traits::input_parameter< U42 >::type x42( args[42] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod43( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod43( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7460,7 +7460,7 @@ typename Rcpp::traits::input_parameter< U42 >::type x42( args[42] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod44(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod44(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7522,7 +7522,7 @@ typename Rcpp::traits::input_parameter< U43 >::type x43( args[43] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod44( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod44( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7589,7 +7589,7 @@ typename Rcpp::traits::input_parameter< U43 >::type x43( args[43] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod44(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod44(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7651,7 +7651,7 @@ typename Rcpp::traits::input_parameter< U43 >::type x43( args[43] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod44( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod44( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7719,7 +7719,7 @@ typename Rcpp::traits::input_parameter< U43 >::type x43( args[43] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod45(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod45(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7782,7 +7782,7 @@ typename Rcpp::traits::input_parameter< U44 >::type x44( args[44] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod45( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod45( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7850,7 +7850,7 @@ typename Rcpp::traits::input_parameter< U44 >::type x44( args[44] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod45(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod45(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7913,7 +7913,7 @@ typename Rcpp::traits::input_parameter< U44 >::type x44( args[44] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod45( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod45( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -7982,7 +7982,7 @@ typename Rcpp::traits::input_parameter< U44 >::type x44( args[44] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod46(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod46(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8046,7 +8046,7 @@ typename Rcpp::traits::input_parameter< U45 >::type x45( args[45] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod46( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod46( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8115,7 +8115,7 @@ typename Rcpp::traits::input_parameter< U45 >::type x45( args[45] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod46(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod46(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8179,7 +8179,7 @@ typename Rcpp::traits::input_parameter< U45 >::type x45( args[45] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod46( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod46( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8249,7 +8249,7 @@ typename Rcpp::traits::input_parameter< U45 >::type x45( args[45] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod47(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod47(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8314,7 +8314,7 @@ typename Rcpp::traits::input_parameter< U46 >::type x46( args[46] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod47( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod47( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8384,7 +8384,7 @@ typename Rcpp::traits::input_parameter< U46 >::type x46( args[46] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod47(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod47(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8449,7 +8449,7 @@ typename Rcpp::traits::input_parameter< U46 >::type x46( args[46] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod47( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod47( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8520,7 +8520,7 @@ typename Rcpp::traits::input_parameter< U46 >::type x46( args[46] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod48(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod48(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8586,7 +8586,7 @@ typename Rcpp::traits::input_parameter< U47 >::type x47( args[47] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod48( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod48( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8657,7 +8657,7 @@ typename Rcpp::traits::input_parameter< U47 >::type x47( args[47] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod48(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod48(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8723,7 +8723,7 @@ typename Rcpp::traits::input_parameter< U47 >::type x47( args[47] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod48( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod48( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8795,7 +8795,7 @@ typename Rcpp::traits::input_parameter< U47 >::type x47( args[47] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod49(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod49(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8862,7 +8862,7 @@ typename Rcpp::traits::input_parameter< U48 >::type x48( args[48] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod49( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod49( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -8934,7 +8934,7 @@ typename Rcpp::traits::input_parameter< U48 >::type x48( args[48] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod49(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod49(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9001,7 +9001,7 @@ typename Rcpp::traits::input_parameter< U48 >::type x48( args[48] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod49( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod49( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9074,7 +9074,7 @@ typename Rcpp::traits::input_parameter< U48 >::type x48( args[48] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod50(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod50(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9142,7 +9142,7 @@ typename Rcpp::traits::input_parameter< U49 >::type x49( args[49] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod50( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod50( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9215,7 +9215,7 @@ typename Rcpp::traits::input_parameter< U49 >::type x49( args[49] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod50(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod50(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9283,7 +9283,7 @@ typename Rcpp::traits::input_parameter< U49 >::type x49( args[49] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod50( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod50( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9357,7 +9357,7 @@ typename Rcpp::traits::input_parameter< U49 >::type x49( args[49] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod51(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod51(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9426,7 +9426,7 @@ typename Rcpp::traits::input_parameter< U50 >::type x50( args[50] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod51( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod51( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9500,7 +9500,7 @@ typename Rcpp::traits::input_parameter< U50 >::type x50( args[50] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod51(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod51(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9569,7 +9569,7 @@ typename Rcpp::traits::input_parameter< U50 >::type x50( args[50] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod51( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod51( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9644,7 +9644,7 @@ typename Rcpp::traits::input_parameter< U50 >::type x50( args[50] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod52(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod52(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9714,7 +9714,7 @@ typename Rcpp::traits::input_parameter< U51 >::type x51( args[51] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod52( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod52( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9789,7 +9789,7 @@ typename Rcpp::traits::input_parameter< U51 >::type x51( args[51] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod52(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod52(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9859,7 +9859,7 @@ typename Rcpp::traits::input_parameter< U51 >::type x51( args[51] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod52( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod52( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -9935,7 +9935,7 @@ typename Rcpp::traits::input_parameter< U51 >::type x51( args[51] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod53(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod53(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10006,7 +10006,7 @@ typename Rcpp::traits::input_parameter< U52 >::type x52( args[52] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod53( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod53( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10082,7 +10082,7 @@ typename Rcpp::traits::input_parameter< U52 >::type x52( args[52] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod53(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod53(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10153,7 +10153,7 @@ typename Rcpp::traits::input_parameter< U52 >::type x52( args[52] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod53( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod53( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10230,7 +10230,7 @@ typename Rcpp::traits::input_parameter< U52 >::type x52( args[52] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod54(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod54(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10302,7 +10302,7 @@ typename Rcpp::traits::input_parameter< U53 >::type x53( args[53] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod54( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod54( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10379,7 +10379,7 @@ typename Rcpp::traits::input_parameter< U53 >::type x53( args[53] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod54(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod54(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10451,7 +10451,7 @@ typename Rcpp::traits::input_parameter< U53 >::type x53( args[53] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod54( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod54( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10529,7 +10529,7 @@ typename Rcpp::traits::input_parameter< U53 >::type x53( args[53] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod55(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod55(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10602,7 +10602,7 @@ typename Rcpp::traits::input_parameter< U54 >::type x54( args[54] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod55( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod55( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10680,7 +10680,7 @@ typename Rcpp::traits::input_parameter< U54 >::type x54( args[54] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod55(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod55(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10753,7 +10753,7 @@ typename Rcpp::traits::input_parameter< U54 >::type x54( args[54] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod55( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod55( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10832,7 +10832,7 @@ typename Rcpp::traits::input_parameter< U54 >::type x54( args[54] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod56(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod56(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10906,7 +10906,7 @@ typename Rcpp::traits::input_parameter< U55 >::type x55( args[55] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod56( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod56( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -10985,7 +10985,7 @@ typename Rcpp::traits::input_parameter< U55 >::type x55( args[55] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod56(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod56(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11059,7 +11059,7 @@ typename Rcpp::traits::input_parameter< U55 >::type x55( args[55] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod56( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod56( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11139,7 +11139,7 @@ typename Rcpp::traits::input_parameter< U55 >::type x55( args[55] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod57(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod57(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11214,7 +11214,7 @@ typename Rcpp::traits::input_parameter< U56 >::type x56( args[56] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod57( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod57( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11294,7 +11294,7 @@ typename Rcpp::traits::input_parameter< U56 >::type x56( args[56] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod57(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod57(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11369,7 +11369,7 @@ typename Rcpp::traits::input_parameter< U56 >::type x56( args[56] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod57( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod57( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11450,7 +11450,7 @@ typename Rcpp::traits::input_parameter< U56 >::type x56( args[56] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod58(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod58(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11526,7 +11526,7 @@ typename Rcpp::traits::input_parameter< U57 >::type x57( args[57] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod58( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod58( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11607,7 +11607,7 @@ typename Rcpp::traits::input_parameter< U57 >::type x57( args[57] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod58(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod58(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11683,7 +11683,7 @@ typename Rcpp::traits::input_parameter< U57 >::type x57( args[57] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod58( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod58( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11765,7 +11765,7 @@ typename Rcpp::traits::input_parameter< U57 >::type x57( args[57] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod59(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod59(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11842,7 +11842,7 @@ typename Rcpp::traits::input_parameter< U58 >::type x58( args[58] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod59( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod59( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -11924,7 +11924,7 @@ typename Rcpp::traits::input_parameter< U58 >::type x58( args[58] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod59(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod59(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12001,7 +12001,7 @@ typename Rcpp::traits::input_parameter< U58 >::type x58( args[58] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod59( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod59( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12084,7 +12084,7 @@ typename Rcpp::traits::input_parameter< U58 >::type x58( args[58] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod60(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod60(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12162,7 +12162,7 @@ typename Rcpp::traits::input_parameter< U59 >::type x59( args[59] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod60( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod60( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12245,7 +12245,7 @@ typename Rcpp::traits::input_parameter< U59 >::type x59( args[59] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod60(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod60(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12323,7 +12323,7 @@ typename Rcpp::traits::input_parameter< U59 >::type x59( args[59] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod60( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod60( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12407,7 +12407,7 @@ typename Rcpp::traits::input_parameter< U59 >::type x59( args[59] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod61(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod61(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12486,7 +12486,7 @@ typename Rcpp::traits::input_parameter< U60 >::type x60( args[60] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod61( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod61( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12570,7 +12570,7 @@ typename Rcpp::traits::input_parameter< U60 >::type x60( args[60] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod61(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod61(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12649,7 +12649,7 @@ typename Rcpp::traits::input_parameter< U60 >::type x60( args[60] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod61( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod61( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12734,7 +12734,7 @@ typename Rcpp::traits::input_parameter< U60 >::type x60( args[60] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod62(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod62(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12814,7 +12814,7 @@ typename Rcpp::traits::input_parameter< U61 >::type x61( args[61] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod62( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod62( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12899,7 +12899,7 @@ typename Rcpp::traits::input_parameter< U61 >::type x61( args[61] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod62(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod62(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -12979,7 +12979,7 @@ typename Rcpp::traits::input_parameter< U61 >::type x61( args[61] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod62( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod62( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13065,7 +13065,7 @@ typename Rcpp::traits::input_parameter< U61 >::type x61( args[61] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod63(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod63(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13146,7 +13146,7 @@ typename Rcpp::traits::input_parameter< U62 >::type x62( args[62] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod63( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod63( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13232,7 +13232,7 @@ typename Rcpp::traits::input_parameter< U62 >::type x62( args[62] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod63(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod63(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13313,7 +13313,7 @@ typename Rcpp::traits::input_parameter< U62 >::type x62( args[62] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod63( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod63( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13400,7 +13400,7 @@ typename Rcpp::traits::input_parameter< U62 >::type x62( args[62] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod64(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod64(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13482,7 +13482,7 @@ typename Rcpp::traits::input_parameter< U63 >::type x63( args[63] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod64( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod64( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13569,7 +13569,7 @@ typename Rcpp::traits::input_parameter< U63 >::type x63( args[63] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod64(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod64(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13651,7 +13651,7 @@ typename Rcpp::traits::input_parameter< U63 >::type x63( args[63] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod64( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod64( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13739,7 +13739,7 @@ typename Rcpp::traits::input_parameter< U63 >::type x63( args[63] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Pointer_CppMethod65(Method m) : method_class(), met(m){} 
+		Pointer_CppMethod65(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 		    typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13822,7 +13822,7 @@ typename Rcpp::traits::input_parameter< U64 >::type x64( args[64] ) ;
 		typedef void (*Method)(Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63, U64 u64) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Pointer_CppMethod65( Method m) : method_class(), met(m){} 
+		Pointer_CppMethod65( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13910,7 +13910,7 @@ typename Rcpp::traits::input_parameter< U64 >::type x64( args[64] ) ;
 		typedef CppMethod<Class> method_class ;
 		typedef typename Rcpp::traits::remove_const_and_reference< OUT >::type CLEANED_OUT ;
 		
-		Const_Pointer_CppMethod65(Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod65(Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;
@@ -13993,7 +13993,7 @@ typename Rcpp::traits::input_parameter< U64 >::type x64( args[64] ) ;
 		typedef void (*Method)(const Class*, U0 u0, U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7, U8 u8, U9 u9, U10 u10, U11 u11, U12 u12, U13 u13, U14 u14, U15 u15, U16 u16, U17 u17, U18 u18, U19 u19, U20 u20, U21 u21, U22 u22, U23 u23, U24 u24, U25 u25, U26 u26, U27 u27, U28 u28, U29 u29, U30 u30, U31 u31, U32 u32, U33 u33, U34 u34, U35 u35, U36 u36, U37 u37, U38 u38, U39 u39, U40 u40, U41 u41, U42 u42, U43 u43, U44 u44, U45 u45, U46 u46, U47 u47, U48 u48, U49 u49, U50 u50, U51 u51, U52 u52, U53 u53, U54 u54, U55 u55, U56 u56, U57 u57, U58 u58, U59 u59, U60 u60, U61 u61, U62 u62, U63 u63, U64 u64) ;
 		typedef CppMethod<Class> method_class ;
 		
-		Const_Pointer_CppMethod65( Method m) : method_class(), met(m){} 
+		Const_Pointer_CppMethod65( Method m) : method_class(), met(m){}
 		SEXP operator()( Class* object, SEXP* args){
 			typename Rcpp::traits::input_parameter< U0 >::type x0( args[0] ) ;
 typename Rcpp::traits::input_parameter< U1 >::type x1( args[1] ) ;

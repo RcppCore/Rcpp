@@ -42,7 +42,7 @@
 #ifndef GOOD_COMPILER_FOR_RCPP
 # error "This compiler is not supported"
 #endif
-        
+
 #ifdef __GNUC__
     #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
     // g++ 4.5 does not seem to like some of the fast indexing
@@ -135,7 +135,7 @@
 #if defined(HAS_TR1_UNORDERED_MAP) && defined(HAS_TR1_UNORDERED_SET)
 #define HAS_TR1
 #endif
-     
+
 // Conditionally include headers
 #ifdef HAS_CXX0X_INITIALIZER_LIST
 #include <initializer_list>

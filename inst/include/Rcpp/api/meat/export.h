@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// export.h: Rcpp R/C++ interface class library -- export implementations 
+// export.h: Rcpp R/C++ interface class library -- export implementations
 //
 // Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
 //
@@ -22,9 +22,9 @@
 #ifndef Rcpp_api_meat_export_h
 #define Rcpp_api_meat_export_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 namespace internal{
-        
+
     template <typename InputIterator, typename value_type>
     void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_generic_tag ) {
         R_len_t n = ::Rf_length(x) ;
@@ -32,20 +32,20 @@ namespace internal{
             *first = ::Rcpp::as<value_type>( VECTOR_ELT(x, i) ) ;
         }
     }
-                
-    
+
+
 } // namespace internal
 
     namespace traits{
-        
+
         template < template <class, class> class ContainerTemplate, typename T > class ContainerExporter {
         public:
             typedef ContainerTemplate<T, std::allocator<T> > Container ;
             const static int RTYPE = Rcpp::traits::r_sexptype_traits<T>::rtype ;
-            
+
             ContainerExporter( SEXP x ) : object(x){}
             ~ContainerExporter(){}
-            
+
             Container get(){
                 if( TYPEOF(object) == RTYPE ){
                    T* start = Rcpp::internal::r_vector_start<RTYPE>(object) ;
@@ -55,17 +55,17 @@ namespace internal{
                 ::Rcpp::internal::export_range( object, vec.begin() ) ;
                 return vec ;
             }
-        
+
         private:
         		SEXP object ;
         } ;
         template < template<class,class> class Container > struct container_exporter< Container, int >{
-            typedef ContainerExporter< Container, int > type ;     
+            typedef ContainerExporter< Container, int > type ;
         } ;
         template < template<class,class> class Container > struct container_exporter< Container, double >{
             typedef ContainerExporter< Container, double > type ;
         } ;
-        
+
     }
 } // namespace Rcpp
 

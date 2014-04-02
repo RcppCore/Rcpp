@@ -21,7 +21,7 @@
 
 #ifndef Rcpp__sugar__match_h
 #define Rcpp__sugar__match_h
-          
+
 namespace Rcpp{
 
 template <int RTYPE, bool NA, typename T, bool RHS_NA, typename RHS_T>

@@ -1,4 +1,4 @@
-// generic_proxy.h: Rcpp R/C++ interface class library -- 
+// generic_proxy.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
 //
@@ -23,19 +23,19 @@
 namespace Rcpp{
 namespace internal{
 	
-	template <int RTYPE> 
+	template <int RTYPE>
 	class generic_proxy : public GenericProxy< generic_proxy<RTYPE> > {
 		public:
 			typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
 			
 			generic_proxy(): parent(0), index(-1){}
 			
-			generic_proxy( const generic_proxy& other ) : 
+			generic_proxy( const generic_proxy& other ) :
 				parent(other.parent), index(other.index){} ;
 			
 			generic_proxy( VECTOR& v, int i ) : parent(&v), index(i){} ;
 		
-			generic_proxy& operator=(SEXP rhs) { 
+			generic_proxy& operator=(SEXP rhs) {
 				set(rhs) ;
 				return *this ;
 			}
@@ -44,14 +44,14 @@ namespace internal{
 				set(rhs.get());
 				return *this ;	
 			}
-	               
+	
 			template <typename T>
 			generic_proxy& operator=( const T& rhs){
 				set(wrap(rhs)) ;
-				return *this; 
+				return *this;
 			}
 			
-			operator SEXP() const { 
+			operator SEXP() const {
 			    return get() ;
 			}
 			
@@ -69,7 +69,7 @@ namespace internal{
 				other.set(tmp) ;
 			}
 			
-			VECTOR* parent; 
+			VECTOR* parent;
 			int index ;
 			inline void move(int n) { index += n ; }
 			
@@ -79,12 +79,12 @@ namespace internal{
 			}
 			
 		private:
-			inline void set(SEXP x) { 
+			inline void set(SEXP x) {
 			    SET_VECTOR_ELT( *parent, index, x ) ;
-			} 
-			inline SEXP get() const { 
-			    return VECTOR_ELT(*parent, index ); 
-			} 
+			}
+			inline SEXP get() const {
+			    return VECTOR_ELT(*parent, index );
+			}
 		
 	}  ;
 	

@@ -21,7 +21,7 @@
 
 #ifndef Rcpp__generated__Function_operator_h
 #define Rcpp__generated__Function_operator_h
-   
+
 /* <code-bloat>
 
 	template <TYPENAMES>
@@ -131,5 +131,5 @@
 	}
 	
 /* </code-bloat> */
- 
+
 #endif

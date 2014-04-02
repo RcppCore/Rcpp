@@ -10,7 +10,7 @@ RcppExport SEXP convolve5cpp(SEXP a, SEXP b) {
     NumericVector xa(a); int n_xa = xa.size() ;
     NumericVector xb(b); int n_xb = xb.size() ;
     NumericVector xab(n_xa + n_xb - 1,0.0);
-    
+
     Range r( 0, n_xb-1 );
     for(int i=0; i<n_xa; i++, r++){
     	xab[ r ] += xa[i] * xb ;

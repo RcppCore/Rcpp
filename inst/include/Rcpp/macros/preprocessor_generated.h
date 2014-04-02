@@ -22,7 +22,7 @@
 #ifndef RCPP__PREPROCESSOR_GENERATED_H
 #define RCPP__PREPROCESSOR_GENERATED_H
 
-// {{{ RCPP_FUNCTION 
+// {{{ RCPP_FUNCTION
 
 
 #define RCPP_FUNCTION_0(__OUT__,__NAME__)        \
@@ -1545,7 +1545,7 @@ __OUT__ RCPP_DECORATE(__NAME__)(___0, ___1, ___2, ___3, ___4, ___5, ___6, ___7, 
 
 // }}}
 
-// {{{ RCPP_FUNCTION_VOID 
+// {{{ RCPP_FUNCTION_VOID
 
 
 #define RCPP_FUNCTION_VOID_0(__NAME__)           \

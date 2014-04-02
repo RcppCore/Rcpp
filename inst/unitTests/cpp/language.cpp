@@ -27,7 +27,7 @@ Language runit_language(SEXP x){ return Language(x) ; }
 
 // [[Rcpp::export]]
 Language runit_lang_variadic_1(){
-    return Language( "rnorm", 10, 0.0, 2.0 ) ; 
+    return Language( "rnorm", 10, 0.0, 2.0 ) ;
 }
 
 // [[Rcpp::export]]
@@ -174,16 +174,16 @@ Pairlist runit_pl_insert(){
     p.push_back( 1 ) ;
     p.push_back( 10.0 ) ;
     p.push_back( 20.0 ) ;
-    
+
     /* insert in 2nd position */
     p.insert( 1, Named( "bla", "bla" ) ) ;
-    
+
     /* insert in front */
     p.insert( 0, 30.0 ) ;
-    
+
     /* insert in back */
     p.insert( 5, "foobar" ) ;
-    
+
     return p ;
 }
 

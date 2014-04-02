@@ -21,9 +21,9 @@
 #define Rcpp__internal__NAEquals__h
 
 namespace Rcpp {
-  
+
 namespace internal {
-  
+
 template <typename T>
 struct NAEquals {
     inline bool operator()(T left, T right) const {

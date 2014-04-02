@@ -18,15 +18,15 @@
 #ifndef Rcpp_api_meat_as_h
 #define Rcpp_api_meat_as_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 namespace internal{
-     
+
     inline void* as_module_object_internal(SEXP obj){
         Environment env(obj) ;
         SEXP xp = env.get(".pointer") ;
-        return R_ExternalPtrAddr(xp );   
+        return R_ExternalPtrAddr(xp );
     }
-        
+
 }
 }
 

@@ -25,19 +25,19 @@ void vec_resize( vec* obj, int n){ obj->resize( n ) ; }
 void vec_push_back( vec* obj, double x ){ obj->push_back( x ); }
 
 // Wrappers for member functions that return a reference
-// Required on Solaris 
-double vec_back(vec *obj){ return obj->back() ; } 
-double vec_front(vec *obj){ return obj->front() ; } 
-double vec_at(vec *obj, int i){ return obj->at(i) ; } 
+// Required on Solaris
+double vec_back(vec *obj){ return obj->back() ; }
+double vec_front(vec *obj){ return obj->front() ; }
+double vec_at(vec *obj, int i){ return obj->at(i) ; }
 
 RCPP_MODULE(stdVector){
     using namespace Rcpp ;
 
     // we expose the class std::vector<double> as "vec" on the R side
     class_<vec>( "vec")
-    
+
     // exposing the default constructor
-    .constructor() 
+    .constructor()
 
     // exposing member functions
     .method( "size", &vec::size)
@@ -53,7 +53,7 @@ RCPP_MODULE(stdVector){
     .method( "front", &vec_front )
     .method( "at", &vec_at )
     .method( "set", &vec_set )
-    
+
     // exposing free functions taking a std::vector<double>*
     // as their first argument
     .method( "assign", &vec_assign )
@@ -61,7 +61,7 @@ RCPP_MODULE(stdVector){
     .method( "as.vector", &vec_asR )
     .method( "push_back", &vec_push_back )
     .method( "resize", &vec_resize)
-    
+
     // special methods for indexing
     // .method( "[[", &vec_at )
     // .method( "[[<-", &vec_set )

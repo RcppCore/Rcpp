@@ -22,26 +22,26 @@
 #ifndef Rcpp_Language_h
 #define Rcpp_Language_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
-    /** 
+    /**
      * C++ wrapper around calls (LANGSXP SEXP)
      *
      * This represents calls that can be evaluated
      */
-    RCPP_API_CLASS(Language_Impl), 
-        public DottedPairProxyPolicy< Language_Impl<StoragePolicy> > , 
+    RCPP_API_CLASS(Language_Impl),
+        public DottedPairProxyPolicy< Language_Impl<StoragePolicy> > ,
         public DottedPairImpl< Language_Impl<StoragePolicy> >
     {
     public:
-        
+
         typedef typename DottedPairProxyPolicy<Language_Impl>::DottedPairProxy Proxy ;
         typedef typename DottedPairProxyPolicy<Language_Impl>::const_DottedPairProxy const_Proxy ;
-        
-        RCPP_GENERATE_CTOR_ASSIGN(Language_Impl) 
-        
+
+        RCPP_GENERATE_CTOR_ASSIGN(Language_Impl)
+
         Language_Impl(){}
-        
+
         /**
          * Attempts to convert the SEXP to a call
          *
@@ -49,7 +49,7 @@ namespace Rcpp{
          * to a call using as.call
          */
         Language_Impl(SEXP x){
-            Storage::set__( r_cast<LANGSXP>(x) ) ;    
+            Storage::set__( r_cast<LANGSXP>(x) ) ;
         }
 
         /**
@@ -70,33 +70,33 @@ namespace Rcpp{
          *
          * @param symbol symbol name to call
          *
-         * Language( Symbol("rnorm") ) makes a SEXP similar to this: 
+         * Language( Symbol("rnorm") ) makes a SEXP similar to this:
          * > call( "rnorm" )
          */
         explicit Language_Impl( const Symbol& symbol ){
-            Storage::set__( Rf_lang1( symbol ) ) ;    
+            Storage::set__( Rf_lang1( symbol ) ) ;
         }
 
         /**
          * Creates a call to the function
-         * 
+         *
          * @param function function to call
          */
         explicit Language_Impl( const Function& function) {
             Storage::set__( Rf_lang1( function ) ) ;
         }
-        
+
         /**
-         * Creates a call to the given symbol using variable number of 
+         * Creates a call to the given symbol using variable number of
          * arguments
          *
          * @param symbol symbol
-         * @param ...Args variable length argument list. The type of each 
-         *        argument must be wrappable, meaning there need to be 
+         * @param ...Args variable length argument list. The type of each
+         *        argument must be wrappable, meaning there need to be
          *        a wrap function that takes this type as its parameter
-         * 
-         * For example, Language( "rnorm", 10, 0.0 ) 
-         * will create the same call as 
+         *
+         * For example, Language( "rnorm", 10, 0.0 )
+         * will create the same call as
          * > call( "rnorm", 10L, 0.0 )
          *
          * 10 is wrapped as an integer vector using wrap( const& int )
@@ -109,7 +109,7 @@ namespace Rcpp{
          * sets the symbol of the call
          */
         void setSymbol( const std::string& symbol){
-            setSymbol( Symbol( symbol ) ) ;    
+            setSymbol( Symbol( symbol ) ) ;
         }
 
         /**
@@ -127,7 +127,7 @@ namespace Rcpp{
         void setFunction( const Function& function){
             SEXP x = Storage::get__() ;
             SETCAR( x, function );
-            SET_TAG(x, R_NilValue); /* probably not necessary */ 
+            SET_TAG(x, R_NilValue); /* probably not necessary */
         }
 
         /**
@@ -145,33 +145,33 @@ namespace Rcpp{
         }
 
         SEXP fast_eval() const {
-            return Rf_eval( Storage::get__(), R_GlobalEnv) ;    
+            return Rf_eval( Storage::get__(), R_GlobalEnv) ;
         }
         SEXP fast_eval(SEXP env ) const {
-            return Rf_eval( Storage::get__(), env) ;    
+            return Rf_eval( Storage::get__(), env) ;
         }
-        
+
         void update( SEXP x){
             SET_TYPEOF( x, LANGSXP ) ;
-            SET_TAG( x, R_NilValue ) ;    
+            SET_TAG( x, R_NilValue ) ;
         }
-        
+
     };
 
     typedef Language_Impl<PreserveStorage> Language ;
-    
+
     template <typename OUT=SEXP>
     class fixed_call {
     public:
         typedef OUT result_type ;
-        
+
         fixed_call( Language call_ ) : call(call_){}
         fixed_call( Function fun ) : call(fun){}
-        
+
         OUT operator()(){
             return as<OUT>( call.eval() ) ;
         }
-        
+
     private:
         Language call ;
     } ;
@@ -182,12 +182,12 @@ namespace Rcpp{
         unary_call( Language call_ ) : call(call_), proxy(call_,1) {}
         unary_call( Language call_, int index ) : call(call_), proxy(call_,index){}
         unary_call( Function fun ) : call( fun, R_NilValue), proxy(call,1) {}
-        
+
         OUT operator()( const T& object ){
             proxy = object ;
             return as<OUT>( call.eval() ) ;
         }
-        
+
     private:
         Language call ;
         Language::Proxy proxy ;
@@ -199,13 +199,13 @@ namespace Rcpp{
         binary_call( Language call_ ) : call(call_), proxy1(call_,1), proxy2(call_,2) {}
         binary_call( Language call_, int index1, int index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}
         binary_call( Function fun) : call(fun, R_NilValue, R_NilValue), proxy1(call,1), proxy2(call,2){}
-        
+
         OUT operator()( const T1& o1, const T2& o2 ){
             proxy1 = o1 ;
             proxy2 = o2 ;
             return as<OUT>( call.eval() ) ;
         }
-        
+
     private:
         Language call ;
         Language::Proxy proxy1 ;

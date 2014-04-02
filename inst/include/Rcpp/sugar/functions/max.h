@@ -29,13 +29,13 @@ namespace sugar{
     class Max {
     public:
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-        
+
         Max( const T& obj_) : obj(obj_) {}
-        
+
         operator STORAGE() {
             max_ = obj[0] ;
             if( Rcpp::traits::is_na<RTYPE>( max_ ) ) return max_ ;
-            
+
             int n = obj.size() ;
             for( int i=1; i<n; i++){
                 current = obj[i] ;
@@ -44,7 +44,7 @@ namespace sugar{
             }
             return max_ ;
         }
-        
+
     private:
         const T& obj ;
         STORAGE min_, max_, current ;
@@ -55,12 +55,12 @@ namespace sugar{
     class Max<RTYPE,false,T> {
     public:
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-        
+
         Max( const T& obj_) : obj(obj_) {}
-        
+
         operator STORAGE() {
             max_ = obj[0] ;
-            
+
             int n = obj.size() ;
             for( int i=1; i<n; i++){
                 current = obj[i] ;
@@ -68,12 +68,12 @@ namespace sugar{
             }
             return max_ ;
         }
-       
+
     private:
         const T& obj ;
         STORAGE max_, current ;
     } ;
-         
+
 
 } // sugar
 

@@ -59,7 +59,7 @@
         typedef Rcpp::InputParameter<const CLASS&> type ;                     \
     } ;                                                                       \
     }}
-    
+
 #define RCPP_EXPOSED_WRAP(CLASS) namespace Rcpp{ namespace traits{ template<> struct wrap_type_traits< CLASS >{typedef wrap_type_module_object_tag wrap_category ; } ; }}
 
 #define RCPP_EXPOSED_CLASS_NODECL(CLASS) \
@@ -70,12 +70,12 @@
   class CLASS;                    \
   RCPP_EXPOSED_CLASS_NODECL(CLASS)
 
-/** 
+/**
  * handling enums: TODO use is_enum from C++11 or boost to have those automatic
  */
 #define RCPP_EXPOSED_ENUM_AS(CLASS)   namespace Rcpp{ namespace traits{ template<> struct r_type_traits< CLASS >{ typedef r_type_enum_tag r_category ; } ; }}
 #define RCPP_EXPOSED_ENUM_WRAP(CLASS) namespace Rcpp{ namespace traits{ template<> struct wrap_type_traits< CLASS >{typedef wrap_type_enum_tag wrap_category ; } ; }}
- 
+
 #define RCPP_EXPOSED_ENUM_NODECL(CLASS) \
   RCPP_EXPOSED_ENUM_AS(CLASS)          \
   RCPP_EXPOSED_ENUM_WRAP(CLASS)
@@ -83,6 +83,6 @@
 #define RCPP_EXPOSED_ENUM(CLASS) \
   class CLASS;                    \
   RCPP_EXPOSED_ENUM_NODECL(CLASS)
-  
-  
+
+
 #endif

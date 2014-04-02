@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
 // unary_minus.h: Rcpp R/C++ interface class library -- unary operator-
-//                                                                      
+//
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -37,7 +37,7 @@ namespace sugar{
 	} ;
 	
 	
-	template <int RTYPE,bool NA> 
+	template <int RTYPE,bool NA>
 	class unary_minus {
 	public:
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
@@ -59,10 +59,10 @@ namespace sugar{
 	class unary_minus<CPLXSXP,NA>{
 	public:
 		inline Rcomplex apply( Rcomplex x ) const {
-			if (Rcpp::traits::is_na<CPLXSXP>( x ) ) return x; 
+			if (Rcpp::traits::is_na<CPLXSXP>( x ) ) return x;
 			
 			Rcomplex cx ;
-			cx.r = -x.r; 
+			cx.r = -x.r;
 			cx.i = -x.i ;
 			return cx ;
 		}
@@ -72,7 +72,7 @@ namespace sugar{
 	public:
 		inline Rcomplex apply( Rcomplex x ) const {
 			Rcomplex cx ;
-			cx.r = -x.r; 
+			cx.r = -x.r;
 			cx.i = -x.i ;
 			return cx ;
 		}
@@ -80,10 +80,10 @@ namespace sugar{
 	
 
 	template <int RTYPE, bool NA, typename T>
-	class UnaryMinus_Vector : public Rcpp::VectorBase< 
+	class UnaryMinus_Vector : public Rcpp::VectorBase<
 		unary_minus_result_type<RTYPE>::value ,
-		NA, 
-		UnaryMinus_Vector< unary_minus_result_type<RTYPE>::value ,NA,T> 
+		NA,
+		UnaryMinus_Vector< unary_minus_result_type<RTYPE>::value ,NA,T>
 		> {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
@@ -91,7 +91,7 @@ namespace sugar{
 		typedef typename unary_minus_result_type<RTYPE>::type RESULT ;
 		typedef unary_minus<RTYPE,NA> OPERATOR ;
 		
-		UnaryMinus_Vector( const VEC_TYPE& lhs_ ) : 
+		UnaryMinus_Vector( const VEC_TYPE& lhs_ ) :
 			lhs(lhs_), op() {}
 		
 		inline RESULT operator[]( int i ) const {
@@ -102,7 +102,7 @@ namespace sugar{
 		
 	private:
 		const VEC_TYPE& lhs ;
-		OPERATOR op ; 
+		OPERATOR op ;
 	} ;
 	
 }
@@ -110,7 +110,7 @@ namespace sugar{
 
 template <int RTYPE,bool NA, typename T>
 inline Rcpp::sugar::UnaryMinus_Vector< RTYPE , NA , T >
-operator-( 
+operator-(
 	const Rcpp::VectorBase<RTYPE,NA,T>& x
 ) {
 	return Rcpp::sugar::UnaryMinus_Vector<RTYPE,NA, T >( x ) ;

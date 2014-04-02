@@ -19,29 +19,29 @@
 #define Rcpp_proxy_RObjectMethods_h
 
 namespace Rcpp{
-      
+
     template <typename Class>
     class RObjectMethods{
     public:
-        
-        inline bool isNULL() const{ 
-            return Rf_isNull( static_cast<const Class&>(*this) ) ; 
+
+        inline bool isNULL() const{
+            return Rf_isNull( static_cast<const Class&>(*this) ) ;
         }
 
-        inline int sexp_type() const { 
-            return TYPEOF( static_cast<const Class&>(*this) ) ; 
+        inline int sexp_type() const {
+            return TYPEOF( static_cast<const Class&>(*this) ) ;
         }
 
-        inline bool isObject() const { 
+        inline bool isObject() const {
             return Rf_isObject( static_cast<const Class&>(*this) ) ;
         }
 
-        inline bool isS4() const { 
-            return Rf_isS4( static_cast<const Class&>(*this) ) ; 
+        inline bool isS4() const {
+            return Rf_isS4( static_cast<const Class&>(*this) ) ;
         }
 
     } ;
-    
+
 }
 
 #endif

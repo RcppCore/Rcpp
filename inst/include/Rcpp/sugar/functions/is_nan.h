@@ -36,7 +36,7 @@ public:
 	}
 	
 	inline int size() const { return obj.size() ; }
-	         
+	
 private:
 	const VEC_TYPE& obj ;
 	

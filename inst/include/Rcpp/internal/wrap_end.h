@@ -23,13 +23,13 @@
 #define Rcpp_internal_wrap_end_h
 
 namespace Rcpp{
-    
-    template <typename T> 
+
+    template <typename T>
     inline SEXP wrap(const T& object){
-        RCPP_DEBUG_1( "inline SEXP wrap<%s>(const T& object)", DEMANGLE(T) ) 
+        RCPP_DEBUG_1( "inline SEXP wrap<%s>(const T& object)", DEMANGLE(T) )
     	  return internal::wrap_dispatch( object, typename ::Rcpp::traits::wrap_type_traits<T>::wrap_category() ) ;
     }
-    
+
     template <typename T>
     inline SEXP module_wrap_dispatch( const T& obj, Rcpp::traits::normal_wrap_tag ){
         return wrap( obj ) ;

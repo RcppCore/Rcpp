@@ -27,7 +27,7 @@ namespace Rcpp{
 namespace traits{
 
 /**
- * template that returns the SEXP type that is appropriate for 
+ * template that returns the SEXP type that is appropriate for
  * the type T, this is allways VECSXP (lists) unless it is specialized
  */
 template <typename T> struct r_sexptype_traits{ enum{ rtype = VECSXP }; } ;
@@ -44,7 +44,7 @@ template<> struct r_sexptype_traits<Rbyte>{ enum{ rtype = RAWSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned int>{ enum{ rtype = REALSXP } ; } ;
 template<> struct r_sexptype_traits<float>{ enum{ rtype = REALSXP } ; } ;
 
-/* long are represented as numeric vectors which allows more precision 
+/* long are represented as numeric vectors which allows more precision
    to be preserved than int */
 template<> struct r_sexptype_traits<long>{ enum{ rtype = REALSXP } ; } ;
 template<> struct r_sexptype_traits<unsigned long>{ enum{ rtype = REALSXP } ; } ;
@@ -66,7 +66,7 @@ template<> struct r_sexptype_traits< std::complex<float> >{ enum{ rtype = CPLXSX
 /**
  * Indicates if a primitive type needs a static_cast
  */
-template <typename T> struct r_sexptype_needscast : public true_type{}; 
+template <typename T> struct r_sexptype_needscast : public true_type{};
 template<> struct r_sexptype_needscast<int>          : public false_type{} ;
 template<> struct r_sexptype_needscast<double>       : public false_type{} ;
 template<> struct r_sexptype_needscast<Rcomplex>     : public false_type{} ;

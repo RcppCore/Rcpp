@@ -26,23 +26,23 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, bool NA, typename T, typename Function>
-class Lapply : public VectorBase< 
-	VECSXP , 
+class Lapply : public VectorBase<
+	VECSXP ,
 	true ,
 	Lapply<RTYPE,NA,T,Function>
 > {
-public:         
+public:
 	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
 	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
 	
-	Lapply( const VEC& vec_, Function fun_ ) : 
+	Lapply( const VEC& vec_, Function fun_ ) :
 		vec(vec_), fun(fun_){}
 	
 	inline SEXP operator[]( int i ) const {
 		return Rcpp::wrap( fun( vec[i] ) );
 	}
 	inline int size() const { return vec.size() ; }
-	         
+	
 private:
 	const VEC& vec ;
 	Function fun ;
@@ -51,7 +51,7 @@ private:
 } // sugar
 
 template <int RTYPE, bool NA, typename T, typename Function >
-inline sugar::Lapply<RTYPE,NA,T,Function> 
+inline sugar::Lapply<RTYPE,NA,T,Function>
 lapply( const Rcpp::VectorBase<RTYPE,NA,T>& t, Function fun ){
 	return sugar::Lapply<RTYPE,NA,T,Function>( t, fun ) ;
 }

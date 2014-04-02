@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
-// SEXP_Iterator.h: Rcpp R/C++ interface class library -- 
+// SEXP_Iterator.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
 //
@@ -36,11 +36,11 @@ public:
 		typedef std::random_access_iterator_tag iterator_category ;
 		
 		SEXP_Iterator( ): ptr(){} ;
-		SEXP_Iterator( const SEXP_Iterator& other) : ptr(other.ptr){} ; 
+		SEXP_Iterator( const SEXP_Iterator& other) : ptr(other.ptr){} ;
 		SEXP_Iterator( const VECTOR& vec ) : ptr( get_vector_ptr(vec) ){} ;
 		
 		SEXP_Iterator& operator=(const SEXP_Iterator& other){ ptr = other.ptr ; return *this ;}
-                                        
+
    		int operator-( const SEXP_Iterator& other){ return ptr - other.ptr ; }
    		
    		SEXP_Iterator operator+( int n){ return SEXP_Iterator(ptr+n); }
@@ -59,8 +59,8 @@ public:
    		reference  operator*(){ return *ptr ; }
    		reference  operator[](int n){ return ptr[n] ; }
    		bool operator==(const SEXP_Iterator& other) const { return ptr == other.ptr ;}
-   		bool operator!=(const SEXP_Iterator& other) const { return ptr != other.ptr ;}    
-    
+   		bool operator!=(const SEXP_Iterator& other) const { return ptr != other.ptr ;}
+
 		
 private:
 	const SEXP* ptr ;

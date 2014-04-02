@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// rnbinom_mu.h: Rcpp R/C++ interface class library -- 
+// rnbinom_mu.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
@@ -25,15 +25,15 @@
 namespace Rcpp {
 	namespace stats {
 
-	    
+	
 		class NBinomGenerator_Mu : public ::Rcpp::Generator<double> {
 		public:
 	
-			NBinomGenerator_Mu( double siz_, double mu_ ) : 
+			NBinomGenerator_Mu( double siz_, double mu_ ) :
 				siz(siz_), lambda( mu_ / siz_ ) {}
 	
 			inline double operator()() const {
-				return ::Rf_rpois( ::Rf_rgamma( siz, lambda ) ) ; 
+				return ::Rf_rpois( ::Rf_rgamma( siz, lambda ) ) ;
 			}
 	
 		private:

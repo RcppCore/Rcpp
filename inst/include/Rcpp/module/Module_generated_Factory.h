@@ -21,7 +21,7 @@
 
 #ifndef Rcpp_Module_generated_Factory_h
 #define Rcpp_Module_generated_Factory_h
-   
+
 template <typename Class>
 class Factory_Base {
 public:
@@ -32,7 +32,7 @@ public:
 
 template <typename Class>
 class Factory_0 : public Factory_Base<Class>{
-  public: 
+  public:
     Factory_0( Class* (*fun)(void) ) : ptr_fun(fun){}
     virtual Class* get_new( SEXP* args, int nargs ){
       return ptr_fun() ;
@@ -43,7 +43,7 @@ class Factory_0 : public Factory_Base<Class>{
     }
   private:
     Class* (*ptr_fun)(void) ;
-} ;        
+} ;
 template <typename Class, typename U0>
 class Factory_1 : public Factory_Base<Class>{
 public:
@@ -63,9 +63,9 @@ class Factory_2 : public Factory_Base<Class>{
 public:
   Factory_2( Class* (*fun)(U0, U1) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
-      return ptr_fun( 
-          bare_as<U0>(args[0]), 
-          bare_as<U1>(args[1]) 
+      return ptr_fun(
+          bare_as<U0>(args[0]),
+          bare_as<U1>(args[1])
           ) ;
   }
   virtual int nargs(){ return 2 ; }
@@ -73,17 +73,17 @@ public:
       ctor_signature<U0,U1>(s, class_name) ;
   }
 private:
-  Class* (*ptr_fun)(U0, U1) ;   
+  Class* (*ptr_fun)(U0, U1) ;
 } ;
 template <typename Class, typename U0, typename U1, typename U2>
 class Factory_3 : public Factory_Base<Class>{
 public:
-  Factory_3( Class* (*fun)(U0, U1, U2) ) :ptr_fun(fun){} 
+  Factory_3( Class* (*fun)(U0, U1, U2) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
-      return ptr_fun( 
-          bare_as<U0>(args[0]), 
-          bare_as<U1>(args[1]), 
-          bare_as<U2>(args[2]) 
+      return ptr_fun(
+          bare_as<U0>(args[0]),
+          bare_as<U1>(args[1]),
+          bare_as<U2>(args[2])
           ) ;
   }
   virtual int nargs(){ return 3 ; }
@@ -96,13 +96,13 @@ private:
 template <typename Class, typename U0, typename U1, typename U2, typename U3>
 class Factory_4 : public Factory_Base<Class>{
 public:
-  Factory_4( Class* (*fun)(U0, U1, U2, U3) ) :ptr_fun(fun){} 
+  Factory_4( Class* (*fun)(U0, U1, U2, U3) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
-      return ptr_fun( 
-          bare_as<U0>(args[0]), 
-          bare_as<U1>(args[1]), 
-          bare_as<U2>(args[2]), 
-          bare_as<U3>(args[3]) 
+      return ptr_fun(
+          bare_as<U0>(args[0]),
+          bare_as<U1>(args[1]),
+          bare_as<U2>(args[2]),
+          bare_as<U3>(args[3])
           ) ;
   }
   virtual int nargs(){ return 4 ; }
@@ -115,14 +115,14 @@ private:
 template <typename Class, typename U0, typename U1, typename U2, typename U3, typename U4>
 class Factory_5 : public Factory_Base<Class>{
 public:
-  Factory_5( Class* (*fun)(U0, U1, U2, U3, U4) ) :ptr_fun(fun){} 
+  Factory_5( Class* (*fun)(U0, U1, U2, U3, U4) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
-      return ptr_fun( 
-          bare_as<U0>(args[0]), 
-          bare_as<U1>(args[1]), 
-          bare_as<U2>(args[2]), 
-          bare_as<U3>(args[3]), 
-          bare_as<U4>(args[4]) 
+      return ptr_fun(
+          bare_as<U0>(args[0]),
+          bare_as<U1>(args[1]),
+          bare_as<U2>(args[2]),
+          bare_as<U3>(args[3]),
+          bare_as<U4>(args[4])
           ) ;
   }
   virtual int nargs(){ return 5 ; }
@@ -135,15 +135,15 @@ private:
 template <typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
 class Factory_6 : public Factory_Base<Class>{
 public:
-  Factory_6( Class* (*fun)(U0, U1, U2, U3, U4, U5) ) :ptr_fun(fun){} 
+  Factory_6( Class* (*fun)(U0, U1, U2, U3, U4, U5) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
-      return ptr_fun( 
-          bare_as<U0>(args[0]), 
-          bare_as<U1>(args[1]), 
-          bare_as<U2>(args[2]), 
-          bare_as<U3>(args[3]), 
+      return ptr_fun(
+          bare_as<U0>(args[0]),
+          bare_as<U1>(args[1]),
+          bare_as<U2>(args[2]),
+          bare_as<U3>(args[3]),
           bare_as<U4>(args[4]),
-          bare_as<U5>(args[5]) 
+          bare_as<U5>(args[5])
           ) ;
   }
   virtual int nargs(){ return 6 ; }
@@ -156,16 +156,16 @@ private:
 template <typename Class, typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
 class Factory_7 : public Factory_Base<Class>{
 public:
-  Factory_7( Class* (*fun)(U0, U1, U2, U3, U4, U5, U6) ) :ptr_fun(fun){} 
+  Factory_7( Class* (*fun)(U0, U1, U2, U3, U4, U5, U6) ) :ptr_fun(fun){}
   virtual Class* get_new( SEXP* args, int nargs ){
-      return ptr_fun( 
-          bare_as<U0>(args[0]), 
-          bare_as<U1>(args[1]), 
-          bare_as<U2>(args[2]), 
-          bare_as<U3>(args[3]), 
+      return ptr_fun(
+          bare_as<U0>(args[0]),
+          bare_as<U1>(args[1]),
+          bare_as<U2>(args[2]),
+          bare_as<U3>(args[3]),
           bare_as<U4>(args[4]),
           bare_as<U5>(args[5]),
-          bare_as<U6>(args[6]) 
+          bare_as<U6>(args[6])
           ) ;
   }
   virtual int nargs(){ return 7 ; }

@@ -345,7 +345,7 @@ List runit_sign( NumericVector xx, IntegerVector yy ){
 List runit_times( IntegerVector xx ){
     IntegerVector yy = clone<IntegerVector>( xx ) ;
     yy[0] = NA_INTEGER ;
-    
+
     return List::create(
         xx * 10,
         10 * xx,
@@ -570,7 +570,7 @@ NumericVector runit_signif( NumericVector xx, int d ){
 
 // [[Rcpp::export]]
 double runit_RangeIndexer( NumericVector x ){
-    return max( x[ seq(0, 4) ] ) ;    
+    return max( x[ seq(0, 4) ] ) ;
 }
 
 // [[Rcpp::export]]
@@ -642,4 +642,4 @@ List vector_vector_logical( NumericVector xx, NumericVector yy){
 			LogicalVector y5 = xx == yy;
 			LogicalVector y6 = xx != yy;
 			return List::create(y1, y2, y3, y4, y5, y6);
-}     
+}

@@ -23,7 +23,7 @@
 #define Rcpp__DataFrame_h
 
 namespace Rcpp{
-         
+
     namespace internal{
         inline SEXP empty_data_frame(){
             Shield<SEXP> df( Rf_allocVector(VECSXP, 0) );
@@ -33,33 +33,39 @@ namespace Rcpp{
             return df;
         }
     }
-    
+
     template <template <class> class StoragePolicy>
     class DataFrame_Impl : public Vector<VECSXP, StoragePolicy> {
-    public:  
+    public:
         typedef Vector<VECSXP, StoragePolicy> Parent ;
-        
+
         DataFrame_Impl() : Parent( internal::empty_data_frame() ){}
         DataFrame_Impl(SEXP x) {
-            set__(x);     
+            set__(x);
         }
         DataFrame_Impl( const DataFrame_Impl& other){
-            set__(other) ;    
+            set__(other) ;
         }
-        
+
         template <typename T>
         DataFrame_Impl( const T& obj ) ;
-        
+
         DataFrame_Impl& operator=( DataFrame_Impl& other){
-            if (*this != other) set__(other);    
+            if (*this != other) set__(other);
             return *this;
         }
-        
+
         DataFrame_Impl& operator=( SEXP x){
             set__(x) ;
             return *this ;
         }
-                
+
+        // By definition, the number of rows in a data.frame is contained
+        // in its row.names attribute. If it has row names of the form 1:n,
+        // they will be stored as {NA_INTEGER, -<nrow>}. Unfortunately,
+        // getAttrib(df, R_RowNamesSymbol) will force an expansion of that
+        // compact form thereby allocating a huge vector when we just want
+        // the row.names. Hence this workaround.
         inline int nrows() const {
             SEXP rn = R_NilValue ;
             SEXP att = ATTRIB( Parent::get__() )  ;
@@ -68,20 +74,20 @@ namespace Rcpp{
                     rn = CAR(att) ;
                     break ;
                 }
-                att = CDR(att) ;    
+                att = CDR(att) ;
             }
             if (Rf_isNull(rn))
                 return 0;
             if (TYPEOF(rn) == INTSXP && LENGTH(rn) == 2 && INTEGER(rn)[0] == NA_INTEGER)
-                return -INTEGER(rn)[1];
+                return abs(INTEGER(rn)[1]);
             return LENGTH(rn);
         }
-        
-        static DataFrame_Impl create(){ 
-            return DataFrame_Impl() ; 
+
+        static DataFrame_Impl create(){
+            return DataFrame_Impl() ;
         }
 
-        #include <Rcpp/generated/DataFrame_generated.h>           
+        #include <Rcpp/generated/DataFrame_generated.h>
 
     private:
         void set__(SEXP x){
@@ -92,7 +98,7 @@ namespace Rcpp{
                 Parent::set__( y ) ;
             }
         }
-        
+
         static DataFrame_Impl from_list( Parent obj ){
             bool use_default_strings_as_factors = true ;
             bool strings_as_factors = true ;
@@ -103,30 +109,30 @@ namespace Rcpp{
                 for( int i=0; i<n; i++){
                     if( names[i] == "stringsAsFactors" ){
                         strings_as_factors_index = i ;
-                        use_default_strings_as_factors = false ;        
+                        use_default_strings_as_factors = false ;
                         if( !as<bool>(obj[i]) ) strings_as_factors = false ;
-                        break ;         
+                        break ;
                     }
                 }
             }
-            if( use_default_strings_as_factors ) 
+            if( use_default_strings_as_factors )
                 return DataFrame_Impl(obj) ;
             SEXP as_df_symb = Rf_install("as.data.frame");
             SEXP strings_as_factors_symb = Rf_install("stringsAsFactors");
-            
+
             obj.erase(strings_as_factors_index) ;
             names.erase(strings_as_factors_index) ;
             obj.attr( "names") = names ;
             Shield<SEXP> call( Rf_lang3(as_df_symb, obj, wrap( strings_as_factors ) ) ) ;
-            SET_TAG( CDDR(call),  strings_as_factors_symb ) ;   
-            Shield<SEXP> res( Rcpp_eval( call ) ) ; 
+            SET_TAG( CDDR(call),  strings_as_factors_symb ) ;
+            Shield<SEXP> res( Rcpp_eval( call ) ) ;
             DataFrame_Impl out( res ) ;
             return out ;
-       
+
         }
-        
+
     } ;
- 
+
     typedef DataFrame_Impl<PreserveStorage> DataFrame ;
 }
 

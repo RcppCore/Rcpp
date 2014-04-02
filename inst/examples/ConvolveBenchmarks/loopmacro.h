@@ -7,7 +7,7 @@ SEXP name##__loop(SEXP n_, SEXP a, SEXP b){ \
        res = name( a, b ) ;                 \
     }                                       \
     return res ;                            \
-}                                          
+}
 
 #define LOOPMACRO_CPP(name) RcppExport LOOPMACRO_C(name)
 

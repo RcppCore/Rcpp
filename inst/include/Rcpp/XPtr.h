@@ -25,10 +25,10 @@
 #include <RcppCommon.h>
 
 namespace Rcpp{
-    
+
 template <typename T>
 void standard_delete_finalizer(T* obj){
-    delete obj ;   
+    delete obj ;
 }
 
 template <typename T, void Finalizer(T*) >
@@ -41,23 +41,23 @@ void finalizer_wrapper(SEXP p){
 }
 
 template <
-    typename T, 
-    template <class> class StoragePolicy = PreserveStorage, 
+    typename T,
+    template <class> class StoragePolicy = PreserveStorage,
     void Finalizer(T*) = standard_delete_finalizer<T>
 >
 class XPtr :
-    public StoragePolicy< XPtr<T,StoragePolicy, Finalizer> >,       
-    public SlotProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,    
-    public AttributeProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
-    public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
-    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >, 
+    public StoragePolicy< XPtr<T,StoragePolicy, Finalizer> >,
+    public SlotProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
+    public AttributeProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
+    public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
+    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
     public RObjectMethods< XPtr<T,StoragePolicy, Finalizer> >
 {
 public:
-		 
+		
     typedef StoragePolicy<XPtr> Storage ;
-    
-    /** 
+
+    /**
      * constructs a XPtr wrapping the external pointer (EXTPTRSXP SEXP)
      *
      * @param xp external pointer to wrap
@@ -71,19 +71,19 @@ public:
     } ;
 		
     /**
-     * creates a new external pointer wrapping the dumb pointer p. 
-     * 
+     * creates a new external pointer wrapping the dumb pointer p.
+     *
      * @param p dumb pointer to some object
-     * @param set_delete_finalizer if set to true, a finalizer will 
+     * @param set_delete_finalizer if set to true, a finalizer will
      *        be registered for the external pointer. The finalizer
-     *        is called when the xp is garbage collected. The finalizer 
+     *        is called when the xp is garbage collected. The finalizer
      *        is merely a call to the delete operator or the pointer
      *        so you need to make sure the pointer can be "delete" d
      *        this way (has to be a C++ object)
      */
     explicit XPtr(T* p, bool set_delete_finalizer = true, SEXP tag = R_NilValue, SEXP prot = R_NilValue){
         RCPP_DEBUG_2( "XPtr(T* p = <%p>, bool set_delete_finalizer = %s, SEXP tag = R_NilValue, SEXP prot = R_NilValue)", p, ( set_delete_finalizer ? "true" : "false" ) )
-        Storage::set__( R_MakeExternalPtr( (void*)p , tag, prot) ) ; 
+        Storage::set__( R_MakeExternalPtr( (void*)p , tag, prot) ) ;
         if( set_delete_finalizer ){
             setDeleteFinalizer() ;
         }
@@ -92,39 +92,39 @@ public:
     XPtr( const XPtr& other ) {
         Storage::copy__(other) ;
     }
-    
+
     XPtr& operator=(const XPtr& other){
     	    Storage::copy__(other) ;
     	    return *this ;
     }
-    
+
     /**
      * Returns a reference to the object wrapped. This allows this
      * object to look and feel like a dumb pointer to T
      */
     T& operator*() const {
-        return *((T*)R_ExternalPtrAddr( Storage::get__() )) ;    
+        return *((T*)R_ExternalPtrAddr( Storage::get__() )) ;
     }
   		
     /**
-     * Returns the dumb pointer. This allows to call the -> operator 
+     * Returns the dumb pointer. This allows to call the -> operator
      * on this as if it was the dumb pointer
      */
     T* operator->() const {
          return (T*)(R_ExternalPtrAddr( Storage::get__() ));
     }
-  		  		        
+  		  		
     void setDeleteFinalizer() {
-        R_RegisterCFinalizerEx( Storage::get__(), finalizer_wrapper<T,Finalizer> , FALSE) ;     
+        R_RegisterCFinalizerEx( Storage::get__(), finalizer_wrapper<T,Finalizer> , FALSE) ;
     }
   	
-    inline operator T*(){ 
-        return (T*)( R_ExternalPtrAddr( Storage::get__() )) ; 
+    inline operator T*(){
+        return (T*)( R_ExternalPtrAddr( Storage::get__() )) ;
     }
-    
+
     void update(SEXP){}
 };
 
-} // namespace Rcpp 
+} // namespace Rcpp
 
 #endif

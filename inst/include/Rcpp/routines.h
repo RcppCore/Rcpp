@@ -24,31 +24,31 @@
 
 namespace Rcpp{
     const char* type2name(SEXP x) ;
-    
+
     namespace internal{
-        unsigned long enterRNGScope(); 
+        unsigned long enterRNGScope();
         unsigned long exitRNGScope() ;
         char* get_string_buffer() ;
-        SEXP get_Rcpp_namespace() ; 
+        SEXP get_Rcpp_namespace() ;
     }
     double mktime00(struct tm &) ;
     struct tm * gmtime_(const time_t * const) ;
 }
- 
+
 SEXP rcpp_get_stack_trace() ;
 SEXP rcpp_set_stack_trace(SEXP) ;
 std::string demangle( const std::string& name) ;
 const char* short_file_name(const char* ) ;
 int* get_cache( int n ) ;
 SEXP stack_trace( const char *file, int line) ;
-SEXP get_string_elt(SEXP s, int i); 
+SEXP get_string_elt(SEXP s, int i);
 const char* char_get_string_elt(SEXP s, int i) ;
-void set_string_elt(SEXP s, int i, SEXP v); 
-void char_set_string_elt(SEXP s, int i, const char* v); 
+void set_string_elt(SEXP s, int i, SEXP v);
+void char_set_string_elt(SEXP s, int i, const char* v);
 SEXP* get_string_ptr(SEXP s) ;
 SEXP get_vector_elt(SEXP v, int i) ;
-void set_vector_elt(SEXP v, int i, SEXP x); 
-SEXP* get_vector_ptr(SEXP v); 
+void set_vector_elt(SEXP v, int i, SEXP x);
+SEXP* get_vector_ptr(SEXP v);
 const char* char_nocheck( SEXP x) ;
 void* dataptr(SEXP x) ;
 Rcpp::Module* getCurrentScope() ;
@@ -57,59 +57,59 @@ SEXP reset_current_error() ;
 int error_occured() ;
 SEXP rcpp_get_current_error() ;
 
-#else 
+#else
 namespace Rcpp {
-    
+
     #define GET_CALLABLE(__FUN__) (Fun) R_GetCCallable( "Rcpp", __FUN__ )
-    
+
     inline const char* type2name(SEXP x){
         typedef const char* (*Fun)(SEXP) ;
         static Fun fun = GET_CALLABLE("type2name") ;
         return fun(x) ;
     }
-    
+
     namespace internal{
         inline unsigned long enterRNGScope(){
-            typedef unsigned long (*Fun)(void) ; 
+            typedef unsigned long (*Fun)(void) ;
             static Fun fun = GET_CALLABLE("enterRNGScope") ;
             return fun() ;
         }
-    
+
         inline unsigned long exitRNGScope(){
             typedef unsigned long (*Fun)(void) ;
             static Fun fun = GET_CALLABLE("exitRNGScope") ;
             return fun() ;
         }
-        
+
         inline char* get_string_buffer(){
             typedef char* (*Fun)(void) ;
             static Fun fun = GET_CALLABLE("get_string_buffer") ;
             return fun();
         }
-        
+
         inline SEXP get_Rcpp_namespace() {
             typedef SEXP (*Fun)(void) ;
             static Fun fun = GET_CALLABLE("get_Rcpp_namespace") ;
             return fun();
         }
-    
+
     }
-                  
-    
+
+
     inline double mktime00(struct tm &tm){
         typedef double (*Fun)(struct tm&) ;
         static Fun fun = GET_CALLABLE("mktime00") ;
         return fun(tm);
     }
-    
+
     inline struct tm * gmtime_(const time_t * const x){
         typedef struct tm* (*Fun)(const time_t* const);
         static Fun fun =  GET_CALLABLE("gmtime_") ;
         return fun(x) ;
-    }                                             
-    
-}     
-   
+    }
+
+}
+
 inline SEXP rcpp_get_stack_trace(){
     typedef SEXP (*Fun)(void) ;
     static Fun fun = GET_CALLABLE("rcpp_get_stack_trace") ;
@@ -121,24 +121,24 @@ inline SEXP rcpp_set_stack_trace(SEXP e){
     static Fun fun =  GET_CALLABLE("rcpp_set_stack_trace") ;
     return fun(e) ;
 }
-    
+
 inline std::string demangle( const std::string& name){
     typedef std::string (*Fun)( const std::string& ) ;
     static Fun fun = GET_CALLABLE("demangle") ;
     return fun(name) ;
 }
-    
+
 inline const char* short_file_name(const char* file) {
     typedef const char* (*Fun)(const char*) ;
     static Fun fun = GET_CALLABLE("short_file_name") ;
-    return fun(file) ;    
+    return fun(file) ;
 }
 inline SEXP stack_trace( const char *file, int line){
     typedef SEXP (*Fun)(const char*, int) ;
     static Fun fun = GET_CALLABLE("stack_trace") ;
     return fun(file, line) ;
 }
-    
+
 inline SEXP get_string_elt(SEXP s, int i){
     typedef SEXP (*Fun)(SEXP, int) ;
     static Fun fun = GET_CALLABLE("get_string_elt") ;
@@ -148,7 +148,7 @@ inline SEXP get_string_elt(SEXP s, int i){
 inline const char* char_get_string_elt(SEXP s, int i){
     typedef const char* (*Fun)(SEXP, int) ;
     static Fun fun = GET_CALLABLE("char_get_string_elt") ;
-    return fun(s, i); 
+    return fun(s, i);
 }
 
 inline void set_string_elt(SEXP s, int i, SEXP v){
@@ -159,14 +159,14 @@ inline void set_string_elt(SEXP s, int i, SEXP v){
 
 inline void char_set_string_elt(SEXP s, int i, const char* v){
     typedef void (*Fun)(SEXP,int, const char*) ;
-    static Fun fun = GET_CALLABLE("char_set_string_elt") ; 
-    fun(s, i, v ) ;    
+    static Fun fun = GET_CALLABLE("char_set_string_elt") ;
+    fun(s, i, v ) ;
 }
 
 inline SEXP* get_string_ptr(SEXP s){
     typedef SEXP* (*Fun)(SEXP) ;
-    static Fun fun = GET_CALLABLE("get_string_ptr") ; 
-    return fun(s) ;    
+    static Fun fun = GET_CALLABLE("get_string_ptr") ;
+    return fun(s) ;
 }
 
 inline SEXP get_vector_elt(SEXP v, int i){
@@ -184,7 +184,7 @@ inline void set_vector_elt(SEXP v, int i, SEXP x){
 inline SEXP* get_vector_ptr(SEXP v){
     typedef SEXP* (*Fun)(SEXP) ;
     static Fun fun = GET_CALLABLE("get_vector_ptr") ;
-    return fun(v) ;    
+    return fun(v) ;
 }
 
 inline const char* char_nocheck( SEXP x){
@@ -196,7 +196,7 @@ inline const char* char_nocheck( SEXP x){
 inline void* dataptr(SEXP x){
     typedef void* (*Fun)(SEXP) ;
     static Fun fun = GET_CALLABLE("dataptr") ;
-    return fun(x) ; 
+    return fun(x) ;
 }
 
 inline Rcpp::Module* getCurrentScope(){
@@ -208,30 +208,30 @@ inline Rcpp::Module* getCurrentScope(){
 inline void setCurrentScope( Rcpp::Module* mod ){
     typedef void (*Fun)(Rcpp::Module*) ;
     static Fun fun = GET_CALLABLE("setCurrentScope") ;
-    fun(mod) ;    
+    fun(mod) ;
 }
 
 inline int* get_cache( int n ){
     typedef int* (*Fun)(int) ;
     static Fun fun = GET_CALLABLE("get_cache") ;
-    return fun(n) ;    
+    return fun(n) ;
 }
-    
+
 inline SEXP reset_current_error(){
     typedef SEXP (*Fun)(void) ;
     static Fun fun = GET_CALLABLE("reset_current_error") ;
-    return fun() ;     
-} 
+    return fun() ;
+}
 
 inline int error_occured(){
     typedef int (*Fun)(void) ;
     static Fun fun = GET_CALLABLE("error_occured") ;
-    return fun() ;     
+    return fun() ;
 }
 inline SEXP rcpp_get_current_error(){
     typedef SEXP (*Fun)(void) ;
     static Fun fun = GET_CALLABLE("rcpp_get_current_error") ;
-    return fun() ;    
+    return fun() ;
 }
 #endif
 

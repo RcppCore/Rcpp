@@ -26,8 +26,8 @@ namespace Rcpp{
 
     RCPP_API_CLASS(WeakReference_Impl) {
     public:
-        RCPP_GENERATE_CTOR_ASSIGN(WeakReference_Impl) 
-        
+        RCPP_GENERATE_CTOR_ASSIGN(WeakReference_Impl)
+
         WeakReference_Impl(){}
 
         /**
@@ -42,12 +42,12 @@ namespace Rcpp{
                 throw not_compatible( "not a weak reference" ) ;
             Storage::set__(x);
         }
-        
-        /** 
+
+        /**
          * Retrieve the key
          */
         SEXP key() const {
-            return R_WeakRefKey(Storage::get__()) ;    
+            return R_WeakRefKey(Storage::get__()) ;
         }
 
         /**
@@ -56,7 +56,7 @@ namespace Rcpp{
         SEXP value() const {
             return R_WeakRefValue(Storage::get__());
         }
-        
+
         void update(SEXP){}
 
     } ;

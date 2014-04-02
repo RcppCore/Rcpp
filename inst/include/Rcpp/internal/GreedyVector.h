@@ -19,13 +19,13 @@
 #define RCPP_INTERNAL_GREEDYVECTOR_H
 
 namespace Rcpp {
-    
+
     template <typename T, typename CLASS>
     class GreedyVector {
     public:
         typedef typename std::vector<T>::iterator iterator;
         typedef typename std::vector<T>::const_iterator const_iterator;
-        
+
         GreedyVector(SEXP vec) : v(0){
             if (!Rf_isNumeric(vec) || Rf_isMatrix(vec) || Rf_isLogical(vec))
                 throw std::range_error("invalid numeric vector in constructor");
@@ -36,40 +36,40 @@ namespace Rcpp {
             for (int i = 0; i < len; i++)
                 v[i] = T( static_cast<double>(REAL(vec)[i]));
         }
-        
+
         GreedyVector(int n) : v(n){}
-        
+
         inline const T& operator()(int i) const{
-            return at(i) ;    
+            return at(i) ;
         }
         inline T& operator()(int i){
-            return at(i) ;    
+            return at(i) ;
         }
 
         inline const T& operator[](int i) const{
-            return at(i) ;    
+            return at(i) ;
         }
         inline T& operator[](int i){
-            return at(i) ;    
+            return at(i) ;
         }
-        
-        inline int size() const { 
-            return (int)v.size(); 
+
+        inline int size() const {
+            return (int)v.size();
         }
-        
+
         inline iterator begin(){ return v.begin(); }
         inline iterator end(){ return v.end(); }
-        
+
         inline const_iterator begin() const { return v.begin(); }
         inline const_iterator end() const { return v.end(); }
-        
-        inline operator SEXP() const { 
-            return wrap( v ) ; 
-        } 
-        
+
+        inline operator SEXP() const {
+            return wrap( v ) ;
+        }
+
     protected:
         std::vector<T> v;
-        
+
     private:
         const T& at(int i) const{
             if (i < 0 || i >= static_cast<int>(v.size())) {
@@ -77,20 +77,20 @@ namespace Rcpp {
                 oss << "subscript out of range: " << i;
                 throw std::range_error(oss.str());
             }
-            return v[i];        
+            return v[i];
         }
-        
+
         T& at(int i) {
             if (i < 0 || i >= static_cast<int>(v.size())) {
                 std::ostringstream oss;
                 oss << "subscript out of range: " << i;
                 throw std::range_error(oss.str());
             }
-            return v[i];        
+            return v[i];
         }
-        
+
     } ;
-    
+
 }
 
 #endif

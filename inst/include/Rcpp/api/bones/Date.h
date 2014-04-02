@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
-// Date_forward.h: Rcpp R/C++ interface class library -- 
+// Date_forward.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
 //
@@ -28,13 +28,13 @@ namespace Rcpp {
 		template <> struct wrap_type_traits<Rcpp::Date>{
 			typedef wrap_type_primitive_tag wrap_category;
 		} ;
-		template<> struct r_type_traits<Rcpp::Date>{ 
+		template<> struct r_type_traits<Rcpp::Date>{
 			typedef r_type_primitive_tag r_category ;
 		} ;
-		template<> struct r_type_traits< std::pair<const std::string,Rcpp::Date> >{ 
+		template<> struct r_type_traits< std::pair<const std::string,Rcpp::Date> >{
 			typedef r_type_primitive_tag r_category ;
 		} ;
-		template<> struct r_sexptype_traits<Rcpp::Date>{ 
+		template<> struct r_sexptype_traits<Rcpp::Date>{
 			enum{ rtype = REALSXP } ;
 		} ;
 	}

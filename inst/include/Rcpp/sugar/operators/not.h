@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
 //
 // not.h: Rcpp R/C++ interface class library -- unary operator!
-//                                                                      
+//
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
@@ -25,7 +25,7 @@
 namespace Rcpp{
 namespace sugar{
 
-	template <int RTYPE,bool NA> 
+	template <int RTYPE,bool NA>
 	class not_ {
 	public:
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
@@ -79,7 +79,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef not_<RTYPE,NA> OPERATOR ;
 		
-		Not_Vector( const VEC_TYPE& lhs_ ) : 
+		Not_Vector( const VEC_TYPE& lhs_ ) :
 			lhs(lhs_), op() {}
 		
 		inline STORAGE operator[]( int i ) const {
@@ -90,7 +90,7 @@ namespace sugar{
 		
 	private:
 		const VEC_TYPE& lhs ;
-		OPERATOR op ; 
+		OPERATOR op ;
 	} ;
 
 }
@@ -98,7 +98,7 @@ namespace sugar{
 
 template <int RTYPE,bool NA, typename T>
 inline Rcpp::sugar::Not_Vector< RTYPE , NA , T >
-operator!( 
+operator!(
 	const Rcpp::VectorBase<RTYPE,NA,T>& x
 ) {
 	return Rcpp::sugar::Not_Vector<RTYPE,NA, T >( x ) ;

@@ -22,18 +22,18 @@
 #ifndef Rcpp_Symbol_h
 #define Rcpp_Symbol_h
 
-namespace Rcpp{ 
+namespace Rcpp{
 
     RCPP_API_CLASS(Symbol_Impl) {
     public:
 
-        RCPP_GENERATE_CTOR_ASSIGN(Symbol_Impl) 
-    
+        RCPP_GENERATE_CTOR_ASSIGN(Symbol_Impl)
+
         /**
-         * wraps the SEXP into a Symbol object. 
-         * 
+         * wraps the SEXP into a Symbol object.
+         *
          * @param x Accepted SEXP types are SYMSXP, CHARSXP and STRSXP
-         * in the last case, the first element of the character vector 
+         * in the last case, the first element of the character vector
          * is silently used
          */
         Symbol_Impl(SEXP x){
@@ -57,22 +57,22 @@ namespace Rcpp{
                 throw not_compatible("cannot convert to symbol (SYMSXP)") ;
             }
         }
-    
+
         Symbol_Impl(const std::string& symbol){
-            Storage::set__( Rf_install(symbol.c_str()) );    
+            Storage::set__( Rf_install(symbol.c_str()) );
         }
         inline const char* c_str() const {
-            return CHAR(PRINTNAME(Storage::get__())) ; 
+            return CHAR(PRINTNAME(Storage::get__())) ;
         }
-        inline bool operator==(const char* other) const { 
-            return ! strcmp(other, c_str() ); 
+        inline bool operator==(const char* other) const {
+            return ! strcmp(other, c_str() );
         }
-        
+
         void update(SEXP){}
     };
 
     typedef Symbol_Impl<NoProtectStorage> Symbol;
-    
+
 } // namespace Rcpp
 
 #endif
