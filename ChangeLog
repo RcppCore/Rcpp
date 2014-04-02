@@ -1,10 +1,14 @@
+2014-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* tests/doRUnit.R: Better RUnit error report with thanks to Murray
+
 2014-03-18  JJ Allaire <jj@rstudio.org>
 
         * man/cppFunction.Rd: Correct package header file example to use .h
 
 2014-03-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/DataFrame.h (Rcpp): Add missing return in Impl method
+	* inst/include/Rcpp/DataFrame.h: Add missing return in Impl method
 
 2014-03-13  Dirk Eddelbuettel  <edd@debian.org>
 
