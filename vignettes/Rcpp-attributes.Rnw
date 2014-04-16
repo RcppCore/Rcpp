@@ -286,9 +286,6 @@ requirements to be correctly handled:
    Rcpp types may however appear without a namespace qualifier (i.e.
    \texttt{DataFrame} is okay as a type name but \texttt{std::string} must be
    specified fully).
- \item
-    Do not have inline comments in the argument list. Such comments are not parsed 
-    correctly by \pkg{Rcpp}'s built-in \proglang{C++} parser.
 \end{itemize}
 
 \subsection{Random Number Generation}
