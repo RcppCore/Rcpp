@@ -74,6 +74,13 @@ namespace attributes {
 
     // Trim a string
     void trimWhitespace(std::string* pStr);
+    
+    // Finds the first line comment (ie, comment started by "//"); 
+    // returns std::string::npos if no match is found
+    size_t findComment(std::string const& str, size_t idx);
+    
+    // Strip trailing line comments
+    void stripTrailingLineComments(std::string* pStr);
 
     // Strip balanced quotes from around a string (assumes already trimmed)
     void stripQuotes(std::string* pStr);
@@ -854,6 +861,7 @@ namespace attributes {
                 // strip \r (for the case of windows line terminators on posix)
                 if (line.length() > 0 && *line.rbegin() == '\r')
                     line.erase(line.length()-1, 1);
+                stripTrailingLineComments(&line);
                 lines.push_back(line);
             }
             lines_ = Rcpp::wrap(lines);
@@ -957,6 +965,7 @@ namespace attributes {
             // trim before we do this just in case someone updates the regex
             // to allow for whitespace around the call
             trimWhitespace(&paramsText);
+            
             paramsText = paramsText.substr(1, paramsText.size()-2);
 
             // parse the parameters
@@ -1007,7 +1016,7 @@ namespace attributes {
                                                     const std::string& input) {
 
         const std::string delimiters(" ,");
-
+        
         std::vector<Param> params;
         std::string::size_type current;
         std::string::size_type next = -1;
@@ -2342,6 +2351,42 @@ namespace attributes {
     // Query whether a character is whitespace
     bool isWhitespace(char ch) {
         return std::strchr(kWhitespaceChars, ch) != NULL;
+    }
+    
+    // Finds the first line comment (ie, comment started by "//"); 
+    // returns std::string::npos if no match is found
+    size_t findComment(std::string const& str, size_t idx) {
+        size_t firstSlash = str.find("/", idx);
+        if (str[firstSlash + 1] == '/') return firstSlash;
+        else return std::string::npos;
+    }
+    
+    // Remove trailing line comments -- ie, find comments that don't begin
+    // a line, and remove them. We avoid stripping attributes.
+    void stripTrailingLineComments(std::string* pStr) {
+        
+        if (pStr->empty()) return;
+        
+        size_t firstComment = findComment(*pStr, 0);
+        size_t firstNonWhitespaceChar = pStr->find_first_not_of(kWhitespaceChars);
+        
+        // if the first comment also begins the line, then we look for a later
+        // comment to strip
+        if (firstComment != std::string::npos &&
+            firstComment == firstNonWhitespaceChar) {
+                
+            size_t secondComment = findComment(*pStr, firstComment + 1);
+            if (secondComment != std::string::npos) {
+                pStr->erase(secondComment);
+            }
+            return;
+        }
+        
+        // if we get here, then the first comment is not the entire string --
+        // so we can strip it
+        if (firstComment != std::string::npos) {
+            pStr->erase(firstComment);
+        }
     }
 
     // Trim a string
