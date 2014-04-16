@@ -75,10 +75,6 @@ namespace attributes {
     // Trim a string
     void trimWhitespace(std::string* pStr);
     
-    // Finds the first line comment (ie, comment started by "//"); 
-    // returns std::string::npos if no match is found
-    size_t findComment(std::string const& str, size_t idx);
-    
     // Strip trailing line comments
     void stripTrailingLineComments(std::string* pStr);
 
@@ -2353,43 +2349,39 @@ namespace attributes {
         return std::strchr(kWhitespaceChars, ch) != NULL;
     }
     
-    // Finds the first line comment (ie, comment started by "//"); 
-    // returns std::string::npos if no match is found
-    size_t findComment(std::string const& str, size_t idx) {
-        size_t firstSlash = str.find("/", idx);
-        if (firstSlash != std::string::npos) {
-            if (firstSlash + 1 < str.length() && str[firstSlash + 1] == '/') {
-                return firstSlash;
-            }
-        }
-        return std::string::npos;
-    }
-    
     // Remove trailing line comments -- ie, find comments that don't begin
     // a line, and remove them. We avoid stripping attributes.
     void stripTrailingLineComments(std::string* pStr) {
         
         if (pStr->empty()) return;
         
-        size_t firstComment = findComment(*pStr, 0);
-        size_t firstNonWhitespaceChar = pStr->find_first_not_of(kWhitespaceChars);
+        size_t len = pStr->length();
+        bool inString = false;
+        size_t idx = 0;
         
-        // if the first comment also begins the line, then we look for a later
-        // comment to strip
-        if (firstComment != std::string::npos &&
-            firstComment == firstNonWhitespaceChar) {
-                
-            size_t secondComment = findComment(*pStr, firstComment + 1);
-            if (secondComment != std::string::npos) {
-                pStr->erase(secondComment);
-            }
-            return;
+        // skip over initial whitespace
+        idx = pStr->find_first_not_of(kWhitespaceChars);
+        if (idx == std::string::npos) return;
+        
+        // skip over a first comment
+        if (idx + 1 < len && pStr->at(idx) == '/' && pStr->at(idx + 1) == '/') {
+            idx = idx + 2;
         }
         
-        // if we get here, then the first comment is not the entire string --
-        // so we can strip it
-        if (firstComment != std::string::npos) {
-            pStr->erase(firstComment);
+        // since we are searching for "//", we iterate up to 2nd last character
+        while (idx < len - 1) {
+            
+            if (pStr->at(idx) == '"') {
+                inString = !inString;
+            }
+            
+            if (!inString &&
+                pStr->at(idx) == '/' &&
+                pStr->at(idx + 1) == '/') {
+                pStr->erase(idx);
+                return;
+            }
+            ++idx;
         }
     }
 
