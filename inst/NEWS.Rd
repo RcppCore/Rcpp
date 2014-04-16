@@ -8,6 +8,9 @@
     introduced. When subsetting such containers, the return is assumed 
     to be of type T, allowing code such as 
     \code{ListOf<NumericVector> x; NumericVector y = x[0] + x[1] + x[2]}.
+    \item Trailing line comments are now stripped by the attributes
+    parser. This allows the parser to handle C++ source files
+    containing comments inline with function arguments.
   }
 }
 
