@@ -2357,8 +2357,12 @@ namespace attributes {
     // returns std::string::npos if no match is found
     size_t findComment(std::string const& str, size_t idx) {
         size_t firstSlash = str.find("/", idx);
-        if (str[firstSlash + 1] == '/') return firstSlash;
-        else return std::string::npos;
+        if (firstSlash != std::string::npos) {
+            if (firstSlash + 1 < str.length() && str[firstSlash + 1] == '/') {
+                return firstSlash;
+            }
+        }
+        return std::string::npos;
     }
     
     // Remove trailing line comments -- ie, find comments that don't begin
