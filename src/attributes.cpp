@@ -74,7 +74,7 @@ namespace attributes {
 
     // Trim a string
     void trimWhitespace(std::string* pStr);
-    
+
     // Strip trailing line comments
     void stripTrailingLineComments(std::string* pStr);
 
@@ -86,6 +86,9 @@ namespace attributes {
 
     // show a warning message
     void showWarning(const std::string& msg);
+
+    // is the line a C++ roxygen comment? (started with //')
+    bool isRoxygenCpp(const std::string& str);
 
 } // namespace attributes
 } // namespace Rcpp
@@ -961,7 +964,7 @@ namespace attributes {
             // trim before we do this just in case someone updates the regex
             // to allow for whitespace around the call
             trimWhitespace(&paramsText);
-            
+
             paramsText = paramsText.substr(1, paramsText.size()-2);
 
             // parse the parameters
@@ -1012,7 +1015,7 @@ namespace attributes {
                                                     const std::string& input) {
 
         const std::string delimiters(" ,");
-        
+
         std::vector<Param> params;
         std::string::size_type current;
         std::string::size_type next = -1;
@@ -2348,33 +2351,42 @@ namespace attributes {
     bool isWhitespace(char ch) {
         return std::strchr(kWhitespaceChars, ch) != NULL;
     }
-    
+
     // Remove trailing line comments -- ie, find comments that don't begin
     // a line, and remove them. We avoid stripping attributes.
     void stripTrailingLineComments(std::string* pStr) {
-        
+
         if (pStr->empty()) return;
-        
+
         size_t len = pStr->length();
         bool inString = false;
         size_t idx = 0;
-        
+
+        // if this is an roxygen comment, then bail
+        if (isRoxygenCpp(*pStr)) return;
+
         // skip over initial whitespace
         idx = pStr->find_first_not_of(kWhitespaceChars);
         if (idx == std::string::npos) return;
-        
+
         // skip over a first comment
         if (idx + 1 < len && pStr->at(idx) == '/' && pStr->at(idx + 1) == '/') {
             idx = idx + 2;
         }
-        
+
         // since we are searching for "//", we iterate up to 2nd last character
         while (idx < len - 1) {
-            
-            if (pStr->at(idx) == '"') {
-                inString = !inString;
+
+            if (inString) {
+                if (pStr->at(idx) == '"' && pStr->at(idx - 1) != '\\') {
+                    inString = false;
+                }
+            } else {
+                if (pStr->at(idx) == '"') {
+                    inString = true;
+                }
             }
-            
+
             if (!inString &&
                 pStr->at(idx) == '/' &&
                 pStr->at(idx + 1) == '/') {
@@ -2423,6 +2435,25 @@ namespace attributes {
     void showWarning(const std::string& msg) {
         Rcpp::Function warning = Rcpp::Environment::base_env()["warning"];
         warning(msg, Rcpp::Named("call.") = false);
+    }
+
+    bool isRoxygenCpp(const std::string& str) {
+        size_t len = str.length();
+        if (len < 3) return false;
+        size_t idx = str.find_first_not_of(kWhitespaceChars);
+        if (idx == std::string::npos) return false;
+
+        // make sure there are characters to check
+        if (len - 2 < idx) return false;
+
+        if (str[idx] == '/' &&
+            str[idx + 1] == '/' &&
+            str[idx + 2] == '\'') {
+            return true;
+        }
+
+        return false;
+
     }
 
 } // namespace attributes
