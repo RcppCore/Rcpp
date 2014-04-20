@@ -65,6 +65,7 @@ namespace Rcpp{
 #include <Rcpp/vector/LazyVector.h>
 #include <Rcpp/vector/swap.h>
 
+#include <Rcpp/vector/ChildVector.h>
 #include <Rcpp/vector/ListOf.h>
 
 #endif

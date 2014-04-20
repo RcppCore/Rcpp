@@ -49,7 +49,6 @@ struct int2type { enum { value = I }; };
 #include <Rcpp/traits/has_na.h>
 #include <Rcpp/traits/storage_type.h>
 #include <Rcpp/traits/r_sexptype_traits.h>
-#include <Rcpp/traits/storage_type.h>
 #include <Rcpp/traits/r_type_traits.h>
 #include <Rcpp/traits/un_pointer.h>
 #include <Rcpp/traits/is_pointer.h>
