@@ -41,6 +41,7 @@ if (.runThisTest) {
     }
 
     test.ListOf.assign <- function() {
+        x <- list( c(1, 5), c(2, 6), c(3, 7) )
         test_assign(x, 100, "apple")
         checkIdentical( x[[2]], 100 )
     }
