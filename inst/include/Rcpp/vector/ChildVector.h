@@ -39,13 +39,30 @@ class ChildVector : public T {
 
     inline ChildVector& operator=(const ChildVector& other) {
         if (this != &other) {
-            SET_VECTOR_ELT(parent, i, other.get__());
+            this->set__(other);
+            if (parent != NULL && !Rf_isNull(parent)) {
+                SET_VECTOR_ELT(parent, i, other);
+            }
         }
         return *this;
     }
 
     inline ChildVector& operator=(const T& other) {
-        SET_VECTOR_ELT(parent, i, other);
+        this->set__(other);
+        if (parent != NULL && !Rf_isNull(parent)) {
+            SET_VECTOR_ELT(parent, i, other);
+        }
+        return *this;
+    }
+
+    template <typename U>
+    inline ChildVector& operator=(const U& other) {
+        Shield<SEXP> wrapped( wrap(other) );
+        T vec = as<T>(wrapped);
+        this->set__(vec);
+        if (parent != NULL && !Rf_isNull(parent)) {
+            SET_VECTOR_ELT(parent, i, vec);
+        }
         return *this;
     }
 
