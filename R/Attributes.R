@@ -108,42 +108,52 @@ sourceCpp <- function(file = "",
         }
 
         # prepare the command (output if we are in showOutput mode)
-        cmd <- paste(R.home(component="bin"), .Platform$file.sep, "R ",
-                     "CMD SHLIB ",
-                     "-o ", shQuote(context$dynlibFilename), " ",
-                     ifelse(rebuild, "--preclean ", ""),
-                     shQuote(context$cppSourceFilename), sep="")
+        cmd.prog <- paste(R.home(component="bin"), .Platform$file.sep, "R", sep = "")
+        cmd.arg <- paste("CMD SHLIB ",
+                         "-o ", shQuote(context$dynlibFilename), " ",
+                         ifelse(rebuild, "--preclean ", ""),
+                         shQuote(context$cppSourceFilename), sep = "")
+        cmd <- paste(cmd.prog, cmd.arg, sep = " ")
         if (showOutput)
             cat(cmd, "\n")
 
         # execute the build -- suppressWarnings b/c when showOutput = FALSE
         # we are going to explicitly check for an error and print the output
-        result <- suppressWarnings(system(cmd, intern = !showOutput))
+        #
+        # no matter what showOutput is, we always capture the output and
+        # possible error messages, and later determine whether to print them
+        result <- suppressWarnings(system2(cmd.prog, cmd.arg, stdout = TRUE,
+                                           stderr = TRUE))
+
+        # capture output
+        output <- result
+        attributes(output) <- NULL
+        status <- attr(result, "status")
 
         # check build results
         if(!showOutput) {
-            # capture output
-            output <- result
-            attributes(output) <- NULL
             # examine status
-            status <- attr(result, "status")
             if (!is.null(status)) {
-                cat(result, "\n")
+                cat(output, "\n", sep = "\n")
                 succeeded <- FALSE
                 stop("Error ", status, " occurred building shared library.")
             } else if (!file.exists(context$dynlibFilename)) {
-                cat(result, "\n")
+                cat(output, "\n", sep = "\n")
                 succeeded <- FALSE
                 stop("Error occurred building shared library.")
             } else {
                 succeeded <- TRUE
             }
-        }
-        else if (!identical(as.character(result), "0")) {
-            succeeded <- FALSE
-            stop("Error ", result, " occurred building shared library.")
         } else {
+            # always print output if showOutput = TRUE
+            cat(output, "\n", sep = "\n")
             succeeded <- TRUE
+
+            # check for failure in building
+            if (!is.null(status)) {
+                succeeded <- FALSE
+                stop("Error ", status, " occurred building shared library.")
+            }
         }
     }
     else {
