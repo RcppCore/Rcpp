@@ -134,11 +134,11 @@ sourceCpp <- function(file = "",
         if(!showOutput) {
             # examine status
             if (!is.null(status)) {
-                cat(output, "\n", sep = "\n")
+                cat(output, sep = "\n")
                 succeeded <- FALSE
                 stop("Error ", status, " occurred building shared library.")
             } else if (!file.exists(context$dynlibFilename)) {
-                cat(output, "\n", sep = "\n")
+                cat(output, sep = "\n")
                 succeeded <- FALSE
                 stop("Error occurred building shared library.")
             } else {
@@ -146,7 +146,7 @@ sourceCpp <- function(file = "",
             }
         } else {
             # always print output if showOutput = TRUE
-            cat(output, "\n", sep = "\n")
+            cat(output, sep = "\n")
             succeeded <- TRUE
 
             # check for failure in building
