@@ -392,7 +392,10 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 # built-in C++11 plugin
 .plugins[["cpp11"]] <- function() {
-    list(env = list(PKG_CXXFLAGS ="-std=c++11"))
+    if (getRversion() >= "3.1")
+      list(env = list(USE_CXX1X = ""))
+    else
+      list(env = list(PKG_CXXFLAGS ="-std=c++11"))
 }
 
 ## built-in OpenMP++11 plugin
