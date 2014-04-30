@@ -128,11 +128,11 @@ sourceCpp <- function(file = "",
             # examine status
             status <- attr(result, "status")
             if (!is.null(status)) {
-                cat(result, "\n")
+                cat(result, sep = "\n")
                 succeeded <- FALSE
                 stop("Error ", status, " occurred building shared library.")
             } else if (!file.exists(context$dynlibFilename)) {
-                cat(result, "\n")
+                cat(result, sep = "\n")
                 succeeded <- FALSE
                 stop("Error occurred building shared library.")
             } else {
