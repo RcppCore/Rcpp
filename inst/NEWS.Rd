@@ -11,6 +11,8 @@
     \item Trailing line comments are now stripped by the attributes
     parser. This allows the parser to handle C++ source files
     containing comments inline with function arguments.
+    \item The \code{USE_CXX1X} environment variable is now defined by 
+    the cpp11 plugin when R >= 3.1
   }
 }
 
