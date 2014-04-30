@@ -12,7 +12,10 @@
     parser. This allows the parser to handle C++ source files
     containing comments inline with function arguments.
     \item The \code{USE_CXX1X} environment variable is now defined by 
-    the cpp11 plugin when R >= 3.1
+    the cpp11 plugin when R >= 3.1. Two additional plugins have been
+    added for use with C++0x (eg when using g++ 4.6.* as on Windows)
+    as well as C++1y for compilers beginning to support the next
+    revision of the stanard.
   }
 }
 
