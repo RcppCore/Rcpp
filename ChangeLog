@@ -1,3 +1,7 @@
+2014-04-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: Add plugins for C++0x and C++1y 
+
 2014-04-30  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: Use USE_CXX1X for cpp11 plugin when R >= 3.1

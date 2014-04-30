@@ -393,9 +393,19 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 # built-in C++11 plugin
 .plugins[["cpp11"]] <- function() {
     if (getRversion() >= "3.1")
-      list(env = list(USE_CXX1X = ""))
+        list(env = list(USE_CXX1X = ""))
     else
-      list(env = list(PKG_CXXFLAGS ="-std=c++11"))
+        list(env = list(PKG_CXXFLAGS ="-std=c++11"))
+}
+
+# built-in C++11 plugin for older g++ compiler
+.plugins[["cpp0x"]] <- function() {
+    list(env = list(PKG_CXXFLAGS ="-std=c++0x"))
+}
+
+# built-in C++1y plugin for C++14 and C++17 standard under development
+.plugins[["cpp1y"]] <- function() {
+    list(env = list(PKG_CXXFLAGS ="-std=c++1y"))
 }
 
 ## built-in OpenMP++11 plugin
