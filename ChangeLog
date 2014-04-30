@@ -1,3 +1,7 @@
+2014-04-30  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: Use USE_CXX1X for cpp11 plugin when R >= 3.1
+
 2014-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/doRUnit.R: Better RUnit error report with thanks to Murray
