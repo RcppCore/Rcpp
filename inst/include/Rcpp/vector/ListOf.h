@@ -36,7 +36,7 @@ public:
     template <typename U>
     ListOf(const U& data_): list(data_) {}
 
-    ListOf(const ListOf& other): list(other.get()) {}
+    ListOf(const ListOf& other): list(other.list) {}
 
     ListOf& operator=(const ListOf& other) {
         if (this != &other) {
