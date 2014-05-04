@@ -67,4 +67,11 @@ if (.runThisTest) {
         checkEquals(test_sub_calls( list(1, 2, 3) ), 3)
     }
 
+    test.ListOf.nested <- function() {
+        checkEquals(
+            test_nested_listof( list(list(1)) ),
+            1
+        )
+    }
+
 }
