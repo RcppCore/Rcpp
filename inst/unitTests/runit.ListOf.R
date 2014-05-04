@@ -18,48 +18,53 @@
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
 if (.runThisTest) {
-    
+
     .setUp <- Rcpp:::unitTestSetup("ListOf.cpp")
-    
+
     x <- list( c(1, 5), c(2, 6), c(3, 7) )
-    
-    test.identity <- function() {
+
+    test.ListOf.identity <- function() {
         checkIdentical(
             test_identity(setNames(x, c('a', 'b', 'c'))),
             setNames(x, c('a', 'b', 'c'))
         )
     }
-    
-    test.lapply.sum <- function() {
+
+    test.ListOf.lapply.sum <- function() {
         x <- list( c(1, 5), c(2, 6), c(3, 7) )
         checkIdentical( test_lapply_sum(x), lapply(x, sum) )
     }
-    
-    test.sapply.sum <- function() {
+
+    test.ListOf.sapply.sum <- function() {
         x <- list( c(1, 5), c(2, 6), c(3, 7) )
         checkIdentical( test_sapply_sum(x), sapply(x, sum) )
     }
-    
-    test.assign <- function() {
+
+    test.ListOf.assign <- function() {
+        x <- list( c(1, 5), c(2, 6), c(3, 7) )
         test_assign(x, 100, "apple")
         checkIdentical( x[[2]], 100 )
     }
-    
-    test.assign.names <- function() {
+
+    test.ListOf.assign.names <- function() {
         x <- setNames(list(1, 2, 3), c('a', 'b', 'c'))
         test_assign_names(x)
         checkIdentical( x[["a"]], x[["b"]] )
     }
-    
-    test.arith <- function() {
+
+    test.ListOf.arith <- function() {
         checkIdentical(test_add(list(1, 2, 3)), 6)
         checkIdentical(test_add_subtract(list(1, 2, 3)), 0)
         checkIdentical(test_mult( list(1, 2, 3) ), 6)
         checkIdentical(test_char( list("banana") ), list("apple"))
     }
-    
-    test.assign.names <- function() {
+
+    test.ListOf.assign.names <- function() {
         checkException(test_assign_names(list(alpha=1, beta=2, gamma=3)))
     }
-    
+
+    test.ListOf.sub.calls <- function() {
+        checkEquals(test_sub_calls( list(1, 2, 3) ), 3)
+    }
+
 }

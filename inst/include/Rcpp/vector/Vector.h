@@ -511,6 +511,21 @@ public:
         return false ;
     }
 
+    int findName(const std::string& name) const {
+        SEXP names = RCPP_GET_NAMES(Storage::get__());
+        if (Rf_isNull(names)) stop("'names' attribute is null");
+        int n = Rf_length(names);
+        for (int i=0; i < n; ++i) {
+            if (strcmp(name.c_str(), CHAR(STRING_ELT(names, i))) == 0) {
+                return i;
+            }
+        }
+        std::stringstream ss;
+        ss << "no name '" << name << "' found";
+        stop(ss.str());
+        return -1;
+    }
+
 
 protected:
     inline int* dims() const {
