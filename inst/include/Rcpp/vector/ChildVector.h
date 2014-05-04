@@ -33,7 +33,7 @@ class ChildVector : public T {
         i(i_) {}
 
     ChildVector(const ChildVector& other):
-        T(other),
+        T(wrap(other)),
         parent(other.parent),
         i(other.i) {}
 
