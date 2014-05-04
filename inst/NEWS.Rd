@@ -4,6 +4,11 @@
 
 \section{Changes in [UNRELEASED] Rcpp version 0.11.2}{
   \itemize{
+    \item Implicit conversions, e.g. between \code{NumericVector} and
+    \code{IntegerVector}, now throw warnings. These warnings can be
+    disabled by defining \code{\#define RCPP_DONT_WARN_ON_COERCE}
+    before including Rcpp, or by making the conversion explicit with
+    e.g. \code{Rf_coerceVector}.
     \item Templated \code{List} containers, \code{ListOf<T>}, have been 
     introduced. When subsetting such containers, the return is assumed 
     to be of type T, allowing code such as 
