@@ -25,14 +25,14 @@ NumericVector test_sapply_sum(NVList x) {
 
 // [[Rcpp::export]]
 NVList test_assign(NVList x, NumericVector y, CharacterVector z) {
-    lhs(x)[1] = y;
-    lhs(x)[2] = 1;
+    x[1] = y;
+    x[2] = 1;
     return x;
 }
 
 // [[Rcpp::export]]
 NVList test_assign_names(NVList x) {
-    lhs(x)["a"] = x["b"];
+    x["a"] = x["b"];
     return x;
 }
 
@@ -55,7 +55,7 @@ NumericVector test_mult(NVList x) {
 typedef ListOf<CharacterVector> CVList;
 // [[Rcpp::export]]
 CVList test_char(CVList x) {
-    lhs(x)[0] = "apple";
+    x[0] = "apple";
     return x;
 }
 
@@ -81,4 +81,10 @@ NVList test_binary_ops(NVList x) {
         x[0] >= x[1],
         x[0] <= x[1]
     );
+}
+
+// [[Rcpp::export]]
+int test_sub_calls(NVList x) {
+    int sz = x[0].size() + x[1].size() + x[2].size();
+    return sz;
 }

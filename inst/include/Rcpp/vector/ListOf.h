@@ -52,20 +52,20 @@ public:
 
     // subsetting operators
 
-    T operator[](int i) {
-      return list[i];
+    ChildVector<T> operator[](int i) {
+        return ChildVector<T>(list[i], list, i);
     }
 
-    const T operator[](int i) const {
-      return list[i];
+    const ChildVector<T> operator[](int i) const {
+        return ChildVector<T>(list[i], list, i);
     }
 
-    T operator[](const std::string& str) {
-        return list[str];
+    ChildVector<T> operator[](const std::string& str) {
+        return ChildVector<T>(list[str], list, list.findName(str));
     }
 
-    const T operator[](const std::string& str) const {
-        return list[str];
+    const ChildVector<T> operator[](const std::string& str) const {
+        return ChildVector<T>(list[str], list, list.findName(str));
     }
 
     // iteration operators pass down to list
@@ -90,44 +90,15 @@ public:
         return list.size() ;
     }
 
-    class ListOfProxy {
-
-    public:
-        ListOfProxy(List& list_): list(list_) {};
-
-        List::Proxy operator[](int i) {
-            return List::Proxy(list, i);
-        }
-
-        List::Proxy operator[](const char* str) {
-            std::vector<std::string> names = as< std::vector<std::string> >(list.attr("names"));
-            for (int i=0; i < list.size(); ++i) {
-                if (names[i] == str) {
-                    return List::Proxy(list, i);
-                }
-            }
-            std::stringstream ss;
-            ss << "No name '" << str << "' in the names of the list supplied";
-            stop(ss.str());
-            return List::Proxy(list, -1);
-        }
-
-    private:
-        ListOfProxy() {};
-
-        List& list;
-    };
-
-    friend class ListOfProxy;
-
-    // lhs access
-    friend ListOfProxy lhs(ListOf& x) {
-        return ListOfProxy(x.list);
+    inline List get() const {
+        return list;
     }
 
     // conversion operators
     operator SEXP() const { return wrap(list); }
     operator List() const { return list; }
+
+private:
 
     List list;
 
@@ -147,12 +118,12 @@ class Sapply;
 
 template <typename T, typename Function>
 List lapply(const ListOf<T>& t, Function fun) {
-    return lapply(t.list, fun);
+    return lapply(t.get(), fun);
 }
 
 template <typename T, typename Function>
 T sapply(const ListOf<T>& t, Function fun) {
-    return sapply(t.list, fun);
+    return sapply(t.get(), fun);
 }
 
 } // Rcpp
