@@ -4,7 +4,7 @@
 
 \section{Changes in [UNRELEASED] Rcpp version 0.11.2}{
   \itemize{
-    \item Templated List containers, \code{ListOf<T>}, have been 
+    \item Templated \code{List} containers, \code{ListOf<T>}, have been 
     introduced. When subsetting such containers, the return is assumed 
     to be of type T, allowing code such as 
     \code{ListOf<NumericVector> x; NumericVector y = x[0] + x[1] + x[2]}.
