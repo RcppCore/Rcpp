@@ -139,7 +139,7 @@ namespace Rcpp{
         if (TYPEOF(x) == TARGET) {
             return x;
         } else {
-            #ifndef RCPP_DONT_WARN_ON_COERCE
+            #ifdef RCPP_WARN_ON_COERCE
             Shield<SEXP> result( internal::r_true_cast<TARGET>(x) );
             Rf_warning("coerced object from '%s' to '%s'",
                 CHAR(Rf_type2str(TYPEOF(x))),
