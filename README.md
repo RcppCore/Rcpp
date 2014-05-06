@@ -84,8 +84,7 @@ Also see questions 1.2 and 1.3 in the [Rcpp-FAQ](http://cran.r-project.org/web/p
 
 ## Authors
 
-Dirk Eddelbuettel, Romain Francois, JJ Allaire, Doug Bates, John Chamber and
-Kevin Ushey
+Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Doug Bates, and John Chambers
 
 ## License
 
