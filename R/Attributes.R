@@ -393,7 +393,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 # built-in C++11 plugin
 .plugins[["cpp11"]] <- function() {
     if (getRversion() >= "3.1")
-        list(env = list(USE_CXX1X = "0"))
+        list(env = list(USE_CXX1X = "yes"))
     else
         list(env = list(PKG_CXXFLAGS ="-std=c++11"))
 }
@@ -926,4 +926,3 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     }
     .hasDevelTools
 }
-

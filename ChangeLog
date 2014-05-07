@@ -1,3 +1,8 @@
+2014-05-07  Kevin Ushey  <kevinushey@gmail.com>
+
+	* R/Attributes.R (.plugins[["cpp11"]]): Set USE_CXX1X to more
+	reasonable non-empty value
+
 2014-05-06  Kevin Ushey  <kevinushey@gmail.com>
 
 	* R/Attributes.R (.plugins[["cpp11"]]): Set USE_CXX1X to non-empty
