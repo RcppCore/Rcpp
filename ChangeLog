@@ -1,6 +1,11 @@
+2014-05-06  Kevin Ushey  <kevinushey@gmail.com>
+
+	* R/Attributes.R (.plugins[["cpp11"]]): Set USE_CXX1X to non-empty
+	value
+
 2014-04-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Attributes.R: Add plugins for C++0x and C++1y 
+	* R/Attributes.R: Add plugins for C++0x and C++1y
 
 2014-04-30  JJ Allaire <jj@rstudio.org>
 
@@ -5817,4 +5822,3 @@
 
         * inst/doc/RcppAPI.{Rnw,pdf}: Added footnote onto titlepage about how
           this document has not (yet) been updated along with the channges made
-
