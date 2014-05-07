@@ -28,7 +28,7 @@ sourceCpp <- function(file = "",
     # resolve code into a file if necessary. also track the working
     # directory to source the R embedded code chunk within
     if (!missing(code)) {
-        rWorkingDir <- getwd() 
+        rWorkingDir <- getwd()
         file <- tempfile(fileext = ".cpp")
         con <- file(file, open = "w")
         writeLines(code, con)
@@ -270,7 +270,7 @@ cppFunction <- function(code,
         manipulate_this_type <- do.call( cppFunction, dots )
         res <- manipulate_this_type()
         if( ! is.null(class) ){
-            class(res) <- class    
+            class(res) <- class
         }
         res
     }
@@ -281,7 +281,7 @@ sizeof   <- .type_manipulate( "sizeof", "bytes" )
 
 print.bytes <- function( x, ...){
     writeLines( sprintf( "%d bytes (%d bits)", x, 8 * x ) )
-    invisible( x )    
+    invisible( x )
 }
 
 # Evaluate a simple c++ expression
@@ -393,7 +393,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 # built-in C++11 plugin
 .plugins[["cpp11"]] <- function() {
     if (getRversion() >= "3.1")
-        list(env = list(USE_CXX1X = ""))
+        list(env = list(USE_CXX1X = "0"))
     else
         list(env = list(PKG_CXXFLAGS ="-std=c++11"))
 }
@@ -521,7 +521,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
 # Lookup a plugin
 .findPlugin <- function(pluginName) {
-    
+
     plugin <- .plugins[[pluginName]]
     if (is.null(plugin))
         stop("Inline plugin '", pluginName, "' could not be found ",
@@ -600,7 +600,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # if there is no buildEnv from a plugin then use the Rcpp plugin
     if (length(buildEnv) == 0) {
         buildEnv <- inlineCxxPlugin()$env
-    } 
+    }
 
     # set CLINK_CPPFLAGS based on the LinkingTo dependencies
     buildEnv$CLINK_CPPFLAGS <- .buildClinkCppFlags(linkingToPackages)
