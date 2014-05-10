@@ -2960,8 +2960,8 @@ BEGIN_RCPP
     if (!diff.empty()) {
         std::string msg =
            "The following packages are referenced using Rcpp::depends "
-           "attributes however are not listed in the Depends and LinkingTo "
-           "fields of the package DESCRIPTION file: ";
+           "attributes however are not listed in the Depends, Imports or"
+           "LinkingTo fields of the package DESCRIPTION file: ";
         for (size_t i=0; i<diff.size(); i++) {
             msg += diff[i];
             if (i != (diff.size()-1))
