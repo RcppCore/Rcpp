@@ -20,6 +20,8 @@
     added for use with C++0x (eg when using g++ 4.6.* as on Windows)
     as well as C++1y for compilers beginning to support the next
     revision of the stanard.
+    \item \code{compileAttributes()} now also considers Imports: which
+    may suppress a warning when running \code{Rcpp.package.skeleton()}.
   }
 }
 

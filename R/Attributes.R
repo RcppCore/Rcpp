@@ -343,10 +343,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         stop("pkgdir must refer to the directory containing an R package")
     pkgDesc <- read.dcf(descFile)[1,]
     pkgname = .readPkgDescField(pkgDesc, "Package")
-    depends <- .readPkgDescField(pkgDesc, "Depends", character())
+    depends <- c(.readPkgDescField(pkgDesc, "Depends", character()),
+                 .readPkgDescField(pkgDesc, "Imports", character()))
     depends <- unique(.splitDepends(depends))
     depends <- depends[depends != "R"]
-
+                 
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
     if (!file.exists(srcDir))
