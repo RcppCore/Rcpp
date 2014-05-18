@@ -24,7 +24,7 @@
 #define Rcpp__traits__remove_const__h
 
 namespace Rcpp{ namespace traits {
-	
+
   /// @brief  const-volatile modifications [4.7.1].
   template<typename _Tp>
     struct remove_const
@@ -33,7 +33,7 @@ namespace Rcpp{ namespace traits {
   template<typename _Tp>
     struct remove_const<_Tp const>
     { typedef _Tp     type; };
- 	
+
 }}
 
 #endif

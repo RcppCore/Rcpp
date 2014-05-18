@@ -158,13 +158,13 @@ SEXP reset_current_error(){
 
     // error occured
     set_error_occured( cache, Rf_ScalarLogical(FALSE) ) ;
-	
+
     // current error
     set_current_error( cache, R_NilValue ) ;
-	
+
     // stack trace
     SET_VECTOR_ELT( cache, 3, R_NilValue ) ;
-	
+
     return R_NilValue ;
 }
 
@@ -180,7 +180,7 @@ SEXP rcpp_error_recorder(SEXP e){
 
     // error occured
     set_error_occured( cache, Rf_ScalarLogical(TRUE) ) ;
-	
+
     // current error
     set_current_error(cache, e ) ;
 

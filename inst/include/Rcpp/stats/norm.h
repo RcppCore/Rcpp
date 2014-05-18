@@ -38,7 +38,7 @@ inline double dnorm_1(double x, double mu /*, double sigma [=1.0]*/ , int give_l
 	    -(M_LN_SQRT_2PI  +	0.5 * x * x ) :
 	    M_1_SQRT_2PI * ::exp(-0.5 * x * x) );
     /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
-}	
+}
 
 inline double dnorm_0(double x /*, double mu [=0.0], double sigma [=1.0]*/ , int give_log) {
 #ifdef IEEE_754
@@ -50,7 +50,7 @@ inline double dnorm_0(double x /*, double mu [=0.0], double sigma [=1.0]*/ , int
 	    -(M_LN_SQRT_2PI  +	0.5 * x * x ) :
 	    M_1_SQRT_2PI * ::exp(-0.5 * x * x) );
     /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
-}	
+}
 
 inline double pnorm_1(double x, double mu /*, double sigma [=1.]*/ , int lower_tail, int log_p){
     double p, cp;
@@ -102,7 +102,7 @@ inline double qnorm_0(double p /*, double mu [=0.], double sigma [=1.] */, int l
 
 } // stats
 } // Rcpp
-	
+
 RCPP_DPQ_0(norm, Rcpp::stats::dnorm_0, Rcpp::stats::pnorm_0, Rcpp::stats::qnorm_0 )
 RCPP_DPQ_1(norm, Rcpp::stats::dnorm_1, Rcpp::stats::pnorm_1, Rcpp::stats::qnorm_1 )
 RCPP_DPQ_2(norm, ::Rf_dnorm4, ::Rf_pnorm5, ::Rf_qnorm5 )

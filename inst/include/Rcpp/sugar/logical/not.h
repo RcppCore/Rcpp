@@ -44,14 +44,14 @@ public:
 	typedef SingleLogicalResult<NA,T> TYPE ;
 	typedef SingleLogicalResult<NA, Negate_SingleLogicalResult<NA,T> > BASE ;
 	Negate_SingleLogicalResult( const TYPE& orig_ ) : orig(orig_) {}
-	
+
 	inline void apply(){
 		BASE::set( negate<NA>::apply( orig.get() ) );
 	}
-	
+
 private:
 	const TYPE& orig ;
-	
+
 } ;
 
 }

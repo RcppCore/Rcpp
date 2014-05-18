@@ -24,7 +24,7 @@
 #define Rcpp__traits__is_reference__h
 
 namespace Rcpp{ namespace traits {
-	
+
   template<typename>
     struct is_reference
     : public false_type { };
@@ -32,7 +32,7 @@ namespace Rcpp{ namespace traits {
   template<typename _Tp>
     struct is_reference<_Tp&>
     : public true_type { };
-	
+
 }}
 
 #endif

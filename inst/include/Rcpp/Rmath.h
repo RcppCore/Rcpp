@@ -71,13 +71,13 @@ namespace R {
     /* Chi-squared Distribution */
     inline double dchisq(double x, double df, int lg)          { return ::Rf_dchisq(x, df, lg); }
     inline double pchisq(double x, double df, int lt, int lg)  { return ::Rf_pchisq(x, df, lt, lg); }
-    inline double qchisq(double p, double df, int lt, int lg)  { return ::Rf_qchisq(p, df, lt, lg); }	
+    inline double qchisq(double p, double df, int lt, int lg)  { return ::Rf_qchisq(p, df, lt, lg); }
     inline double rchisq(double df)                            { return ::Rf_rchisq(df); }
 
     /* Non-central Chi-squared Distribution */
     inline double dnchisq(double x, double df, double ncp, int lg)          { return ::Rf_dnchisq(x, df, ncp, lg); }
     inline double pnchisq(double x, double df, double ncp, int lt, int lg)  { return ::Rf_pnchisq(x, df, ncp, lt, lg); }
-    inline double qnchisq(double p, double df, double ncp, int lt, int lg)  { return ::Rf_qnchisq(p, df, ncp, lt, lg); }	
+    inline double qnchisq(double p, double df, double ncp, int lt, int lg)  { return ::Rf_qnchisq(p, df, ncp, lt, lg); }
     inline double rnchisq(double df, double lb)                             { return ::Rf_rnchisq(df, lb); }
 
     /* F Distibution */

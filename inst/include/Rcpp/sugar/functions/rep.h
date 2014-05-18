@@ -30,10 +30,10 @@ class Rep : public Rcpp::VectorBase< RTYPE ,NA, Rep<RTYPE,NA,T> > {
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	
+
 	Rep( const VEC_TYPE& object_, int times_ ) :
 		object(object_), times(times_), n(object_.size()){}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		return object[ i % n ] ;
 	}
@@ -52,7 +52,7 @@ class Rep_Single : public Rcpp::VectorBase<
 > {
 public:
 	Rep_Single( const T& x_, int n_) : x(x_), n(n_){}
-	
+
 	inline T operator[]( int i ) const {
 		return x;
 	}

@@ -24,8 +24,8 @@
 
 #define ___RCPP_HANDLE_CASE___( ___RTYPE___ , ___FUN___ , ___OBJECT___ , ___RCPPTYPE___ )	\
 	case ___RTYPE___ :																	\
-		return ___FUN___( ::Rcpp::___RCPPTYPE___< ___RTYPE___ >( ___OBJECT___ ) ) ;	
-		
+		return ___FUN___( ::Rcpp::___RCPPTYPE___< ___RTYPE___ >( ___OBJECT___ ) ) ;
+
 #define ___RCPP_RETURN___( __FUN__, __SEXP__ , __RCPPTYPE__ )						\
 	SEXP __TMP__ = __SEXP__ ;															\
 	switch( TYPEOF( __TMP__ ) ){										 				\

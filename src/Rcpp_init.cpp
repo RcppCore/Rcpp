@@ -125,12 +125,12 @@ extern "C" void R_unload_Rcpp(DllInfo *info) {
 
 extern "C" void R_init_Rcpp( DllInfo* info){
 	setCurrentScope(0) ;
-	
+
 	registerFunctions() ;
-	
+
 	// init the cache
 	init_Rcpp_cache() ;
-	
+
 	// init routines
 	init_Rcpp_routines(info) ;
 }

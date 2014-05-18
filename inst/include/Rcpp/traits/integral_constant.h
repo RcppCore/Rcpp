@@ -25,7 +25,7 @@
 
 namespace Rcpp{
 namespace traits{
-	
+
 template <typename _T, _T _V> struct integral_constant {
     static  const _T                value = _V;
     typedef _T                      value_type;

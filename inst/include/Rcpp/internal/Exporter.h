@@ -30,24 +30,24 @@ namespace Rcpp{
 		public:
 		    Exporter( SEXP x ) : t(x){}
 		    inline T get(){ return t ; }
-		
+
 		private:
 		    T t ;
 		} ;
-		
+
 		template <typename T> class RangeExporter {
 		public:
 		    typedef typename T::value_type r_export_type ;
-		
+
 		    RangeExporter( SEXP x ) : object(x){}
 		    ~RangeExporter(){}
-		
+
 		    T get(){
 		        T vec( ::Rf_length(object) );
 		        ::Rcpp::internal::export_range( object, vec.begin() ) ;
 		        return vec ;
 		    }
-		
+
 		private:
 		    SEXP object ;
 		} ;

@@ -69,8 +69,8 @@ namespace sugar{
 			return ((x.r == 0.0) & (x.i == 0.0) ) ? FALSE : TRUE ;
 		}
 	} ;
-	
-	
+
+
 
 	template <int RTYPE, bool NA, typename T>
 	class Not_Vector : public Rcpp::VectorBase<LGLSXP,NA, Not_Vector<RTYPE,NA,T> > {
@@ -78,16 +78,16 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef not_<RTYPE,NA> OPERATOR ;
-		
+
 		Not_Vector( const VEC_TYPE& lhs_ ) :
 			lhs(lhs_), op() {}
-		
+
 		inline STORAGE operator[]( int i ) const {
 			return op.apply( lhs[i] ) ;
 		}
-		
+
 		inline int size() const { return lhs.size() ; }
-		
+
 	private:
 		const VEC_TYPE& lhs ;
 		OPERATOR op ;

@@ -24,7 +24,7 @@
 #define Rcpp__traits__is_const__h
 
 namespace Rcpp{ namespace traits {
-	
+
   /// @brief  type properties [4.5.3].
   template<typename>
     struct is_const
@@ -34,7 +34,7 @@ namespace Rcpp{ namespace traits {
     struct is_const<_Tp const>
     : public true_type { };
 
-	
+
 }}
 
 #endif

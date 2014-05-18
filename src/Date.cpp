@@ -570,7 +570,7 @@ struct tzhead {
 	    //if( strcmp(name, "unknown") == 0 ) name = TZDEFAULT;
 	    name = TZDEFAULT;
 	}
-	
+
 	{
 	    int  doaccess;
 	    /*
@@ -620,7 +620,7 @@ struct tzhead {
 		//Rf_warning("unknown timezone '%s'", sname);
 		return -1;
 	    }
-		
+
 	}
 	nread = read(fid, u.buf, sizeof u.buf);
 	if (close(fid) < 0 || nread <= 0)

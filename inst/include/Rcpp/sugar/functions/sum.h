@@ -31,9 +31,9 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor< RTYPE, NA, T>::type VEC_EXT ;
-		
+
 	Sum( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
-	
+
 	STORAGE get() const {
 		STORAGE result = 0 ;
 		int n = object.size() ;
@@ -55,9 +55,9 @@ class Sum<REALSXP,NA,T> : public Lazy< double , Sum<REALSXP,NA,T> > {
 public:
 	typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::Extractor< REALSXP, NA, T>::type VEC_EXT ;
-		
+
 	Sum( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
-	
+
 	double get() const {
 		double result = 0 ;
 		int n = object.size() ;
@@ -77,9 +77,9 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor< RTYPE, false, T>::type VEC_EXT ;
-	
+
 	Sum( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
-	
+
 	STORAGE get() const {
 		STORAGE result = 0 ;
 		int n = object.size() ;

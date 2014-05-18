@@ -27,21 +27,21 @@ namespace Rcpp{
 namespace traits{
 
 	template<typename T, typename U> class is_convertible{
-		
+
 		typedef char Small ;
 		typedef struct { char dummy[2] ; } Big ;
 		static Small Test( const U& ) ;
 		static Big Test(...) ;
 		static T MakeT() ;
-		
+
 	public:
-		
+
 		typedef bool value_type ;
 		static const bool value = sizeof(Test(MakeT())) == sizeof(Small) ;
 		typedef integral_constant<bool,value> type ;
-		
+
 	} ;
-	
+
 }
 }
 

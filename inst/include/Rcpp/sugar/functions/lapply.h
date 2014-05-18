@@ -34,20 +34,20 @@ class Lapply : public VectorBase<
 public:
 	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
 	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
-	
+
 	Lapply( const VEC& vec_, Function fun_ ) :
 		vec(vec_), fun(fun_){}
-	
+
 	inline SEXP operator[]( int i ) const {
 		return Rcpp::wrap( fun( vec[i] ) );
 	}
 	inline int size() const { return vec.size() ; }
-	
+
 private:
 	const VEC& vec ;
 	Function fun ;
 } ;
-	
+
 } // sugar
 
 template <int RTYPE, bool NA, typename T, typename Function >

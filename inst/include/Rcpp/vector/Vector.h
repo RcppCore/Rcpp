@@ -49,7 +49,7 @@ public:
     typedef typename traits::init_type<RTYPE>::type init_type ;
     typedef typename traits::r_vector_element_converter<RTYPE>::type converter_type ;
     typedef typename traits::storage_type<RTYPE>::type stored_type ;
-	
+
     /**
      * Default constructor. Creates a vector of the appropriate type
      * and 0 length
@@ -96,7 +96,7 @@ public:
         RCPP_DEBUG_2( "Vector<%d>( const char* = %s )", RTYPE, st )
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
-	
+
     Vector( const int& siz, stored_type (*gen)(void) ) {
         RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
@@ -134,7 +134,7 @@ public:
     Vector( const int& size, const U& u) {
         RCPP_DEBUG_2( "Vector<%d>( const int& size, const U& u )", RTYPE, size )
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
-        fill_or_generate( u ) ;	
+        fill_or_generate( u ) ;
     }
     template <bool NA, typename T>
     Vector( const sugar::SingleLogicalResult<NA,T>& obj ) {
@@ -199,13 +199,13 @@ public:
         assign( list.begin() , list.end() ) ;
     }
 #endif
-	
+
     template <typename T>
     Vector& operator=( const T& x) {
         assign_object( x, typename traits::is_sugar_expression<T>::type() ) ;
         return *this ;
     }
-	
+
     static inline stored_type get_na() {
         return traits::get_na<RTYPE>();
     }
@@ -279,7 +279,7 @@ public:
     inline iterator end() { return cache.get() + size() ; }
 	inline const_iterator begin() const{ return cache.get_const() ; }
     inline const_iterator end() const{ return cache.get_const() + size() ; }
-	
+
     inline Proxy operator[]( int i ){ return cache.ref(i) ; }
     inline const_Proxy operator[]( int i ) const { return cache.ref(i) ; }
 
@@ -296,14 +296,14 @@ public:
     inline const_Proxy operator()( const size_t& i, const size_t& j) const {
         return cache.ref( offset(i,j) ) ;
     }
-	
+
     inline NameProxy operator[]( const std::string& name ){
         return NameProxy( *this, name ) ;
     }
     inline NameProxy operator()( const std::string& name ){
         return NameProxy( *this, name ) ;
     }
-	
+
     inline NameProxy operator[]( const std::string& name ) const {
         return NameProxy( const_cast<Vector&>(*this), name ) ;
     }
@@ -349,8 +349,9 @@ public:
         /* FIXME: we can do better than this r_cast to avoid
            allocating an unnecessary temporary object
         */
-        Shield<SEXP> x( r_cast<RTYPE>( wrap( first, last ) ) );
-        Storage::set__( x) ;
+        Shield<SEXP> wrapped(wrap(first, last));
+        Shield<SEXP> casted(r_cast<RTYPE>(wrapped));
+        Storage::set__(casted) ;
     }
 
     template <typename InputIterator>
@@ -364,80 +365,80 @@ public:
     static Vector import_transform( InputIterator first, InputIterator last, F f){
         return Vector( first, last, f) ;
     }
-	
+
     template <typename T>
     void push_back( const T& object){
         push_back__impl( converter_type::get(object),
                          typename traits::same_type<stored_type,SEXP>()
                          ) ;
     }
-	
+
     template <typename T>
     void push_back( const T& object, const std::string& name ){
         push_back_name__impl( converter_type::get(object), name,
                               typename traits::same_type<stored_type,SEXP>()
                               ) ;
     }
-	
+
     template <typename T>
     void push_front( const T& object){
         push_front__impl( converter_type::get(object),
                           typename traits::same_type<stored_type,SEXP>() ) ;
     }
-	
+
     template <typename T>
     void push_front( const T& object, const std::string& name){
         push_front_name__impl( converter_type::get(object), name,
                                typename traits::same_type<stored_type,SEXP>() ) ;
     }
-	
-	
+
+
     template <typename T>
     iterator insert( iterator position, const T& object){
         return insert__impl( position, converter_type::get(object),
                              typename traits::same_type<stored_type,SEXP>()
                              ) ;
     }
-	
+
     template <typename T>
     iterator insert( int position, const T& object){
         return insert__impl( cache.get() + position, converter_type::get(object),
                              typename traits::same_type<stored_type,SEXP>()
                              );
     }
-	
+
     iterator erase( int position){
         return erase_single__impl( cache.get() + position) ;
     }
-	
+
     iterator erase( iterator position){
         return erase_single__impl( position ) ;
     }
-	
+
     iterator erase( int first, int last){
         iterator start = cache.get() ;
         return erase_range__impl( start + first, start + last ) ;
     }
-	
+
     iterator erase( iterator first, iterator last){
         return erase_range__impl( first, last ) ;
     }
-	
+
     void update(SEXP){
         cache.update(*this) ;
     }
-		
+
     template <typename U>
     static void replace_element( iterator it, SEXP names, int index, const U& u){
         replace_element__dispatch( typename traits::is_named<U>::type(),
                                    it, names, index, u ) ;
     }
-	
+
     template <typename U>
     static void replace_element__dispatch( traits::false_type, iterator it, SEXP names, int index, const U& u){
         *it = converter_type::get(u);
     }
-	
+
     template <typename U>
     static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, int index, const U& u){
         replace_element__dispatch__isArgument( typename traits::same_type<U,Argument>(), it, names, index, u ) ;
@@ -446,21 +447,21 @@ public:
     template <typename U>
     static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, int index, const U& u){
         RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ;
-		
+
         *it = converter_type::get(u.object ) ;
         SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
     }
-	
+
     template <typename U>
     static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, int index, const U& u){
         RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ;
-		
+
         *it = R_MissingArg ;
         SET_STRING_ELT( names, index, ::Rf_mkChar( u.name.c_str() ) ) ;
     }
 
     typedef internal::RangeIndexer<RTYPE,true,Vector> Indexer ;
-	
+
     inline Indexer operator[]( const Range& range ){
         return Indexer( const_cast<Vector&>(*this), range );
     }
@@ -589,7 +590,7 @@ private:
         *target_it = object;
         Storage::set__( target.get__() ) ;
     }
-	
+
     void push_back_name__impl(const stored_type& object, const std::string& name, traits::true_type ) {
         Shield<SEXP> object_sexp( object ) ;
         int n = size() ;
@@ -613,7 +614,7 @@ private:
         }
         SET_STRING_ELT( newnames, i, Rf_mkChar( name.c_str() ) );
         target.attr("names") = newnames ;
-    		
+
         *target_it = object_sexp;
         Storage::set__( target.get__() ) ;
     }
@@ -640,11 +641,11 @@ private:
         }
         SET_STRING_ELT( newnames, i, Rf_mkChar( name.c_str() ) );
         target.attr("names") = newnames ;
-    		
+
         *target_it = object;
         Storage::set__( target.get__() ) ;
     }
-	
+
     void push_front__impl(const stored_type& object, traits::true_type ) {
             Shield<SEXP> object_sexp( object ) ;
         int n = size() ;
@@ -698,7 +699,7 @@ private:
         Storage::set__( target.get__() ) ;
 
     }
-	
+
     void push_front_name__impl(const stored_type& object, const std::string& name, traits::true_type ) {
         Shield<SEXP> object_sexp(object) ;
         int n = size() ;
@@ -712,7 +713,7 @@ private:
         SET_STRING_ELT( newnames, 0, Rf_mkChar( name.c_str() ) );
         *target_it = object_sexp;
         ++target_it ;
-    		
+
         if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it,i++ ){
                 *target_it = *it ;
@@ -740,7 +741,7 @@ private:
         SET_STRING_ELT( newnames, 0, Rf_mkChar( name.c_str() ) );
         *target_it = object;
         ++target_it ;
-    		
+
         if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it,i++ ){
                 *target_it = *it ;
@@ -753,11 +754,11 @@ private:
             }
         }
         target.attr("names") = newnames ;
-    		
+
         Storage::set__( target.get__() ) ;
 
     }
-	
+
     iterator insert__impl( iterator position, const stored_type& object_, traits::true_type ) {
         Shield<SEXP> object( object_ ) ;
         int n = size() ;
@@ -838,7 +839,7 @@ private:
         Storage::set__( target.get__() ) ;
         return result ;
     }
-		
+
     iterator erase_single__impl( iterator position ) {
               if( position < begin() || position > end() ) throw index_out_of_bounds( ) ;
         int n = size() ;
@@ -877,18 +878,18 @@ private:
             return begin()+result ;
         }
     }
-	
+
     iterator erase_range__impl( iterator first, iterator last ) {
         if( first > last ) throw std::range_error("invalid range") ;
         if( last > end() || first < begin() ) throw index_out_of_bounds() ;
-		
+
         iterator it = begin() ;
         iterator this_end = end() ;
         int nremoved = std::distance(first,last) ;
         int target_size = size() - nremoved  ;
         Vector target( target_size ) ;
         iterator target_it = target.begin() ;
-		
+
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator result ;
         if( Rf_isNull(names) ){
@@ -928,7 +929,9 @@ private:
             import_expression<T>(x, n ) ;
         } else{
             // different size, so we change the memory
-            Storage::set__( r_cast<RTYPE>( wrap(x) ) );
+            Shield<SEXP> wrapped(wrap(x));
+            Shield<SEXP> casted(r_cast<RTYPE>(wrapped));
+            Storage::set__(casted);
         }
     }
 
@@ -941,9 +944,11 @@ private:
     // anything else
     template <typename T>
     inline void assign_object( const T& x, traits::false_type ) {
-        Storage::set__( r_cast<RTYPE>( wrap(x) ) ) ;
+        Shield<SEXP> wrapped(wrap(x));
+        Shield<SEXP> casted(r_cast<RTYPE>(wrapped));
+        Storage::set__(casted);
     }
-    	
+
     // we are importing a real sugar expression, i.e. not a vector
     template <bool NA, typename VEC>
     inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::false_type ) {
@@ -993,7 +998,7 @@ private:
             *it = ::Rf_duplicate( elem ) ;
         }
     }
-	
+
     template <typename U>
     void fill__dispatch( traits::true_type, const U& u){
         std::fill( begin(), end(), converter_type::get( u ) ) ;

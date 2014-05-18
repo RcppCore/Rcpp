@@ -28,7 +28,7 @@ namespace traits{
 
 	template <typename T> struct is_pointer : public false_type{};
 	template <typename T> struct is_pointer<T*> : public true_type{};
-	
+
 }
 }
 

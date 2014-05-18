@@ -31,5 +31,5 @@ namespace traits{
 
 } // traits
 } // Rcpp
-	
+
 #endif

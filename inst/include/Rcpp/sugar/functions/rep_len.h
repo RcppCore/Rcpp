@@ -30,20 +30,20 @@ class Rep_len : public Rcpp::VectorBase< RTYPE ,NA, Rep_len<RTYPE,NA,T> > {
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	
+
 	Rep_len( const VEC_TYPE& object_, int len_ ) :
 		object(object_), len(len_), n(object_.size()){}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		return object[ i % n ] ;
 	}
 	inline int size() const { return len ; }
-	
+
 private:
 	const VEC_TYPE& object ;
 	int len, n ;
 } ;
-	
+
 } // sugar
 
 template <int RTYPE, bool NA, typename T>

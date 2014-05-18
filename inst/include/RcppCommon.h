@@ -145,7 +145,7 @@ namespace Rcpp{
     template <typename T> class object ;
     class String ;
 	namespace internal{
-		template <typename Class> SEXP make_new_object( Class* ptr ) ;	
+		template <typename Class> SEXP make_new_object( Class* ptr ) ;
 	}
 }
 

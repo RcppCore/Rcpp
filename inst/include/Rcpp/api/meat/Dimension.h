@@ -21,7 +21,7 @@
 namespace Rcpp{
 
     inline Dimension::Dimension(SEXP dims_) : dims( as< std::vector<int> >(dims_) ){}
-	
+
     inline Dimension::operator SEXP() const {
         return wrap( dims.begin(), dims.end() ) ;
     }

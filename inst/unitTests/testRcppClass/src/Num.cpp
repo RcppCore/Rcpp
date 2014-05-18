@@ -20,7 +20,7 @@ RCPP_MODULE(NumEx){
     using namespace Rcpp ;
 
     class_<Num>( "Num" )
-	
+
         .default_constructor()
 
         // read and write property

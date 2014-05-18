@@ -23,7 +23,7 @@
 #define Rcpp__vector__swap_h
 
 namespace std {
-	
+
 #undef RCPP_GENERATE_SWAP
 #define RCPP_GENERATE_SWAP(TYPE,RTYPE) 							\
 	template<> inline void swap< Rcpp::internal::TYPE<RTYPE> >(	\
