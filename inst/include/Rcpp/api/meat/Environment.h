@@ -32,12 +32,16 @@ bool Environment_Impl<StoragePolicy>::assign( const std::string& name, const WRA
 
 template <template <class> class StoragePolicy>
 Environment_Impl<StoragePolicy>::Environment_Impl( const std::string& name ){
-   Storage::set__( as_environment( wrap(name) ) ) ;
+    Shield<SEXP> wrapped(wrap(name));
+    Shield<SEXP> env(as_environment(wrapped));
+   Storage::set__(env) ;
 }
 
 template <template <class> class StoragePolicy>
 Environment_Impl<StoragePolicy>::Environment_Impl( int pos ){
-   Storage::set__( as_environment( wrap(pos) ) ) ;
+    Shield<SEXP> wrapped(wrap(pos));
+    Shield<SEXP> env(as_environment(wrapped));
+   Storage::set__(env) ;
 }
 
 

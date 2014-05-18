@@ -52,7 +52,8 @@ namespace Rcpp{
          * if the SEXP is not an environment, and exception is thrown
          */
         Environment_Impl(SEXP x) {
-            Storage::set__( as_environment(x) ) ;
+            Shield<SEXP> env(as_environment(x));
+            Storage::set__(env) ;
         }
 
         /**
