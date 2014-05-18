@@ -39,10 +39,10 @@ public:
 		(LHS_NA || RHS_NA) ,
 		Or_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>
 	> BASE ;
-	
+
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_), rhs(rhs_){} ;
-	
+
 	inline void apply(){
 		int left = lhs.get() ;
 		if( Rcpp::traits::is_na<LGLSXP>( left ) ){
@@ -53,11 +53,11 @@ public:
 			BASE::set( rhs.get() ) ;
 		}
 	}
-		
+
 private:
 	const LHS_TYPE& lhs ;
 	const RHS_TYPE& rhs ;
-	
+
 } ;
 
 // special version when we know the rhs is not NA
@@ -75,10 +75,10 @@ public:
 		LHS_NA,
 		Or_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,false,RHS_T>
 	> BASE ;
-	
+
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_), rhs(rhs_){} ;
-	
+
 	inline void apply(){
 		// here we know rhs does not have NA, so we start with the rhs
 		int right = rhs.get() ;
@@ -88,11 +88,11 @@ public:
 			BASE::set( lhs.get() ) ;
 		}
 	}
-		
+
 private:
 	const LHS_TYPE& lhs ;
 	const RHS_TYPE& rhs ;
-	
+
 } ;
 
 
@@ -111,10 +111,10 @@ public:
 		RHS_NA,
 		Or_SingleLogicalResult_SingleLogicalResult<false,LHS_T,RHS_NA,RHS_T>
 	> BASE ;
-	
+
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_), rhs(rhs_){} ;
-	
+
 	inline void apply(){
 		// here we know lhs does not have NA, so we start with the rhs
 		int left = lhs.get() ;
@@ -124,11 +124,11 @@ public:
 			BASE::set( rhs.get() ) ;
 		}
 	}
-		
+
 private:
 	const LHS_TYPE& lhs ;
 	const RHS_TYPE& rhs ;
-	
+
 } ;
 
 // special version when we know both the lhs and the rhs are not NA
@@ -146,10 +146,10 @@ public:
 		false,
 		Or_SingleLogicalResult_SingleLogicalResult<false,LHS_T,false,RHS_T>
 	> BASE ;
-	
+
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_), rhs(rhs_){} ;
-	
+
 	inline void apply(){
 		int left = lhs.get() ;
 		if( left == TRUE ){
@@ -158,11 +158,11 @@ public:
 			BASE::set( rhs.get() ) ;
 		}
 	}
-		
+
 private:
 	const LHS_TYPE& lhs ;
 	const RHS_TYPE& rhs ;
-	
+
 } ;
 
 
@@ -179,10 +179,10 @@ public:
 		LHS_NA ,
 		Or_SingleLogicalResult_bool<LHS_NA,LHS_T>
 	> BASE ;
-	
+
 	Or_SingleLogicalResult_bool( const LHS_TYPE& lhs_, bool rhs_) :
 		lhs(lhs_), rhs(rhs_){} ;
-	
+
 	inline void apply(){
 		if( rhs ){
 			BASE::set( TRUE ) ;
@@ -190,11 +190,11 @@ public:
 			BASE::set( lhs.get() ) ;
 		}
 	}
-		
+
 private:
 	const LHS_TYPE& lhs ;
 	bool rhs ;
-	
+
 } ;
 
 // (LogicalExpression) | (LogicalExpression)

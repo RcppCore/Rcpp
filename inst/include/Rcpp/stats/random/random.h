@@ -27,7 +27,7 @@ namespace Rcpp{
 class RNGScope{
 public:
 	RNGScope(){ internal::enterRNGScope(); }
-	~RNGScope(){ internal::exitRNGScope(); }	
+	~RNGScope(){ internal::exitRNGScope(); }
 } ;
 
 template <typename T>
@@ -110,7 +110,7 @@ namespace Rcpp{
     inline NumericVector rbinom( int n, double nin, double pp ){
 		return NumericVector( n, stats::BinomGenerator(nin, pp) ) ;
 	}
-	
+
 	inline NumericVector rcauchy( int n, double location, double scale ){
         if (ISNAN(location) || !R_FINITE(scale) || scale < 0)
             return NumericVector( n, R_NaN ) ;
@@ -149,7 +149,7 @@ namespace Rcpp{
 		}
 		return NumericVector( n, stats::ExpGenerator( scale ) ) ;
 	}
-	
+
 	inline NumericVector rexp( int n /* , rate = 1 */ ){
 		return NumericVector( n, stats::ExpGenerator__rate1() ) ;
 	}
@@ -164,10 +164,10 @@ namespace Rcpp{
 		} else if( ! R_FINITE( n1 ) ) {
 			return NumericVector( n, stats::FGenerator_NotFinite_Finite( n2 ) ) ;
 		} else {
-			return NumericVector( n, stats::FGenerator_Finite_NotFinite( n1 ) ) ;	
+			return NumericVector( n, stats::FGenerator_Finite_NotFinite( n1 ) ) ;
 		}
 	}
-	
+
 	inline NumericVector rgamma( int n, double a, double scale ){
 		if (!R_FINITE(a) || !R_FINITE(scale) || a < 0.0 || scale <= 0.0) {
 			if(scale == 0.) return NumericVector( n, 0.) ;
@@ -176,7 +176,7 @@ namespace Rcpp{
 		if( a == 0. ) return NumericVector(n, 0. ) ;
 		return NumericVector( n, stats::GammaGenerator(a, scale) ) ;
 	}
-	
+
 	inline NumericVector rgamma( int n, double a /* scale = 1.0 */ ){
 		if (!R_FINITE(a) || a < 0.0 ) {
 			return NumericVector( n, R_NaN ) ;
@@ -289,15 +289,15 @@ namespace Rcpp{
 		// special case
 		if (ISNAN(df) || df <= 0.0)
 			return NumericVector( n, R_NaN ) ;
-	
+
 		// just generating a N(0,1)
 		if(!R_FINITE(df))
 			return NumericVector( n, stats::NormGenerator__mean0__sd1() ) ;
-	
+
 		// general case
 		return NumericVector( n, stats::TGenerator( df ) ) ;
 	}
-	
+
 	inline NumericVector runif( int n, double min, double max ){
 		if (!R_FINITE(min) || !R_FINITE(max) || max < min) return NumericVector( n, R_NaN ) ;
 		if( min == max ) return NumericVector( n, min ) ;

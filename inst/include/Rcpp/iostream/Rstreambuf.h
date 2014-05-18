@@ -31,7 +31,7 @@ namespace Rcpp {
     class Rstreambuf : public std::streambuf {
     public:
         Rstreambuf(){}
-    	
+
     protected:
         virtual std::streamsize xsputn(const char *s, std::streamsize n );
 

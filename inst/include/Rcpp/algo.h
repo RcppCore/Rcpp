@@ -27,14 +27,14 @@
 
 namespace Rcpp{
 
-/* generic implementation for the input iterator case */	
+/* generic implementation for the input iterator case */
 template<class InputIterator, class T>
 inline bool __any( InputIterator first, InputIterator last, const T& value, std::input_iterator_tag ){
     for ( ;first!=last; first++) if ( *first==value ) return true;
     return false;
 }
 
-/* RAI case */	
+/* RAI case */
 template<class RandomAccessIterator, class T>
 inline bool __any( RandomAccessIterator __first, RandomAccessIterator __last, const T& __val, std::random_access_iterator_tag ){
 
@@ -76,7 +76,7 @@ inline bool __any( RandomAccessIterator __first, RandomAccessIterator __last, co
 	default:
 	  return false;
 	}
-	
+
 
 }
 
@@ -93,14 +93,14 @@ inline bool any( InputIterator first, InputIterator last, const T& value){
 
 
 
-/* generic implementation for the input iterator case */	
+/* generic implementation for the input iterator case */
 template<class InputIterator, class Predicate>
 inline bool __any_if( InputIterator first, InputIterator last, Predicate pred, std::input_iterator_tag ){
   for ( ; first!=last ; first++ ) if ( pred(*first) ) return true ;
   return false;
 }
 
-/* RAI case */	
+/* RAI case */
 template<class RandomAccessIterator, class Predicate>
 inline bool __any_if( RandomAccessIterator __first, RandomAccessIterator __last, Predicate __pred, std::random_access_iterator_tag ){
 
@@ -142,7 +142,7 @@ inline bool __any_if( RandomAccessIterator __first, RandomAccessIterator __last,
 	default:
 	  return false;
 	}
-	
+
 
 }
 

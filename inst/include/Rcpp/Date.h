@@ -25,7 +25,7 @@
 namespace Rcpp {
 
     class Date {
-    public:	
+    public:
         Date(){
             m_d = 0;
             update_tm();
@@ -64,7 +64,7 @@ namespace Rcpp {
         }
 
         ~Date() {};
-    	
+
         	double getDate(void) const {
         	   return m_d;
         	}
@@ -97,13 +97,13 @@ namespace Rcpp {
         inline int is_na() const {
            return traits::is_na<REALSXP>( m_d ) ;
         }
-    	
+
     private:
         double m_d;					// (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;				// standard time representation
 
         // update m_tm based on m_d
-        void update_tm(){			
+        void update_tm(){
             if (R_FINITE(m_d)) {
                 time_t t = 24*60*60 * m_d;		// (fractional) days since epoch to seconds since epoch
                 m_tm = *gmtime_(&t);
@@ -161,7 +161,7 @@ namespace Rcpp {
         inline SEXP new_posixt_object( double d){
             Shield<SEXP> x( Rf_ScalarReal( d ) ) ;
             Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() );
-            return x ;	
+            return x ;
         }
 
         inline SEXP new_date_object( double d){
@@ -172,7 +172,7 @@ namespace Rcpp {
 
     }
 
-    	
+
 }
 
 #endif

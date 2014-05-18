@@ -28,7 +28,7 @@ namespace traits{
 
 	template <typename T, typename U> struct same_type : public false_type{} ;
 	template <typename T> struct same_type<T,T> : public true_type{} ;
-	
+
 }
 }
 

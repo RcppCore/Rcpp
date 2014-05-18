@@ -411,10 +411,10 @@ namespace Rcpp {
             set( tmp ) ;
             return *this ;
         }
-		
+
 	}
 
-	
+
 	template <>
     inline SEXP wrap<Rcpp::String>( const Rcpp::String& object) {
         RCPP_STRING_DEBUG( "wrap<String>()" ) ;

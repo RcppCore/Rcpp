@@ -24,7 +24,7 @@
 
 namespace Rcpp{
 namespace internal{
-	
+
 	template <int RTYPE> class simple_name_proxy {
 	public:
 		typedef ::Rcpp::Vector<RTYPE> VECTOR ;
@@ -34,7 +34,7 @@ namespace internal{
 		simple_name_proxy( const simple_name_proxy& other ) :
 			parent(other.parent), name(other.name){} ;
 		~simple_name_proxy() {} ;
-		
+
 		simple_name_proxy& operator=( CTYPE rhs ){
 			set( rhs ) ;
 			return *this ;
@@ -43,24 +43,24 @@ namespace internal{
 			set( other.get() ) ;
 			return *this ;
 		}
-		
+
 		template <typename T>
 		simple_name_proxy& operator=( const T& rhs ){
 			set( caster<T,CTYPE>(rhs) ) ;
 			return *this ;
 		}
-		
+
 		// TODO: other operators +=, -=, ...
-		
+
 		operator CTYPE() const {
 			 return get() ;
 		}
-		
+
 		// this helps wrap, for example : wrap( x["foo"] )
 		operator SEXP() const {
 			return ::Rcpp::wrap(get()) ;
 		}
-		
+
 	private:
 		VECTOR& parent ;
 		std::string name;
@@ -77,20 +77,20 @@ namespace internal{
 			return parent[ parent.offset(name) ];
 		}
 	} ;
-	
+
 	template <int RTYPE>
 	class string_name_proxy{
 	public:
 		typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
 		typedef const char* iterator ;
 		typedef const char& reference ;
-		
+
 		string_name_proxy( VECTOR& v, const std::string& name_) :
 			parent(v), name(name_){} ;
 		string_name_proxy( const string_name_proxy& other ) :
 			parent(other.parent), name(other.name){} ;
 		~string_name_proxy(){} ;
-		
+
 		string_name_proxy& operator=( const std::string& rhs ){
 			set( rhs ) ;
 			return *this ;
@@ -99,20 +99,20 @@ namespace internal{
 			set( other.get() ) ;
 			return *this ;
 		}
-		
+
 		operator char* (){
 			 return get() ;
 		}
-		
+
 		operator SEXP(){
 			return ::Rf_mkString(get()) ;
 		}
-		
+
 		inline iterator begin() { return get() ; }
 		inline iterator end(){ return begin() + size() ; }
 		inline reference operator[]( int i ){ return *( get() + i ) ; }
 		inline int size(){ return strlen( get() ) ; }
-		
+
 	private:
 		VECTOR& parent ;
 		std::string name;
@@ -128,9 +128,9 @@ namespace internal{
 		char* get(){
 			return parent[ parent.offset(name) ];
 		}
-		
+
 	} ;
-	
+
 	template <int RTYPE> class generic_name_proxy {
 	public:
 		typedef ::Rcpp::Vector<RTYPE> VECTOR ;
@@ -139,7 +139,7 @@ namespace internal{
 		generic_name_proxy( const generic_name_proxy& other ) :
 			parent(other.parent), name(other.name){}
 		~generic_name_proxy(){} ;
-		
+
 		generic_name_proxy& operator=( SEXP rhs ){
 			set( rhs ) ;
 			return *this ;
@@ -148,19 +148,19 @@ namespace internal{
 			set( other.get() ) ;
 			return *this ;
 		}
-		
+
 		template <typename T>
 		generic_name_proxy& operator=( const T& rhs ){
 			set( ::Rcpp::wrap(rhs) ) ;
 			return *this ;
 		}
-		
+
 		// TODO: other operators +=, -=, ...
-		
+
 		operator SEXP() const {
 			 return get() ;
 		}
-		
+
 		template <typename T>
 		operator T() const {
 			#if RCPP_DEBUG_LEVEL > 0
@@ -171,11 +171,11 @@ namespace internal{
 			return ::Rcpp::as<T>( get() ) ;
 			#endif
 		}
-		
+
 		operator bool() const{
 		    return ::Rcpp::as<bool>(get());
 		}
-		
+
 	private:
 		VECTOR& parent ;
 		std::string name;
@@ -195,7 +195,7 @@ namespace internal{
 }
 
 namespace traits {
-	
+
 	template <int RTYPE>
 	struct r_vector_name_proxy{
 		typedef typename ::Rcpp::internal::simple_name_proxy<RTYPE> type ;
@@ -237,7 +237,7 @@ namespace traits {
 	template<> struct r_vector_const_proxy<EXPRSXP> {
 		typedef ::Rcpp::internal::const_generic_proxy<EXPRSXP> type ;
 	} ;
-	
+
 	template <int RTYPE>
 	struct r_vector_iterator {
 		typedef typename storage_type<RTYPE>::type* type ;
@@ -246,7 +246,7 @@ namespace traits {
 	struct r_vector_const_iterator {
 		typedef typename storage_type<RTYPE>::type* type ;
 	};
-	
+
 	template <int RTYPE> struct proxy_based_iterator{
 		typedef ::Rcpp::internal::Proxy_Iterator< typename r_vector_proxy<RTYPE>::type > type ;
 	} ;

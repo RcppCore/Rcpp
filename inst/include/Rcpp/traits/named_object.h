@@ -29,7 +29,7 @@ class Argument ;
 namespace traits{
 
 template <typename T> struct needs_protection : false_type{} ;
-template <> struct needs_protection<SEXP> : true_type{} ;	
+template <> struct needs_protection<SEXP> : true_type{} ;
 
 template <typename T> class named_object {
 	public:
@@ -43,16 +43,16 @@ public:
 	named_object( const std::string& name_, const SEXP& o_):
 		name(name_), object(o_)
 	{
-		R_PreserveObject(object) ;	
+		R_PreserveObject(object) ;
 	}
-	
+
 	named_object( const named_object<SEXP>& other ) :
 		name(other.name), object(other.object)
 	{
-		R_PreserveObject(object) ;	
+		R_PreserveObject(object) ;
 	}
 	~named_object(){
-		R_ReleaseObject(object) ;	
+		R_ReleaseObject(object) ;
 	}
 	const std::string& name ;
 	SEXP object ;

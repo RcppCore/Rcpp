@@ -52,7 +52,7 @@ namespace traits{
 	  bool COND_NA, typename COND_T
 	>
 	struct is_convertible< sugar::IfElse_Primitive_Primitive<RTYPE,COND_NA,COND_T>, SEXP > : public false_type{} ;
-	
+
   #endif
 
   template <int RTYPE>

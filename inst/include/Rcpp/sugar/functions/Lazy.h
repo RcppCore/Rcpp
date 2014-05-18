@@ -30,7 +30,7 @@ class Lazy {
 public:
 	inline operator T() const { return static_cast<const EXPR&>(*this).get() ; }
 } ;
-	
+
 }
 }
 

@@ -34,38 +34,38 @@ public:
 		typedef int difference_type ;
 		typedef SEXP value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
-		
+
 		SEXP_Iterator( ): ptr(){} ;
 		SEXP_Iterator( const SEXP_Iterator& other) : ptr(other.ptr){} ;
 		SEXP_Iterator( const VECTOR& vec ) : ptr( get_vector_ptr(vec) ){} ;
-		
+
 		SEXP_Iterator& operator=(const SEXP_Iterator& other){ ptr = other.ptr ; return *this ;}
 
    		int operator-( const SEXP_Iterator& other){ return ptr - other.ptr ; }
-   		
+
    		SEXP_Iterator operator+( int n){ return SEXP_Iterator(ptr+n); }
    		SEXP_Iterator operator-( int n){ return SEXP_Iterator(ptr-n); }
-   		
+
    		SEXP_Iterator& operator++(){ ptr++ ; return *this ; }
    		SEXP_Iterator& operator--(){ ptr-- ; return *this ; }
    		SEXP_Iterator& operator+=(int n){ ptr += n; return *this ; }
    		SEXP_Iterator& operator-=(int n){ ptr -= n; return *this ; }
-   		
+
    		bool operator<( const SEXP_Iterator& other ){ return ptr < other.ptr ; }
    		bool operator>( const SEXP_Iterator& other ){ return ptr > other.ptr ; }
    		bool operator<=( const SEXP_Iterator& other ){ return ptr <= other.ptr ; }
    		bool operator>=( const SEXP_Iterator& other ){ return ptr >= other.ptr ; }
-   		
+
    		reference  operator*(){ return *ptr ; }
    		reference  operator[](int n){ return ptr[n] ; }
    		bool operator==(const SEXP_Iterator& other) const { return ptr == other.ptr ;}
    		bool operator!=(const SEXP_Iterator& other) const { return ptr != other.ptr ;}
 
-		
+
 private:
 	const SEXP* ptr ;
 	SEXP_Iterator( const SEXP* ptr_) : ptr(ptr_){}
-	
+
 } ;
 
 }

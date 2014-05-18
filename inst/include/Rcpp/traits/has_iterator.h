@@ -111,7 +111,7 @@ namespace traits{
    */
   template<typename T> struct is_importer :
     integral_constant<bool,_is_importer_helper<T>::value> { };
-	
+
   template<typename T> struct is_exporter :
     integral_constant<bool,_is_exporter_helper<T>::value> { };
 

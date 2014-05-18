@@ -90,12 +90,12 @@ inline double r_coerce<RAWSXP,REALSXP>(Rbyte from){
 // -> LGLSXP
 template <>
 inline int r_coerce<REALSXP,LGLSXP>(double from){
-	return Rcpp_IsNA(from) ? NA_LOGICAL : (from!=0.0);	
+	return Rcpp_IsNA(from) ? NA_LOGICAL : (from!=0.0);
 }
 
 template <>
 inline int r_coerce<INTSXP,LGLSXP>(int from){
-	return ( from == NA_INTEGER ) ? NA_LOGICAL : (from!=0);	
+	return ( from == NA_INTEGER ) ? NA_LOGICAL : (from!=0);
 }
 
 template <>
@@ -130,7 +130,7 @@ inline Rbyte r_coerce<CPLXSXP,RAWSXP>(Rcomplex from){
 
 template <>
 inline Rbyte r_coerce<LGLSXP,RAWSXP>(int from){
-	return static_cast<Rbyte>(from == TRUE) ;	
+	return static_cast<Rbyte>(from == TRUE) ;
 }
 
 // -> CPLXSXP
@@ -157,7 +157,7 @@ inline Rcomplex r_coerce<INTSXP,CPLXSXP>(int from){
 		c.r = static_cast<double>(from) ;
 		c.i = 0.0 ;
 	}
-	return c ;	
+	return c ;
 }
 
 template <>
@@ -253,7 +253,7 @@ template <>
 inline const char* coerce_to_string<RAWSXP >(Rbyte from){
 	static char buff[3];
     ::sprintf(buff, "%02x", from);
-    return buff ;	
+    return buff ;
 }
 template <>
 inline const char* coerce_to_string<LGLSXP >(int from){

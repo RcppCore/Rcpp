@@ -24,7 +24,7 @@
 #define Rcpp__traits__remove_reference__h
 
 namespace Rcpp{ namespace traits {
-	
+
   /// @brief  reference modifications [4.7.2].
   template<typename _Tp>
     struct remove_reference
@@ -33,7 +33,7 @@ namespace Rcpp{ namespace traits {
   template<typename _Tp>
     struct remove_reference<_Tp&>
     { typedef _Tp     type; };
-	
+
 }}
 
 #endif

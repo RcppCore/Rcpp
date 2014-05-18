@@ -32,28 +32,28 @@ public:
             for( int i = 0; i<index_; i++, x = CDR(x) ) ;
             node = x ;
         }
-		
+
 		DottedPairProxy& operator=(const DottedPairProxy& rhs){
 		    return set(rhs.get());
 		}
 		DottedPairProxy& operator=(SEXP rhs){
 		    return set(rhs) ;
 		}
-		
+
 		template <typename T>
 		DottedPairProxy& operator=(const T& rhs) {
       return set( wrap(rhs) );
 		}
-		
+
 		template <typename T>
 		DottedPairProxy& operator=(const traits::named_object<T>& rhs) {
       return set( wrap(rhs.object), rhs.name ) ;
 		}
-		
+
 		template <typename T> operator T() const {
       return as<T>( get() );
 		}
-		
+
 		inline SEXP get() const {
 		    return CAR(node);
 		}
@@ -70,7 +70,7 @@ public:
             SET_TAG( node, rhsNameSym ) ;
             return *this ;
 		}
-		
+
 	private:
 		SEXP node ;
 	} ;
@@ -83,18 +83,18 @@ public:
             for( int i = 0; i<index_; i++, x = CDR(x) ) ;
             node = x ;
         }
-		
+
 		template <typename T> operator T() const {
       return as<T>( get() );
 		}
-		
+
 		inline SEXP get() const {
 		    return CAR(node);
 		}
 		inline operator SEXP() const {
 		    return get() ;
 		}
-		
+
 	private:
 		SEXP node ;
 	} ;

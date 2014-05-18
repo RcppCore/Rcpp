@@ -38,7 +38,7 @@ namespace Rcpp{
 	inline bool is_na( const Rcpp::sugar::SingleLogicalResult<NA,T>& x){
 		return const_cast< Rcpp::sugar::SingleLogicalResult<NA,T>& >(x).is_na() ;
 	}
-	
-	
+
+
 }
 #endif
