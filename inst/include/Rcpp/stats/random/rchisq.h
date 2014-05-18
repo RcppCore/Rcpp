@@ -24,17 +24,17 @@
 
 namespace Rcpp {
 	namespace stats {
-		
-	
+
+
 		class ChisqGenerator : public ::Rcpp::Generator<double> {
 		public:
-			
+
 			ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
-			
+
 			inline double operator()() const {
 				return ::Rf_rgamma( df_2, 2.0 ) ;
 			}
-			
+
 		private:
 			double df_2 ;
 		} ;

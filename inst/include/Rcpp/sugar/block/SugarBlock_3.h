@@ -39,13 +39,13 @@ public:
     typedef OUT (*FunPtr)(U1,U2,U3) ;
     SugarBlock_3_VVV( FunPtr ptr_, const T1 & x_, const T2& y_, const T3& z_ ) :
         ptr(ptr_), x(x_), y(y_), z(z_) {
-        // TODO: size checks, recycling, etc ...	
+        // TODO: size checks, recycling, etc ...
     }
     inline OUT operator[]( int i) const {
         return ptr( x[i], y[i], z[i] ) ;
     }
     inline int size() const { return x.size() ; }
-	
+
 private:
     FunPtr ptr ;
     const T1& x ;
@@ -60,12 +60,12 @@ private:
 // 	typedef OUT (*FunPtr)(U1,U2) ;
 // 	SugarBlock_3__VP( FunPtr ptr_, const T1 & x_, U2 u2 ) :
 // 		ptr(ptr_), x(x_), y(u2){}
-// 	
+//
 // 	inline OUT operator[]( int i) const {
 // 		return ptr( x[i], y ) ;
 // 	}
 // 	inline int size() const { return x.size() ; }
-// 	
+//
 // private:
 // 	FunPtr ptr ;
 // 	const T1& x ;
@@ -78,12 +78,12 @@ private:
 // 	typedef OUT (*FunPtr)(U1,U2) ;
 // 	SugarBlock_3__PV( FunPtr ptr_, U1 u1, const T2& y_ ) :
 // 		ptr(ptr_), x(u1), y(y_){}
-// 	
+//
 // 	inline OUT operator[]( int i) const {
 // 		return ptr( x, y[i] ) ;
 // 	}
 // 	inline int size() const { return y.size() ; }
-// 	
+//
 // private:
 // 	FunPtr ptr ;
 // 	U1 x ;
@@ -122,5 +122,5 @@ namespace Rcpp{                                                                 
 		) ;                                                                           \
 	}                                                                                     \
 }
-	
+
 #endif

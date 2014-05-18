@@ -77,19 +77,19 @@ namespace Rcpp{
          * @param index position where the element is to be removed
          */
         void remove( const size_t& index );
-	
+
         template <typename T>
 	    friend DottedPairImpl& operator<<(DottedPairImpl& os, const T& t){
 	        os.push_back( t ) ;
 	        return os ;
 	    }
-	
+
 	    template <typename T>
 	    friend DottedPairImpl& operator>>( const T& t, DottedPairImpl& s){
 	        s.push_front(t);
 	        return s ;
 	    }
-	
+
     } ;
 
 }

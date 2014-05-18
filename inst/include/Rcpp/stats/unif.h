@@ -56,7 +56,7 @@ inline double punif_0(double x /*, double a [=0.0], double b [=1.0]*/, int lower
 	return R_DT_0;
     if (lower_tail) return R_D_val(x);
     else return R_D_val(1-x);
-	
+
 }
 
 inline double qunif_1(double p, double a /*, double b [=1.0] */, int lower_tail, int log_p) {

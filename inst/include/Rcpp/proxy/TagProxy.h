@@ -54,7 +54,7 @@ namespace Rcpp{
             inline void set( SEXP x){
                 R_SetExternalPtrTag( xp, x ) ;
             }
-        	
+
         } ;
 
         class const_TagProxy : public GenericProxy<const_TagProxy>{

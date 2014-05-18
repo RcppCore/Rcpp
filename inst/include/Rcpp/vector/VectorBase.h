@@ -23,7 +23,7 @@
 #define Rcpp__vector__VectorBase_h
 
 namespace Rcpp{
-	
+
 /** a base class for vectors, modelled after the CRTP */
 template <int RTYPE, bool na, typename VECTOR>
 class VectorBase : public traits::expands_to_logical__impl<RTYPE> {
@@ -33,11 +33,11 @@ public:
 	struct can_have_na : traits::integral_constant<bool,na>{} ;
 	typedef typename traits::storage_type<RTYPE>::type stored_type ;
 	typedef typename traits::storage_type<RTYPE>::type elem_type ;
-	
+
 	VECTOR& get_ref(){
 		return static_cast<VECTOR&>(*this) ;
 	}
-	
+
 	const VECTOR& get_ref() const {
 		return static_cast<const VECTOR&>(*this) ;
 	}
@@ -45,9 +45,9 @@ public:
 	inline stored_type operator[]( int i) const {
 	    return static_cast<const VECTOR*>(this)->operator[](i) ;
 	}
-	
+
 	inline int size() const { return static_cast<const VECTOR*>(this)->size() ; }
-	
+
 	class iterator {
 	public:
 		typedef stored_type reference ;
@@ -58,7 +58,7 @@ public:
 
 		iterator( const VectorBase& object_, int index_ ) : object(object_.get_ref()), index(index_){}
 		iterator( const iterator& other) : object(other.object), index(other.index){};
-		
+
 		inline iterator& operator++(){
 			index++ ;
 			return *this ;
@@ -68,7 +68,7 @@ public:
 		    ++(*this) ;
 			return orig ;
 		}
-		
+
 		inline iterator& operator--(){
 			index-- ;
 			return *this ;
@@ -78,14 +78,14 @@ public:
 		    --(*this) ;
 			return orig ;
 		}
-		
+
 		inline iterator operator+(difference_type n) const {
 			return iterator( object, index+n ) ;
 		}
 		inline iterator operator-(difference_type n) const {
 			return iterator( object, index-n ) ;
 		}
-		
+
 		inline iterator& operator+=(difference_type n) {
 			index += n ;
 			return *this ;
@@ -98,14 +98,14 @@ public:
 		inline reference operator[](int i){
 		    return object[index+i] ;
 		}
-		
+
 		inline reference operator*() {
 			return object[index] ;
 		}
 		inline pointer operator->(){
 			return &object[index] ;
 		}
-		
+
 		inline bool operator==( const iterator& y) const {
 			return ( index == y.index ) ;
 		}
@@ -124,20 +124,20 @@ public:
 		inline bool operator>=( const iterator& other ) const {
 			return index >= other.index ;
 		}
-		
+
 		inline difference_type operator-(const iterator& other) const {
 			return index - other.index ;
 		}
-	
-			
+
+
 	private:
 		const VECTOR& object ;
 		int index;
 	} ;
-	
+
 	inline iterator begin() const { return iterator(*this, 0) ; }
 	inline iterator end() const { return iterator(*this, size() ) ; }
-	
+
 } ;
 
 } // namespace Rcpp

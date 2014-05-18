@@ -50,7 +50,7 @@ namespace Rcpp {
             Shield<SEXP> x( Rf_cons( y , tail) ) ;
             SEXP headNameSym = ::Rf_install( head.name.c_str() );
             SET_TAG( x, headNameSym );
-            return x; 	
+            return x;
         }
 
     } // internal

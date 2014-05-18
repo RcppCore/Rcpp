@@ -27,37 +27,37 @@ namespace internal{
 	class const_generic_proxy : public GenericProxy< const_generic_proxy<RTYPE> > {
 		public:
 			typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
-			
+
 			const_generic_proxy(): parent(0), index(-1){}
-			
+
 			const_generic_proxy( const const_generic_proxy& other ) :
 				parent(other.parent), index(other.index){} ;
-			
+
 			const_generic_proxy( const VECTOR& v, int i ) : parent(&v), index(i){} ;
-		
+
 			operator SEXP() const {
 			    return get() ;
 			}
-			
+
 			template <typename U> operator U() const {
 				return ::Rcpp::as<U>(get()) ;
 			}
-			
+
 			// helping the compiler (not sure why it can't help itself)
 			operator bool() const { return ::Rcpp::as<bool>(get()) ; }
 			operator int() const { return ::Rcpp::as<int>(get()) ; }
-			
+
 			const VECTOR* parent;
 			int index ;
-			
+
 		private:
-			
+
 		    inline SEXP get() const {
 			    return VECTOR_ELT(*parent, index );
 			}
-		
+
 	}  ;
-	
+
 }
 }
 

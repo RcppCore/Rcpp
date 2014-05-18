@@ -24,16 +24,16 @@
 
 namespace Rcpp{
 namespace sugar{
-	
+
 template <int RTYPE, bool NA, typename T>
 class Cumsum : public Lazy< Rcpp::Vector<RTYPE> , Cumsum<RTYPE,NA,T> > {
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef Rcpp::Vector<RTYPE> VECTOR ;
-	
+
 	Cumsum( const VEC_TYPE& object_ ) : object(object_){}
-	
+
 	VECTOR get() const {
 	    int n = object.size() ;
 		VECTOR result( n, Rcpp::traits::get_na<RTYPE>() ) ;

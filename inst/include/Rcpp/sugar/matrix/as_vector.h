@@ -22,7 +22,7 @@
 #ifndef Rcpp__sugar__matrix_as_vector_h
 #define Rcpp__sugar__matrix_as_vector_h
 
-namespace Rcpp{	
+namespace Rcpp{
 namespace internal{
 
 template <int RTYPE, bool NA, typename T>

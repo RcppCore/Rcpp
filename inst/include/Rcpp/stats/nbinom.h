@@ -23,6 +23,6 @@
 #define Rcpp__stats__nbinom_h
 
 RCPP_DPQ_2(nbinom, ::Rf_dnbinom, ::Rf_pnbinom, ::Rf_qnbinom )
-	
+
 #endif
 

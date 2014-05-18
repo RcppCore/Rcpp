@@ -28,21 +28,21 @@ namespace sugar{
 template <int RTYPE, bool NA, typename VEC_TYPE>
 class IsNaN : public ::Rcpp::VectorBase< LGLSXP, false, IsNaN<RTYPE,NA,VEC_TYPE> > {
 public:
-	
+
 	IsNaN( const VEC_TYPE& obj_) : obj(obj_){}
-	
+
 	inline int operator[]( int i ) const {
 		return ::Rcpp::traits::is_nan<RTYPE>( obj[i] ) ;
 	}
-	
+
 	inline int size() const { return obj.size() ; }
-	
+
 private:
 	const VEC_TYPE& obj ;
-	
+
 } ;
 
-	
+
 } // sugar
 
 template <int RTYPE, bool NA, typename T>

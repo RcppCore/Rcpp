@@ -34,20 +34,20 @@ namespace traits{
 		typedef typename r_vector_proxy<RTYPE>::type proxy ;
 		typedef typename r_vector_const_proxy<RTYPE>::type const_proxy ;
 		typedef typename storage_type<RTYPE>::type storage_type ;
-		
+
 		r_vector_cache() : start(0){} ;
 		inline void update( const VECTOR& v ) {
 		    start = ::Rcpp::internal::r_vector_start<RTYPE>(v) ;
 		}
 		inline iterator get() const { return start; }
 		inline const_iterator get_const() const { return start; }
-		
+
 		inline proxy ref() { return *start ;}
 		inline proxy ref(int i) { return start[i] ; }
-		
+
 		inline proxy ref() const { return *start ;}
 		inline proxy ref(int i) const { return start[i] ; }
-		
+
 		private:
 			iterator start ;
 	} ;
@@ -58,7 +58,7 @@ namespace traits{
 		typedef typename r_vector_const_iterator<RTYPE>::type const_iterator ;
 		typedef typename r_vector_proxy<RTYPE>::type proxy ;
 		typedef typename r_vector_const_proxy<RTYPE>::type const_proxy ;
-		
+
 		proxy_cache(): p(0){}
 		~proxy_cache(){}
 		void update( const VECTOR& v ){
@@ -67,25 +67,25 @@ namespace traits{
 		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
 		// inline const_iterator get_const() const { return const_iterator( *p ) ;}
 		inline const_iterator get_const() const { return get_vector_ptr(*p) ; }
-		
+
 		inline proxy ref() { return proxy(*p,0) ; }
 		inline proxy ref(int i) { return proxy(*p,i);}
-		
+
 		inline const_proxy ref() const { return const_proxy(*p,0) ; }
 		inline const_proxy ref(int i) const { return const_proxy(*p,i);}
-		
+
 		private:
 			VECTOR* p ;
 	} ;
-	
+
 	// regular types for INTSXP, REALSXP, ...
 	template <int RTYPE> struct r_vector_cache_type { typedef r_vector_cache<RTYPE> type ;  } ;
-	
+
 	// proxy types for VECSXP, STRSXP and EXPRSXP
 	template <> struct r_vector_cache_type<VECSXP>  { typedef proxy_cache<VECSXP> type ;  } ;
 	template <> struct r_vector_cache_type<EXPRSXP> { typedef proxy_cache<EXPRSXP> type ; } ;
 	template <> struct r_vector_cache_type<STRSXP>  { typedef proxy_cache<STRSXP> type ;  } ;
-		
+
 } // traits
 }
 

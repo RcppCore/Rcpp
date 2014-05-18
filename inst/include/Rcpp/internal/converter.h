@@ -23,7 +23,7 @@
 #define Rcpp_internal_converter_h
 
 namespace Rcpp{
-namespace internal{	
+namespace internal{
 	class converter {
 	public:
 		converter( ) : x(R_NilValue){} ;
@@ -34,13 +34,13 @@ namespace internal{
 			return *this ;
 		}
 		~converter(){}
-	
+
 		template <typename T> operator T(){
-			return ::Rcpp::as<T>( x ) ;	
+			return ::Rcpp::as<T>( x ) ;
 		}
 	private:
 		SEXP x ;
-		
+
 	} ;
 } // namespace internal
 } // namespace Rcpp

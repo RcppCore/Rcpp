@@ -35,8 +35,8 @@ namespace sugar{
 		typedef traits::storage_type<INTSXP>::type type ;
 		enum{ value = INTSXP } ;
 	} ;
-	
-	
+
+
 	template <int RTYPE,bool NA>
 	class unary_minus {
 	public:
@@ -60,7 +60,7 @@ namespace sugar{
 	public:
 		inline Rcomplex apply( Rcomplex x ) const {
 			if (Rcpp::traits::is_na<CPLXSXP>( x ) ) return x;
-			
+
 			Rcomplex cx ;
 			cx.r = -x.r;
 			cx.i = -x.i ;
@@ -77,7 +77,7 @@ namespace sugar{
 			return cx ;
 		}
 	} ;
-	
+
 
 	template <int RTYPE, bool NA, typename T>
 	class UnaryMinus_Vector : public Rcpp::VectorBase<
@@ -90,21 +90,21 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename unary_minus_result_type<RTYPE>::type RESULT ;
 		typedef unary_minus<RTYPE,NA> OPERATOR ;
-		
+
 		UnaryMinus_Vector( const VEC_TYPE& lhs_ ) :
 			lhs(lhs_), op() {}
-		
+
 		inline RESULT operator[]( int i ) const {
 			return op.apply( lhs[i] ) ;
 		}
-		
+
 		inline int size() const { return lhs.size() ; }
-		
+
 	private:
 		const VEC_TYPE& lhs ;
 		OPERATOR op ;
 	} ;
-	
+
 }
 }
 

@@ -33,7 +33,7 @@ namespace stats {
 		    /* NaNs propagated correctly */
 		    if (ISNAN(x) ) return x + 1.0 ;
 		#endif
-    	
+
     	if (x < 0.)
 		return R_D__0;
 		return give_log ? (-x) : ::exp(-x);
@@ -42,11 +42,11 @@ namespace stats {
 		#ifdef IEEE_754
 		if (ISNAN(p)) return p + 1.0;
 		#endif
-		
+
 		if ((log_p	&& p > 0) || (!log_p && (p < 0 || p > 1)) ) return R_NaN ;
 		if (p == R_DT_0)
 		return 0;
-		
+
 		return - R_DT_Clog(p);
 	}
 	inline double p_exp_0(double x, int lower_tail, int log_p) {
@@ -67,14 +67,14 @@ namespace stats {
     /* else:  !lower_tail */
     return R_D_exp(x);
 }
-	
+
 } // stats
 } // Rcpp
 
 RCPP_DPQ_0(exp,Rcpp::stats::d_exp_0,Rcpp::stats::p_exp_0,Rcpp::stats::q_exp_0)
 
 namespace Rcpp{
-	
+
 // we cannot use the RCPP_DPQ_1 macro here because of rate and shape
 template <bool NA, typename T>
 inline stats::D1<REALSXP,NA,T> dexp( const Rcpp::VectorBase<REALSXP,NA,T>& x, double shape, bool log = false ) {

@@ -28,22 +28,22 @@ namespace Rcpp {
 namespace stats {
 
 	// D
-	
+
 	template <int RTYPE, bool NA, typename T>
 	class D0 : public Rcpp::VectorBase< REALSXP, NA, D0<RTYPE,NA,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,int) ;
-		
+
 		D0( FunPtr ptr_, const VEC_TYPE& vec_, bool log_ ) :
 			ptr(ptr_), vec(vec_), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
@@ -55,38 +55,38 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,int) ;
-		
+
 		D1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_ , bool log_) :
 			ptr(ptr_), vec(vec_), p0(p0_), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0 ;
 		int log;
 	} ;
-	
+
 	template <int RTYPE, bool NA, typename T>
 	class D2 : public Rcpp::VectorBase< REALSXP, NA, D2<RTYPE,NA,T> > {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,double,int) ;
-		
+
 		D2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_ , bool log_) :
 			ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, p1, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
@@ -99,47 +99,47 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,double,double,int) ;
-		
+
 		D3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_ , bool log_ ) :
 			ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, p1, p2, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0, p1, p2 ;
 		int log;
 	} ;
-	
+
 	// P
 
-	
+
 	template <int RTYPE, bool NA, typename T>
 	class P0 : public Rcpp::VectorBase< REALSXP, NA, P0<RTYPE,NA,T> >{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,int,int) ;
-		
+
 		P0( FunPtr ptr_, const VEC_TYPE& vec_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		int lower, log;
-	
+
 	};
 
 
@@ -148,23 +148,23 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,int,int) ;
-		
+
 		P1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), p0(p0_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0 ;
 		int lower, log;
-	
+
 	};
 
 
@@ -173,23 +173,23 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,double,int,int) ;
-		
+
 		P2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, p1, lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0, p1 ;
 		int lower, log;
-	
+
 	};
 
 	template <int RTYPE, bool NA, typename T>
@@ -197,49 +197,49 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,double,double,int,int) ;
-		
+
 		P3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, p1, p2, lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0, p1,p2 ;
 		int lower, log;
-	
+
 	};
-	
+
 	// Q
-	
-	
+
+
 	template <int RTYPE, bool NA, typename T>
 	class Q0 : public Rcpp::VectorBase< REALSXP, NA, Q0<RTYPE,NA,T> >{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,int,int) ;
-		
+
 		Q0( FunPtr ptr_, const VEC_TYPE& vec_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		int lower, log;
-	
+
 	};
 
 	template <int RTYPE, bool NA, typename T>
@@ -247,23 +247,23 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,int,int) ;
-		
+
 		Q1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), p0(p0_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0 ;
 		int lower, log;
-	
+
 	};
 
 	template <int RTYPE, bool NA, typename T>
@@ -271,23 +271,23 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,double,int,int) ;
-		
+
 		Q2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, p1, lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0, p1 ;
 		int lower, log;
-	
+
 	};
 
 	template <int RTYPE, bool NA, typename T>
@@ -295,26 +295,26 @@ namespace stats {
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef double (*FunPtr)(double,double,double,double,int,int) ;
-		
+
 		Q3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_,
 			   bool lower_tail = true, bool log_ = false ) :
 			ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
-		
+
 		inline double operator[]( int i) const {
 			return ptr( vec[i], p0, p1, p2, lower, log );
 		}
-		
+
 		inline int size() const { return vec.size(); }
-		
+
 	private:
 		FunPtr ptr ;
 		const VEC_TYPE& vec;
 		double p0, p1, p2 ;
 		int lower, log;
-	
+
 	};
 
-	
+
 } // stats
 } // Rcpp
 

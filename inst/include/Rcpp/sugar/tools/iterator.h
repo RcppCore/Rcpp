@@ -70,14 +70,14 @@ namespace sugar {
         inline reference operator[](int i){
 		    return ref[index+i] ;
 		}
-		
+
 		inline reference operator*() {
 			return ref[index] ;
 		}
 		inline pointer operator->(){
 			return &ref[index] ;
 		}
-		
+
 		inline bool operator==( const iterator& y) const {
 			return ( index == y.index ) ;
 		}
@@ -96,11 +96,11 @@ namespace sugar {
 		inline bool operator>=( const iterator& other ) const {
 			return index >= other.index ;
 		}
-		
+
 		inline difference_type operator-(const iterator& other) const {
 			return index - other.index ;
 		}
-	
+
 
     private:
         const T& ref ;

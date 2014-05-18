@@ -33,14 +33,14 @@
 		AddProperty( name_, new CppProperty_GetConstMethod<Class,PROP>(GetMethod, docstring) ) ;
 		return *this ;
 	}
-	
+
 	template <typename PROP>
 	self& property( const char* name_, PROP (*GetMethod)(Class*), const char* docstring ){
 		AddProperty( name_, new CppProperty_GetPointerMethod<Class,PROP>(GetMethod,docstring) ) ;
 		return *this ;
 	}
-	
-	
+
+
 	template <typename PROP>
 	self& property( const char* name_, PROP (Class::*GetMethod)(void), void (Class::*SetMethod)(PROP), const char* docstring = 0){
 		AddProperty(
@@ -57,8 +57,8 @@
 		) ;
 		return *this ;
 	}
-	
-	
+
+
 	template <typename PROP>
 	self& property( const char* name_, PROP (Class::*GetMethod)(void), void (*SetMethod)(Class*,PROP), const char* docstring = 0 ){
 		AddProperty(
@@ -75,8 +75,8 @@
 		) ;
 		return *this ;
 	}
-	
-	
+
+
 	template <typename PROP>
 	self& property( const char* name_, PROP (*GetMethod)(Class*), void (Class::*SetMethod)(PROP), const char* docstring = 0 ){
 		AddProperty(
@@ -93,6 +93,6 @@
 		) ;
 		return *this ;
 	}
-	
-	
+
+
 #endif

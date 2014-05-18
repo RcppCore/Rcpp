@@ -25,7 +25,7 @@
 
 namespace Rcpp{
 namespace internal{
-	
+
 template <typename iterator, typename value_type> class ListInitialization {
 public:
 	ListInitialization( iterator iter_ ) : iter(iter_) {} ;
@@ -33,8 +33,8 @@ public:
 		*iter = x ;
 		return ListInitialization<iterator,value_type>( iter + 1 );
 	}
-	
-private:	
+
+private:
 	iterator iter ;
 } ;
 

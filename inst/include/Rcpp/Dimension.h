@@ -28,11 +28,11 @@ namespace Rcpp{
     public:
 	    typedef std::vector<int>::reference reference ;
 	    typedef std::vector<int>::const_reference const_reference ;
-	
+
 	    Dimension() : dims(){}
-	
+
 	    Dimension(SEXP dims) ;
-	
+
 	    Dimension( const Dimension& other ) : dims(other.dims){}
 	    Dimension& operator=( const Dimension& other ) {
 	        if( *this != other )
@@ -52,14 +52,14 @@ namespace Rcpp{
 	        dims[2] = n3 ;
 	    }
 	    operator SEXP() const ;
-	
+
 	    inline int size() const {
 	        return (int) dims.size() ;
 	    }
 	    inline int prod() const {
 	        return std::accumulate( dims.begin(), dims.end(), 1, std::multiplies<int>() ) ;
 	    }
-	
+
 	    inline reference operator[](int i){
 	        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
             return dims[i] ;
@@ -68,7 +68,7 @@ namespace Rcpp{
 	        if( i < 0 || i>=static_cast<int>(dims.size()) ) throw std::range_error("index out of bounds") ;
 	        return dims[i] ;
 	    }
-	
+
 	private:
 	    std::vector<int> dims;
     };

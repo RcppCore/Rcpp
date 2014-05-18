@@ -55,7 +55,7 @@ namespace Rcpp{
             inline void set( SEXP x){
                 R_SetExternalPtrProtected( xp, x ) ;
             }
-        	
+
         } ;
 
         class const_ProtectedProxy : public GenericProxy<const_ProtectedProxy>{
@@ -83,11 +83,11 @@ namespace Rcpp{
 	    ProtectedProxy prot(){
 	        return ProtectedProxy( static_cast<XPtrClass&>(*this) ) ;
 	    }
-	
+
 	    const_ProtectedProxy prot() const{
 	        return const_ProtectedProxy( static_cast<const XPtrClass&>(*this) ) ;
 	    }
-	
+
 
     } ;
 
