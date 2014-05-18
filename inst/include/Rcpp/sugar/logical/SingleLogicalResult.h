@@ -42,52 +42,52 @@ template <bool NA,typename T>
 class SingleLogicalResult {
 public:
 	const static int UNRESOLVED = -5 ;
-	
+
 	SingleLogicalResult() : result(UNRESOLVED) {} ;
-	
+
 	void apply(){
 		if( result == UNRESOLVED ){
 			static_cast<T&>(*this).apply() ;
 		}
 	}
-	
+
 	inline bool is_true(){
 		apply() ;
 		return result == TRUE ;
 	}
-	
+
 	inline bool is_false(){
 		apply() ;
 		return result == FALSE ;
 	}
-	
+
 	inline bool is_na(){
 		apply() ;
 		return Rcpp::traits::is_na<LGLSXP>( result ) ;
 	}
-	
+
 	inline operator SEXP(){
 		return get_sexp() ;
 	}
-	
+
 	inline operator bool(){
 		conversion_to_bool_is_forbidden<!NA> x ;
 		x.touch() ;
 		return is_true() ;
 	}
-	
+
 	inline int size(){ return 1 ; }
-	
+
 	inline int get(){
 		apply();
 		return result;
 	}
-	
+
 	inline SEXP get_sexp(){
 	    apply() ;
 	    return Rf_ScalarLogical( result ) ;
 	}
-	
+
 protected:
 	int result ;
 	inline void set(int x){ result = x ;}

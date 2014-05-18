@@ -24,7 +24,7 @@
 
 namespace Rcpp{
 namespace traits{
-	
+
 template <bool COND, typename LHS, typename RHS>
 struct if_ {
 	typedef LHS type ;
@@ -34,7 +34,7 @@ template <typename LHS, typename RHS>
 struct if_<false,LHS,RHS> {
 	typedef RHS type ;
 } ;
-	
+
 }
 }
 

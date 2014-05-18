@@ -23,7 +23,7 @@
 #define Rcpp_api_meat_Vector_h
 
 namespace Rcpp{
-	
+
     namespace internal {
 
         template <typename T>

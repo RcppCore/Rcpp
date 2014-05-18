@@ -27,7 +27,7 @@
 		AddMethod( name_, new Pointer_CppMethod0<Class,OUT>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -36,7 +36,7 @@
 		AddMethod( name_, new Pointer_CppMethod1<Class,OUT,U0>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -46,7 +46,7 @@
 		AddMethod( name_, new Pointer_CppMethod2<Class,OUT,U0, U1>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -56,7 +56,7 @@
 		AddMethod( name_, new Pointer_CppMethod3<Class,OUT,U0, U1, U2>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -66,7 +66,7 @@
 		AddMethod( name_, new Pointer_CppMethod4<Class,OUT,U0, U1, U2, U3>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -76,7 +76,7 @@
 		AddMethod( name_, new Pointer_CppMethod5<Class,OUT,U0, U1, U2, U3, U4>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -86,7 +86,7 @@
 		AddMethod( name_, new Pointer_CppMethod6<Class,OUT,U0, U1, U2, U3, U4, U5>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -96,7 +96,7 @@
 		AddMethod( name_, new Pointer_CppMethod7<Class,OUT,U0, U1, U2, U3, U4, U5, U6>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -106,7 +106,7 @@
 		AddMethod( name_, new Pointer_CppMethod8<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -116,7 +116,7 @@
 		AddMethod( name_, new Pointer_CppMethod9<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -126,7 +126,7 @@
 		AddMethod( name_, new Pointer_CppMethod10<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -136,7 +136,7 @@
 		AddMethod( name_, new Pointer_CppMethod11<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -146,7 +146,7 @@
 		AddMethod( name_, new Pointer_CppMethod12<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -156,7 +156,7 @@
 		AddMethod( name_, new Pointer_CppMethod13<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -166,7 +166,7 @@
 		AddMethod( name_, new Pointer_CppMethod14<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -176,7 +176,7 @@
 		AddMethod( name_, new Pointer_CppMethod15<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -186,7 +186,7 @@
 		AddMethod( name_, new Pointer_CppMethod16<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -196,7 +196,7 @@
 		AddMethod( name_, new Pointer_CppMethod17<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -206,7 +206,7 @@
 		AddMethod( name_, new Pointer_CppMethod18<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -216,7 +216,7 @@
 		AddMethod( name_, new Pointer_CppMethod19<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -226,7 +226,7 @@
 		AddMethod( name_, new Pointer_CppMethod20<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -236,7 +236,7 @@
 		AddMethod( name_, new Pointer_CppMethod21<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -246,7 +246,7 @@
 		AddMethod( name_, new Pointer_CppMethod22<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -256,7 +256,7 @@
 		AddMethod( name_, new Pointer_CppMethod23<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -266,7 +266,7 @@
 		AddMethod( name_, new Pointer_CppMethod24<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -276,7 +276,7 @@
 		AddMethod( name_, new Pointer_CppMethod25<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -286,7 +286,7 @@
 		AddMethod( name_, new Pointer_CppMethod26<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -296,7 +296,7 @@
 		AddMethod( name_, new Pointer_CppMethod27<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -306,7 +306,7 @@
 		AddMethod( name_, new Pointer_CppMethod28<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -316,7 +316,7 @@
 		AddMethod( name_, new Pointer_CppMethod29<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -326,7 +326,7 @@
 		AddMethod( name_, new Pointer_CppMethod30<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -336,7 +336,7 @@
 		AddMethod( name_, new Pointer_CppMethod31<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -346,7 +346,7 @@
 		AddMethod( name_, new Pointer_CppMethod32<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -356,7 +356,7 @@
 		AddMethod( name_, new Pointer_CppMethod33<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -366,7 +366,7 @@
 		AddMethod( name_, new Pointer_CppMethod34<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -376,7 +376,7 @@
 		AddMethod( name_, new Pointer_CppMethod35<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -386,7 +386,7 @@
 		AddMethod( name_, new Pointer_CppMethod36<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -396,7 +396,7 @@
 		AddMethod( name_, new Pointer_CppMethod37<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -406,7 +406,7 @@
 		AddMethod( name_, new Pointer_CppMethod38<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -416,7 +416,7 @@
 		AddMethod( name_, new Pointer_CppMethod39<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -426,7 +426,7 @@
 		AddMethod( name_, new Pointer_CppMethod40<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -436,7 +436,7 @@
 		AddMethod( name_, new Pointer_CppMethod41<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -446,7 +446,7 @@
 		AddMethod( name_, new Pointer_CppMethod42<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -456,7 +456,7 @@
 		AddMethod( name_, new Pointer_CppMethod43<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -466,7 +466,7 @@
 		AddMethod( name_, new Pointer_CppMethod44<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -476,7 +476,7 @@
 		AddMethod( name_, new Pointer_CppMethod45<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -486,7 +486,7 @@
 		AddMethod( name_, new Pointer_CppMethod46<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -496,7 +496,7 @@
 		AddMethod( name_, new Pointer_CppMethod47<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -506,7 +506,7 @@
 		AddMethod( name_, new Pointer_CppMethod48<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -516,7 +516,7 @@
 		AddMethod( name_, new Pointer_CppMethod49<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -526,7 +526,7 @@
 		AddMethod( name_, new Pointer_CppMethod50<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -536,7 +536,7 @@
 		AddMethod( name_, new Pointer_CppMethod51<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -546,7 +546,7 @@
 		AddMethod( name_, new Pointer_CppMethod52<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -556,7 +556,7 @@
 		AddMethod( name_, new Pointer_CppMethod53<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -566,7 +566,7 @@
 		AddMethod( name_, new Pointer_CppMethod54<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -576,7 +576,7 @@
 		AddMethod( name_, new Pointer_CppMethod55<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -586,7 +586,7 @@
 		AddMethod( name_, new Pointer_CppMethod56<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -596,7 +596,7 @@
 		AddMethod( name_, new Pointer_CppMethod57<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -606,7 +606,7 @@
 		AddMethod( name_, new Pointer_CppMethod58<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -616,7 +616,7 @@
 		AddMethod( name_, new Pointer_CppMethod59<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -626,7 +626,7 @@
 		AddMethod( name_, new Pointer_CppMethod60<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -636,7 +636,7 @@
 		AddMethod( name_, new Pointer_CppMethod61<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -646,7 +646,7 @@
 		AddMethod( name_, new Pointer_CppMethod62<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -656,7 +656,7 @@
 		AddMethod( name_, new Pointer_CppMethod63<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -666,7 +666,7 @@
 		AddMethod( name_, new Pointer_CppMethod64<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 
@@ -676,7 +676,7 @@
 		AddMethod( name_, new Pointer_CppMethod65<Class,OUT,U0, U1, U2, U3, U4, U5, U6, U7, U8, U9, U10, U11, U12, U13, U14, U15, U16, U17, U18, U19, U20, U21, U22, U23, U24, U25, U26, U27, U28, U29, U30, U31, U32, U33, U34, U35, U36, U37, U38, U39, U40, U41, U42, U43, U44, U45, U46, U47, U48, U49, U50, U51, U52, U53, U54, U55, U56, U57, U58, U59, U60, U61, U62, U63, U64>( fun ), valid, docstring ) ;
   		return *this ;
 	}
-	
+
 
 
 

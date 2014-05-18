@@ -37,7 +37,7 @@ namespace Rcpp{
 		Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses() );
 		return x ;
     }
-	
+
     template <>
     inline SEXP wrap<Datetime>(const Datetime &date) {
 		return internal::new_posixt_object( date.getFractionalTimestamp() ) ;

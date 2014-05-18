@@ -26,24 +26,24 @@
 namespace Rcpp{
     namespace internal{
 
-    	
+
 		template <typename T>
 		std::wstring as_string_elt__impl( SEXP x, R_len_t i, Rcpp::traits::true_type ){
 			const char* y = char_get_string_elt( x, i ) ;
 			return std::wstring(y, y+strlen(y) ) ;
 		}
-		
+
 		template <typename T>
 		std::string as_string_elt__impl( SEXP x, R_len_t i, Rcpp::traits::false_type ){
 			return char_get_string_elt( x, i ) ;
 		}
-    	
+
 		template <typename T>
 		const std::basic_string< typename Rcpp::traits::char_type<T>::type >
 		as_string_elt( SEXP x, R_len_t i ){
 			return as_string_elt__impl<T>( x, i, typename Rcpp::traits::is_wide_string<T>::type() ) ;
 		}
-    	
+
         /* iterating */
 
 		template <typename InputIterator, typename value_type>
@@ -67,7 +67,7 @@ namespace Rcpp{
         // implemented in meat
         template <typename InputIterator, typename value_type>
         void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_generic_tag ) ;
-		
+
         template <typename InputIterator, typename value_type>
         void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_primitive_tag ) {
 			export_range__impl<InputIterator,value_type>(

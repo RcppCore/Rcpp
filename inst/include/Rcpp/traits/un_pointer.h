@@ -25,7 +25,7 @@
 
 namespace Rcpp{
 namespace traits{
-	
+
 template <typename T> struct un_pointer { typedef T type ;} ;
 template <typename T> struct un_pointer<T*> { typedef T type ;} ;
 template <typename T> struct un_pointer< object<T> > { typedef T type ;} ;

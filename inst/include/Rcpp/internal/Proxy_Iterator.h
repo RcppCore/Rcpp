@@ -34,16 +34,16 @@ public:
 		typedef int difference_type ;
 		typedef PROXY value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
-		
+
 		Proxy_Iterator( ): proxy(){} ;
 		Proxy_Iterator( const Proxy_Iterator& other) : proxy( other.proxy){}
 		Proxy_Iterator( const PROXY& proxy_ ) : proxy( proxy_ ){} ;
-		
+
 		Proxy_Iterator& operator=( const Proxy_Iterator& other ){
 			proxy.import( other.proxy ) ;
 			return *this ;
 		}
-		
+
 		inline Proxy_Iterator& operator++(){
 			proxy.move(1) ;
 			return *this ;
@@ -53,7 +53,7 @@ public:
 			++(*this) ;
 			return orig ;
 		}
-		
+
 		inline Proxy_Iterator& operator--(){
 			proxy.move(-1) ;
 			return *this ;
@@ -63,14 +63,14 @@ public:
 			--(*this) ;
 			return orig ;
 		}
-		
+
 		inline Proxy_Iterator operator+(difference_type n) const {
 			return Proxy_Iterator( PROXY(*proxy.parent, proxy.index + n) ) ;
 		}
 		inline Proxy_Iterator operator-(difference_type n) const {
 			return Proxy_Iterator( PROXY(*proxy.parent, proxy.index - n) ) ;
 		}
-		
+
 		inline Proxy_Iterator& operator+=(difference_type n) {
 			proxy.move( n ) ;
 			return *this ;
@@ -86,7 +86,7 @@ public:
 		inline pointer operator->(){
 			return &proxy ;
 		}
-		
+
 		inline bool operator==( const Proxy_Iterator& y) const {
 			return ( this->proxy.index == y.proxy.index ) && ( this->proxy.parent == y.proxy.parent );
 		}
@@ -105,7 +105,7 @@ public:
 		inline bool operator>=( const Proxy_Iterator& other ) const {
 			return proxy.index >= other.proxy.index ;
 		}
-		
+
 		inline difference_type operator-(const Proxy_Iterator& other) const {
 			return proxy.index - other.proxy.index ;
 		}
@@ -113,7 +113,7 @@ public:
 		inline int index() const { return proxy.index ; }
 
 		inline PROXY operator[](int i){ return PROXY(*proxy.parent, proxy.index + i) ; }
-		
+
 private:
 	PROXY proxy ;
 } ;

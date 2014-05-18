@@ -323,7 +323,7 @@ List list_ctor(){
     for( int i=0; i<10; i++) x[i] = Rf_ScalarInteger( i * 2)  ;
     return x ;
 }
-        
+
 // [[Rcpp::export]]
 List list_template_(){
     List x(4) ;

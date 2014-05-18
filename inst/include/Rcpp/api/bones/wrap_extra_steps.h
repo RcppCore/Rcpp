@@ -24,7 +24,7 @@
 #define Rcpp__api__bones__wrap_extra_steps_h
 
 namespace Rcpp{
-	
+
 template<typename T> SEXP wrap_extra_steps( SEXP x ){
 	return x ;
 }

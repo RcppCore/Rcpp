@@ -41,31 +41,31 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,LHS_NA ,LHS_T>  LHS_TYPE ;
 	typedef Rcpp::VectorBase<RTYPE ,RHS_NA ,RHS_T>  RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	
+
 	// typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
 	// typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
-	
+
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
 			/* FIXME : cond, lhs and rhs must all have the same size */
-			
-		RCPP_DEBUG( DEMANGLE(IfElse) ) ;	
+
+		RCPP_DEBUG( DEMANGLE(IfElse) ) ;
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return x ;
 		if( x ) return lhs[i] ;
 		return rhs[i] ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
 	const COND_TYPE& cond ;
 	const LHS_T& lhs ;
 	const RHS_T& rhs ;
-	
+
 } ;
 
 template <
@@ -84,28 +84,28 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,LHS_NA ,LHS_T>  LHS_TYPE ;
 	typedef Rcpp::VectorBase<RTYPE ,RHS_NA ,RHS_T>  RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	
+
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
-	
+
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the same size */	
+			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		if( cond[i] ) return lhs[i] ;
 		return rhs[i] ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
-	
+
 	const COND_TYPE& cond ;
 	const LHS_EXT& lhs ;
 	const RHS_EXT& rhs ;
-	
+
 } ;
 
 
@@ -125,28 +125,28 @@ public:
 	typedef Rcpp::VectorBase<LGLSXP,COND_NA,COND_T> COND_TYPE ;
 	typedef Rcpp::VectorBase<RTYPE ,RHS_NA ,RHS_T>  RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	
+
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
-	
+
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_), lhs(lhs_), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the sale size */	
+			/* FIXME : cond, lhs and rhs must all have the sale size */
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return x ;
 		if( x ) return lhs ;
 		return rhs[i] ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
 	const COND_TYPE& cond ;
 	STORAGE lhs ;
 	const RHS_EXT& rhs ;
-	
+
 } ;
 
 template <
@@ -164,24 +164,24 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,RHS_NA ,RHS_T>  RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
-	
+
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_), lhs(lhs_), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the same size */	
+			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		if( cond[i] ) return lhs ;
 		return rhs[i] ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
 	const COND_TYPE& cond ;
 	STORAGE lhs ;
 	const RHS_EXT& rhs ;
-	
+
 } ;
 
 
@@ -203,26 +203,26 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,LHS_NA ,LHS_T>  LHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
-	
+
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
 		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_) {
-			/* FIXME : cond, lhs and rhs must all have the same size */	
+			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return Rcpp::traits::get_na<RTYPE>() ;
 		if( x ) return lhs[i] ;
 		return rhs ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
 	const COND_TYPE& cond ;
 	const LHS_EXT& lhs ;
 	const STORAGE rhs ;
-	
+
 } ;
 
 template <
@@ -240,24 +240,24 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,LHS_NA ,LHS_T>  LHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
-	
+
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
 		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_) {
-			/* FIXME : cond, lhs and rhs must all have the sale size */	
+			/* FIXME : cond, lhs and rhs must all have the sale size */
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		if( cond[i] ) return lhs[i] ;
 		return rhs ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
 	const COND_TYPE& cond ;
 	const LHS_EXT& lhs ;
 	const STORAGE rhs ;
-	
+
 } ;
 
 
@@ -278,26 +278,26 @@ class IfElse_Primitive_Primitive : public VectorBase<
 public:
 	typedef Rcpp::VectorBase<LGLSXP,COND_NA,COND_T> COND_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	
+
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
 		cond(cond_), lhs(lhs_), rhs(rhs_)  {
-			/* FIXME : cond, lhs and rhs must all have the same size */	
+			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return Rcpp::traits::get_na<RTYPE>() ;
 		return x ? lhs : rhs ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
 	const COND_TYPE& cond ;
 	STORAGE lhs ;
 	STORAGE rhs ;
 	STORAGE na ;
-	
+
 } ;
 
 template <
@@ -311,23 +311,23 @@ class IfElse_Primitive_Primitive<RTYPE,false,COND_T> : public VectorBase<
 public:
 	typedef Rcpp::VectorBase<LGLSXP,false,COND_T> COND_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	
+
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
 		cond(cond_), lhs(lhs_), rhs(rhs_) {
-			/* FIXME : cond, lhs and rhs must all have the same size */	
+			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
-	
+
 	inline STORAGE operator[]( int i ) const {
 		return cond[i] ? lhs : rhs ;
 	}
-	
+
 	inline int size() const { return cond.size() ; }
-	
+
 private:
 	const COND_TYPE& cond ;
 	STORAGE lhs ;
 	STORAGE rhs ;
-	
+
 } ;
 
 } // sugar

@@ -128,7 +128,7 @@ BEGIN_RCPP
 	SEXP p = CDR(args) ;
 	XP_Module module( CAR(p) ) ; p = CDR(p) ;
 	std::string fun = Rcpp::as<std::string>( CAR(p) ) ; p = CDR(p) ;
-	
+
 	UNPACK_EXTERNAL_ARGS(cargs,p)
 	return module->invoke( fun, cargs, nargs ) ;
 END_RCPP
@@ -136,7 +136,7 @@ END_RCPP
 
 SEXP class__newInstance(SEXP args){
 	SEXP p = CDR(args) ;
-	
+
 	XP_Module module( CAR(p) ) ; p = CDR(p) ;
 	XP_Class clazz( CAR(p) ) ; p = CDR(p);
 	UNPACK_EXTERNAL_ARGS(cargs,p)
@@ -147,7 +147,7 @@ SEXP class__newInstance(SEXP args){
 SEXP rcpp_dummy_pointer = R_NilValue;
 
 #define CHECK_DUMMY_OBJ(p) if(p == rcpp_dummy_pointer) forward_exception_to_r( Rcpp::not_initialized())
-	
+
 
 SEXP class__dummyInstance(SEXP args) {
 	SEXP p;
@@ -163,36 +163,36 @@ SEXP class__dummyInstance(SEXP args) {
 
 SEXP CppMethod__invoke(SEXP args){
 	SEXP p = CDR(args) ;
-	
+
 	// the external pointer to the class
 	XP_Class clazz( CAR(p) ) ; p = CDR(p);
-	
+
 	// the external pointer to the method
 	SEXP met = CAR(p) ; p = CDR(p) ;
-	
+
 	// the external pointer to the object
 	SEXP obj = CAR(p); p = CDR(p) ;
 	CHECK_DUMMY_OBJ(obj);
-	
+
 	// additional arguments, processed the same way as .Call does
 	UNPACK_EXTERNAL_ARGS(cargs,p)
-	
+
    	return clazz->invoke( met, obj, cargs, nargs ) ;
 }
 
 SEXP CppMethod__invoke_void(SEXP args){
 	SEXP p = CDR(args) ;
-	
+
 	// the external pointer to the class
 	XP_Class clazz( CAR(p) ) ; p = CDR(p);
-	
+
 	// the external pointer to the method
 	SEXP met = CAR(p) ; p = CDR(p) ;
-	
+
 	// the external pointer to the object
 	SEXP obj = CAR(p); p = CDR(p) ;
 	CHECK_DUMMY_OBJ(obj);
-	
+
 	// additional arguments, processed the same way as .Call does
 	UNPACK_EXTERNAL_ARGS(cargs,p)
 	clazz->invoke_void( met, obj, cargs, nargs ) ;
@@ -201,20 +201,20 @@ SEXP CppMethod__invoke_void(SEXP args){
 
 SEXP CppMethod__invoke_notvoid(SEXP args){
 	SEXP p = CDR(args) ;
-	
+
 	// the external pointer to the class
 	XP_Class clazz( CAR(p) ) ; p = CDR(p);
-	
+
 	// the external pointer to the method
 	SEXP met = CAR(p) ; p = CDR(p) ;
-	
+
 	// the external pointer to the object
 	SEXP obj = CAR(p); p = CDR(p) ;
 	CHECK_DUMMY_OBJ(obj);
-	
+
 	// additional arguments, processed the same way as .Call does
 	UNPACK_EXTERNAL_ARGS(cargs,p)
-	
+
    	return clazz->invoke_notvoid( met, obj, cargs, nargs ) ;
 }
 

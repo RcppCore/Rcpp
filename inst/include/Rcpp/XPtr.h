@@ -54,7 +54,7 @@ class XPtr :
     public RObjectMethods< XPtr<T,StoragePolicy, Finalizer> >
 {
 public:
-		
+
     typedef StoragePolicy<XPtr> Storage ;
 
     /**
@@ -69,7 +69,7 @@ public:
         R_SetExternalPtrTag( x, tag ) ;
         R_SetExternalPtrProtected( x, prot ) ;
     } ;
-		
+
     /**
      * creates a new external pointer wrapping the dumb pointer p.
      *
@@ -105,7 +105,7 @@ public:
     T& operator*() const {
         return *((T*)R_ExternalPtrAddr( Storage::get__() )) ;
     }
-  		
+
     /**
      * Returns the dumb pointer. This allows to call the -> operator
      * on this as if it was the dumb pointer
@@ -113,11 +113,11 @@ public:
     T* operator->() const {
          return (T*)(R_ExternalPtrAddr( Storage::get__() ));
     }
-  		  		
+
     void setDeleteFinalizer() {
         R_RegisterCFinalizerEx( Storage::get__(), finalizer_wrapper<T,Finalizer> , FALSE) ;
     }
-  	
+
     inline operator T*(){
         return (T*)( R_ExternalPtrAddr( Storage::get__() )) ;
     }

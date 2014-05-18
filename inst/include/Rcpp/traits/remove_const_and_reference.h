@@ -24,12 +24,12 @@
 #define Rcpp__traits__remove_const_and_reference__h
 
 namespace Rcpp{ namespace traits {
-	
+
 	template <typename T>
 	struct remove_const_and_reference {
 		typedef typename remove_const< typename remove_reference<T>::type >::type type ;
 	} ;
-	
+
 }}
 
 #endif

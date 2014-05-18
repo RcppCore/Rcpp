@@ -52,9 +52,9 @@ namespace Rcpp{
 			push_front( object ) ;
 		} else {
 			if( ref.isNULL( ) ) throw index_out_of_bounds() ;
-			
+
 			if( static_cast<R_len_t>(index) > ::Rf_length(ref.get__()) ) throw index_out_of_bounds() ;
-			
+
 			size_t i=1;
 			SEXP x = ref.get__() ;
 			while( i < index ){
@@ -65,13 +65,13 @@ namespace Rcpp{
 			SETCDR( x, tail ) ;
 		}
 	}
-	
+
 	template <typename CLASS>
     template <typename T>
 	void DottedPairImpl<CLASS>::replace( const int& index, const T& object ) {
 	    CLASS& ref = static_cast<CLASS&>(*this) ;
         if( static_cast<R_len_t>(index) >= ::Rf_length(ref.get__()) ) throw index_out_of_bounds() ;
-		
+
         Shield<SEXP> x( pairlist( object ) );
         SEXP y = ref.get__() ;
         int i=0;
@@ -80,7 +80,7 @@ namespace Rcpp{
         SETCAR( y, CAR(x) );
         SET_TAG( y, TAG(x) );
 	}
-	
+
 	template <typename CLASS>
     void DottedPairImpl<CLASS>::remove( const size_t& index ) {
         CLASS& ref = static_cast<CLASS&>(*this) ;
@@ -96,7 +96,7 @@ namespace Rcpp{
     }
 
 
-	
+
 } // namespace Rcpp
 
 #endif

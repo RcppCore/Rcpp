@@ -24,23 +24,23 @@
 
 namespace Rcpp{
 namespace traits{
-	
+
 	// default for most types
 	template <int RTYPE>
 	bool is_nan( typename storage_type<RTYPE>::type){
 	    return false ;
 	}
-	
+
 	template <>
 	inline bool is_nan<REALSXP>( double x ){
 		return internal::Rcpp_IsNaN(x) ;
 	}
-	
+
 	template <>
 	inline bool is_nan<CPLXSXP>( Rcomplex x ){
 		return internal::Rcpp_IsNaN(x.r) || internal::Rcpp_IsNaN(x.i) ;
 	}
-	
+
 }
 }
 

@@ -49,7 +49,7 @@ inline double dlogis_1(double x, double location /*, double scale [=1.0] */, int
     f = 1.0 + e;
     return give_log ? -(x + ::log(f * f)) : e / (f * f);
 }
-	
+
 
 inline double plogis_0(double x /*, double location [=0.0] , double scale [=1.0] */,
 	      int lower_tail, int log_p) {

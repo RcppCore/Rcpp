@@ -38,7 +38,7 @@ namespace Rcpp {
 			enum{ rtype = REALSXP } ;
 		} ;
 	}
-	
+
 	template<> SEXP wrap_extra_steps<Rcpp::Date>( SEXP ) ;
 	namespace internal{
 		template<> double caster<Rcpp::Date,double>( Rcpp::Date from) ;

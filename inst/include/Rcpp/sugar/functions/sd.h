@@ -30,9 +30,9 @@ class Sd : public Lazy< typename Rcpp::traits::storage_type<RTYPE>::type , Sd<RT
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-		
+
 	Sd( const VEC_TYPE& object_ ) : object(object_){}
-	
+
 	STORAGE get() const {
 	    return ::sqrt( var(object).get() ) ;
 	}

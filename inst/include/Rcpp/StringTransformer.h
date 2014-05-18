@@ -31,23 +31,23 @@ namespace Rcpp{
 		public:
 		StringTransformer( const UnaryOperator& op_ ): op(op_), buffer(){}
 		~StringTransformer(){}
-		
+
 		const char* operator()(const char* input ) {
 			buffer = input ;
 			std::transform( buffer.begin(), buffer.end(), buffer.begin(), op ) ;
 			return buffer.c_str() ;
 		}
-		
-	private:	
+
+	private:
 		const UnaryOperator& op ;
 		std::string buffer ;
 	} ;
-	
+
 	template <typename UnaryOperator>
 	StringTransformer<UnaryOperator> make_string_transformer( const UnaryOperator& fun){
 		return StringTransformer<UnaryOperator>( fun ) ;
 	}
-	
+
 }
 
 #endif

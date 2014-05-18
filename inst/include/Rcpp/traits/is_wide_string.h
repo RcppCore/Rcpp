@@ -28,7 +28,7 @@ namespace traits{
 
     template <typename T>
     struct is_wide_string : public same_type< typename T::value_type, wchar_t > {} ;
-	
+
     template <> struct is_wide_string< const wchar_t* > : public true_type{} ;
     template <> struct is_wide_string< const char* > : public false_type{} ;
 

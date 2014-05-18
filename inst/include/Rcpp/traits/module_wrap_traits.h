@@ -26,10 +26,10 @@
 namespace Rcpp{
 namespace traits{
 
-struct normal_wrap_tag{} ;	
+struct normal_wrap_tag{} ;
 struct void_wrap_tag{} ;
 struct pointer_wrap_tag{} ;
-	
+
 template <typename T> struct module_wrap_traits     { typedef normal_wrap_tag category; } ;
 template <> struct module_wrap_traits<void>         { typedef void_wrap_tag category; } ;
 template <typename T> struct module_wrap_traits<T*> { typedef pointer_wrap_tag category; } ;

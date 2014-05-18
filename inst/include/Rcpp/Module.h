@@ -125,7 +125,7 @@ namespace Rcpp{
 		inline bool is_void(){ return parent_method_pointer->is_void() ; }
 		inline bool is_const(){ return parent_method_pointer->is_const() ; }
 		inline void signature(std::string& s, const char* name){ return parent_method_pointer->signature(s, name) ; }
-		
+
     private:
         ParentMethod* parent_method_pointer ;
     } ;
@@ -386,13 +386,13 @@ namespace Rcpp {
 	        XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
 	        slot( "module"  ) = XP( p, false ) ;
 	        slot( "pointer" ) = clxp ;
-	
+
 	        buffer = "Rcpp_" ;
 	        buffer += cl->name ;
 	        slot( ".Data" ) = buffer ;
-	
+
 	        slot( "fields" )      = cl->fields( clxp ) ;
-	
+
 	        slot( "methods" )     = cl->getMethods( clxp, buffer ) ;
 	        slot( "constructors") = cl->getConstructors( clxp, buffer ) ;
 	        slot( "docstring"   ) = cl->docstring ;

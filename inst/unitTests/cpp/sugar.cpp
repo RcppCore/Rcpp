@@ -29,7 +29,7 @@ public:
 } ;
 
 double raw_square( double x){ return x*x; }
-			
+
 // [[Rcpp::export]]
 List runit_abs( NumericVector xx, IntegerVector yy ){
     return List::create( abs(xx), abs(yy) ) ;

@@ -30,7 +30,7 @@ namespace traits{
 		typename r_type_traits<T>::r_category ,
 		r_type_primitive_tag
 	>{} ;
-	
+
 } // traits
 } // Rcpp
 

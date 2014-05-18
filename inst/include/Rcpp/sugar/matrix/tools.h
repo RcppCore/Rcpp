@@ -33,7 +33,7 @@ namespace internal{
 		int i = get_line( index, nr );
 		return (index-i) / nr ;
 	}
-	
+
 	inline int get_column( int index, int nr, int i ){
 		return (index-i) / nr ;
 	}

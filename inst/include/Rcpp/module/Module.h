@@ -58,7 +58,7 @@ namespace Rcpp {
             }
             CppFunction* fun = it->second ;
             if( fun->nargs() > nargs ){
-                throw std::range_error( "incorrect number of arguments" ) ; 	
+                throw std::range_error( "incorrect number of arguments" ) ;
             }
 
             return List::create(
@@ -212,7 +212,7 @@ namespace Rcpp {
         class_Base* get_class_pointer(const std::string& cl){
             CLASS_MAP::iterator it = classes.find(cl) ;
             if( it == classes.end() ) throw std::range_error( "no such class" ) ;
-            return it->second ;	
+            return it->second ;
 	    }
 
         std::string name ;
@@ -226,7 +226,7 @@ namespace Rcpp {
 	                target_class = it->second ;
 	            }
 	        }
-	
+
 	        // TODO: add the enum to the class
 	        target_class->add_enum( enum_name, value ) ;
 	    }

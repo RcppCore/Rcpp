@@ -145,7 +145,7 @@ RCPP_MODULE(yada){
 	function( "test_reference", test_reference );
 	function( "test_const_reference", test_const_reference ) ;
 	function( "test_const", test_const ) ;
-	
+
 	class_<Test>("Test")
         .constructor<double>()
     ;
