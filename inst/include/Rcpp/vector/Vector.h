@@ -941,7 +941,9 @@ private:
     // anything else
     template <typename T>
     inline void assign_object( const T& x, traits::false_type ) {
-        Storage::set__( r_cast<RTYPE>( wrap(x) ) ) ;
+        Shield<SEXP> wrapped(wrap(x));
+        Shield<SEXP> casted(r_cast<RTYPE>(wrapped));
+        Storage::set__(casted);
     }
     	
     // we are importing a real sugar expression, i.e. not a vector
