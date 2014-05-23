@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -126,7 +126,7 @@ new_CppObject_xp <- function(module, pointer, ...) {
 }
 
 new_dummyObject <- function(...)
-    .External( "class__dummyInstance", ...)
+    .External( class__dummyInstance, ...)
 
 
 # class method for $initialize
