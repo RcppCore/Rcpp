@@ -1,14 +1,14 @@
 ;; -*- emacs-lisp -*-
 ((nil .
       (
-       (tab-width . 4)
+       (tab-width . 8)
        (indent-tabs-mode . nil)
        (fill-column . 80)
        ))
  (c++-mode .
 	   (
 	    (indent-tabs-mode . nil)
-	    (tab-width . 4)
+	    (tab-width . 8)
 	    (show-trailing-whitespace . t)
 	    (indicate-empty-lines . t)
 	    (c-basic-offset . 4)
