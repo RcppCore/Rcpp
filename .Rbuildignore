@@ -11,3 +11,4 @@ inst/include/Rcpp/sugar/functions/impl
 vignettes/notyet
 doxyfile
 .travis.yml
+.dir-locals.el
