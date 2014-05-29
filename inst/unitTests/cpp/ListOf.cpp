@@ -93,3 +93,8 @@ int test_sub_calls(NVList x) {
 NumericVector test_nested_listof(ListOf< ListOf<NumericVector> > x) {
   return x[0][0];
 }
+
+// [[Rcpp::export]]
+ListOf<IntegerVector> test_return_IVList(List x) {
+    return x;
+}
