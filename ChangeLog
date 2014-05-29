@@ -1,3 +1,8 @@
+2014-05-28  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/vector/vector_from_string.h: Protect result of
+        Rf_mkString
+
 2014-05-24  Dirk Eddelbuettel  <edd@debian.org>
 
         * .Rbuildignore: Add .dir-locals.el

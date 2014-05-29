@@ -74,4 +74,17 @@ if (.runThisTest) {
         )
     }
 
+    test.ListOf.convert.implicit <- function() {
+        checkEquals(
+            test_return_IVList(list(1, 2, 3)),
+            list(1L, 2L, 3L)
+        )
+    }
+
+    test.ListOf.convert.fail <- function() {
+        checkException(
+            test_return_IVList(list("a", "b", "c"))
+        )
+    }
+
 }

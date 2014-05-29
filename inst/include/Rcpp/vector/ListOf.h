@@ -31,10 +31,14 @@ public:
 
     ListOf(): list(R_NilValue) {}
 
-    ListOf(SEXP data_): list(data_) {}
+    ListOf(SEXP data_): list(data_) {
+        std::transform(list.begin(), list.end(), list.begin(), as<T>);
+    }
 
     template <typename U>
-    ListOf(const U& data_): list(data_) {}
+    ListOf(const U& data_): list(data_) {
+        std::transform(list.begin(), list.end(), list.begin(), as<T>);
+    }
 
     ListOf(const ListOf& other): list(other.list) {}
 
