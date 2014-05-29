@@ -27,7 +27,8 @@ namespace internal{
 
     template <int RTYPE>
     inline SEXP vector_from_string( const std::string& st ) {
-        return r_cast<RTYPE>( Rf_mkString( st.c_str() ) ) ;
+        Shield<SEXP> str(Rf_mkString(st.c_str()));
+        return r_cast<RTYPE>(str) ;
     }
 
     template <int RTYPE>
