@@ -313,7 +313,7 @@ dependencies on other packages. For example:
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include <RcppArmadillo.h>
-using namespace Rcpp
+using namespace Rcpp;
 
 // [[Rcpp::export]]
 List fastLm(NumericVector yr, NumericMatrix Xr) {
