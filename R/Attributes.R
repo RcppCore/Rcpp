@@ -395,6 +395,8 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 .plugins[["cpp11"]] <- function() {
     if (getRversion() >= "3.1")
         list(env = list(USE_CXX1X = "yes"))
+    else if (.Platform$OS.type == "windows")
+        list(env = list(PKG_CXXFLAGS = "-std=c++0x"))
     else
         list(env = list(PKG_CXXFLAGS ="-std=c++11"))
 }
