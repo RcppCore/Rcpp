@@ -2,26 +2,35 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in [UNRELEASED] Rcpp version 0.11.2}{
+\section{Changes in Rcpp version 0.11.2 (2014-06-06}{
   \itemize{
-    \item Implicit conversions, e.g. between \code{NumericVector} and
-    \code{IntegerVector}, will now give warnings if you use
-    \code{\#define RCPP_WARN_ON_COERCE} before including the Rcpp
-    headers.
-    \item Templated \code{List} containers, \code{ListOf<T>}, have been 
-    introduced. When subsetting such containers, the return is assumed 
-    to be of type T, allowing code such as 
-    \code{ListOf<NumericVector> x; NumericVector y = x[0] + x[1] + x[2]}.
-    \item Trailing line comments are now stripped by the attributes
-    parser. This allows the parser to handle C++ source files
-    containing comments inline with function arguments.
-    \item The \code{USE_CXX1X} environment variable is now defined by 
-    the cpp11 plugin when R >= 3.1. Two additional plugins have been
-    added for use with C++0x (eg when using g++ 4.6.* as on Windows)
-    as well as C++1y for compilers beginning to support the next
-    revision of the stanard.
-    \item \code{compileAttributes()} now also considers Imports: which
-    may suppress a warning when running \code{Rcpp.package.skeleton()}.
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Implicit conversions, e.g. between \code{NumericVector} and
+      \code{IntegerVector}, will now give warnings if you use
+      \code{\#define RCPP_WARN_ON_COERCE} before including the Rcpp
+      headers.
+      \item Templated \code{List} containers, \code{ListOf<T>}, have been 
+      introduced. When subsetting such containers, the return is assumed 
+      to be of type T, allowing code such as 
+      \code{ListOf<NumericVector> x; NumericVector y = x[0] + x[1] + x[2]}.
+      \item In a number of instances, returned results are protected and/or cast
+      more carefully.
+    }
+    \item Changes in Rcpp Attributes
+    \itemize{
+      \item Trailing line comments are now stripped by the attributes
+      parser. This allows the parser to handle C++ source files
+      containing comments inline with function arguments.
+      \item The \code{USE_CXX1X} environment variable is now defined by 
+      the cpp11 plugin when R >= 3.1. Two additional plugins have been
+      added for use with C++0x (eg when using g++ 4.6.* as on Windows)
+      as well as C++1y for compilers beginning to support the next
+      revision of the standard; additional fallback is provided for
+      Windows. 
+      \item \code{compileAttributes()} now also considers Imports: which
+      may suppress a warning when running \code{Rcpp.package.skeleton()}.
+    }
   }
 }
 

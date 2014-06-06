@@ -2,7 +2,7 @@ Source: rcpp
 Section: gnu-r
 Priority: optional
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
-Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 3.0.3), cdbs, r-cran-codetools
+Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 3.1.0), cdbs, r-cran-codetools
 Standards-Version: 3.9.5
 Homepage: http://dirk.eddelbuettel.com/code/rcpp.html
 
@@ -43,7 +43,7 @@ Description: GNU R package for Seamless R and C++ Integration
  package development. Attributes are built on top of Rcpp modules and
  their implementation is based on previous work in the inline package.
  .
- Many examples are included, and around 891 unit tests in 430 unit
+ Many examples are included, and around 900 unit tests in 446 unit
  test functions provide additional usage examples.
  .
  An earlier version of Rcpp, containing what we now call the 'classic Rcpp

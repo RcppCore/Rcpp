@@ -1,6 +1,13 @@
+2014-06-06  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.11.2
+        * inst/NEWS.Rd: Release 0.11.2
+        * inst/include/Rcpp/config.h: Release 0.11.2
+        * debian/*: Similarly updated for new release to Debian
+
 2014-06-05  JJ Allaire <jj@rstudio.org>
 
-        * R/Attributes.R: Use -std=c++0x for cpp11 plugin on Windows when R <= 3.0
+        * R/Attributes.R: Use -std=c++0x for cpp11 plugin on Windows if R <= 3.0
 
 2014-05-28  Kevin Ushey  <kevinushey@gmail.com>
 
