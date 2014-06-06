@@ -5,6 +5,8 @@
         * inst/include/Rcpp/config.h: Release 0.11.2
         * debian/*: Similarly updated for new release to Debian
 
+        * tests/doRUnit.R: Additional check added for release version case
+
 2014-06-05  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: Use -std=c++0x for cpp11 plugin on Windows if R <= 3.0

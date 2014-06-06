@@ -64,7 +64,7 @@ if (getErrors(tests)$nFail > 0) {
 if (getErrors(tests)$nErr > 0) {
     stop("TEST HAD ERRORS!")
 }
-if (getErrors(tests)$nTestFunc < 1) {
+if (getErrors(tests)$nTestFunc < 1 && Sys.getenv("RunAllRcppTests")=="yes") {
     stop("NO TEST FUNCTIONS RUN!")
 }
 
