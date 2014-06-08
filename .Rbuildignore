@@ -12,4 +12,3 @@ vignettes/notyet
 doxyfile
 .travis.yml
 .dir-locals.el
-Rcpp/build/Rcpp.pdf
