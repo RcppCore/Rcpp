@@ -77,3 +77,4 @@ r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/examples/Convolve
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.na.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.subset.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.table.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.attributes.R
