@@ -22,7 +22,6 @@ rm -f confdefs.h config.log config.status \
 	inst/unitTests/testRcppClass/src/*.o \
 	inst/unitTests/testRcppClass/src/*.so \
 	src/Makedeps libRcpp.a \
-	build/Rcpp.pdf \
 	src/symbols.rds \
 	inst/unitTests/testRcppClass/src/symbols.rds \
 	vignettes/*.aux vignettes/*.log vignettes/*.out \

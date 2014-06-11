@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 2014-06-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/macros/macros.h: No longer include
         macros/preprocessor_generated.h which was deprecated as of Rcpp 0.10.5
         * inst/include/Rcpp/macros/preprocessor_generated.h: Removed
+
+2014-06-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * cleanup: Do not remove 'build/Rcpp.pdf', thanks to hint by Kurt / CRAN
 
 2014-06-06  Dirk Eddelbuettel  <edd@debian.org>
 
