@@ -48,7 +48,6 @@
 #include <Rcpp/macros/unroll.h>
 #include <Rcpp/macros/dispatch.h>
 #include <Rcpp/macros/xp.h>
-#include <Rcpp/macros/preprocessor_generated.h>
 #include <Rcpp/macros/traits.h>
 #include <Rcpp/macros/config.hpp>
 #include <Rcpp/macros/cat.hpp>

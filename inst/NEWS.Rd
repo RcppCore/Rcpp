@@ -2,7 +2,18 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.11.2 (2014-06-06}{
+\section{Changes in Rcpp version 0.11.3 (2014-xx-yy)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
+      release 0.10.5 last year is proceeding as planned, and the file
+      \code{macros/preprocessor_generated.h} has been removed.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.2 (2014-06-06)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
