@@ -1,4 +1,8 @@
-<<<<<<< HEAD
+2014-06-20  Dirk Eddelbuettel  <edd@debian.org>
+
+        * include/Rcpp/sugar/functions/ifelse.h: Applied pull request #150 by
+        Romain to have operator{} return the correct NA type
+
 2014-06-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/macros/macros.h: No longer include
