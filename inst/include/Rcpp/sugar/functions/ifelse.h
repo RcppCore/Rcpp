@@ -2,7 +2,7 @@
 //
 // ifelse.h: Rcpp R/C++ interface class library -- ifelse
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2014 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -54,7 +54,7 @@ public:
 
 	inline STORAGE operator[]( int i ) const {
 		int x = cond[i] ;
-		if( Rcpp::traits::is_na<LGLSXP>(x) ) return x ;
+		if( Rcpp::traits::is_na<LGLSXP>(x) ) return Rcpp::traits::get_na<RTYPE>() ;
 		if( x ) return lhs[i] ;
 		return rhs[i] ;
 	}
