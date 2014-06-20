@@ -10,6 +10,11 @@
       release 0.10.5 last year is proceeding as planned, and the file
       \code{macros/preprocessor_generated.h} has been removed.
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item In \code{ifelse()}, the returned \code{NA} type was corrected for
+      \code{operator[]} 
+    }
   }
 }
 
