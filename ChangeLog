@@ -1,3 +1,8 @@
+2014-06-29  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: fix setwd problem when sourceCpp used a
+        relative path and included an R code chunk
+
 2014-06-20  Dirk Eddelbuettel  <edd@debian.org>
 
         * include/Rcpp/sugar/functions/ifelse.h: Applied pull request #150 by

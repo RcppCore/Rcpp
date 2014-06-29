@@ -34,7 +34,7 @@ sourceCpp <- function(file = "",
         writeLines(code, con)
         close(con)
     } else {
-        rWorkingDir <- dirname(file)
+        rWorkingDir <- normalizePath(dirname(file))
     }
 
     # resolve the file path
