@@ -50,12 +50,12 @@ if( Sys.getenv( "TRAVIS" ) == "true" ){
   printHTMLProtocol(tests, fileName=sprintf("unitTests-results/%s-unitTests.html", pkg))
   printTextProtocol(tests, fileName=sprintf("unitTests-results/%s-unitTests.txt" , pkg))
   
-  if (file.exists("/tmp")) {
-      invisible(sapply(c("txt", "html"), function(ext) {
-          fname <- sprintf("unitTests-results/%s-unitTests.%s", pkg, ext)
-          file.copy(fname, "/tmp", overwrite=TRUE)
-      }))
-  }
+  #if (file.exists("/tmp")) {
+  #    invisible(sapply(c("txt", "html"), function(ext) {
+  #        fname <- sprintf("unitTests-results/%s-unitTests.%s", pkg, ext)
+  #        file.copy(fname, "/tmp", overwrite=TRUE)
+  #    }))
+  #}
 }
 @
 
