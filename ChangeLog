@@ -1,3 +1,8 @@
+2014-07-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/InternalFunction.h: Add missing update(SEXP) method
+        per GitHub Pull Request #152
+
 2014-07-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-unitTests.Rnw: Commented-out copy of results to /tmp
