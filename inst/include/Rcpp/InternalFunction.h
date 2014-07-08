@@ -34,7 +34,7 @@ namespace Rcpp{
         RCPP_GENERATE_CTOR_ASSIGN(InternalFunction_Impl)
 
         #include <Rcpp/generated/InternalFunction__ctors.h>
-
+        void update(SEXP){}
     private:
 
         inline void set( SEXP xp){
