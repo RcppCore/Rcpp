@@ -25,19 +25,19 @@
 namespace Rcpp{
 namespace sugar{
 
-template <bool NA, typename OUT, typename U1, typename T1, typename FunPtr>
+template <bool NA, typename RESULT_TYPE, typename U1, typename T1, typename FunPtr>
 class SugarMath_1 : public Rcpp::VectorBase<
-	Rcpp::traits::r_sexptype_traits<OUT>::rtype ,
+	Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,
 	NA,
-	SugarMath_1<NA,OUT,U1,T1,FunPtr>
+	SugarMath_1<NA,RESULT_TYPE,U1,T1,FunPtr>
 	> {
 public:
 
-	typedef Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype ,NA,T1> VEC_TYPE ;
+	typedef Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,NA,T1> VEC_TYPE ;
 
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline OUT operator[]( int i) const {
+	inline RESULT_TYPE operator[]( int i) const {
 		U1 x = vec[i] ;
 		if( ISNAN(x) ) return x;
 		return ptr( x ) ;
@@ -49,18 +49,18 @@ private:
 	const VEC_TYPE& vec ;
 };
 
-template <bool NA, typename OUT, typename T1, typename FunPtr>
-class SugarMath_1<NA,OUT,int,T1,FunPtr> : public Rcpp::VectorBase<
-	Rcpp::traits::r_sexptype_traits<OUT>::rtype ,
+template <bool NA, typename RESULT_TYPE, typename T1, typename FunPtr>
+class SugarMath_1<NA,RESULT_TYPE,int,T1,FunPtr> : public Rcpp::VectorBase<
+	Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,
 	NA,
-	SugarMath_1<NA,OUT,int,T1,FunPtr>
+	SugarMath_1<NA,RESULT_TYPE,int,T1,FunPtr>
 	> {
 public:
 	typedef Rcpp::VectorBase< INTSXP ,NA,T1> VEC_TYPE ;
 
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline OUT operator[]( int i) const {
+	inline RESULT_TYPE operator[]( int i) const {
 		int x = vec[i] ;
 		if( Rcpp::traits::is_na<INTSXP>(x) ) return Rcpp::traits::get_na<REALSXP>( ) ;
 		return ptr( x ) ;
@@ -72,18 +72,18 @@ private:
 	const VEC_TYPE& vec ;
 };
 
-template <typename OUT, typename T1, typename FunPtr>
-class SugarMath_1<false,OUT,int,T1,FunPtr> : public
+template <typename RESULT_TYPE, typename T1, typename FunPtr>
+class SugarMath_1<false,RESULT_TYPE,int,T1,FunPtr> : public
 Rcpp::VectorBase<
-	Rcpp::traits::r_sexptype_traits<OUT>::rtype ,
+	Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,
 	false,
-	SugarMath_1<false,OUT,int,T1,FunPtr>
+	SugarMath_1<false,RESULT_TYPE,int,T1,FunPtr>
 > {
 public:
 	typedef Rcpp::VectorBase< INTSXP ,false,T1> VEC_TYPE ;
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline OUT operator[]( int i) const {
+	inline RESULT_TYPE operator[]( int i) const {
 		return ptr( vec[i] ) ;
 	}
 	inline int size() const { return vec.size() ; }

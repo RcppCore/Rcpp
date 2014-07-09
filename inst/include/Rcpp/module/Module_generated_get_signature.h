@@ -24,20 +24,20 @@
 
 namespace Rcpp {
 
-template <typename OUT>
+template <typename RESULT_TYPE>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "()" ;
 }
 
 
-template <typename OUT,typename U0>
+template <typename RESULT_TYPE,typename U0>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -47,10 +47,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1>
+template <typename RESULT_TYPE,typename U0, typename U1>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -63,10 +63,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -80,10 +80,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -98,10 +98,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -117,10 +117,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -137,10 +137,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -158,10 +158,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -180,10 +180,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -203,10 +203,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -227,10 +227,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -252,10 +252,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -278,10 +278,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -305,10 +305,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -333,10 +333,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -362,10 +362,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -392,10 +392,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -423,10 +423,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -455,10 +455,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -488,10 +488,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -522,10 +522,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -557,10 +557,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -593,10 +593,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -630,10 +630,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -668,10 +668,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -707,10 +707,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -747,10 +747,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -788,10 +788,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -830,10 +830,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -873,10 +873,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -917,10 +917,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -962,10 +962,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1008,10 +1008,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1055,10 +1055,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1103,10 +1103,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1152,10 +1152,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1202,10 +1202,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1253,10 +1253,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1305,10 +1305,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1358,10 +1358,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1412,10 +1412,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1467,10 +1467,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1523,10 +1523,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1580,10 +1580,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1638,10 +1638,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1697,10 +1697,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1757,10 +1757,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1818,10 +1818,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1880,10 +1880,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -1943,10 +1943,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2007,10 +2007,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2072,10 +2072,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2138,10 +2138,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2205,10 +2205,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2273,10 +2273,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2342,10 +2342,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2412,10 +2412,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2483,10 +2483,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2555,10 +2555,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2628,10 +2628,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2702,10 +2702,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2777,10 +2777,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2853,10 +2853,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -2930,10 +2930,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -3008,10 +3008,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;
@@ -3087,10 +3087,10 @@ inline void signature(std::string& s, const char* name){
 
 
 
-template <typename OUT,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64, typename U65>
+template <typename RESULT_TYPE,typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64, typename U65>
 inline void signature(std::string& s, const char* name){
     s.clear() ;
-    s += get_return_type<OUT>() ;
+    s += get_return_type<RESULT_TYPE>() ;
     s += " " ;
     s += name ;
     s += "(" ;

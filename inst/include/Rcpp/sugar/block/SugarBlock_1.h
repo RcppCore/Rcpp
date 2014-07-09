@@ -25,13 +25,13 @@
 namespace Rcpp{
 namespace sugar{
 
-template <bool NA, typename OUT, typename U1, typename T1>
-class SugarBlock_1 : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , NA, SugarBlock_1<NA,OUT,U1,T1> > {
+template <bool NA, typename RESULT_TYPE, typename U1, typename T1>
+class SugarBlock_1 : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype , NA, SugarBlock_1<NA,RESULT_TYPE,U1,T1> > {
 public:
-    typedef OUT (*FunPtr)(U1) ;
+    typedef RESULT_TYPE (*FunPtr)(U1) ;
     SugarBlock_1( FunPtr ptr_, const T1 & vec_) : ptr(ptr_), vec(vec_){}
 
-    inline OUT operator[]( int i) const {
+    inline RESULT_TYPE operator[]( int i) const {
         return ptr( vec[i] ) ;
     }
     inline int size() const { return vec.size() ; }

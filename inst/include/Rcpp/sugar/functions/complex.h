@@ -32,11 +32,11 @@ namespace Rcpp{
 namespace sugar{
 
 
-template <bool NA, typename OUT, typename T, typename FunPtr>
+template <bool NA, typename RESULT_TYPE, typename T, typename FunPtr>
 class SugarComplex : public Rcpp::VectorBase<
-	Rcpp::traits::r_sexptype_traits<OUT>::rtype ,
+	Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,
 	NA,
-	SugarComplex<NA,OUT,T,FunPtr>
+	SugarComplex<NA,RESULT_TYPE,T,FunPtr>
 	> {
 public:
 
@@ -44,10 +44,10 @@ public:
 
 	SugarComplex( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline OUT operator[]( int i) const {
+	inline RESULT_TYPE operator[]( int i) const {
 		Rcomplex x = vec[i] ;
 		if( Rcpp::traits::is_na<CPLXSXP>( x ) )
-			return Rcpp::traits::get_na< Rcpp::traits::r_sexptype_traits<OUT>::rtype >() ;
+			return Rcpp::traits::get_na< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype >() ;
 		return ptr( x );
 	}
 	inline int size() const { return vec.size() ; }
